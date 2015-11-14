@@ -7,6 +7,9 @@
 //
 
 #import "HTLoginService.h"
+#import "HTLoginUser.h"
+#import <AFNetworking.h>
+#import "HTCGIManager.h"
 
 @implementation HTLoginService
 
@@ -17,6 +20,12 @@
         hasCreate = YES;
     }
     return self;
+}
+
+#pragma mark - Public Method
+
+- (void)loginWithUser:(HTLoginUser *)user {
+    
 }
 
 @end

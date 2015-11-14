@@ -10,7 +10,7 @@
 #import "APService.h"
 #import <SMS_SDK/SMS_SDK.h>
 #import "HTLoginRootController.h"
-#import "HTNetworkDefine.h"
+#import "HTCGIManager.h"
 #import "HTServiceManager.h"
 
 @interface AppDelegate ()
