@@ -1,0 +1,800 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D71C1BEFB7A100498304 /* HTLoginRootController.m */; };
+		1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */; };
+		1721D7221BEFBAD200498304 /* HTNetworkDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7211BEFBAD200498304 /* HTNetworkDefine.m */; };
+		1721D7251BEFBD5300498304 /* HTServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7241BEFBD5300498304 /* HTServiceManager.m */; };
+		1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7271BEFBE1400498304 /* HTStorageDefine.m */; };
+		174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 174C53321BE7A47900893C22 /* libsqlite3.tbd */; };
+		174C53521BE7A60E00893C22 /* CommonUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 174C53511BE7A60E00893C22 /* CommonUI.m */; };
+		17617F5C1BEFADD6000B2BFA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F5B1BEFADD6000B2BFA /* CFNetwork.framework */; };
+		17617F5E1BEFADDC000B2BFA /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F5D1BEFADDC000B2BFA /* CoreFoundation.framework */; };
+		17617F601BEFADE1000B2BFA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F5F1BEFADE1000B2BFA /* CoreTelephony.framework */; };
+		17617F621BEFADE8000B2BFA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F611BEFADE8000B2BFA /* SystemConfiguration.framework */; };
+		17617F641BEFADEF000B2BFA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F631BEFADEF000B2BFA /* CoreGraphics.framework */; };
+		17617F661BEFADF8000B2BFA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F651BEFADF8000B2BFA /* Foundation.framework */; };
+		17617F681BEFADFF000B2BFA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F671BEFADFF000B2BFA /* UIKit.framework */; };
+		17617F6A1BEFAE05000B2BFA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F691BEFAE05000B2BFA /* Security.framework */; };
+		17617F6C1BEFAE0F000B2BFA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F6B1BEFAE0F000B2BFA /* libz.tbd */; };
+		17617F6E1BEFAEE0000B2BFA /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17617F6D1BEFAEE0000B2BFA /* PushConfig.plist */; };
+		17617F731BEFB020000B2BFA /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F721BEFB020000B2BFA /* libPushSDK-1.8.8.a */; };
+		17617F7A1BEFB0CD000B2BFA /* SMS_SDKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17617F751BEFB0CD000B2BFA /* SMS_SDKLocalizable.strings */; };
+		17617F7B1BEFB0CD000B2BFA /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F771BEFB0CD000B2BFA /* MOBFoundation.framework */; };
+		17617F7C1BEFB0CD000B2BFA /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F781BEFB0CD000B2BFA /* SMS_SDK.framework */; };
+		17617F7E1BEFB0EE000B2BFA /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F7D1BEFB0EE000B2BFA /* libicucore.tbd */; };
+		17617F801BEFB0FB000B2BFA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F7F1BEFB0FB000B2BFA /* MessageUI.framework */; };
+		17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F811BEFB103000B2BFA /* JavaScriptCore.framework */; };
+		17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F831BEFB109000B2BFA /* libstdc++.tbd */; };
+		1777D36A1BE798F400AC0203 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D3691BE798F400AC0203 /* main.m */; };
+		1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D36C1BE798F400AC0203 /* AppDelegate.m */; };
+		1777D3751BE798F400AC0203 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1777D3741BE798F400AC0203 /* Assets.xcassets */; };
+		1777D3781BE798F400AC0203 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */; };
+		1777D3831BE798F400AC0203 /* NineZeroProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D3821BE798F400AC0203 /* NineZeroProjectTests.m */; };
+		1777D38E1BE798F500AC0203 /* NineZeroProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D38D1BE798F500AC0203 /* NineZeroProjectUITests.m */; };
+		55A6B83737336E72FF856436 /* libPods-NineZeroProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0166A9928B62B530CF913E62 /* libPods-NineZeroProject.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1777D37F1BE798F400AC0203 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1777D35D1BE798F400AC0203 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1777D3641BE798F400AC0203;
+			remoteInfo = NineZeroProject;
+		};
+		1777D38A1BE798F500AC0203 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1777D35D1BE798F400AC0203 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1777D3641BE798F400AC0203;
+			remoteInfo = NineZeroProject;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0166A9928B62B530CF913E62 /* libPods-NineZeroProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1721D71B1BEFB7A100498304 /* HTLoginRootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginRootController.h; sourceTree = "<group>"; };
+		1721D71C1BEFB7A100498304 /* HTLoginRootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginRootController.m; sourceTree = "<group>"; };
+		1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTLoginRootController.xib; sourceTree = "<group>"; };
+		1721D7201BEFB9F200498304 /* HTNetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNetworkDefine.h; sourceTree = "<group>"; };
+		1721D7211BEFBAD200498304 /* HTNetworkDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNetworkDefine.m; sourceTree = "<group>"; };
+		1721D7231BEFBD5300498304 /* HTServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTServiceManager.h; sourceTree = "<group>"; };
+		1721D7241BEFBD5300498304 /* HTServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTServiceManager.m; sourceTree = "<group>"; };
+		1721D7261BEFBE1400498304 /* HTStorageDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTStorageDefine.h; sourceTree = "<group>"; };
+		1721D7271BEFBE1400498304 /* HTStorageDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTStorageDefine.m; sourceTree = "<group>"; };
+		174C53321BE7A47900893C22 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		174C53361BE7A57000893C22 /* CommonUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUI.h; sourceTree = "<group>"; };
+		174C53511BE7A60E00893C22 /* CommonUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUI.m; sourceTree = "<group>"; };
+		17617F5B1BEFADD6000B2BFA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		17617F5D1BEFADDC000B2BFA /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		17617F5F1BEFADE1000B2BFA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		17617F611BEFADE8000B2BFA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		17617F631BEFADEF000B2BFA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		17617F651BEFADF8000B2BFA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		17617F671BEFADFF000B2BFA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		17617F691BEFAE05000B2BFA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		17617F6B1BEFAE0F000B2BFA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		17617F6D1BEFAEE0000B2BFA /* PushConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = PushConfig.plist; path = ../../../PushConfig.plist; sourceTree = "<group>"; };
+		17617F711BEFB020000B2BFA /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
+		17617F721BEFB020000B2BFA /* libPushSDK-1.8.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.8.a"; sourceTree = "<group>"; };
+		17617F761BEFB0CD000B2BFA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SMS_SDKLocalizable.strings; sourceTree = "<group>"; };
+		17617F771BEFB0CD000B2BFA /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
+		17617F781BEFB0CD000B2BFA /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
+		17617F791BEFB0CD000B2BFA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SMS_SDKLocalizable.strings"; sourceTree = "<group>"; };
+		17617F7D1BEFB0EE000B2BFA /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		17617F7F1BEFB0FB000B2BFA /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		17617F811BEFB103000B2BFA /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		17617F831BEFB109000B2BFA /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		1777D3651BE798F400AC0203 /* NineZeroProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NineZeroProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1777D3691BE798F400AC0203 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1777D36B1BE798F400AC0203 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1777D36C1BE798F400AC0203 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1777D3741BE798F400AC0203 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1777D3771BE798F400AC0203 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1777D3791BE798F400AC0203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1777D37E1BE798F400AC0203 /* NineZeroProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NineZeroProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1777D3821BE798F400AC0203 /* NineZeroProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NineZeroProjectTests.m; sourceTree = "<group>"; };
+		1777D3841BE798F400AC0203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1777D3891BE798F400AC0203 /* NineZeroProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NineZeroProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1777D38D1BE798F500AC0203 /* NineZeroProjectUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NineZeroProjectUITests.m; sourceTree = "<group>"; };
+		1777D38F1BE798F500AC0203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9C47414B1212ACF6A302306 /* Pods-NineZeroProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.debug.xcconfig"; sourceTree = "<group>"; };
+		C4CD745486BB4BFAC5087BB9 /* Pods-NineZeroProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1777D3621BE798F400AC0203 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */,
+				17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */,
+				17617F801BEFB0FB000B2BFA /* MessageUI.framework in Frameworks */,
+				17617F6C1BEFAE0F000B2BFA /* libz.tbd in Frameworks */,
+				17617F7E1BEFB0EE000B2BFA /* libicucore.tbd in Frameworks */,
+				17617F7B1BEFB0CD000B2BFA /* MOBFoundation.framework in Frameworks */,
+				17617F6A1BEFAE05000B2BFA /* Security.framework in Frameworks */,
+				17617F681BEFADFF000B2BFA /* UIKit.framework in Frameworks */,
+				17617F661BEFADF8000B2BFA /* Foundation.framework in Frameworks */,
+				17617F641BEFADEF000B2BFA /* CoreGraphics.framework in Frameworks */,
+				17617F621BEFADE8000B2BFA /* SystemConfiguration.framework in Frameworks */,
+				17617F601BEFADE1000B2BFA /* CoreTelephony.framework in Frameworks */,
+				17617F5E1BEFADDC000B2BFA /* CoreFoundation.framework in Frameworks */,
+				17617F5C1BEFADD6000B2BFA /* CFNetwork.framework in Frameworks */,
+				174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */,
+				17617F7C1BEFB0CD000B2BFA /* SMS_SDK.framework in Frameworks */,
+				55A6B83737336E72FF856436 /* libPods-NineZeroProject.a in Frameworks */,
+				17617F731BEFB020000B2BFA /* libPushSDK-1.8.8.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1777D37B1BE798F400AC0203 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1777D3861BE798F400AC0203 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1721D7171BEFB77E00498304 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				1721D7201BEFB9F200498304 /* HTNetworkDefine.h */,
+				1721D7211BEFBAD200498304 /* HTNetworkDefine.m */,
+			);
+			name = Network;
+			path = NineZeroProject/Network;
+			sourceTree = "<group>";
+		};
+		1721D7181BEFB77E00498304 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				1721D7261BEFBE1400498304 /* HTStorageDefine.h */,
+				1721D7271BEFBE1400498304 /* HTStorageDefine.m */,
+			);
+			name = Storage;
+			path = NineZeroProject/Storage;
+			sourceTree = "<group>";
+		};
+		1721D7191BEFB78B00498304 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				1721D71A1BEFB7A100498304 /* Login */,
+			);
+			name = UI;
+			path = NineZeroProject/UI;
+			sourceTree = "<group>";
+		};
+		1721D71A1BEFB7A100498304 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1721D71B1BEFB7A100498304 /* HTLoginRootController.h */,
+				1721D71C1BEFB7A100498304 /* HTLoginRootController.m */,
+				1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		174C53351BE7A55400893C22 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				174C53361BE7A57000893C22 /* CommonUI.h */,
+				174C53511BE7A60E00893C22 /* CommonUI.m */,
+				1721D7231BEFBD5300498304 /* HTServiceManager.h */,
+				1721D7241BEFBD5300498304 /* HTServiceManager.m */,
+			);
+			name = Utility;
+			path = NineZeroProject/Utility;
+			sourceTree = "<group>";
+		};
+		17617F6F1BEFB00F000B2BFA /* 3rdSDK */ = {
+			isa = PBXGroup;
+			children = (
+				17617F741BEFB0CD000B2BFA /* SMS_SDK */,
+				17617F701BEFB020000B2BFA /* Jpush */,
+			);
+			name = 3rdSDK;
+			path = NineZeroProject/3rdSDK;
+			sourceTree = "<group>";
+		};
+		17617F701BEFB020000B2BFA /* Jpush */ = {
+			isa = PBXGroup;
+			children = (
+				17617F6D1BEFAEE0000B2BFA /* PushConfig.plist */,
+				17617F711BEFB020000B2BFA /* APService.h */,
+				17617F721BEFB020000B2BFA /* libPushSDK-1.8.8.a */,
+			);
+			path = Jpush;
+			sourceTree = "<group>";
+		};
+		17617F741BEFB0CD000B2BFA /* SMS_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				17617F751BEFB0CD000B2BFA /* SMS_SDKLocalizable.strings */,
+				17617F771BEFB0CD000B2BFA /* MOBFoundation.framework */,
+				17617F781BEFB0CD000B2BFA /* SMS_SDK.framework */,
+			);
+			path = SMS_SDK;
+			sourceTree = "<group>";
+		};
+		1777D35C1BE798F400AC0203 = {
+			isa = PBXGroup;
+			children = (
+				1777D3671BE798F400AC0203 /* NineZeroProject */,
+				1721D7191BEFB78B00498304 /* UI */,
+				174C53351BE7A55400893C22 /* Utility */,
+				1721D7171BEFB77E00498304 /* Network */,
+				1721D7181BEFB77E00498304 /* Storage */,
+				17617F6F1BEFB00F000B2BFA /* 3rdSDK */,
+				26E633BCA682E11CD6C30957 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1777D3661BE798F400AC0203 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1777D3651BE798F400AC0203 /* NineZeroProject.app */,
+				1777D37E1BE798F400AC0203 /* NineZeroProjectTests.xctest */,
+				1777D3891BE798F400AC0203 /* NineZeroProjectUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1777D3671BE798F400AC0203 /* NineZeroProject */ = {
+			isa = PBXGroup;
+			children = (
+				1777D36B1BE798F400AC0203 /* AppDelegate.h */,
+				1777D36C1BE798F400AC0203 /* AppDelegate.m */,
+				1777D3741BE798F400AC0203 /* Assets.xcassets */,
+				1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */,
+				1777D3791BE798F400AC0203 /* Info.plist */,
+				1777D3681BE798F400AC0203 /* Supporting Files */,
+			);
+			path = NineZeroProject;
+			sourceTree = "<group>";
+		};
+		1777D3681BE798F400AC0203 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1777D3691BE798F400AC0203 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1777D3811BE798F400AC0203 /* NineZeroProjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				1777D3821BE798F400AC0203 /* NineZeroProjectTests.m */,
+				1777D3841BE798F400AC0203 /* Info.plist */,
+			);
+			path = NineZeroProjectTests;
+			sourceTree = "<group>";
+		};
+		1777D38C1BE798F500AC0203 /* NineZeroProjectUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1777D38D1BE798F500AC0203 /* NineZeroProjectUITests.m */,
+				1777D38F1BE798F500AC0203 /* Info.plist */,
+			);
+			path = NineZeroProjectUITests;
+			sourceTree = "<group>";
+		};
+		26E633BCA682E11CD6C30957 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				17617F831BEFB109000B2BFA /* libstdc++.tbd */,
+				17617F811BEFB103000B2BFA /* JavaScriptCore.framework */,
+				17617F7F1BEFB0FB000B2BFA /* MessageUI.framework */,
+				17617F7D1BEFB0EE000B2BFA /* libicucore.tbd */,
+				17617F6B1BEFAE0F000B2BFA /* libz.tbd */,
+				17617F691BEFAE05000B2BFA /* Security.framework */,
+				17617F671BEFADFF000B2BFA /* UIKit.framework */,
+				17617F651BEFADF8000B2BFA /* Foundation.framework */,
+				17617F631BEFADEF000B2BFA /* CoreGraphics.framework */,
+				17617F611BEFADE8000B2BFA /* SystemConfiguration.framework */,
+				17617F5F1BEFADE1000B2BFA /* CoreTelephony.framework */,
+				17617F5D1BEFADDC000B2BFA /* CoreFoundation.framework */,
+				17617F5B1BEFADD6000B2BFA /* CFNetwork.framework */,
+				1777D3661BE798F400AC0203 /* Products */,
+				D88EE1A5861795A666F5CEF0 /* Pods */,
+				1777D3811BE798F400AC0203 /* NineZeroProjectTests */,
+				1777D38C1BE798F500AC0203 /* NineZeroProjectUITests */,
+				174C53321BE7A47900893C22 /* libsqlite3.tbd */,
+				0166A9928B62B530CF913E62 /* libPods-NineZeroProject.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D88EE1A5861795A666F5CEF0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A9C47414B1212ACF6A302306 /* Pods-NineZeroProject.debug.xcconfig */,
+				C4CD745486BB4BFAC5087BB9 /* Pods-NineZeroProject.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1777D3641BE798F400AC0203 /* NineZeroProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1777D3921BE798F500AC0203 /* Build configuration list for PBXNativeTarget "NineZeroProject" */;
+			buildPhases = (
+				3500478161FF123914FC06BB /* Check Pods Manifest.lock */,
+				1777D3611BE798F400AC0203 /* Sources */,
+				1777D3621BE798F400AC0203 /* Frameworks */,
+				1777D3631BE798F400AC0203 /* Resources */,
+				9EEF22595BBCE4074FC662AB /* Embed Pods Frameworks */,
+				8190ACE00187B97F8D95C65D /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NineZeroProject;
+			productName = NineZeroProject;
+			productReference = 1777D3651BE798F400AC0203 /* NineZeroProject.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1777D37D1BE798F400AC0203 /* NineZeroProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1777D3951BE798F500AC0203 /* Build configuration list for PBXNativeTarget "NineZeroProjectTests" */;
+			buildPhases = (
+				1777D37A1BE798F400AC0203 /* Sources */,
+				1777D37B1BE798F400AC0203 /* Frameworks */,
+				1777D37C1BE798F400AC0203 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1777D3801BE798F400AC0203 /* PBXTargetDependency */,
+			);
+			name = NineZeroProjectTests;
+			productName = NineZeroProjectTests;
+			productReference = 1777D37E1BE798F400AC0203 /* NineZeroProjectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1777D3881BE798F400AC0203 /* NineZeroProjectUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1777D3981BE798F500AC0203 /* Build configuration list for PBXNativeTarget "NineZeroProjectUITests" */;
+			buildPhases = (
+				1777D3851BE798F400AC0203 /* Sources */,
+				1777D3861BE798F400AC0203 /* Frameworks */,
+				1777D3871BE798F400AC0203 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1777D38B1BE798F500AC0203 /* PBXTargetDependency */,
+			);
+			name = NineZeroProjectUITests;
+			productName = NineZeroProjectUITests;
+			productReference = 1777D3891BE798F400AC0203 /* NineZeroProjectUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1777D35D1BE798F400AC0203 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = ronhu;
+				TargetAttributes = {
+					1777D3641BE798F400AC0203 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 8448TK86TA;
+					};
+					1777D37D1BE798F400AC0203 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 8448TK86TA;
+						TestTargetID = 1777D3641BE798F400AC0203;
+					};
+					1777D3881BE798F400AC0203 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 8448TK86TA;
+						TestTargetID = 1777D3641BE798F400AC0203;
+					};
+				};
+			};
+			buildConfigurationList = 1777D3601BE798F400AC0203 /* Build configuration list for PBXProject "NineZeroProject" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = 1777D35C1BE798F400AC0203;
+			productRefGroup = 1777D3661BE798F400AC0203 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1777D3641BE798F400AC0203 /* NineZeroProject */,
+				1777D37D1BE798F400AC0203 /* NineZeroProjectTests */,
+				1777D3881BE798F400AC0203 /* NineZeroProjectUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1777D3631BE798F400AC0203 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17617F6E1BEFAEE0000B2BFA /* PushConfig.plist in Resources */,
+				1777D3781BE798F400AC0203 /* LaunchScreen.storyboard in Resources */,
+				17617F7A1BEFB0CD000B2BFA /* SMS_SDKLocalizable.strings in Resources */,
+				1777D3751BE798F400AC0203 /* Assets.xcassets in Resources */,
+				1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1777D37C1BE798F400AC0203 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1777D3871BE798F400AC0203 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3500478161FF123914FC06BB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8190ACE00187B97F8D95C65D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9EEF22595BBCE4074FC662AB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1777D3611BE798F400AC0203 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
+				1777D36A1BE798F400AC0203 /* main.m in Sources */,
+				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
+				1721D7251BEFBD5300498304 /* HTServiceManager.m in Sources */,
+				1721D7221BEFBAD200498304 /* HTNetworkDefine.m in Sources */,
+				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
+				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1777D37A1BE798F400AC0203 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1777D3831BE798F400AC0203 /* NineZeroProjectTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1777D3851BE798F400AC0203 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1777D38E1BE798F500AC0203 /* NineZeroProjectUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1777D3801BE798F400AC0203 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1777D3641BE798F400AC0203 /* NineZeroProject */;
+			targetProxy = 1777D37F1BE798F400AC0203 /* PBXContainerItemProxy */;
+		};
+		1777D38B1BE798F500AC0203 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1777D3641BE798F400AC0203 /* NineZeroProject */;
+			targetProxy = 1777D38A1BE798F500AC0203 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		17617F751BEFB0CD000B2BFA /* SMS_SDKLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				17617F761BEFB0CD000B2BFA /* en */,
+				17617F791BEFB0CD000B2BFA /* zh-Hans */,
+			);
+			name = SMS_SDKLocalizable.strings;
+			sourceTree = "<group>";
+		};
+		1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1777D3771BE798F400AC0203 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1777D3901BE798F500AC0203 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1777D3911BE798F500AC0203 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1777D3931BE798F500AC0203 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A9C47414B1212ACF6A302306 /* Pods-NineZeroProject.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NineZeroProject/3rdSDK/SMS_SDK",
+				);
+				INFOPLIST_FILE = NineZeroProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NineZeroProject/Utility/Jpush",
+					"$(PROJECT_DIR)/NineZeroProject/3rdSDK/Jpush",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.NineZero;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5b3e1c9e-833b-42aa-a3f1-c0dc7a6f7452";
+			};
+			name = Debug;
+		};
+		1777D3941BE798F500AC0203 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C4CD745486BB4BFAC5087BB9 /* Pods-NineZeroProject.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NineZeroProject/3rdSDK/SMS_SDK",
+				);
+				INFOPLIST_FILE = NineZeroProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NineZeroProject/Utility/Jpush",
+					"$(PROJECT_DIR)/NineZeroProject/3rdSDK/Jpush",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.NineZero;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5b3e1c9e-833b-42aa-a3f1-c0dc7a6f7452";
+			};
+			name = Release;
+		};
+		1777D3961BE798F500AC0203 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = NineZeroProjectTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ronhu.NineZeroProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NineZeroProject.app/NineZeroProject";
+			};
+			name = Debug;
+		};
+		1777D3971BE798F500AC0203 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = NineZeroProjectTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ronhu.NineZeroProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NineZeroProject.app/NineZeroProject";
+			};
+			name = Release;
+		};
+		1777D3991BE798F500AC0203 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = NineZeroProjectUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ronhu.NineZeroProjectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = NineZeroProject;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		1777D39A1BE798F500AC0203 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = NineZeroProjectUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ronhu.NineZeroProjectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = NineZeroProject;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1777D3601BE798F400AC0203 /* Build configuration list for PBXProject "NineZeroProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1777D3901BE798F500AC0203 /* Debug */,
+				1777D3911BE798F500AC0203 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1777D3921BE798F500AC0203 /* Build configuration list for PBXNativeTarget "NineZeroProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1777D3931BE798F500AC0203 /* Debug */,
+				1777D3941BE798F500AC0203 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1777D3951BE798F500AC0203 /* Build configuration list for PBXNativeTarget "NineZeroProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1777D3961BE798F500AC0203 /* Debug */,
+				1777D3971BE798F500AC0203 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1777D3981BE798F500AC0203 /* Build configuration list for PBXNativeTarget "NineZeroProjectUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1777D3991BE798F500AC0203 /* Debug */,
+				1777D39A1BE798F500AC0203 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1777D35D1BE798F400AC0203 /* Project object */;
+}
