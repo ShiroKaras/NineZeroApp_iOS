@@ -8,6 +8,8 @@ target 'NineZeroProject' do
   pod 'SDWebImage', '~> 3.7.3'
   pod 'YTKKeyValueStore'
   pod 'Qiniu', "~> 7.0"
+  pod 'JPush', '~> 1.8.5'
+  pod 'SMS-For-iOS', '~> 1.0.9'
   pod 'MBProgressHUD+BWMExtension', '~> 1.0.0'
 end
 

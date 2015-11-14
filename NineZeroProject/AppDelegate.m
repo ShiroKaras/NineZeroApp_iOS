@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "APService.h"
-#import <SMS_SDK/SMSSDK.h>
+#import <SMS_SDK/SMS_SDK.h>
 #import "HTLoginRootController.h"
 #import "HTNetworkDefine.h"
 #import "HTServiceManager.h"
@@ -70,7 +70,7 @@
 - (void)registerSMSService {
     // SMS
     //    [SMSSDK registerApp:appKey withSecret:appSecret];
-    [SMSSDK registerApp:@"com.test" withSecret:@"testSecret"];
+    [SMS_SDK registerApp:@"com.test" withSecret:@"testSecret"];
 }
 
 @end

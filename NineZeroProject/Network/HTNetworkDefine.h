@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define NETWORK_HOST http://127.0.0.1:8086/
+#define NETWORK_HOST http://115.159.115.215:8021/
 
 // 注册
 /**

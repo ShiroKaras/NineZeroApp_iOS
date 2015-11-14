@@ -23,11 +23,6 @@
 		17617F681BEFADFF000B2BFA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F671BEFADFF000B2BFA /* UIKit.framework */; };
 		17617F6A1BEFAE05000B2BFA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F691BEFAE05000B2BFA /* Security.framework */; };
 		17617F6C1BEFAE0F000B2BFA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F6B1BEFAE0F000B2BFA /* libz.tbd */; };
-		17617F6E1BEFAEE0000B2BFA /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17617F6D1BEFAEE0000B2BFA /* PushConfig.plist */; };
-		17617F731BEFB020000B2BFA /* libPushSDK-1.8.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F721BEFB020000B2BFA /* libPushSDK-1.8.8.a */; };
-		17617F7A1BEFB0CD000B2BFA /* SMS_SDKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17617F751BEFB0CD000B2BFA /* SMS_SDKLocalizable.strings */; };
-		17617F7B1BEFB0CD000B2BFA /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F771BEFB0CD000B2BFA /* MOBFoundation.framework */; };
-		17617F7C1BEFB0CD000B2BFA /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F781BEFB0CD000B2BFA /* SMS_SDK.framework */; };
 		17617F7E1BEFB0EE000B2BFA /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F7D1BEFB0EE000B2BFA /* libicucore.tbd */; };
 		17617F801BEFB0FB000B2BFA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F7F1BEFB0FB000B2BFA /* MessageUI.framework */; };
 		17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F811BEFB103000B2BFA /* JavaScriptCore.framework */; };
@@ -81,13 +76,6 @@
 		17617F671BEFADFF000B2BFA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		17617F691BEFAE05000B2BFA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		17617F6B1BEFAE0F000B2BFA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		17617F6D1BEFAEE0000B2BFA /* PushConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = PushConfig.plist; path = ../../../PushConfig.plist; sourceTree = "<group>"; };
-		17617F711BEFB020000B2BFA /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
-		17617F721BEFB020000B2BFA /* libPushSDK-1.8.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.8.a"; sourceTree = "<group>"; };
-		17617F761BEFB0CD000B2BFA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SMS_SDKLocalizable.strings; sourceTree = "<group>"; };
-		17617F771BEFB0CD000B2BFA /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
-		17617F781BEFB0CD000B2BFA /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
-		17617F791BEFB0CD000B2BFA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SMS_SDKLocalizable.strings"; sourceTree = "<group>"; };
 		17617F7D1BEFB0EE000B2BFA /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		17617F7F1BEFB0FB000B2BFA /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		17617F811BEFB103000B2BFA /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -119,7 +107,6 @@
 				17617F801BEFB0FB000B2BFA /* MessageUI.framework in Frameworks */,
 				17617F6C1BEFAE0F000B2BFA /* libz.tbd in Frameworks */,
 				17617F7E1BEFB0EE000B2BFA /* libicucore.tbd in Frameworks */,
-				17617F7B1BEFB0CD000B2BFA /* MOBFoundation.framework in Frameworks */,
 				17617F6A1BEFAE05000B2BFA /* Security.framework in Frameworks */,
 				17617F681BEFADFF000B2BFA /* UIKit.framework in Frameworks */,
 				17617F661BEFADF8000B2BFA /* Foundation.framework in Frameworks */,
@@ -129,9 +116,7 @@
 				17617F5E1BEFADDC000B2BFA /* CoreFoundation.framework in Frameworks */,
 				17617F5C1BEFADD6000B2BFA /* CFNetwork.framework in Frameworks */,
 				174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */,
-				17617F7C1BEFB0CD000B2BFA /* SMS_SDK.framework in Frameworks */,
 				55A6B83737336E72FF856436 /* libPods-NineZeroProject.a in Frameworks */,
-				17617F731BEFB020000B2BFA /* libPushSDK-1.8.8.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,36 +188,6 @@
 			path = NineZeroProject/Utility;
 			sourceTree = "<group>";
 		};
-		17617F6F1BEFB00F000B2BFA /* 3rdSDK */ = {
-			isa = PBXGroup;
-			children = (
-				17617F741BEFB0CD000B2BFA /* SMS_SDK */,
-				17617F701BEFB020000B2BFA /* Jpush */,
-			);
-			name = 3rdSDK;
-			path = NineZeroProject/3rdSDK;
-			sourceTree = "<group>";
-		};
-		17617F701BEFB020000B2BFA /* Jpush */ = {
-			isa = PBXGroup;
-			children = (
-				17617F6D1BEFAEE0000B2BFA /* PushConfig.plist */,
-				17617F711BEFB020000B2BFA /* APService.h */,
-				17617F721BEFB020000B2BFA /* libPushSDK-1.8.8.a */,
-			);
-			path = Jpush;
-			sourceTree = "<group>";
-		};
-		17617F741BEFB0CD000B2BFA /* SMS_SDK */ = {
-			isa = PBXGroup;
-			children = (
-				17617F751BEFB0CD000B2BFA /* SMS_SDKLocalizable.strings */,
-				17617F771BEFB0CD000B2BFA /* MOBFoundation.framework */,
-				17617F781BEFB0CD000B2BFA /* SMS_SDK.framework */,
-			);
-			path = SMS_SDK;
-			sourceTree = "<group>";
-		};
 		1777D35C1BE798F400AC0203 = {
 			isa = PBXGroup;
 			children = (
@@ -241,7 +196,6 @@
 				174C53351BE7A55400893C22 /* Utility */,
 				1721D7171BEFB77E00498304 /* Network */,
 				1721D7181BEFB77E00498304 /* Storage */,
-				17617F6F1BEFB00F000B2BFA /* 3rdSDK */,
 				26E633BCA682E11CD6C30957 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -440,9 +394,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17617F6E1BEFAEE0000B2BFA /* PushConfig.plist in Resources */,
 				1777D3781BE798F400AC0203 /* LaunchScreen.storyboard in Resources */,
-				17617F7A1BEFB0CD000B2BFA /* SMS_SDKLocalizable.strings in Resources */,
 				1777D3751BE798F400AC0203 /* Assets.xcassets in Resources */,
 				1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */,
 			);
@@ -559,15 +511,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		17617F751BEFB0CD000B2BFA /* SMS_SDKLocalizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				17617F761BEFB0CD000B2BFA /* en */,
-				17617F791BEFB0CD000B2BFA /* zh-Hans */,
-			);
-			name = SMS_SDKLocalizable.strings;
-			sourceTree = "<group>";
-		};
 		1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
