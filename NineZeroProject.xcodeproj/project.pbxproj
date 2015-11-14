@@ -10,7 +10,6 @@
 		1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D71C1BEFB7A100498304 /* HTLoginRootController.m */; };
 		1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */; };
 		1721D7221BEFBAD200498304 /* HTNetworkDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7211BEFBAD200498304 /* HTNetworkDefine.m */; };
-		1721D7251BEFBD5300498304 /* HTServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7241BEFBD5300498304 /* HTServiceManager.m */; };
 		1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7271BEFBE1400498304 /* HTStorageDefine.m */; };
 		174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 174C53321BE7A47900893C22 /* libsqlite3.tbd */; };
 		174C53521BE7A60E00893C22 /* CommonUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 174C53511BE7A60E00893C22 /* CommonUI.m */; };
@@ -33,6 +32,8 @@
 		1777D3781BE798F400AC0203 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */; };
 		1777D3831BE798F400AC0203 /* NineZeroProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D3821BE798F400AC0203 /* NineZeroProjectTests.m */; };
 		1777D38E1BE798F500AC0203 /* NineZeroProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D38D1BE798F500AC0203 /* NineZeroProjectUITests.m */; };
+		17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A277271BF79C8000E46670 /* HTServiceManager.m */; };
+		17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A2772A1BF79CA900E46670 /* HTLoginService.m */; };
 		55A6B83737336E72FF856436 /* libPods-NineZeroProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0166A9928B62B530CF913E62 /* libPods-NineZeroProject.a */; };
 /* End PBXBuildFile section */
 
@@ -60,8 +61,6 @@
 		1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTLoginRootController.xib; sourceTree = "<group>"; };
 		1721D7201BEFB9F200498304 /* HTNetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNetworkDefine.h; sourceTree = "<group>"; };
 		1721D7211BEFBAD200498304 /* HTNetworkDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNetworkDefine.m; sourceTree = "<group>"; };
-		1721D7231BEFBD5300498304 /* HTServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTServiceManager.h; sourceTree = "<group>"; };
-		1721D7241BEFBD5300498304 /* HTServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTServiceManager.m; sourceTree = "<group>"; };
 		1721D7261BEFBE1400498304 /* HTStorageDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTStorageDefine.h; sourceTree = "<group>"; };
 		1721D7271BEFBE1400498304 /* HTStorageDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTStorageDefine.m; sourceTree = "<group>"; };
 		174C53321BE7A47900893C22 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -93,6 +92,10 @@
 		1777D3891BE798F400AC0203 /* NineZeroProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NineZeroProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1777D38D1BE798F500AC0203 /* NineZeroProjectUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NineZeroProjectUITests.m; sourceTree = "<group>"; };
 		1777D38F1BE798F500AC0203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		17A277261BF79C8000E46670 /* HTServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTServiceManager.h; sourceTree = "<group>"; };
+		17A277271BF79C8000E46670 /* HTServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTServiceManager.m; sourceTree = "<group>"; };
+		17A277291BF79CA900E46670 /* HTLoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginService.h; sourceTree = "<group>"; };
+		17A2772A1BF79CA900E46670 /* HTLoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginService.m; sourceTree = "<group>"; };
 		A9C47414B1212ACF6A302306 /* Pods-NineZeroProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.debug.xcconfig"; sourceTree = "<group>"; };
 		C4CD745486BB4BFAC5087BB9 /* Pods-NineZeroProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -181,8 +184,6 @@
 			children = (
 				174C53361BE7A57000893C22 /* CommonUI.h */,
 				174C53511BE7A60E00893C22 /* CommonUI.m */,
-				1721D7231BEFBD5300498304 /* HTServiceManager.h */,
-				1721D7241BEFBD5300498304 /* HTServiceManager.m */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
@@ -193,6 +194,7 @@
 			children = (
 				1777D3671BE798F400AC0203 /* NineZeroProject */,
 				1721D7191BEFB78B00498304 /* UI */,
+				17A277251BF79C5F00E46670 /* Service */,
 				174C53351BE7A55400893C22 /* Utility */,
 				1721D7171BEFB77E00498304 /* Network */,
 				1721D7181BEFB77E00498304 /* Storage */,
@@ -247,6 +249,18 @@
 				1777D38F1BE798F500AC0203 /* Info.plist */,
 			);
 			path = NineZeroProjectUITests;
+			sourceTree = "<group>";
+		};
+		17A277251BF79C5F00E46670 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				17A277261BF79C8000E46670 /* HTServiceManager.h */,
+				17A277271BF79C8000E46670 /* HTServiceManager.m */,
+				17A277291BF79CA900E46670 /* HTLoginService.h */,
+				17A2772A1BF79CA900E46670 /* HTLoginService.m */,
+			);
+			name = Service;
+			path = NineZeroProject/Service;
 			sourceTree = "<group>";
 		};
 		26E633BCA682E11CD6C30957 /* Frameworks */ = {
@@ -470,10 +484,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
+				17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */,
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
-				1721D7251BEFBD5300498304 /* HTServiceManager.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTNetworkDefine.m in Sources */,
+				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 			);

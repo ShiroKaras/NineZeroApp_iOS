@@ -10,7 +10,9 @@
 #import "HTStorageDefine.h"
 #import <YTKKeyValueStore.h>
 
-@implementation HTServiceManager
+@implementation HTServiceManager {
+    HTLoginService *_loginService;
+}
 
 + (instancetype)sharedInstance {
     static HTServiceManager *serviceManager;
@@ -21,9 +23,22 @@
     return serviceManager;
 }
 
+- (instancetype)init {
+    if (self = [super init]) {
+        _loginService = [[HTLoginService alloc] init];
+    }
+    return self;
+}
+
+#pragma mark - Publice Method
+
 - (void)createStorageServiceIfNeed {
     YTKKeyValueStore *store = [[YTKKeyValueStore alloc] initDBWithName:kStorageDBNameKey];
     [store createTableWithName:kStorageTableLoginUserInfoKey];
+}
+
+- (HTLoginService *)loginService {
+    return _loginService;
 }
 
 @end

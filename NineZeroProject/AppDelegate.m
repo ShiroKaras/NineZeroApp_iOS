@@ -26,11 +26,11 @@
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerSMSService];
     
-    // window
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
-    self.window.rootViewController = rootController;
-    [self.window makeKeyAndVisible];
+    [self createWindowAndVisible];
+    
+    // test code
+    
+    
     return YES;
 }
 
@@ -45,6 +45,15 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
+}
+
+#pragma mark - Action
+
+- (void)createWindowAndVisible {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
+    self.window.rootViewController = rootController;
+    [self.window makeKeyAndVisible];
 }
 
 #pragma mark - JPush
