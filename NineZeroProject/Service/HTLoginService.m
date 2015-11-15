@@ -11,6 +11,7 @@
 #import <AFNetworking.h>
 #import "HTCGIManager.h"
 #import "MJExtension.h"
+#import "HTLog.h"
 
 @implementation HTLoginService
 
@@ -28,9 +29,9 @@
 - (void)registerWithUser:(HTLoginUser *)user {
     NSDictionary *parameters = [user keyValues];
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseRegisterCGIKey] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        NSLog(@"%@", responseObject);
+        DLog(@"%@", responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
+        DLog(@"%@",error);
     }];
 }
 

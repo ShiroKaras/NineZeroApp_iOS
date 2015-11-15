@@ -99,6 +99,7 @@
 		17A2772A1BF79CA900E46670 /* HTLoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginService.m; sourceTree = "<group>"; };
 		17A2772D1BF79ED500E46670 /* HTLoginUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginUser.h; sourceTree = "<group>"; };
 		17A2772E1BF79ED500E46670 /* HTLoginUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginUser.m; sourceTree = "<group>"; };
+		17A277301BF8F8F400E46670 /* HTLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLog.h; sourceTree = "<group>"; };
 		A9C47414B1212ACF6A302306 /* Pods-NineZeroProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.debug.xcconfig"; sourceTree = "<group>"; };
 		C4CD745486BB4BFAC5087BB9 /* Pods-NineZeroProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -187,6 +188,7 @@
 			children = (
 				174C53361BE7A57000893C22 /* CommonUI.h */,
 				174C53511BE7A60E00893C22 /* CommonUI.m */,
+				17A277301BF8F8F400E46670 /* HTLog.h */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
