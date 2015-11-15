@@ -10,6 +10,7 @@
 #import "HTLoginUser.h"
 #import <AFNetworking.h>
 #import "HTCGIManager.h"
+#import "MJExtension.h"
 
 @implementation HTLoginService
 
@@ -24,7 +25,25 @@
 
 #pragma mark - Public Method
 
+- (void)registerWithUser:(HTLoginUser *)user {
+    NSDictionary *parameters = [user keyValues];
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseRegisterCGIKey] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSLog(@"%@", responseObject);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+}
+
 - (void)loginWithUser:(HTLoginUser *)user {
+    NSDictionary *parameters = [user keyValues];
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseLoginCGIKey] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        
+    }];
+}
+
+- (void)resetPassword:(NSString *)password {
     
 }
 

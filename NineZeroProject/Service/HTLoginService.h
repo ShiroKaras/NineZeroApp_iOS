@@ -16,6 +16,10 @@
  */
 @interface HTLoginService : NSObject
 
+- (void)registerWithUser:(HTLoginUser *)user;
+
 - (void)loginWithUser:(HTLoginUser *)user;
+
+- (void)resetPassword:(NSString *)password;
 
 @end

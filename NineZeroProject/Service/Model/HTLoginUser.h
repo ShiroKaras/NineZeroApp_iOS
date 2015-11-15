@@ -10,12 +10,12 @@
 
 @interface HTLoginUser : NSObject
 
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *password;
-@property (nonatomic, copy) NSString *mobile;
-@property (nonatomic, copy) NSString *email;
-@property (nonatomic, copy) NSString *avatarURL;
-@property (nonatomic, copy) NSString *userAreaID;   // 用户所在城市ID
-@property (nonatomic, copy) NSString *authCode;     // 验证码
+@property (nonatomic, copy) NSString *user_name;
+@property (nonatomic, copy) NSString *user_password;
+@property (nonatomic, copy) NSString *user_mobile;
+@property (nonatomic, copy) NSString *user_email;
+@property (nonatomic, copy) NSString *user_avatar;
+@property (nonatomic, copy) NSString *user_area_id;     // 用户所在城市ID
+@property (nonatomic, copy) NSString *code;             // 验证码
 
 @end

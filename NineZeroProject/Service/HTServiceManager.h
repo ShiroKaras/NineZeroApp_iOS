@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HTLoginService.h"
+#import "HTLoginUser.h"
 
 @interface HTServiceManager : NSObject
 

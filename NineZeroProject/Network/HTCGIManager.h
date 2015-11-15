@@ -8,28 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define NETWORK_HOST @"http://115.159.115.215:8021/"
-
-
-extern NSString *const kCGIUserBaseRegisterKey;
-
-// 登录
-/**
- 1. {
- 2. "user_name":"90",
- 3. "user_password":"*******"
- 4. }
- */
-extern NSString *const kCGIUserBaseLoginKey;
-
-// 重置密码
-/**
- 1. {
- 2. "user_name":"90",
- 3. "user_password":"*******"
- 4. }
- */
-extern NSString *const kCGIUserBaseResetPwdKey;
+#define NETWORK_HOST @"http://115.159.115.215:8086/"
 
 @interface HTCGIManager : NSObject
 

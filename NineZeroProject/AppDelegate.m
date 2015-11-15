@@ -28,8 +28,16 @@
     
     [self createWindowAndVisible];
     
-    // test code
+    HTLoginUser *user = [[HTLoginUser alloc] init];
+    user.user_name = @"123";
+    user.user_password = @"3212222222";
+    user.user_email = @"40988812@qq.com";
+    user.user_mobile = @"111111111111";
+    user.code = @"1234";
+    user.user_area_id = @"1";
     
+    // test code
+    [[[HTServiceManager sharedInstance] loginService] registerWithUser:user];
     
     return YES;
 }
