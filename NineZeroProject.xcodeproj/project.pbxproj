@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706CB4A1BFA542E00E59255 /* NSString+Utility.m */; };
 		1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D71C1BEFB7A100498304 /* HTLoginRootController.m */; };
 		1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */; };
 		1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7211BEFBAD200498304 /* HTCGIManager.m */; };
@@ -57,6 +58,8 @@
 
 /* Begin PBXFileReference section */
 		0166A9928B62B530CF913E62 /* libPods-NineZeroProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1706CB491BFA542E00E59255 /* NSString+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utility.h"; sourceTree = "<group>"; };
+		1706CB4A1BFA542E00E59255 /* NSString+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utility.m"; sourceTree = "<group>"; };
 		1721D71B1BEFB7A100498304 /* HTLoginRootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginRootController.h; sourceTree = "<group>"; };
 		1721D71C1BEFB7A100498304 /* HTLoginRootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginRootController.m; sourceTree = "<group>"; };
 		1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTLoginRootController.xib; sourceTree = "<group>"; };
@@ -189,6 +192,8 @@
 				174C53361BE7A57000893C22 /* CommonUI.h */,
 				174C53511BE7A60E00893C22 /* CommonUI.m */,
 				17A277301BF8F8F400E46670 /* HTLog.h */,
+				1706CB491BFA542E00E59255 /* NSString+Utility.h */,
+				1706CB4A1BFA542E00E59255 /* NSString+Utility.m */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
@@ -506,6 +511,7 @@
 				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
+				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
 				17A2772F1BF79ED500E46670 /* HTLoginUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

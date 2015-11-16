@@ -35,10 +35,12 @@
     user.user_mobile = @"111111111111";
     user.code = @"1234";
     user.user_area_id = @"1";
-    
+	user.user_avatar = @"http://www.baidu.com/";
+	
     // test code
     [[[HTServiceManager sharedInstance] loginService] registerWithUser:user];
-    
+	[[[HTServiceManager sharedInstance] loginService] loginWithUser:user];
+	
     return YES;
 }
 

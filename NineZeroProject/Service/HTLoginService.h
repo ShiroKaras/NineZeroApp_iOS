@@ -20,6 +20,8 @@
 
 - (void)loginWithUser:(HTLoginUser *)user;
 
+- (void)loginWithName:(NSString *)name password:(NSString *)password;
+
 - (void)resetPassword:(NSString *)password;
 
 @end

@@ -12,15 +12,15 @@
 @implementation HTCGIManager
 
 + (NSString *)userBaseRegisterCGIKey {
-    return [NSString stringWithFormat:@"%@UserBase/register/", NETWORK_HOST];
+    return [NSString stringWithFormat:@"%@Login/register/", NETWORK_HOST];
 }
 
 + (NSString *)userBaseLoginCGIKey {
-    return [NSString stringWithFormat:@"%@UserBase/login/", NETWORK_HOST];
+    return [NSString stringWithFormat:@"%@Login/login/", NETWORK_HOST];
 }
 
 + (NSString *)userBaseResetPwdCGIKey {
-    return [NSString stringWithFormat:@"%@UserBase/reset/", NETWORK_HOST];
+    return [NSString stringWithFormat:@"%@Login/reset/", NETWORK_HOST];
 }
 
 @end
