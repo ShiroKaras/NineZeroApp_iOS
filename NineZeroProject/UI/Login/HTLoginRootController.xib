@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HTLoginRootController">
             <connections>
+                <outlet property="userNameTextField" destination="ngN-rK-pqS" id="Cdk-rk-mUr"/>
+                <outlet property="userPasswordTextField" destination="Yxc-is-FWA" id="C6s-Sf-RGJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -31,6 +33,9 @@
                     <state key="normal" title="注册">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="registerButtonClicked:" destination="-1" eventType="touchUpInside" id="u2Q-nh-p7u"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="nCL-V8-2Gm" userLabel="userNameView">
                     <rect key="frame" x="0.0" y="226" width="600" height="51"/>
@@ -128,6 +133,9 @@
                     <state key="normal" title="登录">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="loginButtonClicked:" destination="-1" eventType="touchUpInside" id="dKc-6n-UPk"/>
+                    </connections>
                 </button>
             </subviews>
             <animations/>
@@ -167,7 +175,7 @@
                     <exclude reference="t9z-mm-AAR"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="389" y="422"/>
+            <point key="canvasLocation" x="-23" y="426"/>
         </view>
     </objects>
     <resources>

@@ -12,6 +12,7 @@
 #import "HTLoginRootController.h"
 #import "HTCGIManager.h"
 #import "HTServiceManager.h"
+#import "HTNavigationController.h"
 
 @interface AppDelegate ()
 
@@ -62,7 +63,8 @@
 - (void)createWindowAndVisible {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
-    self.window.rootViewController = rootController;
+    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
 }
 
