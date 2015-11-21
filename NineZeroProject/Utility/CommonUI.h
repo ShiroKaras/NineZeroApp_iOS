@@ -241,5 +241,10 @@ UIEdgeInsetsSetRight(UIEdgeInsets insets, CGFloat right)
 + (UIColor *)colorWithHex:(int)hex alpha:(CGFloat)alpha;
 @end
 
+@interface UIImage (Utility)
+
++ (UIImage *)imageFromColor:(UIColor *)color;
+
+@end
 
 #endif /* CommonUI_h */

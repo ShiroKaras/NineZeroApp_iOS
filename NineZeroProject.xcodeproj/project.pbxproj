@@ -36,6 +36,11 @@
 		17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A277271BF79C8000E46670 /* HTServiceManager.m */; };
 		17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A2772A1BF79CA900E46670 /* HTLoginService.m */; };
 		17A2772F1BF79ED500E46670 /* HTLoginUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A2772E1BF79ED500E46670 /* HTLoginUser.m */; };
+		26973B021C005ED900160D25 /* HTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B011C005ED900160D25 /* HTNavigationController.m */; settings = {ASSET_TAGS = (); }; };
+		26973B051C005F9800160D25 /* HTRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B041C005F9800160D25 /* HTRegisterController.m */; settings = {ASSET_TAGS = (); }; };
+		26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B061C005FBF00160D25 /* HTRegisterController.xib */; settings = {ASSET_TAGS = (); }; };
+		26973B221C006A6900160D25 /* HTLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B201C006A6900160D25 /* HTLoginController.m */; settings = {ASSET_TAGS = (); }; };
+		26973B231C006A6900160D25 /* HTLoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B211C006A6900160D25 /* HTLoginController.xib */; settings = {ASSET_TAGS = (); }; };
 		55A6B83737336E72FF856436 /* libPods-NineZeroProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0166A9928B62B530CF913E62 /* libPods-NineZeroProject.a */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +108,14 @@
 		17A2772D1BF79ED500E46670 /* HTLoginUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginUser.h; sourceTree = "<group>"; };
 		17A2772E1BF79ED500E46670 /* HTLoginUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginUser.m; sourceTree = "<group>"; };
 		17A277301BF8F8F400E46670 /* HTLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLog.h; sourceTree = "<group>"; };
+		26973B001C005ED900160D25 /* HTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNavigationController.h; sourceTree = "<group>"; };
+		26973B011C005ED900160D25 /* HTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNavigationController.m; sourceTree = "<group>"; };
+		26973B031C005F9800160D25 /* HTRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRegisterController.h; sourceTree = "<group>"; };
+		26973B041C005F9800160D25 /* HTRegisterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRegisterController.m; sourceTree = "<group>"; };
+		26973B061C005FBF00160D25 /* HTRegisterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTRegisterController.xib; sourceTree = "<group>"; };
+		26973B1F1C006A6900160D25 /* HTLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginController.h; sourceTree = "<group>"; };
+		26973B201C006A6900160D25 /* HTLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginController.m; sourceTree = "<group>"; };
+		26973B211C006A6900160D25 /* HTLoginController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTLoginController.xib; sourceTree = "<group>"; };
 		A9C47414B1212ACF6A302306 /* Pods-NineZeroProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.debug.xcconfig"; sourceTree = "<group>"; };
 		C4CD745486BB4BFAC5087BB9 /* Pods-NineZeroProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -170,6 +183,7 @@
 		1721D7191BEFB78B00498304 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				26973AFF1C005ECF00160D25 /* Common */,
 				1721D71A1BEFB7A100498304 /* Login */,
 			);
 			name = UI;
@@ -182,6 +196,12 @@
 				1721D71B1BEFB7A100498304 /* HTLoginRootController.h */,
 				1721D71C1BEFB7A100498304 /* HTLoginRootController.m */,
 				1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */,
+				26973B031C005F9800160D25 /* HTRegisterController.h */,
+				26973B041C005F9800160D25 /* HTRegisterController.m */,
+				26973B061C005FBF00160D25 /* HTRegisterController.xib */,
+				26973B1F1C006A6900160D25 /* HTLoginController.h */,
+				26973B201C006A6900160D25 /* HTLoginController.m */,
+				26973B211C006A6900160D25 /* HTLoginController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -209,6 +229,7 @@
 				1721D7181BEFB77E00498304 /* Storage */,
 				174C53351BE7A55400893C22 /* Utility */,
 				26E633BCA682E11CD6C30957 /* Frameworks */,
+				58ED34051F9DA51A2CB6A5F6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -228,6 +249,7 @@
 				1777D36B1BE798F400AC0203 /* AppDelegate.h */,
 				1777D36C1BE798F400AC0203 /* AppDelegate.m */,
 				1777D3741BE798F400AC0203 /* Assets.xcassets */,
+				26973AFD1C0059DB00160D25 /* New Group */,
 				1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */,
 				1777D3791BE798F400AC0203 /* Info.plist */,
 				1777D3681BE798F400AC0203 /* Supporting Files */,
@@ -283,6 +305,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		26973AFD1C0059DB00160D25 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
+		26973AFF1C005ECF00160D25 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				26973B001C005ED900160D25 /* HTNavigationController.h */,
+				26973B011C005ED900160D25 /* HTNavigationController.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		26E633BCA682E11CD6C30957 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,6 +347,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		58ED34051F9DA51A2CB6A5F6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D88EE1A5861795A666F5CEF0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,7 +374,6 @@
 				1777D3611BE798F400AC0203 /* Sources */,
 				1777D3621BE798F400AC0203 /* Frameworks */,
 				1777D3631BE798F400AC0203 /* Resources */,
-				9EEF22595BBCE4074FC662AB /* Embed Pods Frameworks */,
 				8190ACE00187B97F8D95C65D /* Copy Pods Resources */,
 			);
 			buildRules = (
@@ -430,6 +474,8 @@
 			files = (
 				1777D3781BE798F400AC0203 /* LaunchScreen.storyboard in Resources */,
 				1777D3751BE798F400AC0203 /* Assets.xcassets in Resources */,
+				26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */,
+				26973B231C006A6900160D25 /* HTLoginController.xib in Resources */,
 				1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -481,21 +527,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9EEF22595BBCE4074FC662AB /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -506,8 +537,11 @@
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
 				17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */,
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
+				26973B021C005ED900160D25 /* HTNavigationController.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
+				26973B221C006A6900160D25 /* HTLoginController.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
+				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
 				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,

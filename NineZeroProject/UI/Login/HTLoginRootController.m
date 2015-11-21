@@ -8,8 +8,12 @@
 
 #import "HTLoginRootController.h"
 #import "CommonUI.h"
+#import "HTRegisterController.h"
 
 @interface HTLoginRootController ()
+
+@property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *userPasswordTextField;
 
 @end
 
@@ -17,22 +21,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap)];
+    [self.view addGestureRecognizer:tapGesture];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;    
 }
-*/
+
+#pragma mark - Action
+
+- (void)viewDidTap {
+    [self.view endEditing:YES];
+}
+
+- (IBAction)registerButtonClicked:(UIButton *)sender {
+    HTRegisterController *registerController = [[HTRegisterController alloc] init];
+    [self.navigationController pushViewController:registerController animated:YES]; 
+}
+
+- (IBAction)loginButtonClicked:(UIButton *)sender {
+}
 
 @end
