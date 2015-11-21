@@ -7,12 +7,53 @@
 //
 
 #import "HTRegisterController.h"
+#import "UIViewController+ImagePicker.h"
+
+@interface HTRegisterController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
+
+@property (weak, nonatomic) IBOutlet UITextField *verifyTextField;
+@property (weak, nonatomic) IBOutlet UITextField *nickTextField;
+
+
+@end
 
 @implementation HTRegisterController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"注册";
+}
+
+#pragma mark - Action
+
+- (IBAction)avatarButtonClicked:(UIButton *)sender {
+//	UIImagePickerController *imagePicker = [uipick]
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+															 delegate:self
+													cancelButtonTitle:@"取消"
+											   destructiveButtonTitle:nil
+													otherButtonTitles:@"拍照", @"从相册选择", nil];
+	[actionSheet showInView:self.view];
+}
+
+- (IBAction)nextButtonClicked:(UIButton *)sender {
+}
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {
+		[self presentSystemCameraController];
+	}
+	if (buttonIndex == 1) {
+		[self presentSystemPhotoLibraryController];
+	}
+}
+
+#pragma mark - UIImagePickerViewController Delegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+	
 }
 
 @end
