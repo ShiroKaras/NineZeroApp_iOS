@@ -209,6 +209,7 @@
 				1721D7181BEFB77E00498304 /* Storage */,
 				174C53351BE7A55400893C22 /* Utility */,
 				26E633BCA682E11CD6C30957 /* Frameworks */,
+				58ED34051F9DA51A2CB6A5F6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -228,6 +229,7 @@
 				1777D36B1BE798F400AC0203 /* AppDelegate.h */,
 				1777D36C1BE798F400AC0203 /* AppDelegate.m */,
 				1777D3741BE798F400AC0203 /* Assets.xcassets */,
+				26973AFD1C0059DB00160D25 /* New Group */,
 				1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */,
 				1777D3791BE798F400AC0203 /* Info.plist */,
 				1777D3681BE798F400AC0203 /* Supporting Files */,
@@ -283,6 +285,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		26973AFD1C0059DB00160D25 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
 		26E633BCA682E11CD6C30957 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,6 +318,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		58ED34051F9DA51A2CB6A5F6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D88EE1A5861795A666F5CEF0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,7 +345,6 @@
 				1777D3611BE798F400AC0203 /* Sources */,
 				1777D3621BE798F400AC0203 /* Frameworks */,
 				1777D3631BE798F400AC0203 /* Resources */,
-				9EEF22595BBCE4074FC662AB /* Embed Pods Frameworks */,
 				8190ACE00187B97F8D95C65D /* Copy Pods Resources */,
 			);
 			buildRules = (
@@ -479,21 +494,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9EEF22595BBCE4074FC662AB /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
