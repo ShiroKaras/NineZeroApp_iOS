@@ -25,7 +25,7 @@
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAo-EP-LTN" userLabel="SureButton">
                     <rect key="frame" x="0.0" y="376" width="600" height="50"/>
-                    <color key="backgroundColor" red="0.039215686274509803" green="0.24313725490196078" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.14117647059999999" green="0.86666666670000003" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="RlN-SL-tkd"/>
                     </constraints>

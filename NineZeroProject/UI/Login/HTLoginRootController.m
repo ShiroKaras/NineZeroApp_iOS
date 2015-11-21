@@ -8,6 +8,7 @@
 
 #import "HTLoginRootController.h"
 #import "CommonUI.h"
+#import "HTRegisterController.h"
 
 @interface HTLoginRootController ()
 
@@ -41,6 +42,8 @@
 }
 
 - (IBAction)registerButtonClicked:(UIButton *)sender {
+    HTRegisterController *registerController = [[HTRegisterController alloc] init];
+    [self.navigationController pushViewController:registerController animated:YES]; 
 }
 
 - (IBAction)loginButtonClicked:(UIButton *)sender {
