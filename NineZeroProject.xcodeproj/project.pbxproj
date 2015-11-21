@@ -39,6 +39,8 @@
 		26973B021C005ED900160D25 /* HTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B011C005ED900160D25 /* HTNavigationController.m */; settings = {ASSET_TAGS = (); }; };
 		26973B051C005F9800160D25 /* HTRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B041C005F9800160D25 /* HTRegisterController.m */; settings = {ASSET_TAGS = (); }; };
 		26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B061C005FBF00160D25 /* HTRegisterController.xib */; settings = {ASSET_TAGS = (); }; };
+		26973B221C006A6900160D25 /* HTLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B201C006A6900160D25 /* HTLoginController.m */; settings = {ASSET_TAGS = (); }; };
+		26973B231C006A6900160D25 /* HTLoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B211C006A6900160D25 /* HTLoginController.xib */; settings = {ASSET_TAGS = (); }; };
 		55A6B83737336E72FF856436 /* libPods-NineZeroProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0166A9928B62B530CF913E62 /* libPods-NineZeroProject.a */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +113,9 @@
 		26973B031C005F9800160D25 /* HTRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRegisterController.h; sourceTree = "<group>"; };
 		26973B041C005F9800160D25 /* HTRegisterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRegisterController.m; sourceTree = "<group>"; };
 		26973B061C005FBF00160D25 /* HTRegisterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTRegisterController.xib; sourceTree = "<group>"; };
+		26973B1F1C006A6900160D25 /* HTLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginController.h; sourceTree = "<group>"; };
+		26973B201C006A6900160D25 /* HTLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginController.m; sourceTree = "<group>"; };
+		26973B211C006A6900160D25 /* HTLoginController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTLoginController.xib; sourceTree = "<group>"; };
 		A9C47414B1212ACF6A302306 /* Pods-NineZeroProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.debug.xcconfig"; sourceTree = "<group>"; };
 		C4CD745486BB4BFAC5087BB9 /* Pods-NineZeroProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,6 +199,9 @@
 				26973B031C005F9800160D25 /* HTRegisterController.h */,
 				26973B041C005F9800160D25 /* HTRegisterController.m */,
 				26973B061C005FBF00160D25 /* HTRegisterController.xib */,
+				26973B1F1C006A6900160D25 /* HTLoginController.h */,
+				26973B201C006A6900160D25 /* HTLoginController.m */,
+				26973B211C006A6900160D25 /* HTLoginController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -467,6 +475,7 @@
 				1777D3781BE798F400AC0203 /* LaunchScreen.storyboard in Resources */,
 				1777D3751BE798F400AC0203 /* Assets.xcassets in Resources */,
 				26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */,
+				26973B231C006A6900160D25 /* HTLoginController.xib in Resources */,
 				1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,6 +539,7 @@
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
 				26973B021C005ED900160D25 /* HTNavigationController.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
+				26973B221C006A6900160D25 /* HTLoginController.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
 				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
