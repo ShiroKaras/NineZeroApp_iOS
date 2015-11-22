@@ -90,8 +90,7 @@
 
 - (void)registerSMSService {
     // SMS
-    //    [SMSSDK registerApp:appKey withSecret:appSecret];
-    [SMS_SDK registerApp:@"com.test" withSecret:@"testSecret"];
+    [SMS_SDK registerApp:@"b805a16e1149" withSecret:@"054f27dedc33c58a97afb1781406678b"];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "HTRegisterController.h"
 #import "UIViewController+ImagePicker.h"
+#import <SMS_SDK/SMS_SDK.h>
 
 @interface HTRegisterController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
@@ -22,6 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"注册";
+//    [SMS_SDK getVerificationCodeBySMSWithPhone:@"18215606266" zone:@"86" result:^(SMS_SDKError *error) {
+//        
+//    }];
 }
 
 #pragma mark - Action
