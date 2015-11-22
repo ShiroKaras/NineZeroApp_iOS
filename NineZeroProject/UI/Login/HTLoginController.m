@@ -16,7 +16,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.title = @"登录";
 }
+
+#pragma mark - Action
+
+- (IBAction)didClickForgetPassword:(UIButton *)sender {
+    
+}
+
 
 @end
