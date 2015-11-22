@@ -7,6 +7,7 @@
 //
 
 #import "HTLoginController.h"
+#import "HTForgetPasswordController.h"
 
 @interface HTLoginController ()
 
@@ -22,7 +23,8 @@
 #pragma mark - Action
 
 - (IBAction)didClickForgetPassword:(UIButton *)sender {
-    
+    HTForgetPasswordController *forgetPwdController = [[HTForgetPasswordController alloc] init];
+    [self.navigationController pushViewController:forgetPwdController animated:YES];
 }
 
 
