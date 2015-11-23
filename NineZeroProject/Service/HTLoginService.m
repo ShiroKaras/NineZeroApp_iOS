@@ -37,30 +37,22 @@
     }];
 }
 
-- (void)loginWithUser:(HTLoginUser *)user {
-	NSDictionary *para = @{
-						   @"user_name" : user.user_name,
-						   @"user_password" : user.user_password
-						   };
+- (void)loginWithUser:(HTLoginUser *)user success:(HTLoginSuccessCallback)successCallback error:(HTLoginErrorCallback)errorCallback {
+    NSDictionary *para = @{
+                           @"user_name" : user.user_name,
+                           @"user_password" : user.user_password
+                           };
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseLoginCGIKey] parameters:para success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-		DLog(@"%@", responseObject);
+        DLog(@"%@", responseObject);
+        successCallback(responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-		DLog(@"%@", error);
+        DLog(@"%@", error);
+        errorCallback([NSString stringWithFormat:@"%@", error]);
     }];
 }
 
-- loginWithUser:
-
 - (void)loginWithName:(NSString *)name password:(NSString *)password {
-	NSDictionary *para = @{
-						   @"user_name" : name,
-						   @"user_password" : password
-						   };
-	[[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseLoginCGIKey] parameters:para success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-		DLog(@"%@", responseObject);
-	} failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-		DLog(@"%@", error);
-	}];
+
 }
 
 - (void)resetPassword:(NSString *)password {

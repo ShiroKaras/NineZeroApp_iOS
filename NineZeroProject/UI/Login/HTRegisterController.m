@@ -9,23 +9,31 @@
 #import "HTRegisterController.h"
 #import "UIViewController+ImagePicker.h"
 #import <SMS_SDK/SMS_SDK.h>
+#import "HTLoginUser.h"
 
 @interface HTRegisterController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *verifyTextField;
 @property (weak, nonatomic) IBOutlet UITextField *nickTextField;
 
-
 @end
 
-@implementation HTRegisterController
+@implementation HTRegisterController {
+    HTLoginUser *_loginUser;
+}
+
+- (instancetype)initWithUser:(HTLoginUser *)user {
+    if (self = [super init]) {
+        _loginUser = user;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"注册";
-//    [SMS_SDK getVerificationCodeBySMSWithPhone:@"18215606266" zone:@"86" result:^(SMS_SDKError *error) {
-//        
-//    }];
+    [SMS_SDK getVerificationCodeBySMSWithPhone:_loginUser.user_mobile zone:@"86" result:^(SMS_SDKError *error) {
+        }];
 }
 
 #pragma mark - Action

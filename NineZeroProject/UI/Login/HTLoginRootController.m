@@ -11,6 +11,7 @@
 #import "HTRegisterController.h"
 #import "HTLoginController.h"
 #import <MBProgressHUD+BWMExtension.h>
+#import "HTLoginUser.h"
 
 @interface HTLoginRootController () <UITextFieldDelegate>
 
@@ -32,7 +33,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
     
-    _registerButton.enabled = NO;
+    self.registerButton.enabled = NO;
 }
 
 - (void)dealloc {
@@ -85,6 +86,9 @@
         [MBProgressHUD bwm_showTitle:@"手机号码位数不正确" toView:self.view hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeWarning];
         return;
     }
+    HTLoginUser *loginUser = [[HTLoginUser alloc] init];
+    loginUser.user_mobile = self.userNameTextField.text;
+    loginUser.user_password = self.userPasswordTextField.text;
     HTRegisterController *registerController = [[HTRegisterController alloc] init];
     [self.navigationController pushViewController:registerController animated:YES]; 
 }
