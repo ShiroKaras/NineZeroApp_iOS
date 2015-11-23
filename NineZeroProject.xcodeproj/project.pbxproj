@@ -42,10 +42,10 @@
 		26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B061C005FBF00160D25 /* HTRegisterController.xib */; };
 		26973B221C006A6900160D25 /* HTLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B201C006A6900160D25 /* HTLoginController.m */; };
 		26973B231C006A6900160D25 /* HTLoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B211C006A6900160D25 /* HTLoginController.xib */; };
-		26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DA7F231C01997A00337A56 /* HTForgetPasswordController.m */; settings = {ASSET_TAGS = (); }; };
-		26DA7F261C01997A00337A56 /* HTForgetPasswordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA7F241C01997A00337A56 /* HTForgetPasswordController.xib */; settings = {ASSET_TAGS = (); }; };
-		26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DA7F281C019C2100337A56 /* HTResetPasswordController.m */; settings = {ASSET_TAGS = (); }; };
-		26DA7F2B1C019C3600337A56 /* HTResetPasswordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA7F2A1C019C3600337A56 /* HTResetPasswordController.xib */; settings = {ASSET_TAGS = (); }; };
+		26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DA7F231C01997A00337A56 /* HTForgetPasswordController.m */; };
+		26DA7F261C01997A00337A56 /* HTForgetPasswordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA7F241C01997A00337A56 /* HTForgetPasswordController.xib */; };
+		26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DA7F281C019C2100337A56 /* HTResetPasswordController.m */; };
+		26DA7F2B1C019C3600337A56 /* HTResetPasswordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA7F2A1C019C3600337A56 /* HTResetPasswordController.xib */; };
 		55A6B83737336E72FF856436 /* libPods-NineZeroProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0166A9928B62B530CF913E62 /* libPods-NineZeroProject.a */; };
 /* End PBXBuildFile section */
 
@@ -396,6 +396,7 @@
 				1777D3621BE798F400AC0203 /* Frameworks */,
 				1777D3631BE798F400AC0203 /* Resources */,
 				8190ACE00187B97F8D95C65D /* Copy Pods Resources */,
+				F1F093DD936A8E5A6E251FCD /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -548,6 +549,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1F093DD936A8E5A6E251FCD /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -705,6 +721,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NineZeroProject/3rdSDK/SMS_SDK",
@@ -729,6 +746,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NineZeroProject/3rdSDK/SMS_SDK",
