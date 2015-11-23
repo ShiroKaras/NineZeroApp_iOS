@@ -18,15 +18,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_signup_logo" translatesAutoresizingMaskIntoConstraints="NO" id="kOp-fE-le8">
-                    <rect key="frame" x="213" y="120" width="175" height="98"/>
+                    <rect key="frame" x="213" y="108" width="175" height="98"/>
                     <animations/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_signup_logo_2" translatesAutoresizingMaskIntoConstraints="NO" id="WrT-aC-PWi">
-                    <rect key="frame" x="547" y="118" width="45" height="67"/>
+                    <rect key="frame" x="547" y="194" width="45" height="67"/>
                     <animations/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAo-EP-LTN" userLabel="SureButton">
-                    <rect key="frame" x="0.0" y="409" width="600" height="50"/>
+                    <rect key="frame" x="0.0" y="397" width="600" height="50"/>
                     <animations/>
                     <color key="backgroundColor" red="0.14117647059999999" green="0.86666666670000003" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -41,7 +41,7 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="nCL-V8-2Gm" userLabel="userNameView">
-                    <rect key="frame" x="0.0" y="259" width="600" height="51"/>
+                    <rect key="frame" x="0.0" y="247" width="600" height="51"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zkH-Iy-mbJ" userLabel="separator">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
@@ -88,25 +88,25 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKj-pQ-4mv" userLabel="wechat">
-                    <rect key="frame" x="141" y="535" width="38" height="38"/>
+                    <rect key="frame" x="141" y="523" width="38" height="38"/>
                     <animations/>
                     <state key="normal" image="btn_signup_wechat"/>
                     <state key="highlighted" image="btn_signup_wechat_highlight"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bw-vK-ZTK" userLabel="qq">
-                    <rect key="frame" x="281" y="535" width="38" height="38"/>
+                    <rect key="frame" x="281" y="523" width="38" height="38"/>
                     <animations/>
                     <state key="normal" image="btn_signup_qq"/>
                     <state key="highlighted" image="btn_signup_qq_highlight"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9C-AH-epn" userLabel="weibo">
-                    <rect key="frame" x="421" y="535" width="38" height="38"/>
+                    <rect key="frame" x="421" y="523" width="38" height="38"/>
                     <animations/>
                     <state key="normal" image="btn_signup_weibo"/>
                     <state key="highlighted" image="btn_signup_weibo_highlight"/>
                 </button>
                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="riS-rR-xha" userLabel="userPswView">
-                    <rect key="frame" x="0.0" y="310" width="600" height="51"/>
+                    <rect key="frame" x="0.0" y="298" width="600" height="51"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwk-UL-VpC" userLabel="separator">
                             <rect key="frame" x="0.0" y="50" width="600" height="1"/>
@@ -142,7 +142,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2K-Bt-Fji">
-                    <rect key="frame" x="554" y="467" width="30" height="30"/>
+                    <rect key="frame" x="554" y="455" width="30" height="30"/>
                     <animations/>
                     <state key="normal" title="登录">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -156,7 +156,7 @@
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="nCL-V8-2Gm" secondAttribute="trailing" id="0Eg-0p-Y8j"/>
-                <constraint firstItem="kOp-fE-le8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="120" id="5FD-3D-GHf"/>
+                <constraint firstItem="kOp-fE-le8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="108" id="5FD-3D-GHf"/>
                 <constraint firstItem="oKj-pQ-4mv" firstAttribute="top" secondItem="MAo-EP-LTN" secondAttribute="bottom" constant="76" id="7Cp-6s-YqV"/>
                 <constraint firstAttribute="trailing" secondItem="riS-rR-xha" secondAttribute="trailing" id="9na-KX-Fki"/>
                 <constraint firstItem="5bw-vK-ZTK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="AbY-8K-Vrh"/>
@@ -179,7 +179,7 @@
                 <constraint firstItem="5bw-vK-ZTK" firstAttribute="leading" secondItem="oKj-pQ-4mv" secondAttribute="trailing" constant="102" id="tCG-Yg-4l0"/>
                 <constraint firstItem="nCL-V8-2Gm" firstAttribute="top" secondItem="kOp-fE-le8" secondAttribute="bottom" constant="41" id="uBS-Ht-wEW"/>
                 <constraint firstAttribute="trailing" secondItem="WrT-aC-PWi" secondAttribute="trailing" constant="8" id="wTl-7q-UdW"/>
-                <constraint firstItem="WrT-aC-PWi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="118" id="x6W-53-Hyc"/>
+                <constraint firstItem="WrT-aC-PWi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="194" id="x6W-53-Hyc"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">
