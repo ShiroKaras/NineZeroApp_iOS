@@ -65,7 +65,7 @@
                             </userDefinedRuntimeAttributes>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="246" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNo-gQ-I7a">
-                            <rect key="frame" x="253" y="11" width="114" height="30"/>
+                            <rect key="frame" x="231" y="11" width="136" height="30"/>
                             <animations/>
                             <color key="backgroundColor" red="0.14117647058823529" green="0.8666666666666667" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="再发一次">
@@ -88,7 +88,7 @@
                         <constraint firstItem="htV-1d-VDa" firstAttribute="leading" secondItem="YXe-oQ-8hS" secondAttribute="leading" id="325-yx-1Mh"/>
                         <constraint firstAttribute="height" constant="51" id="94U-bT-96G"/>
                         <constraint firstAttribute="bottom" secondItem="htV-1d-VDa" secondAttribute="bottom" id="9aO-TN-Y6j"/>
-                        <constraint firstItem="nNo-gQ-I7a" firstAttribute="leading" secondItem="8ET-ET-tdn" secondAttribute="trailing" constant="30" id="F8w-55-zzS"/>
+                        <constraint firstItem="nNo-gQ-I7a" firstAttribute="leading" secondItem="8ET-ET-tdn" secondAttribute="trailing" constant="8" id="F8w-55-zzS"/>
                         <constraint firstItem="nNo-gQ-I7a" firstAttribute="centerY" secondItem="YXe-oQ-8hS" secondAttribute="centerY" id="GN2-0v-a0F"/>
                         <constraint firstAttribute="trailing" secondItem="htV-1d-VDa" secondAttribute="trailing" id="H4n-Y9-k6U"/>
                         <constraint firstAttribute="trailing" secondItem="00u-9q-a4f" secondAttribute="trailing" id="HOs-en-uCt"/>
