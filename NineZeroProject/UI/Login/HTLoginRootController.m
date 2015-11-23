@@ -68,7 +68,7 @@
     HTLoginUser *loginUser = [[HTLoginUser alloc] init];
     loginUser.user_mobile = self.userNameTextField.text;
     loginUser.user_password = self.userPasswordTextField.text;
-    HTRegisterController *registerController = [[HTRegisterController alloc] init];
+    HTRegisterController *registerController = [[HTRegisterController alloc] initWithUser:loginUser];
     [self.navigationController pushViewController:registerController animated:YES]; 
 }
 

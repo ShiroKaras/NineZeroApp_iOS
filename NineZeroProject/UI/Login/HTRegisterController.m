@@ -11,6 +11,7 @@
 #import <SMS_SDK/SMS_SDK.h>
 #import "HTLoginUser.h"
 #import "HTLog.h"
+#import "HTServiceManager.h"
 
 @interface HTRegisterController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
@@ -34,8 +35,14 @@
     [super viewDidLoad];
     self.title = @"注册";
     [SMS_SDK getVerificationCodeBySMSWithPhone:_loginUser.user_mobile zone:@"86" result:^(SMS_SDKError *error) {
-        DLog(@"%@",error);
+        DLog(@"%@", [error description]);
     }];
+}
+
+#pragma mark - Subclass
+
+- (void)nextButtonNeedToBeClicked {
+    [self nextButtonClicked:nil];
 }
 
 #pragma mark - Action
@@ -50,6 +57,17 @@
 }
 
 - (IBAction)nextButtonClicked:(UIButton *)sender {
+    _loginUser.code = self.verifyTextField.text;
+    _loginUser.user_name = self.nickTextField.text;
+    // TODO:这些值不能临时填
+    _loginUser.user_email = @"408895175@qq.com";
+    _loginUser.user_avatar = @"test";
+    _loginUser.user_area_id = @"1";
+    [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser success:^(id responseObject) {
+        
+    } error:^(NSString *errorMessage) {
+        
+    }];
 }
 
 #pragma mark - UIActionSheet Delegate
