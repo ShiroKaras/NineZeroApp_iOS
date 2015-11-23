@@ -42,6 +42,10 @@
 		26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B061C005FBF00160D25 /* HTRegisterController.xib */; };
 		26973B221C006A6900160D25 /* HTLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B201C006A6900160D25 /* HTLoginController.m */; };
 		26973B231C006A6900160D25 /* HTLoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B211C006A6900160D25 /* HTLoginController.xib */; };
+		26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DA7F231C01997A00337A56 /* HTForgetPasswordController.m */; settings = {ASSET_TAGS = (); }; };
+		26DA7F261C01997A00337A56 /* HTForgetPasswordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA7F241C01997A00337A56 /* HTForgetPasswordController.xib */; settings = {ASSET_TAGS = (); }; };
+		26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DA7F281C019C2100337A56 /* HTResetPasswordController.m */; settings = {ASSET_TAGS = (); }; };
+		26DA7F2B1C019C3600337A56 /* HTResetPasswordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA7F2A1C019C3600337A56 /* HTResetPasswordController.xib */; settings = {ASSET_TAGS = (); }; };
 		55A6B83737336E72FF856436 /* libPods-NineZeroProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0166A9928B62B530CF913E62 /* libPods-NineZeroProject.a */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +123,12 @@
 		26973B1F1C006A6900160D25 /* HTLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginController.h; sourceTree = "<group>"; };
 		26973B201C006A6900160D25 /* HTLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginController.m; sourceTree = "<group>"; };
 		26973B211C006A6900160D25 /* HTLoginController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTLoginController.xib; sourceTree = "<group>"; };
+		26DA7F221C01997A00337A56 /* HTForgetPasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTForgetPasswordController.h; sourceTree = "<group>"; };
+		26DA7F231C01997A00337A56 /* HTForgetPasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTForgetPasswordController.m; sourceTree = "<group>"; };
+		26DA7F241C01997A00337A56 /* HTForgetPasswordController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTForgetPasswordController.xib; sourceTree = "<group>"; };
+		26DA7F271C019C2100337A56 /* HTResetPasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTResetPasswordController.h; sourceTree = "<group>"; };
+		26DA7F281C019C2100337A56 /* HTResetPasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTResetPasswordController.m; sourceTree = "<group>"; };
+		26DA7F2A1C019C3600337A56 /* HTResetPasswordController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTResetPasswordController.xib; sourceTree = "<group>"; };
 		A9C47414B1212ACF6A302306 /* Pods-NineZeroProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.debug.xcconfig"; sourceTree = "<group>"; };
 		C4CD745486BB4BFAC5087BB9 /* Pods-NineZeroProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,6 +215,12 @@
 				26973B1F1C006A6900160D25 /* HTLoginController.h */,
 				26973B201C006A6900160D25 /* HTLoginController.m */,
 				26973B211C006A6900160D25 /* HTLoginController.xib */,
+				26DA7F221C01997A00337A56 /* HTForgetPasswordController.h */,
+				26DA7F231C01997A00337A56 /* HTForgetPasswordController.m */,
+				26DA7F241C01997A00337A56 /* HTForgetPasswordController.xib */,
+				26DA7F271C019C2100337A56 /* HTResetPasswordController.h */,
+				26DA7F281C019C2100337A56 /* HTResetPasswordController.m */,
+				26DA7F2A1C019C3600337A56 /* HTResetPasswordController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -380,7 +396,6 @@
 				1777D3621BE798F400AC0203 /* Frameworks */,
 				1777D3631BE798F400AC0203 /* Resources */,
 				8190ACE00187B97F8D95C65D /* Copy Pods Resources */,
-				73AA14931ACFF4E90AC6F885 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -479,10 +494,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1777D3781BE798F400AC0203 /* LaunchScreen.storyboard in Resources */,
+				26DA7F261C01997A00337A56 /* HTForgetPasswordController.xib in Resources */,
 				1777D3751BE798F400AC0203 /* Assets.xcassets in Resources */,
 				26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */,
 				26973B231C006A6900160D25 /* HTLoginController.xib in Resources */,
 				1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */,
+				26DA7F2B1C019C3600337A56 /* HTResetPasswordController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,21 +535,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		73AA14931ACFF4E90AC6F885 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8190ACE00187B97F8D95C65D /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -560,12 +562,14 @@
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
 				26973B021C005ED900160D25 /* HTNavigationController.m in Sources */,
 				176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */,
+				26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
 				26973B221C006A6900160D25 /* HTLoginController.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
 				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
+				26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
 				17A2772F1BF79ED500E46670 /* HTLoginUser.m in Sources */,

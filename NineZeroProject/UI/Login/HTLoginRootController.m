@@ -9,6 +9,7 @@
 #import "HTLoginRootController.h"
 #import "CommonUI.h"
 #import "HTRegisterController.h"
+#import "HTLoginController.h"
 
 @interface HTLoginRootController ()
 
@@ -21,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"主界面";
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap)];
     [self.view addGestureRecognizer:tapGesture];
 }
@@ -47,7 +49,12 @@
 }
 
 - (IBAction)loginButtonClicked:(UIButton *)sender {
+<<<<<<< HEAD
     
+=======
+    HTLoginController *loginController = [[HTLoginController alloc] init];
+    [self.navigationController pushViewController:loginController animated:YES];
+>>>>>>> d3e028f7843c6c124d4b3426cc9506ce8c460d42
 }
 
 @end

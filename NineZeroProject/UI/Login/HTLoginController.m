@@ -7,6 +7,7 @@
 //
 
 #import "HTLoginController.h"
+#import "HTForgetPasswordController.h"
 
 @interface HTLoginController ()
 
@@ -16,7 +17,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.title = @"登录";
 }
+
+#pragma mark - Action
+
+- (IBAction)didClickForgetPassword:(UIButton *)sender {
+    HTForgetPasswordController *forgetPwdController = [[HTForgetPasswordController alloc] init];
+    [self.navigationController pushViewController:forgetPwdController animated:YES];
+}
+
 
 @end
