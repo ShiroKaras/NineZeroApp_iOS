@@ -12,6 +12,7 @@ target 'NineZeroProject' do
   pod 'SMS-For-iOS', '~> 1.0.9'
   pod 'MBProgressHUD+BWMExtension', '~> 1.0.0'
   pod 'MJExtension'
+  pod 'IQKeyboardManager', '~> 3.3.0'
 end
 
 target 'NineZeroProjectTests' do

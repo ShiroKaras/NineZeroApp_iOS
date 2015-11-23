@@ -12,6 +12,7 @@
 #import "HTLoginRootController.h"
 #import "HTCGIManager.h"
 #import "HTServiceManager.h"
+#import <IQKeyboardManager.h>
 #import "HTNavigationController.h"
 
 @interface AppDelegate ()
@@ -42,6 +43,8 @@
 //    [[[HTServiceManager sharedInstance] loginService] registerWithUser:user];
 //	[[[HTServiceManager sharedInstance] loginService] loginWithUser:user];
 	
+    [IQKeyboardManager sharedManager].enable = YES;
+    
     return YES;
 }
 
