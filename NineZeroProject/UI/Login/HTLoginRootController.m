@@ -31,9 +31,6 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap)];
     [self.view addGestureRecognizer:tapGesture];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
-    
-    self.registerButton.enabled = NO;
 }
 
 - (void)dealloc {
@@ -50,29 +47,11 @@
     self.navigationController.navigationBarHidden = NO;    
 }
 
-#pragma mark - UITextField
+#pragma mark - Subclass
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == self.userNameTextField) {
-        [self.userPasswordTextField becomeFirstResponder];
-        return YES;
-    }
-    if (textField == self.userNameTextField) {
-        if ([self isRegisterButtonValid]) {
-            [self registerButtonClicked:nil];
-            return YES;
-        }
-        return NO;
-    }
-    return YES;
-}
-
-- (void)textFieldTextDidChange:(NSNotification *)notification {
-    if ([self isRegisterButtonValid]) {
-        self.registerButton.enabled = YES;
-    } else {
-        self.registerButton.enabled = NO;
-    }
+- (void)nextButtonNeedToBeClicked {
+    [super nextButtonNeedToBeClicked];
+    [self registerButtonClicked:nil];
 }
 
 #pragma mark - Action
@@ -99,13 +78,5 @@
 }
 
 #pragma mark - Tool Method
-
-- (BOOL)isRegisterButtonValid {
-    if (self.userNameTextField.text.length != 0 &&
-        self.userPasswordTextField.text.length != 0) {
-        return YES;
-    }
-    return NO;
-}
 
 @end

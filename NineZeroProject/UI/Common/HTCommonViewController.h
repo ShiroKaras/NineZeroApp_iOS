@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HTCommonViewController : UIViewController
+@interface HTCommonViewController : UIViewController <UITextFieldDelegate>
+
+- (BOOL)isNextButtonValid;
+
+@end
+
+@interface HTCommonViewController (SubClass)
+
+- (void)nextButtonNeedToBeClicked;
 
 @end

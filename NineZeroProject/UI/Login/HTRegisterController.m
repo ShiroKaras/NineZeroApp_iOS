@@ -10,6 +10,7 @@
 #import "UIViewController+ImagePicker.h"
 #import <SMS_SDK/SMS_SDK.h>
 #import "HTLoginUser.h"
+#import "HTLog.h"
 
 @interface HTRegisterController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
@@ -33,13 +34,13 @@
     [super viewDidLoad];
     self.title = @"注册";
     [SMS_SDK getVerificationCodeBySMSWithPhone:_loginUser.user_mobile zone:@"86" result:^(SMS_SDKError *error) {
-        }];
+        DLog(@"%@",error);
+    }];
 }
 
 #pragma mark - Action
 
 - (IBAction)avatarButtonClicked:(UIButton *)sender {
-//	UIImagePickerController *imagePicker = [uipick]
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
 															 delegate:self
 													cancelButtonTitle:@"取消"
