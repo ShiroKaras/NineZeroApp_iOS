@@ -7,16 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HTNetworkDefine.h"
 
 @class HTLoginUser;
 
+NS_ASSUME_NONNULL_BEGIN
 /**
  *  该类只允许HTServiceManager创建一次，多次创建直接crash
  *  通过HTServiceManager拿到该类的唯一实例
  */
 @interface HTLoginService : NSObject
 
-- (void)registerWithUser:(HTLoginUser *)user;
+- (void)registerWithUser:(HTLoginUser *)user
+                 success:(HTLoginSuccessCallback)successCallback
+                   error:(HTLoginErrorCallback)errorCallback;
+
+- (void)loginWithUser:(HTLoginUser *)user
+              success:(HTLoginSuccessCallback)successCallback
+                error:(HTLoginErrorCallback)errorCallback;
 
 - (void)loginWithUser:(HTLoginUser *)user;
 
@@ -25,3 +33,4 @@
 - (void)resetPassword:(NSString *)password;
 
 @end
+NS_ASSUME_NONNULL_END

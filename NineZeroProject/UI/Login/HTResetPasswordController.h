@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTCommonViewController.h"
 
 @interface HTResetPasswordController : HTCommonViewController
 
