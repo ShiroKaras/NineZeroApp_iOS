@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTCommonViewController.h"
 
-@interface HTForgetPasswordController : UIViewController
+@interface HTForgetPasswordController : HTCommonViewController
 
 @end

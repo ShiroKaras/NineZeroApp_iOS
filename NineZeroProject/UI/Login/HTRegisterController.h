@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTCommonViewController.h"
 
-@interface HTRegisterController : UIViewController
+@interface HTRegisterController : HTCommonViewController
 
 @end

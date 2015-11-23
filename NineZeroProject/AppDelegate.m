@@ -43,7 +43,7 @@
 //    [[[HTServiceManager sharedInstance] loginService] registerWithUser:user];
 //	[[[HTServiceManager sharedInstance] loginService] loginWithUser:user];
 	
-    [IQKeyboardManager sharedManager].enable = YES;
+//    [IQKeyboardManager sharedManager].enable = YES;
     
     return YES;
 }

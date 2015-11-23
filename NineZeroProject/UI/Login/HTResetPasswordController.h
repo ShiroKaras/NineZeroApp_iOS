@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HTResetPasswordController : UIViewController
+@interface HTResetPasswordController : HTCommonViewController
 
 @end

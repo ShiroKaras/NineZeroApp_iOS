@@ -7,6 +7,7 @@ target 'NineZeroProject' do
   pod 'AFNetworking', '~> 2.6'
   pod 'SDWebImage', '~> 3.7.3'
   pod 'YTKKeyValueStore'
+  pod 'YTKNetwork'
   pod 'Qiniu', "~> 7.0"
   pod 'JPush', '~> 1.8.5'
   pod 'SMS-For-iOS', '~> 1.0.9'

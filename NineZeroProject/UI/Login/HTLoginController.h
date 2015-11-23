@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTCommonViewController.h"
 
-@interface HTLoginController : UIViewController
+@interface HTLoginController : HTCommonViewController
 
 @end
