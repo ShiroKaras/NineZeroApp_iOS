@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HTLoginController">
             <connections>
+                <outlet property="passwordTextField" destination="awN-dL-bSy" id="HQy-RQ-UR7"/>
+                <outlet property="userNameTextField" destination="zQ8-AN-UGQ" id="daw-nY-ZF0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -36,8 +38,8 @@
                                 <constraint firstAttribute="height" constant="1" id="gWM-Jz-oyp"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zQ8-AN-UGQ">
-                            <rect key="frame" x="23" y="13" width="554" height="25"/>
+                        <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zQ8-AN-UGQ">
+                            <rect key="frame" x="23" y="11" width="554" height="25"/>
                             <animations/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -115,6 +117,9 @@
                     <state key="normal" image="ico_btnanchor_right">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="didClickLoginButton:" destination="-1" eventType="touchUpInside" id="xXJ-Is-z8F"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZW-MO-gLQ">
                     <rect key="frame" x="502" y="175" width="90" height="30"/>

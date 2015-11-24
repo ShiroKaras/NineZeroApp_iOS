@@ -16,6 +16,9 @@ extern NSString *const kStorageTableLoginUserInfoKey;
 
 #pragma mark - Login
 
+/** login_user 登录用户的相关信息 */
+extern NSString *const kStorageLoginUserKey;
+
 /** user_id */
 extern NSString *const kStorageUserIdKey;
 

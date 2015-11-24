@@ -8,9 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class HTLoginUser;
+
 @interface HTStorageManager : NSObject
 
 + (instancetype)sharedInstance;
+
+- (void)updateLoginUser:(HTLoginUser *)loginUser;
+- (HTLoginUser *)getLoginUser;
 
 // user_id
 - (void)updateUserID:(NSString *)userID;

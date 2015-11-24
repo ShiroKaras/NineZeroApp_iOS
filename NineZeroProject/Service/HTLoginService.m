@@ -35,6 +35,7 @@
             NSDictionary *dataDict = responseObject[@"data"];
             [[HTStorageManager sharedInstance] updateUserID:dataDict[@"user_id"]];
             [[HTStorageManager sharedInstance] updatePwdSalt:dataDict[@"user_salt"]];
+            [[HTStorageManager sharedInstance] updateLoginUser:user];
         }
         successCallback(responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -44,6 +45,7 @@
 }
 
 - (void)loginWithUser:(HTLoginUser *)user success:(HTLoginSuccessCallback)successCallback error:(HTLoginErrorCallback)errorCallback {
+    
     NSDictionary *para = @{
                            @"user_name" : user.user_name,
                            @"user_password" : user.user_password

@@ -8,6 +8,7 @@
 
 #import "HTStorageManager.h"
 #import "HTStorageDefine.h"
+#import "HTLoginUser.h"
 #import <YTKKeyValueStore.h>
 
 @interface HTStorageManager ()
@@ -39,6 +40,14 @@
 }
 
 #pragma mark - Public Method
+
+- (void)updateLoginUser:(HTLoginUser *)loginUser {
+    [_storageService putObject:loginUser withId:kStorageLoginUserKey intoTable:kStorageTableLoginUserInfoKey];
+}
+
+- (HTLoginUser *)getLoginUser {
+    return [_storageService getObjectById:kStorageLoginUserKey fromTable:kStorageTableLoginUserInfoKey];
+}
 
 - (void)updateUserID:(NSString *)userID {
     [_storageService putString:userID withId:kStorageUserIdKey intoTable:kStorageTableLoginUserInfoKey];
