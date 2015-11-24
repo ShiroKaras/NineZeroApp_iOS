@@ -15,8 +15,6 @@
 
 + (instancetype)sharedInstance;
 
-- (YTKKeyValueStore *)storageService;
-
 /** loginService，负责登录相关流程 */
 - (HTLoginService *)loginService;
 

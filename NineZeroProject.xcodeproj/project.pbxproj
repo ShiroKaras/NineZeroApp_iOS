@@ -29,7 +29,7 @@
 		17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F831BEFB109000B2BFA /* libstdc++.tbd */; };
 		176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 176C8FC61C00E88B00BEC4AB /* UIViewController+ImagePicker.m */; };
 		17713D3D1C04CACB00DB8BB0 /* HTStorageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17713D3C1C04CACB00DB8BB0 /* HTStorageModel.m */; };
-		17713D401C04D6AD00DB8BB0 /* HTStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17713D3F1C04D6AD00DB8BB0 /* HTStorageManager.m */; };
+		17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17713D3F1C04D6AD00DB8BB0 /* HTStorageManager.m */; };
 		1777D36A1BE798F400AC0203 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D3691BE798F400AC0203 /* main.m */; };
 		1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D36C1BE798F400AC0203 /* AppDelegate.m */; };
 		1777D3751BE798F400AC0203 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1777D3741BE798F400AC0203 /* Assets.xcassets */; };
@@ -595,6 +595,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */,
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
 				17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */,
 				17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */,
@@ -612,7 +613,6 @@
 				26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
-				17713D401C04D6AD00DB8BB0 /* HTStorageManager.m in Sources */,
 				17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */,
 				17A2772F1BF79ED500E46670 /* HTLoginUser.m in Sources */,
 			);

@@ -28,21 +28,11 @@
 - (instancetype)init {
     if (self = [super init]) {
         _loginService = [[HTLoginService alloc] init];
-        [self createStorageServiceIfNeed];
     }
     return self;
 }
 
 #pragma mark - Publice Method
-
-- (void)createStorageServiceIfNeed {
-    _storageService = [[YTKKeyValueStore alloc] initDBWithName:kStorageDBNameKey];
-    [_storageService createTableWithName:kStorageTableLoginUserInfoKey];
-}
-
-- (YTKKeyValueStore *)storageService {
-    return _storageService;
-}
 
 - (HTLoginService *)loginService {
     return _loginService;

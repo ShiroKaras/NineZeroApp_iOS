@@ -10,6 +10,9 @@
 #import "HTStorageDefine.h"
 #import <YTKKeyValueStore.h>
 
+@interface HTStorageManager ()
+@end
+
 @implementation HTStorageManager {
     YTKKeyValueStore *_storageService;
 }
