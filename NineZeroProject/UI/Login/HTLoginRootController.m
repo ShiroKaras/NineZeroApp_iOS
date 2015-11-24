@@ -30,7 +30,6 @@
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap)];
     [self.view addGestureRecognizer:tapGesture];
-    
 }
 
 - (void)dealloc {
@@ -45,6 +44,15 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBarHidden = NO;    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+#ifdef DEBUG
+    self.userNameTextField.text = [NSString stringWithFormat:@"%ld", (arc4random() % 1000000000) + 10000000000];
+    self.userPasswordTextField.text = @"123";
+    self.registerButton.enabled = YES;
+#endif
 }
 
 #pragma mark - Subclass

@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HTRegisterController">
             <connections>
                 <outlet property="nickTextField" destination="MLA-d0-z0h" id="uvI-ZS-kD0"/>
+                <outlet property="sendAgainButton" destination="nNo-gQ-I7a" id="r9B-Ci-HUW"/>
                 <outlet property="verifyTextField" destination="8ET-ET-tdn" id="uem-2u-9P4"/>
                 <outlet property="view" destination="FQm-ur-f52" id="2MR-4c-S43"/>
             </connections>
@@ -64,7 +65,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="246" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNo-gQ-I7a">
+                        <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="246" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNo-gQ-I7a" customClass="HTLoginButton">
                             <rect key="frame" x="231" y="11" width="136" height="30"/>
                             <animations/>
                             <color key="backgroundColor" red="0.14117647058823529" green="0.8666666666666667" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
@@ -80,6 +81,9 @@
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="didClickSendAgainButton:" destination="-1" eventType="touchUpInside" id="zO3-OO-uzX"/>
+                            </connections>
                         </button>
                     </subviews>
                     <animations/>
@@ -132,7 +136,7 @@
                         <constraint firstItem="ZpG-9B-shk" firstAttribute="leading" secondItem="0xG-or-RFb" secondAttribute="leading" id="tq1-0S-2Pk"/>
                     </constraints>
                 </view>
-                <button opaque="NO" tag="300" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEv-B1-G6N" userLabel="SureButton">
+                <button opaque="NO" tag="300" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEv-B1-G6N" userLabel="SureButton" customClass="HTLoginButton">
                     <rect key="frame" x="0.0" y="246" width="375" height="50"/>
                     <animations/>
                     <color key="backgroundColor" red="0.14117647059999999" green="0.86666666670000003" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>

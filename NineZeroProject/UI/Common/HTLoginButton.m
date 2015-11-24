@@ -22,4 +22,13 @@
     }
 }
 
+- (void)showNextTipImage:(BOOL)show {
+    if (show == YES) {
+        self.titleLabel.text = @"";
+        [self setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
+    } else {
+        [self setImage:nil forState:UIControlStateNormal];
+    }
+}
+
 @end

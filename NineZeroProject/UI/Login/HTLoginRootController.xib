@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="img_signup_logo" translatesAutoresizingMaskIntoConstraints="NO" id="kOp-fE-le8">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_signup_logo" translatesAutoresizingMaskIntoConstraints="NO" id="kOp-fE-le8">
                     <rect key="frame" x="100" y="70" width="175" height="98"/>
                     <animations/>
                 </imageView>
@@ -27,7 +27,7 @@
                     <rect key="frame" x="322" y="92" width="45" height="67"/>
                     <animations/>
                 </imageView>
-                <button opaque="NO" tag="300" contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAo-EP-LTN" userLabel="SureButton" customClass="HTLoginButton">
+                <button opaque="NO" tag="300" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAo-EP-LTN" userLabel="SureButton" customClass="HTLoginButton">
                     <rect key="frame" x="0.0" y="310" width="375" height="50"/>
                     <animations/>
                     <color key="backgroundColor" red="0.14117647059999999" green="0.86666666670000003" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -42,7 +42,7 @@
                         <action selector="registerButtonClicked:" destination="-1" eventType="touchUpInside" id="sRy-Hm-8Og"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="nCL-V8-2Gm" userLabel="userNameView">
+                <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="nCL-V8-2Gm" userLabel="userNameView">
                     <rect key="frame" x="0.0" y="199" width="375" height="51"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zkH-Iy-mbJ" userLabel="separator">
@@ -89,25 +89,25 @@
                         <constraint firstItem="dcN-87-LFH" firstAttribute="leading" secondItem="nCL-V8-2Gm" secondAttribute="leading" id="xez-0k-NYC"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKj-pQ-4mv" userLabel="wechat">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKj-pQ-4mv" userLabel="wechat">
                     <rect key="frame" x="79" y="436" width="38" height="38"/>
                     <animations/>
                     <state key="normal" image="btn_signup_wechat"/>
                     <state key="highlighted" image="btn_signup_wechat_highlight"/>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bw-vK-ZTK" userLabel="qq">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bw-vK-ZTK" userLabel="qq">
                     <rect key="frame" x="168" y="436" width="38" height="38"/>
                     <animations/>
                     <state key="normal" image="btn_signup_qq"/>
                     <state key="highlighted" image="btn_signup_qq_highlight"/>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9C-AH-epn" userLabel="weibo">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9C-AH-epn" userLabel="weibo">
                     <rect key="frame" x="257" y="436" width="38" height="38"/>
                     <animations/>
                     <state key="normal" image="btn_signup_weibo"/>
                     <state key="highlighted" image="btn_signup_weibo_highlight"/>
                 </button>
-                <view contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="riS-rR-xha" userLabel="userPswView">
+                <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="riS-rR-xha" userLabel="userPswView">
                     <rect key="frame" x="0.0" y="250" width="375" height="51"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwk-UL-VpC" userLabel="separator">
@@ -143,7 +143,7 @@
                         <constraint firstItem="iwk-UL-VpC" firstAttribute="leading" secondItem="riS-rR-xha" secondAttribute="leading" id="Ka6-TN-xDe"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2K-Bt-Fji">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2K-Bt-Fji">
                     <rect key="frame" x="327" y="374" width="30" height="30"/>
                     <animations/>
                     <state key="normal" title="登录">

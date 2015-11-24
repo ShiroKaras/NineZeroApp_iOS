@@ -10,4 +10,10 @@
 
 @interface HTLoginButton : UIButton
 
+/**
+ *  展示箭头，隐藏掉文字
+ *  默认展示文字，隐藏箭头
+ */
+- (void)showNextTipImage:(BOOL)show;
+
 @end
