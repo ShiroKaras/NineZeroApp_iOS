@@ -8,8 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-// DB名字
+/** DB name */
 extern NSString *const kStorageDBNameKey;
 
-// 存储用户数据的表
+/** 存储用户数据的表 */
 extern NSString *const kStorageTableLoginUserInfoKey;
+
+#pragma mark - Login
+
+/** user_id */
+extern NSString *const kStorageUserIdKey;
+
+/** 加密salt */
+extern NSString *const kStorageSaltKey;

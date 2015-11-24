@@ -63,8 +63,8 @@
     _loginUser.user_email = @"408895175@qq.com";
     _loginUser.user_avatar = @"test";
     _loginUser.user_area_id = @"1";
+    // end
     [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser success:^(id responseObject) {
-        
     } error:^(NSString *errorMessage) {
         
     }];

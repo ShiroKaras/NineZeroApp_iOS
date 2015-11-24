@@ -31,6 +31,7 @@
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseRegisterCGIKey] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
         successCallback(responseObject);
+        
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         DLog(@"%@",error);
         errorCallback([NSString stringWithFormat:@"%@", error]);

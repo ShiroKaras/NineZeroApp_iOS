@@ -28,6 +28,7 @@
 		17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F811BEFB103000B2BFA /* JavaScriptCore.framework */; };
 		17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F831BEFB109000B2BFA /* libstdc++.tbd */; };
 		176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 176C8FC61C00E88B00BEC4AB /* UIViewController+ImagePicker.m */; };
+		17713D3D1C04CACB00DB8BB0 /* HTStorageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17713D3C1C04CACB00DB8BB0 /* HTStorageModel.m */; };
 		1777D36A1BE798F400AC0203 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D3691BE798F400AC0203 /* main.m */; };
 		1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D36C1BE798F400AC0203 /* AppDelegate.m */; };
 		1777D3751BE798F400AC0203 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1777D3741BE798F400AC0203 /* Assets.xcassets */; };
@@ -97,6 +98,8 @@
 		17617F831BEFB109000B2BFA /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		176C8FC51C00E88B00BEC4AB /* UIViewController+ImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ImagePicker.h"; sourceTree = "<group>"; };
 		176C8FC61C00E88B00BEC4AB /* UIViewController+ImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ImagePicker.m"; sourceTree = "<group>"; };
+		17713D3B1C04CACB00DB8BB0 /* HTStorageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTStorageModel.h; sourceTree = "<group>"; };
+		17713D3C1C04CACB00DB8BB0 /* HTStorageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTStorageModel.m; sourceTree = "<group>"; };
 		1777D3651BE798F400AC0203 /* NineZeroProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NineZeroProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1777D3691BE798F400AC0203 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1777D36B1BE798F400AC0203 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -196,6 +199,8 @@
 			children = (
 				1721D7261BEFBE1400498304 /* HTStorageDefine.h */,
 				1721D7271BEFBE1400498304 /* HTStorageDefine.m */,
+				17713D3B1C04CACB00DB8BB0 /* HTStorageModel.h */,
+				17713D3C1C04CACB00DB8BB0 /* HTStorageModel.m */,
 			);
 			name = Storage;
 			path = NineZeroProject/Storage;
@@ -593,6 +598,7 @@
 				176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */,
 				26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
+				17713D3D1C04CACB00DB8BB0 /* HTStorageModel.m in Sources */,
 				26973B221C006A6900160D25 /* HTLoginController.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,

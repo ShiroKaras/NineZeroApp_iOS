@@ -23,8 +23,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [[HTServiceManager sharedInstance] createStorageServiceIfNeed];
-    
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerSMSService];
     
