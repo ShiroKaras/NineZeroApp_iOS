@@ -39,13 +39,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"注册";
-    
-    _sendAgainButton.enabled = NO;
-    _secondsToCountDown = 180;
-    
-    [self scheduleTimerCountDown];
-    
-//    [self getVerificationCode];
 }
 
 #pragma mark - Subclass
@@ -54,14 +47,11 @@
     [self nextButtonClicked:nil];
 }
 
-#pragma mark - Action
-
-- (IBAction)didClickSendAgainButton:(UIButton *)sender {
-    [self getVerificationCode];
-    _secondsToCountDown = 180;
-    [self scheduleTimerCountDown];
-    _sendAgainButton.enabled = NO;
+- (BOOL)needScheduleVerifyTimer {
+    return YES;
 }
+
+#pragma mark - Action
 
 - (IBAction)avatarButtonClicked:(UIButton *)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
@@ -109,25 +99,6 @@
 
 #pragma mark - Tool Method
 
-- (void)getVerificationCode {
-    [SMS_SDK getVerificationCodeBySMSWithPhone:_loginUser.user_mobile zone:@"86" result:^(SMS_SDKError *error) {
-//        DLog(@"%@", [error description]);
-    }];
-}
 
-- (void)scheduleTimerCountDown {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleTimerCountDown) object:nil];
-    [self performSelector:@selector(scheduleTimerCountDown) withObject:nil afterDelay:1.0];
-    _secondsToCountDown--;
-    if (_secondsToCountDown <= 0) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleTimerCountDown) object:nil];
-        [_sendAgainButton setTitle:@"再发一次" forState:UIControlStateNormal];
-        _sendAgainButton.enabled = YES;
-    } else {
-        [UIView setAnimationsEnabled:NO];
-        [_sendAgainButton setTitle:[NSString stringWithFormat:@"再发一次(%ld)", _secondsToCountDown] forState:UIControlStateNormal];
-        [_sendAgainButton layoutIfNeeded];
-        [UIView setAnimationsEnabled:YES];
-    }
-}
+
 @end

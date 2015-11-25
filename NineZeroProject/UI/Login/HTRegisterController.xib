@@ -81,9 +81,6 @@
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="didClickSendAgainButton:" destination="-1" eventType="touchUpInside" id="zO3-OO-uzX"/>
-                            </connections>
                         </button>
                     </subviews>
                     <animations/>

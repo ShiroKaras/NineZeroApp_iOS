@@ -16,6 +16,11 @@
 
 @interface HTCommonViewController (SubClass)
 
+// 验证码倒计时
+- (BOOL)needScheduleVerifyTimer;
+// 下一步操作应该进行
 - (void)nextButtonNeedToBeClicked;
+// 申请验证码
+- (void)needGetVerificationCode;
 
 @end
