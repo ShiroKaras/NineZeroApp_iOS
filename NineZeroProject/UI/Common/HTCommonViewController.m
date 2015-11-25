@@ -35,7 +35,7 @@
     _nextButton.enabled = NO;
     _verifyButton.enabled = NO;
     if ([self needScheduleVerifyTimer]) {
-        [self getVerificationCode];
+        [self needGetVerificationCode];
         _secondsToCountDown = 180;
         [self scheduleTimerCountDown];
     }
@@ -58,7 +58,7 @@
 #pragma mark - Action
 
 - (void)didClickVerifyButton {
-    [self getVerificationCode];
+    [self needGetVerificationCode];
     _secondsToCountDown = 180;
     _verifyButton.enabled = NO;
 }
@@ -112,13 +112,6 @@
         [_verifyButton layoutIfNeeded];
         [UIView setAnimationsEnabled:YES];
     }
-}
-
-#pragma mark - Tool Method
-
-- (void)getVerificationCode {
-    [SMS_SDK getVerificationCodeBySMSWithPhone:_firstTextField.text zone:@"86" result:^(SMS_SDKError *error) {
-    }];
 }
 
 @end

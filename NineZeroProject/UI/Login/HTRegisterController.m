@@ -51,6 +51,11 @@
     return YES;
 }
 
+- (void)needGetVerificationCode {
+    [SMS_SDK getVerificationCodeBySMSWithPhone:_loginUser.user_mobile zone:@"86" result:^(SMS_SDKError *error) {
+    }];
+}
+
 #pragma mark - Action
 
 - (IBAction)avatarButtonClicked:(UIButton *)sender {
@@ -96,9 +101,5 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
 	
 }
-
-#pragma mark - Tool Method
-
-
 
 @end
