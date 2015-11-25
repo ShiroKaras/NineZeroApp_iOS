@@ -8,11 +8,14 @@
 
 #import "HTLoginService.h"
 #import "HTLoginUser.h"
-#import <AFNetworking.h>
 #import "HTCGIManager.h"
 #import "MJExtension.h"
 #import "HTLog.h"
 #import "HTStorageManager.h"
+
+#import "NSString+Utility.h"
+
+#import <AFNetworking.h>
 
 @implementation HTLoginService
 
@@ -31,10 +34,10 @@
     NSDictionary *parameters = [user keyValues];
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseRegisterCGIKey] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
-        if ([responseObject[@"result"] isEqualToString:@"0"]) {
+        if ([responseObject[@"result"] integerValue] == 0) {
             NSDictionary *dataDict = responseObject[@"data"];
-            [[HTStorageManager sharedInstance] updateUserID:dataDict[@"user_id"]];
-            [[HTStorageManager sharedInstance] updatePwdSalt:dataDict[@"user_salt"]];
+            [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
+//            [[HTStorageManager sharedInstance] updatePwdSalt:[NSString stringWithFormat:@"%@", dataDict[@"user_salt"]]];
             [[HTStorageManager sharedInstance] updateLoginUser:user];
         }
         successCallback(responseObject);
@@ -45,18 +48,22 @@
 }
 
 - (void)loginWithUser:(HTLoginUser *)user success:(HTLoginSuccessCallback)successCallback error:(HTLoginErrorCallback)errorCallback {
-    
     NSDictionary *para = @{
-                           @"user_name" : user.user_name,
+                           @"user_mobile" : user.user_mobile,
                            @"user_password" : user.user_password
                            };
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseLoginCGIKey] parameters:para success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
         successCallback(responseObject);
+        [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", responseObject[@"data"][@"user_id"]]];
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         DLog(@"%@", error);
         errorCallback([NSString stringWithFormat:@"%@", error]);
     }];
+}
+
+- (HTLoginUser *)loginUser {
+    return [[HTStorageManager sharedInstance] getLoginUser];
 }
 
 - (void)loginWithName:(NSString *)name password:(NSString *)password {

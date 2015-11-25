@@ -12,6 +12,7 @@
 #import "HTLoginController.h"
 #import <MBProgressHUD+BWMExtension.h>
 #import "HTLoginUser.h"
+#import "NSString+Utility.h"
 
 @interface HTLoginRootController () <UITextFieldDelegate>
 

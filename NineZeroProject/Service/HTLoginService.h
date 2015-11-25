@@ -28,5 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)resetPassword:(NSString *)password;
 
+- (HTLoginUser *)loginUser;
+
 @end
 NS_ASSUME_NONNULL_END

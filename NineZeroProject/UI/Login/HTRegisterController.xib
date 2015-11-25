@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fg-9J-AxF">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fg-9J-AxF">
                     <rect key="frame" x="147" y="35" width="80" height="80"/>
                     <animations/>
                     <state key="normal" image="img_profile_photo_default"/>
@@ -26,11 +26,11 @@
                         <action selector="avatarButtonClicked:" destination="-1" eventType="touchUpInside" id="p4U-Y8-5ra"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_profile_photo_camera" translatesAutoresizingMaskIntoConstraints="NO" id="TNK-Ov-s5l">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="btn_profile_photo_camera" translatesAutoresizingMaskIntoConstraints="NO" id="TNK-Ov-s5l">
                     <rect key="frame" x="202" y="90" width="25" height="25"/>
                     <animations/>
                 </imageView>
-                <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="YXe-oQ-8hS" userLabel="userNameView">
+                <view contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="YXe-oQ-8hS" userLabel="userNameView">
                     <rect key="frame" x="0.0" y="135" width="375" height="51"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="00u-9q-a4f" userLabel="separator">
@@ -103,7 +103,7 @@
                         <constraint firstAttribute="trailing" secondItem="nNo-gQ-I7a" secondAttribute="trailing" constant="8" id="xUM-B8-Osg"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="0xG-or-RFb" userLabel="userPswView">
+                <view contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="0xG-or-RFb" userLabel="userPswView">
                     <rect key="frame" x="0.0" y="186" width="375" height="51"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZpG-9B-shk" userLabel="separator">
@@ -136,7 +136,7 @@
                         <constraint firstItem="ZpG-9B-shk" firstAttribute="leading" secondItem="0xG-or-RFb" secondAttribute="leading" id="tq1-0S-2Pk"/>
                     </constraints>
                 </view>
-                <button opaque="NO" tag="300" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEv-B1-G6N" userLabel="SureButton" customClass="HTLoginButton">
+                <button opaque="NO" tag="300" contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEv-B1-G6N" userLabel="SureButton" customClass="HTLoginButton">
                     <rect key="frame" x="0.0" y="246" width="375" height="50"/>
                     <animations/>
                     <color key="backgroundColor" red="0.14117647059999999" green="0.86666666670000003" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -150,14 +150,14 @@
                         <action selector="nextButtonClicked:" destination="-1" eventType="touchUpInside" id="R69-ME-Js8"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehI-dz-SKT">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehI-dz-SKT">
                     <rect key="frame" x="82" y="311" width="210" height="30"/>
                     <animations/>
                     <state key="normal" title="点击下一步表示你同意用户协议">
                         <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_signup_deco" translatesAutoresizingMaskIntoConstraints="NO" id="rX0-XG-z4D">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="img_signup_deco" translatesAutoresizingMaskIntoConstraints="NO" id="rX0-XG-z4D">
                     <rect key="frame" x="12" y="311" width="44" height="34"/>
                     <animations/>
                 </imageView>

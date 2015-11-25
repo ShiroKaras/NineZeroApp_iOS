@@ -13,6 +13,8 @@
 #import "HTLog.h"
 #import "HTLoginButton.h"
 #import "HTServiceManager.h"
+#import "HTLoginController.h"
+#import "NSString+Utility.h"
 
 @interface HTRegisterController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
@@ -73,14 +75,18 @@
 - (IBAction)nextButtonClicked:(UIButton *)sender {
     _loginUser.code = self.verifyTextField.text;
     _loginUser.user_name = self.nickTextField.text;
+    // 登录前混淆加密
+    _loginUser.user_password = [[_loginUser.user_password confusedWithSalt:_loginUser.user_mobile] sha256];
     // TODO:这些值不能临时填
     _loginUser.user_email = @"408895175@qq.com";
     _loginUser.user_avatar = @"test";
     _loginUser.user_area_id = @"1";
     // end
     [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser success:^(id responseObject) {
+        HTLoginController *loginController = [[HTLoginController alloc] init];
+        [self.navigationController pushViewController:loginController animated:YES];
     } error:^(NSString *errorMessage) {
-        
+
     }];
 }
 

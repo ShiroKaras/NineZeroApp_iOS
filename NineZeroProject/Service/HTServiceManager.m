@@ -13,7 +13,6 @@
 
 @implementation HTServiceManager {
     HTLoginService *_loginService;
-    YTKKeyValueStore *_storageService;
 }
 
 + (instancetype)sharedInstance {
