@@ -22,6 +22,12 @@
     self.title = @"忘记密码";
 }
 
+#pragma mark - Subclass
+
+- (BOOL)needScheduleVerifyTimer {
+    return YES;
+}
+
 #pragma mark - Action
 
 - (IBAction)didClickNextButton:(UIButton *)sender {

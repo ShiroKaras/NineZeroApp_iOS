@@ -25,6 +25,7 @@
     _nextButton = [self.view viewWithTag:300];
     _verifyButton = [self.view viewWithTag:400];
     
+    
     [_verifyButton addTarget:self action:@selector(didClickVerifyButton) forControlEvents:UIControlEventTouchUpInside];
     
     _firstTextField.delegate = self;
@@ -53,6 +54,10 @@
 
 - (BOOL)needScheduleVerifyTimer {
     return NO;
+}
+
+- (void)needGetVerificationCode {
+    ;
 }
 
 #pragma mark - Action
