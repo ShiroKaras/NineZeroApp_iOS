@@ -28,7 +28,6 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - HappyDNS (0.2.1)
-  - IQKeyboardManager (3.3.0)
   - JPush (1.8.5)
   - MBProgressHUD (0.9.1)
   - MBProgressHUD+BWMExtension (1.0.0):
@@ -49,7 +48,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6)
-  - IQKeyboardManager (~> 3.3.0)
   - JPush (~> 1.8.5)
   - MBProgressHUD+BWMExtension (~> 1.0.0)
   - MJExtension
@@ -64,7 +62,6 @@ SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   HappyDNS: 8eb3c929ee6143eb56bfddfc9e6052ca9429699c
-  IQKeyboardManager: c87b6600cbfca89d1fe6e8052d936e6c20f65375
   JPush: ba06a6f866ce11f11c15149e7fa67488a23eec87
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MBProgressHUD+BWMExtension: dd1dff033c1802edf7cb613c5643db5f090575bd

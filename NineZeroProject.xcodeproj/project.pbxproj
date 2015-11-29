@@ -38,9 +38,9 @@
 		1777D38E1BE798F500AC0203 /* NineZeroProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D38D1BE798F500AC0203 /* NineZeroProjectUITests.m */; };
 		17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A277271BF79C8000E46670 /* HTServiceManager.m */; };
 		17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A2772A1BF79CA900E46670 /* HTLoginService.m */; };
-		17A2772F1BF79ED500E46670 /* HTLoginUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A2772E1BF79ED500E46670 /* HTLoginUser.m */; };
 		17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A47E8B1C037F3E00BEC1DD /* HTCommonViewController.m */; };
 		17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A47E8F1C03869000BEC1DD /* HTLoginButton.m */; };
+		17DB9CF51C0B4C2600A4D0EF /* HTLoginUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DB9CF41C0B4C2600A4D0EF /* HTLoginUser.m */; };
 		26973B021C005ED900160D25 /* HTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B011C005ED900160D25 /* HTNavigationController.m */; };
 		26973B051C005F9800160D25 /* HTRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B041C005F9800160D25 /* HTRegisterController.m */; };
 		26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B061C005FBF00160D25 /* HTRegisterController.xib */; };
@@ -120,14 +120,14 @@
 		17A277271BF79C8000E46670 /* HTServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTServiceManager.m; sourceTree = "<group>"; };
 		17A277291BF79CA900E46670 /* HTLoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginService.h; sourceTree = "<group>"; };
 		17A2772A1BF79CA900E46670 /* HTLoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginService.m; sourceTree = "<group>"; };
-		17A2772D1BF79ED500E46670 /* HTLoginUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginUser.h; sourceTree = "<group>"; };
-		17A2772E1BF79ED500E46670 /* HTLoginUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginUser.m; sourceTree = "<group>"; };
 		17A277301BF8F8F400E46670 /* HTLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLog.h; sourceTree = "<group>"; };
 		17A47E8A1C037F3E00BEC1DD /* HTCommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCommonViewController.h; sourceTree = "<group>"; };
 		17A47E8B1C037F3E00BEC1DD /* HTCommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCommonViewController.m; sourceTree = "<group>"; };
 		17A47E8D1C03815F00BEC1DD /* HTNetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNetworkDefine.h; sourceTree = "<group>"; };
 		17A47E8E1C03869000BEC1DD /* HTLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTLoginButton.h; path = ../Common/HTLoginButton.h; sourceTree = "<group>"; };
 		17A47E8F1C03869000BEC1DD /* HTLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTLoginButton.m; path = ../Common/HTLoginButton.m; sourceTree = "<group>"; };
+		17DB9CF31C0B4C2600A4D0EF /* HTLoginUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginUser.h; sourceTree = "<group>"; };
+		17DB9CF41C0B4C2600A4D0EF /* HTLoginUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginUser.m; sourceTree = "<group>"; };
 		26973B001C005ED900160D25 /* HTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNavigationController.h; sourceTree = "<group>"; };
 		26973B011C005ED900160D25 /* HTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNavigationController.m; sourceTree = "<group>"; };
 		26973B031C005F9800160D25 /* HTRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRegisterController.h; sourceTree = "<group>"; };
@@ -263,6 +263,7 @@
 			children = (
 				1777D3671BE798F400AC0203 /* NineZeroProject */,
 				1721D7191BEFB78B00498304 /* UI */,
+				17DB9CF21C0B4C2600A4D0EF /* Model */,
 				17A277251BF79C5F00E46670 /* Service */,
 				1721D7171BEFB77E00498304 /* Network */,
 				1721D7181BEFB77E00498304 /* Storage */,
@@ -288,7 +289,6 @@
 				1777D36B1BE798F400AC0203 /* AppDelegate.h */,
 				1777D36C1BE798F400AC0203 /* AppDelegate.m */,
 				1777D3741BE798F400AC0203 /* Assets.xcassets */,
-				26973AFD1C0059DB00160D25 /* New Group */,
 				1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */,
 				1777D3791BE798F400AC0203 /* Info.plist */,
 				1777D3681BE798F400AC0203 /* Supporting Files */,
@@ -325,7 +325,6 @@
 		17A277251BF79C5F00E46670 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				17A2772C1BF79EC400E46670 /* Model */,
 				17A277261BF79C8000E46670 /* HTServiceManager.h */,
 				17A277271BF79C8000E46670 /* HTServiceManager.m */,
 				17A277291BF79CA900E46670 /* HTLoginService.h */,
@@ -335,20 +334,14 @@
 			path = NineZeroProject/Service;
 			sourceTree = "<group>";
 		};
-		17A2772C1BF79EC400E46670 /* Model */ = {
+		17DB9CF21C0B4C2600A4D0EF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				17A2772D1BF79ED500E46670 /* HTLoginUser.h */,
-				17A2772E1BF79ED500E46670 /* HTLoginUser.m */,
+				17DB9CF31C0B4C2600A4D0EF /* HTLoginUser.h */,
+				17DB9CF41C0B4C2600A4D0EF /* HTLoginUser.m */,
 			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		26973AFD1C0059DB00160D25 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
+			name = Model;
+			path = NineZeroProject/Model;
 			sourceTree = "<group>";
 		};
 		26973AFF1C005ECF00160D25 /* Common */ = {
@@ -611,10 +604,10 @@
 				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
 				26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */,
+				17DB9CF51C0B4C2600A4D0EF /* HTLoginUser.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
 				17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */,
-				17A2772F1BF79ED500E46670 /* HTLoginUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

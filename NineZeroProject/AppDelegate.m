@@ -12,7 +12,6 @@
 #import "HTLoginRootController.h"
 #import "HTCGIManager.h"
 #import "HTServiceManager.h"
-#import <IQKeyboardManager.h>
 #import "HTNavigationController.h"
 
 @interface AppDelegate ()
@@ -27,13 +26,7 @@
     [self registerSMSService];
     
     [self createWindowAndVisible];
-//    
-//    HTLoginUser *user = [[HTLoginUser alloc] init];
-//    [[[HTServiceManager sharedInstance] loginService] loginWithUser:user success:^(id responseObject) {
-//        
-//    } error:^(NSString *errorMessage) {
-//        
-//    }];
+    
     return YES;
 }
 
