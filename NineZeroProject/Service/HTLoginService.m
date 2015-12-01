@@ -62,16 +62,26 @@
     }];
 }
 
-- (HTLoginUser *)loginUser {
-    return [[HTStorageManager sharedInstance] getLoginUser];
-}
-
-- (void)loginWithName:(NSString *)name password:(NSString *)password {
-
+- (void)getQiniuTokenWithCompletion:(HTGetTokenCallback)callback {
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQiniuTokenCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        callback([NSString stringWithFormat:@"%@", responseObject[@"data"]]);
+        [[HTStorageManager sharedInstance] updateQiniuToken:responseObject[@"data"]];
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(nil);
+    }];
 }
 
 - (void)resetPassword:(NSString *)password {
     
+}
+
+- (HTLoginUser *)loginUser {
+    return [[HTStorageManager sharedInstance] getLoginUser];
+}
+
+- (NSString *)qiniuToken {
+    return [[HTStorageManager sharedInstance] getQiniuToken];
 }
 
 @end

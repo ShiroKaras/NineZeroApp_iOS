@@ -13,6 +13,7 @@
 #import "HTCGIManager.h"
 #import "HTServiceManager.h"
 #import "HTNavigationController.h"
+#import <Qiniu/QiniuSDK.h>
 
 @interface AppDelegate ()
 
@@ -24,6 +25,7 @@
     
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerSMSService];
+    [self registerQiniuService];
     
     [self createWindowAndVisible];
     
@@ -51,6 +53,16 @@
     HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
+}
+
+#pragma mark - QiNiu
+
+- (void)registerQiniuService {
+    [[[HTServiceManager sharedInstance] loginService] getQiniuTokenWithCompletion:^(NSString *token) {
+        if (token.length != 0 ) {
+            
+        }
+    }];
 }
 
 #pragma mark - JPush

@@ -25,4 +25,8 @@
 - (void)updatePwdSalt:(NSString *)salt;
 - (NSString *)getPwdSalt;
 
+// 七牛Token
+- (void)updateQiniuToken:(NSString *)token;
+- (NSString *)getQiniuToken;
+
 @end

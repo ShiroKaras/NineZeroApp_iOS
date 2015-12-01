@@ -67,4 +67,12 @@
     return [_storageService getStringById:kStorageSaltKey fromTable:kStorageTableLoginUserInfoKey];
 }
 
+- (void)updateQiniuToken:(NSString *)token {
+    [_storageService putString:token withId:kQiniuTokenKey intoTable:kStorageTableLoginUserInfoKey];
+}
+
+- (NSString *)getQiniuToken {
+    return [_storageService getStringById:kQiniuTokenKey fromTable:kStorageTableLoginUserInfoKey];
+}
+
 @end

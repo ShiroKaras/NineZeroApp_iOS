@@ -23,4 +23,8 @@
     return [NSString stringWithFormat:@"%@Login/reset/", NETWORK_HOST];
 }
 
++ (NSString *)getQiniuTokenCGIKey {
+    return [NSString stringWithFormat:@"%@Common/getQiniuToken", NETWORK_HOST];
+}
+
 @end

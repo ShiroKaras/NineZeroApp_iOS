@@ -24,3 +24,7 @@ extern NSString *const kStorageUserIdKey;
 
 /** 加密salt */
 extern NSString *const kStorageSaltKey;
+
+#pragma mark - Extra
+
+extern NSString *const kQiniuTokenKey;

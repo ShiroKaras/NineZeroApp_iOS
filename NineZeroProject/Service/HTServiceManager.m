@@ -13,6 +13,7 @@
 
 @implementation HTServiceManager {
     HTLoginService *_loginService;
+    QNUploadManager *_qiniuService;
 }
 
 + (instancetype)sharedInstance {
@@ -27,6 +28,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         _loginService = [[HTLoginService alloc] init];
+        _qiniuService = [[QNUploadManager alloc] init];
     }
     return self;
 }
@@ -35,6 +37,10 @@
 
 - (HTLoginService *)loginService {
     return _loginService;
+}
+
+- (QNUploadManager *)qiniuService {
+    return _qiniuService;
 }
 
 @end

@@ -53,4 +53,9 @@
  */
 + (NSString *)userBaseResetPwdCGIKey;
 
+/**
+ *  获取七牛token
+ */
++ (NSString *)getQiniuTokenCGIKey;
+
 @end
