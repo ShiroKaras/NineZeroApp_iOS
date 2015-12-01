@@ -58,4 +58,9 @@
  */
 + (NSString *)getQiniuTokenCGIKey;
 
+/**
+ *  获取七牛下载链接
+ */
++ (NSString *)getQiniuDownloadUrlCGIKey;
+
 @end

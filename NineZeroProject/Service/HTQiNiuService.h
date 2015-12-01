@@ -9,6 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface HTQiNiuService : UIView
-
-
 @end

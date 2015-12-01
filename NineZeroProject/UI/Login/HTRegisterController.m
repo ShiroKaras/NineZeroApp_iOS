@@ -99,7 +99,17 @@
 #pragma mark - UIImagePickerViewController Delegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-	
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *imagePath = [path stringByAppendingPathComponent:@"avatar"];
+    [imageData writeToFile:imagePath atomically:YES];
+//    QNUploadOption *updateOption = [[QNUploadOption alloc] init];
+//    updateOption.mimeType = @"image/jpeg";
+    [[[HTServiceManager sharedInstance] qiniuService] putData:imageData key:nil token:[[[HTServiceManager sharedInstance] loginService] qiniuToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
+    } option:nil];
 }
 
 @end

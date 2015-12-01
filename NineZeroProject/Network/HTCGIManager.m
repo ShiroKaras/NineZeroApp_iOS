@@ -27,4 +27,8 @@
     return [NSString stringWithFormat:@"%@Common/getQiniuToken", NETWORK_HOST];
 }
 
++ (NSString *)getQiniuDownloadUrlCGIKey {
+    return [NSString stringWithFormat:@"%@Common/getDownloadUrl", NETWORK_HOST];
+}
+
 @end
