@@ -20,10 +20,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // tag值在xib里面设置
-    _firstTextField = [self.view viewWithTag:100];
-    _secondTextField = [self.view viewWithTag:200];
-    _nextButton = [self.view viewWithTag:300];
-    _verifyButton = [self.view viewWithTag:400];
+    _firstTextField = (UITextField *)[self.view viewWithTag:100];
+    _secondTextField = (UITextField *)[self.view viewWithTag:200];
+    _nextButton = (UIButton *)[self.view viewWithTag:300];
+    _verifyButton = (UIButton *)[self.view viewWithTag:400];
     
     
     [_verifyButton addTarget:self action:@selector(didClickVerifyButton) forControlEvents:UIControlEventTouchUpInside];
