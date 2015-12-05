@@ -46,6 +46,7 @@
 		26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B061C005FBF00160D25 /* HTRegisterController.xib */; };
 		26973B221C006A6900160D25 /* HTLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B201C006A6900160D25 /* HTLoginController.m */; };
 		26973B231C006A6900160D25 /* HTLoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B211C006A6900160D25 /* HTLoginController.xib */; };
+		26BD341E1C12DF3300472E46 /* moonbold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26BD341D1C12DF3300472E46 /* moonbold.ttf */; settings = {ASSET_TAGS = (); }; };
 		26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DA7F231C01997A00337A56 /* HTForgetPasswordController.m */; };
 		26DA7F261C01997A00337A56 /* HTForgetPasswordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DA7F241C01997A00337A56 /* HTForgetPasswordController.xib */; };
 		26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DA7F281C019C2100337A56 /* HTResetPasswordController.m */; };
@@ -136,6 +137,7 @@
 		26973B1F1C006A6900160D25 /* HTLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginController.h; sourceTree = "<group>"; };
 		26973B201C006A6900160D25 /* HTLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginController.m; sourceTree = "<group>"; };
 		26973B211C006A6900160D25 /* HTLoginController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTLoginController.xib; sourceTree = "<group>"; };
+		26BD341D1C12DF3300472E46 /* moonbold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = moonbold.ttf; sourceTree = "<group>"; };
 		26DA7F221C01997A00337A56 /* HTForgetPasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTForgetPasswordController.h; sourceTree = "<group>"; };
 		26DA7F231C01997A00337A56 /* HTForgetPasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTForgetPasswordController.m; sourceTree = "<group>"; };
 		26DA7F241C01997A00337A56 /* HTForgetPasswordController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTForgetPasswordController.xib; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				1777D3741BE798F400AC0203 /* Assets.xcassets */,
 				1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */,
 				1777D3791BE798F400AC0203 /* Info.plist */,
+				26BD341D1C12DF3300472E46 /* moonbold.ttf */,
 				1777D3681BE798F400AC0203 /* Supporting Files */,
 			);
 			path = NineZeroProject;
@@ -510,6 +513,7 @@
 			files = (
 				1777D3781BE798F400AC0203 /* LaunchScreen.storyboard in Resources */,
 				26DA7F261C01997A00337A56 /* HTForgetPasswordController.xib in Resources */,
+				26BD341E1C12DF3300472E46 /* moonbold.ttf in Resources */,
 				1777D3751BE798F400AC0203 /* Assets.xcassets in Resources */,
 				26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */,
 				26973B231C006A6900160D25 /* HTLoginController.xib in Resources */,
