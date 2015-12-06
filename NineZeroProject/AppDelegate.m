@@ -13,6 +13,7 @@
 #import "HTCGIManager.h"
 #import "HTServiceManager.h"
 #import "HTNavigationController.h"
+#import "HTPreviewQuestionController.h"
 #import <Qiniu/QiniuSDK.h>
 
 @interface AppDelegate ()
@@ -49,9 +50,12 @@
 
 - (void)createWindowAndVisible {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
-    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
-    self.window.rootViewController = navController;
+//    HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
+//    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
+//    self.window.rootViewController = navController;
+    
+    HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
+    self.window.rootViewController = rootController;
     [self.window makeKeyAndVisible];
 }
 
