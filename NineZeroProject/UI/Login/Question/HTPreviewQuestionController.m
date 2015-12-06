@@ -10,9 +10,6 @@
 
 @interface HTPreviewQuestionController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *chapterNumberLabel;             // 第几章
-@property (weak, nonatomic) IBOutlet UILabel *countDownBottomLabel;           // 倒计时下面哪个label
-@property (weak, nonatomic) IBOutlet UIImageView *countDownImageView;         // 倒计时上面那个装饰用imageView
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;                    // 左下角“九零”
 @property (weak, nonatomic) IBOutlet UIButton *meButton;                      // 右下角“我”
 @property (weak, nonatomic) IBOutlet UIButton *lingzaiButton;                 // 右下角"零仔"

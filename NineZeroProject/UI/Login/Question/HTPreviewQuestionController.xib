@@ -7,9 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HTPreviewQuestionController">
             <connections>
-                <outlet property="chapterNumberLabel" destination="3wB-t1-H93" id="3uh-Ei-dri"/>
-                <outlet property="countDownBottomLabel" destination="WM0-DR-yYM" id="HzN-4b-7fh"/>
-                <outlet property="countDownImageView" destination="mU6-3c-2ZA" id="JOh-kc-lgo"/>
                 <outlet property="lingzaiButton" destination="ykh-kK-31j" id="jbO-4Z-XZi"/>
                 <outlet property="mainButton" destination="JpE-MC-zGk" id="cHw-wN-Oqw"/>
                 <outlet property="meButton" destination="fC5-LZ-bnQ" id="rMr-r0-AbT"/>
@@ -21,28 +18,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_chapter" translatesAutoresizingMaskIntoConstraints="NO" id="xC7-Dv-ceq">
-                    <rect key="frame" x="8" y="47" width="91" height="55"/>
-                    <animations/>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3wB-t1-H93">
-                    <rect key="frame" x="38" y="52" width="15" height="14.5"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24:22:33" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WM0-DR-yYM">
-                    <rect key="frame" x="287" y="49" width="70" height="21"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_timer_1_deco" translatesAutoresizingMaskIntoConstraints="NO" id="mU6-3c-2ZA">
-                    <rect key="frame" x="319" y="31" width="38" height="10"/>
-                    <animations/>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JpE-MC-zGk">
                     <rect key="frame" x="8" y="627" width="59" height="32"/>
                     <animations/>
@@ -62,16 +37,8 @@
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="WM0-DR-yYM" firstAttribute="top" secondItem="mU6-3c-2ZA" secondAttribute="bottom" constant="8" id="3Rq-WH-A50"/>
                 <constraint firstAttribute="trailing" secondItem="fC5-LZ-bnQ" secondAttribute="trailing" constant="18" id="6vA-Va-zWd"/>
-                <constraint firstItem="xC7-Dv-ceq" firstAttribute="top" secondItem="BjX-pC-nwU" secondAttribute="top" constant="47" id="Dvg-Kp-M1t"/>
-                <constraint firstItem="mU6-3c-2ZA" firstAttribute="top" secondItem="BjX-pC-nwU" secondAttribute="top" constant="31" id="KVg-Uz-8cO"/>
                 <constraint firstAttribute="bottom" secondItem="ykh-kK-31j" secondAttribute="bottom" constant="8" id="OC7-Yd-SmC"/>
-                <constraint firstItem="3wB-t1-H93" firstAttribute="leading" secondItem="BjX-pC-nwU" secondAttribute="leading" constant="38" id="PRb-zH-3wJ"/>
-                <constraint firstAttribute="trailing" secondItem="WM0-DR-yYM" secondAttribute="trailing" constant="18" id="WwI-s5-pNO"/>
-                <constraint firstItem="3wB-t1-H93" firstAttribute="top" secondItem="BjX-pC-nwU" secondAttribute="top" constant="52" id="YQK-Ef-oxu"/>
-                <constraint firstItem="xC7-Dv-ceq" firstAttribute="leading" secondItem="BjX-pC-nwU" secondAttribute="leading" constant="8" id="eKY-1k-jnE"/>
-                <constraint firstAttribute="trailing" secondItem="mU6-3c-2ZA" secondAttribute="trailing" constant="18" id="laa-0K-xlg"/>
                 <constraint firstAttribute="bottom" secondItem="JpE-MC-zGk" secondAttribute="bottom" constant="8" id="swL-DF-o4J"/>
                 <constraint firstItem="JpE-MC-zGk" firstAttribute="leading" secondItem="BjX-pC-nwU" secondAttribute="leading" constant="8" id="u4V-2v-C5w"/>
                 <constraint firstAttribute="bottom" secondItem="fC5-LZ-bnQ" secondAttribute="bottom" constant="8" id="uUs-BS-wph"/>
@@ -82,8 +49,6 @@
         </view>
     </objects>
     <resources>
-        <image name="img_chapter" width="91" height="55"/>
-        <image name="img_timer_1_deco" width="38" height="10"/>
         <image name="tab_home" width="59" height="32"/>
         <image name="tab_mascot" width="59" height="32"/>
         <image name="tab_me" width="30" height="32"/>
