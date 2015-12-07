@@ -13,7 +13,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_chapter" translatesAutoresizingMaskIntoConstraints="NO" id="GXG-sE-Nbi">
-                    <rect key="frame" x="30" y="27" width="91" height="55"/>
+                    <rect key="frame" x="30" y="29" width="91" height="55"/>
                     <animations/>
                 </imageView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olt-gf-MHg">
@@ -35,7 +35,7 @@
                     <animations/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeG-sZ-0XQ">
-                    <rect key="frame" x="60" y="33" width="15.5" height="17"/>
+                    <rect key="frame" x="60" y="34" width="15.5" height="17"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.83137254901960778" green="0.054901960784313725" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
@@ -71,6 +71,7 @@
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Dc6-3u-vve" secondAttribute="trailing" id="0Ic-yh-kWa"/>
+                <constraint firstItem="aeG-sZ-0XQ" firstAttribute="top" secondItem="GXG-sE-Nbi" secondAttribute="top" constant="5" id="3Fb-wN-hJu"/>
                 <constraint firstAttribute="trailing" secondItem="VRH-Pt-ON4" secondAttribute="trailing" constant="17" id="5RI-LY-bf0"/>
                 <constraint firstItem="tP5-np-nlD" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="38" id="8fT-Pf-qTo"/>
                 <constraint firstItem="Dc6-3u-vve" firstAttribute="leading" secondItem="bTN-pl-0aj" secondAttribute="leading" id="CFg-12-gUF"/>
@@ -83,16 +84,19 @@
                 <constraint firstItem="olt-gf-MHg" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="10" id="YBZ-kb-6EN"/>
                 <constraint firstItem="aeG-sZ-0XQ" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="33" id="amT-lu-ql0"/>
                 <constraint firstItem="6TQ-HL-k8P" firstAttribute="top" secondItem="Dc6-3u-vve" secondAttribute="bottom" id="foB-xW-SCh"/>
+                <constraint firstItem="GXG-sE-Nbi" firstAttribute="leading" secondItem="aeG-sZ-0XQ" secondAttribute="trailing" constant="-45.5" id="gTv-0m-p2F"/>
                 <constraint firstItem="3ux-TL-yfC" firstAttribute="bottom" secondItem="6TQ-HL-k8P" secondAttribute="bottom" constant="21" id="kcF-p1-si0"/>
                 <constraint firstItem="Dc6-3u-vve" firstAttribute="top" secondItem="VRH-Pt-ON4" secondAttribute="bottom" constant="10" id="o8z-vE-cpu"/>
                 <constraint firstItem="GXG-sE-Nbi" firstAttribute="leading" secondItem="bTN-pl-0aj" secondAttribute="leading" constant="30" id="sMY-vB-k3L"/>
-                <constraint firstItem="GXG-sE-Nbi" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="27" id="z7T-d6-eyL"/>
+                <constraint firstItem="GXG-sE-Nbi" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="29" id="z7T-d6-eyL"/>
                 <constraint firstItem="6TQ-HL-k8P" firstAttribute="leading" secondItem="bTN-pl-0aj" secondAttribute="leading" id="z9O-Rt-B50"/>
                 <constraint firstAttribute="trailing" secondItem="olt-gf-MHg" secondAttribute="trailing" constant="17" id="zEY-zX-XuR"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="TKx-7G-Bbv"/>
+                    <exclude reference="amT-lu-ql0"/>
                     <exclude reference="Nd7-2E-bSE"/>
                 </mask>
             </variation>

@@ -11,6 +11,8 @@
 #import "HTPreviewView.h"
 #import "CommonUI.h"
 
+static CGFloat kLeftMargin = 13; // 暂定为0
+
 @interface HTPreviewQuestionController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;                    // 左下角“九零”
@@ -26,13 +28,12 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
-    self.previewView = [[HTPreviewView alloc] initWithFrame:CGRectZero andQuestions:nil];
-    [self.view addSubview:self.previewView];
+    self.previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, self.view.width - kLeftMargin, self.view.height) andQuestions:nil];
+    [self.view insertSubview:self.previewView atIndex:0];
 }
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    self.previewView.frame = CGRectMake(0, 0, self.view.width, self.view.height - 100);
 }
 
 @end

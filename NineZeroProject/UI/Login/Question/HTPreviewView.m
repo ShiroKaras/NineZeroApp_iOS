@@ -10,38 +10,50 @@
 #import "HTPreviewItem.h"
 #import "CommonUI.h"
 
+static CGFloat kTopMargin = 50;
+static CGFloat kItemMargin = 17;         // item之间间隔
+
 @interface HTPreviewView() <UIScrollViewDelegate>
 
-@property (nonatomic, strong) HTPreviewItem *previewItem;
 @property (nonatomic, strong) UIScrollView *previewScrollView;
+@property (nonatomic, strong) NSMutableArray<HTPreviewItem *> *previewItems;
 
 @end
 
-@implementation HTPreviewView
+@implementation HTPreviewView {
+    CGFloat pageSize;  // 每页宽度
+    CGFloat itemWidth; // 显示控件的宽度
+}
 
 #pragma mark - Life Cycle
 
 - (instancetype)initWithFrame:(CGRect)frame andQuestions:(NSArray<HTQuestion *> *)questions {
     if (self = [super initWithFrame:frame]) {
         
-        // FIXME:0.构造假数据
-//        NSInteger count = 10;
+        pageSize = CGRectGetWidth(frame) - kItemMargin;
+        itemWidth = CGRectGetWidth(frame) - kItemMargin * 2;
         
         // 1.滚动视图
-        _previewScrollView = [[UIScrollView alloc] initWithFrame:frame];
-        _previewScrollView.contentSize = CGSizeMake(frame.size.width * 3, frame.size.height);
+        _previewScrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         _previewScrollView.backgroundColor = [UIColor clearColor];
+        _previewScrollView.contentSize = CGSizeMake(pageSize * 3 + kItemMargin /* 最右边那个预留宽度 */, self.height);
         _previewScrollView.delegate = self;
-        _previewScrollView.pagingEnabled = YES;
+        _previewScrollView.pagingEnabled = NO;
+        _previewScrollView.clipsToBounds = NO;
         _previewScrollView.showsHorizontalScrollIndicator = NO;
         _previewScrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
         [self addSubview:_previewScrollView];
+        [_previewScrollView setContentOffset:CGPointMake([self contentOffsetWithIndex:0], 0)];
         
         // 2.预览视图单元
-        _previewItem = [[HTPreviewItem alloc] initWithFrame:frame];
-        NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"HTPreviewItem" owner:self options:nil];
-        _previewItem = [nibs objectAtIndex:0];
-        [self addSubview:_previewItem];
+        _previewItems = [NSMutableArray array];
+        for (int i = 0; i != 3; i++) {
+            HTPreviewItem *item = [[HTPreviewItem alloc] init];
+            NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"HTPreviewItem" owner:self options:nil];
+            item = [nibs objectAtIndex:0];
+            [_previewItems addObject:item];
+            [_previewScrollView addSubview:item];
+        }
     }
     return self;
 }
@@ -56,14 +68,26 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    _previewScrollView.frame = self.bounds;
-    _previewItem.frame = self.bounds;
+    for (int i = 0; i != _previewItems.count; i++) {
+        HTPreviewItem *item = _previewItems[i];
+        item.frame = CGRectMake([self contentOffsetWithIndex:i] + kItemMargin, kTopMargin, itemWidth, self.height - kTopMargin);
+    }
 }
 
 #pragma mark - UIScrollView Delegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    
+}
+
+#pragma mark - Action
+
+- (CGFloat)contentOffsetWithIndex:(NSInteger)index {
+    return _previewScrollView.contentSize.width -  pageSize * (index + 1) - kItemMargin;
 }
 
 @end

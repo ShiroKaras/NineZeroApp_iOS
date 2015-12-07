@@ -13,6 +13,7 @@ target 'NineZeroProject' do
   pod 'SMS-For-iOS', '~> 1.0.9'
   pod 'MBProgressHUD+BWMExtension', '~> 1.0.0'
   pod 'MJExtension'
+  pod 'LTInfiniteScrollView', '~> 2.0.0'
 end
 
 target 'NineZeroProjectTests' do
