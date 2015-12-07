@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HTLoginService.h"
-#import "HTLoginUser.h"
+#import "HTModel.h"
 #import <Qiniu/QiniuSDK.h>
 #import <YTKKeyValueStore.h>
 

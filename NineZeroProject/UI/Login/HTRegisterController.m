@@ -9,7 +9,7 @@
 #import "HTRegisterController.h"
 #import "UIViewController+ImagePicker.h"
 #import <SMS_SDK/SMS_SDK.h>
-#import "HTLoginUser.h"
+#import "HTModel.h"
 #import "HTLog.h"
 #import "HTLoginButton.h"
 #import "HTServiceManager.h"

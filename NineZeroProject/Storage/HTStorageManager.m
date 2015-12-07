@@ -8,7 +8,7 @@
 
 #import "HTStorageManager.h"
 #import "HTStorageDefine.h"
-#import "HTLoginUser.h"
+#import "HTModel.h"
 #import <YTKKeyValueStore.h>
 #import <MJExtension.h>
 

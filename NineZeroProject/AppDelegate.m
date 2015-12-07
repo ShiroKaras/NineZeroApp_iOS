@@ -49,14 +49,18 @@
 #pragma mark - Action
 
 - (void)createWindowAndVisible {
+#ifdef DEBUG
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
-//    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
-//    self.window.rootViewController = navController;
-    
     HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
     self.window.rootViewController = rootController;
     [self.window makeKeyAndVisible];
+#else
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
+    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
+    self.window.rootViewController = navController;
+    [self.window makeKeyAndVisible];
+#endif
 }
 
 #pragma mark - QiNiu

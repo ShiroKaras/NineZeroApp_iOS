@@ -9,7 +9,7 @@
 #import "HTServiceManager.h"
 #import "HTStorageDefine.h"
 #import <YTKKeyValueStore.h>
-#import "HTLoginUser.h"
+#import "HTModel.h"
 
 @implementation HTServiceManager {
     HTLoginService *_loginService;

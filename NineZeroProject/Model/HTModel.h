@@ -1,8 +1,8 @@
 //
-//  HTLoginUser.h
+//  HTModel.h
 //  NineZeroProject
 //
-//  Created by ronhu on 15/11/15.
+//  Created by ronhu on 15/12/7.
 //  Copyright © 2015年 ronhu. All rights reserved.
 //
 
@@ -17,5 +17,9 @@
 @property (nonatomic, copy) NSString *user_avatar;
 @property (nonatomic, copy) NSString *user_area_id;     // 用户所在城市ID
 @property (nonatomic, copy) NSString *code;             // 验证码
+
+@end
+
+@interface HTQuestion : NSObject
 
 @end

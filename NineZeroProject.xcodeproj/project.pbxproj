@@ -44,7 +44,7 @@
 		17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A47E8F1C03869000BEC1DD /* HTLoginButton.m */; };
 		17B1D83D1C1492CE0082C86B /* HTPreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D83C1C1492CE0082C86B /* HTPreviewItem.m */; };
 		17B1D83F1C1492D90082C86B /* HTPreviewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */; };
-		17DB9CF51C0B4C2600A4D0EF /* HTLoginUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 17DB9CF41C0B4C2600A4D0EF /* HTLoginUser.m */; };
+		17B1D8421C1544470082C86B /* HTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D8411C1544470082C86B /* HTModel.m */; };
 		17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */; };
 		26973B021C005ED900160D25 /* HTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B011C005ED900160D25 /* HTNavigationController.m */; };
 		26973B051C005F9800160D25 /* HTRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B041C005F9800160D25 /* HTRegisterController.m */; };
@@ -138,8 +138,8 @@
 		17B1D83B1C1492CE0082C86B /* HTPreviewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPreviewItem.h; sourceTree = "<group>"; };
 		17B1D83C1C1492CE0082C86B /* HTPreviewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTPreviewItem.m; sourceTree = "<group>"; };
 		17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTPreviewItem.xib; sourceTree = "<group>"; };
-		17DB9CF31C0B4C2600A4D0EF /* HTLoginUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginUser.h; sourceTree = "<group>"; };
-		17DB9CF41C0B4C2600A4D0EF /* HTLoginUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginUser.m; sourceTree = "<group>"; };
+		17B1D8401C1544470082C86B /* HTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTModel.h; sourceTree = "<group>"; };
+		17B1D8411C1544470082C86B /* HTModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTModel.m; sourceTree = "<group>"; };
 		17E8DE4F1C0E154B009D4F9F /* HTQiNiuService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTQiNiuService.h; sourceTree = "<group>"; };
 		17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTQiNiuService.m; sourceTree = "<group>"; };
 		26973B001C005ED900160D25 /* HTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNavigationController.h; sourceTree = "<group>"; };
@@ -370,8 +370,8 @@
 		17DB9CF21C0B4C2600A4D0EF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				17DB9CF31C0B4C2600A4D0EF /* HTLoginUser.h */,
-				17DB9CF41C0B4C2600A4D0EF /* HTLoginUser.m */,
+				17B1D8401C1544470082C86B /* HTModel.h */,
+				17B1D8411C1544470082C86B /* HTModel.m */,
 			);
 			name = Model;
 			path = NineZeroProject/Model;
@@ -502,7 +502,6 @@
 				TargetAttributes = {
 					1777D3641BE798F400AC0203 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 8448TK86TA;
 					};
 					1777D37D1BE798F400AC0203 = {
 						CreatedOnToolsVersion = 7.1;
@@ -633,6 +632,7 @@
 				176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */,
 				26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
+				17B1D8421C1544470082C86B /* HTModel.m in Sources */,
 				26973B221C006A6900160D25 /* HTLoginController.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
@@ -640,7 +640,6 @@
 				174CF7821C146E2F002E0DBB /* HTPreviewQuestionController.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
 				26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */,
-				17DB9CF51C0B4C2600A4D0EF /* HTLoginUser.m in Sources */,
 				174CF7871C147489002E0DBB /* HTPreviewView.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
@@ -803,7 +802,7 @@
 			baseConfigurationReference = C4CD745486BB4BFAC5087BB9 /* Pods-NineZeroProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
