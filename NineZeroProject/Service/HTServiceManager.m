@@ -8,11 +8,13 @@
 
 #import "HTServiceManager.h"
 #import "HTStorageDefine.h"
+#import "HTQuestionService.h"
 #import <YTKKeyValueStore.h>
 #import "HTModel.h"
 
 @implementation HTServiceManager {
     HTLoginService *_loginService;
+    HTQuestionService *_questionService;
     QNUploadManager *_qiniuService;
 }
 
@@ -28,6 +30,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         _loginService = [[HTLoginService alloc] init];
+        _questionService = [[HTQuestionService alloc] init];
         _qiniuService = [[QNUploadManager alloc] init];
     }
     return self;

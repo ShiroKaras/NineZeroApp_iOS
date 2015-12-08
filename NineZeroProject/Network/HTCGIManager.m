@@ -31,4 +31,16 @@
     return [NSString stringWithFormat:@"%@Common/getDownloadUrl", NETWORK_HOST];
 }
 
++ (NSString *)getQuestionInfoCGIKey {
+    return [NSString stringWithFormat:@"%@Question/info", NETWORK_HOST];
+}
+
++ (NSString *)getQuestionListCGIKey {
+    return [NSString stringWithFormat:@"%@Question/getList", NETWORK_HOST];
+}
+
++ (NSString *)getQuestionDetailCGIKey {
+    return [NSString stringWithFormat:@"%@Question/detail", NETWORK_HOST];
+}
+
 @end

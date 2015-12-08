@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  该类只允许HTServiceManager创建一次，多次创建直接crash
  *  通过HTServiceManager拿到该类的唯一实例
+ *  负责登录注册相关逻辑
  */
 @interface HTLoginService : NSObject
 
