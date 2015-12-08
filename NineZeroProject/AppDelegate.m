@@ -10,11 +10,11 @@
 #import "APService.h"
 #import <SMS_SDK/SMS_SDK.h>
 #import "HTLoginRootController.h"
-#import "HTCGIManager.h"
 #import "HTServiceManager.h"
 #import "HTNavigationController.h"
 #import "HTPreviewQuestionController.h"
 #import <Qiniu/QiniuSDK.h>
+#import "HTLogicHeader.h"
 
 @interface AppDelegate ()
 
@@ -51,7 +51,17 @@
 #pragma mark - Test
 
 - (void)test_cgi {
-
+    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, id responseObject) {
+        
+    }];
+    
+    [[[HTServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:2015120821423814907 callback:^(BOOL success, HTQuestion *question) {
+        
+    }];
+    
+    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:1 count:10 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
+        
+    }];
 }
 
 #pragma mark - Action

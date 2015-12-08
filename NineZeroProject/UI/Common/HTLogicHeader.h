@@ -11,7 +11,7 @@
 
 #import "HTModel.h"
 #import "HTCGIManager.h"
-#import "MJExtension.h"
+#import <MJExtension.h>
 #import "HTLog.h"
 #import "HTStorageManager.h"
 

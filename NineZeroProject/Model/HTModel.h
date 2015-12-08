@@ -22,4 +22,17 @@
 
 @interface HTQuestion : NSObject
 
+@property (nonatomic, assign) NSUInteger questionID;          // 唯一标识ID
+@property (nonatomic, assign) NSUInteger serial;              // 这是干嘛的？
+@property (nonatomic, assign) NSUInteger type;                // 问题类型
+@property (nonatomic, assign) NSUInteger areaID;              // 用户所在城市ID
+@property (nonatomic, assign) NSUInteger rewardID;            // 奖励的id
+@property (nonatomic, strong) NSArray<NSString *> *answers;   // 答案
+@property (nonatomic, copy) NSString *chapterText;            // 章节名
+@property (nonatomic, copy) NSString *content;                // 问题内容
+@property (nonatomic, copy) NSString *questionDescription;    // 问题描述
+@property (nonatomic, copy) NSString *vedioURL;               // 视频链接
+@property (nonatomic, copy) NSString *detailURL;              // 详情链接
+@property (nonatomic, copy) NSString *hint;                   // 提示;
+
 @end
