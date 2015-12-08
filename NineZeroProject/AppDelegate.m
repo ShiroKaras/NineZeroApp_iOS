@@ -30,6 +30,8 @@
     
     [self createWindowAndVisible];
     
+    [self test_cgi];
+    
     return YES;
 }
 
@@ -44,6 +46,12 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
+}
+
+#pragma mark - Test
+
+- (void)test_cgi {
+    
 }
 
 #pragma mark - Action

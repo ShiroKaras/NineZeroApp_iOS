@@ -9,8 +9,8 @@
 #ifndef HTNetworkDefine_h
 #define HTNetworkDefine_h
 
-typedef void (^HTLoginErrorCallback) (NSString *errorMessage);
-typedef void (^HTLoginSuccessCallback) (id responseObject);
+typedef void (^HTHTTPErrorCallback) (NSString *errorMessage);
+typedef void (^HTHTTPSuccessCallback) (id responseObject);
 
 typedef void (^HTGetTokenCallback) (NSString *token);
 

@@ -30,7 +30,7 @@
 
 #pragma mark - Public Method
 
-- (void)registerWithUser:(HTLoginUser *)user success:(HTLoginSuccessCallback)successCallback error:(HTLoginErrorCallback)errorCallback {
+- (void)registerWithUser:(HTLoginUser *)user success:(HTHTTPSuccessCallback)successCallback error:(HTHTTPErrorCallback)errorCallback {
     NSDictionary *parameters = [user keyValues];
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseRegisterCGIKey] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
@@ -47,7 +47,7 @@
     }];
 }
 
-- (void)loginWithUser:(HTLoginUser *)user success:(HTLoginSuccessCallback)successCallback error:(HTLoginErrorCallback)errorCallback {
+- (void)loginWithUser:(HTLoginUser *)user success:(HTHTTPSuccessCallback)successCallback error:(HTHTTPErrorCallback)errorCallback {
     NSDictionary *para = @{
                            @"user_mobile" : user.user_mobile,
                            @"user_password" : user.user_password

@@ -24,13 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 // 业务相关
 // 注册
 - (void)registerWithUser:(HTLoginUser *)user
-                 success:(HTLoginSuccessCallback)successCallback
-                   error:(HTLoginErrorCallback)errorCallback;
+                 success:(HTHTTPSuccessCallback)successCallback
+                   error:(HTHTTPErrorCallback)errorCallback;
 
 // 登录
 - (void)loginWithUser:(HTLoginUser *)user
-              success:(HTLoginSuccessCallback)successCallback
-                error:(HTLoginErrorCallback)errorCallback;
+              success:(HTHTTPSuccessCallback)successCallback
+                error:(HTHTTPErrorCallback)errorCallback;
 
 // 重置密码
 - (void)resetPassword:(NSString *)password;
