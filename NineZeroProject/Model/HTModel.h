@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+// 覆盖description方法
+@interface NSObject (PropertyPrint)
+@end
+
 @interface HTLoginUser : NSObject
 
 @property (nonatomic, copy) NSString *user_name;

@@ -56,7 +56,7 @@
     }];
     
     [[[HTServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:2015120821423814907 callback:^(BOOL success, HTQuestion *question) {
-        
+        DLog(@"%@", question);
     }];
     
     [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:1 count:10 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
