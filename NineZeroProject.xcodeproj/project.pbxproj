@@ -128,6 +128,7 @@
 		1777D38F1BE798F500AC0203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17967AB31C174ED500571924 /* HTQuestionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTQuestionService.h; sourceTree = "<group>"; };
 		17967AB41C174ED500571924 /* HTQuestionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTQuestionService.m; sourceTree = "<group>"; };
+		17967AB61C17537E00571924 /* HTLogicHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTLogicHeader.h; sourceTree = "<group>"; };
 		17A277261BF79C8000E46670 /* HTServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTServiceManager.h; sourceTree = "<group>"; };
 		17A277271BF79C8000E46670 /* HTServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTServiceManager.m; sourceTree = "<group>"; };
 		17A277291BF79CA900E46670 /* HTLoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginService.h; sourceTree = "<group>"; };
@@ -391,6 +392,7 @@
 				176C8FC61C00E88B00BEC4AB /* UIViewController+ImagePicker.m */,
 				17A47E8A1C037F3E00BEC1DD /* HTCommonViewController.h */,
 				17A47E8B1C037F3E00BEC1DD /* HTCommonViewController.m */,
+				17967AB61C17537E00571924 /* HTLogicHeader.h */,
 			);
 			path = Common;
 			sourceTree = "<group>";

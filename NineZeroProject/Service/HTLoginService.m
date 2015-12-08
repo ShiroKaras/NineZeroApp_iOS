@@ -7,15 +7,7 @@
 //
 
 #import "HTLoginService.h"
-#import "HTModel.h"
-#import "HTCGIManager.h"
-#import "MJExtension.h"
-#import "HTLog.h"
-#import "HTStorageManager.h"
-
-#import "NSString+Utility.h"
-
-#import <AFNetworking.h>
+#import "HTLogicHeader.h"
 
 @implementation HTLoginService
 
@@ -37,7 +29,6 @@
         if ([responseObject[@"result"] integerValue] == 0) {
             NSDictionary *dataDict = responseObject[@"data"];
             [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
-//            [[HTStorageManager sharedInstance] updatePwdSalt:[NSString stringWithFormat:@"%@", dataDict[@"user_salt"]]];
             [[HTStorageManager sharedInstance] updateLoginUser:user];
         }
         successCallback(responseObject);

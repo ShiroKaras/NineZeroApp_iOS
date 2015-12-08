@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HTLoginService.h"
+#import "HTQuestionService.h"
 #import "HTModel.h"
 #import <Qiniu/QiniuSDK.h>
 #import <YTKKeyValueStore.h>
@@ -16,8 +17,11 @@
 
 + (instancetype)sharedInstance;
 
-/** loginService，负责登录相关流程 */
+/** loginService，负责登录相关业务 */
 - (HTLoginService *)loginService;
+
+/** questionService, 负责题目相关业务 */
+- (HTQuestionService *)questionService;
 
 /** qiniuService, 负责七牛相关的业务 */
 - (QNUploadManager *)qiniuService;

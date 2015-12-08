@@ -8,7 +8,6 @@
 
 #import "HTServiceManager.h"
 #import "HTStorageDefine.h"
-#import "HTQuestionService.h"
 #import <YTKKeyValueStore.h>
 #import "HTModel.h"
 
@@ -40,6 +39,10 @@
 
 - (HTLoginService *)loginService {
     return _loginService;
+}
+
+- (HTQuestionService *)questionService {
+    return _questionService;
 }
 
 - (QNUploadManager *)qiniuService {
