@@ -146,6 +146,7 @@
 		17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTPreviewItem.xib; sourceTree = "<group>"; };
 		17B1D8401C1544470082C86B /* HTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTModel.h; sourceTree = "<group>"; };
 		17B1D8411C1544470082C86B /* HTModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTModel.m; sourceTree = "<group>"; };
+		17D997BE1C1D1E3D0091978E /* HTUIHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTUIHeader.h; sourceTree = "<group>"; };
 		17E8DE4F1C0E154B009D4F9F /* HTQiNiuService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTQiNiuService.h; sourceTree = "<group>"; };
 		17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTQiNiuService.m; sourceTree = "<group>"; };
 		26973B001C005ED900160D25 /* HTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNavigationController.h; sourceTree = "<group>"; };
@@ -396,6 +397,7 @@
 				17A47E8A1C037F3E00BEC1DD /* HTCommonViewController.h */,
 				17A47E8B1C037F3E00BEC1DD /* HTCommonViewController.m */,
 				17967AB61C17537E00571924 /* HTLogicHeader.h */,
+				17D997BE1C1D1E3D0091978E /* HTUIHeader.h */,
 			);
 			path = Common;
 			sourceTree = "<group>";

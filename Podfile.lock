@@ -30,6 +30,7 @@ PODS:
   - HappyDNS (0.2.1)
   - JPush (1.8.5)
   - LTInfiniteScrollView (2.0.0)
+  - Masonry (0.6.2)
   - MBProgressHUD (0.9.1)
   - MBProgressHUD+BWMExtension (1.0.0):
     - MBProgressHUD (~> 0.9.1)
@@ -51,6 +52,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.6)
   - JPush (~> 1.8.5)
   - LTInfiniteScrollView (~> 2.0.0)
+  - Masonry (~> 0.6.2)
   - MBProgressHUD+BWMExtension (~> 1.0.0)
   - MJExtension
   - Qiniu (~> 7.0)
@@ -66,6 +68,7 @@ SPEC CHECKSUMS:
   HappyDNS: 8eb3c929ee6143eb56bfddfc9e6052ca9429699c
   JPush: ba06a6f866ce11f11c15149e7fa67488a23eec87
   LTInfiniteScrollView: 2714937432ba58a4c7fde7d29ecf810d6df02cd1
+  Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MBProgressHUD+BWMExtension: dd1dff033c1802edf7cb613c5643db5f090575bd
   MJExtension: 2330aeb6c83428c820749290bf766e81827cda65

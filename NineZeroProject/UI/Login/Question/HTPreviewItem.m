@@ -9,6 +9,7 @@
 #import "HTPreviewItem.h"
 #import "CommonUI.h"
 #import <AVFoundation/AVFoundation.h>
+#import "HTUIHeader.h"
 
 @interface HTPreviewItem ()
 
