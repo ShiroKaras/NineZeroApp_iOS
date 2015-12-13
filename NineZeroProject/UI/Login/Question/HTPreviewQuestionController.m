@@ -77,10 +77,15 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 
 - (void)composeView:(HTComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
     static BOOL isRight = YES;
+    static int clickCount = 0;
+    clickCount++;
     if (isRight) {
         [composeView showAnswerCorrect:YES];
     } else {
         [composeView showAnswerCorrect:NO];
+    }
+    if (clickCount > 3) {
+        [composeView showAnswerTips:@"hahahahaha"];
     }
     isRight = !isRight;
 }

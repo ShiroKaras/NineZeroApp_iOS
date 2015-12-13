@@ -15,7 +15,6 @@ target 'NineZeroProject' do
   pod 'MJExtension'
   pod 'LTInfiniteScrollView', '~> 2.0.0'
   pod 'Masonry', '~> 0.6.2'
-  pod 'YLGIFImage'
   pod 'FLAnimatedImage', '~> 1.0'
 end
 

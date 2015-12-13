@@ -144,6 +144,7 @@
 #pragma mark - Public Method
 
 - (void)showAnswerTips:(NSString *)tips {
+    _tipsLabel.text = tips;
     [UIView animateWithDuration:0.3 animations:^{
         _tipsBackView.hidden = NO;
     } completion:^(BOOL finished) {
@@ -167,10 +168,6 @@
     [_textField becomeFirstResponder];
     return YES;
 }
-
-#pragma mark - UITextField Delegate
-
-
 
 #pragma mark - Action
 

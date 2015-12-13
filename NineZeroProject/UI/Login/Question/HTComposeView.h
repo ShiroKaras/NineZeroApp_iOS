@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  @biref 响应键盘
  */
+ - (BOOL)becomeFirstResponder;
 /**
  *  @brief 展现回答正确或者错误
  *  @param correct 错误或者正确

@@ -43,7 +43,6 @@ PODS:
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
   - SMS-For-iOS (1.0.9)
-  - YLGIFImage (0.11)
   - YTKKeyValueStore (0.1.2):
     - FMDB (~> 2.0)
   - YTKNetwork (0.5.0):
@@ -61,7 +60,6 @@ DEPENDENCIES:
   - Qiniu (~> 7.0)
   - SDWebImage (~> 3.7.3)
   - SMS-For-iOS (~> 1.0.9)
-  - YLGIFImage
   - YTKKeyValueStore
   - YTKNetwork
 
@@ -80,7 +78,6 @@ SPEC CHECKSUMS:
   Qiniu: 1fb5191b3bc1edb65b2da3d905b8281e15bd1d5c
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SMS-For-iOS: e94abec27695d4085a9865d7894dba39cd1e09f2
-  YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
   YTKNetwork: 3f163c181ce5f03d52cf88f39d6757f46894280c
 

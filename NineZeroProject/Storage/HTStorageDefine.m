@@ -8,14 +8,14 @@
 
 #import "HTStorageDefine.h"
 
-NSString *const kStorageDBNameKey = @"Storage.db";
+NSString *const kStorageDBNameKey             = @"Storage.db";
 
 NSString *const kStorageTableLoginUserInfoKey = @"login_user_info_table";
 
-NSString *const kStorageLoginUserKey = @"kStorageLoginUserKey";
+NSString *const kStorageLoginUserKey          = @"kStorageLoginUserKey";
 
-NSString *const kStorageUserIdKey = @"kStorageUserIdKey";
+NSString *const kStorageUserIdKey             = @"kStorageUserIdKey";
 
-NSString *const kStorageSaltKey = @"kStorageSaltKey"; 
+NSString *const kStorageSaltKey               = @"kStorageSaltKey";
 
-NSString *const kQiniuTokenKey = @"kQiniuTokenKey";
+NSString *const kQiniuTokenKey                = @"kQiniuTokenKey";
