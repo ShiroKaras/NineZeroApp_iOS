@@ -60,10 +60,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         for (int i = 0; i != 3; i++) {
             HTPreviewItem *item = [[HTPreviewItem alloc] init];
             NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"HTPreviewItem" owner:self options:nil];
-            [item setQuestion:_questions[0]];
             item = [nibs objectAtIndex:0];
             item.delegate = self;
             item.tag = questions.count - 2 + i;   // 通过tag值来控制view
+            [item setQuestion:_questions[0]];
             [_previewItems addObject:item];
             [_previewScrollView addSubview:item];
         }
@@ -90,7 +90,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 #pragma mark - UIScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
     static CGFloat preContentOffsetX = 0.0;
     _scrollDirection = (scrollView.contentOffset.x > preContentOffsetX) ? HTScrollDirectionLeft : HTScrollDirectionRight;
     preContentOffsetX = scrollView.contentOffset.x;

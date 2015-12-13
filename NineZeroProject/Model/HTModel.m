@@ -11,8 +11,7 @@
 
 @implementation NSObject (PropertyPrint)
 
-- (NSString *)description {
-    if ([[NSString stringWithFormat:@"%@", [self class]] isEqualToString:@"AVCMNotificationDispatcher"]) return nil;
+- (NSString *)ht_description {
     NSMutableDictionary *dict = [NSMutableDictionary new];
     unsigned int count;
     objc_property_t *properties = class_copyPropertyList([self class], &count);
