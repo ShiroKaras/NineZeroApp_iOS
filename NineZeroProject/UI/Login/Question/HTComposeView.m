@@ -65,6 +65,7 @@
         
         _tipsLabel = [[UILabel alloc] init];
         _tipsLabel.font = [UIFont systemFontOfSize:16];
+        _tipsLabel.textAlignment = NSTextAlignmentCenter;
         _tipsLabel.textColor = [UIColor whiteColor];
         [_tipsBackView addSubview:_tipsLabel];
         
@@ -98,6 +99,21 @@
         make.edges.equalTo(_textFieldBackView).insets(UIEdgeInsetsMake(3, 16, 3, 16));
     }];
     
+    // 4. 结果
+    [_resultImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self).centerOffset(CGPointMake(0, -20));
+    }];
+    
+    // 5. 提示
+    [_tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(-20);
+        make.width.equalTo(self);
+        make.height.equalTo(@30);
+    }];
+    
+    [_tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(_tipsBackView);
+    }];
 }
 
 #pragma mark - Public Method
