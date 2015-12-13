@@ -25,7 +25,7 @@
 @property (strong, nonatomic) AVPlayerItem *playerItem;
 @property (weak, nonatomic) IBOutlet UIView *playItemBackView;
 
-@property (weak, nonatomic) IBOutlet UIButton *playButton; ///< 播放按钮
+@property (weak, nonatomic) IBOutlet UIButton *playButton;  ///< 播放按钮
 @property (weak, nonatomic) IBOutlet UIButton *soundButton; ///< 音量按钮
 @property (weak, nonatomic) IBOutlet UIButton *pauseButton; ///< 暂停按钮
 

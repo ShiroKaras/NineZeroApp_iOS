@@ -25,6 +25,15 @@
 
 @end
 
+@interface HTQuestionInfo : NSObject
+
+@property (nonatomic, assign) NSUInteger questionID;          // 唯一标识ID
+@property (nonatomic, assign) NSUInteger endTime;             // 截止时间
+@property (nonatomic, assign) NSUInteger updateTime;          // 更新时间
+@property (nonatomic, assign) NSUInteger questionCount;       // 题目总数量
+
+@end
+
 @interface HTQuestion : NSObject
 
 @property (nonatomic, assign) NSUInteger questionID;          // 唯一标识ID

@@ -35,6 +35,28 @@
 @implementation HTLoginUser
 @end
 
+@implementation HTQuestionInfo
+
+- (instancetype)init {
+    if (self = [super init]) {
+        [HTQuestionInfo setupReplacedKeyFromPropertyName:^NSDictionary *{
+            return [self propertyMapper];
+        }];
+    }
+    return self;
+}
+
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"questionID" : @"qid",
+                                     @"endTime" : @"endtime",
+                                     @"updateTime" : @"last_update_time",
+                                     @"questionCount" : @"question_num"
+                                     };
+    return propertyMapper;
+}
+
+@end
+
 @implementation HTQuestion
 
 - (instancetype)init {

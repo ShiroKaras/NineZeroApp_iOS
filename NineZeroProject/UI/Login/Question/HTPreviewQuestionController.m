@@ -32,12 +32,17 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     self.view.backgroundColor = [UIColor blackColor];
     
     [MBProgressHUD bwm_showHUDAddedTo:self.view title:@"加载数据中..."];
-    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:1 count:10 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        _previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, self.view.width - kLeftMargin, self.view.height) andQuestions:questionList];
-        _previewView.delegate = self;
-        [self.view insertSubview:self.previewView atIndex:0];
+    
+    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *questionInfo) {
+        if (questionInfo.questionCount <= 0) return;
+        [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:1 count:questionInfo.questionCount callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            _previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, self.view.width - kLeftMargin, self.view.height) andQuestions:questionList];
+            _previewView.delegate = self;
+            [self.view insertSubview:self.previewView atIndex:0];
+        }];
     }];
+
 
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];

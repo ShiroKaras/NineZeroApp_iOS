@@ -46,7 +46,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         // 1.滚动视图
         _previewScrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         _previewScrollView.backgroundColor = [UIColor clearColor];
-        _previewScrollView.contentSize = CGSizeMake(pageWidth * 3 + kItemMargin /* 最右边那个预留宽度 */, self.height);
+        _previewScrollView.contentSize = CGSizeMake(pageWidth * questions.count + kItemMargin /* 最右边那个预留宽度 */, self.height);
         _previewScrollView.delegate = self;
         _previewScrollView.pagingEnabled = NO;
         _previewScrollView.clipsToBounds = NO;

@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "HTNetworkDefine.h"
 
+@class HTQuestionInfo;
 @class HTQuestion;
 
 typedef void (^HTQuestionCallback) (BOOL success, HTQuestion *question);
 typedef void (^HTQuestionListCallback) (BOOL success, NSArray<HTQuestion *> *questionList);
+typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionInfo);
 
 /**
  *  该类只允许HTServiceManager创建一次，多次创建直接crash
@@ -24,7 +26,7 @@ typedef void (^HTQuestionListCallback) (BOOL success, NSArray<HTQuestion *> *que
 /**
  *  获取题目总体信息
  */
-- (void)getQuestionInfoWithCallback:(HTNetworkCallback)callback;
+- (void)getQuestionInfoWithCallback:(HTQuestionInfoCallback)callback;
 
 /**
  *  获取题目列表

@@ -22,10 +22,11 @@
 
 #pragma mark - Public Method
 
-- (void)getQuestionInfoWithCallback:(HTNetworkCallback)callback {
+- (void)getQuestionInfoWithCallback:(HTQuestionInfoCallback)callback {
     NSDictionary *dict = @{@"area_id" : @"1"};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionInfoCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        callback(YES, responseObject);
+        HTQuestionInfo *questionInfo = [HTQuestionInfo objectWithKeyValues:responseObject[@"data"]];
+        callback(YES, questionInfo);
         DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);

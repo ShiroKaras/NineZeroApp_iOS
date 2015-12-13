@@ -25,6 +25,11 @@ extern NSString *const kStorageUserIdKey;
 /** 加密salt */
 extern NSString *const kStorageSaltKey;
 
+#pragma mark - Question
+
+/** 总共有多少道题目，启动app就拉下来，存在本地 */
+extern NSString *const kStorageQuestionCountKey;
+
 #pragma mark - Extra
 
 extern NSString *const kQiniuTokenKey;
