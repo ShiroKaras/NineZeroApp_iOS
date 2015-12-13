@@ -35,9 +35,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     [self.view insertSubview:self.previewView atIndex:0];
     
     _composeView = [[HTComposeView alloc] init];
-    _composeView.hidden = YES;
-    [self.view addSubview:_composeView];
-    
+   
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
@@ -55,7 +53,9 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 - (void)keyboardWillShow:(NSNotification *)notification {
     NSDictionary *info = [notification userInfo];
     CGRect keyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height - keyboardRect.size.height);
+    [UIView animateWithDuration:0.3 animations:^{
+       _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height - keyboardRect.size.height);
+    }];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -65,8 +65,14 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 #pragma mark - HTPreviewView Delegate
 
 - (void)previewView:(HTPreviewView *)previewView didClickComposeWithItem:(HTPreviewItem *)item {
-    _composeView.hidden = NO;
-    [_composeView becomeFirstResponder];
+    _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+    _composeView.alpha = 0.0;
+    [UIView animateWithDuration:0.3 animations:^{
+        _composeView.alpha = 1.0;
+        [self.view addSubview:_composeView];
+    } completion:^(BOOL finished) {
+        [_composeView becomeFirstResponder];
+    }];
 }
 
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class HTComposeView;
 @protocol HTComposeViewDelegate <NSObject>
 
 @required
@@ -16,7 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  @brief 回答了问题
  *  @param answer 用户输入的回答
  */
-- (void)didClickComposeButtonWithAnswer:(NSString *)answer;
+- (void)composeView:(HTComposeView *)composeView didComposeWithAnswer:(NSString *)answer;
+/**
+ *  @brief 点击了背景
+ */
+- (void)didClickDimingViewInComposeView:(HTComposeView *)composeView;
 
 @end
 
@@ -28,7 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  @biref 响应键盘
  */
-- (void)becomeFirstResponser;
 /**
  *  @brief 展现回答正确或者错误
  *  @param correct 错误或者正确

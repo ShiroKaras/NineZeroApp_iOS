@@ -32,6 +32,10 @@
         _dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
         [self addSubview:_dimmingView];
     
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapDimmingView)];
+        tap.numberOfTapsRequired = 1;
+        [_dimmingView addGestureRecognizer:tap];
+        
         // 2. 答题按钮
         _composeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_composeButton setImage:[UIImage imageNamed:@"btn_ans_send"] forState:UIControlStateNormal];
@@ -41,7 +45,7 @@
         // 3. 答题框
         _textFieldBackView = [[UIView alloc] init];
         _textFieldBackView.backgroundColor = [UIColor colorWithHex:0x1a1a1a];
-        [self addSubview:_textFieldBackView];
+        [self insertSubview:_textFieldBackView belowSubview:_composeButton];
         
         _textField = [[UITextField alloc] init];
         _textField.delegate = self;
@@ -98,10 +102,6 @@
 
 #pragma mark - Public Method
 
-- (void)becomeFirstResponser {
-    [_textField becomeFirstResponder];
-}
-
 - (void)showAnswerTips:(NSString *)tips {
 
 }
@@ -110,6 +110,15 @@
     
 }
 
+- (BOOL)becomeFirstResponder {
+    [_textField becomeFirstResponder];
+    return YES;
+}
+
 #pragma mark - Tool Method
+
+- (void)didTapDimmingView {
+    
+}
 
 @end
