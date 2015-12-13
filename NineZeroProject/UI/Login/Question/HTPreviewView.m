@@ -95,10 +95,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     preContentOffsetX = scrollView.contentOffset.x;
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    
-}
-
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     
 }

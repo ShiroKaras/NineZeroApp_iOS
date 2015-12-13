@@ -22,7 +22,7 @@
  */
 
 /**
- * 注册
+ * @brief 注册
  ￼1. {
  2. "user_name":"90",
  3. "user_password":"*******"
@@ -36,7 +36,7 @@
 + (NSString *)userBaseRegisterCGIKey;
 
 /**
- * 登录
+ * @brief 登录
  1. {
  2. "user_name":"90",
  3. "user_password":"*******"
@@ -45,7 +45,7 @@
 + (NSString *)userBaseLoginCGIKey;
 
 /**
- * 重置密码
+ * @brief 重置密码
  1. {
  2. "user_name":"90",
  3. "user_password":"*******"
@@ -54,13 +54,13 @@
 + (NSString *)userBaseResetPwdCGIKey;
 
 /**
- *  获取题目相关的总体信息
+ *  @brief 获取题目相关的总体信息
  *  "area_id":"1"
  */
 + (NSString *)getQuestionInfoCGIKey;
 
 /**
- *  获取题目列表
+ *  @brief 获取题目列表
  *  "area_id":"1"
  *  "page":"1"
  *  "count":"10"
@@ -68,18 +68,29 @@
 + (NSString *)getQuestionListCGIKey;
 
 /**
- *  获取题目详情
+ *  @brief 获取题目详情
  *  "question_id":"2015120423201902904"
  */
 + (NSString *)getQuestionDetailCGIKey;
+/**
+ *  @brief 获取额外的提示
+ */
++ (NSString *)getExtraHintCGIKey;
 
 /**
- *  获取七牛token
+ *  @brief 验证回答答案
+ *  "question_id":"2015120423201902904"
+ *  "answer" : "testtest"
+ */
++ (NSString *)verifyAnswerCGIKey;
+
+/**
+ *  @brief 获取七牛token
  */
 + (NSString *)getQiniuTokenCGIKey;
 
 /**
- *  获取七牛下载链接
+ *  @brief 获取七牛下载链接
  */
 + (NSString *)getQiniuDownloadUrlCGIKey;
 

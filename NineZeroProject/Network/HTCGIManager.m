@@ -6,41 +6,51 @@
 //  Copyright © 2015年 ronhu. All rights reserved.
 //
 
+#define RETURN_CGI(KEY) return [NSString stringWithFormat:@"%@KEY", NETWORK_HOST]
+
 #import <Foundation/Foundation.h>
 #import "HTCGIManager.h"
 
 @implementation HTCGIManager
 
 + (NSString *)userBaseRegisterCGIKey {
-    return [NSString stringWithFormat:@"%@Login/register/", NETWORK_HOST];
+    RETURN_CGI(@"Login/register/");
 }
 
 + (NSString *)userBaseLoginCGIKey {
-    return [NSString stringWithFormat:@"%@Login/login/", NETWORK_HOST];
+    RETURN_CGI(@"Login/login/");
 }
 
 + (NSString *)userBaseResetPwdCGIKey {
-    return [NSString stringWithFormat:@"%@Login/reset/", NETWORK_HOST];
+    RETURN_CGI(@"Login/reset/");
 }
 
 + (NSString *)getQiniuTokenCGIKey {
-    return [NSString stringWithFormat:@"%@Common/getQiniuToken", NETWORK_HOST];
+    RETURN_CGI(@"Common/getQiniuToken/");
 }
 
 + (NSString *)getQiniuDownloadUrlCGIKey {
-    return [NSString stringWithFormat:@"%@Common/getDownloadUrl", NETWORK_HOST];
+    RETURN_CGI(@"Common/getDownloadUrl/");
 }
 
 + (NSString *)getQuestionInfoCGIKey {
-    return [NSString stringWithFormat:@"%@Question/info", NETWORK_HOST];
+    RETURN_CGI(@"Question/info/");
 }
 
 + (NSString *)getQuestionListCGIKey {
-    return [NSString stringWithFormat:@"%@Question/getList", NETWORK_HOST];
+    RETURN_CGI(@"Question/getList/");
 }
 
 + (NSString *)getQuestionDetailCGIKey {
-    return [NSString stringWithFormat:@"%@Question/detail", NETWORK_HOST];
+    RETURN_CGI(@"Question/detail/");
+}
+
++ (NSString *)getExtraHintCGIKey {
+    RETURN_CGI(@"Question/getRestHint/");
+}
+
++ (NSString *)verifyAnswerCGIKey {
+    RETURN_CGI(@"Answer/answerText/");
 }
 
 @end
