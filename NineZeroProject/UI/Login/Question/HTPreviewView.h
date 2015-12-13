@@ -10,12 +10,24 @@
 #import <UIKit/UIKit.h>
 
 @class HTQuestion;
+@class HTPreviewView;
+@class HTPreviewItem;
 
+@protocol HTPreviewViewDelegate <NSObject>
 /**
- *  预览题目控件
+ *  @brief 点击了答题按钮
+ *  @param previewView 预览题目控件
+ *  @param item        预览题目控件的子控件
  */
+- (void)previewView:(HTPreviewView *)previewView didClickComposeWithItem:(HTPreviewItem *)item;
+
+@end
+
+/** 预览题目控件 */
 @interface HTPreviewView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame andQuestions:(NSArray<HTQuestion *>*)questions NS_DESIGNATED_INITIALIZER;
+
+//@property (nonatomic, weak) 
 
 @end

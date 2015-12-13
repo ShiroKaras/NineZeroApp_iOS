@@ -113,7 +113,7 @@
         _verifyButton.enabled = YES;
     } else {
         [UIView setAnimationsEnabled:NO];
-        [_verifyButton setTitle:[NSString stringWithFormat:@"再发一次(%ld)", _secondsToCountDown] forState:UIControlStateNormal];
+        [_verifyButton setTitle:[NSString stringWithFormat:@"再发一次(%ld)", (long)_secondsToCountDown] forState:UIControlStateNormal];
         [_verifyButton layoutIfNeeded];
         [UIView setAnimationsEnabled:YES];
     }

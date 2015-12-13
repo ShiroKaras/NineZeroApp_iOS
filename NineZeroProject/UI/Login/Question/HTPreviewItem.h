@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class HTPreviewItem;
+
+@protocol HTPreviewItemDelegate <NSObject>
+
+- (void)previewItem:(HTPreviewItem *)previewItem didClickComposeButton:(UIButton *)composeButton;
+
+@end
+
 @interface HTPreviewItem : UIView
+
+@property (weak, nonatomic) id<HTPreviewItemDelegate> delegate;
 
 @end

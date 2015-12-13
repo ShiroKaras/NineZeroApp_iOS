@@ -16,7 +16,7 @@
                     <rect key="frame" x="30" y="29" width="91" height="55"/>
                 </imageView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olt-gf-MHg">
-                    <rect key="frame" x="289" y="10" width="47" height="47"/>
+                    <rect key="frame" x="288.5" y="10" width="47.5" height="47"/>
                     <fontDescription key="fontDescription" type="system" pointSize="39"/>
                     <color key="textColor" red="1" green="0.48000616779999999" blue="0.93246299340000005" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -31,17 +31,50 @@
                     <rect key="frame" x="298" y="38" width="38" height="10"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeG-sZ-0XQ">
-                    <rect key="frame" x="60" y="34" width="16" height="17"/>
+                    <rect key="frame" x="60.5" y="34" width="15.5" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.83137254901960778" green="0.054901960784313725" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dc6-3u-vve">
                     <rect key="frame" x="0.0" y="96" width="353" height="353"/>
+                    <subviews>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aMf-2u-qyt">
+                            <rect key="frame" x="141" y="142" width="70" height="70"/>
+                            <state key="normal" image="btn_play"/>
+                            <state key="highlighted" image="btn_play_highlight"/>
+                            <connections>
+                                <action selector="onClickPlayButton:" destination="bTN-pl-0aj" eventType="touchUpInside" id="qyz-wO-VRj"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4TV-Ma-RW7">
+                            <rect key="frame" x="308" y="314" width="28" height="32"/>
+                            <state key="normal" image="ico_pause"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42j-pR-v8q">
+                            <rect key="frame" x="308" y="15" width="33" height="28"/>
+                            <state key="normal" image="ico_mute"/>
+                            <connections>
+                                <action selector="onClickSoundButton:" destination="bTN-pl-0aj" eventType="touchUpInside" id="ULc-WC-b2d"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="aMf-2u-qyt" firstAttribute="centerY" secondItem="Dc6-3u-vve" secondAttribute="centerY" id="AFX-dN-clk"/>
+                        <constraint firstItem="aMf-2u-qyt" firstAttribute="centerX" secondItem="Dc6-3u-vve" secondAttribute="centerX" id="MeS-4U-Dgm"/>
+                        <constraint firstAttribute="trailing" secondItem="42j-pR-v8q" secondAttribute="trailing" constant="8" id="QJW-ZU-U6J"/>
+                        <constraint firstItem="42j-pR-v8q" firstAttribute="leading" secondItem="4TV-Ma-RW7" secondAttribute="leading" id="R0C-Rp-9j6"/>
+                        <constraint firstAttribute="trailing" secondItem="4TV-Ma-RW7" secondAttribute="trailing" constant="17" id="TAN-XY-psM"/>
                         <constraint firstAttribute="width" secondItem="Dc6-3u-vve" secondAttribute="height" multiplier="1:1" id="VaQ-1g-VAr"/>
+                        <constraint firstAttribute="bottom" secondItem="4TV-Ma-RW7" secondAttribute="bottom" constant="7" id="g3R-jo-AFL"/>
+                        <constraint firstItem="42j-pR-v8q" firstAttribute="top" secondItem="Dc6-3u-vve" secondAttribute="top" constant="15" id="ixY-O7-9WI"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="QJW-ZU-U6J"/>
+                        </mask>
+                    </variation>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6TQ-HL-k8P">
                     <rect key="frame" x="0.0" y="449" width="353" height="80"/>
@@ -53,10 +86,16 @@
                     <state key="normal" title="我想，这就是全新的开始">
                         <color key="titleColor" red="1" green="1" blue="0.93246299340000005" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="onClickContentButton:" destination="bTN-pl-0aj" eventType="touchUpInside" id="vB8-dc-cVX"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ux-TL-yfC" userLabel="write">
                     <rect key="frame" x="295" y="508" width="42" height="42"/>
                     <state key="normal" image="btn_ans_pencil" backgroundImage="btn_ans_pencil_highlight"/>
+                    <connections>
+                        <action selector="onClickComposeButton:" destination="bTN-pl-0aj" eventType="touchUpInside" id="u6s-mL-lFa"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -92,7 +131,16 @@
                 </mask>
             </variation>
             <connections>
+                <outlet property="chapterLabel" destination="aeG-sZ-0XQ" id="Dc7-me-Ldt"/>
+                <outlet property="composeButton" destination="3ux-TL-yfC" id="i3u-hO-Q0D"/>
+                <outlet property="contenButton" destination="6TQ-HL-k8P" id="7Tk-lQ-hI0"/>
+                <outlet property="countDownDetailLabel" destination="olt-gf-MHg" id="7sl-SX-wfd"/>
+                <outlet property="countDownImageView" destination="tP5-np-nlD" id="4FZ-PQ-iWq"/>
+                <outlet property="countDownMainLabel" destination="VRH-Pt-ON4" id="W0y-17-MwQ"/>
+                <outlet property="pauseButton" destination="4TV-Ma-RW7" id="3Hr-1o-7qE"/>
+                <outlet property="playButton" destination="aMf-2u-qyt" id="RPh-ea-zKd"/>
                 <outlet property="playItemBackView" destination="Dc6-3u-vve" id="V6Q-2l-j8A"/>
+                <outlet property="soundButton" destination="42j-pR-v8q" id="ed9-Fz-bdN"/>
             </connections>
             <point key="canvasLocation" x="499.5" y="249"/>
         </view>
@@ -100,6 +148,10 @@
     <resources>
         <image name="btn_ans_pencil" width="42" height="42"/>
         <image name="btn_ans_pencil_highlight" width="42" height="42"/>
+        <image name="btn_play" width="70" height="70"/>
+        <image name="btn_play_highlight" width="70" height="70"/>
+        <image name="ico_mute" width="33" height="28"/>
+        <image name="ico_pause" width="28" height="32"/>
         <image name="img_chapter" width="91" height="55"/>
         <image name="img_timer_1_deco" width="38" height="10"/>
     </resources>

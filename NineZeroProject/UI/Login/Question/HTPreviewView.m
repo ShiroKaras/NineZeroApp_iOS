@@ -13,7 +13,7 @@
 static CGFloat kTopMargin = 50;
 static CGFloat kItemMargin = 17;         // item之间间隔
 
-@interface HTPreviewView() <UIScrollViewDelegate>
+@interface HTPreviewView() <UIScrollViewDelegate, HTPreviewItemDelegate>
 
 @property (nonatomic, strong) UIScrollView *previewScrollView;
 @property (nonatomic, strong) NSMutableArray<HTPreviewItem *> *previewItems;
@@ -51,6 +51,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             HTPreviewItem *item = [[HTPreviewItem alloc] init];
             NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"HTPreviewItem" owner:self options:nil];
             item = [nibs objectAtIndex:0];
+            item.delegate = self;
             [_previewItems addObject:item];
             [_previewScrollView addSubview:item];
         }
@@ -81,6 +82,12 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    
+}
+
+#pragma mark - HTPreviewItem Delegate
+
+- (void)previewItem:(HTPreviewItem *)previewItem didClickComposeButton:(UIButton *)composeButton {
     
 }
 

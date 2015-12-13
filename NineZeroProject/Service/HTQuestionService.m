@@ -35,8 +35,8 @@
 
 - (void)getQuestionListWithPage:(NSUInteger)page count:(NSUInteger)count callback:(HTQuestionListCallback)callback {
     NSDictionary *dict = @{@"area_id" : @"1",
-                           @"page"    : [NSString stringWithFormat:@"%ld", page],
-                           @"count"   : [NSString stringWithFormat:@"%ld", count]
+                           @"page"    : [NSString stringWithFormat:@"%lud", (unsigned long)page],
+                           @"count"   : [NSString stringWithFormat:@"%lud", (unsigned long)count]
                            };
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionListCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSMutableArray<HTQuestion *> *questions = [[NSMutableArray alloc] init];
@@ -52,7 +52,7 @@
 }
 
 - (void)getQuestionDetailWithQuestionID:(NSUInteger)questionID callback:(HTQuestionCallback)callback {
-    NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%ld", questionID]};
+    NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID]};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionDetailCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         callback(YES, [HTQuestion objectWithKeyValues:responseObject[@"data"]]);
         DLog(@"%@",responseObject);
