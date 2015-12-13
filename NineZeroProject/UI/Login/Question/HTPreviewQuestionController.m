@@ -87,7 +87,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 
 - (void)didClickDimingViewInComposeView:(HTComposeView *)composeView {
     [self.view endEditing:YES];
-    [_composeView removeFromSuperview];
+    [composeView removeFromSuperview];
 }
 
 @end
