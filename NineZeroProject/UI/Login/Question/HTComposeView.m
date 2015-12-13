@@ -8,13 +8,15 @@
 
 #import "HTComposeView.h"
 #import "HTUIHeader.h"
+#import <FLAnimatedImageView.h>
+#import <FLAnimatedImage.h>
 
 @interface HTComposeView () <UITextFieldDelegate>
 
 @property (nonatomic, strong, readwrite) UITextField *textField; ///< 输入框
 @property (nonatomic, strong) UIView *textFieldBackView;         ///< 输入框背景
 @property (nonatomic, strong) UIButton *composeButton;           ///< 输入按钮
-@property (nonatomic, strong) UIImageView *resultImageView;      ///< 显示结果
+@property (nonatomic, strong) FLAnimatedImageView *resultImageView;      ///< 显示结果
 @property (nonatomic, strong) UILabel *tipsLabel;                ///< 提示
 @property (nonatomic, strong) UIView *tipsBackView;              ///< 提示背景
 @property (nonatomic, strong) UIView *dimmingView;               ///< 答题背景
@@ -40,6 +42,8 @@
         _composeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_composeButton setImage:[UIImage imageNamed:@"btn_ans_send"] forState:UIControlStateNormal];
         [_composeButton setImage:[UIImage imageNamed:@"btn_ans_send_highlight"] forState:UIControlStateHighlighted];
+        _composeButton.enabled = NO;
+        [_composeButton addTarget:self action:@selector(didClickComposeButton) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_composeButton];
         
         // 3. 答题框
@@ -50,17 +54,19 @@
         _textField = [[UITextField alloc] init];
         _textField.delegate = self;
         _textField.font = [UIFont systemFontOfSize:17];
+        _textField.placeholder = @"请输入你的答案";
         _textField.textColor = [UIColor colorWithHex:0x24ddb2];
         [_textFieldBackView addSubview:_textField];
         
         // 4. 结果
-        _resultImageView = [[UIImageView alloc] init];
+        _resultImageView = [[FLAnimatedImageView alloc] init];
         _resultImageView.hidden = YES;
         [self addSubview:_resultImageView];
         
         // 5. 提示
         _tipsBackView = [[UIView alloc] init];
-        _tipsBackView.backgroundColor = [UIColor colorWithHex:0x040e88];
+        _tipsBackView.backgroundColor = [UIColor colorWithHex:0xd40e88];
+        _tipsBackView.hidden = YES;
         [self addSubview:_tipsBackView];
         
         _tipsLabel = [[UILabel alloc] init];
@@ -71,6 +77,8 @@
         
         // 6. 建立约束
         [self buildConstraints];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChangeText) name:UITextFieldTextDidChangeNotification object:nil];
     }
     return self;
 }
@@ -106,7 +114,7 @@
     
     // 5. 提示
     [_tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(-20);
+        make.top.equalTo(self).offset(20);
         make.width.equalTo(self);
         make.height.equalTo(@30);
     }];
@@ -116,19 +124,65 @@
     }];
 }
 
+- (void)buildResultImageViewWithCorrect:(BOOL)correct {
+    [_resultImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        if (correct == YES) {
+            make.width.equalTo(@165);
+            make.height.equalTo(@165);
+        } else {
+            make.width.equalTo(@243);
+            make.height.equalTo(@67);
+        }
+        make.center.equalTo(self).centerOffset(CGPointMake(0, -20));
+    }];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Public Method
 
 - (void)showAnswerTips:(NSString *)tips {
-
+    [UIView animateWithDuration:0.3 animations:^{
+        _tipsBackView.hidden = NO;
+    } completion:^(BOOL finished) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            _tipsBackView.hidden = YES;
+        });
+    }];
 }
 
 - (void)showAnswerCorrect:(BOOL)correct {
-    
+    _resultImageView.hidden = NO;
+    NSString *gifName = (correct) ? @"right-answer_gif" : @"raw_wrong_answer_gif";
+    NSString *path = [[NSBundle mainBundle] pathForResource:gifName ofType:@"gif"];
+    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]]];
+    image.loopCount = 1;
+    _resultImageView.animatedImage = image;
+    [self buildResultImageViewWithCorrect:correct];
 }
 
 - (BOOL)becomeFirstResponder {
     [_textField becomeFirstResponder];
     return YES;
+}
+
+#pragma mark - UITextField Delegate
+
+
+
+#pragma mark - Action
+
+- (void)didClickComposeButton {
+    if ([self.delegate respondsToSelector:@selector(composeView:didComposeWithAnswer:)]) {
+        [self.delegate composeView:self didComposeWithAnswer:_textField.text];
+    }
+}
+
+- (void)textFieldDidChangeText {
+    NSString *text = _textField.text;
+    _composeButton.enabled = (text.length != 0);
 }
 
 #pragma mark - Tool Method

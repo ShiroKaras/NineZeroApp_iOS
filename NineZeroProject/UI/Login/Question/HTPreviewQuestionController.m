@@ -77,7 +77,13 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 #pragma mark - HTComposeView Delegate
 
 - (void)composeView:(HTComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
-
+    static BOOL isRight = YES;
+    if (isRight) {
+        [composeView showAnswerCorrect:YES];
+    } else {
+        [composeView showAnswerCorrect:NO];
+    }
+    isRight = !isRight;
 }
 
 - (void)didClickDimingViewInComposeView:(HTComposeView *)composeView {
