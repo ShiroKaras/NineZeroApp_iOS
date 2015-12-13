@@ -9,16 +9,18 @@
 #import "HTPreviewQuestionController.h"
 #import "HTPreviewItem.h"
 #import "HTPreviewView.h"
+#import "HTComposeView.h"
 #import "CommonUI.h"
 
 static CGFloat kLeftMargin = 13; // 暂定为0
 
-@interface HTPreviewQuestionController ()
+@interface HTPreviewQuestionController () <HTPreviewViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;                    // 左下角“九零”
 @property (weak, nonatomic) IBOutlet UIButton *meButton;                      // 右下角“我”
 @property (weak, nonatomic) IBOutlet UIButton *lingzaiButton;                 // 右下角"零仔"
-@property (strong, nonatomic) HTPreviewView *previewView;
+@property (strong, nonatomic) HTPreviewView *previewView;                     // 预览题目控件
+@property (strong, nonatomic) HTComposeView *composeView;                     // 答题界面
 
 @end
 
@@ -28,12 +30,43 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
-    self.previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, self.view.width - kLeftMargin, self.view.height) andQuestions:nil];
+    _previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, self.view.width - kLeftMargin, self.view.height) andQuestions:nil];
+    _previewView.delegate = self;
     [self.view insertSubview:self.previewView atIndex:0];
+    
+    _composeView = [[HTComposeView alloc] init];
+    _composeView.hidden = YES;
+    [self.view addSubview:_composeView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Keyboard
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    CGRect keyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height - keyboardRect.size.height);
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    [_composeView removeFromSuperview];
+}
+
+#pragma mark - HTPreviewView Delegate
+
+- (void)previewView:(HTPreviewView *)previewView didClickComposeWithItem:(HTPreviewItem *)item {
+    _composeView.hidden = NO;
+    [_composeView becomeFirstResponder];
 }
 
 @end

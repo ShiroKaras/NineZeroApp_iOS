@@ -88,7 +88,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 #pragma mark - HTPreviewItem Delegate
 
 - (void)previewItem:(HTPreviewItem *)previewItem didClickComposeButton:(UIButton *)composeButton {
-    
+    if ([self.delegate respondsToSelector:@selector(previewView:didClickComposeWithItem:)]) {
+        [self.delegate previewView:self didClickComposeWithItem:previewItem];
+    }
 }
 
 #pragma mark - Action

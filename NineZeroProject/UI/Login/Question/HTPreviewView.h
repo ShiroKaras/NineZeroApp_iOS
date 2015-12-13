@@ -28,6 +28,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame andQuestions:(NSArray<HTQuestion *>*)questions NS_DESIGNATED_INITIALIZER;
 
-//@property (nonatomic, weak) 
+@property (nonatomic, weak) id<HTPreviewViewDelegate> delegate;
 
 @end

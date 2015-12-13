@@ -27,7 +27,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-    
         // 1. 背景
         _dimmingView = [[UIView alloc] init];
         _dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
@@ -100,7 +99,7 @@
 #pragma mark - Public Method
 
 - (void)becomeFirstResponser {
-    
+    [_textField becomeFirstResponder];
 }
 
 - (void)showAnswerTips:(NSString *)tips {
