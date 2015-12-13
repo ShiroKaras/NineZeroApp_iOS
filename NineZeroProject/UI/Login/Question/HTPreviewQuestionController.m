@@ -33,9 +33,6 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     _previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, self.view.width - kLeftMargin, self.view.height) andQuestions:nil];
     _previewView.delegate = self;
     [self.view insertSubview:self.previewView atIndex:0];
-    
-    _composeView = [[HTComposeView alloc] init];
-    _composeView.delegate = self;
    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -64,6 +61,8 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 #pragma mark - HTPreviewView Delegate
 
 - (void)previewView:(HTPreviewView *)previewView didClickComposeWithItem:(HTPreviewItem *)item {
+    _composeView = [[HTComposeView alloc] init];
+    _composeView.delegate = self;
     _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
     _composeView.alpha = 0.0;
     [UIView animateWithDuration:0.3 animations:^{
