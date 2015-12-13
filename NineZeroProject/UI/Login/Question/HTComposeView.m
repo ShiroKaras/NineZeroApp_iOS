@@ -8,8 +8,8 @@
 
 #import "HTComposeView.h"
 #import "HTUIHeader.h"
-#import <FLAnimatedImageView.h>
-#import <FLAnimatedImage.h>
+#import "FLAnimatedImageView.h"
+#import "FLAnimatedImage.h"
 
 @interface HTComposeView () <UITextFieldDelegate>
 

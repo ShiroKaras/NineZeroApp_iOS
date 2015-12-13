@@ -22,7 +22,6 @@ PODS:
   - AFNetworking/UIKit (2.6.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - FLAnimatedImage (1.0.8)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
   - FMDB/common (2.5)
@@ -30,7 +29,6 @@ PODS:
     - FMDB/common
   - HappyDNS (0.2.1)
   - JPush (1.8.5)
-  - LTInfiniteScrollView (2.0.0)
   - Masonry (0.6.2)
   - MBProgressHUD (0.9.1)
   - MBProgressHUD+BWMExtension (1.0.0):
@@ -51,9 +49,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6)
-  - FLAnimatedImage (~> 1.0)
   - JPush (~> 1.8.5)
-  - LTInfiniteScrollView (~> 2.0.0)
   - Masonry (~> 0.6.2)
   - MBProgressHUD+BWMExtension (~> 1.0.0)
   - MJExtension
@@ -66,11 +62,9 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFDownloadRequestOperation: 748a1643423e1ddb23f2178f778087d4f0ae8ac7
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
-  FLAnimatedImage: f9422f796135aff80d8c00b2afc48015bb746e24
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   HappyDNS: 8eb3c929ee6143eb56bfddfc9e6052ca9429699c
   JPush: ba06a6f866ce11f11c15149e7fa67488a23eec87
-  LTInfiniteScrollView: 2714937432ba58a4c7fde7d29ecf810d6df02cd1
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MBProgressHUD+BWMExtension: dd1dff033c1802edf7cb613c5643db5f090575bd

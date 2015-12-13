@@ -13,6 +13,7 @@
 #import <Foundation/Foundation.h>
 #import <Masonry.h>
 #import "CommonUI.h"
+#import "HTModel.h"
 #import "HTNavigationController.h"
 #import "HTCommonViewController.h"
 

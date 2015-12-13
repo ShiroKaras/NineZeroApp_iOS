@@ -44,6 +44,11 @@
 		17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A47E8B1C037F3E00BEC1DD /* HTCommonViewController.m */; };
 		17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A47E8F1C03869000BEC1DD /* HTLoginButton.m */; };
 		17A562411C1B3F3B0033D478 /* sample.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 17A562401C1B3F3B0033D478 /* sample.mp4 */; };
+		17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AAB1C1DBA150087BF00 /* LTInfiniteScrollView.m */; };
+		17A89AAF1C1DBA150087BF00 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AAC1C1DBA150087BF00 /* README.md */; };
+		17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB41C1DBA290087BF00 /* FLAnimatedImage.m */; };
+		17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB61C1DBA290087BF00 /* FLAnimatedImageView.m */; };
+		17A89ABC1C1DBA290087BF00 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB81C1DBA290087BF00 /* README.md */; };
 		17B1D83D1C1492CE0082C86B /* HTPreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D83C1C1492CE0082C86B /* HTPreviewItem.m */; };
 		17B1D83F1C1492D90082C86B /* HTPreviewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */; };
 		17B1D8421C1544470082C86B /* HTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D8411C1544470082C86B /* HTModel.m */; };
@@ -142,6 +147,14 @@
 		17A47E8E1C03869000BEC1DD /* HTLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTLoginButton.h; path = ../Common/HTLoginButton.h; sourceTree = "<group>"; };
 		17A47E8F1C03869000BEC1DD /* HTLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTLoginButton.m; path = ../Common/HTLoginButton.m; sourceTree = "<group>"; };
 		17A562401C1B3F3B0033D478 /* sample.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.mp4; sourceTree = "<group>"; };
+		17A89AAA1C1DBA150087BF00 /* LTInfiniteScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LTInfiniteScrollView.h; path = LTInfiniteScrollView/LTInfiniteScrollView.h; sourceTree = "<group>"; };
+		17A89AAB1C1DBA150087BF00 /* LTInfiniteScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LTInfiniteScrollView.m; path = LTInfiniteScrollView/LTInfiniteScrollView.m; sourceTree = "<group>"; };
+		17A89AAC1C1DBA150087BF00 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		17A89AB31C1DBA290087BF00 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLAnimatedImage.h; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImage.h; sourceTree = "<group>"; };
+		17A89AB41C1DBA290087BF00 /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImage.m; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImage.m; sourceTree = "<group>"; };
+		17A89AB51C1DBA290087BF00 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLAnimatedImageView.h; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImageView.h; sourceTree = "<group>"; };
+		17A89AB61C1DBA290087BF00 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImageView.m; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImageView.m; sourceTree = "<group>"; };
+		17A89AB81C1DBA290087BF00 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		17B1D83B1C1492CE0082C86B /* HTPreviewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPreviewItem.h; sourceTree = "<group>"; };
 		17B1D83C1C1492CE0082C86B /* HTPreviewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTPreviewItem.m; sourceTree = "<group>"; };
 		17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTPreviewItem.xib; sourceTree = "<group>"; };
@@ -310,6 +323,7 @@
 				1721D7171BEFB77E00498304 /* Network */,
 				1721D7181BEFB77E00498304 /* Storage */,
 				174C53351BE7A55400893C22 /* Utility */,
+				17A89A8F1C1DB9BB0087BF00 /* ThirdPart */,
 				26E633BCA682E11CD6C30957 /* Frameworks */,
 				58ED34051F9DA51A2CB6A5F6 /* Pods */,
 			);
@@ -380,6 +394,38 @@
 			);
 			name = Service;
 			path = NineZeroProject/Service;
+			sourceTree = "<group>";
+		};
+		17A89A8F1C1DB9BB0087BF00 /* ThirdPart */ = {
+			isa = PBXGroup;
+			children = (
+				17A89AB01C1DBA290087BF00 /* FLAnimatedImage */,
+				17A89AA71C1DBA150087BF00 /* LTInfiniteScrollView */,
+			);
+			name = ThirdPart;
+			path = NineZeroProject/ThirdPart;
+			sourceTree = "<group>";
+		};
+		17A89AA71C1DBA150087BF00 /* LTInfiniteScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				17A89AAA1C1DBA150087BF00 /* LTInfiniteScrollView.h */,
+				17A89AAB1C1DBA150087BF00 /* LTInfiniteScrollView.m */,
+				17A89AAC1C1DBA150087BF00 /* README.md */,
+			);
+			path = LTInfiniteScrollView;
+			sourceTree = "<group>";
+		};
+		17A89AB01C1DBA290087BF00 /* FLAnimatedImage */ = {
+			isa = PBXGroup;
+			children = (
+				17A89AB31C1DBA290087BF00 /* FLAnimatedImage.h */,
+				17A89AB41C1DBA290087BF00 /* FLAnimatedImage.m */,
+				17A89AB51C1DBA290087BF00 /* FLAnimatedImageView.h */,
+				17A89AB61C1DBA290087BF00 /* FLAnimatedImageView.m */,
+				17A89AB81C1DBA290087BF00 /* README.md */,
+			);
+			path = FLAnimatedImage;
 			sourceTree = "<group>";
 		};
 		17DB9CF21C0B4C2600A4D0EF /* Model */ = {
@@ -645,16 +691,21 @@
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
 				17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */,
 				17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */,
+				17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */,
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
 				26973B021C005ED900160D25 /* HTNavigationController.m in Sources */,
 				176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */,
 				26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */,
+				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
 				17B1D8421C1544470082C86B /* HTModel.m in Sources */,
+				17A89ABC1C1DBA290087BF00 /* README.md in Sources */,
 				26973B221C006A6900160D25 /* HTLoginController.m in Sources */,
 				17967AB51C174ED500571924 /* HTQuestionService.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
+				17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
+				17A89AAF1C1DBA150087BF00 /* README.md in Sources */,
 				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
 				174CF7821C146E2F002E0DBB /* HTPreviewQuestionController.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,

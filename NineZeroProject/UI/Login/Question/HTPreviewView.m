@@ -9,6 +9,7 @@
 #import "HTPreviewView.h"
 #import "HTPreviewItem.h"
 #import "CommonUI.h"
+#import "HTUIHeader.h"
 
 static CGFloat kTopMargin = 50;
 static CGFloat kItemMargin = 17;         // item之间间隔
@@ -17,11 +18,12 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 @property (nonatomic, strong) UIScrollView *previewScrollView;
 @property (nonatomic, strong) NSMutableArray<HTPreviewItem *> *previewItems;
+@property (nonatomic, strong) NSArray<HTQuestion *> *questions;
 
 @end
 
 @implementation HTPreviewView {
-    CGFloat pageSize;  // 每页宽度
+    CGFloat pageWidth; // 每页宽度
     CGFloat itemWidth; // 显示控件的宽度
 }
 
@@ -29,14 +31,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (instancetype)initWithFrame:(CGRect)frame andQuestions:(NSArray<HTQuestion *> *)questions {
     if (self = [super initWithFrame:frame]) {
-        
-        pageSize = CGRectGetWidth(frame) - kItemMargin;
+        _questions = questions;
+        pageWidth = CGRectGetWidth(frame) - kItemMargin;
         itemWidth = CGRectGetWidth(frame) - kItemMargin * 2;
         
         // 1.滚动视图
         _previewScrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         _previewScrollView.backgroundColor = [UIColor clearColor];
-        _previewScrollView.contentSize = CGSizeMake(pageSize * 3 + kItemMargin /* 最右边那个预留宽度 */, self.height);
+        _previewScrollView.contentSize = CGSizeMake(pageWidth * 3 + kItemMargin /* 最右边那个预留宽度 */, self.height);
         _previewScrollView.delegate = self;
         _previewScrollView.pagingEnabled = NO;
         _previewScrollView.clipsToBounds = NO;
@@ -96,7 +98,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 #pragma mark - Action
 
 - (CGFloat)contentOffsetWithIndex:(NSInteger)index {
-    return _previewScrollView.contentSize.width -  pageSize * (index + 1) - kItemMargin;
+    return _previewScrollView.contentSize.width -  pageWidth * (index + 1) - kItemMargin;
 }
 
 @end
