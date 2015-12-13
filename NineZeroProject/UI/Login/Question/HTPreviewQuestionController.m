@@ -14,7 +14,7 @@
 
 static CGFloat kLeftMargin = 13; // 暂定为0
 
-@interface HTPreviewQuestionController () <HTPreviewViewDelegate>
+@interface HTPreviewQuestionController () <HTPreviewViewDelegate, HTComposeViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;                    // 左下角“九零”
 @property (weak, nonatomic) IBOutlet UIButton *meButton;                      // 右下角“我”
@@ -35,6 +35,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     [self.view insertSubview:self.previewView atIndex:0];
     
     _composeView = [[HTComposeView alloc] init];
+    _composeView.delegate = self;
    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -53,9 +54,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 - (void)keyboardWillShow:(NSNotification *)notification {
     NSDictionary *info = [notification userInfo];
     CGRect keyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:0.3 animations:^{
-       _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height - keyboardRect.size.height);
-    }];
+    _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height - keyboardRect.size.height);
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -73,6 +72,17 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     } completion:^(BOOL finished) {
         [_composeView becomeFirstResponder];
     }];
+}
+
+#pragma mark - HTComposeView Delegate
+
+- (void)composeView:(HTComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
+
+}
+
+- (void)didClickDimingViewInComposeView:(HTComposeView *)composeView {
+    [self.view endEditing:YES];
+    [_composeView removeFromSuperview];
 }
 
 @end

@@ -118,7 +118,9 @@
 #pragma mark - Tool Method
 
 - (void)didTapDimmingView {
-    
+    if ([self.delegate respondsToSelector:@selector(didClickDimingViewInComposeView:)]) {
+        [self.delegate didClickDimingViewInComposeView:self];
+    }
 }
 
 @end
