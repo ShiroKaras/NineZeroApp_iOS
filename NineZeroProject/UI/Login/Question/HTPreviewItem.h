@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class HTQuestion;
 @class HTPreviewItem;
 
 @protocol HTPreviewItemDelegate <NSObject>
@@ -18,6 +19,7 @@
 
 @interface HTPreviewItem : UIView
 
+@property (strong, nonatomic) HTQuestion *question;
 @property (weak, nonatomic) id<HTPreviewItemDelegate> delegate;
 
 @end

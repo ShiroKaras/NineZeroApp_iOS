@@ -10,6 +10,7 @@
 #import "HTPreviewItem.h"
 #import "HTPreviewView.h"
 #import "HTComposeView.h"
+#import "HTUIHeader.h"
 #import "CommonUI.h"
 
 static CGFloat kLeftMargin = 13; // 暂定为0
@@ -30,10 +31,15 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
-    _previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, self.view.width - kLeftMargin, self.view.height) andQuestions:nil];
-    _previewView.delegate = self;
-    [self.view insertSubview:self.previewView atIndex:0];
-   
+    [MBProgressHUD bwm_showHUDAddedTo:self.view title:@"加载数据中..."];
+    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:1 count:10 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        _previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, self.view.width - kLeftMargin, self.view.height) andQuestions:questionList];
+        _previewView.delegate = self;
+        [self.view insertSubview:self.previewView atIndex:0];
+    }];
+
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-// 覆盖description方法
+// 不要覆盖description方法
 @interface NSObject (PropertyPrint)
 @end
 

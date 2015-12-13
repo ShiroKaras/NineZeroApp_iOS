@@ -89,9 +89,12 @@
     
     
     if (self.totalViewCount % 2 == 1) {
+        // 基数
         self.totalWidth = viewWidth * self.totalViewCount;
         self.scrollView.contentSize = CGSizeMake(self.totalWidth, CGRectGetHeight(self.bounds));
     } else {
+        // 偶数，totalWidth要多加一个viewWidth
+        // 但是contentSize不变
         self.totalWidth = viewWidth * (self.totalViewCount + 1);
         self.scrollView.contentSize = CGSizeMake(self.totalWidth - viewWidth, CGRectGetHeight(self.bounds));
     }

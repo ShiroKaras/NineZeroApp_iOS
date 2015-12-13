@@ -3,7 +3,7 @@
 //  NineZeroProject
 //
 //  Created by ronhu on 15/12/7.
-//  Copyright © 2015年 ronhu. All rights reserved.
+//  Copyright © 2015年 ronhu. All rights researrayed.
 //
 
 #import "HTModel.h"
@@ -11,23 +11,25 @@
 
 @implementation NSObject (PropertyPrint)
 
-- (NSDictionary *)properties_aps {
-    NSMutableDictionary *props = [NSMutableDictionary dictionary];
-    unsigned int outCount, i;
-    objc_property_t *properties = class_copyPropertyList([self class], &outCount);
-    for (i = 0; i < outCount; i++) {
-        objc_property_t property = properties[i];
-        NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:kCFStringEncodingUTF8];
-        id propertyValue = [self valueForKey:(NSString *)propertyName];
-        if (propertyValue) [props setObject:propertyValue forKey:propertyName];
-    }
-    free(properties);
-    return props;
-}
+- (NSString *)description {
+    if ([[NSString stringWithFormat:@"%@", [self class]] isEqualToString:@"AVCMNotificationDispatcher"]) return nil;
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    unsigned int count;
+    objc_property_t *properties = class_copyPropertyList([self class], &count);
 
-//- (NSString *)description {
-//    return [NSString stringWithFormat:@"%@", [self properties_aps]];
-//}
+    for (int i = 0; i < count; i++) {
+        const char *property = property_getName(properties[i]);
+        NSString *propertyString = [NSString stringWithCString:property encoding:[NSString defaultCStringEncoding]];
+        id obj = [self valueForKey:propertyString];
+        [dict setValue:obj forKey:propertyString];
+    }
+
+    free(properties);
+    return [NSString stringWithFormat:@"<%@ %p %@>",
+            [self class],
+            self,
+            dict];
+}
 
 @end
 

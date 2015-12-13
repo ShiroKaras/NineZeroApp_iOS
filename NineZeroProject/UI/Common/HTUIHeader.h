@@ -12,9 +12,11 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <Masonry.h>
+#import <MBProgressHUD+BWMExtension.h>
 #import "CommonUI.h"
 #import "HTModel.h"
 #import "HTNavigationController.h"
 #import "HTCommonViewController.h"
+#import "HTServiceManager.h"
 
 #endif /* HTUIHeader_h */

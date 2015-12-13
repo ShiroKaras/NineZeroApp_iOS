@@ -39,8 +39,7 @@
 
 - (void)awakeFromNib {
     [self buildPlayer];
-    [self play];
-    
+//    [self play];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 }
 
@@ -52,6 +51,19 @@
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
     _playerLayer.videoGravity = AVLayerVideoGravityResize;
     [_playItemBackView.layer addSublayer:_playerLayer];
+    
+    self.playButton.hidden = NO;
+}
+
+- (void)configureQuestion {
+    if (_question == nil) return;
+    [_contenButton setTitle:_question.content forState:UIControlStateNormal];
+    _chapterLabel.text = [NSString stringWithFormat:@"%lud", _question.serial];
+}
+
+- (void)setQuestion:(HTQuestion *)question {
+    _question = question;
+    [self configureQuestion];
 }
 
 - (void)play {
