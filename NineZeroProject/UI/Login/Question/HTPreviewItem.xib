@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -14,44 +14,37 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_chapter" translatesAutoresizingMaskIntoConstraints="NO" id="GXG-sE-Nbi">
                     <rect key="frame" x="30" y="29" width="91" height="55"/>
-                    <animations/>
                 </imageView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olt-gf-MHg">
-                    <rect key="frame" x="288.5" y="10" width="47.5" height="47"/>
-                    <animations/>
+                    <rect key="frame" x="289" y="10" width="47" height="47"/>
                     <fontDescription key="fontDescription" type="system" pointSize="39"/>
                     <color key="textColor" red="1" green="0.48000616779999999" blue="0.93246299340000005" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRH-Pt-ON4">
                     <rect key="frame" x="231" y="56" width="105" height="30"/>
-                    <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <color key="textColor" red="0.83137254901960778" green="0.054901960784313725" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_timer_1_deco" translatesAutoresizingMaskIntoConstraints="NO" id="tP5-np-nlD">
                     <rect key="frame" x="298" y="38" width="38" height="10"/>
-                    <animations/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeG-sZ-0XQ">
-                    <rect key="frame" x="60" y="34" width="15.5" height="17"/>
-                    <animations/>
+                    <rect key="frame" x="60" y="34" width="16" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.83137254901960778" green="0.054901960784313725" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dc6-3u-vve">
                     <rect key="frame" x="0.0" y="96" width="353" height="353"/>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Dc6-3u-vve" secondAttribute="height" multiplier="1:1" id="VaQ-1g-VAr"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6TQ-HL-k8P">
-                    <rect key="frame" x="0.0" y="448.5" width="353" height="80"/>
-                    <animations/>
+                    <rect key="frame" x="0.0" y="449" width="353" height="80"/>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="qDB-ak-UE3"/>
@@ -61,13 +54,11 @@
                         <color key="titleColor" red="1" green="1" blue="0.93246299340000005" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ux-TL-yfC">
-                    <rect key="frame" x="295" y="507.5" width="42" height="42"/>
-                    <animations/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ux-TL-yfC" userLabel="write">
+                    <rect key="frame" x="295" y="508" width="42" height="42"/>
                     <state key="normal" image="btn_ans_pencil" backgroundImage="btn_ans_pencil_highlight"/>
                 </button>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Dc6-3u-vve" secondAttribute="trailing" id="0Ic-yh-kWa"/>
@@ -100,6 +91,9 @@
                     <exclude reference="Nd7-2E-bSE"/>
                 </mask>
             </variation>
+            <connections>
+                <outlet property="playItemBackView" destination="Dc6-3u-vve" id="V6Q-2l-j8A"/>
+            </connections>
             <point key="canvasLocation" x="499.5" y="249"/>
         </view>
     </objects>

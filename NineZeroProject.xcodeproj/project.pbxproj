@@ -43,6 +43,7 @@
 		17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A2772A1BF79CA900E46670 /* HTLoginService.m */; };
 		17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A47E8B1C037F3E00BEC1DD /* HTCommonViewController.m */; };
 		17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A47E8F1C03869000BEC1DD /* HTLoginButton.m */; };
+		17A562411C1B3F3B0033D478 /* sample.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 17A562401C1B3F3B0033D478 /* sample.mp4 */; };
 		17B1D83D1C1492CE0082C86B /* HTPreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D83C1C1492CE0082C86B /* HTPreviewItem.m */; };
 		17B1D83F1C1492D90082C86B /* HTPreviewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */; };
 		17B1D8421C1544470082C86B /* HTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D8411C1544470082C86B /* HTModel.m */; };
@@ -139,6 +140,7 @@
 		17A47E8D1C03815F00BEC1DD /* HTNetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNetworkDefine.h; sourceTree = "<group>"; };
 		17A47E8E1C03869000BEC1DD /* HTLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTLoginButton.h; path = ../Common/HTLoginButton.h; sourceTree = "<group>"; };
 		17A47E8F1C03869000BEC1DD /* HTLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTLoginButton.m; path = ../Common/HTLoginButton.m; sourceTree = "<group>"; };
+		17A562401C1B3F3B0033D478 /* sample.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.mp4; sourceTree = "<group>"; };
 		17B1D83B1C1492CE0082C86B /* HTPreviewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPreviewItem.h; sourceTree = "<group>"; };
 		17B1D83C1C1492CE0082C86B /* HTPreviewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTPreviewItem.m; sourceTree = "<group>"; };
 		17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTPreviewItem.xib; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */,
 				1777D3791BE798F400AC0203 /* Info.plist */,
 				26BD341D1C12DF3300472E46 /* moonbold.ttf */,
+				17A562401C1B3F3B0033D478 /* sample.mp4 */,
 				1777D3681BE798F400AC0203 /* Supporting Files */,
 			);
 			path = NineZeroProject;
@@ -554,6 +557,7 @@
 				26DA7F261C01997A00337A56 /* HTForgetPasswordController.xib in Resources */,
 				26BD341E1C12DF3300472E46 /* moonbold.ttf in Resources */,
 				1777D3751BE798F400AC0203 /* Assets.xcassets in Resources */,
+				17A562411C1B3F3B0033D478 /* sample.mp4 in Resources */,
 				26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */,
 				26973B231C006A6900160D25 /* HTLoginController.xib in Resources */,
 				1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */,

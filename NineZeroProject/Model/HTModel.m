@@ -25,9 +25,9 @@
     return props;
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"%@", [self properties_aps]];
-}
+//- (NSString *)description {
+//    return [NSString stringWithFormat:@"%@", [self properties_aps]];
+//}
 
 @end
 
@@ -52,7 +52,8 @@
                                      @"answers" : @"question_answer",
                                      @"chapterText" : @"chapter",
                                      @"questionDescription" : @"description",
-                                     @"detailURL" : @"detail_url"
+                                     @"detailURL" : @"detail_url",
+                                     @"descriptionPic" : @"description_pic"
                                      };
     return propertyMapper;
 }
