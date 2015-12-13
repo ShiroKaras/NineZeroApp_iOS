@@ -63,4 +63,17 @@
     }];
 }
 
+- (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTNetworkCallback)callback {
+    NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID],
+                           @"anwser" : answer
+                           };
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager verifyAnswerCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        callback(YES, responseObject);
+        DLog(@"%@", responseObject);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(NO, nil);
+        DLog(@"%@", error);
+    }];
+}
+
 @end

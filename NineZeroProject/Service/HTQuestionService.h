@@ -24,21 +24,28 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
 @interface HTQuestionService : NSObject
 
 /**
- *  获取题目总体信息
+ *  @brief 获取题目总体信息
  */
 - (void)getQuestionInfoWithCallback:(HTQuestionInfoCallback)callback;
 
 /**
- *  获取题目列表
+ *  @brief 获取题目列表
  *  @param page     当前页码, 从1开始
  *  @param count    当前页码的数目
  */
 - (void)getQuestionListWithPage:(NSUInteger)page count:(NSUInteger)count callback:(HTQuestionListCallback)callback;
 
 /**
- *  获取题目的具体信息
+ *  @brief 获取题目的具体信息
  *  @param questionID question_id
  */
 - (void)getQuestionDetailWithQuestionID:(NSUInteger)questionID callback:(HTQuestionCallback)callback;
+
+/**
+ *  @brief 验证答案
+ *  @param questionID 问题id
+ *  @param answer     答案
+ */
+- (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTNetworkCallback)callback;
 
 @end
