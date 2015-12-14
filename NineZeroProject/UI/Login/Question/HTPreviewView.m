@@ -12,6 +12,21 @@
 #import "HTUIHeader.h"
 #import "LTInfiniteScrollView.h"
 
+/* 这个界面长这样:
+                ---------------------------------
+                |               |               |
+                |               |  pageWidth    |
+                |               |               |
+                | hint | margin | index0 margin |
+                |      |                        |
+                |      |       self.frame       |
+                |      |                        |
+                |-------------------------------|
+                |                               |
+                |        SCREEN_WIDTH           |
+                |                               |
+                ---------------------------------
+*/
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
     HTScrollDirectionRight,
@@ -52,18 +67,19 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         _previewScrollView.clipsToBounds = NO;
         _previewScrollView.showsHorizontalScrollIndicator = NO;
         _previewScrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+        _previewScrollView.decelerationRate = 0;
         [self addSubview:_previewScrollView];
-        [_previewScrollView setContentOffset:CGPointMake([self contentOffsetWithIndex:0], 0)];
+        [_previewScrollView setContentOffset:CGPointMake([self contentOffsetWithIndex:questions.count - 1], 0)];
         
         // 2.预览视图单元
         _previewItems = [NSMutableArray array];
-        for (int i = 0; i != 3; i++) {
+        for (int i = 0; i != _questions.count; i++) {
             HTPreviewItem *item = [[HTPreviewItem alloc] init];
             NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"HTPreviewItem" owner:self options:nil];
             item = [nibs objectAtIndex:0];
             item.delegate = self;
-            item.tag = questions.count - 2 + i;   // 通过tag值来控制view
-            [item setQuestion:_questions[0]];
+            item.tag = i;   // 通过tag值来控制view
+            [item setQuestion:_questions[_questions.count - i - 1]]; // 倒着取
             [_previewItems addObject:item];
             [_previewScrollView addSubview:item];
         }
@@ -83,7 +99,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [super layoutSubviews];
     for (int i = 0; i != _previewItems.count; i++) {
         HTPreviewItem *item = _previewItems[i];
-        item.frame = CGRectMake([self contentOffsetWithIndex:i] + kItemMargin, kTopMargin, itemWidth, self.height - kTopMargin);
+        item.frame = CGRectMake([self contentOffsetWithIndex:item.tag] + kItemMargin /* 最左边还有一个偏移 */, kTopMargin, itemWidth, self.height - kTopMargin);
     }
 }
 
@@ -96,7 +112,19 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    
+    CGFloat currentContentOffsetX = scrollView.contentOffset.x;
+    NSInteger currentIndex = [self indexWithContentOffsetX:currentContentOffsetX];
+    CGFloat indexOffsetX = [self contentOffsetWithIndex:currentIndex];
+    CGFloat indexPageCenter = [self pageCenterWithIndex:currentIndex];
+    CGFloat targetOffsetX = 0;
+    if (_scrollDirection == HTScrollDirectionRight) {
+        if (indexPageCenter > indexOffsetX) targetOffsetX = indexOffsetX;
+        else targetOffsetX = [self contentOffsetWithIndex:currentIndex + 1];
+    } else {
+        if (indexPageCenter > indexOffsetX) targetOffsetX = [self contentOffsetWithIndex:currentIndex + 1];
+        else targetOffsetX = indexOffsetX;
+    }
+    *targetContentOffset = CGPointMake(targetOffsetX, 0);
 }
 
 #pragma mark - HTPreviewItem Delegate
@@ -109,8 +137,21 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 #pragma mark - Action
 
+- (NSInteger)indexWithContentOffsetX:(CGFloat)contentOffsetX {
+    if (contentOffsetX >= (_previewScrollView.contentSize.width - kItemMargin)) return NSNotFound;
+    if (contentOffsetX <= 0) return 0;
+    return floor(contentOffsetX / pageWidth);
+}
+
+- (CGFloat)pageCenterWithIndex:(NSInteger)index {
+    if (index >= _questions.count) return 0;
+    return [self contentOffsetWithIndex:index] + pageWidth * 0.5;
+}
+
 - (CGFloat)contentOffsetWithIndex:(NSInteger)index {
-    return _previewScrollView.contentSize.width -  pageWidth * (index + 1) - kItemMargin;
+    if (index >= _questions.count) index = _questions.count - 1;
+    if (index <= 0) index = 0;
+    return _previewScrollView.contentSize.width -  pageWidth * (_questions.count - index) - kItemMargin /* 右边预留一个margin */;
 }
 
 @end
