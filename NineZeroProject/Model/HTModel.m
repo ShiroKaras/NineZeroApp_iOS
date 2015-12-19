@@ -81,3 +81,22 @@
     return propertyMapper;
 }
 @end
+
+@implementation HTResponsePackage
+
+- (instancetype)init {
+    if (self = [super init]) {
+        [HTResponsePackage setupReplacedKeyFromPropertyName:^NSDictionary *{
+            return [self propertyMapper];
+        }];
+    }
+    return self;
+}
+
+
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"resultCode" : @"result"};
+    return propertyMapper;
+}
+
+@end

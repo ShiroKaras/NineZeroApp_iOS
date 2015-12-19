@@ -11,10 +11,12 @@
 
 @class HTQuestionInfo;
 @class HTQuestion;
+@class HTResponsePackage;
 
 typedef void (^HTQuestionCallback) (BOOL success, HTQuestion *question);
 typedef void (^HTQuestionListCallback) (BOOL success, NSArray<HTQuestion *> *questionList);
 typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionInfo);
+typedef void (^HTResponseCallback) (BOOL success, HTResponsePackage *response);
 
 /**
  *  该类只允许HTServiceManager创建一次，多次创建直接crash
@@ -46,6 +48,6 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
  *  @param questionID 问题id
  *  @param answer     答案
  */
-- (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTNetworkCallback)callback;
+- (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback;
 
 @end

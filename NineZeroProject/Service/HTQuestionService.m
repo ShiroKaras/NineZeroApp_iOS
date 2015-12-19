@@ -13,7 +13,7 @@
 
 - (instancetype)init {
     static BOOL hasCreate = NO;
-    if (hasCreate == YES) [NSException exceptionWithName:@"手动crash" reason:@"重复创建HTLoginService" userInfo:nil];
+    if (hasCreate == YES) [NSException exceptionWithName:@"手动crash" reason:@"重复创建HTQuestionService" userInfo:nil];
     if (self = [super init]) {
         hasCreate = YES;
     }
@@ -63,12 +63,12 @@
     }];
 }
 
-- (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTNetworkCallback)callback {
+- (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback {
     NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID],
-                           @"anwser" : answer
+                           @"answer" : answer
                            };
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager verifyAnswerCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        callback(YES, responseObject);
+        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
         DLog(@"%@", responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);

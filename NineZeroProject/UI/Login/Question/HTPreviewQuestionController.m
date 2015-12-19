@@ -74,6 +74,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     _composeView.delegate = self;
     _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
     _composeView.alpha = 0.0;
+    _composeView.associatedQuestion = item.question;
     [UIView animateWithDuration:0.3 animations:^{
         _composeView.alpha = 1.0;
         [self.view addSubview:_composeView];
@@ -85,18 +86,19 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 #pragma mark - HTComposeView Delegate
 
 - (void)composeView:(HTComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
-    static BOOL isRight = YES;
     static int clickCount = 0;
-    clickCount++;
-    if (isRight) {
-        [composeView showAnswerCorrect:YES];
-    } else {
-        [composeView showAnswerCorrect:NO];
-    }
-    if (clickCount > 3) {
-        [composeView showAnswerTips:@"hahahahaha"];
-    }
-    isRight = !isRight;
+    [[[HTServiceManager sharedInstance] questionService] verifyQuestion:composeView.associatedQuestion.questionID withAnswer:answer callback:^(BOOL success, HTResponsePackage *package) {
+        if (success == YES && package.resultCode == 0) {
+            [composeView showAnswerCorrect:YES];
+            clickCount = 0;
+        } else {
+            [composeView showAnswerCorrect:NO];
+            clickCount++;
+        }
+        if (clickCount >= 3) {
+            [composeView showAnswerTips:composeView.associatedQuestion.hint];
+        }
+    }];
 }
 
 - (void)didClickDimingViewInComposeView:(HTComposeView *)composeView {

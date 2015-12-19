@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @class HTComposeView;
+@class HTQuestion;
 @protocol HTComposeViewDelegate <NSObject>
 
 @required
@@ -29,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) UITextField *textField; ///< 输入框
 @property (nonatomic, weak) id<HTComposeViewDelegate> delegate; ///< 代理
+@property (nonatomic, strong) HTQuestion *associatedQuestion;
 
 /**
  *  @biref 响应键盘

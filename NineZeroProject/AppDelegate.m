@@ -30,7 +30,7 @@
     
     [self createWindowAndVisible];
     
-    [self test_cgi];
+//    [self test_cgi];
     
     return YES;
 }

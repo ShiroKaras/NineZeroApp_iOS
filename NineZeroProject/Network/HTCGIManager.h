@@ -79,7 +79,7 @@
 
 /**
  *  @brief 验证回答答案
- *  "question_id":"2015120423201902904"
+ *  "question_id" : "2015120423201902904"
  *  "answer" : "testtest"
  */
 + (NSString *)verifyAnswerCGIKey;
