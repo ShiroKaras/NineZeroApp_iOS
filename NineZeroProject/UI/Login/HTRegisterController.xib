@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HTRegisterController">
@@ -18,24 +19,21 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fg-9J-AxF">
-                    <rect key="frame" x="147" y="35" width="80" height="80"/>
-                    <animations/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fg-9J-AxF">
+                    <rect key="frame" x="147" y="33.5" width="80" height="80"/>
                     <state key="normal" image="img_profile_photo_default"/>
                     <connections>
                         <action selector="avatarButtonClicked:" destination="-1" eventType="touchUpInside" id="p4U-Y8-5ra"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="btn_profile_photo_camera" translatesAutoresizingMaskIntoConstraints="NO" id="TNK-Ov-s5l">
-                    <rect key="frame" x="202" y="90" width="25" height="25"/>
-                    <animations/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_profile_photo_camera" translatesAutoresizingMaskIntoConstraints="NO" id="TNK-Ov-s5l">
+                    <rect key="frame" x="202" y="88.5" width="25" height="25"/>
                 </imageView>
-                <view contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="YXe-oQ-8hS" userLabel="userNameView">
-                    <rect key="frame" x="0.0" y="135" width="375" height="51"/>
+                <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="YXe-oQ-8hS" userLabel="userNameView">
+                    <rect key="frame" x="0.0" y="133.5" width="375" height="51"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="00u-9q-a4f" userLabel="separator">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
-                            <animations/>
                             <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="xGs-zn-Pfn"/>
@@ -43,7 +41,6 @@
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="htV-1d-VDa" userLabel="separator">
                             <rect key="frame" x="0.0" y="50" width="375" height="1"/>
-                            <animations/>
                             <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="3Gf-fA-1uX"/>
@@ -51,7 +48,6 @@
                         </view>
                         <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" placeholderIntrinsicWidth="293" placeholderIntrinsicHeight="25" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="验证码15分钟内有效" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8ET-ET-tdn">
                             <rect key="frame" x="23" y="12" width="200" height="28"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="28" id="eVs-kJ-EQf"/>
                                 <constraint firstAttribute="width" constant="200" id="lAj-79-cv9"/>
@@ -67,7 +63,6 @@
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="246" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNo-gQ-I7a" customClass="HTLoginButton">
                             <rect key="frame" x="231" y="11" width="136" height="30"/>
-                            <animations/>
                             <color key="backgroundColor" red="0.14117647058823529" green="0.8666666666666667" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="再发一次">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -83,7 +78,6 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="htV-1d-VDa" firstAttribute="leading" secondItem="YXe-oQ-8hS" secondAttribute="leading" id="325-yx-1Mh"/>
@@ -100,12 +94,11 @@
                         <constraint firstAttribute="trailing" secondItem="nNo-gQ-I7a" secondAttribute="trailing" constant="8" id="xUM-B8-Osg"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="0xG-or-RFb" userLabel="userPswView">
-                    <rect key="frame" x="0.0" y="186" width="375" height="51"/>
+                <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="0xG-or-RFb" userLabel="userPswView">
+                    <rect key="frame" x="0.0" y="184.5" width="375" height="51"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZpG-9B-shk" userLabel="separator">
                             <rect key="frame" x="0.0" y="50" width="375" height="1"/>
-                            <animations/>
                             <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="L6V-1G-Xbf"/>
@@ -113,7 +106,6 @@
                         </view>
                         <textField opaque="NO" clipsSubviews="YES" tag="200" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="输入昵称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MLA-d0-z0h">
                             <rect key="frame" x="23" y="13" width="554" height="25"/>
-                            <animations/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <textInputTraits key="textInputTraits"/>
@@ -124,7 +116,6 @@
                             </userDefinedRuntimeAttributes>
                         </textField>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="ZpG-9B-shk" secondAttribute="bottom" id="7bN-ir-N0z"/>
@@ -133,9 +124,8 @@
                         <constraint firstItem="ZpG-9B-shk" firstAttribute="leading" secondItem="0xG-or-RFb" secondAttribute="leading" id="tq1-0S-2Pk"/>
                     </constraints>
                 </view>
-                <button opaque="NO" tag="300" contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEv-B1-G6N" userLabel="SureButton" customClass="HTLoginButton">
-                    <rect key="frame" x="0.0" y="246" width="375" height="50"/>
-                    <animations/>
+                <button opaque="NO" tag="300" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEv-B1-G6N" userLabel="SureButton" customClass="HTLoginButton">
+                    <rect key="frame" x="0.0" y="244.5" width="375" height="50"/>
                     <color key="backgroundColor" red="0.14117647059999999" green="0.86666666670000003" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="7Sl-3h-8JP"/>
@@ -147,28 +137,25 @@
                         <action selector="nextButtonClicked:" destination="-1" eventType="touchUpInside" id="R69-ME-Js8"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehI-dz-SKT">
-                    <rect key="frame" x="82" y="311" width="210" height="30"/>
-                    <animations/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehI-dz-SKT">
+                    <rect key="frame" x="92.5" y="309.5" width="210" height="30"/>
                     <state key="normal" title="点击下一步表示你同意用户协议">
                         <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="img_signup_deco" translatesAutoresizingMaskIntoConstraints="NO" id="rX0-XG-z4D">
-                    <rect key="frame" x="12" y="311" width="44" height="34"/>
-                    <animations/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_signup_deco" translatesAutoresizingMaskIntoConstraints="NO" id="rX0-XG-z4D">
+                    <rect key="frame" x="38.5" y="309.5" width="44" height="34"/>
                 </imageView>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="0xG-or-RFb" secondAttribute="trailing" id="4Uw-m9-cRs"/>
-                <constraint firstItem="ehI-dz-SKT" firstAttribute="leading" secondItem="rX0-XG-z4D" secondAttribute="trailing" constant="26" id="8SH-rQ-bcF"/>
+                <constraint firstItem="ehI-dz-SKT" firstAttribute="leading" secondItem="rX0-XG-z4D" secondAttribute="trailing" constant="10" id="8SH-rQ-bcF"/>
                 <constraint firstItem="0xG-or-RFb" firstAttribute="top" secondItem="YXe-oQ-8hS" secondAttribute="bottom" id="BSz-p3-ZlJ"/>
-                <constraint firstItem="ehI-dz-SKT" firstAttribute="centerX" secondItem="FQm-ur-f52" secondAttribute="centerX" id="CkN-PF-e5K"/>
+                <constraint firstItem="ehI-dz-SKT" firstAttribute="centerX" secondItem="FQm-ur-f52" secondAttribute="centerX" constant="10" id="CkN-PF-e5K"/>
                 <constraint firstAttribute="trailing" secondItem="ZEv-B1-G6N" secondAttribute="trailing" id="NBl-An-lCS"/>
                 <constraint firstItem="TNK-Ov-s5l" firstAttribute="baseline" secondItem="0Fg-9J-AxF" secondAttribute="baseline" id="OKn-om-tMP"/>
-                <constraint firstItem="0Fg-9J-AxF" firstAttribute="top" secondItem="FQm-ur-f52" secondAttribute="top" constant="35" id="Sdk-ww-0Vv"/>
+                <constraint firstItem="0Fg-9J-AxF" firstAttribute="top" secondItem="FQm-ur-f52" secondAttribute="bottom" multiplier="0.05" id="Sdk-ww-0Vv"/>
                 <constraint firstItem="ZEv-B1-G6N" firstAttribute="top" secondItem="0xG-or-RFb" secondAttribute="bottom" constant="9" id="WPM-TL-cMt"/>
                 <constraint firstItem="YXe-oQ-8hS" firstAttribute="top" secondItem="0Fg-9J-AxF" secondAttribute="bottom" constant="20" id="Zgw-ys-1cL"/>
                 <constraint firstItem="0xG-or-RFb" firstAttribute="leading" secondItem="FQm-ur-f52" secondAttribute="leading" id="bcu-dk-PY4"/>

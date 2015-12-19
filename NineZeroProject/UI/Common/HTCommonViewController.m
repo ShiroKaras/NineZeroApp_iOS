@@ -40,6 +40,9 @@
         _secondsToCountDown = 180;
         [self scheduleTimerCountDown];
     }
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap)];
+    [self.view addGestureRecognizer:tapGesture];
 }
 
 - (void)dealloc {
@@ -66,6 +69,10 @@
     [self needGetVerificationCode];
     _secondsToCountDown = 180;
     _verifyButton.enabled = NO;
+}
+
+- (void)viewDidTap {
+    [self.view endEditing:YES];
 }
 
 #pragma mark - UITextField

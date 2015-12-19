@@ -28,9 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"主界面";
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap)];
-    [self.view addGestureRecognizer:tapGesture];
 }
 
 - (void)dealloc {
@@ -49,11 +46,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-#ifdef DEBUG
-    self.userNameTextField.text = [NSString stringWithFormat:@"%ld", (arc4random() % 1000000000) + 10000000000];
-    self.userPasswordTextField.text = @"123";
-    self.registerButton.enabled = YES;
-#endif
+//#ifdef DEBUG
+//    self.userNameTextField.text = [NSString stringWithFormat:@"%ld", (arc4random() % 1000000000) + 10000000000];
+//    self.userPasswordTextField.text = @"123";
+//    self.registerButton.enabled = YES;
+//#endif
 }
 
 #pragma mark - Subclass
@@ -64,10 +61,6 @@
 }
 
 #pragma mark - Action
-
-- (void)viewDidTap {
-    [self.view endEditing:YES];
-}
 
 - (IBAction)registerButtonClicked:(UIButton *)sender {
     if (self.userNameTextField.text.length != 11) {

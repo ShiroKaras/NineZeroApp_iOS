@@ -30,9 +30,22 @@
     
     [self createWindowAndVisible];
     
-//    [self test_cgi];
+    CGSize imageSize = CGSizeMake(26, 32);
+    UIImage *backImage = [self imageWithImage:[UIImage imageNamed:@"btn_navi_anchor_left"] scaledToSize:imageSize];
+    [[UINavigationBar appearance] setBackIndicatorImage:backImage];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backImage];
+    UIBarButtonItem *backItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
+    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-500, 0) forBarMetrics:UIBarMetricsDefault];
     
     return YES;
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -67,18 +80,18 @@
 #pragma mark - Action
 
 - (void)createWindowAndVisible {
-#ifdef DEBUG
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
-    self.window.rootViewController = rootController;
-    [self.window makeKeyAndVisible];
-#else
+//#ifdef DEBUG
+//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
+//    self.window.rootViewController = rootController;
+//    [self.window makeKeyAndVisible];
+//#else
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
     HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
-#endif
+//#endif
 }
 
 #pragma mark - QiNiu
