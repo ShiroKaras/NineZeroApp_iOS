@@ -30,13 +30,11 @@
     
     [self createWindowAndVisible];
     
-    CGSize imageSize = CGSizeMake(26, 32);
-    UIImage *backImage = [self imageWithImage:[UIImage imageNamed:@"btn_navi_anchor_left"] scaledToSize:imageSize];
+    UIImage *backImage = [UIImage imageNamed:@"btn_navi_anchor_left"];
     [[UINavigationBar appearance] setBackIndicatorImage:backImage];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backImage];
     UIBarButtonItem *backItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
     [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-500, 0) forBarMetrics:UIBarMetricsDefault];
-    
     return YES;
 }
 

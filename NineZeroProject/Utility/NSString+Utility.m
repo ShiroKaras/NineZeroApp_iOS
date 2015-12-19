@@ -8,6 +8,7 @@
 
 #import "NSString+Utility.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "HTModel.h"
 
 @implementation NSString (Utility)
 
@@ -61,6 +62,10 @@
 
 - (NSString *)confusedWithSalt:(NSString *)salt {
     return [NSString stringWithFormat:@"%01$@%02$@%01$@%02$@%01$@%02$@", self, salt];
+}
+
++ (NSString *)confusedPasswordWithLoginUser:(HTLoginUser *)loginUser {
+    return [[NSString stringWithFormat:@"%01$@%02$@%02$@%02$@", loginUser.user_password, loginUser.user_mobile] sha256];
 }
 
 @end

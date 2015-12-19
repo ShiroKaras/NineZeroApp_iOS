@@ -9,7 +9,10 @@
 #import "HTLoginController.h"
 #import "HTForgetPasswordController.h"
 #import "HTServiceManager.h"
+#import "HTPreviewQuestionController.h"
 #import <MBProgressHUD+BWMExtension.h>
+#import "HTUIHeader.h"
+#import "NSString+Utility.h"
 
 @interface HTLoginController ()
 
@@ -38,12 +41,19 @@
     HTLoginUser *loginUser = [[HTLoginUser alloc] init];
     loginUser.user_mobile = self.userNameTextField.text;
     loginUser.user_password = self.passwordTextField.text;
-    // TODO:加密
-    [MBProgressHUD bwm_showHUDAddedTo:self.view title:@"正在登录..."];
-    [[[HTServiceManager sharedInstance] loginService] loginWithUser:loginUser success:^(id responseObject) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    } error:^(NSString *errorMessage) {
-        [MBProgressHUD bwm_showTitle:@"登录失败" toView:self.view hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeError];
+    loginUser.user_password = [NSString confusedPasswordWithLoginUser:loginUser];
+    
+    [[[HTServiceManager sharedInstance] loginService] loginWithUser:loginUser completion:^(BOOL success, HTResponsePackage *response) {
+        if (success) {
+            if (response.resultCode == 0) {
+                HTPreviewQuestionController *controller = [[HTPreviewQuestionController alloc] init];
+                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+            } else {
+                [MBProgressHUD showWarningWithTitle:response.resultMsg];
+            }
+        } else {
+            [MBProgressHUD showNetworkError];
+        }
     }];
 }
 

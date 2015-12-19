@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HTCommonViewController : UIViewController <UITextFieldDelegate>
+@interface HTCommonViewController : UIViewController <UITextFieldDelegate> {
+@protected
+    UITextField *_firstTextField;
+    UITextField *_secondTextField;
+    UIButton *_nextButton;
+    UIButton *_verifyButton;
+}
 
 - (BOOL)isNextButtonValid;
+- (void)didClickVerifyButton;
 
 @end
 

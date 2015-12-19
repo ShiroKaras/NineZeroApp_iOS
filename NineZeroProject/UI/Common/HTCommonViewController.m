@@ -10,10 +10,7 @@
 #import <SMS_SDK/SMS_SDK.h>
 
 @implementation HTCommonViewController {
-    UITextField *_firstTextField;
-    UITextField *_secondTextField;
-    UIButton *_nextButton;
-    UIButton *_verifyButton;
+
     NSInteger _secondsToCountDown;
 }
 

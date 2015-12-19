@@ -11,6 +11,10 @@
 
 @implementation MBProgressHUD (Utility)
 
++ (void)showSuccessWithTitle:(NSString *)title {
+    [MBProgressHUD bwm_showTitle:title toView:[[[UIApplication sharedApplication] delegate] window] hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeSuccessful];
+}
+
 + (void)showErrorWithTitle:(NSString *)title {
     [MBProgressHUD bwm_showTitle:title toView:[[[UIApplication sharedApplication] delegate] window] hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeError];
 }
@@ -21,6 +25,10 @@
 
 + (void)showNetworkError {
     [self showErrorWithTitle:@"网络连接错误"];
+}
+
++ (void)showVerifyCodeError {
+    [self showErrorWithTitle:@"验证码错误"];
 }
 
 @end

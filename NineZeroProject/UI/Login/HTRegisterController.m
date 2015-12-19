@@ -71,23 +71,29 @@
     _loginUser.code = self.verifyTextField.text;
     _loginUser.user_name = self.nickTextField.text;
     // 登录前混淆加密
-    _loginUser.user_password = [[_loginUser.user_password confusedWithSalt:_loginUser.user_mobile] sha256];
+    _loginUser.user_password = [NSString confusedPasswordWithLoginUser:_loginUser];
     // TODO:这些值不能临时填
     _loginUser.user_email = @"test";
     _loginUser.user_avatar = @"test";
     _loginUser.user_area_id = @"1";
     // end
     
-    [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser completion:^(BOOL success, HTResponsePackage *response) {
-        if (success) {
-            if (response.resultCode == 0) {
-                HTPreviewQuestionController *controller = [[HTPreviewQuestionController alloc] init];
-                [self presentViewController:controller animated:YES completion:nil];
-            } else {
-                [MBProgressHUD showWarningWithTitle:response.resultMsg];
-            }
+    [SMS_SDK commitVerifyCode:_secondTextField.text result:^(enum SMS_ResponseState state) {
+        if (state == SMS_ResponseStateSuccess) {
+            [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser completion:^(BOOL success, HTResponsePackage *response) {
+                if (success) {
+                    if (response.resultCode == 0) {
+                        HTPreviewQuestionController *controller = [[HTPreviewQuestionController alloc] init];
+                        [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+                    } else {
+                        [MBProgressHUD showWarningWithTitle:response.resultMsg];
+                    }
+                } else {
+                    [MBProgressHUD showNetworkError];
+                }
+            }];
         } else {
-            [MBProgressHUD showNetworkError];
+            [MBProgressHUD showVerifyCodeError];
         }
     }];
 }

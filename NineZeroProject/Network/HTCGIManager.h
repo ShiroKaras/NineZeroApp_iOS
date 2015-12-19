@@ -46,10 +46,11 @@
 
 /**
  * @brief 重置密码
- 1. {
- 2. "user_name":"90",
- 3. "user_password":"*******"
- 4. }
+1.  {
+2.  "user_mobile":"13212345678",
+3.  "code":"4578",
+4.  "user_password":"*******"
+5.  }
  */
 + (NSString *)userBaseResetPwdCGIKey;
 

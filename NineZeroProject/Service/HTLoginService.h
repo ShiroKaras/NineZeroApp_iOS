@@ -29,11 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)registerWithUser:(HTLoginUser *)user
               completion:(HTResponseCallback)callback;
 
-// 登录
-- (void)loginWithUser:(HTLoginUser *)user
-              success:(HTHTTPSuccessCallback)successCallback
-                error:(HTHTTPErrorCallback)errorCallback;
-
 /**
  *  @brief 登录
  */
@@ -41,7 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
            completion:(HTResponseCallback)callback;
 
 // 重置密码
-- (void)resetPassword:(NSString *)password;
+- (void)resetPasswordWithUser:(HTLoginUser *)user
+           completion:(HTResponseCallback)callback;
 
 // 七牛token
 - (void)getQiniuTokenWithCompletion:(HTGetTokenCallback)callback;

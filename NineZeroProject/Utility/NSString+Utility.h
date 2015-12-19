@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class HTLoginUser;
+
 @interface NSString (Utility)
 
 // md5加密
@@ -21,6 +23,11 @@
 // 混淆
 + (NSString *)confusedString:(NSString *)string withSalt:(NSString *)salt;
 - (NSString *)confusedWithSalt:(NSString *)salt;
+
+/**
+ *  @brief 混淆加密后的密码
+ */
++ (NSString *)confusedPasswordWithLoginUser:(HTLoginUser *)loginUser;
 
 @end
 

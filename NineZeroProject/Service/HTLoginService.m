@@ -54,21 +54,6 @@
     }];
 }
 
-- (void)loginWithUser:(HTLoginUser *)user success:(HTHTTPSuccessCallback)successCallback error:(HTHTTPErrorCallback)errorCallback {
-    NSDictionary *para = @{
-                           @"user_mobile" : user.user_mobile,
-                           @"user_password" : user.user_password
-                           };
-    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseLoginCGIKey] parameters:para success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@", responseObject);
-        successCallback(responseObject);
-        [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", responseObject[@"data"][@"user_id"]]];
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        DLog(@"%@", error);
-        errorCallback([NSString stringWithFormat:@"%@", error]);
-    }];
-}
-
 - (void)loginWithUser:(HTLoginUser *)user completion:(HTResponseCallback)callback {
     NSDictionary *para = @{
                            @"user_mobile" : user.user_mobile,
@@ -76,8 +61,11 @@
                            };
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseLoginCGIKey] parameters:para success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
-        callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
-        [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", responseObject[@"data"][@"user_id"]]];
+        HTResponsePackage *resp = [HTResponsePackage objectWithKeyValues:responseObject];
+        callback(true, resp);
+        if (resp.resultCode == 0) {
+            [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", responseObject[@"data"][@"user_id"]]];
+        }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         DLog(@"%@", error);
         callback(false, nil);
@@ -94,8 +82,22 @@
     }];
 }
 
+- (void)resetPasswordWithUser:(HTLoginUser *)user completion:(HTResponseCallback)callback
+{
+    NSDictionary *dict = @{ @"user_mobile" : user.user_mobile,
+                            @"user_password" : user.user_password,
+                            @"code" : @"1234"
+                            };
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseResetPwdCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(false, nil);
+    }];
+}
+
 - (void)resetPassword:(NSString *)password {
-    
+
 }
 
 - (HTLoginUser *)loginUser {
