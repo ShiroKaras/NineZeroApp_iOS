@@ -10,4 +10,6 @@
 
 @interface HTDescriptionView : UIView
 
+- (instancetype)initWithURLString:(NSString *)urlString;
+
 @end

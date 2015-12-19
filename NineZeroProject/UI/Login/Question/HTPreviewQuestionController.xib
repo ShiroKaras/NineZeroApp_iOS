@@ -21,6 +21,9 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JpE-MC-zGk">
                     <rect key="frame" x="8" y="627" width="59" height="32"/>
                     <state key="normal" image="tab_home"/>
+                    <connections>
+                        <action selector="mainButtonClicked:" destination="-1" eventType="touchUpInside" id="OFJ-5d-TRz"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fC5-LZ-bnQ">
                     <rect key="frame" x="327" y="627" width="30" height="32"/>

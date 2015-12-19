@@ -14,6 +14,7 @@
 @protocol HTPreviewItemDelegate <NSObject>
 
 - (void)previewItem:(HTPreviewItem *)previewItem didClickComposeButton:(UIButton *)composeButton;
+- (void)previewItem:(HTPreviewItem *)previewItem didClickContentButton:(UIButton *)contentButton;
 
 @end
 

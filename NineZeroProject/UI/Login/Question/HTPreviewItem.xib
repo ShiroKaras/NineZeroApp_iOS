@@ -15,7 +15,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="bTN-pl-0aj" customClass="HTPreviewItem">
-            <rect key="frame" x="0.0" y="0.0" width="353" height="554"/>
+            <rect key="frame" x="0.0" y="0.0" width="353" height="578"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_chapter" translatesAutoresizingMaskIntoConstraints="NO" id="GXG-sE-Nbi">
@@ -104,6 +104,10 @@
                         <action selector="onClickComposeButton:" destination="bTN-pl-0aj" eventType="touchUpInside" id="u6s-mL-lFa"/>
                     </connections>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zj8-Ly-Thz">
+                    <rect key="frame" x="5" y="523" width="96" height="32"/>
+                    <state key="normal" image="btn_get_hint"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -117,6 +121,7 @@
                 <constraint firstAttribute="trailing" secondItem="6TQ-HL-k8P" secondAttribute="trailing" id="LYA-0F-sjy"/>
                 <constraint firstAttribute="bottom" secondItem="3ux-TL-yfC" secondAttribute="bottom" constant="20" id="Nd7-2E-bSE"/>
                 <constraint firstItem="aeG-sZ-0XQ" firstAttribute="leading" secondItem="bTN-pl-0aj" secondAttribute="leading" constant="60" id="TKx-7G-Bbv"/>
+                <constraint firstItem="Zj8-Ly-Thz" firstAttribute="top" secondItem="6TQ-HL-k8P" secondAttribute="bottom" constant="0.5" id="TqY-be-WZR"/>
                 <constraint firstAttribute="trailing" secondItem="tP5-np-nlD" secondAttribute="trailing" constant="17" id="UPb-Jz-fDz"/>
                 <constraint firstItem="olt-gf-MHg" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="10" id="YBZ-kb-6EN"/>
                 <constraint firstItem="aeG-sZ-0XQ" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="33" id="amT-lu-ql0"/>
@@ -124,6 +129,7 @@
                 <constraint firstItem="GXG-sE-Nbi" firstAttribute="leading" secondItem="aeG-sZ-0XQ" secondAttribute="trailing" constant="-45.5" id="gTv-0m-p2F"/>
                 <constraint firstItem="3ux-TL-yfC" firstAttribute="bottom" secondItem="6TQ-HL-k8P" secondAttribute="bottom" constant="21" id="kcF-p1-si0"/>
                 <constraint firstItem="Dc6-3u-vve" firstAttribute="top" secondItem="VRH-Pt-ON4" secondAttribute="bottom" constant="7" id="o8z-vE-cpu"/>
+                <constraint firstItem="Zj8-Ly-Thz" firstAttribute="leading" secondItem="bTN-pl-0aj" secondAttribute="leading" constant="5" id="q5L-sk-TEM"/>
                 <constraint firstItem="GXG-sE-Nbi" firstAttribute="leading" secondItem="bTN-pl-0aj" secondAttribute="leading" constant="5" id="sMY-vB-k3L"/>
                 <constraint firstItem="GXG-sE-Nbi" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="55" id="z7T-d6-eyL"/>
                 <constraint firstItem="6TQ-HL-k8P" firstAttribute="leading" secondItem="bTN-pl-0aj" secondAttribute="leading" id="z9O-Rt-B50"/>
@@ -144,17 +150,19 @@
                 <outlet property="countDownDetailLabel" destination="olt-gf-MHg" id="7sl-SX-wfd"/>
                 <outlet property="countDownImageView" destination="tP5-np-nlD" id="4FZ-PQ-iWq"/>
                 <outlet property="countDownMainLabel" destination="VRH-Pt-ON4" id="W0y-17-MwQ"/>
+                <outlet property="detailButton" destination="Zj8-Ly-Thz" id="U12-ZV-5s7"/>
                 <outlet property="pauseButton" destination="4TV-Ma-RW7" id="3Hr-1o-7qE"/>
                 <outlet property="playButton" destination="aMf-2u-qyt" id="RPh-ea-zKd"/>
                 <outlet property="playItemBackView" destination="Dc6-3u-vve" id="V6Q-2l-j8A"/>
                 <outlet property="soundButton" destination="42j-pR-v8q" id="ed9-Fz-bdN"/>
             </connections>
-            <point key="canvasLocation" x="499.5" y="249"/>
+            <point key="canvasLocation" x="465.5" y="210"/>
         </view>
     </objects>
     <resources>
         <image name="btn_ans_pencil" width="42" height="42"/>
         <image name="btn_ans_pencil_highlight" width="42" height="42"/>
+        <image name="btn_get_hint" width="96" height="32"/>
         <image name="btn_play" width="70" height="70"/>
         <image name="btn_play_highlight" width="70" height="70"/>
         <image name="ico_mute" width="33" height="28"/>

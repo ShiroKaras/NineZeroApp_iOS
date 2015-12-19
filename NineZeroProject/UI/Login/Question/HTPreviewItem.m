@@ -32,6 +32,7 @@
 // item下方
 @property (weak, nonatomic) IBOutlet UIButton *composeButton;  ///< 发布按钮
 @property (weak, nonatomic) IBOutlet UIButton *contenButton;   ///< 内容
+@property (weak, nonatomic) IBOutlet UIButton *detailButton;   ///< 获取提示/奖品
 
 @end
 
@@ -100,6 +101,9 @@
 }
 
 - (IBAction)onClickContentButton:(UIButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(previewItem:didClickContentButton:)]) {
+        [self.delegate previewItem:self didClickContentButton:sender];
+    }
 }
 
 - (IBAction)onClickComposeButton:(UIButton *)sender {

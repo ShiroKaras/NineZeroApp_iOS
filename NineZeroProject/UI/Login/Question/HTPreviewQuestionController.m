@@ -10,6 +10,7 @@
 #import "HTPreviewItem.h"
 #import "HTPreviewView.h"
 #import "HTComposeView.h"
+#import "HTDescriptionView.h"
 #import "HTUIHeader.h"
 #import "CommonUI.h"
 
@@ -22,6 +23,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 @property (weak, nonatomic) IBOutlet UIButton *lingzaiButton;                 // 右下角"零仔"
 @property (strong, nonatomic) HTPreviewView *previewView;                     // 预览题目控件
 @property (strong, nonatomic) HTComposeView *composeView;                     // 答题界面
+@property (strong, nonatomic) HTDescriptionView *descriptionView;             // 详情页面
 
 @end
 
@@ -67,6 +69,15 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     [_composeView removeFromSuperview];
 }
 
+#pragma mark - Action
+
+- (IBAction)mainButtonClicked:(UIButton *)sender {
+    if (sender.tag == 1000) {
+        [_previewView goToToday];
+    }
+}
+
+
 #pragma mark - HTPreviewView Delegate
 
 - (void)previewView:(HTPreviewView *)previewView didClickComposeWithItem:(HTPreviewItem *)item {
@@ -81,6 +92,26 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     } completion:^(BOOL finished) {
         [_composeView becomeFirstResponder];
     }];
+}
+
+- (void)previewView:(HTPreviewView *)previewView didClickContentWithItem:(HTPreviewItem *)item {
+    _descriptionView = [[HTDescriptionView alloc] initWithURLString:item.question.questionDescription];
+    _descriptionView.frame = self.view.bounds;
+    _descriptionView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view addSubview:_descriptionView];
+        _descriptionView.alpha = 1.0;
+    }];
+}
+
+- (void)previewView:(HTPreviewView *)previewView shouldShowGoBackItem:(BOOL)needShow {
+    if (needShow) {
+        [_mainButton setImage:[UIImage imageNamed:@"tab_back_today"] forState:UIControlStateNormal];
+        _mainButton.tag = 1000;
+    } else {
+        [_mainButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
+        _mainButton.tag = 0;
+    }
 }
 
 #pragma mark - HTComposeView Delegate

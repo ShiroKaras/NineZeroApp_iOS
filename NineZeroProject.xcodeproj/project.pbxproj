@@ -52,6 +52,7 @@
 		17B1D83D1C1492CE0082C86B /* HTPreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D83C1C1492CE0082C86B /* HTPreviewItem.m */; };
 		17B1D83F1C1492D90082C86B /* HTPreviewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */; };
 		17B1D8421C1544470082C86B /* HTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D8411C1544470082C86B /* HTModel.m */; };
+		17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */; };
 		17D997C11C1D49930091978E /* HTComposeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D997C01C1D49930091978E /* HTComposeView.m */; };
 		17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */; };
 		17F37A761C255420006759D1 /* HUD+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A751C255420006759D1 /* HUD+Utility.m */; };
@@ -162,6 +163,8 @@
 		17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTPreviewItem.xib; sourceTree = "<group>"; };
 		17B1D8401C1544470082C86B /* HTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTModel.h; sourceTree = "<group>"; };
 		17B1D8411C1544470082C86B /* HTModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTModel.m; sourceTree = "<group>"; };
+		17B8F7441C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
+		17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
 		17D997BE1C1D1E3D0091978E /* HTUIHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTUIHeader.h; sourceTree = "<group>"; };
 		17D997BF1C1D49930091978E /* HTComposeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTComposeView.h; sourceTree = "<group>"; };
 		17D997C01C1D49930091978E /* HTComposeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTComposeView.m; sourceTree = "<group>"; };
@@ -291,6 +294,8 @@
 		174C53351BE7A55400893C22 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				17B8F7441C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.h */,
+				17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */,
 				174C53361BE7A57000893C22 /* CommonUI.h */,
 				174C53511BE7A60E00893C22 /* CommonUI.m */,
 				17A277301BF8F8F400E46670 /* HTLog.h */,
@@ -699,6 +704,7 @@
 			files = (
 				17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */,
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
+				17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */,
 				17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */,
 				17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */,
 				17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */,
