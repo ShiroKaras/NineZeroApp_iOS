@@ -22,15 +22,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 //*************************
 // 业务相关
-// 注册
+
+/**
+ *  @brief 注册
+ */
 - (void)registerWithUser:(HTLoginUser *)user
-                 success:(HTHTTPSuccessCallback)successCallback
-                   error:(HTHTTPErrorCallback)errorCallback;
+              completion:(HTResponseCallback)callback;
 
 // 登录
 - (void)loginWithUser:(HTLoginUser *)user
               success:(HTHTTPSuccessCallback)successCallback
                 error:(HTHTTPErrorCallback)errorCallback;
+
+/**
+ *  @brief 登录
+ */
+- (void)loginWithUser:(HTLoginUser *)user
+           completion:(HTResponseCallback)callback;
 
 // 重置密码
 - (void)resetPassword:(NSString *)password;

@@ -25,14 +25,12 @@
     _nextButton = (UIButton *)[self.view viewWithTag:300];
     _verifyButton = (UIButton *)[self.view viewWithTag:400];
     
-    
     [_verifyButton addTarget:self action:@selector(didClickVerifyButton) forControlEvents:UIControlEventTouchUpInside];
     
     _firstTextField.delegate = self;
     _secondTextField.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
-    
     _nextButton.enabled = NO;
     _verifyButton.enabled = NO;
     if ([self needScheduleVerifyTimer]) {
@@ -69,6 +67,7 @@
     [self needGetVerificationCode];
     _secondsToCountDown = 180;
     _verifyButton.enabled = NO;
+    [self scheduleTimerCountDown];
 }
 
 - (void)viewDidTap {
@@ -111,10 +110,10 @@
 }
 
 - (void)scheduleTimerCountDown {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleTimerCountDown) object:nil];
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleTimerCountDown) object:nil];
     [self performSelector:@selector(scheduleTimerCountDown) withObject:nil afterDelay:1.0];
     _secondsToCountDown--;
-    if (_secondsToCountDown <= 0) {
+    if (_secondsToCountDown == 0) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleTimerCountDown) object:nil];
         [_verifyButton setTitle:@"再发一次" forState:UIControlStateNormal];
         _verifyButton.enabled = YES;

@@ -12,6 +12,7 @@
 #import "HTLoginController.h"
 #import <MBProgressHUD+BWMExtension.h>
 #import "HTModel.h"
+#import "HTUIHeader.h"
 #import "NSString+Utility.h"
 
 @interface HTLoginRootController () <UITextFieldDelegate>
@@ -64,7 +65,15 @@
 
 - (IBAction)registerButtonClicked:(UIButton *)sender {
     if (self.userNameTextField.text.length != 11) {
-        [MBProgressHUD bwm_showTitle:@"手机号码位数不正确" toView:self.view hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeWarning];
+        [MBProgressHUD showWarningWithTitle:@"请检查手机号码是否正确"];
+        return;
+    }
+    if (self.userPasswordTextField.text.length < 6) {
+        [MBProgressHUD showWarningWithTitle:@"密码过于简单，请输入不低于6位密码"];
+        return;
+    }
+    if (self.userPasswordTextField.text.length > 20) {
+        [MBProgressHUD showWarningWithTitle:@"密码不能多于20个字，请重新输入"];
         return;
     }
     HTLoginUser *loginUser = [[HTLoginUser alloc] init];

@@ -38,6 +38,22 @@
     }];
 }
 
+- (void)registerWithUser:(HTLoginUser *)user completion:(HTResponseCallback)callback {
+    NSDictionary *parameters = [user keyValues];
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseRegisterCGIKey] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        if ([responseObject[@"result"] integerValue] == 0) {
+            NSDictionary *dataDict = responseObject[@"data"];
+            [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
+            [[HTStorageManager sharedInstance] updateLoginUser:user];
+        }
+        callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        DLog(@"%@",error);
+        callback(false, nil);
+    }];
+}
+
 - (void)loginWithUser:(HTLoginUser *)user success:(HTHTTPSuccessCallback)successCallback error:(HTHTTPErrorCallback)errorCallback {
     NSDictionary *para = @{
                            @"user_mobile" : user.user_mobile,
@@ -50,6 +66,21 @@
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         DLog(@"%@", error);
         errorCallback([NSString stringWithFormat:@"%@", error]);
+    }];
+}
+
+- (void)loginWithUser:(HTLoginUser *)user completion:(HTResponseCallback)callback {
+    NSDictionary *para = @{
+                           @"user_mobile" : user.user_mobile,
+                           @"user_password" : user.user_password
+                           };
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseLoginCGIKey] parameters:para success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
+        [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", responseObject[@"data"][@"user_id"]]];
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        DLog(@"%@", error);
+        callback(false, nil);
     }];
 }
 

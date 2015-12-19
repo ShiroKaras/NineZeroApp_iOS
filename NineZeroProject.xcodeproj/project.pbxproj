@@ -54,6 +54,7 @@
 		17B1D8421C1544470082C86B /* HTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D8411C1544470082C86B /* HTModel.m */; };
 		17D997C11C1D49930091978E /* HTComposeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D997C01C1D49930091978E /* HTComposeView.m */; };
 		17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */; };
+		17F37A761C255420006759D1 /* HUD+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A751C255420006759D1 /* HUD+Utility.m */; };
 		26973B021C005ED900160D25 /* HTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B011C005ED900160D25 /* HTNavigationController.m */; };
 		26973B051C005F9800160D25 /* HTRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B041C005F9800160D25 /* HTRegisterController.m */; };
 		26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B061C005FBF00160D25 /* HTRegisterController.xib */; };
@@ -165,6 +166,8 @@
 		17D997C01C1D49930091978E /* HTComposeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTComposeView.m; sourceTree = "<group>"; };
 		17E8DE4F1C0E154B009D4F9F /* HTQiNiuService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTQiNiuService.h; sourceTree = "<group>"; };
 		17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTQiNiuService.m; sourceTree = "<group>"; };
+		17F37A741C255420006759D1 /* HUD+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HUD+Utility.h"; sourceTree = "<group>"; };
+		17F37A751C255420006759D1 /* HUD+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HUD+Utility.m"; sourceTree = "<group>"; };
 		26973B001C005ED900160D25 /* HTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNavigationController.h; sourceTree = "<group>"; };
 		26973B011C005ED900160D25 /* HTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNavigationController.m; sourceTree = "<group>"; };
 		26973B031C005F9800160D25 /* HTRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRegisterController.h; sourceTree = "<group>"; };
@@ -290,6 +293,8 @@
 				17A277301BF8F8F400E46670 /* HTLog.h */,
 				1706CB491BFA542E00E59255 /* NSString+Utility.h */,
 				1706CB4A1BFA542E00E59255 /* NSString+Utility.m */,
+				17F37A741C255420006759D1 /* HUD+Utility.h */,
+				17F37A751C255420006759D1 /* HUD+Utility.m */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
@@ -699,6 +704,7 @@
 				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
 				17B1D8421C1544470082C86B /* HTModel.m in Sources */,
+				17F37A761C255420006759D1 /* HUD+Utility.m in Sources */,
 				17A89ABC1C1DBA290087BF00 /* README.md in Sources */,
 				26973B221C006A6900160D25 /* HTLoginController.m in Sources */,
 				17967AB51C174ED500571924 /* HTQuestionService.m in Sources */,

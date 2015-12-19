@@ -16,7 +16,6 @@
 typedef void (^HTQuestionCallback) (BOOL success, HTQuestion *question);
 typedef void (^HTQuestionListCallback) (BOOL success, NSArray<HTQuestion *> *questionList);
 typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionInfo);
-typedef void (^HTResponseCallback) (BOOL success, HTResponsePackage *response);
 
 /**
  *  该类只允许HTServiceManager创建一次，多次创建直接crash

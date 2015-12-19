@@ -61,7 +61,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="246" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNo-gQ-I7a" customClass="HTLoginButton">
+                        <button opaque="NO" tag="400" contentMode="scaleToFill" placeholderIntrinsicWidth="246" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNo-gQ-I7a" customClass="HTLoginButton">
                             <rect key="frame" x="231" y="11" width="136" height="30"/>
                             <color key="backgroundColor" red="0.14117647058823529" green="0.8666666666666667" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="再发一次">

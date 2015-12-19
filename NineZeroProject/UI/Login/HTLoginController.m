@@ -24,12 +24,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"登录";
-#ifdef DEBUG
-    HTLoginUser *user = [[[HTServiceManager sharedInstance] loginService] loginUser];
-    self.userNameTextField.text = user.user_mobile;
-    self.passwordTextField.text = user.user_password;
-    self.loginButton.enabled = YES;
-#endif
+//#ifdef DEBUG
+//    HTLoginUser *user = [[[HTServiceManager sharedInstance] loginService] loginUser];
+//    self.userNameTextField.text = user.user_mobile;
+//    self.passwordTextField.text = user.user_password;
+//    self.loginButton.enabled = YES;
+//#endif
 }
 
 #pragma mark - Action

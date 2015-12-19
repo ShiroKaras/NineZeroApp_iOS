@@ -9,12 +9,12 @@
 #import "HTRegisterController.h"
 #import "UIViewController+ImagePicker.h"
 #import <SMS_SDK/SMS_SDK.h>
-#import "HTModel.h"
-#import "HTLog.h"
+#import "HTUIHeader.h"
 #import "HTLoginButton.h"
 #import "HTServiceManager.h"
 #import "HTLoginController.h"
 #import "NSString+Utility.h"
+#import "HTPreviewQuestionController.h"
 
 @interface HTRegisterController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
@@ -73,15 +73,22 @@
     // 登录前混淆加密
     _loginUser.user_password = [[_loginUser.user_password confusedWithSalt:_loginUser.user_mobile] sha256];
     // TODO:这些值不能临时填
-    _loginUser.user_email = @"408895175@qq.com";
+    _loginUser.user_email = @"test";
     _loginUser.user_avatar = @"test";
     _loginUser.user_area_id = @"1";
     // end
-    [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser success:^(id responseObject) {
-        HTLoginController *loginController = [[HTLoginController alloc] init];
-        [self.navigationController pushViewController:loginController animated:YES];
-    } error:^(NSString *errorMessage) {
-
+    
+    [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser completion:^(BOOL success, HTResponsePackage *response) {
+        if (success) {
+            if (response.resultCode == 0) {
+                HTPreviewQuestionController *controller = [[HTPreviewQuestionController alloc] init];
+                [self presentViewController:controller animated:YES completion:nil];
+            } else {
+                [MBProgressHUD showWarningWithTitle:response.resultMsg];
+            }
+        } else {
+            [MBProgressHUD showNetworkError];
+        }
     }];
 }
 
