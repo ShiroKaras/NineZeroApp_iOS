@@ -38,14 +38,6 @@
     return YES;
 }
 
-- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
-
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [APService registerDeviceToken:deviceToken];
 }
@@ -78,18 +70,22 @@
 #pragma mark - Action
 
 - (void)createWindowAndVisible {
-//#ifdef DEBUG
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
-//    self.window.rootViewController = rootController;
-//    [self.window makeKeyAndVisible];
-//#else
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
-    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
-    self.window.rootViewController = navController;
+    HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
+    self.window.rootViewController = rootController;
     [self.window makeKeyAndVisible];
-//#endif
+//    if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
+//        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//        HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
+//        self.window.rootViewController = rootController;
+//        [self.window makeKeyAndVisible];
+//    } else {
+//        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//        HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
+//        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
+//        self.window.rootViewController = navController;
+//        [self.window makeKeyAndVisible];
+//    }
 }
 
 #pragma mark - QiNiu

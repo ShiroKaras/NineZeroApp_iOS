@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *verifyTextField;
 @property (weak, nonatomic) IBOutlet UITextField *nickTextField;
 @property (weak, nonatomic) IBOutlet HTLoginButton *sendAgainButton;
+@property (weak, nonatomic) IBOutlet UIButton *avatarButton;
 
 @end
 
@@ -53,18 +54,14 @@
 
 - (void)needGetVerificationCode {
     [SMS_SDK getVerificationCodeBySMSWithPhone:_loginUser.user_mobile zone:@"86" result:^(SMS_SDKError *error) {
-    }];
+   
+     }];
 }
 
 #pragma mark - Action
 
 - (IBAction)avatarButtonClicked:(UIButton *)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-															 delegate:self
-													cancelButtonTitle:@"取消"
-											   destructiveButtonTitle:nil
-													otherButtonTitles:@"拍照", @"从相册选择", nil];
-	[actionSheet showInView:self.view];
+    [self presentSystemPhotoLibraryController];
 }
 
 - (IBAction)nextButtonClicked:(UIButton *)sender {
@@ -114,6 +111,10 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     [picker dismissViewControllerAnimated:YES completion:nil];
     UIImage *image = info[UIImagePickerControllerEditedImage];
+    UIImage *resizeImage = [UIImage imageWithImage:image scaledToSize:_avatarButton.size];
+    [_avatarButton setImage:resizeImage forState:UIControlStateNormal];
+    _avatarButton.layer.cornerRadius = _avatarButton.width / 2;
+    _avatarButton.layer.masksToBounds = YES;
     NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *imagePath = [path stringByAppendingPathComponent:@"avatar"];

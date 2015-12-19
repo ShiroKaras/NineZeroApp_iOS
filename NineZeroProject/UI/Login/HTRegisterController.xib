@@ -8,6 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HTRegisterController">
             <connections>
+                <outlet property="avatarButton" destination="0Fg-9J-AxF" id="lmX-hZ-mNk"/>
                 <outlet property="nickTextField" destination="MLA-d0-z0h" id="uvI-ZS-kD0"/>
                 <outlet property="sendAgainButton" destination="nNo-gQ-I7a" id="r9B-Ci-HUW"/>
                 <outlet property="verifyTextField" destination="8ET-ET-tdn" id="uem-2u-9P4"/>

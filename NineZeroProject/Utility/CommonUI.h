@@ -244,7 +244,7 @@ UIEdgeInsetsSetRight(UIEdgeInsets insets, CGFloat right)
 @interface UIImage (Utility)
 
 + (UIImage *)imageFromColor:(UIColor *)color;
-
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 @end
 
 @interface UIView (HTAdd)

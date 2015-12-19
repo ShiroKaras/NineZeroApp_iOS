@@ -59,6 +59,7 @@
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
 	// 保证statusBar的颜色
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    viewController.view.backgroundColor = [UIColor blackColor];
 }
 
 @end

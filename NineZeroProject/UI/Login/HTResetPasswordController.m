@@ -9,6 +9,7 @@
 #import "HTResetPasswordController.h"
 #import "HTUIHeader.h"
 #import "HTLogicHeader.h"
+#import "HTLoginController.h"
 
 @interface HTResetPasswordController ()
 
@@ -37,6 +38,14 @@
         if (success) {
             if (response.resultCode == 0) {
                 [MBProgressHUD showSuccessWithTitle:@"修改成功"];
+                NSArray *controllers = self.navigationController.viewControllers;
+                UIViewController *loginController = nil;
+                for (UIViewController *controller in controllers) {
+                    if ([controller isKindOfClass:[HTLoginController class]]) {
+                        loginController = controller;
+                    }
+                }
+                if (loginController != nil) [self.navigationController popToViewController:loginController animated:YES];
             } else {
                 [MBProgressHUD showWarningWithTitle:response.resultMsg];
             }
