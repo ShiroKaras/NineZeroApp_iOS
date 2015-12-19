@@ -78,6 +78,16 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"HTPreviewItem" owner:self options:nil];
             item = [nibs objectAtIndex:0];
             item.delegate = self;
+            // TODO: 测试代码
+            if (i != _questions.count - 1) {
+                if (i == _questions.count - 2) {
+                    [item setBreakSuccess:YES];
+                } else {
+                    [item setBreakSuccess:NO];
+                }
+            }
+            // end
+            
             item.tag = i;   // 通过tag值来控制view
             [item setQuestion:_questions[_questions.count - i - 1]]; // 倒着取
             [_previewItems addObject:item];
@@ -107,6 +117,17 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)goToToday {
     [_previewScrollView setContentOffset:CGPointMake([self contentOffsetWithIndex:_questions.count - 1], 0) animated:YES];
+}
+
+- (void)setQuestionInfo:(HTQuestionInfo *)questionInfo {
+    // TODO:test code
+    [_previewItems.lastObject setEndTime:questionInfo.endTime];
+//    for (HTPreviewItem *item in _previewItems) {
+//        if (item.question.questionID == questionInfo.questionID) {
+//            // 当前题目关卡
+//            item.endTime = questionInfo.endTime;
+//        }
+//    }
 }
 
 #pragma mark - UIScrollView Delegate

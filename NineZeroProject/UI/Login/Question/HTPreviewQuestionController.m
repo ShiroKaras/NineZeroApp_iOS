@@ -41,6 +41,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             _previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, self.view.width - kLeftMargin, self.view.height) andQuestions:questionList];
             _previewView.delegate = self;
+            [_previewView setQuestionInfo:questionInfo];
             [self.view insertSubview:self.previewView atIndex:0];
         }];
     }];

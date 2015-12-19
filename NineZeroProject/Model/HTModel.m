@@ -47,7 +47,7 @@
 }
 
 - (NSDictionary *)propertyMapper {
-    NSDictionary *propertyMapper = @{@"questionID" : @"qid",
+    NSDictionary *propertyMapper = @{@"questionID" : @"current_question_id",
                                      @"endTime" : @"endtime",
                                      @"updateTime" : @"last_update_time",
                                      @"questionCount" : @"question_num"

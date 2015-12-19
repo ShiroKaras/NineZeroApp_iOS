@@ -12,6 +12,7 @@
 @class HTQuestion;
 @class HTPreviewView;
 @class HTPreviewItem;
+@class HTQuestionInfo;
 
 @protocol HTPreviewViewDelegate <NSObject>
 /**
@@ -38,6 +39,12 @@
 - (instancetype)initWithFrame:(CGRect)frame andQuestions:(NSArray<HTQuestion *>*)questions NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, weak) id<HTPreviewViewDelegate> delegate;
+
+/**
+ *  @brief 设置总体题目信息
+ *  @param questionInfo 题目总体信息
+ */
+- (void)setQuestionInfo:(HTQuestionInfo *)questionInfo;
 
 /**
  *  @brief 回到今日

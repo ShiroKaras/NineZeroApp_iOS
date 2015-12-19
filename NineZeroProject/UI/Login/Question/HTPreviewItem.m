@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *countDownMainLabel;   ///< 右上角主倒计时
 @property (weak, nonatomic) IBOutlet UILabel *countDownDetailLabel; ///< 右上角附属倒计时
 @property (weak, nonatomic) IBOutlet UIImageView *countDownImageView;  ///< 主倒计时上方的装饰
+@property (weak, nonatomic) IBOutlet UIImageView *resultImageView;  ///< 右上角显示结果的装饰
 
 // item中间
 @property (strong, nonatomic) AVPlayer *player;
@@ -82,6 +83,74 @@
     [_playItemBackView bringSubviewToFront:_pauseButton];
     [_playItemBackView bringSubviewToFront:_soundButton];
     _playerLayer.frame = _playItemBackView.bounds;
+}
+
+#pragma mark - Public Method
+
+- (void)setBreakSuccess:(BOOL)breakSuccess {
+    _breakSuccess = breakSuccess;
+    _resultImageView.hidden = NO;
+    _countDownImageView.hidden = YES;
+    _countDownMainLabel.hidden = YES;
+    _countDownDetailLabel.hidden = YES;
+    if (breakSuccess) {
+        _resultImageView.image = [UIImage imageNamed:@"img_stamp_sucess"];
+    } else {
+        _resultImageView.image = [UIImage imageNamed:@"img_stamp_gameover"];
+    }
+}
+
+- (void)setEndTime:(time_t)endTime {
+    endTime = time(NULL) + 3600 * 48 - 50;
+    _endTime = endTime;
+    // 开始倒计时
+    DLog(@"结束时间为 = %ld, 当前时间 = %ld", endTime, time(NULL));
+    if (endTime > time(NULL)) {
+        [self scheduleCountDownTimer];
+    }
+}
+
+#pragma mark - Tool Method
+
+- (void)scheduleCountDownTimer {
+    [self performSelector:@selector(scheduleCountDownTimer) withObject:nil afterDelay:1.0];
+    time_t delta = _endTime - time(NULL);
+    time_t oneHour = 3600;
+    time_t hour = delta / oneHour;
+    time_t minute = (delta % oneHour) / 60;
+    time_t second = delta - hour * oneHour - minute * 60;
+    _countDownImageView.hidden = NO;
+    _countDownMainLabel.hidden = NO;
+    _countDownDetailLabel.hidden = YES;
+    if (delta > oneHour * 48) {
+        // 大于48小时
+        
+    } else if (delta > oneHour * 24 && delta < oneHour * 48) {
+        // 大于24小时 小于48小时
+        _countDownMainLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        _countDownMainLabel.textColor = [UIColor colorWithHex:0x24ddb2];
+        _countDownImageView.image = [UIImage imageNamed:@"img_timer_1_deco"];
+    } else if (delta > oneHour * 16 && delta < oneHour * 24) {
+        // 大于16小时 小于24小时
+        _countDownMainLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        _countDownMainLabel.textColor = [UIColor colorWithHex:0xed203b];
+        _countDownImageView.image = [UIImage imageNamed:@"img_timer_2_deco"];
+    } else if (delta > oneHour * 8 && delta < oneHour * 16) {
+        // 大于8小时 小于16小时
+        _countDownMainLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        _countDownMainLabel.textColor = [UIColor colorWithHex:0xd40e88];
+        _countDownImageView.image = [UIImage imageNamed:@"img_timer_3_deco"];
+    } else if (delta > 0 && delta < oneHour * 8) {
+        // 小于1小时
+        _countDownMainLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", hour, minute];
+        _countDownMainLabel.textColor = [UIColor colorWithHex:0xd40e88];
+        _countDownImageView.hidden = YES;
+        _countDownDetailLabel.hidden = NO;
+        _countDownDetailLabel.text = [NSString stringWithFormat:@"%02ld", second];
+        _countDownDetailLabel.textColor = [UIColor colorWithHex:0xd40e88];
+    } else {
+        // 过去时间
+    }
 }
 
 #pragma mark - Notification

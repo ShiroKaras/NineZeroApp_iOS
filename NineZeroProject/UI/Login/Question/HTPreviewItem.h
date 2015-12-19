@@ -23,4 +23,9 @@
 @property (strong, nonatomic) HTQuestion *question;
 @property (weak, nonatomic) id<HTPreviewItemDelegate> delegate;
 
+// 结果相关
+@property (nonatomic, assign) BOOL breakSuccess;
+// 倒计时
+@property (nonatomic, assign) time_t endTime;
+
 @end
