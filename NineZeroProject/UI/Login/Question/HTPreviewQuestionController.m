@@ -36,7 +36,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     self.view.backgroundColor = [UIColor blackColor];
     
     [MBProgressHUD bwm_showHUDAddedTo:self.view title:@"加载数据中..."];
-    
+    [[[HTServiceManager sharedInstance] questionService] setLoginUser:[[[HTServiceManager sharedInstance] loginService] loginUser]];
     [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *questionInfo) {
         if (questionInfo.questionCount <= 0) return;
         [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:1 count:questionInfo.questionCount callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {

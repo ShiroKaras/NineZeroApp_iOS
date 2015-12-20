@@ -70,22 +70,22 @@
 #pragma mark - Action
 
 - (void)createWindowAndVisible {
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
-//    self.window.rootViewController = rootController;
-//    [self.window makeKeyAndVisible];
-    if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
-        self.window.rootViewController = rootController;
-        [self.window makeKeyAndVisible];
-    } else {
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
-        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
-        self.window.rootViewController = navController;
-        [self.window makeKeyAndVisible];
-    }
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
+    self.window.rootViewController = rootController;
+    [self.window makeKeyAndVisible];
+//    if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
+//        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//        HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
+//        self.window.rootViewController = rootController;
+//        [self.window makeKeyAndVisible];
+//    } else {
+//        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//        HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
+//        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
+//        self.window.rootViewController = navController;
+//        [self.window makeKeyAndVisible];
+//    }
 }
 
 #pragma mark - QiNiu

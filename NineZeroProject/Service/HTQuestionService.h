@@ -24,6 +24,8 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
  */
 @interface HTQuestionService : NSObject
 
+- (void)setLoginUser:(HTLoginUser *)loginUser;
+
 /**
  *  @brief 获取题目总体信息
  */
@@ -45,6 +47,7 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
 /**
  *  @brief 验证答案
  *  @param questionID 问题id
+ *  @param user_id    用户id
  *  @param answer     答案
  */
 - (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback;

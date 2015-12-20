@@ -22,19 +22,19 @@
                     <rect key="frame" x="5" y="55" width="91" height="55"/>
                 </imageView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olt-gf-MHg">
-                    <rect key="frame" x="295.5" y="10" width="47.5" height="47"/>
+                    <rect key="frame" x="292.5" y="10" width="47.5" height="47"/>
                     <fontDescription key="fontDescription" type="system" pointSize="39"/>
                     <color key="textColor" red="1" green="0.48000616779999999" blue="0.93246299340000005" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRH-Pt-ON4">
-                    <rect key="frame" x="243.5" y="56" width="99.5" height="26.5"/>
+                    <rect key="frame" x="240.5" y="56" width="99.5" height="26.5"/>
                     <fontDescription key="fontDescription" name="Moon-Bold" family="Moon" pointSize="25"/>
                     <color key="textColor" red="0.83137254901960778" green="0.054901960784313725" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_timer_1_deco" translatesAutoresizingMaskIntoConstraints="NO" id="tP5-np-nlD">
-                    <rect key="frame" x="305" y="38" width="38" height="10"/>
+                    <rect key="frame" x="302" y="38" width="38" height="10"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeG-sZ-0XQ">
                     <rect key="frame" x="34.5" y="62" width="16.5" height="15"/>
@@ -122,9 +122,9 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Dc6-3u-vve" secondAttribute="trailing" id="0Ic-yh-kWa"/>
                 <constraint firstItem="aeG-sZ-0XQ" firstAttribute="top" secondItem="GXG-sE-Nbi" secondAttribute="top" constant="7" id="3Fb-wN-hJu"/>
-                <constraint firstAttribute="trailing" secondItem="VRH-Pt-ON4" secondAttribute="trailing" constant="10" id="5RI-LY-bf0"/>
+                <constraint firstAttribute="trailing" secondItem="VRH-Pt-ON4" secondAttribute="trailing" constant="13" id="5RI-LY-bf0"/>
                 <constraint firstItem="tP5-np-nlD" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="38" id="8fT-Pf-qTo"/>
-                <constraint firstAttribute="trailing" secondItem="wA9-0P-Hkb" secondAttribute="trailing" constant="10" id="ARP-XO-JtQ"/>
+                <constraint firstAttribute="trailing" secondItem="wA9-0P-Hkb" secondAttribute="trailing" constant="13" id="ARP-XO-JtQ"/>
                 <constraint firstItem="Dc6-3u-vve" firstAttribute="leading" secondItem="bTN-pl-0aj" secondAttribute="leading" id="CFg-12-gUF"/>
                 <constraint firstItem="VRH-Pt-ON4" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="56" id="HPZ-NH-MAQ"/>
                 <constraint firstAttribute="trailing" secondItem="3ux-TL-yfC" secondAttribute="trailing" constant="16" id="Ij5-oN-CnK"/>
@@ -132,7 +132,7 @@
                 <constraint firstAttribute="bottom" secondItem="3ux-TL-yfC" secondAttribute="bottom" constant="20" id="Nd7-2E-bSE"/>
                 <constraint firstItem="aeG-sZ-0XQ" firstAttribute="leading" secondItem="bTN-pl-0aj" secondAttribute="leading" constant="60" id="TKx-7G-Bbv"/>
                 <constraint firstItem="Zj8-Ly-Thz" firstAttribute="top" secondItem="6TQ-HL-k8P" secondAttribute="bottom" constant="0.5" id="TqY-be-WZR"/>
-                <constraint firstAttribute="trailing" secondItem="tP5-np-nlD" secondAttribute="trailing" constant="10" id="UPb-Jz-fDz"/>
+                <constraint firstAttribute="trailing" secondItem="tP5-np-nlD" secondAttribute="trailing" constant="13" id="UPb-Jz-fDz"/>
                 <constraint firstItem="olt-gf-MHg" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="10" id="YBZ-kb-6EN"/>
                 <constraint firstItem="aeG-sZ-0XQ" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="33" id="amT-lu-ql0"/>
                 <constraint firstItem="6TQ-HL-k8P" firstAttribute="top" secondItem="Dc6-3u-vve" secondAttribute="bottom" id="foB-xW-SCh"/>
@@ -144,7 +144,7 @@
                 <constraint firstItem="GXG-sE-Nbi" firstAttribute="leading" secondItem="bTN-pl-0aj" secondAttribute="leading" constant="5" id="sMY-vB-k3L"/>
                 <constraint firstItem="GXG-sE-Nbi" firstAttribute="top" secondItem="bTN-pl-0aj" secondAttribute="top" constant="55" id="z7T-d6-eyL"/>
                 <constraint firstItem="6TQ-HL-k8P" firstAttribute="leading" secondItem="bTN-pl-0aj" secondAttribute="leading" id="z9O-Rt-B50"/>
-                <constraint firstAttribute="trailing" secondItem="olt-gf-MHg" secondAttribute="trailing" constant="10" id="zEY-zX-XuR"/>
+                <constraint firstAttribute="trailing" secondItem="olt-gf-MHg" secondAttribute="trailing" constant="13" id="zEY-zX-XuR"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">

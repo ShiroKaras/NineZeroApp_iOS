@@ -8,8 +8,11 @@
 
 #import "HTQuestionService.h"
 #import "HTLogicHeader.h"
+#import "HTStorageManager.h"
 
-@implementation HTQuestionService
+@implementation HTQuestionService {
+    HTLoginUser *_loginUser;
+}
 
 - (instancetype)init {
     static BOOL hasCreate = NO;
@@ -21,6 +24,10 @@
 }
 
 #pragma mark - Public Method
+
+- (void)setLoginUser:(HTLoginUser *)loginUser {
+    _loginUser = loginUser;
+}
 
 - (void)getQuestionInfoWithCallback:(HTQuestionInfoCallback)callback {
     NSDictionary *dict = @{@"area_id" : @"1"};
@@ -64,7 +71,15 @@
 }
 
 - (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback {
-    NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID],
+    NSString *user_id = [[HTStorageManager sharedInstance] getUserID];
+    if (user_id.length == 0) {
+        callback(false, nil);
+        return;
+    } else {
+    }
+    NSDictionary *dict = @{
+                           @"user_id" : user_id,
+                           @"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID],
                            @"answer" : answer
                            };
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager verifyAnswerCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {

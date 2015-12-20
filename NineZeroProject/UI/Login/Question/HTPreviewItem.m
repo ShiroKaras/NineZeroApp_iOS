@@ -41,9 +41,8 @@
 
 - (void)awakeFromNib {
 //    [self play];
-     
     [_composeButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 }
 
 - (void)buildPlayer {
@@ -178,9 +177,11 @@
 
 #pragma mark - Notification
 
-- (void)playItemDidPlayToEndTime {
-    _playButton.hidden = NO;
-    [_player seekToTime:kCMTimeZero];
+- (void)playItemDidPlayToEndTime:(NSNotification *)notification {
+    if ([notification.object isEqual:self.playerItem]) {
+        _playButton.hidden = NO;
+        [_player seekToTime:kCMTimeZero];
+    }
 }
 
 #pragma mark - Action
