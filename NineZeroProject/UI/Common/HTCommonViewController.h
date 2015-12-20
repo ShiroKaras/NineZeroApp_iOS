@@ -18,6 +18,8 @@
 
 - (BOOL)isNextButtonValid;
 - (void)didClickVerifyButton;
+- (void)showTipsWithText:(NSString *)text;
+- (void)setTipsOffsetY:(CGFloat)offset;
 
 @end
 

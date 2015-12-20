@@ -30,6 +30,7 @@
     [super viewDidLoad];
     self.title = @"主界面";
     [_loginButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
+    [self setTipsOffsetY:20];
 }
 
 - (void)dealloc {
@@ -66,15 +67,15 @@
 
 - (IBAction)registerButtonClicked:(UIButton *)sender {
     if (self.userNameTextField.text.length != 11) {
-        [MBProgressHUD showWarningWithTitle:@"请检查手机号码是否正确"];
+        [self showTipsWithText:@"请检查手机号码是否正确"];
         return;
     }
     if (self.userPasswordTextField.text.length < 6) {
-        [MBProgressHUD showWarningWithTitle:@"密码过于简单，请输入不低于6位密码"];
+        [self showTipsWithText:@"密码过于简单，请输入不低于6位密码"];
         return;
     }
     if (self.userPasswordTextField.text.length > 20) {
-        [MBProgressHUD showWarningWithTitle:@"密码不能多于20个字，请重新输入"];
+        [self showTipsWithText:@"密码不能多于20个字，请重新输入"];
         return;
     }
     HTLoginUser *loginUser = [[HTLoginUser alloc] init];

@@ -8,9 +8,17 @@
 
 #import "HTCommonViewController.h"
 #import <SMS_SDK/SMS_SDK.h>
+#import "HTUIHeader.h"
+
+@interface HTCommonViewController ()
+
+@property (nonatomic, strong) UILabel *tipsLabel;                ///< 提示
+@property (nonatomic, strong) UIView *tipsBackView;              ///< 提示背景
+
+
+@end
 
 @implementation HTCommonViewController {
-
     NSInteger _secondsToCountDown;
 }
 
@@ -38,10 +46,63 @@
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap)];
     [self.view addGestureRecognizer:tapGesture];
+    
+    // 5. 提示
+    _tipsBackView = [[UIView alloc] init];
+    _tipsBackView.backgroundColor = [UIColor colorWithHex:0xd40e88];
+    _tipsBackView.hidden = YES;
+    [self.view addSubview:_tipsBackView];
+    
+    _tipsLabel = [[UILabel alloc] init];
+    _tipsLabel.font = [UIFont systemFontOfSize:16];
+    _tipsLabel.textAlignment = NSTextAlignmentCenter;
+    _tipsLabel.textColor = [UIColor whiteColor];
+    [_tipsBackView addSubview:_tipsLabel];
+    
+    // 5. 提示
+    [_tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(0);
+        make.width.equalTo(self.view);
+        make.height.equalTo(@30);
+    }];
+    
+    [_tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(_tipsBackView);
+    }];
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+}
+
+- (void)setTipsOffsetY:(CGFloat)offset {
+    [_tipsBackView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(offset);
+        make.width.equalTo(self.view);
+        make.height.equalTo(@30);
+    }];
+}
+
+- (void)showTipsWithText:(NSString *)text {
+    _tipsLabel.text = text;
+    _tipsBackView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        _tipsBackView.hidden = NO;
+        _tipsBackView.alpha = 1;
+    } completion:^(BOOL finished) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.3 animations:^{
+                _tipsBackView.alpha = 0;
+            } completion:^(BOOL finished) {
+                _tipsBackView.hidden = YES;
+            }];
+        });
+    }];
+
 }
 
 #pragma mark - Subclass

@@ -32,12 +32,23 @@
 }
 
 - (IBAction)didClickCompletionButton:(UIButton *)sender {
+    if (_secondTextField.text.length < 6) {
+        [self showTipsWithText:@"密码过于简单，请输入不低于6位密码"];
+        return;
+    }
+    if (_secondTextField.text.length > 20) {
+        [self showTipsWithText:@"密码不能多于20个字，请重新输入"];
+        return;
+    }
+    if ([_firstTextField.text isEqualToString:_secondTextField.text] == NO) {
+        [self showTipsWithText:@"两次输入的密码不一致"];
+        return;
+    }
     _loginUser.user_password = _secondTextField.text;
     _loginUser.user_password = [NSString confusedPasswordWithLoginUser:_loginUser];
     [[[HTServiceManager sharedInstance] loginService] resetPasswordWithUser:_loginUser completion:^(BOOL success, HTResponsePackage *response) {
         if (success) {
             if (response.resultCode == 0) {
-                [MBProgressHUD showSuccessWithTitle:@"修改成功"];
                 NSArray *controllers = self.navigationController.viewControllers;
                 UIViewController *loginController = nil;
                 for (UIViewController *controller in controllers) {
@@ -47,10 +58,10 @@
                 }
                 if (loginController != nil) [self.navigationController popToViewController:loginController animated:YES];
             } else {
-                [MBProgressHUD showWarningWithTitle:response.resultMsg];
+                [self showTipsWithText:response.resultMsg];
             }
         } else {
-            [MBProgressHUD showNetworkError];
+            [self showTipsWithText:@"网络连接错误"];
         }
     }];
 }

@@ -65,6 +65,7 @@
         callback(true, resp);
         if (resp.resultCode == 0) {
             [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", responseObject[@"data"][@"user_id"]]];
+            [[HTStorageManager sharedInstance] updateLoginUser:user];
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         DLog(@"%@", error);

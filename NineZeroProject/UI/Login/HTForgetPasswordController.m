@@ -69,7 +69,7 @@
     if (_firstTextField.text.length == 11) {
         [super didClickVerifyButton];
     } else {
-        [MBProgressHUD showWarningWithTitle:@"请检查手机号码是否正确"];
+        [self showTipsWithText:@"请检查手机号码是否正确"];
     }
 }
 

@@ -49,10 +49,10 @@
                 HTPreviewQuestionController *controller = [[HTPreviewQuestionController alloc] init];
                 [UIApplication sharedApplication].keyWindow.rootViewController = controller;
             } else {
-                [MBProgressHUD showWarningWithTitle:response.resultMsg];
+                [self showTipsWithText:response.resultMsg];
             }
         } else {
-            [MBProgressHUD showNetworkError];
+            [self showTipsWithText:@"网络连接错误"];
         }
     }];
 }
