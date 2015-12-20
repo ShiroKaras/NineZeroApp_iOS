@@ -62,7 +62,7 @@
 - (void)configureQuestion {
     if (_question == nil) return;
     [_contenButton setTitle:_question.content forState:UIControlStateNormal];
-    _chapterLabel.text = [NSString stringWithFormat:@"%lu", _question.serial];
+    _chapterLabel.text = [NSString stringWithFormat:@"%02lu", _question.serial];
 }
 
 - (void)setQuestion:(HTQuestion *)question {

@@ -20,6 +20,7 @@
 		174CF7841C146EAF002E0DBB /* HTPreviewQuestionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 174CF7831C146EAF002E0DBB /* HTPreviewQuestionController.xib */; };
 		174CF7871C147489002E0DBB /* HTPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 174CF7861C147489002E0DBB /* HTPreviewView.m */; };
 		175641901C2681460009AE7B /* sample.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1756418F1C2681460009AE7B /* sample.mp4 */; };
+		175641931C269DD20009AE7B /* HTShowAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 175641921C269DD20009AE7B /* HTShowAnswerView.m */; };
 		17617F5C1BEFADD6000B2BFA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F5B1BEFADD6000B2BFA /* CFNetwork.framework */; };
 		17617F5E1BEFADDC000B2BFA /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F5D1BEFADDC000B2BFA /* CoreFoundation.framework */; };
 		17617F601BEFADE1000B2BFA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F5F1BEFADE1000B2BFA /* CoreTelephony.framework */; };
@@ -111,6 +112,8 @@
 		174CF7851C147489002E0DBB /* HTPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPreviewView.h; sourceTree = "<group>"; };
 		174CF7861C147489002E0DBB /* HTPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTPreviewView.m; sourceTree = "<group>"; };
 		1756418F1C2681460009AE7B /* sample.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.mp4; sourceTree = "<group>"; };
+		175641911C269DD20009AE7B /* HTShowAnswerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTShowAnswerView.h; sourceTree = "<group>"; };
+		175641921C269DD20009AE7B /* HTShowAnswerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTShowAnswerView.m; sourceTree = "<group>"; };
 		17617F5B1BEFADD6000B2BFA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		17617F5D1BEFADDC000B2BFA /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		17617F5F1BEFADE1000B2BFA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -328,6 +331,8 @@
 				17F37A781C259EB8006759D1 /* HTDescriptionView.m */,
 				170992BB1C264F0C004433EB /* HTShowDetailView.h */,
 				170992BC1C264F0C004433EB /* HTShowDetailView.m */,
+				175641911C269DD20009AE7B /* HTShowAnswerView.h */,
+				175641921C269DD20009AE7B /* HTShowAnswerView.m */,
 			);
 			name = Question;
 			path = Login/Question;
@@ -732,6 +737,7 @@
 				17A89AAF1C1DBA150087BF00 /* README.md in Sources */,
 				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
 				174CF7821C146E2F002E0DBB /* HTPreviewQuestionController.m in Sources */,
+				175641931C269DD20009AE7B /* HTShowAnswerView.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
 				26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */,
 				174CF7871C147489002E0DBB /* HTPreviewView.m in Sources */,

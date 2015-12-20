@@ -32,6 +32,7 @@
         [self addSubview:_dimmingView];
     
         _converView = [[UIView alloc] init];
+        _converView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
         [self addSubview:_converView];
         
         _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ex_image"]];
@@ -48,8 +49,9 @@
         _webView = [[UIWebView alloc] init];
         _webView.delegate = self;
         _webView.opaque = NO;
-        _webView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
-        _webView.scrollView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
+//        _webView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
+        _webView.backgroundColor = [UIColor clearColor];
+        _webView.scrollView.backgroundColor = [UIColor clearColor];
 //        [_webView loadHTMLString:urlString baseURL:nil];
         [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body text=\"#d9d9d9\" size=\"13\">%@</body></html>", urlString] baseURL: nil];
         [_converView addSubview:_webView];
@@ -76,7 +78,8 @@
     _converView.layer.cornerRadius = 5.0f;
     _converView.layer.masksToBounds = YES;
     _imageView.frame = CGRectMake(0, 0, width, imageHeight);
-    _webView.frame = CGRectMake(_imageView.left, _imageView.bottom, width, webViewHeight);
+    _webView.frame = CGRectMake(_imageView.left, 0, width, webViewHeight + imageHeight);
+    _webView.scrollView.contentInset = UIEdgeInsetsMake(imageHeight, 0, 0, 0);
     _cancelButton.centerX = self.centerX;
     _cancelButton.top = _converView.bottom + 16;
 }
