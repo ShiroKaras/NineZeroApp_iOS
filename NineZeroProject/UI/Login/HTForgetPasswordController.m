@@ -46,14 +46,15 @@
 - (IBAction)didClickNextButton:(UIButton *)sender {
     _loginUser.user_mobile = _firstTextField.text;
     _loginUser.code = _secondTextField.text;
-    [SMS_SDK commitVerifyCode:_secondTextField.text result:^(enum SMS_ResponseState state) {
-        if (state == SMS_ResponseStateSuccess) {
-            HTResetPasswordController *resetPwdController = [[HTResetPasswordController alloc] initWithLoginUser:_loginUser];
-            [self.navigationController pushViewController:resetPwdController animated:YES];
-        } else {
-            [MBProgressHUD showVerifyCodeError];
-        }
-    }];
+    HTResetPasswordController *resetPwdController = [[HTResetPasswordController alloc] initWithLoginUser:_loginUser];
+    [self.navigationController pushViewController:resetPwdController animated:YES];
+//    [SMS_SDK commitVerifyCode:_secondTextField.text result:^(enum SMS_ResponseState state) {
+//        if (state == SMS_ResponseStateSuccess) {
+//
+//        } else {
+//            [MBProgressHUD showVerifyCodeError];
+//        }
+//    }];
 }
 
 - (IBAction)didClickGetVerifyCodeButton:(UIButton *)sender {
