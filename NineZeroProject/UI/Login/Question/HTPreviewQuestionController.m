@@ -11,6 +11,7 @@
 #import "HTPreviewView.h"
 #import "HTComposeView.h"
 #import "HTDescriptionView.h"
+#import "HTShowDetailView.h"
 #import "HTUIHeader.h"
 #import "CommonUI.h"
 
@@ -24,6 +25,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 @property (strong, nonatomic) HTPreviewView *previewView;                     // 预览题目控件
 @property (strong, nonatomic) HTComposeView *composeView;                     // 答题界面
 @property (strong, nonatomic) HTDescriptionView *descriptionView;             // 详情页面
+@property (strong, nonatomic) HTShowDetailView *showDetailView;               // 提示详情
 
 @end
 
@@ -96,38 +98,47 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 
 #pragma mark - HTPreviewItem Delegate
 
-- (void)previewItem:(HTPreviewItem *)previewItem didClickComposeButton:(UIButton *)composeButton {
-    _composeView = [[HTComposeView alloc] init];
-    _composeView.delegate = self;
-    _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
-    _composeView.alpha = 0.0;
-    _composeView.associatedQuestion = previewItem.question;
-    [UIView animateWithDuration:0.3 animations:^{
-        _composeView.alpha = 1.0;
-        [self.view addSubview:_composeView];
-    } completion:^(BOOL finished) {
-        [_composeView becomeFirstResponder];
-    }];
-}
-
-- (void)previewItem:(HTPreviewItem *)previewItem didClickContentButton:(UIButton *)contentButton {
-    _descriptionView = [[HTDescriptionView alloc] initWithURLString:previewItem.question.questionDescription];
-    _descriptionView.frame = self.view.bounds;
-    _descriptionView.alpha = 0;
-    _descriptionView.top = self.view.bottom;
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _descriptionView.top = 0;
-        [self.view addSubview:_descriptionView];
-        _descriptionView.alpha = 1.0;
-    } completion:nil];
-}
-
-- (void)previewItem:(HTPreviewItem *)previewItem didClickHintButton:(UIButton *)hintButton {
-    
-}
-
-- (void)previewItem:(HTPreviewItem *)previewItem didClickRewardButton:(UIButton *)rewardButton {
-    
+- (void)previewItem:(HTPreviewItem *)previewItem didClickButtonWithType:(HTPreviewItemButtonType)type {
+    switch (type) {
+        case HTPreviewItemButtonTypeCompose: {
+            _composeView = [[HTComposeView alloc] init];
+            _composeView.delegate = self;
+            _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+            _composeView.alpha = 0.0;
+            _composeView.associatedQuestion = previewItem.question;
+            [UIView animateWithDuration:0.3 animations:^{
+                _composeView.alpha = 1.0;
+                [self.view addSubview:_composeView];
+            } completion:^(BOOL finished) {
+                [_composeView becomeFirstResponder];
+            }];
+            break;
+        }
+        case HTPreviewItemButtonTypeContent: {
+            _descriptionView = [[HTDescriptionView alloc] initWithURLString:previewItem.question.questionDescription];
+            _descriptionView.frame = self.view.bounds;
+            _descriptionView.alpha = 0;
+            _descriptionView.top = self.view.bottom;
+            [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                _descriptionView.top = 0;
+                [self.view addSubview:_descriptionView];
+                _descriptionView.alpha = 1.0;
+            } completion:nil];
+            break;
+        }
+        case HTPreviewItemButtonTypeHint: {
+            [MBProgressHUD showWarningWithTitle:previewItem.question.hint];
+            break;
+        }
+        case HTPreviewItemButtonTypeReward: {
+            [MBProgressHUD showWarningWithTitle:@"星巴克一杯"];
+            break;
+        }
+        case HTPreviewItemButtonTypeAnswer: {
+            [MBProgressHUD showWarningWithTitle:[NSString stringWithFormat:@"%@", previewItem.question.answers]];
+            break;
+        }
+    }
 }
 
 #pragma mark - HTComposeView Delegate

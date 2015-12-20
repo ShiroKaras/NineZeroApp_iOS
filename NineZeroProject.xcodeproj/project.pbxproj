@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706CB4A1BFA542E00E59255 /* NSString+Utility.m */; };
 		170992BA1C26489D004433EB /* HTPreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 170992B91C26489D004433EB /* HTPreviewItem.m */; };
+		170992BD1C264F0C004433EB /* HTShowDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 170992BC1C264F0C004433EB /* HTShowDetailView.m */; };
 		1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D71C1BEFB7A100498304 /* HTLoginRootController.m */; };
 		1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */; };
 		1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7211BEFBAD200498304 /* HTCGIManager.m */; };
@@ -92,6 +93,8 @@
 		1706CB491BFA542E00E59255 /* NSString+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utility.h"; sourceTree = "<group>"; };
 		1706CB4A1BFA542E00E59255 /* NSString+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utility.m"; sourceTree = "<group>"; };
 		170992B91C26489D004433EB /* HTPreviewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTPreviewItem.m; sourceTree = "<group>"; };
+		170992BB1C264F0C004433EB /* HTShowDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTShowDetailView.h; sourceTree = "<group>"; };
+		170992BC1C264F0C004433EB /* HTShowDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTShowDetailView.m; sourceTree = "<group>"; };
 		1721D71B1BEFB7A100498304 /* HTLoginRootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginRootController.h; sourceTree = "<group>"; };
 		1721D71C1BEFB7A100498304 /* HTLoginRootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginRootController.m; sourceTree = "<group>"; };
 		1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTLoginRootController.xib; sourceTree = "<group>"; };
@@ -323,6 +326,8 @@
 				17D997C01C1D49930091978E /* HTComposeView.m */,
 				17F37A771C259EB8006759D1 /* HTDescriptionView.h */,
 				17F37A781C259EB8006759D1 /* HTDescriptionView.m */,
+				170992BB1C264F0C004433EB /* HTShowDetailView.h */,
+				170992BC1C264F0C004433EB /* HTShowDetailView.m */,
 			);
 			name = Question;
 			path = Login/Question;
@@ -710,6 +715,7 @@
 				17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */,
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
 				26973B021C005ED900160D25 /* HTNavigationController.m in Sources */,
+				170992BD1C264F0C004433EB /* HTShowDetailView.m in Sources */,
 				176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */,
 				26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */,
 				17F37A791C259EB8006759D1 /* HTDescriptionView.m in Sources */,

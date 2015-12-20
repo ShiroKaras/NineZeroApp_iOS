@@ -184,30 +184,25 @@
 - (IBAction)onClickDetailButton:(UIButton *)sender {
     if (sender.tag == 1000) {
         // 查看奖励
-        if ([self.delegate respondsToSelector:@selector(previewItem:didClickRewardButton:)]) {
-            [self.delegate previewItem:self didClickRewardButton:sender];
-        }
+        [self.delegate previewItem:self didClickButtonWithType:HTPreviewItemButtonTypeReward];
     } else {
         // 查看提示
-        if ([self.delegate respondsToSelector:@selector(previewItem:didClickHintButton:)]) {
-            [self.delegate previewItem:self didClickHintButton:sender];
-        }
+        [self.delegate previewItem:self didClickButtonWithType:HTPreviewItemButtonTypeHint];
     }
 }
 
 - (IBAction)onClickContentButton:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(previewItem:didClickContentButton:)]) {
-        [self.delegate previewItem:self didClickContentButton:sender];
-    }
+    // 内容
+    [self.delegate previewItem:self didClickButtonWithType:HTPreviewItemButtonTypeContent];
 }
 
 - (IBAction)onClickComposeButton:(UIButton *)sender {
     if (sender.tag == 1000) {
         // 查看答案
+        [self.delegate previewItem:self didClickButtonWithType:HTPreviewItemButtonTypeAnswer];
     } else {
-        if ([self.delegate respondsToSelector:@selector(previewItem:didClickComposeButton:)]) {
-            [self.delegate previewItem:self didClickComposeButton:sender];
-        }
+        // 答题
+        [self.delegate previewItem:self didClickButtonWithType:HTPreviewItemButtonTypeCompose];
     }
 }
 

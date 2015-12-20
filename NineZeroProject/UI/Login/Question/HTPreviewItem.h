@@ -8,10 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, HTPreviewItemButtonType) {
+    HTPreviewItemButtonTypeCompose,
+    HTPreviewItemButtonTypeContent,
+    HTPreviewItemButtonTypeHint,
+    HTPreviewItemButtonTypeReward,
+    HTPreviewItemButtonTypeAnswer,
+};
+
 @class HTQuestion;
 @class HTPreviewItem;
 
 @protocol HTPreviewItemDelegate <NSObject>
+
+/**
+ *  @brief 根据type值来判断点击了哪种类型的button
+ *  @param type        type
+ */
+- (void)previewItem:(HTPreviewItem *)previewItem didClickButtonWithType:(HTPreviewItemButtonType)type;
 
 @optional
 // 发布
