@@ -57,7 +57,6 @@
     [_playItemBackView.layer addSublayer:_playerLayer];
 
     self.playButton.hidden = NO;
-
 }
 
 - (void)configureQuestion {
@@ -98,11 +97,15 @@
     _countDownDetailLabel.hidden = YES;
     [_composeButton setImage:[UIImage imageNamed:@"btn_ans_ans"] forState:UIControlStateNormal];
     [_composeButton setImage:[UIImage imageNamed:@"btn_ans_ans_highlight"] forState:UIControlStateHighlighted];
+    _composeButton.tag = 1000;  // 查看答案
     if (breakSuccess) {
         _resultImageView.image = [UIImage imageNamed:@"img_stamp_sucess"];
-        
+        _detailButton.hidden = NO;
+        [_detailButton setImage:[UIImage imageNamed:@"btn_check_prize"] forState:UIControlStateNormal];
+        _detailButton.tag = 1000;  // 查看奖励
     } else {
         _resultImageView.image = [UIImage imageNamed:@"img_stamp_gameover"];
+        _detailButton.hidden = YES;
     }
 }
 
@@ -125,6 +128,9 @@
     _countDownImageView.hidden = NO;
     _countDownMainLabel.hidden = NO;
     _countDownDetailLabel.hidden = YES;
+    _detailButton.hidden = NO;
+    [_detailButton setImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
+    _detailButton.tag = 0;
     if (delta > oneHour * 48) {
         // 大于48小时
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
@@ -175,6 +181,20 @@
     
 }
 
+- (IBAction)onClickDetailButton:(UIButton *)sender {
+    if (sender.tag == 1000) {
+        // 查看奖励
+        if ([self.delegate respondsToSelector:@selector(previewItem:didClickRewardButton:)]) {
+            [self.delegate previewItem:self didClickRewardButton:sender];
+        }
+    } else {
+        // 查看提示
+        if ([self.delegate respondsToSelector:@selector(previewItem:didClickHintButton:)]) {
+            [self.delegate previewItem:self didClickHintButton:sender];
+        }
+    }
+}
+
 - (IBAction)onClickContentButton:(UIButton *)sender {
     if ([self.delegate respondsToSelector:@selector(previewItem:didClickContentButton:)]) {
         [self.delegate previewItem:self didClickContentButton:sender];
@@ -182,8 +202,12 @@
 }
 
 - (IBAction)onClickComposeButton:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(previewItem:didClickComposeButton:)]) {
-        [self.delegate previewItem:self didClickComposeButton:sender];
+    if (sender.tag == 1000) {
+        // 查看答案
+    } else {
+        if ([self.delegate respondsToSelector:@selector(previewItem:didClickComposeButton:)]) {
+            [self.delegate previewItem:self didClickComposeButton:sender];
+        }
     }
 }
 

@@ -107,6 +107,9 @@
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zj8-Ly-Thz">
                     <rect key="frame" x="5" y="523" width="96" height="32"/>
                     <state key="normal" image="btn_get_hint"/>
+                    <connections>
+                        <action selector="onClickDetailButton:" destination="bTN-pl-0aj" eventType="touchUpInside" id="K40-Y1-dH8"/>
+                    </connections>
                 </button>
                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="img_stamp_gameover" translatesAutoresizingMaskIntoConstraints="NO" id="wA9-0P-Hkb">
                     <rect key="frame" x="268" y="38" width="75" height="39"/>

@@ -139,10 +139,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     NSInteger currentIndex = [self indexWithContentOffsetX:scrollView.contentOffset.x];
-    if (currentIndex == _questions.count - 3) {
+    if (currentIndex == _questions.count - 4) {
         [self.delegate previewView:self shouldShowGoBackItem:YES];
     }
-    if (currentIndex == _questions.count - 2) {
+    if (currentIndex == _questions.count - 3) {
         [self.delegate previewView:self shouldShowGoBackItem:NO];
     }
     static CGFloat preContentOffsetX = 0.0;

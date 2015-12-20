@@ -122,6 +122,14 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     } completion:nil];
 }
 
+- (void)previewItem:(HTPreviewItem *)previewItem didClickHintButton:(UIButton *)hintButton {
+    
+}
+
+- (void)previewItem:(HTPreviewItem *)previewItem didClickRewardButton:(UIButton *)rewardButton {
+    
+}
+
 #pragma mark - HTComposeView Delegate
 
 - (void)composeView:(HTComposeView *)composeView didComposeWithAnswer:(NSString *)answer {

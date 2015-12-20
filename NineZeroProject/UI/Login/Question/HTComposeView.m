@@ -45,6 +45,7 @@
         _composeButton.enabled = NO;
         [_composeButton addTarget:self action:@selector(didClickComposeButton) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_composeButton];
+        [_composeButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
         
         // 3. 答题框
         _textFieldBackView = [[UIView alloc] init];

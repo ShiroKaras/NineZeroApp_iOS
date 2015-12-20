@@ -13,9 +13,16 @@
 
 @protocol HTPreviewItemDelegate <NSObject>
 
+@optional
+// 发布
 - (void)previewItem:(HTPreviewItem *)previewItem didClickComposeButton:(UIButton *)composeButton;
+// 内容
 - (void)previewItem:(HTPreviewItem *)previewItem didClickContentButton:(UIButton *)contentButton;
-    
+// 提示
+- (void)previewItem:(HTPreviewItem *)previewItem didClickHintButton:(UIButton *)hintButton;
+// 奖品
+- (void)previewItem:(HTPreviewItem *)previewItem didClickRewardButton:(UIButton *)rewardButton;
+
 @end
 
 @interface HTPreviewItem : UIView
