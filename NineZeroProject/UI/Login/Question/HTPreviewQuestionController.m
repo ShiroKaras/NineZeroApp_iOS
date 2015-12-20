@@ -129,14 +129,24 @@ static CGFloat kLeftMargin = 13; // 暂定为0
             break;
         }
         case HTPreviewItemButtonTypeHint: {
-            [MBProgressHUD showWarningWithTitle:previewItem.question.hint];
+            _showDetailView = [[HTShowDetailView alloc] initWithDetailText:previewItem.question.hint andShowInRect:[previewItem convertRect:[previewItem hintRect] toView:self.view]];
+            _showDetailView.frame = self.view.bounds;
+            _showDetailView.alpha = 0.0;
+            [self.view addSubview:_showDetailView];
+            [UIView animateWithDuration:0.3 animations:^{
+                _showDetailView.alpha = 1.0;
+            }];
             break;
         }
         case HTPreviewItemButtonTypeReward: {
-//            _showDetailView = [[HTShowDetailView alloc] initWithDetailText:previewItem.question.hint andShowInRect:[previewItem hintRect]];
-//            _showDetailView.frame = self.view.bounds;
-//            [self.view addSubview:_showDetailView];
-            [MBProgressHUD showSuccessWithTitle:@"星巴克一杯"];
+            _showDetailView = [[HTShowDetailView alloc] initWithDetailText:@"一杯星巴克" andShowInRect:[previewItem convertRect:[previewItem hintRect] toView:self.view]];
+            _showDetailView.frame = self.view.bounds;
+            _showDetailView.alpha = 0.0;
+            [self.view addSubview:_showDetailView];
+            [UIView animateWithDuration:0.3 animations:^{
+                _showDetailView.alpha = 1.0;
+            }];
+            break;
             break;
         }
         case HTPreviewItemButtonTypeAnswer: {
@@ -182,5 +192,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     [self.view endEditing:YES];
     [composeView removeFromSuperview];
 }
+
+#pragma mark - Tool Method
 
 @end

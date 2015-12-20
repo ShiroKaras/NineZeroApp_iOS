@@ -24,6 +24,7 @@
 - (instancetype)initWithDetailText:(NSString *)text andShowInRect:(CGRect)rect {
     if (self = [super initWithFrame:CGRectZero]) {
         _showInRect = rect;
+        
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickCancelButton)];
         _dimmingView = [[UIView alloc] init];
         _dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
@@ -45,23 +46,25 @@
 }
 
 - (void)didClickCancelButton {
-     [self removeFromSuperview];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     _dimmingView.frame = self.bounds;
     CGSize size = [_bubbleLabel.text boundingRectWithSize:CGSizeMake(_bubbleImageView.width, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:13] } context:nil].size;
-    _bubbleImageView.height = size.height + 20;
-    _bubbleImageView.left = CGRectGetMinX(_showInRect) + 20;
-    _bubbleImageView.width = size.width + 20;
-    _bubbleImageView.bottom = CGRectGetMinY(_showInRect) + 30;
+    _bubbleImageView.centerX = self.centerX - 30;
+    _bubbleImageView.bottom = CGRectGetMinY(_showInRect) - 30;
+    _bubbleImageView.height = size.height + 40;
+    _bubbleImageView.width = self.width - _bubbleImageView.left * 2;
     _bubbleLabel.width = size.width;
     _bubbleLabel.height = size.height + 3;
-    _bubbleLabel.left = 10;
-    _bubbleLabel.top = 7;
-
-    
+    _bubbleLabel.left = 28;
+    _bubbleLabel.top = 15;
 }
 
 @end
