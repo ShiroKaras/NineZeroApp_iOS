@@ -14,6 +14,8 @@ typedef NS_ENUM(NSUInteger, HTPreviewItemButtonType) {
     HTPreviewItemButtonTypeHint,
     HTPreviewItemButtonTypeReward,
     HTPreviewItemButtonTypeAnswer,
+    HTPreviewItemButtonTypeSound,
+    HTPreviewItemButtonTypePause
 };
 
 @class HTQuestion;
@@ -50,5 +52,8 @@ typedef NS_ENUM(NSUInteger, HTPreviewItemButtonType) {
 @property (nonatomic, assign) BOOL breakSuccess;
 // 倒计时
 @property (nonatomic, assign) time_t endTime;
+
+- (void)play;
+- (void)pause;
 
 @end

@@ -47,9 +47,10 @@
 }
 
 - (void)buildPlayer {
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"];
-    NSURL *vedioUrl = [NSURL URLWithString:[NSString qiniuDownloadURLWithFileName:_question.vedioURL]];
-    AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:vedioUrl options:nil];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"];
+//    NSURL *vedioUrl = [NSURL URLWithString:[NSString qiniuDownloadURLWithFileName:_question.vedioURL]];
+    NSURL *localUrl = [NSURL fileURLWithPath:path];
+    AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
     self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
     self.player = [AVPlayer playerWithPlayerItem:_playerItem];
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
@@ -72,8 +73,14 @@
 }
 
 - (void)play {
-    [_playerItem seekToTime:kCMTimeZero];
+//    [_playerItem seekToTime:kCMTimeZero];
+    _playButton.hidden = YES;
     [_player play];
+}
+
+- (void)pause {
+    _playButton.hidden = NO;
+    [_player pause];
 }
 
 - (void)dealloc {
@@ -169,17 +176,22 @@
 
 - (void)playItemDidPlayToEndTime {
     _playButton.hidden = NO;
+    [_player seekToTime:kCMTimeZero];
 }
 
 #pragma mark - Action
 
 - (IBAction)onClickPlayButton:(UIButton *)sender {
-    _playButton.hidden = YES;
     [self play];
 }
 
 - (IBAction)onClickSoundButton:(UIButton *)sender {
-    
+    [self.delegate previewItem:self didClickButtonWithType:HTPreviewItemButtonTypeSound];
+}
+
+- (IBAction)onClickPauseButton:(UIButton *)sender {
+    [self pause];
+    [self.delegate previewItem:self didClickButtonWithType:HTPreviewItemButtonTypePause];
 }
 
 - (IBAction)onClickDetailButton:(UIButton *)sender {

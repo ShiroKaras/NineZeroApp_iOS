@@ -35,6 +35,7 @@
         [self addSubview:_converView];
         
         _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ex_image"]];
+        _imageView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
         [_converView addSubview:_imageView];
     
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];

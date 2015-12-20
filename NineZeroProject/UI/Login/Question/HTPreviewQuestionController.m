@@ -138,6 +138,13 @@ static CGFloat kLeftMargin = 13; // 暂定为0
             [MBProgressHUD showWarningWithTitle:[NSString stringWithFormat:@"%@", previewItem.question.answers]];
             break;
         }
+        case HTPreviewItemButtonTypePause: {
+        }
+        case HTPreviewItemButtonTypeSound: {
+            
+        }
+        default:
+        break;
     }
 }
 

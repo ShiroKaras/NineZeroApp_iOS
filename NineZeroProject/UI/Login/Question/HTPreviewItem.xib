@@ -56,6 +56,9 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4TV-Ma-RW7">
                             <rect key="frame" x="308" y="314" width="28" height="32"/>
                             <state key="normal" image="ico_pause"/>
+                            <connections>
+                                <action selector="onClickPauseButton:" destination="bTN-pl-0aj" eventType="touchUpInside" id="Pvw-jf-ySI"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42j-pR-v8q">
                             <rect key="frame" x="308" y="15" width="33" height="28"/>
