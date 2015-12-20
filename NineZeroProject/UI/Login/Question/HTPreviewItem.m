@@ -40,7 +40,6 @@
 @implementation HTPreviewItem
 
 - (void)awakeFromNib {
-    [self buildPlayer];
 //    [self play];
      
     [_composeButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
@@ -48,8 +47,9 @@
 }
 
 - (void)buildPlayer {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"];
-    AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath:path] options:nil];
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"];
+    NSURL *vedioUrl = [NSURL URLWithString:[NSString qiniuDownloadURLWithFileName:_question.vedioURL]];
+    AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:vedioUrl options:nil];
     self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
     self.player = [AVPlayer playerWithPlayerItem:_playerItem];
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
@@ -67,6 +67,7 @@
 
 - (void)setQuestion:(HTQuestion *)question {
     _question = question;
+    [self buildPlayer];
     [self configureQuestion];
 }
 

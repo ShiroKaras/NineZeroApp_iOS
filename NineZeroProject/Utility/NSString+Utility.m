@@ -8,7 +8,9 @@
 
 #import "NSString+Utility.h"
 #import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonHMAC.h>
 #import "HTModel.h"
+#import "HTServiceManager.h"
 
 @implementation NSString (Utility)
 
@@ -66,6 +68,55 @@
 
 + (NSString *)confusedPasswordWithLoginUser:(HTLoginUser *)loginUser {
     return [[NSString stringWithFormat:@"%01$@%02$@%02$@%02$@", loginUser.user_password, loginUser.user_mobile] sha256];
+}
+
+//HmacSHA1加密；
++ (NSString *)hmacSha1:(NSString *)key data:(NSString *)data
+{
+    const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];
+    const char *cData = [data cStringUsingEncoding:NSASCIIStringEncoding];
+    //Sha256:
+    // unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
+    //CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+    
+    //sha1
+    unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
+    CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+
+    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC
+                                          length:sizeof(cHMAC)];
+    
+    NSString *hash = [HMAC base64EncodedStringWithOptions:0];//将加密结果进行一次BASE64编码。
+    return hash;
+}
+
+- (NSString *)urlencode {
+    NSMutableString *output = [NSMutableString string];
+    const unsigned char *source = (const unsigned char *)[self UTF8String];
+    unsigned long sourceLen = strlen((const char *)source);
+    for (int i = 0; i < sourceLen; ++i) {
+        const unsigned char thisChar = source[i];
+        if (thisChar == ' '){
+            [output appendString:@"+"];
+        } else if (thisChar == '.' || thisChar == '-' || thisChar == '_' || thisChar == '~' || 
+                   (thisChar >= 'a' && thisChar <= 'z') ||
+                   (thisChar >= 'A' && thisChar <= 'Z') ||
+                   (thisChar >= '0' && thisChar <= '9')) {
+            [output appendFormat:@"%c", thisChar];
+        } else {
+            [output appendFormat:@"%%%02X", thisChar];
+        }
+    }
+    return output;
+}
+
++ (NSString *)qiniuDownloadURLWithFileName:(NSString *)fileName {
+    NSString *downloadURL = [NSString stringWithFormat:@"http://7xns7d.com1.z0.glb.clouddn.com/%@?e=%ld", [fileName urlencode], time(NULL) + 3600];
+    NSString *accessKey = [@"Vgf5ahC3M4K8tMFEteEVTb1yoegZMMtGlUn5OkDQ" stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *secretKey = @"ahnun83y5qhzvFLHv9FvFTCMc2NaCTlPK0F2zUUA";
+    NSString *token = [NSString stringWithFormat:@"%@:%@", accessKey, [self hmacSha1:secretKey data:downloadURL]];
+    NSString *finalURL = [NSString stringWithFormat:@"%@&token=%@", downloadURL, token];
+    return finalURL;
 }
 
 @end

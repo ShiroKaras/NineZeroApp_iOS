@@ -94,6 +94,7 @@
 
 /**
  *  @brief 获取七牛token
+ *  "key" : "vedio.mp4"
  */
 + (NSString *)getQiniuTokenCGIKey;
 

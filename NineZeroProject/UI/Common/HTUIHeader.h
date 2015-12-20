@@ -21,5 +21,6 @@
 #import "HTNavigationController.h"
 #import "HTCommonViewController.h"
 #import "HTServiceManager.h"
+#import "NSString+Utility.h"
 
 #endif /* HTUIHeader_h */

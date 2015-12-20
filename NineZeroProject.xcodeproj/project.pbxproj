@@ -19,6 +19,7 @@
 		174CF7821C146E2F002E0DBB /* HTPreviewQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 174CF7811C146E2F002E0DBB /* HTPreviewQuestionController.m */; };
 		174CF7841C146EAF002E0DBB /* HTPreviewQuestionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 174CF7831C146EAF002E0DBB /* HTPreviewQuestionController.xib */; };
 		174CF7871C147489002E0DBB /* HTPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 174CF7861C147489002E0DBB /* HTPreviewView.m */; };
+		175641901C2681460009AE7B /* sample.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1756418F1C2681460009AE7B /* sample.mp4 */; };
 		17617F5C1BEFADD6000B2BFA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F5B1BEFADD6000B2BFA /* CFNetwork.framework */; };
 		17617F5E1BEFADDC000B2BFA /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F5D1BEFADDC000B2BFA /* CoreFoundation.framework */; };
 		17617F601BEFADE1000B2BFA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F5F1BEFADE1000B2BFA /* CoreTelephony.framework */; };
@@ -45,7 +46,6 @@
 		17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A2772A1BF79CA900E46670 /* HTLoginService.m */; };
 		17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A47E8B1C037F3E00BEC1DD /* HTCommonViewController.m */; };
 		17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A47E8F1C03869000BEC1DD /* HTLoginButton.m */; };
-		17A562411C1B3F3B0033D478 /* sample.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 17A562401C1B3F3B0033D478 /* sample.mp4 */; };
 		17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AAB1C1DBA150087BF00 /* LTInfiniteScrollView.m */; };
 		17A89AAF1C1DBA150087BF00 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AAC1C1DBA150087BF00 /* README.md */; };
 		17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB41C1DBA290087BF00 /* FLAnimatedImage.m */; };
@@ -110,6 +110,7 @@
 		174CF7831C146EAF002E0DBB /* HTPreviewQuestionController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTPreviewQuestionController.xib; sourceTree = "<group>"; };
 		174CF7851C147489002E0DBB /* HTPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPreviewView.h; sourceTree = "<group>"; };
 		174CF7861C147489002E0DBB /* HTPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTPreviewView.m; sourceTree = "<group>"; };
+		1756418F1C2681460009AE7B /* sample.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.mp4; sourceTree = "<group>"; };
 		17617F5B1BEFADD6000B2BFA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		17617F5D1BEFADDC000B2BFA /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		17617F5F1BEFADE1000B2BFA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -153,7 +154,6 @@
 		17A47E8D1C03815F00BEC1DD /* HTNetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNetworkDefine.h; sourceTree = "<group>"; };
 		17A47E8E1C03869000BEC1DD /* HTLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTLoginButton.h; path = ../Common/HTLoginButton.h; sourceTree = "<group>"; };
 		17A47E8F1C03869000BEC1DD /* HTLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTLoginButton.m; path = ../Common/HTLoginButton.m; sourceTree = "<group>"; };
-		17A562401C1B3F3B0033D478 /* sample.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.mp4; sourceTree = "<group>"; };
 		17A89AAA1C1DBA150087BF00 /* LTInfiniteScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LTInfiniteScrollView.h; path = LTInfiniteScrollView/LTInfiniteScrollView.h; sourceTree = "<group>"; };
 		17A89AAB1C1DBA150087BF00 /* LTInfiniteScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LTInfiniteScrollView.m; path = LTInfiniteScrollView/LTInfiniteScrollView.m; sourceTree = "<group>"; };
 		17A89AAC1C1DBA150087BF00 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -368,7 +368,7 @@
 				1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */,
 				1777D3791BE798F400AC0203 /* Info.plist */,
 				26BD341D1C12DF3300472E46 /* moonbold.ttf */,
-				17A562401C1B3F3B0033D478 /* sample.mp4 */,
+				1756418F1C2681460009AE7B /* sample.mp4 */,
 				1777D3681BE798F400AC0203 /* Supporting Files */,
 			);
 			path = NineZeroProject;
@@ -630,7 +630,7 @@
 				26DA7F261C01997A00337A56 /* HTForgetPasswordController.xib in Resources */,
 				26BD341E1C12DF3300472E46 /* moonbold.ttf in Resources */,
 				1777D3751BE798F400AC0203 /* Assets.xcassets in Resources */,
-				17A562411C1B3F3B0033D478 /* sample.mp4 in Resources */,
+				175641901C2681460009AE7B /* sample.mp4 in Resources */,
 				26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */,
 				26973B231C006A6900160D25 /* HTLoginController.xib in Resources */,
 				1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */,

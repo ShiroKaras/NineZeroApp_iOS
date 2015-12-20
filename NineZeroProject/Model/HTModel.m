@@ -76,7 +76,8 @@
                                      @"chapterText" : @"chapter",
                                      @"questionDescription" : @"description",
                                      @"detailURL" : @"detail_url",
-                                     @"descriptionPic" : @"description_pic"
+                                     @"descriptionPic" : @"description_pic",
+                                     @"vedioURL" : @"question_video"
                                      };
     return propertyMapper;
 }

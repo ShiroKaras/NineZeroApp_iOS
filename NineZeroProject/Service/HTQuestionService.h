@@ -49,6 +49,10 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
  */
 - (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback;
 
-
+/**
+ *  @brief 获取七牛下载链接
+ *  @param key      服务器给的key
+ */
+- (void)getQiniuDownloadURLWithKey:(NSString *)key callback:(HTResponseCallback)callback;
 
 @end

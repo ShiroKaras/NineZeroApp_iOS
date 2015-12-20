@@ -76,4 +76,14 @@
     }];
 }
 
+- (void)getQiniuDownloadURLWithKey:(NSString *)key callback:(HTResponseCallback)callback {
+    if (key.length == 0) return;
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQiniuDownloadUrlCGIKey] parameters:@{ @"key" : key } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@",responseObject);
+        callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(false, nil);
+    }];
+}
+
 @end

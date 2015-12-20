@@ -29,5 +29,7 @@
  */
 + (NSString *)confusedPasswordWithLoginUser:(HTLoginUser *)loginUser;
 
++ (NSString *)qiniuDownloadURLWithFileName:(NSString *)fileName;
+
 @end
 

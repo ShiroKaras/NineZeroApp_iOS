@@ -121,7 +121,9 @@
     [imageData writeToFile:imagePath atomically:YES];
 //    QNUploadOption *updateOption = [[QNUploadOption alloc] init];
 //    updateOption.mimeType = @"image/jpeg";
-    [[[HTServiceManager sharedInstance] qiniuService] putData:imageData key:nil token:[[[HTServiceManager sharedInstance] loginService] qiniuToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+
+    // iOSAvatar+手机号作为头像名
+    [[[HTServiceManager sharedInstance] qiniuService] putData:imageData key:[NSString stringWithFormat:@"iOSAvatar_%@", _loginUser.user_mobile] token:[[[HTServiceManager sharedInstance] loginService] qiniuToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
         DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
     } option:nil];
 }
