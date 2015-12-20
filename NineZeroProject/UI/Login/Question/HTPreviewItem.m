@@ -42,6 +42,8 @@
 - (void)awakeFromNib {
     [self buildPlayer];
 //    [self play];
+     
+    [_composeButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 }
 
@@ -53,8 +55,9 @@
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
     _playerLayer.videoGravity = AVLayerVideoGravityResize;
     [_playItemBackView.layer addSublayer:_playerLayer];
-    
+
     self.playButton.hidden = NO;
+
 }
 
 - (void)configureQuestion {
@@ -93,21 +96,21 @@
     _countDownImageView.hidden = YES;
     _countDownMainLabel.hidden = YES;
     _countDownDetailLabel.hidden = YES;
+    [_composeButton setImage:[UIImage imageNamed:@"btn_ans_ans"] forState:UIControlStateNormal];
+    [_composeButton setImage:[UIImage imageNamed:@"btn_ans_ans_highlight"] forState:UIControlStateHighlighted];
     if (breakSuccess) {
         _resultImageView.image = [UIImage imageNamed:@"img_stamp_sucess"];
+        
     } else {
         _resultImageView.image = [UIImage imageNamed:@"img_stamp_gameover"];
     }
 }
 
 - (void)setEndTime:(time_t)endTime {
-    endTime = time(NULL) + 3600 * 48 - 50;
     _endTime = endTime;
     // 开始倒计时
     DLog(@"结束时间为 = %ld, 当前时间 = %ld", endTime, time(NULL));
-    if (endTime > time(NULL)) {
-        [self scheduleCountDownTimer];
-    }
+    [self scheduleCountDownTimer];
 }
 
 #pragma mark - Tool Method
@@ -124,7 +127,7 @@
     _countDownDetailLabel.hidden = YES;
     if (delta > oneHour * 48) {
         // 大于48小时
-        
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
     } else if (delta > oneHour * 24 && delta < oneHour * 48) {
         // 大于24小时 小于48小时
         _countDownMainLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
@@ -150,6 +153,8 @@
         _countDownDetailLabel.textColor = [UIColor colorWithHex:0xd40e88];
     } else {
         // 过去时间
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
+        [self setBreakSuccess:NO];
     }
 }
 
@@ -167,6 +172,7 @@
 }
 
 - (IBAction)onClickSoundButton:(UIButton *)sender {
+    
 }
 
 - (IBAction)onClickContentButton:(UIButton *)sender {
@@ -180,6 +186,5 @@
         [self.delegate previewItem:self didClickComposeButton:sender];
     }
 }
-
 
 @end

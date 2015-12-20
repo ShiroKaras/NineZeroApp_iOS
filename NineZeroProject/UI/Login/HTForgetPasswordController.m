@@ -48,7 +48,7 @@
     _loginUser.code = _secondTextField.text;
     [SMS_SDK commitVerifyCode:_secondTextField.text result:^(enum SMS_ResponseState state) {
         if (state == SMS_ResponseStateSuccess) {
-            HTResetPasswordController *resetPwdController = [[HTResetPasswordController alloc] init];
+            HTResetPasswordController *resetPwdController = [[HTResetPasswordController alloc] initWithLoginUser:_loginUser];
             [self.navigationController pushViewController:resetPwdController animated:YES];
         } else {
             [MBProgressHUD showVerifyCodeError];

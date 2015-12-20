@@ -57,7 +57,8 @@
 }
 
 - (void)didClickCancelButton {
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.top = self.height;
         self.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];

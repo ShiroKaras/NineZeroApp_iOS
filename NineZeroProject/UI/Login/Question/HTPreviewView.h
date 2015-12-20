@@ -15,14 +15,6 @@
 @class HTQuestionInfo;
 
 @protocol HTPreviewViewDelegate <NSObject>
-/**
- *  @brief 点击了答题按钮
- *  @param previewView 预览题目控件
- *  @param item        预览题目控件的子控件
- */
-- (void)previewView:(HTPreviewView *)previewView didClickComposeWithItem:(HTPreviewItem *)item;
-
-- (void)previewView:(HTPreviewView *)previewView didClickContentWithItem:(HTPreviewItem *)item;
 
 /**
  *  @brief 回到今天是否应该出现
@@ -39,6 +31,7 @@
 - (instancetype)initWithFrame:(CGRect)frame andQuestions:(NSArray<HTQuestion *>*)questions NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, weak) id<HTPreviewViewDelegate> delegate;
+@property (nonatomic, strong) NSArray<HTPreviewItem *> *items;
 
 /**
  *  @brief 设置总体题目信息

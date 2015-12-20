@@ -16,7 +16,7 @@
 
 static CGFloat kLeftMargin = 13; // 暂定为0
 
-@interface HTPreviewQuestionController () <HTPreviewViewDelegate, HTComposeViewDelegate>
+@interface HTPreviewQuestionController () <HTPreviewViewDelegate, HTComposeViewDelegate, HTPreviewItemDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;                    // 左下角“九零”
 @property (weak, nonatomic) IBOutlet UIButton *meButton;                      // 右下角“我”
@@ -43,6 +43,10 @@ static CGFloat kLeftMargin = 13; // 暂定为0
             _previewView.delegate = self;
             [_previewView setQuestionInfo:questionInfo];
             [self.view insertSubview:self.previewView atIndex:0];
+            
+            for (HTPreviewItem *item in _previewView.items) {
+                item.delegate = self;
+            }
         }];
     }];
 
@@ -78,32 +82,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     }
 }
 
-
 #pragma mark - HTPreviewView Delegate
-
-- (void)previewView:(HTPreviewView *)previewView didClickComposeWithItem:(HTPreviewItem *)item {
-    _composeView = [[HTComposeView alloc] init];
-    _composeView.delegate = self;
-    _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
-    _composeView.alpha = 0.0;
-    _composeView.associatedQuestion = item.question;
-    [UIView animateWithDuration:0.3 animations:^{
-        _composeView.alpha = 1.0;
-        [self.view addSubview:_composeView];
-    } completion:^(BOOL finished) {
-        [_composeView becomeFirstResponder];
-    }];
-}
-
-- (void)previewView:(HTPreviewView *)previewView didClickContentWithItem:(HTPreviewItem *)item {
-    _descriptionView = [[HTDescriptionView alloc] initWithURLString:item.question.questionDescription];
-    _descriptionView.frame = self.view.bounds;
-    _descriptionView.alpha = 0;
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.view addSubview:_descriptionView];
-        _descriptionView.alpha = 1.0;
-    }];
-}
 
 - (void)previewView:(HTPreviewView *)previewView shouldShowGoBackItem:(BOOL)needShow {
     if (needShow) {
@@ -113,6 +92,34 @@ static CGFloat kLeftMargin = 13; // 暂定为0
         [_mainButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
         _mainButton.tag = 0;
     }
+}
+
+#pragma mark - HTPreviewItem Delegate
+
+- (void)previewItem:(HTPreviewItem *)previewItem didClickComposeButton:(UIButton *)composeButton {
+    _composeView = [[HTComposeView alloc] init];
+    _composeView.delegate = self;
+    _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+    _composeView.alpha = 0.0;
+    _composeView.associatedQuestion = previewItem.question;
+    [UIView animateWithDuration:0.3 animations:^{
+        _composeView.alpha = 1.0;
+        [self.view addSubview:_composeView];
+    } completion:^(BOOL finished) {
+        [_composeView becomeFirstResponder];
+    }];
+}
+
+- (void)previewItem:(HTPreviewItem *)previewItem didClickContentButton:(UIButton *)contentButton {
+    _descriptionView = [[HTDescriptionView alloc] initWithURLString:previewItem.question.questionDescription];
+    _descriptionView.frame = self.view.bounds;
+    _descriptionView.alpha = 0;
+    _descriptionView.top = self.view.bottom;
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _descriptionView.top = 0;
+        [self.view addSubview:_descriptionView];
+        _descriptionView.alpha = 1.0;
+    } completion:nil];
 }
 
 #pragma mark - HTComposeView Delegate

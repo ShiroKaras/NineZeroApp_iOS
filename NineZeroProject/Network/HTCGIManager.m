@@ -47,6 +47,10 @@
     return [NSString stringWithFormat:@"%@Question/getRestHint", NETWORK_HOST];
 }
 
++ (NSString *)getRewardCGIKey {
+    return [NSString stringWithFormat:@"%@Question/getReward", NETWORK_HOST];
+}
+
 + (NSString *)verifyAnswerCGIKey {
     return [NSString stringWithFormat:@"%@Answer/answerText", NETWORK_HOST];
 }

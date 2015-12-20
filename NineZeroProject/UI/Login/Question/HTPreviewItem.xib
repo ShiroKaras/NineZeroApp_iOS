@@ -98,7 +98,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ux-TL-yfC" userLabel="write">
                     <rect key="frame" x="295" y="501.5" width="42" height="42"/>
-                    <state key="normal" image="btn_ans_pencil" backgroundImage="btn_ans_pencil_highlight"/>
+                    <state key="normal" image="btn_ans_pencil"/>
                     <state key="highlighted" image="btn_ans_pencil_highlight"/>
                     <connections>
                         <action selector="onClickComposeButton:" destination="bTN-pl-0aj" eventType="touchUpInside" id="u6s-mL-lFa"/>

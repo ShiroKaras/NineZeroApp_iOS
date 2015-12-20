@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706CB4A1BFA542E00E59255 /* NSString+Utility.m */; };
+		170992BA1C26489D004433EB /* HTPreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 170992B91C26489D004433EB /* HTPreviewItem.m */; };
 		1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D71C1BEFB7A100498304 /* HTLoginRootController.m */; };
 		1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */; };
 		1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7211BEFBAD200498304 /* HTCGIManager.m */; };
@@ -49,7 +50,6 @@
 		17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB41C1DBA290087BF00 /* FLAnimatedImage.m */; };
 		17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB61C1DBA290087BF00 /* FLAnimatedImageView.m */; };
 		17A89ABC1C1DBA290087BF00 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB81C1DBA290087BF00 /* README.md */; };
-		17B1D83D1C1492CE0082C86B /* HTPreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D83C1C1492CE0082C86B /* HTPreviewItem.m */; };
 		17B1D83F1C1492D90082C86B /* HTPreviewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */; };
 		17B1D8421C1544470082C86B /* HTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D8411C1544470082C86B /* HTModel.m */; };
 		17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */; };
@@ -91,6 +91,7 @@
 		0166A9928B62B530CF913E62 /* libPods-NineZeroProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1706CB491BFA542E00E59255 /* NSString+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utility.h"; sourceTree = "<group>"; };
 		1706CB4A1BFA542E00E59255 /* NSString+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utility.m"; sourceTree = "<group>"; };
+		170992B91C26489D004433EB /* HTPreviewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTPreviewItem.m; sourceTree = "<group>"; };
 		1721D71B1BEFB7A100498304 /* HTLoginRootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginRootController.h; sourceTree = "<group>"; };
 		1721D71C1BEFB7A100498304 /* HTLoginRootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginRootController.m; sourceTree = "<group>"; };
 		1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTLoginRootController.xib; sourceTree = "<group>"; };
@@ -159,7 +160,6 @@
 		17A89AB61C1DBA290087BF00 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImageView.m; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImageView.m; sourceTree = "<group>"; };
 		17A89AB81C1DBA290087BF00 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		17B1D83B1C1492CE0082C86B /* HTPreviewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPreviewItem.h; sourceTree = "<group>"; };
-		17B1D83C1C1492CE0082C86B /* HTPreviewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTPreviewItem.m; sourceTree = "<group>"; };
 		17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTPreviewItem.xib; sourceTree = "<group>"; };
 		17B1D8401C1544470082C86B /* HTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTModel.h; sourceTree = "<group>"; };
 		17B1D8411C1544470082C86B /* HTModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTModel.m; sourceTree = "<group>"; };
@@ -317,7 +317,7 @@
 				174CF7851C147489002E0DBB /* HTPreviewView.h */,
 				174CF7861C147489002E0DBB /* HTPreviewView.m */,
 				17B1D83B1C1492CE0082C86B /* HTPreviewItem.h */,
-				17B1D83C1C1492CE0082C86B /* HTPreviewItem.m */,
+				170992B91C26489D004433EB /* HTPreviewItem.m */,
 				17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */,
 				17D997BF1C1D49930091978E /* HTComposeView.h */,
 				17D997C01C1D49930091978E /* HTComposeView.m */,
@@ -730,11 +730,11 @@
 				26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */,
 				174CF7871C147489002E0DBB /* HTPreviewView.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
+				170992BA1C26489D004433EB /* HTPreviewItem.m in Sources */,
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
 				17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */,
 				17D997C11C1D49930091978E /* HTComposeView.m in Sources */,
 				17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */,
-				17B1D83D1C1492CE0082C86B /* HTPreviewItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -73,10 +73,17 @@
  *  "question_id":"2015120423201902904"
  */
 + (NSString *)getQuestionDetailCGIKey;
+
 /**
  *  @brief 获取额外的提示
  */
 + (NSString *)getExtraHintCGIKey;
+
+/**
+ *  @brief 获取奖励详情
+ *  "reward_id" : 1
+ */
++ (NSString *)getRewardCGIKey;
 
 /**
  *  @brief 验证回答答案

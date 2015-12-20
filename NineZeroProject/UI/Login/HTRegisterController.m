@@ -75,7 +75,7 @@
     _loginUser.user_area_id = @"1";
     // end
     
-    [SMS_SDK commitVerifyCode:_secondTextField.text result:^(enum SMS_ResponseState state) {
+    [SMS_SDK commitVerifyCode:_firstTextField.text result:^(enum SMS_ResponseState state) {
         if (state == SMS_ResponseStateSuccess) {
             [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser completion:^(BOOL success, HTResponsePackage *response) {
                 if (success) {

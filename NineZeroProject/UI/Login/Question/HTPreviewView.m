@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, HTScrollDirection) {
 static CGFloat kTopMargin = 50;
 static CGFloat kItemMargin = 17;         // item之间间隔
 
-@interface HTPreviewView() <UIScrollViewDelegate, HTPreviewItemDelegate>
+@interface HTPreviewView() <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *previewScrollView;
 @property (nonatomic, strong) NSMutableArray<HTPreviewItem *> *previewItems;
@@ -77,7 +77,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             HTPreviewItem *item = [[HTPreviewItem alloc] init];
             NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"HTPreviewItem" owner:self options:nil];
             item = [nibs objectAtIndex:0];
-            item.delegate = self;
             // TODO: 测试代码
             if (i != _questions.count - 1) {
                 if (i == _questions.count - 2) {
@@ -128,6 +127,12 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 //            item.endTime = questionInfo.endTime;
 //        }
 //    }
+    
+}
+
+- (NSArray<HTPreviewItem *> *)items {
+    _items = [NSArray arrayWithArray:_previewItems];
+    return _items;
 }
 
 #pragma mark - UIScrollView Delegate
@@ -159,20 +164,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         else targetOffsetX = indexOffsetX;
     }
     *targetContentOffset = CGPointMake(targetOffsetX, 0);
-}
-
-#pragma mark - HTPreviewItem Delegate
-
-- (void)previewItem:(HTPreviewItem *)previewItem didClickComposeButton:(UIButton *)composeButton {
-    if ([self.delegate respondsToSelector:@selector(previewView:didClickComposeWithItem:)]) {
-        [self.delegate previewView:self didClickComposeWithItem:previewItem];
-    }
-}
-
-- (void)previewItem:(HTPreviewItem *)previewItem didClickContentButton:(UIButton *)contentButton {
-    if ([self.delegate respondsToSelector:@selector(previewView:didClickContentWithItem:)]) {
-        [self.delegate previewView:self didClickContentWithItem:previewItem];
-    }
 }
 
 #pragma mark - Action
