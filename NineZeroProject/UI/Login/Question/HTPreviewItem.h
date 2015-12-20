@@ -53,6 +53,8 @@ typedef NS_ENUM(NSUInteger, HTPreviewItemButtonType) {
 // 倒计时
 @property (nonatomic, assign) time_t endTime;
 
+- (CGRect)hintRect;
+
 - (void)play;
 - (void)pause;
 

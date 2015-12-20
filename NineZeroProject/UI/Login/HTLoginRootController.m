@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"主界面";
+    [_loginButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
 }
 
 - (void)dealloc {

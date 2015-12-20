@@ -124,6 +124,10 @@
     [self scheduleCountDownTimer];
 }
 
+- (CGRect)hintRect {
+    return self.detailButton.frame;
+}
+
 #pragma mark - Tool Method
 
 - (void)scheduleCountDownTimer {

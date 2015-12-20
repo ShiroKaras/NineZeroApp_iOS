@@ -131,7 +131,10 @@ static CGFloat kLeftMargin = 13; // 暂定为0
             break;
         }
         case HTPreviewItemButtonTypeReward: {
-            [MBProgressHUD showWarningWithTitle:@"星巴克一杯"];
+//            _showDetailView = [[HTShowDetailView alloc] initWithDetailText:previewItem.question.hint andShowInRect:[previewItem hintRect]];
+//            _showDetailView.frame = self.view.bounds;
+//            [self.view addSubview:_showDetailView];
+            [MBProgressHUD showSuccessWithTitle:@"星巴克一杯"];
             break;
         }
         case HTPreviewItemButtonTypeAnswer: {
