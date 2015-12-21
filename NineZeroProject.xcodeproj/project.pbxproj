@@ -174,6 +174,7 @@
 		17D997BE1C1D1E3D0091978E /* HTUIHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTUIHeader.h; sourceTree = "<group>"; };
 		17D997BF1C1D49930091978E /* HTComposeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTComposeView.h; sourceTree = "<group>"; };
 		17D997C01C1D49930091978E /* HTComposeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTComposeView.m; sourceTree = "<group>"; };
+		17E67A811C28661300375442 /* CommonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonDefine.h; sourceTree = "<group>"; };
 		17E8DE4F1C0E154B009D4F9F /* HTQiNiuService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTQiNiuService.h; sourceTree = "<group>"; };
 		17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTQiNiuService.m; sourceTree = "<group>"; };
 		17F37A741C255420006759D1 /* HUD+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HUD+Utility.h"; sourceTree = "<group>"; };
@@ -304,6 +305,7 @@
 				17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */,
 				174C53361BE7A57000893C22 /* CommonUI.h */,
 				174C53511BE7A60E00893C22 /* CommonUI.m */,
+				17E67A811C28661300375442 /* CommonDefine.h */,
 				17A277301BF8F8F400E46670 /* HTLog.h */,
 				1706CB491BFA542E00E59255 /* NSString+Utility.h */,
 				1706CB4A1BFA542E00E59255 /* NSString+Utility.m */,

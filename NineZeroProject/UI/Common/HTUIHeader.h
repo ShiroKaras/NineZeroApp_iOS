@@ -18,6 +18,7 @@
 #import "CommonUI.h"
 #import "HTModel.h"
 #import "HTLog.h"
+#import "CommonDefine.h"
 #import "HTNavigationController.h"
 #import "HTCommonViewController.h"
 #import "HTServiceManager.h"

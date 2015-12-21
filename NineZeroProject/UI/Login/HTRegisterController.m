@@ -53,7 +53,7 @@
 }
 
 - (void)needGetVerificationCode {
-    [SMS_SDK getVerificationCodeBySMSWithPhone:_loginUser.user_mobile zone:@"86" customIdentifier:nil result:nil];
+//    [SMS_SDK getVerificationCodeBySMSWithPhone:_loginUser.user_mobile zone:@"86" customIdentifier:nil result:nil];
 }
 
 #pragma mark - Action

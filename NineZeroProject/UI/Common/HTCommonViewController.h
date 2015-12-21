@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTLoginButton.h"
 
 @interface HTCommonViewController : UIViewController <UITextFieldDelegate> {
 @protected
     UITextField *_firstTextField;
     UITextField *_secondTextField;
-    UIButton *_nextButton;
-    UIButton *_verifyButton;
+    HTLoginButton *_nextButton;
+    HTLoginButton *_verifyButton;
 }
 
 - (BOOL)isNextButtonValid;

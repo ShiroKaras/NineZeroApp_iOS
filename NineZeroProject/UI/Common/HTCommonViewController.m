@@ -35,8 +35,8 @@
     // tag值在xib里面设置
     _firstTextField = (UITextField *)[self.view viewWithTag:100];
     _secondTextField = (UITextField *)[self.view viewWithTag:200];
-    _nextButton = (UIButton *)[self.view viewWithTag:300];
-    _verifyButton = (UIButton *)[self.view viewWithTag:400];
+    _nextButton = (HTLoginButton *)[self.view viewWithTag:300];
+    _verifyButton = (HTLoginButton *)[self.view viewWithTag:400];
     
     [_verifyButton addTarget:self action:@selector(didClickVerifyButton) forControlEvents:UIControlEventTouchUpInside];
     
@@ -188,10 +188,13 @@
     if (_secondsToCountDown == 0) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleTimerCountDown) object:nil];
         [_verifyButton setTitle:@"再发一次" forState:UIControlStateNormal];
+        [_verifyButton setTitle:@"再发一次" forState:UIControlStateDisabled];
         _verifyButton.enabled = YES;
     } else {
+        _verifyButton.enabled = NO;
         [UIView setAnimationsEnabled:NO];
         [_verifyButton setTitle:[NSString stringWithFormat:@"再发一次(%ld)", (long)_secondsToCountDown] forState:UIControlStateNormal];
+        [_verifyButton setTitle:[NSString stringWithFormat:@"再发一次(%ld)", (long)_secondsToCountDown] forState:UIControlStateDisabled];
         [_verifyButton layoutIfNeeded];
         [UIView setAnimationsEnabled:YES];
     }
