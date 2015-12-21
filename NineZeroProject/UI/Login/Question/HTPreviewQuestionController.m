@@ -173,19 +173,35 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 #pragma mark - HTComposeView Delegate
 
 - (void)composeView:(HTComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
+//    static int clickCount = 0;
+//    [[[HTServiceManager sharedInstance] questionService] verifyQuestion:composeView.associatedQuestion.questionID withAnswer:answer callback:^(BOOL success, HTResponsePackage *package) {
+//        if (success == YES && package.resultCode == 0) {
+//            [composeView showAnswerCorrect:YES];
+//            clickCount = 0;
+//        } else {
+//            [composeView showAnswerCorrect:NO];
+//            clickCount++;
+//        }
+//        if (clickCount >= 3) {
+//            [composeView showAnswerTips:composeView.associatedQuestion.hint];
+//        }
+//    }];
+    [self composeWithAnswer:answer question:composeView.associatedQuestion];
+}
+
+- (void)composeWithAnswer:(NSString *)answer question:(HTQuestion *)question {
     static int clickCount = 0;
-    [[[HTServiceManager sharedInstance] questionService] verifyQuestion:composeView.associatedQuestion.questionID withAnswer:answer callback:^(BOOL success, HTResponsePackage *package) {
-        if (success == YES && package.resultCode == 0) {
-            [composeView showAnswerCorrect:YES];
-            clickCount = 0;
-        } else {
-            [composeView showAnswerCorrect:NO];
-            clickCount++;
-        }
-        if (clickCount >= 3) {
-            [composeView showAnswerTips:composeView.associatedQuestion.hint];
-        }
-    }];
+    NSString *daan = question.hint;
+    if ([daan isEqualToString:answer]) {
+        [_composeView showAnswerCorrect:YES];
+        clickCount = 0;
+    } else {
+        [_composeView showAnswerCorrect:NO];
+        clickCount++;
+    }
+    if (clickCount >= 3) {
+        [_composeView showAnswerTips:question.hint];
+    }
 }
 
 - (void)didClickDimingViewInComposeView:(HTComposeView *)composeView {

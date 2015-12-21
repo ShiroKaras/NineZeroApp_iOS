@@ -36,6 +36,12 @@
 + (NSString *)userBaseRegisterCGIKey;
 
 /**
+ *  @brief 验证手机号是否已经被注册
+ *  "user_mobile" : "11111111111"
+ */
++ (NSString *)userBaseVerifyMobileCGIKey;
+
+/**
  * @brief 登录
  1. {
  2. "user_name":"90",

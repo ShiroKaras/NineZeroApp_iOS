@@ -18,7 +18,7 @@
         self.titleLabel.textColor = [UIColor whiteColor];
     } else {
         self.backgroundColor = [UIColor colorWithHex:0x0a3e32];
-        self.titleLabel.textColor = [UIColor colorWithHex:0xffffff];
+        self.titleLabel.textColor = [UIColor colorWithWhite:1 alpha:0.28];
     }
 }
 

@@ -17,9 +17,23 @@
     [[UINavigationBar appearance] setTranslucent:NO];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+//
+//    UIImage *backImage = [UIImage imageNamed:@"btn_navi_anchor_left"];
+//    [[UINavigationBar appearance] setBackIndicatorImage:backImage];
+//    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backImage];
+//    UIBarButtonItem *backItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
+//    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-500, 0) forBarMetrics:UIBarMetricsDefault];
+}
 
-//    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"btn_navi_anchor_left"]];
-//    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"btn_navi_anchor_left"]];
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (self.viewControllers.count != 0) {
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_navi_anchor_left"] style:UIBarButtonItemStyleDone target:self action:@selector(back)];
+    }
+    [super pushViewController:viewController animated:animated];
+}
+
+- (void)back {
+    [self popViewControllerAnimated:YES];
 }
 
 @end

@@ -25,9 +25,10 @@
 - (void)registerWithUser:(HTLoginUser *)user success:(HTHTTPSuccessCallback)successCallback error:(HTHTTPErrorCallback)errorCallback {
     NSDictionary *parameters = [user keyValues];
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseRegisterCGIKey] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
         DLog(@"%@", responseObject);
-        if ([responseObject[@"result"] integerValue] == 0) {
-            NSDictionary *dataDict = responseObject[@"data"];
+        if (package.resultCode == 0) {
+            NSDictionary *dataDict = package.data;
             [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
             [[HTStorageManager sharedInstance] updateLoginUser:user];
         }
@@ -42,12 +43,13 @@
     NSDictionary *parameters = [user keyValues];
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseRegisterCGIKey] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
-        if ([responseObject[@"result"] integerValue] == 0) {
-            NSDictionary *dataDict = responseObject[@"data"];
+        HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
+        if (package.resultCode == 0) {
+            NSDictionary *dataDict = package.data;
             [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
             [[HTStorageManager sharedInstance] updateLoginUser:user];
         }
-        callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
+        callback(true, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         DLog(@"%@",error);
         callback(false, nil);
@@ -87,7 +89,7 @@
 {
     NSDictionary *dict = @{ @"user_mobile" : user.user_mobile,
                             @"user_password" : user.user_password,
-                            @"code" : @"1234"
+                            @"code" : user.code
                             };
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseResetPwdCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
@@ -97,8 +99,15 @@
     }];
 }
 
-- (void)resetPassword:(NSString *)password {
-
+- (void)verifyMobile:(NSString *)mobile completion:(HTResponseCallback)callback {
+    if (mobile.length == 0) return;
+    NSDictionary *dict = @{ @"user_mobile" : mobile };
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseVerifyMobileCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(false, nil);
+    }];
 }
 
 - (HTLoginUser *)loginUser {

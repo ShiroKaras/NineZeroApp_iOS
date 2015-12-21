@@ -53,9 +53,7 @@
 }
 
 - (void)needGetVerificationCode {
-    [SMS_SDK getVerificationCodeBySMSWithPhone:_loginUser.user_mobile zone:@"86" result:^(SMS_SDKError *error) {
-   
-     }];
+    [SMS_SDK getVerificationCodeBySMSWithPhone:_loginUser.user_mobile zone:@"86" customIdentifier:nil result:nil];
 }
 
 #pragma mark - Action
@@ -75,22 +73,16 @@
     _loginUser.user_area_id = @"1";
     // end
     
-    [SMS_SDK commitVerifyCode:_firstTextField.text result:^(enum SMS_ResponseState state) {
-        if (state == SMS_ResponseStateSuccess) {
-            [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser completion:^(BOOL success, HTResponsePackage *response) {
-                if (success) {
-                    if (response.resultCode == 0) {
-                        HTPreviewQuestionController *controller = [[HTPreviewQuestionController alloc] init];
-                        [UIApplication sharedApplication].keyWindow.rootViewController = controller;
-                    } else {
-                        [self showTipsWithText:response.resultMsg];
-                    }
-                } else {
-                    [self showTipsWithText:@"网络连接错误"];
-                }
-            }];
+    [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser completion:^(BOOL success, HTResponsePackage *response) {
+        if (success) {
+            if (response.resultCode == 0) {
+                HTPreviewQuestionController *controller = [[HTPreviewQuestionController alloc] init];
+                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+            } else {
+                [self showTipsWithText:response.resultMsg];
+            }
         } else {
-            [self showTipsWithText:@"验证码错误"];
+            [self showTipsWithText:@"网络连接错误"];
         }
     }];
 }

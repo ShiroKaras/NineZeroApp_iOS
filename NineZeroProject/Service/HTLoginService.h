@@ -35,11 +35,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loginWithUser:(HTLoginUser *)user
            completion:(HTResponseCallback)callback;
 
-// 重置密码
+/**
+ *  @brief 重置密码
+ */
 - (void)resetPasswordWithUser:(HTLoginUser *)user
-           completion:(HTResponseCallback)callback;
+                   completion:(HTResponseCallback)callback;
 
-// 七牛token
+/**
+ *  @brief 验证手机号
+ */
+- (void)verifyMobile:(NSString *)mobile
+          completion:(HTResponseCallback)callback;
+
+/**
+ *  @brief 获取七牛token
+ */
 - (void)getQiniuTokenWithCompletion:(HTGetTokenCallback)callback;
 
 //***************************

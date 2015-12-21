@@ -20,6 +20,14 @@
 
 @implementation HTCommonViewController {
     NSInteger _secondsToCountDown;
+    CGFloat _offset;
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _offset = 0;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -80,6 +88,7 @@
 }
 
 - (void)setTipsOffsetY:(CGFloat)offset {
+    _offset = offset;
     [_tipsBackView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(offset);
         make.width.equalTo(self.view);
@@ -90,14 +99,19 @@
 - (void)showTipsWithText:(NSString *)text {
     _tipsLabel.text = text;
     _tipsBackView.alpha = 0;
+    CGFloat tipsBottom = _tipsBackView.bottom;
+    _tipsBackView.bottom = 0;
     [UIView animateWithDuration:0.3 animations:^{
         _tipsBackView.hidden = NO;
         _tipsBackView.alpha = 1;
+        _tipsBackView.bottom = tipsBottom;
     } completion:^(BOOL finished) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:0.3 animations:^{
                 _tipsBackView.alpha = 0;
+                _tipsBackView.bottom = 0;
             } completion:^(BOOL finished) {
+                _tipsBackView.bottom = tipsBottom;
                 _tipsBackView.hidden = YES;
             }];
         });

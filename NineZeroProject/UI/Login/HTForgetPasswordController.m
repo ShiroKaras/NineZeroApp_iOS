@@ -37,8 +37,7 @@
 }
 
 - (void)needGetVerificationCode {
-    [SMS_SDK getVerificationCodeBySMSWithPhone:_firstTextField.text zone:@"86" result:^(SMS_SDKError *error) {
-    }];
+    [SMS_SDK getVerificationCodeBySMSWithPhone:_firstTextField.text zone:@"86" customIdentifier:nil result:nil];
 }
 
 #pragma mark - Action
@@ -48,13 +47,6 @@
     _loginUser.code = _secondTextField.text;
     HTResetPasswordController *resetPwdController = [[HTResetPasswordController alloc] initWithLoginUser:_loginUser];
     [self.navigationController pushViewController:resetPwdController animated:YES];
-//    [SMS_SDK commitVerifyCode:_secondTextField.text result:^(enum SMS_ResponseState state) {
-//        if (state == SMS_ResponseStateSuccess) {
-//
-//        } else {
-//            [MBProgressHUD showVerifyCodeError];
-//        }
-//    }];
 }
 
 - (IBAction)didClickGetVerifyCodeButton:(UIButton *)sender {

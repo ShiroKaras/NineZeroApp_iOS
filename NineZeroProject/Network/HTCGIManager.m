@@ -23,6 +23,10 @@
     return [NSString stringWithFormat:@"%@Login/reset/", NETWORK_HOST];
 }
 
++ (NSString *)userBaseVerifyMobileCGIKey {
+    return [NSString stringWithFormat:@"%@Login/check_mobile/", NETWORK_HOST];
+}
+
 + (NSString *)getQiniuTokenCGIKey {
     return [NSString stringWithFormat:@"%@Common/getQiniuToken", NETWORK_HOST];
 }

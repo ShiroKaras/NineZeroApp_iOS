@@ -78,11 +78,23 @@
         [self showTipsWithText:@"密码不能多于20个字，请重新输入"];
         return;
     }
-    HTLoginUser *loginUser = [[HTLoginUser alloc] init];
-    loginUser.user_mobile = self.userNameTextField.text;
-    loginUser.user_password = self.userPasswordTextField.text;
-    HTRegisterController *registerController = [[HTRegisterController alloc] initWithUser:loginUser];
-    [self.navigationController pushViewController:registerController animated:YES]; 
+    _loginButton.enabled = NO;
+    [[[HTServiceManager sharedInstance] loginService] verifyMobile:self.userNameTextField.text completion:^(BOOL success, HTResponsePackage *response) {
+        _loginButton.enabled = YES;
+        if (success) {
+            if (response.resultCode == 0) {
+                HTLoginUser *loginUser = [[HTLoginUser alloc] init];
+                loginUser.user_mobile = self.userNameTextField.text;
+                loginUser.user_password = self.userPasswordTextField.text;
+                HTRegisterController *registerController = [[HTRegisterController alloc] initWithUser:loginUser];
+                [self.navigationController pushViewController:registerController animated:YES];
+            } else {
+                [self showTipsWithText:response.resultMsg];
+            }
+        } else {
+            [self showTipsWithText:@"网络连接错误"];
+        }
+    }];
 }
 
 - (IBAction)loginButtonClicked:(UIButton *)sender {

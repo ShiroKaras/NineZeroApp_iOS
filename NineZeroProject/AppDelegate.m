@@ -15,6 +15,7 @@
 #import "HTPreviewQuestionController.h"
 #import <Qiniu/QiniuSDK.h>
 #import "HTLogicHeader.h"
+#import "HTUIHeader.h"
 
 @interface AppDelegate ()
 
@@ -30,11 +31,9 @@
     
     [self createWindowAndVisible];
     
-    UIImage *backImage = [UIImage imageNamed:@"btn_navi_anchor_left"];
-    [[UINavigationBar appearance] setBackIndicatorImage:backImage];
-    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backImage];
-    UIBarButtonItem *backItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-500, 0) forBarMetrics:UIBarMetricsDefault];
+    // 光标颜色
+    [[UITextField appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
+
     return YES;
 }
 
@@ -49,22 +48,6 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
-}
-
-#pragma mark - Test
-
-- (void)test_cgi {
-    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, id responseObject) {
-        
-    }];
-    
-    [[[HTServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:2015120821423814907 callback:^(BOOL success, HTQuestion *question) {
-        DLog(@"%@", question);
-    }];
-    
-    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:1 count:10 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
-        
-    }];
 }
 
 #pragma mark - Action
@@ -117,6 +100,7 @@
 - (void)registerSMSService {
     // SMS
     [SMS_SDK registerApp:@"b805a16e1149" withSecret:@"054f27dedc33c58a97afb1781406678b"];
+    [SMS_SDK enableAppContactFriends:NO];
 }
 
 @end
