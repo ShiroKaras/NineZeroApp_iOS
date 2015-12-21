@@ -19,29 +19,29 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JpE-MC-zGk">
-                    <rect key="frame" x="8" y="627" width="59" height="32"/>
+                    <rect key="frame" x="11" y="624" width="59" height="32"/>
                     <state key="normal" image="tab_home"/>
                     <connections>
                         <action selector="mainButtonClicked:" destination="-1" eventType="touchUpInside" id="OFJ-5d-TRz"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fC5-LZ-bnQ">
-                    <rect key="frame" x="327" y="627" width="30" height="32"/>
+                    <rect key="frame" x="331" y="624" width="30" height="32"/>
                     <state key="normal" image="tab_me"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ykh-kK-31j">
-                    <rect key="frame" x="247" y="627" width="59" height="32"/>
+                    <rect key="frame" x="242" y="624" width="59" height="32"/>
                     <state key="normal" image="tab_mascot"/>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="fC5-LZ-bnQ" secondAttribute="trailing" constant="18" id="6vA-Va-zWd"/>
-                <constraint firstAttribute="bottom" secondItem="ykh-kK-31j" secondAttribute="bottom" constant="8" id="OC7-Yd-SmC"/>
-                <constraint firstAttribute="bottom" secondItem="JpE-MC-zGk" secondAttribute="bottom" constant="8" id="swL-DF-o4J"/>
-                <constraint firstItem="JpE-MC-zGk" firstAttribute="leading" secondItem="BjX-pC-nwU" secondAttribute="leading" constant="8" id="u4V-2v-C5w"/>
-                <constraint firstAttribute="bottom" secondItem="fC5-LZ-bnQ" secondAttribute="bottom" constant="8" id="uUs-BS-wph"/>
-                <constraint firstItem="fC5-LZ-bnQ" firstAttribute="leading" secondItem="ykh-kK-31j" secondAttribute="trailing" constant="21" id="wpu-T8-7tS"/>
+                <constraint firstAttribute="trailing" secondItem="fC5-LZ-bnQ" secondAttribute="trailing" constant="14" id="6vA-Va-zWd"/>
+                <constraint firstAttribute="bottom" secondItem="ykh-kK-31j" secondAttribute="bottom" constant="11" id="OC7-Yd-SmC"/>
+                <constraint firstAttribute="bottom" secondItem="JpE-MC-zGk" secondAttribute="bottom" constant="11" id="swL-DF-o4J"/>
+                <constraint firstItem="JpE-MC-zGk" firstAttribute="leading" secondItem="BjX-pC-nwU" secondAttribute="leading" constant="11" id="u4V-2v-C5w"/>
+                <constraint firstAttribute="bottom" secondItem="fC5-LZ-bnQ" secondAttribute="bottom" constant="11" id="uUs-BS-wph"/>
+                <constraint firstItem="fC5-LZ-bnQ" firstAttribute="leading" secondItem="ykh-kK-31j" secondAttribute="trailing" constant="30" id="wpu-T8-7tS"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
             <point key="canvasLocation" x="175.5" y="203.5"/>

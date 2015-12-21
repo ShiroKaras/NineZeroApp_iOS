@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *countDownDetailLabel; ///< 右上角附属倒计时
 @property (weak, nonatomic) IBOutlet UIImageView *countDownImageView;  ///< 主倒计时上方的装饰
 @property (weak, nonatomic) IBOutlet UIImageView *resultImageView;  ///< 右上角显示结果的装饰
+@property (weak, nonatomic) IBOutlet UIView *playerContainView;
 
 // item中间
 @property (strong, nonatomic) AVPlayer *player;
@@ -43,6 +44,9 @@
 //    [self play];
     [_composeButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    [self buildConstraints];
+    _playerContainView.layer.cornerRadius = 5.0f;
+    _playerContainView.layer.masksToBounds = YES;
 }
 
 - (void)buildPlayer {
@@ -69,6 +73,8 @@
     _question = question;
     [self buildPlayer];
     [self configureQuestion];
+    [self setNeedsDisplay];
+    [self setNeedsUpdateConstraints];
 }
 
 - (void)play {
@@ -82,16 +88,36 @@
     [_player pause];
 }
 
+- (void)buildConstraints {
+    // 重新给两个货补上高度约束
+    [_playerContainView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@353);
+    }];
+    
+    [_contenButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        CGFloat height = _playerContainView.height - _playItemBackView.height;
+        make.height.equalTo(@(height));
+    }];
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [_playItemBackView bringSubviewToFront:_playButton];
-    [_playItemBackView bringSubviewToFront:_pauseButton];
-    [_playItemBackView bringSubviewToFront:_soundButton];
-    _playerLayer.frame = _playItemBackView.bounds;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)),
+        dispatch_get_main_queue(), ^{
+        
+        _playerContainView.height = 353;
+        _contenButton.height = _playerContainView.height - _playItemBackView.height;
+        
+        // 加入队列，保证布局
+        [_playItemBackView bringSubviewToFront:_playButton];
+        [_playItemBackView bringSubviewToFront:_pauseButton];
+        [_playItemBackView bringSubviewToFront:_soundButton];
+        _playerLayer.frame = _playItemBackView.bounds;
+    });
 }
 
 #pragma mark - Public Method

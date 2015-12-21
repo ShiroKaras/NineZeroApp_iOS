@@ -108,11 +108,11 @@ static CGFloat kLeftMargin = 13; // 暂定为0
             _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
             _composeView.alpha = 0.0;
             _composeView.associatedQuestion = previewItem.question;
+            [_composeView becomeFirstResponder];
             [UIView animateWithDuration:0.3 animations:^{
                 _composeView.alpha = 1.0;
                 [self.view addSubview:_composeView];
             } completion:^(BOOL finished) {
-                [_composeView becomeFirstResponder];
             }];
             break;
         }

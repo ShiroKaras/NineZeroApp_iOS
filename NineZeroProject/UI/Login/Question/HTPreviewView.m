@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionUnknown,
 };
 
-static CGFloat kTopMargin = 50;
+static CGFloat kTopMargin = 0;
 static CGFloat kItemMargin = 17;         // item之间间隔
 
 @interface HTPreviewView() <UIScrollViewDelegate>
