@@ -23,6 +23,8 @@
  */
 - (void)previewView:(HTPreviewView *)previewView shouldShowGoBackItem:(BOOL)needShow;
 
+- (void)previewView:(HTPreviewView *)previewView didScrollToItem:(HTPreviewItem *)item;
+
 @end
 
 /** 预览题目控件 */

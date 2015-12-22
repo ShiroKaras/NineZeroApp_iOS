@@ -9,8 +9,7 @@
 #import "HTDescriptionView.h"
 #import <Masonry.h>
 #import "UIButton+EnlargeTouchArea.h"
-#import "CommonUI.h"
-
+#import "HTUIHeader.h"
 @interface HTDescriptionView () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -74,7 +73,7 @@
     CGFloat imageHeight = 240;
     CGFloat webViewHeight = 140;
     _dimmingView.frame = self.bounds;
-    _converView.frame = CGRectMake(self.width / 2 - width / 2, 120, width, imageHeight + webViewHeight);
+    _converView.frame = CGRectMake(self.width / 2 - width / 2, (80.0 / 568.0) * SCREEN_HEIGHT, width, imageHeight + webViewHeight);
     _converView.layer.cornerRadius = 5.0f;
     _converView.layer.masksToBounds = YES;
     _imageView.frame = CGRectMake(0, 0, width, imageHeight);

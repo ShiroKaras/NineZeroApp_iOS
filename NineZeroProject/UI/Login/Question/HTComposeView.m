@@ -146,11 +146,21 @@
 
 - (void)showAnswerTips:(NSString *)tips {
     _tipsLabel.text = tips;
+    _tipsBackView.top = -_tipsBackView.height;
+    _tipsBackView.alpha = 0.0;
     [UIView animateWithDuration:0.3 animations:^{
         _tipsBackView.hidden = NO;
+        _tipsBackView.top = 20;
+        _tipsBackView.alpha = 1;
     } completion:^(BOOL finished) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            _tipsBackView.hidden = YES;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.3 animations:^{
+                _tipsBackView.top = -_tipsBackView.height;
+                _tipsBackView.alpha = 0;
+            } completion:^(BOOL finished) {
+                _tipsBackView.hidden = YES;
+            }];
+            
         });
     }];
 }

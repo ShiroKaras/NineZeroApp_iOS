@@ -165,6 +165,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         else targetOffsetX = indexOffsetX;
     }
     *targetContentOffset = CGPointMake(targetOffsetX, 0);
+    [self.delegate previewView:self didScrollToItem:_items[[self indexWithContentOffsetX:targetOffsetX]]];
 }
 
 #pragma mark - Action

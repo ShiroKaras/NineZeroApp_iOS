@@ -56,14 +56,17 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     _dimmingView.frame = self.bounds;
-    CGSize size = [_bubbleLabel.text boundingRectWithSize:CGSizeMake(_bubbleImageView.width, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:13] } context:nil].size;
-    _bubbleImageView.centerX = self.centerX - 30;
+    
     _bubbleImageView.bottom = CGRectGetMinY(_showInRect) - 30;
+    _bubbleImageView.width = self.width - 40;
+    
+    CGSize size = [_bubbleLabel.text boundingRectWithSize:CGSizeMake(_bubbleImageView.width, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:13] } context:nil].size;
     _bubbleImageView.height = size.height + 40;
-    _bubbleImageView.width = self.width - _bubbleImageView.left * 2;
+    _bubbleImageView.centerX = self.centerX;
+    
     _bubbleLabel.width = size.width;
     _bubbleLabel.height = size.height + 3;
-    _bubbleLabel.left = 28;
+    _bubbleLabel.left = 22;
     _bubbleLabel.top = 15;
 }
 

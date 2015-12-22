@@ -29,13 +29,27 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 @property (strong, nonatomic) HTShowDetailView *showDetailView;               // 提示详情
 @property (strong, nonatomic) HTShowAnswerView *showAnswerView;               // 查看答案
 
+@property (strong, nonatomic) UIImageView *bgImageView;
+
 @end
 
 @implementation HTPreviewQuestionController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = UIColorMake(14, 14, 14);
+    
+    UIImage *bgImage;
+    if (SCREEN_WIDTH <= IPHONE5_SCREEN_WIDTH) {
+        bgImage = [UIImage imageNamed:@"bg_success_640×1136"];
+    } else if (SCREEN_WIDTH >= IPHONE6_PLUS_SCREEN_WIDTH) {
+        bgImage = [UIImage imageNamed:@"bg_success_1242x2208"];
+    } else {
+        bgImage = [UIImage imageNamed:@"bg_success_750x1334"];
+    }
+    _bgImageView = [[UIImageView alloc] initWithImage:bgImage];
+    _bgImageView.hidden = YES;
+    [self.view addSubview:_bgImageView];
     
     [MBProgressHUD bwm_showHUDAddedTo:self.view title:@"加载数据中..."];
     [[[HTServiceManager sharedInstance] questionService] setLoginUser:[[[HTServiceManager sharedInstance] loginService] loginUser]];
@@ -60,6 +74,8 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
+    _bgImageView.frame = self.view.bounds;
+    [self.view sendSubviewToBack:_bgImageView];
 }
 
 - (void)dealloc {
@@ -95,6 +111,14 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     } else {
         [_mainButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
         _mainButton.tag = 0;
+    }
+}
+
+- (void)previewView:(HTPreviewView *)previewView didScrollToItem:(HTPreviewItem *)item {
+    if (item.breakSuccess) {
+        _bgImageView.hidden = NO;
+    } else {
+        _bgImageView.hidden = YES;
     }
 }
 
