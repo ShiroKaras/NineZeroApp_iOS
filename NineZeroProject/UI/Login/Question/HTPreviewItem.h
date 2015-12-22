@@ -57,5 +57,6 @@ typedef NS_ENUM(NSUInteger, HTPreviewItemButtonType) {
 
 - (void)play;
 - (void)pause;
+- (void)stop;
 
 @end

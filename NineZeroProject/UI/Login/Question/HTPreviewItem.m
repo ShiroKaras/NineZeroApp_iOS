@@ -83,6 +83,12 @@
     [_player play];
 }
 
+- (void)stop {
+    _playButton.hidden = NO;
+    [_playerItem seekToTime:kCMTimeZero];
+    [_player pause];
+}
+
 - (void)pause {
     _playButton.hidden = NO;
     [_player pause];

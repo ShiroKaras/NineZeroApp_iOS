@@ -115,6 +115,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 }
 
 - (void)previewView:(HTPreviewView *)previewView didScrollToItem:(HTPreviewItem *)item {
+//    [item play];
     if (item.breakSuccess) {
         _bgImageView.hidden = NO;
     } else {
