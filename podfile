@@ -14,6 +14,10 @@ target 'NineZeroProject' do
   pod 'MBProgressHUD+BWMExtension', '~> 1.0.0'
   pod 'MJExtension'
   pod 'Masonry', '~> 0.6.2'
+  pod 'OLImageView', '~> 1.5'
+  pod 'UIImage+animatedGif', '~> 0.1.0'
+  pod 'YYKit', '~> 0.2.0'
+  pod 'YLGIFImage' 
 end
 
 target 'NineZeroProjectTests' do

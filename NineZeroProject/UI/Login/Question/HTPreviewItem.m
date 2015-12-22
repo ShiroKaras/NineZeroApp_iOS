@@ -108,7 +108,6 @@
     [super layoutSubviews];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)),
         dispatch_get_main_queue(), ^{
-        
         _playerContainView.height = 353;
         _contenButton.height = _playerContainView.height - _playItemBackView.height;
         

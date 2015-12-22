@@ -55,6 +55,8 @@
 		17B1D83F1C1492D90082C86B /* HTPreviewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */; };
 		17B1D8421C1544470082C86B /* HTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D8411C1544470082C86B /* HTModel.m */; };
 		17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */; };
+		17D1F8811C29ADC40029E4AF /* right_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */; };
+		17D1F8831C29ADCD0029E4AF /* wrong_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8821C29ADCD0029E4AF /* wrong_answer_gif.gif */; };
 		17D997C11C1D49930091978E /* HTComposeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D997C01C1D49930091978E /* HTComposeView.m */; };
 		17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */; };
 		17F37A761C255420006759D1 /* HUD+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A751C255420006759D1 /* HUD+Utility.m */; };
@@ -171,6 +173,8 @@
 		17B1D8411C1544470082C86B /* HTModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTModel.m; sourceTree = "<group>"; };
 		17B8F7441C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
 		17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
+		17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = right_answer_gif.gif; sourceTree = "<group>"; };
+		17D1F8821C29ADCD0029E4AF /* wrong_answer_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wrong_answer_gif.gif; sourceTree = "<group>"; };
 		17D997BE1C1D1E3D0091978E /* HTUIHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTUIHeader.h; sourceTree = "<group>"; };
 		17D997BF1C1D49930091978E /* HTComposeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTComposeView.h; sourceTree = "<group>"; };
 		17D997C01C1D49930091978E /* HTComposeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTComposeView.m; sourceTree = "<group>"; };
@@ -371,6 +375,8 @@
 			children = (
 				1777D36B1BE798F400AC0203 /* AppDelegate.h */,
 				1777D36C1BE798F400AC0203 /* AppDelegate.m */,
+				17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */,
+				17D1F8821C29ADCD0029E4AF /* wrong_answer_gif.gif */,
 				1777D3741BE798F400AC0203 /* Assets.xcassets */,
 				1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */,
 				1777D3791BE798F400AC0203 /* Info.plist */,
@@ -633,6 +639,8 @@
 			files = (
 				174CF7841C146EAF002E0DBB /* HTPreviewQuestionController.xib in Resources */,
 				17B1D83F1C1492D90082C86B /* HTPreviewItem.xib in Resources */,
+				17D1F8811C29ADC40029E4AF /* right_answer_gif.gif in Resources */,
+				17D1F8831C29ADCD0029E4AF /* wrong_answer_gif.gif in Resources */,
 				1777D3781BE798F400AC0203 /* LaunchScreen.storyboard in Resources */,
 				26DA7F261C01997A00337A56 /* HTForgetPasswordController.xib in Resources */,
 				26BD341E1C12DF3300472E46 /* moonbold.ttf in Resources */,

@@ -157,7 +157,7 @@
 
 - (void)showAnswerCorrect:(BOOL)correct {
     _resultImageView.hidden = NO;
-    NSString *gifName = (correct) ? @"right-answer_gif" : @"raw_wrong_answer_gif";
+    NSString *gifName = (correct) ? @"right_answer_gif" : @"wrong_answer_gif";
     NSString *path = [[NSBundle mainBundle] pathForResource:gifName ofType:@"gif"];
     FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]]];
     image.loopCount = 1;
