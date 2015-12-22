@@ -57,6 +57,7 @@
 		17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */; };
 		17D1F8811C29ADC40029E4AF /* right_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */; };
 		17D1F8831C29ADCD0029E4AF /* wrong_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8821C29ADCD0029E4AF /* wrong_answer_gif.gif */; };
+		17D1F8D71C29D7BD0029E4AF /* HTTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D1F8D61C29D7BD0029E4AF /* HTTextField.m */; };
 		17D997C11C1D49930091978E /* HTComposeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D997C01C1D49930091978E /* HTComposeView.m */; };
 		17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */; };
 		17F37A761C255420006759D1 /* HUD+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A751C255420006759D1 /* HUD+Utility.m */; };
@@ -175,6 +176,8 @@
 		17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
 		17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = right_answer_gif.gif; sourceTree = "<group>"; };
 		17D1F8821C29ADCD0029E4AF /* wrong_answer_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wrong_answer_gif.gif; sourceTree = "<group>"; };
+		17D1F8D51C29D7BD0029E4AF /* HTTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTextField.h; sourceTree = "<group>"; };
+		17D1F8D61C29D7BD0029E4AF /* HTTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTextField.m; sourceTree = "<group>"; };
 		17D997BE1C1D1E3D0091978E /* HTUIHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTUIHeader.h; sourceTree = "<group>"; };
 		17D997BF1C1D49930091978E /* HTComposeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTComposeView.h; sourceTree = "<group>"; };
 		17D997C01C1D49930091978E /* HTComposeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTComposeView.m; sourceTree = "<group>"; };
@@ -283,6 +286,8 @@
 			children = (
 				17A47E8E1C03869000BEC1DD /* HTLoginButton.h */,
 				17A47E8F1C03869000BEC1DD /* HTLoginButton.m */,
+				17D1F8D51C29D7BD0029E4AF /* HTTextField.h */,
+				17D1F8D61C29D7BD0029E4AF /* HTTextField.m */,
 				1721D71B1BEFB7A100498304 /* HTLoginRootController.h */,
 				1721D71C1BEFB7A100498304 /* HTLoginRootController.m */,
 				1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */,
@@ -723,6 +728,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */,
+				17D1F8D71C29D7BD0029E4AF /* HTTextField.m in Sources */,
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
 				17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */,
 				17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */,

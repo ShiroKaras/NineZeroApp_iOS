@@ -10,7 +10,7 @@
 #define CommonDefine_h
 #import <UIKit/UIKit.h>
 
-#define HT_DEBUG YES
+#define HT_DEBUG NO
 
 #define IS_LANDSCAPE UIDeviceOrientationIsLandscape((UIDeviceOrientation)[UIApplication sharedApplication].statusBarOrientation)
 #define SCREEN_WIDTH (IOS_VERSION >= 8.0 ? [[UIScreen mainScreen] bounds].size.width : (IS_LANDSCAPE ? [[UIScreen mainScreen] bounds].size.height : [[UIScreen mainScreen] bounds].size.width))
