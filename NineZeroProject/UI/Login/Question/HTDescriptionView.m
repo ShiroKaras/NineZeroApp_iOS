@@ -34,7 +34,7 @@
         _converView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
         [self addSubview:_converView];
         
-        _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ex_image"]];
+        _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"test_imaga"]];
         _imageView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
         [_converView addSubview:_imageView];
     
@@ -48,12 +48,15 @@
         _webView = [[UIWebView alloc] init];
         _webView.delegate = self;
         _webView.opaque = NO;
-//        _webView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
         _webView.backgroundColor = [UIColor clearColor];
         _webView.scrollView.backgroundColor = [UIColor clearColor];
-//        [_webView loadHTMLString:urlString baseURL:nil];
-        [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body text=\"#d9d9d9\" size=\"13\">%@</body></html>", urlString] baseURL: nil];
+        [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body text=\"#d9d9d9\" bgcolor=\"#1f1f1f\" size=\"13\">这次的开放是内因。来自边缘广州的微信，如新星般冉冉升起。同样实现5亿用户，微信用了4年，而QQ用了十几年。你可以说这是互联网指数级发展的结果，也可以说微信是专为移动而生的产品。所幸，命运依旧青睐QQ，他们把时代的机遇给了微信，但是把年轻人群再次给到了QQ。腾讯即通应用部的总经理张孝超说，使用手机QQ的用户，超过半成以上是90后和00后用户。这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20。</body></html>"] baseURL: nil];
+        _webView.delegate = self;
         [_converView addSubview:_webView];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSString *padding = @"document.body.style.padding='6px 10px 0px 10px';";
+            [_webView stringByEvaluatingJavaScriptFromString:padding];
+        });
     }
     return self;
 }

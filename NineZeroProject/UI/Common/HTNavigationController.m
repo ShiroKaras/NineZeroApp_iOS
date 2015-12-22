@@ -28,4 +28,23 @@
 //    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"btn_navi_anchor_left"]];
 }
 
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    
+    [super pushViewController:viewController animated:animated];
+    
+    if (viewController.navigationItem.leftBarButtonItem== nil && [self.viewControllers count] > 1) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"btn_navi_anchor_left"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"btn_navi_anchor_left_highlight"] forState:UIControlStateHighlighted];
+        [button sizeToFit];
+        button.width += 10;
+        [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    }
+}
+
+- (void)back {
+    [self popViewControllerAnimated:YES];
+}
+
 @end
