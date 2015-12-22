@@ -95,15 +95,19 @@
 }
 
 - (void)buildConstraints {
-    // 重新给两个货补上高度约束
-    [_playerContainView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@353);
+    // 重新给两个货补上高度约
+    [_contenButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(80));
     }];
-    
-    [_contenButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        CGFloat height = _playerContainView.height - _playItemBackView.height;
-        make.height.equalTo(@(height));
-    }];
+//
+//    [_playItemBackView mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.height.equalTo(_playItemBackView.mas_width);
+//    }];
+//    
+//    [_playerContainView mas_updateConstraints:^(MASConstraintMaker *make) {
+//        CGFloat height = _contenButton.height + _playItemBackView.height;
+//        make.height.equalTo(@(height));
+//    }];
 }
 
 - (void)dealloc {
@@ -114,8 +118,8 @@
     [super layoutSubviews];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)),
         dispatch_get_main_queue(), ^{
-        _playerContainView.height = 353;
-        _contenButton.height = _playerContainView.height - _playItemBackView.height;
+        _contenButton.height = 80;
+        _playerContainView.height = _contenButton.height + _playItemBackView.height;
         
         // 加入队列，保证布局
         [_playItemBackView bringSubviewToFront:_playButton];
