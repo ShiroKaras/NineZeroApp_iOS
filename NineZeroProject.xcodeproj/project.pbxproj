@@ -67,6 +67,8 @@
 		17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB41C1DBA290087BF00 /* FLAnimatedImage.m */; };
 		17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB61C1DBA290087BF00 /* FLAnimatedImageView.m */; };
 		17A89ABC1C1DBA290087BF00 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB81C1DBA290087BF00 /* README.md */; };
+		17AA63571C4AB85A0047BADF /* HTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA63561C4AB85A0047BADF /* HTMainViewController.m */; };
+		17AA63741C4ABC3D0047BADF /* HTMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */; };
 		17B1D83F1C1492D90082C86B /* HTPreviewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */; };
 		17B1D8421C1544470082C86B /* HTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D8411C1544470082C86B /* HTModel.m */; };
 		17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */; };
@@ -209,6 +211,9 @@
 		17A89AB51C1DBA290087BF00 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLAnimatedImageView.h; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImageView.h; sourceTree = "<group>"; };
 		17A89AB61C1DBA290087BF00 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImageView.m; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImageView.m; sourceTree = "<group>"; };
 		17A89AB81C1DBA290087BF00 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		17AA63551C4AB85A0047BADF /* HTMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMainViewController.h; sourceTree = "<group>"; };
+		17AA63561C4AB85A0047BADF /* HTMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMainViewController.m; sourceTree = "<group>"; };
+		17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTMainViewController.xib; sourceTree = "<group>"; };
 		17B1D83B1C1492CE0082C86B /* HTPreviewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPreviewItem.h; sourceTree = "<group>"; };
 		17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTPreviewItem.xib; sourceTree = "<group>"; };
 		17B1D8401C1544470082C86B /* HTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTModel.h; sourceTree = "<group>"; };
@@ -594,6 +599,9 @@
 		26973AFF1C005ECF00160D25 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				17AA63551C4AB85A0047BADF /* HTMainViewController.h */,
+				17AA63561C4AB85A0047BADF /* HTMainViewController.m */,
+				17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */,
 				26973B001C005ED900160D25 /* HTNavigationController.h */,
 				26973B011C005ED900160D25 /* HTNavigationController.m */,
 				176C8FC51C00E88B00BEC4AB /* UIViewController+ImagePicker.h */,
@@ -759,6 +767,7 @@
 			files = (
 				174CF7841C146EAF002E0DBB /* HTPreviewQuestionController.xib in Resources */,
 				1787FD161C4A8884006E55A6 /* ARObject.xib in Resources */,
+				17AA63741C4ABC3D0047BADF /* HTMainViewController.xib in Resources */,
 				17B1D83F1C1492D90082C86B /* HTPreviewItem.xib in Resources */,
 				17D1F8811C29ADC40029E4AF /* right_answer_gif.gif in Resources */,
 				1787FD1B1C4A8884006E55A6 /* RadarMV.png in Resources */,
@@ -863,6 +872,7 @@
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
 				26973B021C005ED900160D25 /* HTNavigationController.m in Sources */,
 				170992BD1C264F0C004433EB /* HTShowDetailView.m in Sources */,
+				17AA63571C4AB85A0047BADF /* HTMainViewController.m in Sources */,
 				176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */,
 				1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */,
 				26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */,

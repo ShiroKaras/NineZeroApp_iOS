@@ -17,6 +17,7 @@
 #import "HTLogicHeader.h"
 #import "HTUIHeader.h"
 #import "INTULocationManager.h"
+#import "HTMainViewController.h"
 
 @interface AppDelegate ()
 
@@ -56,7 +57,8 @@
 - (void)createWindowAndVisible {
     if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
+        HTMainViewController *rootController = [[HTMainViewController alloc] init];
+//        HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
         self.window.rootViewController = rootController;
         [self.window makeKeyAndVisible];
     } else {

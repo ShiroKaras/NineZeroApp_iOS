@@ -13,6 +13,7 @@
 #import <MBProgressHUD+BWMExtension.h>
 #import "HTUIHeader.h"
 #import "NSString+Utility.h"
+#import "HTMainViewController.h"
 
 @interface HTLoginController ()
 
@@ -46,7 +47,7 @@
     [[[HTServiceManager sharedInstance] loginService] loginWithUser:loginUser completion:^(BOOL success, HTResponsePackage *response) {
         if (success) {
             if (response.resultCode == 0) {
-                HTPreviewQuestionController *controller = [[HTPreviewQuestionController alloc] init];
+                HTMainViewController *controller = [[HTMainViewController alloc] init];
                 [UIApplication sharedApplication].keyWindow.rootViewController = controller;
             } else {
                 [self showTipsWithText:response.resultMsg];

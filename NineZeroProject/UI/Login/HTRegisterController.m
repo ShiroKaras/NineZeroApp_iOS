@@ -15,6 +15,7 @@
 #import "HTLoginController.h"
 #import "NSString+Utility.h"
 #import "HTPreviewQuestionController.h"
+#import "HTMainViewController.h"
 
 @interface HTRegisterController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
@@ -76,7 +77,7 @@
     [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser completion:^(BOOL success, HTResponsePackage *response) {
         if (success) {
             if (response.resultCode == 0) {
-                HTPreviewQuestionController *controller = [[HTPreviewQuestionController alloc] init];
+                HTMainViewController *controller = [[HTMainViewController alloc] init];
                 [UIApplication sharedApplication].keyWindow.rootViewController = controller;
             } else {
                 [self showTipsWithText:response.resultMsg];

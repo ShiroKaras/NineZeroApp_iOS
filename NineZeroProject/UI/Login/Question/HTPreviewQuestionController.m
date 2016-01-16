@@ -83,6 +83,12 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - Public 
+
+- (void)goToToday {
+    [_previewView goToToday];
+}
+
 #pragma mark - Keyboard
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -106,6 +112,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 #pragma mark - HTPreviewView Delegate
 
 - (void)previewView:(HTPreviewView *)previewView shouldShowGoBackItem:(BOOL)needShow {
+    [self.delegate previewController:self shouldShowGoBackItem:needShow];
     if (needShow) {
         [_mainButton setImage:[UIImage imageNamed:@"tab_back_today"] forState:UIControlStateNormal];
         _mainButton.tag = 1000;
@@ -116,7 +123,6 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 }
 
 - (void)previewView:(HTPreviewView *)previewView didScrollToItem:(HTPreviewItem *)item {
-//    [item play];
     if (item.breakSuccess) {
         _bgImageView.hidden = NO;
     } else {
