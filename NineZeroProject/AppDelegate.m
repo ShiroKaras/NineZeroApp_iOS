@@ -16,6 +16,7 @@
 #import <Qiniu/QiniuSDK.h>
 #import "HTLogicHeader.h"
 #import "HTUIHeader.h"
+#import "INTULocationManager.h"
 
 @interface AppDelegate ()
 
@@ -65,6 +66,17 @@
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
     }
+}
+
+#pragma mark - Location
+
+- (void)registerLocation {
+    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyBlock timeout:10.0 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        if (status == INTULocationStatusSuccess) {
+        } else if (status == INTULocationStatusTimedOut) {
+        } else {
+        }
+    }];
 }
 
 #pragma mark - QiNiu

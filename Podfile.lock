@@ -28,7 +28,6 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - HappyDNS (0.2.1)
-  - INTULocationManager (4.0.0)
   - JPush (1.8.5)
   - Masonry (0.6.2)
   - MBProgressHUD (0.9.1)
@@ -51,7 +50,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6)
-  - INTULocationManager
   - JPush (~> 1.8.5)
   - Masonry (~> 0.6.2)
   - MBProgressHUD+BWMExtension (~> 1.0.0)
@@ -68,7 +66,6 @@ SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   HappyDNS: 8eb3c929ee6143eb56bfddfc9e6052ca9429699c
-  INTULocationManager: 754f2800415378b7bb2c07be103449e1f6a2cc70
   JPush: ba06a6f866ce11f11c15149e7fa67488a23eec87
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad

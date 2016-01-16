@@ -10,8 +10,12 @@
 #include <stdlib.h>
 #import <Masonry.h>
 #import "CommonUI.h"
+#import "INTULocationManager.h"
 
 #define NUMBER_OF_POINTS    20
+
+const NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
+const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 @interface HTARCaptureController () <PRARManagerDelegate>
 @property (nonatomic, strong) PRARManager *prARManager;
@@ -19,9 +23,13 @@
 @property (nonatomic, strong) UIImageView *radarImageView;
 @property (nonatomic, strong) UIImageView *tipImageView;
 @property (nonatomic, strong) UILabel *tipLabel;
+@property (nonatomic, strong) UIImageView *mascotImageView;
 @end
 
-@implementation HTARCaptureController
+@implementation HTARCaptureController {
+    CLLocation *_currentLocation;
+    CLLocationCoordinate2D _testMascotPoint;
+}
 
 - (void)alert:(NSString*)title withDetails:(NSString*)details {
     
@@ -37,8 +45,17 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    // for test
+    _testMascotPoint = CLLocationCoordinate2DMake(0, 0);
+    
     // 1.AR
-    self.prARManager = [[PRARManager alloc] initWithSize:self.view.frame.size delegate:self showRadar:YES];
+    self.prARManager = [[PRARManager alloc] initWithSize:self.view.frame.size delegate:self showRadar:NO];
+    [[INTULocationManager sharedInstance] subscribeToLocationUpdatesWithDesiredAccuracy:INTULocationAccuracyBlock block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        if (status == INTULocationStatusSuccess) {
+            _currentLocation = currentLocation;
+            [self.prARManager startARWithData:[self getDummyData] forLocation:currentLocation.coordinate];
+        }
+    }];
     
     // 2.返回
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -56,7 +73,7 @@
     }
     self.radarImageView = [[UIImageView alloc] init];
     self.radarImageView.animationImages = radars;
-    self.radarImageView.animationDuration = 2.0f;
+    self.radarImageView.animationDuration = 1.0f;
     self.radarImageView.animationRepeatCount = 0;
     [self.radarImageView startAnimating];
     [self.view addSubview:self.radarImageView];
@@ -70,6 +87,11 @@
     self.tipLabel.font = [UIFont systemFontOfSize:13];
     self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
     [self.tipImageView addSubview:self.tipLabel];
+    
+    // 5.零仔
+    self.mascotImageView = [[UIImageView alloc] init];
+    self.mascotImageView.image = [UIImage imageNamed:@"img_mascot_4_animation_1"];
+    [self.view addSubview:self.mascotImageView];
     
     [self buildConstrains];
 }
@@ -109,9 +131,6 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    // Initialize your current location as 0,0 (since it works with our randomly generated locations)
-    CLLocationCoordinate2D locationCoordinates = CLLocationCoordinate2DMake(0, 0);
-    [self.prARManager startARWithData:[self getDummyData] forLocation:locationCoordinates];
 }
 
 #pragma mark - Action
@@ -122,34 +141,15 @@
 
 #pragma mark - Dummy AR Data
 
-// Creates data for `NUMBER_OF_POINTS` AR Objects
 - (NSArray*)getDummyData {
-    NSMutableArray *points = [NSMutableArray arrayWithCapacity:NUMBER_OF_POINTS];
-    
-    srand48(time(0));
-    for (int i=0; i<NUMBER_OF_POINTS; i++) {
-        CLLocationCoordinate2D pointCoordinates = [self getRandomLocation];
-        NSDictionary *point = [self createPointWithId:i at:pointCoordinates];
-        [points addObject:point];
+    if (_testMascotPoint.latitude == 0 && _testMascotPoint.longitude == 0) {
+        _testMascotPoint = CLLocationCoordinate2DMake(_currentLocation.coordinate.latitude + 0.01, _currentLocation.coordinate.longitude + 0.01);
     }
-    
-    return [NSArray arrayWithArray:points];
+    NSDictionary *point = [self createPointWithId:0 at:_testMascotPoint];
+    return @[point];
 }
 
-// Returns a random location
--(CLLocationCoordinate2D)getRandomLocation {
-    double latRand = drand48() * 90.0;
-    double lonRand = drand48() * 180.0;
-    double latSign = drand48();
-    double lonSign = drand48();
-    
-    CLLocationCoordinate2D locCoordinates = CLLocationCoordinate2DMake(latSign > 0.5 ? latRand : -latRand,
-                                                                       lonSign > 0.5 ? lonRand*2 : -lonRand*2);
-    return locCoordinates;
-}
-
-// Creates the Data for an AR Object at a given location
--(NSDictionary*)createPointWithId:(int)the_id at:(CLLocationCoordinate2D)locCoordinates {
+- (NSDictionary*)createPointWithId:(int)the_id at:(CLLocationCoordinate2D)locCoordinates {
     NSDictionary *point = @{
                             @"id" : @(the_id),
                             @"title" : [NSString stringWithFormat:@"坐标%d", the_id],
@@ -162,9 +162,7 @@
 
 #pragma mark - PRARManager Delegate
 
-- (void)prarDidSetupAR:(UIView *)arView withCameraLayer:(AVCaptureVideoPreviewLayer *)cameraLayer andRadarView:(UIView *)radar {
-    NSLog(@"Finished displaying ARObjects");
-    
+- (void)prarDidSetupAR:(UIView *)arView withCameraLayer:(AVCaptureVideoPreviewLayer *)cameraLayer {
     [self.view.layer addSublayer:cameraLayer];
     [self.view addSubview:arView];
 //    [self.view bringSubviewToFront:[self.view viewWithTag:AR_VIEW_TAG]];

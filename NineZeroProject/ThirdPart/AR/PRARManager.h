@@ -30,6 +30,7 @@
 #import "ARRadar.h"
 #import "ARController.h"
 #import "ARSettings.h"
+#import "ARObject.h"
 
 /**
  * Those protocols are used by the AR View
@@ -74,6 +75,8 @@
 
 @property (nonatomic, strong) ARController *arController;
 @property (weak, nonatomic) id <PRARManagerDelegate> delegate;
+// 零仔的距离
+@property (nonatomic, strong, readonly) NSDictionary<NSNumber *,ARObject *> *arObjectsDict;
 
 - (id)initWithSize:(CGSize)size delegate:(id)delegate showRadar:(BOOL)showRadar;
 

@@ -29,10 +29,15 @@
 #import <QuartzCore/CALayer.h>
 #import <QuartzCore/CATransform3D.h>
 
-#import "ARObject.h"
 #import "LocationMath.h"
 
-@implementation PRARManager
+@interface PRARManager ()
+@property (nonatomic, strong, readwrite) NSDictionary<NSNumber *,ARObject *> *arObjectsDict;
+@end
+
+@implementation PRARManager {
+    NSDictionary *_arObjectsDict;
+}
 
 #pragma mark - Life cycle
 
@@ -48,6 +53,14 @@
         [self startCamera];
     }
     return self;
+}
+
+- (CGFloat)mascotDistance {
+    if (_arObjectsDict[@""]) {
+         return [_arObjectsDict[@""] floatValue];
+    } else {
+        return CGFLOAT_MAX;
+    }
 }
 
 - (void)dealloc
@@ -147,9 +160,9 @@
     
     [self.arController.locationMath startTrackingWithLocation:location
                                                    andSize:frameSize];
-    NSDictionary *arObjectsDict = [self.arController buildAROverlaysForData:arData
+    _arObjectsDict = [self.arController buildAROverlaysForData:arData
                                                            andLocation:location];
-    [self setupAROverlaysWithData:arObjectsDict];
+    [self setupAROverlaysWithData:_arObjectsDict];
     if (radarOption) [self setupRadar];
     [cameraSession startRunning];
     

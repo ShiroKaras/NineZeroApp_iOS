@@ -55,6 +55,8 @@
 		1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD111C4A8884006E55A6 /* LocationMath.m */; };
 		1787FD1F1C4A8884006E55A6 /* PRARManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD131C4A8884006E55A6 /* PRARManager.m */; };
 		1787FD231C4A895B006E55A6 /* HTARCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD221C4A895B006E55A6 /* HTARCaptureController.m */; };
+		1787FD2B1C4A9E85006E55A6 /* INTULocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD271C4A9E85006E55A6 /* INTULocationManager.m */; };
+		1787FD2C1C4A9E85006E55A6 /* INTULocationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD291C4A9E85006E55A6 /* INTULocationRequest.m */; };
 		17967AB51C174ED500571924 /* HTQuestionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17967AB41C174ED500571924 /* HTQuestionService.m */; };
 		17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A277271BF79C8000E46670 /* HTServiceManager.m */; };
 		17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A2772A1BF79CA900E46670 /* HTLoginService.m */; };
@@ -180,6 +182,12 @@
 		1787FD131C4A8884006E55A6 /* PRARManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRARManager.m; sourceTree = "<group>"; };
 		1787FD211C4A895B006E55A6 /* HTARCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTARCaptureController.h; sourceTree = "<group>"; };
 		1787FD221C4A895B006E55A6 /* HTARCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTARCaptureController.m; sourceTree = "<group>"; };
+		1787FD251C4A9E85006E55A6 /* INTULocationManager+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "INTULocationManager+Internal.h"; sourceTree = "<group>"; };
+		1787FD261C4A9E85006E55A6 /* INTULocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTULocationManager.h; sourceTree = "<group>"; };
+		1787FD271C4A9E85006E55A6 /* INTULocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INTULocationManager.m; sourceTree = "<group>"; };
+		1787FD281C4A9E85006E55A6 /* INTULocationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTULocationRequest.h; sourceTree = "<group>"; };
+		1787FD291C4A9E85006E55A6 /* INTULocationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INTULocationRequest.m; sourceTree = "<group>"; };
+		1787FD2A1C4A9E85006E55A6 /* INTULocationRequestDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTULocationRequestDefines.h; sourceTree = "<group>"; };
 		17967AB31C174ED500571924 /* HTQuestionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTQuestionService.h; sourceTree = "<group>"; };
 		17967AB41C174ED500571924 /* HTQuestionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTQuestionService.m; sourceTree = "<group>"; };
 		17967AB61C17537E00571924 /* HTLogicHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTLogicHeader.h; sourceTree = "<group>"; };
@@ -510,6 +518,19 @@
 			path = AR;
 			sourceTree = "<group>";
 		};
+		1787FD241C4A9E85006E55A6 /* INTULocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				1787FD251C4A9E85006E55A6 /* INTULocationManager+Internal.h */,
+				1787FD261C4A9E85006E55A6 /* INTULocationManager.h */,
+				1787FD271C4A9E85006E55A6 /* INTULocationManager.m */,
+				1787FD281C4A9E85006E55A6 /* INTULocationRequest.h */,
+				1787FD291C4A9E85006E55A6 /* INTULocationRequest.m */,
+				1787FD2A1C4A9E85006E55A6 /* INTULocationRequestDefines.h */,
+			);
+			path = INTULocationManager;
+			sourceTree = "<group>";
+		};
 		17A277251BF79C5F00E46670 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -529,6 +550,7 @@
 		17A89A8F1C1DB9BB0087BF00 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				1787FD241C4A9E85006E55A6 /* INTULocationManager */,
 				1787FCFE1C4A8875006E55A6 /* AR */,
 				17A89AB01C1DBA290087BF00 /* FLAnimatedImage */,
 				17A89AA71C1DBA150087BF00 /* LTInfiniteScrollView */,
@@ -837,6 +859,7 @@
 				1787FD231C4A895B006E55A6 /* HTARCaptureController.m in Sources */,
 				17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */,
 				1787FD1F1C4A8884006E55A6 /* PRARManager.m in Sources */,
+				1787FD2C1C4A9E85006E55A6 /* INTULocationRequest.m in Sources */,
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
 				26973B021C005ED900160D25 /* HTNavigationController.m in Sources */,
 				170992BD1C264F0C004433EB /* HTShowDetailView.m in Sources */,
@@ -858,6 +881,7 @@
 				17A89AAF1C1DBA150087BF00 /* README.md in Sources */,
 				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
 				174CF7821C146E2F002E0DBB /* HTPreviewQuestionController.m in Sources */,
+				1787FD2B1C4A9E85006E55A6 /* INTULocationManager.m in Sources */,
 				1787FD141C4A8884006E55A6 /* ARController.m in Sources */,
 				175641931C269DD20009AE7B /* HTShowAnswerView.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
