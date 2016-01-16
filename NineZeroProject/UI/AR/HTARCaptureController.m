@@ -11,9 +11,11 @@
 #import <Masonry.h>
 #import "CommonUI.h"
 #import "INTULocationManager.h"
+#import "MBProgressHUD+BWMExtension.h"
 
 #define NUMBER_OF_POINTS    20
 
+NSString *kTipMascotLocation = @"零仔藏在朝阳区繁华地带";
 const NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
 const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
@@ -29,6 +31,7 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @implementation HTARCaptureController {
     CLLocation *_currentLocation;
     CLLocationCoordinate2D _testMascotPoint;
+    INTULocationRequestID _locationId;
 }
 
 - (void)alert:(NSString*)title withDetails:(NSString*)details {
@@ -50,7 +53,7 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     
     // 1.AR
     self.prARManager = [[PRARManager alloc] initWithSize:self.view.frame.size delegate:self showRadar:NO];
-    [[INTULocationManager sharedInstance] subscribeToLocationUpdatesWithDesiredAccuracy:INTULocationAccuracyBlock block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+    _locationId = [[INTULocationManager sharedInstance] subscribeToLocationUpdatesWithDesiredAccuracy:INTULocationAccuracyBlock block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         if (status == INTULocationStatusSuccess) {
             _currentLocation = currentLocation;
             [self.prARManager startARWithData:[self getDummyData] forLocation:currentLocation.coordinate];
@@ -83,7 +86,7 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
     [self.view addSubview:self.tipImageView];
     self.tipLabel = [[UILabel alloc] init];
-    self.tipLabel.text = @"零仔藏在朝阳区繁华地带";
+    self.tipLabel.text = kTipMascotLocation;
     self.tipLabel.font = [UIFont systemFontOfSize:13];
     self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
     [self.tipImageView addSubview:self.tipLabel];
@@ -91,8 +94,11 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     // 5.零仔
     self.mascotImageView = [[UIImageView alloc] init];
     self.mascotImageView.image = [UIImage imageNamed:@"img_mascot_4_animation_1"];
+    self.mascotImageView.hidden = YES;
+    self.mascotImageView.userInteractionEnabled = YES;
     [self.view addSubview:self.mascotImageView];
-    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
+    [self.mascotImageView addGestureRecognizer:tap];
     [self buildConstrains];
 }
 
@@ -104,6 +110,11 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [self.prARManager stopAR];
+}
+
+- (void)dealloc {
+    [[INTULocationManager sharedInstance] cancelLocationRequest:_locationId];
 }
 
 - (void)buildConstrains {
@@ -126,7 +137,14 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.tipImageView);
-        make.centerY.equalTo(self.tipImageView).offset(4);
+        make.centerY.equalTo(self.tipImageView).offset(3);
+    }];
+    
+    [self.mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@130);
+        make.centerX.equalTo(self.view);
+        make.width.equalTo(@265);
+        make.height.equalTo(@265);
     }];
 }
 
@@ -137,6 +155,14 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)onClickBack {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)onClickMascot {
+    [MBProgressHUD bwm_showTitle:@"捕获到零仔!" toView:[[[UIApplication sharedApplication] delegate] window] hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeSuccessful];
+    self.mascotImageView.hidden = YES;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self onClickBack];
+    });
 }
 
 #pragma mark - Dummy AR Data
@@ -164,15 +190,22 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)prarDidSetupAR:(UIView *)arView withCameraLayer:(AVCaptureVideoPreviewLayer *)cameraLayer {
     [self.view.layer addSublayer:cameraLayer];
-    [self.view addSubview:arView];
+//    [self.view addSubview:arView];
 //    [self.view bringSubviewToFront:[self.view viewWithTag:AR_VIEW_TAG]];
     [self.view bringSubviewToFront:self.backButton];
     [self.view bringSubviewToFront:self.radarImageView];
     [self.view bringSubviewToFront:self.tipImageView];
+    [self.view bringSubviewToFront:self.mascotImageView];
 }
 
 - (void)prarUpdateFrame:(CGRect)arViewFrame {
-    [[self.view viewWithTag:AR_VIEW_TAG] setFrame:arViewFrame];
+    CGFloat arViewLeft = arViewFrame.origin.x;
+    
+    self.mascotImageView.hidden = NO;
+//    [self.mascotImageView setFrame:arViewFrame];
+    self.mascotImageView.left = arViewFrame.origin.x;
+    self.mascotImageView.top = arViewFrame.origin.y;
+//    [[self.view viewWithTag:AR_VIEW_TAG] setFrame:arViewFrame];
 }
 
 - (void)prarGotProblem:(NSString *)problemTitle withDetails:(NSString *)problemDetails {
