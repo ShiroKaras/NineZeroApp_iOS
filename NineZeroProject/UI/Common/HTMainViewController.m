@@ -8,6 +8,10 @@
 
 #import "HTMainViewController.h"
 #import "HTPreviewQuestionController.h"
+#import "HTMascotDisplayController.h"
+
+CGFloat alphaDark = 0.3;
+CGFloat alphaLight = 1.0;
 
 @interface HTMainViewController () <HTPreviewQuestionControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;
@@ -18,7 +22,8 @@
 
 @implementation HTMainViewController {
     UIViewController *_currentViewController;
-    __weak HTPreviewQuestionController *_preViewController;
+    HTPreviewQuestionController *_preViewController;
+    HTMascotDisplayController *_mascotController;
 }
 
 - (instancetype)init {
@@ -30,9 +35,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    HTPreviewQuestionController *previewController = [[HTPreviewQuestionController alloc] init];
-    _currentViewController = previewController;
-    [self changedToViewController:previewController];
+    _preViewController = [[HTPreviewQuestionController alloc] init];
+    _preViewController.delegate = self;
+    _mascotController = [[HTMascotDisplayController alloc] init];
+    [self changedToViewController:_preViewController];
 }
 
 - (void)changedToViewController:(UIViewController *)viewController {
@@ -42,8 +48,13 @@
         [_currentViewController removeFromParentViewController]; //3
     }
     if ([viewController isKindOfClass:[HTPreviewQuestionController class]]) {
-        [(HTPreviewQuestionController *)viewController setDelegate:self];
-        _preViewController = (HTPreviewQuestionController *)viewController;
+        _mainButton.alpha = alphaLight;
+        _mascotButton.alpha = alphaDark;
+        _meButton.alpha = alphaDark;
+    } else if ([viewController isKindOfClass:[HTMascotDisplayController class]]) {
+        _mainButton.alpha = alphaDark;
+        _mascotButton.alpha = alphaLight;
+        _meButton.alpha = alphaDark;
     }
     [self addChildViewController:viewController];
     [self.view addSubview:viewController.view];
@@ -59,11 +70,15 @@
         if (_preViewController) {
             [_preViewController goToToday];
         }
+    } else {
+        if ([_currentViewController isKindOfClass:[HTPreviewQuestionController class]]) return;
+        [self changedToViewController:_preViewController];
     }
 }
 
 - (IBAction)didClickMascotButton:(id)sender {
-
+    if ([_currentViewController isKindOfClass:[HTMascotDisplayController class]]) return;
+    [self changedToViewController:_mascotController];
 }
 
 - (IBAction)didClickMeButton:(id)sender {
