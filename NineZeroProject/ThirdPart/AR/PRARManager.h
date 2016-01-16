@@ -77,6 +77,7 @@
 @property (weak, nonatomic) id <PRARManagerDelegate> delegate;
 // 零仔的距离
 @property (nonatomic, strong, readonly) NSDictionary<NSNumber *,ARObject *> *arObjectsDict;
+@property (nonatomic, strong, readonly) ARObject *arObject;
 
 - (id)initWithSize:(CGSize)size delegate:(id)delegate showRadar:(BOOL)showRadar;
 

@@ -55,12 +55,8 @@
     return self;
 }
 
-- (CGFloat)mascotDistance {
-    if (_arObjectsDict[@""]) {
-         return [_arObjectsDict[@""] floatValue];
-    } else {
-        return CGFLOAT_MAX;
-    }
+- (ARObject *)arObject {
+    return _arObjectsDict[@0];
 }
 
 - (void)dealloc

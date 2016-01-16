@@ -12,12 +12,13 @@
 #import "CommonUI.h"
 #import "INTULocationManager.h"
 #import "MBProgressHUD+BWMExtension.h"
+#import "HTUIHeader.h"
 
 #define NUMBER_OF_POINTS    20
 
 NSString *kTipMascotLocation = @"零仔藏在朝阳区繁华地带";
-const NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
-const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
+NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
+NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 @interface HTARCaptureController () <PRARManagerDelegate>
 @property (nonatomic, strong) PRARManager *prARManager;
@@ -32,6 +33,8 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     CLLocation *_currentLocation;
     CLLocationCoordinate2D _testMascotPoint;
     INTULocationRequestID _locationId;
+    BOOL _needShowDebugLocation;
+    UIView *_arView;
 }
 
 - (void)alert:(NSString*)title withDetails:(NSString*)details {
@@ -50,6 +53,7 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     
     // for test
     _testMascotPoint = CLLocationCoordinate2DMake(0, 0);
+    _needShowDebugLocation = NO;
     
     // 1.AR
     self.prARManager = [[PRARManager alloc] initWithSize:self.view.frame.size delegate:self showRadar:NO];
@@ -79,6 +83,10 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     self.radarImageView.animationDuration = 1.0f;
     self.radarImageView.animationRepeatCount = 0;
     [self.radarImageView startAnimating];
+    self.radarImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapThree = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickShowDebug)];
+    tapThree.numberOfTapsRequired = 3;
+    [self.radarImageView addGestureRecognizer:tapThree];
     [self.view addSubview:self.radarImageView];
     
     // 4.提示
@@ -111,10 +119,11 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [self.prARManager stopAR];
+    [[INTULocationManager sharedInstance] cancelLocationRequest:_locationId];
 }
 
 - (void)dealloc {
-    [[INTULocationManager sharedInstance] cancelLocationRequest:_locationId];
+
 }
 
 - (void)buildConstrains {
@@ -165,11 +174,16 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     });
 }
 
+- (void)onClickShowDebug {
+    _needShowDebugLocation = YES;
+    [self.view addSubview:_arView];
+}
+
 #pragma mark - Dummy AR Data
 
 - (NSArray*)getDummyData {
     if (_testMascotPoint.latitude == 0 && _testMascotPoint.longitude == 0) {
-        _testMascotPoint = CLLocationCoordinate2DMake(_currentLocation.coordinate.latitude + 0.01, _currentLocation.coordinate.longitude + 0.01);
+        _testMascotPoint = CLLocationCoordinate2DMake(_currentLocation.coordinate.latitude + 0.005, _currentLocation.coordinate.longitude + 0.005);
     }
     NSDictionary *point = [self createPointWithId:0 at:_testMascotPoint];
     return @[point];
@@ -191,6 +205,7 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (void)prarDidSetupAR:(UIView *)arView withCameraLayer:(AVCaptureVideoPreviewLayer *)cameraLayer {
     [self.view.layer addSublayer:cameraLayer];
 //    [self.view addSubview:arView];
+    _arView = arView;
 //    [self.view bringSubviewToFront:[self.view viewWithTag:AR_VIEW_TAG]];
     [self.view bringSubviewToFront:self.backButton];
     [self.view bringSubviewToFront:self.radarImageView];
@@ -199,13 +214,26 @@ const NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)prarUpdateFrame:(CGRect)arViewFrame {
-    CGFloat arViewLeft = arViewFrame.origin.x;
+    BOOL needShowMascot = YES;
+    // x坐标匹配
+    if (fabs(arViewFrame.origin.x) >= SCREEN_WIDTH && fabs(arViewFrame.origin.x - arViewFrame.size.width) >= SCREEN_WIDTH) needShowMascot = NO;
+    // y坐标匹配
+    if (fabs(arViewFrame.origin.y) >= SCREEN_HEIGHT / 2) needShowMascot = NO;
     
-    self.mascotImageView.hidden = NO;
-//    [self.mascotImageView setFrame:arViewFrame];
-    self.mascotImageView.left = arViewFrame.origin.x;
-    self.mascotImageView.top = arViewFrame.origin.y;
-//    [[self.view viewWithTag:AR_VIEW_TAG] setFrame:arViewFrame];
+    CGFloat distance = self.prARManager.arObject.distance.floatValue;
+    if (distance >= 500) {
+        self.tipLabel.text = kTipMascotLocation;
+        needShowMascot = NO;
+    } else if (distance >= 300 && distance < 500) {
+        self.tipLabel.text = kTipCloseMascot;
+        needShowMascot = NO;
+    } else if (distance < 300) {
+        self.tipLabel.text = kTipTapMascotToCapture;
+    }
+    
+    self.mascotImageView.hidden = !needShowMascot;
+    
+    [[self.view viewWithTag:AR_VIEW_TAG] setFrame:arViewFrame];
 }
 
 - (void)prarGotProblem:(NSString *)problemTitle withDetails:(NSString *)problemDetails {
