@@ -15,6 +15,7 @@
 #import "HTShowAnswerView.h"
 #import "HTUIHeader.h"
 #import "CommonUI.h"
+#import "HTARCaptureController.h"
 
 static CGFloat kLeftMargin = 13; // 暂定为0
 
@@ -175,15 +176,17 @@ static CGFloat kLeftMargin = 13; // 暂定为0
             break;
         }
         case HTPreviewItemButtonTypeAnswer: {
+            HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] init];
+            [self presentViewController:arCaptureController animated:YES completion:nil];
 //            [MBProgressHUD showWarningWithTitle:[NSString stringWithFormat:@"%@", previewItem.question.answers]];
-            _showAnswerView = [[HTShowAnswerView alloc] initWithURL:previewItem.question.detailURL];
-            _showAnswerView.alpha = 0.0;
-            _showAnswerView.frame = self.view.bounds;
-            [UIView animateWithDuration:0.3 animations:^{
-                _showAnswerView.alpha = 1.0f;
-                [self.view addSubview:_showAnswerView];
-            }];
-            break;
+//            _showAnswerView = [[HTShowAnswerView alloc] initWithURL:previewItem.question.detailURL];
+//            _showAnswerView.alpha = 0.0;
+//            _showAnswerView.frame = self.view.bounds;
+//            [UIView animateWithDuration:0.3 animations:^{
+//                _showAnswerView.alpha = 1.0f;
+//                [self.view addSubview:_showAnswerView];
+//            }];
+//            break;
         }
         case HTPreviewItemButtonTypePause: {
         }

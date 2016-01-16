@@ -41,7 +41,10 @@
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_cancelButton addTarget:self action:@selector(didClickCancelButton) forControlEvents:UIControlEventTouchUpInside];
         [_cancelButton setImage:[UIImage imageNamed:@"btn_navi_cancel"] forState:UIControlStateNormal];
+        [_cancelButton setImage:[UIImage imageNamed:@"btn_navi_cancel_highlight"] forState:UIControlStateHighlighted];
         [_cancelButton sizeToFit];
+        _cancelButton.width = 40;
+        _cancelButton.height = 40;
         [_cancelButton setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
         [self addSubview:_cancelButton];
         
@@ -50,13 +53,11 @@
         _webView.opaque = NO;
         _webView.backgroundColor = [UIColor clearColor];
         _webView.scrollView.backgroundColor = [UIColor clearColor];
-        [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body text=\"#d9d9d9\" bgcolor=\"#1f1f1f\" size=\"13\">这次的开放是内因。来自边缘广州的微信，如新星般冉冉升起。同样实现5亿用户，微信用了4年，而QQ用了十几年。你可以说这是互联网指数级发展的结果，也可以说微信是专为移动而生的产品。所幸，命运依旧青睐QQ，他们把时代的机遇给了微信，但是把年轻人群再次给到了QQ。腾讯即通应用部的总经理张孝超说，使用手机QQ的用户，超过半成以上是90后和00后用户。这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20。</body></html>"] baseURL: nil];
+        [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body font-face=\"Ping Fang SC regular\" style=\"line-height:24px; font-size:13px\" text=\"#d9d9d9\" bgcolor=\"#1f1f1f\">这次的开放是内因。来自边缘广州的微信，如新星般冉冉升起。同样实现5亿用户，微信用了4年，而QQ用了十几年。你可以说这是互联网指数级发展的结果，也可以说微信是专为移动而生的产品。所幸，命运依旧青睐QQ，他们把时代的机遇给了微信，但是把年轻人群再次给到了QQ。腾讯即通应用部的总经理张孝超说，使用手机QQ的用户，超过半成以上是90后和00后用户。这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20。</body></html>"] baseURL: nil];
         _webView.delegate = self;
+        NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
+        [_webView stringByEvaluatingJavaScriptFromString:padding];
         [_converView addSubview:_webView];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString *padding = @"document.body.style.padding='6px 10px 0px 10px';";
-            [_webView stringByEvaluatingJavaScriptFromString:padding];
-        });
     }
     return self;
 }
@@ -77,13 +78,21 @@
     CGFloat webViewHeight = 140;
     _dimmingView.frame = self.bounds;
     _converView.frame = CGRectMake(self.width / 2 - width / 2, (80.0 / 568.0) * SCREEN_HEIGHT, width, imageHeight + webViewHeight);
+    if (SCREEN_WIDTH > IPHONE5_SCREEN_WIDTH) {
+        _converView.centerY = self.centerY - 20;
+    }
     _converView.layer.cornerRadius = 5.0f;
     _converView.layer.masksToBounds = YES;
     _imageView.frame = CGRectMake(0, 0, width, imageHeight);
     _webView.frame = CGRectMake(_imageView.left, 0, width, webViewHeight + imageHeight);
     _webView.scrollView.contentInset = UIEdgeInsetsMake(imageHeight, 0, 0, 0);
     _cancelButton.centerX = self.centerX;
-    _cancelButton.top = _converView.bottom + 16;
+    _cancelButton.top = _converView.bottom + 12;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
+    [_webView stringByEvaluatingJavaScriptFromString:padding];
 }
 
 @end

@@ -38,7 +38,8 @@
         
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_cancelButton addTarget:self action:@selector(didClickCancelButton) forControlEvents:UIControlEventTouchUpInside];
-        [_cancelButton setImage:[UIImage imageNamed:@"btn_navi_cancel"] forState:UIControlStateNormal];
+        [_cancelButton setImage:[UIImage imageNamed:@"btn_fullscreen_close"] forState:UIControlStateNormal];
+        [_cancelButton setImage:[UIImage imageNamed:@"btn_fullscreen_close_highlight"] forState:UIControlStateHighlighted];
         [_cancelButton sizeToFit];
         [_cancelButton setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
         [self addSubview:_cancelButton];
