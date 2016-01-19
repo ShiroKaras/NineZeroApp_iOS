@@ -14,6 +14,7 @@
 		1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */; };
 		1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7211BEFBAD200498304 /* HTCGIManager.m */; };
 		1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7271BEFBE1400498304 /* HTStorageDefine.m */; };
+		17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17490C6E1C4B640500F84092 /* QKGeofenceManager.m */; };
 		174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 174C53321BE7A47900893C22 /* libsqlite3.tbd */; };
 		174C53521BE7A60E00893C22 /* CommonUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 174C53511BE7A60E00893C22 /* CommonUI.m */; };
 		174CF7821C146E2F002E0DBB /* HTPreviewQuestionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 174CF7811C146E2F002E0DBB /* HTPreviewQuestionController.m */; };
@@ -124,6 +125,8 @@
 		1721D7211BEFBAD200498304 /* HTCGIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCGIManager.m; sourceTree = "<group>"; };
 		1721D7261BEFBE1400498304 /* HTStorageDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTStorageDefine.h; sourceTree = "<group>"; };
 		1721D7271BEFBE1400498304 /* HTStorageDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTStorageDefine.m; sourceTree = "<group>"; };
+		17490C6D1C4B640500F84092 /* QKGeofenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QKGeofenceManager.h; sourceTree = "<group>"; };
+		17490C6E1C4B640500F84092 /* QKGeofenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QKGeofenceManager.m; sourceTree = "<group>"; };
 		174C53321BE7A47900893C22 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		174C53361BE7A57000893C22 /* CommonUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUI.h; sourceTree = "<group>"; };
 		174C53511BE7A60E00893C22 /* CommonUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUI.m; sourceTree = "<group>"; };
@@ -358,6 +361,15 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		17490C6C1C4B640500F84092 /* QKGeofenceManager */ = {
+			isa = PBXGroup;
+			children = (
+				17490C6D1C4B640500F84092 /* QKGeofenceManager.h */,
+				17490C6E1C4B640500F84092 /* QKGeofenceManager.m */,
+			);
+			path = QKGeofenceManager;
+			sourceTree = "<group>";
+		};
 		174C53351BE7A55400893C22 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -559,6 +571,7 @@
 		17A89A8F1C1DB9BB0087BF00 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				17490C6C1C4B640500F84092 /* QKGeofenceManager */,
 				1787FD241C4A9E85006E55A6 /* INTULocationManager */,
 				1787FCFE1C4A8875006E55A6 /* AR */,
 				17A89AB01C1DBA290087BF00 /* FLAnimatedImage */,
@@ -888,6 +901,7 @@
 				17AA63571C4AB85A0047BADF /* HTMainViewController.m in Sources */,
 				176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */,
 				1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */,
+				17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */,
 				26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */,
 				17F37A791C259EB8006759D1 /* HTDescriptionView.m in Sources */,
 				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,
