@@ -8,12 +8,15 @@
 
 #import "HTMascotDisplayController.h"
 #import "HTUIHeader.h"
+#import "HTMascotView.h"
 
 @interface HTMascotDisplayController ()
 
-@property (nonatomic, strong) UIImageView *onlyOneMascotImageView;
+@property (nonatomic, strong) HTMascotView *onlyOneMascotImageView;
+@property (nonatomic, strong) HTMascotView *mascotView;
 @property (nonatomic, strong) UIImageView *tipImageView;
 @property (nonatomic, strong) UILabel *tipLabel;
+@property (nonatomic, strong) HTMascotTipView *mascotTipView;
 
 @end
 
@@ -23,53 +26,57 @@
     [super viewDidLoad];
     self.view.backgroundColor = UIColorMake(14, 14, 14);
     
-    self.onlyOneMascotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_animation_1"]];
-    [self.view addSubview:self.onlyOneMascotImageView];
+//    self.onlyOneMascotImageView = [[HTMascotView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_animation_1"]];
+//    [self.view addSubview:self.onlyOneMascotImageView];
+//    self.mascotTipView = [[HTMascotTipView alloc] init];
+//    self.mascotTipView.tipNumber = 2;
+//    [self.view addSubview:self.mascotTipView];
     
-    self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_default_msg_bg"]];
-    [self.view addSubview:self.tipImageView];
+    NSArray<NSNumber *>* showIndexs = @[@0, @1, @2, @3, @4, @5, @6, @7];
+    self.mascotView = [[HTMascotView alloc] initWithShowMascotIndexs:showIndexs];
+    [self.view addSubview:self.mascotView];
     
-    self.tipLabel = [[UILabel alloc] init];
-    self.tipLabel.font = [UIFont systemFontOfSize:13];
-    self.tipLabel.textColor = [UIColor colorWithHex:0xd9d9d9];
-    self.tipLabel.text = @"快帮我寻找更多的零仔吧!";
-    [self.tipImageView addSubview:self.tipLabel];
+//    self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_default_msg_bg"]];
+//    [self.view addSubview:self.tipImageView];
+//    
+//    self.tipLabel = [[UILabel alloc] init];
+//    self.tipLabel.font = [UIFont systemFontOfSize:13];
+//    self.tipLabel.textColor = [UIColor colorWithHex:0xd9d9d9];
+//    self.tipLabel.text = @"快帮我寻找更多的零仔吧!";
+//    [self.tipImageView addSubview:self.tipLabel];
     
     [self buildConstraints];
 }
 
 - (void)buildConstraints {
-    [self.onlyOneMascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(@175);
-        make.width.equalTo(@157);
-        make.height.equalTo(@157);
+//    [self.onlyOneMascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self.view);
+//        make.top.equalTo(@175);
+//        make.width.equalTo(@157);
+//        make.height.equalTo(@157);
+//    }];
+//    
+//    [self.mascotTipView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(self.onlyOneMascotImageView.mas_top);
+//        make.centerX.equalTo(self.onlyOneMascotImageView);
+//    }];
+    
+    [self.mascotView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.top.equalTo(self.view);
+        make.width.equalTo(self.view);
+        make.height.equalTo(self.view);
     }];
     
-    [self.tipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(self.onlyOneMascotImageView.mas_bottom).equalTo(@11);
-    }];
-    
-    [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.tipImageView);
-        make.centerY.equalTo(self.tipImageView).offset(4);
-    }];
+//    [self.tipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self.view);
+//        make.top.equalTo(self.onlyOneMascotImageView.mas_bottom).equalTo(@11);
+//    }];
+//    
+//    [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self.tipImageView);
+//        make.centerY.equalTo(self.tipImageView).offset(4);
+//    }];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

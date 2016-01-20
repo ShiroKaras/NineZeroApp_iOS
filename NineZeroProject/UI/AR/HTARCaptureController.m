@@ -64,6 +64,13 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         }
     }];
     
+//    _locationId = [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyBlock timeout:10.0 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+//        if (status == INTULocationStatusSuccess) {
+//            _currentLocation = currentLocation;
+//            [self.prARManager startARWithData:[self getDummyData] forLocation:currentLocation.coordinate];
+//        }
+//    }];
+    
     // 2.返回
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.backButton setImage:[UIImage imageNamed:@"btn_fullscreen_back"] forState:UIControlStateNormal];
@@ -204,9 +211,10 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)prarDidSetupAR:(UIView *)arView withCameraLayer:(AVCaptureVideoPreviewLayer *)cameraLayer {
     [self.view.layer addSublayer:cameraLayer];
-//    [self.view addSubview:arView];
+    if (_needShowDebugLocation) {
+        [self.view addSubview:arView];
+    }
     _arView = arView;
-//    [self.view bringSubviewToFront:[self.view viewWithTag:AR_VIEW_TAG]];
     [self.view bringSubviewToFront:self.backButton];
     [self.view bringSubviewToFront:self.radarImageView];
     [self.view bringSubviewToFront:self.tipImageView];
@@ -230,7 +238,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     } else if (distance < 300) {
         self.tipLabel.text = kTipTapMascotToCapture;
     }
-    
+    if (_needShowDebugLocation) {
+        self.tipLabel.text = [self.tipLabel.text stringByAppendingFormat:@"(%.1f)", distance];
+    }
     self.mascotImageView.hidden = !needShowMascot;
     
     [[self.view viewWithTag:AR_VIEW_TAG] setFrame:arViewFrame];
