@@ -62,15 +62,15 @@
 }
 
 + (NSString *)getMascotPropsCGIKey {
-    return CGI_EXTRA(Pet/getProps);
+    return [NSString stringWithFormat:@"%@Pet/getProps", NETWORK_HOST];
 }
 
 + (NSString *)getMascotInfoCGIKey {
-    return CGI_EXTRA(Pet/getPetDetail);
+    return [NSString stringWithFormat:@"%@Pet/getPetDetail", NETWORK_HOST];
 }
 
 + (NSString *)getMascotPropInfoCGIKey {
-    return CGI_EXTRA(Pet/getPropDetail);
+    return [NSString stringWithFormat:@"%@Pet/getPropDetail", NETWORK_HOST];
 }
 
 + (NSString *)verifyAnswerCGIKey {

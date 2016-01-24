@@ -32,8 +32,13 @@
 - (void)getQuestionInfoWithCallback:(HTQuestionInfoCallback)callback {
     NSDictionary *dict = @{@"area_id" : @"1"};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionInfoCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        HTQuestionInfo *questionInfo = [HTQuestionInfo objectWithKeyValues:responseObject[@"data"]];
-        callback(YES, questionInfo);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        if (rsp.resultCode == 0) {
+            HTQuestionInfo *questionInfo = [HTQuestionInfo objectWithKeyValues:responseObject[@"data"]];
+            callback(YES, questionInfo);
+        } else {
+            callback(NO, nil);
+        }
         DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
@@ -47,11 +52,16 @@
                            @"count"   : [NSString stringWithFormat:@"%lud", (unsigned long)count]
                            };
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionListCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        NSMutableArray<HTQuestion *> *questions = [[NSMutableArray alloc] init];
-        for (int i = 0; i != [responseObject[@"data"] count]; i++) {
-            [questions addObject:[HTQuestion objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]]];
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        if (rsp.resultCode == 0) {
+            NSMutableArray<HTQuestion *> *questions = [[NSMutableArray alloc] init];
+            for (int i = 0; i != [responseObject[@"data"] count]; i++) {
+                [questions addObject:[HTQuestion objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]]];
+            }
+            callback(YES, questions);
+        } else {
+            callback(NO, nil);
         }
-        callback(YES, questions);
         DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
