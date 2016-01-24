@@ -14,6 +14,7 @@
 		1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */; };
 		1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7211BEFBAD200498304 /* HTCGIManager.m */; };
 		1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7271BEFBE1400498304 /* HTStorageDefine.m */; };
+		172B2E471C54FBF8002D52CD /* img_mascot_8_animation_2_00000.png in Resources */ = {isa = PBXBuildFile; fileRef = 172B2E461C54FBF8002D52CD /* img_mascot_8_animation_2_00000.png */; };
 		17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17407A5A1C4EA28C00B60099 /* HTMascotView.m */; };
 		17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17490C6E1C4B640500F84092 /* QKGeofenceManager.m */; };
 		174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 174C53321BE7A47900893C22 /* libsqlite3.tbd */; };
@@ -593,7 +594,6 @@
 		17B42D081C54D90C008AFBA9 /* img_mascot_7_animation_2_00103.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B42C9E1C54D90C008AFBA9 /* img_mascot_7_animation_2_00103.png */; };
 		17B42D091C54D90C008AFBA9 /* img_mascot_7_animation_2_00104.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B42C9F1C54D90C008AFBA9 /* img_mascot_7_animation_2_00104.png */; };
 		17B42D0A1C54D90C008AFBA9 /* img_mascot_7_animation_2_00105.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B42CA01C54D90C008AFBA9 /* img_mascot_7_animation_2_00105.png */; };
-		17B42D0C1C54D914008AFBA9 /* img_mascot_8_animation_2_00000.png in Resources */ = {isa = PBXBuildFile; fileRef = 17B42D0B1C54D914008AFBA9 /* img_mascot_8_animation_2_00000.png */; };
 		17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */; };
 		17D1F8811C29ADC40029E4AF /* right_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */; };
 		17D1F8831C29ADCD0029E4AF /* wrong_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8821C29ADCD0029E4AF /* wrong_answer_gif.gif */; };
@@ -646,6 +646,7 @@
 		1721D7211BEFBAD200498304 /* HTCGIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCGIManager.m; sourceTree = "<group>"; };
 		1721D7261BEFBE1400498304 /* HTStorageDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTStorageDefine.h; sourceTree = "<group>"; };
 		1721D7271BEFBE1400498304 /* HTStorageDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTStorageDefine.m; sourceTree = "<group>"; };
+		172B2E461C54FBF8002D52CD /* img_mascot_8_animation_2_00000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_mascot_8_animation_2_00000.png; sourceTree = "<group>"; };
 		17407A591C4EA28C00B60099 /* HTMascotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotView.h; sourceTree = "<group>"; };
 		17407A5A1C4EA28C00B60099 /* HTMascotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotView.m; sourceTree = "<group>"; };
 		17490C6D1C4B640500F84092 /* QKGeofenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QKGeofenceManager.h; sourceTree = "<group>"; };
@@ -1274,7 +1275,6 @@
 		17B42C9E1C54D90C008AFBA9 /* img_mascot_7_animation_2_00103.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_mascot_7_animation_2_00103.png; sourceTree = "<group>"; };
 		17B42C9F1C54D90C008AFBA9 /* img_mascot_7_animation_2_00104.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_mascot_7_animation_2_00104.png; sourceTree = "<group>"; };
 		17B42CA01C54D90C008AFBA9 /* img_mascot_7_animation_2_00105.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_mascot_7_animation_2_00105.png; sourceTree = "<group>"; };
-		17B42D0B1C54D914008AFBA9 /* img_mascot_8_animation_2_00000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_mascot_8_animation_2_00000.png; sourceTree = "<group>"; };
 		17B8F7441C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
 		17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
 		17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = right_answer_gif.gif; sourceTree = "<group>"; };
@@ -1693,7 +1693,7 @@
 		17B429051C54D886008AFBA9 /* AnimatedImages */ = {
 			isa = PBXGroup;
 			children = (
-				17B42D0B1C54D914008AFBA9 /* img_mascot_8_animation_2_00000.png */,
+				172B2E461C54FBF8002D52CD /* img_mascot_8_animation_2_00000.png */,
 				17B42C361C54D90C008AFBA9 /* img_mascot_7_animation_2 */,
 				17B42BA71C54D906008AFBA9 /* img_mascot_6_animation_2 */,
 				17B42B121C54D8FF008AFBA9 /* img_mascot_5_animation_2 */,
@@ -2698,7 +2698,7 @@
 				17B42B601C54D8FF008AFBA9 /* img_mascot_5_animation_2_00003.png in Resources */,
 				17B42C2F1C54D906008AFBA9 /* img_mascot_6_animation_2_00064.png in Resources */,
 				17B42CC11C54D90C008AFBA9 /* img_mascot_7_animation_2_00032.png in Resources */,
-				17B42D0C1C54D914008AFBA9 /* img_mascot_8_animation_2_00000.png in Resources */,
+				172B2E471C54FBF8002D52CD /* img_mascot_8_animation_2_00000.png in Resources */,
 				17B429791C54D8DE008AFBA9 /* img_mascot_1_animation_2_00001.png in Resources */,
 				17B4297E1C54D8DE008AFBA9 /* img_mascot_1_animation_2_00006.png in Resources */,
 				17B429CF1C54D8DE008AFBA9 /* img_mascot_1_animation_2_00087.png in Resources */,
