@@ -26,7 +26,9 @@ static CGFloat kDuration = 0.3;
 
 @end
 
-@implementation HTMascotDisplayController
+@implementation HTMascotDisplayController {
+    NSArray<HTMascotProp *> *props;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +44,7 @@ static CGFloat kDuration = 0.3;
     self.mascotView = [[HTMascotView alloc] initWithShowMascotIndexs:showIndexs];
     [self.view addSubview:self.mascotView];
     
-    NSArray<HTMascotProp *> *props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init]];
+    props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init]];
     self.propView = [[HTMascotPropView alloc] initWithProps:props];
     self.propView.delegate = self;
     [self.view addSubview:self.propView];
@@ -99,7 +101,6 @@ static CGFloat kDuration = 0.3;
 #pragma mark - HTMascotPropView Delegate
 
 - (void)didClickBottomArrawInMascotPropView:(HTMascotPropView *)mascotPropView {
-    NSArray<HTMascotProp *> *props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init]];
     _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:0];
     [self.view addSubview:_moreView];
     _moreView.top = SCREEN_HEIGHT;
@@ -118,11 +119,31 @@ static CGFloat kDuration = 0.3;
         } completion:^(BOOL finished) {
             [propMoreView removeFromSuperview];
         }];
+    } else {
+        _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount - 1];
+        [self.view addSubview:_moreView];
+        _moreView.bottom = 0;
+        _moreView.delegate = self;
+        [UIView animateWithDuration:kDuration animations:^{
+            _moreView.top = 0;
+            propMoreView.top = SCREEN_HEIGHT;
+        } completion:^(BOOL finished) {
+            [propMoreView removeFromSuperview];
+        }];
     }
 }
 
 - (void)didClickBottomArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView {
-
+    _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount + 1];
+    [self.view addSubview:_moreView];
+    _moreView.top = SCREEN_HEIGHT;
+    _moreView.delegate = self;
+    [UIView animateWithDuration:kDuration animations:^{
+        _moreView.top = 0;
+        propMoreView.bottom = 0;
+    } completion:^(BOOL finished) {
+        [propMoreView removeFromSuperview];
+    }];
 }
 
 @end

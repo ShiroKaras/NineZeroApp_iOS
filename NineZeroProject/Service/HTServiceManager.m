@@ -14,6 +14,7 @@
 @implementation HTServiceManager {
     HTLoginService *_loginService;
     HTQuestionService *_questionService;
+    HTMascotService *_mascotService;
     QNUploadManager *_qiniuService;
 }
 
@@ -31,6 +32,7 @@
         _loginService = [[HTLoginService alloc] init];
         _questionService = [[HTQuestionService alloc] init];
         _qiniuService = [[QNUploadManager alloc] init];
+        _mascotService = [[HTMascotService alloc] init];
     }
     return self;
 }
@@ -43,6 +45,10 @@
 
 - (HTQuestionService *)questionService {
     return _questionService;
+}
+
+- (HTMascotService *)mascotService {
+    return _mascotService;
 }
 
 - (QNUploadManager *)qiniuService {

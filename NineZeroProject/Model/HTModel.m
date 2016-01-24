@@ -9,6 +9,15 @@
 #import "HTModel.h"
 #import <MJExtension.h>
 
+#define HTINIT(T) - (instancetype)init { \
+    if (self = [super init]) { \
+        [T setupReplacedKeyFromPropertyName:^NSDictionary *{ \
+            return [self propertyMapper]; \
+        }]; \
+    } \
+    return self; \
+}
+
 @implementation NSObject (PropertyPrint)
 
 - (NSString *)ht_description {
@@ -36,16 +45,7 @@
 @end
 
 @implementation HTQuestionInfo
-
-- (instancetype)init {
-    if (self = [super init]) {
-        [HTQuestionInfo setupReplacedKeyFromPropertyName:^NSDictionary *{
-            return [self propertyMapper];
-        }];
-    }
-    return self;
-}
-
+HTINIT(HTQuestionInfo)
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"questionID" : @"current_question_id",
                                      @"endTime" : @"endtime",
@@ -58,16 +58,7 @@
 @end
 
 @implementation HTQuestion
-
-- (instancetype)init {
-    if (self = [super init]) {
-        [HTQuestion setupReplacedKeyFromPropertyName:^NSDictionary *{
-            return [self propertyMapper];
-        }];
-    }
-    return self;
-}
-
+HTINIT(HTQuestion)
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"questionID" : @"qid",
                                      @"areaID" : @"area_id",
@@ -84,17 +75,7 @@
 @end
 
 @implementation HTResponsePackage
-
-- (instancetype)init {
-    if (self = [super init]) {
-        [HTResponsePackage setupReplacedKeyFromPropertyName:^NSDictionary *{
-            return [self propertyMapper];
-        }];
-    }
-    return self;
-}
-
-
+HTINIT(HTResponsePackage)
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"resultCode" : @"result"};
     return propertyMapper;
@@ -102,5 +83,41 @@
 
 @end
 
-@implementation HTMascotProp
+@implementation HTArticle
+HTINIT(HTArticle)
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"mascotID"  : @"pet_id",
+                                     @"articleID" : @"article_id",
+                                     @"articleURL" : @"article_url"};
+    return propertyMapper;
+}
 @end
+
+@implementation HTMascot
+HTINIT(HTMascot)
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"mascotID" : @"pet_id",
+                                     @"getTime" : @"time",
+                                     @"mascotName" : @"pet_name",
+                                     @"mascotPic" : @"pet_pic",
+                                     @"mascotDescription" : @"pet_desc"};
+    return propertyMapper;
+}
+@end
+
+@implementation HTMascotProp
+HTINIT(HTMascotProp);
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"propID" : @"prop_id",
+                                     @"getTime" : @"time",
+                                     @"exchangedTime" : @"exchange_time",
+                                     @"iconName" : @"prop_icon",
+                                     @"propPicName" : @"prop_pic",
+                                     @"propName" : @"prop_name",
+                                     @"isExchanged" : @"prop_exchange",
+                                     @"isUsed" : @"used",
+                                     @"propDescription" : @"prop_desc"};
+    return propertyMapper;
+}
+@end
+

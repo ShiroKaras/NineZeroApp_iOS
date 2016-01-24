@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "HTCGIManager.h"
 
+#define CGI_EXTRA(e) [NSString stringWithFormat:@"%@e", NETWORK_HOST]
+
 @implementation HTCGIManager
 
 + (NSString *)userBaseRegisterCGIKey {
@@ -53,6 +55,22 @@
 
 + (NSString *)getRewardCGIKey {
     return [NSString stringWithFormat:@"%@Question/getReward", NETWORK_HOST];
+}
+
++ (NSString *)getMascotsCGIKey {
+    return [NSString stringWithFormat:@"%@Pet/getPets", NETWORK_HOST];
+}
+
++ (NSString *)getMascotPropsCGIKey {
+    return CGI_EXTRA(Pet/getProps);
+}
+
++ (NSString *)getMascotInfoCGIKey {
+    return CGI_EXTRA(Pet/getPetDetail);
+}
+
++ (NSString *)getMascotPropInfoCGIKey {
+    return CGI_EXTRA(Pet/getPropDetail);
 }
 
 + (NSString *)verifyAnswerCGIKey {

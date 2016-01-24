@@ -90,7 +90,28 @@
  *  "reward_id" : 1
  */
 + (NSString *)getRewardCGIKey;
-
+/**
+ *  @brief 获取已经获得的零仔
+ *  "user_id" : "1111111"
+ */
++ (NSString *)getMascotsCGIKey;
+/**
+ *  @brief 获取已经获得的道具
+ *  "user_id" : "1111111"
+ */
++ (NSString *)getMascotPropsCGIKey;
+/**
+ *  @brief 获取零仔的额外信息
+ *  "user_id" : "111111"
+ *  "pet_id"  : "1"
+ */
++ (NSString *)getMascotInfoCGIKey;
+/**
+ *  @brief 获取道具详情
+ *  "user_id" : "111111"
+ *  "prop_id" : "1"
+ */
++ (NSString *)getMascotPropInfoCGIKey;
 /**
  *  @brief 验证回答答案
  *  "question_id" : "2015120423201902904"

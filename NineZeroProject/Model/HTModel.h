@@ -61,6 +61,40 @@
 
 @end
 
+@interface HTArticle : NSObject
+
+@property (nonatomic, assign) NSUInteger mascotID;        // 零仔ID
+@property (nonatomic, assign) NSUInteger articleID;       // 文章ID
+@property (nonatomic, strong) NSString *articleURL;        // 文章链接
+@property (nonatomic, strong) NSString *articleConverURL;  // 文章封面url (缺)
+
+@end
+
+// 零仔
+@interface HTMascot : NSObject
+
+@property (nonatomic, assign) NSUInteger mascotID;             // 零仔ID
+@property (nonatomic, assign) NSUInteger getTime;              // 获取时间
+@property (nonatomic, strong) NSString *mascotName;            // 零仔名称
+@property (nonatomic, strong) NSString *mascotPic;             // 零仔图片
+@property (nonatomic, strong) NSString *mascotDescription;     // 零仔描述
+@property (nonatomic, strong) NSArray<HTArticle *> *articles;  // 文章
+
+@end
+
 // 零仔道具
 @interface HTMascotProp : NSObject
+
+@property (nonatomic, assign) NSUInteger propID;                // 道具id
+@property (nonatomic, assign) NSUInteger getTime;               // 获取时间
+@property (nonatomic, assign) NSUInteger exchangedTime;         // 兑换时间
+@property (nonatomic, strong) NSString *iconName;               // icon名称
+@property (nonatomic, strong) NSString *propPicName;            // 图片名称
+@property (nonatomic, strong) NSString *iconURL;                // icon
+@property (nonatomic, strong) NSString *propPicURL;             // 图片URL
+@property (nonatomic, strong) NSString *propName;               // 道具名称
+@property (nonatomic, strong) NSString *propDescription;        // 道具描述
+@property (nonatomic, assign) BOOL isUsed;                      // 是否已经使用
+@property (nonatomic, assign) BOOL isExchanged;                 // 是否已经兑换
+
 @end

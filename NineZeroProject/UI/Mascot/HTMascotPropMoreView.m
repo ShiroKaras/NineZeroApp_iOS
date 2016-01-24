@@ -38,6 +38,7 @@ NSInteger kPageItemCount = 15;
         [_bottomArraw setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_down_grey"] forState:UIControlStateNormal];
         [_bottomArraw setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_down_grey_highlight"] forState:UIControlStateHighlighted];
         [_bottomArraw addTarget:self action:@selector(onClickBottomArraw) forControlEvents:UIControlEventTouchUpInside];
+        _bottomArraw.hidden = !(_props.count - pageCount * kPageItemCount > kPageItemCount);
         [self addSubview:_bottomArraw];
         
         _decorateView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prop_title"]];
@@ -51,7 +52,7 @@ NSInteger kPageItemCount = 15;
 }
 
 - (void)buildPropItemsWithProps:(NSArray<HTMascotProp *> *)props {
-    NSInteger count = MIN(props.count, 15);
+    NSInteger count = MIN(props.count - _pageCount * kPageItemCount, kPageItemCount);
     _propItems = [NSMutableArray arrayWithCapacity:count];
     for (int i = 0; i != count; i++) {
         HTMascotPropItem *item = [[HTMascotPropItem alloc] init];
