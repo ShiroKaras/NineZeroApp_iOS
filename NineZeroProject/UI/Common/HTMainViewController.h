@@ -12,4 +12,6 @@
 
 - (void)changedToViewController:(UIViewController *)viewController;
 
+- (void)loadResource;
+
 @end

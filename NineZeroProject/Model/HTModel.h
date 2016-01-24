@@ -57,6 +57,10 @@
 @property (nonatomic, strong) id data;                    // 返回数据
 @property (nonatomic, strong) NSString *method;           // 方法名
 @property (nonatomic, assign) NSInteger resultCode;       // 结果code
-@property (nonatomic, strong) NSString *resultMsg;       // 结果信息
+@property (nonatomic, strong) NSString *resultMsg;        // 结果信息
 
+@end
+
+// 零仔道具
+@interface HTMascotProp : NSObject
 @end

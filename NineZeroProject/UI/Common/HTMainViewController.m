@@ -63,6 +63,10 @@ CGFloat alphaLight = 1.0;
     _currentViewController = viewController;
 }
 
+- (void)loadResource {
+    _mascotController.view;
+}
+
 #pragma mark - Action
 
 - (IBAction)didClickMainButton:(id)sender {
@@ -77,12 +81,15 @@ CGFloat alphaLight = 1.0;
 }
 
 - (IBAction)didClickMascotButton:(id)sender {
+    [_mainButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
+    _mainButton.tag = 0;
     if ([_currentViewController isKindOfClass:[HTMascotDisplayController class]]) return;
     [self changedToViewController:_mascotController];
 }
 
 - (IBAction)didClickMeButton:(id)sender {
-
+    [_mainButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
+    _mainButton.tag = 0;
 }
 
 

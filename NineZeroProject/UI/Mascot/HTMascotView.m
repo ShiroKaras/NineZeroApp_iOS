@@ -11,6 +11,7 @@
 #import <math.h>
 #import "HTUIHeader.h"
 #import <objc/runtime.h>
+#import "HTMascotItem.h"
 
 #define MASCOT_ITEMS_COUNT 8
 
@@ -49,8 +50,6 @@ const char *kTapItemAssociatedKey;
         item.index = i;
         item.hidden = YES;
         item.userInteractionEnabled = YES;
-        item.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_mascot_%d_animation_1", (i + 1)]];
-        [item sizeToFit];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mascotItemDidTap:)];
         [item addGestureRecognizer:tap];
         objc_setAssociatedObject(tap, kTapItemAssociatedKey, item, OBJC_ASSOCIATION_RETAIN);
@@ -186,9 +185,6 @@ const char *kTapItemAssociatedKey;
     }
 }
 
-@end
-
-@implementation HTMascotItem
 @end
 
 @implementation HTMascotTipView {

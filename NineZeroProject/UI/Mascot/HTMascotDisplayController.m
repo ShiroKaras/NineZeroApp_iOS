@@ -9,6 +9,7 @@
 #import "HTMascotDisplayController.h"
 #import "HTUIHeader.h"
 #import "HTMascotView.h"
+#import "HTMascotPropView.h"
 
 @interface HTMascotDisplayController ()
 
@@ -17,6 +18,7 @@
 @property (nonatomic, strong) UIImageView *tipImageView;
 @property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) HTMascotTipView *mascotTipView;
+@property (nonatomic, strong) HTMascotPropView *propView;
 
 @end
 
@@ -35,6 +37,10 @@
     NSArray<NSNumber *>* showIndexs = @[@0, @1, @2, @3, @4, @5, @6, @7];
     self.mascotView = [[HTMascotView alloc] initWithShowMascotIndexs:showIndexs];
     [self.view addSubview:self.mascotView];
+    
+    NSArray<HTMascotProp *> *props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init]];
+    self.propView = [[HTMascotPropView alloc] initWithProps:props];
+    [self.view addSubview:self.propView];
     
 //    self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_default_msg_bg"]];
 //    [self.view addSubview:self.tipImageView];
@@ -66,6 +72,12 @@
         make.top.equalTo(self.view);
         make.width.equalTo(self.view);
         make.height.equalTo(self.view);
+    }];
+    
+    [self.propView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(@0);
+        make.width.equalTo(self.view.mas_width);
+        make.height.equalTo(ROUND_HEIGHT(180));
     }];
     
 //    [self.tipImageView mas_makeConstraints:^(MASConstraintMaker *make) {

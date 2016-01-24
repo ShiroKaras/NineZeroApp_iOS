@@ -22,10 +22,6 @@
 @property (nonatomic, strong) NSArray<NSNumber *> *currentDisplayIndexs;
 @end
 
-@interface HTMascotItem : UIImageView
-@property (nonatomic, assign) NSInteger index;
-@end
-
 @interface HTMascotTipView : UIButton
 /**
  *  @brief 默认构造函数

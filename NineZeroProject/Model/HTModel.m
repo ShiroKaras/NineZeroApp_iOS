@@ -101,3 +101,6 @@
 }
 
 @end
+
+@implementation HTMascotProp
+@end

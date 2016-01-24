@@ -21,6 +21,7 @@
 
 @interface AppDelegate ()
 
+
 @end
 
 @implementation AppDelegate
@@ -57,9 +58,9 @@
 - (void)createWindowAndVisible {
     if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        HTMainViewController *rootController = [[HTMainViewController alloc] init];
+        _mainController = [[HTMainViewController alloc] init];
 //        HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
-        self.window.rootViewController = rootController;
+        self.window.rootViewController = _mainController;
         [self.window makeKeyAndVisible];
     } else {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

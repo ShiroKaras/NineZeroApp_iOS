@@ -16,6 +16,7 @@
 #import "HTUIHeader.h"
 #import "CommonUI.h"
 #import "HTARCaptureController.h"
+#import "AppDelegate.h"
 
 static CGFloat kLeftMargin = 13; // 暂定为0
 
@@ -52,12 +53,33 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     _bgImageView.hidden = YES;
     [self.view addSubview:_bgImageView];
     
-    [MBProgressHUD bwm_showHUDAddedTo:self.view title:@"加载数据中..."];
+    UIWindow *bgWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    bgWindow.windowLevel = UIWindowLevelAlert;
+    bgWindow.backgroundColor = [UIColor blackColor];
+    UIViewController *bgController = [[UIViewController alloc] init];
+    bgController.view.backgroundColor = [UIColor blackColor];
+    bgWindow.rootViewController = [[UIViewController alloc] init];
+    [bgWindow makeKeyAndVisible];
+    MBProgressHUD *HUD = [MBProgressHUD bwm_showHUDAddedTo:bgWindow title:@"加载数据中..."];
     [[[HTServiceManager sharedInstance] questionService] setLoginUser:[[[HTServiceManager sharedInstance] loginService] loginUser]];
     [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *questionInfo) {
+    
         if (questionInfo.questionCount <= 0) return;
+        AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        [[appDelegate mainController] loadResource];
+        
         [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:1 count:questionInfo.questionCount callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [HUD hide:YES];
+                [bgWindow resignKeyWindow];
+                [bgWindow removeFromSuperview];
+                [[appDelegate window] makeKeyWindow];
+            });
+            
+            // test code
+            
+            
             _previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, self.view.width - kLeftMargin, self.view.height) andQuestions:questionList];
             _previewView.delegate = self;
             [_previewView setQuestionInfo:questionInfo];
