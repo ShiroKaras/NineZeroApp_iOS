@@ -80,7 +80,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
             // test code
             
             
-            _previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, self.view.width - kLeftMargin, self.view.height) andQuestions:questionList];
+            _previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, SCREEN_WIDTH - kLeftMargin, SCREEN_HEIGHT) andQuestions:questionList];
             _previewView.delegate = self;
             [_previewView setQuestionInfo:questionInfo];
             [self.view insertSubview:self.previewView atIndex:0];
@@ -97,6 +97,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
+    self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     _bgImageView.frame = self.view.bounds;
     [self.view sendSubviewToBack:_bgImageView];
 }
