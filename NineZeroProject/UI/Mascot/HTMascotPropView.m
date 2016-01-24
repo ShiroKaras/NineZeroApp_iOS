@@ -98,6 +98,7 @@
 @end
 
 @interface HTMascotPropItem ()
+@property (nonatomic, strong) UIImageView *exChangedView;
 @end
 
 @implementation HTMascotPropItem
@@ -106,12 +107,25 @@
         self.backgroundColor = UIColorMake(32, 32, 32);
         self.layer.cornerRadius = 22.5;
         self.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        
+        _exChangedView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prop_redeemed"]];
+        _exChangedView.hidden = YES;
+        [self addSubview:_exChangedView];
     }
     return self;
 }
 
 - (void)setProp:(HTMascotProp *)prop {
     [self setImage:[UIImage imageNamed:@"img_mascot_prop_demo"] forState:UIControlStateNormal];
+    _exChangedView.hidden = NO;
+    [self setNeedsLayout];
 }
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _exChangedView.right = self.width + 5;
+    _exChangedView.bottom = 15;
+}
+
 @end
 

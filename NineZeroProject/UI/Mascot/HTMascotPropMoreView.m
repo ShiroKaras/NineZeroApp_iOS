@@ -78,7 +78,7 @@ NSInteger kPageItemCount = 15;
 - (void)updateConstraints {
     [_decorateView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(ROUND_WIDTH(19));
-        make.top.equalTo(ROUND_HEIGHT(35));
+        make.top.equalTo(ROUND_HEIGHT(37));
     }];
     
     [_topArraw mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -91,6 +91,9 @@ NSInteger kPageItemCount = 15;
         make.centerX.equalTo(_topArraw);
     }];
     
+
+    UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_prop_arrow_up_grey"]];
+    CGFloat itemsMargin = (SCREEN_HEIGHT - ROUND_HEIGHT_FLOAT(37) - ROUND_HEIGHT_FLOAT(61) - arrowImageView.height * 2 - 54 - 45 * 5) / 4;
     for (HTMascotPropItem *item in _propItems) {
         NSInteger line = item.index / 3;  // 行
         NSInteger row = item.index % 3;   // 列
@@ -107,7 +110,7 @@ NSInteger kPageItemCount = 15;
                 make.left.equalTo(_propItems[1].mas_right).offset(ROUND_WIDTH_FLOAT(50));
             } else {
                 HTMascotPropItem *topItem = _propItems[row + 3 * (line - 1)];
-                make.top.equalTo(topItem.mas_bottom).offset(ROUND_HEIGHT_FLOAT(32));
+                make.top.equalTo(topItem.mas_bottom).offset(itemsMargin);
                 make.centerX.equalTo(topItem.mas_centerX);
             }
         }];

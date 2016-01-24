@@ -64,7 +64,7 @@ CGFloat alphaLight = 1.0;
 }
 
 - (void)loadResource {
-    _mascotController.view;
+    [_mascotController view];
 }
 
 #pragma mark - Action
