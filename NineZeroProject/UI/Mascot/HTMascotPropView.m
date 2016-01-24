@@ -15,7 +15,10 @@
 @property (nonatomic, strong) UIButton *moreButton;
 @end
 
-@implementation HTMascotPropView
+@implementation HTMascotPropView {
+    CGFloat marginX;
+    CGFloat marginY;
+}
 
 - (instancetype)initWithProps:(NSArray<HTMascotProp *> *)props {
     if (self = [super init]) {
@@ -31,7 +34,6 @@
     for (int i = 0; i != count; i++) {
         HTMascotPropItem *item = [[HTMascotPropItem alloc] init];
         item.prop = _props[i];
-        [item setImage:[UIImage imageNamed:@"img_mascot_prop_demo"] forState:UIControlStateNormal];
         [self addSubview:item];
         [_items addObject:item];
     }
@@ -39,7 +41,12 @@
     _moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_moreButton setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_down_grey"] forState:UIControlStateNormal];
     [_moreButton setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];
+    [_moreButton addTarget:self action:@selector(onClickMoreButton) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_moreButton];
+}
+
+- (void)onClickMoreButton {
+    [self.delegate didClickBottomArrawInMascotPropView:self];
 }
 
 - (void)updateConstraints {
@@ -54,11 +61,11 @@
         _moreButton.hidden = YES;
         [_items[0] mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(topOffset);
-            make.right.equalTo(self.mas_centerX).offset(-49);
+            make.right.equalTo(self.mas_centerX).offset(-ROUND_WIDTH_FLOAT(49));
         }];
         [_items[1] mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(topOffset);
-            make.left.equalTo(self.mas_centerX).offset(49);
+            make.left.equalTo(self.mas_centerX).offset(ROUND_WIDTH_FLOAT(49));
         }];
     } else if (_props.count >= 3) {
         _moreButton.hidden = NO;
@@ -68,11 +75,11 @@
         }];
         [_items[0] mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(topOffset);
-            make.right.equalTo(_items[1].mas_left).offset(-50);
+            make.right.equalTo(_items[1].mas_left).offset(-ROUND_WIDTH_FLOAT(50));
         }];
         [_items[2] mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(topOffset);
-            make.left.equalTo(_items[1].mas_right).offset(50);
+            make.left.equalTo(_items[1].mas_right).offset(ROUND_WIDTH_FLOAT(50));
         }];
         [_moreButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_items[1].mas_bottom).offset(16);
@@ -99,9 +106,12 @@
         self.backgroundColor = UIColorMake(32, 32, 32);
         self.layer.cornerRadius = 22.5;
         self.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
-
     }
     return self;
+}
+
+- (void)setProp:(HTMascotProp *)prop {
+    [self setImage:[UIImage imageNamed:@"img_mascot_prop_demo"] forState:UIControlStateNormal];
 }
 @end
 

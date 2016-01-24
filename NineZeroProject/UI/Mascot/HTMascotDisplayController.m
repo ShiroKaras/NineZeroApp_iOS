@@ -10,8 +10,11 @@
 #import "HTUIHeader.h"
 #import "HTMascotView.h"
 #import "HTMascotPropView.h"
+#import "HTMascotPropMoreView.h"
 
-@interface HTMascotDisplayController ()
+static CGFloat kDuration = 0.3;
+
+@interface HTMascotDisplayController () <HTMascotPropViewDelegate, HTMascotPropMoreViewDelegate>
 
 @property (nonatomic, strong) HTMascotView *onlyOneMascotImageView;
 @property (nonatomic, strong) HTMascotView *mascotView;
@@ -19,6 +22,7 @@
 @property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) HTMascotTipView *mascotTipView;
 @property (nonatomic, strong) HTMascotPropView *propView;
+@property (nonatomic, strong) HTMascotPropMoreView *moreView;
 
 @end
 
@@ -26,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = UIColorMake(14, 14, 14);
+    self.view.backgroundColor = COMMON_BG_COLOR;
     
 //    self.onlyOneMascotImageView = [[HTMascotView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_animation_1"]];
 //    [self.view addSubview:self.onlyOneMascotImageView];
@@ -40,6 +44,7 @@
     
     NSArray<HTMascotProp *> *props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init]];
     self.propView = [[HTMascotPropView alloc] initWithProps:props];
+    self.propView.delegate = self;
     [self.view addSubview:self.propView];
     
 //    self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_default_msg_bg"]];
@@ -89,6 +94,35 @@
 //        make.centerX.equalTo(self.tipImageView);
 //        make.centerY.equalTo(self.tipImageView).offset(4);
 //    }];
+}
+
+#pragma mark - HTMascotPropView Delegate
+
+- (void)didClickBottomArrawInMascotPropView:(HTMascotPropView *)mascotPropView {
+    NSArray<HTMascotProp *> *props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init]];
+    _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:0];
+    [self.view addSubview:_moreView];
+    _moreView.top = SCREEN_HEIGHT;
+    _moreView.delegate = self;
+    [UIView animateWithDuration:kDuration animations:^{
+        _moreView.top = 0;
+    }];
+}
+
+#pragma mark - HTMascotPropMoreView Delegate
+
+- (void)didClickTopArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView {
+    if (propMoreView.pageCount == 0) {
+        [UIView animateWithDuration:kDuration animations:^{
+            propMoreView.top = SCREEN_HEIGHT;
+        } completion:^(BOOL finished) {
+            [propMoreView removeFromSuperview];
+        }];
+    }
+}
+
+- (void)didClickBottomArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView {
+
 }
 
 @end

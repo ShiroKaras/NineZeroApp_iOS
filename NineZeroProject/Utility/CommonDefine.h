@@ -27,4 +27,11 @@
 #define ROUND_WIDTH(w) @((w / 320.0) * SCREEN_WIDTH)
 #define ROUND_HEIGHT(h) @((h / 568.0) * SCREEN_HEIGHT)
 
+#define ROUND_WIDTH_FLOAT(w) (w / 320.0) * SCREEN_WIDTH
+#define ROUND_HEIGHT_FLOAT(h) (h / 568.0) * SCREEN_HEIGHT
+
+//
+
+#define COMMON_BG_COLOR UIColorMake(14, 14, 14)
+
 #endif /* CommonDefine_h */
