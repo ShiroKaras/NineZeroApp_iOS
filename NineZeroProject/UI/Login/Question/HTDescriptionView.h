@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    WWKDescriptionTypeQuestion,  // defalut
+    WWKDescriptionTypeProp,
+    WWKDescriptionTypeUnknown,
+} WWKDescriptionType;
+
 @interface HTDescriptionView : UIView
 
 - (instancetype)initWithURLString:(NSString *)urlString;
+
+- (void)showAnimated;
 
 @end

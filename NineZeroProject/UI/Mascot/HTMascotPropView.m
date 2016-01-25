@@ -33,6 +33,10 @@
     NSInteger count = MIN(_props.count, 3);
     for (int i = 0; i != count; i++) {
         HTMascotPropItem *item = [[HTMascotPropItem alloc] init];
+        __weak __typeof(self) weakSelf = self;
+        item.didClickPropItem = ^(HTMascotPropItem *item) {
+            [weakSelf.delegate propView:weakSelf didClickPropItem:item];
+        };
         item.prop = _props[i];
         [self addSubview:item];
         [_items addObject:item];
@@ -111,6 +115,8 @@
         _exChangedView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prop_redeemed"]];
         _exChangedView.hidden = YES;
         [self addSubview:_exChangedView];
+        
+        [self addTarget:self action:@selector(onClickPropItem) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
@@ -119,6 +125,10 @@
     [self setImage:[UIImage imageNamed:@"img_mascot_prop_demo"] forState:UIControlStateNormal];
     _exChangedView.hidden = NO;
     [self setNeedsLayout];
+}
+
+- (void)onClickPropItem {
+    if (self.didClickPropItem) self.didClickPropItem(self);
 }
 
 - (void)layoutSubviews {

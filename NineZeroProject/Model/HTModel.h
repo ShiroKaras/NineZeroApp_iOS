@@ -10,7 +10,7 @@
 
 // 不要覆盖description方法
 @interface NSObject (PropertyPrint)
-- (NSString *)ht_description;
+- (NSString *)debugDescription;
 @end
 
 @interface HTLoginUser : NSObject

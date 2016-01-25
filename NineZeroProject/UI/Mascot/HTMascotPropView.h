@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "HTModel.h"
 @class HTMascotPropView;
+@class HTMascotPropItem;
 @protocol HTMascotPropViewDelegate <NSObject>
 @required;
 - (void)didClickBottomArrawInMascotPropView:(HTMascotPropView *)mascotPropView;
+- (void)propView:(HTMascotPropView *)propView didClickPropItem:(HTMascotPropItem *)item;
 @end
 // 零仔道具主页面
 @interface HTMascotPropView : UIView

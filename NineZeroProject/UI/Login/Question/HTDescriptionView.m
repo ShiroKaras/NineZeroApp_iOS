@@ -71,6 +71,27 @@
     }];
 }
 
+- (void)showInView:(UIView *)parentView {
+    self.frame = parentView.bounds;
+    self.alpha = 0;
+    self.top = parentView.bottom;
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.top = 0;
+        self.alpha = 1.0;
+    } completion:nil];
+}
+
+- (void)showAnimated {
+    UIView *parentView = [self superview];
+    self.frame = parentView.bounds;
+    self.alpha = 0;
+    self.top = parentView.bottom;
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.top = 0;
+        self.alpha = 1.0;
+    } completion:nil];
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     CGFloat width = 280;

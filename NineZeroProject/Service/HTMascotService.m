@@ -13,6 +13,7 @@
 
 - (void)getUserMascots:(HTGetMascotsCallback)callback {
     DLog(@"%@", [[HTStorageManager sharedInstance] getUserID]);
+    if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getMascotsCGIKey] parameters:@{ @"user_id" : [[HTStorageManager sharedInstance] getUserID] } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
@@ -21,7 +22,6 @@
             for (int i = 0; i != [responseObject[@"data"] count]; i++) {
                 [mascots addObject:[HTMascot objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]]];
             }
-            DLog(@"%@", mascots);
         } else {
             callback(false, nil);
         }
@@ -31,6 +31,7 @@
 }
 
 - (void)getUserProps:(HTGetPropsCallback)callback {
+    if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getMascotPropsCGIKey] parameters:@{ @"user_id" : [[HTStorageManager sharedInstance] getUserID] } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
@@ -39,7 +40,6 @@
             for (int i = 0; i != [responseObject[@"data"] count]; i++) {
                 [props addObject:[HTMascotProp objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]]];
             }
-            DLog(@"%@", props);
         } else {
             callback(false, nil);
         }

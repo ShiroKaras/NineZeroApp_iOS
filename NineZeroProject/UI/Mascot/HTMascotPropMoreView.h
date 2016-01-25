@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class HTMascotPropMoreView;
+@class HTMascotPropItem;
 @protocol HTMascotPropMoreViewDelegate <NSObject>
 - (void)didClickTopArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView;
 - (void)didClickBottomArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView;
+- (void)propMoreView:(HTMascotPropMoreView *)propMoreView didClickPropItem:(HTMascotPropItem *)item;
 @end
 @class HTMascotProp;
 @interface HTMascotPropMoreView : UIView

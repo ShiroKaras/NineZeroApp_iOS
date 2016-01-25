@@ -37,7 +37,7 @@
     }];
     
     [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
-            
+        
     }];
     
     [self createWindowAndVisible];
@@ -122,8 +122,8 @@
 
 - (void)registerSMSService {
     // SMS
-    [SMS_SDK enableAppContactFriends:NO];
     [SMS_SDK registerApp:@"b805a16e1149" withSecret:@"054f27dedc33c58a97afb1781406678b"];
+    [SMS_SDK enableAppContactFriends:NO];
 }
 
 @end

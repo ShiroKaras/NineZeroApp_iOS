@@ -11,6 +11,7 @@
 #import "HTMascotView.h"
 #import "HTMascotPropView.h"
 #import "HTMascotPropMoreView.h"
+#import "HTDescriptionView.h"
 
 static CGFloat kDuration = 0.3;
 
@@ -110,6 +111,12 @@ static CGFloat kDuration = 0.3;
     }];
 }
 
+- (void)propView:(HTMascotPropView *)propView didClickPropItem:(HTMascotPropItem *)item {
+    HTDescriptionView *descView = [[HTDescriptionView alloc] initWithURLString:item.prop.propDescription];
+    [self.view addSubview:descView];
+    [descView showAnimated];
+}
+
 #pragma mark - HTMascotPropMoreView Delegate
 
 - (void)didClickTopArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView {
@@ -144,6 +151,12 @@ static CGFloat kDuration = 0.3;
     } completion:^(BOOL finished) {
         [propMoreView removeFromSuperview];
     }];
+}
+
+- (void)propMoreView:(HTMascotPropMoreView *)propMoreView didClickPropItem:(HTMascotPropItem *)item {
+    HTDescriptionView *descView = [[HTDescriptionView alloc] initWithURLString:item.prop.propDescription];
+    [self.view addSubview:descView];
+    [descView showAnimated];    
 }
 
 @end

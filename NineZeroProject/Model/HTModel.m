@@ -20,7 +20,7 @@
 
 @implementation NSObject (PropertyPrint)
 
-- (NSString *)ht_description {
+- (NSString *)debugDescription {
     NSMutableDictionary *dict = [NSMutableDictionary new];
     unsigned int count;
     objc_property_t *properties = class_copyPropertyList([self class], &count);

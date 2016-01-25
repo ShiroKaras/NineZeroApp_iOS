@@ -170,14 +170,8 @@ static CGFloat kLeftMargin = 13; // 暂定为0
         }
         case HTPreviewItemButtonTypeContent: {
             _descriptionView = [[HTDescriptionView alloc] initWithURLString:previewItem.question.questionDescription];
-            _descriptionView.frame = self.view.bounds;
-            _descriptionView.alpha = 0;
-            _descriptionView.top = self.view.bottom;
-            [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                _descriptionView.top = 0;
-                [self.view addSubview:_descriptionView];
-                _descriptionView.alpha = 1.0;
-            } completion:nil];
+            [self.view addSubview:_descriptionView];
+            [_descriptionView showAnimated];
             break;
         }
         case HTPreviewItemButtonTypeHint: {
