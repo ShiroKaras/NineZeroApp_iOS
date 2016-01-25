@@ -17,13 +17,17 @@
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) UIView *converView;
+@property (nonatomic, strong) UIButton *exchangeButton;
+@property (nonatomic, assign, readwrite) HTDescriptionType type;
 
 @end
 
 @implementation HTDescriptionView
 
-- (instancetype)initWithURLString:(NSString *)urlString {
+- (instancetype)initWithURLString:(NSString *)urlString andType:(HTDescriptionType)type {
     if (self = [super initWithFrame:CGRectZero]) {
+        _type = type;
+    
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickCancelButton)];
         _dimmingView = [[UIView alloc] init];
         _dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
@@ -38,6 +42,8 @@
         _imageView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
         [_converView addSubview:_imageView];
     
+//        _exchangeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_cancelButton addTarget:self action:@selector(didClickCancelButton) forControlEvents:UIControlEventTouchUpInside];
         [_cancelButton setImage:[UIImage imageNamed:@"btn_navi_cancel"] forState:UIControlStateNormal];
@@ -60,6 +66,10 @@
         [_converView addSubview:_webView];
     }
     return self;
+}
+
+- (instancetype)initWithURLString:(NSString *)urlString {
+    return [self initWithURLString:urlString andType:HTDescriptionTypeQuestion];
 }
 
 - (void)didClickCancelButton {
@@ -90,6 +100,12 @@
         self.top = 0;
         self.alpha = 1.0;
     } completion:nil];
+}
+
+- (void)setType:(HTDescriptionType)type {
+    if (type == HTDescriptionTypeProp) {
+        
+    }
 }
 
 - (void)layoutSubviews {

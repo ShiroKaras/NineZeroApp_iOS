@@ -17,6 +17,7 @@
 #import "CommonUI.h"
 #import "HTARCaptureController.h"
 #import "AppDelegate.h"
+#import "HTRewardController.h"
 
 static CGFloat kLeftMargin = 13; // 暂定为0
 
@@ -185,14 +186,8 @@ static CGFloat kLeftMargin = 13; // 暂定为0
             break;
         }
         case HTPreviewItemButtonTypeReward: {
-            _showDetailView = [[HTShowDetailView alloc] initWithDetailText:@"一杯星巴克" andShowInRect:[previewItem convertRect:[previewItem hintRect] toView:self.view]];
-            _showDetailView.frame = self.view.bounds;
-            _showDetailView.alpha = 0.0;
-            [self.view addSubview:_showDetailView];
-            [UIView animateWithDuration:0.3 animations:^{
-                _showDetailView.alpha = 1.0;
-            }];
-            break;
+            HTRewardController *reward = [[HTRewardController alloc] init];
+            [self presentViewController:reward animated:YES completion:nil];
             break;
         }
         case HTPreviewItemButtonTypeAnswer: {
@@ -206,7 +201,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 //                _showAnswerView.alpha = 1.0f;
 //                [self.view addSubview:_showAnswerView];
 //            }];
-//            break;
+            break;
         }
         case HTPreviewItemButtonTypePause: {
         }

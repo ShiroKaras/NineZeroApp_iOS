@@ -15,6 +15,7 @@
 		1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7211BEFBAD200498304 /* HTCGIManager.m */; };
 		1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7271BEFBE1400498304 /* HTStorageDefine.m */; };
 		172B2E471C54FBF8002D52CD /* img_mascot_8_animation_2_00000.png in Resources */ = {isa = PBXBuildFile; fileRef = 172B2E461C54FBF8002D52CD /* img_mascot_8_animation_2_00000.png */; };
+		173A21171C568A34006A423D /* HTRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 173A21161C568A34006A423D /* HTRewardController.m */; };
 		17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17407A5A1C4EA28C00B60099 /* HTMascotView.m */; };
 		17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17490C6E1C4B640500F84092 /* QKGeofenceManager.m */; };
 		174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 174C53321BE7A47900893C22 /* libsqlite3.tbd */; };
@@ -648,6 +649,8 @@
 		1721D7261BEFBE1400498304 /* HTStorageDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTStorageDefine.h; sourceTree = "<group>"; };
 		1721D7271BEFBE1400498304 /* HTStorageDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTStorageDefine.m; sourceTree = "<group>"; };
 		172B2E461C54FBF8002D52CD /* img_mascot_8_animation_2_00000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_mascot_8_animation_2_00000.png; sourceTree = "<group>"; };
+		173A21151C568A34006A423D /* HTRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRewardController.h; sourceTree = "<group>"; };
+		173A21161C568A34006A423D /* HTRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRewardController.m; sourceTree = "<group>"; };
 		17407A591C4EA28C00B60099 /* HTMascotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotView.h; sourceTree = "<group>"; };
 		17407A5A1C4EA28C00B60099 /* HTMascotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotView.m; sourceTree = "<group>"; };
 		17490C6D1C4B640500F84092 /* QKGeofenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QKGeofenceManager.h; sourceTree = "<group>"; };
@@ -1384,6 +1387,7 @@
 				174CF77F1C146E15002E0DBB /* Question */,
 				17AA63751C4AC0EB0047BADF /* Mascot */,
 				1787FD201C4A8925006E55A6 /* AR */,
+				173A21141C568A1A006A423D /* Reward */,
 			);
 			name = UI;
 			path = NineZeroProject/UI;
@@ -1413,6 +1417,15 @@
 				26DA7F2A1C019C3600337A56 /* HTResetPasswordController.xib */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		173A21141C568A1A006A423D /* Reward */ = {
+			isa = PBXGroup;
+			children = (
+				173A21151C568A34006A423D /* HTRewardController.h */,
+				173A21161C568A34006A423D /* HTRewardController.m */,
+			);
+			path = Reward;
 			sourceTree = "<group>";
 		};
 		17490C6C1C4B640500F84092 /* QKGeofenceManager */ = {
@@ -3108,6 +3121,7 @@
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
 				17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */,
 				17D997C11C1D49930091978E /* HTComposeView.m in Sources */,
+				173A21171C568A34006A423D /* HTRewardController.m in Sources */,
 				17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */,
 				17C40B401C5538A200DAE22A /* HTMascotService.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,

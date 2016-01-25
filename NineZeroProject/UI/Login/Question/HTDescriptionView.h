@@ -9,15 +9,17 @@
 #import <UIKit/UIKit.h>
 
 typedef enum : NSUInteger {
-    WWKDescriptionTypeQuestion,  // defalut
-    WWKDescriptionTypeProp,
-    WWKDescriptionTypeUnknown,
-} WWKDescriptionType;
+    HTDescriptionTypeQuestion,  // defalut
+    HTDescriptionTypeProp,
+    HTDescriptionTypeUnknown,
+} HTDescriptionType;
 
 @interface HTDescriptionView : UIView
 
 - (instancetype)initWithURLString:(NSString *)urlString;
-
+- (instancetype)initWithURLString:(NSString *)urlString andType:(HTDescriptionType)type;
 - (void)showAnimated;
+
+@property (nonatomic, assign, readonly) HTDescriptionType type;
 
 @end
