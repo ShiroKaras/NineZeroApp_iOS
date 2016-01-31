@@ -10,6 +10,7 @@
 #import <Masonry.h>
 #import "UIButton+EnlargeTouchArea.h"
 #import "HTUIHeader.h"
+
 @interface HTDescriptionView () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -38,11 +39,16 @@
         _converView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
         [self addSubview:_converView];
         
-        _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"test_imaga"]];
+        UIImage *converImage = (type == HTDescriptionTypeProp) ? [UIImage imageNamed:@"props_cover"] : [UIImage imageNamed:@"test_imaga"];
+        _imageView = [[UIImageView alloc] initWithImage:converImage];
         _imageView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
         [_converView addSubview:_imageView];
     
-//        _exchangeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _exchangeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _exchangeButton.layer.cornerRadius = 5.0f;
+        _exchangeButton.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_exchangeButton addTarget:self action:@selector(didClickExchangedButton) forControlEvents:UIControlEventTouchUpInside];
+        [_converView addSubview:_exchangeButton];
         
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_cancelButton addTarget:self action:@selector(didClickCancelButton) forControlEvents:UIControlEventTouchUpInside];
@@ -81,6 +87,14 @@
     }];
 }
 
+- (void)didClickExchangedButton {
+    _exchangeButton.backgroundColor = [UIColor colorWithHex:0x545454];
+    [_exchangeButton setTitle:@"已兑换" forState:UIControlStateNormal];
+    _exchangeButton.enabled = NO;
+//    if (_prop) _prop.isExchanged = YES;
+//    [self setProp:_prop];
+}
+
 - (void)showInView:(UIView *)parentView {
     self.frame = parentView.bounds;
     self.alpha = 0;
@@ -102,10 +116,18 @@
     } completion:nil];
 }
 
-- (void)setType:(HTDescriptionType)type {
-    if (type == HTDescriptionTypeProp) {
-        
+- (void)setProp:(HTMascotProp *)prop {
+    _prop = prop;
+    if (prop && prop.isExchanged) {
+        _exchangeButton.backgroundColor = [UIColor colorWithHex:0x545454];
+        [_exchangeButton setTitle:@"已兑换" forState:UIControlStateNormal];
+        _exchangeButton.enabled = NO;
+    } else {
+        _exchangeButton.backgroundColor = [UIColor colorWithHex:0x24ddb2];
+        [_exchangeButton setTitle:@"兑换" forState:UIControlStateNormal];
+        _exchangeButton.enabled = YES;
     }
+    [self setNeedsLayout];
 }
 
 - (void)layoutSubviews {
@@ -121,8 +143,16 @@
     _converView.layer.cornerRadius = 5.0f;
     _converView.layer.masksToBounds = YES;
     _imageView.frame = CGRectMake(0, 0, width, imageHeight);
-    _webView.frame = CGRectMake(_imageView.left, 0, width, webViewHeight + imageHeight);
-    _webView.scrollView.contentInset = UIEdgeInsetsMake(imageHeight, 0, 0, 0);
+    _exchangeButton.frame = CGRectMake(0, 0, 63, 33);
+    _exchangeButton.right = _converView.width - 16;
+    _exchangeButton.bottom = imageHeight - 15;
+    if (_type == HTDescriptionTypeProp) {
+        _webView.frame = CGRectMake(_imageView.left, imageHeight, width, webViewHeight);
+        _webView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    } else {
+        _webView.frame = CGRectMake(_imageView.left, 0, width, webViewHeight + imageHeight);
+        _webView.scrollView.contentInset = UIEdgeInsetsMake(imageHeight, 0, 0, 0);
+    }
     _cancelButton.centerX = self.centerX;
     _cancelButton.top = _converView.bottom + 12;
 }

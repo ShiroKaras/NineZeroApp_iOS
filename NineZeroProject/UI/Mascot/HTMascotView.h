@@ -22,18 +22,4 @@
 @property (nonatomic, strong) NSArray<NSNumber *> *currentDisplayIndexs;
 @end
 
-@interface HTMascotTipView : UIButton
-/**
- *  @brief 默认构造函数
- */
-- (instancetype)initWithIndex:(NSInteger)index;
-@property (nonatomic, assign) NSInteger index;
-/**
- *  @brief 展现零仔对应的道具个数
- */
-@property (nonatomic, assign) NSInteger tipNumber;
-/**
- *  @brief 点击了tip对应的响应方法
- */
-@property (nonatomic, copy) void(^didClickMascotTipBlock)(HTMascotTipView *tipView);
-@end
+

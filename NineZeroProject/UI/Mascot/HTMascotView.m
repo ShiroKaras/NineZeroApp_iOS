@@ -12,6 +12,7 @@
 #import "HTUIHeader.h"
 #import <objc/runtime.h>
 #import "HTMascotItem.h"
+#import "HTMascotTipView.h"
 
 #define MASCOT_ITEMS_COUNT 8
 
@@ -49,10 +50,15 @@ const char *kTapItemAssociatedKey;
         HTMascotItem *item = [[HTMascotItem alloc] init];
         item.index = i;
         item.hidden = YES;
-        item.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mascotItemDidTap:)];
-        [item addGestureRecognizer:tap];
-        objc_setAssociatedObject(tap, kTapItemAssociatedKey, item, OBJC_ASSOCIATION_RETAIN);
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mascotItemDidTap:)];
+        [item addGestureRecognizer:singleTap];
+        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mascotItemDidTapDouble:)];
+        doubleTap.numberOfTapsRequired = 2;
+        [item addGestureRecognizer:doubleTap];
+//        [singleTap requireGestureRecognizerToFail:doubleTap];
+        
+        objc_setAssociatedObject(singleTap, kTapItemAssociatedKey, item, OBJC_ASSOCIATION_RETAIN);
+        objc_setAssociatedObject(doubleTap, kTapItemAssociatedKey, item, OBJC_ASSOCIATION_RETAIN);
         [_mascotItems addObject:item];
     }
     // 零仔层级调整
@@ -172,78 +178,40 @@ const char *kTapItemAssociatedKey;
     [super updateConstraints];
 }
 
+#pragma mark - Tap Action
+
+- (void)mascotItemDidTapDouble:(UITapGestureRecognizer *)gesture {
+    HTMascotItem *item = objc_getAssociatedObject(gesture, kTapItemAssociatedKey);
+    if (item) {
+        [self playAniamtionWithNumber:(arc4random() % 2 + 3) item:item];
+    }
+}
+
 - (void)mascotItemDidTap:(UITapGestureRecognizer *)gesture {
     HTMascotItem *item = objc_getAssociatedObject(gesture, kTapItemAssociatedKey);
     if (item) {
-        for (HTMascotTipView *tip in _mascotTips) {
-            if (tip.index == item.index) {
-                tip.hidden = NO;
-            } else {
-                tip.hidden = YES;
-            }
+        [self showTipWithIndex:item.index];
+        [self playAniamtionWithNumber:2 item:item];
+    }
+}
+
+#pragma mark - Tool Method
+
+- (void)playAniamtionWithNumber:(NSInteger)number item:(HTMascotItem *)item {
+    for (HTMascotItem *iter in _mascotItems) {
+        [iter stopAnyAnimation];
+    }
+    [item playAnimatedNumber:number];
+}
+
+- (void)showTipWithIndex:(NSInteger)index {
+    for (HTMascotTipView *tip in _mascotTips) {
+        if (tip.index == index) {
+            tip.hidden = NO;
+        } else {
+            tip.hidden = YES;
         }
     }
-}
-
-@end
-
-@implementation HTMascotTipView {
-    UIImageView *_arrawView;
-    UILabel *_tipLabel;
-}
-
-- (instancetype)initWithIndex:(NSInteger)index {
-    if (self = [super init]) {
-        [self setImage:[UIImage imageNamed:@"img_mascot_notification"] forState:UIControlStateNormal];
-        [self setImage:[UIImage imageNamed:@"img_mascot_notification_highlight"] forState:UIControlStateHighlighted];
-        [self sizeToFit];
-        [self buildViewsIfNeed];
-    }
-    return self;
-}
-
-- (void)setTipNumber:(NSInteger)tipNumber {
-    _tipNumber = tipNumber;
-    if (tipNumber <= 0) return;
-    if (tipNumber == 1) {
-        _arrawView.hidden = NO;
-        _tipLabel.hidden = YES;
-    } else {
-        _arrawView.hidden = YES;
-        _tipLabel.hidden = NO;
-        _tipLabel.text = [NSString stringWithFormat:@"%ld", tipNumber];
-    }
-}
-
-- (void)updateConstraints {
-    [_arrawView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self);
-        make.top.equalTo(self).offset(7);
-    }];
-    
-    [_tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self);
-        make.top.equalTo(self).offset(4);
-    }];
-    self.userInteractionEnabled = YES;
-    [super updateConstraints];
-}
-
-- (void)buildViewsIfNeed {
-    if (_arrawView == nil) {
-        _arrawView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_notification_arrow"]];
-        [self addSubview:_arrawView];
-    }
-    if (_tipLabel == nil) {
-        _tipLabel = [[UILabel alloc] init];
-        _tipLabel.font = [UIFont fontWithName:@"Moon-Bold" size:20];
-        _tipLabel.textColor = [UIColor whiteColor];
-        _tipLabel.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:_tipLabel];
-     }
-    [self setImage:[UIImage imageNamed:@"img_mascot_notification"] forState:UIControlStateNormal];
-    [self setImage:[UIImage imageNamed:@"img_mascot_notification_highlight"] forState:UIControlStateHighlighted];
-    [self sizeToFit];
 }
 
 @end

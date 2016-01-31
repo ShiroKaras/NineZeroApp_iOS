@@ -112,7 +112,8 @@ static CGFloat kDuration = 0.3;
 }
 
 - (void)propView:(HTMascotPropView *)propView didClickPropItem:(HTMascotPropItem *)item {
-    HTDescriptionView *descView = [[HTDescriptionView alloc] initWithURLString:item.prop.propDescription];
+    HTDescriptionView *descView = [[HTDescriptionView alloc] initWithURLString:item.prop.propDescription andType:HTDescriptionTypeProp];
+    [descView setProp:item.prop];
     [self.view addSubview:descView];
     [descView showAnimated];
 }
@@ -154,7 +155,8 @@ static CGFloat kDuration = 0.3;
 }
 
 - (void)propMoreView:(HTMascotPropMoreView *)propMoreView didClickPropItem:(HTMascotPropItem *)item {
-    HTDescriptionView *descView = [[HTDescriptionView alloc] initWithURLString:item.prop.propDescription];
+    HTDescriptionView *descView = [[HTDescriptionView alloc] initWithURLString:item.prop.propDescription andType:HTDescriptionTypeProp];
+    [descView setProp:item.prop];
     [self.view addSubview:descView];
     [descView showAnimated];    
 }

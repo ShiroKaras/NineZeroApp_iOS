@@ -14,6 +14,8 @@ typedef enum : NSUInteger {
     HTDescriptionTypeUnknown,
 } HTDescriptionType;
 
+@class HTMascotProp;
+
 @interface HTDescriptionView : UIView
 
 - (instancetype)initWithURLString:(NSString *)urlString;
@@ -21,5 +23,6 @@ typedef enum : NSUInteger {
 - (void)showAnimated;
 
 @property (nonatomic, assign, readonly) HTDescriptionType type;
+@property (nonatomic, strong) HTMascotProp *prop;
 
 @end

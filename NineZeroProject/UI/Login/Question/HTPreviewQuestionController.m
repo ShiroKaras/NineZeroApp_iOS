@@ -187,6 +187,10 @@ static CGFloat kLeftMargin = 13; // 暂定为0
         }
         case HTPreviewItemButtonTypeReward: {
             HTRewardController *reward = [[HTRewardController alloc] init];
+            reward.view.backgroundColor = [UIColor clearColor];
+            if (IOS_VERSION >= 8.0) {
+                reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            }
             [self presentViewController:reward animated:YES completion:nil];
             break;
         }
@@ -206,7 +210,6 @@ static CGFloat kLeftMargin = 13; // 暂定为0
         case HTPreviewItemButtonTypePause: {
         }
         case HTPreviewItemButtonTypeSound: {
-            
         }
         default:
         break;

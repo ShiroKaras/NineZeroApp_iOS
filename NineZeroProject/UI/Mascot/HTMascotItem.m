@@ -12,26 +12,38 @@
 static CGFloat kDurationPerAnimate = 0.033;
 
 @implementation HTMascotItem
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        self.userInteractionEnabled = YES;
+    }
+    return self;
+}
+
 - (void)setIndex:(NSInteger)index {
     _index = index;
-    NSArray<NSNumber *> *animatedCount = @[@113, @63, @52, @32, @74, @71, @105, @1];
-    NSInteger count = [animatedCount[index] integerValue];
+    NSString *imageName = [NSString stringWithFormat:@"img_mascot_%ld_animation_2_00000", (_index + 1)];
+    YYImage *image = [YYImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imageName ofType:@"png"]];
+    [self setImage:image];
+}
+
+- (void)playAnimatedNumber:(NSInteger)number {
+    if (_index < 0 || _index > 7) return;
+    if (number < 2 || number > 4) return;
+    
+    NSArray<NSNumber *> *animatedCount;
+    NSArray<NSNumber *> *animatedCount2 = @[@113, @63, @52, @32, @74, @71, @105, @1];
+    NSArray<NSNumber *> *animatedCount3 = @[@106, @75, @54, @22, @49, @79, @88, @1];
+    NSArray<NSNumber *> *animatedCount4 = @[@85, @77, @55, @38, @79, @89, @83, @1];
+    
+    if (number == 2) animatedCount = animatedCount2;
+    if (number == 3) animatedCount = animatedCount3;
+    if (number == 4) animatedCount = animatedCount4;
+    
+    NSInteger count = [animatedCount[_index] integerValue];
     NSMutableArray<UIImage *> *animatedImages = [NSMutableArray arrayWithCapacity:count];
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        for (int i = 0; i != count; i++) {
-//            NSString *imageName = [NSString stringWithFormat:@"img_mascot_%ld_animation_2_%05d", (index + 1), i];
-//            YYImage *image = [YYImage imageNamed:imageName];
-//            [animatedImages addObject:image];
-//        }
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            self.animationImages = animatedImages;
-//            self.animationDuration = kDurationPerAnimate * count;
-//            self.animationRepeatCount = 0;
-//            [self startAnimating];
-//        });
-//    });
     for (int i = 0; i != count; i++) {
-        NSString *imageName = [NSString stringWithFormat:@"img_mascot_%ld_animation_2_%05d", (index + 1), i];
+        NSString *imageName = [NSString stringWithFormat:@"img_mascot_%ld_animation_%ld_%05d", (_index + 1), number , i];
         YYImage *image = [YYImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imageName ofType:@"png"]];
         [animatedImages addObject:image];
     }
@@ -39,5 +51,11 @@ static CGFloat kDurationPerAnimate = 0.033;
     self.animationDuration = kDurationPerAnimate * count;
     self.animationRepeatCount = 0;
     [self startAnimating];
+}
+
+- (void)stopAnyAnimation {
+    self.animationImages = nil;
+    [self stopAnimating];
+    [self setIndex:_index];
 }
 @end

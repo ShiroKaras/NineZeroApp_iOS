@@ -27,9 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.85];
+//    self.view.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.85];
     _scrollView = [[UIScrollView alloc] init];
-    _scrollView.backgroundColor = [UIColor clearColor];
+    _scrollView.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.85];
     _scrollView.delaysContentTouches = NO;
     [self.view addSubview:_scrollView];
     
@@ -95,6 +95,9 @@
     _getImageView.centerY = _andImageView.centerY;
 
     _sureButton.frame = CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50);
+    
+    // TODO
+    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 @end
