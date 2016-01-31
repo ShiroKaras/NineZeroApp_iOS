@@ -32,7 +32,8 @@ const char *kTapItemAssociatedKey;
         _mascotItems = [NSMutableArray arrayWithCapacity:MASCOT_ITEMS_COUNT];
         _mascotTips = [NSMutableArray arrayWithCapacity:MASCOT_ITEMS_COUNT];
         // 零仔展示层级对应的index关系
-        _mascotLayers = @[@7, @6, @4, @3, @2, @1, @5, @0];
+//        _mascotLayers = @[@7, @6, @4, @3, @2, @1, @5, @0];
+        _mascotLayers = @[@7, @5, @2, @3, @6, @4, @1, @0];
         [self buildViews];
         [self reloadDisplayMascots];
         self.userInteractionEnabled = YES;
