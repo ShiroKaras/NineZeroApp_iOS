@@ -9,6 +9,7 @@
 #import "HTMainViewController.h"
 #import "HTPreviewQuestionController.h"
 #import "HTMascotDisplayController.h"
+#import "HTRelaxController.h"
 
 CGFloat alphaDark = 0.3;
 CGFloat alphaLight = 1.0;
@@ -90,6 +91,9 @@ CGFloat alphaLight = 1.0;
 - (IBAction)didClickMeButton:(id)sender {
     [_mainButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
     _mainButton.tag = 0;
+    
+    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
+    [self presentViewController:relaxController animated:YES completion:nil];
 }
 
 

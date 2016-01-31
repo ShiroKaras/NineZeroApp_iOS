@@ -1562,6 +1562,9 @@
 		1787FD2C1C4A9E85006E55A6 /* INTULocationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD291C4A9E85006E55A6 /* INTULocationRequest.m */; };
 		179622BE1C5E1D6C00DCA470 /* HTMascotArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 179622BD1C5E1D6C00DCA470 /* HTMascotArticleCell.m */; };
 		17967AB51C174ED500571924 /* HTQuestionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17967AB41C174ED500571924 /* HTQuestionService.m */; };
+		179D2BAA1C5E414F000A4461 /* HTArticleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 179D2BA91C5E414F000A4461 /* HTArticleController.m */; };
+		179D2BB31C5E5444000A4461 /* HTRelaxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 179D2BB11C5E5444000A4461 /* HTRelaxController.m */; };
+		179D2BB41C5E5444000A4461 /* HTRelaxController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 179D2BB21C5E5444000A4461 /* HTRelaxController.xib */; };
 		17A20A0C1C4FFE4600364EEF /* HTMascotPropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A20A0B1C4FFE4600364EEF /* HTMascotPropView.m */; };
 		17A20A0F1C51444C00364EEF /* HTMascotPropMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A20A0E1C51444C00364EEF /* HTMascotPropMoreView.m */; };
 		17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A277271BF79C8000E46670 /* HTServiceManager.m */; };
@@ -3220,6 +3223,11 @@
 		17967AB31C174ED500571924 /* HTQuestionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTQuestionService.h; sourceTree = "<group>"; };
 		17967AB41C174ED500571924 /* HTQuestionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTQuestionService.m; sourceTree = "<group>"; };
 		17967AB61C17537E00571924 /* HTLogicHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTLogicHeader.h; sourceTree = "<group>"; };
+		179D2BA81C5E414F000A4461 /* HTArticleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTArticleController.h; sourceTree = "<group>"; };
+		179D2BA91C5E414F000A4461 /* HTArticleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTArticleController.m; sourceTree = "<group>"; };
+		179D2BB01C5E5444000A4461 /* HTRelaxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRelaxController.h; sourceTree = "<group>"; };
+		179D2BB11C5E5444000A4461 /* HTRelaxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRelaxController.m; sourceTree = "<group>"; };
+		179D2BB21C5E5444000A4461 /* HTRelaxController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTRelaxController.xib; sourceTree = "<group>"; };
 		17A20A0A1C4FFE4600364EEF /* HTMascotPropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotPropView.h; sourceTree = "<group>"; };
 		17A20A0B1C4FFE4600364EEF /* HTMascotPropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotPropView.m; sourceTree = "<group>"; };
 		17A20A0D1C51444C00364EEF /* HTMascotPropMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotPropMoreView.h; sourceTree = "<group>"; };
@@ -5078,6 +5086,9 @@
 			children = (
 				173A21151C568A34006A423D /* HTRewardController.h */,
 				173A21161C568A34006A423D /* HTRewardController.m */,
+				179D2BB01C5E5444000A4461 /* HTRelaxController.h */,
+				179D2BB11C5E5444000A4461 /* HTRelaxController.m */,
+				179D2BB21C5E5444000A4461 /* HTRelaxController.xib */,
 			);
 			path = Reward;
 			sourceTree = "<group>";
@@ -5339,6 +5350,8 @@
 				17AA63771C4AC10A0047BADF /* HTMascotDisplayController.m */,
 				17262CBA1C5DFE00000FDA1B /* HTMascotIntroController.h */,
 				17262CBB1C5DFE00000FDA1B /* HTMascotIntroController.m */,
+				179D2BA81C5E414F000A4461 /* HTArticleController.h */,
+				179D2BA91C5E414F000A4461 /* HTArticleController.m */,
 				17407A591C4EA28C00B60099 /* HTMascotView.h */,
 				17407A5A1C4EA28C00B60099 /* HTMascotView.m */,
 				17262CB51C5DF486000FDA1B /* HTMascotTipView.h */,
@@ -6968,6 +6981,7 @@
 				17262BCC1C5DE9B3000FDA1B /* img_mascot_7_animation_2_00056.png in Resources */,
 				172629701C5DE9B3000FDA1B /* img_mascot_3_animation_4_00041.png in Resources */,
 				172627BC1C5DE9B3000FDA1B /* img_mascot_1_animation_4_00011.png in Resources */,
+				179D2BB41C5E5444000A4461 /* HTRelaxController.xib in Resources */,
 				1726299F1C5DE9B3000FDA1B /* img_mascot_4_animation_3_00001.png in Resources */,
 				17262B3D1C5DE9B3000FDA1B /* img_mascot_6_animation_4_00002.png in Resources */,
 				172628DB1C5DE9B3000FDA1B /* img_mascot_2_animation_4_00075.png in Resources */,
@@ -7143,6 +7157,7 @@
 			files = (
 				17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */,
 				17D1F8D71C29D7BD0029E4AF /* HTTextField.m in Sources */,
+				179D2BAA1C5E414F000A4461 /* HTArticleController.m in Sources */,
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
 				17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */,
 				17B428F31C54CC9A008AFBA9 /* HTMascotItem.m in Sources */,
@@ -7152,6 +7167,7 @@
 				17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */,
 				17A20A0C1C4FFE4600364EEF /* HTMascotPropView.m in Sources */,
 				1787FD231C4A895B006E55A6 /* HTARCaptureController.m in Sources */,
+				179D2BB31C5E5444000A4461 /* HTRelaxController.m in Sources */,
 				17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */,
 				1787FD1F1C4A8884006E55A6 /* PRARManager.m in Sources */,
 				1787FD2C1C4A9E85006E55A6 /* INTULocationRequest.m in Sources */,
