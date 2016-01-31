@@ -1565,6 +1565,7 @@
 		179D2BAA1C5E414F000A4461 /* HTArticleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 179D2BA91C5E414F000A4461 /* HTArticleController.m */; };
 		179D2BB31C5E5444000A4461 /* HTRelaxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 179D2BB11C5E5444000A4461 /* HTRelaxController.m */; };
 		179D2BB41C5E5444000A4461 /* HTRelaxController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 179D2BB21C5E5444000A4461 /* HTRelaxController.xib */; };
+		179D2BB71C5E5BD4000A4461 /* HTQuestionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 179D2BB61C5E5BD4000A4461 /* HTQuestionHelper.m */; };
 		17A20A0C1C4FFE4600364EEF /* HTMascotPropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A20A0B1C4FFE4600364EEF /* HTMascotPropView.m */; };
 		17A20A0F1C51444C00364EEF /* HTMascotPropMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A20A0E1C51444C00364EEF /* HTMascotPropMoreView.m */; };
 		17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A277271BF79C8000E46670 /* HTServiceManager.m */; };
@@ -3228,6 +3229,8 @@
 		179D2BB01C5E5444000A4461 /* HTRelaxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRelaxController.h; sourceTree = "<group>"; };
 		179D2BB11C5E5444000A4461 /* HTRelaxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRelaxController.m; sourceTree = "<group>"; };
 		179D2BB21C5E5444000A4461 /* HTRelaxController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTRelaxController.xib; sourceTree = "<group>"; };
+		179D2BB51C5E5BD4000A4461 /* HTQuestionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTQuestionHelper.h; sourceTree = "<group>"; };
+		179D2BB61C5E5BD4000A4461 /* HTQuestionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTQuestionHelper.m; sourceTree = "<group>"; };
 		17A20A0A1C4FFE4600364EEF /* HTMascotPropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotPropView.h; sourceTree = "<group>"; };
 		17A20A0B1C4FFE4600364EEF /* HTMascotPropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotPropView.m; sourceTree = "<group>"; };
 		17A20A0D1C51444C00364EEF /* HTMascotPropMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotPropMoreView.h; sourceTree = "<group>"; };
@@ -5117,6 +5120,8 @@
 				17F37A751C255420006759D1 /* HUD+Utility.m */,
 				17262CB21C5DF1D7000FDA1B /* HTMascotHelper.h */,
 				17262CB31C5DF1D7000FDA1B /* HTMascotHelper.m */,
+				179D2BB51C5E5BD4000A4461 /* HTQuestionHelper.h */,
+				179D2BB61C5E5BD4000A4461 /* HTQuestionHelper.m */,
 				17262CD81C5E02A4000FDA1B /* HTImageView.h */,
 				17262CD91C5E02A4000FDA1B /* HTImageView.m */,
 			);
@@ -7163,6 +7168,7 @@
 				17B428F31C54CC9A008AFBA9 /* HTMascotItem.m in Sources */,
 				17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */,
 				1787FD151C4A8884006E55A6 /* ARObject.m in Sources */,
+				179D2BB71C5E5BD4000A4461 /* HTQuestionHelper.m in Sources */,
 				17B429001C54D4A8008AFBA9 /* YYAnimatedImageView.m in Sources */,
 				17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */,
 				17A20A0C1C4FFE4600364EEF /* HTMascotPropView.m in Sources */,

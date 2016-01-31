@@ -61,6 +61,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     bgController.view.backgroundColor = [UIColor blackColor];
     bgWindow.rootViewController = [[UIViewController alloc] init];
     [bgWindow makeKeyAndVisible];
+    
     MBProgressHUD *HUD = [MBProgressHUD bwm_showHUDAddedTo:bgWindow title:@"加载数据中..."];
     [[[HTServiceManager sharedInstance] questionService] setLoginUser:[[[HTServiceManager sharedInstance] loginService] loginUser]];
     [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *questionInfo) {
@@ -68,13 +69,15 @@ static CGFloat kLeftMargin = 13; // 暂定为0
         AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         [[appDelegate mainController] loadResource];
         [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:1 count:questionInfo.questionCount callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
+
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [HUD hide:YES];
+                [bgWindow resignKeyWindow];
+                [bgWindow removeFromSuperview];
+                [[appDelegate window] makeKeyWindow];
+            });
+            
             if (success) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [HUD hide:YES];
-                    [bgWindow resignKeyWindow];
-                    [bgWindow removeFromSuperview];
-                    [[appDelegate window] makeKeyWindow];
-                });
                 _previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, SCREEN_WIDTH - kLeftMargin, SCREEN_HEIGHT) andQuestions:questionList];
                 _previewView.delegate = self;
                 [_previewView setQuestionInfo:questionInfo];

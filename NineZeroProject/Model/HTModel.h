@@ -38,9 +38,10 @@
 
 @property (nonatomic, assign) NSUInteger questionID;          // 唯一标识ID
 @property (nonatomic, assign) NSUInteger serial;              // 章节
-@property (nonatomic, assign) NSUInteger type;                // 问题类型
+@property (nonatomic, assign) NSUInteger type;                // 问题类型(1 ar, 2 文字)
 @property (nonatomic, assign) NSUInteger areaID;              // 用户所在城市ID
 @property (nonatomic, assign) NSUInteger rewardID;            // 奖励ID
+@property (nonatomic, assign) BOOL isPassed;                  // 是否闯关成功
 @property (nonatomic, strong) NSArray<NSString *> *answers;   // 答案
 @property (nonatomic, copy) NSString *chapterText;            // 章节名
 @property (nonatomic, copy) NSString *content;                // 问题内容
