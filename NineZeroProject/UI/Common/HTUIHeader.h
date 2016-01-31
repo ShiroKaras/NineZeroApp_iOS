@@ -23,5 +23,7 @@
 #import "HTCommonViewController.h"
 #import "HTServiceManager.h"
 #import "NSString+Utility.h"
+#import "HTImageView.h"
+#import "HTMascotHelper.h"
 
 #endif /* HTUIHeader_h */

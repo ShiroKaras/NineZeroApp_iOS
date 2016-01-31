@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class HTMascot;
+
 @interface HTMascotIntroController : UIViewController
+
+- (instancetype)initWithMascot:(HTMascot *)mascot;
 
 @end

@@ -1512,6 +1512,8 @@
 		17262CB41C5DF1D7000FDA1B /* HTMascotHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 17262CB31C5DF1D7000FDA1B /* HTMascotHelper.m */; };
 		17262CB71C5DF486000FDA1B /* HTMascotTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17262CB61C5DF486000FDA1B /* HTMascotTipView.m */; };
 		17262CBC1C5DFE00000FDA1B /* HTMascotIntroController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17262CBB1C5DFE00000FDA1B /* HTMascotIntroController.m */; };
+		17262CDA1C5E02A4000FDA1B /* HTImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17262CD91C5E02A4000FDA1B /* HTImageView.m */; };
+		17262CDD1C5E058B000FDA1B /* HTMascotIntroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17262CDC1C5E058B000FDA1B /* HTMascotIntroCell.m */; };
 		173A21171C568A34006A423D /* HTRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 173A21161C568A34006A423D /* HTRewardController.m */; };
 		17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17407A5A1C4EA28C00B60099 /* HTMascotView.m */; };
 		17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17490C6E1C4B640500F84092 /* QKGeofenceManager.m */; };
@@ -1558,6 +1560,7 @@
 		1787FD231C4A895B006E55A6 /* HTARCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD221C4A895B006E55A6 /* HTARCaptureController.m */; };
 		1787FD2B1C4A9E85006E55A6 /* INTULocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD271C4A9E85006E55A6 /* INTULocationManager.m */; };
 		1787FD2C1C4A9E85006E55A6 /* INTULocationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD291C4A9E85006E55A6 /* INTULocationRequest.m */; };
+		179622BE1C5E1D6C00DCA470 /* HTMascotArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 179622BD1C5E1D6C00DCA470 /* HTMascotArticleCell.m */; };
 		17967AB51C174ED500571924 /* HTQuestionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17967AB41C174ED500571924 /* HTQuestionService.m */; };
 		17A20A0C1C4FFE4600364EEF /* HTMascotPropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A20A0B1C4FFE4600364EEF /* HTMascotPropView.m */; };
 		17A20A0F1C51444C00364EEF /* HTMascotPropMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A20A0E1C51444C00364EEF /* HTMascotPropMoreView.m */; };
@@ -3135,6 +3138,10 @@
 		17262CB61C5DF486000FDA1B /* HTMascotTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotTipView.m; sourceTree = "<group>"; };
 		17262CBA1C5DFE00000FDA1B /* HTMascotIntroController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotIntroController.h; sourceTree = "<group>"; };
 		17262CBB1C5DFE00000FDA1B /* HTMascotIntroController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotIntroController.m; sourceTree = "<group>"; };
+		17262CD81C5E02A4000FDA1B /* HTImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTImageView.h; sourceTree = "<group>"; };
+		17262CD91C5E02A4000FDA1B /* HTImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTImageView.m; sourceTree = "<group>"; };
+		17262CDB1C5E058B000FDA1B /* HTMascotIntroCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotIntroCell.h; sourceTree = "<group>"; };
+		17262CDC1C5E058B000FDA1B /* HTMascotIntroCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotIntroCell.m; sourceTree = "<group>"; };
 		173A21151C568A34006A423D /* HTRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRewardController.h; sourceTree = "<group>"; };
 		173A21161C568A34006A423D /* HTRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRewardController.m; sourceTree = "<group>"; };
 		17407A591C4EA28C00B60099 /* HTMascotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotView.h; sourceTree = "<group>"; };
@@ -3208,6 +3215,8 @@
 		1787FD281C4A9E85006E55A6 /* INTULocationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTULocationRequest.h; sourceTree = "<group>"; };
 		1787FD291C4A9E85006E55A6 /* INTULocationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INTULocationRequest.m; sourceTree = "<group>"; };
 		1787FD2A1C4A9E85006E55A6 /* INTULocationRequestDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTULocationRequestDefines.h; sourceTree = "<group>"; };
+		179622BC1C5E1D6C00DCA470 /* HTMascotArticleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotArticleCell.h; sourceTree = "<group>"; };
+		179622BD1C5E1D6C00DCA470 /* HTMascotArticleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotArticleCell.m; sourceTree = "<group>"; };
 		17967AB31C174ED500571924 /* HTQuestionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTQuestionService.h; sourceTree = "<group>"; };
 		17967AB41C174ED500571924 /* HTQuestionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTQuestionService.m; sourceTree = "<group>"; };
 		17967AB61C17537E00571924 /* HTLogicHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTLogicHeader.h; sourceTree = "<group>"; };
@@ -5097,6 +5106,8 @@
 				17F37A751C255420006759D1 /* HUD+Utility.m */,
 				17262CB21C5DF1D7000FDA1B /* HTMascotHelper.h */,
 				17262CB31C5DF1D7000FDA1B /* HTMascotHelper.m */,
+				17262CD81C5E02A4000FDA1B /* HTImageView.h */,
+				17262CD91C5E02A4000FDA1B /* HTImageView.m */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
@@ -5338,6 +5349,10 @@
 				17A20A0E1C51444C00364EEF /* HTMascotPropMoreView.m */,
 				17262CBA1C5DFE00000FDA1B /* HTMascotIntroController.h */,
 				17262CBB1C5DFE00000FDA1B /* HTMascotIntroController.m */,
+				17262CDB1C5E058B000FDA1B /* HTMascotIntroCell.h */,
+				17262CDC1C5E058B000FDA1B /* HTMascotIntroCell.m */,
+				179622BC1C5E1D6C00DCA470 /* HTMascotArticleCell.h */,
+				179622BD1C5E1D6C00DCA470 /* HTMascotArticleCell.m */,
 			);
 			path = Mascot;
 			sourceTree = "<group>";
@@ -7148,6 +7163,7 @@
 				1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */,
 				17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */,
 				26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */,
+				17262CDD1C5E058B000FDA1B /* HTMascotIntroCell.m in Sources */,
 				17F37A791C259EB8006759D1 /* HTDescriptionView.m in Sources */,
 				17B429021C54D4A8008AFBA9 /* YYImage.m in Sources */,
 				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,
@@ -7180,12 +7196,14 @@
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 				170992BA1C26489D004433EB /* HTPreviewItem.m in Sources */,
 				17A20A0F1C51444C00364EEF /* HTMascotPropMoreView.m in Sources */,
+				179622BE1C5E1D6C00DCA470 /* HTMascotArticleCell.m in Sources */,
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
 				17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */,
 				17D997C11C1D49930091978E /* HTComposeView.m in Sources */,
 				173A21171C568A34006A423D /* HTRewardController.m in Sources */,
 				17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */,
 				17C40B401C5538A200DAE22A /* HTMascotService.m in Sources */,
+				17262CDA1C5E02A4000FDA1B /* HTImageView.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

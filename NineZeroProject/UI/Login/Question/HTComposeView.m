@@ -16,7 +16,7 @@
 @property (nonatomic, strong, readwrite) UITextField *textField; ///< 输入框
 @property (nonatomic, strong) UIView *textFieldBackView;         ///< 输入框背景
 @property (nonatomic, strong) UIButton *composeButton;           ///< 输入按钮
-@property (nonatomic, strong) FLAnimatedImageView *resultImageView;      ///< 显示结果
+@property (nonatomic, strong) HTImageView *resultImageView;      ///< 显示结果
 @property (nonatomic, strong) UILabel *tipsLabel;                ///< 提示
 @property (nonatomic, strong) UIView *tipsBackView;              ///< 提示背景
 @property (nonatomic, strong) UIView *dimmingView;               ///< 答题背景
@@ -60,7 +60,7 @@
         [_textFieldBackView addSubview:_textField];
         
         // 4. 结果
-        _resultImageView = [[FLAnimatedImageView alloc] init];
+        _resultImageView = [[HTImageView alloc] init];
         _resultImageView.hidden = YES;
         [self addSubview:_resultImageView];
         

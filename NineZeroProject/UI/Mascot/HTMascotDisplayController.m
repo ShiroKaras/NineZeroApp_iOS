@@ -12,10 +12,13 @@
 #import "HTMascotPropView.h"
 #import "HTMascotPropMoreView.h"
 #import "HTDescriptionView.h"
+#import "HTMascotTipView.h"
+#import "HTMascotItem.h"
+#import "HTMascotIntroController.h"
 
 static CGFloat kDuration = 0.3;
 
-@interface HTMascotDisplayController () <HTMascotPropViewDelegate, HTMascotPropMoreViewDelegate>
+@interface HTMascotDisplayController () <HTMascotPropViewDelegate, HTMascotPropMoreViewDelegate, HTMascotViewDelegate>
 
 @property (nonatomic, strong) HTMascotView *onlyOneMascotImageView;
 @property (nonatomic, strong) HTMascotView *mascotView;
@@ -43,6 +46,7 @@ static CGFloat kDuration = 0.3;
     
     NSArray<NSNumber *>* showIndexs = @[@0, @1, @2, @3, @4, @5, @6, @7];
     self.mascotView = [[HTMascotView alloc] initWithShowMascotIndexs:showIndexs];
+    self.mascotView.delegate = self;
     [self.view addSubview:self.mascotView];
     
     props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init]];
@@ -97,6 +101,17 @@ static CGFloat kDuration = 0.3;
 //        make.centerX.equalTo(self.tipImageView);
 //        make.centerY.equalTo(self.tipImageView).offset(4);
 //    }];
+}
+
+#pragma mark - HTMascotView Delegate
+
+- (void)mascotView:(HTMascotView *)mascotView didClickMascotItem:(HTMascotItem *)mascotItem {
+
+}
+
+- (void)mascotView:(HTMascotView *)mascotView didClickMascotTipView:(HTMascotTipView *)mascotTipView {
+    HTMascotIntroController *introController = [[HTMascotIntroController alloc] init];
+    [self presentViewController:introController animated:YES completion:nil];
 }
 
 #pragma mark - HTMascotPropView Delegate

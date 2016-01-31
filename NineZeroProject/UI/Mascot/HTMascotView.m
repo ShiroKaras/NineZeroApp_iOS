@@ -70,6 +70,7 @@ const char *kTapItemAssociatedKey;
     // 零仔附属的tips构造
     for (int i = 0; i != MASCOT_ITEMS_COUNT; i++) {
         HTMascotTipView *tip = [[HTMascotTipView alloc] initWithIndex:i];
+        [tip addTarget:self action:@selector(onClickTipView:) forControlEvents:UIControlEventTouchUpInside];
         [tip setTipNumber:2];
         tip.index = i;
         tip.hidden = YES;
@@ -193,6 +194,10 @@ const char *kTapItemAssociatedKey;
         [self showTipWithIndex:item.index];
         [self playAniamtionWithNumber:2 item:item];
     }
+}
+
+- (void)onClickTipView:(HTMascotTipView *)tipView {
+    [self.delegate mascotView:self didClickMascotTipView:tipView];
 }
 
 #pragma mark - Tool Method

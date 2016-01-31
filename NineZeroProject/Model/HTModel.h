@@ -63,10 +63,12 @@
 
 @interface HTArticle : NSObject
 
-@property (nonatomic, assign) NSUInteger mascotID;        // 零仔ID
-@property (nonatomic, assign) NSUInteger articleID;       // 文章ID
+@property (nonatomic, assign) NSUInteger mascotID;         // 零仔ID
+@property (nonatomic, assign) NSUInteger articleID;        // 文章ID
 @property (nonatomic, strong) NSString *articleURL;        // 文章链接
+@property (nonatomic, strong) NSString *articleTitle;      // 文章标题 (缺)
 @property (nonatomic, strong) NSString *articleConverURL;  // 文章封面url (缺)
+@property (nonatomic, assign) NSInteger hasRead;           // 是否已读
 
 @end
 

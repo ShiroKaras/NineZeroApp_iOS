@@ -1,5 +1,5 @@
 //
-//  HTMascotHelper.h
+//  HTMascotArticleCell.h
 //  NineZeroProject
 //
 //  Created by ronhu on 16/1/31.
@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HTMascotHelper : NSObject
+@class HTArticle;
+@interface HTMascotArticleCell : UITableViewCell
 
-+ (UIColor *)colorWithMascotIndex:(NSInteger)index;
+@property (nonatomic, strong) HTArticle *article;
 
 @end
