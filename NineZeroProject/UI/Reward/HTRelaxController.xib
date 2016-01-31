@@ -51,7 +51,7 @@
                     <rect key="frame" x="141" y="246" width="28" height="24"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这里是副标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNz-k3-eQL">
-                    <rect key="frame" x="33" y="366" width="90" height="18"/>
+                    <rect key="frame" x="41" y="366" width="90" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -65,7 +65,10 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这里是主标题这里是主标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Llo-x6-o6K">
-                    <rect key="frame" x="33" y="396" width="228" height="23"/>
+                    <rect key="frame" x="41" y="396" width="228" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="q4P-ai-0sp"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -82,6 +85,7 @@
                 <constraint firstItem="8cC-WC-Zgw" firstAttribute="top" secondItem="ua3-8W-ueZ" secondAttribute="bottom" constant="72" id="KFu-PL-bhO"/>
                 <constraint firstItem="qAa-cg-l2R" firstAttribute="leading" secondItem="ua3-8W-ueZ" secondAttribute="trailing" id="MBs-A6-0mC"/>
                 <constraint firstItem="TQD-Kl-QQi" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="15" id="RSm-6u-ihI"/>
+                <constraint firstItem="Llo-x6-o6K" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Tad-sB-Yds"/>
                 <constraint firstItem="qAa-cg-l2R" firstAttribute="top" secondItem="ua3-8W-ueZ" secondAttribute="bottom" constant="-9" id="W1q-yj-4L3"/>
                 <constraint firstItem="8kF-SJ-Tbx" firstAttribute="leading" secondItem="TQD-Kl-QQi" secondAttribute="trailing" id="d0e-Tq-Q0y"/>
                 <constraint firstItem="8cC-WC-Zgw" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="f2J-BI-3KH"/>
@@ -93,6 +97,11 @@
                 <constraint firstItem="cNz-k3-eQL" firstAttribute="top" secondItem="8cC-WC-Zgw" secondAttribute="bottom" constant="96" id="x4A-cn-OKb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="08l-ud-Pr7"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="324.5" y="266"/>
         </view>
     </objects>
