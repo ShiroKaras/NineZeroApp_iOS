@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class HTMascot;
+
 @interface HTMascotHelper : NSObject
 
 + (UIColor *)colorWithMascotIndex:(NSInteger)index;
+
++ (NSMutableArray<HTMascot *> *)mascotsFake;
 
 @end

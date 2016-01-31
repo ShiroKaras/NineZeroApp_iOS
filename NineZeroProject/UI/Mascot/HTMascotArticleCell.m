@@ -21,6 +21,8 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
         _cover = [[UIImageView alloc] init];
         [self.contentView addSubview:_cover];
         
@@ -47,6 +49,7 @@
     _title.text = article.articleTitle;
     _number.textColor = [HTMascotHelper colorWithMascotIndex:article.mascotID];
     _number.text = [NSString stringWithFormat:@"/零仔NO.%ld", article.mascotID];
+    _tipIcon.hidden = article.hasRead;
     [_cover setImage:[UIImage imageNamed:@"test_imaga"]];
     [self setNeedsUpdateConstraints];
 }
@@ -54,7 +57,7 @@
 - (void)updateConstraints {
     [_cover mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@12);
-        make.top.equalTo(@15);
+        make.top.equalTo(@7.5);
         make.width.equalTo(@130);
         make.height.equalTo(@95);
     }];
@@ -67,6 +70,11 @@
     [_number mas_makeConstraints:^(MASConstraintMaker *make) {
        make.left.equalTo(_title.mas_left);
        make.top.equalTo(_title.mas_bottom).offset(14);
+    }];
+    
+    [_tipIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@0);
+        make.top.equalTo(@-2);
     }];
     
     [super updateConstraints];

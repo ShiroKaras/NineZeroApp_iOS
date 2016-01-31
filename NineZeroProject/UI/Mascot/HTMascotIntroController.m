@@ -11,7 +11,9 @@
 #import "HTMascotIntroCell.h"
 #import "HTMascotArticleCell.h"
 
-@interface HTMascotIntroController () <UITableViewDelegate, UITableViewDataSource>
+@interface HTMascotIntroController () <UITableViewDelegate, UITableViewDataSource> {
+    CGFloat mascotRowHeight;
+}
 
 @property (nonatomic, strong) HTMascot *mascot;
 @property (nonatomic, strong) UIButton *backButton;
@@ -33,6 +35,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor blackColor];
+    
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.backButton setImage:[UIImage imageNamed:@"btn_fullscreen_back"] forState:UIControlStateNormal];
     [self.backButton setImage:[UIImage imageNamed:@"btn_fullscreen_back_highlight"] forState:UIControlStateHighlighted];
@@ -47,13 +51,20 @@
     [self.view addSubview:self.tableView];
     [self.tableView registerClass:[HTMascotIntroCell class] forCellReuseIdentifier:NSStringFromClass([HTMascotIntroCell class])];
     [self.tableView registerClass:[HTMascotArticleCell class] forCellReuseIdentifier:NSStringFromClass([HTMascotArticleCell class])];
+    
+    self.statusBarCoverView = [[UIView alloc] init];
+    self.statusBarCoverView.backgroundColor = [HTMascotHelper colorWithMascotIndex:_mascot.mascotID];
+    self.statusBarCoverView.alpha = 0;
+    [self.view addSubview:self.statusBarCoverView];
 }
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     self.backButton.origin = CGPointMake(11, 34);
     self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.statusBarCoverView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20);
     [self.view bringSubviewToFront:self.backButton];
+    [self.view bringSubviewToFront:self.statusBarCoverView];
 }
 
 #pragma mark - Action
@@ -71,17 +82,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         HTMascotIntroCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTMascotIntroCell class]) forIndexPath:indexPath];
-        HTMascot *mascot = [[HTMascot alloc] init];
-        mascot.mascotID = 3;
-        [cell setMascot:mascot];
+        [cell setMascot:self.mascot];
         return cell;
     } else {
         HTMascotArticleCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTMascotArticleCell class]) forIndexPath:indexPath];
-        HTArticle *article = [[HTArticle alloc] init];
-        article.mascotID = 3;
-        article.articleTitle = @"这里是文章标题这是是文章";
-        article.articleURL = @"www.baidu.com";
-        [cell setArticle:article];
+        [cell setArticle:self.mascot.articles[indexPath.row - 1]];
         return cell;
     }
     return [[UITableViewCell alloc] init];
@@ -89,12 +94,19 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        HTMascot *mascot = [[HTMascot alloc] init];
-        mascot.mascotID = 3;
-        return [HTMascotIntroCell calculateCellHeightWithMascot:mascot];
+        if (mascotRowHeight == 0) mascotRowHeight = [HTMascotIntroCell calculateCellHeightWithMascot:self.mascot];
+        return mascotRowHeight;
     } else {
         return 110;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    _statusBarCoverView.alpha = MIN(scrollView.contentOffset.y / (mascotRowHeight - 20), 1);
 }
 
 @end

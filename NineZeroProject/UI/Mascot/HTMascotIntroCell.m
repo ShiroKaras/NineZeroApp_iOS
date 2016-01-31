@@ -9,8 +9,6 @@
 #import "HTMascotIntroCell.h"
 #import "HTUIHeader.h"
 
-static NSString *kTestText = @"这只零仔是懒惰的，特征主要体现在行为上，走哪睡哪，吃东西会睡着，洗澡会睡着，上学的路上会睡着，它可以映射着歌时代的学生们，在压力之下的疲乏于无所作为。";
-
 static CGFloat kLineSpace = 10.0;
 
 @interface HTMascotIntroCell ()
@@ -39,17 +37,8 @@ static CGFloat kLineSpace = 10.0;
         _mascotIntroLabel.font = [UIFont systemFontOfSize:12];
         _mascotIntroLabel.textColor = [UIColor whiteColor];
         _mascotIntroLabel.numberOfLines = 0;
-//        _mascotIntroLabel.text = kTestText;
         _mascotIntroLabel.lineBreakMode = NSLineBreakByCharWrapping;
         [self.contentView addSubview:_mascotIntroLabel];
-        
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.alignment = NSTextAlignmentLeft;
-        paragraphStyle.lineSpacing = kLineSpace;
-        NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
-                                     NSParagraphStyleAttributeName : paragraphStyle,};
-        NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:kTestText attributes:attributes];
-        _mascotIntroLabel.attributedText = attrString;
     }
     return self;
 }
@@ -65,6 +54,15 @@ static CGFloat kLineSpace = 10.0;
         [_gifImageView setAnimatedImageWithName:gifName];
     }
     [_mascotNumberImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_mascot_%ld_page_title", mascot.mascotID]]];
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = NSTextAlignmentLeft;
+    paragraphStyle.lineSpacing = kLineSpace;
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
+                                 NSParagraphStyleAttributeName : paragraphStyle,};
+    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:mascot.mascotDescription attributes:attributes];
+    _mascotIntroLabel.attributedText = attrString;
+    
     [self setNeedsUpdateConstraints];
 }
 
@@ -110,7 +108,7 @@ static CGFloat kLineSpace = 10.0;
     
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:12],
                                  NSParagraphStyleAttributeName : paragraphStyle,};
-    CGRect rect = [kTestText boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 114, CGFLOAT_MAX)
+    CGRect rect = [mascot.mascotDescription boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 114, CGFLOAT_MAX)
                                           options:NSStringDrawingUsesLineFragmentOrigin
                                        attributes:attributes
                                           context:nil];

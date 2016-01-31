@@ -11,15 +11,16 @@
 @class HTMascotView;
 @class HTMascotItem;
 @class HTMascotTipView;
+@class HTMascot;
 @protocol HTMascotViewDelegate <NSObject>
 - (void)mascotView:(HTMascotView *)mascotView didClickMascotItem:(HTMascotItem *)mascotItem;
 - (void)mascotView:(HTMascotView *)mascotView didClickMascotTipView:(HTMascotTipView *)mascotTipView;
 @end
 
 @interface HTMascotView : UIImageView
-- (instancetype)initWithShowMascotIndexs:(NSArray<NSNumber *> *)indexs;
+- (instancetype)initWithMascots:(NSArray<HTMascot *> *)mascots;
+@property (nonatomic, strong) NSArray<HTMascot *> *mascots;
 @property (nonatomic, weak) id<HTMascotViewDelegate> delegate;
-@property (nonatomic, strong) NSArray<NSNumber *> *currentDisplayIndexs;
 @end
 
 

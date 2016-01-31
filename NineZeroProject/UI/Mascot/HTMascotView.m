@@ -26,9 +26,9 @@ const char *kTapItemAssociatedKey;
 
 @implementation HTMascotView
 
-- (instancetype)initWithShowMascotIndexs:(NSArray<NSNumber *> *)indexs {
+- (instancetype)initWithMascots:(NSArray<HTMascot *> *)mascots {
     if (self = [super initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)]) {
-        _currentDisplayIndexs = indexs;
+        _mascots = mascots;
         _mascotItems = [NSMutableArray arrayWithCapacity:MASCOT_ITEMS_COUNT];
         _mascotTips = [NSMutableArray arrayWithCapacity:MASCOT_ITEMS_COUNT];
         // 零仔展示层级对应的index关系
@@ -55,7 +55,6 @@ const char *kTapItemAssociatedKey;
         UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mascotItemDidTapDouble:)];
         doubleTap.numberOfTapsRequired = 2;
         [item addGestureRecognizer:doubleTap];
-//        [singleTap requireGestureRecognizerToFail:doubleTap];
         
         objc_setAssociatedObject(singleTap, kTapItemAssociatedKey, item, OBJC_ASSOCIATION_RETAIN);
         objc_setAssociatedObject(doubleTap, kTapItemAssociatedKey, item, OBJC_ASSOCIATION_RETAIN);
@@ -80,9 +79,10 @@ const char *kTapItemAssociatedKey;
 }
 
 - (void)reloadDisplayMascots {
-    for (NSNumber *index in _currentDisplayIndexs) {
-        NSInteger displayIndex = [index integerValue];
+    for (HTMascot *iter in _mascots) {
+        NSInteger displayIndex = iter.mascotID - 1;
         _mascotItems[displayIndex].hidden = NO;
+        _mascotItems[displayIndex].mascot = iter;
     }
 }
 
@@ -191,7 +191,7 @@ const char *kTapItemAssociatedKey;
 - (void)mascotItemDidTap:(UITapGestureRecognizer *)gesture {
     HTMascotItem *item = objc_getAssociatedObject(gesture, kTapItemAssociatedKey);
     if (item) {
-        [self showTipWithIndex:item.index];
+        [self showTipWithMascot:item.mascot];
         [self playAniamtionWithNumber:2 item:item];
     }
 }
@@ -209,10 +209,11 @@ const char *kTapItemAssociatedKey;
     [item playAnimatedNumber:number];
 }
 
-- (void)showTipWithIndex:(NSInteger)index {
+- (void)showTipWithMascot:(HTMascot *)mascot {
     for (HTMascotTipView *tip in _mascotTips) {
-        if (tip.index == index) {
+        if (tip.index == mascot.mascotID - 1) {
             tip.hidden = NO;
+            [tip setTipNumber:mascot.articles.count];
         } else {
             tip.hidden = YES;
         }

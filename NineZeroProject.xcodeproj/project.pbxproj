@@ -5337,6 +5337,8 @@
 			children = (
 				17AA63761C4AC10A0047BADF /* HTMascotDisplayController.h */,
 				17AA63771C4AC10A0047BADF /* HTMascotDisplayController.m */,
+				17262CBA1C5DFE00000FDA1B /* HTMascotIntroController.h */,
+				17262CBB1C5DFE00000FDA1B /* HTMascotIntroController.m */,
 				17407A591C4EA28C00B60099 /* HTMascotView.h */,
 				17407A5A1C4EA28C00B60099 /* HTMascotView.m */,
 				17262CB51C5DF486000FDA1B /* HTMascotTipView.h */,
@@ -5347,8 +5349,6 @@
 				17A20A0B1C4FFE4600364EEF /* HTMascotPropView.m */,
 				17A20A0D1C51444C00364EEF /* HTMascotPropMoreView.h */,
 				17A20A0E1C51444C00364EEF /* HTMascotPropMoreView.m */,
-				17262CBA1C5DFE00000FDA1B /* HTMascotIntroController.h */,
-				17262CBB1C5DFE00000FDA1B /* HTMascotIntroController.m */,
 				17262CDB1C5E058B000FDA1B /* HTMascotIntroCell.h */,
 				17262CDC1C5E058B000FDA1B /* HTMascotIntroCell.m */,
 				179622BC1C5E1D6C00DCA470 /* HTMascotArticleCell.h */,
