@@ -103,6 +103,7 @@
 
 @interface HTMascotPropItem ()
 @property (nonatomic, strong) UIImageView *exChangedView;
+@property (nonatomic, strong) UIImageView *icon;
 @end
 
 @implementation HTMascotPropItem
@@ -110,7 +111,10 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = UIColorMake(32, 32, 32);
         self.layer.cornerRadius = 22.5;
-        self.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+//        self.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+        
+        _icon = [[UIImageView alloc] init];
+        [self addSubview:_icon];
         
         _exChangedView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prop_redeemed"]];
         _exChangedView.hidden = YES;
@@ -122,8 +126,14 @@
 }
 
 - (void)setProp:(HTMascotProp *)prop {
-    [self setImage:[UIImage imageNamed:@"img_mascot_prop_demo"] forState:UIControlStateNormal];
-    _exChangedView.hidden = NO;
+    [_icon setImage:[UIImage imageNamed:@"img_mascot_prop_demo"]];
+    if (prop.isExchanged) {
+        _icon.alpha = 0.39;
+        _exChangedView.hidden = NO;
+    } else {
+        _icon.alpha = 1.0;
+        _exChangedView.hidden = YES;
+    }
     [self setNeedsLayout];
 }
 
@@ -135,6 +145,10 @@
     [super layoutSubviews];
     _exChangedView.right = self.width + 5;
     _exChangedView.bottom = 15;
+    _icon.centerX = self.width / 2;
+    _icon.centerY = self.height / 2;
+    _icon.width = self.width - 10;
+    _icon.height = self.height - 10;
 }
 
 @end
