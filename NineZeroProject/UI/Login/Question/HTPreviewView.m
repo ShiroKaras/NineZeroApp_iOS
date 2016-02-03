@@ -74,21 +74,15 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         // 2.预览视图单元
         _previewItems = [NSMutableArray array];
         for (int i = 0; i != _questions.count; i++) {
+            HTQuestion *question = _questions[_questions.count - i - 1];
             HTPreviewItem *item = [[HTPreviewItem alloc] init];
             NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"HTPreviewItem" owner:self options:nil];
             item = [nibs objectAtIndex:0];
-            // TODO: 测试代码
             if (i != _questions.count - 1) {
-                if (i == _questions.count - 2) {
-                    [item setBreakSuccess:YES];
-                } else {
-                    [item setBreakSuccess:NO];
-                }
+                [item setBreakSuccess:question.isPassed];
             }
-            // end
-            
             item.tag = i;   // 通过tag值来控制view
-            [item setQuestion:_questions[_questions.count - i - 1]]; // 倒着取
+            [item setQuestion:question]; // 倒着取
             [_previewItems addObject:item];
             [_previewScrollView addSubview:item];
         }

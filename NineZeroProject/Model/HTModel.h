@@ -48,6 +48,7 @@
 @property (nonatomic, copy) NSString *questionDescription;    // 问题描述
 @property (nonatomic, copy) NSString *descriptionPic;         // 题目描述配图
 @property (nonatomic, copy) NSString *vedioURL;               // 视频链接
+@property (nonatomic, copy) NSString *vedioName;              // 视频名称
 @property (nonatomic, copy) NSString *detailURL;              // 详情链接
 @property (nonatomic, copy) NSString *hint;                   // 提示
 

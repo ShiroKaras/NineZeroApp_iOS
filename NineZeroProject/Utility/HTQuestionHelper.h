@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @class HTQuestion;
+@class HTQuestionInfo;
 
 @interface HTQuestionHelper : NSObject
 
 + (NSArray<HTQuestion *> *)questionFake;
++ (HTQuestionInfo *)questionInfoFake;
 
 @end

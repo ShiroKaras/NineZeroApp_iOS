@@ -27,6 +27,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) UIImageView *tipImageView;
 @property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UIImageView *mascotImageView;
+@property (nonatomic, strong) HTImageView *captureSuccessImageView;
 @end
 
 @implementation HTARCaptureController {
@@ -107,13 +108,22 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.tipImageView addSubview:self.tipLabel];
     
     // 5.零仔
+    NSMutableArray<UIImage *> *animatedImages = [NSMutableArray arrayWithCapacity:52];
+    for (int i = 0; i != 52; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"ar_mascot2_00%02d", i]];
+        [animatedImages addObject:image];
+    }
     self.mascotImageView = [[UIImageView alloc] init];
-    self.mascotImageView.image = [UIImage imageNamed:@"img_mascot_4_animation_1"];
+    self.mascotImageView.animationImages = animatedImages;
+    self.mascotImageView.animationDuration = 0.05 * 52;
+    self.mascotImageView.animationRepeatCount = 0;
+    [self.mascotImageView startAnimating];
     self.mascotImageView.hidden = YES;
     self.mascotImageView.userInteractionEnabled = YES;
     [self.view addSubview:self.mascotImageView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
     [self.mascotImageView addGestureRecognizer:tap];
+    
     [self buildConstrains];
 }
 
@@ -174,9 +184,23 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)onClickMascot {
-    [MBProgressHUD bwm_showTitle:@"捕获到零仔!" toView:[[[UIApplication sharedApplication] delegate] window] hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeSuccessful];
-    self.mascotImageView.hidden = YES;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    // 6.捕获成功
+    self.captureSuccessImageView = [[HTImageView alloc] init];
+    [self.captureSuccessImageView setAnimatedImageWithName:@"img_ar_right_answer_gif"];
+    self.captureSuccessImageView.hidden = YES;
+    [self.view addSubview:self.captureSuccessImageView];
+    [self.view bringSubviewToFront:self.captureSuccessImageView];
+    
+    [self.captureSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(@161);
+        make.width.equalTo(@165);
+        make.height.equalTo(@165);
+    }];
+    
+    self.captureSuccessImageView.hidden = NO;
+    [self.mascotImageView removeFromSuperview];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self onClickBack];
     });
 }
@@ -190,7 +214,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (NSArray*)getDummyData {
     if (_testMascotPoint.latitude == 0 && _testMascotPoint.longitude == 0) {
-        _testMascotPoint = CLLocationCoordinate2DMake(_currentLocation.coordinate.latitude + 0.005, _currentLocation.coordinate.longitude + 0.005);
+        _testMascotPoint = CLLocationCoordinate2DMake(_currentLocation.coordinate.latitude + 0.0000001, _currentLocation.coordinate.longitude + 0.0000001);
     }
     NSDictionary *point = [self createPointWithId:0 at:_testMascotPoint];
     return @[point];
@@ -218,15 +242,22 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.view bringSubviewToFront:self.backButton];
     [self.view bringSubviewToFront:self.radarImageView];
     [self.view bringSubviewToFront:self.tipImageView];
-    [self.view bringSubviewToFront:self.mascotImageView];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.view bringSubviewToFront:self.mascotImageView];
+        [self.view bringSubviewToFront:self.captureSuccessImageView];
+    });
 }
 
 - (void)prarUpdateFrame:(CGRect)arViewFrame {
     BOOL needShowMascot = YES;
     // x坐标匹配
-    if (fabs(arViewFrame.origin.x) >= SCREEN_WIDTH && fabs(arViewFrame.origin.x - arViewFrame.size.width) >= SCREEN_WIDTH) needShowMascot = NO;
+    if (fabs(arViewFrame.origin.x) >= SCREEN_WIDTH && fabs(arViewFrame.origin.x - arViewFrame.size.width) >= SCREEN_WIDTH) {
+        needShowMascot = NO;
+    }
     // y坐标匹配
-    if (fabs(arViewFrame.origin.y) >= SCREEN_HEIGHT / 2) needShowMascot = NO;
+    if (fabs(arViewFrame.origin.y) >= SCREEN_HEIGHT / 2) {
+        needShowMascot = NO;
+    }
     
     CGFloat distance = self.prARManager.arObject.distance.floatValue;
     if (distance >= 500) {

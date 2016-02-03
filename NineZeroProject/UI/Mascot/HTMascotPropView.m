@@ -126,6 +126,7 @@
 }
 
 - (void)setProp:(HTMascotProp *)prop {
+    _prop = prop;
     [_icon setImage:[UIImage imageNamed:@"img_mascot_prop_demo"]];
     if (prop.isExchanged) {
         _icon.alpha = 0.39;

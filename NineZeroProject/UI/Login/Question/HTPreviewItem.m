@@ -50,7 +50,10 @@
 }
 
 - (void)buildPlayer {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"];
+    if ([_question.vedioName isEqualToString:@""] == YES) {
+        _question.vedioName = @"sample";
+    }
+    NSString *path = [[NSBundle mainBundle] pathForResource:_question.vedioName ofType:@"mp4"];
 //    NSURL *vedioUrl = [NSURL URLWithString:[NSString qiniuDownloadURLWithFileName:_question.vedioURL]];
     NSURL *localUrl = [NSURL fileURLWithPath:path];
     AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];

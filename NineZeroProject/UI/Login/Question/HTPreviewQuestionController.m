@@ -15,6 +15,7 @@
 #import "HTShowAnswerView.h"
 #import "HTUIHeader.h"
 #import "CommonUI.h"
+#import "HTQuestionHelper.h"
 #import "HTARCaptureController.h"
 #import "AppDelegate.h"
 #import "HTRewardController.h"
@@ -65,17 +66,22 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     MBProgressHUD *HUD = [MBProgressHUD bwm_showHUDAddedTo:bgWindow title:@"加载数据中..."];
     [[[HTServiceManager sharedInstance] questionService] setLoginUser:[[[HTServiceManager sharedInstance] loginService] loginUser]];
     [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *questionInfo) {
+    
+        questionInfo = [HTQuestionHelper questionInfoFake];
+        
         if (questionInfo.questionCount <= 0) return;
         AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         [[appDelegate mainController] loadResource];
         [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:1 count:questionInfo.questionCount callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
-
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [HUD hide:YES];
                 [bgWindow resignKeyWindow];
                 [bgWindow removeFromSuperview];
                 [[appDelegate window] makeKeyWindow];
             });
+            
+            questionList = [HTQuestionHelper questionFake];
             
             if (success) {
                 _previewView = [[HTPreviewView alloc] initWithFrame:CGRectMake(kLeftMargin, 0, SCREEN_WIDTH - kLeftMargin, SCREEN_HEIGHT) andQuestions:questionList];
@@ -159,17 +165,22 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 - (void)previewItem:(HTPreviewItem *)previewItem didClickButtonWithType:(HTPreviewItemButtonType)type {
     switch (type) {
         case HTPreviewItemButtonTypeCompose: {
-            _composeView = [[HTComposeView alloc] init];
-            _composeView.delegate = self;
-            _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
-            _composeView.alpha = 0.0;
-            _composeView.associatedQuestion = previewItem.question;
-            [_composeView becomeFirstResponder];
-            [UIView animateWithDuration:0.3 animations:^{
-                _composeView.alpha = 1.0;
-                [self.view addSubview:_composeView];
-            } completion:^(BOOL finished) {
-            }];
+            if (previewItem.question.type == 1) {
+                _composeView = [[HTComposeView alloc] init];
+                _composeView.delegate = self;
+                _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+                _composeView.alpha = 0.0;
+                _composeView.associatedQuestion = previewItem.question;
+                [_composeView becomeFirstResponder];
+                [UIView animateWithDuration:0.3 animations:^{
+                    _composeView.alpha = 1.0;
+                    [self.view addSubview:_composeView];
+                } completion:^(BOOL finished) {
+                }];
+            } else {
+                HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] init];
+                [self presentViewController:arCaptureController animated:YES completion:nil];            
+            }
             break;
         }
         case HTPreviewItemButtonTypeContent: {
@@ -198,17 +209,19 @@ static CGFloat kLeftMargin = 13; // 暂定为0
             break;
         }
         case HTPreviewItemButtonTypeAnswer: {
-            HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] init];
-            [self presentViewController:arCaptureController animated:YES completion:nil];
-//            [MBProgressHUD showWarningWithTitle:[NSString stringWithFormat:@"%@", previewItem.question.answers]];
-//            _showAnswerView = [[HTShowAnswerView alloc] initWithURL:previewItem.question.detailURL];
-//            _showAnswerView.alpha = 0.0;
-//            _showAnswerView.frame = self.view.bounds;
-//            [UIView animateWithDuration:0.3 animations:^{
-//                _showAnswerView.alpha = 1.0f;
-//                [self.view addSubview:_showAnswerView];
-//            }];
-            break;
+            if (previewItem.question.type == 2) {
+                HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] init];
+                [self presentViewController:arCaptureController animated:YES completion:nil];
+            } else {
+                _showAnswerView = [[HTShowAnswerView alloc] initWithURL:previewItem.question.detailURL];
+                _showAnswerView.alpha = 0.0;
+                _showAnswerView.frame = self.view.bounds;
+                [UIView animateWithDuration:0.3 animations:^{
+                    _showAnswerView.alpha = 1.0f;
+                    [self.view addSubview:_showAnswerView];
+                }];
+                break;
+            }
         }
         case HTPreviewItemButtonTypePause: {
         }

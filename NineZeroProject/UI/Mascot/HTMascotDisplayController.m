@@ -64,6 +64,9 @@ static CGFloat kDuration = 0.3;
     }
     
     props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init]];
+    for (int i = 10; i != props.count; i++) {
+        props[i].isExchanged = YES;
+    }
     self.propView = [[HTMascotPropView alloc] initWithProps:props];
     self.propView.delegate = self;
     [self.view addSubview:self.propView];
