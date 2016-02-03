@@ -34,6 +34,9 @@ PODS:
   - MBProgressHUD+BWMExtension (1.0.0):
     - MBProgressHUD (~> 0.9.1)
   - MJExtension (2.5.9)
+  - OLImageView (1.5):
+    - OLImageView/Core (= 1.5)
+  - OLImageView/Core (1.5)
   - Qiniu (7.0.12):
     - AFNetworking (~> 2.0)
     - HappyDNS (~> 0.1)
@@ -43,6 +46,7 @@ PODS:
   - SMS-For-iOS (1.0.9)
   - TTTAttributedLabel (1.13.4)
   - UIImage+animatedGif (0.1.0)
+  - YLGIFImage (0.11)
   - YTKKeyValueStore (0.1.2):
     - FMDB (~> 2.0)
   - YTKNetwork (0.5.0):
@@ -55,11 +59,13 @@ DEPENDENCIES:
   - Masonry (~> 0.6.2)
   - MBProgressHUD+BWMExtension (~> 1.0.0)
   - MJExtension
+  - OLImageView
   - Qiniu (~> 7.0)
   - SDWebImage (~> 3.7.3)
   - SMS-For-iOS (~> 1.0.9)
   - TTTAttributedLabel
   - UIImage+animatedGif (~> 0.1.0)
+  - YLGIFImage
   - YTKKeyValueStore
   - YTKNetwork
 
@@ -73,11 +79,13 @@ SPEC CHECKSUMS:
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MBProgressHUD+BWMExtension: dd1dff033c1802edf7cb613c5643db5f090575bd
   MJExtension: 2330aeb6c83428c820749290bf766e81827cda65
+  OLImageView: 28901febc2363d341f7fdd91583be41a1e48d9b7
   Qiniu: 1fb5191b3bc1edb65b2da3d905b8281e15bd1d5c
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SMS-For-iOS: e94abec27695d4085a9865d7894dba39cd1e09f2
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   UIImage+animatedGif: 21cff7203edfb45ca0dd035505a4988cc0156356
+  YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
   YTKNetwork: 3f163c181ce5f03d52cf88f39d6757f46894280c
 

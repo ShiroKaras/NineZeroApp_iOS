@@ -8,6 +8,11 @@
 
 #import "HTRewardController.h"
 #import "HTUIHeader.h"
+#import <SDWebImage/UIImage+GIF.h>
+#import <YLGIFImage/YLImageView.h>
+#import <YLGIFImage/YLGIFImage.h>
+#import "YYImage.h"
+#import "YYAnimatedImageView.h"
 
 @interface HTRewardCard : UIView
 @property (nonatomic, strong) UIImageView *bgImageView;
@@ -77,7 +82,7 @@
 @property (nonatomic, strong) UIImageView *getImageView;
 
 @property (nonatomic, strong) HTRewardCard *card;          // 奖品卡片
-@property (nonatomic, strong) HTImageView *gifImageView;   //gif
+@property (nonatomic, strong) YYAnimatedImageView *gifImageView;   //gif
 @property (nonatomic, strong) UIWebView *webView;
 
 @end
@@ -128,9 +133,14 @@
     [_scrollView addSubview:_andImageView2];
     
     // gif
-    _gifImageView = [[HTImageView alloc] init];
-    [_gifImageView setAnimatedImageWithName:@"reward_mascot3_intro_gif"];
-    _gifImageView.backgroundColor = [UIColor blackColor];
+    _gifImageView = [[YYAnimatedImageView alloc] init];
+//    [_gifImageView setAnimatedImageWithName:@"reward_mascot3_intro_gif"];
+//    _gifImageView.backgroundColor = [UIColor clearColor];
+//    [_gifImageView setImage:[UIImage sd_animatedGIFNamed:@"reward_mascot3_intro_gif"]];
+    YYImage *image = [YYImage imageNamed:@"reward_mascot3_intro_gif.gif"];
+    image.preloadAllAnimatedImageFrames = YES;
+    _gifImageView.image = image;
+    
     [_scrollView addSubview:_gifImageView];
     
     // 奖品

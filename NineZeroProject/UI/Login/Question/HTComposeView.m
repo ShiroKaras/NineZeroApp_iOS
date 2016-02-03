@@ -167,11 +167,31 @@
 
 - (void)showAnswerCorrect:(BOOL)correct {
     _resultImageView.hidden = NO;
-    NSString *gifName = (correct) ? @"right_answer_gif" : @"wrong_answer_gif";
-    NSString *path = [[NSBundle mainBundle] pathForResource:gifName ofType:@"gif"];
-    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]]];
-    image.loopCount = 1;
-    _resultImageView.animatedImage = image;
+    if (correct == NO) {
+//        _resultImageView.animationImages = nil;
+//        NSString *gifName = (correct) ? @"right_answer_gif" : @"wrong_answer_gif";
+//        NSString *path = [[NSBundle mainBundle] pathForResource:gifName ofType:@"gif"];
+//        FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]]];
+//        image.loopCount = 1;
+//        _resultImageView.animatedImage = image;
+        NSMutableArray<UIImage *> *animatedImages = [NSMutableArray arrayWithCapacity:19];
+        for (int i = 0; i != 19; i++) {
+            [animatedImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"raw_wrong_answer_gif_%04d", i]]];
+        }
+        _resultImageView.animationDuration = 2;
+        _resultImageView.animationRepeatCount = 1;
+        _resultImageView.animationImages = animatedImages;
+        [_resultImageView startAnimating];
+    } else {
+        NSMutableArray<UIImage *> *animatedImages = [NSMutableArray arrayWithCapacity:21];
+        for (int i = 0; i != 21; i++) {
+            [animatedImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"right_answer_gif_%04d", i]]];
+        }
+        _resultImageView.animationDuration = 2;
+        _resultImageView.animationRepeatCount = 1;
+        _resultImageView.animationImages = animatedImages;
+        [_resultImageView startAnimating];
+    }
     [self buildResultImageViewWithCorrect:correct];
 }
 
