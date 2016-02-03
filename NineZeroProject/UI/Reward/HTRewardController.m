@@ -78,6 +78,7 @@
 
 @property (nonatomic, strong) HTRewardCard *card;          // 奖品卡片
 @property (nonatomic, strong) HTImageView *gifImageView;   //gif
+@property (nonatomic, strong) UIWebView *webView;
 
 @end
 
@@ -85,6 +86,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     
 //    self.view.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.85];
     _scrollView = [[UIScrollView alloc] init];
@@ -128,6 +130,7 @@
     // gif
     _gifImageView = [[HTImageView alloc] init];
     [_gifImageView setAnimatedImageWithName:@"reward_mascot3_intro_gif"];
+    _gifImageView.backgroundColor = [UIColor blackColor];
     [_scrollView addSubview:_gifImageView];
     
     // 奖品
@@ -174,7 +177,7 @@
     _gifImageView.width = self.view.width;
     _gifImageView.height = 150;
     _gifImageView.top = _andImageView.bottom + 27;
-
+    
     _card.centerX = SCREEN_WIDTH / 2;
     _card.top = _andImageView2.bottom + 29;
 
