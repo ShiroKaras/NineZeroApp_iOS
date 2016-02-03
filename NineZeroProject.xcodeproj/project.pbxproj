@@ -1516,6 +1516,7 @@
 		17262CDD1C5E058B000FDA1B /* HTMascotIntroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17262CDC1C5E058B000FDA1B /* HTMascotIntroCell.m */; };
 		173A21171C568A34006A423D /* HTRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 173A21161C568A34006A423D /* HTRewardController.m */; };
 		17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17407A5A1C4EA28C00B60099 /* HTMascotView.m */; };
+		17439D381C61D6EE00555B90 /* article.html in Resources */ = {isa = PBXBuildFile; fileRef = 17439D371C61D6EE00555B90 /* article.html */; };
 		17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17490C6E1C4B640500F84092 /* QKGeofenceManager.m */; };
 		174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 174C53321BE7A47900893C22 /* libsqlite3.tbd */; };
 		174C53521BE7A60E00893C22 /* CommonUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 174C53511BE7A60E00893C22 /* CommonUI.m */; };
@@ -3158,6 +3159,7 @@
 		173A21161C568A34006A423D /* HTRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRewardController.m; sourceTree = "<group>"; };
 		17407A591C4EA28C00B60099 /* HTMascotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotView.h; sourceTree = "<group>"; };
 		17407A5A1C4EA28C00B60099 /* HTMascotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotView.m; sourceTree = "<group>"; };
+		17439D371C61D6EE00555B90 /* article.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = article.html; sourceTree = "<group>"; };
 		17490C6D1C4B640500F84092 /* QKGeofenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QKGeofenceManager.h; sourceTree = "<group>"; };
 		17490C6E1C4B640500F84092 /* QKGeofenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QKGeofenceManager.m; sourceTree = "<group>"; };
 		174C53321BE7A47900893C22 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -5198,6 +5200,7 @@
 		1777D3671BE798F400AC0203 /* NineZeroProject */ = {
 			isa = PBXGroup;
 			children = (
+				17439D371C61D6EE00555B90 /* article.html */,
 				172620EC1C5DE9B1000FDA1B /* condensed_animation234 */,
 				1777D36B1BE798F400AC0203 /* AppDelegate.h */,
 				1777D36C1BE798F400AC0203 /* AppDelegate.m */,
@@ -6994,6 +6997,7 @@
 				172629781C5DE9B3000FDA1B /* img_mascot_3_animation_4_00049.png in Resources */,
 				17262B4D1C5DE9B3000FDA1B /* img_mascot_6_animation_4_00018.png in Resources */,
 				17262A751C5DE9B3000FDA1B /* img_mascot_5_animation_4_00031.png in Resources */,
+				17439D381C61D6EE00555B90 /* article.html in Resources */,
 				17262BFE1C5DE9B3000FDA1B /* img_mascot_7_animation_3_00000.png in Resources */,
 				172629D41C5DE9B3000FDA1B /* img_mascot_4_animation_4_00032.png in Resources */,
 				17262B9A1C5DE9B3000FDA1B /* img_mascot_7_animation_2_00006.png in Resources */,

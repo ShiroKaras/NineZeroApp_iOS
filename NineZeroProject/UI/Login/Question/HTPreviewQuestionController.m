@@ -179,7 +179,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
                 }];
             } else {
                 HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] init];
-                [self presentViewController:arCaptureController animated:YES completion:nil];            
+                [self presentViewController:arCaptureController animated:YES completion:nil];
             }
             break;
         }
@@ -211,6 +211,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
         case HTPreviewItemButtonTypeAnswer: {
             if (previewItem.question.type == 2) {
                 HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] init];
+                arCaptureController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
                 [self presentViewController:arCaptureController animated:YES completion:nil];
             } else {
                 _showAnswerView = [[HTShowAnswerView alloc] initWithURL:previewItem.question.detailURL];

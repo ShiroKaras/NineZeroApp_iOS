@@ -1,0 +1,21 @@
+{
+  "name": "mascot",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "lext <937505373@qq.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "amazeui": "~2.5.2"
+  }
+}

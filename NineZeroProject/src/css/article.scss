@@ -1,0 +1,52 @@
+.the {
+  &-icon-btn {
+    border: 2px solid #fff;
+    border-radius: 50%;
+    display: block;
+    $icon-btn-size: 32px;
+    height: $icon-btn-size;
+    //line-height: $icon-btn-size;
+    width: $icon-btn-size;
+    text-align: center;
+  }
+}
+
+.c-red {
+  color: #ff4444;
+}
+
+header {
+  position: relative;
+  .thumbnail {
+    position: absolute;
+    $header-thumbnail-size: 98px;
+    bottom: - $header-thumbnail-size / 2;
+    width: $header-thumbnail-size;
+    height: $header-thumbnail-size;
+    right: 16px;
+  }
+}
+
+section {
+  background-color: #000;
+  padding: 48px 24px;
+  color: #fff;
+  font-size: 14px;
+  > h3 {
+    margin-top: 0;
+  }
+  img {
+    margin: 8px -24px;
+    width: calc(100% + 48px);
+    height: auto;
+  }
+}
+
+footer{
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #fff;
+}

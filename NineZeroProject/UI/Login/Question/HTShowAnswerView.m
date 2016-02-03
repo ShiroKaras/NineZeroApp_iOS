@@ -33,7 +33,11 @@
         _webView.scrollView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
         _webView.scrollView.contentInset = UIEdgeInsetsMake(61, 0, 0, 0);
 //        [_webView loadHTMLString:urlString baseURL:nil];
-        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]]];
+        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"article" ofType:@"html"];
+        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+        NSString *path = [[NSBundle mainBundle] bundlePath];
+        NSURL *baseURL = [NSURL fileURLWithPath:path];
+        [_webView loadHTMLString:htmlString baseURL:baseURL];
         [self addSubview:_webView];
         
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];

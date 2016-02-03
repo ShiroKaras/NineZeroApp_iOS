@@ -127,7 +127,7 @@
     
     // gif
     _gifImageView = [[HTImageView alloc] init];
-    [_gifImageView setAnimatedImageWithName:@"mascot_page2_animation"];
+    [_gifImageView setAnimatedImageWithName:@"reward_mascot3_intro_gif"];
     [_scrollView addSubview:_gifImageView];
     
     // 奖品

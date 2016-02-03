@@ -1,0 +1,39 @@
+.the-icon-btn {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  display: block;
+  height: 32px;
+  width: 32px;
+  text-align: center; }
+
+.c-red {
+  color: #ff4444; }
+
+header {
+  position: relative; }
+  header .thumbnail {
+    position: absolute;
+    bottom: -49px;
+    width: 98px;
+    height: 98px;
+    right: 16px; }
+
+section {
+  background-color: #000;
+  padding: 48px 24px;
+  color: #fff;
+  font-size: 14px; }
+  section > h3 {
+    margin-top: 0; }
+  section img {
+    margin: 8px -24px;
+    width: calc(100% + 48px);
+    height: auto; }
+
+footer {
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #fff; }
