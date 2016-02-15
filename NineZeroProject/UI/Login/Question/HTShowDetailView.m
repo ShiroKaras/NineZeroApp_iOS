@@ -67,7 +67,7 @@
     _bubbleLabel.width = size.width;
     _bubbleLabel.height = size.height + 3;
     _bubbleLabel.left = 22;
-    _bubbleLabel.top = 15;
+    _bubbleLabel.top = 14;
 }
 
 @end
