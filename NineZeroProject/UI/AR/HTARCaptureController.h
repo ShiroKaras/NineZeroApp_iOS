@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "PRARManager.h"
 
+@class HTARCaptureController;
+@protocol HTARCaptureControllerDelegate <NSObject>
+- (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller;
+@end
+
 @interface HTARCaptureController : UIViewController
+
+@property (nonatomic, weak) id<HTARCaptureControllerDelegate> delegate;
 
 @end

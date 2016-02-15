@@ -28,6 +28,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UIImageView *mascotImageView;
 @property (nonatomic, strong) HTImageView *captureSuccessImageView;
+@property (nonatomic, strong) UIView *successBackgroundView;
 @end
 
 @implementation HTARCaptureController {
@@ -115,7 +116,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     }
     self.mascotImageView = [[UIImageView alloc] init];
     self.mascotImageView.animationImages = animatedImages;
-    self.mascotImageView.animationDuration = 0.05 * 52;
+    self.mascotImageView.animationDuration = 0.04 * 52;
     self.mascotImageView.animationRepeatCount = 0;
     [self.mascotImageView startAnimating];
     self.mascotImageView.hidden = YES;
@@ -180,20 +181,33 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 #pragma mark - Action
 
 - (void)onClickBack {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.delegate didClickBackButtonInARCaptureController:self];
 }
 
 - (void)onClickMascot {
     // 6.捕获成功
+    
+    self.successBackgroundView = [[UIView alloc] init];
+    self.successBackgroundView.backgroundColor = [UIColor colorWithHex:0x1f1f1f alpha:0.8];
+    self.successBackgroundView.layer.cornerRadius = 5.0f;
+    [self.view addSubview:self.successBackgroundView];
+    [self.view bringSubviewToFront:self.successBackgroundView];
+    
     self.captureSuccessImageView = [[HTImageView alloc] init];
     [self.captureSuccessImageView setAnimatedImageWithName:@"img_ar_right_answer_gif"];
     self.captureSuccessImageView.hidden = YES;
-    [self.view addSubview:self.captureSuccessImageView];
-    [self.view bringSubviewToFront:self.captureSuccessImageView];
+    [self.successBackgroundView addSubview:self.captureSuccessImageView];
     
-    [self.captureSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(@161);
+        make.width.equalTo(@173);
+        make.height.equalTo(@173);
+    }];
+    
+    [self.captureSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@4);
+        make.top.equalTo(@4);
         make.width.equalTo(@165);
         make.height.equalTo(@165);
     }];

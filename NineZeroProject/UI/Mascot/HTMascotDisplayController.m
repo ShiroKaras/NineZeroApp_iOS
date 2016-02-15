@@ -20,7 +20,7 @@ static CGFloat kDuration = 0.3;
 
 @interface HTMascotDisplayController () <HTMascotPropViewDelegate, HTMascotPropMoreViewDelegate, HTMascotViewDelegate>
 
-@property (nonatomic, strong) HTMascotView *onlyOneMascotImageView;
+@property (nonatomic, strong) HTMascotItem *onlyOneMascotImageView;
 @property (nonatomic, strong) HTMascotView *mascotView;
 @property (nonatomic, strong) UIImageView *tipImageView;
 @property (nonatomic, strong) UILabel *tipLabel;
@@ -40,13 +40,19 @@ static CGFloat kDuration = 0.3;
     self.view.backgroundColor = COMMON_BG_COLOR;
     
     self.mascots = [HTMascotHelper mascotsFake];
+//    self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
     
     if (self.mascots.count == 1) {
-        self.onlyOneMascotImageView = [[HTMascotView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_animation_1"]];
+        self.onlyOneMascotImageView = [[HTMascotItem alloc] init];
+        self.onlyOneMascotImageView.index = 0;
+        self.onlyOneMascotImageView.mascot = self.mascots[0];
+        [self.onlyOneMascotImageView playAnimatedNumber:2];
         [self.view addSubview:self.onlyOneMascotImageView];
+        
         self.mascotTipView = [[HTMascotTipView alloc] init];
         self.mascotTipView.tipNumber = 2;
         [self.view addSubview:self.mascotTipView];
+        [self.mascotTipView sizeToFit];
         
         self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_default_msg_bg"]];
         [self.view addSubview:self.tipImageView];

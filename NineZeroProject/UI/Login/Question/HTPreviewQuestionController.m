@@ -22,7 +22,7 @@
 
 static CGFloat kLeftMargin = 13; // 暂定为0
 
-@interface HTPreviewQuestionController () <HTPreviewViewDelegate, HTComposeViewDelegate, HTPreviewItemDelegate>
+@interface HTPreviewQuestionController () <HTPreviewViewDelegate, HTComposeViewDelegate, HTPreviewItemDelegate, HTARCaptureControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;                    // 左下角“九零”
 @property (weak, nonatomic) IBOutlet UIButton *meButton;                      // 右下角“我”
@@ -139,6 +139,18 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     }
 }
 
+#pragma mark - HTARCaptureController Delegate
+
+- (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller {
+    [controller dismissViewControllerAnimated:NO completion:nil];
+    HTRewardController *reward = [[HTRewardController alloc] init];
+    reward.view.backgroundColor = [UIColor clearColor];
+    if (IOS_VERSION >= 8.0) {
+        reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    }
+    [self presentViewController:reward animated:YES completion:nil];
+}
+
 #pragma mark - HTPreviewView Delegate
 
 - (void)previewView:(HTPreviewView *)previewView shouldShowGoBackItem:(BOOL)needShow {
@@ -179,6 +191,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
                 }];
             } else {
                 HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] init];
+                arCaptureController.delegate = self;
                 [self presentViewController:arCaptureController animated:YES completion:nil];
             }
             break;
@@ -211,6 +224,7 @@ static CGFloat kLeftMargin = 13; // 暂定为0
         case HTPreviewItemButtonTypeAnswer: {
             if (previewItem.question.type == 2) {
                 HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] init];
+                arCaptureController.delegate = self;
                 arCaptureController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
                 [self presentViewController:arCaptureController animated:YES completion:nil];
             } else {
