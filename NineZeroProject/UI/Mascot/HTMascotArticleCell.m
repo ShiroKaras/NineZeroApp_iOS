@@ -29,7 +29,7 @@
         _title = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         _title.font = [UIFont systemFontOfSize:15];
         _title.numberOfLines = 2;
-        _title.lineSpacing = 7;
+        _title.lineSpacing = 3;
         _title.lineBreakMode = NSLineBreakByTruncatingTail;
         [self.contentView addSubview:_title];
         
@@ -63,13 +63,13 @@
     }];
     
     [_title mas_makeConstraints:^(MASConstraintMaker *make) {
-       make.top.equalTo(@34);
-       make.left.equalTo(_cover.mas_right).offset(15);
+        make.top.equalTo(_cover.mas_top).offset(19);
+        make.left.equalTo(_cover.mas_right).offset(15);
     }];
     
     [_number mas_makeConstraints:^(MASConstraintMaker *make) {
-       make.left.equalTo(_title.mas_left);
-       make.top.equalTo(_title.mas_bottom).offset(14);
+        make.left.equalTo(_title.mas_left);
+        make.top.equalTo(_title.mas_bottom).offset(12);
     }];
     
     [_tipIcon mas_makeConstraints:^(MASConstraintMaker *make) {
