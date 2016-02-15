@@ -20,7 +20,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *deco1;
 @end
 
-@implementation HTRelaxController
+@implementation HTRelaxController {
+    time_t _endTime;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,7 +38,26 @@
         _visualEfView.contentView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
         [_backgroundImageView addSubview:_visualEfView];
     }
+    
+    _endTime = time(NULL) + 40000;
+    [self scheduleCountDownTimer];
 }
+
+- (void)scheduleCountDownTimer {
+    [self performSelector:@selector(scheduleCountDownTimer) withObject:nil afterDelay:1.0];
+    time_t delta = _endTime - time(NULL);
+    if (delta < 0) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
+        return;
+    }
+    time_t oneHour = 3600;
+    time_t hour = delta / oneHour;
+    time_t minute = (delta % oneHour) / 60;
+    time_t second = delta - hour * oneHour - minute * 60;
+    self.secondsLabel.text = [NSString stringWithFormat:@"%02ld", second];
+    self.hourLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", hour, minute];
+}
+
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];

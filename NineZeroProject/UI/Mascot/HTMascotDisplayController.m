@@ -161,37 +161,47 @@ static CGFloat kDuration = 0.3;
             [propMoreView removeFromSuperview];
         }];
     } else {
+//        _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount - 1];
+//        [self.view addSubview:_moreView];
+//        _moreView.bottom = 0;
+//        _moreView.delegate = self;
+//        [UIView animateWithDuration:kDuration animations:^{
+//            _moreView.top = 0;
+//            propMoreView.top = SCREEN_HEIGHT;
+//        } completion:^(BOOL finished) {
+//            [propMoreView removeFromSuperview];
+//        }];
+        [propMoreView removeFromSuperview];
         _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount - 1];
         [self.view addSubview:_moreView];
-        _moreView.bottom = 0;
+        _moreView.top = 0;
         _moreView.delegate = self;
-        [UIView animateWithDuration:kDuration animations:^{
-            _moreView.top = 0;
-            propMoreView.top = SCREEN_HEIGHT;
-        } completion:^(BOOL finished) {
-            [propMoreView removeFromSuperview];
-        }];
     }
 }
 
 - (void)didClickBottomArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView {
+//    _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount + 1];
+//    [self.view addSubview:_moreView];
+//    _moreView.top = SCREEN_HEIGHT;
+//    _moreView.delegate = self;
+//    [UIView animateWithDuration:kDuration animations:^{
+//        _moreView.top = 0;
+//        propMoreView.bottom = 0;
+//    } completion:^(BOOL finished) {
+//        [propMoreView removeFromSuperview];
+//    }];
+    [propMoreView removeFromSuperview];
     _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount + 1];
     [self.view addSubview:_moreView];
-    _moreView.top = SCREEN_HEIGHT;
+    _moreView.top = 0;
     _moreView.delegate = self;
-    [UIView animateWithDuration:kDuration animations:^{
-        _moreView.top = 0;
-        propMoreView.bottom = 0;
-    } completion:^(BOOL finished) {
-        [propMoreView removeFromSuperview];
-    }];
 }
 
 - (void)propMoreView:(HTMascotPropMoreView *)propMoreView didClickPropItem:(HTMascotPropItem *)item {
     HTDescriptionView *descView = [[HTDescriptionView alloc] initWithURLString:item.prop.propDescription andType:HTDescriptionTypeProp];
     [descView setProp:item.prop];
     [self.view addSubview:descView];
-    [descView showAnimated];    
+    [descView showAnimated];
 }
 
 @end
