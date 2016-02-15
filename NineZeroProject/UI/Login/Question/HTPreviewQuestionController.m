@@ -167,6 +167,11 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 - (void)previewView:(HTPreviewView *)previewView didScrollToItem:(HTPreviewItem *)item {
     if (item.breakSuccess) {
         _bgImageView.hidden = NO;
+        _bgImageView.alpha = 0.0;
+        [UIView animateWithDuration:0.5 animations:^{
+            _bgImageView.alpha = 1.0;
+        }];
+
     } else {
         _bgImageView.hidden = YES;
     }
