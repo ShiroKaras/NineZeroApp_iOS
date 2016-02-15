@@ -103,7 +103,7 @@ const char *kTapItemAssociatedKey;
        make.height.equalTo(@99);
     }];
     [_mascotItems[1] mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(ROUND_WIDTH(152.0));
+        make.left.equalTo(ROUND_WIDTH(137.0));
         make.bottom.equalTo(ROUND_HEIGHT(-184));
         make.width.equalTo(@140);
         make.height.equalTo(@140);

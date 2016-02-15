@@ -88,7 +88,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     }
     self.radarImageView = [[UIImageView alloc] init];
     self.radarImageView.animationImages = radars;
-    self.radarImageView.animationDuration = 1.0f;
+    self.radarImageView.animationDuration = 2.0f;
     self.radarImageView.animationRepeatCount = 0;
     [self.radarImageView startAnimating];
     self.radarImageView.userInteractionEnabled = YES;

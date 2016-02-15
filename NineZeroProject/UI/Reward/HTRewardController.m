@@ -174,7 +174,7 @@
     _goldenLabel.left = _prefixGetImageView.right + 3;
     _goldenLabel.bottom = _prefixGetImageView.bottom + 3;
     _suffixGetImageView.left = _goldenLabel.right + 5;
-    _suffixGetImageView.bottom = _prefixGetImageView.bottom;
+    _suffixGetImageView.bottom = _goldenLabel.bottom - 5;
     
     _andImageView.top = _suffixGetImageView.bottom + ROUND_HEIGHT_FLOAT(29);
     _andImageView.centerX = SCREEN_WIDTH / 2;

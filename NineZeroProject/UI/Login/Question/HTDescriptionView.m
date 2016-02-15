@@ -55,8 +55,6 @@
         [_cancelButton setImage:[UIImage imageNamed:@"btn_navi_cancel"] forState:UIControlStateNormal];
         [_cancelButton setImage:[UIImage imageNamed:@"btn_navi_cancel_highlight"] forState:UIControlStateHighlighted];
         [_cancelButton sizeToFit];
-        _cancelButton.width = 40;
-        _cancelButton.height = 40;
         [_cancelButton setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
         [self addSubview:_cancelButton];
         

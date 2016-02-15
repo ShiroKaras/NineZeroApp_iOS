@@ -34,9 +34,6 @@ PODS:
   - MBProgressHUD+BWMExtension (1.0.0):
     - MBProgressHUD (~> 0.9.1)
   - MJExtension (2.5.9)
-  - OLImageView (1.5):
-    - OLImageView/Core (= 1.5)
-  - OLImageView/Core (1.5)
   - Qiniu (7.0.12):
     - AFNetworking (~> 2.0)
     - HappyDNS (~> 0.1)
@@ -59,7 +56,6 @@ DEPENDENCIES:
   - Masonry (~> 0.6.2)
   - MBProgressHUD+BWMExtension (~> 1.0.0)
   - MJExtension
-  - OLImageView
   - Qiniu (~> 7.0)
   - SDWebImage (~> 3.7.3)
   - SMS-For-iOS (~> 1.0.9)
@@ -79,7 +75,6 @@ SPEC CHECKSUMS:
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MBProgressHUD+BWMExtension: dd1dff033c1802edf7cb613c5643db5f090575bd
   MJExtension: 2330aeb6c83428c820749290bf766e81827cda65
-  OLImageView: 28901febc2363d341f7fdd91583be41a1e48d9b7
   Qiniu: 1fb5191b3bc1edb65b2da3d905b8281e15bd1d5c
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SMS-For-iOS: e94abec27695d4085a9865d7894dba39cd1e09f2

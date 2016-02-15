@@ -57,6 +57,7 @@
         _textField.font = [UIFont systemFontOfSize:17];
         _textField.placeholder = @"请输入你的答案";
         _textField.textColor = [UIColor colorWithHex:0x24ddb2];
+        [_textField setValue:[UIColor colorWithHex:0x4f4f4f] forKeyPath:@"_placeholderLabel.textColor"];
         [_textFieldBackView addSubview:_textField];
         
         // 4. 结果
@@ -130,11 +131,13 @@
         if (correct == YES) {
             make.width.equalTo(@165);
             make.height.equalTo(@165);
+            make.top.equalTo(self.mas_top).offset(ROUND_HEIGHT_FLOAT(71));
         } else {
             make.width.equalTo(@243);
             make.height.equalTo(@67);
+            make.top.equalTo(self.mas_top).offset(ROUND_HEIGHT_FLOAT(121));
         }
-        make.center.equalTo(self).centerOffset(CGPointMake(0, -20));
+        make.centerX.equalTo(self.mas_centerX);
     }];
 }
 
@@ -145,18 +148,16 @@
 #pragma mark - Public Method
 
 - (void)showAnswerTips:(NSString *)tips {
+    tips = [NSString stringWithFormat:@"提示:%@", tips];
     _tipsLabel.text = tips;
     _tipsBackView.top = -_tipsBackView.height;
-    _tipsBackView.alpha = 0.0;
     [UIView animateWithDuration:0.3 animations:^{
         _tipsBackView.hidden = NO;
         _tipsBackView.top = 20;
-        _tipsBackView.alpha = 1;
     } completion:^(BOOL finished) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:0.3 animations:^{
                 _tipsBackView.top = -_tipsBackView.height;
-                _tipsBackView.alpha = 0;
             } completion:^(BOOL finished) {
                 _tipsBackView.hidden = YES;
             }];
@@ -178,7 +179,7 @@
         for (int i = 0; i != 19; i++) {
             [animatedImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"raw_wrong_answer_gif_%04d", i]]];
         }
-        _resultImageView.animationDuration = 2;
+        _resultImageView.animationDuration = 0.95f;
         _resultImageView.animationRepeatCount = 1;
         _resultImageView.animationImages = animatedImages;
         [_resultImageView startAnimating];
@@ -187,7 +188,7 @@
         for (int i = 0; i != 21; i++) {
             [animatedImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"right_answer_gif_%04d", i]]];
         }
-        _resultImageView.animationDuration = 2;
+        _resultImageView.animationDuration = 1.05f;
         _resultImageView.animationRepeatCount = 1;
         _resultImageView.animationImages = animatedImages;
         [_resultImageView startAnimating];
