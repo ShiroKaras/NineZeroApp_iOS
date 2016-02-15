@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface HTMascotDisplayController : UIViewController
-
+// 重置状态
+- (void)reloadDisplayMascots;
 @end

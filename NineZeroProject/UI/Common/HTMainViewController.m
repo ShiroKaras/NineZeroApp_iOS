@@ -86,6 +86,7 @@ CGFloat alphaLight = 1.0;
     _mainButton.tag = 0;
     if ([_currentViewController isKindOfClass:[HTMascotDisplayController class]]) return;
     [self changedToViewController:_mascotController];
+    [_mascotController reloadDisplayMascots];
 }
 
 - (IBAction)didClickMeButton:(id)sender {

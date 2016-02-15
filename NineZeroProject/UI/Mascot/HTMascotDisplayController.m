@@ -111,6 +111,10 @@ static CGFloat kDuration = 0.3;
     }];
 }
 
+- (void)reloadDisplayMascots {
+    [_mascotView reloadDisplayMascots];
+}
+
 #pragma mark - HTMascotView Delegate
 
 - (void)mascotView:(HTMascotView *)mascotView didClickMascotItem:(HTMascotItem *)mascotItem {

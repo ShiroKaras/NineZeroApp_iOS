@@ -21,6 +21,10 @@
 - (instancetype)initWithMascots:(NSArray<HTMascot *> *)mascots;
 @property (nonatomic, strong) NSArray<HTMascot *> *mascots;
 @property (nonatomic, weak) id<HTMascotViewDelegate> delegate;
+/**
+ *  @brief 重置零仔页面动画状态
+ */
+- (void)reloadDisplayMascots;
 @end
 
 
