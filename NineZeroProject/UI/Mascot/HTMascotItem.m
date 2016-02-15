@@ -9,7 +9,7 @@
 #import "HTMascotItem.h"
 #import "YYImage.h"
 
-static CGFloat kDurationPerAnimate = 0.033;
+static CGFloat kDurationPerAnimate = 0.1;
 
 @implementation HTMascotItem
 
@@ -22,7 +22,7 @@ static CGFloat kDurationPerAnimate = 0.033;
 
 - (void)setIndex:(NSInteger)index {
     _index = index;
-    NSString *imageName = [NSString stringWithFormat:@"img_mascot_%ld_animation_2_00000", (_index + 1)];
+    NSString *imageName = [NSString stringWithFormat:@"img_mascot_%ld_animation_2_0000", (_index + 1)];
     YYImage *image = [YYImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imageName ofType:@"png"]];
     [self setImage:image];
 }
@@ -32,9 +32,13 @@ static CGFloat kDurationPerAnimate = 0.033;
     if (number < 2 || number > 4) return;
     
     NSArray<NSNumber *> *animatedCount;
-    NSArray<NSNumber *> *animatedCount2 = @[@113, @63, @52, @32, @74, @71, @105, @1];
-    NSArray<NSNumber *> *animatedCount3 = @[@106, @75, @54, @22, @49, @79, @88, @1];
-    NSArray<NSNumber *> *animatedCount4 = @[@85, @77, @55, @38, @79, @89, @83, @1];
+//    NSArray<NSNumber *> *animatedCount2 = @[@113, @63, @52, @32, @74, @71, @105, @1];
+//    NSArray<NSNumber *> *animatedCount3 = @[@106, @75, @54, @22, @49, @79, @88, @1];
+//    NSArray<NSNumber *> *animatedCount4 = @[@85, @77, @55, @38, @79, @89, @83, @1];
+
+    NSArray<NSNumber *> *animatedCount2 = @[@38, @21, @17, @11, @25, @24, @35, @1];
+    NSArray<NSNumber *> *animatedCount3 = @[@34, @25, @18, @7, @17, @26, @29, @1];
+    NSArray<NSNumber *> *animatedCount4 = @[@28, @26, @17, @13, @26, @30, @28, @1];
     
     if (number == 2) animatedCount = animatedCount2;
     if (number == 3) animatedCount = animatedCount3;
@@ -43,7 +47,7 @@ static CGFloat kDurationPerAnimate = 0.033;
     NSInteger count = [animatedCount[_index] integerValue];
     NSMutableArray<UIImage *> *animatedImages = [NSMutableArray arrayWithCapacity:count];
     for (int i = 0; i != count; i++) {
-        NSString *imageName = [NSString stringWithFormat:@"img_mascot_%ld_animation_%ld_%05d", (_index + 1), number , i];
+        NSString *imageName = [NSString stringWithFormat:@"img_mascot_%ld_animation_%ld_%04d", (_index + 1), number , i];
         YYImage *image = [YYImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imageName ofType:@"png"]];
         [animatedImages addObject:image];
     }

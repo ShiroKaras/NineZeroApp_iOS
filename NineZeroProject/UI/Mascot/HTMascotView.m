@@ -12,6 +12,7 @@
 #import "HTUIHeader.h"
 #import <objc/runtime.h>
 #import "HTMascotItem.h"
+#import "UIButton+EnlargeTouchArea.h"
 #import "HTMascotTipView.h"
 
 #define MASCOT_ITEMS_COUNT 8
@@ -76,6 +77,8 @@ const char *kTapItemAssociatedKey;
         [_mascotTips addObject:tip];
         [self addSubview:tip];
     }
+    
+    [self resizeTouchArea];
 }
 
 - (void)reloadDisplayMascots {
@@ -89,6 +92,18 @@ const char *kTapItemAssociatedKey;
             [self playAniamtionWithNumber:2 item:_mascotItems[displayIndex]];
         }
     }
+}
+
+- (void)resizeTouchArea {
+    if (_mascotItems.count < MASCOT_ITEMS_COUNT) {
+        return;
+    }
+    
+    [_mascotItems[0] setEnlargeEdgeWithTop:-20 right:0 bottom:0 left:0];
+    [_mascotItems[1] setEnlargeEdgeWithTop:-50 right:0 bottom:0 left:0];
+    [_mascotItems[3] setEnlargeEdgeWithTop:0 right:-30 bottom:0 left:0];
+    [_mascotItems[4] setEnlargeEdgeWithTop:-20 right:0 bottom:0 left:-30];
+    [_mascotItems[6] setEnlargeEdgeWithTop:0 right:-10 bottom:0 left:-20];
 }
 
 - (void)updateConstraints {
