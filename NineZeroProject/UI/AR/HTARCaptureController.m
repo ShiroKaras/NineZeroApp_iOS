@@ -181,6 +181,11 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 #pragma mark - Action
 
 - (void)onClickBack {
+//    [self.delegate didClickBackButtonInARCaptureController:self];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)onCaptureMascotSuccessful {
     [self.delegate didClickBackButtonInARCaptureController:self];
 }
 
@@ -215,7 +220,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     self.captureSuccessImageView.hidden = NO;
     [self.mascotImageView removeFromSuperview];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self onClickBack];
+        [self onCaptureMascotSuccessful];
     });
 }
 
