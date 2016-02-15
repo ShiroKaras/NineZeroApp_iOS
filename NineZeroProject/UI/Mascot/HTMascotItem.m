@@ -11,11 +11,14 @@
 
 static CGFloat kDurationPerAnimate = 0.1;
 
-@implementation HTMascotItem
+@implementation HTMascotItem {
+    NSInteger animatedGuard;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.userInteractionEnabled = YES;
+        animatedGuard = 0;
     }
     return self;
 }
@@ -30,7 +33,7 @@ static CGFloat kDurationPerAnimate = 0.1;
 - (void)playAnimatedNumber:(NSInteger)number {
     if (_index < 0 || _index > 7) return;
     if (number < 2 || number > 4) return;
-    
+    animatedGuard++;
     NSArray<NSNumber *> *animatedCount;
 //    NSArray<NSNumber *> *animatedCount2 = @[@113, @63, @52, @32, @74, @71, @105, @1];
 //    NSArray<NSNumber *> *animatedCount3 = @[@106, @75, @54, @22, @49, @79, @88, @1];
@@ -53,7 +56,17 @@ static CGFloat kDurationPerAnimate = 0.1;
     }
     self.animationImages = animatedImages;
     self.animationDuration = kDurationPerAnimate * count;
-    self.animationRepeatCount = 0;
+    if (number == 3 || number == 4) {
+        self.animationRepeatCount = 1;
+        NSInteger tempAnimatedGuard = animatedGuard;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((self.animationDuration) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (tempAnimatedGuard == animatedGuard && self.animationImages != nil) {
+                [self playAnimatedNumber:2];
+            }
+        });
+    } else {
+        self.animationRepeatCount = 0;
+    }
     [self startAnimating];
 }
 
