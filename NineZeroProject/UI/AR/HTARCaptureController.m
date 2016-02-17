@@ -197,11 +197,20 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     self.successBackgroundView.layer.cornerRadius = 5.0f;
     [self.view addSubview:self.successBackgroundView];
     [self.view bringSubviewToFront:self.successBackgroundView];
-    
+
+    NSMutableArray<UIImage *> *images = [NSMutableArray array];
+    for (int i = 0; i != 18; i++) {
+        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"img_ar_right_answer_gif_00%02d", i]];
+        [images addObject:animatedImage];
+    }
     self.captureSuccessImageView = [[HTImageView alloc] init];
-    [self.captureSuccessImageView setAnimatedImageWithName:@"img_ar_right_answer_gif"];
-    self.captureSuccessImageView.hidden = YES;
+//    [self.captureSuccessImageView setAnimatedImageWithName:@"img_ar_right_answer_gif"];
+//    self.captureSuccessImageView.hidden = YES;
+    self.captureSuccessImageView.animationImages = images;
+    self.captureSuccessImageView.animationDuration = 0.06 * 18;
+    self.captureSuccessImageView.animationRepeatCount = 1;
     [self.successBackgroundView addSubview:self.captureSuccessImageView];
+    [self.captureSuccessImageView startAnimating];
     
     [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
@@ -217,9 +226,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         make.height.equalTo(@165);
     }];
     
-    self.captureSuccessImageView.hidden = NO;
+//    self.captureSuccessImageView.hidden = NO;
     [self.mascotImageView removeFromSuperview];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.06 * 18 - 0.6) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self onCaptureMascotSuccessful];
     });
 }

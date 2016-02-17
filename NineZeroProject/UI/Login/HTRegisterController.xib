@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -113,8 +113,11 @@
                                 <constraint firstAttribute="height" constant="1" id="L6V-1G-Xbf"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" clipsSubviews="YES" tag="200" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="输入昵称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MLA-d0-z0h">
-                            <rect key="frame" x="0.0" y="-173.5" width="76" height="25"/>
+                        <textField opaque="NO" clipsSubviews="YES" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="输入昵称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MLA-d0-z0h">
+                            <rect key="frame" x="23" y="11.5" width="332" height="28"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="e6m-BL-NkS"/>
+                            </constraints>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <textInputTraits key="textInputTraits"/>
@@ -127,7 +130,10 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="MLA-d0-z0h" secondAttribute="trailing" constant="20" id="1tr-so-8DT"/>
+                        <constraint firstItem="MLA-d0-z0h" firstAttribute="leading" secondItem="0xG-or-RFb" secondAttribute="leading" constant="23" id="6uI-vf-mgG"/>
                         <constraint firstAttribute="bottom" secondItem="ZpG-9B-shk" secondAttribute="bottom" id="7bN-ir-N0z"/>
+                        <constraint firstItem="MLA-d0-z0h" firstAttribute="centerY" secondItem="0xG-or-RFb" secondAttribute="centerY" id="AFt-4W-1Cf"/>
                         <constraint firstAttribute="trailing" secondItem="ZpG-9B-shk" secondAttribute="trailing" id="TCc-HK-YuE"/>
                         <constraint firstAttribute="height" constant="51" id="bZL-fc-4Kp"/>
                         <constraint firstItem="ZpG-9B-shk" firstAttribute="leading" secondItem="0xG-or-RFb" secondAttribute="leading" id="tq1-0S-2Pk"/>
@@ -194,7 +200,7 @@
                     <exclude reference="8SH-rQ-bcF"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="401.5" y="462.5"/>
+            <point key="canvasLocation" x="367.5" y="449.5"/>
         </view>
     </objects>
     <resources>

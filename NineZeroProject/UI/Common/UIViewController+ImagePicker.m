@@ -9,6 +9,9 @@
 #import "UIViewController+ImagePicker.h"
 #import <AVFoundation/AVFoundation.h>
 #import "CommonUI.h"
+#import <objc/runtime.h>
+
+static char *kAssociatedKey;
 
 @implementation UIViewController (ImagePicker)
 
@@ -60,6 +63,22 @@
 	// 保证statusBar的颜色
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     viewController.view.backgroundColor = [UIColor blackColor];
+    
+    if (viewController.navigationItem.leftBarButtonItem== nil && [viewController.navigationController.viewControllers count] > 1) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"btn_navi_anchor_left"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"btn_navi_anchor_left_highlight"] forState:UIControlStateHighlighted];
+        [button sizeToFit];
+        button.width += 10;
+        [button addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+        objc_setAssociatedObject(button, kAssociatedKey, viewController.navigationController, OBJC_ASSOCIATION_RETAIN);
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    }
+}
+
+- (void)back:(UIButton *)back {
+    UINavigationController *nav = objc_getAssociatedObject(back, kAssociatedKey);
+    [nav popViewControllerAnimated:YES];
 }
 
 @end
