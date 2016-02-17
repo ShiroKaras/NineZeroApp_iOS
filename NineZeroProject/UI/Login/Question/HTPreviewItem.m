@@ -104,6 +104,8 @@
 - (void)stop {
     _playButton.hidden = NO;
     [_playerItem seekToTime:kCMTimeZero];
+    [_player setRate:0];
+    [_player seekToTime:CMTimeMake(0, 1)];
     [_player pause];
 }
 

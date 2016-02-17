@@ -39,39 +39,36 @@ static CGFloat kDuration = 0.3;
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(debugChangeView)];
+    tap.numberOfTapsRequired = 5;
+    [self.view addGestureRecognizer:tap];
+    
     self.mascots = [HTMascotHelper mascotsFake];
     self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
-    
-    if (self.mascots.count == 1) {
-        self.onlyOneMascotImageView = [[HTMascotItem alloc] init];
-        self.onlyOneMascotImageView.index = 0;
-        self.onlyOneMascotImageView.mascot = self.mascots[0];
-        [self.onlyOneMascotImageView playAnimatedNumber:2];
-        [self.view addSubview:self.onlyOneMascotImageView];
-        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapOnDefaultMascot)];
-        doubleTap.numberOfTapsRequired = 2;
-        [self.onlyOneMascotImageView addGestureRecognizer:doubleTap];
-        
-        self.mascotTipView = [[HTMascotTipView alloc] initWithIndex:0];
-        self.mascotTipView.tipNumber = self.mascots[0].articles.count;
-        [self.mascotTipView addTarget:self action:@selector(didClickTipNumber) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:self.mascotTipView];
-        [self.mascotTipView sizeToFit];
-        
-        self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_default_msg_bg"]];
-        [self.view addSubview:self.tipImageView];
-        
-        self.tipLabel = [[UILabel alloc] init];
-        self.tipLabel.font = [UIFont systemFontOfSize:13];
-        self.tipLabel.textColor = [UIColor colorWithHex:0xd9d9d9];
-        self.tipLabel.text = @"快帮我寻找更多的零仔吧!";
-        [self.tipImageView addSubview:self.tipLabel];
 
-    } else {
-        self.mascotView = [[HTMascotView alloc] initWithMascots:self.mascots];
-        self.mascotView.delegate = self;
-        [self.view addSubview:self.mascotView];
-    }
+    self.onlyOneMascotImageView = [[HTMascotItem alloc] init];
+    self.onlyOneMascotImageView.index = 0;
+    self.onlyOneMascotImageView.mascot = self.mascots[0];
+    [self.onlyOneMascotImageView playAnimatedNumber:2];
+    [self.view addSubview:self.onlyOneMascotImageView];
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapOnDefaultMascot)];
+    doubleTap.numberOfTapsRequired = 2;
+    [self.onlyOneMascotImageView addGestureRecognizer:doubleTap];
+    
+    self.mascotTipView = [[HTMascotTipView alloc] initWithIndex:0];
+    self.mascotTipView.tipNumber = self.mascots[0].articles.count;
+    [self.mascotTipView addTarget:self action:@selector(didClickTipNumber) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.mascotTipView];
+    [self.mascotTipView sizeToFit];
+    
+    self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_default_msg_bg"]];
+    [self.view addSubview:self.tipImageView];
+    
+    self.tipLabel = [[UILabel alloc] init];
+    self.tipLabel.font = [UIFont systemFontOfSize:13];
+    self.tipLabel.textColor = [UIColor colorWithHex:0xd9d9d9];
+    self.tipLabel.text = @"快帮我寻找更多的零仔吧!";
+    [self.tipImageView addSubview:self.tipLabel];
     
     props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init]];
     for (int i = 10; i != props.count; i++) {
@@ -82,6 +79,16 @@ static CGFloat kDuration = 0.3;
     [self.view addSubview:self.propView];
     
     [self buildConstraints];
+    [self reloadViews];
+}
+
+- (void)debugChangeView {
+    if (self.mascots.count == 1) {
+        self.mascots = [HTMascotHelper mascotsFake];
+    } else {
+        self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
+    }
+    [self reloadViews];
 }
 
 - (void)buildConstraints {
@@ -122,6 +129,24 @@ static CGFloat kDuration = 0.3;
 
 - (void)reloadDisplayMascots {
     [_mascotView reloadDisplayMascots];
+}
+
+- (void)reloadViews {
+    if (self.mascots.count == 1) {
+        self.onlyOneMascotImageView.hidden = NO;
+        self.mascotTipView.hidden = NO;
+        self.tipImageView.hidden = NO;
+        self.tipLabel.hidden = NO;
+        self.mascotView.hidden = YES;
+    } else {
+        self.onlyOneMascotImageView.hidden = YES;
+        self.mascotTipView.hidden = YES;
+        self.tipImageView.hidden = YES;
+        self.tipLabel.hidden = YES;
+        self.mascotView = [[HTMascotView alloc] initWithMascots:self.mascots];
+        self.mascotView.delegate = self;
+        [self.view addSubview:self.mascotView];
+    }
 }
 
 #pragma mark - Action

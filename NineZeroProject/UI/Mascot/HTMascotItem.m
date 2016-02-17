@@ -59,7 +59,7 @@ static CGFloat kDurationPerAnimate = 0.1;
     if (number == 3 || number == 4) {
         self.animationRepeatCount = 1;
         NSInteger tempAnimatedGuard = animatedGuard;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((self.animationDuration) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((self.animationDuration - 0.3) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (tempAnimatedGuard == animatedGuard && self.animationImages != nil) {
                 [self playAnimatedNumber:2];
             }
