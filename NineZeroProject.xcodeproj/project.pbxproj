@@ -539,6 +539,7 @@
 		17461D091C7493DF00C847E8 /* img_ar_right_answer_gif_0015.png in Resources */ = {isa = PBXBuildFile; fileRef = 17461CF71C7493DF00C847E8 /* img_ar_right_answer_gif_0015.png */; };
 		17461D0A1C7493DF00C847E8 /* img_ar_right_answer_gif_0016.png in Resources */ = {isa = PBXBuildFile; fileRef = 17461CF81C7493DF00C847E8 /* img_ar_right_answer_gif_0016.png */; };
 		17461D0B1C7493DF00C847E8 /* img_ar_right_answer_gif_0017.png in Resources */ = {isa = PBXBuildFile; fileRef = 17461CF91C7493DF00C847E8 /* img_ar_right_answer_gif_0017.png */; };
+		17461D0F1C74C8C900C847E8 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 17461D0E1C74C8C900C847E8 /* Reachability.m */; };
 		17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17490C6E1C4B640500F84092 /* QKGeofenceManager.m */; };
 		174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 174C53321BE7A47900893C22 /* libsqlite3.tbd */; };
 		174C53521BE7A60E00893C22 /* CommonUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 174C53511BE7A60E00893C22 /* CommonUI.m */; };
@@ -1244,6 +1245,8 @@
 		17461CF71C7493DF00C847E8 /* img_ar_right_answer_gif_0015.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_ar_right_answer_gif_0015.png; sourceTree = "<group>"; };
 		17461CF81C7493DF00C847E8 /* img_ar_right_answer_gif_0016.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_ar_right_answer_gif_0016.png; sourceTree = "<group>"; };
 		17461CF91C7493DF00C847E8 /* img_ar_right_answer_gif_0017.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_ar_right_answer_gif_0017.png; sourceTree = "<group>"; };
+		17461D0D1C74C8C900C847E8 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		17461D0E1C74C8C900C847E8 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		17490C6D1C4B640500F84092 /* QKGeofenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QKGeofenceManager.h; sourceTree = "<group>"; };
 		17490C6E1C4B640500F84092 /* QKGeofenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QKGeofenceManager.m; sourceTree = "<group>"; };
 		174C53321BE7A47900893C22 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -1458,6 +1461,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17617F621BEFADE8000B2BFA /* SystemConfiguration.framework in Frameworks */,
 				17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */,
 				17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */,
 				17617F801BEFB0FB000B2BFA /* MessageUI.framework in Frameworks */,
@@ -1467,7 +1471,6 @@
 				17617F681BEFADFF000B2BFA /* UIKit.framework in Frameworks */,
 				17617F661BEFADF8000B2BFA /* Foundation.framework in Frameworks */,
 				17617F641BEFADEF000B2BFA /* CoreGraphics.framework in Frameworks */,
-				17617F621BEFADE8000B2BFA /* SystemConfiguration.framework in Frameworks */,
 				17617F601BEFADE1000B2BFA /* CoreTelephony.framework in Frameworks */,
 				17617F5E1BEFADDC000B2BFA /* CoreFoundation.framework in Frameworks */,
 				17617F5C1BEFADD6000B2BFA /* CFNetwork.framework in Frameworks */,
@@ -2267,6 +2270,15 @@
 			path = img_ar_right_answer_gif;
 			sourceTree = "<group>";
 		};
+		17461D0C1C74C8C400C847E8 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				17461D0D1C74C8C900C847E8 /* Reachability.h */,
+				17461D0E1C74C8C900C847E8 /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
 		17490C6C1C4B640500F84092 /* QKGeofenceManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2552,6 +2564,7 @@
 		17A89A8F1C1DB9BB0087BF00 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				17461D0C1C74C8C400C847E8 /* Reachability */,
 				17B428F51C54D4A8008AFBA9 /* YYImage */,
 				17490C6C1C4B640500F84092 /* QKGeofenceManager */,
 				1787FD241C4A9E85006E55A6 /* INTULocationManager */,
@@ -3518,6 +3531,7 @@
 				17262CB41C5DF1D7000FDA1B /* HTMascotHelper.m in Sources */,
 				1787FD141C4A8884006E55A6 /* ARController.m in Sources */,
 				17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */,
+				17461D0F1C74C8C900C847E8 /* Reachability.m in Sources */,
 				175641931C269DD20009AE7B /* HTShowAnswerView.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
 				17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */,

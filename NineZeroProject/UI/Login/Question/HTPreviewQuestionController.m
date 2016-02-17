@@ -19,6 +19,7 @@
 #import "HTARCaptureController.h"
 #import "AppDelegate.h"
 #import "HTRewardController.h"
+#import "Reachability.h"
 
 static CGFloat kLeftMargin = 13; // 暂定为0
 
@@ -165,13 +166,23 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 }
 
 - (void)previewView:(HTPreviewView *)previewView didScrollToItem:(HTPreviewItem *)item {
+    Reachability *reach = [Reachability reachabilityForLocalWiFi];
+    if ([reach currentReachabilityStatus] != NotReachable) {
+        // 开启了wifi
+        for (HTPreviewItem *iter in _previewView.items) {
+            if (iter != item) {
+                [iter stop];
+            } else {
+                [iter play];
+            }
+        }
+    }
     if (item.breakSuccess) {
         _bgImageView.hidden = NO;
         _bgImageView.alpha = 0.0;
         [UIView animateWithDuration:0.5 animations:^{
             _bgImageView.alpha = 1.0;
         }];
-
     } else {
         _bgImageView.hidden = YES;
     }
@@ -243,9 +254,19 @@ static CGFloat kLeftMargin = 13; // 暂定为0
                 break;
             }
         }
+        case HTPreviewItemButtonTypePlay: {
+            for (HTPreviewItem *item in _previewView.items) {
+                if (item != previewItem) {
+                    [item stop];
+                }
+            }
+            break;
+        }
         case HTPreviewItemButtonTypePause: {
+            break;
         }
         case HTPreviewItemButtonTypeSound: {
+            break;
         }
         default:
         break;

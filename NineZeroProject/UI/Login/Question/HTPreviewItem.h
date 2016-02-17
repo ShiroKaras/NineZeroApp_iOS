@@ -15,7 +15,8 @@ typedef NS_ENUM(NSUInteger, HTPreviewItemButtonType) {
     HTPreviewItemButtonTypeReward,
     HTPreviewItemButtonTypeAnswer,
     HTPreviewItemButtonTypeSound,
-    HTPreviewItemButtonTypePause
+    HTPreviewItemButtonTypePause,
+    HTPreviewItemButtonTypePlay,
 };
 
 @class HTQuestion;

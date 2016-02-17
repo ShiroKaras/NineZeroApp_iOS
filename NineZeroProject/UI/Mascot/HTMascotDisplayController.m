@@ -40,7 +40,7 @@ static CGFloat kDuration = 0.3;
     self.view.backgroundColor = COMMON_BG_COLOR;
     
     self.mascots = [HTMascotHelper mascotsFake];
-//    self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
+    self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
     
     if (self.mascots.count == 1) {
         self.onlyOneMascotImageView = [[HTMascotItem alloc] init];
@@ -48,9 +48,13 @@ static CGFloat kDuration = 0.3;
         self.onlyOneMascotImageView.mascot = self.mascots[0];
         [self.onlyOneMascotImageView playAnimatedNumber:2];
         [self.view addSubview:self.onlyOneMascotImageView];
+        UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapOnDefaultMascot)];
+        doubleTap.numberOfTapsRequired = 2;
+        [self.onlyOneMascotImageView addGestureRecognizer:doubleTap];
         
-        self.mascotTipView = [[HTMascotTipView alloc] init];
-        self.mascotTipView.tipNumber = 2;
+        self.mascotTipView = [[HTMascotTipView alloc] initWithIndex:0];
+        self.mascotTipView.tipNumber = self.mascots[0].articles.count;
+        [self.mascotTipView addTarget:self action:@selector(didClickTipNumber) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.mascotTipView];
         [self.mascotTipView sizeToFit];
         
@@ -89,10 +93,9 @@ static CGFloat kDuration = 0.3;
     }];
     
     [self.mascotTipView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.onlyOneMascotImageView.mas_top);
+        make.bottom.equalTo(self.onlyOneMascotImageView.mas_top).offset(24);
         make.centerX.equalTo(self.onlyOneMascotImageView);
     }];
-    
     [self.mascotView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.top.equalTo(self.view);
@@ -119,6 +122,17 @@ static CGFloat kDuration = 0.3;
 
 - (void)reloadDisplayMascots {
     [_mascotView reloadDisplayMascots];
+}
+
+#pragma mark - Action
+
+- (void)didClickTipNumber {
+    HTMascotIntroController *introController = [[HTMascotIntroController alloc] initWithMascot:self.mascots[0]];
+    [self presentViewController:introController animated:YES completion:nil];
+}
+
+- (void)doubleTapOnDefaultMascot {
+    [self.onlyOneMascotImageView playAnimatedNumber:arc4random() % 2 + 3];
 }
 
 #pragma mark - HTMascotView Delegate

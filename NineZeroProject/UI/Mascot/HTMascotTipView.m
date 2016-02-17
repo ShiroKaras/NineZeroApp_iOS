@@ -20,7 +20,6 @@
         [self setImage:[UIImage imageNamed:@"img_mascot_notification_highlight"] forState:UIControlStateHighlighted];
         [self sizeToFit];
         [self buildViewsIfNeed];
-
     }
     return self;
 }

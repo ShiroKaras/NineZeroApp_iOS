@@ -10,6 +10,7 @@
 #import "CommonUI.h"
 #import <AVFoundation/AVFoundation.h>
 #import "HTUIHeader.h"
+#import <MediaPlayer/MPMusicPlayerController.h>
 
 @interface HTPreviewItem ()
 
@@ -43,11 +44,19 @@
 - (void)awakeFromNib {
 //    [self play];
     [_composeButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     [self buildConstraints];
     _playerContainView.layer.cornerRadius = 5.0f;
     _playerContainView.layer.masksToBounds = YES;
-}
+    
+    // 播放完成
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    // 监听音量
+    AVAudioSession* audioSession = [AVAudioSession sharedInstance];
+    [audioSession setActive:YES error:nil];
+    [audioSession addObserver:self
+                    forKeyPath:@"outputVolume"
+                       options:0
+                       context:nil];}
 
 - (void)buildPlayer {
     if ([_question.vedioName isEqualToString:@""] == YES) {
@@ -63,7 +72,12 @@
     _playerLayer.videoGravity = AVLayerVideoGravityResize;
     [_playItemBackView.layer addSublayer:_playerLayer];
 
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPlayItemBackView)];
+    [_playItemBackView addGestureRecognizer:tap];
+    
     self.playButton.hidden = NO;
+    self.soundButton.hidden = ([[AVAudioSession sharedInstance] outputVolume] != 0);
+    self.pauseButton.hidden = YES;
 }
 
 - (void)configureQuestion {
@@ -83,6 +97,7 @@
 - (void)play {
 //    [_playerItem seekToTime:kCMTimeZero];
     _playButton.hidden = YES;
+    _pauseButton.hidden = YES;
     [_player play];
 }
 
@@ -94,6 +109,7 @@
 
 - (void)pause {
     _playButton.hidden = NO;
+    _pauseButton.hidden = NO;
     [_player pause];
 }
 
@@ -226,6 +242,7 @@
 
 - (IBAction)onClickPlayButton:(UIButton *)sender {
     [self play];
+    [self.delegate previewItem:self didClickButtonWithType:HTPreviewItemButtonTypePlay];
 }
 
 - (IBAction)onClickSoundButton:(UIButton *)sender {
@@ -260,6 +277,16 @@
         // 答题
         [self.delegate previewItem:self didClickButtonWithType:HTPreviewItemButtonTypeCompose];
     }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqual:@"outputVolume"]) {
+         self.soundButton.hidden = ([[AVAudioSession sharedInstance] outputVolume] != 0);
+    }
+}
+
+- (void)didTapPlayItemBackView {
+    [self pause];
 }
 
 @end
