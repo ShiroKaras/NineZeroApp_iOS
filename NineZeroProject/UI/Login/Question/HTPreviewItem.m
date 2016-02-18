@@ -11,6 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "HTUIHeader.h"
 #import <MediaPlayer/MPMusicPlayerController.h>
+#import "SharkfoodMuteSwitchDetector.h"
 
 @interface HTPreviewItem ()
 
@@ -50,13 +51,14 @@
     
     // 播放完成
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-    // 监听音量
-    AVAudioSession* audioSession = [AVAudioSession sharedInstance];
-    [audioSession setActive:YES error:nil];
-    [audioSession addObserver:self
-                    forKeyPath:@"outputVolume"
-                       options:0
-                       context:nil];}
+//    // 监听音量
+//    AVAudioSession* audioSession = [AVAudioSession sharedInstance];
+//    [audioSession setActive:YES error:nil];
+//    [audioSession addObserver:self
+//                    forKeyPath:@"outputVolume"
+//                       options:0
+//                       context:nil];
+}
 
 - (void)buildPlayer {
     if ([_question.vedioName isEqualToString:@""] == YES) {
@@ -76,7 +78,7 @@
     [_playItemBackView addGestureRecognizer:tap];
     
     self.playButton.hidden = NO;
-    self.soundButton.hidden = ([[AVAudioSession sharedInstance] outputVolume] != 0);
+    self.soundButton.hidden = ![[SharkfoodMuteSwitchDetector shared] isMute];
     self.pauseButton.hidden = YES;
 }
 
@@ -183,6 +185,10 @@
     return self.detailButton.frame;
 }
 
+- (void)setSoundButtonHidden:(BOOL)hidden {
+    self.soundButton.hidden = hidden;
+}
+
 #pragma mark - Tool Method
 
 - (void)scheduleCountDownTimer {
@@ -280,12 +286,12 @@
         [self.delegate previewItem:self didClickButtonWithType:HTPreviewItemButtonTypeCompose];
     }
 }
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqual:@"outputVolume"]) {
-         self.soundButton.hidden = ([[AVAudioSession sharedInstance] outputVolume] != 0);
-    }
-}
+//
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+//    if ([keyPath isEqual:@"outputVolume"]) {
+//         self.soundButton.hidden = ([[AVAudioSession sharedInstance] outputVolume] != 0);
+//    }
+//}
 
 - (void)didTapPlayItemBackView {
     [self pause];

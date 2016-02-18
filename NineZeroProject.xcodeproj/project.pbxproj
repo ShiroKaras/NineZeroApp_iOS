@@ -561,6 +561,8 @@
 		17617F801BEFB0FB000B2BFA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F7F1BEFB0FB000B2BFA /* MessageUI.framework */; };
 		17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F811BEFB103000B2BFA /* JavaScriptCore.framework */; };
 		17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F831BEFB109000B2BFA /* libstdc++.tbd */; };
+		176B756E1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 176B756D1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m */; };
+		176B75711C76264A0069DE89 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176B75701C76264A0069DE89 /* AudioToolbox.framework */; };
 		176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 176C8FC61C00E88B00BEC4AB /* UIViewController+ImagePicker.m */; };
 		17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17713D3F1C04D6AD00DB8BB0 /* HTStorageManager.m */; };
 		1777D36A1BE798F400AC0203 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D3691BE798F400AC0203 /* main.m */; };
@@ -1273,6 +1275,10 @@
 		17617F7F1BEFB0FB000B2BFA /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		17617F811BEFB103000B2BFA /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		17617F831BEFB109000B2BFA /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		176B756C1C7620500069DE89 /* SharkfoodMuteSwitchDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharkfoodMuteSwitchDetector.h; sourceTree = "<group>"; };
+		176B756D1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharkfoodMuteSwitchDetector.m; sourceTree = "<group>"; };
+		176B756F1C7625140069DE89 /* mute.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mute.caf; sourceTree = "<group>"; };
+		176B75701C76264A0069DE89 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		176C8FC51C00E88B00BEC4AB /* UIViewController+ImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ImagePicker.h"; sourceTree = "<group>"; };
 		176C8FC61C00E88B00BEC4AB /* UIViewController+ImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ImagePicker.m"; sourceTree = "<group>"; };
 		17713D3E1C04D6AD00DB8BB0 /* HTStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTStorageManager.h; sourceTree = "<group>"; };
@@ -1461,6 +1467,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				176B75711C76264A0069DE89 /* AudioToolbox.framework in Frameworks */,
 				17617F621BEFADE8000B2BFA /* SystemConfiguration.framework in Frameworks */,
 				17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */,
 				17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */,
@@ -2336,6 +2343,15 @@
 			path = Login/Question;
 			sourceTree = "<group>";
 		};
+		176B756B1C7620480069DE89 /* SharkfoodMuteSwitchDetector */ = {
+			isa = PBXGroup;
+			children = (
+				176B756C1C7620500069DE89 /* SharkfoodMuteSwitchDetector.h */,
+				176B756D1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m */,
+			);
+			path = SharkfoodMuteSwitchDetector;
+			sourceTree = "<group>";
+		};
 		1777D35C1BE798F400AC0203 = {
 			isa = PBXGroup;
 			children = (
@@ -2379,6 +2395,7 @@
 				179C08811C61B4B1001B5B6C /* 2.gif */,
 				179C08821C61B4B1001B5B6C /* 2.jpg */,
 				17A247681C6239BE00359CCF /* reward_mascot3_intro_gif.gif */,
+				176B756F1C7625140069DE89 /* mute.caf */,
 				1777D3741BE798F400AC0203 /* Assets.xcassets */,
 				1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */,
 				1777D3791BE798F400AC0203 /* Info.plist */,
@@ -2564,6 +2581,7 @@
 		17A89A8F1C1DB9BB0087BF00 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				176B756B1C7620480069DE89 /* SharkfoodMuteSwitchDetector */,
 				17461D0C1C74C8C400C847E8 /* Reachability */,
 				17B428F51C54D4A8008AFBA9 /* YYImage */,
 				17490C6C1C4B640500F84092 /* QKGeofenceManager */,
@@ -2673,6 +2691,7 @@
 		26E633BCA682E11CD6C30957 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				176B75701C76264A0069DE89 /* AudioToolbox.framework */,
 				17617F831BEFB109000B2BFA /* libstdc++.tbd */,
 				17617F811BEFB103000B2BFA /* JavaScriptCore.framework */,
 				17617F7F1BEFB0FB000B2BFA /* MessageUI.framework */,
@@ -3548,6 +3567,7 @@
 				17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */,
 				17C40B401C5538A200DAE22A /* HTMascotService.m in Sources */,
 				17262CDA1C5E02A4000FDA1B /* HTImageView.m in Sources */,
+				176B756E1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -20,6 +20,7 @@
 #import "AppDelegate.h"
 #import "HTRewardController.h"
 #import "Reachability.h"
+#import "SharkfoodMuteSwitchDetector.h"
 
 static CGFloat kLeftMargin = 13; // 暂定为0
 
@@ -35,6 +36,8 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 @property (strong, nonatomic) HTShowAnswerView *showAnswerView;               // 查看答案
 
 @property (strong, nonatomic) UIImageView *bgImageView;
+
+@property (nonatomic,strong) SharkfoodMuteSwitchDetector* detector;
 
 @end
 
@@ -101,6 +104,16 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    self.detector = [SharkfoodMuteSwitchDetector shared];
+    self.detector.silentNotify = ^(BOOL silent){
+        typeof(self) strongSelf = weakSelf;
+        for (HTPreviewItem *item in strongSelf->_previewView.items) {
+            [item setSoundButtonHidden:!silent];
+        }
+    };
 }
 
 - (void)viewWillLayoutSubviews {

@@ -56,6 +56,8 @@ typedef NS_ENUM(NSUInteger, HTPreviewItemButtonType) {
 
 - (CGRect)hintRect;
 
+- (void)setSoundButtonHidden:(BOOL)hidden;
+
 - (void)play;
 - (void)pause;
 - (void)stop;
