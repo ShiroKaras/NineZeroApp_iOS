@@ -70,7 +70,7 @@ static CGFloat kDuration = 0.3;
     self.tipLabel.text = @"快帮我寻找更多的零仔吧!";
     [self.tipImageView addSubview:self.tipLabel];
     
-    props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init]];
+    props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],];
     for (int i = 10; i != props.count; i++) {
         props[i].isExchanged = YES;
     }
@@ -176,12 +176,10 @@ static CGFloat kDuration = 0.3;
 - (void)didClickBottomArrawInMascotPropView:(HTMascotPropView *)mascotPropView {
     _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:0];
     [self.view addSubview:_moreView];
-//    _moreView.top = SCREEN_HEIGHT;
+    _moreView.top = SCREEN_HEIGHT;
     _moreView.delegate = self;
-    _moreView.alpha = 0.0f;
     [UIView animateWithDuration:kDuration animations:^{
-        _moreView.alpha = 1.0;
-//        _moreView.top = 0;
+        _moreView.top = 0;
     }];
 }
 
@@ -197,7 +195,7 @@ static CGFloat kDuration = 0.3;
 - (void)didClickTopArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView {
     if (propMoreView.pageCount == 0) {
         [UIView animateWithDuration:kDuration animations:^{
-//            propMoreView.top = SCREEN_HEIGHT;
+            propMoreView.top = SCREEN_HEIGHT;
             propMoreView.alpha = 0;
         } completion:^(BOOL finished) {
             [propMoreView removeFromSuperview];

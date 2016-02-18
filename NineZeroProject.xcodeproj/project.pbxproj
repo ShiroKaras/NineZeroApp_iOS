@@ -3680,7 +3680,7 @@
 			baseConfigurationReference = A9C47414B1212ACF6A302306 /* Pods-NineZeroProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zac Yang (5P67F5SADB)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3696,7 +3696,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "186475ca-1037-4678-a42a-ee89eeb6b641";
 			};
 			name = Debug;
 		};
@@ -3705,7 +3705,7 @@
 			baseConfigurationReference = C4CD745486BB4BFAC5087BB9 /* Pods-NineZeroProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zac Yang (6H2SM536G6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zac Yang (6H2SM536G6)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3722,7 +3722,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8945fe6b-c2a2-4287-9c76-359ec8e3f9e4";
 			};
 			name = Release;
 		};
