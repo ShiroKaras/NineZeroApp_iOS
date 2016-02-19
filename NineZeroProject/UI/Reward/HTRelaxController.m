@@ -18,6 +18,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *hourLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *relaxLogo;
 @property (weak, nonatomic) IBOutlet UIImageView *deco1;
+@property (weak, nonatomic) IBOutlet UIImageView *movieCover;
+@property (weak, nonatomic) IBOutlet UIButton *moviePlay;
+@property (weak, nonatomic) IBOutlet UILabel *movieTitle;
+
+@property (weak, nonatomic) IBOutlet UILabel *textTopLabel;
+@property (weak, nonatomic) IBOutlet UILabel *textBottomLabel;
+@property (weak, nonatomic) IBOutlet UIButton *moreButton;
+
 @end
 
 @implementation HTRelaxController {
@@ -41,6 +49,11 @@
     
     _endTime = time(NULL) + 40000;
     [self scheduleCountDownTimer];
+
+    [self  hideTextTips];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickBackView)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)scheduleCountDownTimer {
@@ -64,6 +77,25 @@
     _visualEfView.frame = self.view.bounds;
     _backgroundImageView.frame = self.view.bounds;
     [self.view sendSubviewToBack:_backgroundImageView];
+}
+
+#pragma mark - Tool Method
+
+- (void)hideTextTips {
+    self.textTopLabel.hidden = YES;
+    self.textBottomLabel.hidden = YES;
+    self.moreButton.hidden = YES;    
+}
+
+#pragma mark - Action
+
+- (void)didClickBackView {
+    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)didClickPlayButton:(UIButton *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)didClickMoreButton:(UIButton *)sender {

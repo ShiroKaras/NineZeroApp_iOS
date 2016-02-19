@@ -10,6 +10,7 @@
 #import "HTPreviewQuestionController.h"
 #import "HTMascotDisplayController.h"
 #import "HTRelaxController.h"
+#import "HTRelaxCoverController.h"
 
 CGFloat alphaDark = 0.3;
 CGFloat alphaLight = 1.0;
@@ -93,8 +94,11 @@ CGFloat alphaLight = 1.0;
     [_mainButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
     _mainButton.tag = 0;
     
-    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
-    [self presentViewController:relaxController animated:YES completion:nil];
+//    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
+//    [self presentViewController:relaxController animated:YES completion:nil];
+
+    HTRelaxCoverController *coverController = [[HTRelaxCoverController alloc] init];
+    [self presentViewController:coverController animated:YES completion:nil];
 }
 
 

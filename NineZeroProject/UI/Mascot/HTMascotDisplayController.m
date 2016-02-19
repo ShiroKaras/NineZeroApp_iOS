@@ -39,9 +39,9 @@ static CGFloat kDuration = 0.3;
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(debugChangeView)];
-    tap.numberOfTapsRequired = 5;
-    [self.view addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(debugChangeView)];
+//    tap.numberOfTapsRequired = 5;
+//    [self.view addGestureRecognizer:tap];
     
     self.mascots = [HTMascotHelper mascotsFake];
     self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
@@ -94,7 +94,7 @@ static CGFloat kDuration = 0.3;
 - (void)buildConstraints {
     [self.onlyOneMascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(@175);
+        make.top.equalTo(ROUND_HEIGHT(175));
         make.width.equalTo(@157);
         make.height.equalTo(@157);
     }];
@@ -146,6 +146,7 @@ static CGFloat kDuration = 0.3;
         self.mascotView = [[HTMascotView alloc] initWithMascots:self.mascots];
         self.mascotView.delegate = self;
         [self.view addSubview:self.mascotView];
+        [self.view sendSubviewToBack:self.mascotView];
     }
 }
 

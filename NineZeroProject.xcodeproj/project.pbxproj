@@ -563,6 +563,8 @@
 		17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F831BEFB109000B2BFA /* libstdc++.tbd */; };
 		176B756E1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 176B756D1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m */; };
 		176B75711C76264A0069DE89 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176B75701C76264A0069DE89 /* AudioToolbox.framework */; };
+		176B75751C7759B20069DE89 /* HTRelaxCoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 176B75731C7759B20069DE89 /* HTRelaxCoverController.m */; };
+		176B75761C7759B20069DE89 /* HTRelaxCoverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 176B75741C7759B20069DE89 /* HTRelaxCoverController.xib */; };
 		176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 176C8FC61C00E88B00BEC4AB /* UIViewController+ImagePicker.m */; };
 		17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17713D3F1C04D6AD00DB8BB0 /* HTStorageManager.m */; };
 		1777D36A1BE798F400AC0203 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D3691BE798F400AC0203 /* main.m */; };
@@ -1279,6 +1281,9 @@
 		176B756D1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharkfoodMuteSwitchDetector.m; sourceTree = "<group>"; };
 		176B756F1C7625140069DE89 /* mute.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mute.caf; sourceTree = "<group>"; };
 		176B75701C76264A0069DE89 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		176B75721C7759B20069DE89 /* HTRelaxCoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRelaxCoverController.h; sourceTree = "<group>"; };
+		176B75731C7759B20069DE89 /* HTRelaxCoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRelaxCoverController.m; sourceTree = "<group>"; };
+		176B75741C7759B20069DE89 /* HTRelaxCoverController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTRelaxCoverController.xib; sourceTree = "<group>"; };
 		176C8FC51C00E88B00BEC4AB /* UIViewController+ImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ImagePicker.h"; sourceTree = "<group>"; };
 		176C8FC61C00E88B00BEC4AB /* UIViewController+ImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ImagePicker.m"; sourceTree = "<group>"; };
 		17713D3E1C04D6AD00DB8BB0 /* HTStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTStorageManager.h; sourceTree = "<group>"; };
@@ -1606,6 +1611,9 @@
 				179D2BB01C5E5444000A4461 /* HTRelaxController.h */,
 				179D2BB11C5E5444000A4461 /* HTRelaxController.m */,
 				179D2BB21C5E5444000A4461 /* HTRelaxController.xib */,
+				176B75721C7759B20069DE89 /* HTRelaxCoverController.h */,
+				176B75731C7759B20069DE89 /* HTRelaxCoverController.m */,
+				176B75741C7759B20069DE89 /* HTRelaxCoverController.xib */,
 			);
 			path = Reward;
 			sourceTree = "<group>";
@@ -3036,6 +3044,7 @@
 				17461B971C71EF6600C847E8 /* img_mascot_2_animation_4_0013.png in Resources */,
 				17461CFD1C7493DF00C847E8 /* img_ar_right_answer_gif_0003.png in Resources */,
 				17461B521C71EF6600C847E8 /* img_mascot_1_animation_4_0018.png in Resources */,
+				176B75761C7759B20069DE89 /* HTRelaxCoverController.xib in Resources */,
 				17461B491C71EF6600C847E8 /* img_mascot_1_animation_4_0009.png in Resources */,
 				17461B951C71EF6600C847E8 /* img_mascot_2_animation_4_0011.png in Resources */,
 				17461C411C71EF6600C847E8 /* img_mascot_6_animation_2_0006.png in Resources */,
@@ -3504,6 +3513,7 @@
 				17D1F8D71C29D7BD0029E4AF /* HTTextField.m in Sources */,
 				179D2BAA1C5E414F000A4461 /* HTArticleController.m in Sources */,
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
+				176B75751C7759B20069DE89 /* HTRelaxCoverController.m in Sources */,
 				17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */,
 				17B428F31C54CC9A008AFBA9 /* HTMascotItem.m in Sources */,
 				17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */,
@@ -3701,6 +3711,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Zac Yang (5P67F5SADB)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3725,8 +3736,8 @@
 			baseConfigurationReference = C4CD745486BB4BFAC5087BB9 /* Pods-NineZeroProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Zac Yang (6H2SM536G6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zac Yang (6H2SM536G6)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3742,7 +3753,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8945fe6b-c2a2-4287-9c76-359ec8e3f9e4";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
