@@ -56,11 +56,12 @@
     _webView.delegate = self;
     _webView.mediaPlaybackRequiresUserAction = NO;
     //    [_webView stringByEvaluatingJavaScriptFromString:padding];
-    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"article" ofType:@"html"];
-    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-    NSString *path = [[NSBundle mainBundle] bundlePath];
-    NSURL *baseURL = [NSURL fileURLWithPath:path];
-    [_webView loadHTMLString:htmlString baseURL:baseURL];
+//    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"article" ofType:@"html"];
+//    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+//    NSString *path = [[NSBundle mainBundle] bundlePath];
+//    NSURL *baseURL = [NSURL fileURLWithPath:path];
+//    [_webView loadHTMLString:htmlString baseURL:baseURL];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ARTICLE_URL_STRING]]];
     [self.view addSubview:_webView];
     
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];

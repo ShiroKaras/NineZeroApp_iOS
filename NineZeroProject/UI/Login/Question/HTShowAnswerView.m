@@ -8,6 +8,7 @@
 
 #import "HTShowAnswerView.h"
 #import "HTUIHeader.h"
+#import "AppDelegate.h"
 
 @interface HTShowAnswerView ()
 
@@ -33,11 +34,12 @@
         _webView.scrollView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
         _webView.scrollView.contentInset = UIEdgeInsetsMake(61, 0, 0, 0);
 //        [_webView loadHTMLString:urlString baseURL:nil];
-        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"article" ofType:@"html"];
-        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-        NSString *path = [[NSBundle mainBundle] bundlePath];
-        NSURL *baseURL = [NSURL fileURLWithPath:path];
-        [_webView loadHTMLString:htmlString baseURL:baseURL];
+//        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"article" ofType:@"html"];
+//        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
+//        NSString *path = [[NSBundle mainBundle] bundlePath];
+//        NSURL *baseURL = [NSURL fileURLWithPath:path];
+//        [_webView loadHTMLString:htmlString baseURL:baseURL];
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ANSWER_URL_STRING]]];
         [self addSubview:_webView];
         
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -54,6 +56,8 @@
 }
 
 - (void)didClickCancelButton {
+    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    [[appDelegate mainController] showBottomButton:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.top = self.height;

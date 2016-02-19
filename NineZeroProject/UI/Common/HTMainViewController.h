@@ -14,4 +14,6 @@
 
 - (void)loadResource;
 
+- (void)showBottomButton:(BOOL)show;
+
 @end

@@ -21,6 +21,7 @@
 #import "HTRewardController.h"
 #import "Reachability.h"
 #import "SharkfoodMuteSwitchDetector.h"
+#import <AFNetworking.h>
 
 static CGFloat kLeftMargin = 13; // 暂定为0
 
@@ -96,6 +97,17 @@ static CGFloat kLeftMargin = 13; // 暂定为0
                 for (HTPreviewItem *item in _previewView.items) {
                     item.delegate = self;
                 }
+                
+                // 预加载
+//                UIWebView *webView1 = [[UIWebView alloc] init];
+//                [webView1 loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ARTICLE_URL_STRING]]];
+//                UIWebView *webView2 = [[UIWebView alloc] init];
+//                [webView2 loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ANSWER_URL_STRING]]];
+                [[AFHTTPRequestOperationManager manager] HTTPRequestOperationWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ARTICLE_URL_STRING]] success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+                    
+                } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+                    
+                }];
             } else {
                 // TODO:获取失败
             }
@@ -257,9 +269,12 @@ static CGFloat kLeftMargin = 13; // 暂定为0
                 arCaptureController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
                 [self presentViewController:arCaptureController animated:YES completion:nil];
             } else {
+                AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+                [[appDelegate mainController] showBottomButton:NO];
                 _showAnswerView = [[HTShowAnswerView alloc] initWithURL:previewItem.question.detailURL];
                 _showAnswerView.alpha = 0.0;
                 _showAnswerView.frame = self.view.bounds;
+                
                 [UIView animateWithDuration:0.3 animations:^{
                     _showAnswerView.alpha = 1.0f;
                     [self.view addSubview:_showAnswerView];

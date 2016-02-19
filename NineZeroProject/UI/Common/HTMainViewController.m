@@ -69,6 +69,12 @@ CGFloat alphaLight = 1.0;
     [_mascotController view];
 }
 
+- (void)showBottomButton:(BOOL)show {
+    _mainButton.hidden = !show;
+    _mascotButton.hidden = !show;
+    _meButton.hidden = !show;
+}
+
 #pragma mark - Action
 
 - (IBAction)didClickMainButton:(id)sender {
