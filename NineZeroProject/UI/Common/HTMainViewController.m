@@ -11,11 +11,12 @@
 #import "HTMascotDisplayController.h"
 #import "HTRelaxController.h"
 #import "HTRelaxCoverController.h"
+#import "HTProfilePopView.h"
 
 CGFloat alphaDark = 0.3;
 CGFloat alphaLight = 1.0;
 
-@interface HTMainViewController () <HTPreviewQuestionControllerDelegate>
+@interface HTMainViewController () <HTPreviewQuestionControllerDelegate, HTProfilePopViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;
 @property (weak, nonatomic) IBOutlet UIButton *mascotButton;
 @property (weak, nonatomic) IBOutlet UIButton *meButton;
@@ -100,13 +101,27 @@ CGFloat alphaLight = 1.0;
     [_mainButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
     _mainButton.tag = 0;
     
-//    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
-//    [self presentViewController:relaxController animated:YES completion:nil];
-
-    HTRelaxCoverController *coverController = [[HTRelaxCoverController alloc] init];
-    [self presentViewController:coverController animated:YES completion:nil];
+    HTProfilePopView *popView = [[HTProfilePopView alloc] initWithFrame:CGRectZero];
+    popView.delegate = self;
+    [self.view addSubview:popView];
+    [self.view bringSubviewToFront:self.meButton];
+    _meButton.alpha = alphaLight;
+    _mainButton.alpha = alphaDark;
+    _mascotButton.alpha = alphaDark;
 }
 
+#pragma mark - HTProfilePopViewDelegate
+
+- (void)profilePopViewWillDismiss:(HTProfilePopView *)popView {
+    _meButton.alpha = alphaDark;
+    if (_currentViewController == _preViewController) {
+        _mainButton.alpha = alphaLight;
+        _mascotButton.alpha = alphaDark;
+    } else {
+        _mainButton.alpha = alphaDark;
+        _mascotButton.alpha = alphaLight;
+    }
+}
 
 #pragma mark HTPreviewQuestionController Delegate
 

@@ -33,8 +33,13 @@
 #define ARTICLE_URL_STRING @"http://115.159.115.215:8001/views/article.html"
 #define ANSWER_URL_STRING @"http://115.159.115.215:8001/views/answer.html"
 
-//
-
 #define COMMON_BG_COLOR UIColorMake(14, 14, 14)
+
+#define UIViewParentController(__view) ({ \
+    UIResponder *__responder = __view; \
+    while ([__responder isKindOfClass:[UIView class]]) \
+        __responder = [__responder nextResponder]; \
+    (UIViewController *)__responder; \
+})
 
 #endif /* CommonDefine_h */
