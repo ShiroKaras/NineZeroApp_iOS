@@ -25,7 +25,6 @@
 		17262CDD1C5E058B000FDA1B /* HTMascotIntroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17262CDC1C5E058B000FDA1B /* HTMascotIntroCell.m */; };
 		173A21171C568A34006A423D /* HTRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 173A21161C568A34006A423D /* HTRewardController.m */; };
 		173F55701C7CBB3D00C8A04A /* HTProfilePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 173F556F1C7CBB3D00C8A04A /* HTProfilePopView.m */; };
-		173F558E1C7CCC5500C8A04A /* HTProfileRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 173F558D1C7CCC5500C8A04A /* HTProfileRewardController.m */; };
 		17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17407A5A1C4EA28C00B60099 /* HTMascotView.m */; };
 		17439D381C61D6EE00555B90 /* article.html in Resources */ = {isa = PBXBuildFile; fileRef = 17439D371C61D6EE00555B90 /* article.html */; };
 		17461AF81C71EF6600C847E8 /* img_mascot_1_animation_2_0000.png in Resources */ = {isa = PBXBuildFile; fileRef = 174618F51C71EF6600C847E8 /* img_mascot_1_animation_2_0000.png */; };
@@ -679,6 +678,9 @@
 		17F45AED1C7E1A8E004F2E32 /* HTUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AEC1C7E1A8E004F2E32 /* HTUIHelper.m */; };
 		17F45AF41C7E1D7A004F2E32 /* HTProfileArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AF21C7E1D7A004F2E32 /* HTProfileArticleCell.m */; };
 		17F45AF51C7E1D7A004F2E32 /* HTProfileArticleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17F45AF31C7E1D7A004F2E32 /* HTProfileArticleCell.xib */; };
+		17F45AF81C7E2564004F2E32 /* HTRewardCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AF71C7E2564004F2E32 /* HTRewardCard.m */; };
+		17F45AFB1C7E25E0004F2E32 /* HTProfileRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AFA1C7E25E0004F2E32 /* HTProfileRewardController.m */; };
+		17F45AFE1C7E2652004F2E32 /* HTProfileRewardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AFD1C7E2652004F2E32 /* HTProfileRewardCell.m */; };
 		26973B021C005ED900160D25 /* HTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B011C005ED900160D25 /* HTNavigationController.m */; };
 		26973B051C005F9800160D25 /* HTRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B041C005F9800160D25 /* HTRegisterController.m */; };
 		26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B061C005FBF00160D25 /* HTRegisterController.xib */; };
@@ -741,8 +743,6 @@
 		173A21161C568A34006A423D /* HTRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRewardController.m; sourceTree = "<group>"; };
 		173F556E1C7CBB3D00C8A04A /* HTProfilePopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfilePopView.h; sourceTree = "<group>"; };
 		173F556F1C7CBB3D00C8A04A /* HTProfilePopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfilePopView.m; sourceTree = "<group>"; };
-		173F558C1C7CCC5500C8A04A /* HTProfileRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileRewardController.h; sourceTree = "<group>"; };
-		173F558D1C7CCC5500C8A04A /* HTProfileRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileRewardController.m; sourceTree = "<group>"; };
 		17407A591C4EA28C00B60099 /* HTMascotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotView.h; sourceTree = "<group>"; };
 		17407A5A1C4EA28C00B60099 /* HTMascotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotView.m; sourceTree = "<group>"; };
 		17439D371C61D6EE00555B90 /* article.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = article.html; sourceTree = "<group>"; };
@@ -1465,6 +1465,12 @@
 		17F45AF11C7E1D7A004F2E32 /* HTProfileArticleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileArticleCell.h; sourceTree = "<group>"; };
 		17F45AF21C7E1D7A004F2E32 /* HTProfileArticleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileArticleCell.m; sourceTree = "<group>"; };
 		17F45AF31C7E1D7A004F2E32 /* HTProfileArticleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTProfileArticleCell.xib; sourceTree = "<group>"; };
+		17F45AF61C7E2564004F2E32 /* HTRewardCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRewardCard.h; sourceTree = "<group>"; };
+		17F45AF71C7E2564004F2E32 /* HTRewardCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRewardCard.m; sourceTree = "<group>"; };
+		17F45AF91C7E25E0004F2E32 /* HTProfileRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileRewardController.h; sourceTree = "<group>"; };
+		17F45AFA1C7E25E0004F2E32 /* HTProfileRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileRewardController.m; sourceTree = "<group>"; };
+		17F45AFC1C7E2652004F2E32 /* HTProfileRewardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileRewardCell.h; sourceTree = "<group>"; };
+		17F45AFD1C7E2652004F2E32 /* HTProfileRewardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileRewardCell.m; sourceTree = "<group>"; };
 		26973B001C005ED900160D25 /* HTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNavigationController.h; sourceTree = "<group>"; };
 		26973B011C005ED900160D25 /* HTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNavigationController.m; sourceTree = "<group>"; };
 		26973B031C005F9800160D25 /* HTRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRegisterController.h; sourceTree = "<group>"; };
@@ -1626,6 +1632,8 @@
 			children = (
 				173A21151C568A34006A423D /* HTRewardController.h */,
 				173A21161C568A34006A423D /* HTRewardController.m */,
+				17F45AF61C7E2564004F2E32 /* HTRewardCard.h */,
+				17F45AF71C7E2564004F2E32 /* HTRewardCard.m */,
 				179D2BB01C5E5444000A4461 /* HTRelaxController.h */,
 				179D2BB11C5E5444000A4461 /* HTRelaxController.m */,
 				179D2BB21C5E5444000A4461 /* HTRelaxController.xib */,
@@ -1641,8 +1649,10 @@
 			children = (
 				173F556E1C7CBB3D00C8A04A /* HTProfilePopView.h */,
 				173F556F1C7CBB3D00C8A04A /* HTProfilePopView.m */,
-				173F558C1C7CCC5500C8A04A /* HTProfileRewardController.h */,
-				173F558D1C7CCC5500C8A04A /* HTProfileRewardController.m */,
+				17F45AF91C7E25E0004F2E32 /* HTProfileRewardController.h */,
+				17F45AFA1C7E25E0004F2E32 /* HTProfileRewardController.m */,
+				17F45AFC1C7E2652004F2E32 /* HTProfileRewardCell.h */,
+				17F45AFD1C7E2652004F2E32 /* HTProfileRewardCell.m */,
 				17F45AE81C7E1A41004F2E32 /* HTProfileArticlesController.h */,
 				17F45AE91C7E1A41004F2E32 /* HTProfileArticlesController.m */,
 				17F45AF11C7E1D7A004F2E32 /* HTProfileArticleCell.h */,
@@ -3546,6 +3556,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17F45AF81C7E2564004F2E32 /* HTRewardCard.m in Sources */,
 				17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */,
 				17D1F8D71C29D7BD0029E4AF /* HTTextField.m in Sources */,
 				179D2BAA1C5E414F000A4461 /* HTArticleController.m in Sources */,
@@ -3565,9 +3576,11 @@
 				1787FD1F1C4A8884006E55A6 /* PRARManager.m in Sources */,
 				1787FD2C1C4A9E85006E55A6 /* INTULocationRequest.m in Sources */,
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
+				17F45AFB1C7E25E0004F2E32 /* HTProfileRewardController.m in Sources */,
 				26973B021C005ED900160D25 /* HTNavigationController.m in Sources */,
 				170992BD1C264F0C004433EB /* HTShowDetailView.m in Sources */,
 				17AA63571C4AB85A0047BADF /* HTMainViewController.m in Sources */,
+				17F45AFE1C7E2652004F2E32 /* HTProfileRewardCell.m in Sources */,
 				176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */,
 				1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */,
 				17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */,
@@ -3592,7 +3605,6 @@
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
 				17A89AAF1C1DBA150087BF00 /* README.md in Sources */,
 				17B429041C54D4A8008AFBA9 /* YYSpriteSheetImage.m in Sources */,
-				173F558E1C7CCC5500C8A04A /* HTProfileRewardController.m in Sources */,
 				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
 				174CF7821C146E2F002E0DBB /* HTPreviewQuestionController.m in Sources */,
 				17262CB71C5DF486000FDA1B /* HTMascotTipView.m in Sources */,

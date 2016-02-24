@@ -102,3 +102,7 @@
 @property (nonatomic, assign) BOOL isExchanged;                 // 是否已经兑换
 
 @end
+
+// 礼券
+@interface HTReward : NSObject
+@end

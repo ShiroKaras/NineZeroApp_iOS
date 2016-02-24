@@ -121,3 +121,5 @@ HTINIT(HTMascotProp);
 }
 @end
 
+@implementation HTReward
+@end
