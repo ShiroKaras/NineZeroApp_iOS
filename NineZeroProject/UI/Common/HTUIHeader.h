@@ -25,5 +25,6 @@
 #import "NSString+Utility.h"
 #import "HTImageView.h"
 #import "HTMascotHelper.h"
+#import "HTUIHelper.h"
 
 #endif /* HTUIHeader_h */

@@ -25,6 +25,7 @@
 		17262CDD1C5E058B000FDA1B /* HTMascotIntroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17262CDC1C5E058B000FDA1B /* HTMascotIntroCell.m */; };
 		173A21171C568A34006A423D /* HTRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 173A21161C568A34006A423D /* HTRewardController.m */; };
 		173F55701C7CBB3D00C8A04A /* HTProfilePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 173F556F1C7CBB3D00C8A04A /* HTProfilePopView.m */; };
+		173F558E1C7CCC5500C8A04A /* HTProfileRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 173F558D1C7CCC5500C8A04A /* HTProfileRewardController.m */; };
 		17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17407A5A1C4EA28C00B60099 /* HTMascotView.m */; };
 		17439D381C61D6EE00555B90 /* article.html in Resources */ = {isa = PBXBuildFile; fileRef = 17439D371C61D6EE00555B90 /* article.html */; };
 		17461AF81C71EF6600C847E8 /* img_mascot_1_animation_2_0000.png in Resources */ = {isa = PBXBuildFile; fileRef = 174618F51C71EF6600C847E8 /* img_mascot_1_animation_2_0000.png */; };
@@ -674,6 +675,10 @@
 		17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */; };
 		17F37A761C255420006759D1 /* HUD+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A751C255420006759D1 /* HUD+Utility.m */; };
 		17F37A791C259EB8006759D1 /* HTDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A781C259EB8006759D1 /* HTDescriptionView.m */; };
+		17F45AEA1C7E1A41004F2E32 /* HTProfileArticlesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AE91C7E1A41004F2E32 /* HTProfileArticlesController.m */; };
+		17F45AED1C7E1A8E004F2E32 /* HTUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AEC1C7E1A8E004F2E32 /* HTUIHelper.m */; };
+		17F45AF41C7E1D7A004F2E32 /* HTProfileArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AF21C7E1D7A004F2E32 /* HTProfileArticleCell.m */; };
+		17F45AF51C7E1D7A004F2E32 /* HTProfileArticleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17F45AF31C7E1D7A004F2E32 /* HTProfileArticleCell.xib */; };
 		26973B021C005ED900160D25 /* HTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B011C005ED900160D25 /* HTNavigationController.m */; };
 		26973B051C005F9800160D25 /* HTRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B041C005F9800160D25 /* HTRegisterController.m */; };
 		26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B061C005FBF00160D25 /* HTRegisterController.xib */; };
@@ -736,6 +741,8 @@
 		173A21161C568A34006A423D /* HTRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTRewardController.m; sourceTree = "<group>"; };
 		173F556E1C7CBB3D00C8A04A /* HTProfilePopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfilePopView.h; sourceTree = "<group>"; };
 		173F556F1C7CBB3D00C8A04A /* HTProfilePopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfilePopView.m; sourceTree = "<group>"; };
+		173F558C1C7CCC5500C8A04A /* HTProfileRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileRewardController.h; sourceTree = "<group>"; };
+		173F558D1C7CCC5500C8A04A /* HTProfileRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileRewardController.m; sourceTree = "<group>"; };
 		17407A591C4EA28C00B60099 /* HTMascotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotView.h; sourceTree = "<group>"; };
 		17407A5A1C4EA28C00B60099 /* HTMascotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotView.m; sourceTree = "<group>"; };
 		17439D371C61D6EE00555B90 /* article.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = article.html; sourceTree = "<group>"; };
@@ -1451,6 +1458,13 @@
 		17F37A751C255420006759D1 /* HUD+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HUD+Utility.m"; sourceTree = "<group>"; };
 		17F37A771C259EB8006759D1 /* HTDescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTDescriptionView.h; sourceTree = "<group>"; };
 		17F37A781C259EB8006759D1 /* HTDescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTDescriptionView.m; sourceTree = "<group>"; };
+		17F45AE81C7E1A41004F2E32 /* HTProfileArticlesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileArticlesController.h; sourceTree = "<group>"; };
+		17F45AE91C7E1A41004F2E32 /* HTProfileArticlesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileArticlesController.m; sourceTree = "<group>"; };
+		17F45AEB1C7E1A8E004F2E32 /* HTUIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTUIHelper.h; sourceTree = "<group>"; };
+		17F45AEC1C7E1A8E004F2E32 /* HTUIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTUIHelper.m; sourceTree = "<group>"; };
+		17F45AF11C7E1D7A004F2E32 /* HTProfileArticleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileArticleCell.h; sourceTree = "<group>"; };
+		17F45AF21C7E1D7A004F2E32 /* HTProfileArticleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileArticleCell.m; sourceTree = "<group>"; };
+		17F45AF31C7E1D7A004F2E32 /* HTProfileArticleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTProfileArticleCell.xib; sourceTree = "<group>"; };
 		26973B001C005ED900160D25 /* HTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNavigationController.h; sourceTree = "<group>"; };
 		26973B011C005ED900160D25 /* HTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNavigationController.m; sourceTree = "<group>"; };
 		26973B031C005F9800160D25 /* HTRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRegisterController.h; sourceTree = "<group>"; };
@@ -1627,6 +1641,13 @@
 			children = (
 				173F556E1C7CBB3D00C8A04A /* HTProfilePopView.h */,
 				173F556F1C7CBB3D00C8A04A /* HTProfilePopView.m */,
+				173F558C1C7CCC5500C8A04A /* HTProfileRewardController.h */,
+				173F558D1C7CCC5500C8A04A /* HTProfileRewardController.m */,
+				17F45AE81C7E1A41004F2E32 /* HTProfileArticlesController.h */,
+				17F45AE91C7E1A41004F2E32 /* HTProfileArticlesController.m */,
+				17F45AF11C7E1D7A004F2E32 /* HTProfileArticleCell.h */,
+				17F45AF21C7E1D7A004F2E32 /* HTProfileArticleCell.m */,
+				17F45AF31C7E1D7A004F2E32 /* HTProfileArticleCell.xib */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -2705,6 +2726,8 @@
 				17A47E8B1C037F3E00BEC1DD /* HTCommonViewController.m */,
 				17967AB61C17537E00571924 /* HTLogicHeader.h */,
 				17D997BE1C1D1E3D0091978E /* HTUIHeader.h */,
+				17F45AEB1C7E1A8E004F2E32 /* HTUIHelper.h */,
+				17F45AEC1C7E1A8E004F2E32 /* HTUIHelper.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2885,6 +2908,7 @@
 				174CF7841C146EAF002E0DBB /* HTPreviewQuestionController.xib in Resources */,
 				17461B0F1C71EF6600C847E8 /* img_mascot_1_animation_2_0023.png in Resources */,
 				17461B291C71EF6600C847E8 /* img_mascot_1_animation_3_0011.png in Resources */,
+				17F45AF51C7E1D7A004F2E32 /* HTProfileArticleCell.xib in Resources */,
 				17461C2B1C71EF6600C847E8 /* img_mascot_5_animation_4_0010.png in Resources */,
 				17461BBE1C71EF6600C847E8 /* img_mascot_3_animation_3_0009.png in Resources */,
 				17461B541C71EF6600C847E8 /* img_mascot_1_animation_4_0020.png in Resources */,
@@ -3553,6 +3577,7 @@
 				17F37A791C259EB8006759D1 /* HTDescriptionView.m in Sources */,
 				17B429021C54D4A8008AFBA9 /* YYImage.m in Sources */,
 				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,
+				17F45AEA1C7E1A41004F2E32 /* HTProfileArticlesController.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
 				17262CBC1C5DFE00000FDA1B /* HTMascotIntroController.m in Sources */,
 				17B1D8421C1544470082C86B /* HTModel.m in Sources */,
@@ -3561,11 +3586,13 @@
 				17A89ABC1C1DBA290087BF00 /* README.md in Sources */,
 				26973B221C006A6900160D25 /* HTLoginController.m in Sources */,
 				17967AB51C174ED500571924 /* HTQuestionService.m in Sources */,
+				17F45AF41C7E1D7A004F2E32 /* HTProfileArticleCell.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
 				17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
 				17A89AAF1C1DBA150087BF00 /* README.md in Sources */,
 				17B429041C54D4A8008AFBA9 /* YYSpriteSheetImage.m in Sources */,
+				173F558E1C7CCC5500C8A04A /* HTProfileRewardController.m in Sources */,
 				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
 				174CF7821C146E2F002E0DBB /* HTPreviewQuestionController.m in Sources */,
 				17262CB71C5DF486000FDA1B /* HTMascotTipView.m in Sources */,
@@ -3587,6 +3614,7 @@
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
 				17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */,
 				17D997C11C1D49930091978E /* HTComposeView.m in Sources */,
+				17F45AED1C7E1A8E004F2E32 /* HTUIHelper.m in Sources */,
 				173A21171C568A34006A423D /* HTRewardController.m in Sources */,
 				17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */,
 				17C40B401C5538A200DAE22A /* HTMascotService.m in Sources */,
