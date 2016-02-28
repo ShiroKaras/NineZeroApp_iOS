@@ -686,6 +686,8 @@
 		17F45AF81C7E2564004F2E32 /* HTRewardCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AF71C7E2564004F2E32 /* HTRewardCard.m */; };
 		17F45AFB1C7E25E0004F2E32 /* HTProfileRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AFA1C7E25E0004F2E32 /* HTProfileRewardController.m */; };
 		17F45AFE1C7E2652004F2E32 /* HTProfileRewardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AFD1C7E2652004F2E32 /* HTProfileRewardCell.m */; };
+		17FA11081C82DE9B00FA9102 /* HTProfileLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FA11061C82DE9B00FA9102 /* HTProfileLocationController.m */; };
+		17FA11091C82DE9B00FA9102 /* HTProfileLocationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FA11071C82DE9B00FA9102 /* HTProfileLocationController.xib */; };
 		26973B021C005ED900160D25 /* HTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B011C005ED900160D25 /* HTNavigationController.m */; };
 		26973B051C005F9800160D25 /* HTRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B041C005F9800160D25 /* HTRegisterController.m */; };
 		26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B061C005FBF00160D25 /* HTRegisterController.xib */; };
@@ -1485,6 +1487,9 @@
 		17F45AFA1C7E25E0004F2E32 /* HTProfileRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileRewardController.m; sourceTree = "<group>"; };
 		17F45AFC1C7E2652004F2E32 /* HTProfileRewardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileRewardCell.h; sourceTree = "<group>"; };
 		17F45AFD1C7E2652004F2E32 /* HTProfileRewardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileRewardCell.m; sourceTree = "<group>"; };
+		17FA11051C82DE9B00FA9102 /* HTProfileLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileLocationController.h; sourceTree = "<group>"; };
+		17FA11061C82DE9B00FA9102 /* HTProfileLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileLocationController.m; sourceTree = "<group>"; };
+		17FA11071C82DE9B00FA9102 /* HTProfileLocationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTProfileLocationController.xib; sourceTree = "<group>"; };
 		26973B001C005ED900160D25 /* HTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNavigationController.h; sourceTree = "<group>"; };
 		26973B011C005ED900160D25 /* HTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNavigationController.m; sourceTree = "<group>"; };
 		26973B031C005F9800160D25 /* HTRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRegisterController.h; sourceTree = "<group>"; };
@@ -1677,6 +1682,9 @@
 				17F39B681C820D7500D8A565 /* HTProfileRootController.xib */,
 				17F39B711C82234900D8A565 /* HTProfileSettingController.h */,
 				17F39B721C82234900D8A565 /* HTProfileSettingController.m */,
+				17FA11051C82DE9B00FA9102 /* HTProfileLocationController.h */,
+				17FA11061C82DE9B00FA9102 /* HTProfileLocationController.m */,
+				17FA11071C82DE9B00FA9102 /* HTProfileLocationController.xib */,
 				17F39B741C8224BA00D8A565 /* HTProfileSettingCell.h */,
 				17F39B751C8224BA00D8A565 /* HTProfileSettingCell.m */,
 			);
@@ -3103,6 +3111,7 @@
 				17461C861C71EF6600C847E8 /* img_mascot_6_animation_4_0025.png in Resources */,
 				17461C951C71EF6600C847E8 /* img_mascot_7_animation_2_0010.png in Resources */,
 				17461BD81C71EF6600C847E8 /* img_mascot_4_animation_2_0000.png in Resources */,
+				17FA11091C82DE9B00FA9102 /* HTProfileLocationController.xib in Resources */,
 				17461B101C71EF6600C847E8 /* img_mascot_1_animation_2_0024.png in Resources */,
 				17461C561C71EF6600C847E8 /* img_mascot_6_animation_3_0003.png in Resources */,
 				17461B601C71EF6600C847E8 /* img_mascot_2_animation_2_0004.png in Resources */,
@@ -3630,6 +3639,7 @@
 				17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
 				17A89AAF1C1DBA150087BF00 /* README.md in Sources */,
+				17FA11081C82DE9B00FA9102 /* HTProfileLocationController.m in Sources */,
 				17B429041C54D4A8008AFBA9 /* YYSpriteSheetImage.m in Sources */,
 				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
 				174CF7821C146E2F002E0DBB /* HTPreviewQuestionController.m in Sources */,
