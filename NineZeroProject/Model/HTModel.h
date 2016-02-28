@@ -106,3 +106,7 @@
 // 礼券
 @interface HTReward : NSObject
 @end
+
+// 通知单元结构体
+@interface HTNotification : NSObject
+@end
