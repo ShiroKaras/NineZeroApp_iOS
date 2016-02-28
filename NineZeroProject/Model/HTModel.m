@@ -124,4 +124,5 @@ HTINIT(HTMascotProp);
 @implementation HTReward
 @end
 
-
+@implementation HTNotification
+@end
