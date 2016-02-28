@@ -55,7 +55,7 @@
 }
 
 - (CGSize)intrinsicContentSize {
-    return CGSizeMake(280, 170);
+    return CGSizeMake(SCREEN_WIDTH - 40, 170);
 }
 
 - (void)layoutSubviews {

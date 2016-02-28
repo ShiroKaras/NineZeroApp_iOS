@@ -11,6 +11,79 @@
 #import "UIButton+EnlargeTouchArea.h"
 #import "HTUIHeader.h"
 
+@interface HTRewardDescriptionView : UIScrollView
+@property (nonatomic, strong) UILabel *title;
+@property (nonatomic, strong) UILabel *deadLine;
+@property (nonatomic, strong) UILabel *location;
+@property (nonatomic, strong) UILabel *mobile;
+@property (nonatomic, strong) UILabel *codeTipLabel;   // “唯一兑换码”
+@property (nonatomic, strong) UILabel *codeLabel;
+@property (nonatomic, strong) UILabel *careTipLabel;   // “注意事项”
+@property (nonatomic, strong) UILabel *careTip1;
+@property (nonatomic, strong) UILabel *careTip2;
+@property (nonatomic, strong) UILabel *careTip3;
+- (void)setReward:(HTReward *)reward;
+@end
+
+@implementation HTRewardDescriptionView
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        _title = [[UILabel alloc] init];
+        _title.font = [UIFont systemFontOfSize:19];
+        _title.textColor = [UIColor colorWithHex:0xffffff];
+        [self addSubview:_title];
+        
+        _deadLine = [self commonStyleLabel];
+        _location = [self commonStyleLabel];
+        _mobile = [self commonStyleLabel];
+        _codeTipLabel = [self commonStyleLabel];
+        
+        _codeLabel = [[UILabel alloc] init];
+        _codeLabel.font = [UIFont fontWithName:@"Moon-Bold" size:30];
+        _codeLabel.textColor = [UIColor colorWithHex:0xd40e88];
+        [self addSubview:_codeLabel];
+        
+        _careTipLabel = [self commonStyleLabel];
+        _careTip1 = [self commonStyleLabel];
+        _careTip2 = [self commonStyleLabel];
+        _careTip3 = [self commonStyleLabel];
+    }
+    return self;
+}
+
+- (void)setReward:(HTReward *)reward {
+    _title.text = @"免费泰国曼谷深之旅";
+    _deadLine.text = @"有效期至2015-12-31";
+    _location.text = @"地点：泰国曼谷";
+    _mobile.text = @"电话：01012345678";
+    _codeTipLabel.text = @"唯一兑换码";
+    _codeLabel.text = @"324567345";
+    _careTipLabel.text = @"注意事项：";
+    _careTip1.text = @"1.本活动仅限本人；";
+    _careTip2.text = @"2.如有疑问，请联系客服；";
+    _careTip3.text = @"3.最终解释权归深圳九零九五网络科技";
+    [self setNeedsDisplay];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    CGFloat leftMargin = 23;
+    CGFloat labelVerticalMargin = 12;
+    _title.frame = CGRectMake(leftMargin, 18, self.width - 2 * leftMargin, 20);
+    _deadLine.frame = CGRectMake(23, _title.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+}
+
+- (UILabel *)commonStyleLabel {
+    UILabel *label = [[UILabel alloc] init];
+    label.font = [UIFont systemFontOfSize:13];
+    label.textColor = [UIColor colorWithHex:0xd9d9d9];
+    [self addSubview:label];
+    return label;
+}
+
+@end
+
 @interface HTDescriptionView () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -57,17 +130,19 @@
         [_cancelButton sizeToFit];
         [_cancelButton setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
         [self addSubview:_cancelButton];
-        
-        _webView = [[UIWebView alloc] init];
-        _webView.delegate = self;
-        _webView.opaque = NO;
-        _webView.backgroundColor = [UIColor clearColor];
-        _webView.scrollView.backgroundColor = [UIColor clearColor];
-        [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body font-family: '-apple-system','HelveticaNeue'; style=\"line-height:24px; font-size:13px\" text=\"#d9d9d9\" bgcolor=\"#1f1f1f\"><span style=\"font-family: \'-apple-system\',\'HelveticaNeue\';\">这次的开放是内因。来自边缘广州的微信，如新星般冉冉升起。同样实现5亿用户，微信用了4年，而QQ用了十几年。你可以说这是互联网指数级发展的结果，也可以说微信是专为移动而生的产品。所幸，命运依旧青睐QQ，他们把时代的机遇给了微信，但是把年轻人群再次给到了QQ。腾讯即通应用部的总经理张孝超说，使用手机QQ的用户，超过半成以上是90后和00后用户。这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20。</span></body></html>"] baseURL: nil];
-        _webView.delegate = self;
-        NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
-        [_webView stringByEvaluatingJavaScriptFromString:padding];
-        [_converView addSubview:_webView];
+
+        if (type != HTDescriptionTypeReward) {
+            _webView = [[UIWebView alloc] init];
+            _webView.delegate = self;
+            _webView.opaque = NO;
+            _webView.backgroundColor = [UIColor clearColor];
+            _webView.scrollView.backgroundColor = [UIColor clearColor];
+            [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body font-family: '-apple-system','HelveticaNeue'; style=\"line-height:24px; font-size:13px\" text=\"#d9d9d9\" bgcolor=\"#1f1f1f\"><span style=\"font-family: \'-apple-system\',\'HelveticaNeue\';\">这次的开放是内因。来自边缘广州的微信，如新星般冉冉升起。同样实现5亿用户，微信用了4年，而QQ用了十几年。你可以说这是互联网指数级发展的结果，也可以说微信是专为移动而生的产品。所幸，命运依旧青睐QQ，他们把时代的机遇给了微信，但是把年轻人群再次给到了QQ。腾讯即通应用部的总经理张孝超说，使用手机QQ的用户，超过半成以上是90后和00后用户。这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20。</span></body></html>"] baseURL: nil];
+            _webView.delegate = self;
+            NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
+            [_webView stringByEvaluatingJavaScriptFromString:padding];
+            [_converView addSubview:_webView];
+        }
     }
     return self;
 }

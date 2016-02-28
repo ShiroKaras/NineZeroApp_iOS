@@ -674,6 +674,11 @@
 		17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */; };
 		17F37A761C255420006759D1 /* HUD+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A751C255420006759D1 /* HUD+Utility.m */; };
 		17F37A791C259EB8006759D1 /* HTDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A781C259EB8006759D1 /* HTDescriptionView.m */; };
+		17F39B691C820D7500D8A565 /* HTProfileRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F39B671C820D7500D8A565 /* HTProfileRootController.m */; };
+		17F39B6A1C820D7500D8A565 /* HTProfileRootController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17F39B681C820D7500D8A565 /* HTProfileRootController.xib */; };
+		17F39B701C82107500D8A565 /* NSLayoutConstraintHairline.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F39B6F1C82107500D8A565 /* NSLayoutConstraintHairline.m */; };
+		17F39B731C82234900D8A565 /* HTProfileSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F39B721C82234900D8A565 /* HTProfileSettingController.m */; };
+		17F39B761C8224BA00D8A565 /* HTProfileSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F39B751C8224BA00D8A565 /* HTProfileSettingCell.m */; };
 		17F45AEA1C7E1A41004F2E32 /* HTProfileArticlesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AE91C7E1A41004F2E32 /* HTProfileArticlesController.m */; };
 		17F45AED1C7E1A8E004F2E32 /* HTUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AEC1C7E1A8E004F2E32 /* HTUIHelper.m */; };
 		17F45AF41C7E1D7A004F2E32 /* HTProfileArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AF21C7E1D7A004F2E32 /* HTProfileArticleCell.m */; };
@@ -1458,6 +1463,15 @@
 		17F37A751C255420006759D1 /* HUD+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HUD+Utility.m"; sourceTree = "<group>"; };
 		17F37A771C259EB8006759D1 /* HTDescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTDescriptionView.h; sourceTree = "<group>"; };
 		17F37A781C259EB8006759D1 /* HTDescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTDescriptionView.m; sourceTree = "<group>"; };
+		17F39B661C820D7500D8A565 /* HTProfileRootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileRootController.h; sourceTree = "<group>"; };
+		17F39B671C820D7500D8A565 /* HTProfileRootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileRootController.m; sourceTree = "<group>"; };
+		17F39B681C820D7500D8A565 /* HTProfileRootController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTProfileRootController.xib; sourceTree = "<group>"; };
+		17F39B6E1C82107500D8A565 /* NSLayoutConstraintHairline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLayoutConstraintHairline.h; sourceTree = "<group>"; };
+		17F39B6F1C82107500D8A565 /* NSLayoutConstraintHairline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLayoutConstraintHairline.m; sourceTree = "<group>"; };
+		17F39B711C82234900D8A565 /* HTProfileSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileSettingController.h; sourceTree = "<group>"; };
+		17F39B721C82234900D8A565 /* HTProfileSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileSettingController.m; sourceTree = "<group>"; };
+		17F39B741C8224BA00D8A565 /* HTProfileSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileSettingCell.h; sourceTree = "<group>"; };
+		17F39B751C8224BA00D8A565 /* HTProfileSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileSettingCell.m; sourceTree = "<group>"; };
 		17F45AE81C7E1A41004F2E32 /* HTProfileArticlesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileArticlesController.h; sourceTree = "<group>"; };
 		17F45AE91C7E1A41004F2E32 /* HTProfileArticlesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileArticlesController.m; sourceTree = "<group>"; };
 		17F45AEB1C7E1A8E004F2E32 /* HTUIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTUIHelper.h; sourceTree = "<group>"; };
@@ -1658,6 +1672,13 @@
 				17F45AF11C7E1D7A004F2E32 /* HTProfileArticleCell.h */,
 				17F45AF21C7E1D7A004F2E32 /* HTProfileArticleCell.m */,
 				17F45AF31C7E1D7A004F2E32 /* HTProfileArticleCell.xib */,
+				17F39B661C820D7500D8A565 /* HTProfileRootController.h */,
+				17F39B671C820D7500D8A565 /* HTProfileRootController.m */,
+				17F39B681C820D7500D8A565 /* HTProfileRootController.xib */,
+				17F39B711C82234900D8A565 /* HTProfileSettingController.h */,
+				17F39B721C82234900D8A565 /* HTProfileSettingController.m */,
+				17F39B741C8224BA00D8A565 /* HTProfileSettingCell.h */,
+				17F39B751C8224BA00D8A565 /* HTProfileSettingCell.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -2738,6 +2759,8 @@
 				17D997BE1C1D1E3D0091978E /* HTUIHeader.h */,
 				17F45AEB1C7E1A8E004F2E32 /* HTUIHelper.h */,
 				17F45AEC1C7E1A8E004F2E32 /* HTUIHelper.m */,
+				17F39B6E1C82107500D8A565 /* NSLayoutConstraintHairline.h */,
+				17F39B6F1C82107500D8A565 /* NSLayoutConstraintHairline.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -3008,6 +3031,7 @@
 				17461B7A1C71EF6600C847E8 /* img_mascot_2_animation_3_0009.png in Resources */,
 				17461CB61C71EF6600C847E8 /* img_mascot_7_animation_3_0008.png in Resources */,
 				17461D051C7493DF00C847E8 /* img_ar_right_answer_gif_0011.png in Resources */,
+				17F39B6A1C820D7500D8A565 /* HTProfileRootController.xib in Resources */,
 				17461CCD1C71EF6600C847E8 /* img_mascot_7_animation_4_0002.png in Resources */,
 				17461CFE1C7493DF00C847E8 /* img_ar_right_answer_gif_0004.png in Resources */,
 				17A247881C623B9300359CCF /* raw_wrong_answer_gif_0010.png in Resources */,
@@ -3591,8 +3615,10 @@
 				17B429021C54D4A8008AFBA9 /* YYImage.m in Sources */,
 				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,
 				17F45AEA1C7E1A41004F2E32 /* HTProfileArticlesController.m in Sources */,
+				17F39B691C820D7500D8A565 /* HTProfileRootController.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
 				17262CBC1C5DFE00000FDA1B /* HTMascotIntroController.m in Sources */,
+				17F39B731C82234900D8A565 /* HTProfileSettingController.m in Sources */,
 				17B1D8421C1544470082C86B /* HTModel.m in Sources */,
 				17F37A761C255420006759D1 /* HUD+Utility.m in Sources */,
 				1787FD1C1C4A8884006E55A6 /* ARRadar.m in Sources */,
@@ -3617,6 +3643,7 @@
 				175641931C269DD20009AE7B /* HTShowAnswerView.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
 				17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */,
+				17F39B701C82107500D8A565 /* NSLayoutConstraintHairline.m in Sources */,
 				26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */,
 				174CF7871C147489002E0DBB /* HTPreviewView.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
@@ -3630,6 +3657,7 @@
 				173A21171C568A34006A423D /* HTRewardController.m in Sources */,
 				17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */,
 				17C40B401C5538A200DAE22A /* HTMascotService.m in Sources */,
+				17F39B761C8224BA00D8A565 /* HTProfileSettingCell.m in Sources */,
 				17262CDA1C5E02A4000FDA1B /* HTImageView.m in Sources */,
 				176B756E1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,

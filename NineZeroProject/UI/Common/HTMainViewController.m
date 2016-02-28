@@ -101,13 +101,19 @@ CGFloat alphaLight = 1.0;
     [_mainButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
     _mainButton.tag = 0;
     
-    HTProfilePopView *popView = [[HTProfilePopView alloc] initWithFrame:CGRectZero];
-    popView.delegate = self;
-    [self.view addSubview:popView];
-    [self.view bringSubviewToFront:self.meButton];
-    _meButton.alpha = alphaLight;
-    _mainButton.alpha = alphaDark;
-    _mascotButton.alpha = alphaDark;
+    if ([self.view viewWithTag:1234]) {
+        [[self.view viewWithTag:1234] removeFromSuperview];
+        [self profilePopViewWillDismiss:[self.view viewWithTag:1234]];
+    } else {
+        HTProfilePopView *popView = [[HTProfilePopView alloc] initWithFrame:CGRectZero];
+        popView.delegate = self;
+        popView.tag = 1234;
+        [self.view addSubview:popView];
+        [self.view bringSubviewToFront:self.meButton];
+        _meButton.alpha = alphaLight;
+        _mainButton.alpha = alphaDark;
+        _mascotButton.alpha = alphaDark;
+    }
 }
 
 #pragma mark - HTProfilePopViewDelegate

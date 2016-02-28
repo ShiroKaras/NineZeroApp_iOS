@@ -128,6 +128,13 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     };
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    for (HTPreviewItem *item in _previewView.items) {
+        [item stop];
+    }
+}
+
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
