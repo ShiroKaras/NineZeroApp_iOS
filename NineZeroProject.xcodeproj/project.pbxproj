@@ -688,6 +688,10 @@
 		17F45AFE1C7E2652004F2E32 /* HTProfileRewardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F45AFD1C7E2652004F2E32 /* HTProfileRewardCell.m */; };
 		17FA11081C82DE9B00FA9102 /* HTProfileLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FA11061C82DE9B00FA9102 /* HTProfileLocationController.m */; };
 		17FA11091C82DE9B00FA9102 /* HTProfileLocationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FA11071C82DE9B00FA9102 /* HTProfileLocationController.xib */; };
+		17FA110D1C83417A00FA9102 /* HTAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FA110B1C83417A00FA9102 /* HTAboutController.m */; };
+		17FA110E1C83417A00FA9102 /* HTAboutController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FA110C1C83417A00FA9102 /* HTAboutController.xib */; };
+		17FA112D1C8343DA00FA9102 /* HTFeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FA112B1C8343DA00FA9102 /* HTFeedbackController.m */; };
+		17FA112E1C8343DA00FA9102 /* HTFeedbackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FA112C1C8343DA00FA9102 /* HTFeedbackController.xib */; };
 		26973B021C005ED900160D25 /* HTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B011C005ED900160D25 /* HTNavigationController.m */; };
 		26973B051C005F9800160D25 /* HTRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B041C005F9800160D25 /* HTRegisterController.m */; };
 		26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B061C005FBF00160D25 /* HTRegisterController.xib */; };
@@ -1490,6 +1494,12 @@
 		17FA11051C82DE9B00FA9102 /* HTProfileLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileLocationController.h; sourceTree = "<group>"; };
 		17FA11061C82DE9B00FA9102 /* HTProfileLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileLocationController.m; sourceTree = "<group>"; };
 		17FA11071C82DE9B00FA9102 /* HTProfileLocationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTProfileLocationController.xib; sourceTree = "<group>"; };
+		17FA110A1C83417A00FA9102 /* HTAboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTAboutController.h; sourceTree = "<group>"; };
+		17FA110B1C83417A00FA9102 /* HTAboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAboutController.m; sourceTree = "<group>"; };
+		17FA110C1C83417A00FA9102 /* HTAboutController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTAboutController.xib; sourceTree = "<group>"; };
+		17FA112A1C8343DA00FA9102 /* HTFeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTFeedbackController.h; sourceTree = "<group>"; };
+		17FA112B1C8343DA00FA9102 /* HTFeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTFeedbackController.m; sourceTree = "<group>"; };
+		17FA112C1C8343DA00FA9102 /* HTFeedbackController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTFeedbackController.xib; sourceTree = "<group>"; };
 		26973B001C005ED900160D25 /* HTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNavigationController.h; sourceTree = "<group>"; };
 		26973B011C005ED900160D25 /* HTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNavigationController.m; sourceTree = "<group>"; };
 		26973B031C005F9800160D25 /* HTRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRegisterController.h; sourceTree = "<group>"; };
@@ -1687,6 +1697,12 @@
 				17FA11071C82DE9B00FA9102 /* HTProfileLocationController.xib */,
 				17F39B741C8224BA00D8A565 /* HTProfileSettingCell.h */,
 				17F39B751C8224BA00D8A565 /* HTProfileSettingCell.m */,
+				17FA110A1C83417A00FA9102 /* HTAboutController.h */,
+				17FA110B1C83417A00FA9102 /* HTAboutController.m */,
+				17FA110C1C83417A00FA9102 /* HTAboutController.xib */,
+				17FA112A1C8343DA00FA9102 /* HTFeedbackController.h */,
+				17FA112B1C8343DA00FA9102 /* HTFeedbackController.m */,
+				17FA112C1C8343DA00FA9102 /* HTFeedbackController.xib */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -3027,6 +3043,7 @@
 				17461C311C71EF6600C847E8 /* img_mascot_5_animation_4_0016.png in Resources */,
 				17D1F8811C29ADC40029E4AF /* right_answer_gif.gif in Resources */,
 				1787FD1B1C4A8884006E55A6 /* RadarMV.png in Resources */,
+				17FA112E1C8343DA00FA9102 /* HTFeedbackController.xib in Resources */,
 				17461C8B1C71EF6600C847E8 /* img_mascot_7_animation_2_0000.png in Resources */,
 				17461C8D1C71EF6600C847E8 /* img_mascot_7_animation_2_0002.png in Resources */,
 				17461CE41C71EF6600C847E8 /* img_mascot_7_animation_4_0025.png in Resources */,
@@ -3347,6 +3364,7 @@
 				17461BEA1C71EF6600C847E8 /* img_mascot_4_animation_4_0000.png in Resources */,
 				17461C931C71EF6600C847E8 /* img_mascot_7_animation_2_0008.png in Resources */,
 				17461C5E1C71EF6600C847E8 /* img_mascot_6_animation_3_0011.png in Resources */,
+				17FA110E1C83417A00FA9102 /* HTAboutController.xib in Resources */,
 				17461CB21C71EF6600C847E8 /* img_mascot_7_animation_3_0004.png in Resources */,
 				17461AFC1C71EF6600C847E8 /* img_mascot_1_animation_2_0004.png in Resources */,
 				17461BF91C71EF6600C847E8 /* img_mascot_5_animation_2_0002.png in Resources */,
@@ -3651,6 +3669,7 @@
 				17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */,
 				17461D0F1C74C8C900C847E8 /* Reachability.m in Sources */,
 				175641931C269DD20009AE7B /* HTShowAnswerView.m in Sources */,
+				17FA110D1C83417A00FA9102 /* HTAboutController.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
 				17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */,
 				17F39B701C82107500D8A565 /* NSLayoutConstraintHairline.m in Sources */,
@@ -3670,6 +3689,7 @@
 				17F39B761C8224BA00D8A565 /* HTProfileSettingCell.m in Sources */,
 				17262CDA1C5E02A4000FDA1B /* HTImageView.m in Sources */,
 				176B756E1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m in Sources */,
+				17FA112D1C8343DA00FA9102 /* HTFeedbackController.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

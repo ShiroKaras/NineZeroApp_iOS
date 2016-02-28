@@ -32,7 +32,7 @@
         _webView.opaque = NO;
         _webView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
         _webView.scrollView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
-        _webView.scrollView.contentInset = UIEdgeInsetsMake(61, 0, 0, 0);
+//        _webView.scrollView.contentInset = UIEdgeInsetsMake(61, 0, 0, 0);
 //        [_webView loadHTMLString:urlString baseURL:nil];
 //        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"article" ofType:@"html"];
 //        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
