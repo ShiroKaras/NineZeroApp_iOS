@@ -692,6 +692,7 @@
 		17FA110E1C83417A00FA9102 /* HTAboutController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FA110C1C83417A00FA9102 /* HTAboutController.xib */; };
 		17FA112D1C8343DA00FA9102 /* HTFeedbackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FA112B1C8343DA00FA9102 /* HTFeedbackController.m */; };
 		17FA112E1C8343DA00FA9102 /* HTFeedbackController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FA112C1C8343DA00FA9102 /* HTFeedbackController.xib */; };
+		17FA11321C8357E800FA9102 /* HTCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FA11301C8357E800FA9102 /* HTCollectionController.m */; };
 		26973B021C005ED900160D25 /* HTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B011C005ED900160D25 /* HTNavigationController.m */; };
 		26973B051C005F9800160D25 /* HTRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26973B041C005F9800160D25 /* HTRegisterController.m */; };
 		26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26973B061C005FBF00160D25 /* HTRegisterController.xib */; };
@@ -1500,6 +1501,8 @@
 		17FA112A1C8343DA00FA9102 /* HTFeedbackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTFeedbackController.h; sourceTree = "<group>"; };
 		17FA112B1C8343DA00FA9102 /* HTFeedbackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTFeedbackController.m; sourceTree = "<group>"; };
 		17FA112C1C8343DA00FA9102 /* HTFeedbackController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTFeedbackController.xib; sourceTree = "<group>"; };
+		17FA112F1C8357E800FA9102 /* HTCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCollectionController.h; sourceTree = "<group>"; };
+		17FA11301C8357E800FA9102 /* HTCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCollectionController.m; sourceTree = "<group>"; };
 		26973B001C005ED900160D25 /* HTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNavigationController.h; sourceTree = "<group>"; };
 		26973B011C005ED900160D25 /* HTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTNavigationController.m; sourceTree = "<group>"; };
 		26973B031C005F9800160D25 /* HTRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTRegisterController.h; sourceTree = "<group>"; };
@@ -1703,6 +1706,8 @@
 				17FA112A1C8343DA00FA9102 /* HTFeedbackController.h */,
 				17FA112B1C8343DA00FA9102 /* HTFeedbackController.m */,
 				17FA112C1C8343DA00FA9102 /* HTFeedbackController.xib */,
+				17FA112F1C8357E800FA9102 /* HTCollectionController.h */,
+				17FA11301C8357E800FA9102 /* HTCollectionController.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -3690,6 +3695,7 @@
 				17262CDA1C5E02A4000FDA1B /* HTImageView.m in Sources */,
 				176B756E1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m in Sources */,
 				17FA112D1C8343DA00FA9102 /* HTFeedbackController.m in Sources */,
+				17FA11321C8357E800FA9102 /* HTCollectionController.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
