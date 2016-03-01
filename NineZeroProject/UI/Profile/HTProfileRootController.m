@@ -10,6 +10,8 @@
 #import "HTProfileSettingController.h"
 #import "HTCollectionController.h"
 #import "HTNotificationController.h"
+#import "HTProfileRankController.h"
+#import "HTProfileRewardController.h"
 #import "HTUIHeader.h"
 
 @interface HTProfileRootController ()
@@ -68,6 +70,8 @@
 }
 
 - (IBAction)didClickRank:(UIButton *)sender {
+    HTProfileRankController *rankController = [[HTProfileRankController alloc] init];
+    [self.navigationController pushViewController:rankController animated:YES];
 }
 
 - (IBAction)didClickMedal:(UIButton *)sender {
@@ -79,6 +83,8 @@
 }
 
 - (IBAction)didClickReward:(UIButton *)sender {
+    HTProfileRewardController *rewardController = [[HTProfileRewardController alloc] init];
+    [self.navigationController pushViewController:rewardController animated:YES];
 }
 
 
