@@ -666,6 +666,8 @@
 		17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B428FD1C54D4A8008AFBA9 /* YYImageCoder.m */; };
 		17B429041C54D4A8008AFBA9 /* YYSpriteSheetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B428FF1C54D4A8008AFBA9 /* YYSpriteSheetImage.m */; };
 		17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */; };
+		17BE47371C86039F00797E8E /* HTProfileRankController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BE47361C86039F00797E8E /* HTProfileRankController.m */; };
+		17BE473A1C8603D300797E8E /* HTProfileRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BE47391C8603D300797E8E /* HTProfileRankCell.m */; };
 		17C40B401C5538A200DAE22A /* HTMascotService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C40B3F1C5538A200DAE22A /* HTMascotService.m */; };
 		17D1F8811C29ADC40029E4AF /* right_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */; };
 		17D1F8831C29ADCD0029E4AF /* wrong_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8821C29ADCD0029E4AF /* wrong_answer_gif.gif */; };
@@ -1456,6 +1458,10 @@
 		17B428FF1C54D4A8008AFBA9 /* YYSpriteSheetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSpriteSheetImage.m; sourceTree = "<group>"; };
 		17B8F7441C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
 		17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
+		17BE47351C86039F00797E8E /* HTProfileRankController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileRankController.h; sourceTree = "<group>"; };
+		17BE47361C86039F00797E8E /* HTProfileRankController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileRankController.m; sourceTree = "<group>"; };
+		17BE47381C8603D300797E8E /* HTProfileRankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileRankCell.h; sourceTree = "<group>"; };
+		17BE47391C8603D300797E8E /* HTProfileRankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileRankCell.m; sourceTree = "<group>"; };
 		17C40B3E1C5538A200DAE22A /* HTMascotService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotService.h; sourceTree = "<group>"; };
 		17C40B3F1C5538A200DAE22A /* HTMascotService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotService.m; sourceTree = "<group>"; };
 		17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = right_answer_gif.gif; sourceTree = "<group>"; };
@@ -1718,6 +1724,10 @@
 				17FA11351C835BE000FA9102 /* HTNotificationController.m */,
 				17FA11371C835C6500FA9102 /* HTNotificationCell.h */,
 				17FA11381C835C6500FA9102 /* HTNotificationCell.m */,
+				17BE47351C86039F00797E8E /* HTProfileRankController.h */,
+				17BE47361C86039F00797E8E /* HTProfileRankController.m */,
+				17BE47381C8603D300797E8E /* HTProfileRankCell.h */,
+				17BE47391C8603D300797E8E /* HTProfileRankCell.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -3628,6 +3638,7 @@
 				179D2BAA1C5E414F000A4461 /* HTArticleController.m in Sources */,
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
 				176B75751C7759B20069DE89 /* HTRelaxCoverController.m in Sources */,
+				17BE473A1C8603D300797E8E /* HTProfileRankCell.m in Sources */,
 				17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */,
 				17B428F31C54CC9A008AFBA9 /* HTMascotItem.m in Sources */,
 				17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */,
@@ -3647,6 +3658,7 @@
 				170992BD1C264F0C004433EB /* HTShowDetailView.m in Sources */,
 				17AA63571C4AB85A0047BADF /* HTMainViewController.m in Sources */,
 				17F45AFE1C7E2652004F2E32 /* HTProfileRewardCell.m in Sources */,
+				17BE47371C86039F00797E8E /* HTProfileRankController.m in Sources */,
 				176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */,
 				1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */,
 				17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */,

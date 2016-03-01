@@ -58,7 +58,7 @@
     }
     if (_tipLabel == nil) {
         _tipLabel = [[UILabel alloc] init];
-        _tipLabel.font = [UIFont fontWithName:@"Moon-Bold" size:20];
+        _tipLabel.font = MOON_FONT_OF_SIZE(20);
         _tipLabel.textColor = [UIColor whiteColor];
         _tipLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_tipLabel];

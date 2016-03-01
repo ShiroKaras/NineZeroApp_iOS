@@ -47,7 +47,7 @@ static CGFloat kLineSpace = 7;
         [self.contentView addSubview:_contentLabel];
         
         _separator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
-        _separator.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
+        _separator.backgroundColor = COMMON_SEPARATOR_COLOR;
         [self.contentView addSubview:_separator];
     }
     return self;

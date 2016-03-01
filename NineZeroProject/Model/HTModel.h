@@ -110,3 +110,8 @@
 // 通知单元结构体
 @interface HTNotification : NSObject
 @end
+
+// 排名单元
+@interface HTRanker : NSObject
+@property (nonatomic, assign) NSUInteger order;
+@end

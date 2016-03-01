@@ -40,8 +40,8 @@
         _codeTipLabel = [self commonStyleLabel];
         
         _codeLabel = [[UILabel alloc] init];
-        _codeLabel.font = [UIFont fontWithName:@"Moon-Bold" size:30];
-        _codeLabel.textColor = [UIColor colorWithHex:0xd40e88];
+        _codeLabel.font = MOON_FONT_OF_SIZE(30);
+        _codeLabel.textColor = COMMON_PINK_COLOR;
         [self addSubview:_codeLabel];
         
         _careTipLabel = [self commonStyleLabel];
@@ -119,12 +119,12 @@
         [self addSubview:_dimmingView];
     
         _converView = [[UIView alloc] init];
-        _converView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
+        _converView.backgroundColor = COMMON_SEPARATOR_COLOR;
         [self addSubview:_converView];
         
         UIImage *converImage = (type == HTDescriptionTypeProp) ? [UIImage imageNamed:@"props_cover"] : [UIImage imageNamed:@"test_imaga"];
         _imageView = [[UIImageView alloc] initWithImage:converImage];
-        _imageView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
+        _imageView.backgroundColor = COMMON_SEPARATOR_COLOR;
         [_converView addSubview:_imageView];
     
         _exchangeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -219,6 +219,10 @@
         _exchangeButton.enabled = YES;
     }
     [self setNeedsLayout];
+}
+
+- (void)setReward:(HTReward *)reward {
+    [_rewardDescriptionView setReward:reward];
 }
 
 - (void)layoutSubviews {

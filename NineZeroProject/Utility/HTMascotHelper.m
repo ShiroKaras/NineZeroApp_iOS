@@ -16,7 +16,7 @@
     if (index < 1 || index > 8) return [UIColor whiteColor];
     NSArray *colors = @[[UIColor colorWithHex:0xed203b],
                         [UIColor colorWithHex:0x24ddb2],
-                        [UIColor colorWithHex:0xd40e88],
+                        COMMON_PINK_COLOR,
                         [UIColor colorWithHex:0x5f3a1c],
                         [UIColor colorWithHex:0xfdd900],
                         [UIColor colorWithHex:0xffdb00],

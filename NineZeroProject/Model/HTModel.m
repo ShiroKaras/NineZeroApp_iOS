@@ -126,3 +126,6 @@ HTINIT(HTMascotProp);
 
 @implementation HTNotification
 @end
+
+@implementation HTRanker
+@end

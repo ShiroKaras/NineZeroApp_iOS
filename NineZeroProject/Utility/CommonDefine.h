@@ -34,6 +34,9 @@
 #define ANSWER_URL_STRING @"http://115.159.115.215:8001/views/answer.html"
 
 #define COMMON_BG_COLOR UIColorMake(14, 14, 14)
+#define MOON_FONT_OF_SIZE(s) [UIFont fontWithName:@"Moon-Bold" size:s]
+#define COMMON_PINK_COLOR [UIColor colorWithHex:0xd40e88]
+#define COMMON_SEPARATOR_COLOR [UIColor colorWithHex:0x1f1f1f]
 
 #define UIViewParentController(__view) ({ \
     UIResponder *__responder = __view; \

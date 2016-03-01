@@ -220,16 +220,16 @@
     } else if (delta > oneHour * 8 && delta < oneHour * 16) {
         // 大于8小时 小于16小时
         _countDownMainLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
-        _countDownMainLabel.textColor = [UIColor colorWithHex:0xd40e88];
+        _countDownMainLabel.textColor = COMMON_PINK_COLOR;
         _countDownImageView.image = [UIImage imageNamed:@"img_timer_3_deco"];
     } else if (delta > 0 && delta < oneHour * 8) {
         // 小于1小时
         _countDownMainLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", hour, minute];
-        _countDownMainLabel.textColor = [UIColor colorWithHex:0xd40e88];
+        _countDownMainLabel.textColor = COMMON_PINK_COLOR;
         _countDownImageView.hidden = YES;
         _countDownDetailLabel.hidden = NO;
         _countDownDetailLabel.text = [NSString stringWithFormat:@"%02ld", second];
-        _countDownDetailLabel.textColor = [UIColor colorWithHex:0xd40e88];
+        _countDownDetailLabel.textColor = COMMON_PINK_COLOR;
     } else {
         // 过去时间
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];

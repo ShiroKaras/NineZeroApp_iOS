@@ -57,7 +57,7 @@
     
     // 5. 提示
     _tipsBackView = [[UIView alloc] init];
-    _tipsBackView.backgroundColor = [UIColor colorWithHex:0xd40e88];
+    _tipsBackView.backgroundColor = COMMON_PINK_COLOR;
     _tipsBackView.hidden = YES;
     [self.view addSubview:_tipsBackView];
     

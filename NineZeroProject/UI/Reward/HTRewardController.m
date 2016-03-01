@@ -60,14 +60,14 @@
     [_scrollView addSubview:_getImageView];
     
     _percentLabel = [[UILabel alloc] init];
-    _percentLabel.font = [UIFont fontWithName:@"Moon-Bold" size:32.5];
+    _percentLabel.font = MOON_FONT_OF_SIZE(32.5);
     _percentLabel.textColor = [UIColor colorWithHex:0x24ddb2];
     _percentLabel.text = @"98%";
     [_scrollView addSubview:_percentLabel];
     [_percentLabel sizeToFit];
     
     _goldenLabel = [[UILabel alloc] init];
-    _goldenLabel.font = [UIFont fontWithName:@"Moon-Bold" size:23];
+    _goldenLabel.font = MOON_FONT_OF_SIZE(23);
     _goldenLabel.textColor = [UIColor colorWithHex:0xed203b];
     _goldenLabel.text = @"20";
     [_scrollView addSubview:_goldenLabel];

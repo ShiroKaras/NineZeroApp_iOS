@@ -16,14 +16,15 @@ typedef enum : NSUInteger {
 } HTDescriptionType;
 
 @class HTMascotProp;
-
+@class HTReward;
 @interface HTDescriptionView : UIView
 
 - (instancetype)initWithURLString:(NSString *)urlString;
 - (instancetype)initWithURLString:(NSString *)urlString andType:(HTDescriptionType)type;
+
 - (void)showAnimated;
 
 @property (nonatomic, assign, readonly) HTDescriptionType type;
 @property (nonatomic, strong) HTMascotProp *prop;
-
+@property (nonatomic, strong) HTReward *reward;
 @end
