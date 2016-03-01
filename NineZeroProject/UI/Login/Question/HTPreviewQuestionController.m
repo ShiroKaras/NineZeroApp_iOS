@@ -135,6 +135,20 @@ static CGFloat kLeftMargin = 13; // 暂定为0
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        for (HTPreviewItem *item in _previewView.items) {
+//            [item setSoundButtonHidden:!self.detector.isMute];
+//        }
+//    });
+}
+
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);

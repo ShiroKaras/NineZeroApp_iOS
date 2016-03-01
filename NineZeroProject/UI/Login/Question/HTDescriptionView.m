@@ -69,9 +69,18 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     CGFloat leftMargin = 23;
-    CGFloat labelVerticalMargin = 12;
+    CGFloat labelVerticalMargin = 11;
     _title.frame = CGRectMake(leftMargin, 18, self.width - 2 * leftMargin, 20);
-    _deadLine.frame = CGRectMake(23, _title.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    _deadLine.frame = CGRectMake(leftMargin, _title.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    _location.frame = CGRectMake(leftMargin, _deadLine.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    _mobile.frame = CGRectMake(leftMargin, _location.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    _codeTipLabel.frame = CGRectMake(leftMargin, _mobile.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    _codeLabel.frame = CGRectMake(leftMargin, _codeTipLabel.bottom + 9, self.width - 2 * leftMargin, 30);
+    _careTipLabel.frame = CGRectMake(leftMargin, _codeLabel.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    _careTip1.frame = CGRectMake(leftMargin, _careTipLabel.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    _careTip2.frame = CGRectMake(leftMargin, _careTip1.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    _careTip3.frame = CGRectMake(leftMargin, _careTip2.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    self.contentSize = CGSizeMake(self.width, _careTip3.bottom + labelVerticalMargin);
 }
 
 - (UILabel *)commonStyleLabel {
@@ -92,6 +101,7 @@
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) UIView *converView;
 @property (nonatomic, strong) UIButton *exchangeButton;
+@property (nonatomic, strong) HTRewardDescriptionView *rewardDescriptionView;
 @property (nonatomic, assign, readwrite) HTDescriptionType type;
 
 @end
@@ -142,6 +152,10 @@
             NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
             [_webView stringByEvaluatingJavaScriptFromString:padding];
             [_converView addSubview:_webView];
+        } else {
+            _rewardDescriptionView = [[HTRewardDescriptionView alloc] initWithFrame:CGRectZero];
+            [_rewardDescriptionView setReward:[[HTReward alloc] init]];
+            [_converView addSubview:_rewardDescriptionView];
         }
     }
     return self;
@@ -226,6 +240,8 @@
     if (_type == HTDescriptionTypeProp) {
         _webView.frame = CGRectMake(_imageView.left, imageHeight, width, webViewHeight);
         _webView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    } else if (_type == HTDescriptionTypeReward) {
+        self.rewardDescriptionView.frame = CGRectMake(_imageView.left, imageHeight, width, webViewHeight);
     } else {
         _webView.frame = CGRectMake(_imageView.left, 0, width, webViewHeight + imageHeight);
         _webView.scrollView.contentInset = UIEdgeInsetsMake(imageHeight, 0, 0, 0);
