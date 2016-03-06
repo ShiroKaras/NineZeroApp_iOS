@@ -9,9 +9,12 @@
 #import "HTMainViewController.h"
 #import "HTPreviewQuestionController.h"
 #import "HTMascotDisplayController.h"
+#import "HTPreviewCardController.h"
 #import "HTRelaxController.h"
 #import "HTRelaxCoverController.h"
 #import "HTProfilePopView.h"
+
+//#define USER_NEW_CARD
 
 CGFloat alphaDark = 0.3;
 CGFloat alphaLight = 1.0;
@@ -26,6 +29,7 @@ CGFloat alphaLight = 1.0;
 @implementation HTMainViewController {
     UIViewController *_currentViewController;
     HTPreviewQuestionController *_preViewController;
+    HTPreviewCardController *_cardController;
     HTMascotDisplayController *_mascotController;
 }
 
@@ -40,8 +44,14 @@ CGFloat alphaLight = 1.0;
     [super viewDidLoad];
     _preViewController = [[HTPreviewQuestionController alloc] init];
     _preViewController.delegate = self;
+    _cardController = [[HTPreviewCardController alloc] init];
     _mascotController = [[HTMascotDisplayController alloc] init];
+#ifdef USER_NEW_CARD
+    [self changedToViewController:_cardController];
+#else
     [self changedToViewController:_preViewController];
+#endif
+    
 }
 
 - (void)changedToViewController:(UIViewController *)viewController {
@@ -79,6 +89,9 @@ CGFloat alphaLight = 1.0;
 #pragma mark - Action
 
 - (IBAction)didClickMainButton:(id)sender {
+#ifdef USER_NEW_CARD
+    [self changedToViewController:_cardController];
+#else
     if([(UIButton *)sender tag] == 1000) {
         if (_preViewController) {
             [_preViewController goToToday];
@@ -87,6 +100,7 @@ CGFloat alphaLight = 1.0;
         if ([_currentViewController isKindOfClass:[HTPreviewQuestionController class]]) return;
         [self changedToViewController:_preViewController];
     }
+#endif
 }
 
 - (IBAction)didClickMascotButton:(id)sender {

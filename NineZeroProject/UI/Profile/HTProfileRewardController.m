@@ -20,17 +20,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [HTUIHelper commonLeftBarItem];
+    if (self.navigationController.viewControllers.count == 1) {
+        self.navigationItem.leftBarButtonItem = [HTUIHelper commonLeftBarItem];
+    }
     self.tableView.backgroundColor = COMMON_BG_COLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.title = @"礼券";
     
     [self.tableView registerClass:[HTProfileRewardCell class] forCellReuseIdentifier:NSStringFromClass([HTProfileRewardCell class])];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source

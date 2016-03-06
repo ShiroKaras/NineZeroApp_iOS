@@ -12,9 +12,10 @@
 #import "HTNotificationController.h"
 #import "HTProfileRankController.h"
 #import "HTProfileRewardController.h"
+#import "HTProfileRecordCell.h"
 #import "HTUIHeader.h"
 
-@interface HTProfileRootController ()
+@interface HTProfileRootController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTProfileRecordCellDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *AvatarTopConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *avatar;
 @property (weak, nonatomic) IBOutlet UILabel *nickName;
@@ -23,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *metaLabel;
 @property (weak, nonatomic) IBOutlet UILabel *collectionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rewardLabel;
+@property (weak, nonatomic) IBOutlet UIView *recordBackView;
+@property (nonatomic, strong) UICollectionView *recordView;
 
 @end
 
@@ -39,6 +42,15 @@
     }
     
     self.navigationController.navigationBar.hidden = YES;
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    _recordView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    _recordView.delegate = self;
+    _recordView.dataSource = self;
+    _recordView.backgroundColor = [UIColor clearColor];
+    [_recordBackView addSubview:_recordView];
+    
+    [_recordView registerClass:[HTProfileRecordCell class] forCellWithReuseIdentifier:NSStringFromClass([HTProfileRecordCell class])];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -49,6 +61,11 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = NO;
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    _recordView.frame = _recordBackView.bounds;
 }
 
 - (IBAction)didClickBackButton:(UIButton *)sender {
@@ -75,6 +92,7 @@
 }
 
 - (IBAction)didClickMedal:(UIButton *)sender {
+
 }
 
 - (IBAction)didClickCollectionArticle:(UIButton *)sender {
@@ -87,5 +105,46 @@
     [self.navigationController pushViewController:rewardController animated:YES];
 }
 
+#pragma mark - UICollectionView
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 3;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    HTProfileRecordCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([HTProfileRecordCell class]) forIndexPath:indexPath];
+    cell.delegate = self;
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(_recordBackView.height - 58, _recordBackView.height - 58);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(28, 9, 0, 9);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 10;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    [(HTProfileRecordCell *)cell stop];
+}
+
+#pragma mark - HTProfileRecordCell Delegate
+
+- (void)onClickedPlayButtonInCollectionCell:(HTProfileRecordCell *)cell {
+    for (HTProfileRecordCell *iter in [_recordView visibleCells]) {
+        if (cell != iter) {
+            [iter stop];
+        }
+    }
+}
 
 @end

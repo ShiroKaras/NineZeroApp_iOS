@@ -676,6 +676,11 @@
 		17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */; };
 		17F37A761C255420006759D1 /* HUD+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A751C255420006759D1 /* HUD+Utility.m */; };
 		17F37A791C259EB8006759D1 /* HTDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A781C259EB8006759D1 /* HTDescriptionView.m */; };
+		17F393A41C8C87D8004E1DB7 /* HTPreviewCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F393A31C8C87D8004E1DB7 /* HTPreviewCardController.m */; };
+		17F393A71C8C9521004E1DB7 /* HTProfileRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F393A61C8C9521004E1DB7 /* HTProfileRecordCell.m */; };
+		17F393AD1C8CA4D2004E1DB7 /* HTCardTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F393AC1C8CA4D2004E1DB7 /* HTCardTimeView.m */; };
+		17F393AF1C8CA4E1004E1DB7 /* HTCardTimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17F393AE1C8CA4E1004E1DB7 /* HTCardTimeView.xib */; };
+		17F393B31C8CADE7004E1DB7 /* HTCardCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F393B11C8CADE7004E1DB7 /* HTCardCollectionCell.m */; };
 		17F39B691C820D7500D8A565 /* HTProfileRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F39B671C820D7500D8A565 /* HTProfileRootController.m */; };
 		17F39B6A1C820D7500D8A565 /* HTProfileRootController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17F39B681C820D7500D8A565 /* HTProfileRootController.xib */; };
 		17F39B701C82107500D8A565 /* NSLayoutConstraintHairline.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F39B6F1C82107500D8A565 /* NSLayoutConstraintHairline.m */; };
@@ -1478,6 +1483,15 @@
 		17F37A751C255420006759D1 /* HUD+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HUD+Utility.m"; sourceTree = "<group>"; };
 		17F37A771C259EB8006759D1 /* HTDescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTDescriptionView.h; sourceTree = "<group>"; };
 		17F37A781C259EB8006759D1 /* HTDescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTDescriptionView.m; sourceTree = "<group>"; };
+		17F393A21C8C87D8004E1DB7 /* HTPreviewCardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPreviewCardController.h; sourceTree = "<group>"; };
+		17F393A31C8C87D8004E1DB7 /* HTPreviewCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTPreviewCardController.m; sourceTree = "<group>"; };
+		17F393A51C8C9521004E1DB7 /* HTProfileRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileRecordCell.h; sourceTree = "<group>"; };
+		17F393A61C8C9521004E1DB7 /* HTProfileRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileRecordCell.m; sourceTree = "<group>"; };
+		17F393AB1C8CA4D2004E1DB7 /* HTCardTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCardTimeView.h; sourceTree = "<group>"; };
+		17F393AC1C8CA4D2004E1DB7 /* HTCardTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCardTimeView.m; sourceTree = "<group>"; };
+		17F393AE1C8CA4E1004E1DB7 /* HTCardTimeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTCardTimeView.xib; sourceTree = "<group>"; };
+		17F393B01C8CADE7004E1DB7 /* HTCardCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCardCollectionCell.h; sourceTree = "<group>"; };
+		17F393B11C8CADE7004E1DB7 /* HTCardCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCardCollectionCell.m; sourceTree = "<group>"; };
 		17F39B661C820D7500D8A565 /* HTProfileRootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileRootController.h; sourceTree = "<group>"; };
 		17F39B671C820D7500D8A565 /* HTProfileRootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileRootController.m; sourceTree = "<group>"; };
 		17F39B681C820D7500D8A565 /* HTProfileRootController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTProfileRootController.xib; sourceTree = "<group>"; };
@@ -1705,6 +1719,8 @@
 				17F39B661C820D7500D8A565 /* HTProfileRootController.h */,
 				17F39B671C820D7500D8A565 /* HTProfileRootController.m */,
 				17F39B681C820D7500D8A565 /* HTProfileRootController.xib */,
+				17F393A51C8C9521004E1DB7 /* HTProfileRecordCell.h */,
+				17F393A61C8C9521004E1DB7 /* HTProfileRecordCell.m */,
 				17F39B711C82234900D8A565 /* HTProfileSettingController.h */,
 				17F39B721C82234900D8A565 /* HTProfileSettingController.m */,
 				17FA11051C82DE9B00FA9102 /* HTProfileLocationController.h */,
@@ -2460,6 +2476,13 @@
 				170992BC1C264F0C004433EB /* HTShowDetailView.m */,
 				175641911C269DD20009AE7B /* HTShowAnswerView.h */,
 				175641921C269DD20009AE7B /* HTShowAnswerView.m */,
+				17F393A21C8C87D8004E1DB7 /* HTPreviewCardController.h */,
+				17F393A31C8C87D8004E1DB7 /* HTPreviewCardController.m */,
+				17F393B01C8CADE7004E1DB7 /* HTCardCollectionCell.h */,
+				17F393B11C8CADE7004E1DB7 /* HTCardCollectionCell.m */,
+				17F393AB1C8CA4D2004E1DB7 /* HTCardTimeView.h */,
+				17F393AC1C8CA4D2004E1DB7 /* HTCardTimeView.m */,
+				17F393AE1C8CA4E1004E1DB7 /* HTCardTimeView.xib */,
 			);
 			name = Question;
 			path = Login/Question;
@@ -3542,6 +3565,7 @@
 				17461C5C1C71EF6600C847E8 /* img_mascot_6_animation_3_0009.png in Resources */,
 				17461C5B1C71EF6600C847E8 /* img_mascot_6_animation_3_0008.png in Resources */,
 				17461C771C71EF6600C847E8 /* img_mascot_6_animation_4_0010.png in Resources */,
+				17F393AF1C8CA4E1004E1DB7 /* HTCardTimeView.xib in Resources */,
 				17461BC71C71EF6600C847E8 /* img_mascot_3_animation_4_0000.png in Resources */,
 				17461BFD1C71EF6600C847E8 /* img_mascot_5_animation_2_0006.png in Resources */,
 				17461CFA1C7493DF00C847E8 /* img_ar_right_answer_gif_0000.png in Resources */,
@@ -3648,6 +3672,7 @@
 				17A2772B1BF79CA900E46670 /* HTLoginService.m in Sources */,
 				17A20A0C1C4FFE4600364EEF /* HTMascotPropView.m in Sources */,
 				1787FD231C4A895B006E55A6 /* HTARCaptureController.m in Sources */,
+				17F393A41C8C87D8004E1DB7 /* HTPreviewCardController.m in Sources */,
 				179D2BB31C5E5444000A4461 /* HTRelaxController.m in Sources */,
 				17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */,
 				1787FD1F1C4A8884006E55A6 /* PRARManager.m in Sources */,
@@ -3670,6 +3695,7 @@
 				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,
 				17F45AEA1C7E1A41004F2E32 /* HTProfileArticlesController.m in Sources */,
 				17F39B691C820D7500D8A565 /* HTProfileRootController.m in Sources */,
+				17F393AD1C8CA4D2004E1DB7 /* HTCardTimeView.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
 				17262CBC1C5DFE00000FDA1B /* HTMascotIntroController.m in Sources */,
 				17F39B731C82234900D8A565 /* HTProfileSettingController.m in Sources */,
@@ -3696,6 +3722,7 @@
 				17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */,
 				17461D0F1C74C8C900C847E8 /* Reachability.m in Sources */,
 				175641931C269DD20009AE7B /* HTShowAnswerView.m in Sources */,
+				17F393A71C8C9521004E1DB7 /* HTProfileRecordCell.m in Sources */,
 				17FA110D1C83417A00FA9102 /* HTAboutController.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
 				17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */,
@@ -3717,6 +3744,7 @@
 				17262CDA1C5E02A4000FDA1B /* HTImageView.m in Sources */,
 				176B756E1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m in Sources */,
 				17FA11391C835C6500FA9102 /* HTNotificationCell.m in Sources */,
+				17F393B31C8CADE7004E1DB7 /* HTCardCollectionCell.m in Sources */,
 				17FA112D1C8343DA00FA9102 /* HTFeedbackController.m in Sources */,
 				17FA11321C8357E800FA9102 /* HTCollectionController.m in Sources */,
 				17FA11361C835BE000FA9102 /* HTNotificationController.m in Sources */,

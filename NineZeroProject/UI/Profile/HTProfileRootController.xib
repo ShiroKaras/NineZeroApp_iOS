@@ -24,13 +24,14 @@
                 <outlet property="metaLabel" destination="ZxY-rI-FhH" id="C5B-nA-G2i"/>
                 <outlet property="nickName" destination="DZu-oW-XMu" id="bpX-Mg-RD0"/>
                 <outlet property="rankLabel" destination="lsu-yD-BPn" id="K9f-hm-Djf"/>
+                <outlet property="recordBackView" destination="RqC-o8-IHp" id="vGh-ty-ggg"/>
                 <outlet property="rewardLabel" destination="KfV-gY-h0t" id="ZQh-Om-51Y"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="429" height="565"/>
+            <rect key="frame" x="0.0" y="0.0" width="429" height="612"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9OC-jm-dz5">
@@ -225,6 +226,41 @@
                         <action selector="didClickReward:" destination="-1" eventType="touchUpInside" id="Vhb-BD-SDW"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RqC-o8-IHp">
+                    <rect key="frame" x="0.0" y="328" width="429" height="284"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WKh-I0-DEA">
+                            <rect key="frame" x="115" y="22" width="50" height="1"/>
+                            <color key="backgroundColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="0YC-7N-hgI"/>
+                                <constraint firstAttribute="width" constant="50" id="sgM-sK-sDv"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G7M-dZ-elr">
+                            <rect key="frame" x="265" y="22" width="50" height="1"/>
+                            <color key="backgroundColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="5EX-nZ-n2O"/>
+                                <constraint firstAttribute="width" constant="50" id="NGg-2M-tEt"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="成功闯关纪录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JaX-Zq-xnm">
+                            <rect key="frame" x="173" y="14" width="84" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.30980392156862746" green="0.30980392156862746" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="JaX-Zq-xnm" firstAttribute="leading" secondItem="WKh-I0-DEA" secondAttribute="trailing" constant="8" id="B1f-HN-TOO"/>
+                        <constraint firstItem="JaX-Zq-xnm" firstAttribute="centerX" secondItem="RqC-o8-IHp" secondAttribute="centerX" id="FCe-m7-uvu"/>
+                        <constraint firstItem="G7M-dZ-elr" firstAttribute="leading" secondItem="JaX-Zq-xnm" secondAttribute="trailing" constant="8" id="IPa-QR-5dO"/>
+                        <constraint firstItem="G7M-dZ-elr" firstAttribute="centerY" secondItem="JaX-Zq-xnm" secondAttribute="centerY" id="NBX-y4-mWL"/>
+                        <constraint firstItem="WKh-I0-DEA" firstAttribute="centerY" secondItem="JaX-Zq-xnm" secondAttribute="centerY" id="u4m-y9-xTe"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -248,6 +284,7 @@
                 <constraint firstAttribute="trailing" secondItem="3Ak-df-m8L" secondAttribute="trailing" id="A48-86-Oe0"/>
                 <constraint firstItem="611-Xh-Wov" firstAttribute="leading" secondItem="8iw-uZ-BqK" secondAttribute="trailing" id="AR6-IJ-7ke"/>
                 <constraint firstItem="38S-V4-B3u" firstAttribute="centerY" secondItem="qZd-N7-4Cu" secondAttribute="centerY" id="Ap4-oF-yxP"/>
+                <constraint firstAttribute="trailing" secondItem="RqC-o8-IHp" secondAttribute="trailing" id="B2U-U0-EGq"/>
                 <constraint firstItem="W4I-aX-iZp" firstAttribute="leading" secondItem="vEN-hd-mvJ" secondAttribute="trailing" constant="10" id="Cew-QF-wm5"/>
                 <constraint firstItem="ZxY-rI-FhH" firstAttribute="leading" secondItem="GM6-Eg-CqE" secondAttribute="trailing" constant="8" id="FVK-eU-r1o"/>
                 <constraint firstItem="GM6-Eg-CqE" firstAttribute="leading" secondItem="38S-V4-B3u" secondAttribute="trailing" id="HBI-NA-OWV"/>
@@ -260,6 +297,8 @@
                 <constraint firstItem="7o5-0m-oZB" firstAttribute="leading" secondItem="W4I-aX-iZp" secondAttribute="trailing" constant="-124" id="MMD-vA-wWe"/>
                 <constraint firstItem="NWV-SE-tel" firstAttribute="top" secondItem="611-Xh-Wov" secondAttribute="bottom" id="Mae-HX-ypX"/>
                 <constraint firstItem="6aq-5B-f85" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="63" id="NT3-Rf-mVV"/>
+                <constraint firstItem="JaX-Zq-xnm" firstAttribute="top" secondItem="NWV-SE-tel" secondAttribute="bottom" constant="14" id="NXZ-SF-qO8"/>
+                <constraint firstItem="RqC-o8-IHp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NaE-hT-Dk0"/>
                 <constraint firstItem="vEN-hd-mvJ" firstAttribute="top" secondItem="7o5-0m-oZB" secondAttribute="bottom" constant="11" id="OF9-MN-wBM"/>
                 <constraint firstItem="W4I-aX-iZp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="OM4-oP-jcJ"/>
                 <constraint firstAttribute="trailing" secondItem="GM6-Eg-CqE" secondAttribute="leading" multiplier="0.5" id="RCX-AP-8PB"/>
@@ -284,6 +323,7 @@
                 <constraint firstItem="qZd-N7-4Cu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="eoG-rh-7Xp"/>
                 <constraint firstItem="KfV-gY-h0t" firstAttribute="centerY" secondItem="5dH-qa-0Ou" secondAttribute="centerY" id="gDU-Gb-BUw"/>
                 <constraint firstItem="8ue-oz-GgY" firstAttribute="centerY" secondItem="aNW-0b-0Z6" secondAttribute="centerY" id="gJZ-ER-QPd"/>
+                <constraint firstAttribute="bottom" secondItem="RqC-o8-IHp" secondAttribute="bottom" id="h3a-5b-xH4"/>
                 <constraint firstAttribute="trailing" secondItem="Oyt-dn-cpK" secondAttribute="trailing" constant="10" id="hb1-c3-RSc"/>
                 <constraint firstItem="NWV-SE-tel" firstAttribute="width" secondItem="lP6-vo-wh3" secondAttribute="width" id="iMw-VM-lpA"/>
                 <constraint firstItem="mK5-Xs-j3o" firstAttribute="centerY" secondItem="Qlr-OB-9jl" secondAttribute="centerY" id="iZd-6C-pUF"/>
@@ -307,6 +347,7 @@
                 <constraint firstItem="bCg-aI-6XB" firstAttribute="leading" secondItem="611-Xh-Wov" secondAttribute="trailing" constant="8" id="sEF-Zy-kRo"/>
                 <constraint firstItem="W4I-aX-iZp" firstAttribute="leading" secondItem="qZd-N7-4Cu" secondAttribute="trailing" id="uSQ-Ao-hfP"/>
                 <constraint firstItem="NWV-SE-tel" firstAttribute="top" secondItem="4b2-gJ-fns" secondAttribute="bottom" constant="7" id="w6k-MX-GvP"/>
+                <constraint firstItem="RqC-o8-IHp" firstAttribute="top" secondItem="NWV-SE-tel" secondAttribute="bottom" id="wI8-0L-3dV"/>
                 <constraint firstItem="5dH-qa-0Ou" firstAttribute="top" secondItem="lP6-vo-wh3" secondAttribute="bottom" constant="9" id="wwS-zj-YRk"/>
                 <constraint firstItem="38S-V4-B3u" firstAttribute="height" secondItem="qZd-N7-4Cu" secondAttribute="height" id="wxM-hJ-e8b"/>
                 <constraint firstAttribute="trailing" secondItem="mK5-Xs-j3o" secondAttribute="trailing" constant="10" id="xS8-Cg-oZN"/>
@@ -326,7 +367,7 @@
                     <exclude reference="RCX-AP-8PB"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="244.5" y="309.5"/>
+            <point key="canvasLocation" x="244.5" y="333"/>
         </view>
     </objects>
     <resources>

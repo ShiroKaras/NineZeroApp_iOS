@@ -27,9 +27,6 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 
 @interface HTPreviewQuestionController () <HTPreviewViewDelegate, HTComposeViewDelegate, HTPreviewItemDelegate, HTARCaptureControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIButton *mainButton;                    // 左下角“九零”
-@property (weak, nonatomic) IBOutlet UIButton *meButton;                      // 右下角“我”
-@property (weak, nonatomic) IBOutlet UIButton *lingzaiButton;                 // 右下角"零仔"
 @property (strong, nonatomic) HTPreviewView *previewView;                     // 预览题目控件
 @property (strong, nonatomic) HTComposeView *composeView;                     // 答题界面
 @property (strong, nonatomic) HTDescriptionView *descriptionView;             // 详情页面
@@ -202,13 +199,6 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 
 - (void)previewView:(HTPreviewView *)previewView shouldShowGoBackItem:(BOOL)needShow {
     [self.delegate previewController:self shouldShowGoBackItem:needShow];
-    if (needShow) {
-        [_mainButton setImage:[UIImage imageNamed:@"tab_back_today"] forState:UIControlStateNormal];
-        _mainButton.tag = 1000;
-    } else {
-        [_mainButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
-        _mainButton.tag = 0;
-    }
 }
 
 - (void)previewView:(HTPreviewView *)previewView didScrollToItem:(HTPreviewItem *)item {
@@ -325,19 +315,6 @@ static CGFloat kLeftMargin = 13; // 暂定为0
 #pragma mark - HTComposeView Delegate
 
 - (void)composeView:(HTComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
-//    static int clickCount = 0;
-//    [[[HTServiceManager sharedInstance] questionService] verifyQuestion:composeView.associatedQuestion.questionID withAnswer:answer callback:^(BOOL success, HTResponsePackage *package) {
-//        if (success == YES && package.resultCode == 0) {
-//            [composeView showAnswerCorrect:YES];
-//            clickCount = 0;
-//        } else {
-//            [composeView showAnswerCorrect:NO];
-//            clickCount++;
-//        }
-//        if (clickCount >= 3) {
-//            [composeView showAnswerTips:composeView.associatedQuestion.hint];
-//        }
-//    }];
     [self composeWithAnswer:answer question:composeView.associatedQuestion];
 }
 
