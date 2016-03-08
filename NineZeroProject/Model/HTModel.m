@@ -122,6 +122,19 @@ HTINIT(HTMascotProp);
 @end
 
 @implementation HTReward
+HTINIT(HTReward);
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"rewardID" : @"ticket_id",
+                                     @"code" : @"code",
+                                     @"createTime" : @"create_time",
+                                     @"isUsed" : @"used",
+                                     @"usedTime" : @"used_time",
+                                     @"coverPicName" : @"pic",
+                                     @"location" : @"address",
+                                     @"expireTime" : @"expire_time",
+                                     @"totalNum" : @"total_num",                                     };
+    return propertyMapper;
+}
 @end
 
 @implementation HTNotification

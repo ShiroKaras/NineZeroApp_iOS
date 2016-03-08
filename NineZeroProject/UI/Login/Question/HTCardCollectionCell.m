@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIView *contentBackView;
 @property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UIButton *composeButton;
+@property (nonatomic, strong) UIButton *hintButton;
 
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
@@ -69,6 +70,7 @@
         _pauseImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_pause"]];
         _pauseImageView.alpha = 0.32;
         [_playBackView addSubview:_pauseImageView];
+//        _soundImageView.hidden = ![[SharkfoodMuteSwitchDetector shared] isMute];
         
         // 3. 下方背景
         _contentBackView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -84,33 +86,88 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 
+        // 4. 发布按钮
+        _composeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_composeButton addTarget:self action:@selector(onClickComposeButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
+        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
+        [self.contentView addSubview:_composeButton];
+        
+        // 5. 查看提示
+        _hintButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_hintButton addTarget:self action:@selector(onClickHintButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
+        [_hintButton sizeToFit];
+        [self.contentView addSubview:_hintButton];
 
-//        _soundImageView.hidden = ![[SharkfoodMuteSwitchDetector shared] isMute];
     }
     return self;
 }
 
 - (void)onClickPlayButton {
     [self play];
-    [self.delegate onClickedPlayButtonInCollectionCell:self];
+    [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypePlay];
 }
 
 - (void)onClickContent {
-    
+    [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeContent];
+}
+
+- (void)onClickComposeButton:(UIButton *)button {
+    if (_question.type == 1) {
+        [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAR];
+    } else {
+        [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];
+    }
+}
+
+- (void)onClickHintButton:(UIButton *)button {
+    if (_question.isPassed) {
+        [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeReward];
+    } else {
+        [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeHint];
+    }
 }
 
 - (void)onClickPlayBackView {
-
-
+    [self pause];
+    [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypePause];
 }
 
+- (void)setSoundHidden:(BOOL)soundHidden {
+    self.soundImageView.hidden = soundHidden;
+}
 
 - (void)setQuestion:(HTQuestion *)question {
     _question = question;
-    _contentLabel.text = @"111111111111111111111111111";
+    _contentLabel.text = question.content;
     [_contentLabel sizeToFit];
+    _pauseImageView.hidden = YES;
+    _playButton.hidden = NO;
     
+    if (_question.type == 1) {
+        // ar
+        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam"] forState:UIControlStateNormal];
+        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam_highlight"] forState:UIControlStateHighlighted];
+    } else {
+        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
+        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
+    }
+
+    if (_question.isPassed) {
+        _hintButton.hidden = NO;
+        [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_check_prize"] forState:UIControlStateNormal];
+    } else {
+        _hintButton.hidden = NO;
+    }
+    [_hintButton sizeToFit];
+    self.soundImageView.hidden = ![[SharkfoodMuteSwitchDetector shared] isMute];
+
     [self setNeedsLayout];
+}
+
+- (void)setQuestionInfo:(HTQuestionInfo *)questionInfo {
+    _questionInfo = questionInfo;
 }
 
 - (void)dealloc {
@@ -132,18 +189,22 @@
 
 - (void)stop {
     _playButton.hidden = NO;
+    _pauseImageView.hidden = YES;
     [_playerItem seekToTime:kCMTimeZero];
     [_player setRate:0];
     [_player seekToTime:CMTimeMake(0, 1)];
     [_player pause];
 }
 
+- (CGRect)hintRect {
+    return self.hintButton.frame;
+}
+
 #pragma mark - Notification
 
 - (void)playItemDidPlayToEndTime:(NSNotification *)notification {
     if ([notification.object isEqual:self.playerItem]) {
-        _playButton.hidden = NO;
-        [_player seekToTime:kCMTimeZero];
+        [self stop];
     }
 }
 
@@ -157,12 +218,17 @@
 //    _playButton.center = CGPointMake(self.width / 2 , self.width / 2);
     _playButton.frame = CGRectMake(_playBackView.width / 2 - 35,
                                    _playBackView.height / 2 - 35, 70, 70);
-    _soundImageView.right = _playBackView.width - 6;
+    _soundImageView.right = _playBackView.width - 13;
     _soundImageView.top = 5;
     _pauseImageView.right = _playBackView.width - 8;
     _pauseImageView.bottom = _playBackView.height - 8;
     _contentLabel.left = 21;
     _contentLabel.centerY = 40;
+    [_composeButton sizeToFit];
+    _composeButton.top = _contentBackView.bottom - 21;
+    _composeButton.right = _cardBackView.right - 18;
+    _hintButton.left = 5;
+    _hintButton.top = _contentBackView.bottom;
 }
 
 @end

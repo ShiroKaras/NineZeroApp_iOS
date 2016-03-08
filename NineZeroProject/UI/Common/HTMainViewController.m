@@ -14,7 +14,7 @@
 #import "HTRelaxCoverController.h"
 #import "HTProfilePopView.h"
 
-//#define USER_NEW_CARD
+#define USER_NEW_CARD
 
 CGFloat alphaDark = 0.3;
 CGFloat alphaLight = 1.0;

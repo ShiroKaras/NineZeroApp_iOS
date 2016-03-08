@@ -33,6 +33,7 @@
             question.isPassed = NO;
             question.vedioName = @"demo1";
         }
+        question.questionID = i;
         question.hint = @"90后都是神经病";
         question.content = @"上帝之眼，用心感受";
         question.serial = count - i + 1;
@@ -45,6 +46,7 @@
 + (HTQuestionInfo *)questionInfoFake {
     HTQuestionInfo *info = [[HTQuestionInfo alloc] init];
     info.questionCount = 4;
+    info.questionID = 3;
     info.endTime = time(NULL) + 100000;
     return info;
 }

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class HTQuestionInfo;
+@class HTQuestion;
 @interface HTCardTimeView : UIView
-
+@property (nonatomic, strong, readonly) HTQuestionInfo *questionInfo;
+@property (nonatomic, strong, readonly) HTQuestion *question;
+- (void)setQuestion:(HTQuestion *)question andQuestionInfo:(HTQuestionInfo *)questionInfo;
 @end

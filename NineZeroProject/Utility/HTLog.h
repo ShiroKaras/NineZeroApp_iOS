@@ -29,7 +29,7 @@ do                                                                      \
 }
 
 
-#define NSLog(fmt, ...) _NSLog((@"[%@] " fmt), THIS_APP, ##__VA_ARGS__)
+//#define NSLog(fmt, ...) _NSLog((@"[%@] " fmt), THIS_APP, ##__VA_ARGS__)
 
 #ifdef DEBUG
     #define DLog(fmt, ...) _NSLog((@"[%@:%d][%s] " fmt),        \

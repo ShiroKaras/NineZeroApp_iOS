@@ -65,7 +65,7 @@
 
 @interface HTArticle : NSObject
 
-@property (nonatomic, assign) NSUInteger mascotID;         // 零仔ID
+@property (nonatomic, assign) NSUInteger mascotID;         // 零仔ID（为0代表停赛日文章）
 @property (nonatomic, assign) NSUInteger articleID;        // 文章ID
 @property (nonatomic, strong) NSString *articleURL;        // 文章链接
 @property (nonatomic, strong) NSString *articleTitle;      // 文章标题 (缺)
@@ -105,10 +105,24 @@
 
 // 礼券
 @interface HTReward : NSObject
+@property (nonatomic, assign) NSUInteger rewardID;              // 礼券id
+@property (nonatomic, assign) NSUInteger code;                  // 兑换码
+@property (nonatomic, assign) NSUInteger createTime;            // 创建时间
+@property (nonatomic, assign) BOOL isUsed;                      // 是否已经兑换
+@property (nonatomic, assign) NSUInteger usedTime;              // 兑换时间
+@property (nonatomic, assign) NSUInteger type;                  // type
+@property (nonatomic, strong) NSString *title;                  // 标题
+@property (nonatomic, strong) NSString *coverPicName;           // 封面名字
+@property (nonatomic, strong) NSString *coverPickURL;           // 封面链接
+@property (nonatomic, strong) NSString *location;               // 地点
+@property (nonatomic, strong) NSString *mobile;                 // 手机号
+@property (nonatomic, assign) NSUInteger expireTime;            // 失效时间
+@property (nonatomic, assign) NSUInteger totalNum;              // 总共多少张礼券?
 @end
 
 // 通知单元结构体
 @interface HTNotification : NSObject
+
 @end
 
 // 排名单元
