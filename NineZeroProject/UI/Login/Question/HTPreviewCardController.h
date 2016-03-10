@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HTPreviewCardController : UIViewController
+typedef enum : NSUInteger {
+    HTPreviewCardTypeDefault,
+    HTPreviewCardTypeRecord,
+    HTPreviewCardTypeUnknown,
+} HTPreviewCardType;
 
+@interface HTPreviewCardController : UIViewController
+- (instancetype)initWithType:(HTPreviewCardType)type;
+- (void)backToToday;
 @end

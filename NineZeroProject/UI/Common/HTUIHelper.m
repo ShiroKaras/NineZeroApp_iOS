@@ -8,6 +8,7 @@
 
 #import "HTUIHelper.h"
 #import "HTUIHeader.h"
+#import "AppDelegate.h"
 
 @implementation HTUIHelper
 + (UIBarButtonItem *)commonLeftBarItem {
@@ -24,6 +25,10 @@
 + (void)onClickBackButton:(UIButton *)button {
     UIViewController *controller = UIViewParentController(button);
     [controller dismissViewControllerAnimated:YES completion:nil];
+}
+
++ (HTMainViewController *)mainController {
+    return [(AppDelegate *)[[UIApplication sharedApplication] delegate] mainController];
 }
 
 @end

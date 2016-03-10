@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTMainViewController.h"
 
 @interface HTUIHelper : NSObject
 + (UIBarButtonItem *)commonLeftBarItem;
++ (HTMainViewController *)mainController;
 @end

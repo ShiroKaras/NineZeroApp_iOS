@@ -41,8 +41,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (strong, nonatomic) HTShowDetailView *showDetailView;               // 提示详情
 @property (strong, nonatomic) HTShowAnswerView *showAnswerView;               // 查看答案
 
-@property (nonatomic,strong) SharkfoodMuteSwitchDetector* detector;
+@property (nonatomic, strong) UIButton *closeButton;
 
+@property (nonatomic,strong) SharkfoodMuteSwitchDetector* detector;
+@property (nonatomic, assign) HTPreviewCardType cardType;
 @end
 
 @implementation HTPreviewCardController {
@@ -50,6 +52,17 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     HTQuestionInfo *questionInfo;
     NSArray<HTQuestion *> *questionList;
     HTScrollDirection _scrollDirection;
+}
+
+- (instancetype)init {
+    return [self initWithType:HTPreviewCardTypeDefault];
+}
+
+- (instancetype)initWithType:(HTPreviewCardType)type {
+    if (self = [super init]) {
+        _cardType = type;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -108,18 +121,27 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     self.detector = [SharkfoodMuteSwitchDetector shared];
     __weak typeof(self) weakSelf = self;
     self.detector.silentNotify = ^(BOOL silent){
+        if (weakSelf == nil) return;
         typeof(self) strongSelf = weakSelf;
         for (HTCardCollectionCell *cell in strongSelf->_collectionView.visibleCells) {
             [cell setSoundHidden:!silent];
         }
     };
     
+    // 5.关闭按钮
+    if (_cardType == HTPreviewCardTypeRecord) {
+        _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_closeButton setImage:[UIImage imageNamed:@"btn_fullscreen_close"] forState:UIControlStateNormal];
+        [_closeButton setImage:[UIImage imageNamed:@"btn_fullscreen_close_highlight"] forState:UIControlStateHighlighted];
+        [_closeButton sizeToFit];
+        [_closeButton addTarget:self action:@selector(onClickCloseButton) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_closeButton];
+    }
+    
     [self.collectionView reloadData];
     [self.collectionView performBatchUpdates:^{}
                                   completion:^(BOOL finished) {
-                                      _chapterLabel.text = [NSString stringWithFormat:@"%02lu", questionList.lastObject.serial];
-                                      [_collectionView setContentOffset:CGPointMake([self contentOffsetWithIndex:questionList.count - 1], 0)];
-                                      [_timeView setQuestion:questionList.lastObject andQuestionInfo:questionInfo];
+                                      [self backToToday:NO];
                                   }];
 }
 
@@ -138,6 +160,24 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     
     _bgImageView.frame = self.view.bounds;
     [self.view sendSubviewToBack:_bgImageView];
+    
+    _closeButton.bottom = self.view.height - 25;
+    _closeButton.centerX = self.view.width / 2;
+}
+
+- (void)backToToday {
+    [self backToToday:YES];
+}
+
+- (void)backToToday:(BOOL)animated {
+    _chapterLabel.text = [NSString stringWithFormat:@"%02lu", questionList.lastObject.serial];
+    [_collectionView setContentOffset:CGPointMake([self contentOffsetWithIndex:questionList.count - 1], 0) animated:animated];
+    [_timeView setQuestion:questionList.lastObject andQuestionInfo:questionInfo];
+}
+
+- (void)onClickCloseButton {
+    UIViewController *controller = UIViewParentController(self.view);
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)dealloc {
@@ -319,10 +359,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     NSInteger currentIndex = [self indexWithContentOffsetX:scrollView.contentOffset.x];
 //    _questions[currentIndex]
     if (currentIndex == questionList.count - 4) {
-//        [self.delegate previewView:self shouldShowGoBackItem:YES];
+        [[HTUIHelper mainController] showBackToToday:YES];
     }
     if (currentIndex == questionList.count - 3) {
-//        [self.delegate previewView:self shouldShowGoBackItem:NO];
+        [[HTUIHelper mainController] showBackToToday:NO];
     }
     static CGFloat preContentOffsetX = 0.0;
     _scrollDirection = (scrollView.contentOffset.x > preContentOffsetX) ? HTScrollDirectionLeft : HTScrollDirectionRight;

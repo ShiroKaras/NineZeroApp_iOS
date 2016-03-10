@@ -16,4 +16,6 @@
 
 - (void)showBottomButton:(BOOL)show;
 
+- (void)showBackToToday:(BOOL)show;
+
 @end

@@ -11,6 +11,7 @@
 #import "HTProfileRewardController.h"
 #import "HTProfileArticlesController.h"
 #import "HTProfileRootController.h"
+#import "HTPreviewCardController.h"
 
 typedef enum : NSUInteger {
     HTProfileTypePerson,
@@ -76,6 +77,8 @@ typedef enum : NSUInteger {
             break;
         }
         case HTProfileTypeRecord: {
+            HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeRecord];
+            [controller presentViewController:cardController animated:YES completion:nil];
             break;
         }
         case HTProfileTypeReward: {
