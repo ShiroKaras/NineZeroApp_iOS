@@ -16,10 +16,12 @@
 
 - (void)updateLoginUser:(HTLoginUser *)loginUser;
 - (HTLoginUser *)getLoginUser;
+- (void)clearLoginUser;
 
 // user_id
 - (void)updateUserID:(NSString *)userID;
 - (NSString *)getUserID;
+- (void)clearUserID;
 
 // password salt
 - (void)updatePwdSalt:(NSString *)salt;

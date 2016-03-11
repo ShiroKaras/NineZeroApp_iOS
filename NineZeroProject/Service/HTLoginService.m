@@ -118,4 +118,9 @@
     return [[HTStorageManager sharedInstance] getQiniuToken];
 }
 
+- (void)quitLogin {
+    [[HTStorageManager sharedInstance] clearLoginUser];
+    [[HTStorageManager sharedInstance] clearUserID];
+}
+
 @end

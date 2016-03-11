@@ -114,10 +114,14 @@
 }
 
 - (void)onClickComposeButton:(UIButton *)button {
-    if (_question.type == 1) {
-        [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAR];
+    if (_questionInfo.questionID == _question.questionID) {
+        if (_question.type == 1) {
+            [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAR];
+        } else {
+            [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];
+        }
     } else {
-        [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];
+        [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAnswer];
     }
 }
 
@@ -138,32 +142,44 @@
     self.soundImageView.hidden = soundHidden;
 }
 
-- (void)setQuestion:(HTQuestion *)question {
+- (void)setQuestion:(HTQuestion *)question questionInfo:(HTQuestionInfo *)questionInfo {
     _question = question;
+    _questionInfo = questionInfo;
     _contentLabel.text = question.content;
+    if (_questionInfo.questionID == question.questionID) {
+        [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
+        // TODO:判断是否需要显示
+        _hintButton.hidden = NO;
+        if (_question.type == 1) {
+            // ar
+            [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam"] forState:UIControlStateNormal];
+            [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam_highlight"] forState:UIControlStateHighlighted];
+        } else {
+            [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
+            [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
+        }
+        _hintButton.hidden = YES;
+    } else {
+        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_ans"] forState:UIControlStateNormal];
+        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_ans_highlight"] forState:UIControlStateHighlighted];
+        if (_question.isPassed) {
+            _hintButton.hidden = NO;
+            [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_check_prize"] forState:UIControlStateNormal];
+        } else {
+            [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
+            _hintButton.hidden = YES;
+        }
+    }
     [_contentLabel sizeToFit];
     _pauseImageView.hidden = YES;
     _playButton.hidden = NO;
-    
-    if (_question.type == 1) {
-        // ar
-        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam"] forState:UIControlStateNormal];
-        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam_highlight"] forState:UIControlStateHighlighted];
-    } else {
-        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
-        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
-    }
-
-    if (_question.isPassed) {
-        _hintButton.hidden = NO;
-        [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_check_prize"] forState:UIControlStateNormal];
-    } else {
-        _hintButton.hidden = NO;
-    }
     [_hintButton sizeToFit];
     self.soundImageView.hidden = ![[SharkfoodMuteSwitchDetector shared] isMute];
-
     [self setNeedsLayout];
+}
+
+- (void)setQuestion:(HTQuestion *)question {
+    _question = question;
 }
 
 - (void)setQuestionInfo:(HTQuestionInfo *)questionInfo {

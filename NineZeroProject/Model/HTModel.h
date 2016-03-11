@@ -129,3 +129,7 @@
 @interface HTRanker : NSObject
 @property (nonatomic, assign) NSUInteger order;
 @end
+
+// 勋章
+@interface HTBadge : NSObject
+@end

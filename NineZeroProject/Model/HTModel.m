@@ -142,3 +142,6 @@ HTINIT(HTReward);
 
 @implementation HTRanker
 @end
+
+@implementation HTBadge
+@end

@@ -57,5 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (HTLoginUser *)loginUser;
 - (NSString *)qiniuToken;
 
+- (void)quitLogin;
+
 @end
 NS_ASSUME_NONNULL_END

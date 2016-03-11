@@ -73,6 +73,22 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     questionList = [HTQuestionHelper questionFake];
     
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
+//    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
+//        if (success) {
+//            questionInfo = callbackQuestionInfo;
+//            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
+//                if (success2) {
+//                    questionList = callbackQuestionList;
+//                    [self.collectionView reloadData];
+//                    [self.collectionView reloadData];
+//                    [self.collectionView performBatchUpdates:^{}
+//                                                  completion:^(BOOL finished) {
+//                                                      [self backToToday:NO];
+//                                                  }];
+//                }
+//            }];
+//        }
+//    }];
     
     // 1. 背景
     UIImage *bgImage;
@@ -138,16 +154,21 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [self.view addSubview:_closeButton];
     }
     
-    [self.collectionView reloadData];
-    [self.collectionView performBatchUpdates:^{}
-                                  completion:^(BOOL finished) {
-                                      [self backToToday:NO];
-                                  }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+        [self.collectionView performBatchUpdates:^{}
+                                      completion:^(BOOL finished) {
+                                          [self backToToday:NO];
+                                      }];
+    });
 }
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    if (self.cardType == HTPreviewCardTypeDefault) {
+        // fix布局bug
+        self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
     _collectionView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     _timeView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
     _timeView.right = SCREEN_WIDTH - kItemMargin;
@@ -176,8 +197,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)onClickCloseButton {
-    UIViewController *controller = UIViewParentController(self.view);
-    [controller dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)dealloc {
@@ -210,7 +230,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     HTCardCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([HTCardCollectionCell class]) forIndexPath:indexPath];
     cell.delegate = self;
     HTQuestion *question = questionList[indexPath.row];
-    [cell setQuestion:question];
+    [cell setQuestion:question questionInfo:questionInfo];
     return cell;
 }
 
@@ -358,11 +378,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     NSInteger currentIndex = [self indexWithContentOffsetX:scrollView.contentOffset.x];
 //    _questions[currentIndex]
-    if (currentIndex == questionList.count - 4) {
-        [[HTUIHelper mainController] showBackToToday:YES];
-    }
-    if (currentIndex == questionList.count - 3) {
-        [[HTUIHelper mainController] showBackToToday:NO];
+    if (self.cardType == HTPreviewCardTypeDefault) {
+        if (currentIndex == questionList.count - 4) {
+            [[HTUIHelper mainController] showBackToToday:YES];
+        }
+        if (currentIndex == questionList.count - 3) {
+            [[HTUIHelper mainController] showBackToToday:NO];
+        }
+        
     }
     static CGFloat preContentOffsetX = 0.0;
     _scrollDirection = (scrollView.contentOffset.x > preContentOffsetX) ? HTScrollDirectionLeft : HTScrollDirectionRight;

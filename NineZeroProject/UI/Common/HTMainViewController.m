@@ -46,6 +46,7 @@ CGFloat alphaLight = 1.0;
     _preViewController.delegate = self;
     _cardController = [[HTPreviewCardController alloc] init];
     _mascotController = [[HTMascotDisplayController alloc] init];
+    [_mascotController view]; //提前调用viewDidLoad
 #ifdef USER_NEW_CARD
     [self changedToViewController:_cardController];
 #else

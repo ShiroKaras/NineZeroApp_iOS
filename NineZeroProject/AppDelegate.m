@@ -32,14 +32,6 @@
     [self registerSMSService];
     [self registerQiniuService];
     
-    [[[HTServiceManager sharedInstance] mascotService] getUserProps:^(BOOL success, NSArray<HTMascotProp *> *props) {
-        
-    }];
-    
-    [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
-        
-    }];
-    
     [self createWindowAndVisible];
     
     // 光标颜色

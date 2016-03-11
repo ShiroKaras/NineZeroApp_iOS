@@ -13,6 +13,7 @@
 #import "HTProfileSettingCell.h"
 #import "HTUIHeader.h"
 #import "UIViewController+ImagePicker.h"
+#import "HTLoginRootController.h"
 
 typedef enum : NSUInteger {
     HTProfileSettingTypeAvatar,
@@ -110,6 +111,11 @@ typedef enum : NSUInteger {
         [self.navigationController pushViewController:feedbackController animated:YES];
     } else if (type == HTProfileSettingTypeAvatar) {
         [self presentSystemPhotoLibraryController];
+    } else if (type == HTProfileSettingTypeQuitLogin) {
+        [[[HTServiceManager sharedInstance] loginService] quitLogin];
+        HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
+        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
+        [[[UIApplication sharedApplication] delegate] window].rootViewController = navController;
     }
 }
 

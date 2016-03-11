@@ -12,6 +12,7 @@
 #import "HTNotificationController.h"
 #import "HTProfileRankController.h"
 #import "HTProfileRewardController.h"
+#import "HTProfileBadgeController.h"
 #import "HTProfileRecordCell.h"
 #import "HTUIHeader.h"
 
@@ -92,7 +93,8 @@
 }
 
 - (IBAction)didClickMedal:(UIButton *)sender {
-
+    HTProfileBadgeController *badgeController = [[HTProfileBadgeController alloc] init];
+    [self.navigationController pushViewController:badgeController animated:YES];
 }
 
 - (IBAction)didClickCollectionArticle:(UIButton *)sender {

@@ -39,12 +39,23 @@ static CGFloat kDuration = 0.3;
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(debugChangeView)];
-//    tap.numberOfTapsRequired = 5;
-//    [self.view addGestureRecognizer:tap];
+//    [[[HTServiceManager sharedInstance] mascotService] getUserProps:^(BOOL success, NSArray<HTMascotProp *> *props) {
+//        
+//    }];
+//    
+//    [MBProgressHUD bwm_showHUDAddedTo:KEYWINDS_ROOT_CONTROLLER.view title:@"获取零仔中" animated:YES];
+//    [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
+//        [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
+//        if (success) {
+//            self.mascots = [mascots mutableCopy];
+//            [_mascotView setMascots:self.mascots];
+//            [self reloadViews];
+//            [self reloadDisplayMascots];
+//        }
+//    }];
     
     self.mascots = [HTMascotHelper mascotsFake];
-    self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
+//    self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
 
     self.onlyOneMascotImageView = [[HTMascotItem alloc] init];
     self.onlyOneMascotImageView.index = 0;
@@ -77,6 +88,11 @@ static CGFloat kDuration = 0.3;
     self.propView = [[HTMascotPropView alloc] initWithProps:props];
     self.propView.delegate = self;
     [self.view addSubview:self.propView];
+    
+    self.mascotView = [[HTMascotView alloc] initWithMascots:self.mascots];
+    self.mascotView.delegate = self;
+    [self.view addSubview:self.mascotView];
+    [self.view sendSubviewToBack:self.mascotView];
     
     [self buildConstraints];
     [self reloadViews];
@@ -143,10 +159,7 @@ static CGFloat kDuration = 0.3;
         self.mascotTipView.hidden = YES;
         self.tipImageView.hidden = YES;
         self.tipLabel.hidden = YES;
-        self.mascotView = [[HTMascotView alloc] initWithMascots:self.mascots];
-        self.mascotView.delegate = self;
-        [self.view addSubview:self.mascotView];
-        [self.view sendSubviewToBack:self.mascotView];
+        self.mascotView.hidden = NO;
     }
 }
 

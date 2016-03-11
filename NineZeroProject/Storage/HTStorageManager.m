@@ -51,12 +51,20 @@
     return user;
 }
 
+- (void)clearLoginUser {
+    [_storageService deleteObjectById:kStorageLoginUserKey fromTable:kStorageTableLoginUserInfoKey];
+}
+
 - (void)updateUserID:(NSString *)userID {
     [_storageService putString:userID withId:kStorageUserIdKey intoTable:kStorageTableLoginUserInfoKey];
 }
 
 - (NSString *)getUserID {
     return [_storageService getStringById:kStorageUserIdKey fromTable:kStorageTableLoginUserInfoKey];
+}
+
+- (void)clearUserID {
+    [_storageService deleteObjectById:kStorageUserIdKey fromTable:kStorageTableLoginUserInfoKey];
 }
 
 - (void)updatePwdSalt:(NSString *)salt {

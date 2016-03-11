@@ -12,6 +12,7 @@ typedef enum : NSUInteger {
     HTDescriptionTypeQuestion,  // defalut
     HTDescriptionTypeProp,
     HTDescriptionTypeReward,
+    HTDescriptionTypeBadge,
     HTDescriptionTypeUnknown,
 } HTDescriptionType;
 

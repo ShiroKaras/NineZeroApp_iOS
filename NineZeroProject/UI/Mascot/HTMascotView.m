@@ -41,6 +41,12 @@ const char *kTapItemAssociatedKey;
     return self;
 }
 
+- (void)setMascots:(NSArray<HTMascot *> *)mascots {
+    _mascots = mascots;
+    [self reloadDisplayMascots];
+    [self needsUpdateConstraints];
+}
+
 - (void)buildViews {
     [_mascotItems makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [_mascotItems removeAllObjects];
