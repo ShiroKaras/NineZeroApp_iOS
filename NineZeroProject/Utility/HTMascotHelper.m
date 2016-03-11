@@ -15,7 +15,7 @@
 + (UIColor *)colorWithMascotIndex:(NSInteger)index {
     if (index < 1 || index > 8) return [UIColor whiteColor];
     NSArray *colors = @[[UIColor colorWithHex:0xed203b],
-                        [UIColor colorWithHex:0x24ddb2],
+                        COMMON_GREEN_COLOR,
                         COMMON_PINK_COLOR,
                         [UIColor colorWithHex:0x5f3a1c],
                         [UIColor colorWithHex:0xfdd900],

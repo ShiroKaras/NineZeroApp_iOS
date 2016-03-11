@@ -214,7 +214,7 @@
         [_exchangeButton setTitle:@"已兑换" forState:UIControlStateNormal];
         _exchangeButton.enabled = NO;
     } else {
-        _exchangeButton.backgroundColor = [UIColor colorWithHex:0x24ddb2];
+        _exchangeButton.backgroundColor = COMMON_GREEN_COLOR;
         [_exchangeButton setTitle:@"兑换" forState:UIControlStateNormal];
         _exchangeButton.enabled = YES;
     }

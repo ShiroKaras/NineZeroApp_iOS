@@ -8,13 +8,14 @@
 
 #import "HTLoginButton.h"
 #import "CommonUI.h"
+#import "CommonDefine.h"
 
 @implementation HTLoginButton
 
 - (void)setEnabled:(BOOL)enabled {
     [super setEnabled:enabled];
     if (enabled == YES) {
-        self.backgroundColor = [UIColor colorWithHex:0x24ddb2];
+        self.backgroundColor = COMMON_GREEN_COLOR;
         self.titleLabel.textColor = [UIColor whiteColor];
     } else {
         self.backgroundColor = [UIColor colorWithHex:0x0a3e32];

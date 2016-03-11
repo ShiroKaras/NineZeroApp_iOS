@@ -210,7 +210,7 @@
     } else if (delta > oneHour * 24 && delta < oneHour * 48) {
         // 大于24小时 小于48小时
         _countDownMainLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
-        _countDownMainLabel.textColor = [UIColor colorWithHex:0x24ddb2];
+        _countDownMainLabel.textColor = COMMON_GREEN_COLOR;
         _countDownImageView.image = [UIImage imageNamed:@"img_timer_1_deco"];
     } else if (delta > oneHour * 16 && delta < oneHour * 24) {
         // 大于16小时 小于24小时

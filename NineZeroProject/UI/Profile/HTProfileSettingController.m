@@ -15,6 +15,71 @@
 #import "UIViewController+ImagePicker.h"
 #import "HTLoginRootController.h"
 
+@interface HTProfileSettingChangeNameView : UIView <UITextFieldDelegate>
+@property (nonatomic, strong) UIView *dimmingView;
+@property (nonatomic, strong) UIView *whiteBackView;
+@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) UIButton *sureButton;
+@property (nonatomic, assign) CGFloat offsetY;
+@end
+
+@implementation HTProfileSettingChangeNameView
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickDimmingView)];
+        _dimmingView = [[UIView alloc] init];
+        _dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
+        [_dimmingView addGestureRecognizer:tap];
+        [self addSubview:_dimmingView];
+        
+        _whiteBackView = [[UIView alloc] init];
+        _whiteBackView.backgroundColor = [UIColor whiteColor];
+        [self addSubview:_whiteBackView];
+        
+        _textField = [[UITextField alloc] init];
+        _textField.textColor = COMMON_GREEN_COLOR;
+        _textField.delegate = self;
+        _textField.text = @"用户名";
+        [_whiteBackView addSubview:_textField];
+        
+        _sureButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _sureButton.backgroundColor = COMMON_GREEN_COLOR;
+        _sureButton.layer.cornerRadius = 5.0f;
+        [_sureButton setTitle:@"完成" forState:UIControlStateNormal];
+        _sureButton.titleLabel.textColor = [UIColor whiteColor];
+        _sureButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        [_sureButton addTarget:self action:@selector(onClickSureButton) forControlEvents:UIControlEventTouchUpInside];
+        [_whiteBackView addSubview:_sureButton];
+    }
+    return self;
+}
+
+- (void)setCoverOffsetYInScreen:(CGFloat)offsetY {
+    _offsetY = offsetY;
+    [self setNeedsLayout];
+}
+
+- (void)onClickDimmingView {
+    [self removeFromSuperview];
+}
+
+- (void)onClickSureButton {
+    [self removeFromSuperview];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _dimmingView.frame = self.bounds;
+    _whiteBackView.frame = CGRectMake(0, _offsetY, self.width, 51);
+    _textField.frame = CGRectMake(23, 0, SCREEN_WIDTH - 150, 51);
+    _sureButton.frame = CGRectMake(0, 0, 85, 30);
+    _sureButton.right = self.width - 8;
+    _sureButton.centerY = _whiteBackView.height / 2.0;
+}
+
+@end
+
 typedef enum : NSUInteger {
     HTProfileSettingTypeAvatar,
     HTProfileSettingTypeName,
@@ -92,7 +157,7 @@ typedef enum : NSUInteger {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     HTProfileSettingType type = [self typeWithIndexPath:indexPath];
-    if (type == HTProfileSettingTypeAvatar) return 78;
+    if (type == HTProfileSettingTypeAvatar) return 68;
     else if (type == HTProfileSettingTypeBlank) return 30;
     else if (type == HTProfileSettingTypeQuitLogin) return 50;
     else return 51;
@@ -116,6 +181,10 @@ typedef enum : NSUInteger {
         HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
         [[[UIApplication sharedApplication] delegate] window].rootViewController = navController;
+    } else if (type == HTProfileSettingTypeName) {
+        HTProfileSettingChangeNameView *changeView = [[HTProfileSettingChangeNameView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [changeView setOffsetY:68 + 44 + 20 - self.tableView.contentOffset.y];
+        [KEY_WINDOW addSubview:changeView];
     }
 }
 

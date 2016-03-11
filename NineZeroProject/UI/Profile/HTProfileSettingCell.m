@@ -163,7 +163,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = [UIColor colorWithHex:0x24ddb2];
+        self.backgroundColor = COMMON_GREEN_COLOR;
     
         _quitLabel = [[UILabel alloc] init];
         _quitLabel.font = [UIFont systemFontOfSize:18];

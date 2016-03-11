@@ -56,7 +56,7 @@
         _textField.delegate = self;
         _textField.font = [UIFont systemFontOfSize:17];
         _textField.placeholder = @"请输入你的答案";
-        _textField.textColor = [UIColor colorWithHex:0x24ddb2];
+        _textField.textColor = COMMON_GREEN_COLOR;
         [_textField setValue:[UIColor colorWithHex:0x4f4f4f] forKeyPath:@"_placeholderLabel.textColor"];
         [_textFieldBackView addSubview:_textField];
         

@@ -41,7 +41,7 @@ typedef enum : NSUInteger {
         
         _name = [[UILabel alloc] init];
         _name.text = @"用户名";
-        _name.textColor = [UIColor colorWithHex:0x24ddb2];
+        _name.textColor = COMMON_GREEN_COLOR;
         _name.font = [UIFont systemFontOfSize:14];
         [_name sizeToFit];
         [_bgView addSubview:_name];

@@ -61,7 +61,7 @@
     
     _percentLabel = [[UILabel alloc] init];
     _percentLabel.font = MOON_FONT_OF_SIZE(32.5);
-    _percentLabel.textColor = [UIColor colorWithHex:0x24ddb2];
+    _percentLabel.textColor = COMMON_GREEN_COLOR;
     _percentLabel.text = @"98%";
     [_scrollView addSubview:_percentLabel];
     [_percentLabel sizeToFit];
@@ -97,7 +97,7 @@
     _sureButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_sureButton setTitle:@"完成" forState:UIControlStateNormal];
     _sureButton.titleLabel.font = [UIFont systemFontOfSize:18];
-    _sureButton.backgroundColor = [UIColor colorWithHex:0x24ddb2];
+    _sureButton.backgroundColor = COMMON_GREEN_COLOR;
     [_sureButton addTarget:self action:@selector(onClickSureButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_sureButton];
 }

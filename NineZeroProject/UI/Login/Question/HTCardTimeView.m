@@ -79,7 +79,7 @@
     } else if (delta > oneHour * 24 && delta < oneHour * 48) {
         // 大于24小时 小于48小时
         _mainTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
-        _mainTimeLabel.textColor = [UIColor colorWithHex:0x24ddb2];
+        _mainTimeLabel.textColor = COMMON_GREEN_COLOR;
         _decoImageView.image = [UIImage imageNamed:@"img_timer_1_deco"];
     } else if (delta > oneHour * 16 && delta < oneHour * 24) {
         // 大于16小时 小于24小时

@@ -35,10 +35,11 @@
 
 #define COMMON_BG_COLOR UIColorMake(14, 14, 14)
 #define MOON_FONT_OF_SIZE(s) [UIFont fontWithName:@"Moon-Bold" size:s]
+#define COMMON_GREEN_COLOR [UIColor colorWithHex:0x24ddb2]
 #define COMMON_PINK_COLOR [UIColor colorWithHex:0xd40e88]
 #define COMMON_SEPARATOR_COLOR [UIColor colorWithHex:0x1f1f1f]
 #define KEYWINDS_ROOT_CONTROLLER [[[[UIApplication sharedApplication] delegate] window] rootViewController]
-#define KEK_WINDOW [[[UIApplication sharedApplication] delegate] window]
+#define KEY_WINDOW [[[UIApplication sharedApplication] delegate] window]
 
 #define UIViewParentController(__view) ({ \
     UIResponder *__responder = __view; \
