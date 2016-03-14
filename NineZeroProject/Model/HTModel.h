@@ -122,7 +122,13 @@
 
 // 通知单元结构体
 @interface HTNotification : NSObject
+@property (nonatomic, assign) NSUInteger *notice_id;            // 消息id
+@property (nonatomic, assign) NSUInteger user_id;               // 用户id
+@property (nonatomic, assign) NSUInteger time;                  // 通知时间
+@property (nonatomic, strong) NSString *content;                // 内容
+@end
 
+@interface HTProfileInfo : NSObject
 @end
 
 // 排名单元

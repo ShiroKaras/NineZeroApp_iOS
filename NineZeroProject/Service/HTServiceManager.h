@@ -10,6 +10,7 @@
 #import "HTLoginService.h"
 #import "HTQuestionService.h"
 #import "HTMascotService.h"
+#import "HTProfileService.h"
 #import "HTModel.h"
 #import <Qiniu/QiniuSDK.h>
 #import <YTKKeyValueStore.h>
@@ -26,6 +27,9 @@
 
 /** mascotService, 负责零仔和道具相关业务 */
 - (HTMascotService *)mascotService;
+
+/** profileService, 负责个人中心相关业务 */
+- (HTProfileService *)profileService;
 
 /** qiniuService, 负责七牛相关的业务 */
 - (QNUploadManager *)qiniuService;

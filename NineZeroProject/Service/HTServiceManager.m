@@ -16,6 +16,7 @@
     HTQuestionService *_questionService;
     HTMascotService *_mascotService;
     QNUploadManager *_qiniuService;
+    HTProfileService *_profileService;
 }
 
 + (instancetype)sharedInstance {
@@ -33,6 +34,7 @@
         _questionService = [[HTQuestionService alloc] init];
         _qiniuService = [[QNUploadManager alloc] init];
         _mascotService = [[HTMascotService alloc] init];
+        _profileService = [[HTProfileService alloc] init];
     }
     return self;
 }
@@ -49,6 +51,10 @@
 
 - (HTMascotService *)mascotService {
     return _mascotService;
+}
+
+- (HTProfileService *)profileService {
+    return _profileService;
 }
 
 - (QNUploadManager *)qiniuService {

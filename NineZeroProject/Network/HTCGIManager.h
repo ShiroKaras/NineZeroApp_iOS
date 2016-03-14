@@ -130,4 +130,91 @@
  */
 + (NSString *)getQiniuDownloadUrlCGIKey;
 
+/**
+ *  @brief 获取个人主页信息
+ *  "user_id"
+ */
++ (NSString *)getProfileInfoCGIKey;
+
+/**
+ *  @brief 获取礼券
+ *  "user_id"
+ */
++ (NSString *)getUserTicketsCGIKey;
+
+/**
+ *  @brief 获取通知列表
+ *  "user_id"
+ *  "pet_id"
+ */
++ (NSString *)getUserNoticesCGIKey;
+
+/**
+ *  @brief 获取个人信息
+ *  "user_id"
+ */
++ (NSString *)getUserInfoCGIKey;
+
+/**
+ *  @brief 更新设置
+ *  "user_id"
+ *  "address"      可选
+ *  "mobile"       可选
+ *  "push_setting" 可选
+ */
++ (NSString *)updateSettingCGIKey;
+
+/**
+ *  @brief 更新个人信息
+ *  "user_id"
+ *  "user_name"   可选
+ *  "user_avatar" 可选
+ */
++ (NSString *)updateUserInfoCGIKey;
+
+/**
+ *  @brief 意见反馈
+ *  "content"
+ *  "contact"
+ */
++ (NSString *)updateFeedbackCGIKey;
+
+/**
+ *  @brief 获取往期文章
+ *  "page"
+ *  "count"
+ */
++ (NSString *)getArticlesCGIKey;
+
+/**
+ *  @brief 获取收藏文章
+ *  "user_id"
+ *  "page"
+ *  "count"
+ */
++ (NSString *)getCollectArticlesCGIKey;
+
+/**
+ *  @brief 收藏文章
+ *  "user_id"
+ *  "article_id"
+ */
++ (NSString *)collectArticleCGIKey;
+
+/**
+ *  @brief 获取勋章
+ *  "user_id"
+ */
++ (NSString *)getBadgesCGIKey;
+
+/**
+ *  @brief 获取自己的排名
+ */
++ (NSString *)getMyRankCGIKey;
+
+/**
+ *  @brief 获取前100名的排名列表
+ */
++ (NSString *)getAllRanksCGIKey;
+
 @end

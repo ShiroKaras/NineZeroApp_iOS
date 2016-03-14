@@ -677,6 +677,7 @@
 		17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */; };
 		17F0F4761C93275C0050F0EB /* HTProfileBadgeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F0F4751C93275C0050F0EB /* HTProfileBadgeController.m */; };
 		17F0F4791C9331290050F0EB /* HTProfileBadgeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F0F4781C9331290050F0EB /* HTProfileBadgeCollectionCell.m */; };
+		17F0F47C1C95D1510050F0EB /* HTProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F0F47B1C95D1510050F0EB /* HTProfileService.m */; };
 		17F37A761C255420006759D1 /* HUD+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A751C255420006759D1 /* HUD+Utility.m */; };
 		17F37A791C259EB8006759D1 /* HTDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A781C259EB8006759D1 /* HTDescriptionView.m */; };
 		17F393A41C8C87D8004E1DB7 /* HTPreviewCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F393A31C8C87D8004E1DB7 /* HTPreviewCardController.m */; };
@@ -1487,6 +1488,8 @@
 		17F0F4751C93275C0050F0EB /* HTProfileBadgeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileBadgeController.m; sourceTree = "<group>"; };
 		17F0F4771C9331290050F0EB /* HTProfileBadgeCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileBadgeCollectionCell.h; sourceTree = "<group>"; };
 		17F0F4781C9331290050F0EB /* HTProfileBadgeCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileBadgeCollectionCell.m; sourceTree = "<group>"; };
+		17F0F47A1C95D1510050F0EB /* HTProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProfileService.h; sourceTree = "<group>"; };
+		17F0F47B1C95D1510050F0EB /* HTProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileService.m; sourceTree = "<group>"; };
 		17F37A741C255420006759D1 /* HUD+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HUD+Utility.h"; sourceTree = "<group>"; };
 		17F37A751C255420006759D1 /* HUD+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HUD+Utility.m"; sourceTree = "<group>"; };
 		17F37A771C259EB8006759D1 /* HTDescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTDescriptionView.h; sourceTree = "<group>"; };
@@ -2729,6 +2732,8 @@
 				17967AB41C174ED500571924 /* HTQuestionService.m */,
 				17C40B3E1C5538A200DAE22A /* HTMascotService.h */,
 				17C40B3F1C5538A200DAE22A /* HTMascotService.m */,
+				17F0F47A1C95D1510050F0EB /* HTProfileService.h */,
+				17F0F47B1C95D1510050F0EB /* HTProfileService.m */,
 				17E8DE4F1C0E154B009D4F9F /* HTQiNiuService.h */,
 				17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */,
 			);
@@ -3723,6 +3728,7 @@
 				17967AB51C174ED500571924 /* HTQuestionService.m in Sources */,
 				17F45AF41C7E1D7A004F2E32 /* HTProfileArticleCell.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
+				17F0F47C1C95D1510050F0EB /* HTProfileService.m in Sources */,
 				17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
 				17A89AAF1C1DBA150087BF00 /* README.md in Sources */,

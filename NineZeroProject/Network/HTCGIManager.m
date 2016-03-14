@@ -77,4 +77,24 @@
     return [NSString stringWithFormat:@"%@Answer/answerText", NETWORK_HOST];
 }
 
++ (NSString *)getProfileInfoCGIKey {
+    return [NSString stringWithFormat:@"%@User/getUserInfo", NETWORK_HOST];
+}
+
++ (NSString *)getUserTicketsCGIKey {
+    return [NSString stringWithFormat:@"%@User/getUserTickets", NETWORK_HOST];
+}
+
++ (NSString *)getUserNoticesCGIKey {
+    return [NSString stringWithFormat:@"%@User/getNotice", NETWORK_HOST];
+}
+
++ (NSString *)getMyRankCGIKey {
+    return [NSString stringWithFormat:@"%@User/getRank", NETWORK_HOST];
+}
+
++ (NSString *)getAllRanksCGIKey {
+    return [NSString stringWithFormat:@"%@User/getAllRank", NETWORK_HOST];
+}
+
 @end
