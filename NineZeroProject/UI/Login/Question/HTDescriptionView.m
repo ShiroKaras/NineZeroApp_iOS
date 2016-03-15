@@ -10,6 +10,7 @@
 #import <Masonry.h>
 #import "UIButton+EnlargeTouchArea.h"
 #import "HTUIHeader.h"
+#import "NSDate+Utility.h"
 
 @interface HTRewardDescriptionView : UIScrollView
 @property (nonatomic, strong) UILabel *title;
@@ -53,12 +54,13 @@
 }
 
 - (void)setReward:(HTReward *)reward {
-    _title.text = @"免费泰国曼谷深之旅";
-    _deadLine.text = @"有效期至2015-12-31";
-    _location.text = @"地点：泰国曼谷";
-    _mobile.text = @"电话：01012345678";
+    _title.text = reward.title;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:reward.expire_time];
+    _deadLine.text = [NSString stringWithFormat:@"有效期至%04ld-%02ld-%02ld", [date year], [date month], [date day]];
+    _location.text = [NSString stringWithFormat:@"地点：%@", reward.address];
+    _mobile.text = [NSString stringWithFormat:@"电话：%@", reward.mobile];
     _codeTipLabel.text = @"唯一兑换码";
-    _codeLabel.text = @"324567345";
+    _codeLabel.text = [NSString stringWithFormat:@"%ld", reward.code];
     _careTipLabel.text = @"注意事项：";
     _careTip1.text = @"1.本活动仅限本人；";
     _careTip2.text = @"2.如有疑问，请联系客服；";

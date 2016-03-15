@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class HTReward;
+
 @interface HTRewardCard : UIView
 - (void)showExchangedCode:(BOOL)show;
+- (void)setReward:(HTReward *)reward;
 @end

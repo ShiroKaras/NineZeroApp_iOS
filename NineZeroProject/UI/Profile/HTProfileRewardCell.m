@@ -30,7 +30,7 @@ CGFloat cardHeight = 143;
 }
 
 - (void)setReward:(HTReward *)reward {
-    
+    [_card setReward:reward];
 }
 
 - (void)layoutSubviews {

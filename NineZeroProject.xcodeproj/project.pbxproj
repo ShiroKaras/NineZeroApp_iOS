@@ -658,6 +658,7 @@
 		17AA63571C4AB85A0047BADF /* HTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA63561C4AB85A0047BADF /* HTMainViewController.m */; };
 		17AA63741C4ABC3D0047BADF /* HTMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */; };
 		17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA63771C4AC10A0047BADF /* HTMascotDisplayController.m */; };
+		17AE3B341C987F550082390F /* NSDate+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AE3B331C987F550082390F /* NSDate+Utility.m */; };
 		17B1D83F1C1492D90082C86B /* HTPreviewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */; };
 		17B1D8421C1544470082C86B /* HTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D8411C1544470082C86B /* HTModel.m */; };
 		17B428F31C54CC9A008AFBA9 /* HTMascotItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B428F21C54CC9A008AFBA9 /* HTMascotItem.m */; };
@@ -1450,6 +1451,8 @@
 		17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTMainViewController.xib; sourceTree = "<group>"; };
 		17AA63761C4AC10A0047BADF /* HTMascotDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotDisplayController.h; sourceTree = "<group>"; };
 		17AA63771C4AC10A0047BADF /* HTMascotDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotDisplayController.m; sourceTree = "<group>"; };
+		17AE3B321C987F550082390F /* NSDate+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utility.h"; sourceTree = "<group>"; };
+		17AE3B331C987F550082390F /* NSDate+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utility.m"; sourceTree = "<group>"; };
 		17B1D83B1C1492CE0082C86B /* HTPreviewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPreviewItem.h; sourceTree = "<group>"; };
 		17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTPreviewItem.xib; sourceTree = "<group>"; };
 		17B1D8401C1544470082C86B /* HTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTModel.h; sourceTree = "<group>"; };
@@ -2468,6 +2471,8 @@
 				179D2BB61C5E5BD4000A4461 /* HTQuestionHelper.m */,
 				17262CD81C5E02A4000FDA1B /* HTImageView.h */,
 				17262CD91C5E02A4000FDA1B /* HTImageView.m */,
+				17AE3B321C987F550082390F /* NSDate+Utility.h */,
+				17AE3B331C987F550082390F /* NSDate+Utility.m */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
@@ -3743,6 +3748,7 @@
 				1787FD141C4A8884006E55A6 /* ARController.m in Sources */,
 				17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */,
 				17461D0F1C74C8C900C847E8 /* Reachability.m in Sources */,
+				17AE3B341C987F550082390F /* NSDate+Utility.m in Sources */,
 				175641931C269DD20009AE7B /* HTShowAnswerView.m in Sources */,
 				17F393A71C8C9521004E1DB7 /* HTProfileRecordCell.m in Sources */,
 				17FA110D1C83417A00FA9102 /* HTAboutController.m in Sources */,

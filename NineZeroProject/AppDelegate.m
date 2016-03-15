@@ -41,10 +41,6 @@
     [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
         
     }];
-    
-    [[[HTServiceManager sharedInstance] profileService] getMyRank:^(BOOL success, HTRanker *ranker) {
-        
-    }];
 
     return YES;
 }

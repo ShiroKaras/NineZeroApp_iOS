@@ -89,7 +89,7 @@
     }];
 }
 
-- (void)getRewards:(HTGetRewardsNotificationCallback)callback {
+- (void)getRewards:(HTGetRewardsCallback)callback {
     NSLog(@"userid = %@", [[HTStorageManager sharedInstance] getUserID]);
     if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
     
@@ -97,7 +97,12 @@
         DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
-            
+            NSMutableArray *rewards = [NSMutableArray array];
+            for (NSDictionary *dataDict in rsp.data) {
+                HTReward *reward = [HTReward objectWithKeyValues:dataDict];
+                [rewards addObject:reward];
+            }
+            callback(true, rewards);
         } else {
             callback(false, nil);
         }

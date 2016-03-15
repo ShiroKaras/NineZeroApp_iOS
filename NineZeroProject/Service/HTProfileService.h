@@ -11,7 +11,7 @@
 
 typedef void (^HTGetProfileInfoCallback) (BOOL success, HTProfileInfo *profileInfo);
 typedef void (^HTGetNotificationsCallback) (BOOL success, NSArray<HTNotification *> *notifications);
-typedef void (^HTGetRewardsNotificationCallback) (BOOL success, NSArray<HTReward *> *rewards);
+typedef void (^HTGetRewardsCallback) (BOOL success, NSArray<HTReward *> *rewards);
 typedef void (^HTGetUserInfoCallback) (BOOL success, HTUserInfo *userInfo);
 typedef void (^HTGetMyRankCallback) (BOOL success, HTRanker *ranker);
 typedef void (^HTGetRankListCallback) (BOOL success, NSArray<HTRanker *> *ranker);
@@ -40,7 +40,7 @@ typedef void (^HTGetRankListCallback) (BOOL success, NSArray<HTRanker *> *ranker
 /**
  *  @brief 获取礼券列表
  */
-- (void)getRewards:(HTGetRewardsNotificationCallback)callback;
+- (void)getRewards:(HTGetRewardsCallback)callback;
 /**
  *  @brief 获取自己的排名
  */

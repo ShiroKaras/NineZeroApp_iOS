@@ -105,19 +105,19 @@
 
 // 礼券
 @interface HTReward : NSObject
-@property (nonatomic, assign) NSUInteger rewardID;              // 礼券id
-@property (nonatomic, assign) NSUInteger code;                  // 兑换码
-@property (nonatomic, assign) NSUInteger createTime;            // 创建时间
-@property (nonatomic, assign) BOOL isUsed;                      // 是否已经兑换
-@property (nonatomic, assign) NSUInteger usedTime;              // 兑换时间
-@property (nonatomic, assign) NSUInteger type;                  // type
-@property (nonatomic, strong) NSString *title;                  // 标题
-@property (nonatomic, strong) NSString *coverPicName;           // 封面名字
-@property (nonatomic, strong) NSString *coverPickURL;           // 封面链接
-@property (nonatomic, strong) NSString *location;               // 地点
-@property (nonatomic, strong) NSString *mobile;                 // 手机号
-@property (nonatomic, assign) NSUInteger expireTime;            // 失效时间
-@property (nonatomic, assign) NSUInteger totalNum;              // 总共多少张礼券?
+@property (nonatomic, assign) NSUInteger ticket_id;              // 礼券id
+@property (nonatomic, assign) NSUInteger code;                   // 兑换码
+@property (nonatomic, assign) NSUInteger create_time;            // 创建时间
+@property (nonatomic, assign) BOOL used;                         // 是否已经兑换
+@property (nonatomic, assign) NSUInteger used_time;              // 兑换时间
+@property (nonatomic, assign) NSUInteger type;                   // type
+@property (nonatomic, strong) NSString *title;                   // 标题
+@property (nonatomic, strong) NSString *pic;                     // 封面名字
+@property (nonatomic, strong) NSString *coverPickURL;            // 封面链接
+@property (nonatomic, strong) NSString *address;                 // 地点
+@property (nonatomic, strong) NSString *mobile;                  // 手机号
+@property (nonatomic, assign) NSUInteger expire_time;            // 失效时间
+@property (nonatomic, assign) NSUInteger total_num;              // 总共多少张礼券?
 @end
 
 // 通知单元结构体

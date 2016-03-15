@@ -8,6 +8,7 @@
 
 #import "HTRewardCard.h"
 #import "HTUIHeader.h"
+#import "NSDate+Utility.h"
 
 @interface HTRewardCard ()
 @property (nonatomic, strong) UIImageView *bgImageView;
@@ -52,6 +53,13 @@
 
 - (void)showExchangedCode:(BOOL)show {
     self.exchangedCode.hidden = !show;
+}
+
+- (void)setReward:(HTReward *)reward {
+//    self.bgImageView =
+    self.titleLabel.text = reward.title;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:reward.expire_time];
+    self.ddlLabel.text = [NSString stringWithFormat:@"有效期至%04ld-%02ld-%02ld", [date year], [date month], [date day]];
 }
 
 - (CGSize)intrinsicContentSize {
