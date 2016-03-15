@@ -659,6 +659,8 @@
 		17AA63741C4ABC3D0047BADF /* HTMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */; };
 		17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA63771C4AC10A0047BADF /* HTMascotDisplayController.m */; };
 		17AE3B341C987F550082390F /* NSDate+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AE3B331C987F550082390F /* NSDate+Utility.m */; };
+		17AE3B371C9884B10082390F /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AE3B361C9884B10082390F /* NSDate+TimeAgo.m */; };
+		17AE3B391C9885200082390F /* NSDateTimeAgo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 17AE3B381C9885200082390F /* NSDateTimeAgo.bundle */; };
 		17B1D83F1C1492D90082C86B /* HTPreviewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */; };
 		17B1D8421C1544470082C86B /* HTModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B1D8411C1544470082C86B /* HTModel.m */; };
 		17B428F31C54CC9A008AFBA9 /* HTMascotItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B428F21C54CC9A008AFBA9 /* HTMascotItem.m */; };
@@ -1453,6 +1455,9 @@
 		17AA63771C4AC10A0047BADF /* HTMascotDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotDisplayController.m; sourceTree = "<group>"; };
 		17AE3B321C987F550082390F /* NSDate+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utility.h"; sourceTree = "<group>"; };
 		17AE3B331C987F550082390F /* NSDate+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utility.m"; sourceTree = "<group>"; };
+		17AE3B351C9884B10082390F /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
+		17AE3B361C9884B10082390F /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
+		17AE3B381C9885200082390F /* NSDateTimeAgo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NSDateTimeAgo.bundle; sourceTree = "<group>"; };
 		17B1D83B1C1492CE0082C86B /* HTPreviewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPreviewItem.h; sourceTree = "<group>"; };
 		17B1D83E1C1492D90082C86B /* HTPreviewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTPreviewItem.xib; sourceTree = "<group>"; };
 		17B1D8401C1544470082C86B /* HTModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTModel.h; sourceTree = "<group>"; };
@@ -2473,6 +2478,9 @@
 				17262CD91C5E02A4000FDA1B /* HTImageView.m */,
 				17AE3B321C987F550082390F /* NSDate+Utility.h */,
 				17AE3B331C987F550082390F /* NSDate+Utility.m */,
+				17AE3B351C9884B10082390F /* NSDate+TimeAgo.h */,
+				17AE3B361C9884B10082390F /* NSDate+TimeAgo.m */,
+				17AE3B381C9885200082390F /* NSDateTimeAgo.bundle */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
@@ -3014,6 +3022,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				17461C1D1C71EF6600C847E8 /* img_mascot_5_animation_3_0013.png in Resources */,
+				17AE3B391C9885200082390F /* NSDateTimeAgo.bundle in Resources */,
 				17461CA01C71EF6600C847E8 /* img_mascot_7_animation_2_0021.png in Resources */,
 				17461B561C71EF6600C847E8 /* img_mascot_1_animation_4_0022.png in Resources */,
 				17461BA21C71EF6600C847E8 /* img_mascot_2_animation_4_0024.png in Resources */,
@@ -3729,6 +3738,7 @@
 				17F0F4791C9331290050F0EB /* HTProfileBadgeCollectionCell.m in Sources */,
 				1787FD1C1C4A8884006E55A6 /* ARRadar.m in Sources */,
 				17A89ABC1C1DBA290087BF00 /* README.md in Sources */,
+				17AE3B371C9884B10082390F /* NSDate+TimeAgo.m in Sources */,
 				26973B221C006A6900160D25 /* HTLoginController.m in Sources */,
 				17967AB51C174ED500571924 /* HTQuestionService.m in Sources */,
 				17F45AF41C7E1D7A004F2E32 /* HTProfileArticleCell.m in Sources */,

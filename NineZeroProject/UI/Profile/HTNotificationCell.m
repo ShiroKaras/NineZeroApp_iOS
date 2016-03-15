@@ -9,6 +9,8 @@
 #import "HTNotificationCell.h"
 #import "HTUIHeader.h"
 #import <TTTAttributedLabel.h>
+#import "NSDate+TimeAgo.h"
+#import "NSDate+Utility.h"
 
 static CGFloat kLineSpace = 7;
 
@@ -57,18 +59,31 @@ static CGFloat kLineSpace = 7;
     _nameLabel.text = @"零仔NO.1";
     _nameLabel.textColor = [HTMascotHelper colorWithMascotIndex:1];
     [_nameLabel sizeToFit];
-    _timeLabel.text = @"昨天";
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:notification.time];
+    _timeLabel.text = [self stringWithDate:date];
     [_timeLabel sizeToFit];
-    NSString *text = @"而QQ用了十几年。你可以说这是互联网指数级发展的结果，也可以说微信是专为移动而生的产品。所幸，命运依旧青睐QQ，他们把时代的机遇给了微信，但是把年轻人群再次给到了QQ。腾讯即通应用部的总经理张孝超说，使用手机QQ的用户，超过半成以上是90后和00后用户。这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，";
     
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = kLineSpace;
     NSDictionary *attrs = @{ NSFontAttributeName : [UIFont systemFontOfSize:13],
                              NSParagraphStyleAttributeName : style};
-    CGRect rect = [text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 54, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil];
+    CGRect rect = [notification.content boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 54, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil];
     _contentLabel.size = rect.size;
-    _contentLabel.text = text;
+    _contentLabel.text = notification.content;
     [self setNeedsLayout];
+}
+
+- (NSString *)stringWithDate:(NSDate *)date {
+    if ([date isToday]) {
+        return [NSString stringWithFormat:@"%02ld:%02ld", [date hour], [date minute]];
+    } else if ([date isYesterday]) {
+        return @"昨天";
+    } else if ([date isLastYear]) {
+        return @"1年前";
+    } else if ([date isInPast]) {
+        return [NSString stringWithFormat:@"%04ld-%02ld-%02ld", [date year], [date month], [date day]];
+    }
+    return @"";
 }
 
 - (void)layoutSubviews {
@@ -84,7 +99,6 @@ static CGFloat kLineSpace = 7;
 }
 
 + (CGFloat)calculateCellHeightWithText:(NSString *)text {
-    text = @"而QQ用了十几年。你可以说这是互联网指数级发展的结果，也可以说微信是专为移动而生的产品。所幸，命运依旧青睐QQ，他们把时代的机遇给了微信，但是把年轻人群再次给到了QQ。腾讯即通应用部的总经理张孝超说，使用手机QQ的用户，超过半成以上是90后和00后用户。这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，";
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = kLineSpace;
     NSDictionary *attrs = @{ NSFontAttributeName : [UIFont systemFontOfSize:13],

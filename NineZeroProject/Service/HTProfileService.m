@@ -79,8 +79,13 @@
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getUserNoticesCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        NSMutableArray<HTNotification *> *notifications = [NSMutableArray array];
         if (rsp.resultCode == 0) {
-            
+            for (NSDictionary *dataDict in rsp.data) {
+                HTNotification *notification = [HTNotification objectWithKeyValues:dataDict];
+                [notifications addObject:notification];
+            }
+            callback(true, notifications);
         } else {
             callback(false, nil);
         }

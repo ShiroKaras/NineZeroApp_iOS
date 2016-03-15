@@ -11,7 +11,7 @@
 #import "HTNotificationCell.h"
 
 @interface HTNotificationController ()
-
+@property (nonatomic, strong) NSArray<HTNotification *> *notices;
 @end
 
 @implementation HTNotificationController
@@ -22,6 +22,13 @@
     self.view.backgroundColor = [UIColor blackColor];
     self.title = @"消息通知";
     [self.tableView registerClass:[HTNotificationCell class] forCellReuseIdentifier:NSStringFromClass([HTNotificationCell class])];
+    self.notices = [NSArray array];
+    [[[HTServiceManager sharedInstance] profileService] getNotifications:^(BOOL success, NSArray<HTNotification *> *notifications) {
+        if (success) {
+            _notices = notifications;
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 #pragma mark - Table view data source
@@ -31,18 +38,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return _notices.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HTNotificationCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTNotificationCell class]) forIndexPath:indexPath];
-    HTNotification *notication = [[HTNotification alloc] init];
-    [cell setNotification:notication];
+    [cell setNotification:_notices[indexPath.row]];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [HTNotificationCell calculateCellHeightWithText:@""];
+    return [HTNotificationCell calculateCellHeightWithText:_notices[indexPath.row].content];
 }
 
 @end
