@@ -14,6 +14,7 @@
 #import <MJExtension.h>
 #import "HTLog.h"
 #import "HTStorageManager.h"
+#import "HTNetworkDefine.h"
 
 #import "NSString+Utility.h"
 

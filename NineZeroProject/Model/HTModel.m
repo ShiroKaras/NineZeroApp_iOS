@@ -140,6 +140,12 @@ HTINIT(HTReward);
 @implementation HTNotification
 @end
 
+@implementation HTProfileInfo
+@end
+
+@implementation HTUserInfo
+@end
+
 @implementation HTRanker
 @end
 

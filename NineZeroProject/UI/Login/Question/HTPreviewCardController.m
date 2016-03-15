@@ -90,6 +90,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 //        }
 //    }];
     
+    [[[HTServiceManager sharedInstance] profileService] getRewards:^(BOOL success, NSArray<HTReward *> *rewards) {
+        
+    }];
+    [[[HTServiceManager sharedInstance] profileService] getNotifications:^(BOOL success, NSArray<HTNotification *> *notifications) {
+        
+    }];
+    
+
     // 1. 背景
     UIImage *bgImage;
     if (SCREEN_WIDTH <= IPHONE5_SCREEN_WIDTH) {

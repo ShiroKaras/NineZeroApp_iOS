@@ -131,9 +131,21 @@
 @interface HTProfileInfo : NSObject
 @end
 
+@interface HTUserInfo : NSObject
+@property (nonatomic, strong) NSString *user_name;
+@property (nonatomic, strong) NSString *user_avatar;
+@property (nonatomic, strong) NSString *mobile;
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *push_setting;
+@end
+
 // 排名单元
 @interface HTRanker : NSObject
-@property (nonatomic, assign) NSUInteger order;
+@property (nonatomic, assign) NSUInteger gold;          // 金币
+@property (nonatomic, assign) NSUInteger rank;          // 排名
+@property (nonatomic, assign) NSUInteger user_id;
+@property (nonatomic, strong) NSString *user_avatar;    // 头像(名？)
+@property (nonatomic, strong) NSString *user_name;
 @end
 
 // 勋章

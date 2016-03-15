@@ -38,11 +38,11 @@
     [[UITextField appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
     [[UITextView appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
 
-    [[[HTServiceManager sharedInstance] profileService] getNotifications:^(BOOL success, NSArray<HTNotification *> *props) {
+    [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
         
     }];
     
-    [[[HTServiceManager sharedInstance] profileService] getRewards:^(BOOL success, NSArray<HTReward *> *props) {
+    [[[HTServiceManager sharedInstance] profileService] getMyRank:^(BOOL success, HTRanker *ranker) {
         
     }];
 
