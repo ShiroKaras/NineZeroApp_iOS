@@ -15,6 +15,7 @@ typedef void (^HTGetRewardsCallback) (BOOL success, NSArray<HTReward *> *rewards
 typedef void (^HTGetUserInfoCallback) (BOOL success, HTUserInfo *userInfo);
 typedef void (^HTGetMyRankCallback) (BOOL success, HTRanker *ranker);
 typedef void (^HTGetRankListCallback) (BOOL success, NSArray<HTRanker *> *ranker);
+typedef void (^HTGetBadgesCallback) (BOOL success, NSArray<HTBadge *> *badges) ;
 
 /**
  *  @brief 负责个人中心相关逻辑
@@ -41,6 +42,10 @@ typedef void (^HTGetRankListCallback) (BOOL success, NSArray<HTRanker *> *ranker
  *  @brief 获取礼券列表
  */
 - (void)getRewards:(HTGetRewardsCallback)callback;
+/**
+ *  @brief 获取勋章
+ */
+- (void)getBadges:(HTGetBadgesCallback)callback;
 /**
  *  @brief 获取自己的排名
  */

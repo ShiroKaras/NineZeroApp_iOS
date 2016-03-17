@@ -21,7 +21,8 @@
         DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
-            
+            HTProfileInfo *profileInfo = [HTProfileInfo objectWithKeyValues:rsp.data];
+            callback(true, profileInfo);
         } else {
             callback(false, nil);
         }
@@ -38,7 +39,8 @@
         DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
-            
+            HTUserInfo *userInfo = [HTUserInfo objectWithKeyValues:rsp.data];
+            callback(true, userInfo);
         } else {
             callback(false, nil);
         }
@@ -54,13 +56,13 @@
     NSDictionary *dict = @{@"user_id" : [[HTStorageManager sharedInstance] getUserID],
                            @"address" : userInfo.address,
                            @"mobile"  : userInfo.mobile,
-                           @"push_setting" : userInfo.push_setting};
+                           @"push_setting" : [NSString stringWithFormat:@"%d", userInfo.push_setting]};
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager updateSettingCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
-            
+            callback(true, rsp);
         } else {
             callback(false, rsp);
         }
@@ -114,6 +116,29 @@
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
     }];
+}
+
+- (void)getBadges:(HTGetBadgesCallback)callback {
+    NSLog(@"userid = %@", [[HTStorageManager sharedInstance] getUserID]);
+    if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
+    
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getBadgesCGIKey] parameters:@{ @"user_id" : [[HTStorageManager sharedInstance] getUserID] } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@",responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        if (rsp.resultCode == 0) {
+            NSMutableArray *badges = [NSMutableArray array];
+            for (NSDictionary *dataDict in rsp.data) {
+                HTBadge *badge = [HTBadge objectWithKeyValues:dataDict];
+                [badges addObject:badge];
+            }
+            callback(true, badges);
+        } else {
+            callback(false, nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(false, nil);
+    }];
+
 }
 
 - (void)getMyRank:(HTGetMyRankCallback)callback {

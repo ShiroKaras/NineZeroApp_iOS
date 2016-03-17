@@ -102,14 +102,38 @@
 
 @end
 
-@implementation HTProfileSettingPushCell
+typedef NS_ENUM(NSUInteger, WWKSwitchBoolValue) {
+    WWKSwitchBoolValueNO,
+    WWKSwitchBoolValueYES,
+    WWKSwitchBoolValueUnknown,
+};
+
+@implementation HTProfileSettingPushCell {
+    WWKSwitchBoolValue _lastSwitchState;
+}
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.theSwitch = [[UISwitch alloc] init];
         self.theSwitch.onTintColor = [UIColor colorWithHex:0xd50e88];
+        [self.theSwitch addTarget:self action:@selector(turnSwitchChangeValue:) forControlEvents:UIControlEventValueChanged];
         [self.contentView addSubview:self.theSwitch];
+        
+        _lastSwitchState = WWKSwitchBoolValueUnknown;
     }
     return self;
+}
+
+- (void)setSwitchValueOn:(BOOL)on {
+    self.theSwitch.on = on;
+    _lastSwitchState = (self.theSwitch.isOn) ? WWKSwitchBoolValueYES : WWKSwitchBoolValueNO;
+}
+
+- (void)turnSwitchChangeValue:(UISwitch *)turnSwitch {
+    WWKSwitchBoolValue boolValue = (turnSwitch.isOn) ? WWKSwitchBoolValueYES : WWKSwitchBoolValueNO;
+    if (_lastSwitchState == WWKSwitchBoolValueUnknown || _lastSwitchState != boolValue) {
+        _lastSwitchState = boolValue;
+        [self.delegate onClickPushSettingSwitch:turnSwitch.isOn];
+    }
 }
 
 - (void)layoutSubviews {

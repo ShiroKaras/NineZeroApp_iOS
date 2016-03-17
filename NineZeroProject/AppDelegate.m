@@ -38,10 +38,6 @@
     [[UITextField appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
     [[UITextView appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
 
-    [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
-        
-    }];
-
     return YES;
 }
 

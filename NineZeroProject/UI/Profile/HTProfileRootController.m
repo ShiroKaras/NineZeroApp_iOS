@@ -27,7 +27,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *rewardLabel;
 @property (weak, nonatomic) IBOutlet UIView *recordBackView;
 @property (nonatomic, strong) UICollectionView *recordView;
-
+@property (nonatomic, strong) HTProfileInfo *profileInfo;
+@property (nonatomic, strong) HTUserInfo *userInfo;
 @end
 
 @implementation HTProfileRootController
@@ -52,6 +53,20 @@
     [_recordBackView addSubview:_recordView];
     
     [_recordView registerClass:[HTProfileRecordCell class] forCellWithReuseIdentifier:NSStringFromClass([HTProfileRecordCell class])];
+    
+    [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
+        if (success) {
+            _profileInfo = profileInfo;
+            [self reloadData];
+        }
+    }];
+    
+    [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
+        if (success) {
+            _userInfo = userInfo;
+            [self reloadData];
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,6 +84,21 @@
     _recordView.frame = _recordBackView.bounds;
 }
 
+- (void)reloadData {
+    _coinLabel.text = _profileInfo.gold;
+    _rankLabel.text = _profileInfo.rank;
+    _rewardLabel.text = _profileInfo.ticket;
+    _metaLabel.text = _profileInfo.medal;
+    _collectionLabel.text = _profileInfo.article;
+    _nickName.text = _userInfo.user_name;
+    [_recordView reloadData];
+}
+
+//- (NSString *)truncatingWithString:(NSString *)string {
+//    NSUInteger number = [string integerValue];
+//    if (number > )
+//}
+
 - (IBAction)didClickBackButton:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -79,7 +109,7 @@
 }
 
 - (IBAction)didClickSetting:(UIButton *)sender {
-    HTProfileSettingController *settingController = [[HTProfileSettingController alloc] init];
+    HTProfileSettingController *settingController = [[HTProfileSettingController alloc] initWithUserInfo:_userInfo];
     [self.navigationController pushViewController:settingController animated:YES];
 }
 
@@ -114,7 +144,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 3;
+    return _profileInfo.answer_list.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

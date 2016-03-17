@@ -209,6 +209,7 @@
 
 /**
  *  @brief 获取自己的排名
+ *  "user_id"
  */
 + (NSString *)getMyRankCGIKey;
 
@@ -216,5 +217,7 @@
  *  @brief 获取前100名的排名列表
  */
 + (NSString *)getAllRanksCGIKey;
+
+
 
 @end

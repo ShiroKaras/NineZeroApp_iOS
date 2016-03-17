@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class HTUserInfo;
 @interface HTProfileSettingController : UITableViewController
-
+- (instancetype)initWithUserInfo:(HTUserInfo *)userInfo;
 @end

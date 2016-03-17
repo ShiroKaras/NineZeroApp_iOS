@@ -22,7 +22,12 @@
 @interface HTProfileSettingTextFieldCell :HTProfileSettingCell
 @end
 
+@protocol HTProfileSettingPushCellDelegate <NSObject>
+- (void)onClickPushSettingSwitch:(BOOL)switchOn;
+@end
 @interface HTProfileSettingPushCell : HTProfileSettingCell
+- (void)setSwitchValueOn:(BOOL)on;
+@property (nonatomic, weak) id<HTProfileSettingPushCellDelegate> delegate;
 @end
 
 @interface HTProfileSettingAvatarCell : HTProfileSettingTextCell

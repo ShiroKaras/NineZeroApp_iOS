@@ -57,7 +57,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     HTDescriptionView *descriptionView = [[HTDescriptionView alloc] initWithURLString:@"" andType:HTDescriptionTypeReward];
     [descriptionView setReward:_rewards[indexPath.row]];
-    [self.view.superview addSubview:descriptionView];
+    [KEY_WINDOW addSubview:descriptionView];
     [descriptionView showAnimated];
 }
 

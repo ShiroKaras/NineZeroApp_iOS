@@ -128,15 +128,30 @@
 @property (nonatomic, strong) NSString *content;                // 内容
 @end
 
+@interface HTProfileAnswer : NSObject
+@property (nonatomic, assign) NSUInteger user_id;
+@property (nonatomic, assign) NSUInteger qid;
+@property (nonatomic, assign) NSUInteger answer_time;
+@property (nonatomic, assign) NSUInteger user_time;
+@end
+
 @interface HTProfileInfo : NSObject
+@property (nonatomic, strong) NSString *gold;
+@property (nonatomic, strong) NSString *ticket;
+@property (nonatomic, strong) NSString *notice;
+@property (nonatomic, strong) NSString *rank;
+@property (nonatomic, strong) NSString *article;
+@property (nonatomic, strong) NSString *medal;
+@property (nonatomic, strong) NSArray<HTProfileAnswer *> *answer_list;
 @end
 
 @interface HTUserInfo : NSObject
 @property (nonatomic, strong) NSString *user_name;
 @property (nonatomic, strong) NSString *user_avatar;
-@property (nonatomic, strong) NSString *mobile;
+@property (nonatomic, strong) NSString *mobile;                 // 个人设置里跟随地址填的电话号码
 @property (nonatomic, strong) NSString *address;
-@property (nonatomic, strong) NSString *push_setting;
+//@property (nonatomic, strong) NSString *push_setting;
+@property (nonatomic, assign) BOOL push_setting;
 @end
 
 // 排名单元
@@ -150,4 +165,11 @@
 
 // 勋章
 @interface HTBadge : NSObject
+@property (nonatomic, assign) BOOL have;
+@property (nonatomic, strong) NSString *medal_description;
+@property (nonatomic, strong) NSString *medal_icon;
+@property (nonatomic, assign) NSUInteger medal_id;
+@property (nonatomic, strong) NSString *medal_level;         // 拿到这个勋章需要的金币数
+@property (nonatomic, strong) NSString *medal_name;
+@property (nonatomic, strong) NSString *medal_pic;
 @end

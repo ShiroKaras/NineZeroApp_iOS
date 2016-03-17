@@ -15,12 +15,17 @@
 #import "UIViewController+ImagePicker.h"
 #import "HTLoginRootController.h"
 
+@protocol HTProfileSettingChangeNameViewDelegate <NSObject>
+- (void)onClickUserButtonWithUserInfo:(HTUserInfo *)userInfo;
+@end
 @interface HTProfileSettingChangeNameView : UIView <UITextFieldDelegate>
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) UIView *whiteBackView;
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UIButton *sureButton;
 @property (nonatomic, assign) CGFloat offsetY;
+@property (nonatomic, strong) HTUserInfo *userInfo;
+@property (nonatomic, weak) id<HTProfileSettingChangeNameViewDelegate> delegate;
 @end
 
 @implementation HTProfileSettingChangeNameView
@@ -55,6 +60,11 @@
     return self;
 }
 
+- (void)setUserInfo:(HTUserInfo *)userInfo {
+    _userInfo = userInfo;
+    _textField.text = userInfo.user_name;
+}
+
 - (void)setCoverOffsetYInScreen:(CGFloat)offsetY {
     _offsetY = offsetY;
     [self setNeedsLayout];
@@ -65,7 +75,15 @@
 }
 
 - (void)onClickSureButton {
+    _userInfo.user_name = _textField.text;
+    [[[HTServiceManager sharedInstance] profileService] updateUserInfo:_userInfo completion:^(BOOL success, HTResponsePackage *response) {}];
+    [self.delegate onClickUserButtonWithUserInfo:_userInfo];
     [self removeFromSuperview];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self onClickSureButton];
+    return YES;
 }
 
 - (void)layoutSubviews {
@@ -93,8 +111,20 @@ typedef enum : NSUInteger {
     HTProfileSettingTypeQuitLogin,
 } HTProfileSettingType;
 
+@interface HTProfileSettingController () <HTProfileSettingPushCellDelegate, HTProfileSettingChangeNameViewDelegate>
+
+@end
+
 @implementation HTProfileSettingController {
     NSArray<NSNumber *> *_cellTypes;
+    HTUserInfo *_userInfo;
+}
+
+- (instancetype)initWithUserInfo:(HTUserInfo *)userInfo {
+    if (self = [super init]) {
+        _userInfo = userInfo;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -128,7 +158,7 @@ typedef enum : NSUInteger {
     } else if (type == HTProfileSettingTypeName) {
         HTProfileSettingTextCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingTextCell class]) forIndexPath:indexPath];
         [cell setDetailTitleText:@"修改昵称"];
-        [cell setTitleText:[self titleWithIndexPath:indexPath]];
+        [cell setTitleText:_userInfo.user_name];
         return cell;
     } else if (type == HTProfileSettingTypeBlank) {
         HTProfileSettingBlankCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingBlankCell class]) forIndexPath:indexPath];
@@ -137,6 +167,8 @@ typedef enum : NSUInteger {
     } else if (type == HTProfileSettingTypePush) {
         HTProfileSettingPushCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingPushCell class]) forIndexPath:indexPath];
         [cell setTitleText:[self titleWithIndexPath:indexPath]];
+        [cell setSwitchValueOn:_userInfo.push_setting];
+        cell.delegate = self;
         return cell;
     } else if (type == HTProfileSettingTypeAbout) {
         HTProfileSettingTextCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingTextCell class]) forIndexPath:indexPath];
@@ -183,12 +215,15 @@ typedef enum : NSUInteger {
         [[[UIApplication sharedApplication] delegate] window].rootViewController = navController;
     } else if (type == HTProfileSettingTypeName) {
         HTProfileSettingChangeNameView *changeView = [[HTProfileSettingChangeNameView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [changeView setUserInfo:_userInfo];
+        changeView.delegate = self;
         [changeView setOffsetY:68 + 44 + 20 - self.tableView.contentOffset.y];
         [KEY_WINDOW addSubview:changeView];
     }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    [picker dismissViewControllerAnimated:YES completion:nil];
     HTProfileSettingAvatarCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     UIImage *image = info[UIImagePickerControllerEditedImage];
     [cell setImage:image];
@@ -197,6 +232,10 @@ typedef enum : NSUInteger {
 //    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 //    NSString *imagePath = [path stringByAppendingPathComponent:@"avatar"];
 //    [imageData writeToFile:imagePath atomically:YES];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (HTProfileSettingType)typeWithIndexPath:(NSIndexPath *)indexPath {
@@ -215,6 +254,23 @@ typedef enum : NSUInteger {
     if (type == HTProfileSettingTypeClearCache) return @"清除缓存";
     if (type == HTProfileSettingTypeAbout) return @"关于";
     return @"";
+}
+
+#pragma mark - HTProfileSettingPushCell Delegate
+
+- (void)onClickPushSettingSwitch:(BOOL)switchOn {
+    _userInfo.push_setting = switchOn;
+    [[[HTServiceManager sharedInstance] profileService] updateUserInfo:_userInfo completion:^(BOOL success, HTResponsePackage *response) {
+        
+    }];
+}
+
+#pragma mark - HTProfileSettingChangeNameView Delegate
+
+- (void)onClickUserButtonWithUserInfo:(HTUserInfo *)userInfo {
+    _userInfo = userInfo;
+    HTProfileSettingTextCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    [cell setTitleText:userInfo.user_name];
 }
 
 @end

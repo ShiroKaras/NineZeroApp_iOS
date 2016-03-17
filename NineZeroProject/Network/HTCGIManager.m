@@ -81,12 +81,24 @@
     return [NSString stringWithFormat:@"%@User/getUserInfo", NETWORK_HOST];
 }
 
++ (NSString *)updateSettingCGIKey {
+    return [NSString stringWithFormat:@"%@User/updateSetting", NETWORK_HOST];
+}
+
++ (NSString *)getUserInfoCGIKey {
+    return [NSString stringWithFormat:@"%@User/getBaseInfo", NETWORK_HOST];
+}
+
 + (NSString *)getUserTicketsCGIKey {
     return [NSString stringWithFormat:@"%@User/getUserTickets", NETWORK_HOST];
 }
 
 + (NSString *)getUserNoticesCGIKey {
     return [NSString stringWithFormat:@"%@User/getNotice", NETWORK_HOST];
+}
+
++ (NSString *)getBadgesCGIKey {
+    return [NSString stringWithFormat:@"%@Medal/getMedal", NETWORK_HOST];
 }
 
 + (NSString *)getMyRankCGIKey {

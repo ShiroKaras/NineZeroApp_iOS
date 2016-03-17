@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class HTUserInfo;
 @interface HTProfileLocationController : UIViewController
-
+- (instancetype)initWithUserInfo:(HTUserInfo *)userInfo;
 @end
