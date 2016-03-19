@@ -81,7 +81,7 @@ static CGFloat kDuration = 0.3;
     self.tipLabel.text = @"快帮我寻找更多的零仔吧!";
     [self.tipImageView addSubview:self.tipLabel];
     
-    props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],];
+    props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],];
     for (int i = 10; i != props.count; i++) {
         props[i].isExchanged = YES;
     }
@@ -215,40 +215,46 @@ static CGFloat kDuration = 0.3;
             [propMoreView removeFromSuperview];
         }];
     } else {
-//        _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount - 1];
-//        [self.view addSubview:_moreView];
-//        _moreView.bottom = 0;
-//        _moreView.delegate = self;
-//        [UIView animateWithDuration:kDuration animations:^{
-//            _moreView.top = 0;
-//            propMoreView.top = SCREEN_HEIGHT;
-//        } completion:^(BOOL finished) {
-//            [propMoreView removeFromSuperview];
-//        }];
-        [propMoreView removeFromSuperview];
         _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount - 1];
         [self.view addSubview:_moreView];
-        _moreView.top = 0;
+        _moreView.bottom = 0;
         _moreView.delegate = self;
+        _moreView.decorateView.hidden = YES;
+        propMoreView.decorateView.hidden = YES;
+        [UIView animateWithDuration:kDuration animations:^{
+            _moreView.top = 0;
+            propMoreView.top = SCREEN_HEIGHT;
+        } completion:^(BOOL finished) {
+            [propMoreView removeFromSuperview];
+            _moreView.decorateView.hidden = NO;
+        }];
+//        [propMoreView removeFromSuperview];
+//        _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount - 1];
+//        [self.view addSubview:_moreView];
+//        _moreView.top = 0;
+//        _moreView.delegate = self;
     }
 }
 
 - (void)didClickBottomArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView {
-//    _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount + 1];
-//    [self.view addSubview:_moreView];
-//    _moreView.top = SCREEN_HEIGHT;
-//    _moreView.delegate = self;
-//    [UIView animateWithDuration:kDuration animations:^{
-//        _moreView.top = 0;
-//        propMoreView.bottom = 0;
-//    } completion:^(BOOL finished) {
-//        [propMoreView removeFromSuperview];
-//    }];
-    [propMoreView removeFromSuperview];
     _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount + 1];
     [self.view addSubview:_moreView];
-    _moreView.top = 0;
+    _moreView.top = SCREEN_HEIGHT;
     _moreView.delegate = self;
+    _moreView.decorateView.hidden = YES;
+    propMoreView.decorateView.hidden = YES;
+    [UIView animateWithDuration:kDuration animations:^{
+        _moreView.top = 0;
+        propMoreView.bottom = 0;
+    } completion:^(BOOL finished) {
+        [propMoreView removeFromSuperview];
+        _moreView.decorateView.hidden = NO;
+    }];
+//    [propMoreView removeFromSuperview];
+//    _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount + 1];
+//    [self.view addSubview:_moreView];
+//    _moreView.top = 0;
+//    _moreView.delegate = self;
 }
 
 - (void)propMoreView:(HTMascotPropMoreView *)propMoreView didClickPropItem:(HTMascotPropItem *)item {

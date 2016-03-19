@@ -17,7 +17,6 @@ NSInteger kPageItemCount = 15;
 @property (nonatomic, strong) NSArray<HTMascotProp *> *props;
 @property (nonatomic, strong) UIButton *topArraw;
 @property (nonatomic, strong) UIButton *bottomArraw;
-@property (nonatomic, strong) UIImageView *decorateView;    // 玩意儿
 @property (nonatomic, assign, readwrite) NSInteger pageCount;
 @end
 
@@ -93,7 +92,6 @@ NSInteger kPageItemCount = 15;
         make.centerX.equalTo(_topArraw);
     }];
     
-
     UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_prop_arrow_up_grey"]];
     CGFloat itemsMargin = (SCREEN_HEIGHT - ROUND_HEIGHT_FLOAT(37) - ROUND_HEIGHT_FLOAT(61) - arrowImageView.height * 2 - 54 - 45 * 5) / 4;
     for (HTMascotPropItem *item in _propItems) {

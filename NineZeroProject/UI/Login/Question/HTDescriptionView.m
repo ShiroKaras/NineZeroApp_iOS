@@ -11,6 +11,7 @@
 #import "UIButton+EnlargeTouchArea.h"
 #import "HTUIHeader.h"
 #import "NSDate+Utility.h"
+#import "HTPropChangedPopController.h"
 
 @interface HTRewardDescriptionView : UIScrollView
 @property (nonatomic, strong) UILabel *title;
@@ -95,7 +96,7 @@
 
 @end
 
-@interface HTDescriptionView () <UIWebViewDelegate>
+@interface HTDescriptionView () <UIWebViewDelegate, HTPropChangedPopControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIButton *cancelButton;
@@ -105,7 +106,7 @@
 @property (nonatomic, strong) UIButton *exchangeButton;
 @property (nonatomic, strong) HTRewardDescriptionView *rewardDescriptionView;
 @property (nonatomic, assign, readwrite) HTDescriptionType type;
-
+@property (nonatomic, strong) HTPropChangedPopController *changeView;
 @end
 
 @implementation HTDescriptionView
@@ -177,11 +178,9 @@
 }
 
 - (void)didClickExchangedButton {
-    _exchangeButton.backgroundColor = [UIColor colorWithHex:0x545454];
-    [_exchangeButton setTitle:@"已兑换" forState:UIControlStateNormal];
-    _exchangeButton.enabled = NO;
-//    if (_prop) _prop.isExchanged = YES;
-//    [self setProp:_prop];
+    _changeView = [[HTPropChangedPopController alloc] initWithProp:_prop];
+    _changeView.delegate = self;
+    [_changeView show];
 }
 
 - (void)showInView:(UIView *)parentView {
@@ -259,6 +258,14 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
     [_webView stringByEvaluatingJavaScriptFromString:padding];
+}
+
+#pragma mark - HTPropChangedPopControllerDelegate
+
+- (void)onClickSureButtonInPopController:(HTPropChangedPopController *)controller {
+    _exchangeButton.backgroundColor = [UIColor colorWithHex:0x545454];
+    [_exchangeButton setTitle:@"已兑换" forState:UIControlStateNormal];
+    _exchangeButton.enabled = NO;
 }
 
 @end

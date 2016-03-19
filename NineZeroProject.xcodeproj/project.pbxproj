@@ -10,6 +10,7 @@
 		1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706CB4A1BFA542E00E59255 /* NSString+Utility.m */; };
 		170992BA1C26489D004433EB /* HTPreviewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 170992B91C26489D004433EB /* HTPreviewItem.m */; };
 		170992BD1C264F0C004433EB /* HTShowDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 170992BC1C264F0C004433EB /* HTShowDetailView.m */; };
+		17116D051C9D366200530B7C /* HTPropChangedPopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17116D041C9D366200530B7C /* HTPropChangedPopController.m */; };
 		1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D71C1BEFB7A100498304 /* HTLoginRootController.m */; };
 		1721D71F1BEFB7A100498304 /* HTLoginRootController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */; };
 		1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D7211BEFBAD200498304 /* HTCGIManager.m */; };
@@ -746,6 +747,8 @@
 		170992B91C26489D004433EB /* HTPreviewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTPreviewItem.m; sourceTree = "<group>"; };
 		170992BB1C264F0C004433EB /* HTShowDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTShowDetailView.h; sourceTree = "<group>"; };
 		170992BC1C264F0C004433EB /* HTShowDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTShowDetailView.m; sourceTree = "<group>"; };
+		17116D031C9D366200530B7C /* HTPropChangedPopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPropChangedPopController.h; sourceTree = "<group>"; };
+		17116D041C9D366200530B7C /* HTPropChangedPopController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTPropChangedPopController.m; sourceTree = "<group>"; };
 		1721D71B1BEFB7A100498304 /* HTLoginRootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLoginRootController.h; sourceTree = "<group>"; };
 		1721D71C1BEFB7A100498304 /* HTLoginRootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTLoginRootController.m; sourceTree = "<group>"; };
 		1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTLoginRootController.xib; sourceTree = "<group>"; };
@@ -2481,6 +2484,8 @@
 				17AE3B351C9884B10082390F /* NSDate+TimeAgo.h */,
 				17AE3B361C9884B10082390F /* NSDate+TimeAgo.m */,
 				17AE3B381C9885200082390F /* NSDateTimeAgo.bundle */,
+				17116D031C9D366200530B7C /* HTPropChangedPopController.h */,
+				17116D041C9D366200530B7C /* HTPropChangedPopController.m */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
@@ -3699,6 +3704,7 @@
 				17BE473A1C8603D300797E8E /* HTProfileRankCell.m in Sources */,
 				17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */,
 				17B428F31C54CC9A008AFBA9 /* HTMascotItem.m in Sources */,
+				17116D051C9D366200530B7C /* HTPropChangedPopController.m in Sources */,
 				17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */,
 				1787FD151C4A8884006E55A6 /* ARObject.m in Sources */,
 				179D2BB71C5E5BD4000A4461 /* HTQuestionHelper.m in Sources */,

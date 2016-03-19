@@ -20,4 +20,5 @@
 - (instancetype)initWithProps:(NSArray<HTMascotProp *> *)props andPageCount:(NSInteger)pageCount;
 @property (nonatomic, assign, readonly) NSInteger pageCount;
 @property (nonatomic, weak) id<HTMascotPropMoreViewDelegate> delegate;
+@property (nonatomic, strong) UIImageView *decorateView;    // 玩意儿
 @end
