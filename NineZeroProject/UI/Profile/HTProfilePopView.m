@@ -12,6 +12,7 @@
 #import "HTProfileArticlesController.h"
 #import "HTProfileRootController.h"
 #import "HTPreviewCardController.h"
+#import "HTStorageManager.h"
 
 typedef enum : NSUInteger {
     HTProfileTypePerson,
@@ -35,12 +36,14 @@ typedef enum : NSUInteger {
         _bgView.userInteractionEnabled = YES;
         [self addSubview:_bgView];
         
+        HTUserInfo *userInfo = [[HTStorageManager sharedInstance] userInfo];
+        
         _head = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
         _head.userInteractionEnabled = YES;
         [_bgView addSubview:_head];
         
         _name = [[UILabel alloc] init];
-        _name.text = @"用户名";
+        _name.text = userInfo.user_name;
         _name.textColor = COMMON_GREEN_COLOR;
         _name.font = [UIFont systemFontOfSize:14];
         [_name sizeToFit];

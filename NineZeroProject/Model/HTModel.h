@@ -67,10 +67,14 @@
 
 @property (nonatomic, assign) NSUInteger mascotID;         // 零仔ID（为0代表停赛日文章）
 @property (nonatomic, assign) NSUInteger articleID;        // 文章ID
+@property (nonatomic, assign) NSUInteger time;
 @property (nonatomic, strong) NSString *articleURL;        // 文章链接
 @property (nonatomic, strong) NSString *articleTitle;      // 文章标题 (缺)
 @property (nonatomic, strong) NSString *articleConverURL;  // 文章封面url (缺)
 @property (nonatomic, assign) NSInteger hasRead;           // 是否已读
+@property (nonatomic, strong) NSString *article_content;
+@property (nonatomic, strong) NSString *article_pic;
+@property (nonatomic, strong) NSString *publish_time;
 
 @end
 
@@ -150,8 +154,8 @@
 @property (nonatomic, strong) NSString *user_avatar;
 @property (nonatomic, strong) NSString *mobile;                 // 个人设置里跟随地址填的电话号码
 @property (nonatomic, strong) NSString *address;
-//@property (nonatomic, strong) NSString *push_setting;
 @property (nonatomic, assign) BOOL push_setting;
+@property (nonatomic, assign) int settingType;                  // 更改配置的类型,本地用
 @end
 
 // 排名单元

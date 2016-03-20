@@ -88,7 +88,8 @@ HTINIT(HTArticle)
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"mascotID"  : @"pet_id",
                                      @"articleID" : @"article_id",
-                                     @"articleURL" : @"article_url"};
+                                     @"articleURL" : @"article_url",
+                                     @"articleTitle" : @"article_title"};
     return propertyMapper;
 }
 @end

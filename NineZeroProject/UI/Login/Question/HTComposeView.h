@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) UITextField *textField; ///< 输入框
 @property (nonatomic, weak) id<HTComposeViewDelegate> delegate; ///< 代理
 @property (nonatomic, strong) HTQuestion *associatedQuestion;
+@property (nonatomic, strong) UIButton *composeButton;           ///< 输入按钮
 
 /**
  *  @biref 响应键盘

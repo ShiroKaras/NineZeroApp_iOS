@@ -218,6 +218,4 @@
  */
 + (NSString *)getAllRanksCGIKey;
 
-
-
 @end

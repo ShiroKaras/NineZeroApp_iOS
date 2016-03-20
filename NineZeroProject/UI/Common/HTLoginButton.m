@@ -17,9 +17,13 @@
     if (enabled == YES) {
         self.backgroundColor = COMMON_GREEN_COLOR;
         self.titleLabel.textColor = [UIColor whiteColor];
+        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
     } else {
         self.backgroundColor = [UIColor colorWithHex:0x0a3e32];
         self.titleLabel.textColor = [UIColor colorWithWhite:1 alpha:0.28];
+        [self setTitleColor:[UIColor colorWithWhite:1 alpha:0.28] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor colorWithWhite:1 alpha:0.28] forState:UIControlStateDisabled];
     }
 }
 

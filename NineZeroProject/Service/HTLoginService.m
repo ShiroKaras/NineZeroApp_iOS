@@ -22,23 +22,6 @@
 
 #pragma mark - Public Method
 
-- (void)registerWithUser:(HTLoginUser *)user success:(HTHTTPSuccessCallback)successCallback error:(HTHTTPErrorCallback)errorCallback {
-    NSDictionary *parameters = [user keyValues];
-    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseRegisterCGIKey] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
-        DLog(@"%@", responseObject);
-        if (package.resultCode == 0) {
-            NSDictionary *dataDict = package.data;
-            [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
-            [[HTStorageManager sharedInstance] updateLoginUser:user];
-        }
-        successCallback(responseObject);
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        DLog(@"%@",error);
-        errorCallback([NSString stringWithFormat:@"%@", error]);
-    }];
-}
-
 - (void)registerWithUser:(HTLoginUser *)user completion:(HTResponseCallback)callback {
     NSDictionary *parameters = [user keyValues];
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseRegisterCGIKey] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -49,7 +32,6 @@
             [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
             [[HTStorageManager sharedInstance] updateLoginUser:user];
         }
-        callback(true, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         DLog(@"%@",error);
         callback(false, nil);

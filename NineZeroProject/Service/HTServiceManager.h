@@ -11,6 +11,7 @@
 #import "HTQuestionService.h"
 #import "HTMascotService.h"
 #import "HTProfileService.h"
+#import "HTStorageManager.h"
 #import "HTModel.h"
 #import <Qiniu/QiniuSDK.h>
 #import <YTKKeyValueStore.h>
@@ -33,5 +34,8 @@
 
 /** qiniuService, 负责七牛相关的业务 */
 - (QNUploadManager *)qiniuService;
+
+/** 存储相关 */
+- (HTStorageManager *)storageManager;
 
 @end

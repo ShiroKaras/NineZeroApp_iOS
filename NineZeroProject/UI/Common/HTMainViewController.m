@@ -52,7 +52,6 @@ CGFloat alphaLight = 1.0;
 #else
     [self changedToViewController:_preViewController];
 #endif
-    
 }
 
 - (void)changedToViewController:(UIViewController *)viewController {

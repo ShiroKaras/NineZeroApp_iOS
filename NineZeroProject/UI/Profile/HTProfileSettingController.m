@@ -76,7 +76,6 @@
 
 - (void)onClickSureButton {
     _userInfo.user_name = _textField.text;
-    [[[HTServiceManager sharedInstance] profileService] updateUserInfo:_userInfo completion:^(BOOL success, HTResponsePackage *response) {}];
     [self.delegate onClickUserButtonWithUserInfo:_userInfo];
     [self removeFromSuperview];
 }
@@ -198,7 +197,7 @@ typedef enum : NSUInteger {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     HTProfileSettingType type = [self typeWithIndexPath:indexPath];
     if (type == HTProfileSettingTypeLocation) {
-        HTProfileLocationController *locationController = [[HTProfileLocationController alloc] init];
+        HTProfileLocationController *locationController = [[HTProfileLocationController alloc] initWithUserInfo:_userInfo];
         [self.navigationController pushViewController:locationController animated:YES];
     } else if (type == HTProfileSettingTypeAbout) {
         HTAboutController *aboutController = [[HTAboutController alloc] init];
@@ -219,6 +218,8 @@ typedef enum : NSUInteger {
         changeView.delegate = self;
         [changeView setOffsetY:68 + 44 + 20 - self.tableView.contentOffset.y];
         [KEY_WINDOW addSubview:changeView];
+    } else if (type ==HTProfileSettingTypeClearCache) {
+        [MBProgressHUD bwm_showTitle:@"清除成功" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeSuccessful];
     }
 }
 
@@ -260,8 +261,8 @@ typedef enum : NSUInteger {
 
 - (void)onClickPushSettingSwitch:(BOOL)switchOn {
     _userInfo.push_setting = switchOn;
+    _userInfo.settingType = HTUpdateUserInfoTypePushSetting;
     [[[HTServiceManager sharedInstance] profileService] updateUserInfo:_userInfo completion:^(BOOL success, HTResponsePackage *response) {
-        
     }];
 }
 
@@ -269,8 +270,11 @@ typedef enum : NSUInteger {
 
 - (void)onClickUserButtonWithUserInfo:(HTUserInfo *)userInfo {
     _userInfo = userInfo;
+    _userInfo.settingType = HTUpdateUserInfoTypeName;
     HTProfileSettingTextCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     [cell setTitleText:userInfo.user_name];
+    [[[HTServiceManager sharedInstance] profileService] updateUserInfo:_userInfo completion:^(BOOL success, HTResponsePackage *response) {
+    }];
 }
 
 @end

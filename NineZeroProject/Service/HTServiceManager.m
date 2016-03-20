@@ -61,4 +61,8 @@
     return _qiniuService;
 }
 
+- (HTStorageManager *)storageManager {
+    return [HTStorageManager sharedInstance];
+}
+
 @end

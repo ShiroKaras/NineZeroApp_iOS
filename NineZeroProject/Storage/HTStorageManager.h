@@ -9,10 +9,15 @@
 #import <Foundation/Foundation.h>
 
 @class HTLoginUser;
+@class HTUserInfo;
+@class HTProfileInfo;
 
 @interface HTStorageManager : NSObject
 
 + (instancetype)sharedInstance;
+
+@property (nonatomic, strong) HTUserInfo *userInfo;
+@property (nonatomic, strong) HTProfileInfo *profileInfo;
 
 - (void)updateLoginUser:(HTLoginUser *)loginUser;
 - (HTLoginUser *)getLoginUser;

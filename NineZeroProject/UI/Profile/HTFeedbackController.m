@@ -23,21 +23,35 @@
     self.title = @"反馈意见";
     self.view.backgroundColor = COMMON_BG_COLOR;
     self.submitButton.enabled = NO;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChanged:) name:UITextFieldTextDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewTextDidChanged:) name:UITextViewTextDidChangeNotification object:nil];
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    self.submitButton.enabled = [self isSubmitButtonValid];
-    return YES;
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    self.placeholderLabel.hidden = (textView.text.length != 0);
+- (void)textFieldTextDidChanged:(NSNotification *)notication {
     self.submitButton.enabled = [self isSubmitButtonValid];
-    return YES;
+}
+
+- (void)textViewTextDidChanged:(NSNotification *)notification {
+    self.placeholderLabel.hidden = (self.textView.text.length != 0);
+    self.submitButton.enabled = [self isSubmitButtonValid];
 }
 
 - (IBAction)onClickSubmit:(UIButton *)sender {
-    self.submitButton.enabled = YES;
+    self.submitButton.enabled = NO;
+    [self.view endEditing:YES];
+    [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"反馈中"];
+    [[[HTServiceManager sharedInstance] profileService] feedbackWithContent:self.textView.text mobile:self.textField.text completion:^(BOOL success, HTResponsePackage *response) {
+        [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
+        [MBProgressHUD bwm_showTitle:@"感谢反馈" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeSuccessful];
+        if (success && response.resultCode == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 }
 
 - (BOOL)isSubmitButtonValid {

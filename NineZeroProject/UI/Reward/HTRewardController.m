@@ -38,9 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-//    self.view.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.85];
+
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.85];
     _scrollView.delaysContentTouches = NO;

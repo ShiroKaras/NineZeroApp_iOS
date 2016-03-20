@@ -11,7 +11,7 @@
 #import "HTMascotArticleCell.h"
 
 @interface HTCollectionController ()
-
+@property (nonatomic, strong) NSArray<HTArticle *> *articles;
 @end
 
 @implementation HTCollectionController
@@ -27,17 +27,22 @@
     headerView.backgroundColor = [UIColor whiteColor];
     self.tableView.tableHeaderView = headerView;
     [self.tableView registerClass:[HTMascotArticleCell class] forCellReuseIdentifier:NSStringFromClass([HTMascotArticleCell class])];
+    
+    [[[HTServiceManager sharedInstance] profileService] getCollectArticlesWithPage:0 count:10 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
+        if (success) {
+            _articles = articles;
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return _articles.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HTMascotArticleCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTMascotArticleCell class]) forIndexPath:indexPath];
-    HTArticle *article = [[HTArticle alloc] init];
-    article.articleTitle = @"这里是文章标题这里是文章";
-    article.mascotID = 1;
+    HTArticle *article = _articles[indexPath.row];
     [cell setArticle:article];
     return cell;
 }

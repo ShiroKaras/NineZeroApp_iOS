@@ -85,16 +85,16 @@
     if (user_id.length == 0) {
         callback(false, nil);
         return;
-    } else {
     }
     NSDictionary *dict = @{
                            @"user_id" : user_id,
                            @"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID],
                            @"answer" : answer
                            };
+    
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager verifyAnswerCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
         DLog(@"%@", responseObject);
+        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);

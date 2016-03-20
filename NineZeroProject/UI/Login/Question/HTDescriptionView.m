@@ -158,7 +158,8 @@
         } else {
             _rewardDescriptionView = [[HTRewardDescriptionView alloc] initWithFrame:CGRectZero];
             [_rewardDescriptionView setReward:[[HTReward alloc] init]];
-            [_converView addSubview:_rewardDescriptionView];
+            _rewardDescriptionView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
+            [_converView insertSubview:_rewardDescriptionView belowSubview:_imageView];
         }
     }
     return self;
@@ -246,7 +247,8 @@
         _webView.frame = CGRectMake(_imageView.left, imageHeight, width, webViewHeight);
         _webView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     } else if (_type == HTDescriptionTypeReward) {
-        self.rewardDescriptionView.frame = CGRectMake(_imageView.left, imageHeight, width, webViewHeight);
+        self.rewardDescriptionView.frame = CGRectMake(_imageView.left, 0, width, webViewHeight + imageHeight);
+        _rewardDescriptionView.contentInset = UIEdgeInsetsMake(imageHeight, 0, 0, 0);
     } else {
         _webView.frame = CGRectMake(_imageView.left, 0, width, webViewHeight + imageHeight);
         _webView.scrollView.contentInset = UIEdgeInsetsMake(imageHeight, 0, 0, 0);

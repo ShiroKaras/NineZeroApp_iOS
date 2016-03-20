@@ -54,10 +54,14 @@
     
     [_recordView registerClass:[HTProfileRecordCell class] forCellWithReuseIdentifier:NSStringFromClass([HTProfileRecordCell class])];
     
+    _profileInfo = [[HTStorageManager sharedInstance] profileInfo];
+    _userInfo = [[HTStorageManager sharedInstance] userInfo];
+    
     [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
         if (success) {
             _profileInfo = profileInfo;
             [self reloadData];
+            [[HTStorageManager sharedInstance] setProfileInfo:profileInfo];
         }
     }];
     
@@ -65,6 +69,7 @@
         if (success) {
             _userInfo = userInfo;
             [self reloadData];
+            [[HTStorageManager sharedInstance] setUserInfo:userInfo];
         }
     }];
 }
@@ -72,6 +77,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+    [self reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

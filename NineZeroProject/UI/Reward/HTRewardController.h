@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HTRewardController : UIViewController
+@class HTMascot;
+@class HTMascotProp;
+@class HTReward;
 
+@interface HTRewardController : UIViewController
 @end

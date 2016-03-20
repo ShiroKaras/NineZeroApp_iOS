@@ -50,7 +50,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @implementation HTPreviewCardController {
     CGFloat itemWidth; // 显示控件的宽度
     HTQuestionInfo *questionInfo;
-    NSArray<HTQuestion *> *questionList;
+    NSMutableArray<HTQuestion *> *questionList;
     HTScrollDirection _scrollDirection;
 }
 
@@ -68,30 +68,30 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    questionList = [NSMutableArray array];
+    
     self.view.backgroundColor = UIColorMake(14, 14, 14);
     questionInfo = [HTQuestionHelper questionInfoFake];
-    questionList = [HTQuestionHelper questionFake];
+//    questionList = [[HTQuestionHelper questionFake] mutableCopy];
     
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
-//    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
-//        if (success) {
-//            questionInfo = callbackQuestionInfo;
-//            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
-//                if (success2) {
-//                    questionList = callbackQuestionList;
-//                    [self.collectionView reloadData];
-//                    [self.collectionView reloadData];
-//                    [self.collectionView performBatchUpdates:^{}
-//                                                  completion:^(BOOL finished) {
-//                                                      [self backToToday:NO];
-//                                                  }];
-//                }
-//            }];
-//        }
-//    }];
-    
-    [[[HTServiceManager sharedInstance] profileService] getNotifications:^(BOOL success, NSArray<HTNotification *> *notifications) {
-        
+    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
+        if (success) {
+            questionInfo = callbackQuestionInfo;
+            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
+                if (success2) {
+                    NSInteger count = questionList.count;
+                    for (HTQuestion *question in callbackQuestionList) {
+                        [questionList insertObject:question atIndex:count];
+                    }
+                    [self.collectionView reloadData];
+                    [self.collectionView performBatchUpdates:^{}
+                                                  completion:^(BOOL finished) {
+                                                      [self backToToday:NO];
+                                                  }];
+                }
+            }];
+        }
     }];
 
     // 1. 背景
@@ -346,17 +346,31 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)composeWithAnswer:(NSString *)answer question:(HTQuestion *)question {
     static int clickCount = 0;
-    NSString *daan = question.hint;
-    if ([daan isEqualToString:answer]) {
-        [_composeView showAnswerCorrect:YES];
-        clickCount = 0;
-    } else {
-        [_composeView showAnswerCorrect:NO];
-        clickCount++;
-    }
-    if (clickCount >= 3) {
-        [_composeView showAnswerTips:question.hint];
-    }
+    _composeView.composeButton.enabled = NO;
+    [[[HTServiceManager sharedInstance] questionService] verifyQuestion:question.questionID withAnswer:answer callback:^(BOOL success, HTResponsePackage *response) {
+        _composeView.composeButton.enabled = YES;
+        if (success) {
+            if (response.resultCode == 0) {
+                [_composeView showAnswerCorrect:YES];
+                clickCount = 0;
+                // 获取成功了，开始分刮奖励
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [_composeView endEditing:YES];
+                    [_composeView removeFromSuperview];
+                    HTRewardController *reward = [[HTRewardController alloc] init];
+                    reward.view.backgroundColor = [UIColor clearColor];
+                    if (IOS_VERSION >= 8.0) {
+                        reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                    }
+                    [self presentViewController:reward animated:YES completion:nil];
+                });
+            } else {
+                if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", question.hint]];
+                [_composeView showAnswerCorrect:NO];
+                clickCount++;
+            }
+        }
+    }];
 }
 
 - (void)didClickDimingViewInComposeView:(HTComposeView *)composeView {

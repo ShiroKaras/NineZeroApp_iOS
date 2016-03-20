@@ -15,7 +15,6 @@
 
 @property (nonatomic, strong, readwrite) UITextField *textField; ///< 输入框
 @property (nonatomic, strong) UIView *textFieldBackView;         ///< 输入框背景
-@property (nonatomic, strong) UIButton *composeButton;           ///< 输入按钮
 @property (nonatomic, strong) HTImageView *resultImageView;      ///< 显示结果
 @property (nonatomic, strong) UILabel *tipsLabel;                ///< 提示
 @property (nonatomic, strong) UIView *tipsBackView;              ///< 提示背景
@@ -169,12 +168,6 @@
 - (void)showAnswerCorrect:(BOOL)correct {
     _resultImageView.hidden = NO;
     if (correct == NO) {
-//        _resultImageView.animationImages = nil;
-//        NSString *gifName = (correct) ? @"right_answer_gif" : @"wrong_answer_gif";
-//        NSString *path = [[NSBundle mainBundle] pathForResource:gifName ofType:@"gif"];
-//        FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]]];
-//        image.loopCount = 1;
-//        _resultImageView.animatedImage = image;
         NSMutableArray<UIImage *> *animatedImages = [NSMutableArray arrayWithCapacity:19];
         for (int i = 0; i != 19; i++) {
             [animatedImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"raw_wrong_answer_gif_%04d", i]]];

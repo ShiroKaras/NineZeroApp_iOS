@@ -10,7 +10,11 @@
 
 NSString *const kStorageDBNameKey             = @"Storage.db";
 
-NSString *const kStorageTableLoginUserInfoKey = @"login_user_info_table";
+NSString *const kStorageTableKey              = @"login_user_info_table";
+
+NSString *const kStorageUserInfoKey           = @"kStorageUserInfoKey";
+
+NSString *const kStorageProfileInfoKey        = @"kStorageProfileInfoKey";
 
 NSString *const kStorageLoginUserKey          = @"kStorageLoginUserKey";
 

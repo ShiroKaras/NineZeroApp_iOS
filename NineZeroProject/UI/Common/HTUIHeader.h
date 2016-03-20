@@ -26,5 +26,6 @@
 #import "HTImageView.h"
 #import "HTMascotHelper.h"
 #import "HTUIHelper.h"
+#import "UIViewController+HTTips.h"
 
 #endif /* HTUIHeader_h */

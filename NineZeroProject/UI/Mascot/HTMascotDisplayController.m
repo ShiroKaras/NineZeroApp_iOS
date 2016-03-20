@@ -39,20 +39,17 @@ static CGFloat kDuration = 0.3;
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     
-//    [[[HTServiceManager sharedInstance] mascotService] getUserProps:^(BOOL success, NSArray<HTMascotProp *> *props) {
-//        
-//    }];
-//    
-//    [MBProgressHUD bwm_showHUDAddedTo:KEYWINDS_ROOT_CONTROLLER.view title:@"获取零仔中" animated:YES];
-//    [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
-//        [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
-//        if (success) {
-//            self.mascots = [mascots mutableCopy];
-//            [_mascotView setMascots:self.mascots];
-//            [self reloadViews];
-//            [self reloadDisplayMascots];
-//        }
-//    }];
+    [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
+        [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
+        if (success) {
+            self.mascots = [mascots mutableCopy];
+            [_mascotView setMascots:self.mascots];
+            [self reloadViews];
+            [self reloadDisplayMascots];
+        } else {
+            [self showTipsWithText:@"网络不给力哦，请稍后重试"];
+        }
+    }];
     
     self.mascots = [HTMascotHelper mascotsFake];
 //    self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];

@@ -37,7 +37,7 @@
     // 光标颜色
     [[UITextField appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
     [[UITextView appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
-
+    
     return YES;
 }
 

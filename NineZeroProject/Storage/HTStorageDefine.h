@@ -12,7 +12,7 @@
 extern NSString *const kStorageDBNameKey;
 
 /** 存储用户数据的表 */
-extern NSString *const kStorageTableLoginUserInfoKey;
+extern NSString *const kStorageTableKey;
 
 #pragma mark - Login
 
@@ -24,6 +24,11 @@ extern NSString *const kStorageUserIdKey;
 
 /** 加密salt */
 extern NSString *const kStorageSaltKey;
+
+#pragma mark - Profile
+
+extern NSString *const kStorageUserInfoKey;
+extern NSString *const kStorageProfileInfoKey;
 
 #pragma mark - Question
 
