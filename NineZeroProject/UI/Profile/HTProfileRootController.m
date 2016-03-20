@@ -29,6 +29,7 @@
 @property (nonatomic, strong) UICollectionView *recordView;
 @property (nonatomic, strong) HTProfileInfo *profileInfo;
 @property (nonatomic, strong) HTUserInfo *userInfo;
+@property (nonatomic, strong) HTBlankView *blankView;
 @end
 
 @implementation HTProfileRootController
@@ -65,8 +66,13 @@
     [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
         if (success) {
             _profileInfo = profileInfo;
-            [self reloadData];
             [[HTStorageManager sharedInstance] setProfileInfo:profileInfo];
+            if (_profileInfo.answer_list.count == 0) {
+                self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+                [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:9];
+                [self.view addSubview:self.blankView];
+            }
+            [self reloadData];
         }
     }];
     
@@ -77,6 +83,14 @@
             [[HTStorageManager sharedInstance] setUserInfo:userInfo];
         }
     }];
+    
+    if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
+        _profileInfo.answer_list = nil;
+        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_small"] andOffset:12];
+        [self.view addSubview:self.blankView];
+        [self reloadData];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -93,6 +107,7 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     _recordView.frame = _recordBackView.bounds;
+    _blankView.top = ROUND_HEIGHT_FLOAT(67) + _recordBackView.top;
 }
 
 - (void)reloadData {

@@ -12,6 +12,7 @@
 
 @interface HTProfileArticlesController ()
 @property (nonatomic, strong) NSArray<HTArticle *> *articles;
+@property (nonatomic, strong) HTBlankView *blankView;
 @end
 
 @implementation HTProfileArticlesController
@@ -36,8 +37,23 @@
         if (success) {
             _articles = articles;
             [self.tableView reloadData];
+            if (_articles.count == 0) {
+                self.tableView.tableFooterView = nil;
+                self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+                [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
+                [self.view addSubview:self.blankView];
+                self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+            }
         }
     }];
+    
+    if (NO_NETWORK) {
+        self.tableView.tableFooterView = nil;
+        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:self.blankView];
+        self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+    }
 }
 
 #pragma mark - Table view data source

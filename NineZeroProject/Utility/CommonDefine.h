@@ -41,6 +41,8 @@
 #define KEYWINDS_ROOT_CONTROLLER [[[[UIApplication sharedApplication] delegate] window] rootViewController]
 #define KEY_WINDOW [[[UIApplication sharedApplication] delegate] window]
 
+#define NO_NETWORK ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO)
+
 #define UIViewParentController(__view) ({ \
     UIResponder *__responder = __view; \
     while ([__responder isKindOfClass:[UIView class]]) \

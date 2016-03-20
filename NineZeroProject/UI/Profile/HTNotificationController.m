@@ -12,6 +12,7 @@
 
 @interface HTNotificationController ()
 @property (nonatomic, strong) NSArray<HTNotification *> *notices;
+@property (nonatomic, strong) HTBlankView *blankView;
 @end
 
 @implementation HTNotificationController
@@ -27,8 +28,22 @@
         if (success) {
             _notices = notifications;
             [self.tableView reloadData];
+            if (_notices.count == 0) {
+                self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+                [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
+                [self.view addSubview:self.blankView];
+                self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+            }
         }
     }];
+    
+    
+    if (NO_NETWORK) {
+        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:self.blankView];
+        self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+    }
 }
 
 #pragma mark - Table view data source

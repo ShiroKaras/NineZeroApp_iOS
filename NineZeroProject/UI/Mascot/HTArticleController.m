@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIButton *likeButton;
 @property (nonatomic, strong) UIButton *shareButton;
 @property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) HTBlankView *blankView;
 @end
 
 @implementation HTArticleController
@@ -30,12 +31,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    NSString *html = @"<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta content=\"width=device-width, initial-scale=1.0\" name=\"viewport\" />\n    <title>Title</title>\n    <link rel=\"stylesheet\" href=\"../Public/dist/common.js.css\">\n    <link rel=\"stylesheet\" href=\"../Public/dist/article.css\">\n</head>\n<body>\n\n<header>\n    <img src=\"../Public/2.jpg\" class=\"am-img-responsive\">\n    <img src=\"../Public/2.gif\" class=\"thumbnail\">\n</header>\n\n<section>\n    <span class=\"c-red\">/零仔No.1</span>\n    <h3>这里是文章标题这里是文章标题</h3>\n    <p class=\"am-text-center\">中间标题</p>\n    <p>\n        这只零仔是懒惰，特征主要体现在行为上，走哪睡哪，吃东西会睡着 ，洗澡会睡着，\n        上学的路上会睡着，他可以映射这个时代的学生们，在压力之下的疲乏于无所作为。\n    </p>\n    <p>\n        这只零仔是懒惰，特征主要体现在行为上，走哪睡哪，吃东西会睡着 ，洗澡会睡着，\n        上学的路上会睡着，他可以映射这个时代的学生们，在压力之下的疲乏于无所作为。\n    </p>\n    <img src=\"../Public/1.jpg\">\n    <p>\n        这只零仔是懒惰，特征主要体现在行为上，走哪睡哪，吃东西会睡着 ，洗澡会睡着，\n        上学的路上会睡着，他可以映射这个时代的学生们，在压力之下的疲乏于无所作为。\n    </p>\n</section>\n\n<footer class=\"am-cf am-padding\">\n    <i class=\"the-icon-btn am-icon am-icon-angle-left am-fl\"></i>\n    <i class=\"the-icon-btn am-icon am-icon-upload am-fr \"></i>\n    <i class=\"the-icon-btn am-icon am-icon-heart am-fr am-margin-right\"></i>\n</footer>\n\n\n\n<script src=\"../Public/dist/common.js\"></script>\n<script src=\"../Public/dist/article.js\"></script>\n</body>\n</html>";
-//    html = [NSString stringWithFormat:@"<head><style>img{width:device-width !important;}</style></head>\n<html><body font-family: '-apple-system','HelveticaNeue'; style=\"line-height:24px; font-size:13px; padding='6px 13px 0px 13px'\" text=\"#DDDDDD\">%@</body></html>", html];
-//    
-//    html = [NSString stringWithFormat:@"<head><style>img{width:device-width !important;}</style></head>\n<html><body font-family: \'-apple-system\',\'HelveticaNeue\'; style=\"line-height:24px; font-size:13px; padding=\'6px 13px 0px 13px\'\" text=\"#DDDDDD\"><span style=\"font-family:Helvetica;\">%@</span></body></html>", html];
-    
     _backgroundImageView = [[UIImageView alloc] init];
     _backgroundImageView.image = [UIImage imageNamed:@"bg_article"];
     [self.view addSubview:_backgroundImageView];
@@ -55,12 +50,6 @@
     _webView.allowsInlineMediaPlayback = YES;
     _webView.delegate = self;
     _webView.mediaPlaybackRequiresUserAction = NO;
-    //    [_webView stringByEvaluatingJavaScriptFromString:padding];
-//    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"article" ofType:@"html"];
-//    NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-//    NSString *path = [[NSBundle mainBundle] bundlePath];
-//    NSURL *baseURL = [NSURL fileURLWithPath:path];
-//    [_webView loadHTMLString:htmlString baseURL:baseURL];
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ARTICLE_URL_STRING]]];
     [self.view addSubview:_webView];
     
@@ -84,6 +73,16 @@
     [self.likeButton addTarget:self action:@selector(onClickLikeButton) forControlEvents:UIControlEventTouchUpInside];
     [self.likeButton sizeToFit];
     [self.view addSubview:self.likeButton];
+    
+    if (NO_NETWORK) {
+        [_webView removeFromSuperview];
+        [_backgroundImageView removeFromSuperview];
+        self.view.backgroundColor = [UIColor blackColor];
+        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:self.blankView];
+        self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+    }
 }
 
 - (void)viewWillLayoutSubviews {

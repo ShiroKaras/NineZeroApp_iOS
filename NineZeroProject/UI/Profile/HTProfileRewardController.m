@@ -13,6 +13,7 @@
 
 @interface HTProfileRewardController ()
 @property (nonatomic, strong) NSArray<HTReward *> *rewards;
+@property (nonatomic, strong) HTBlankView *blankView;
 @end
 
 @implementation HTProfileRewardController
@@ -34,8 +35,21 @@
         if (success) {
             _rewards = rewards;
             [self.tableView reloadData];
+            if (_rewards.count == 0) {
+                self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+                [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
+                [self.view addSubview:self.blankView];
+                self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+            }
         }
     }];
+    
+    if (NO_NETWORK) {
+        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:self.blankView];
+        self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+    }
 }
 
 #pragma mark - Table view data source
