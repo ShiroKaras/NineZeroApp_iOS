@@ -214,7 +214,7 @@
 - (void)setProp:(HTMascotProp *)prop {
     _prop = prop;
     [_webView loadHTMLString:[self htmlStringWithContent:prop.prop_desc] baseURL:nil];
-    [_imageView sd_setImageWithURL:[NSURL URLWithString:prop.prop_pic] placeholderImage:[UIImage imageNamed:@"props_cover"]];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:prop.prop_pic] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
     if (prop && prop.used) {
         _exchangeButton.backgroundColor = [UIColor colorWithHex:0x545454];
         [_exchangeButton setTitle:@"已兑换" forState:UIControlStateNormal];
@@ -229,6 +229,11 @@
 
 - (void)setReward:(HTReward *)reward {
     [_rewardDescriptionView setReward:reward];
+}
+
+- (void)setBadge:(HTBadge *)badge {
+    [_webView loadHTMLString:[self htmlStringWithContent:badge.medal_description] baseURL:nil];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:badge.medal_pic] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
 }
 
 - (void)layoutSubviews {
