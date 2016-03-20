@@ -29,5 +29,6 @@
 #import "UIViewController+HTTips.h"
 #import <UIButton+WebCache.h>
 #import <UIImageView+WebCache.h>
+#import "HTBlankView.h"
 
 #endif /* HTUIHeader_h */

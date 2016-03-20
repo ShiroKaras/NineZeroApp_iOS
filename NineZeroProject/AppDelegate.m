@@ -38,6 +38,8 @@
     [[UITextField appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
     [[UITextView appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
     
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
     return YES;
 }
 

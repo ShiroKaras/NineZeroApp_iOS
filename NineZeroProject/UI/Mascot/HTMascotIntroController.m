@@ -21,6 +21,9 @@
 @property (nonatomic, strong) UIButton *shareButton;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *statusBarCoverView;        // 状态栏背后的颜色条
+@property (nonatomic, strong) HTBlankView *blankView;
+@property (nonatomic, strong) UIView *blankCoverView;
+@property (nonatomic, assign) CGFloat headerViewHeight;
 
 @end
 
@@ -69,6 +72,29 @@
     self.statusBarCoverView.backgroundColor = [HTMascotHelper colorWithMascotIndex:_mascot.mascotID];
     self.statusBarCoverView.alpha = 0;
     [self.view addSubview:self.statusBarCoverView];
+    
+    if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
+        _mascot.articles = nil;
+        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [self.blankView setImage:[UIImage imageNamed:@"img_error_light_grey_small"] andOffset:11];
+        [self.view addSubview:self.blankView];
+        [self.tableView reloadData];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1000)];
+        footerView.backgroundColor = [UIColor whiteColor];
+        self.tableView.tableFooterView = footerView;
+        self.tableView.scrollEnabled = NO;
+    } else {
+        if (_mascot.articles.count == 0) {
+            self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+            [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:11];
+            [self.view addSubview:self.blankView];
+            [self.tableView reloadData];
+            UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1000)];
+            footerView.backgroundColor = [UIColor whiteColor];
+            self.tableView.tableFooterView = footerView;
+            self.tableView.scrollEnabled = NO;
+        }
+    }
 }
 
 - (void)viewWillLayoutSubviews {
@@ -79,6 +105,8 @@
     self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     self.statusBarCoverView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20);
     [self.view sendSubviewToBack:self.tableView];
+    
+    self.blankView.top = 27 + _headerViewHeight;
 }
 
 #pragma mark - Action
@@ -94,6 +122,7 @@
 #pragma mark - UITableView Delegate && DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (_mascot.articles.count == 0) return 1;
     return 2 + _mascot.articles.count;
 }
 
@@ -118,6 +147,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         if (mascotRowHeight == 0) mascotRowHeight = [HTMascotIntroCell calculateCellHeightWithMascot:self.mascot];
+        _headerViewHeight = mascotRowHeight;
         return mascotRowHeight;
     } else if (indexPath.row == 1) {
         return 15;

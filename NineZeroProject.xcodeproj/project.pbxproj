@@ -543,6 +543,7 @@
 		17461D0A1C7493DF00C847E8 /* img_ar_right_answer_gif_0016.png in Resources */ = {isa = PBXBuildFile; fileRef = 17461CF81C7493DF00C847E8 /* img_ar_right_answer_gif_0016.png */; };
 		17461D0B1C7493DF00C847E8 /* img_ar_right_answer_gif_0017.png in Resources */ = {isa = PBXBuildFile; fileRef = 17461CF91C7493DF00C847E8 /* img_ar_right_answer_gif_0017.png */; };
 		17461D0F1C74C8C900C847E8 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 17461D0E1C74C8C900C847E8 /* Reachability.m */; };
+		1747B0171C9F060500B37411 /* HTBlankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1747B0161C9F060500B37411 /* HTBlankView.m */; };
 		17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17490C6E1C4B640500F84092 /* QKGeofenceManager.m */; };
 		174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 174C53321BE7A47900893C22 /* libsqlite3.tbd */; };
 		174C53521BE7A60E00893C22 /* CommonUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 174C53511BE7A60E00893C22 /* CommonUI.m */; };
@@ -1295,6 +1296,8 @@
 		17461CF91C7493DF00C847E8 /* img_ar_right_answer_gif_0017.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_ar_right_answer_gif_0017.png; sourceTree = "<group>"; };
 		17461D0D1C74C8C900C847E8 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		17461D0E1C74C8C900C847E8 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		1747B0151C9F060500B37411 /* HTBlankView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBlankView.h; sourceTree = "<group>"; };
+		1747B0161C9F060500B37411 /* HTBlankView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBlankView.m; sourceTree = "<group>"; };
 		17490C6D1C4B640500F84092 /* QKGeofenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QKGeofenceManager.h; sourceTree = "<group>"; };
 		17490C6E1C4B640500F84092 /* QKGeofenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QKGeofenceManager.m; sourceTree = "<group>"; };
 		174C53321BE7A47900893C22 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -2874,6 +2877,8 @@
 				17F45AEC1C7E1A8E004F2E32 /* HTUIHelper.m */,
 				17F39B6E1C82107500D8A565 /* NSLayoutConstraintHairline.h */,
 				17F39B6F1C82107500D8A565 /* NSLayoutConstraintHairline.m */,
+				1747B0151C9F060500B37411 /* HTBlankView.h */,
+				1747B0161C9F060500B37411 /* HTBlankView.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -3724,6 +3729,7 @@
 				1787FD2C1C4A9E85006E55A6 /* INTULocationRequest.m in Sources */,
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
 				1744BFCA1C9D52EB00708716 /* UIViewController+HTTips.m in Sources */,
+				1747B0171C9F060500B37411 /* HTBlankView.m in Sources */,
 				17F45AFB1C7E25E0004F2E32 /* HTProfileRewardController.m in Sources */,
 				26973B021C005ED900160D25 /* HTNavigationController.m in Sources */,
 				170992BD1C264F0C004433EB /* HTShowDetailView.m in Sources */,
