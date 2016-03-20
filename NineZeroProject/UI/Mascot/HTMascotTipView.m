@@ -26,8 +26,7 @@
 
 - (void)setTipNumber:(NSInteger)tipNumber {
     _tipNumber = tipNumber;
-    if (tipNumber <= 0) return;
-    if (tipNumber == 1) {
+    if (tipNumber <= 1) {
         _arrawView.hidden = NO;
         _tipLabel.hidden = YES;
     } else {

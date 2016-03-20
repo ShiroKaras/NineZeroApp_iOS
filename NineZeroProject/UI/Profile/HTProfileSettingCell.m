@@ -98,6 +98,8 @@
         self.detailTitleLabel.right = self.accessoryArrow.left - 17;
     }
     self.detailTitleLabel.centerY = self.height / 2;
+    
+    self.titleLabel.width = MIN(self.titleLabel.width, 200);
 }
 
 @end
@@ -156,6 +158,7 @@ typedef NS_ENUM(NSUInteger, WWKSwitchBoolValue) {
 }
 
 - (void)setImageAvatarURL:(NSURL *)url {
+    [self.avatarImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
     [self setNeedsLayout];
 }
 
@@ -167,6 +170,8 @@ typedef NS_ENUM(NSUInteger, WWKSwitchBoolValue) {
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    self.avatarImageView.layer.cornerRadius = 25.0f;
+    self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.frame = CGRectMake(23, self.height / 2 - 25, 50, 50);
 }
 

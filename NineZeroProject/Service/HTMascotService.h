@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HTLogicHeader.h"
 
 @class HTMascotProp;
 @class HTMascot;
@@ -29,4 +30,8 @@ typedef void (^HTGetPropCallback) (BOOL success, HTMascotProp *prop);
  *  @brief 获取当前用户的所有的道具
  */
 - (void)getUserProps:(HTGetPropsCallback)callback;
+/**
+ *  @brief 兑换道具
+ */
+- (void)exchangeProps:(HTMascotProp *)prop completion:(HTResponseCallback)callback;
 @end

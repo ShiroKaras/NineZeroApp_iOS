@@ -113,6 +113,10 @@
  */
 + (NSString *)getMascotPropInfoCGIKey;
 /**
+ *  @brief 兑换道具
+ */
++ (NSString *)exchangePropCGIKey;
+/**
  *  @brief 验证回答答案
  *  "question_id" : "2015120423201902904"
  *  "answer" : "testtest"
@@ -123,10 +127,14 @@
  *  @brief 获取七牛token
  *  "key" : "vedio.mp4"
  */
-+ (NSString *)getQiniuTokenCGIKey;
-
++ (NSString *)getQiniuPrivateUploadTokenCGIKey;
+/**
+ *  @brief 获取七牛公开空间token
+ */
++ (NSString *)getQiniuPublicUploadTokenCGIKey;
 /**
  *  @brief 获取七牛下载链接
+ *  "url_array" : {"key" : "flower.jpg", "key2" : "flower2.jpg"}
  */
 + (NSString *)getQiniuDownloadUrlCGIKey;
 

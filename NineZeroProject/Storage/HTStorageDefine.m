@@ -23,3 +23,5 @@ NSString *const kStorageUserIdKey             = @"kStorageUserIdKey";
 NSString *const kStorageSaltKey               = @"kStorageSaltKey";
 
 NSString *const kQiniuTokenKey                = @"kQiniuTokenKey";
+
+NSString *const kQiniuPublicTokenKey          = @"kQiniuPublicTokenKey";

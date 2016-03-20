@@ -13,16 +13,17 @@
 @protocol HTMascotPropViewDelegate <NSObject>
 @required;
 - (void)didClickBottomArrawInMascotPropView:(HTMascotPropView *)mascotPropView;
-- (void)propView:(HTMascotPropView *)propView didClickPropItem:(HTMascotPropItem *)item;
+//- (void)propView:(HTMascotPropView *)propView didClickPropItem:(HTMascotPropItem *)item;
 @end
 // 零仔道具主页面
 @interface HTMascotPropView : UIView
 - (instancetype)initWithProps:(NSArray<HTMascotProp *> *)props;
+@property (nonatomic, strong) NSArray<HTMascotProp *> *props;
 @property (nonatomic, weak) id<HTMascotPropViewDelegate> delegate;
 @end
 
 @interface HTMascotPropItem : UIButton
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) HTMascotProp *prop;
-@property (nonatomic, copy) void(^didClickPropItem)(HTMascotPropItem *item);
+//@property (nonatomic, copy) void(^didClickPropItem)(HTMascotPropItem *item);
 @end

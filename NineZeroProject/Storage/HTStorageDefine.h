@@ -38,3 +38,4 @@ extern NSString *const kStorageQuestionCountKey;
 #pragma mark - Extra
 
 extern NSString *const kQiniuTokenKey;
+extern NSString *const kQiniuPublicTokenKey;

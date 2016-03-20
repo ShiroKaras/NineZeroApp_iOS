@@ -8,6 +8,7 @@
 
 #import "HTProfileService.h"
 #import "HTLogicHeader.h"
+#import "HTServiceManager.h"
 
 @implementation HTProfileService
 
@@ -102,7 +103,6 @@
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
     }];
-    
 }
 
 - (void)getNotifications:(HTGetNotificationsCallback)callback {

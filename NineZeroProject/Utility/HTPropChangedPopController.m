@@ -101,37 +101,51 @@
 }
 
 - (void)onClickCancelButton {
-    [_dimmingView removeFromSuperview];
+    [UIView animateWithDuration:0.3 animations:^{
+        _dimmingView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [_dimmingView removeFromSuperview];
+    }];
 }
 
 - (void)onClickSureButton {
-    [_alertView removeFromSuperview];
-    [_tipLabel removeFromSuperview];
-
-    _successImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_props_redeem_success"]];
-    _successImageView.top = ROUND_HEIGHT_FLOAT(217);
-    _successImageView.centerX = SCREEN_WIDTH / 2;
-    [_dimmingView addSubview:_successImageView];
-    
-    _successTipLabel = [[UILabel alloc] init];
-    _successTipLabel.textColor = [UIColor whiteColor];
-    _successTipLabel.textAlignment = NSTextAlignmentCenter;
-    _successTipLabel.text = @"稍安勿躁，我们会尽快寄出!";
-    _successTipLabel.font = [UIFont systemFontOfSize:14];
-    [_dimmingView addSubview:_successTipLabel];
-    [_successTipLabel sizeToFit];
-    _successTipLabel.top = _successImageView.bottom + 13;
-    _successTipLabel.centerX = SCREEN_WIDTH / 2;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [_dimmingView removeFromSuperview];
-    });
-    
-    [self.delegate onClickSureButtonInPopController:self];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [[[HTServiceManager sharedInstance] mascotService] exchangeProps:_prop completion:^(BOOL success, HTResponsePackage *response) {
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        if (success && response.resultCode == 0) {
+            [_alertView removeFromSuperview];
+            [_tipLabel removeFromSuperview];
+            
+            _successImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_props_redeem_success"]];
+            _successImageView.top = ROUND_HEIGHT_FLOAT(217);
+            _successImageView.centerX = SCREEN_WIDTH / 2;
+            [_dimmingView addSubview:_successImageView];
+            
+            _successTipLabel = [[UILabel alloc] init];
+            _successTipLabel.textColor = [UIColor whiteColor];
+            _successTipLabel.textAlignment = NSTextAlignmentCenter;
+            _successTipLabel.text = @"稍安勿躁，我们会尽快寄出!";
+            _successTipLabel.font = [UIFont systemFontOfSize:14];
+            [_dimmingView addSubview:_successTipLabel];
+            [_successTipLabel sizeToFit];
+            _successTipLabel.top = _successImageView.bottom + 13;
+            _successTipLabel.centerX = SCREEN_WIDTH / 2;
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [_dimmingView removeFromSuperview];
+            });
+            
+            [self.delegate onClickSureButtonInPopController:self];
+        }
+    }];
 }
 
 - (void)show {
     [KEY_WINDOW addSubview:_dimmingView];
+    _dimmingView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        _dimmingView.alpha = 1.0;
+    }];
 }
 
 @end

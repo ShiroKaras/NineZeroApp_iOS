@@ -34,7 +34,7 @@
             <rect key="frame" x="0.0" y="0.0" width="429" height="612"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9OC-jm-dz5">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9OC-jm-dz5">
                     <rect key="frame" x="11" y="31" width="40" height="40"/>
                     <state key="normal" image="btn_profile_back"/>
                     <state key="highlighted" image="btn_profile_back_highlight"/>
@@ -42,7 +42,7 @@
                         <action selector="didClickBackButton:" destination="-1" eventType="touchUpInside" id="ZPh-P4-l7y"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNW-0b-0Z6">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNW-0b-0Z6">
                     <rect key="frame" x="335" y="31" width="40" height="40"/>
                     <state key="normal" image="btn_profile_notification"/>
                     <state key="highlighted" image="btn_profile_notification_highlight"/>
@@ -50,7 +50,7 @@
                         <action selector="didClickNotification:" destination="-1" eventType="touchUpInside" id="Bsk-vR-FvE"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ue-oz-GgY">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ue-oz-GgY">
                     <rect key="frame" x="378" y="31" width="40" height="40"/>
                     <state key="normal" image="btn_profile_setting"/>
                     <state key="highlighted" image="btn_profile_setting_highlight"/>

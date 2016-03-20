@@ -13,7 +13,7 @@
 @protocol HTMascotPropMoreViewDelegate <NSObject>
 - (void)didClickTopArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView;
 - (void)didClickBottomArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView;
-- (void)propMoreView:(HTMascotPropMoreView *)propMoreView didClickPropItem:(HTMascotPropItem *)item;
+//- (void)propMoreView:(HTMascotPropMoreView *)propMoreView didClickPropItem:(HTMascotPropItem *)item;
 @end
 @class HTMascotProp;
 @interface HTMascotPropMoreView : UIView

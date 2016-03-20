@@ -153,6 +153,7 @@ typedef enum : NSUInteger {
         HTProfileSettingAvatarCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingAvatarCell class]) forIndexPath:indexPath];
         [cell setTitleText:[self titleWithIndexPath:indexPath]];
         [cell setDetailTitleText:@"修改头像"];
+        [cell setImageAvatarURL:[NSURL URLWithString:_userInfo.user_avatar]];
         return cell;
     } else if (type == HTProfileSettingTypeName) {
         HTProfileSettingTextCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingTextCell class]) forIndexPath:indexPath];
@@ -225,14 +226,33 @@ typedef enum : NSUInteger {
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     [picker dismissViewControllerAnimated:YES completion:nil];
-    HTProfileSettingAvatarCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     UIImage *image = info[UIImagePickerControllerEditedImage];
-    [cell setImage:image];
-//    UIImage *resizeImage = [UIImage imageWithImage:image scaledToSize:_avatarButton.size];
-//    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-//    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//    NSString *imagePath = [path stringByAppendingPathComponent:@"avatar"];
-//    [imageData writeToFile:imagePath atomically:YES];
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *imagePath = [path stringByAppendingPathComponent:@"avatar"];
+    [imageData writeToFile:imagePath atomically:YES];
+
+    [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"处理中" animated:YES];
+    NSString *avatarKey = [NSString avatarName];
+    [[[HTServiceManager sharedInstance] qiniuService] putData:imageData key:avatarKey token:[[HTStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
+        if (info.statusCode == 200) {
+            _userInfo.user_avatar = [NSString qiniuDownloadURLWithFileName:key];
+            _userInfo.settingType = HTUpdateUserInfoTypeAvatar;
+            [[[HTServiceManager sharedInstance] profileService] updateUserInfo:_userInfo completion:^(BOOL success, HTResponsePackage *response) {
+                [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
+                if (success) {
+                    HTProfileSettingAvatarCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+                    [cell setImage:image];
+                } else {
+                    [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeError];
+                }
+            }];
+        } else {
+            [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
+            [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeError];
+        }
+    } option:nil];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

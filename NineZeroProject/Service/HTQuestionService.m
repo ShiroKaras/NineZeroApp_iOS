@@ -62,7 +62,7 @@
         } else {
             callback(NO, nil);
         }
-        DLog(@"%@",responseObject);
+//        DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);

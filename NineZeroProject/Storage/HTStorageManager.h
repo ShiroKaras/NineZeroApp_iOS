@@ -19,6 +19,8 @@
 @property (nonatomic, strong) HTUserInfo *userInfo;
 @property (nonatomic, strong) HTProfileInfo *profileInfo;
 
+@property (nonatomic, strong) NSString *qiniuPublicToken;
+
 - (void)updateLoginUser:(HTLoginUser *)loginUser;
 - (HTLoginUser *)getLoginUser;
 - (void)clearLoginUser;

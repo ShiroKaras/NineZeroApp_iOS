@@ -27,5 +27,7 @@
 #import "HTMascotHelper.h"
 #import "HTUIHelper.h"
 #import "UIViewController+HTTips.h"
+#import <UIButton+WebCache.h>
+#import <UIImageView+WebCache.h>
 
 #endif /* HTUIHeader_h */

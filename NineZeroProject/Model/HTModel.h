@@ -38,7 +38,7 @@
 
 @property (nonatomic, assign) NSUInteger questionID;          // 唯一标识ID
 @property (nonatomic, assign) NSUInteger serial;              // 章节
-@property (nonatomic, assign) NSUInteger type;                // 问题类型(1 ar, 2 文字)
+@property (nonatomic, assign) NSUInteger type;                // 问题类型(0 ar, 1 文字)
 @property (nonatomic, assign) NSUInteger areaID;              // 用户所在城市ID
 @property (nonatomic, assign) NSUInteger rewardID;            // 奖励ID
 @property (nonatomic, assign) BOOL isPassed;                  // 是否闯关成功
@@ -93,17 +93,16 @@
 // 零仔道具
 @interface HTMascotProp : NSObject
 
-@property (nonatomic, assign) NSUInteger propID;                // 道具id
-@property (nonatomic, assign) NSUInteger getTime;               // 获取时间
-@property (nonatomic, assign) NSUInteger exchangedTime;         // 兑换时间
-@property (nonatomic, strong) NSString *iconName;               // icon名称
-@property (nonatomic, strong) NSString *propPicName;            // 图片名称
-@property (nonatomic, strong) NSString *iconURL;                // icon
-@property (nonatomic, strong) NSString *propPicURL;             // 图片URL
-@property (nonatomic, strong) NSString *propName;               // 道具名称
-@property (nonatomic, strong) NSString *propDescription;        // 道具描述
-@property (nonatomic, assign) BOOL isUsed;                      // 是否已经使用
-@property (nonatomic, assign) BOOL isExchanged;                 // 是否已经兑换
+@property (nonatomic, assign) NSUInteger prop_id;
+@property (nonatomic, assign) NSUInteger time;
+@property (nonatomic, assign) NSUInteger exchange_time;
+@property (nonatomic, strong) NSString *prop_icon;
+@property (nonatomic, strong) NSString *prop_pic;
+@property (nonatomic, strong) NSString *prop_gif;
+@property (nonatomic, strong) NSString *prop_name;
+@property (nonatomic, strong) NSString *prop_desc;
+@property (nonatomic, assign) BOOL used;
+@property (nonatomic, assign) BOOL prop_exchange;
 
 @end
 
@@ -152,6 +151,7 @@
 @interface HTUserInfo : NSObject
 @property (nonatomic, strong) NSString *user_name;
 @property (nonatomic, strong) NSString *user_avatar;
+@property (nonatomic, strong) NSString *user_avatar_url;
 @property (nonatomic, strong) NSString *mobile;                 // 个人设置里跟随地址填的电话号码
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, assign) BOOL push_setting;

@@ -42,9 +42,25 @@
             for (int i = 0; i != [responseObject[@"data"] count]; i++) {
                 [props addObject:[HTMascotProp objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]]];
             }
+            callback(true, props);
         } else {
             callback(false, nil);
         }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(false, nil);
+    }];
+}
+
+- (void)exchangeProps:(HTMascotProp *)prop completion:(HTResponseCallback)callback {
+    if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
+    
+    NSDictionary *paraDict = @{@"user_id" : [[HTStorageManager sharedInstance] getUserID],
+                               @"prop_id" : @(prop.prop_id)};
+    
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager exchangePropCGIKey] parameters:paraDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@",responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
     }];

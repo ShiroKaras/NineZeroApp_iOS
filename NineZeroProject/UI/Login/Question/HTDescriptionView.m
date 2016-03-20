@@ -144,22 +144,24 @@
         [_cancelButton setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
         [self addSubview:_cancelButton];
 
-        if (type != HTDescriptionTypeReward) {
+        if (type == HTDescriptionTypeReward) {
+            _rewardDescriptionView = [[HTRewardDescriptionView alloc] initWithFrame:CGRectZero];
+            [_rewardDescriptionView setReward:[[HTReward alloc] init]];
+            _rewardDescriptionView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
+            [_converView insertSubview:_rewardDescriptionView belowSubview:_imageView];
+        } else {
             _webView = [[UIWebView alloc] init];
             _webView.delegate = self;
             _webView.opaque = NO;
             _webView.backgroundColor = [UIColor clearColor];
             _webView.scrollView.backgroundColor = [UIColor clearColor];
-            [_webView loadHTMLString:[NSString stringWithFormat:@"<html><body font-family: '-apple-system','HelveticaNeue'; style=\"line-height:24px; font-size:13px\" text=\"#d9d9d9\" bgcolor=\"#1f1f1f\"><span style=\"font-family: \'-apple-system\',\'HelveticaNeue\';\">这次的开放是内因。来自边缘广州的微信，如新星般冉冉升起。同样实现5亿用户，微信用了4年，而QQ用了十几年。你可以说这是互联网指数级发展的结果，也可以说微信是专为移动而生的产品。所幸，命运依旧青睐QQ，他们把时代的机遇给了微信，但是把年轻人群再次给到了QQ。腾讯即通应用部的总经理张孝超说，使用手机QQ的用户，超过半成以上是90后和00后用户。这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20。</span></body></html>"] baseURL: nil];
+            NSString *content = @"这次的开放是内因。来自边缘广州的微信，如新星般冉冉升起。同样实现5亿用户，微信用了4年，而QQ用了十几年。你可以说这是互联网指数级发展的结果，也可以说微信是专为移动而生的产品。所幸，命运依旧青睐QQ，他们把时代的机遇给了微信，但是把年轻人群再次给到了QQ。腾讯即通应用部的总经理张孝超说，使用手机QQ的用户，超过半成以上是90后和00后用户。这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20。";
+            NSString *htmlString = [NSString stringWithFormat:@"<html><body font-family: '-apple-system','HelveticaNeue'; style=\"line-height:24px; font-size:13px\" text=\"#d9d9d9\" bgcolor=\"#1f1f1f\"><span style=\"font-family: \'-apple-system\',\'HelveticaNeue\';\">%@</span></body></html>", content];
+            [_webView loadHTMLString:htmlString baseURL: nil];
             _webView.delegate = self;
             NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
             [_webView stringByEvaluatingJavaScriptFromString:padding];
             [_converView addSubview:_webView];
-        } else {
-            _rewardDescriptionView = [[HTRewardDescriptionView alloc] initWithFrame:CGRectZero];
-            [_rewardDescriptionView setReward:[[HTReward alloc] init]];
-            _rewardDescriptionView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
-            [_converView insertSubview:_rewardDescriptionView belowSubview:_imageView];
         }
     }
     return self;
@@ -211,7 +213,9 @@
 
 - (void)setProp:(HTMascotProp *)prop {
     _prop = prop;
-    if (prop && prop.isExchanged) {
+    [_webView loadHTMLString:[self htmlStringWithContent:prop.prop_desc] baseURL:nil];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:prop.prop_pic] placeholderImage:[UIImage imageNamed:@"props_cover"]];
+    if (prop && prop.used) {
         _exchangeButton.backgroundColor = [UIColor colorWithHex:0x545454];
         [_exchangeButton setTitle:@"已兑换" forState:UIControlStateNormal];
         _exchangeButton.enabled = NO;
@@ -268,6 +272,13 @@
     _exchangeButton.backgroundColor = [UIColor colorWithHex:0x545454];
     [_exchangeButton setTitle:@"已兑换" forState:UIControlStateNormal];
     _exchangeButton.enabled = NO;
+    _prop.used = YES;
+    [self.delegate descriptionView:self didChangeProp:_prop];
+}
+
+- (NSString *)htmlStringWithContent:(NSString *)content {
+    NSString *htmlString = [NSString stringWithFormat:@"<html><body font-family: '-apple-system','HelveticaNeue'; style=\"line-height:24px; font-size:13px\" text=\"#d9d9d9\" bgcolor=\"#1f1f1f\"><span style=\"font-family: \'-apple-system\',\'HelveticaNeue\';\">%@</span></body></html>", content];
+    return htmlString;
 }
 
 @end

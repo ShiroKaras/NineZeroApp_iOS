@@ -57,11 +57,21 @@
     }];
 }
 
-- (void)getQiniuTokenWithCompletion:(HTGetTokenCallback)callback {
-    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQiniuTokenCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+- (void)getQiniuPrivateTokenWithCompletion:(HTGetTokenCallback)callback {
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQiniuPrivateUploadTokenCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
         callback([NSString stringWithFormat:@"%@", responseObject[@"data"]]);
         [[HTStorageManager sharedInstance] updateQiniuToken:responseObject[@"data"]];
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(nil);
+    }];
+}
+
+- (void)getQiniuPublicTokenWithCompletion:(HTGetTokenCallback)callback {
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQiniuPublicUploadTokenCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        callback([NSString stringWithFormat:@"%@", responseObject[@"data"]]);
+        [[HTStorageManager sharedInstance] setQiniuPublicToken:responseObject[@"data"]];
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(nil);
     }];

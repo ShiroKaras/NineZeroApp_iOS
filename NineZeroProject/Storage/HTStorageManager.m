@@ -21,6 +21,7 @@
 
 @synthesize userInfo = _userInfo;
 @synthesize profileInfo = _profileInfo;
+@synthesize qiniuPublicToken = _qiniuPublicToken;
 
 + (instancetype)sharedInstance {
     static dispatch_once_t onceToken;
@@ -109,6 +110,18 @@
 
 - (NSString *)getQiniuToken {
     return [_storageService getStringById:kQiniuTokenKey fromTable:kStorageTableKey];
+}
+
+- (void)setQiniuPublicToken:(NSString *)qiniuPublicToken {
+    _qiniuPublicToken = qiniuPublicToken;
+    [_storageService putString:qiniuPublicToken withId:kQiniuPublicTokenKey intoTable:kStorageTableKey];
+}
+
+- (NSString *)qiniuPublicToken {
+    if (!_qiniuPublicToken) {
+        _qiniuPublicToken = [_storageService getStringById:_qiniuPublicToken fromTable:kStorageTableKey];
+    }
+    return _qiniuPublicToken;
 }
 
 @end

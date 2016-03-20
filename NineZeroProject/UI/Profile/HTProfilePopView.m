@@ -39,6 +39,7 @@ typedef enum : NSUInteger {
         HTUserInfo *userInfo = [[HTStorageManager sharedInstance] userInfo];
         
         _head = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+        [_head sd_setImageWithURL:[NSURL URLWithString:userInfo.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
         _head.userInteractionEnabled = YES;
         [_bgView addSubview:_head];
         
@@ -116,6 +117,9 @@ typedef enum : NSUInteger {
     _head.top = 12;
     _head.size = CGSizeMake(56, 56);
     _head.centerX = self.width / 2;
+    _head.layer.cornerRadius = _head.width / 2;
+    _head.layer.masksToBounds = YES;
+    _name.width = MIN(_name.width, self.width - 10);
     _name.centerX = _head.centerX;
     _name.top = _head.bottom + 12;
     _decorateImageView.centerX = _head.centerX;

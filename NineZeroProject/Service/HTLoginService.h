@@ -50,7 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  @brief 获取七牛token
  */
-- (void)getQiniuTokenWithCompletion:(HTGetTokenCallback)callback;
+- (void)getQiniuPrivateTokenWithCompletion:(HTGetTokenCallback)callback;
+- (void)getQiniuPublicTokenWithCompletion:(HTGetTokenCallback)callback;
 
 //***************************
 // Get相关

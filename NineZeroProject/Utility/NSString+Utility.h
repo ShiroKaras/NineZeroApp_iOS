@@ -30,6 +30,7 @@
 + (NSString *)confusedPasswordWithLoginUser:(HTLoginUser *)loginUser;
 
 + (NSString *)qiniuDownloadURLWithFileName:(NSString *)fileName;
++ (NSString *)avatarName;
 
 @end
 

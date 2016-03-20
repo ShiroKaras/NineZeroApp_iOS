@@ -43,6 +43,11 @@
         self.AvatarTopConstraint.constant = 140;
     }
     
+    
+    _avatar.layer.cornerRadius = _avatar.width / 2;
+    _avatar.layer.masksToBounds = YES;
+    _avatar.userInteractionEnabled = NO;
+    
     self.navigationController.navigationBar.hidden = YES;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -97,6 +102,7 @@
     _metaLabel.text = _profileInfo.medal;
     _collectionLabel.text = _profileInfo.article;
     _nickName.text = _userInfo.user_name;
+    [_avatar sd_setImageWithURL:[NSURL URLWithString:_userInfo.user_avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"img_profile_photo_default_big"]];
     [_recordView reloadData];
 }
 

@@ -8,9 +8,9 @@
 
 #import "HTMascotPropView.h"
 #import "HTUIHeader.h"
+#import "HTDescriptionView.h"
 
 @interface HTMascotPropView ()
-@property (nonatomic, strong) NSArray<HTMascotProp *> *props;
 @property (nonatomic, strong) NSMutableArray<HTMascotPropItem *> *items;
 @property (nonatomic, strong) UIButton *moreButton;
 @end
@@ -29,24 +29,30 @@
     return self;
 }
 
+- (void)setProps:(NSArray<HTMascotProp *> *)props {
+    _props = props;
+    [self buildProps];
+    [self setNeedsUpdateConstraints];
+}
+
 - (void)buildProps {
+    [_items makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [_items removeAllObjects];
     NSInteger count = MIN(_props.count, 3);
     for (int i = 0; i != count; i++) {
         HTMascotPropItem *item = [[HTMascotPropItem alloc] init];
-        __weak __typeof(self) weakSelf = self;
-        item.didClickPropItem = ^(HTMascotPropItem *item) {
-            [weakSelf.delegate propView:weakSelf didClickPropItem:item];
-        };
         item.prop = _props[i];
         [self addSubview:item];
         [_items addObject:item];
     }
     
-    _moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_moreButton setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_down_grey"] forState:UIControlStateNormal];
-    [_moreButton setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];
-    [_moreButton addTarget:self action:@selector(onClickMoreButton) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_moreButton];
+    if (!_moreButton && _props.count > 3) {
+        _moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_moreButton setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_down_grey"] forState:UIControlStateNormal];
+        [_moreButton setEnlargeEdgeWithTop:5 right:5 bottom:5 left:5];
+        [_moreButton addTarget:self action:@selector(onClickMoreButton) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_moreButton];
+    }
 }
 
 - (void)onClickMoreButton {
@@ -101,7 +107,7 @@
 
 @end
 
-@interface HTMascotPropItem ()
+@interface HTMascotPropItem () <HTDescriptionViewDelegate>
 @property (nonatomic, strong) UIImageView *exChangedView;
 @property (nonatomic, strong) UIImageView *icon;
 @end
@@ -127,8 +133,8 @@
 
 - (void)setProp:(HTMascotProp *)prop {
     _prop = prop;
-    [_icon setImage:[UIImage imageNamed:@"img_mascot_prop_demo"]];
-    if (prop.isExchanged) {
+    [_icon sd_setImageWithURL:[NSURL URLWithString:prop.prop_icon] placeholderImage:[UIImage imageNamed:@"img_mascot_prop_demo"]];
+    if (prop.used) {
         _icon.alpha = 0.39;
         _exChangedView.hidden = NO;
     } else {
@@ -139,7 +145,11 @@
 }
 
 - (void)onClickPropItem {
-    if (self.didClickPropItem) self.didClickPropItem(self);
+    HTDescriptionView *descView = [[HTDescriptionView alloc] initWithURLString:nil andType:HTDescriptionTypeProp];
+    [descView setProp:_prop];
+    descView.delegate = self;
+    [KEY_WINDOW addSubview:descView];
+    [descView showAnimated];
 }
 
 - (void)layoutSubviews {
@@ -150,6 +160,12 @@
     _icon.centerY = self.height / 2;
     _icon.width = self.width - 10;
     _icon.height = self.height - 10;
+    _icon.layer.cornerRadius = _icon.width / 2;
+    _icon.layer.masksToBounds = YES;
+}
+
+- (void)descriptionView:(HTDescriptionView *)descView didChangeProp:(HTMascotProp *)prop {
+    [self setProp:prop];
 }
 
 @end

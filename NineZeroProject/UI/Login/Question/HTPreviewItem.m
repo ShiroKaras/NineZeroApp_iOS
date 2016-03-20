@@ -65,7 +65,6 @@
         _question.vedioName = @"sample";
     }
     NSString *path = [[NSBundle mainBundle] pathForResource:_question.vedioName ofType:@"mp4"];
-//    NSURL *vedioUrl = [NSURL URLWithString:[NSString qiniuDownloadURLWithFileName:_question.vedioURL]];
     NSURL *localUrl = [NSURL fileURLWithPath:path];
     AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
     self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];

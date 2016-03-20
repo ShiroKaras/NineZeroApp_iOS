@@ -56,10 +56,6 @@ NSInteger kPageItemCount = 15;
     for (int i = 0; i != count; i++) {
         HTMascotPropItem *item = [[HTMascotPropItem alloc] init];
         item.prop = props[i + _pageCount * kPageItemCount];
-        __weak __typeof(self) weakSelf = self;
-        item.didClickPropItem = ^(HTMascotPropItem *item) {
-            [weakSelf.delegate propMoreView:weakSelf didClickPropItem:item];
-        };
         item.index = i;
         [self addSubview:item];
         [_propItems addObject:item];

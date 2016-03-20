@@ -11,6 +11,7 @@
 #import <CommonCrypto/CommonHMAC.h>
 #import "HTModel.h"
 #import "HTServiceManager.h"
+#import "HTStorageManager.h"
 
 @implementation NSString (Utility)
 
@@ -111,12 +112,12 @@
 }
 
 + (NSString *)qiniuDownloadURLWithFileName:(NSString *)fileName {
-    NSString *downloadURL = [NSString stringWithFormat:@"http://7xns7d.com1.z0.glb.clouddn.com/%@?e=%ld", [fileName urlencode], time(NULL) + 3600];
-    NSString *accessKey = [@"Vgf5ahC3M4K8tMFEteEVTb1yoegZMMtGlUn5OkDQ" stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString *secretKey = @"ahnun83y5qhzvFLHv9FvFTCMc2NaCTlPK0F2zUUA";
-    NSString *token = [NSString stringWithFormat:@"%@:%@", accessKey, [self hmacSha1:secretKey data:downloadURL]];
-    NSString *finalURL = [NSString stringWithFormat:@"%@&token=%@", downloadURL, token];
-    return finalURL;
+    NSString *downloadURL = [NSString stringWithFormat:@"http://7xryb0.com1.z0.glb.clouddn.com/%@", [fileName urlencode]];
+    return downloadURL;
+}
+
++ (NSString *)avatarName {
+    return [NSString stringWithFormat:@"avatar_%ld_%@", (NSInteger)[[NSDate date] timeIntervalSince1970], [[HTStorageManager sharedInstance] getUserID]];
 }
 
 @end

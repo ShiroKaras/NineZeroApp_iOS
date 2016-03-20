@@ -27,13 +27,11 @@ static CGFloat kDuration = 0.3;
 @property (nonatomic, strong) HTMascotTipView *mascotTipView;
 @property (nonatomic, strong) HTMascotPropView *propView;
 @property (nonatomic, strong) HTMascotPropMoreView *moreView;
-@property (nonatomic, strong) NSMutableArray<HTMascot *> * mascots;
-
+@property (nonatomic, strong) NSMutableArray<HTMascot *> *mascots;
+@property (nonatomic, strong) NSMutableArray<HTMascotProp *> *props;
 @end
 
-@implementation HTMascotDisplayController {
-    NSArray<HTMascotProp *> *props;
-}
+@implementation HTMascotDisplayController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,6 +41,8 @@ static CGFloat kDuration = 0.3;
         [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
         if (success) {
             self.mascots = [mascots mutableCopy];
+            // AT LEAST ONE MASCOT
+            if (mascots.count == 0) self.mascots = [[HTMascotHelper defaultMascots] mutableCopy];
             [_mascotView setMascots:self.mascots];
             [self reloadViews];
             [self reloadDisplayMascots];
@@ -51,8 +51,17 @@ static CGFloat kDuration = 0.3;
         }
     }];
     
+    [[[HTServiceManager sharedInstance] mascotService] getUserProps:^(BOOL success, NSArray<HTMascotProp *> *props) {
+        if (success) {
+            self.props = [props mutableCopy];
+            [self.propView setProps:props];
+            if (props.count == 0) [self.propView removeFromSuperview];
+            [self buildConstraints];
+        }
+    }];
+    
     self.mascots = [HTMascotHelper mascotsFake];
-//    self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
+    self.props = [NSMutableArray array];
 
     self.onlyOneMascotImageView = [[HTMascotItem alloc] init];
     self.onlyOneMascotImageView.index = 0;
@@ -69,6 +78,10 @@ static CGFloat kDuration = 0.3;
     [self.view addSubview:self.mascotTipView];
     [self.mascotTipView sizeToFit];
     
+    self.propView = [[HTMascotPropView alloc] initWithProps:self.props];
+    self.propView.delegate = self;
+    [self.view addSubview:self.propView];
+    
     self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_default_msg_bg"]];
     [self.view addSubview:self.tipImageView];
     
@@ -77,14 +90,6 @@ static CGFloat kDuration = 0.3;
     self.tipLabel.textColor = [UIColor colorWithHex:0xd9d9d9];
     self.tipLabel.text = @"快帮我寻找更多的零仔吧!";
     [self.tipImageView addSubview:self.tipLabel];
-    
-    props = @[[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],];
-    for (int i = 10; i != props.count; i++) {
-        props[i].isExchanged = YES;
-    }
-    self.propView = [[HTMascotPropView alloc] initWithProps:props];
-    self.propView.delegate = self;
-    [self.view addSubview:self.propView];
     
     self.mascotView = [[HTMascotView alloc] initWithMascots:self.mascots];
     self.mascotView.delegate = self;
@@ -116,17 +121,18 @@ static CGFloat kDuration = 0.3;
         make.bottom.equalTo(self.onlyOneMascotImageView.mas_top).offset(24);
         make.centerX.equalTo(self.onlyOneMascotImageView);
     }];
-    [self.mascotView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view);
-        make.top.equalTo(self.view);
-        make.width.equalTo(self.view);
-        make.height.equalTo(self.view);
-    }];
     
     [self.propView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(@0);
         make.width.equalTo(self.view.mas_width);
         make.height.equalTo(ROUND_HEIGHT(180));
+    }];
+    
+    [self.mascotView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.top.equalTo(self.view);
+        make.width.equalTo(self.view);
+        make.height.equalTo(self.view);
     }];
     
     [self.tipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -151,6 +157,8 @@ static CGFloat kDuration = 0.3;
         self.tipImageView.hidden = NO;
         self.tipLabel.hidden = NO;
         self.mascotView.hidden = YES;
+        self.onlyOneMascotImageView.mascot = self.mascots[0];
+
     } else {
         self.onlyOneMascotImageView.hidden = YES;
         self.mascotTipView.hidden = YES;
@@ -185,20 +193,13 @@ static CGFloat kDuration = 0.3;
 #pragma mark - HTMascotPropView Delegate
 
 - (void)didClickBottomArrawInMascotPropView:(HTMascotPropView *)mascotPropView {
-    _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:0];
+    _moreView = [[HTMascotPropMoreView alloc] initWithProps:self.props andPageCount:0];
     [self.view addSubview:_moreView];
     _moreView.top = SCREEN_HEIGHT;
     _moreView.delegate = self;
     [UIView animateWithDuration:kDuration animations:^{
         _moreView.top = 0;
     }];
-}
-
-- (void)propView:(HTMascotPropView *)propView didClickPropItem:(HTMascotPropItem *)item {
-    HTDescriptionView *descView = [[HTDescriptionView alloc] initWithURLString:item.prop.propDescription andType:HTDescriptionTypeProp];
-    [descView setProp:item.prop];
-    [self.view addSubview:descView];
-    [descView showAnimated];
 }
 
 #pragma mark - HTMascotPropMoreView Delegate
@@ -212,7 +213,7 @@ static CGFloat kDuration = 0.3;
             [propMoreView removeFromSuperview];
         }];
     } else {
-        _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount - 1];
+        _moreView = [[HTMascotPropMoreView alloc] initWithProps:self.props andPageCount:propMoreView.pageCount - 1];
         [self.view addSubview:_moreView];
         _moreView.bottom = 0;
         _moreView.delegate = self;
@@ -225,16 +226,11 @@ static CGFloat kDuration = 0.3;
             [propMoreView removeFromSuperview];
             _moreView.decorateView.hidden = NO;
         }];
-//        [propMoreView removeFromSuperview];
-//        _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount - 1];
-//        [self.view addSubview:_moreView];
-//        _moreView.top = 0;
-//        _moreView.delegate = self;
     }
 }
 
 - (void)didClickBottomArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView {
-    _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount + 1];
+    _moreView = [[HTMascotPropMoreView alloc] initWithProps:self.props andPageCount:propMoreView.pageCount + 1];
     [self.view addSubview:_moreView];
     _moreView.top = SCREEN_HEIGHT;
     _moreView.delegate = self;
@@ -247,18 +243,6 @@ static CGFloat kDuration = 0.3;
         [propMoreView removeFromSuperview];
         _moreView.decorateView.hidden = NO;
     }];
-//    [propMoreView removeFromSuperview];
-//    _moreView = [[HTMascotPropMoreView alloc] initWithProps:props andPageCount:propMoreView.pageCount + 1];
-//    [self.view addSubview:_moreView];
-//    _moreView.top = 0;
-//    _moreView.delegate = self;
-}
-
-- (void)propMoreView:(HTMascotPropMoreView *)propMoreView didClickPropItem:(HTMascotPropItem *)item {
-    HTDescriptionView *descView = [[HTDescriptionView alloc] initWithURLString:item.prop.propDescription andType:HTDescriptionTypeProp];
-    [descView setProp:item.prop];
-    [self.view addSubview:descView];
-    [descView showAnimated];
 }
 
 @end

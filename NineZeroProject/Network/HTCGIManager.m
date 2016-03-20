@@ -29,8 +29,12 @@
     return [NSString stringWithFormat:@"%@Login/check_mobile/", NETWORK_HOST];
 }
 
-+ (NSString *)getQiniuTokenCGIKey {
++ (NSString *)getQiniuPrivateUploadTokenCGIKey {
     return [NSString stringWithFormat:@"%@Common/getQiniuToken", NETWORK_HOST];
+}
+
++ (NSString *)getQiniuPublicUploadTokenCGIKey {
+    return [NSString stringWithFormat:@"%@Common/getQiniuPublicToken", NETWORK_HOST];
 }
 
 + (NSString *)getQiniuDownloadUrlCGIKey {
@@ -71,6 +75,10 @@
 
 + (NSString *)getMascotPropInfoCGIKey {
     return [NSString stringWithFormat:@"%@Pet/getPropDetail", NETWORK_HOST];
+}
+
++ (NSString *)exchangePropCGIKey {
+    return [NSString stringWithFormat:@"%@Pet/exchangeProp", NETWORK_HOST];
 }
 
 + (NSString *)verifyAnswerCGIKey {

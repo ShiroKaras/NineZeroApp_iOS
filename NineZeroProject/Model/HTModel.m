@@ -107,19 +107,6 @@ HTINIT(HTMascot)
 @end
 
 @implementation HTMascotProp
-HTINIT(HTMascotProp);
-- (NSDictionary *)propertyMapper {
-    NSDictionary *propertyMapper = @{@"propID" : @"prop_id",
-                                     @"getTime" : @"time",
-                                     @"exchangedTime" : @"exchange_time",
-                                     @"iconName" : @"prop_icon",
-                                     @"propPicName" : @"prop_pic",
-                                     @"propName" : @"prop_name",
-                                     @"isExchanged" : @"prop_exchange",
-                                     @"isUsed" : @"used",
-                                     @"propDescription" : @"prop_desc"};
-    return propertyMapper;
-}
 @end
 
 @implementation HTReward

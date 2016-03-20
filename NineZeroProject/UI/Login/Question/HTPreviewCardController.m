@@ -93,7 +93,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             }];
         }
     }];
-
+    
     // 1. 背景
     UIImage *bgImage;
     if (SCREEN_WIDTH <= IPHONE5_SCREEN_WIDTH) {
