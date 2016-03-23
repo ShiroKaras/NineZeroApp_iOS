@@ -14,7 +14,5 @@
 @end
 
 @interface HTProfileRecordCell : UICollectionViewCell
-- (void)play;
-- (void)stop;
 @property (nonatomic, weak) id<HTProfileRecordCellDelegate> delegate;
 @end

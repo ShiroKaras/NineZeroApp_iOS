@@ -50,7 +50,7 @@
     _endTime = time(NULL) + 40000;
     [self scheduleCountDownTimer];
 
-    [self  hideTextTips];
+    [self hideTextTips];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickBackView)];
     [self.view addGestureRecognizer:tap];
@@ -90,16 +90,16 @@
 #pragma mark - Action
 
 - (void)didClickBackView {
-    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)didClickPlayButton:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)didClickMoreButton:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

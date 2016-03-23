@@ -70,7 +70,7 @@
     _loginUser.user_password = [NSString confusedPasswordWithLoginUser:_loginUser];
     // TODO:这些值不能临时填
     _loginUser.user_email = @"test";
-    _loginUser.user_avatar = @"test";
+//    _loginUser.user_avatar = @"test";
     _loginUser.user_area_id = @"1";
     // end
     
@@ -104,20 +104,26 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     [picker dismissViewControllerAnimated:YES completion:nil];
     UIImage *image = info[UIImagePickerControllerEditedImage];
-    UIImage *resizeImage = [UIImage imageWithImage:image scaledToSize:_avatarButton.size];
-    [_avatarButton setImage:resizeImage forState:UIControlStateNormal];
-    _avatarButton.layer.cornerRadius = _avatarButton.width / 2;
-    _avatarButton.layer.masksToBounds = YES;
     NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *imagePath = [path stringByAppendingPathComponent:@"avatar"];
     [imageData writeToFile:imagePath atomically:YES];
-//    QNUploadOption *updateOption = [[QNUploadOption alloc] init];
-//    updateOption.mimeType = @"image/jpeg";
 
-    // iOSAvatar+手机号作为头像名
-    [[[HTServiceManager sharedInstance] qiniuService] putData:imageData key:[NSString stringWithFormat:@"iOSAvatar_%@", _loginUser.user_mobile] token:[[[HTServiceManager sharedInstance] loginService] qiniuToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+    [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"处理中" animated:YES];
+    NSString *avatarKey = [NSString avatarName];
+    [[[HTServiceManager sharedInstance] qiniuService] putData:imageData key:avatarKey token:[[HTStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
         DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
+        [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
+        if (info.statusCode == 200) {
+            _loginUser.user_avatar = [NSString qiniuDownloadURLWithFileName:key];
+            [_avatarButton setImage:image forState:UIControlStateNormal];
+            _avatarButton.layer.cornerRadius = _avatarButton.width / 2;
+            _avatarButton.layer.masksToBounds = YES;
+
+        } else {
+            [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
+            [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeError];
+        }
     } option:nil];
 }
 

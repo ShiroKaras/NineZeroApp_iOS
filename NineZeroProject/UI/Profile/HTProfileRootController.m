@@ -15,6 +15,7 @@
 #import "HTProfileBadgeController.h"
 #import "HTProfileRecordCell.h"
 #import "HTUIHeader.h"
+#import "HTPreviewCardController.h"
 
 @interface HTProfileRootController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTProfileRecordCellDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *AvatarTopConstraint;
@@ -192,18 +193,11 @@
     return 10;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    [(HTProfileRecordCell *)cell stop];
-}
-
 #pragma mark - HTProfileRecordCell Delegate
 
 - (void)onClickedPlayButtonInCollectionCell:(HTProfileRecordCell *)cell {
-    for (HTProfileRecordCell *iter in [_recordView visibleCells]) {
-        if (cell != iter) {
-            [iter stop];
-        }
-    }
+    HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeRecord];
+    [self presentViewController:cardController animated:YES completion:nil];
 }
 
 @end
