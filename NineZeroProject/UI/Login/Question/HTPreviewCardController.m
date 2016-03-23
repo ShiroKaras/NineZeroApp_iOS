@@ -20,6 +20,7 @@
 #import "HTRewardController.h"
 #import "Reachability.h"
 #import "SharkfoodMuteSwitchDetector.h"
+#import "APService.h"
 
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
@@ -93,6 +94,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             }];
         }
     }];
+    
+    if ([[HTStorageManager sharedInstance] getUserID]) {
+        [APService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
+    }
     
     // 1. 背景
     UIImage *bgImage;

@@ -125,7 +125,7 @@
 
 /**
  *  @brief 获取七牛token
- *  "key" : "vedio.mp4"
+ *  "key" : "video.mp4"
  */
 + (NSString *)getQiniuPrivateUploadTokenCGIKey;
 /**

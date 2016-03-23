@@ -57,5 +57,6 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
  *  @param key      服务器给的key
  */
 - (void)getQiniuDownloadURLWithKey:(NSString *)key callback:(HTResponseCallback)callback;
+- (void)getQiniuDownloadURLsWithKeys:(NSArray<NSString *> *)keys callback:(HTResponseCallback)callback;
 
 @end

@@ -42,7 +42,8 @@
             article.articleTitle = @"这里是文章标题这是是文章";
             [articles addObject:article];
         }
-        mascot.articles = articles;
+        mascot.article_list = articles;
+        mascot.articles = 8;
         [mascots addObject:mascot];
     }
     return mascots;
@@ -63,7 +64,8 @@
         article.articleTitle = @"这里是文章标题这是是文章";
         [articles addObject:article];
     }
-    mascot.articles = articles;
+    mascot.article_list = articles;
+    mascot.articles = articleCount;
     return mascot;
 }
 

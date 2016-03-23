@@ -676,6 +676,7 @@
 		17BE47371C86039F00797E8E /* HTProfileRankController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BE47361C86039F00797E8E /* HTProfileRankController.m */; };
 		17BE473A1C8603D300797E8E /* HTProfileRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BE47391C8603D300797E8E /* HTProfileRankCell.m */; };
 		17C40B401C5538A200DAE22A /* HTMascotService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C40B3F1C5538A200DAE22A /* HTMascotService.m */; };
+		17C648BD1CA2DBDD00D89278 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17C648BC1CA2DBDD00D89278 /* PushConfig.plist */; };
 		17D1F8811C29ADC40029E4AF /* right_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */; };
 		17D1F8831C29ADCD0029E4AF /* wrong_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8821C29ADCD0029E4AF /* wrong_answer_gif.gif */; };
 		17D1F8D71C29D7BD0029E4AF /* HTTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 17D1F8D61C29D7BD0029E4AF /* HTTextField.m */; };
@@ -1491,6 +1492,7 @@
 		17BE47391C8603D300797E8E /* HTProfileRankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProfileRankCell.m; sourceTree = "<group>"; };
 		17C40B3E1C5538A200DAE22A /* HTMascotService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMascotService.h; sourceTree = "<group>"; };
 		17C40B3F1C5538A200DAE22A /* HTMascotService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMascotService.m; sourceTree = "<group>"; };
+		17C648BC1CA2DBDD00D89278 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
 		17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = right_answer_gif.gif; sourceTree = "<group>"; };
 		17D1F8821C29ADCD0029E4AF /* wrong_answer_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wrong_answer_gif.gif; sourceTree = "<group>"; };
 		17D1F8D51C29D7BD0029E4AF /* HTTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTextField.h; sourceTree = "<group>"; };
@@ -2568,6 +2570,7 @@
 		1777D3671BE798F400AC0203 /* NineZeroProject */ = {
 			isa = PBXGroup;
 			children = (
+				17C648BC1CA2DBDD00D89278 /* PushConfig.plist */,
 				17439D371C61D6EE00555B90 /* article.html */,
 				17A247911C623B9900359CCF /* right_answer_gif */,
 				17A2476A1C623B9300359CCF /* raw_wrong_answer_gif */,
@@ -2997,6 +3000,12 @@
 				TargetAttributes = {
 					1777D3641BE798F400AC0203 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 6H2SM536G6;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					1777D37D1BE798F400AC0203 = {
 						CreatedOnToolsVersion = 7.1;
@@ -3205,6 +3214,7 @@
 				17461B6A1C71EF6600C847E8 /* img_mascot_2_animation_2_0014.png in Resources */,
 				17461CC91C71EF6600C847E8 /* img_mascot_7_animation_3_0027.png in Resources */,
 				17461B051C71EF6600C847E8 /* img_mascot_1_animation_2_0013.png in Resources */,
+				17C648BD1CA2DBDD00D89278 /* PushConfig.plist in Resources */,
 				17461CAA1C71EF6600C847E8 /* img_mascot_7_animation_2_0031.png in Resources */,
 				17A247B51C623B9900359CCF /* right_answer_gif_0014.png in Resources */,
 				17461BAF1C71EF6600C847E8 /* img_mascot_3_animation_2_0011.png in Resources */,
@@ -3936,7 +3946,8 @@
 			baseConfigurationReference = A9C47414B1212ACF6A302306 /* Pods-NineZeroProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zac Yang (5P67F5SADB)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3951,6 +3962,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NineZeroProject/Utility/Jpush",
 					"$(PROJECT_DIR)/NineZeroProject/3rdSDK/Jpush",
+					"$(SRCROOT)/..imagelbs",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4016,7 +4028,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "186475ca-1037-4678-a42a-ee89eeb6b641";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -4025,8 +4037,8 @@
 			baseConfigurationReference = C4CD745486BB4BFAC5087BB9 /* Pods-NineZeroProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4040,6 +4052,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NineZeroProject/Utility/Jpush",
 					"$(PROJECT_DIR)/NineZeroProject/3rdSDK/Jpush",
+					"$(SRCROOT)/..imagelbs",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4105,7 +4118,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8945fe6b-c2a2-4287-9c76-359ec8e3f9e4";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

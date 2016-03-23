@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UILabel *careTip1;
 @property (nonatomic, strong) UILabel *careTip2;
 @property (nonatomic, strong) UILabel *careTip3;
+@property (nonatomic, strong) UIView *coverView;
 - (void)setReward:(HTReward *)reward;
 @end
 
@@ -31,10 +32,16 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        self.backgroundColor = [UIColor clearColor];
+        
+        _coverView = [[UIView alloc] init];
+        _coverView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
+        [self addSubview:_coverView];
+    
         _title = [[UILabel alloc] init];
         _title.font = [UIFont systemFontOfSize:19];
         _title.textColor = [UIColor colorWithHex:0xffffff];
-        [self addSubview:_title];
+        [_coverView addSubview:_title];
         
         _deadLine = [self commonStyleLabel];
         _location = [self commonStyleLabel];
@@ -44,7 +51,7 @@
         _codeLabel = [[UILabel alloc] init];
         _codeLabel.font = MOON_FONT_OF_SIZE(30);
         _codeLabel.textColor = COMMON_PINK_COLOR;
-        [self addSubview:_codeLabel];
+        [_coverView addSubview:_codeLabel];
         
         _careTipLabel = [self commonStyleLabel];
         _careTip1 = [self commonStyleLabel];
@@ -84,13 +91,14 @@
     _careTip2.frame = CGRectMake(leftMargin, _careTip1.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
     _careTip3.frame = CGRectMake(leftMargin, _careTip2.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
     self.contentSize = CGSizeMake(self.width, _careTip3.bottom + labelVerticalMargin);
+    _coverView.frame = CGRectMake(0, 0, self.width, self.contentSize.height);
 }
 
 - (UILabel *)commonStyleLabel {
     UILabel *label = [[UILabel alloc] init];
     label.font = [UIFont systemFontOfSize:13];
     label.textColor = [UIColor colorWithHex:0xd9d9d9];
-    [self addSubview:label];
+    [_coverView addSubview:label];
     return label;
 }
 
@@ -147,8 +155,7 @@
         if (type == HTDescriptionTypeReward) {
             _rewardDescriptionView = [[HTRewardDescriptionView alloc] initWithFrame:CGRectZero];
             [_rewardDescriptionView setReward:[[HTReward alloc] init]];
-            _rewardDescriptionView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
-            [_converView insertSubview:_rewardDescriptionView belowSubview:_imageView];
+            [_converView addSubview:_rewardDescriptionView];
         } else {
             _webView = [[UIWebView alloc] init];
             _webView.delegate = self;
@@ -229,6 +236,7 @@
 
 - (void)setReward:(HTReward *)reward {
     [_rewardDescriptionView setReward:reward];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:reward.pic] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
 }
 
 - (void)setBadge:(HTBadge *)badge {

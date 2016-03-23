@@ -61,10 +61,10 @@
 }
 
 - (void)buildPlayer {
-    if ([_question.vedioName isEqualToString:@""] == YES) {
-        _question.vedioName = @"sample";
+    if ([_question.videoName isEqualToString:@""] == YES) {
+        _question.videoName = @"sample";
     }
-    NSString *path = [[NSBundle mainBundle] pathForResource:_question.vedioName ofType:@"mp4"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:_question.videoName ofType:@"mp4"];
     NSURL *localUrl = [NSURL fileURLWithPath:path];
     AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
     self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];

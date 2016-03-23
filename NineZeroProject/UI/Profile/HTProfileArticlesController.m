@@ -9,6 +9,7 @@
 #import "HTProfileArticlesController.h"
 #import "HTUIHeader.h"
 #import "HTProfileArticleCell.h"
+#import "HTArticleController.h"
 
 @interface HTProfileArticlesController ()
 @property (nonatomic, strong) NSArray<HTArticle *> *articles;
@@ -72,6 +73,12 @@
     HTArticle *article = _articles[indexPath.row];
     [cell setArticle:article];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    HTArticle *article = _articles[indexPath.row];
+    HTArticleController *controller = [[HTArticleController alloc] initWithArticle:article];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -73,7 +73,7 @@ static CGFloat kDuration = 0.3;
     [self.onlyOneMascotImageView addGestureRecognizer:doubleTap];
     
     self.mascotTipView = [[HTMascotTipView alloc] initWithIndex:0];
-    self.mascotTipView.tipNumber = self.mascots[0].articles.count;
+    self.mascotTipView.tipNumber = self.mascots[0].article_list.count;
     [self.mascotTipView addTarget:self action:@selector(didClickTipNumber) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.mascotTipView];
     [self.mascotTipView sizeToFit];

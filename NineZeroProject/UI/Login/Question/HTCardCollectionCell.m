@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UIButton *composeButton;
 @property (nonatomic, strong) UIButton *hintButton;
+@property (nonatomic, strong) UIImageView *coverImageView;
 
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
@@ -46,16 +47,10 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickPlayBackView)];
         [_playBackView addGestureRecognizer:tap];
     
-        // 2.1 播放控件
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"demo1" ofType:@"mp4"];
-        NSURL *localUrl = [NSURL fileURLWithPath:path];
-        AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
-        self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
-        self.player = [AVPlayer playerWithPlayerItem:_playerItem];
-        self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-        _playerLayer.videoGravity = AVLayerVideoGravityResize;
-        [_playBackView.layer addSublayer:_playerLayer];
-
+        // 2.1 封面
+        _coverImageView = [[UIImageView alloc] init];
+        [_playBackView addSubview:_coverImageView];
+        
         // 2.2 播放按钮
         _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_play"] forState:UIControlStateNormal];
@@ -71,7 +66,7 @@
         _pauseImageView.alpha = 0.32;
         [_playBackView addSubview:_pauseImageView];
 //        _soundImageView.hidden = ![[SharkfoodMuteSwitchDetector shared] isMute];
-        
+
         // 3. 下方背景
         _contentBackView = [[UIView alloc] initWithFrame:CGRectZero];
         [_cardBackView addSubview:_contentBackView];
@@ -84,7 +79,6 @@
         UITapGestureRecognizer *tapOnContent = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickContent)];
         [_contentBackView addGestureRecognizer:tapOnContent];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 
         // 4. 发布按钮
         _composeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -100,6 +94,8 @@
         [_hintButton sizeToFit];
         [self.contentView addSubview:_hintButton];
 
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     }
     return self;
 }
@@ -144,6 +140,37 @@
 
 - (void)setQuestion:(HTQuestion *)question questionInfo:(HTQuestionInfo *)questionInfo {
     _question = question;
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    NSURL *URL = [NSURL URLWithString:question.videoURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        return [documentsDirectoryURL URLByAppendingPathComponent:_question.videoName];
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        NSLog(@"File downloaded to: %@", filePath);
+        [_playerLayer removeFromSuperlayer];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"];
+//        NSLog(@"path : %@", path);
+//        NSURL *localUrl = [NSURL fileURLWithPath:path];
+        AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:filePath options:nil];
+//        [self.playerItem removeObserver:self forKeyPath:@"status"];
+//        self.playerItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:question.videoURL]];
+//        [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+        self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
+        self.player = [AVPlayer playerWithPlayerItem:_playerItem];
+        self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+        _playerLayer.videoGravity = AVLayerVideoGravityResize;
+        [_playBackView.layer insertSublayer:_playerLayer atIndex:0];
+        [self setNeedsLayout];
+    }];
+    [downloadTask resume];
+    
+    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:_question.descriptionPic] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
+    
     _questionInfo = questionInfo;
     _contentLabel.text = question.content;
     if (_questionInfo.questionID == question.questionID) {
@@ -178,17 +205,10 @@
     [self setNeedsLayout];
 }
 
-- (void)setQuestion:(HTQuestion *)question {
-    _question = question;
-}
-
-- (void)setQuestionInfo:(HTQuestionInfo *)questionInfo {
-    _questionInfo = questionInfo;
-}
-
 - (void)dealloc {
     [self stop];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.playerItem removeObserver:self forKeyPath:@"status"];
 }
 
 - (void)play {
@@ -218,6 +238,17 @@
 
 #pragma mark - Notification
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    AVPlayerItem *playerItem = (AVPlayerItem *)object;
+    if ([keyPath isEqualToString:@"status"]) {
+        if ([playerItem status] == AVPlayerStatusReadyToPlay) {
+            NSLog(@"AVPlayerStatusReadyToPlay");
+        } else if ([playerItem status] == AVPlayerStatusFailed) {
+            NSLog(@"AVPlayerStatusFailed");
+        }
+    }
+}
+
 - (void)playItemDidPlayToEndTime:(NSNotification *)notification {
     if ([notification.object isEqual:self.playerItem]) {
         [self stop];
@@ -229,6 +260,8 @@
     _cardBackView.frame = CGRectMake(0, 0, self.width, self.width + 80);
     _playBackView.frame = CGRectMake(0, 0, self.width, self.width);
     _contentBackView.frame = CGRectMake(0, self.width, self.width, 80);
+    
+    _coverImageView.frame = _playBackView.bounds;
     
     _playerLayer.frame = CGRectMake(0, 0, self.width, self.width);
 //    _playButton.center = CGPointMake(self.width / 2 , self.width / 2);

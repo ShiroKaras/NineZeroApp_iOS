@@ -55,10 +55,25 @@
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             NSMutableArray<HTQuestion *> *questions = [[NSMutableArray alloc] init];
+            NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
             for (int i = 0; i != [responseObject[@"data"] count]; i++) {
-                [questions addObject:[HTQuestion objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]]];
+                HTQuestion *question = [HTQuestion objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
+                [questions addObject:question];
+                [downloadKeys addObject:question.videoName];
+                [downloadKeys addObject:question.descriptionPic];
             }
-            callback(YES, questions);
+            [self getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, HTResponsePackage *response) {
+                if (success) {
+                    for (HTQuestion *question in questions) {
+                        NSDictionary *dataDict = response.data;
+                        question.descriptionURL = dataDict[question.descriptionPic];
+                        question.videoURL = dataDict[question.videoName];
+                    }
+                    callback(YES, questions);
+                } else {
+                    callback(false, nil);
+                }
+            }];
         } else {
             callback(NO, nil);
         }
@@ -109,6 +124,29 @@
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
     }];
+}
+
+- (void)getQiniuDownloadURLsWithKeys:(NSArray<NSString *> *)keys callback:(HTResponseCallback)callback {
+    if (keys.count == 0) return;
+    NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
+    [keys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (!dataDict[obj]) {
+            [dataDict setObject:obj forKey:obj];
+        }
+    }];
+    NSString *string = [self dictionaryToJson:dataDict];
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQiniuDownloadUrlCGIKey] parameters:@{@"url_array" : string} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@",responseObject);
+        callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(false, nil);
+    }];
+}
+
+- (NSString*)dictionaryToJson:(NSDictionary *)dic {
+    NSError *parseError = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
 @end

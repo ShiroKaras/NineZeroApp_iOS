@@ -9,6 +9,7 @@
 #import "HTProfileArticleCell.h"
 #import "HTModel.h"
 #import "NSDate+Utility.h"
+#import "HTUIHeader.h"
 
 @interface HTProfileArticleCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
@@ -31,6 +32,7 @@
 - (void)setArticle:(HTArticle *)article {
     _article = article;
     NSInteger mascotID = MIN(1, MAX(8, article.mascotID));
+    [_bgImageView sd_setImageWithURL:[NSURL URLWithString:article.article_pic] placeholderImage:[UIImage imageNamed:@"img_mascot_article_list_cover_default"]];
     _titleLabel.text = article.articleTitle;
     _timeLabel.text = [self stringWithDate:[NSDate dateWithTimeIntervalSince1970:[article.publish_time integerValue]]];
     _mascotImageView.image = [self imageWithMascotID:mascotID];

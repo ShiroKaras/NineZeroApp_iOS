@@ -47,8 +47,9 @@
 @property (nonatomic, copy) NSString *content;                // 问题内容
 @property (nonatomic, copy) NSString *questionDescription;    // 问题描述
 @property (nonatomic, copy) NSString *descriptionPic;         // 题目描述配图
-@property (nonatomic, copy) NSString *vedioURL;               // 视频链接
-@property (nonatomic, copy) NSString *vedioName;              // 视频名称
+@property (nonatomic, copy) NSString *descriptionURL;         // 题目描述配图URL
+@property (nonatomic, copy) NSString *videoURL;               // 视频链接
+@property (nonatomic, copy) NSString *videoName;              // 视频名称
 @property (nonatomic, copy) NSString *detailURL;              // 详情链接
 @property (nonatomic, copy) NSString *hint;                   // 提示
 
@@ -86,7 +87,8 @@
 @property (nonatomic, strong) NSString *mascotName;            // 零仔名称
 @property (nonatomic, strong) NSString *mascotPic;             // 零仔图片
 @property (nonatomic, strong) NSString *mascotDescription;     // 零仔描述
-@property (nonatomic, strong) NSArray<HTArticle *> *articles;  // 文章
+@property (nonatomic, assign) NSUInteger articles;
+@property (nonatomic, strong) NSArray<HTArticle *> *article_list;  // 文章
 
 @end
 
@@ -116,7 +118,6 @@
 @property (nonatomic, assign) NSUInteger type;                   // type
 @property (nonatomic, strong) NSString *title;                   // 标题
 @property (nonatomic, strong) NSString *pic;                     // 封面名字
-@property (nonatomic, strong) NSString *coverPickURL;            // 封面链接
 @property (nonatomic, strong) NSString *address;                 // 地点
 @property (nonatomic, strong) NSString *mobile;                  // 手机号
 @property (nonatomic, assign) NSUInteger expire_time;            // 失效时间

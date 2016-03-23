@@ -39,21 +39,44 @@
     [[UITextView appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-    
+
     return YES;
 }
 
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(120.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[UIApplication sharedApplication] endBackgroundTask:backgroundTask];
+            backgroundTask = UIBackgroundTaskInvalid;
+        });
+    }];
+}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken : %@", deviceToken);
     [APService registerDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"didReceiveRemoteNotification : %@", userInfo);
     [APService handleRemoteNotification:userInfo];
 }
 
+// 1. 问题提示
+// 2. 系统通知
+// 3. 零仔文章
+// 4. 休息日文章
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+//    NSString *method = userInfo[@"method"];
+//    NSDictionary *dataDict = userInfo[@"data"];
+    
+    NSLog(@"didReceiveRemoteNotification, completionHandler: %@", userInfo);
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
 #pragma mark - Action
@@ -110,6 +133,9 @@
                                            categories:nil];
     }
     [APService setupWithOption:launchOptions];
+    if ([[HTStorageManager sharedInstance] getUserID]) {
+        [APService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
+    }
 }
 
 #pragma mark - SMS

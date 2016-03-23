@@ -18,20 +18,20 @@
         HTQuestion *question = [[HTQuestion alloc] init];
         if (i == 0) {
             question.type = 1;
-            question.vedioName = @"demo1";
+            question.videoName = @"demo1";
             question.isPassed = NO;
         } else if (i == 1) {
             question.type = 2;
-            question.vedioName = @"demo2";
+            question.videoName = @"demo2";
             question.isPassed = YES;
         } else if (i == 2) {
             question.type = 1;
             question.isPassed = NO;
-            question.vedioName = @"demo3";
+            question.videoName = @"demo3";
         } else if (i == 3) {
             question.type = 1;
             question.isPassed = NO;
-            question.vedioName = @"demo1";
+            question.videoName = @"demo1";
         }
         question.questionID = i;
         question.hint = @"90后都是神经病";

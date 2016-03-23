@@ -77,7 +77,7 @@ const char *kTapItemAssociatedKey;
     for (int i = 0; i != MASCOT_ITEMS_COUNT; i++) {
         HTMascotTipView *tip = [[HTMascotTipView alloc] initWithIndex:i];
         [tip addTarget:self action:@selector(onClickTipView:) forControlEvents:UIControlEventTouchUpInside];
-        [tip setTipNumber:2];
+        [tip setTipNumber:0];
         tip.index = i;
         tip.hidden = YES;
         [_mascotTips addObject:tip];
@@ -239,7 +239,7 @@ const char *kTapItemAssociatedKey;
     for (HTMascotTipView *tip in _mascotTips) {
         if (tip.index == mascot.mascotID - 1) {
             tip.hidden = NO;
-            [tip setTipNumber:mascot.articles.count];
+            [tip setTipNumber:mascot.articles];
         } else {
             tip.hidden = YES;
         }

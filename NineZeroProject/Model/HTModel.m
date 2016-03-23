@@ -68,7 +68,7 @@ HTINIT(HTQuestion)
                                      @"questionDescription" : @"description",
                                      @"detailURL" : @"detail_url",
                                      @"descriptionPic" : @"description_pic",
-                                     @"vedioURL" : @"question_video"
+                                     @"videoName" : @"question_video"
                                      };
     return propertyMapper;
 }

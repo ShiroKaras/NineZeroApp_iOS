@@ -74,7 +74,7 @@
     [self.view addSubview:self.statusBarCoverView];
     
     if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
-        _mascot.articles = nil;
+        _mascot.article_list = nil;
         self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
         [self.blankView setImage:[UIImage imageNamed:@"img_error_light_grey_small"] andOffset:11];
         [self.view addSubview:self.blankView];
@@ -84,7 +84,7 @@
         self.tableView.tableFooterView = footerView;
         self.tableView.scrollEnabled = NO;
     } else {
-        if (_mascot.articles.count == 0) {
+        if (_mascot.article_list.count == 0) {
             self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
             [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:11];
             [self.view addSubview:self.blankView];
@@ -122,8 +122,8 @@
 #pragma mark - UITableView Delegate && DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (_mascot.articles.count == 0) return 1;
-    return 2 + _mascot.articles.count;
+    if (_mascot.article_list.count == 0) return 1;
+    return 2 + _mascot.article_list.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -138,7 +138,7 @@
         return cell;
     } else {
         HTMascotArticleCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTMascotArticleCell class]) forIndexPath:indexPath];
-        [cell setArticle:self.mascot.articles[indexPath.row - 2]];
+        [cell setArticle:self.mascot.article_list[indexPath.row - 2]];
         return cell;
     }
     return [[UITableViewCell alloc] init];
@@ -158,7 +158,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row >= 2) {
-        HTArticleController *articleController = [[HTArticleController alloc] initWithArticle:self.mascot.articles[indexPath.row - 2]];
+        HTArticleController *articleController = [[HTArticleController alloc] initWithArticle:self.mascot.article_list[indexPath.row - 2]];
         [self presentViewController:articleController animated:YES completion:nil];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
