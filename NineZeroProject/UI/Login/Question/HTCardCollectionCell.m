@@ -26,6 +26,10 @@
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
 @property (strong, nonatomic) AVPlayerItem *playerItem;
+@property (nonatomic, strong) UIView *progressView;
+@property (nonatomic, strong) UIView *progressBgView;
+@property (nonatomic, strong) NSProgress *downloadProgress;
+@property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
 
 @end
 
@@ -67,6 +71,15 @@
         [_playBackView addSubview:_pauseImageView];
 //        _soundImageView.hidden = ![[SharkfoodMuteSwitchDetector shared] isMute];
 
+        // 2.4 进度条
+        _progressBgView = [[UIView alloc] init];
+        _progressBgView.backgroundColor = [UIColor colorWithHex:0x585858];
+        [_playBackView addSubview:_progressBgView];
+        
+        _progressView = [[UIView alloc] init];
+        _progressView.backgroundColor = COMMON_GREEN_COLOR;
+        [_progressBgView addSubview:_progressView];
+
         // 3. 下方背景
         _contentBackView = [[UIView alloc] initWithFrame:CGRectZero];
         [_cardBackView addSubview:_contentBackView];
@@ -94,8 +107,8 @@
         [_hintButton sizeToFit];
         [self.contentView addSubview:_hintButton];
 
-
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    
     }
     return self;
 }
@@ -140,34 +153,65 @@
 
 - (void)setQuestion:(HTQuestion *)question questionInfo:(HTQuestionInfo *)questionInfo {
     _question = question;
+
+    [self stop];
+    _playerItem = nil;
+    _player = nil;
+    [_playerLayer removeFromSuperlayer];
+    _playerLayer = nil;
     
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    
-    NSURL *URL = [NSURL URLWithString:question.videoURL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    
-    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-        return [documentsDirectoryURL URLByAppendingPathComponent:_question.videoName];
-    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-        NSLog(@"File downloaded to: %@", filePath);
-        [_playerLayer removeFromSuperlayer];
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"];
-//        NSLog(@"path : %@", path);
-//        NSURL *localUrl = [NSURL fileURLWithPath:path];
-        AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:filePath options:nil];
-//        [self.playerItem removeObserver:self forKeyPath:@"status"];
-//        self.playerItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:question.videoURL]];
-//        [self.playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+    NSURL *documentsDirectoryURL = [[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil] URLByAppendingPathComponent:_question.videoName];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[documentsDirectoryURL path]]) {
+        NSLog(@"video file exist : %@", [documentsDirectoryURL path]);
+        NSURL *localUrl = [NSURL fileURLWithPath:[documentsDirectoryURL path]];
+        AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
         self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
         self.player = [AVPlayer playerWithPlayerItem:_playerItem];
         self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
         _playerLayer.videoGravity = AVLayerVideoGravityResize;
         [_playBackView.layer insertSublayer:_playerLayer atIndex:0];
-        [self setNeedsLayout];
-    }];
-    [downloadTask resume];
+        _progressBgView.hidden = YES;
+    } else {
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+        NSURL *URL = [NSURL URLWithString:question.videoURL];
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        
+        [_downloadTask cancel];
+        _downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+            NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+            return [documentsDirectoryURL URLByAppendingPathComponent:_question.videoName];
+        } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+            NSLog(@"downloaded video file : %@", [filePath path]);
+            [self stop];
+            _playerItem = nil;
+            _player = nil;
+            [_playerLayer removeFromSuperlayer];
+            _playerLayer = nil;
+            if (filePath == nil) return;
+            NSURL *localUrl = [NSURL fileURLWithPath:[filePath path]];
+            AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
+            self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
+            self.player = [AVPlayer playerWithPlayerItem:_playerItem];
+            self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+            _playerLayer.videoGravity = AVLayerVideoGravityResize;
+            [_playBackView.layer insertSublayer:_playerLayer atIndex:0];
+            [self setNeedsLayout];
+        }];
+        [_downloadTask resume];
+        [manager setDownloadTaskDidWriteDataBlock:^(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+            CGFloat progress = ((CGFloat)totalBytesWritten / (CGFloat)totalBytesExpectedToWrite);
+            progress = MIN(1.0, progress);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _progressView.width = progress * self.width;
+                if (progress == 1) {
+                    _progressBgView.hidden = YES;
+                } else {
+                    _progressBgView.hidden = NO;
+                }
+            });
+        }];
+    }
     
     [_coverImageView sd_setImageWithURL:[NSURL URLWithString:_question.descriptionPic] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
     
@@ -208,13 +252,14 @@
 - (void)dealloc {
     [self stop];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.playerItem removeObserver:self forKeyPath:@"status"];
 }
 
 - (void)play {
+    if (![self.playerItem canPlayReverse]) return;
     _playButton.hidden = YES;
     _pauseImageView.hidden = YES;
     [_player play];
+    _coverImageView.hidden = YES;
 }
 
 - (void)pause {
@@ -230,6 +275,7 @@
     [_player setRate:0];
     [_player seekToTime:CMTimeMake(0, 1)];
     [_player pause];
+    _coverImageView.hidden = NO;
 }
 
 - (CGRect)hintRect {
@@ -278,6 +324,11 @@
     _composeButton.right = _cardBackView.right - 18;
     _hintButton.left = 5;
     _hintButton.top = _contentBackView.bottom;
+    
+    _progressBgView.frame = CGRectMake(0, 0, self.width, 3);
+//    _progressView.frame = CGRectMake(0, 0, 0, 3);
+    _progressView.height = 3;
+    _progressBgView.bottom = _contentBackView.top;
 }
 
 @end
