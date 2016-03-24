@@ -222,6 +222,16 @@
 + (NSString *)getMyRankCGIKey;
 
 /**
+ *  @brief 获取比赛休息日
+ */
++ (NSString *)getRelaxDayInfoCGIKey;
+
+/**
+ *  @brief 是否是休息日
+ */
++ (NSString *)getIsMondayCGIKey;
+
+/**
  *  @brief 获取前100名的排名列表
  */
 + (NSString *)getAllRanksCGIKey;

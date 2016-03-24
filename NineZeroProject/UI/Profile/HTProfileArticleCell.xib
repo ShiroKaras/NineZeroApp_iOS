@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,6 +17,12 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test_article_bg" translatesAutoresizingMaskIntoConstraints="NO" id="yLA-D8-Rtz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_profile_archive_title_bg" translatesAutoresizingMaskIntoConstraints="NO" id="Whx-lr-gIw">
+                        <rect key="frame" x="0.0" y="70" width="320" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="RAr-ch-DCv"/>
+                        </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热爱摇滚的青年，现在过得怎么样" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNP-vi-5JH">
                         <rect key="frame" x="14" y="80" width="286" height="17"/>
@@ -40,9 +47,12 @@
                     </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="Whx-lr-gIw" secondAttribute="trailing" constant="-8" id="3hz-v9-dU6"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Whx-lr-gIw" secondAttribute="bottom" constant="-8.5" id="Fg0-qm-25z"/>
                     <constraint firstItem="NvD-r6-Whb" firstAttribute="leading" secondItem="l8D-Uk-kE7" secondAttribute="trailing" constant="17" id="H1W-o7-LZO"/>
                     <constraint firstItem="yLA-D8-Rtz" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="Upc-S0-AsR"/>
                     <constraint firstItem="yLA-D8-Rtz" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="VHE-Ot-vnw"/>
+                    <constraint firstItem="Whx-lr-gIw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="YWo-Zc-fRk"/>
                     <constraint firstItem="NvD-r6-Whb" firstAttribute="centerY" secondItem="l8D-Uk-kE7" secondAttribute="centerY" id="arN-qo-Ooi"/>
                     <constraint firstItem="yLA-D8-Rtz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gZc-Dh-V9w"/>
                     <constraint firstItem="l8D-Uk-kE7" firstAttribute="baseline" secondItem="Pnp-74-hk5" secondAttribute="baseline" id="kCC-7m-R5z"/>
@@ -76,11 +86,12 @@
                 <outlet property="timeLabel" destination="NvD-r6-Whb" id="Zu3-Ue-t7q"/>
                 <outlet property="titleLabel" destination="qNP-vi-5JH" id="nNX-C7-gFd"/>
             </connections>
-            <point key="canvasLocation" x="309" y="287"/>
+            <point key="canvasLocation" x="132" y="261"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="img_profile_archive_mascot1" width="22" height="22"/>
+        <image name="img_profile_archive_title_bg" width="2" height="71"/>
         <image name="test_article_bg" width="480" height="184"/>
     </resources>
 </document>

@@ -34,7 +34,9 @@
     [footerView addSubview:footerViewDeco];
     self.tableView.tableFooterView = footerView;
     
+    [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] profileService] getArticlesInPastWithPage:0 count:10 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
+        [HTProgressHUD dismiss];
         if (success) {
             _articles = articles;
             [self.tableView reloadData];

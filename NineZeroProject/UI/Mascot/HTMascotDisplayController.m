@@ -36,14 +36,17 @@ static CGFloat kDuration = 0.3;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
+    self.mascots = [NSMutableArray arrayWithObject:[HTMascotHelper defaultMascots]];
+    self.props = [NSMutableArray array];
     
     [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
         [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
         if (success) {
-            self.mascots = [mascots mutableCopy];
             // AT LEAST ONE MASCOT
-            if (mascots.count == 0) self.mascots = [[HTMascotHelper defaultMascots] mutableCopy];
-            [_mascotView setMascots:self.mascots];
+            if (mascots.count != 0) {
+                self.mascots = [mascots mutableCopy];
+                [_mascotView setMascots:self.mascots];
+            }
             [self reloadViews];
             [self reloadDisplayMascots];
         } else {
@@ -59,9 +62,6 @@ static CGFloat kDuration = 0.3;
             [self buildConstraints];
         }
     }];
-    
-    self.mascots = [HTMascotHelper mascotsFake];
-    self.props = [NSMutableArray array];
 
     self.onlyOneMascotImageView = [[HTMascotItem alloc] init];
     self.onlyOneMascotImageView.index = 0;

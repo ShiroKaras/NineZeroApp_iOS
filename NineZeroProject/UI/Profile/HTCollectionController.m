@@ -29,7 +29,9 @@
     self.tableView.tableHeaderView = headerView;
     [self.tableView registerClass:[HTMascotArticleCell class] forCellReuseIdentifier:NSStringFromClass([HTMascotArticleCell class])];
     
+    [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] profileService] getCollectArticlesWithPage:0 count:10 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
+        [HTProgressHUD dismiss];
         if (success) {
             _articles = articles;
             [self.tableView reloadData];

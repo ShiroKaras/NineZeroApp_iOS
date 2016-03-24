@@ -116,16 +116,6 @@
     }];
 }
 
-- (void)getQiniuDownloadURLWithKey:(NSString *)key callback:(HTResponseCallback)callback {
-    if (key.length == 0) return;
-    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQiniuDownloadUrlCGIKey] parameters:@{ @"key" : key } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
-        callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        callback(false, nil);
-    }];
-}
-
 - (void)getQiniuDownloadURLsWithKeys:(NSArray<NSString *> *)keys callback:(HTResponseCallback)callback {
     if (keys.count == 0) return;
     NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
@@ -147,6 +137,26 @@
     NSError *parseError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
+- (void)getRelaxDayInfo:(HTResponseCallback)callback {
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getRelaxDayInfoCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
+        DLog(@"%@",responseObject);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(NO, nil);
+        DLog(@"%@", error);
+    }];
+}
+
+- (void)getIsRelaxDay:(HTResponseCallback)callback {
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getIsMondayCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
+        DLog(@"%@",responseObject);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(NO, nil);
+        DLog(@"%@", error);
+    }];
 }
 
 @end

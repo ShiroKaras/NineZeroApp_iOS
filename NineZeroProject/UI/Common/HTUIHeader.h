@@ -30,5 +30,6 @@
 #import <UIButton+WebCache.h>
 #import <UIImageView+WebCache.h>
 #import "HTBlankView.h"
+#import "HTProgressHUD.h"
 
 #endif /* HTUIHeader_h */

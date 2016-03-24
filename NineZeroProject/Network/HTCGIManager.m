@@ -49,6 +49,10 @@
     return [NSString stringWithFormat:@"%@Question/getList", NETWORK_HOST];
 }
 
++ (NSString *)getRelaxDayInfoCGIKey {
+    return [NSString stringWithFormat:@"%@Question/getRestPush", NETWORK_HOST];
+}
+
 + (NSString *)getQuestionDetailCGIKey {
     return [NSString stringWithFormat:@"%@Question/detail", NETWORK_HOST];
 }
@@ -119,6 +123,10 @@
 
 + (NSString *)getUserNoticesCGIKey {
     return [NSString stringWithFormat:@"%@User/getNotice", NETWORK_HOST];
+}
+
++ (NSString *)getIsMondayCGIKey {
+    return [NSString stringWithFormat:@"%@Common/isMonday", NETWORK_HOST];
 }
 
 + (NSString *)getBadgesCGIKey {

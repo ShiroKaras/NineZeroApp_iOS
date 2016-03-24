@@ -105,7 +105,9 @@
     [_collectionView registerClass:[HTProfileBadgeCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([HTProfileBadgeCollectionCell class])];
     [_collectionView registerClass:[HTBadgeHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader  withReuseIdentifier:NSStringFromClass([HTBadgeHeaderView class])];
     
+    [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] profileService] getBadges:^(BOOL success, NSArray<HTBadge *> *badges) {
+        [HTProgressHUD dismiss];
         if (success) {
             self.badges = badges;
             [_collectionView reloadData];

@@ -24,7 +24,9 @@
     self.title = @"消息通知";
     [self.tableView registerClass:[HTNotificationCell class] forCellReuseIdentifier:NSStringFromClass([HTNotificationCell class])];
     self.notices = [NSArray array];
+    [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] profileService] getNotifications:^(BOOL success, NSArray<HTNotification *> *notifications) {
+        [HTProgressHUD dismiss];
         if (success) {
             _notices = notifications;
             [self.tableView reloadData];

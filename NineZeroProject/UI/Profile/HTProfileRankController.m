@@ -31,7 +31,9 @@
 
     self.rankerList = [NSArray array];
     _myRank = [[HTRanker alloc] init];
+    [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] profileService] getRankList:^(BOOL success, NSArray<HTRanker *> *ranker) {
+        [HTProgressHUD dismiss];
         if (success) {
             _rankerList = ranker;
             [[[HTServiceManager sharedInstance] profileService] getMyRank:^(BOOL success, HTRanker *ranker) {

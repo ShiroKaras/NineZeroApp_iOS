@@ -56,7 +56,14 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
  *  @brief 获取七牛下载链接
  *  @param key      服务器给的key
  */
-- (void)getQiniuDownloadURLWithKey:(NSString *)key callback:(HTResponseCallback)callback;
 - (void)getQiniuDownloadURLsWithKeys:(NSArray<NSString *> *)keys callback:(HTResponseCallback)callback;
 
+/**
+ *  @brief 获取休息日信息
+ */
+- (void)getRelaxDayInfo:(HTResponseCallback)callback;
+/**
+ *  @brief 判断是否为休息日
+ */
+- (void)getIsRelaxDay:(HTResponseCallback)callback;
 @end
