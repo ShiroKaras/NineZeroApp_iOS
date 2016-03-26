@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 extern CGFloat cardHeight;
-@class HTReward;
+@class HTTicket;
 @interface HTProfileRewardCell : UITableViewCell
-- (void)setReward:(HTReward *)reward;
+- (void)setReward:(HTTicket *)reward;
 @end

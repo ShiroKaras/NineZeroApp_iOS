@@ -11,7 +11,7 @@
 
 typedef void (^HTGetProfileInfoCallback) (BOOL success, HTProfileInfo *profileInfo);
 typedef void (^HTGetNotificationsCallback) (BOOL success, NSArray<HTNotification *> *notifications);
-typedef void (^HTGetRewardsCallback) (BOOL success, NSArray<HTReward *> *rewards);
+typedef void (^HTGetRewardsCallback) (BOOL success, NSArray<HTTicket *> *rewards);
 typedef void (^HTGetUserInfoCallback) (BOOL success, HTUserInfo *userInfo);
 typedef void (^HTGetArticlesCallback) (BOOL success, NSArray<HTArticle *> *articles);
 typedef void (^HTGetMyRankCallback) (BOOL success, HTRanker *ranker);

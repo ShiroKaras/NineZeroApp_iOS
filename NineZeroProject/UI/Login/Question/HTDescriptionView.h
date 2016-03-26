@@ -18,7 +18,7 @@ typedef enum : NSUInteger {
 
 @class HTDescriptionView;
 @class HTMascotProp;
-@class HTReward;
+@class HTTicket;
 @class HTBadge;
 
 @protocol HTDescriptionViewDelegate <NSObject>
@@ -34,7 +34,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, assign, readonly) HTDescriptionType type;
 @property (nonatomic, strong) HTMascotProp *prop;
-@property (nonatomic, strong) HTReward *reward;
+@property (nonatomic, strong) HTTicket *reward;
 @property (nonatomic, strong) HTBadge *badge;
 
 @property (nonatomic, weak) id<HTDescriptionViewDelegate> delegate;

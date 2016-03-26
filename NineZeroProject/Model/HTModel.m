@@ -112,10 +112,25 @@ HTINIT(HTMascot)
 @implementation HTReward
 @end
 
+@implementation HTTicket
+@end
+
 @implementation HTNotification
 @end
 
+@implementation HTProfileAnswer
+@end
+
 @implementation HTProfileInfo
+- (instancetype)init {
+    if (self = [super init]) {
+        [HTProfileInfo setupObjectClassInArray:^NSDictionary *{
+            return @{@"answer_list" : @"HTProfileAnswer"};
+        }];
+    }
+    return self;
+}
+
 @end
 
 @implementation HTUserInfo

@@ -77,7 +77,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 //    questionList = [[HTQuestionHelper questionFake] mutableCopy];
     
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
-    [HTProgressHUD show];
+
+    [HTProgressHUD show];    
     [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
         if (success) {
             questionInfo = callbackQuestionInfo;
@@ -100,7 +101,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                                       }];
                     }
                 }];
-            
             }
         } else {
             [HTProgressHUD dismiss];

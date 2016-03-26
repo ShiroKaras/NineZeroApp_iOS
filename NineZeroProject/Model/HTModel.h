@@ -108,8 +108,11 @@
 
 @end
 
-// 礼券
 @interface HTReward : NSObject
+@end
+
+// 礼券
+@interface HTTicket : NSObject
 @property (nonatomic, assign) NSUInteger ticket_id;              // 礼券id
 @property (nonatomic, assign) NSUInteger code;                   // 兑换码
 @property (nonatomic, assign) NSUInteger create_time;            // 创建时间
@@ -122,6 +125,10 @@
 @property (nonatomic, strong) NSString *mobile;                  // 手机号
 @property (nonatomic, assign) NSUInteger expire_time;            // 失效时间
 @property (nonatomic, assign) NSUInteger total_num;              // 总共多少张礼券?
+@end
+
+@interface HTPrize : NSObject
+
 @end
 
 // 通知单元结构体

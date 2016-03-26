@@ -13,7 +13,7 @@
 CGFloat cardHeight = 143;
 
 @interface HTProfileRewardCell ()
-@property (nonatomic, strong) HTRewardCard *card;
+@property (nonatomic, strong) HTTicketCard *card;
 @end
 
 @implementation HTProfileRewardCell
@@ -22,14 +22,14 @@ CGFloat cardHeight = 143;
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.backgroundColor = [UIColor clearColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        _card = [[HTRewardCard alloc] initWithFrame:CGRectZero];
+        _card = [[HTTicketCard alloc] initWithFrame:CGRectZero];
         [_card showExchangedCode:NO];
         [self.contentView addSubview:_card];
     }
     return self;
 }
 
-- (void)setReward:(HTReward *)reward {
+- (void)setReward:(HTTicket *)reward {
     [_card setReward:reward];
 }
 

@@ -29,6 +29,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) UIImageView *mascotImageView;
 @property (nonatomic, strong) HTImageView *captureSuccessImageView;
 @property (nonatomic, strong) UIView *successBackgroundView;
+@property (nonatomic, strong) HTQuestion *question;
 @end
 
 @implementation HTARCaptureController {
@@ -37,6 +38,13 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     INTULocationRequestID _locationId;
     BOOL _needShowDebugLocation;
     UIView *_arView;
+}
+
+- (instancetype)initWithQuestion:(HTQuestion *)question {
+    if (self = [super init]) {
+        _question = question;
+    }
+    return self;
 }
 
 - (void)alert:(NSString*)title withDetails:(NSString*)details {
@@ -65,13 +73,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
             [self.prARManager startARWithData:[self getDummyData] forLocation:currentLocation.coordinate];
         }
     }];
-    
-//    _locationId = [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyBlock timeout:10.0 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-//        if (status == INTULocationStatusSuccess) {
-//            _currentLocation = currentLocation;
-//            [self.prARManager startARWithData:[self getDummyData] forLocation:currentLocation.coordinate];
-//        }
-//    }];
     
     // 2.返回
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -181,7 +182,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 #pragma mark - Action
 
 - (void)onClickBack {
-//    [self.delegate didClickBackButtonInARCaptureController:self];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -289,13 +289,16 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     
     CGFloat distance = self.prARManager.arObject.distance.floatValue;
     if (distance >= 500) {
-        self.tipLabel.text = kTipMascotLocation;
+        self.tipLabel.text = _question.hint;
+        self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
         needShowMascot = NO;
     } else if (distance >= 300 && distance < 500) {
         self.tipLabel.text = kTipCloseMascot;
+        self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_1"];
         needShowMascot = NO;
     } else if (distance < 300) {
         self.tipLabel.text = kTipTapMascotToCapture;
+        self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
     }
     if (_needShowDebugLocation) {
         self.tipLabel.text = [self.tipLabel.text stringByAppendingFormat:@"(%.1f)", distance];

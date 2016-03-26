@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PRARManager.h"
 
+@class HTQuestion;
 @class HTARCaptureController;
 @protocol HTARCaptureControllerDelegate <NSObject>
 - (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller;
@@ -16,6 +17,7 @@
 
 @interface HTARCaptureController : UIViewController
 
+- (instancetype)initWithQuestion:(HTQuestion *)question;
 @property (nonatomic, weak) id<HTARCaptureControllerDelegate> delegate;
 
 @end

@@ -70,7 +70,7 @@
     _loginUser.user_password = [NSString confusedPasswordWithLoginUser:_loginUser];
     // TODO:这些值不能临时填
     _loginUser.user_email = @"test";
-//    _loginUser.user_avatar = @"test";
+    if (_loginUser.user_avatar.length == 0) _loginUser.user_avatar = @"";
     _loginUser.user_area_id = @"1";
     // end
     
@@ -119,7 +119,6 @@
             [_avatarButton setImage:image forState:UIControlStateNormal];
             _avatarButton.layer.cornerRadius = _avatarButton.width / 2;
             _avatarButton.layer.masksToBounds = YES;
-
         } else {
             [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
             [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeError];

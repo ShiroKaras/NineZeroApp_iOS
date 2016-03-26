@@ -140,7 +140,7 @@
         if (rsp.resultCode == 0) {
             NSMutableArray *rewards = [NSMutableArray array];
             for (NSDictionary *dataDict in rsp.data) {
-                HTReward *reward = [HTReward objectWithKeyValues:dataDict];
+                HTTicket *reward = [HTTicket objectWithKeyValues:dataDict];
                 [rewards addObject:reward];
             }
             callback(true, rewards);
@@ -245,7 +245,7 @@
 
 - (void)getRankList:(HTGetRankListCallback)callback {
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getAllRanksCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
+//        DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             NSMutableArray<HTRanker *> *rankers = [NSMutableArray array];

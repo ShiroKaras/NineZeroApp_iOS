@@ -59,7 +59,7 @@ static CGFloat kDuration = 0.3;
             self.props = [props mutableCopy];
             [self.propView setProps:props];
             if (props.count == 0) [self.propView removeFromSuperview];
-            [self buildConstraints];
+            else [self buildConstraints];
         }
     }];
 

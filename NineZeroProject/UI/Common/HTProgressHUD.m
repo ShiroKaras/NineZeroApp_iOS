@@ -14,7 +14,9 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @end
 
-@implementation HTProgressHUD
+@implementation HTProgressHUD {
+    BOOL _needShow;
+}
 
 + (instancetype)sharedInstance {
     static dispatch_once_t onceToken;
@@ -33,7 +35,8 @@
         
         NSInteger count = 40;
         NSMutableArray *images = [NSMutableArray array];
-        _imageView = [[UIImageView alloc] init];
+        CGFloat length = 156;
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - length / 2, SCREEN_HEIGHT / 2 - length / 2, length, length)];
         for (int i = 0; i != count; i++) {
             UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"loader_png_00%02d", i]];
             [images addObject:image];
@@ -42,6 +45,8 @@
         _imageView.animationDuration = 2.0;
         _imageView.animationRepeatCount = 0;
         [self addSubview:_imageView];
+        
+        _needShow = NO;
     }
     return self;
 }
@@ -51,12 +56,18 @@
 }
 
 - (void)showAnimated {
-    [self updateViewHierachy];
-    [_imageView startAnimating];
-    [self setNeedsLayout];
+    _needShow = YES;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (_needShow) {
+            [_imageView startAnimating];
+            [self setNeedsLayout];
+            [self updateViewHierachy];
+        }
+    });
 }
 
 - (void)dismiss {
+    _needShow = NO;
     [self removeFromSuperview];
     [_imageView stopAnimating];
     [self setNeedsLayout];
@@ -83,8 +94,12 @@
                 [UIView animateWithDuration:0.3 animations:^{
                     _dimmingView.alpha = 1;
                 }];
+                [self layoutSubviews];
                 break;
             }
+        }
+        if (!self.superview) {
+            [KEY_WINDOW.rootViewController.view addSubview:self];
         }
     } else {
         [self.superview bringSubviewToFront:self];

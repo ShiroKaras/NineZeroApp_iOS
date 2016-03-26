@@ -14,6 +14,7 @@
 #import "YYImage.h"
 #import "YYAnimatedImageView.h"
 #import "HTRewardCard.h"
+#import <UIImage+animatedGIF.h>
 
 @interface HTRewardController ()
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -28,13 +29,23 @@
 @property (nonatomic, strong) UIImageView *andImageView2;
 @property (nonatomic, strong) UIImageView *getImageView;
 
-@property (nonatomic, strong) HTRewardCard *card;          // 奖品卡片
+@property (nonatomic, strong) HTTicketCard *card;          // 奖品卡片
 @property (nonatomic, strong) YYAnimatedImageView *gifImageView;   //gif
+@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIWebView *webView;
 
 @end
 
-@implementation HTRewardController
+@implementation HTRewardController {
+    uint64_t _rewardID;
+}
+
+- (instancetype)initWithRewardID:(uint64_t)rewardID {
+    if (self = [super init]) {
+        _rewardID = rewardID;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -79,17 +90,21 @@
     
     // gif
     _gifImageView = [[YYAnimatedImageView alloc] init];
-//    [_gifImageView setAnimatedImageWithName:@"reward_mascot3_intro_gif"];
-//    _gifImageView.backgroundColor = [UIColor clearColor];
-//    [_gifImageView setImage:[UIImage sd_animatedGIFNamed:@"reward_mascot3_intro_gif"]];
     YYImage *image = [YYImage imageNamed:@"reward_mascot3_intro_gif.gif"];
     image.preloadAllAnimatedImageFrames = YES;
     _gifImageView.image = image;
-    
     [_scrollView addSubview:_gifImageView];
     
+    _imageView = [[UIImageView alloc] init];
+    [_scrollView addSubview:_imageView];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:@"http://ww2.sinaimg.cn/large/7cefdfa5jw1dskejdmiaog.gif"]];
+        _imageView.image = gifImage;
+        [_imageView startAnimating];
+    });
+    
     // 奖品
-    _card = [[HTRewardCard alloc] init];
+    _card = [[HTTicketCard alloc] init];
     [_scrollView addSubview:_card];
     
     _sureButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -98,10 +113,18 @@
     _sureButton.backgroundColor = COMMON_GREEN_COLOR;
     [_sureButton addTarget:self action:@selector(onClickSureButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_sureButton];
+    
+    [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID completion:^(BOOL success, HTTicket *reward) {
+        
+    }];
 }
 
 - (void)onClickSureButton {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -132,6 +155,9 @@
     _gifImageView.width = self.view.width;
     _gifImageView.height = 150;
     _gifImageView.top = _andImageView.bottom + 27;
+    
+    _imageView.frame = _gifImageView.frame;
+    _gifImageView.hidden = YES;
     
     _card.centerX = SCREEN_WIDTH / 2;
     _card.top = _andImageView2.bottom + 29;

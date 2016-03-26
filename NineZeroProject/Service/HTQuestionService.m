@@ -9,6 +9,7 @@
 #import "HTQuestionService.h"
 #import "HTLogicHeader.h"
 #import "HTStorageManager.h"
+#import "HTServiceManager.h"
 
 @implementation HTQuestionService {
     HTLoginUser *_loginUser;
@@ -69,7 +70,22 @@
                         question.descriptionURL = dataDict[question.descriptionPic];
                         question.videoURL = dataDict[question.videoName];
                     }
-                    callback(YES, questions);
+                    [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
+                        if (success) {
+                            for (HTProfileAnswer *answer in profileInfo.answer_list) {
+                                for (HTQuestion *question in questions) {
+                                    if (answer.qid == question.questionID) {
+                                        question.isPassed = YES;
+                                    } else {
+                                        question.isPassed = NO;
+                                    }
+                                }
+                            }
+                            callback(YES, questions);
+                        } else {
+                            callback(false, questions);
+                        }
+                    }];
                 } else {
                     callback(false, nil);
                 }
@@ -77,7 +93,7 @@
         } else {
             callback(NO, nil);
         }
-//        DLog(@"%@",responseObject);
+        DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);

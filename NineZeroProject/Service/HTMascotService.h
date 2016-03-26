@@ -17,6 +17,7 @@ typedef void (^HTGetMascotsCallback) (BOOL success, NSArray<HTMascot *> *mascots
 typedef void (^HTGetMascotCallback) (BOOL success, HTMascot *mascot);
 typedef void (^HTGetPropsCallback) (BOOL success, NSArray<HTMascotProp *> *props);
 typedef void (^HTGetPropCallback) (BOOL success, HTMascotProp *prop);
+typedef void (^HTGetRewardCallback) (BOOL success, HTTicket *reward);
 
 /**
  *  @brief 负责零仔和道具相关逻辑
@@ -34,4 +35,8 @@ typedef void (^HTGetPropCallback) (BOOL success, HTMascotProp *prop);
  *  @brief 兑换道具
  */
 - (void)exchangeProps:(HTMascotProp *)prop completion:(HTResponseCallback)callback;
+/**
+ *  @brief 获取奖励详情
+ */
+- (void)getRewardWithID:(uint64_t)rewardID completion:(HTGetRewardCallback)callback;
 @end

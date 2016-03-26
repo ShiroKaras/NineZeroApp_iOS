@@ -12,7 +12,7 @@
 #import "HTDescriptionView.h"
 
 @interface HTProfileRewardController ()
-@property (nonatomic, strong) NSArray<HTReward *> *rewards;
+@property (nonatomic, strong) NSArray<HTTicket *> *rewards;
 @property (nonatomic, strong) HTBlankView *blankView;
 @end
 
@@ -31,7 +31,7 @@
     [self.tableView registerClass:[HTProfileRewardCell class] forCellReuseIdentifier:NSStringFromClass([HTProfileRewardCell class])];
     
     _rewards = [NSArray array];
-    [[[HTServiceManager sharedInstance] profileService] getRewards:^(BOOL success, NSArray<HTReward *> *rewards) {
+    [[[HTServiceManager sharedInstance] profileService] getRewards:^(BOOL success, NSArray<HTTicket *> *rewards) {
         if (success) {
             _rewards = rewards;
             [self.tableView reloadData];

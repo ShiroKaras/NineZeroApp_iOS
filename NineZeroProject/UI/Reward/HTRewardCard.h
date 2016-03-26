@@ -1,5 +1,5 @@
 //
-//  HTRewardCard.h
+//  HTTicketCard.h
 //  NineZeroProject
 //
 //  Created by ronhu on 16/2/25.
@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class HTReward;
+@class HTTicket;
 
-@interface HTRewardCard : UIView
+@interface HTTicketCard : UIView
 - (void)showExchangedCode:(BOOL)show;
-- (void)setReward:(HTReward *)reward;
+- (void)setReward:(HTTicket *)reward;
 @end

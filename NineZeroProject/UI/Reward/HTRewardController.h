@@ -10,7 +10,8 @@
 
 @class HTMascot;
 @class HTMascotProp;
-@class HTReward;
+@class HTTicket;
 
 @interface HTRewardController : UIViewController
+- (instancetype)initWithRewardID:(uint64_t)rewardID;
 @end

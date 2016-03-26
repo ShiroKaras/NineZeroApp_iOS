@@ -124,7 +124,7 @@
 
 - (void)onClickComposeButton:(UIButton *)button {
     if (_questionInfo.questionID == _question.questionID) {
-        if (_question.type == 1) {
+        if (_question.type == 0) {
             [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAR];
         } else {
             [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];
@@ -221,7 +221,7 @@
         [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
         // TODO:判断是否需要显示
         _hintButton.hidden = NO;
-        if (_question.type == 1) {
+        if (_question.type == 0) {
             // ar
             [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam"] forState:UIControlStateNormal];
             [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam_highlight"] forState:UIControlStateHighlighted];

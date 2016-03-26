@@ -13,7 +13,7 @@
 #import "NSDate+Utility.h"
 #import "HTPropChangedPopController.h"
 
-@interface HTRewardDescriptionView : UIScrollView
+@interface HTTicketDescriptionView : UIScrollView
 @property (nonatomic, strong) UILabel *title;
 @property (nonatomic, strong) UILabel *deadLine;
 @property (nonatomic, strong) UILabel *location;
@@ -25,10 +25,10 @@
 @property (nonatomic, strong) UILabel *careTip2;
 @property (nonatomic, strong) UILabel *careTip3;
 @property (nonatomic, strong) UIView *coverView;
-- (void)setReward:(HTReward *)reward;
+- (void)setReward:(HTTicket *)reward;
 @end
 
-@implementation HTRewardDescriptionView
+@implementation HTTicketDescriptionView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -61,7 +61,7 @@
     return self;
 }
 
-- (void)setReward:(HTReward *)reward {
+- (void)setReward:(HTTicket *)reward {
     _title.text = reward.title;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:reward.expire_time];
     _deadLine.text = [NSString stringWithFormat:@"有效期至%04ld-%02ld-%02ld", [date year], [date month], [date day]];
@@ -112,7 +112,7 @@
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) UIView *converView;
 @property (nonatomic, strong) UIButton *exchangeButton;
-@property (nonatomic, strong) HTRewardDescriptionView *rewardDescriptionView;
+@property (nonatomic, strong) HTTicketDescriptionView *rewardDescriptionView;
 @property (nonatomic, assign, readwrite) HTDescriptionType type;
 @property (nonatomic, strong) HTPropChangedPopController *changeView;
 @end
@@ -153,8 +153,8 @@
         [self addSubview:_cancelButton];
 
         if (type == HTDescriptionTypeReward) {
-            _rewardDescriptionView = [[HTRewardDescriptionView alloc] initWithFrame:CGRectZero];
-            [_rewardDescriptionView setReward:[[HTReward alloc] init]];
+            _rewardDescriptionView = [[HTTicketDescriptionView alloc] initWithFrame:CGRectZero];
+            [_rewardDescriptionView setReward:[[HTTicket alloc] init]];
             [_converView addSubview:_rewardDescriptionView];
         } else {
             _webView = [[UIWebView alloc] init];
@@ -234,7 +234,7 @@
     [self setNeedsLayout];
 }
 
-- (void)setReward:(HTReward *)reward {
+- (void)setReward:(HTTicket *)reward {
     [_rewardDescriptionView setReward:reward];
     [_imageView sd_setImageWithURL:[NSURL URLWithString:reward.pic] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
 }

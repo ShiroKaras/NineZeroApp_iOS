@@ -1,5 +1,5 @@
 //
-//  HTRewardCard.m
+//  HTTicketCard.m
 //  NineZeroProject
 //
 //  Created by ronhu on 16/2/25.
@@ -10,7 +10,7 @@
 #import "HTUIHeader.h"
 #import "NSDate+Utility.h"
 
-@interface HTRewardCard ()
+@interface HTTicketCard ()
 @property (nonatomic, strong) UIImageView *bgImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *ddlLabel;
@@ -18,7 +18,7 @@
 @property (nonatomic, strong) UILabel *exchangedCode;
 @end
 
-@implementation HTRewardCard
+@implementation HTTicketCard
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:CGRectMake(0, 0, [self intrinsicContentSize].width, [self intrinsicContentSize].height)]) {
         self.bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_voucher_bg"]];
@@ -56,7 +56,7 @@
     self.exchangedCode.hidden = !show;
 }
 
-- (void)setReward:(HTReward *)reward {
+- (void)setReward:(HTTicket *)reward {
     [self.logo sd_setImageWithURL:[NSURL URLWithString:reward.pic] placeholderImage:[UIImage imageNamed:@"img_voucher_cover_default"]];
     self.titleLabel.text = reward.title;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:reward.expire_time];
