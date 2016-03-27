@@ -71,6 +71,7 @@
     [self removeFromSuperview];
     [_imageView stopAnimating];
     [self setNeedsLayout];
+    self.dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
 }
 
 - (void)layoutSubviews {

@@ -50,6 +50,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (nonatomic,strong) SharkfoodMuteSwitchDetector* detector;
 @property (nonatomic, assign) HTPreviewCardType cardType;
 @property (nonatomic, strong) UIImageView *eggImageView;
+@property (nonatomic, strong) UIView *dimmingView;
 @end
 
 @implementation HTPreviewCardController {
@@ -86,14 +87,17 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     questionInfo = [HTQuestionHelper questionInfoFake];
 
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
-
     if (_cardType == HTPreviewCardTypeDefault) {
         [HTProgressHUD show];
+        _dimmingView = [[UIView alloc] initWithFrame:SCREEN_BOUNDS];
+        _dimmingView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:_dimmingView];
         [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
             if (success) {
                 questionInfo = callbackQuestionInfo;
                 [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
                     [HTProgressHUD dismiss];
+                    [_dimmingView removeFromSuperview];
                     if (success2) {
                         NSInteger count = questionList.count;
                         for (HTQuestion *question in callbackQuestionList) {
@@ -108,6 +112,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                 }];
             } else {
                 [HTProgressHUD dismiss];
+                [_dimmingView removeFromSuperview];
             }
         }];
         if ([[HTStorageManager sharedInstance] getUserID]) {
@@ -123,6 +128,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         
         _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_timeView];
+        
+        _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
     } else if (_cardType == HTPreviewCardTypeRecord) {
         questionList = [[[[HTServiceManager sharedInstance] questionService] questionListSuccessful] mutableCopy];
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
@@ -153,9 +160,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [_collectionView setShowsHorizontalScrollIndicator:NO];
     [_collectionView registerClass:[HTCardCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([HTCardCollectionCell class])];
     [self.view addSubview:_collectionView];
-    
-    // 3. 彩蛋
-    _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
     [self.collectionView addSubview:_eggImageView];
     
     // 4. 左上角章节
@@ -231,6 +235,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     
     _eggImageView.left = _collectionView.contentSize.width - 10;
     _eggImageView.centerY = SCREEN_HEIGHT / 2;
+    
+    [self.view bringSubviewToFront:_dimmingView];
 }
 
 - (void)backToToday {
