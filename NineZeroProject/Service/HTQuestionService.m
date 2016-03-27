@@ -169,8 +169,8 @@
 
 - (void)getRelaxDayInfo:(HTResponseCallback)callback {
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getRelaxDayInfoCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
         DLog(@"%@",responseObject);
+        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);

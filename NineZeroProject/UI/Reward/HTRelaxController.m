@@ -49,11 +49,29 @@
     
     _endTime = time(NULL) + 40000;
     [self scheduleCountDownTimer];
-
     [self hideTextTips];
+    
+    [[[HTServiceManager sharedInstance] questionService] getRelaxDayInfo:^(BOOL success, HTResponsePackage *response) {
+        if (success && response.resultCode == 0) {
+            NSDictionary *dataDict = response.data;
+            NSInteger contentType = [dataDict[@"content_type"] integerValue];
+            contentType = MIN(0, MAX(2, contentType));
+            NSString *jsonString = [NSString stringWithFormat:@"%@", dataDict[@"content_data"]];
+            NSError *jsonError;
+            NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:objectData
+                                                                     options:NSJSONReadingMutableContainers
+                                                                       error:&jsonError];
+            _endTime = time(NULL) + [dataDict[@"date"] integerValue];
+            if (contentType == 0) {
+                
+            }
+        }
+    }];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickBackView)];
     [self.view addGestureRecognizer:tap];
+    
 }
 
 - (void)scheduleCountDownTimer {

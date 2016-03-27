@@ -63,6 +63,9 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
 
 /**
  *  @brief 获取休息日信息
+ *  0 : 文章
+ *  1 : 零仔gif
+ *  2 : 视频
  */
 - (void)getRelaxDayInfo:(HTResponseCallback)callback;
 /**

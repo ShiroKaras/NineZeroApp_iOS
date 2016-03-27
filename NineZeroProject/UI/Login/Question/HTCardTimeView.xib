@@ -52,7 +52,7 @@
                 <constraint firstAttribute="bottom" secondItem="SQ4-oY-UhO" secondAttribute="bottom" id="U6O-h4-thC"/>
                 <constraint firstItem="yoF-Ay-hlL" firstAttribute="top" secondItem="Kqp-vR-gMS" secondAttribute="bottom" constant="6" id="cfv-Zi-Lo5"/>
                 <constraint firstAttribute="trailing" secondItem="yoF-Ay-hlL" secondAttribute="trailing" id="cwt-ek-cFQ"/>
-                <constraint firstItem="yoF-Ay-hlL" firstAttribute="top" secondItem="bKJ-Ub-RJS" secondAttribute="bottom" constant="7" id="qk8-hJ-lFN"/>
+                <constraint firstItem="yoF-Ay-hlL" firstAttribute="top" secondItem="bKJ-Ub-RJS" secondAttribute="bottom" constant="-4" id="qk8-hJ-lFN"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="215" y="226"/>

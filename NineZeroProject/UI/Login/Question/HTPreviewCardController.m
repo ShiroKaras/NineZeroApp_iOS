@@ -90,26 +90,20 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
             if (success) {
                 questionInfo = callbackQuestionInfo;
-                if (questionInfo.endTime < [[NSDate date] timeIntervalSince1970]) {
-                    // 停赛日
-                    [self presentViewController:[[HTRelaxController alloc] init] animated:NO completion:nil];
+                [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
                     [HTProgressHUD dismiss];
-                } else {
-                    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
-                        [HTProgressHUD dismiss];
-                        if (success2) {
-                            NSInteger count = questionList.count;
-                            for (HTQuestion *question in callbackQuestionList) {
-                                [questionList insertObject:question atIndex:count];
-                            }
-                            [self.collectionView reloadData];
-                            [self.collectionView performBatchUpdates:^{}
-                                                          completion:^(BOOL finished) {
-                                                              [self backToToday:NO];
-                                                          }];
+                    if (success2) {
+                        NSInteger count = questionList.count;
+                        for (HTQuestion *question in callbackQuestionList) {
+                            [questionList insertObject:question atIndex:count];
                         }
-                    }];
-                }
+                        [self.collectionView reloadData];
+                        [self.collectionView performBatchUpdates:^{}
+                                                      completion:^(BOOL finished) {
+                                                          [self backToToday:NO];
+                                                      }];
+                    }
+                }];
             } else {
                 [HTProgressHUD dismiss];
             }
@@ -118,10 +112,12 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             [APService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
         }
         
-        [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
-        }];
-        [[[HTServiceManager sharedInstance] questionService] getRelaxDayInfo:^(BOOL success, HTResponsePackage *response) {
-        }];
+//        [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
+//            if (success && response.resultCode == 0) {
+//                HTRelaxController *relaxController = [[HTRelaxController alloc] init];
+//                [self presentViewController:relaxController animated:NO completion:nil];
+//            }
+//        }];
         
         _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_timeView];

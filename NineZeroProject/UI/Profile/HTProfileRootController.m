@@ -37,6 +37,7 @@
 @property (nonatomic, strong) HTCardCollectionCell *snapView;
 @property (nonatomic, assign) CGRect animatedFromFrame;
 @property (nonatomic, assign) CGRect animatedToFrame;
+@property (nonatomic, strong) UIView *snapCell;
 
 @end
 
@@ -205,6 +206,7 @@
 - (void)onClickedPlayButtonInCollectionCell:(HTProfileRecordCell *)cell {
     NSArray<HTQuestion *> *questionList = [[[HTServiceManager sharedInstance] questionService] questionListSuccessful];
     if (questionList.count <= 0) return;
+    _snapCell = [cell.coverImageView snapshotViewAfterScreenUpdates:YES];
     
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     UIImage *bgImage;
@@ -243,6 +245,8 @@
         cardController.delegate = self;
         [self presentViewController:cardController animated:NO completion:^{
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            
+            [_snapView removeFromSuperview];
         }];
     });
 }
@@ -250,16 +254,17 @@
 #pragma mark - HTPreviewCardController
 
 - (void)didClickCloseButtonInController:(HTPreviewCardController *)controller {
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [controller dismissViewControllerAnimated:NO completion:^{
-        _animatedImageView.alpha = 1.0;
+        _snapCell.frame = _animatedToFrame;
+        [self.view addSubview:_snapCell];
         [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            _snapView.frame = _animatedFromFrame;
-            _snapView.contentBackView.alpha = 0.0;
-            _snapView.playButton.size = CGSizeMake(57, 57);
-            _animatedImageView.alpha = 0.0;
+            _snapCell.frame = _animatedFromFrame;
+            _animatedImageView.alpha = 0;
         } completion:^(BOOL finished) {
-            [_snapView removeFromSuperview];
+            [_snapCell removeFromSuperview];
             [_animatedImageView removeFromSuperview];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         }];
     }];
 }
