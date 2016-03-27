@@ -22,6 +22,7 @@
 #import "SharkfoodMuteSwitchDetector.h"
 #import "APService.h"
 #import "HTRelaxController.h"
+#import "HTAlertView.h"
 
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
@@ -48,6 +49,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 @property (nonatomic,strong) SharkfoodMuteSwitchDetector* detector;
 @property (nonatomic, assign) HTPreviewCardType cardType;
+@property (nonatomic, strong) UIImageView *eggImageView;
 @end
 
 @implementation HTPreviewCardController {
@@ -152,6 +154,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [_collectionView registerClass:[HTCardCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([HTCardCollectionCell class])];
     [self.view addSubview:_collectionView];
     
+    // 3. 彩蛋
+    _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
+    [self.collectionView addSubview:_eggImageView];
+    
     // 4. 左上角章节
     _chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_chapter"]];
     [self.view addSubview:_chapterImageView];
@@ -194,6 +200,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                           [self backToToday:NO];
                                       }];
     });
+    
 }
 
 - (void)viewWillLayoutSubviews {
@@ -221,6 +228,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     
     _closeButton.bottom = self.view.height - 25;
     _closeButton.centerX = self.view.width / 2;
+    
+    _eggImageView.left = _collectionView.contentSize.width - 10;
+    _eggImageView.centerY = SCREEN_HEIGHT / 2;
 }
 
 - (void)backToToday {
@@ -433,17 +443,19 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     NSInteger currentIndex = [self indexWithContentOffsetX:scrollView.contentOffset.x];
-//    _questions[currentIndex]
     if (self.cardType == HTPreviewCardTypeDefault) {
-        if (currentIndex == questionList.count - 4) {
+        if (currentIndex <= questionList.count - 4) {
             [[HTUIHelper mainController] showBackToToday:YES];
         }
-        if (currentIndex == questionList.count - 3) {
+        if (currentIndex >= questionList.count - 3) {
             [[HTUIHelper mainController] showBackToToday:NO];
         }
         
     }
     static CGFloat preContentOffsetX = 0.0;
+    if (scrollView.contentOffset.x + SCREEN_WIDTH >= _eggImageView.right && preContentOffsetX != 0) {
+        [scrollView setContentOffset:CGPointMake(_eggImageView.right - SCREEN_WIDTH, scrollView.contentOffset.y)];
+    }
     _scrollDirection = (scrollView.contentOffset.x > preContentOffsetX) ? HTScrollDirectionLeft : HTScrollDirectionRight;
     preContentOffsetX = scrollView.contentOffset.x;
 }

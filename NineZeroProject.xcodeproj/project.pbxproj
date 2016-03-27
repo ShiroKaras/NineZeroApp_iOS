@@ -679,6 +679,7 @@
 		17A92CDB1CA809B100BE893D /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A92CC61CA809B100BE893D /* UIScrollView+MJExtension.m */; };
 		17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A92CC81CA809B100BE893D /* UIScrollView+MJRefresh.m */; };
 		17A92CDD1CA809B100BE893D /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A92CCA1CA809B100BE893D /* UIView+MJExtension.m */; };
+		17A92CE01CA816A600BE893D /* HTAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A92CDF1CA816A600BE893D /* HTAlertView.m */; };
 		17AA63571C4AB85A0047BADF /* HTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA63561C4AB85A0047BADF /* HTMainViewController.m */; };
 		17AA63741C4ABC3D0047BADF /* HTMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */; };
 		17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA63771C4AC10A0047BADF /* HTMascotDisplayController.m */; };
@@ -1520,6 +1521,8 @@
 		17A92CC81CA809B100BE893D /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		17A92CC91CA809B100BE893D /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		17A92CCA1CA809B100BE893D /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		17A92CDE1CA816A600BE893D /* HTAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTAlertView.h; sourceTree = "<group>"; };
+		17A92CDF1CA816A600BE893D /* HTAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAlertView.m; sourceTree = "<group>"; };
 		17AA63551C4AB85A0047BADF /* HTMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMainViewController.h; sourceTree = "<group>"; };
 		17AA63561C4AB85A0047BADF /* HTMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMainViewController.m; sourceTree = "<group>"; };
 		17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTMainViewController.xib; sourceTree = "<group>"; };
@@ -3041,6 +3044,8 @@
 				1747B0161C9F060500B37411 /* HTBlankView.m */,
 				176A1AB11CA43BCB00026345 /* HTProgressHUD.h */,
 				176A1AB21CA43BCB00026345 /* HTProgressHUD.m */,
+				17A92CDE1CA816A600BE893D /* HTAlertView.h */,
+				17A92CDF1CA816A600BE893D /* HTAlertView.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -3950,6 +3955,7 @@
 				17A89AAF1C1DBA150087BF00 /* README.md in Sources */,
 				17A92CCE1CA809B100BE893D /* MJRefreshFooter.m in Sources */,
 				17FA11081C82DE9B00FA9102 /* HTProfileLocationController.m in Sources */,
+				17A92CE01CA816A600BE893D /* HTAlertView.m in Sources */,
 				17B429041C54D4A8008AFBA9 /* YYSpriteSheetImage.m in Sources */,
 				17A277281BF79C8000E46670 /* HTServiceManager.m in Sources */,
 				174CF7821C146E2F002E0DBB /* HTPreviewQuestionController.m in Sources */,

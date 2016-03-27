@@ -63,6 +63,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (_rankerList.count == 0) return 0;
     return _rankerList.count + 1;
 }
 
