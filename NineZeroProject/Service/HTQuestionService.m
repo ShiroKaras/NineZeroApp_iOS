@@ -144,6 +144,22 @@
     }];
 }
 
+- (void)verifyQuestion:(NSUInteger)questionID withLocation:(CGPoint)location callback:(HTResponseCallback)callback {
+    NSDictionary *locationDict = @{@"x" : @(location.x),
+                                   @"y" : @(location.y)};
+    NSString *jsonString = [self dictionaryToJson:locationDict];
+    if (jsonString == nil) return;
+    
+    NSDictionary *dataDict = @{@"location" : jsonString};
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager verifyLocationCGIKey] parameters:dataDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(NO, nil);
+        DLog(@"%@", error);
+    }];
+}
+
 - (void)getQiniuDownloadURLsWithKeys:(NSArray<NSString *> *)keys callback:(HTResponseCallback)callback {
     if (keys.count == 0) return;
     NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];

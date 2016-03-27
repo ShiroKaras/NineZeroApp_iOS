@@ -117,7 +117,8 @@
         _orderLabel.text = [NSString stringWithFormat:@"%ld", ranker.rank];
         [_orderLabel sizeToFit];
     }
-    _avatar.image = [UIImage imageNamed:@"img_profile_photo_default"];
+
+    [_avatar sd_setImageWithURL:[NSURL URLWithString:ranker.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
     _nickName.text = ranker.user_name;
     [_nickName sizeToFit];
     [_progressView setProgress:MIN(1.0, ranker.gold / 1500.0)];
@@ -137,6 +138,8 @@
     _orderLabel.frame = CGRectMake(12, self.height / 2 - 10, 39, 20);
     _avatar.frame = CGRectMake(_orderLabel.right + 12, self.height / 2 - 28, 56, 56);
     _nickName.frame = CGRectMake(_avatar.right + 4, 20, 130, 15);
+    _avatar.layer.cornerRadius = 28;
+    _avatar.layer.masksToBounds = YES;
     CGFloat progressView = 130 + SCREEN_WIDTH - 320;
     _progressView.frame = CGRectMake(_avatar.right + 4, _nickName.bottom + 8, progressView, 15);
     _coinImageView.left = _progressView.right + 3;

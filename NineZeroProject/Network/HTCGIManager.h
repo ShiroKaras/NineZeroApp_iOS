@@ -122,7 +122,11 @@
  *  "answer" : "testtest"
  */
 + (NSString *)verifyAnswerCGIKey;
-
+/**
+ *  @brief 验证ar位置
+ *  "location" : ""x":100 ,"y": 100"
+ */
++ (NSString *)verifyLocationCGIKey;
 /**
  *  @brief 获取七牛token
  *  "key" : "video.mp4"

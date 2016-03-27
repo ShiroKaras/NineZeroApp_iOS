@@ -89,6 +89,10 @@
     return [NSString stringWithFormat:@"%@Answer/answerText", NETWORK_HOST];
 }
 
++ (NSString *)verifyLocationCGIKey {
+    return [NSString stringWithFormat:@"%@Answer/answerAR", NETWORK_HOST];
+}
+
 + (NSString *)getProfileInfoCGIKey {
     return [NSString stringWithFormat:@"%@User/getUserInfo", NETWORK_HOST];
 }

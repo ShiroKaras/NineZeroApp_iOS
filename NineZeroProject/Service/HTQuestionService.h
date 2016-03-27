@@ -6,7 +6,7 @@
 //  Copyright © 2015年 ronhu. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "HTNetworkDefine.h"
 
 @class HTQuestionInfo;
@@ -54,6 +54,11 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
  *  @param answer     答案
  */
 - (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback;
+
+/**
+ *  @brief 验证AR答案
+ */
+- (void)verifyQuestion:(NSUInteger)questionID withLocation:(CGPoint)location callback:(HTResponseCallback)callback;
 
 /**
  *  @brief 获取七牛下载链接
