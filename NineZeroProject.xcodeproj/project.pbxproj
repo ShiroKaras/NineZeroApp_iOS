@@ -659,6 +659,7 @@
 		17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB41C1DBA290087BF00 /* FLAnimatedImage.m */; };
 		17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB61C1DBA290087BF00 /* FLAnimatedImageView.m */; };
 		17A89ABC1C1DBA290087BF00 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB81C1DBA290087BF00 /* README.md */; };
+		17A92C9D1CA7C6DB00BE893D /* HTRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17A92C9C1CA7C6DB00BE893D /* HTRecordView.xib */; };
 		17AA63571C4AB85A0047BADF /* HTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA63561C4AB85A0047BADF /* HTMainViewController.m */; };
 		17AA63741C4ABC3D0047BADF /* HTMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */; };
 		17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA63771C4AC10A0047BADF /* HTMascotDisplayController.m */; };
@@ -1461,6 +1462,7 @@
 		17A89AB51C1DBA290087BF00 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLAnimatedImageView.h; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImageView.h; sourceTree = "<group>"; };
 		17A89AB61C1DBA290087BF00 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImageView.m; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImageView.m; sourceTree = "<group>"; };
 		17A89AB81C1DBA290087BF00 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		17A92C9C1CA7C6DB00BE893D /* HTRecordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTRecordView.xib; sourceTree = "<group>"; };
 		17AA63551C4AB85A0047BADF /* HTMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMainViewController.h; sourceTree = "<group>"; };
 		17AA63561C4AB85A0047BADF /* HTMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMainViewController.m; sourceTree = "<group>"; };
 		17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTMainViewController.xib; sourceTree = "<group>"; };
@@ -2530,6 +2532,7 @@
 				17F393AB1C8CA4D2004E1DB7 /* HTCardTimeView.h */,
 				17F393AC1C8CA4D2004E1DB7 /* HTCardTimeView.m */,
 				17F393AE1C8CA4E1004E1DB7 /* HTCardTimeView.xib */,
+				17A92C9C1CA7C6DB00BE893D /* HTRecordView.xib */,
 			);
 			name = Question;
 			path = Login/Question;
@@ -3569,6 +3572,7 @@
 				17461B621C71EF6600C847E8 /* img_mascot_2_animation_2_0006.png in Resources */,
 				17461C8E1C71EF6600C847E8 /* img_mascot_7_animation_2_0003.png in Resources */,
 				17461C921C71EF6600C847E8 /* img_mascot_7_animation_2_0007.png in Resources */,
+				17A92C9D1CA7C6DB00BE893D /* HTRecordView.xib in Resources */,
 				17461BB11C71EF6600C847E8 /* img_mascot_3_animation_2_0013.png in Resources */,
 				17461CFB1C7493DF00C847E8 /* img_ar_right_answer_gif_0001.png in Resources */,
 				17461C481C71EF6600C847E8 /* img_mascot_6_animation_2_0013.png in Resources */,

@@ -15,4 +15,6 @@
 
 @interface HTProfileRecordCell : UICollectionViewCell
 @property (nonatomic, weak) id<HTProfileRecordCellDelegate> delegate;
+@property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, strong) UIImageView *coverImageView;
 @end

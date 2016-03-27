@@ -31,7 +31,10 @@
     [self.tableView registerClass:[HTProfileRewardCell class] forCellReuseIdentifier:NSStringFromClass([HTProfileRewardCell class])];
     
     _rewards = [NSArray array];
+    
+    [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] profileService] getRewards:^(BOOL success, NSArray<HTTicket *> *rewards) {
+        [HTProgressHUD dismiss];
         if (success) {
             _rewards = rewards;
             [self.tableView reloadData];

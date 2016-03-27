@@ -13,6 +13,8 @@
 
 @implementation HTQuestionService {
     HTLoginUser *_loginUser;
+    NSMutableArray<HTQuestion *> *_questionListSuccessful;
+    HTQuestionInfo *_questionInfo;
 }
 
 - (instancetype)init {
@@ -36,6 +38,7 @@
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             HTQuestionInfo *questionInfo = [HTQuestionInfo objectWithKeyValues:responseObject[@"data"]];
+            _questionInfo = questionInfo;
             callback(YES, questionInfo);
         } else {
             callback(NO, nil);
@@ -45,6 +48,10 @@
         callback(NO, nil);
         DLog(@"%@", error);
     }];
+}
+
+- (HTQuestionInfo *)questionInfo {
+    return _questionInfo;
 }
 
 - (void)getQuestionListWithPage:(NSUInteger)page count:(NSUInteger)count callback:(HTQuestionListCallback)callback {
@@ -72,12 +79,13 @@
                     }
                     [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
                         if (success) {
-                            for (HTProfileAnswer *answer in profileInfo.answer_list) {
-                                for (HTQuestion *question in questions) {
+                            _questionListSuccessful = [NSMutableArray array];
+                            for (HTQuestion *question in questions) {
+                                question.isPassed = NO;
+                                for (HTProfileAnswer *answer in profileInfo.answer_list) {
                                     if (answer.qid == question.questionID) {
                                         question.isPassed = YES;
-                                    } else {
-                                        question.isPassed = NO;
+                                        [_questionListSuccessful addObject:question];
                                     }
                                 }
                             }
@@ -98,6 +106,10 @@
         callback(NO, nil);
         DLog(@"%@", error);
     }];
+}
+
+- (NSArray<HTQuestion *> *)questionListSuccessful {
+    return _questionListSuccessful;
 }
 
 - (void)getQuestionDetailWithQuestionID:(NSUInteger)questionID callback:(HTQuestionCallback)callback {

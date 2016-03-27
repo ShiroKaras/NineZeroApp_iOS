@@ -105,5 +105,32 @@
     }
 }
 
+@end
+
+@interface HTRecordView ()
+
+@property (weak, nonatomic) IBOutlet UILabel *coinLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
+@end
+
+@implementation HTRecordView
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        UIView *containerView = [[[UINib nibWithNibName:@"HTRecordView" bundle:nil] instantiateWithOwner:self options:nil] objectAtIndex:0];
+        containerView.frame = self.bounds;
+        [self addSubview:containerView];
+    }
+    return self;
+}
+
+- (void)awakeFromNib {
+    self.backgroundColor = [UIColor clearColor];
+}
+
+- (void)setQuestion:(HTQuestion *)question {
+    self.coinLabel.text = @"100";
+    self.timeLabel.text = @"12:00:00";
+}
 
 @end

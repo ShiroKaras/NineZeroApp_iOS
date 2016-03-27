@@ -13,6 +13,7 @@
 
 @interface HTCardCollectionCell ()
 @property (nonatomic, strong) UIView *cardBackView;
+
 @property (nonatomic, strong) UIView *playBackView;
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIImageView *soundImageView;
@@ -28,7 +29,6 @@
 @property (strong, nonatomic) AVPlayerItem *playerItem;
 @property (nonatomic, strong) UIView *progressView;
 @property (nonatomic, strong) UIView *progressBgView;
-@property (nonatomic, strong) NSProgress *downloadProgress;
 @property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
 
 @end
@@ -162,7 +162,6 @@
     
     NSURL *documentsDirectoryURL = [[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil] URLByAppendingPathComponent:_question.videoName];
     if ([[NSFileManager defaultManager] fileExistsAtPath:[documentsDirectoryURL path]]) {
-        NSLog(@"video file exist : %@", [documentsDirectoryURL path]);
         NSURL *localUrl = [NSURL fileURLWithPath:[documentsDirectoryURL path]];
         AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
         self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
@@ -182,7 +181,6 @@
             NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
             return [documentsDirectoryURL URLByAppendingPathComponent:_question.videoName];
         } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-            NSLog(@"downloaded video file : %@", [filePath path]);
             [self stop];
             _playerItem = nil;
             _player = nil;
@@ -255,7 +253,7 @@
 }
 
 - (void)play {
-    if (![self.playerItem canPlayReverse]) return;
+//    if (![self.playerItem canPlayReverse]) return;
     _playButton.hidden = YES;
     _pauseImageView.hidden = YES;
     [_player play];

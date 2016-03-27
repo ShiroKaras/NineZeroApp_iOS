@@ -15,6 +15,7 @@
 #define IS_LANDSCAPE UIDeviceOrientationIsLandscape((UIDeviceOrientation)[UIApplication sharedApplication].statusBarOrientation)
 #define SCREEN_WIDTH (IOS_VERSION >= 8.0 ? [[UIScreen mainScreen] bounds].size.width : (IS_LANDSCAPE ? [[UIScreen mainScreen] bounds].size.height : [[UIScreen mainScreen] bounds].size.width))
 #define SCREEN_HEIGHT (IOS_VERSION >= 8.0 ? [[UIScreen mainScreen] bounds].size.height : (IS_LANDSCAPE ? [[UIScreen mainScreen] bounds].size.width : [[UIScreen mainScreen] bounds].size.height))
+#define SCREEN_BOUNDS (CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
 #define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
 
 #define IPHONE6_PLUS_SCREEN_WIDTH  414

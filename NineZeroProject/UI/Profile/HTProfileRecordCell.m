@@ -13,7 +13,6 @@
 @interface HTProfileRecordCell ()
 @property (strong, nonatomic) UIView *playItemBackView;
 @property (nonatomic, strong) UIButton *playButton;
-@property (nonatomic, strong) UIImageView *coverImageView;
 @end
 
 @implementation HTProfileRecordCell
@@ -30,7 +29,7 @@
         
         _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_profile_success_record_play"] forState:UIControlStateNormal];
-        [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_profile_success_record_play_highlight"] forState:UIControlStateHighlighted];
+        [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_profile_success_record_play"] forState:UIControlStateHighlighted];
         [_playButton addTarget:self action:@selector(onClickPlayButton) forControlEvents:UIControlEventTouchUpInside];
         [_playItemBackView addSubview:_playButton];
     }

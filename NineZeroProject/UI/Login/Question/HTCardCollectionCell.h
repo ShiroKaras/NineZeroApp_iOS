@@ -36,4 +36,7 @@ typedef NS_ENUM(NSUInteger, HTCardCollectionClickType) {
 @property (nonatomic, strong) HTQuestionInfo *questionInfo;
 @property (nonatomic, assign) CGRect hintRect;
 @property (nonatomic, assign) BOOL soundHidden;
+
+@property (nonatomic, strong, readonly) UIView *contentBackView;
+@property (nonatomic, strong, readonly) UIButton *playButton;
 @end

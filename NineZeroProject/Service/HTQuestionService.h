@@ -30,14 +30,17 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
  *  @brief 获取题目总体信息
  */
 - (void)getQuestionInfoWithCallback:(HTQuestionInfoCallback)callback;
-
+- (HTQuestionInfo *)questionInfo;
 /**
  *  @brief 获取题目列表
  *  @param page     当前页码, 从1开始
  *  @param count    当前页码的数目
  */
 - (void)getQuestionListWithPage:(NSUInteger)page count:(NSUInteger)count callback:(HTQuestionListCallback)callback;
-
+/**
+ *  @brief 闯关成功的关卡
+ */
+- (NSArray<HTQuestion *> *)questionListSuccessful;
 /**
  *  @brief 获取题目的具体信息
  *  @param questionID question_id

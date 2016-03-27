@@ -24,9 +24,7 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5.5)];
-    headerView.backgroundColor = [UIColor whiteColor];
-    self.tableView.tableHeaderView = headerView;
+    
     [self.tableView registerClass:[HTMascotArticleCell class] forCellReuseIdentifier:NSStringFromClass([HTMascotArticleCell class])];
     
     [HTProgressHUD show];
@@ -34,6 +32,9 @@
         [HTProgressHUD dismiss];
         if (success) {
             _articles = articles;
+            UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5.5)];
+            headerView.backgroundColor = [UIColor whiteColor];
+            self.tableView.tableHeaderView = headerView;
             [self.tableView reloadData];
             if (_articles.count == 0) {
                 UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];

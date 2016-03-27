@@ -15,3 +15,7 @@
 @property (nonatomic, strong, readonly) HTQuestion *question;
 - (void)setQuestion:(HTQuestion *)question andQuestionInfo:(HTQuestionInfo *)questionInfo;
 @end
+
+@interface HTRecordView : UIView
+@property (nonatomic, strong) HTQuestion *question;
+@end

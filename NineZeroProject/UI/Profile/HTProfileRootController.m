@@ -16,8 +16,9 @@
 #import "HTProfileRecordCell.h"
 #import "HTUIHeader.h"
 #import "HTPreviewCardController.h"
+#import "HTCardCollectionCell.h"
 
-@interface HTProfileRootController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTProfileRecordCellDelegate>
+@interface HTProfileRootController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTProfileRecordCellDelegate, HTPreviewCardControllerDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *AvatarTopConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *avatar;
 @property (weak, nonatomic) IBOutlet UILabel *nickName;
@@ -31,6 +32,12 @@
 @property (nonatomic, strong) HTProfileInfo *profileInfo;
 @property (nonatomic, strong) HTUserInfo *userInfo;
 @property (nonatomic, strong) HTBlankView *blankView;
+
+@property (nonatomic, strong) UIImageView *animatedImageView;
+@property (nonatomic, strong) HTCardCollectionCell *snapView;
+@property (nonatomic, assign) CGRect animatedFromFrame;
+@property (nonatomic, assign) CGRect animatedToFrame;
+
 @end
 
 @implementation HTProfileRootController
@@ -44,7 +51,6 @@
     } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
         self.AvatarTopConstraint.constant = 140;
     }
-    
     
     _avatar.layer.cornerRadius = _avatar.width / 2;
     _avatar.layer.masksToBounds = YES;
@@ -178,6 +184,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HTProfileRecordCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([HTProfileRecordCell class]) forIndexPath:indexPath];
     cell.delegate = self;
+    cell.indexPath = indexPath;
     return cell;
 }
 
@@ -196,8 +203,65 @@
 #pragma mark - HTProfileRecordCell Delegate
 
 - (void)onClickedPlayButtonInCollectionCell:(HTProfileRecordCell *)cell {
-    HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeRecord];
-    [self presentViewController:cardController animated:YES completion:nil];
+    NSArray<HTQuestion *> *questionList = [[[HTServiceManager sharedInstance] questionService] questionListSuccessful];
+    if (questionList.count <= 0) return;
+    
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    UIImage *bgImage;
+    if (SCREEN_WIDTH <= IPHONE5_SCREEN_WIDTH) {
+        bgImage = [UIImage imageNamed:@"bg_success_640×1136"];
+    } else if (SCREEN_WIDTH >= IPHONE6_PLUS_SCREEN_WIDTH) {
+        bgImage = [UIImage imageNamed:@"bg_success_1242x2208"];
+    } else {
+        bgImage = [UIImage imageNamed:@"bg_success_750x1334"];
+    }
+    _animatedImageView = [[UIImageView alloc] initWithFrame:SCREEN_BOUNDS];
+    _animatedImageView.image = bgImage;
+    [self.view addSubview:_animatedImageView];
+    _animatedImageView.alpha = 0;
+    
+    NSInteger index = MIN(0, MAX(questionList.count, cell.indexPath.row));
+    HTQuestionInfo *questionInfo = [[[HTServiceManager sharedInstance] questionService] questionInfo];
+    HTQuestion *question = questionList[index];
+    _snapView = [[HTCardCollectionCell alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    [_snapView setQuestion:question questionInfo:questionInfo];
+    
+    _animatedFromFrame = [cell convertRect:cell.coverImageView.frame toView:self.view];
+    _animatedToFrame = CGRectMake(30, ROUND_HEIGHT_FLOAT(96), SCREEN_WIDTH - 47, SCREEN_WIDTH - 47);
+    _snapView.frame = _animatedFromFrame;
+    [self.view addSubview:_snapView];
+    CGFloat duration = 0.5;
+    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _snapView.frame = _animatedToFrame;
+    } completion:^(BOOL finished) {
+    }];
+    [UIView animateWithDuration:duration animations:^{
+        _animatedImageView.alpha = 1.0;
+    }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((duration - 0.2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeRecord];
+        cardController.delegate = self;
+        [self presentViewController:cardController animated:NO completion:^{
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        }];
+    });
+}
+
+#pragma mark - HTPreviewCardController
+
+- (void)didClickCloseButtonInController:(HTPreviewCardController *)controller {
+    [controller dismissViewControllerAnimated:NO completion:^{
+        _animatedImageView.alpha = 1.0;
+        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            _snapView.frame = _animatedFromFrame;
+            _snapView.contentBackView.alpha = 0.0;
+            _snapView.playButton.size = CGSizeMake(57, 57);
+            _animatedImageView.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [_snapView removeFromSuperview];
+            [_animatedImageView removeFromSuperview];
+        }];
+    }];
 }
 
 @end
