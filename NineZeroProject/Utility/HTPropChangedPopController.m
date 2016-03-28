@@ -110,9 +110,9 @@
 
 - (void)onClickSureButton {
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [[[HTServiceManager sharedInstance] mascotService] exchangeProps:_prop completion:^(BOOL success, HTResponsePackage *response) {
+//    [[[HTServiceManager sharedInstance] mascotService] exchangeProps:_prop completion:^(BOOL success, HTResponsePackage *response) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        if (success && response.resultCode == 0) {
+//        if (success && response.resultCode == 0) {
             [_alertView removeFromSuperview];
             [_tipLabel removeFromSuperview];
             
@@ -136,8 +136,8 @@
             });
             
             [self.delegate onClickSureButtonInPopController:self];
-        }
-    }];
+//        }
+//    }];
 }
 
 - (void)show {

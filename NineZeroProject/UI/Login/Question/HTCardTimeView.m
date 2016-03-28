@@ -129,8 +129,8 @@
 }
 
 - (void)setQuestion:(HTQuestion *)question {
-    self.coinLabel.text = @"100";
-    self.timeLabel.text = @"12:00:00";
+    self.coinLabel.text = @"200";
+    self.timeLabel.text = @"19:02:59";
 }
 
 @end

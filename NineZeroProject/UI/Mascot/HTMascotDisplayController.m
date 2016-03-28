@@ -36,32 +36,34 @@ static CGFloat kDuration = 0.3;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
-    self.mascots = [NSMutableArray arrayWithObject:[HTMascotHelper defaultMascots]];
-    self.props = [NSMutableArray array];
+//    self.mascots = [NSMutableArray arrayWithObject:[HTMascotHelper defaultMascots]];
+    self.props = [NSMutableArray arrayWithObjects:[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init],[[HTMascotProp alloc] init], nil];
     
-    [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
-        [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
-        if (success) {
-            // AT LEAST ONE MASCOT
-            if (mascots.count != 0) {
-                self.mascots = [mascots mutableCopy];
-                [_mascotView setMascots:self.mascots];
-            }
-            [self reloadViews];
-            [self reloadDisplayMascots];
-        } else {
-            [self showTipsWithText:@"网络不给力哦，请稍后重试"];
-        }
-    }];
+    self.mascots = [HTMascotHelper mascotsFake];
     
-    [[[HTServiceManager sharedInstance] mascotService] getUserProps:^(BOOL success, NSArray<HTMascotProp *> *props) {
-        if (success) {
-            self.props = [props mutableCopy];
-            [self.propView setProps:props];
-            if (props.count == 0) [self.propView removeFromSuperview];
-            else [self buildConstraints];
-        }
-    }];
+//    [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
+//        [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
+//        if (success) {
+//            // AT LEAST ONE MASCOT
+//            if (mascots.count != 0) {
+//                self.mascots = [mascots mutableCopy];
+//                [_mascotView setMascots:self.mascots];
+//            }
+//            [self reloadViews];
+//            [self reloadDisplayMascots];
+//        } else {
+//            [self showTipsWithText:@"网络不给力哦，请稍后重试"];
+//        }
+//    }];
+//    
+//    [[[HTServiceManager sharedInstance] mascotService] getUserProps:^(BOOL success, NSArray<HTMascotProp *> *props) {
+//        if (success) {
+//            self.props = [props mutableCopy];
+//            [self.propView setProps:props];
+//            if (props.count == 0) [self.propView removeFromSuperview];
+//            else [self buildConstraints];
+//        }
+//    }];
 
     self.onlyOneMascotImageView = [[HTMascotItem alloc] init];
     self.onlyOneMascotImageView.index = 0;

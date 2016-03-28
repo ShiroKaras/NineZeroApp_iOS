@@ -37,6 +37,7 @@ const char *kTapItemAssociatedKey;
         [self buildViews];
         [self reloadDisplayMascots];
         self.userInteractionEnabled = YES;
+        [self setMascots:mascots];
     }
     return self;
 }
@@ -90,7 +91,7 @@ const char *kTapItemAssociatedKey;
 - (void)reloadDisplayMascots {
     for (HTMascot *iter in _mascots) {
         NSInteger displayIndex = iter.mascotID - 1;
-        displayIndex = MIN(0, MAX(7, displayIndex));
+        displayIndex = MIN(7, MAX(0, displayIndex));
         _mascotItems[displayIndex].hidden = NO;
         _mascotItems[displayIndex].mascot = iter;
         if (iter.mascotID == 1) {

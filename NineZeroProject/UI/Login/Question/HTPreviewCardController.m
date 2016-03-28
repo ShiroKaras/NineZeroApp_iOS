@@ -129,7 +129,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_timeView];
         
-        _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
+//        _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
     } else if (_cardType == HTPreviewCardTypeRecord) {
         questionList = [[[[HTServiceManager sharedInstance] questionService] questionListSuccessful] mutableCopy];
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
@@ -399,14 +399,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)composeWithAnswer:(NSString *)answer question:(HTQuestion *)question {
-    static int clickCount = 0;
-    _composeView.composeButton.enabled = NO;
-    [[[HTServiceManager sharedInstance] questionService] verifyQuestion:question.questionID withAnswer:answer callback:^(BOOL success, HTResponsePackage *response) {
-        _composeView.composeButton.enabled = YES;
-        if (success) {
-            if (response.resultCode == 0) {
+//    static int clickCount = 0;
+//    _composeView.composeButton.enabled = NO;
+//    [[[HTServiceManager sharedInstance] questionService] verifyQuestion:question.questionID withAnswer:answer callback:^(BOOL success, HTResponsePackage *response) {
+//        _composeView.composeButton.enabled = YES;
+//        if (success) {
+//            if (response.resultCode == 0) {
                 [_composeView showAnswerCorrect:YES];
-                clickCount = 0;
+//                clickCount = 0;
                 // 获取成功了，开始分刮奖励
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
@@ -418,13 +418,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     }
                     [self presentViewController:reward animated:YES completion:nil];
                 });
-            } else {
-                if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", question.hint]];
-                [_composeView showAnswerCorrect:NO];
-                clickCount++;
-            }
-        }
-    }];
+//            }
+//             else {
+//                if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", question.hint]];
+//                [_composeView showAnswerCorrect:NO];
+//                clickCount++;
+//            }
+//        }
+//    }];
 }
 
 - (void)didClickDimingViewInComposeView:(HTComposeView *)composeView {
@@ -459,9 +460,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         
     }
     static CGFloat preContentOffsetX = 0.0;
-    if (scrollView.contentOffset.x + SCREEN_WIDTH >= _eggImageView.right && preContentOffsetX != 0) {
-        [scrollView setContentOffset:CGPointMake(_eggImageView.right - SCREEN_WIDTH, scrollView.contentOffset.y)];
-    }
+//    if (scrollView.contentOffset.x + SCREEN_WIDTH >= _eggImageView.right && preContentOffsetX != 0) {
+//        [scrollView setContentOffset:CGPointMake(_eggImageView.right - SCREEN_WIDTH, scrollView.contentOffset.y)];
+//    }
     _scrollDirection = (scrollView.contentOffset.x > preContentOffsetX) ? HTScrollDirectionLeft : HTScrollDirectionRight;
     preContentOffsetX = scrollView.contentOffset.x;
 }

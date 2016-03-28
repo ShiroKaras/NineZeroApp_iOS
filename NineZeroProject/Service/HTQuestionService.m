@@ -80,14 +80,16 @@
                     [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
                         if (success) {
                             _questionListSuccessful = [NSMutableArray array];
+                            int i = 0;
                             for (HTQuestion *question in questions) {
+                                i++;
                                 question.isPassed = NO;
-                                for (HTProfileAnswer *answer in profileInfo.answer_list) {
-                                    if (answer.qid == question.questionID) {
+//                                for (HTProfileAnswer *answer in profileInfo.answer_list) {
+                                    if (i % 3 == 0) {
                                         question.isPassed = YES;
                                         [_questionListSuccessful addObject:question];
                                     }
-                                }
+//                                }
                             }
                             callback(YES, questions);
                         } else {
@@ -124,6 +126,7 @@
 }
 
 - (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback {
+    
     NSString *user_id = [[HTStorageManager sharedInstance] getUserID];
     if (user_id.length == 0) {
         callback(false, nil);

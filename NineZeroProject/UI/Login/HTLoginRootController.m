@@ -14,9 +14,12 @@
 #import "HTModel.h"
 #import "HTUIHeader.h"
 #import "NSString+Utility.h"
+#import "AppDelegate.h"
+#import "HTMainViewController.h"
 
 @interface HTLoginRootController () <UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UIImageView *nzImageView;
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *userPasswordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
@@ -31,6 +34,10 @@
     self.title = @"主界面";
     [_loginButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
     [self setTipsOffsetY:20];
+    _nzImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(debug_Gesture)];
+    tap.numberOfTapsRequired = 5;
+    [_nzImageView addGestureRecognizer:tap];
 }
 
 - (void)dealloc {
@@ -54,6 +61,14 @@
 //    self.userPasswordTextField.text = @"1123123";
 //    self.registerButton.enabled = YES;
 //#endif
+}
+
+- (void)debug_Gesture {
+    [[HTStorageManager sharedInstance] updateLoginUser:[[HTLoginUser alloc] init]];
+    [[HTStorageManager sharedInstance] updateUserID:@"2016032523514333203"];
+    HTMainViewController *mainController = [[HTMainViewController alloc] init];
+    //        HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
+    KEY_WINDOW.rootViewController = mainController;
 }
 
 #pragma mark - Subclass

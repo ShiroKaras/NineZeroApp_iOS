@@ -179,7 +179,7 @@
     // end
     
     [self.requestSerializer willChangeValueForKey:@"timeoutInterval"];
-    self.requestSerializer.timeoutInterval = 10.f;
+    self.requestSerializer.timeoutInterval = 5.0;
     [self.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     
     
