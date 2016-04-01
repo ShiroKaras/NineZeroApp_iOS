@@ -680,6 +680,7 @@
 		17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A92CC81CA809B100BE893D /* UIScrollView+MJRefresh.m */; };
 		17A92CDD1CA809B100BE893D /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A92CCA1CA809B100BE893D /* UIView+MJExtension.m */; };
 		17A92CE01CA816A600BE893D /* HTAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A92CDF1CA816A600BE893D /* HTAlertView.m */; };
+		17A92CE21CAE9D6000BE893D /* libipsec.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17A92CE11CAE9D6000BE893D /* libipsec.tbd */; };
 		17AA63571C4AB85A0047BADF /* HTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA63561C4AB85A0047BADF /* HTMainViewController.m */; };
 		17AA63741C4ABC3D0047BADF /* HTMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */; };
 		17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA63771C4AC10A0047BADF /* HTMascotDisplayController.m */; };
@@ -1523,6 +1524,7 @@
 		17A92CCA1CA809B100BE893D /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		17A92CDE1CA816A600BE893D /* HTAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTAlertView.h; sourceTree = "<group>"; };
 		17A92CDF1CA816A600BE893D /* HTAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAlertView.m; sourceTree = "<group>"; };
+		17A92CE11CAE9D6000BE893D /* libipsec.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libipsec.tbd; path = usr/lib/libipsec.tbd; sourceTree = SDKROOT; };
 		17AA63551C4AB85A0047BADF /* HTMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMainViewController.h; sourceTree = "<group>"; };
 		17AA63561C4AB85A0047BADF /* HTMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMainViewController.m; sourceTree = "<group>"; };
 		17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTMainViewController.xib; sourceTree = "<group>"; };
@@ -1648,6 +1650,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17617F6A1BEFAE05000B2BFA /* Security.framework in Frameworks */,
+				17A92CE21CAE9D6000BE893D /* libipsec.tbd in Frameworks */,
 				178E7AF91C91EC4B00E4B84F /* Reveal.framework in Frameworks */,
 				176B75711C76264A0069DE89 /* AudioToolbox.framework in Frameworks */,
 				17617F621BEFADE8000B2BFA /* SystemConfiguration.framework in Frameworks */,
@@ -1656,7 +1660,6 @@
 				17617F801BEFB0FB000B2BFA /* MessageUI.framework in Frameworks */,
 				17617F6C1BEFAE0F000B2BFA /* libz.tbd in Frameworks */,
 				17617F7E1BEFB0EE000B2BFA /* libicucore.tbd in Frameworks */,
-				17617F6A1BEFAE05000B2BFA /* Security.framework in Frameworks */,
 				17617F681BEFADFF000B2BFA /* UIKit.framework in Frameworks */,
 				17617F661BEFADF8000B2BFA /* Foundation.framework in Frameworks */,
 				17617F641BEFADEF000B2BFA /* CoreGraphics.framework in Frameworks */,
@@ -3053,6 +3056,7 @@
 		26E633BCA682E11CD6C30957 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				17A92CE11CAE9D6000BE893D /* libipsec.tbd */,
 				178E7AF81C91EC4B00E4B84F /* Reveal.framework */,
 				176B75701C76264A0069DE89 /* AudioToolbox.framework */,
 				17617F831BEFB109000B2BFA /* libstdc++.tbd */,
@@ -4138,7 +4142,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/NineZeroProject/3rdSDK/SMS_SDK",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = NineZeroProject/Info.plist;
@@ -4199,8 +4202,6 @@
 					"\"MobileCoreServices\"",
 					"-framework",
 					"\"QuartzCore\"",
-					"-framework",
-					"\"SMS_SDK\"",
 					"-framework",
 					"\"Security\"",
 					"-framework",
@@ -4228,7 +4229,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/NineZeroProject/3rdSDK/SMS_SDK",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = NineZeroProject/Info.plist;
@@ -4289,8 +4289,6 @@
 					"\"MobileCoreServices\"",
 					"-framework",
 					"\"QuartzCore\"",
-					"-framework",
-					"\"SMS_SDK\"",
 					"-framework",
 					"\"Security\"",
 					"-framework",

@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "APService.h"
-#import <SMS_SDK/SMS_SDK.h>
 #import "HTLoginRootController.h"
 #import "HTServiceManager.h"
 #import "HTNavigationController.h"
@@ -29,7 +28,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self registerJPushWithLaunchOptions:launchOptions];
-    [self registerSMSService];
     [self registerQiniuService];
     
     [self createWindowAndVisible];
@@ -137,14 +135,6 @@
     if ([[HTStorageManager sharedInstance] getUserID]) {
         [APService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
     }
-}
-
-#pragma mark - SMS
-
-- (void)registerSMSService {
-    // SMS
-    [SMS_SDK registerApp:@"b805a16e1149" withSecret:@"054f27dedc33c58a97afb1781406678b"];
-    [SMS_SDK enableAppContactFriends:NO];
 }
 
 @end

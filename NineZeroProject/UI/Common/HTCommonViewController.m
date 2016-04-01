@@ -7,7 +7,6 @@
 //
 
 #import "HTCommonViewController.h"
-#import <SMS_SDK/SMS_SDK.h>
 #import "HTUIHeader.h"
 
 @interface HTCommonViewController ()

@@ -8,7 +8,6 @@
 
 #import "HTRegisterController.h"
 #import "UIViewController+ImagePicker.h"
-#import <SMS_SDK/SMS_SDK.h>
 #import "HTUIHeader.h"
 #import "HTLoginButton.h"
 #import "HTServiceManager.h"
@@ -54,7 +53,7 @@
 }
 
 - (void)needGetVerificationCode {
-    [SMS_SDK getVerificationCodeBySMSWithPhone:_loginUser.user_mobile zone:@"86" customIdentifier:nil result:nil];
+    [[[HTServiceManager sharedInstance] loginService] getMobileCode:_loginUser.user_mobile];
 }
 
 #pragma mark - Action
@@ -64,6 +63,7 @@
 }
 
 - (IBAction)nextButtonClicked:(UIButton *)sender {
+    [self.view endEditing:YES];
     _loginUser.code = self.verifyTextField.text;
     _loginUser.user_name = self.nickTextField.text;
     // 登录前混淆加密
@@ -74,7 +74,9 @@
     _loginUser.user_area_id = @"1";
     // end
     
+    [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser completion:^(BOOL success, HTResponsePackage *response) {
+        [HTProgressHUD dismiss];
         if (success) {
             if (response.resultCode == 0) {
                 HTMainViewController *controller = [[HTMainViewController alloc] init];

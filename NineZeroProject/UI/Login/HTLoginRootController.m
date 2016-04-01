@@ -94,8 +94,10 @@
         return;
     }
     _loginButton.enabled = NO;
+    [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] loginService] verifyMobile:self.userNameTextField.text completion:^(BOOL success, HTResponsePackage *response) {
         _loginButton.enabled = YES;
+        [HTProgressHUD dismiss];
         if (success) {
             if (response.resultCode == 0) {
                 HTLoginUser *loginUser = [[HTLoginUser alloc] init];

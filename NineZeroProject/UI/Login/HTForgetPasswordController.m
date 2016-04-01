@@ -8,7 +8,6 @@
 
 #import "HTForgetPasswordController.h"
 #import "HTResetPasswordController.h"
-#import <SMS_SDK/SMS_SDK.h>
 #import "HTUIHeader.h"
 
 @interface HTForgetPasswordController ()
@@ -37,7 +36,7 @@
 }
 
 - (void)needGetVerificationCode {
-    [SMS_SDK getVerificationCodeBySMSWithPhone:_firstTextField.text zone:@"86" customIdentifier:nil result:nil];
+    [[[HTServiceManager sharedInstance] loginService] getMobileCode:_loginUser.user_mobile];
 }
 
 #pragma mark - Action

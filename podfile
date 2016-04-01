@@ -10,7 +10,6 @@ target 'NineZeroProject' do
   pod 'YTKNetwork'
   pod 'Qiniu', "~> 7.0"
   pod 'JPush', '~> 1.8.5'
-  pod 'SMS-For-iOS', '~> 1.0.9'
   pod 'MBProgressHUD+BWMExtension', '~> 1.0.0'
   pod 'MJExtension'
   pod 'Masonry', '~> 0.6.2'
