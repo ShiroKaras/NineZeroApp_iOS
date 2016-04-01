@@ -36,6 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
            completion:(HTResponseCallback)callback;
 
 /**
+ *  @brief 获取验证码
+ */
+- (void)getMobileCode:(NSString *)mobile;
+
+/**
  *  @brief 重置密码
  */
 - (void)resetPasswordWithUser:(HTLoginUser *)user

@@ -44,6 +44,7 @@
     loginUser.user_password = self.passwordTextField.text;
     loginUser.user_password = [NSString confusedPasswordWithLoginUser:loginUser];
     
+    [self.view endEditing:YES];
     [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] loginService] loginWithUser:loginUser completion:^(BOOL success, HTResponsePackage *response) {
         [HTProgressHUD dismiss];

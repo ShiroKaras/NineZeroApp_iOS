@@ -42,6 +42,12 @@
 + (NSString *)userBaseVerifyMobileCGIKey;
 
 /**
+ *  @brief 获取手机验证码
+ *  "user_mobile" : "11111111111"
+ */
++ (NSString *)sendMobileCodeCGIKey;
+
+/**
  * @brief 登录
  1. {
  2. "user_name":"90",

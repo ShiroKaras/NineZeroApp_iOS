@@ -67,6 +67,15 @@
     }];
 }
 
+- (void)getMobileCode:(NSString *)mobile {
+    if (mobile.length == 0) return;
+    NSDictionary *dict = @{ @"mobile" : mobile };
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager sendMobileCodeCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    }];
+}
+
 - (void)getQiniuPublicTokenWithCompletion:(HTGetTokenCallback)callback {
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQiniuPublicUploadTokenCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);

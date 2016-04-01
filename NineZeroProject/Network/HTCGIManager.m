@@ -21,6 +21,10 @@
     return [NSString stringWithFormat:@"%@Login/login/", NETWORK_HOST];
 }
 
++ (NSString *)sendMobileCodeCGIKey {
+    return [NSString stringWithFormat:@"%@Login/sendCode/", NETWORK_HOST];
+}
+
 + (NSString *)userBaseResetPwdCGIKey {
     return [NSString stringWithFormat:@"%@Login/reset/", NETWORK_HOST];
 }
