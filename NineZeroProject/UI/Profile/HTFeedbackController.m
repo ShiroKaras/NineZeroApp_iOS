@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"反馈意见";
-    self.view.backgroundColor = COMMON_BG_COLOR;
+    self.view.backgroundColor = [UIColor blackColor];
     self.submitButton.enabled = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChanged:) name:UITextFieldTextDidChangeNotification object:nil];

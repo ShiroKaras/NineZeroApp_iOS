@@ -81,7 +81,6 @@
 
 - (void)createWindowAndVisible {
     if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
-        [[HTStorageManager sharedInstance] updateUserID:@"2016032523514333203"];
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _mainController = [[HTMainViewController alloc] init];
 //        HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];

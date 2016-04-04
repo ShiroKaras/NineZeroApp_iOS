@@ -251,7 +251,6 @@
             NSMutableArray<HTRanker *> *rankers = [NSMutableArray array];
             for (NSDictionary *dataDict in rsp.data) {
                 HTRanker *ranker = [HTRanker objectWithKeyValues:dataDict];
-                ranker.gold = MAX(1500, ranker.gold);
                 [rankers addObject:ranker];
             }
             callback(true, rankers);

@@ -39,6 +39,8 @@
 @property (nonatomic, assign) CGRect animatedToFrame;
 @property (nonatomic, strong) UIView *snapCell;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nickNameBottonConstraint;
+
 @end
 
 @implementation HTProfileRootController
@@ -46,7 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-        self.AvatarTopConstraint.   constant = 63;
+        self.AvatarTopConstraint.constant = 63;
     } else if (SCREEN_WIDTH ==IPHONE6_SCREEN_WIDTH) {
         self.AvatarTopConstraint.constant = 100;
     } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {

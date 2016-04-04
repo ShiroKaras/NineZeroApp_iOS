@@ -57,6 +57,8 @@
         _careTip1 = [self commonStyleLabel];
         _careTip2 = [self commonStyleLabel];
         _careTip3 = [self commonStyleLabel];
+        _careTip3.numberOfLines = 0;
+        _careTip3.lineBreakMode = NSLineBreakByCharWrapping;
     }
     return self;
 }
@@ -72,7 +74,7 @@
     _careTipLabel.text = @"注意事项：";
     _careTip1.text = @"1.本活动仅限本人；";
     _careTip2.text = @"2.如有疑问，请联系客服；";
-    _careTip3.text = @"3.最终解释权归深圳九零九五网络科技";
+    _careTip3.text = @"3.最终解释权归深圳九零九五网络科技公司所有；";
     [self setNeedsDisplay];
 }
 
@@ -89,7 +91,8 @@
     _careTipLabel.frame = CGRectMake(leftMargin, _codeLabel.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
     _careTip1.frame = CGRectMake(leftMargin, _careTipLabel.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
     _careTip2.frame = CGRectMake(leftMargin, _careTip1.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
-    _careTip3.frame = CGRectMake(leftMargin, _careTip2.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    [_careTip3 sizeToFit];
+    _careTip3.frame = CGRectMake(leftMargin, _careTip2.bottom + labelVerticalMargin, self.width - 2 * leftMargin, _careTip3.height);
     self.contentSize = CGSizeMake(self.width, _careTip3.bottom + labelVerticalMargin);
     _coverView.frame = CGRectMake(0, 0, self.width, self.contentSize.height);
 }
@@ -220,7 +223,7 @@
 
 - (void)setProp:(HTMascotProp *)prop {
     _prop = prop;
-    [_webView loadHTMLString:[self htmlStringWithContent:@"这次的开放是内因。来自边缘广州的微信，如新星般冉冉升起。同样实现5亿用户，微信用了4年，而QQ用了十几年。你可以说这是互联网指数级发展的结果，也可以说微信是专为移动而生的产品。所幸，命运依旧青睐QQ，他们把时代的机遇给了微信，但是把年轻人群再次给到了QQ。腾讯即通应用部的总经理张孝超说，使用手机QQ的用户，超过半成以上是90后和00后用户。这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品"] baseURL:nil];
+    [_webView loadHTMLString:[self htmlStringWithContent:prop.prop_desc] baseURL:nil];
     [_imageView sd_setImageWithURL:[NSURL URLWithString:prop.prop_pic] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
     if (prop && prop.used) {
         _exchangeButton.backgroundColor = [UIColor colorWithHex:0x545454];

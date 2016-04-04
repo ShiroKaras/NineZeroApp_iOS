@@ -128,7 +128,7 @@ typedef enum : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.backgroundColor = COMMON_BG_COLOR;
+    self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     
@@ -159,6 +159,7 @@ typedef enum : NSUInteger {
         HTProfileSettingTextCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingTextCell class]) forIndexPath:indexPath];
         [cell setDetailTitleText:@"修改昵称"];
         [cell setTitleText:_userInfo.user_name];
+        [cell setTitleColor:COMMON_GREEN_COLOR];
         return cell;
     } else if (type == HTProfileSettingTypeBlank) {
         HTProfileSettingBlankCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingBlankCell class]) forIndexPath:indexPath];
@@ -174,6 +175,7 @@ typedef enum : NSUInteger {
         HTProfileSettingTextCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingTextCell class]) forIndexPath:indexPath];
         [cell showAccessoryArrow:NO];
         [cell setDetailTitleText:@"v1.0"];
+        [cell setTitleColor:[UIColor whiteColor]];
         [cell setTitleText:[self titleWithIndexPath:indexPath]];
         return cell;
     } else if (type == HTProfileSettingTypeQuitLogin) {
@@ -182,6 +184,7 @@ typedef enum : NSUInteger {
     } else {
         HTProfileSettingTextCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingTextCell class]) forIndexPath:indexPath];
         [cell setTitleText:[self titleWithIndexPath:indexPath]];
+        [cell setTitleColor:[UIColor whiteColor]];
         return cell;
     }
     return [[UITableViewCell alloc] init];

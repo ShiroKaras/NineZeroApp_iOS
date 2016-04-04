@@ -32,17 +32,6 @@
 - (instancetype)initWithMascot:(HTMascot *)mascot {
     if (self = [super init]) {
         _mascot = mascot;
-        _mascot.mascotDescription = @"大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍大麻仔的介绍";
-        NSMutableArray *articles = [NSMutableArray array];
-        for (int i = 0; i != 10; i++) {
-            HTArticle *article = [[HTArticle alloc] init];
-            article.time = time(NULL) - 10000;
-            article.article_content = @"文章标题文章标题文章标题";
-            article.articleTitle = @"文章标题文章标题文章标题";
-            article.mascotID = 1;
-            [articles addObject:article];
-        }
-        _mascot.article_list = articles;
     }
     return self;
 }

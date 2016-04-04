@@ -98,7 +98,7 @@
     _imageView = [[UIImageView alloc] init];
     [_scrollView addSubview:_imageView];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:@"http://7xryb0.com1.z0.glb.clouddn.com/2_1458319408.gif"]];
+        UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:@"http://ww2.sinaimg.cn/large/7cefdfa5jw1dskejdmiaog.gif"]];
         _imageView.image = gifImage;
         [_imageView startAnimating];
     });

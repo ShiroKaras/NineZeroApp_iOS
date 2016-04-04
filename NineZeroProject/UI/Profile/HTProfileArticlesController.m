@@ -22,7 +22,7 @@
     [super viewDidLoad];
     
     self.navigationItem.leftBarButtonItem = [HTUIHelper commonLeftBarItem];
-    self.tableView.backgroundColor = COMMON_BG_COLOR;
+    self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.title = @"往期文章";
     

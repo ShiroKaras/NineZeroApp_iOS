@@ -65,9 +65,10 @@
     _numberCircleView.centerX = self.width / 2;
     _numberCircleView.top = 27;
     _numberLabel.center = _numberCircleView.center;
+    _numberLabel.top = _numberLabel.top + 2;
     _tipImageView.top = _numberCircleView.bottom + 8;
     _tipImageView.centerX = self.width / 2 - _coinNumberLabel.width / 2;
-    _coinNumberLabel.left = _tipImageView.right + 2;
+    _coinNumberLabel.left = _tipImageView.right + 0.5;
     _coinNumberLabel.centerY = _tipImageView.centerY;
     _progressView.size = CGSizeMake(181, 10);
     _progressView.centerX = self.width / 2;
@@ -92,7 +93,7 @@
     self.title = @"获得勋章";
 
     self.profileInfo = [[HTStorageManager sharedInstance] profileInfo];
-//    self.profileInfo.gold = @"10";
+
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.headerReferenceSize = CGSizeMake(self.view.width, 160);
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -105,24 +106,14 @@
     [_collectionView registerClass:[HTProfileBadgeCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([HTProfileBadgeCollectionCell class])];
     [_collectionView registerClass:[HTBadgeHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader  withReuseIdentifier:NSStringFromClass([HTBadgeHeaderView class])];
     
-//    [HTProgressHUD show];
-//    [[[HTServiceManager sharedInstance] profileService] getBadges:^(BOOL success, NSArray<HTBadge *> *badges) {
-//        [HTProgressHUD dismiss];
-//        if (success) {
-//            self.badges = badges;
-//            [_collectionView reloadData];
-//        }
-//    }];
-    NSMutableArray<HTBadge *> *badges = [NSMutableArray array];
-    for (int i = 0; i != 10; i++) {
-        HTBadge *badge = [[HTBadge alloc] init];
-        badge.medal_id = 1;
-        badge.medal_name = @"测试勋章";
-        badge.medal_description = @"呵呵呵呵呵呵呵";
-        if (i == 0)  badge.have = YES;
-        [badges addObject:badge];
-    }
-    _badges = badges;
+    [HTProgressHUD show];
+    [[[HTServiceManager sharedInstance] profileService] getBadges:^(BOOL success, NSArray<HTBadge *> *badges) {
+        [HTProgressHUD dismiss];
+        if (success) {
+            self.badges = badges;
+            [_collectionView reloadData];
+        }
+    }];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -160,7 +151,6 @@
         CGFloat progress = 1 - (targetLevel - [self.profileInfo.gold integerValue]) / (targetLevel - [[[self badgeLevels] objectAtIndex:badgeLevel - 1] floatValue]);
         [view.progressView setProgress:progress];
     }
-    [view.progressView setProgress:0.5];
     return view;
 }
 

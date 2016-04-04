@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HTFeedbackController">
@@ -72,6 +72,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="0zg-7j-YVR"/>
                     </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="提交">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -92,6 +93,9 @@
                         <outlet property="delegate" destination="-1" id="arv-Nb-HJu"/>
                     </connections>
                 </textView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="setting_feedback_deco" translatesAutoresizingMaskIntoConstraints="NO" id="bbK-b6-wNV">
+                    <rect key="frame" x="281" y="258" width="32" height="24"/>
+                </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_setting_feedback_staff" translatesAutoresizingMaskIntoConstraints="NO" id="15a-XL-3f5">
                     <rect key="frame" x="78" y="240" width="35" height="35"/>
                 </imageView>
@@ -106,6 +110,7 @@
                 <constraint firstItem="yuN-J3-nDF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="L3T-rH-uDw"/>
                 <constraint firstItem="O5Q-PD-rck" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="NUX-ZN-rz8"/>
                 <constraint firstItem="pG4-i2-HOC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="OyJ-rS-SPL"/>
+                <constraint firstAttribute="trailing" secondItem="bbK-b6-wNV" secondAttribute="trailing" constant="13" id="RXP-yL-iMZ"/>
                 <constraint firstItem="QhA-fC-oDJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="V5f-c6-HXf"/>
                 <constraint firstItem="SkZ-Ig-bd3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WHx-Da-KWZ"/>
                 <constraint firstItem="QhA-fC-oDJ" firstAttribute="top" secondItem="Pbq-P3-qFa" secondAttribute="bottom" constant="1" id="Z8x-6V-leA"/>
@@ -118,6 +123,7 @@
                 <constraint firstItem="Pbq-P3-qFa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="hPW-wo-UqX"/>
                 <constraint firstItem="yuN-J3-nDF" firstAttribute="top" secondItem="Krc-3j-VPD" secondAttribute="bottom" id="iZQ-XN-T0J"/>
                 <constraint firstAttribute="trailing" secondItem="yuN-J3-nDF" secondAttribute="trailing" constant="16" id="jBY-OX-IhE"/>
+                <constraint firstItem="bbK-b6-wNV" firstAttribute="top" secondItem="pG4-i2-HOC" secondAttribute="bottom" constant="12" id="kBX-7y-t0c"/>
                 <constraint firstItem="pG4-i2-HOC" firstAttribute="top" secondItem="xAG-3T-Sxu" secondAttribute="bottom" constant="12" id="ly0-CA-TzW"/>
                 <constraint firstItem="xAG-3T-Sxu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="sJw-2h-pw5"/>
                 <constraint firstAttribute="trailing" secondItem="Pbq-P3-qFa" secondAttribute="trailing" constant="12" id="vvd-aM-29o"/>
@@ -135,5 +141,6 @@
     </objects>
     <resources>
         <image name="img_setting_feedback_staff" width="35" height="35"/>
+        <image name="setting_feedback_deco" width="32" height="24"/>
     </resources>
 </document>

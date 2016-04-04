@@ -52,6 +52,12 @@
     CGFloat badgeWidth = 87;
     _badgeImageView.frame = CGRectMake(self.width / 2 - badgeWidth / 2 , 14, badgeWidth, badgeWidth);
     _tipLabel.frame = CGRectMake(0, _badgeImageView.bottom + 8, self.width, _tipLabel.height);
+    // 调整位置
+    CGFloat totalHeight = _tipLabel.bottom - _badgeImageView.top;
+    CGFloat supposedOffsetY = (self.height - totalHeight) / 2;
+    _badgeImageView.top = supposedOffsetY;
+    _tipLabel.top = _badgeImageView.bottom + 8;
+    // end
     
     self.layer.cornerRadius = 5;
     self.layer.masksToBounds = YES;

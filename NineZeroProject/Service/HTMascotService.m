@@ -72,7 +72,7 @@
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getRewardCGIKey] parameters:paraDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
-        callback(true, rsp);
+//        callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
     }];

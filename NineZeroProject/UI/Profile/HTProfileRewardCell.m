@@ -10,7 +10,7 @@
 #import "HTUIHeader.h"
 #import "HTRewardCard.h"
 
-CGFloat cardHeight = 143.5;
+CGFloat cardHeight = 143;
 
 @interface HTProfileRewardCell ()
 @property (nonatomic, strong) HTTicketCard *card;

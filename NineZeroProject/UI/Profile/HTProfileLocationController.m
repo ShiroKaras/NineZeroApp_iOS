@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = COMMON_BG_COLOR;
+    self.view.backgroundColor = [UIColor blackColor];
     self.title = @"管理地址";
     self.mobileTextField.text = _userInfo.mobile;
     self.locationTextField.text = _userInfo.address;
@@ -56,10 +56,11 @@
     _userInfo.address = self.locationTextField.text;
     _userInfo.settingType = HTUpdateUserInfoTypeAddressAndMobile;
     
-    [MBProgressHUD bwm_showHUDAddedTo:self.navigationController.view title:@"修改中"];
+    [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] profileService] updateUserInfo:_userInfo completion:^(BOOL success, HTResponsePackage *response) {
-        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+        [HTProgressHUD dismiss];
         if (success) {
+            [MBProgressHUD bwm_showTitle:@"修改成功" toView:self.navigationController.view hideAfter:1.0];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }];
