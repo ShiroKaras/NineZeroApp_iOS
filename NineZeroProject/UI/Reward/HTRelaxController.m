@@ -8,6 +8,7 @@
 
 #import "HTRelaxController.h"
 #import "HTUIHeader.h"
+#import <UIImage+animatedGIF.h>
 
 @interface HTRelaxController () {
     UIVisualEffectView *_visualEfView;
@@ -25,6 +26,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *textTopLabel;
 @property (weak, nonatomic) IBOutlet UILabel *textBottomLabel;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
+
+@property (weak, nonatomic) IBOutlet UIImageView *gifImageView;
+
 
 @end
 
@@ -64,6 +68,20 @@
                                                                        error:&jsonError];
             _endTime = time(NULL) + [dataDict[@"date"] integerValue];
             if (contentType == 0) {
+                // 文章
+                [self hideGIFTips];
+                [self hideMovieTips];
+            } else if (contentType == 1) {
+                // 零仔gif链接
+                [self hideMovieTips];
+                [self hideTextTips];
+                UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:jsonDict[@"pic_url"]]];
+                _gifImageView.image = gifImage;
+                [_gifImageView startAnimating];
+            } else if (contentType == 2) {
+                // 视频url链接和食品标题
+                [self hideGIFTips];
+                [self hideTextTips];
                 
             }
         }
@@ -103,6 +121,17 @@
     self.textTopLabel.hidden = YES;
     self.textBottomLabel.hidden = YES;
     self.moreButton.hidden = YES;    
+}
+
+- (void)hideMovieTips {
+    self.movieCover.hidden = YES;
+    self.moviePlay.hidden = YES;
+    self.moreButton.height = YES;
+    self.movieTitle.hidden = YES;
+}
+
+- (void)hideGIFTips {
+    self.gifImageView.hidden = YES;
 }
 
 #pragma mark - Action

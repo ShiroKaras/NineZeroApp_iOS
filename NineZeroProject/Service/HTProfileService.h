@@ -74,4 +74,8 @@ typedef NS_ENUM(NSUInteger, HTUpdateUserInfoType) {
  *  @brief 获取排名列表
  */
 - (void)getRankList:(HTGetRankListCallback)callback;
+/**
+ *  @brief 收藏文章
+ */
+- (void)collectArticleWithArticleID:(NSUInteger)articleID completion:(HTResponseCallback)callback;
 @end

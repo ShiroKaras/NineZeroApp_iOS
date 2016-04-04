@@ -119,7 +119,15 @@
 }
 
 - (void)onClickLikeButton {
-
+    [HTProgressHUD show];
+    [[[HTServiceManager sharedInstance] profileService] collectArticleWithArticleID:self.article.articleID completion:^(BOOL success, HTResponsePackage *response) {
+        [HTProgressHUD dismiss];
+        if (success && response.resultCode == 0) {
+            [MBProgressHUD bwm_showTitle:@"收藏成功" toView:self.view hideAfter:1.0];
+        } else {
+            [self showTipsWithText:response.resultMsg];
+        }
+    }];
 }
 
 @end

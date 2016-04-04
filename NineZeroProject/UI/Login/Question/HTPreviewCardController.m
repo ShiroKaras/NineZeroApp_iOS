@@ -119,12 +119,13 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             [APService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
         }
         
-//        [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
-//            if (success && response.resultCode == 0) {
-//                HTRelaxController *relaxController = [[HTRelaxController alloc] init];
-//                [self presentViewController:relaxController animated:NO completion:nil];
-//            }
-//        }];
+        [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
+            NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
+            if (success && response.resultCode == 0 && [dictData isEqualToString:@"1"]) {
+                HTRelaxController *relaxController = [[HTRelaxController alloc] init];
+                [self presentViewController:relaxController animated:NO completion:nil];
+            }
+        }];
         
         _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_timeView];

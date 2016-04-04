@@ -149,4 +149,8 @@
     return [NSString stringWithFormat:@"%@User/getAllRank", NETWORK_HOST];
 }
 
++ (NSString *)collectArticleCGIKey {
+    return [NSString stringWithFormat:@"%@Article/collectArticle", NETWORK_HOST];
+}
+
 @end

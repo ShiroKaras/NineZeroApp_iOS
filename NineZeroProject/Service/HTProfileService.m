@@ -262,4 +262,18 @@
     }];
 }
 
+- (void)collectArticleWithArticleID:(NSUInteger)articleID completion:(HTResponseCallback)callback {
+    if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
+    NSDictionary *dict = @{@"user_id" : [[HTStorageManager sharedInstance] getUserID],
+                           @"article_id" : @(articleID)};
+    
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager collectArticleCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@",responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        callback(true, rsp);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(false, nil);
+    }];
+}
+
 @end

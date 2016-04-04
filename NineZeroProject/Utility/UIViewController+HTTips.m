@@ -12,6 +12,7 @@
 
 @implementation UIViewController (HTTips)
 - (void)showTipsWithText:(NSString *)text {
+    if (text.length == 0) text = @"操作失败";
     UIView *tipsBackView = [[UIView alloc] init];
     tipsBackView.backgroundColor = COMMON_PINK_COLOR;
     tipsBackView.hidden = YES;

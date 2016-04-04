@@ -10,6 +10,8 @@
 #import "HTUIHeader.h"
 #import "HTMascotArticleCell.h"
 #import "MJRefresh.h"
+#import "HTProfileArticlesController.h"
+#import "HTArticleController.h"
 
 @interface HTCollectionController ()
 @property (nonatomic, strong) NSArray<HTArticle *> *articles;
@@ -83,6 +85,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 110;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    HTArticleController *controller = [[HTArticleController alloc] init];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)loadMoreData {

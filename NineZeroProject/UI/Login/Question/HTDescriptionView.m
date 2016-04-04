@@ -165,8 +165,7 @@
             _webView.opaque = NO;
             _webView.backgroundColor = [UIColor clearColor];
             _webView.scrollView.backgroundColor = [UIColor clearColor];
-            NSString *content = @"这次的开放是内因。来自边缘广州的微信，如新星般冉冉升起。同样实现5亿用户，微信用了4年，而QQ用了十几年。你可以说这是互联网指数级发展的结果，也可以说微信是专为移动而生的产品。所幸，命运依旧青睐QQ，他们把时代的机遇给了微信，但是把年轻人群再次给到了QQ。腾讯即通应用部的总经理张孝超说，使用手机QQ的用户，超过半成以上是90后和00后用户。这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20这意味着，QQ与微信成为差异化社交产品，大多数人同时拥有这两款社交工具，但深度使用者的重复率可能不超过20。";
-            NSString *htmlString = [NSString stringWithFormat:@"<html><body font-family: '-apple-system','HelveticaNeue'; style=\"line-height:24px; font-size:13px\" text=\"#d9d9d9\" bgcolor=\"#1f1f1f\"><span style=\"font-family: \'-apple-system\',\'HelveticaNeue\';\">%@</span></body></html>", content];
+            NSString *htmlString = [NSString stringWithFormat:@"<html><body font-family: '-apple-system','HelveticaNeue'; style=\"line-height:24px; font-size:13px\" text=\"#d9d9d9\" bgcolor=\"#1f1f1f\"><span style=\"font-family: \'-apple-system\',\'HelveticaNeue\';\">%@</span></body></html>", urlString];
             [_webView loadHTMLString:htmlString baseURL: nil];
             _webView.delegate = self;
             NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
@@ -209,6 +208,7 @@
 }
 
 - (void)showAnimated {
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     UIView *parentView = [self superview];
     self.frame = parentView.bounds;
     self.alpha = 0;
@@ -218,7 +218,9 @@
         _dimmingView.top = 0;
         self.top = 0;
         self.alpha = 1.0;
-    } completion:nil];
+    } completion:^(BOOL finished) {
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    }];
 }
 
 - (void)setProp:(HTMascotProp *)prop {

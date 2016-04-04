@@ -170,11 +170,15 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     HTDescriptionView *descriptionView = [[HTDescriptionView alloc] initWithURLString:nil andType:HTDescriptionTypeBadge];
     HTBadge *badge = self.badges[indexPath.row];
     [descriptionView setBadge:badge];
     [KEY_WINDOW addSubview:descriptionView];
     [descriptionView showAnimated];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    });
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
