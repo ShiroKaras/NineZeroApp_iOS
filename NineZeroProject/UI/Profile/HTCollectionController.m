@@ -2,8 +2,8 @@
 //  HTCollectionController.m
 //  NineZeroProject
 //
-//  Created by ronhu on 16/2/29.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  Created by HHHHTTTT on 16/2/29.
+//  Copyright © 2016年 HHHHTTTT. All rights reserved.
 //
 
 #import "HTCollectionController.h"
@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"收藏文章";
-    self.tableView.backgroundColor = COMMON_BG_COLOR;
+    self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
@@ -41,7 +41,7 @@
             MJRefreshAutoGifFooter *footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
             NSMutableArray<UIImage *> *refreshingImages = [NSMutableArray array];
             for (int i = 0; i != 3; i++) {
-                UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"list_view_loader_%d", (i + 1)]];
+                UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"list_view_loader_grey_%d", (i + 1)]];
                 [refreshingImages addObject:image];
             }
             [footer setImages:refreshingImages duration:1.0 forState:MJRefreshStateRefreshing];

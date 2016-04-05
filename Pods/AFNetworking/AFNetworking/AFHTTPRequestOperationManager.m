@@ -169,7 +169,7 @@
 {
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithHTTPMethod:@"POST" URLString:URLString parameters:parameters success:success failure:failure];
 
-    // add by ronhu
+    // add by HHHHTTTT
     operation.securityPolicy.allowInvalidCertificates = YES;
 //    self.requestSerializer = [AFJSONRequestSerializer serializer];
 //    [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-type"];

@@ -2,8 +2,8 @@
 //  HTCardCollectionCell.m
 //  NineZeroProject
 //
-//  Created by ronhu on 16/3/7.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  Created by HHHHTTTT on 16/3/7.
+//  Copyright © 2016年 HHHHTTTT. All rights reserved.
 //
 
 #import "HTCardCollectionCell.h"
@@ -53,6 +53,7 @@
     
         // 2.1 封面
         _coverImageView = [[UIImageView alloc] init];
+        _coverImageView.userInteractionEnabled = NO;
         [_playBackView addSubview:_coverImageView];
         
         // 2.2 播放按钮
@@ -143,8 +144,12 @@
 }
 
 - (void)onClickPlayBackView {
-    [self pause];
-    [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypePause];
+    if ((self.player.rate != 0) && (self.player.error == nil)) {
+        [self pause];
+        [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypePause];
+    } else {
+        [self play];
+    }
 }
 
 - (void)setSoundHidden:(BOOL)soundHidden {
@@ -261,7 +266,7 @@
 }
 
 - (void)pause {
-    _playButton.hidden = NO;
+    _playButton.hidden = YES;
     _pauseImageView.hidden = NO;
     [_player pause];
 }

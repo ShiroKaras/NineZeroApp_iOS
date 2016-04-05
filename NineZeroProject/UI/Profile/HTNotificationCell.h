@@ -2,8 +2,8 @@
 //  HTNotificationCell.h
 //  NineZeroProject
 //
-//  Created by ronhu on 16/2/29.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  Created by HHHHTTTT on 16/2/29.
+//  Copyright © 2016年 HHHHTTTT. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

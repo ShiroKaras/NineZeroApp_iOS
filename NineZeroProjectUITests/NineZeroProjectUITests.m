@@ -2,8 +2,8 @@
 //  NineZeroProjectUITests.m
 //  NineZeroProjectUITests
 //
-//  Created by ronhu on 15/11/2.
-//  Copyright © 2015年 ronhu. All rights reserved.
+//  Created by HHHHTTTT on 15/11/2.
+//  Copyright © 2015年 HHHHTTTT. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>

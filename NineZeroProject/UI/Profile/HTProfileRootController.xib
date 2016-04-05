@@ -203,28 +203,24 @@
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="38S-V4-B3u">
                     <rect key="frame" x="133" y="202" width="164" height="62"/>
                     <connections>
-                        <action selector="didClickCoin:" destination="-1" eventType="touchUpInside" id="AXX-ZY-Fh0"/>
                         <action selector="didClickRank:" destination="-1" eventType="touchUpInside" id="ngP-oC-tdK"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ak-df-m8L">
                     <rect key="frame" x="296" y="203" width="133" height="62"/>
                     <connections>
-                        <action selector="didClickCoin:" destination="-1" eventType="touchUpInside" id="dmi-uv-ur4"/>
                         <action selector="didClickMedal:" destination="-1" eventType="touchUpInside" id="OeL-Cc-K69"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iw-uZ-BqK">
                     <rect key="frame" x="0.0" y="265" width="213.5" height="62"/>
                     <connections>
-                        <action selector="didClickCoin:" destination="-1" eventType="touchUpInside" id="nfM-tm-cDv"/>
                         <action selector="didClickCollectionArticle:" destination="-1" eventType="touchUpInside" id="PUj-WN-d5a"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jKU-Uo-Q29">
                     <rect key="frame" x="213.5" y="265" width="215.5" height="62"/>
                     <connections>
-                        <action selector="didClickCoin:" destination="-1" eventType="touchUpInside" id="SJ4-9G-Pus"/>
                         <action selector="didClickReward:" destination="-1" eventType="touchUpInside" id="Vhb-BD-SDW"/>
                     </connections>
                 </button>

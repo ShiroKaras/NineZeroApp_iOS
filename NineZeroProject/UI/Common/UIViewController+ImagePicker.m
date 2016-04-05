@@ -2,8 +2,8 @@
 //  UIViewController+ImagePicker.m
 //  NineZeroProject
 //
-//  Created by ronhu on 15/11/22.
-//  Copyright © 2015年 ronhu. All rights reserved.
+//  Created by HHHHTTTT on 15/11/22.
+//  Copyright © 2015年 HHHHTTTT. All rights reserved.
 //
 
 #import "UIViewController+ImagePicker.h"

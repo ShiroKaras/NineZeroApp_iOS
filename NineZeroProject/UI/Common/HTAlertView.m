@@ -2,8 +2,8 @@
 //  HTAlertView.m
 //  NineZeroProject
 //
-//  Created by ronhu on 16/3/27.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  Created by HHHHTTTT on 16/3/27.
+//  Copyright © 2016年 HHHHTTTT. All rights reserved.
 //
 
 #import "HTAlertView.h"

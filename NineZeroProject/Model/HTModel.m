@@ -2,8 +2,8 @@
 //  HTModel.m
 //  NineZeroProject
 //
-//  Created by ronhu on 15/12/7.
-//  Copyright © 2015年 ronhu. All rights researrayed.
+//  Created by HHHHTTTT on 15/12/7.
+//  Copyright © 2015年 HHHHTTTT. All rights researrayed.
 //
 
 #import "HTModel.h"

@@ -2,8 +2,8 @@
 //  HTProfileBadgeController.m
 //  NineZeroProject
 //
-//  Created by ronhu on 16/3/12.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  Created by HHHHTTTT on 16/3/12.
+//  Copyright © 2016年 HHHHTTTT. All rights reserved.
 //
 
 #import "HTProfileBadgeController.h"
@@ -26,6 +26,11 @@
     if (self = [super initWithFrame:frame]) {
         
         _headerBackView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_badge_cover"]];
+        if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+            _headerBackView.image = [UIImage imageNamed:@"img_profile_badge_cover_750x375"];
+        } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+            _headerBackView.image = [UIImage imageNamed:@"img_profile_badge_cover_1242x621"];
+        }
         [self addSubview:_headerBackView];
         
         _numberCircleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_badge_cover_circle"]];

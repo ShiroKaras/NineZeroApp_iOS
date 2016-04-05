@@ -2,8 +2,8 @@
 //  HTPreviewCardController.m
 //  NineZeroProject
 //
-//  Created by ronhu on 16/3/6.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  Created by HHHHTTTT on 16/3/6.
+//  Copyright © 2016年 HHHHTTTT. All rights reserved.
 //
 
 #import "HTPreviewCardController.h"
@@ -129,7 +129,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         
         _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_timeView];
-        
         _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
     } else if (_cardType == HTPreviewCardTypeRecord) {
         questionList = [[[[HTServiceManager sharedInstance] questionService] questionListSuccessful] mutableCopy];
@@ -163,7 +162,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [self.view addSubview:_collectionView];
     [self.collectionView addSubview:_eggImageView];
     
-    // 4. 左上角章节
+    // 3. 左上角章节
     _chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_chapter"]];
     [self.view addSubview:_chapterImageView];
     
@@ -188,7 +187,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         }
     };
     
-    // 5.关闭按钮
+    // 4.关闭按钮
     if (_cardType == HTPreviewCardTypeRecord) {
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_closeButton setImage:[UIImage imageNamed:@"btn_fullscreen_close"] forState:UIControlStateNormal];
@@ -225,6 +224,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     
     _chapterImageView.left = 30;
     _chapterImageView.top = ROUND_HEIGHT_FLOAT(62);
+    if (SCREEN_WIDTH > IPHONE5_SCREEN_WIDTH) {
+        _chapterImageView.top = _chapterImageView.top + 3;
+    }
     _chapterLabel.top = _chapterImageView.top + 6.5;
     _chapterLabel.right = _chapterImageView.left + 46;
     
@@ -462,6 +464,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     static CGFloat preContentOffsetX = 0.0;
     if (scrollView.contentOffset.x + SCREEN_WIDTH >= _eggImageView.right && preContentOffsetX != 0) {
         [scrollView setContentOffset:CGPointMake(_eggImageView.right - SCREEN_WIDTH, scrollView.contentOffset.y)];
+        // TODO:添加彩蛋Cover
     }
     _scrollDirection = (scrollView.contentOffset.x > preContentOffsetX) ? HTScrollDirectionLeft : HTScrollDirectionRight;
     preContentOffsetX = scrollView.contentOffset.x;

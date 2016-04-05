@@ -2,8 +2,8 @@
 //  HTProgressHUD.m
 //  NineZeroProject
 //
-//  Created by ronhu on 16/3/24.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  Created by HHHHTTTT on 16/3/24.
+//  Copyright © 2016年 HHHHTTTT. All rights reserved.
 //
 
 #import "HTProgressHUD.h"
@@ -57,6 +57,7 @@
 
 - (void)showAnimated {
     _needShow = YES;
+    [self.superview endEditing:YES];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (_needShow) {
             [_imageView startAnimating];

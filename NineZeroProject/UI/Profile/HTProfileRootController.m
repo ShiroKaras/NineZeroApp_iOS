@@ -2,8 +2,8 @@
 //  HTProfileRootController.m
 //  NineZeroProject
 //
-//  Created by ronhu on 16/2/28.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  Created by HHHHTTTT on 16/2/28.
+//  Copyright © 2016年 HHHHTTTT. All rights reserved.
 //
 
 #import "HTProfileRootController.h"
@@ -17,6 +17,8 @@
 #import "HTUIHeader.h"
 #import "HTPreviewCardController.h"
 #import "HTCardCollectionCell.h"
+//#import "HTArticleController.h"
+#import "HTWebController.h"
 
 @interface HTProfileRootController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTProfileRecordCellDelegate, HTPreviewCardControllerDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *AvatarTopConstraint;
@@ -50,9 +52,9 @@
     if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
         self.AvatarTopConstraint.constant = 63;
     } else if (SCREEN_WIDTH ==IPHONE6_SCREEN_WIDTH) {
-        self.AvatarTopConstraint.constant = 100;
+        self.AvatarTopConstraint.constant = 66;
     } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        self.AvatarTopConstraint.constant = 140;
+        self.AvatarTopConstraint.constant = 145;
     }
     
     _avatar.layer.cornerRadius = _avatar.width / 2;
@@ -151,7 +153,9 @@
 }
 
 - (IBAction)didClickCoin:(UIButton *)sender {
-
+    HTWebController *webController = [[HTWebController alloc] init];
+    [webController setUrlString:[NSString stringWithFormat:@"http://115.159.115.215:9111/index.php?s=/Home/user/coin/id/%@", [[HTStorageManager sharedInstance] getUserID]]];
+    [self.navigationController pushViewController:webController animated:YES];
 }
 
 - (IBAction)didClickRank:(UIButton *)sender {

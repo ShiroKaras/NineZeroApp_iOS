@@ -2,8 +2,8 @@
 //  HTTicketCard.h
 //  NineZeroProject
 //
-//  Created by ronhu on 16/2/25.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  Created by HHHHTTTT on 16/2/25.
+//  Copyright © 2016年 HHHHTTTT. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -12,5 +12,5 @@
 
 @interface HTTicketCard : UIView
 - (void)showExchangedCode:(BOOL)show;
-- (void)setReward:(HTTicket *)reward;
+@property (nonatomic, strong) HTTicket *reward;
 @end
