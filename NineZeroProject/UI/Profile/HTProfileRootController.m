@@ -249,7 +249,8 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((duration - 0.2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeRecord];
         cardController.delegate = self;
-        [self presentViewController:cardController animated:NO completion:^{
+        cardController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:cardController animated:YES completion:^{
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             
             [_snapView removeFromSuperview];
