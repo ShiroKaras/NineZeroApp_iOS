@@ -50,6 +50,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (nonatomic,strong) SharkfoodMuteSwitchDetector* detector;
 @property (nonatomic, assign) HTPreviewCardType cardType;
 @property (nonatomic, strong) UIImageView *eggImageView;
+@property (nonatomic, strong) UIImageView *eggCoverImageView;
 @property (nonatomic, strong) UIView *dimmingView;
 @end
 
@@ -464,10 +465,48 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     static CGFloat preContentOffsetX = 0.0;
     if (scrollView.contentOffset.x + SCREEN_WIDTH >= _eggImageView.right && preContentOffsetX != 0) {
         [scrollView setContentOffset:CGPointMake(_eggImageView.right - SCREEN_WIDTH, scrollView.contentOffset.y)];
-        // TODO:添加彩蛋Cover
+        if (!_eggCoverImageView.superview) {
+            _eggCoverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_article"]];
+            _eggCoverImageView.frame = SCREEN_BOUNDS;
+            _eggCoverImageView.left = SCREEN_WIDTH;
+            _eggCoverImageView.userInteractionEnabled = YES;
+            UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+            [_eggCoverImageView addGestureRecognizer:panGesture];
+            
+            [KEY_WINDOW addSubview:_eggCoverImageView];
+            [UIView animateWithDuration:1.0 delay:0 usingSpringWithDamping:1.0 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                _eggCoverImageView.left = 0;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }
     }
     _scrollDirection = (scrollView.contentOffset.x > preContentOffsetX) ? HTScrollDirectionLeft : HTScrollDirectionRight;
     preContentOffsetX = scrollView.contentOffset.x;
+}
+
+- (void)handlePanGesture:(UIPanGestureRecognizer *)recognizer {
+    CGPoint translation = [recognizer translationInView:self.view];
+    if (translation.x <= 0) return;
+    
+    _eggCoverImageView.centerX = SCREEN_WIDTH / 2 + translation.x;
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        if (translation.x >= 50) {
+            [UIView animateWithDuration:0.3 animations:^{
+                _eggCoverImageView.left = SCREEN_WIDTH;
+            } completion:^(BOOL finished) {
+                [_eggCoverImageView removeFromSuperview];
+            }];
+        } else {
+            [UIView animateWithDuration:0.3 animations:^{
+                _eggCoverImageView.left = 0;
+            } completion:^(BOOL finished) {
+            }];
+        }
+    }
+//    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,  
+//                                   recognizer.view.center.y + translation.y);  
+//    [recognizer setTranslation:CGPointZero inView:self.view];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
