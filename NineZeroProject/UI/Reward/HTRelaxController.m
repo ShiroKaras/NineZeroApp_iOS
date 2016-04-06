@@ -82,7 +82,7 @@
                 // 视频url链接和食品标题
                 [self hideGIFTips];
                 [self hideTextTips];
-                
+                self.movieTitle.text = [NSString stringWithFormat:@"%@", jsonDict[@"title"]];
             }
         }
     }];

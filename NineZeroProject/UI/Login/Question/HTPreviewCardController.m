@@ -247,7 +247,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)backToToday:(BOOL)animated {
-    _chapterLabel.text = [NSString stringWithFormat:@"%02lu", questionList.lastObject.serial];
+    _chapterLabel.text = [NSString stringWithFormat:@"%02ld", (NSInteger)questionList.lastObject.serial];
     [_collectionView setContentOffset:CGPointMake([self contentOffsetWithIndex:questionList.count - 1], 0) animated:animated];
     [_timeView setQuestion:questionList.lastObject andQuestionInfo:questionInfo];
     [_recordView setQuestion:questionList.lastObject];

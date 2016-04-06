@@ -147,8 +147,8 @@
     HTBadgeHeaderView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind  withReuseIdentifier:NSStringFromClass([HTBadgeHeaderView class]) forIndexPath:indexPath];
     NSInteger badgeLevel = [self badgeLevel];
     NSInteger targetLevel = [[[self badgeLevels] objectAtIndex:badgeLevel] integerValue];
-    view.numberLabel.text = [NSString stringWithFormat:@"%ld", badgeLevel];
-    view.coinNumberLabel.text = [NSString stringWithFormat:@"%ld", (targetLevel - [self.profileInfo.gold integerValue])];
+    view.numberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)badgeLevel];
+    view.coinNumberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)(targetLevel - [self.profileInfo.gold integerValue])];
     if (badgeLevel == 0) {
         CGFloat progress = 1 - (targetLevel - [self.profileInfo.gold integerValue]) / targetLevel;
         [view.progressView setProgress:progress];
