@@ -32,6 +32,7 @@
             [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
             [[HTStorageManager sharedInstance] updateLoginUser:user];
         }
+        callback(true,package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         DLog(@"%@",error);
         callback(false, nil);
