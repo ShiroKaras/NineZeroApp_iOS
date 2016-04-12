@@ -14,6 +14,7 @@
 #import "HTModel.h"
 #import "HTUIHeader.h"
 #import "NSString+Utility.h"
+#import <ShareSDK/ShareSDK.h>
 
 @interface HTLoginRootController () <UITextFieldDelegate>
 
@@ -21,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *userPasswordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton_Weixin;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton_QQ;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton_Weibo;
 
 @end
 
@@ -103,6 +107,38 @@
     HTLoginController *loginController = [[HTLoginController alloc] init];
     [self.navigationController pushViewController:loginController animated:YES];
 }
+
+- (IBAction)loginButtonWeixinClicked:(id)sender {
+    
+}
+
+- (IBAction)loginButtonQQClicked:(id)sender {
+    
+}
+
+- (IBAction)loginButtonWeiboClicked:(id)sender {
+    //例如Weibo的登录
+    [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
+           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+     {
+         if (state == SSDKResponseStateSuccess)
+         {
+             
+             NSLog(@"uid=%@",user.uid);
+             NSLog(@"%@",user.credential);
+             NSLog(@"token=%@",user.credential.token);
+             NSLog(@"nickname=%@",user.nickname);
+             NSLog(@"avataer=%@",user.icon);
+         }
+         
+         else
+         {
+             NSLog(@"%@",error);
+         }
+         
+     }];
+}
+
 
 #pragma mark - Tool Method
 

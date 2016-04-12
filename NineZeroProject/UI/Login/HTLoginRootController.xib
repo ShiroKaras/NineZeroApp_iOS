@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HTLoginRootController">
             <connections>
                 <outlet property="loginButton" destination="w2K-Bt-Fji" id="s5Y-ss-fth"/>
+                <outlet property="loginButton_QQ" destination="5bw-vK-ZTK" id="3da-zh-Gyo"/>
+                <outlet property="loginButton_Weibo" destination="g9C-AH-epn" id="rf3-Jp-XU0"/>
+                <outlet property="loginButton_Weixin" destination="oKj-pQ-4mv" id="AFS-Vt-0fT"/>
                 <outlet property="registerButton" destination="MAo-EP-LTN" id="1VA-qZ-8fB"/>
                 <outlet property="userNameTextField" destination="ngN-rK-pqS" id="Cdk-rk-mUr"/>
                 <outlet property="userPasswordTextField" destination="Yxc-is-FWA" id="C6s-Sf-RGJ"/>
@@ -90,16 +93,25 @@
                     <rect key="frame" x="79" y="430" width="38" height="38"/>
                     <state key="normal" image="btn_signup_wechat"/>
                     <state key="highlighted" image="btn_signup_wechat_highlight"/>
+                    <connections>
+                        <action selector="loginButtonWeixinClicked:" destination="-1" eventType="touchUpInside" id="Elh-7H-Ad8"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bw-vK-ZTK" userLabel="qq">
                     <rect key="frame" x="168" y="430" width="38" height="38"/>
                     <state key="normal" image="btn_signup_qq"/>
                     <state key="highlighted" image="btn_signup_qq_highlight"/>
+                    <connections>
+                        <action selector="loginButtonQQClicked:" destination="-1" eventType="touchUpInside" id="7t5-60-wXV"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9C-AH-epn" userLabel="weibo">
                     <rect key="frame" x="257" y="430" width="38" height="38"/>
                     <state key="normal" image="btn_signup_weibo"/>
                     <state key="highlighted" image="btn_signup_weibo_highlight"/>
+                    <connections>
+                        <action selector="loginButtonWeiboClicked:" destination="-1" eventType="touchUpInside" id="Kjj-tf-RpI"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="riS-rR-xha" userLabel="userPswView">
                     <rect key="frame" x="0.0" y="244" width="375" height="51"/>
