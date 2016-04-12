@@ -36,7 +36,8 @@
 }
 
 - (void)needGetVerificationCode {
-    [[[HTServiceManager sharedInstance] loginService] getMobileCode:_loginUser.user_mobile];
+//    [[[HTServiceManager sharedInstance] loginService] getMobileCode:_loginUser.user_mobile];
+    [[[HTServiceManager sharedInstance] loginService] getMobileCode:_firstTextField.text];
 }
 
 #pragma mark - Action
