@@ -190,6 +190,7 @@
 }
 
 - (BOOL)becomeFirstResponder {
+    
     [_textField becomeFirstResponder];
     return YES;
 }

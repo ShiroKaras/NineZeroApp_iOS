@@ -224,6 +224,8 @@ typedef enum : NSUInteger {
         [KEY_WINDOW addSubview:changeView];
     } else if (type ==HTProfileSettingTypeClearCache) {
         [MBProgressHUD bwm_showTitle:@"清除成功" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeSuccessful];
+    } else if (type ==HTProfileSettingTypeExplain){
+        
     }
 }
 

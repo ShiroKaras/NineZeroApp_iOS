@@ -11,7 +11,6 @@
 #import "HTLoginRootController.h"
 #import "HTServiceManager.h"
 #import "HTNavigationController.h"
-#import "HTPreviewQuestionController.h"
 #import <Qiniu/QiniuSDK.h>
 #import "HTLogicHeader.h"
 #import "HTUIHeader.h"
@@ -98,7 +97,6 @@
     if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _mainController = [[HTMainViewController alloc] init];
-//        HTPreviewQuestionController *rootController = [[HTPreviewQuestionController alloc] init];
         self.window.rootViewController = _mainController;
         [self.window makeKeyAndVisible];
     } else {

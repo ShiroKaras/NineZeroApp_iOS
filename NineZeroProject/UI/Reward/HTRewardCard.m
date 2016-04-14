@@ -61,7 +61,7 @@
     [self.logo sd_setImageWithURL:[NSURL URLWithString:reward.pic] placeholderImage:[UIImage imageNamed:@"img_voucher_cover_default"]];
     self.titleLabel.text = reward.title;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:reward.expire_time];
-    self.ddlLabel.text = [NSString stringWithFormat:@"有效期至%04ld-%02ld-%02ld", [date year], [date month], [date day]];
+    self.ddlLabel.text = [NSString stringWithFormat:@"有效期至%04ld-%02ld-%02ld", (long)[date year], [date month], [date day]];
     if (date < [NSDate date]) {
         // 已过期
         self.alpha = 0.4;

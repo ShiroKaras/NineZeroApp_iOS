@@ -7,7 +7,6 @@
 //
 
 #import "HTMainViewController.h"
-#import "HTPreviewQuestionController.h"
 #import "HTMascotDisplayController.h"
 #import "HTPreviewCardController.h"
 #import "HTRelaxController.h"
@@ -19,7 +18,7 @@
 CGFloat alphaDark = 0.3;
 CGFloat alphaLight = 1.0;
 
-@interface HTMainViewController () <HTPreviewQuestionControllerDelegate, HTProfilePopViewDelegate>
+@interface HTMainViewController () <HTProfilePopViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;
 @property (weak, nonatomic) IBOutlet UIButton *mascotButton;
 @property (weak, nonatomic) IBOutlet UIButton *meButton;
@@ -28,7 +27,6 @@ CGFloat alphaLight = 1.0;
 
 @implementation HTMainViewController {
     UIViewController *_currentViewController;
-    HTPreviewQuestionController *_preViewController;
     HTPreviewCardController *_cardController;
     HTMascotDisplayController *_mascotController;
 }
@@ -42,8 +40,6 @@ CGFloat alphaLight = 1.0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _preViewController = [[HTPreviewQuestionController alloc] init];
-    _preViewController.delegate = self;
     _cardController = [[HTPreviewCardController alloc] init];
     _mascotController = [[HTMascotDisplayController alloc] init];
     [_mascotController view]; //提前调用viewDidLoad
@@ -60,7 +56,7 @@ CGFloat alphaLight = 1.0;
         [_currentViewController.view removeFromSuperview]; //2
         [_currentViewController removeFromParentViewController]; //3
     }
-    if ([viewController isKindOfClass:[HTPreviewQuestionController class]] || [viewController isKindOfClass:[HTPreviewCardController class]]) {
+    if ([viewController isKindOfClass:[HTPreviewCardController class]]) {
         _mainButton.alpha = alphaLight;
         _mascotButton.alpha = alphaDark;
         _meButton.alpha = alphaDark;
@@ -99,23 +95,12 @@ CGFloat alphaLight = 1.0;
 #pragma mark - Action
 
 - (IBAction)didClickMainButton:(id)sender {
-#ifdef USER_NEW_CARD
     [self changedToViewController:_cardController];
     if([(UIButton *)sender tag] == 1000) {
         [_cardController backToToday];
     } else {
         [self changedToViewController:_cardController];
     }
-#else
-    if([(UIButton *)sender tag] == 1000) {
-        if (_preViewController) {
-            [_preViewController goToToday];
-        }
-    } else {
-        if ([_currentViewController isKindOfClass:[HTPreviewQuestionController class]]) return;
-        [self changedToViewController:_preViewController];
-    }
-#endif
 }
 
 - (IBAction)didClickMascotButton:(id)sender {
@@ -147,24 +132,12 @@ CGFloat alphaLight = 1.0;
 
 - (void)profilePopViewWillDismiss:(HTProfilePopView *)popView {
     _meButton.alpha = alphaDark;
-    if (_currentViewController == _cardController || _currentViewController == _preViewController) {
+    if (_currentViewController == _cardController) {
         _mainButton.alpha = alphaLight;
         _mascotButton.alpha = alphaDark;
     } else {
         _mainButton.alpha = alphaDark;
         _mascotButton.alpha = alphaLight;
-    }
-}
-
-#pragma mark HTPreviewQuestionController Delegate
-
-- (void)previewController:(HTPreviewQuestionController *)previewController shouldShowGoBackItem:(BOOL)needShow {
-    if (needShow) {
-        [_mainButton setImage:[UIImage imageNamed:@"tab_back_today"] forState:UIControlStateNormal];
-        _mainButton.tag = 1000;
-    } else {
-        [_mainButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
-        _mainButton.tag = 0;
     }
 }
 

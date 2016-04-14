@@ -13,7 +13,6 @@
 #import "HTServiceManager.h"
 #import "HTLoginController.h"
 #import "NSString+Utility.h"
-#import "HTPreviewQuestionController.h"
 #import "HTMainViewController.h"
 
 @interface HTRegisterController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>

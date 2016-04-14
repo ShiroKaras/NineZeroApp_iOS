@@ -9,7 +9,6 @@
 #import "HTLoginController.h"
 #import "HTForgetPasswordController.h"
 #import "HTServiceManager.h"
-#import "HTPreviewQuestionController.h"
 #import <MBProgressHUD+BWMExtension.h>
 #import "HTUIHeader.h"
 #import "NSString+Utility.h"

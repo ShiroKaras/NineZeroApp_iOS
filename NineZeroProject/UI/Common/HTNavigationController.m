@@ -19,11 +19,18 @@
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 
 
-    UIImage *backImage = [UIImage imageNamed:@"btn_navi_anchor_left"];
-    [[UINavigationBar appearance] setBackIndicatorImage:backImage];
-    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backImage];
-    UIBarButtonItem *backItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-500, 0) forBarMetrics:UIBarMetricsDefault];
+    //自定义返回按钮
+    UIImage *backButtonImage = [[UIImage imageNamed:@"btn_navi_anchor_left"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    //将返回按钮的文字position设置不在屏幕上显示
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin) forBarMetrics:UIBarMetricsDefault];
+    
+//    UIImage *backImage = [UIImage imageNamed:@"btn_navi_anchor_left"];
+//    [[UINavigationBar appearance] setBackIndicatorImage:backImage];
+//    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backImage];
+//    UIBarButtonItem *backItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
+//    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-500, 0) forBarMetrics:UIBarMetricsDefault];
+    
 //    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"btn_navi_anchor_left"]];
 //    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"btn_navi_anchor_left"]];
 }

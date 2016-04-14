@@ -77,6 +77,10 @@ static char *kAssociatedKey;
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+//    // 保证statusBar的颜色
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//    viewController.view.backgroundColor = [UIColor blackColor];
+    
     if (viewController.navigationItem.leftBarButtonItem == nil && [viewController.navigationController.viewControllers count] > 1) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:[UIImage imageNamed:@"btn_navi_anchor_left"] forState:UIControlStateNormal];
