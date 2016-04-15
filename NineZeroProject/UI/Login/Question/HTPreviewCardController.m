@@ -374,6 +374,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             _composeView.alpha = 0.0;
             _composeView.associatedQuestion = cell.question;
             [_composeView becomeFirstResponder];
+            [cell stop];
             [UIView animateWithDuration:0.3 animations:^{
                 _composeView.alpha = 1.0;
                 [self.view addSubview:_composeView];
