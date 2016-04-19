@@ -59,7 +59,7 @@
         if (success && response.resultCode == 0) {
             NSDictionary *dataDict = response.data;
             NSInteger contentType = [dataDict[@"content_type"] integerValue];
-            NSInteger date = [dataDict[@"date"] integerValue];
+            time_t date = [dataDict[@"date"] integerValue];
             contentType = MIN(0, MAX(2, contentType));
             NSString *jsonString = [NSString stringWithFormat:@"%@", dataDict[@"content_data"]];
             NSError *jsonError;
