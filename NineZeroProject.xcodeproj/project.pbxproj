@@ -691,7 +691,6 @@
 		17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A92CC81CA809B100BE893D /* UIScrollView+MJRefresh.m */; };
 		17A92CDD1CA809B100BE893D /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A92CCA1CA809B100BE893D /* UIView+MJExtension.m */; };
 		17A92CE01CA816A600BE893D /* HTAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A92CDF1CA816A600BE893D /* HTAlertView.m */; };
-		17A92CE21CAE9D6000BE893D /* libipsec.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17A92CE11CAE9D6000BE893D /* libipsec.tbd */; };
 		17AA63571C4AB85A0047BADF /* HTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA63561C4AB85A0047BADF /* HTMainViewController.m */; };
 		17AA63741C4ABC3D0047BADF /* HTMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17AA63731C4ABC3D0047BADF /* HTMainViewController.xib */; };
 		17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17AA63771C4AC10A0047BADF /* HTMascotDisplayController.m */; };
@@ -1689,7 +1688,6 @@
 				17617F6C1BEFAE0F000B2BFA /* libz.tbd in Frameworks */,
 				17617F7E1BEFB0EE000B2BFA /* libicucore.tbd in Frameworks */,
 				17617F6A1BEFAE05000B2BFA /* Security.framework in Frameworks */,
-				17A92CE21CAE9D6000BE893D /* libipsec.tbd in Frameworks */,
 				11F2185B1CBB951300D2ED44 /* libWeChatSDK.a in Frameworks */,
 				178E7AF91C91EC4B00E4B84F /* Reveal.framework in Frameworks */,
 				176B75711C76264A0069DE89 /* AudioToolbox.framework in Frameworks */,
