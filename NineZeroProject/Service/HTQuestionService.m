@@ -65,17 +65,21 @@
             NSMutableArray<HTQuestion *> *questions = [[NSMutableArray alloc] init];
             NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
             for (int i = 0; i != [responseObject[@"data"] count]; i++) {
-                HTQuestion *question = [HTQuestion objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
-                [questions addObject:question];
-                [downloadKeys addObject:question.videoName];
-                [downloadKeys addObject:question.descriptionPic];
+                @autoreleasepool {
+                    HTQuestion *question = [HTQuestion objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
+                    [questions addObject:question];
+                    [downloadKeys addObject:question.videoName];
+                    [downloadKeys addObject:question.descriptionPic];
+                }
             }
             [self getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, HTResponsePackage *response) {
                 if (success) {
                     for (HTQuestion *question in questions) {
-                        NSDictionary *dataDict = response.data;
-                        question.descriptionURL = dataDict[question.descriptionPic];
-                        question.videoURL = dataDict[question.videoName];
+                        @autoreleasepool {
+                            NSDictionary *dataDict = response.data;
+                            question.descriptionURL = dataDict[question.descriptionPic];
+                            question.videoURL = dataDict[question.videoName];
+                        }
                     }
                     [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
                         if (success) {
