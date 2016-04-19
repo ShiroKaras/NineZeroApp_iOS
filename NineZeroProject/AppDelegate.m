@@ -82,6 +82,7 @@
 //    NSString *method = userInfo[@"method"];
 //    NSDictionary *dataDict = userInfo[@"data"];
     
+    // TODO: 通过type去拉不同的数据
     NSLog(@"didReceiveRemoteNotification, completionHandler: %@", userInfo);
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
