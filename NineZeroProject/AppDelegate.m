@@ -43,7 +43,7 @@
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerQiniuService];
     [self registerShareSDK];
-    
+
     [self createWindowAndVisible];
     
     // 光标颜色
@@ -90,6 +90,10 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
+
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+//
+//}
 
 #pragma mark - Action
 
@@ -138,7 +142,9 @@
      *  在此事件中写入连接代码。第四个参数则为配置本地社交平台时触发，根据返回的平台类型来配置平台信息。
      *  如果您使用的时服务端托管平台信息时，第二、四项参数可以传入nil，第三项参数则根据服务端托管平台来决定要连接的社交SDK。
      */
-    [ShareSDK registerApp:@"iosv1101"
+    
+    //117f8a0b99f70
+    [ShareSDK registerApp:@"117f8a0b99f70"
      
           activePlatforms:@[
                             @(SSDKPlatformTypeSinaWeibo),
@@ -168,18 +174,18 @@
          {
              case SSDKPlatformTypeSinaWeibo:
                  //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
-                 [appInfo SSDKSetupSinaWeiboByAppKey:@"2762209926"
-                                           appSecret:@"1b7126214c7769484dc14c7696304531"
+                 [appInfo SSDKSetupSinaWeiboByAppKey:@"1266848941"
+                                           appSecret:@"af1a2b939f9d65313ae08ce40e4428b5"
                                          redirectUri:@"http://www.sharesdk.cn"
                                             authType:SSDKAuthTypeBoth];
                  break;
              case SSDKPlatformTypeWechat:
-                 [appInfo SSDKSetupWeChatByAppId:@"wx4868b35061f87885"
-                                       appSecret:@"64020361b8ec4c99936c0e3999a9f249"];
+                 [appInfo SSDKSetupWeChatByAppId:@"wxfb8f0b079901a486"
+                                       appSecret:@"9b878253531427e0216f4c456a6216bc"];
                  break;
              case SSDKPlatformTypeQQ:
-                 [appInfo SSDKSetupQQByAppId:@"100371282"
-                                      appKey:@"aed9b0303e3ed1e27bae87c33761161d"
+                 [appInfo SSDKSetupQQByAppId:@"1105336032"
+                                      appKey:@"JBvAhpWdPjMxhGJt"
                                     authType:SSDKAuthTypeBoth];
                  break;
              default:

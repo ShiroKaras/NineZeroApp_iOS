@@ -36,6 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
            completion:(HTResponseCallback)callback;
 
 /**
+ *  @brief 第三方平台登录
+ */
+- (void)bindUserWithThirdPlatform:(HTLoginUser *)user completion:(HTResponseCallback)callback;
+
+/**
  *  @brief 获取验证码
  */
 - (void)getMobileCode:(NSString *)mobile;

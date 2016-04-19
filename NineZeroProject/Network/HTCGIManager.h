@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define NETWORK_HOST @"http://115.159.115.215:8992/"
+#define NETWORK_HOST @"http://101.201.39.169:8992/"
 
 @interface HTCGIManager : NSObject
 
@@ -55,6 +55,18 @@
  4. }
  */
 + (NSString *)userBaseLoginCGIKey;
+
+/**
+ * @brief 第三方登录
+ 1. {
+ 2. "user_name":"90",
+ 3. "user_avatar":"http://www.baidu.com/"
+ 4. "user_area_id":1,
+ 5. "third_id":"123123123"
+ 6. }
+ */
+
++ (NSString *)userLoginThirdCGIKey;
 
 /**
  * @brief 重置密码

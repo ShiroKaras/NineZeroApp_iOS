@@ -58,6 +58,27 @@
     }];
 }
 
+- (void)bindUserWithThirdPlatform:(HTLoginUser *)user completion:(HTResponseCallback)callback{
+    NSDictionary *para = @{
+                           @"third_id" : user.third_id,
+                           @"user_area_id" : user.user_area_id,
+                           @"user_name" : user.user_name,
+                           @"user_avatar" : user.user_avatar
+                           };
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userLoginThirdCGIKey] parameters:para success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        HTResponsePackage *resp = [HTResponsePackage objectWithKeyValues:responseObject];
+        callback(true,resp);
+        if (resp.resultCode == 0) {
+            [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", responseObject[@"data"][@"user_id"]]];
+            [[HTStorageManager sharedInstance] updateLoginUser:user];
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        DLog(@"%@", error);
+        callback(false, nil);
+    }];
+}
+
 - (void)getQiniuPrivateTokenWithCompletion:(HTGetTokenCallback)callback {
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQiniuPrivateUploadTokenCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);

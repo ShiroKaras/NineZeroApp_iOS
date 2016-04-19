@@ -21,6 +21,10 @@
     return [NSString stringWithFormat:@"%@Login/login/", NETWORK_HOST];
 }
 
++ (NSString *)userLoginThirdCGIKey {
+    return [NSString stringWithFormat:@"%@Login/login_third", NETWORK_HOST];
+}
+
 + (NSString *)sendMobileCodeCGIKey {
     return [NSString stringWithFormat:@"%@Login/sendCode/", NETWORK_HOST];
 }

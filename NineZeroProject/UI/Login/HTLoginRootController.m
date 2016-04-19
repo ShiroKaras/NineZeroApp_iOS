@@ -15,6 +15,7 @@
 #import "HTUIHeader.h"
 #import "NSString+Utility.h"
 #import <ShareSDK/ShareSDK.h>
+#import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
 
 @interface HTLoginRootController () <UITextFieldDelegate>
 
@@ -109,16 +110,7 @@
 }
 
 - (IBAction)loginButtonWeixinClicked:(id)sender {
-    
-}
-
-- (IBAction)loginButtonQQClicked:(id)sender {
-    
-}
-
-- (IBAction)loginButtonWeiboClicked:(id)sender {
-    //例如Weibo的登录
-    [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
+    [ShareSDK getUserInfo:SSDKPlatformTypeWechat
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
      {
          if (state == SSDKResponseStateSuccess)
@@ -128,7 +120,8 @@
              NSLog(@"%@",user.credential);
              NSLog(@"token=%@",user.credential.token);
              NSLog(@"nickname=%@",user.nickname);
-             NSLog(@"avataer=%@",user.icon);
+             
+             [self loginWithUser:user];
          }
          
          else
@@ -139,6 +132,75 @@
      }];
 }
 
+- (IBAction)loginButtonQQClicked:(id)sender {
+    [ShareSDK getUserInfo:SSDKPlatformTypeQQ
+           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+     {
+         if (state == SSDKResponseStateSuccess)
+         {
+             
+             NSLog(@"uid=%@",user.uid);
+             NSLog(@"credential=%@",user.credential);
+             NSLog(@"token=%@",user.credential.token);
+             NSLog(@"nickname=%@",user.nickname);
+             
+             [self loginWithUser:user];
+         }
+         
+         else
+         {
+             NSLog(@"%@",error);
+         }
+         
+     }];
+}
+
+- (IBAction)loginButtonWeiboClicked:(id)sender {
+    [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
+onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+    {
+        if (state == SSDKResponseStateSuccess)
+        {
+            
+            NSLog(@"uid=%@",user.uid);
+            NSLog(@"%@",user.credential);
+            NSLog(@"token=%@",user.credential.token);
+            NSLog(@"nickname=%@",user.nickname);
+            NSLog(@"icon=%@",user.icon);
+            
+            [self loginWithUser:user];
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+        
+    }];
+}
+
+-(void)loginWithUser:(SSDKUser*)user {
+    HTLoginUser *loginUser = [HTLoginUser new];
+    loginUser.user_area_id = @"1";
+    loginUser.third_id = user.uid;
+    loginUser.user_name = user.nickname;
+    loginUser.user_avatar = user.icon;
+    [HTProgressHUD show];
+    [[[HTServiceManager sharedInstance] loginService] bindUserWithThirdPlatform:loginUser completion:^(BOOL success, HTResponsePackage *response) {
+        [HTProgressHUD dismiss];
+        DLog(@"%@", response);
+        if (success) {
+            if (response.resultCode == 0) {
+                HTMainViewController *controller = [[HTMainViewController alloc] init];
+                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+            } else {
+                [self showTipsWithText:response.resultMsg];
+            }
+        } else {
+            [self showTipsWithText:@"网络连接错误"];
+        }
+    }];
+
+}
 
 #pragma mark - Tool Method
 

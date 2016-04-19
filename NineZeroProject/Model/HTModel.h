@@ -22,6 +22,7 @@
 @property (nonatomic, copy) NSString *user_avatar;
 @property (nonatomic, copy) NSString *user_area_id;     // 用户所在城市ID
 @property (nonatomic, copy) NSString *code;             // 验证码
+@property (nonatomic, copy) NSString *third_id;         //第三方平台ID
 
 @end
 
