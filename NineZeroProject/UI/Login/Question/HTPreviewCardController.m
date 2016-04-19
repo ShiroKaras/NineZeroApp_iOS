@@ -243,10 +243,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [self.view bringSubviewToFront:_dimmingView];
 }
 
-- (void)reloadBackView {
-    
-}
-
 - (void)backToToday {
     [self backToToday:YES];
 }
