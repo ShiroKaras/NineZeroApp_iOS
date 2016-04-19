@@ -243,15 +243,17 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [self.view bringSubviewToFront:_dimmingView];
 }
 
+- (void)reloadBackView {
+    
+}
+
 - (void)backToToday {
     [self backToToday:YES];
 }
 
 - (void)backToToday:(BOOL)animated {
-    _chapterLabel.text = [NSString stringWithFormat:@"%02ld", (NSInteger)questionList.lastObject.serial];
     [_collectionView setContentOffset:CGPointMake([self contentOffsetWithIndex:questionList.count - 1], 0) animated:animated];
-    [_timeView setQuestion:questionList.lastObject andQuestionInfo:questionInfo];
-    [_recordView setQuestion:questionList.lastObject];
+    [self willAppearQuestionAtIndex:questionList.count - 1];
 }
 
 - (void)onClickCloseButton {
@@ -454,14 +456,13 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     NSInteger currentIndex = [self indexWithContentOffsetX:scrollView.contentOffset.x];
-    if (self.cardType == HTPreviewCardTypeDefault) {
+    if (self.cardType == HTPreviewCardTypeDefault && questionList.count > 3) {
         if (currentIndex <= questionList.count - 4) {
             [[HTUIHelper mainController] showBackToToday:YES];
         }
         if (currentIndex >= questionList.count - 3) {
             [[HTUIHelper mainController] showBackToToday:NO];
         }
-        
     }
     static CGFloat preContentOffsetX = 0.0;
     if (scrollView.contentOffset.x + SCREEN_WIDTH >= _eggImageView.right && preContentOffsetX != 0) {
