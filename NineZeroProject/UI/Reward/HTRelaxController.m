@@ -50,15 +50,16 @@
         _visualEfView.contentView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
         [_backgroundImageView addSubview:_visualEfView];
     }
-    
-    _endTime = time(NULL) + 40000;
-    [self scheduleCountDownTimer];
+
     [self hideTextTips];
     
     [[[HTServiceManager sharedInstance] questionService] getRelaxDayInfo:^(BOOL success, HTResponsePackage *response) {
+//        _endTime = 1460908800 + 3600*24*2;
+//        [self scheduleCountDownTimer];
         if (success && response.resultCode == 0) {
             NSDictionary *dataDict = response.data;
             NSInteger contentType = [dataDict[@"content_type"] integerValue];
+            NSInteger date = [dataDict[@"date"] integerValue];
             contentType = MIN(0, MAX(2, contentType));
             NSString *jsonString = [NSString stringWithFormat:@"%@", dataDict[@"content_data"]];
             NSError *jsonError;
@@ -66,7 +67,8 @@
             NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:objectData
                                                                      options:NSJSONReadingMutableContainers
                                                                        error:&jsonError];
-            _endTime = time(NULL) + [dataDict[@"date"] integerValue];
+            _endTime = date + 3600*24;
+            [self scheduleCountDownTimer];
             if (contentType == 0) {
                 // 文章
                 [self hideGIFTips];

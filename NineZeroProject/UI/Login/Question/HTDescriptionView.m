@@ -262,6 +262,7 @@
     _converView.layer.cornerRadius = 5.0f;
     _converView.layer.masksToBounds = YES;
     _imageView.frame = CGRectMake(0, 0, width, imageHeight);
+    _imageView.layer.masksToBounds = YES;
     _exchangeButton.frame = CGRectMake(0, 0, 63, 33);
     _exchangeButton.right = _converView.width - 16;
     _exchangeButton.bottom = imageHeight - 15;
