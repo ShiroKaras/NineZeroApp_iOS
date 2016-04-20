@@ -137,6 +137,17 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [self.view addSubview:_recordView];
     }
     
+    _eggCoverImageView = [UIImageView new];
+    _eggCoverImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _eggCoverImageView.layer.masksToBounds = YES;
+    [[[HTServiceManager sharedInstance] questionService] getCoverPicture:^(BOOL success, HTResponsePackage *response) {
+        if (success && response.resultCode == 0) {
+            NSDictionary *dataDict = response.data;
+            [_eggCoverImageView sd_setImageWithURL:dataDict[@"pet_gif"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            }];
+        }
+    }];
+    
     // 1. 背景
     UIImage *bgImage;
     if (SCREEN_WIDTH <= IPHONE5_SCREEN_WIDTH) {
@@ -464,7 +475,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     if (scrollView.contentOffset.x + SCREEN_WIDTH >= _eggImageView.right && preContentOffsetX != 0) {
         [scrollView setContentOffset:CGPointMake(_eggImageView.right - SCREEN_WIDTH, scrollView.contentOffset.y)];
         if (!_eggCoverImageView.superview) {
-            _eggCoverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_article"]];
             _eggCoverImageView.frame = SCREEN_BOUNDS;
             _eggCoverImageView.left = SCREEN_WIDTH;
             _eggCoverImageView.userInteractionEnabled = YES;
