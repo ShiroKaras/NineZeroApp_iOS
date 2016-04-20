@@ -182,7 +182,7 @@
 /**
  *  @brief 获取封面图片
  */
-+ (NSString *)getCoverPicture;
++ (NSString *)getCoverPictureCGIKey;
 
 /**
  *  @brief 获取个人信息

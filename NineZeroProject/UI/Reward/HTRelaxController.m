@@ -7,6 +7,7 @@
 //
 
 #import "HTRelaxController.h"
+#import "HTRelaxCoverController.h"
 #import "HTUIHeader.h"
 #import <UIImage+animatedGIF.h>
 
@@ -29,7 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *gifImageView;
 
-
+@property (nonatomic, strong) HTRelaxCoverController *coverController;
 @end
 
 @implementation HTRelaxController {
@@ -41,8 +42,18 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     _backgroundImageView = [[UIImageView alloc] init];
-    _backgroundImageView.image = [UIImage imageNamed:@"bg_article"];
+    _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:_backgroundImageView];
+    
+    [[[HTServiceManager sharedInstance] questionService] getCoverPicture:^(BOOL success, HTResponsePackage *response) {
+        if (success && response.resultCode == 0) {
+            NSDictionary *dataDict = response.data;
+            
+            [_backgroundImageView sd_setImageWithURL:dataDict[@"rest_cover"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            }];
+        }
+    }];
+    
     
     if (IOS_VERSION >= 8.0) {
         _visualEfView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
@@ -136,11 +147,24 @@
     self.gifImageView.hidden = YES;
 }
 
+- (void)showCoverPicture {
+    [UIView animateWithDuration:0.3 animations:^{
+        _coverController.view.alpha = 1;
+    }];
+}
+
+- (void)hideCoverPicture {
+    
+}
+
 #pragma mark - Action
 
 - (void)didClickBackView {
-//    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//    [self dismissViewControllerAnimated:YES completion:nil];
+    _coverController = [[HTRelaxCoverController alloc] init];
+    _coverController.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    _coverController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    _coverController.bgImageView.image = _backgroundImageView.image;
+    [self presentViewController:_coverController animated:YES completion:nil];
 }
 
 - (IBAction)didClickPlayButton:(UIButton *)sender {

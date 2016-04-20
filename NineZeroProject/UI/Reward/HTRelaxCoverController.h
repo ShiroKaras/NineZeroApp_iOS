@@ -10,4 +10,6 @@
 
 @interface HTRelaxCoverController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
+
 @end

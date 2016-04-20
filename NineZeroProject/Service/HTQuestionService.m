@@ -208,7 +208,7 @@
 }
 
 - (void)getCoverPicture:(HTResponseCallback)callback {
-    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getCoverPicture] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getCoverPictureCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
         DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {

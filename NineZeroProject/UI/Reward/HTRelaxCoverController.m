@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 };
 
 @interface HTRelaxCoverController ()
-@property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
+
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *momentButton;
@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.bgImageView.userInteractionEnabled = YES;
+    self.bgImageView.contentMode = UIViewContentModeScaleAspectFill;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickBgImageView)];
     [self.bgImageView addGestureRecognizer:tap];
 }
@@ -86,9 +87,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)didClickBgImageView {
-    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
-    relaxController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self presentViewController:relaxController animated:YES completion:nil];
+    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
