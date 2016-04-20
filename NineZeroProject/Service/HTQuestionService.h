@@ -77,4 +77,10 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
  *  @brief 判断是否为休息日
  */
 - (void)getIsRelaxDay:(HTResponseCallback)callback;
+
+/**
+ *  @brief 获取封面图
+ */
+- (void)getCoverPicture:(HTResponseCallback)callback;
+
 @end

@@ -180,6 +180,11 @@
 + (NSString *)getUserNoticesCGIKey;
 
 /**
+ *  @brief 获取封面图片
+ */
++ (NSString *)getCoverPicture;
+
+/**
  *  @brief 获取个人信息
  *  "user_id"
  */

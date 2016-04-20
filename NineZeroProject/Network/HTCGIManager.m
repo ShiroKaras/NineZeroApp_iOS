@@ -141,6 +141,10 @@
     return [NSString stringWithFormat:@"%@Common/isMonday", NETWORK_HOST];
 }
 
++ (NSString *)getCoverPictureCGIKey {
+    return [NSString stringWithFormat:@"%@Question/getPicture", NETWORK_HOST];
+}
+
 + (NSString *)getBadgesCGIKey {
     return [NSString stringWithFormat:@"%@Medal/getMedal", NETWORK_HOST];
 }
