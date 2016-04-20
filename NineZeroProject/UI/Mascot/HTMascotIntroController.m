@@ -73,7 +73,7 @@
     self.statusBarCoverView.alpha = 0;
     [self.view addSubview:self.statusBarCoverView];
     
-    if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
+    void (^netWorkErrorHandler)() = ^() {
         _mascot.article_list = nil;
         self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
         [self.blankView setImage:[UIImage imageNamed:@"img_error_light_grey_small"] andOffset:11];
@@ -83,17 +83,34 @@
         footerView.backgroundColor = [UIColor whiteColor];
         self.tableView.tableFooterView = footerView;
         self.tableView.scrollEnabled = NO;
+    };
+    
+    void (^noContentHandler)() = ^() {
+        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+        [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:11];
+        [self.view addSubview:self.blankView];
+        [self.tableView reloadData];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1000)];
+        footerView.backgroundColor = [UIColor whiteColor];
+        self.tableView.tableFooterView = footerView;
+        self.tableView.scrollEnabled = NO;
+    };
+    
+    if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
+        netWorkErrorHandler();
     } else {
-        if (_mascot.article_list.count == 0) {
-            self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
-            [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:11];
-            [self.view addSubview:self.blankView];
-            [self.tableView reloadData];
-            UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1000)];
-            footerView.backgroundColor = [UIColor whiteColor];
-            self.tableView.tableFooterView = footerView;
-            self.tableView.scrollEnabled = NO;
-        }
+        [HTProgressHUD show];
+        [[[HTServiceManager sharedInstance] mascotService] getUserMascotDetail:_mascot.mascotID completion:^(BOOL success, HTMascot *mascot) {
+            [HTProgressHUD dismiss];
+            if (success && mascot.article_list.count != 0) {
+                _mascot.article_list = mascot.article_list;
+                [self.tableView reloadData];
+            } else if (_mascot.article_list.count == 0) {
+                noContentHandler();
+            } else {
+                netWorkErrorHandler();
+            }
+        }];
     }
 }
 
