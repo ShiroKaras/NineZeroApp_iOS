@@ -16,6 +16,7 @@ target 'NineZeroProject' do
   pod 'UIImage+animatedGif', '~> 0.1.0'
   pod 'TTTAttributedLabel'
   pod 'YLGIFImage'
+  pod 'AMapLocation'  #定位SDK
 end
 
 target 'NineZeroProjectTests' do
