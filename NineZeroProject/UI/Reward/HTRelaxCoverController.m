@@ -8,6 +8,8 @@
 
 #import "HTRelaxCoverController.h"
 #import "HTRelaxController.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
 
 typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeShare = 0,
@@ -39,6 +41,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (IBAction)didClickButton:(UIButton *)sender {
+    [self saveToPhotoLibrary];
+}
+
+- (void)share:(UIButton*)sender {
     HTButtonType type = (HTButtonType)sender.tag;
     switch (type) {
         case HTButtonTypeShare: {
@@ -61,22 +67,69 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         }
         case HTButtonTypeWechat: {
             
-//            break;
+            break;
         }
         case HTButtonTypeMoment: {
             
-//            break;
+            break;
         }
         case HTButtonTypeWeibo: {
-            
-//            break;
+            NSArray* imageArray = @[_bgImageView.image];
+            if (imageArray) {
+                
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:@"分享内容test"
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:@"http://www.baidu.com"]
+                                                  title:@"分享文章"
+                                                   type:SSDKContentTypeWebPage];
+                [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    switch (state) {
+                        case SSDKResponseStateSuccess:
+                        {
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                message:nil
+                                                                               delegate:nil
+                                                                      cancelButtonTitle:@"确定"
+                                                                      otherButtonTitles:nil];
+                            [alertView show];
+                            break;
+                        }
+                        case SSDKResponseStateFail:
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                            message:[NSString stringWithFormat:@"%@",error]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles:nil, nil];
+                            [alert show];
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }];
+            }
+            break;
         }
         case HTButtonTypeQQ: {
             
-//            break;
-            [self dismissViewControllerAnimated:YES completion:nil];
+            
+            break;
+            
         }
     }
+}
+
+- (void)saveToPhotoLibrary {
+    UIImageWriteToSavedPhotosAlbum(_bgImageView.image, nil, nil, nil);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"存储照片成功"
+                                                    message:@"您已将照片存储于图片库中，打开照片库即可查看。"
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)setShareAppear:(BOOL)appear {
