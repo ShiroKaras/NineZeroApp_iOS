@@ -10,7 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "HTUIHeader.h"
 #import "SharkfoodMuteSwitchDetector.h"
-#import "HTCardTimeView.h"
 
 @interface HTCardCollectionCell ()
 @property (nonatomic, strong) UIView *cardBackView;
@@ -24,7 +23,6 @@
 @property (nonatomic, strong) UIButton *composeButton;
 @property (nonatomic, strong) UIButton *hintButton;
 @property (nonatomic, strong) UIImageView *coverImageView;
-@property (nonatomic, strong) HTCardTimeView *timeView;
 
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
@@ -110,9 +108,6 @@
         [_hintButton sizeToFit];
         [self.contentView addSubview:_hintButton];
 
-        // 6.实例化TimeView
-        _timeView = [HTCardTimeView new];
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     
     }
@@ -228,7 +223,7 @@
     if (_questionInfo.questionID == question.questionID) {
         [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
         // TODO:判断是否需要显示"获取提示"
-        _hintButton.hidden = _timeView.isHiddenPromptButton;
+        _hintButton.hidden = (_questionInfo.endTime - time(NULL))>(3600*16)?YES:NO;
         
         if (_question.type == 0) {
             // ar
