@@ -14,6 +14,7 @@ typedef void (^HTGetNotificationsCallback) (BOOL success, NSArray<HTNotification
 typedef void (^HTGetRewardsCallback) (BOOL success, NSArray<HTTicket *> *rewards);
 typedef void (^HTGetUserInfoCallback) (BOOL success, HTUserInfo *userInfo);
 typedef void (^HTGetArticlesCallback) (BOOL success, NSArray<HTArticle *> *articles);
+typedef void (^HTGetArticleCallback) (BOOL success, HTArticle *articles);
 typedef void (^HTGetMyRankCallback) (BOOL success, HTRanker *ranker);
 typedef void (^HTGetRankListCallback) (BOOL success, NSArray<HTRanker *> *ranker);
 typedef void (^HTGetBadgesCallback) (BOOL success, NSArray<HTBadge *> *badges) ;
@@ -54,6 +55,10 @@ typedef NS_ENUM(NSUInteger, HTUpdateUserInfoType) {
  *  @brief 获取礼券列表
  */
 - (void)getRewards:(HTGetRewardsCallback)callback;
+/**
+ *  @brief 获取文章
+ */
+- (void)getArticle:(uint64_t)articleID completion:(HTGetArticleCallback)callback;
 /**
  *  @brief 获取往期文章
  */

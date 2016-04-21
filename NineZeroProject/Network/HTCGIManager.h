@@ -222,6 +222,12 @@
 + (NSString *)getArticlesCGIKey;
 
 /**
+ *  @brief 获取文章
+ *  "article_id"
+ */
++ (NSString *)getArticleCGIKey;
+
+/**
  *  @brief 获取收藏文章
  *  "user_id"
  *  "page"

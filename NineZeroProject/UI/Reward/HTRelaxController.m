@@ -10,6 +10,8 @@
 #import "HTRelaxCoverController.h"
 #import "HTUIHeader.h"
 #import <UIImage+animatedGIF.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import "HTWebController.h"
 
 @interface HTRelaxController () {
     UIVisualEffectView *_visualEfView;
@@ -31,6 +33,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *gifImageView;
 
 @property (nonatomic, strong) HTRelaxCoverController *coverController;
+@property (nonatomic, strong) HTArticle *currentArticle;
+@property (nonatomic, strong) MPMoviePlayerViewController *moviePlayer;
 @end
 
 @implementation HTRelaxController {
@@ -61,8 +65,6 @@
         _visualEfView.contentView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
         [_backgroundImageView addSubview:_visualEfView];
     }
-
-    [self hideTextTips];
     
     [[[HTServiceManager sharedInstance] questionService] getRelaxDayInfo:^(BOOL success, HTResponsePackage *response) {
 //        _endTime = 1460908800 + 3600*24*2;
@@ -79,11 +81,23 @@
                                                                      options:NSJSONReadingMutableContainers
                                                                        error:&jsonError];
             _endTime = date + 3600*24;
+            contentType = 2;
             [self scheduleCountDownTimer];
             if (contentType == 0) {
                 // 文章
                 [self hideGIFTips];
                 [self hideMovieTips];
+                [self.moreButton sizeToFit];
+                if (jsonDict[@"article_id"]) {
+                    NSString *articleID = [NSString stringWithFormat:@"%@", jsonDict[@"article_id"]];
+                    [[[HTServiceManager sharedInstance] profileService] getArticle:[articleID integerValue] completion:^(BOOL success, HTArticle *article) {
+                        if (success) {
+                            _currentArticle = article;
+                            self.textTopLabel.text = article.articleTitle;
+                            self.textBottomLabel.text = article.article_content;
+                        }
+                    }];
+                }
             } else if (contentType == 1) {
                 // 零仔gif链接
                 [self hideMovieTips];
@@ -96,6 +110,7 @@
                 [self hideGIFTips];
                 [self hideTextTips];
                 self.movieTitle.text = [NSString stringWithFormat:@"%@", jsonDict[@"title"]];
+                
             }
         }
     }];
@@ -169,10 +184,19 @@
 
 - (IBAction)didClickPlayButton:(UIButton *)sender {
 //    [self dismissViewControllerAnimated:YES completion:nil];
+    // TODO: 解析出url，填入这里
+    _moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:@"http://a1804.phobos.apple.com/us/r1000/064/Music/v4/9b/b3/c7/9bb3c7dc-a06f-f18c-3e41-2ce1e36f73b4/mzaf_7432104896053262141.aac.m4a"]];
+    _moviePlayer.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:_moviePlayer animated:YES completion:nil];
+    [_moviePlayer.moviePlayer play];
 }
 
 - (IBAction)didClickMoreButton:(UIButton *)sender {
-//    [self dismissViewControllerAnimated:YES completion:nil];
+    // TODO: 这里出现了web界面后，怎么消失？
+////    [self dismissViewControllerAnimated:YES completion:nil];
+//    HTWebController *webController = [[HTWebController alloc] init];
+//    [webController setUrlString:[NSString stringWithFormat:@"http://115.159.115.215:9111/index.php?s=/Home/user/coin/id/%@", [[HTStorageManager sharedInstance] getUserID]]];
+//    [self presentViewController:webController animated:YES completion:nil];
 }
 
 @end

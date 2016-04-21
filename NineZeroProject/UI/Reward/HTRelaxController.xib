@@ -65,8 +65,18 @@
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qat-oE-mBy">
                     <rect key="frame" x="218" y="470" width="56" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="56" id="S59-a2-Gff"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="cJy-YR-g4X"/>
+                        <constraint firstAttribute="height" constant="22" id="gCP-N1-A3I"/>
+                    </constraints>
                     <state key="normal" image="btn_mon_more"/>
                     <state key="highlighted" image="btn_mon_more_highlight"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="cJy-YR-g4X"/>
+                        </mask>
+                    </variation>
                     <connections>
                         <action selector="didClickMoreButton:" destination="-1" eventType="touchUpInside" id="uz3-D7-OM1"/>
                     </connections>

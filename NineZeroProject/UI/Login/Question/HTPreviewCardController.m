@@ -168,7 +168,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         
         [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
             NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
-            if (success && response.resultCode == 0 && [dictData isEqualToString:@"1"]) {
+            if (YES || success && response.resultCode == 0 && [dictData isEqualToString:@"1"]) {
                 HTRelaxController *relaxController = [[HTRelaxController alloc] init];
                 [self presentViewController:relaxController animated:NO completion:nil];
             }
