@@ -81,7 +81,6 @@
                                                                      options:NSJSONReadingMutableContainers
                                                                        error:&jsonError];
             _endTime = date + 3600*24;
-            contentType = 2;
             [self scheduleCountDownTimer];
             if (contentType == 0) {
                 // 文章
