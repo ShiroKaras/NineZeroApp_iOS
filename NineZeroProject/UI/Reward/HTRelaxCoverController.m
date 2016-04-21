@@ -42,6 +42,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (IBAction)didClickButton:(UIButton *)sender {
     [self saveToPhotoLibrary];
+//    [self share:sender];
 }
 
 - (void)share:(UIButton*)sender {
@@ -66,11 +67,83 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeWechat: {
-            
+            NSArray* imageArray = @[_bgImageView.image];
+            if (imageArray) {
+                
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:@"分享内容test"
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
+                                                  title:@"分享文章"
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    switch (state) {
+                        case SSDKResponseStateSuccess:
+                        {
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                message:nil
+                                                                               delegate:nil
+                                                                      cancelButtonTitle:@"确定"
+                                                                      otherButtonTitles:nil];
+                            [alertView show];
+                            break;
+                        }
+                        case SSDKResponseStateFail:
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                            message:[NSString stringWithFormat:@"%@",error]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles:nil, nil];
+                            [alert show];
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }];
+            }
             break;
         }
         case HTButtonTypeMoment: {
-            
+            NSArray* imageArray = @[_bgImageView.image];
+            if (imageArray) {
+                
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:@"分享内容test"
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
+                                                  title:@"分享文章"
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    switch (state) {
+                        case SSDKResponseStateSuccess:
+                        {
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                message:nil
+                                                                               delegate:nil
+                                                                      cancelButtonTitle:@"确定"
+                                                                      otherButtonTitles:nil];
+                            [alertView show];
+                            break;
+                        }
+                        case SSDKResponseStateFail:
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                            message:[NSString stringWithFormat:@"%@",error]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles:nil, nil];
+                            [alert show];
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }];
+            }
             break;
         }
         case HTButtonTypeWeibo: {
@@ -79,11 +152,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"分享内容test"
+                [shareParams SSDKSetupShareParamsByText:@"分享内容test http://www.baidu.com"
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.baidu.com"]
+                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
                                                   title:@"分享文章"
-                                                   type:SSDKContentTypeWebPage];
+                                                   type:SSDKContentTypeImage];
                 [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
@@ -114,10 +187,44 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeQQ: {
-            
-            
+            NSArray* imageArray = @[@"http://ww2.sinaimg.cn/mw690/94d94f1ajw8etrbq63k87j2078078mxl.jpg"];
+            if (imageArray) {
+                
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:@"分享内容test"
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
+                                                  title:@"分享文章"
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeQQFriend parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    switch (state) {
+                        case SSDKResponseStateSuccess:
+                        {
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                message:nil
+                                                                               delegate:nil
+                                                                      cancelButtonTitle:@"确定"
+                                                                      otherButtonTitles:nil];
+                            [alertView show];
+                            break;
+                        }
+                        case SSDKResponseStateFail:
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                            message:[NSString stringWithFormat:@"%@",error]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles:nil, nil];
+                            [alert show];
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }];
+            }
             break;
-            
         }
     }
 }
