@@ -89,47 +89,54 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     NSLog(@"location:{lat:%f; lon:%f; accuracy:%f}", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
     NSLog(@"locations is %@",location);
     
-    CLGeocoder *myGeocoder = [[CLGeocoder alloc] init];
-    [myGeocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
-     {
-         if(error == nil && [placemarks count]>0)
-         {
-             CLPlacemark *placemark = [placemarks objectAtIndex:0];
-             
-             NSLog(@"name = %@",placemark.name);
-             NSLog(@"Country = %@", placemark.country);
-             NSLog(@"Postal Code = %@", placemark.postalCode);
-             NSLog(@"locality = %@", placemark.locality);
-             NSLog(@"subLocality = %@", placemark.subLocality);
-             NSLog(@"address = %@",placemark.name);
-             NSLog(@"administrativeArea = %@",placemark.administrativeArea);
-             NSLog(@"subAdministrativeArea = %@",placemark.subAdministrativeArea);
-             NSLog(@"ISOcountryCode = %@",placemark.ISOcountryCode);
-             NSLog(@"thoroughfare = %@", placemark.thoroughfare);
-             NSLog(@"subThoroughfare = %@",placemark.subThoroughfare);
-             
-//             [label setText:[NSString stringWithFormat:@"address is: %@",placemark.name]];
-         }
-         else if(error==nil && [placemarks count]==0){
-             NSLog(@"No results were returned.");
-         }
-         else if(error != nil) {
-             NSLog(@"An error occurred = %@", error);
-         }
-     }];
+    
     [self.locationManager stopUpdatingLocation];
-//    [self.myLocationManager stopUpdatingLocation];
 }
 
 - (void)mapTest {
     self.locationManager = [[AMapLocationManager alloc] init];
     self.locationManager.delegate = self;
     [self.locationManager startUpdatingLocation];
+    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        NSLog(@"%@", location);
+        if (!error) {
+            NSLog(@"cityCode = %@", regeocode.citycode);
+        }
+    }];
+}
+
+- (void)onceMapTest {
+    [AMapLocationServices sharedServices].apiKey = @"2cb1a94b85ace5b91f5f00b37c0422e9";
+    self.locationManager = [[AMapLocationManager alloc] init];
+    // 带逆地理信息的一次定位（返回坐标和地址信息）
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    //   定位超时时间，可修改，最小2s
+    self.locationManager.locationTimeout = 3;
+    //   逆地理请求超时时间，可修改，最小2s
+    self.locationManager.reGeocodeTimeout = 3;
+
+    // 带逆地理（返回坐标和地址信息）
+    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        
+        if (error)
+        {
+            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+        }
+        
+        NSLog(@"location:%@", location);
+        
+        if (regeocode)
+        {
+            NSLog(@"citycode:%@", regeocode.citycode);
+        }
+    }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self mapTest];
+//    [self mapTest];
+    [self onceMapTest];
+    
     self.view.backgroundColor = UIColorMake(14, 14, 14);
     questionInfo = [HTQuestionHelper questionInfoFake];
 
