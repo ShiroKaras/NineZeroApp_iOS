@@ -23,6 +23,7 @@
 #import "APService.h"
 #import "HTRelaxController.h"
 #import "HTAlertView.h"
+#import <AMapLocationKit/AMapLocationKit.h>
 
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
@@ -32,7 +33,7 @@ typedef NS_ENUM(NSUInteger, HTScrollDirection) {
 
 static CGFloat kItemMargin = 17;         // item之间间隔
 
-@interface HTPreviewCardController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTCardCollectionCellDelegate, HTARCaptureControllerDelegate, HTComposeViewDelegate>
+@interface HTPreviewCardController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTCardCollectionCellDelegate, HTARCaptureControllerDelegate, HTComposeViewDelegate, AMapLocationManagerDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (strong, nonatomic) UIImageView *bgImageView;
 @property (nonatomic, strong) HTCardTimeView *timeView;
@@ -52,6 +53,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (nonatomic, strong) UIImageView *eggImageView;
 @property (nonatomic, strong) UIImageView *eggCoverImageView;
 @property (nonatomic, strong) UIView *dimmingView;
+
+@property (nonatomic, strong) AMapLocationManager *locationManager;
 @end
 
 @implementation HTPreviewCardController {
@@ -81,9 +84,52 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     return [self initWithType:type andQuestList:nil];
 }
 
+- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
+{
+    NSLog(@"location:{lat:%f; lon:%f; accuracy:%f}", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
+    NSLog(@"locations is %@",location);
+    
+    CLGeocoder *myGeocoder = [[CLGeocoder alloc] init];
+    [myGeocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if(error == nil && [placemarks count]>0)
+         {
+             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+             
+             NSLog(@"name = %@",placemark.name);
+             NSLog(@"Country = %@", placemark.country);
+             NSLog(@"Postal Code = %@", placemark.postalCode);
+             NSLog(@"locality = %@", placemark.locality);
+             NSLog(@"subLocality = %@", placemark.subLocality);
+             NSLog(@"address = %@",placemark.name);
+             NSLog(@"administrativeArea = %@",placemark.administrativeArea);
+             NSLog(@"subAdministrativeArea = %@",placemark.subAdministrativeArea);
+             NSLog(@"ISOcountryCode = %@",placemark.ISOcountryCode);
+             NSLog(@"thoroughfare = %@", placemark.thoroughfare);
+             NSLog(@"subThoroughfare = %@",placemark.subThoroughfare);
+             
+//             [label setText:[NSString stringWithFormat:@"address is: %@",placemark.name]];
+         }
+         else if(error==nil && [placemarks count]==0){
+             NSLog(@"No results were returned.");
+         }
+         else if(error != nil) {
+             NSLog(@"An error occurred = %@", error);
+         }
+     }];
+    [self.locationManager stopUpdatingLocation];
+//    [self.myLocationManager stopUpdatingLocation];
+}
+
+- (void)mapTest {
+    self.locationManager = [[AMapLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self mapTest];
     self.view.backgroundColor = UIColorMake(14, 14, 14);
     questionInfo = [HTQuestionHelper questionInfoFake];
 
