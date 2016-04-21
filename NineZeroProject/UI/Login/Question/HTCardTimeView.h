@@ -13,7 +13,6 @@
 @interface HTCardTimeView : UIView
 @property (nonatomic, strong, readonly) HTQuestionInfo *questionInfo;
 @property (nonatomic, strong, readonly) HTQuestion *question;
-@property (nonatomic, assign, readonly) BOOL isHiddenPromptButton;
 - (void)setQuestion:(HTQuestion *)question andQuestionInfo:(HTQuestionInfo *)questionInfo;
 @end
 
