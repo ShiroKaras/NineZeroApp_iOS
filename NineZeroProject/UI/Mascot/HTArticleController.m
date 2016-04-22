@@ -120,7 +120,6 @@
 
 - (void)onClickLikeButton {
     [HTProgressHUD show];
-    NSLog(@"%lu", (unsigned long)self.article.articleID);
     [[[HTServiceManager sharedInstance] profileService] collectArticleWithArticleID:self.article.articleID completion:^(BOOL success, HTResponsePackage *response) {
         [HTProgressHUD dismiss];
         if (success && response.resultCode == 0) {
