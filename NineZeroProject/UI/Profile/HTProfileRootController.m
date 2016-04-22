@@ -75,19 +75,6 @@
     _profileInfo = [[HTStorageManager sharedInstance] profileInfo];
     _userInfo = [[HTStorageManager sharedInstance] userInfo];
     
-    [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
-        if (success) {
-            _profileInfo = profileInfo;
-            [[HTStorageManager sharedInstance] setProfileInfo:profileInfo];
-            if (_profileInfo.answer_list.count == 0) {
-                self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
-                [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:9];
-                [self.view addSubview:self.blankView];
-            }
-            [self reloadData];
-        }
-    }];
-    
     [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
         if (success) {
             _userInfo = userInfo;
@@ -108,7 +95,18 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
-    [self reloadData];
+    [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
+        if (success) {
+            _profileInfo = profileInfo;
+            [[HTStorageManager sharedInstance] setProfileInfo:profileInfo];
+            if (_profileInfo.answer_list.count == 0) {
+                self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+                [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:9];
+                [self.view addSubview:self.blankView];
+            }
+            [self reloadData];
+        }
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

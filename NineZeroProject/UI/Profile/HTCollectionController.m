@@ -29,7 +29,10 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     
     [self.tableView registerClass:[HTMascotArticleCell class] forCellReuseIdentifier:NSStringFromClass([HTMascotArticleCell class])];
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] profileService] getCollectArticlesWithPage:0 count:10 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
         [HTProgressHUD dismiss];
@@ -88,7 +91,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    HTArticleController *controller = [[HTArticleController alloc] init];
+    HTArticle *article = _articles[indexPath.row];
+    HTArticleController *controller = [[HTArticleController alloc] initWithArticle:article];
     [self presentViewController:controller animated:YES completion:nil];
 }
 
