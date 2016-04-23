@@ -70,7 +70,7 @@
     // TODO:这些值不能临时填
     _loginUser.user_email = @"test";
     if (_loginUser.user_avatar.length == 0) _loginUser.user_avatar = @"";
-    _loginUser.user_area_id = @"1";
+    _loginUser.user_area_id = @"010";
     // end
     
     [HTProgressHUD show];
