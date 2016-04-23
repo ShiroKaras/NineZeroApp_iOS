@@ -179,6 +179,7 @@
 @property (nonatomic, assign) NSUInteger user_id;
 @property (nonatomic, strong) NSString *user_avatar;    // 头像(名？)
 @property (nonatomic, strong) NSString *user_name;
+@property (nonatomic, strong) NSString *area_name;
 @end
 
 // 勋章

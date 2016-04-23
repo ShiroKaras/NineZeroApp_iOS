@@ -119,17 +119,19 @@
     }
 
     [_avatar sd_setImageWithURL:[NSURL URLWithString:ranker.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
-    _nickName.text = ranker.user_name;
+    NSString *displayName = (ranker.area_name.length != 0) ? [NSString stringWithFormat:@"%@ | %@", ranker.user_name, ranker.area_name] : ranker.user_name;
+    _nickName.text = displayName;
     [_nickName sizeToFit];
     [_progressView setProgress:MIN(1.0, ranker.gold / 1500.0)];
     [_progressView setCoverColor:[self colorWithCoin:ranker.gold]];
     _coinLabel.text = [NSString stringWithFormat:@"%ld", ranker.gold];
+    _coinLabel.textColor = [self colorWithCoin:ranker.gold];
     [_coinLabel sizeToFit];
 }
 
 - (void)showWithMe:(BOOL)me {
     self.contentView.backgroundColor = (me) ? [UIColor colorWithHex:0x1a1a1a] : [UIColor blackColor];
-    _nickName.textColor = (me) ? [UIColor colorWithHex:0x24ddb2] : [self colorWithCoin:self.ranker.gold];
+    _nickName.textColor = (me) ? [UIColor colorWithHex:0x24ddb2] : [UIColor whiteColor];
 }
 
 - (void)layoutSubviews {
@@ -138,7 +140,7 @@
     _orderImageView.centerY = self.height / 2;
     _orderLabel.frame = CGRectMake(12, self.height / 2 - 10, 39, 20);
     _avatar.frame = CGRectMake(_orderLabel.right + 12, self.height / 2 - 28, 56, 56);
-    _nickName.frame = CGRectMake(_avatar.right + 4, 20, 130, 15);
+    _nickName.frame = CGRectMake(_avatar.right + 4, 20, 190, 15);
     _avatar.layer.cornerRadius = 28;
     _avatar.layer.masksToBounds = YES;
     CGFloat progressView = 130 + SCREEN_WIDTH - 320;
