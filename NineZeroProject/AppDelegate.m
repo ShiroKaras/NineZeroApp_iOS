@@ -17,6 +17,7 @@
 #import "INTULocationManager.h"
 #import "HTMainViewController.h"
 
+#import <AMapLocationKit/AMapLocationKit.h>
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
 
@@ -33,7 +34,8 @@
 
 @interface AppDelegate ()
 
-
+@property (nonatomic, strong) AMapLocationManager *locationManager;
+@property (nonatomic, strong) NSString *cityCode;
 @end
 
 @implementation AppDelegate
@@ -43,7 +45,8 @@
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerQiniuService];
     [self registerShareSDK];
-
+    [self registerAMap];
+    
     [self createWindowAndVisible];
     
     // 光标颜色
@@ -114,6 +117,29 @@
 }
 
 #pragma mark - Location
+
+- (void)registerAMap{
+    [AMapLocationServices sharedServices].apiKey = @"2cb1a94b85ace5b91f5f00b37c0422e9";
+    self.locationManager = [[AMapLocationManager alloc] init];
+    // 带逆地理信息的一次定位（返回坐标和地址信息）
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    //   定位超时时间，可修改，最小2s
+    self.locationManager.locationTimeout = 3;
+    //   逆地理请求超时时间，可修改，最小2s
+    self.locationManager.reGeocodeTimeout = 3;
+    
+    // 带逆地理（返回坐标和地址信息）
+    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        if (error){
+            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+        }
+        NSLog(@"location:%@", location);
+        if (regeocode){
+            NSLog(@"citycode:%@", regeocode.citycode);
+            self.cityCode = regeocode.citycode;
+        }
+    }];
+}
 
 - (void)registerLocation {
     [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyBlock timeout:10.0 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {

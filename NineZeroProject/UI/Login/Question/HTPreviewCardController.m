@@ -117,16 +117,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
     // 带逆地理（返回坐标和地址信息）
     [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
-        
-        if (error)
-        {
+        if (error){
             NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
         }
-        
         NSLog(@"location:%@", location);
-        
-        if (regeocode)
-        {
+        if (regeocode){
             NSLog(@"citycode:%@", regeocode.citycode);
         }
     }];
