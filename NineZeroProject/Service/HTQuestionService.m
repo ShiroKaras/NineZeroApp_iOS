@@ -94,7 +94,7 @@
                                     if (answer.qid == question.questionID) {
                                         question.isPassed = YES;
                                         question.userTime = answer.user_time;
-                                        question.coinNumber = answer.coin;
+                                        question.coinNumber = answer.gold;
                                         [_questionListSuccessful addObject:question];
                                     }
                                 }

@@ -149,7 +149,7 @@
 @property (nonatomic, assign) NSUInteger qid;
 @property (nonatomic, assign) NSUInteger answer_time;
 @property (nonatomic, assign) NSUInteger user_time;
-@property (nonatomic, assign) NSUInteger coin;
+@property (nonatomic, assign) NSUInteger gold;
 @end
 
 @interface HTProfileInfo : NSObject
