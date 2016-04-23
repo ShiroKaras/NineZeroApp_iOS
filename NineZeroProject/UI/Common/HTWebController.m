@@ -47,4 +47,9 @@
     [HTProgressHUD dismiss];
 }
 
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [HTProgressHUD dismiss];
+    [self showTipsWithText:@"加载失败"];
+}
+
 @end

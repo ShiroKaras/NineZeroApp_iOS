@@ -45,7 +45,7 @@
     _questionInfo = questionInfo;
     _question = question;
     _endTime = questionInfo.endTime;
-    if (_question.questionID == _questionInfo.questionID) {
+    if (_question.questionID == _questionInfo.questionID && _question.isPassed == NO) {
         [self scheduleCountDownTimer];
     } else {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
@@ -129,8 +129,12 @@
 }
 
 - (void)setQuestion:(HTQuestion *)question {
-    self.coinLabel.text = @"100";
-    self.timeLabel.text = @"12:00:00";
+    self.coinLabel.text = [NSString stringWithFormat:@"%ld", question.coinNumber];
+    time_t oneHour = 3600;
+    time_t hour = question.userTime / oneHour;
+    time_t minute = (question.userTime % oneHour) / 60;
+    time_t second = question.userTime - hour * oneHour - minute * 60;
+    self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
 }
 
 @end

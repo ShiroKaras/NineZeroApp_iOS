@@ -87,9 +87,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [self.view addSubview:self.shareButton];
     
     self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.likeButton setImage:[UIImage imageNamed:@"btn_fullscreen_liked"] forState:UIControlStateNormal];
-    [self.likeButton setImage:[UIImage imageNamed:@"btn_fullscreen_liked_highlight"] forState:UIControlStateHighlighted];
     [self.likeButton addTarget:self action:@selector(onClickLikeButton) forControlEvents:UIControlEventTouchUpInside];
+    [self refreshLickButton];
     [self.likeButton sizeToFit];
     [self.view addSubview:self.likeButton];
     
@@ -177,9 +176,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - UIWebView Delegate
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-//    NSString *padding = @"document.body.style.margin='0';document.body.style.padding = '0'";
-//    NSString *padding = @"require(\'expose?$!expose?jQuery!jquery\');\nrequire(\'amazeui/dist/css/amazeui.css\');\nrequire(\'amazeui/dist/js/amazeui.js\');\nrequire(\'./../css/article.scss\');\n\n";
-//    [webView stringByEvaluatingJavaScriptFromString:padding];
+
 }
 
 #pragma mark - Action
@@ -197,13 +194,33 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [[[HTServiceManager sharedInstance] profileService] collectArticleWithArticleID:self.article.articleID completion:^(BOOL success, HTResponsePackage *response) {
         [HTProgressHUD dismiss];
         if (success && response.resultCode == 0) {
-            [MBProgressHUD bwm_showTitle:@"收藏成功" toView:self.view hideAfter:1.0];
+            _article.is_collect = !_article.is_collect;
+            if (_article.is_collect) {
+                [MBProgressHUD bwm_showTitle:@"收藏成功" toView:self.view hideAfter:1.0];
+            } else {
+                [MBProgressHUD bwm_showTitle:@"取消收藏成功" toView:self.view hideAfter:1.0];
+            }
+            [self refreshLickButton];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(didClickLickButtonInArticleController:)]) {
+                [self.delegate didClickLickButtonInArticleController:self];
+            }
         } else {
             [self showTipsWithText:response.resultMsg];
         }
     }];
 }
 
+#pragma mark - Tool Method
+
+- (void)refreshLickButton {
+    if (_article.is_collect) {
+        [self.likeButton setImage:[UIImage imageNamed:@"btn_fullscreen_liked"] forState:UIControlStateNormal];
+        [self.likeButton setImage:[UIImage imageNamed:@"btn_fullscreen_liked_highlight"] forState:UIControlStateHighlighted];
+    } else {
+        [self.likeButton setImage:[UIImage imageNamed:@"btn_fullscreen_like"] forState:UIControlStateNormal];
+        [self.likeButton setImage:[UIImage imageNamed:@"btn_fullscreen_like_highlight"] forState:UIControlStateHighlighted];
+    }
+}
 #pragma mark - Share
 
 - (void)setShareAppear:(BOOL)appear {

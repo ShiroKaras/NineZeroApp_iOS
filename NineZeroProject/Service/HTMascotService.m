@@ -32,6 +32,34 @@
     }];
 }
 
+- (void)getUserMascotDetail:(uint64_t)mascotID completion:(HTGetMascotCallback)callback {
+    DLog(@"userid = %@", [[HTStorageManager sharedInstance] getUserID]);
+    if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
+    
+    NSDictionary *dataDict = @{@"user_id" : [[HTStorageManager sharedInstance] getUserID],
+                               @"pet_id"  : @(mascotID)};
+    
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getMascotInfoCGIKey] parameters:dataDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@",responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        if (rsp.resultCode == 0 && responseObject[@"data"] && responseObject[@"data"][@"articles"]) {
+            HTMascot *mascot = [HTMascot objectWithKeyValues:responseObject[@"data"][@"detail"]];
+            NSMutableArray<HTArticle *> *articleList = [NSMutableArray array];
+            // FIXME: 这里应该是数组吧，后台返回了字典，需要改
+            for (NSDictionary *articleDict in responseObject[@"data"][@"articles"]) {
+                HTArticle *article = [HTArticle objectWithKeyValues:articleDict];
+                [articleList addObject:article];
+            }
+            mascot.article_list = articleList;
+            callback(true, mascot);
+        } else {
+            callback(false, nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(false, nil);
+    }];
+}
+
 - (void)getUserProps:(HTGetPropsCallback)callback {
     if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getMascotPropsCGIKey] parameters:@{ @"user_id" : [[HTStorageManager sharedInstance] getUserID] } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {

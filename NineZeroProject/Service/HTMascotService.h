@@ -28,6 +28,10 @@ typedef void (^HTGetRewardCallback) (BOOL success, HTTicket *reward);
  */
 - (void)getUserMascots:(HTGetMascotsCallback)callback;
 /**
+ *  @brief 获取零仔的详情
+ */
+- (void)getUserMascotDetail:(uint64_t)mascotID completion:(HTGetMascotCallback)callback;
+/**
  *  @brief 获取当前用户的所有的道具
  */
 - (void)getUserProps:(HTGetPropsCallback)callback;

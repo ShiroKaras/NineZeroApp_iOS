@@ -8,11 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class HTArticleController;
+@protocol HTArticleControllerDelegate <NSObject>
+@optional
+- (void)didClickLickButtonInArticleController:(HTArticleController *)controller;
+@end
+
 @class HTArticle;
 @interface HTArticleController : UIViewController
 
 - (instancetype)initWithArticle:(HTArticle *)article;
 
 @property (nonatomic, strong) HTArticle *article;
+@property (nonatomic, weak) id<HTArticleControllerDelegate> delegate;
 
 @end

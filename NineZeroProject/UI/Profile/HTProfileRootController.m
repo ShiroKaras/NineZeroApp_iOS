@@ -74,19 +74,7 @@
     
     _profileInfo = [[HTStorageManager sharedInstance] profileInfo];
     _userInfo = [[HTStorageManager sharedInstance] userInfo];
-    
-    [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
-        if (success) {
-            _profileInfo = profileInfo;
-            [[HTStorageManager sharedInstance] setProfileInfo:profileInfo];
-            if (_profileInfo.answer_list.count == 0) {
-                self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
-                [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:9];
-                [self.view addSubview:self.blankView];
-            }
-            [self reloadData];
-        }
-    }];
+    [self reloadData];
     
     [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
         if (success) {
@@ -108,7 +96,18 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
-    [self reloadData];
+    [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
+        if (success) {
+            _profileInfo = profileInfo;
+            [[HTStorageManager sharedInstance] setProfileInfo:profileInfo];
+            if (_profileInfo.answer_list.count == 0) {
+                self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+                [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:9];
+                [self.view addSubview:self.blankView];
+            }
+            [self reloadData];
+        }
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -154,7 +153,7 @@
 
 - (IBAction)didClickCoin:(UIButton *)sender {
     HTWebController *webController = [[HTWebController alloc] init];
-    [webController setUrlString:[NSString stringWithFormat:@"http://115.159.115.215:9111/index.php?s=/Home/user/coin/id/%@", [[HTStorageManager sharedInstance] getUserID]]];
+    [webController setUrlString:[NSString stringWithFormat:@"http://101.201.39.169:9111/index.php?s=/Home/user/coin/id/%@", [[HTStorageManager sharedInstance] getUserID]]];
     [self.navigationController pushViewController:webController animated:YES];
 }
 
@@ -185,7 +184,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _profileInfo.answer_list.count;
+    return [[[HTServiceManager sharedInstance] questionService] questionListSuccessful].count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

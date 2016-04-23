@@ -577,6 +577,7 @@
 		17617F801BEFB0FB000B2BFA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F7F1BEFB0FB000B2BFA /* MessageUI.framework */; };
 		17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F811BEFB103000B2BFA /* JavaScriptCore.framework */; };
 		17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 17617F831BEFB109000B2BFA /* libstdc++.tbd */; };
+		1767F8D91CC93BB400BBD44E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1767F8D81CC93BB400BBD44E /* MediaPlayer.framework */; };
 		176A1AB31CA43BCB00026345 /* HTProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 176A1AB21CA43BCB00026345 /* HTProgressHUD.m */; };
 		176B756E1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 176B756D1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m */; };
 		176B75711C76264A0069DE89 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 176B75701C76264A0069DE89 /* AudioToolbox.framework */; };
@@ -1385,6 +1386,7 @@
 		17617F7F1BEFB0FB000B2BFA /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		17617F811BEFB103000B2BFA /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		17617F831BEFB109000B2BFA /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		1767F8D81CC93BB400BBD44E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		176A1AB11CA43BCB00026345 /* HTProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTProgressHUD.h; sourceTree = "<group>"; };
 		176A1AB21CA43BCB00026345 /* HTProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTProgressHUD.m; sourceTree = "<group>"; };
 		176B756C1C7620500069DE89 /* SharkfoodMuteSwitchDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharkfoodMuteSwitchDetector.h; sourceTree = "<group>"; };
@@ -1686,6 +1688,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1767F8D91CC93BB400BBD44E /* MediaPlayer.framework in Frameworks */,
 				174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */,
 				11F218611CBB986E00D2ED44 /* ImageIO.framework in Frameworks */,
 				17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */,
@@ -3187,6 +3190,7 @@
 		26E633BCA682E11CD6C30957 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1767F8D81CC93BB400BBD44E /* MediaPlayer.framework */,
 				11F218601CBB986E00D2ED44 /* ImageIO.framework */,
 				17A92CE11CAE9D6000BE893D /* libipsec.tbd */,
 				178E7AF81C91EC4B00E4B84F /* Reveal.framework */,

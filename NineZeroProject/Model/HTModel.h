@@ -42,6 +42,8 @@
 @property (nonatomic, assign) NSUInteger type;                // 问题类型(0 ar, 1 文字)
 @property (nonatomic, assign) NSUInteger areaID;              // 用户所在城市ID
 @property (nonatomic, assign) NSUInteger rewardID;            // 奖励ID
+@property (nonatomic, assign) NSUInteger userTime;            // 回答问题使用的时间
+@property (nonatomic, assign) NSUInteger coinNumber;          // 回答问题使用的金币
 @property (nonatomic, assign) BOOL isPassed;                  // 是否闯关成功
 @property (nonatomic, strong) NSArray<NSString *> *answers;   // 答案
 @property (nonatomic, copy) NSString *chapterText;            // 章节名
@@ -72,11 +74,13 @@
 @property (nonatomic, assign) NSUInteger time;
 @property (nonatomic, strong) NSString *articleURL;        // 文章链接
 @property (nonatomic, strong) NSString *articleTitle;      // 文章标题 (缺)
+@property (nonatomic, strong) NSString *article_subtitle;  // 文章副标题
 @property (nonatomic, strong) NSString *articleConverURL;  // 文章封面url (缺)
 @property (nonatomic, assign) NSInteger hasRead;           // 是否已读
 @property (nonatomic, strong) NSString *article_content;
 @property (nonatomic, strong) NSString *article_pic;
 @property (nonatomic, strong) NSString *publish_time;
+@property (nonatomic, assign) NSUInteger is_collect;
 
 @end
 
@@ -145,6 +149,7 @@
 @property (nonatomic, assign) NSUInteger qid;
 @property (nonatomic, assign) NSUInteger answer_time;
 @property (nonatomic, assign) NSUInteger user_time;
+@property (nonatomic, assign) NSUInteger gold;
 @end
 
 @interface HTProfileInfo : NSObject
@@ -174,6 +179,7 @@
 @property (nonatomic, assign) NSUInteger user_id;
 @property (nonatomic, strong) NSString *user_avatar;    // 头像(名？)
 @property (nonatomic, strong) NSString *user_name;
+@property (nonatomic, strong) NSString *area_name;
 @end
 
 // 勋章

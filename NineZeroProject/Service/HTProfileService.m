@@ -175,6 +175,21 @@
     }];
 }
 
+- (void)getArticle:(uint64_t)articleID completion:(HTGetArticleCallback)callback {
+    
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getArticleCGIKey] parameters:@{@"article_id" : @(articleID)} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@",responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTArticle *article = [HTArticle objectWithKeyValues:rsp.data];
+        if (rsp.data) {
+            article = [HTArticle objectWithKeyValues:rsp.data];
+        }
+        callback(true, article);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(false, nil);
+    }];
+}
+
 - (void)getCollectArticlesWithPage:(NSUInteger)page count:(NSUInteger)count callback:(HTGetArticlesCallback)callback {
     DLog(@"userid = %@", [[HTStorageManager sharedInstance] getUserID]);
     if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
@@ -191,6 +206,7 @@
         if (rsp.resultCode == 0) {
             for (NSDictionary *dataDict in rsp.data) {
                 HTArticle *article = [HTArticle objectWithKeyValues:dataDict];
+                article.is_collect = YES;
                 [articles addObject:article];
             }
             callback(true, articles);

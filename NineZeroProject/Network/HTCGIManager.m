@@ -129,6 +129,10 @@
     return [NSString stringWithFormat:@"%@Article/getArticles", NETWORK_HOST];
 }
 
++ (NSString *)getArticleCGIKey {
+    return [NSString stringWithFormat:@"%@Article/getArticle", NETWORK_HOST];
+}
+
 + (NSString *)getCollectArticlesCGIKey {
     return [NSString stringWithFormat:@"%@Article/getMyArticles", NETWORK_HOST];
 }

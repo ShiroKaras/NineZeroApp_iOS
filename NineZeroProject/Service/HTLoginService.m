@@ -144,6 +144,8 @@
 - (void)quitLogin {
     [[HTStorageManager sharedInstance] clearLoginUser];
     [[HTStorageManager sharedInstance] clearUserID];
+    [[HTStorageManager sharedInstance] setUserInfo:[[HTUserInfo alloc] init]];
+    [[HTStorageManager sharedInstance] setProfileInfo:[[HTProfileInfo alloc] init]];
 }
 
 @end

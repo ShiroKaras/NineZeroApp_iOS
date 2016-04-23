@@ -148,10 +148,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     [HTProgressHUD dismiss];
                     [_dimmingView removeFromSuperview];
                     if (success2) {
-                        NSInteger count = questionList.count;
-                        for (HTQuestion *question in callbackQuestionList) {
-                            [questionList insertObject:question atIndex:count];
-                        }
+                        questionList = [callbackQuestionList mutableCopy];
                         [self.collectionView reloadData];
                         [self.collectionView performBatchUpdates:^{}
                                                       completion:^(BOOL finished) {
@@ -431,11 +428,12 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             _composeView.alpha = 0.0;
             _composeView.associatedQuestion = cell.question;
             [_composeView becomeFirstResponder];
-            [cell stop];
+            [self.view addSubview:_composeView];
             [UIView animateWithDuration:0.3 animations:^{
                 _composeView.alpha = 1.0;
                 [self.view addSubview:_composeView];
             } completion:^(BOOL finished) {
+                [cell stop];
             }];
             break;
         }
@@ -469,6 +467,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             if (response.resultCode == 0) {
                 [_composeView showAnswerCorrect:YES];
                 clickCount = 0;
+                questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
+                [self willAppearQuestionAtIndex:questionList.count - 1];
                 // 获取成功了，开始分刮奖励
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
@@ -560,9 +560,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             }];
         }
     }
-//    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,  
-//                                   recognizer.view.center.y + translation.y);  
-//    [recognizer setTranslation:CGPointZero inView:self.view];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
@@ -601,19 +598,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     } else {
         _bgImageView.hidden = YES;
     }
-//    
-//    // wifi
-//    Reachability *reach = [Reachability reachabilityForLocalWiFi];
-//    if ([reach currentReachabilityStatus] != NotReachable) {
-//        // 开启了wifi
-//        for (HTCardCollectionCell *cell in _collectionView.visibleCells) {
-//            if (cell.question.questionID != questionList[index].questionID) {
-//                [cell stop];
-//            } else {
-//                [cell play];
-//            }
-//        }
-//    }
 }
 
 - (NSInteger)indexWithContentOffsetX:(CGFloat)contentOffsetX {
