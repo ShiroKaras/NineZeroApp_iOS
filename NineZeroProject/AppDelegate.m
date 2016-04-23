@@ -14,6 +14,7 @@
 #import <Qiniu/QiniuSDK.h>
 #import "HTLogicHeader.h"
 #import "HTUIHeader.h"
+#import "HTRelaxController.h"
 #import "INTULocationManager.h"
 #import "HTMainViewController.h"
 
@@ -54,6 +55,20 @@
 
     return YES;
 }
+
+#if DEBUG
+- (NSArray *)keyCommands {
+    UIKeyCommand *debugHotKey = [UIKeyCommand keyCommandWithInput:@"D" modifierFlags:UIKeyModifierCommand | UIKeyModifierShift action:@selector(debugHotKey:)];
+    return @[debugHotKey];
+}
+
+- (void)debugHotKey:(UIKeyCommand *)keyCommand {
+    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
+    UIViewController *vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    while (vc.presentedViewController) vc = vc.presentedViewController;
+    [vc presentViewController:relaxController animated:YES completion:nil];
+}
+#endif
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
