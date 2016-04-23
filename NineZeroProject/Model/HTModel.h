@@ -78,6 +78,7 @@
 @property (nonatomic, strong) NSString *article_content;
 @property (nonatomic, strong) NSString *article_pic;
 @property (nonatomic, strong) NSString *publish_time;
+@property (nonatomic, assign) NSUInteger is_collect;
 
 @end
 

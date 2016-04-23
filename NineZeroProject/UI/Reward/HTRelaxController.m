@@ -186,7 +186,7 @@ typedef enum : NSUInteger {
 }
 
 - (IBAction)didClickPlayButton:(UIButton *)sender {
-    _moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:_vedioUrlString];
+    _moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:_vedioUrlString]];
     _moviePlayer.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:_moviePlayer animated:YES completion:nil];
     [_moviePlayer.moviePlayer play];

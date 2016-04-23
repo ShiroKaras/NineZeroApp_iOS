@@ -12,7 +12,7 @@
 #import "HTMascotArticleCell.h"
 #import "HTArticleController.h"
 
-@interface HTMascotIntroController () <UITableViewDelegate, UITableViewDataSource> {
+@interface HTMascotIntroController () <UITableViewDelegate, UITableViewDataSource, HTArticleControllerDelegate> {
     CGFloat mascotRowHeight;
 }
 
@@ -184,6 +184,22 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     _statusBarCoverView.alpha = MIN(scrollView.contentOffset.y / (mascotRowHeight - 20), 1);
     _shareButton.alpha = 1 - _statusBarCoverView.alpha;
+}
+
+#pragma mark - HTArticleController Delegate
+
+- (void)didClickLickButtonInArticleController:(HTArticleController *)controller {
+    HTArticle *article = controller.article;
+    __block NSMutableArray<HTArticle *> *articles;
+    [self.mascot.article_list enumerateObjectsUsingBlock:^(HTArticle * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.articleID == article.articleID) {
+            [articles addObject:article];
+        } else {
+            [articles addObject:obj];
+        }
+    }];
+    self.mascot.article_list = articles;
+    [self.tableView reloadData];
 }
 
 @end

@@ -206,6 +206,7 @@
         if (rsp.resultCode == 0) {
             for (NSDictionary *dataDict in rsp.data) {
                 HTArticle *article = [HTArticle objectWithKeyValues:dataDict];
+                article.is_collect = YES;
                 [articles addObject:article];
             }
             callback(true, articles);

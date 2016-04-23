@@ -74,6 +74,7 @@
     
     _profileInfo = [[HTStorageManager sharedInstance] profileInfo];
     _userInfo = [[HTStorageManager sharedInstance] userInfo];
+    [self reloadData];
     
     [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
         if (success) {
