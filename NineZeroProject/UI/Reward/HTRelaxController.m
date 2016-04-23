@@ -77,13 +77,12 @@ typedef enum : NSUInteger {
     }
     
     [self showViewWithRelaxType:HTRelaxTypeUnknown];
+    [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] questionService] getRelaxDayInfo:^(BOOL success, HTResponsePackage *response) {
-//        _endTime = 1460908800 + 3600*24*2;
-//        [self scheduleCountDownTimer];
         if (success && response.resultCode == 0) {
             NSDictionary *dataDict = response.data;
             NSInteger contentType = [dataDict[@"content_type"] integerValue];
-            time_t date = [dataDict[@"date"] integerValue];
+            time_t endTime = [dataDict[@"end_time"] integerValue];
             contentType = MIN(0, MAX(2, contentType));
             NSString *jsonString = [NSString stringWithFormat:@"%@", dataDict[@"content_data"]];
             NSError *jsonError;
@@ -91,16 +90,17 @@ typedef enum : NSUInteger {
             NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:objectData
                                                                      options:NSJSONReadingMutableContainers
                                                                        error:&jsonError];
-            _endTime = date + 3600*24;
+            _endTime = endTime;
             [self scheduleCountDownTimer];
             _relaxType = contentType;
             if (contentType == 0) {
                 // 文章
-                [self showViewWithRelaxType:HTRelaxTypeArticle];
                 if (jsonDict[@"article_id"]) {
                     NSString *articleID = [NSString stringWithFormat:@"%@", jsonDict[@"article_id"]];
                     [[[HTServiceManager sharedInstance] profileService] getArticle:[articleID integerValue] completion:^(BOOL success, HTArticle *article) {
+                        [HTProgressHUD dismiss];
                         if (success) {
+                            [self showViewWithRelaxType:HTRelaxTypeArticle];
                             _currentArticle = article;
                             self.textTopLabel.text = article.articleTitle;
                             self.textBottomLabel.text = article.article_subtitle;
@@ -109,11 +109,13 @@ typedef enum : NSUInteger {
                 }
             } else if (contentType == 1) {
                 // 零仔gif链接
+                [HTProgressHUD dismiss];
                 [self showViewWithRelaxType:HTRelaxTypeGif];
                 UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", jsonDict[@"pic_url"]]]];
                 _gifImageView.image = gifImage;
                 [_gifImageView startAnimating];
             } else if (contentType == 2) {
+                [HTProgressHUD dismiss];
                 [self showViewWithRelaxType:HTRelaxTypeVedio];
                 self.movieTitle.text = [NSString stringWithFormat:@"%@", jsonDict[@"title"]];
                 self.vedioUrlString = [NSString stringWithFormat:@"%@", jsonDict[@"url"]];
