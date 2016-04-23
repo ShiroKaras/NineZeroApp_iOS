@@ -33,7 +33,7 @@
 }
 
 - (void)getQuestionInfoWithCallback:(HTQuestionInfoCallback)callback {
-    NSDictionary *dict = @{@"area_id" : @"1"};
+    NSDictionary *dict = @{@"area_id" : @"010"};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionInfoCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
@@ -55,7 +55,7 @@
 }
 
 - (void)getQuestionListWithPage:(NSUInteger)page count:(NSUInteger)count callback:(HTQuestionListCallback)callback {
-    NSDictionary *dict = @{@"area_id" : @"1",
+    NSDictionary *dict = @{@"area_id" : @"010",
                            @"page"    : [NSString stringWithFormat:@"%lud", (unsigned long)page],
                            @"count"   : [NSString stringWithFormat:@"%lud", (unsigned long)count]
                            };

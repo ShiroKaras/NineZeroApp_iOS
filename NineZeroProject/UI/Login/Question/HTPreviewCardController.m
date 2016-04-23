@@ -135,10 +135,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self mapTest];
-    [self onceMapTest];
+//    [self onceMapTest];
     
     self.view.backgroundColor = UIColorMake(14, 14, 14);
-    questionInfo = [HTQuestionHelper questionInfoFake];
+//    questionInfo = [HTQuestionHelper questionInfoFake];
 
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
     if (_cardType == HTPreviewCardTypeDefault) {
