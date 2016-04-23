@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) UIView *playBackView;
 @property (nonatomic, strong) UIButton *playButton;
+@property (nonatomic, strong) UIButton *replayButton;
+@property (nonatomic, strong) UIButton *shareButton;
 @property (nonatomic, strong) UIImageView *soundImageView;
 @property (nonatomic, strong) UIImageView *pauseImageView;
 @property (nonatomic, strong) UIView *contentBackView;
@@ -81,6 +83,20 @@
         _progressView.backgroundColor = COMMON_GREEN_COLOR;
         [_progressBgView addSubview:_progressView];
 
+        _replayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay"] forState:UIControlStateNormal];
+        [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay_highlight"] forState:UIControlStateHighlighted];
+        [_replayButton addTarget:self action:@selector(onClickPlayButton) forControlEvents:UIControlEventTouchUpInside];
+//        [_replayButton sizeToFit];
+        [_playBackView addSubview:_replayButton];
+        
+        _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shareButton setImage:[UIImage imageNamed:@"btn_home_share"] forState:UIControlStateNormal];
+        [_shareButton setImage:[UIImage imageNamed:@"btn_home_share_highlight"] forState:UIControlStateHighlighted];
+        [_shareButton addTarget:self action:@selector(onClickShareButton:) forControlEvents:UIControlEventTouchUpInside];
+//        [_shareButton sizeToFit];
+        [_playBackView addSubview:_shareButton];
+        
         // 3. 下方背景
         _contentBackView = [[UIView alloc] initWithFrame:CGRectZero];
         [_cardBackView addSubview:_contentBackView];
@@ -150,6 +166,10 @@
     } else {
         [self play];
     }
+}
+
+- (void)onClickShareButton:sender {
+    
 }
 
 - (void)setSoundHidden:(BOOL)soundHidden {
@@ -286,6 +306,10 @@
     return self.hintButton.frame;
 }
 
+- (void)showShareView {
+    
+}
+
 #pragma mark - Notification
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -302,6 +326,8 @@
 - (void)playItemDidPlayToEndTime:(NSNotification *)notification {
     if ([notification.object isEqual:self.playerItem]) {
         [self stop];
+        //显示分享界面
+        [self showShareView];
     }
 }
 
@@ -315,8 +341,11 @@
     
     _playerLayer.frame = CGRectMake(0, 0, self.width, self.width);
 //    _playButton.center = CGPointMake(self.width / 2 , self.width / 2);
-    _playButton.frame = CGRectMake(_playBackView.width / 2 - 35,
-                                   _playBackView.height / 2 - 35, 70, 70);
+    
+    _playButton.frame = CGRectMake(_playBackView.width / 2 - 35, _playBackView.height / 2 - 35, 70, 70);
+    _replayButton.frame = CGRectMake(_playBackView.width /2 -35 -70, _playBackView.height / 2 -35, 70, 70);
+    _shareButton.frame = CGRectMake(_playBackView.width / 2 +35, _playBackView.height / 2 -35, 70, 70);
+    
     _soundImageView.right = _playBackView.width - 13;
     _soundImageView.top = 5;
     _pauseImageView.right = _playBackView.width - 8;
