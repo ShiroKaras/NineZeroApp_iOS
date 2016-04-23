@@ -184,7 +184,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _profileInfo.answer_list.count;
+    return [[[HTServiceManager sharedInstance] questionService] questionListSuccessful].count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

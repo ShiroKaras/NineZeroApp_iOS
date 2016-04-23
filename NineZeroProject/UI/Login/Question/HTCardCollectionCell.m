@@ -124,7 +124,7 @@
 }
 
 - (void)onClickComposeButton:(UIButton *)button {
-    if (_questionInfo.questionID == _question.questionID) {
+    if (_questionInfo.questionID == _question.questionID && _question.isPassed == NO) {
         if (_question.type == 0) {
             [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAR];
         } else {

@@ -93,6 +93,8 @@
                                 for (HTProfileAnswer *answer in profileInfo.answer_list) {
                                     if (answer.qid == question.questionID) {
                                         question.isPassed = YES;
+                                        question.userTime = answer.user_time;
+                                        question.coinNumber = answer.coin;
                                         [_questionListSuccessful addObject:question];
                                     }
                                 }
