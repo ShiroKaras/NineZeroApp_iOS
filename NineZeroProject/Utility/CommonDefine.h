@@ -41,6 +41,7 @@
 #define COMMON_SEPARATOR_COLOR [UIColor colorWithHex:0x1f1f1f]
 #define KEYWINDS_ROOT_CONTROLLER [[[[UIApplication sharedApplication] delegate] window] rootViewController]
 #define KEY_WINDOW [[[UIApplication sharedApplication] delegate] window]
+#define APPLICATION_DELEGATE [[UIApplication sharedApplication] delegate]
 
 #define NO_NETWORK ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO)
 
