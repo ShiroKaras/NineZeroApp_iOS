@@ -14,6 +14,7 @@
 @implementation HTQuestionService {
     HTLoginUser *_loginUser;
     NSMutableArray<HTQuestion *> *_questionListSuccessful;
+    NSMutableArray<HTQuestion *> *_questionList;
     HTQuestionInfo *_questionInfo;
 }
 
@@ -56,9 +57,10 @@
 
 - (void)getQuestionListWithPage:(NSUInteger)page count:(NSUInteger)count callback:(HTQuestionListCallback)callback {
     NSDictionary *dict = @{@"area_id" : @"010",
-                           @"page"    : [NSString stringWithFormat:@"%lud", (unsigned long)page],
+                           @"page"    : @(0) /* 全量拉取 */,
                            @"count"   : [NSString stringWithFormat:@"%lud", (unsigned long)count]
                            };
+    // 1. 取全部题目
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionListCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
@@ -67,11 +69,12 @@
             for (int i = 0; i != [responseObject[@"data"] count]; i++) {
                 @autoreleasepool {
                     HTQuestion *question = [HTQuestion objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
-                    [questions addObject:question];
+                    [questions insertObject:question atIndex:0]; // UI需要反向
                     [downloadKeys addObject:question.videoName];
                     [downloadKeys addObject:question.descriptionPic];
                 }
             }
+            // 2. 从私有云上取下载链接
             [self getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, HTResponsePackage *response) {
                 if (success) {
                     for (HTQuestion *question in questions) {
@@ -81,6 +84,7 @@
                             question.videoURL = dataDict[question.videoName];
                         }
                     }
+                    // 3. 找到哪些问题已经回答成功
                     [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
                         if (success) {
                             _questionListSuccessful = [NSMutableArray array];
@@ -93,8 +97,10 @@
                                     }
                                 }
                             }
+                            _questionList = questions;
                             callback(YES, questions);
                         } else {
+                            _questionList = questions;
                             callback(false, questions);
                         }
                     }];
@@ -114,6 +120,10 @@
 
 - (NSArray<HTQuestion *> *)questionListSuccessful {
     return _questionListSuccessful;
+}
+
+- (NSArray<HTQuestion *> *)questionList {
+    return _questionList;
 }
 
 - (void)getQuestionDetailWithQuestionID:(NSUInteger)questionID callback:(HTQuestionCallback)callback {
@@ -141,7 +151,26 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager verifyAnswerCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
-        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        if (rsp.resultCode == 0) {
+            // 回答成功的问题加入回答成功的列表中
+            __block BOOL isFound = NO;
+            [_questionListSuccessful enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (obj.questionID == questionID) {
+                    isFound = YES;
+                    *stop = YES;
+                }
+            }];
+            // 已经在回答成功的列表中的问题不需要重复添加
+            if (!isFound) {
+                HTQuestion *question = [self findQuestionInQuestionList:questionID];
+                if (question) {
+                    question.isPassed = YES;
+                    [_questionListSuccessful addObject:question];
+                }
+            }
+        }
+        callback(YES, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);
@@ -156,8 +185,25 @@
     
     NSDictionary *dataDict = @{@"location" : jsonString};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager verifyLocationCGIKey] parameters:dataDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        // 回答成功的问题加入回答成功的列表中
+        __block BOOL isFound = NO;
+        [_questionListSuccessful enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.questionID == questionID) {
+                isFound = YES;
+                *stop = YES;
+            }
+        }];
+        // 已经在回答成功的列表中的问题不需要重复添加
+        if (!isFound) {
+            HTQuestion *question = [self findQuestionInQuestionList:questionID];
+            if (question) {
+                question.isPassed = YES;
+                [_questionListSuccessful addObject:question];
+            }
+        }
         DLog(@"%@", responseObject);
-        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
+        callback(YES, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);
@@ -215,6 +261,18 @@
         callback(NO, nil);
         DLog(@"%@", error);
     }];
+}
+
+- (HTQuestion *)findQuestionInQuestionList:(NSUInteger)questionID {
+    __block HTQuestion *question;
+    [_questionList enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (questionID == obj.questionID) {
+            question = obj;
+            obj.isPassed = YES;
+            *stop = YES;
+        }
+    }];
+    return question;
 }
 
 @end

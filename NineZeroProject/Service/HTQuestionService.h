@@ -42,6 +42,10 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
  */
 - (NSArray<HTQuestion *> *)questionListSuccessful;
 /**
+ *  @brief 闯关关卡
+ */
+- (NSArray<HTQuestion *> *)questionList;
+/**
  *  @brief 获取题目的具体信息
  *  @param questionID question_id
  */

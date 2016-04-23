@@ -220,7 +220,7 @@
     
     _questionInfo = questionInfo;
     _contentLabel.text = question.content;
-    if (_questionInfo.questionID == question.questionID) {
+    if (_questionInfo.questionID == question.questionID && _question.isPassed == NO) {
         [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
         // TODO:判断是否需要显示"获取提示"
         _hintButton.hidden = (_questionInfo.endTime - time(NULL))>(3600*16)?YES:NO;

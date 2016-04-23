@@ -45,7 +45,7 @@
     _questionInfo = questionInfo;
     _question = question;
     _endTime = questionInfo.endTime;
-    if (_question.questionID == _questionInfo.questionID) {
+    if (_question.questionID == _questionInfo.questionID && _question.isPassed == NO) {
         [self scheduleCountDownTimer];
     } else {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];

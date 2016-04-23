@@ -147,7 +147,7 @@
 #pragma mark - Public Method
 
 - (void)showAnswerTips:(NSString *)tips {
-    tips = [NSString stringWithFormat:@"提示:%@", tips];
+    tips = [NSString stringWithFormat:@"%@", tips];
     _tipsLabel.text = tips;
     _tipsBackView.top = -_tipsBackView.height;
     [UIView animateWithDuration:0.3 animations:^{
