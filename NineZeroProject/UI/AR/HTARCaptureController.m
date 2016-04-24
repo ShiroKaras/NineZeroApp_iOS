@@ -14,14 +14,12 @@
 #import "MBProgressHUD+BWMExtension.h"
 #import "HTUIHeader.h"
 #import <UIImage+animatedGIF.h>
+#import <AMapLocationKit/AMapLocationKit.h>
 
-#define NUMBER_OF_POINTS    20
-
-//NSString *kTipMascotLocation = @"零仔藏在朝阳区繁华地带";
 NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
 NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
-@interface HTARCaptureController () <PRARManagerDelegate>
+@interface HTARCaptureController () <PRARManagerDelegate,AMapLocationManagerDelegate>
 @property (nonatomic, strong) PRARManager *prARManager;
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIImageView *radarImageView;
@@ -31,12 +29,12 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) HTImageView *captureSuccessImageView;
 @property (nonatomic, strong) UIView *successBackgroundView;
 @property (nonatomic, strong) HTQuestion *question;
+@property (nonatomic, strong) AMapLocationManager *locationManager;
 @end
 
 @implementation HTARCaptureController {
     CLLocation *_currentLocation;
     CLLocationCoordinate2D _testMascotPoint;
-    INTULocationRequestID _locationId;
     BOOL _needShowDebugLocation;
     UIView *_arView;
 }
@@ -50,7 +48,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
             if (locationDict && locationDict[@"lng"] && locationDict[@"lat"]) {
                 double lat = [[NSString stringWithFormat:@"%@", locationDict[@"lat"]] doubleValue];
                 double lng = [[NSString stringWithFormat:@"%@", locationDict[@"lng"]] doubleValue];
-                _testMascotPoint = CLLocationCoordinate2DMake(lat, lng);
+                DLog(@"lat=>%f \n lng=>%f", lat, lng);
+//                _testMascotPoint = CLLocationCoordinate2DMake(lat, lng);
+                _testMascotPoint = CLLocationCoordinate2DMake(39.923114, 116.517409);
             }
         }
         
@@ -62,16 +62,20 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.locationManager = [[AMapLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
+    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        NSLog(@"%@", location);
+        if (!error) {
+            NSLog(@"cityCode = %@", regeocode.citycode);
+        }
+    }];
+
     _needShowDebugLocation = NO;
     
     // 1.AR
     self.prARManager = [[PRARManager alloc] initWithSize:self.view.frame.size delegate:self showRadar:NO];
-    _locationId = [[INTULocationManager sharedInstance] subscribeToLocationUpdatesWithDesiredAccuracy:INTULocationAccuracyBlock block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-        if (status == INTULocationStatusSuccess) {
-            _currentLocation = currentLocation;
-            [self.prARManager startARWithData:[self getDummyData] forLocation:currentLocation.coordinate];
-        }
-    }];
     
     // 2.返回
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -88,25 +92,27 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         [radars addObject:[UIImage imageNamed:[NSString stringWithFormat:@"raw_radar_gif_000%02d", i]]];
     }
     self.radarImageView = [[UIImageView alloc] init];
+    self.radarImageView.layer.masksToBounds = YES;
     self.radarImageView.animationImages = radars;
     self.radarImageView.animationDuration = 2.0f;
     self.radarImageView.animationRepeatCount = 0;
     [self.radarImageView startAnimating];
     self.radarImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapThree = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickShowDebug)];
-    tapThree.numberOfTapsRequired = 3;
+    tapThree.numberOfTapsRequired = 1;
     [self.radarImageView addGestureRecognizer:tapThree];
     [self.view addSubview:self.radarImageView];
     
     // 4.提示
     self.tipImageView = [[UIImageView alloc] init];
+    self.tipImageView.layer.masksToBounds = YES;
     self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
     [self.view addSubview:self.tipImageView];
     self.tipLabel = [[UILabel alloc] init];
-//    self.tipLabel.text = kTipMascotLocation;
     self.tipLabel.font = [UIFont systemFontOfSize:13];
     self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
     [self.tipImageView addSubview:self.tipLabel];
+    [self showtipImageView];
     
     // 5.零仔
     NSMutableArray<UIImage *> *animatedImages = [NSMutableArray arrayWithCapacity:52];
@@ -115,6 +121,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         [animatedImages addObject:image];
     }
     self.mascotImageView = [[UIImageView alloc] init];
+    self.mascotImageView.layer.masksToBounds = YES;
     UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:_question.question_ar_pet]];
     self.mascotImageView.image = gifImage;
     [self.mascotImageView startAnimating];
@@ -136,11 +143,22 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [self.prARManager stopAR];
-    [[INTULocationManager sharedInstance] cancelLocationRequest:_locationId];
+    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)dealloc {
 
+}
+
+- (void)showtipImageView {
+    self.tipImageView.alpha = 1.0;
+    [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(hidetipImageView) userInfo:nil repeats:NO];
+}
+
+- (void)hidetipImageView {
+    [UIView animateWithDuration:0.3 animations:^{
+        self.tipImageView.alpha = 0;
+    }];
 }
 
 - (void)buildConstrains {
@@ -175,6 +193,14 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+}
+
+#pragma mark - AMapDelegate
+
+- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
+{
+    DLog(@"location:{lat:%f; lon:%f; accuracy:%f}", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
+    [self.prARManager startARWithData:[self getDummyData] forLocation:location.coordinate];
 }
 
 #pragma mark - Action
@@ -242,7 +268,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)onClickShowDebug {
+    self.tipLabel.text = @"";
     _needShowDebugLocation = YES;
+    [self showtipImageView];
     [self.view addSubview:_arView];
 }
 
@@ -294,22 +322,18 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     if (fabs(arViewFrame.origin.y) >= SCREEN_HEIGHT / 2) {
         needShowMascot = NO;
     }
-    
     CGFloat distance = self.prARManager.arObject.distance.floatValue;
-    if (distance >= 500) {
+    if (distance > 100){
         self.tipLabel.text = _question.hint;
         self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
         needShowMascot = NO;
-    } else if (distance >= 300 && distance < 500) {
-        self.tipLabel.text = kTipCloseMascot;
-        self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_1"];
-        needShowMascot = NO;
-    } else if (distance < 300) {
+    }else if(distance <= 100){
         self.tipLabel.text = kTipTapMascotToCapture;
         self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
+        needShowMascot = YES;
     }
     if (_needShowDebugLocation) {
-        self.tipLabel.text = [self.tipLabel.text stringByAppendingFormat:@"(%.1f)", distance];
+        self.tipLabel.text = [NSString stringWithFormat:@"%.1f", distance];
     }
     self.mascotImageView.hidden = !needShowMascot;
     
