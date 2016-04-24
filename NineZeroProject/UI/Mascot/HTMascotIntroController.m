@@ -70,6 +70,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [self.shareButton sizeToFit];
     self.shareButton.tag = HTButtonTypeShare;
     [self.view addSubview:self.shareButton];
+    //隐藏分享
+    self.shareButton.alpha = 0;
     
     self.cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.cancelButton setImage:[UIImage imageNamed:@"btn_fullscreen_close"] forState:UIControlStateNormal];
