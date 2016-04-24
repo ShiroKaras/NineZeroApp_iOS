@@ -10,12 +10,25 @@
 #import <AVFoundation/AVFoundation.h>
 #import "HTUIHeader.h"
 #import "SharkfoodMuteSwitchDetector.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+
+typedef NS_ENUM(NSInteger, HTButtonType) {
+    HTButtonTypeShare = 0,
+    HTButtonTypeCancel,
+    HTButtonTypeWechat,
+    HTButtonTypeMoment,
+    HTButtonTypeWeibo,
+    HTButtonTypeQQ,
+};
 
 @interface HTCardCollectionCell ()
 @property (nonatomic, strong) UIView *cardBackView;
 
 @property (nonatomic, strong) UIView *playBackView;
 @property (nonatomic, strong) UIButton *playButton;
+@property (nonatomic, strong) UIButton *replayButton;
+@property (nonatomic, strong) UIButton *shareButton;
 @property (nonatomic, strong) UIImageView *soundImageView;
 @property (nonatomic, strong) UIImageView *pauseImageView;
 @property (nonatomic, strong) UIView *contentBackView;
@@ -23,6 +36,13 @@
 @property (nonatomic, strong) UIButton *composeButton;
 @property (nonatomic, strong) UIButton *hintButton;
 @property (nonatomic, strong) UIImageView *coverImageView;
+
+@property (nonatomic, strong) UIView *shareView;
+@property (nonatomic, strong) UIButton *cancelButton;
+@property (nonatomic, strong) UIButton *momentButton;
+@property (nonatomic, strong) UIButton *wechatButton;
+@property (nonatomic, strong) UIButton *qqButton;
+@property (nonatomic, strong) UIButton *weiboButton;
 
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
@@ -81,6 +101,22 @@
         _progressView.backgroundColor = COMMON_GREEN_COLOR;
         [_progressBgView addSubview:_progressView];
 
+        _replayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay"] forState:UIControlStateNormal];
+        [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay_highlight"] forState:UIControlStateHighlighted];
+        [_replayButton addTarget:self action:@selector(onClickPlayButton) forControlEvents:UIControlEventTouchUpInside];
+        _replayButton.alpha = 0;
+//        [_replayButton sizeToFit];
+        [_playBackView addSubview:_replayButton];
+        
+        _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shareButton setImage:[UIImage imageNamed:@"btn_home_share"] forState:UIControlStateNormal];
+        [_shareButton setImage:[UIImage imageNamed:@"btn_home_share_highlight"] forState:UIControlStateHighlighted];
+        [_shareButton addTarget:self action:@selector(onClickShareButton:) forControlEvents:UIControlEventTouchUpInside];
+        _shareButton.alpha = 0;
+//        [_shareButton sizeToFit];
+        [_playBackView addSubview:_shareButton];
+        
         // 3. 下方背景
         _contentBackView = [[UIView alloc] initWithFrame:CGRectZero];
         [_cardBackView addSubview:_contentBackView];
@@ -112,6 +148,13 @@
     
     }
     return self;
+}
+
+- (void)onClickReplayButton {
+    _replayButton.alpha = 0;
+    _shareButton.alpha = 0;
+    [self play];
+    [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypePlay];
 }
 
 - (void)onClickPlayButton {
@@ -150,6 +193,10 @@
     } else {
         [self play];
     }
+}
+
+- (void)onClickShareButton:sender {
+    [self showShareView];
 }
 
 - (void)setSoundHidden:(BOOL)soundHidden {
@@ -255,6 +302,10 @@
 
 - (void)dealloc {
     [self stop];
+    if (_shareView) {
+        [_shareView removeFromSuperview];
+    }
+    _shareView = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -274,6 +325,8 @@
 
 - (void)stop {
     _playButton.hidden = NO;
+    _replayButton.alpha = 0;
+    _shareButton.alpha = 0;
     _pauseImageView.hidden = YES;
     [_playerItem seekToTime:kCMTimeZero];
     [_player setRate:0];
@@ -284,6 +337,279 @@
 
 - (CGRect)hintRect {
     return self.hintButton.frame;
+}
+
+- (void)showReplayAndShareButton {
+    _pauseImageView.hidden = YES;
+    [_playerItem seekToTime:kCMTimeZero];
+    [_player setRate:0];
+    [_player seekToTime:CMTimeMake(0, 1)];
+    [_player pause];
+    _coverImageView.hidden = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        _replayButton.alpha = 1.;
+        _shareButton.alpha = 1.;
+    }];
+}
+
+#pragma mark - Share
+
+- (void)createShareView {
+    _shareView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [KEY_WINDOW addSubview:_shareView];
+    _shareView.backgroundColor = [UIColor blackColor];
+    _shareView.alpha = 0;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideShareView)];
+    [_shareView addGestureRecognizer:tap];
+    
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_chap_video_share_title"]];
+    [_shareView addSubview:titleImageView];
+    
+    self.wechatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.wechatButton setImage:[UIImage imageNamed:@"ico_chap_video_share_wechat"] forState:UIControlStateNormal];
+    [self.wechatButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    [self.wechatButton sizeToFit];
+    self.wechatButton.tag = HTButtonTypeWechat;
+    self.wechatButton.alpha = 1;
+    [_shareView addSubview:self.wechatButton];
+    
+    self.momentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.momentButton setImage:[UIImage imageNamed:@"ico_chap_video_share_moments"] forState:UIControlStateNormal];
+    [self.momentButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    [self.momentButton sizeToFit];
+    self.momentButton.tag = HTButtonTypeMoment;
+    self.momentButton.alpha = 1;
+    [_shareView addSubview:self.momentButton];
+    
+    self.weiboButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.weiboButton setImage:[UIImage imageNamed:@"ico_chap_video_share_weibo"] forState:UIControlStateNormal];
+    [self.weiboButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    [self.weiboButton sizeToFit];
+    self.weiboButton.tag = HTButtonTypeWeibo;
+    self.weiboButton.alpha = 1;
+    [_shareView addSubview:self.weiboButton];
+    
+    self.qqButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.qqButton setImage:[UIImage imageNamed:@"ico_chap_video_share_qq"] forState:UIControlStateNormal];
+    [self.qqButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    [self.qqButton sizeToFit];
+    self.qqButton.tag = HTButtonTypeQQ;
+    self.qqButton.alpha = 1;
+    [_shareView addSubview:self.qqButton];
+
+    __weak UIView *weakShareView = _shareView;
+    
+    float padding = (SCREEN_WIDTH-self.wechatButton.width*4)/5;
+//    float iconWidth = self.wechatButton.width;
+    
+    [self.wechatButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakShareView.mas_left).mas_offset(padding);
+        make.centerY.equalTo(weakShareView);
+    }];
+    
+    [self.momentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_wechatButton.mas_right).mas_offset(padding);
+        make.centerY.equalTo(weakShareView);
+    }];
+    
+    [self.weiboButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_momentButton.mas_right).mas_offset(padding);
+        make.centerY.equalTo(weakShareView);
+    }];
+    
+    [self.qqButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_weiboButton.mas_right).mas_offset(padding);
+        make.centerY.equalTo(weakShareView);
+    }];
+    
+    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(_wechatButton.mas_top).mas_offset(-36);
+        make.centerX.equalTo(weakShareView);
+    }];
+}
+
+- (void)showShareView {
+    if (_shareView == nil) {
+        [self createShareView];
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        _shareView.alpha = 0.8;
+    }];
+}
+
+- (void)hideShareView {
+    [UIView animateWithDuration:0.3 animations:^{
+        _shareView.alpha = 0;
+    }];
+}
+
+- (void)shareWithThirdPlatform:(UIButton*)sender {
+    HTButtonType type = (HTButtonType)sender.tag;
+    switch (type) {
+        case HTButtonTypeWechat: {
+            NSArray* imageArray = @[_question.descriptionPic];
+            if (imageArray) {
+                
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:_question.content
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
+                                                  title:_question.chapterText
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    switch (state) {
+                        case SSDKResponseStateSuccess:
+                        {
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                message:nil
+                                                                               delegate:nil
+                                                                      cancelButtonTitle:@"确定"
+                                                                      otherButtonTitles:nil];
+                            [alertView show];
+                            break;
+                        }
+                        case SSDKResponseStateFail:
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                            message:[NSString stringWithFormat:@"%@",error]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles:nil, nil];
+                            [alert show];
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }];
+            }
+            break;
+        }
+        case HTButtonTypeMoment: {
+            NSArray* imageArray = @[_question.descriptionPic];
+            if (imageArray) {
+                
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:_question.content
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
+                                                  title:_question.chapterText
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    switch (state) {
+                        case SSDKResponseStateSuccess:
+                        {
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                message:nil
+                                                                               delegate:nil
+                                                                      cancelButtonTitle:@"确定"
+                                                                      otherButtonTitles:nil];
+                            [alertView show];
+                            break;
+                        }
+                        case SSDKResponseStateFail:
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                            message:[NSString stringWithFormat:@"%@",error]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles:nil, nil];
+                            [alert show];
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }];
+            }
+            break;
+        }
+        case HTButtonTypeWeibo: {
+            NSArray* imageArray = @[_question.descriptionPic];
+            if (imageArray) {
+                
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:@"分享内容test http://www.baidu.com"
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
+                                                  title:_question.chapterText
+                                                   type:SSDKContentTypeImage];
+                [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    switch (state) {
+                        case SSDKResponseStateSuccess:
+                        {
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                message:nil
+                                                                               delegate:nil
+                                                                      cancelButtonTitle:@"确定"
+                                                                      otherButtonTitles:nil];
+                            [alertView show];
+                            break;
+                        }
+                        case SSDKResponseStateFail:
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                            message:[NSString stringWithFormat:@"%@",error]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles:nil, nil];
+                            [alert show];
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }];
+            }
+            break;
+        }
+        case HTButtonTypeQQ: {
+            NSArray* imageArray = @[_question.descriptionPic];
+            if (imageArray) {
+                
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:_question.content
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
+                                                  title:_question.chapterText
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeQQFriend parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    switch (state) {
+                        case SSDKResponseStateSuccess:
+                        {
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                message:nil
+                                                                               delegate:nil
+                                                                      cancelButtonTitle:@"确定"
+                                                                      otherButtonTitles:nil];
+                            [alertView show];
+                            break;
+                        }
+                        case SSDKResponseStateFail:
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                            message:[NSString stringWithFormat:@"%@",error]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles:nil, nil];
+                            [alert show];
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }];
+            }
+            break;
+        }
+            default:
+            break;
+    }
 }
 
 #pragma mark - Notification
@@ -301,7 +627,9 @@
 
 - (void)playItemDidPlayToEndTime:(NSNotification *)notification {
     if ([notification.object isEqual:self.playerItem]) {
-        [self stop];
+//        [self stop];
+        //显示分享界面
+        [self showReplayAndShareButton];
     }
 }
 
@@ -315,8 +643,11 @@
     
     _playerLayer.frame = CGRectMake(0, 0, self.width, self.width);
 //    _playButton.center = CGPointMake(self.width / 2 , self.width / 2);
-    _playButton.frame = CGRectMake(_playBackView.width / 2 - 35,
-                                   _playBackView.height / 2 - 35, 70, 70);
+    
+    _playButton.frame = CGRectMake(_playBackView.width / 2 - 35, _playBackView.height / 2 - 35, 70, 70);
+    _replayButton.frame = CGRectMake(_playBackView.width /2 -35 -70, _playBackView.height / 2 -35, 70, 70);
+    _shareButton.frame = CGRectMake(_playBackView.width / 2 +35, _playBackView.height / 2 -35, 70, 70);
+    
     _soundImageView.right = _playBackView.width - 13;
     _soundImageView.top = 5;
     _pauseImageView.right = _playBackView.width - 8;
