@@ -23,7 +23,6 @@
 #import "APService.h"
 #import "HTRelaxController.h"
 #import "HTAlertView.h"
-#import <AMapLocationKit/AMapLocationKit.h>
 
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
@@ -33,7 +32,7 @@ typedef NS_ENUM(NSUInteger, HTScrollDirection) {
 
 static CGFloat kItemMargin = 17;         // item之间间隔
 
-@interface HTPreviewCardController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTCardCollectionCellDelegate, HTARCaptureControllerDelegate, HTComposeViewDelegate, AMapLocationManagerDelegate>
+@interface HTPreviewCardController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTCardCollectionCellDelegate, HTARCaptureControllerDelegate, HTComposeViewDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (strong, nonatomic) UIImageView *bgImageView;
 @property (nonatomic, strong) HTCardTimeView *timeView;
@@ -53,8 +52,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (nonatomic, strong) UIImageView *eggImageView;
 @property (nonatomic, strong) UIImageView *eggCoverImageView;
 @property (nonatomic, strong) UIView *dimmingView;
-
-@property (nonatomic, strong) AMapLocationManager *locationManager;
 @end
 
 @implementation HTPreviewCardController {
@@ -84,53 +81,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     return [self initWithType:type andQuestList:nil];
 }
 
-- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
-{
-    NSLog(@"location:{lat:%f; lon:%f; accuracy:%f}", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
-    NSLog(@"locations is %@",location);
-    
-    
-    [self.locationManager stopUpdatingLocation];
-}
-
-- (void)mapTest {
-    self.locationManager = [[AMapLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    [self.locationManager startUpdatingLocation];
-    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
-        NSLog(@"%@", location);
-        if (!error) {
-            NSLog(@"cityCode = %@", regeocode.citycode);
-        }
-    }];
-}
-
-- (void)onceMapTest {
-    [AMapLocationServices sharedServices].apiKey = @"2cb1a94b85ace5b91f5f00b37c0422e9";
-    self.locationManager = [[AMapLocationManager alloc] init];
-    // 带逆地理信息的一次定位（返回坐标和地址信息）
-    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
-    //   定位超时时间，可修改，最小2s
-    self.locationManager.locationTimeout = 3;
-    //   逆地理请求超时时间，可修改，最小2s
-    self.locationManager.reGeocodeTimeout = 3;
-
-    // 带逆地理（返回坐标和地址信息）
-    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
-        if (error){
-            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
-        }
-        NSLog(@"location:%@", location);
-        if (regeocode){
-            NSLog(@"citycode:%@", regeocode.citycode);
-        }
-    }];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self mapTest];
-//    [self onceMapTest];
     
     self.view.backgroundColor = UIColorMake(14, 14, 14);
 //    questionInfo = [HTQuestionHelper questionInfoFake];
