@@ -120,4 +120,13 @@
     return [NSString stringWithFormat:@"avatar_%ld_%@", (NSInteger)[[NSDate date] timeIntervalSince1970], [[HTStorageManager sharedInstance] getUserID]];
 }
 
+- (NSDictionary *)dictionaryWithJsonString {
+    NSError *jsonError;
+    NSData *objectData = [self dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:objectData
+                                                             options:NSJSONReadingMutableContainers
+                                                               error:&jsonError];
+    return jsonDict;
+}
+
 @end

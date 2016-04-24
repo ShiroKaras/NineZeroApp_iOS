@@ -32,5 +32,7 @@
 + (NSString *)qiniuDownloadURLWithFileName:(NSString *)fileName;
 + (NSString *)avatarName;
 
+- (NSDictionary *)dictionaryWithJsonString;
+
 @end
 

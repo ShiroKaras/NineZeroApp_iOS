@@ -34,6 +34,11 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIWebView *webView;
 
+@property (nonatomic, strong) HTMascot *mascot;
+@property (nonatomic, strong) HTMascotProp *prop;
+@property (nonatomic, strong) HTTicket *ticket;;
+@property (nonatomic, assign) NSUInteger goldNumber;
+
 @end
 
 @implementation HTRewardController {
@@ -114,7 +119,7 @@
     [_sureButton addTarget:self action:@selector(onClickSureButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_sureButton];
     
-    [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID completion:^(BOOL success, HTTicket *reward) {
+    [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID completion:^(BOOL success, HTResponsePackage *rsp) {
         
     }];
 }

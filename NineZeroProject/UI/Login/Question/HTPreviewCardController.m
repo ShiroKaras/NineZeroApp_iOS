@@ -404,7 +404,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypeReward: {
-            HTRewardController *reward = [[HTRewardController alloc] init];
+            HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:cell.question.rewardID];
             reward.view.backgroundColor = [UIColor clearColor];
             if (IOS_VERSION >= 8.0) {
                 reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
@@ -413,7 +413,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypeAR: {
-            HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] init];
+            HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] initWithQuestion:cell.question];
             arCaptureController.delegate = self;
             [self presentViewController:arCaptureController animated:YES completion:nil];
             break;
@@ -427,8 +427,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
             _composeView.alpha = 0.0;
             _composeView.associatedQuestion = cell.question;
-            [_composeView becomeFirstResponder];
             [self.view addSubview:_composeView];
+            [_composeView becomeFirstResponder];
             [UIView animateWithDuration:0.3 animations:^{
                 _composeView.alpha = 1.0;
                 [self.view addSubview:_composeView];
@@ -499,7 +499,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller {
     [controller dismissViewControllerAnimated:NO completion:nil];
-    HTRewardController *reward = [[HTRewardController alloc] init];
+    questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
+    [self willAppearQuestionAtIndex:questionList.count - 1];
+    
+    HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:controller.rewardID];
     reward.view.backgroundColor = [UIColor clearColor];
     if (IOS_VERSION >= 8.0) {
         reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;

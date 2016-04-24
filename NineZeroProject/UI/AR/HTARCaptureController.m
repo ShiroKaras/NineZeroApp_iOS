@@ -13,10 +13,11 @@
 #import "INTULocationManager.h"
 #import "MBProgressHUD+BWMExtension.h"
 #import "HTUIHeader.h"
+#import <UIImage+animatedGIF.h>
 
 #define NUMBER_OF_POINTS    20
 
-NSString *kTipMascotLocation = @"零仔藏在朝阳区繁华地带";
+//NSString *kTipMascotLocation = @"零仔藏在朝阳区繁华地带";
 NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
 NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
@@ -43,26 +44,24 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (instancetype)initWithQuestion:(HTQuestion *)question {
     if (self = [super init]) {
         _question = question;
+        
+        if (_question.question_ar_location.length != 0) {
+            NSDictionary *locationDict = [_question.question_ar_location dictionaryWithJsonString];
+            if (locationDict && locationDict[@"lng"] && locationDict[@"lat"]) {
+                double lat = [[NSString stringWithFormat:@"%@", locationDict[@"lat"]] doubleValue];
+                double lng = [[NSString stringWithFormat:@"%@", locationDict[@"lng"]] doubleValue];
+                _testMascotPoint = CLLocationCoordinate2DMake(lat, lng);
+            }
+        }
+        
     }
     return self;
-}
-
-- (void)alert:(NSString*)title withDetails:(NSString*)details {
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:details
-                                                   delegate:nil
-                                          cancelButtonTitle:@"Ok"
-                                          otherButtonTitles:nil];
-    [alert show];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    // for test
-    _testMascotPoint = CLLocationCoordinate2DMake(0, 0);
     _needShowDebugLocation = NO;
     
     // 1.AR
@@ -104,7 +103,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
     [self.view addSubview:self.tipImageView];
     self.tipLabel = [[UILabel alloc] init];
-    self.tipLabel.text = kTipMascotLocation;
+//    self.tipLabel.text = kTipMascotLocation;
     self.tipLabel.font = [UIFont systemFontOfSize:13];
     self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
     [self.tipImageView addSubview:self.tipLabel];
@@ -116,9 +115,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         [animatedImages addObject:image];
     }
     self.mascotImageView = [[UIImageView alloc] init];
-    self.mascotImageView.animationImages = animatedImages;
-    self.mascotImageView.animationDuration = 0.04 * 52;
-    self.mascotImageView.animationRepeatCount = 0;
+    UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:_question.question_ar_pet]];
+    self.mascotImageView.image = gifImage;
     [self.mascotImageView startAnimating];
     self.mascotImageView.hidden = YES;
     self.mascotImageView.userInteractionEnabled = YES;
@@ -190,47 +188,57 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)onClickMascot {
-    // 6.捕获成功
-    
-    self.successBackgroundView = [[UIView alloc] init];
-    self.successBackgroundView.backgroundColor = [UIColor colorWithHex:0x1f1f1f alpha:0.8];
-    self.successBackgroundView.layer.cornerRadius = 5.0f;
-    [self.view addSubview:self.successBackgroundView];
-    [self.view bringSubviewToFront:self.successBackgroundView];
-
-    NSMutableArray<UIImage *> *images = [NSMutableArray array];
-    for (int i = 0; i != 18; i++) {
-        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"img_ar_right_answer_gif_00%02d", i]];
-        [images addObject:animatedImage];
-    }
-    self.captureSuccessImageView = [[HTImageView alloc] init];
-//    [self.captureSuccessImageView setAnimatedImageWithName:@"img_ar_right_answer_gif"];
-//    self.captureSuccessImageView.hidden = YES;
-    self.captureSuccessImageView.animationImages = images;
-    self.captureSuccessImageView.animationDuration = 0.06 * 18;
-    self.captureSuccessImageView.animationRepeatCount = 1;
-    [self.successBackgroundView addSubview:self.captureSuccessImageView];
-    [self.captureSuccessImageView startAnimating];
-    
-    [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(@161);
-        make.width.equalTo(@173);
-        make.height.equalTo(@173);
+    CGPoint currentLocation = CGPointMake(_currentLocation.coordinate.longitude, _currentLocation.coordinate.latitude);
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [[[HTServiceManager sharedInstance] questionService] verifyQuestion:_question.questionID withLocation:currentLocation callback:^(BOOL success, HTResponsePackage *response) {
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        if (success && response.resultCode == 0) {
+            self.rewardID = [response.data[@"reward_id"] integerValue];
+            // 6.捕获成功
+            self.successBackgroundView = [[UIView alloc] init];
+            self.successBackgroundView.backgroundColor = [UIColor colorWithHex:0x1f1f1f alpha:0.8];
+            self.successBackgroundView.layer.cornerRadius = 5.0f;
+            [self.view addSubview:self.successBackgroundView];
+            [self.view bringSubviewToFront:self.successBackgroundView];
+            
+            NSMutableArray<UIImage *> *images = [NSMutableArray array];
+            for (int i = 0; i != 18; i++) {
+                UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"img_ar_right_answer_gif_00%02d", i]];
+                [images addObject:animatedImage];
+            }
+            self.captureSuccessImageView = [[HTImageView alloc] init];
+            self.captureSuccessImageView.animationImages = images;
+            self.captureSuccessImageView.animationDuration = 0.06 * 18;
+            self.captureSuccessImageView.animationRepeatCount = 1;
+            [self.successBackgroundView addSubview:self.captureSuccessImageView];
+            [self.captureSuccessImageView startAnimating];
+            
+            [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(self.view);
+                make.top.equalTo(@161);
+                make.width.equalTo(@173);
+                make.height.equalTo(@173);
+            }];
+            
+            [self.captureSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(@4);
+                make.top.equalTo(@4);
+                make.width.equalTo(@165);
+                make.height.equalTo(@165);
+            }];
+            
+            [self.mascotImageView removeFromSuperview];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.06 * 18 - 0.6) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self onCaptureMascotSuccessful];
+            });
+        } else {
+           if (response.resultMsg) {
+                [self showTipsWithText:response.resultMsg];
+           } else {
+                [self showTipsWithText:response.resultMsg];
+           }
+        }
     }];
-    
-    [self.captureSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@4);
-        make.top.equalTo(@4);
-        make.width.equalTo(@165);
-        make.height.equalTo(@165);
-    }];
-    
-//    self.captureSuccessImageView.hidden = NO;
-    [self.mascotImageView removeFromSuperview];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.06 * 18 - 0.6) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self onCaptureMascotSuccessful];
-    });
 }
 
 - (void)onClickShowDebug {
@@ -309,7 +317,12 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)prarGotProblem:(NSString *)problemTitle withDetails:(NSString *)problemDetails {
-    [self alert:problemTitle withDetails:problemDetails];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:problemTitle
+                                                    message:problemDetails
+                                                   delegate:nil
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

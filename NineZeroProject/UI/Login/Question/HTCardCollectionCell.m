@@ -216,7 +216,7 @@
         }];
     }
     
-    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:_question.descriptionPic] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
+    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:_question.question_video_cover] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
     
     _questionInfo = questionInfo;
     _contentLabel.text = question.content;

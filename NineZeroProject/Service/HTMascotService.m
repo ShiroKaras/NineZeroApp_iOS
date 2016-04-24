@@ -45,7 +45,6 @@
         if (rsp.resultCode == 0 && responseObject[@"data"] && responseObject[@"data"][@"articles"]) {
             HTMascot *mascot = [HTMascot objectWithKeyValues:responseObject[@"data"][@"detail"]];
             NSMutableArray<HTArticle *> *articleList = [NSMutableArray array];
-            // FIXME: 这里应该是数组吧，后台返回了字典，需要改
             for (NSDictionary *articleDict in responseObject[@"data"][@"articles"]) {
                 HTArticle *article = [HTArticle objectWithKeyValues:articleDict];
                 [articleList addObject:article];
@@ -95,12 +94,13 @@
 }
 
 - (void)getRewardWithID:(uint64_t)rewardID completion:(HTGetRewardCallback)callback {
-    NSDictionary *paraDict = @{@"reward_id" : @(1)};
+    NSDictionary *paraDict = @{@"reward_id" : @(rewardID),
+                               @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getRewardCGIKey] parameters:paraDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
-//        callback(true, rsp);
+        callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
     }];

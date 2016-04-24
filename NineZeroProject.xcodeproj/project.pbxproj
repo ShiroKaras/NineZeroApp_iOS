@@ -4354,7 +4354,7 @@
 					"-framework",
 					Reveal,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -4448,7 +4448,7 @@
 					"-framework",
 					Reveal,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

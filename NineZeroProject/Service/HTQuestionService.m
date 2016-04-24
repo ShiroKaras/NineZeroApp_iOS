@@ -70,8 +70,10 @@
                 @autoreleasepool {
                     HTQuestion *question = [HTQuestion objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
                     [questions insertObject:question atIndex:0]; // UI需要反向
-                    [downloadKeys addObject:question.videoName];
-                    [downloadKeys addObject:question.descriptionPic];
+                    if (question.videoName) [downloadKeys addObject:question.videoName];
+                    if (question.descriptionPic) [downloadKeys addObject:question.descriptionPic];
+                    if (question.question_ar_pet) [downloadKeys addObject:question.question_ar_pet];
+                    if (question.question_video_cover) [downloadKeys addObject:question.question_video_cover];
                 }
             }
             // 2. 从私有云上取下载链接
@@ -80,8 +82,10 @@
                     for (HTQuestion *question in questions) {
                         @autoreleasepool {
                             NSDictionary *dataDict = response.data;
-                            question.descriptionURL = dataDict[question.descriptionPic];
-                            question.videoURL = dataDict[question.videoName];
+                            if (question.descriptionPic) question.descriptionURL = dataDict[question.descriptionPic];
+                            if (question.videoName) question.videoURL = dataDict[question.videoName];
+                            if (question.question_video_cover) question.question_video_cover = dataDict[question.question_video_cover];
+                            if (question.question_ar_pet) question.question_ar_pet = dataDict[question.question_ar_pet];
                         }
                     }
                     // 3. 找到哪些问题已经回答成功
@@ -129,7 +133,10 @@
 }
 
 - (void)getQuestionDetailWithQuestionID:(NSUInteger)questionID callback:(HTQuestionCallback)callback {
-    NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID]};
+    NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID],
+                           @"area_id" : @(010),
+                           @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
+    
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionDetailCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         callback(YES, [HTQuestion objectWithKeyValues:responseObject[@"data"]]);
         DLog(@"%@",responseObject);
@@ -155,24 +162,47 @@
         DLog(@"%@", responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
-            // 回答成功的问题加入回答成功的列表中
-            __block BOOL isFound = NO;
-            [_questionListSuccessful enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (obj.questionID == questionID) {
-                    isFound = YES;
-                    *stop = YES;
+            [self getQuestionDetailWithQuestionID:questionID callback:^(BOOL success, HTQuestion *question) {
+                if (success) {
+//                    [_questionListSuccessful enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                        if (obj.questionID == questionID) {
+//                            _questionListSuccessful[idx] = question;
+//                            *stop = YES;
+//                        }
+//                    }];
+//                    [_questionList enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                        if (obj.questionID == questionID) {
+//                            _questionList[idx] = question;
+//                            *stop = YES;
+//                        }
+//                    }];
+                    // 回答成功的问题加入回答成功的列表中
+                    __block BOOL isFound = NO;
+                    [_questionListSuccessful enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if (obj.questionID == questionID) {
+                            isFound = YES;
+                            *stop = YES;
+                        }
+                    }];
+                    // 已经在回答成功的列表中的问题不需要重复添加
+                    if (!isFound) {
+                        HTQuestion *question = [self findQuestionInQuestionList:questionID];
+                        if (question) {
+                            question.isPassed = YES;
+                            if (rsp.data[@"reward_id"]) {
+                                question.rewardID = [[NSString stringWithFormat:@"%@", rsp.data[@"reward_id"]] integerValue];
+                            }
+                            [_questionListSuccessful addObject:question];
+                        }
+                    }
+                    callback(YES, rsp);
+                } else {
+                    callback(NO, rsp);
                 }
             }];
-            // 已经在回答成功的列表中的问题不需要重复添加
-            if (!isFound) {
-                HTQuestion *question = [self findQuestionInQuestionList:questionID];
-                if (question) {
-                    question.isPassed = YES;
-                    [_questionListSuccessful addObject:question];
-                }
-            }
+        } else {
+            callback(NO, rsp);
         }
-        callback(YES, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);
@@ -180,12 +210,10 @@
 }
 
 - (void)verifyQuestion:(NSUInteger)questionID withLocation:(CGPoint)location callback:(HTResponseCallback)callback {
-    NSDictionary *locationDict = @{@"x" : @(location.x),
-                                   @"y" : @(location.y)};
-    NSString *jsonString = [self dictionaryToJson:locationDict];
-    if (jsonString == nil) return;
-    
-    NSDictionary *dataDict = @{@"location" : jsonString};
+    NSDictionary *dataDict = @{
+                               @"lng" : @(location.x),
+                               @"lat" : @(location.y),
+                               @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager verifyLocationCGIKey] parameters:dataDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         // 回答成功的问题加入回答成功的列表中
@@ -201,6 +229,9 @@
             HTQuestion *question = [self findQuestionInQuestionList:questionID];
             if (question) {
                 question.isPassed = YES;
+                if (rsp.data[@"reward_id"]) {
+                    question.rewardID = [[NSString stringWithFormat:@"%@", rsp.data[@"reward_id"]] integerValue];
+                }
                 [_questionListSuccessful addObject:question];
             }
         }
