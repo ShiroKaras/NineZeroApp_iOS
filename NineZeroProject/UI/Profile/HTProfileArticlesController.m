@@ -80,8 +80,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     HTArticle *article = _articles[indexPath.row];
     HTArticleController *controller = [[HTArticleController alloc] initWithArticle:article];
-    [self presentViewController:controller animated:YES completion:nil];
-//    [self.navigationController pushViewController:controller animated:YES];
+//    [self presentViewController:controller animated:YES completion:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
