@@ -49,6 +49,7 @@
 - (instancetype)initWithRewardID:(uint64_t)rewardID questionID:(uint64_t)qid {
     if (self = [super init]) {
         _rewardID = rewardID;
+        _qid = qid;
     }
     return self;
 }
