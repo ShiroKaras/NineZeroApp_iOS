@@ -18,7 +18,7 @@
 @protocol HTProfileSettingChangeNameViewDelegate <NSObject>
 - (void)onClickUserButtonWithUserInfo:(HTUserInfo *)userInfo;
 @end
-@interface HTProfileSettingChangeNameView : UIView <UITextFieldDelegate>
+@interface HTProfileSettingChangeNameView : UIView <UITextFieldDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) UIView *whiteBackView;
 @property (nonatomic, strong) UITextField *textField;
@@ -212,10 +212,8 @@ typedef enum : NSUInteger {
     } else if (type == HTProfileSettingTypeAvatar) {
         [self presentSystemPhotoLibraryController];
     } else if (type == HTProfileSettingTypeQuitLogin) {
-        [[[HTServiceManager sharedInstance] loginService] quitLogin];
-        HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
-        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
-        [[[UIApplication sharedApplication] delegate] window].rootViewController = navController;
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+        [alertView show];
     } else if (type == HTProfileSettingTypeName) {
         HTProfileSettingChangeNameView *changeView = [[HTProfileSettingChangeNameView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         [changeView setUserInfo:_userInfo];
@@ -226,6 +224,17 @@ typedef enum : NSUInteger {
         [MBProgressHUD bwm_showTitle:@"清除成功" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeSuccessful];
     } else if (type ==HTProfileSettingTypeExplain){
         
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        
+    }else{
+        [[[HTServiceManager sharedInstance] loginService] quitLogin];
+        HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
+        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
+        [[[UIApplication sharedApplication] delegate] window].rootViewController = navController;
     }
 }
 
