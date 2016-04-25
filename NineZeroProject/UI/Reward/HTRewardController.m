@@ -163,8 +163,14 @@
     _imageView = [[UIImageView alloc] init];
     [_scrollView addSubview:_imageView];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // TODO: 从mascot或者prop中找到gif字段并展示
-        UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:@"http://ww2.sinaimg.cn/large/7cefdfa5jw1dskejdmiaog.gif"]];
+        NSString *gifString;
+        if (_mascot) { // 优先展示零仔的，后台不应该同时下发零仔和道具两种都存在的情况
+            gifString = _mascot.pet_gif;
+        } else {
+            gifString = _prop.prop_gif;
+        }
+        if (gifString.length == 0) gifString = @""; // 留一手，万一gif为nil呢？
+        UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:gifString]];
         _imageView.image = gifImage;
         [_imageView startAnimating];
     });
