@@ -167,7 +167,7 @@
             _webView.opaque = NO;
             _webView.backgroundColor = [UIColor clearColor];
             _webView.scrollView.backgroundColor = [UIColor clearColor];
-            NSString *htmlString = [NSString stringWithFormat:@"<html><body font-family: '-apple-system','HelveticaNeue'; style=\"line-height:24px; font-size:13px\" text=\"#d9d9d9\" bgcolor=\"#1f1f1f\"><span style=\"font-family: \'-apple-system\',\'HelveticaNeue\';\">%@</span></body></html>", urlString];
+            NSString *htmlString = [NSString stringWithFormat:@"<html><body font-family: '-apple-system','HelveticaNeue'; style=\"line-height:24px; font-size:13px\" text=\"#d9d9d9\" bgcolor=\"#1f1f1f\"><span style=\"font-family: \'-apple-system\',\'HelveticaNeue\';\"><div style=\"word-wrap:break-word; width:240px;\">%@</div></span></body></html>", urlString];
             [_webView loadHTMLString:htmlString baseURL: nil];
             _webView.delegate = self;
             NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
