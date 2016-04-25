@@ -42,5 +42,5 @@ typedef void (^HTGetRewardCallback) (BOOL success, HTResponsePackage *rsp);
 /**
  *  @brief 获取奖励详情
  */
-- (void)getRewardWithID:(uint64_t)rewardID completion:(HTGetRewardCallback)callback;
+- (void)getRewardWithID:(uint64_t)rewardID questionID:(uint64_t)qid completion:(HTGetRewardCallback)callback;
 @end

@@ -28,7 +28,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) UIImageView *mascotImageView;
 @property (nonatomic, strong) HTImageView *captureSuccessImageView;
 @property (nonatomic, strong) UIView *successBackgroundView;
-@property (nonatomic, strong) HTQuestion *question;
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 @end
 

@@ -20,5 +20,6 @@
 - (instancetype)initWithQuestion:(HTQuestion *)question;
 @property (nonatomic, weak) id<HTARCaptureControllerDelegate> delegate;
 @property (nonatomic, assign) NSUInteger rewardID;
+@property (nonatomic, strong) HTQuestion *question;
 
 @end

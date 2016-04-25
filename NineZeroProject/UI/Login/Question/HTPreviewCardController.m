@@ -356,7 +356,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypeReward: {
-            HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:cell.question.rewardID];
+            HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:cell.question.rewardID questionID:cell.question.questionID];
             reward.view.backgroundColor = [UIColor clearColor];
             if (IOS_VERSION >= 8.0) {
                 reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
@@ -437,6 +437,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                 [_composeView showAnswerCorrect:NO];
                 clickCount++;
             }
+        } else {
+            if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", question.hint]];
+            [_composeView showAnswerCorrect:NO];
+            clickCount++;
         }
     }];
 }
@@ -454,7 +458,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
     [self willAppearQuestionAtIndex:questionList.count - 1];
     
-    HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:controller.rewardID];
+    HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:controller.rewardID questionID:controller.question.questionID];
     reward.view.backgroundColor = [UIColor clearColor];
     if (IOS_VERSION >= 8.0) {
         reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;

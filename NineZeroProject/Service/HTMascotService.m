@@ -93,9 +93,10 @@
     }];
 }
 
-- (void)getRewardWithID:(uint64_t)rewardID completion:(HTGetRewardCallback)callback {
+- (void)getRewardWithID:(uint64_t)rewardID questionID:(uint64_t)qid completion:(HTGetRewardCallback)callback {
     NSDictionary *paraDict = @{@"reward_id" : @(rewardID),
-                               @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
+                               @"user_id" : [[HTStorageManager sharedInstance] getUserID],
+                               @"qid" : @(qid)};
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getRewardCGIKey] parameters:paraDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
