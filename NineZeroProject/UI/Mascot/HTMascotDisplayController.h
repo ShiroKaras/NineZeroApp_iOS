@@ -11,4 +11,5 @@
 @interface HTMascotDisplayController : UIViewController
 // 重置状态
 - (void)reloadDisplayMascots;
+- (void)reloadAllData;
 @end

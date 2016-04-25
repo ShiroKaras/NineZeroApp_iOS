@@ -436,6 +436,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                         reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                     }
                     [self presentViewController:reward animated:YES completion:nil];
+                    [[HTUIHelper mainController] reloadMascotViewData];
                 });
             } else {
                 if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", question.hint]];
@@ -469,6 +470,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     }
     [self presentViewController:reward animated:YES completion:nil];
+    [[HTUIHelper mainController] reloadMascotViewData];
 }
 
 #pragma mark - UIScrollView Delegate
