@@ -396,6 +396,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypePlay: {
+            for (HTCardCollectionCell *iter in _collectionView.visibleCells) {
+                if (cell.question.questionID != iter.question.questionID) {
+                    [iter stop];
+                }
+            }
             break;
         }
         default:
