@@ -184,7 +184,7 @@
 
 - (instancetype)initWithURLString:(NSString *)urlString andType:(HTDescriptionType)type andImageUrl:(NSString *)imageUrlString {
     self  = [self initWithURLString:urlString andType:type];
-    [_imageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString]];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
     return self;
 }
 
