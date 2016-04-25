@@ -164,7 +164,8 @@
         if (rsp.resultCode == 0) {
             for (NSDictionary *dataDict in rsp.data) {
                 HTArticle *article = [HTArticle objectWithKeyValues:dataDict];
-                [articles addObject:article];
+//                [articles addObject:article];
+                [articles insertObject:article atIndex:0];
             }
             callback(true, articles);
         } else {
