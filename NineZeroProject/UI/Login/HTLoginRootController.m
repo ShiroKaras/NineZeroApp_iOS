@@ -34,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"主界面";
+    self.userNameTextField.delegate = self;
     [_loginButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
     [self setTipsOffsetY:20];
 }
@@ -59,6 +60,18 @@
 //    self.userPasswordTextField.text = @"1123123";
 //    self.registerButton.enabled = YES;
 //#endif
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if(range.length + range.location > textField.text.length)
+    {
+        return NO;
+    }
+    
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return newLength <= 11;
 }
 
 #pragma mark - Subclass

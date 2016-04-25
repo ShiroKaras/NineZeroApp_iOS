@@ -27,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"登录";
+    self.userNameTextField.delegate = self;
 //#ifdef DEBUG
 //    HTLoginUser *user = [[[HTServiceManager sharedInstance] loginService] loginUser];
 //    self.userNameTextField.text = user.user_mobile;
@@ -63,6 +64,18 @@
 - (IBAction)didClickForgetPassword:(UIButton *)sender {
     HTForgetPasswordController *forgetPwdController = [[HTForgetPasswordController alloc] init];
     [self.navigationController pushViewController:forgetPwdController animated:YES];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if(range.length + range.location > textField.text.length)
+    {
+        return NO;
+    }
+    
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return newLength <= 11;
 }
 
 @end
