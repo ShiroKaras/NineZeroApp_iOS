@@ -29,6 +29,7 @@ typedef enum : NSUInteger {
 
 - (instancetype)initWithURLString:(NSString *)urlString;
 - (instancetype)initWithURLString:(NSString *)urlString andType:(HTDescriptionType)type;
+- (instancetype)initWithURLString:(NSString *)urlString andType:(HTDescriptionType)type andImageUrl:(NSString *)imageUrlString;
 
 - (void)showAnimated;
 

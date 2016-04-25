@@ -136,8 +136,10 @@
         _converView.backgroundColor = COMMON_SEPARATOR_COLOR;
         [self addSubview:_converView];
         
-        UIImage *converImage = (type == HTDescriptionTypeProp) ? [UIImage imageNamed:@"props_cover"] : [UIImage imageNamed:@"test_imaga"];
-        _imageView = [[UIImageView alloc] initWithImage:converImage];
+        UIImage *coverImage = (type == HTDescriptionTypeProp) ? [UIImage imageNamed:@"props_cover"] : [UIImage imageNamed:@"test_imaga"];
+        _imageView = [[UIImageView alloc] initWithImage:coverImage];
+        _imageView.layer.masksToBounds = YES;
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.backgroundColor = COMMON_SEPARATOR_COLOR;
         [_converView addSubview:_imageView];
     
@@ -178,6 +180,12 @@
 
 - (instancetype)initWithURLString:(NSString *)urlString {
     return [self initWithURLString:urlString andType:HTDescriptionTypeQuestion];
+}
+
+- (instancetype)initWithURLString:(NSString *)urlString andType:(HTDescriptionType)type andImageUrl:(NSString *)imageUrlString {
+    self  = [self initWithURLString:urlString andType:type];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString]];
+    return self;
 }
 
 - (void)didClickCancelButton {
