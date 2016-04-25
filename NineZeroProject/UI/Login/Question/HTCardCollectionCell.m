@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeMoment,
     HTButtonTypeWeibo,
     HTButtonTypeQQ,
+    HTButtonTypeReplay
 };
 
 @interface HTCardCollectionCell ()
@@ -104,9 +105,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         _replayButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay"] forState:UIControlStateNormal];
         [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay_highlight"] forState:UIControlStateHighlighted];
-        [_replayButton addTarget:self action:@selector(onClickPlayButton) forControlEvents:UIControlEventTouchUpInside];
+        [_replayButton addTarget:self action:@selector(onClickReplayButton) forControlEvents:UIControlEventTouchUpInside];
         _replayButton.alpha = 0;
-//        [_replayButton sizeToFit];
+        _replayButton.tag = HTButtonTypeReplay;
+        [_replayButton sizeToFit];
         [_playBackView addSubview:_replayButton];
         
         _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -114,7 +116,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [_shareButton setImage:[UIImage imageNamed:@"btn_home_share_highlight"] forState:UIControlStateHighlighted];
         [_shareButton addTarget:self action:@selector(onClickShareButton:) forControlEvents:UIControlEventTouchUpInside];
         _shareButton.alpha = 0;
-//        [_shareButton sizeToFit];
+        [_shareButton sizeToFit];
         [_playBackView addSubview:_shareButton];
         
         // 3. 下方背景
@@ -151,8 +153,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)onClickReplayButton {
-    _replayButton.alpha = 0;
-    _shareButton.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        _replayButton.alpha = 0.;
+        _shareButton.alpha = 0.;
+    }];
     [self play];
     [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypePlay];
 }
