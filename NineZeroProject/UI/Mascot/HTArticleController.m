@@ -148,6 +148,20 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.navigationController) {
+        self.navigationController.navigationBarHidden = YES;
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.navigationController) {
+        self.navigationController.navigationBarHidden = NO;
+    }
+}
+
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
@@ -182,7 +196,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - Action
 
 - (void)onClickBackButton {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.navigationController && self.navigationController.viewControllers.count >= 2) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)onClickShareButton:(UIButton *)sender {

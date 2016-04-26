@@ -92,6 +92,10 @@ CGFloat alphaLight = 1.0;
     }
 }
 
+- (void)reloadMascotViewData {
+    [_mascotController reloadAllData];
+}
+
 #pragma mark - Action
 
 - (IBAction)didClickMainButton:(id)sender {

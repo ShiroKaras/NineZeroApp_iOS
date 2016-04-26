@@ -62,6 +62,7 @@
     self.titleLabel.text = reward.title;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:reward.expire_time];
     self.ddlLabel.text = [NSString stringWithFormat:@"有效期至%04ld-%02ld-%02ld", (long)[date year], [date month], [date day]];
+    self.exchangedCode.text = [NSString stringWithFormat:@"唯一兑换码：%ld", reward.code];
     if (date < [NSDate date]) {
         // 已过期
         self.alpha = 0.4;

@@ -73,6 +73,7 @@
     _numberLabel.top = _numberLabel.top + 2;
     _tipImageView.top = _numberCircleView.bottom + 8;
     _tipImageView.centerX = self.width / 2 - _coinNumberLabel.width / 2;
+    [_coinNumberLabel sizeToFit];
     _coinNumberLabel.left = _tipImageView.right + 0.5;
     _coinNumberLabel.centerY = _tipImageView.centerY;
     _progressView.size = CGSizeMake(181, 10);

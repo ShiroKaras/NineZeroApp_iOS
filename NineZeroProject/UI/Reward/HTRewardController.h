@@ -13,5 +13,5 @@
 @class HTTicket;
 
 @interface HTRewardController : UIViewController
-- (instancetype)initWithRewardID:(uint64_t)rewardID;
+- (instancetype)initWithRewardID:(uint64_t)rewardID questionID:(uint64_t)qid;
 @end

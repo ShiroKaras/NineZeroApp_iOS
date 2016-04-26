@@ -18,4 +18,6 @@
 
 - (void)showBackToToday:(BOOL)show;
 
+- (void)reloadMascotViewData;
+
 @end
