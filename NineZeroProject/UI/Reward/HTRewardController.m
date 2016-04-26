@@ -21,6 +21,8 @@
 @property (nonatomic, strong) UIButton *sureButton;
 @property (nonatomic, strong) UIImageView *prefixOverImageView;
 @property (nonatomic, strong) UIImageView *suffixOverImageView;
+@property (nonatomic, strong) UIImageView *suffixOverImageView2;
+@property (nonatomic, strong) UIImageView *suffixOverImageView3;
 @property (nonatomic, strong) UIImageView *prefixGetImageView;
 @property (nonatomic, strong) UIImageView *suffixGetImageView;
 @property (nonatomic, strong) UILabel *percentLabel;
@@ -68,43 +70,6 @@
     _sureButton.backgroundColor = COMMON_GREEN_COLOR;
     [_sureButton addTarget:self action:@selector(onClickSureButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_sureButton];
-    
-    [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID questionID:_qid completion:^(BOOL success, HTResponsePackage *rsp) {
-        [HTProgressHUD dismiss];
-        if (success && rsp.resultCode == 0) {
-            [self createTopView];
-            if (rsp.data[@"gold"]) {
-                _goldNumber = [[NSString stringWithFormat:@"%@", rsp.data[@"gold"]] integerValue];
-                _goldenLabel.text = [NSString stringWithFormat:@"%ld", (long)_goldNumber];
-                [_goldenLabel sizeToFit];
-            }
-            if (rsp.data[@"rank"]) {
-                _rankNumber = [[NSString stringWithFormat:@"%@", rsp.data[@"rank"]] integerValue];
-                // TODO: 根据规则填入rankNumber
-            }
-            if (rsp.data[@"ticket"]) {
-                HTTicket *ticket = [HTTicket objectWithKeyValues:rsp.data[@"ticket"]];
-                _ticket = ticket;
-                [self createTicketView];
-            }
-            if (rsp.data[@"pet"]) {
-                HTMascot *mascot = [HTMascot objectWithKeyValues:rsp.data[@"pet"]];
-                _mascot = mascot;
-            }
-            if (rsp.data[@"prop"]) {
-                HTMascotProp *prop = [HTMascotProp objectWithKeyValues:rsp.data[@"prop"]];
-                _prop = prop;
-            }
-            if (_prop || _mascot) {
-                [self createGifView];
-            }
-            
-            [self reloadView];
-        } else {
-            [self showTipsWithText:@"网络失败"];
-        }
-    }];
 }
 
 - (void)reloadView {
@@ -117,6 +82,56 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [HTProgressHUD show];
+    [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID questionID:_qid completion:^(BOOL success, HTResponsePackage *rsp) {
+        [HTProgressHUD dismiss];
+        if (success && rsp.resultCode == 0) {
+            [self createTopViewWith:rsp];
+        } else {
+            [self showTipsWithText:@"网络失败"];
+        }
+    }];
+}
+
+- (void)createTopViewWith:(HTResponsePackage*)rsp {
+    [self createTopView];
+    
+    if (rsp.data[@"gold"]) {
+        _goldNumber = [[NSString stringWithFormat:@"%@", rsp.data[@"gold"]] integerValue];
+        _goldenLabel.text = [NSString stringWithFormat:@"%ld", (long)_goldNumber];
+        [_goldenLabel sizeToFit];
+    }
+    if (rsp.data[@"rank"]) {
+        _rankNumber = [[NSString stringWithFormat:@"%@", rsp.data[@"rank"]] integerValue];
+        if ([rsp.data[@"rank"] integerValue]<=10) {
+            _percentLabel.text = [NSString stringWithFormat:@"%@", rsp.data[@"rank"]];
+            _prefixOverImageView.image = [UIImage imageNamed:@"img_reward_page_1-10_txt_1"];
+            _suffixOverImageView2.hidden = NO;
+            _suffixOverImageView3.hidden = NO;
+        }else{
+            _percentLabel.text = [[NSString stringWithFormat:@"%f", 100. - [rsp.data[@"rank"] integerValue]/10.] stringByAppendingString:@"%"];
+            _suffixOverImageView.hidden = NO;
+        }
+        [_percentLabel sizeToFit];
+    }
+    if (rsp.data[@"ticket"]) {
+        HTTicket *ticket = [HTTicket objectWithKeyValues:rsp.data[@"ticket"]];
+        _ticket = ticket;
+        [self createTicketView];
+    }
+    if (rsp.data[@"pet"]) {
+        HTMascot *mascot = [HTMascot objectWithKeyValues:rsp.data[@"pet"]];
+        _mascot = mascot;
+    }
+    if (rsp.data[@"prop"]) {
+        HTMascotProp *prop = [HTMascotProp objectWithKeyValues:rsp.data[@"prop"]];
+        _prop = prop;
+    }
+    if (_prop || _mascot) {
+        [self createGifView];
+    }
+    
+    [self reloadView];
 }
 
 - (void)createTopView {
@@ -124,24 +139,30 @@
     [_scrollView addSubview:_prefixOverImageView];
     _suffixOverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_2"]];
     [_scrollView addSubview:_suffixOverImageView];
+    _suffixOverImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_1-10_txt_2"]];
+    [_scrollView addSubview:_suffixOverImageView2];
+    _suffixOverImageView3= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_1-10_txt_3"]];
+    [_scrollView addSubview:_suffixOverImageView3];
+    _suffixOverImageView.hidden = YES;
+    _suffixOverImageView2.hidden = YES;
+    _suffixOverImageView3.hidden = YES;
+    
     _prefixGetImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_3"]];
     [_scrollView addSubview:_prefixGetImageView];
     _suffixGetImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_4"]];
     [_scrollView addSubview:_suffixGetImageView];
     
+    
+    
     _percentLabel = [[UILabel alloc] init];
     _percentLabel.font = MOON_FONT_OF_SIZE(32.5);
     _percentLabel.textColor = COMMON_GREEN_COLOR;
-//    _percentLabel.text = @"98%";
     [_scrollView addSubview:_percentLabel];
-    [_percentLabel sizeToFit];
     
     _goldenLabel = [[UILabel alloc] init];
     _goldenLabel.font = MOON_FONT_OF_SIZE(23);
     _goldenLabel.textColor = [UIColor colorWithHex:0xed203b];
-//    _goldenLabel.text = @"20";
     [_scrollView addSubview:_goldenLabel];
-    [_goldenLabel sizeToFit];
 }
 
 - (void)createTicketView {
@@ -186,10 +207,18 @@
     _scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 50);
     _prefixOverImageView.left = ROUND_WIDTH_FLOAT(56);
     _prefixOverImageView.top = ROUND_HEIGHT_FLOAT(62);
-    _suffixOverImageView.top = _prefixOverImageView.bottom + 10;
+
     _percentLabel.left = _prefixOverImageView.right + 5;
     _percentLabel.bottom = _prefixOverImageView.bottom + 5;
+    
+    _suffixOverImageView.top = _prefixOverImageView.bottom + 10;
     _suffixOverImageView.left = _percentLabel.left;
+    
+    _suffixOverImageView2.left = _percentLabel.right +6;
+    _suffixOverImageView2.centerY = _percentLabel.centerY;
+    
+    _suffixOverImageView3.top = _prefixOverImageView.bottom + 10;
+    _suffixOverImageView3.left = _prefixOverImageView.left + 82;
     
     // "你获得了 x 金币"
     _prefixGetImageView.left = ROUND_WIDTH_FLOAT(54);
