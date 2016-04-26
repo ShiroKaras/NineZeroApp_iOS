@@ -65,13 +65,16 @@
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if(range.length + range.location > textField.text.length)
-    {
-        return NO;
-    }
-    
-    NSUInteger newLength = [textField.text length] + [string length] - range.length;
-    return newLength <= 11;
+    if (textField == self.userNameTextField) {
+        if(range.length + range.location > textField.text.length)
+        {
+            return NO;
+        }
+        
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        return newLength <= 11;
+    }else
+        return YES;
 }
 
 #pragma mark - Subclass
@@ -136,7 +139,7 @@
              
              [self loginWithUser:user];
          }
-         
+
          else
          {
              NSLog(@"%@",error);
