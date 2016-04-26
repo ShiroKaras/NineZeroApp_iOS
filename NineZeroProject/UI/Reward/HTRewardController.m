@@ -16,6 +16,13 @@
 #import "HTRewardCard.h"
 #import <UIImage+animatedGIF.h>
 
+typedef NS_OPTIONS(NSUInteger, NZRewardType) {
+    NZRewardTypeGold    = 0        ,
+    NZRewardTypePet     = 1     <<0,
+    NZRewardTypeProp    = 1     <<1,
+    NZRewardTypeTicket  = 1     <<2
+};
+
 @interface HTRewardController ()
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIButton *sureButton;
@@ -96,11 +103,7 @@
 - (void)createTopViewWith:(HTResponsePackage*)rsp {
     [self createTopView];
     
-    if (rsp.data[@"gold"]) {
-        _goldNumber = [[NSString stringWithFormat:@"%@", rsp.data[@"gold"]] integerValue];
-        _goldenLabel.text = [NSString stringWithFormat:@"%ld", (long)_goldNumber];
-        [_goldenLabel sizeToFit];
-    }
+    unsigned long type = 0;
     if (rsp.data[@"rank"]) {
         _rankNumber = [[NSString stringWithFormat:@"%@", rsp.data[@"rank"]] integerValue];
         if ([rsp.data[@"rank"] integerValue]<=10) {
@@ -115,20 +118,33 @@
         [_percentLabel sizeToFit];
     }
     if (rsp.data[@"ticket"]) {
+        type += NZRewardTypeTicket;
         HTTicket *ticket = [HTTicket objectWithKeyValues:rsp.data[@"ticket"]];
         _ticket = ticket;
         [self createTicketView];
     }
     if (rsp.data[@"pet"]) {
+        type += NZRewardTypePet;
         HTMascot *mascot = [HTMascot objectWithKeyValues:rsp.data[@"pet"]];
         _mascot = mascot;
     }
     if (rsp.data[@"prop"]) {
+        type += NZRewardTypeProp;
         HTMascotProp *prop = [HTMascotProp objectWithKeyValues:rsp.data[@"prop"]];
         _prop = prop;
     }
     if (_prop || _mascot) {
         [self createGifView];
+    }
+    
+    if (rsp.data[@"gold"]) {
+        NSLog(@"Type-> %lu", type);
+        _goldNumber = [[NSString stringWithFormat:@"%@", rsp.data[@"gold"]] integerValue];
+        _goldenLabel.text = [NSString stringWithFormat:@"%ld", (long)_goldNumber];
+        [_goldenLabel sizeToFit];
+        if (type==NZRewardTypeGold) {
+            //TODO 居中-只获取到金币的情况
+        }
     }
     
     [self reloadView];
