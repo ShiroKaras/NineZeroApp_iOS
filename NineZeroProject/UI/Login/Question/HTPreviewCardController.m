@@ -108,6 +108,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                                       }];
                     }
                 }];
+                _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
             } else {
                 [HTProgressHUD dismiss];
                 [_dimmingView removeFromSuperview];
@@ -127,7 +128,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         
         _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_timeView];
-        _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
     } else if (_cardType == HTPreviewCardTypeRecord) {
         questionList = [[[[HTServiceManager sharedInstance] questionService] questionListSuccessful] mutableCopy];
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
