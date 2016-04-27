@@ -109,6 +109,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     }
                 }];
                 _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
+                [self.collectionView addSubview:_eggImageView];
             } else {
                 [HTProgressHUD dismiss];
                 [_dimmingView removeFromSuperview];
@@ -169,7 +170,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [_collectionView setShowsHorizontalScrollIndicator:NO];
     [_collectionView registerClass:[HTCardCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([HTCardCollectionCell class])];
     [self.view addSubview:_collectionView];
-    [self.collectionView addSubview:_eggImageView];
+//    [self.collectionView addSubview:_eggImageView];
     
     // 3. 左上角章节
     _chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_chapter"]];
@@ -245,7 +246,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _closeButton.bottom = self.view.height - 25;
     _closeButton.centerX = self.view.width / 2;
     
-    _eggImageView.left = _collectionView.contentSize.width - 10;
+    _eggImageView.left = _collectionView.contentSize.width;
     _eggImageView.centerY = SCREEN_HEIGHT / 2;
     
     [self.view bringSubviewToFront:_dimmingView];
