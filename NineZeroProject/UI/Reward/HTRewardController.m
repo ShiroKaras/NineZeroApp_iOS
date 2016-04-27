@@ -24,19 +24,20 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 };
 
 @interface HTRewardController ()
-@property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) UIButton *sureButton;
-@property (nonatomic, strong) UIImageView *prefixOverImageView;
-@property (nonatomic, strong) UIImageView *suffixOverImageView;
-@property (nonatomic, strong) UIImageView *suffixOverImageView2;
-@property (nonatomic, strong) UIImageView *suffixOverImageView3;
-@property (nonatomic, strong) UIImageView *prefixGetImageView;
-@property (nonatomic, strong) UIImageView *suffixGetImageView;
-@property (nonatomic, strong) UILabel *percentLabel;
-@property (nonatomic, strong) UILabel *goldenLabel;
-@property (nonatomic, strong) UIImageView *andImageView;
-@property (nonatomic, strong) UIImageView *andImageView2;
-@property (nonatomic, strong) UIImageView *getImageView;
+@property (nonatomic, strong) UIScrollView  *scrollView;
+@property (nonatomic, strong) UIButton      *sureButton;
+@property (nonatomic, strong) UIView        *topBackView;           //布局用View
+@property (nonatomic, strong) UIImageView   *prefixOverImageView;
+@property (nonatomic, strong) UIImageView   *suffixOverImageView;
+@property (nonatomic, strong) UIImageView   *suffixOverImageView2;
+@property (nonatomic, strong) UIImageView   *suffixOverImageView3;
+@property (nonatomic, strong) UIImageView   *prefixGetImageView;
+@property (nonatomic, strong) UIImageView   *suffixGetImageView;
+@property (nonatomic, strong) UILabel       *percentLabel;
+@property (nonatomic, strong) UILabel       *goldenLabel;
+@property (nonatomic, strong) UIImageView   *andImageView;
+@property (nonatomic, strong) UIImageView   *andImageView2;
+@property (nonatomic, strong) UIImageView   *getImageView;
 
 @property (nonatomic, strong) HTTicketCard *card;          // 奖品卡片
 @property (nonatomic, strong) UIImageView *imageView;
@@ -87,8 +88,8 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID questionID:_qid completion:^(BOOL success, HTResponsePackage *rsp) {
         [HTProgressHUD dismiss];
@@ -98,6 +99,10 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
             [self showTipsWithText:@"网络失败"];
         }
     }];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 - (void)createTopViewWith:(HTResponsePackage*)rsp {
@@ -144,6 +149,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
         [_goldenLabel sizeToFit];
         if (type==NZRewardTypeGold) {
             //TODO 居中-只获取到金币的情况
+            _topBackView.center = _scrollView.center;
         }
     }
     
@@ -151,34 +157,36 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 }
 
 - (void)createTopView {
+    _topBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 264)];
+    _topBackView.backgroundColor = [UIColor clearColor];
+    [_scrollView addSubview:_topBackView];
     _prefixOverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_1"]];
-    [_scrollView addSubview:_prefixOverImageView];
+    [_topBackView addSubview:_prefixOverImageView];
     _suffixOverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_2"]];
-    [_scrollView addSubview:_suffixOverImageView];
+    [_topBackView addSubview:_suffixOverImageView];
     _suffixOverImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_1-10_txt_2"]];
-    [_scrollView addSubview:_suffixOverImageView2];
+    [_topBackView addSubview:_suffixOverImageView2];
     _suffixOverImageView3= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_1-10_txt_3"]];
-    [_scrollView addSubview:_suffixOverImageView3];
+    [_topBackView addSubview:_suffixOverImageView3];
     _suffixOverImageView.hidden = YES;
     _suffixOverImageView2.hidden = YES;
     _suffixOverImageView3.hidden = YES;
-    
     _prefixGetImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_3"]];
-    [_scrollView addSubview:_prefixGetImageView];
+    [_topBackView addSubview:_prefixGetImageView];
     _suffixGetImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_4"]];
-    [_scrollView addSubview:_suffixGetImageView];
+    [_topBackView addSubview:_suffixGetImageView];
     
     
     
     _percentLabel = [[UILabel alloc] init];
     _percentLabel.font = MOON_FONT_OF_SIZE(32.5);
     _percentLabel.textColor = COMMON_GREEN_COLOR;
-    [_scrollView addSubview:_percentLabel];
+    [_topBackView addSubview:_percentLabel];
     
     _goldenLabel = [[UILabel alloc] init];
     _goldenLabel.font = MOON_FONT_OF_SIZE(23);
     _goldenLabel.textColor = [UIColor colorWithHex:0xed203b];
-    [_scrollView addSubview:_goldenLabel];
+    [_topBackView addSubview:_goldenLabel];
 }
 
 - (void)createTicketView {
@@ -208,9 +216,10 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
             gifString = _prop.prop_gif;
         }
         if (gifString.length == 0) gifString = @""; // 留一手，万一gif为nil呢？
-        UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:gifString]];
-        _imageView.image = gifImage;
-        [_imageView startAnimating];
+//        UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:gifString]];
+//        _imageView.image = gifImage;
+//        [_imageView startAnimating];
+        [_imageView sd_setImageWithURL:[NSURL URLWithString:gifString]];
     });
 }
 
