@@ -59,6 +59,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [_backgroundImageView addSubview:_visualEfView];
     }
     
+    [HTProgressHUD show];
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     _webView.scrollView.delaysContentTouches = NO;
     _webView.opaque = NO;
@@ -67,7 +68,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _webView.allowsInlineMediaPlayback = YES;
     _webView.delegate = self;
     _webView.mediaPlaybackRequiresUserAction = NO;
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ARTICLE_URL_STRING]]];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_article.articleURL]]];
     [self.view addSubview:_webView];
     
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -190,7 +191,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - UIWebView Delegate
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [HTProgressHUD dismiss];
+}
 
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [HTProgressHUD dismiss];
 }
 
 #pragma mark - Action
