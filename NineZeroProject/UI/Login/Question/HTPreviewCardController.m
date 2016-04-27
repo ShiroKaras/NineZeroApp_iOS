@@ -427,6 +427,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                 clickCount = 0;
                 questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
                 [self willAppearQuestionAtIndex:questionList.count - 1];
+                [self.collectionView reloadData];
                 // 获取成功了，开始分刮奖励
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
@@ -464,7 +465,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [controller dismissViewControllerAnimated:NO completion:nil];
     questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
     [self willAppearQuestionAtIndex:questionList.count - 1];
-    
+    [self.collectionView reloadData];
     HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:controller.rewardID questionID:controller.question.questionID];
     reward.view.backgroundColor = [UIColor clearColor];
     if (IOS_VERSION >= 8.0) {
