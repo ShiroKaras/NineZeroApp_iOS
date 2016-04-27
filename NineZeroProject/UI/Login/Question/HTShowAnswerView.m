@@ -10,7 +10,7 @@
 #import "HTUIHeader.h"
 #import "AppDelegate.h"
 
-@interface HTShowAnswerView ()
+@interface HTShowAnswerView () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) UIButton *cancelButton;
@@ -28,18 +28,13 @@
         [_dimmingView addGestureRecognizer:tap];
         [self addSubview:_dimmingView];
         
+        [HTProgressHUD show];
         _webView = [[UIWebView alloc] init];
         _webView.opaque = NO;
         _webView.backgroundColor = COMMON_SEPARATOR_COLOR;
         _webView.scrollView.backgroundColor = COMMON_SEPARATOR_COLOR;
-//        _webView.scrollView.contentInset = UIEdgeInsetsMake(61, 0, 0, 0);
-//        [_webView loadHTMLString:urlString baseURL:nil];
-//        NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"article" ofType:@"html"];
-//        NSString* htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];
-//        NSString *path = [[NSBundle mainBundle] bundlePath];
-//        NSURL *baseURL = [NSURL fileURLWithPath:path];
-//        [_webView loadHTMLString:htmlString baseURL:baseURL];
-        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:ANSWER_URL_STRING]]];
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URLString]]];
+        _webView.delegate = self;
         [self addSubview:_webView];
         
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -53,6 +48,14 @@
         [[UIApplication sharedApplication] setStatusBarHidden:YES];
     }
     return self;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [HTProgressHUD dismiss];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [HTProgressHUD dismiss];
 }
 
 - (void)didClickCancelButton {
