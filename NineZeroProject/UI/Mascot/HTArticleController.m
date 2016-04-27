@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeQQ,
 };
 
-@interface HTArticleController () <UIWebViewDelegate> {
+@interface HTArticleController () <UIWebViewDelegate, UIScrollViewDelegate> {
     UIImageView *_backgroundImageView;
     UIVisualEffectView *_visualEfView;
 }
@@ -67,6 +67,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _webView.scrollView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     _webView.allowsInlineMediaPlayback = YES;
     _webView.delegate = self;
+    _webView.scrollView.delegate = self;
     _webView.mediaPlaybackRequiresUserAction = NO;
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_article.articleURL]]];
     [self.view addSubview:_webView];
@@ -188,6 +189,17 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self.wechatButton.right = self.momentButton.left - 27;
 }
 
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y < SCREEN_HEIGHT) {
+        CGFloat alpha = 1 - (scrollView.contentOffset.y / SCREEN_HEIGHT);
+        self.backButton.alpha = alpha;
+        self.shareButton.alpha = alpha;
+        self.likeButton.alpha = alpha;
+    }
+}
+
 #pragma mark - UIWebView Delegate
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -268,7 +280,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         case HTButtonTypeCancel: {
             [UIView animateWithDuration:0.3 animations:^{
                 _cancelButton.alpha = 0;
-                _shareButton.alpha = 1.0;
+                _shareButton.alpha = _likeButton.alpha;
                 [self setShareAppear:NO];
             } completion:^(BOOL finished) {
             }];
