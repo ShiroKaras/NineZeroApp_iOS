@@ -256,7 +256,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     _statusBarCoverView.alpha = MIN(scrollView.contentOffset.y / (mascotRowHeight - 20), 1);
-    _shareButton.alpha = 1 - _statusBarCoverView.alpha;
+//    _shareButton.alpha = 1 - _statusBarCoverView.alpha;
 }
 
 #pragma mark - HTArticleController Delegate
