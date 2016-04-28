@@ -39,6 +39,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"注册";
+    
+    _avatarButton.layer.cornerRadius = _avatarButton.width / 2;
+    _avatarButton.layer.masksToBounds = YES;
 }
 
 #pragma mark - Subclass
@@ -118,8 +121,6 @@
         if (info.statusCode == 200) {
             _loginUser.user_avatar = [NSString qiniuDownloadURLWithFileName:key];
             [_avatarButton setImage:image forState:UIControlStateNormal];
-            _avatarButton.layer.cornerRadius = _avatarButton.width / 2;
-            _avatarButton.layer.masksToBounds = YES;
         } else {
             [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
             [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeError];
