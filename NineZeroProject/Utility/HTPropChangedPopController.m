@@ -29,6 +29,8 @@
     if (self = [super init]) {
         _prop = prop;
         
+        NSLog(@"address-> %@",[[HTStorageManager sharedInstance] userInfo].address);
+        
         _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.85];
         
@@ -56,12 +58,16 @@
         _messageLabel.textAlignment = NSTextAlignmentCenter;
         _messageLabel.lineBreakMode = NSLineBreakByCharWrapping;
         _messageLabel.font = [UIFont systemFontOfSize:14];
-        _messageLabel.text = @"你是否确定要兑换新西兰圣诞空气礼包？";
         [_alertView addSubview:_messageLabel];
         
+        if ([[HTStorageManager sharedInstance] userInfo].address == nil || [[[HTStorageManager sharedInstance] userInfo].address isEqualToString:@""]) {
+            _messageLabel.text = @"在兑换之前，请到个人主页右上角设置填写管理地址，否则我们无法寄出！";
+        }else{
+            _messageLabel.text = [NSString stringWithFormat:@"你是否确定要兑换%@礼包？", _prop.prop_name];
+        }
         _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_cancelButton addTarget:self action:@selector(onClickCancelButton) forControlEvents:UIControlEventTouchUpInside];
-        [_cancelButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.35] forState:UIControlStateNormal];
+        [_cancelButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.60] forState:UIControlStateNormal];
         _cancelButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
         [_alertBottomView addSubview:_cancelButton];
@@ -73,15 +79,15 @@
         [_sureButton setTitle:@"确定" forState:UIControlStateNormal];
         [_alertBottomView addSubview:_sureButton];
         
-        _tipLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-        _tipLabel.textAlignment = NSTextAlignmentCenter;
-        _tipLabel.font = [UIFont systemFontOfSize:13];
-        _tipLabel.textColor = [UIColor whiteColor];
-        _tipLabel.lineSpacing = 8.0f;
-        _tipLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        _tipLabel.numberOfLines = 0;
-        _tipLabel.text = @"在兑换之前，请到个人主页右上角设置填写管理地址，否则我们无法寄出！";
-        [_dimmingView addSubview:_tipLabel];
+//        _tipLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+//        _tipLabel.textAlignment = NSTextAlignmentCenter;
+//        _tipLabel.font = [UIFont systemFontOfSize:13];
+//        _tipLabel.textColor = [UIColor whiteColor];
+//        _tipLabel.lineSpacing = 8.0f;
+//        _tipLabel.lineBreakMode = NSLineBreakByCharWrapping;
+//        _tipLabel.numberOfLines = 0;
+//        _tipLabel.text = @"在兑换之前，请到个人主页右上角设置填写管理地址，否则我们无法寄出！";
+//        [_dimmingView addSubview:_tipLabel];
         
         [self layoutViews];
     }
@@ -95,9 +101,15 @@
     _titleLabel.centerX = _alertView.width / 2;
     _titleLabel.top = 20;
     _messageLabel.frame = CGRectMake(30, _titleLabel.bottom + 6, _alertView.width - 60, 50);
-    _cancelButton.frame = CGRectMake(0, 0, _alertView.width / 2, _alertBottomView.height);
-    _sureButton.frame = CGRectMake(_alertView.width / 2, 0, _alertView.width / 2, _alertBottomView.height);
-    _tipLabel.frame = CGRectMake(_alertView.left + 20, _alertView.bottom + 12, _alertView.width - 40, 45);
+    if ([[HTStorageManager sharedInstance] userInfo].address == nil || [[[HTStorageManager sharedInstance] userInfo].address isEqualToString:@""]) {
+        _cancelButton.frame = CGRectMake(0, 0, _alertView.width, _alertBottomView.height);
+        [_cancelButton setTitle:@"确定" forState:UIControlStateNormal];
+        [_cancelButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:1.0] forState:UIControlStateNormal];
+    }else {
+        _cancelButton.frame = CGRectMake(0, 0, _alertView.width / 2, _alertBottomView.height);
+        _sureButton.frame = CGRectMake(_alertView.width / 2, 0, _alertView.width / 2, _alertBottomView.height);
+    }
+    //    _tipLabel.frame = CGRectMake(_alertView.left + 20, _alertView.bottom + 12, _alertView.width - 40, 45);
 }
 
 - (void)onClickCancelButton {
@@ -114,7 +126,7 @@
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         if (success && response.resultCode == 0) {
             [_alertView removeFromSuperview];
-            [_tipLabel removeFromSuperview];
+//            [_tipLabel removeFromSuperview];
             
             _successImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_props_redeem_success"]];
             _successImageView.top = ROUND_HEIGHT_FLOAT(217);
