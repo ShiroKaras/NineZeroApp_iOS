@@ -153,8 +153,10 @@
 }
 
 - (void)getArticlesInPastWithPage:(NSUInteger)page count:(NSUInteger)count callback:(HTGetArticlesCallback)callback {
-    NSDictionary *dict = @{@"page" : @(page),
-                           @"count" : @(count)
+    if ([[HTStorageManager sharedInstance] getUserID]==nil) return;
+    NSDictionary *dict = @{@"user_id"   : [[HTStorageManager sharedInstance] getUserID],
+                           @"page"      : @(page),
+                           @"count"     : @(count)
                            };
 
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getArticlesCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -195,9 +197,9 @@
     DLog(@"userid = %@", [[HTStorageManager sharedInstance] getUserID]);
     if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
     
-    NSDictionary *dict = @{@"user_id" : [[HTStorageManager sharedInstance] getUserID],
-                           @"page" : @(page),
-                           @"count" : @(count)
+    NSDictionary *dict = @{@"user_id"   : [[HTStorageManager sharedInstance] getUserID],
+                           @"page"      : @(page),
+                           @"count"     : @(count)
                            };
 
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getCollectArticlesCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
