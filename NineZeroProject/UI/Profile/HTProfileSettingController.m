@@ -26,6 +26,12 @@
 @property (nonatomic, assign) CGFloat offsetY;
 @property (nonatomic, strong) HTUserInfo *userInfo;
 @property (nonatomic, weak) id<HTProfileSettingChangeNameViewDelegate> delegate;
+
+@property (nonatomic, strong) UILabel *tipsLabel;                ///< 提示
+@property (nonatomic, strong) UIView *tipsBackView;              ///< 提示背景
+
+- (void)showTipsWithText:(NSString *)text;
+
 @end
 
 @implementation HTProfileSettingChangeNameView
@@ -56,6 +62,29 @@
         _sureButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [_sureButton addTarget:self action:@selector(onClickSureButton) forControlEvents:UIControlEventTouchUpInside];
         [_whiteBackView addSubview:_sureButton];
+        
+        // 5. 提示
+        _tipsBackView = [[UIView alloc] init];
+        _tipsBackView.backgroundColor = COMMON_PINK_COLOR;
+        _tipsBackView.hidden = YES;
+        [_dimmingView addSubview:_tipsBackView];
+        
+        _tipsLabel = [[UILabel alloc] init];
+        _tipsLabel.font = [UIFont systemFontOfSize:16];
+        _tipsLabel.textAlignment = NSTextAlignmentCenter;
+        _tipsLabel.textColor = [UIColor whiteColor];
+        [_tipsBackView addSubview:_tipsLabel];
+        
+        // 5. 提示
+        [_tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_dimmingView).offset(0);
+            make.width.equalTo(_dimmingView);
+            make.height.equalTo(@30);
+        }];
+        
+        [_tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(_tipsBackView);
+        }];
     }
     return self;
 }
@@ -75,8 +104,13 @@
 }
 
 - (void)onClickSureButton {
-    _userInfo.user_name = _textField.text;
-    [self.delegate onClickUserButtonWithUserInfo:_userInfo];
+    if ([_userInfo.user_name isEqualToString:_textField.text]) {
+        
+    }
+    else {
+        _userInfo.user_name = _textField.text;
+        [self.delegate onClickUserButtonWithUserInfo:_userInfo];
+    }
     [self removeFromSuperview];
 }
 
@@ -93,6 +127,25 @@
     _sureButton.frame = CGRectMake(0, 0, 85, 30);
     _sureButton.right = self.width - 8;
     _sureButton.centerY = _whiteBackView.height / 2.0;
+}
+
+- (void)showTipsWithText:(NSString *)text {
+    _tipsLabel.text = text;
+    CGFloat tipsBottom = _tipsBackView.bottom;
+    _tipsBackView.bottom = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        _tipsBackView.hidden = NO;
+        _tipsBackView.bottom = tipsBottom;
+    } completion:^(BOOL finished) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.3 animations:^{
+                _tipsBackView.bottom = 0;
+            } completion:^(BOOL finished) {
+                _tipsBackView.bottom = tipsBottom;
+                _tipsBackView.hidden = YES;
+            }];
+        });
+    }];
 }
 
 @end
@@ -303,11 +356,17 @@ typedef enum : NSUInteger {
 #pragma mark - HTProfileSettingChangeNameView Delegate
 
 - (void)onClickUserButtonWithUserInfo:(HTUserInfo *)userInfo {
-    _userInfo = userInfo;
-    _userInfo.settingType = HTUpdateUserInfoTypeName;
+    userInfo.settingType = HTUpdateUserInfoTypeName;
     HTProfileSettingTextCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    [cell setTitleText:userInfo.user_name];
-    [[[HTServiceManager sharedInstance] profileService] updateUserInfo:_userInfo completion:^(BOOL success, HTResponsePackage *response) {
+    [[[HTServiceManager sharedInstance] profileService] updateUserInfo:userInfo completion:^(BOOL success, HTResponsePackage *response) {
+        if (response.resultCode == 0) {
+            _userInfo = userInfo;
+            [cell setTitleText:userInfo.user_name];
+        } else if (response.resultCode == -2002) {
+            [self showTipsWithText:@"该用户名已存在"];
+            
+        }
+        NSLog(@"Name: %@", _userInfo.user_name);
     }];
 }
 

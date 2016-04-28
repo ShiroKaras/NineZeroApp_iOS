@@ -10,6 +10,7 @@
 
 @interface HTProfileSettingCell : UITableViewCell
 - (void)setTitleText:(NSString *)text;
+- (NSString *)titleText;
 - (void)showSeparator:(BOOL)show;
 @end
 

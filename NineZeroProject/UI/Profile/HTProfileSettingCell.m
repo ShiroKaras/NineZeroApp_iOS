@@ -44,6 +44,10 @@
     [self setNeedsLayout];
 }
 
+- (NSString *)titleText {
+    return _titleLabel.text;
+}
+
 - (void)showSeparator:(BOOL)show {
     _separator.hidden = !show;
 }

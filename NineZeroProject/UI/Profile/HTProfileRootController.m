@@ -76,21 +76,7 @@
     _userInfo = [[HTStorageManager sharedInstance] userInfo];
     [self reloadData];
     
-    [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
-        if (success) {
-            _userInfo = userInfo;
-            [self reloadData];
-            [[HTStorageManager sharedInstance] setUserInfo:userInfo];
-        }
-    }];
     
-    if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
-        _profileInfo.answer_list = nil;
-        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_small"] andOffset:12];
-        [self.view addSubview:self.blankView];
-        [self reloadData];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -108,6 +94,22 @@
             [self reloadData];
         }
     }];
+    
+    [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
+        if (success) {
+            _userInfo = userInfo;
+            [self reloadData];
+            [[HTStorageManager sharedInstance] setUserInfo:userInfo];
+        }
+    }];
+    
+    if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
+        _profileInfo.answer_list = nil;
+        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_small"] andOffset:12];
+        [self.view addSubview:self.blankView];
+        [self reloadData];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
