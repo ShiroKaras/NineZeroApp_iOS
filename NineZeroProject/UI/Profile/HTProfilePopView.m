@@ -50,16 +50,6 @@ typedef enum : NSUInteger {
         _name.text = userInfo.user_name;
         [_name sizeToFit];
         
-        [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
-            if (success) {
-                [[HTStorageManager sharedInstance] setUserInfo:userInfo];
-                [_head sd_setImageWithURL:[NSURL URLWithString:userInfo.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
-                _name.text = userInfo.user_name;
-                [_name sizeToFit];
-                [self layoutSubviews];
-            }
-        }];
-        
         _decorateImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_list_deco"]];
         [_bgView addSubview:_decorateImageView];
         

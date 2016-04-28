@@ -44,6 +44,10 @@ typedef NS_ENUM(NSUInteger, HTUpdateUserInfoType) {
  */
 - (void)updateUserInfo:(HTUserInfo *)userInfo completion:(HTResponseCallback)callback;
 /**
+ *  @brief 从svr上更新userinfo
+ */
+- (void)updateUserInfoFromSvr;
+/**
  *  @brief 获取通知列表
  */
 - (void)getNotifications:(HTGetNotificationsCallback)callback;

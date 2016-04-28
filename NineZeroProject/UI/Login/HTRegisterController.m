@@ -83,6 +83,7 @@
             if (response.resultCode == 0) {
                 HTMainViewController *controller = [[HTMainViewController alloc] init];
                 [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+                [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
             } else {
                 [self showTipsWithText:response.resultMsg];
             }

@@ -92,6 +92,14 @@
     }];
 }
 
+- (void)updateUserInfoFromSvr {
+    [self getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
+        if (success) {
+            [[HTStorageManager sharedInstance] setUserInfo:userInfo];
+        }
+    }];
+}
+
 - (void)feedbackWithContent:(NSString *)content mobile:(NSString *)mobile completion:(HTResponseCallback)callback {
     NSDictionary *dict = @{@"content" : content,
                            @"contact" : mobile};

@@ -128,6 +128,7 @@
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
+        [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
     }
 }
 
