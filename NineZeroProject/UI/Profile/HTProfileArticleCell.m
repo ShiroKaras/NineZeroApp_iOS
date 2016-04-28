@@ -32,7 +32,9 @@
 - (void)setArticle:(HTArticle *)article {
     _article = article;
     NSInteger mascotID = MIN(1, MAX(8, article.mascotID));
-    [_bgImageView sd_setImageWithURL:[NSURL URLWithString:article.article_pic] placeholderImage:[UIImage imageNamed:@"img_profile_archive_cover_default"]];
+    [_bgImageView sd_setImageWithURL:[NSURL URLWithString:article.article_pic_2] placeholderImage:[UIImage imageNamed:@"img_profile_archive_cover_default"]];
+    _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _bgImageView.layer.masksToBounds = YES;
     _titleLabel.text = article.articleTitle;
     _timeLabel.text = [self stringWithDate:[NSDate dateWithTimeIntervalSince1970:[article.publish_time integerValue]]];
     _mascotImageView.image = [self imageWithMascotID:mascotID];
