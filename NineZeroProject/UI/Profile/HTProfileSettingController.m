@@ -52,6 +52,8 @@
         _textField.textColor = COMMON_GREEN_COLOR;
         _textField.delegate = self;
         _textField.text = @"用户名";
+        _textField.autocorrectionType = UITextAutocorrectionTypeNo;
+        _textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         [_whiteBackView addSubview:_textField];
         
         _sureButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -90,7 +92,7 @@
 }
 
 - (void)setUserInfo:(HTUserInfo *)userInfo {
-    _userInfo = userInfo;
+    _userInfo = [userInfo copy];
     _textField.text = userInfo.user_name;
 }
 
@@ -104,14 +106,13 @@
 }
 
 - (void)onClickSureButton {
-    if ([_userInfo.user_name isEqualToString:_textField.text]) {
-        
+    if (![_userInfo.user_name isEqualToString:_textField.text]) {
+        HTUserInfo *userInfo = [_userInfo copy];
+        userInfo.user_name = _textField.text;
+        [self.delegate onClickUserButtonWithUserInfo:userInfo];
+    } else {
+        [self removeFromSuperview];
     }
-    else {
-        _userInfo.user_name = _textField.text;
-        [self.delegate onClickUserButtonWithUserInfo:_userInfo];
-    }
-    [self removeFromSuperview];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -162,6 +163,8 @@ typedef enum : NSUInteger {
     HTProfileSettingTypeAbout,
     HTProfileSettingTypeQuitLogin,
 } HTProfileSettingType;
+
+static NSInteger const kChangeNameViewTag = 12345;
 
 @interface HTProfileSettingController () <HTProfileSettingPushCellDelegate, HTProfileSettingChangeNameViewDelegate>
 
@@ -270,6 +273,7 @@ typedef enum : NSUInteger {
     } else if (type == HTProfileSettingTypeName) {
         HTProfileSettingChangeNameView *changeView = [[HTProfileSettingChangeNameView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         [changeView setUserInfo:_userInfo];
+        changeView.tag = kChangeNameViewTag;
         changeView.delegate = self;
         [changeView setOffsetY:68 + 44 + 20 - self.tableView.contentOffset.y];
         [KEY_WINDOW addSubview:changeView];
@@ -356,15 +360,17 @@ typedef enum : NSUInteger {
 #pragma mark - HTProfileSettingChangeNameView Delegate
 
 - (void)onClickUserButtonWithUserInfo:(HTUserInfo *)userInfo {
+    [HTProgressHUD show];
     userInfo.settingType = HTUpdateUserInfoTypeName;
     HTProfileSettingTextCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     [[[HTServiceManager sharedInstance] profileService] updateUserInfo:userInfo completion:^(BOOL success, HTResponsePackage *response) {
+        [HTProgressHUD dismiss];
         if (response.resultCode == 0) {
             _userInfo = userInfo;
             [cell setTitleText:userInfo.user_name];
+            [[KEY_WINDOW viewWithTag:kChangeNameViewTag] removeFromSuperview];
         } else if (response.resultCode == -2002) {
             [self showTipsWithText:@"该用户名已存在"];
-            
         }
         NSLog(@"Name: %@", _userInfo.user_name);
     }];

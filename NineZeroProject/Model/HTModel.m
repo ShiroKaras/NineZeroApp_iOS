@@ -134,6 +134,22 @@ HTINIT(HTMascot)
 @end
 
 @implementation HTUserInfo
++ (NSArray *)ignoredPropertyNames {
+    return @[];
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    HTUserInfo *userInfo = [[HTUserInfo alloc] init];
+    userInfo.user_name = [_user_name copy];
+    userInfo.user_avatar = [_user_avatar copy];
+    userInfo.user_avatar_url = [_user_avatar_url copy];
+    userInfo.mobile = [_mobile copy];
+    userInfo.address = [_address copy];
+    userInfo.push_setting = _push_setting;
+    userInfo.settingType = _settingType;
+    return userInfo;
+}
+
 @end
 
 @implementation HTRanker

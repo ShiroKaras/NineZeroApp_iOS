@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MJExtension/MJExtension.h>
 
 // 不要覆盖description方法
 @interface NSObject (PropertyPrint)
@@ -169,7 +170,7 @@
 @property (nonatomic, strong) NSArray<HTProfileAnswer *> *answer_list;
 @end
 
-@interface HTUserInfo : NSObject
+@interface HTUserInfo : NSObject <NSCopying>
 @property (nonatomic, strong) NSString *user_name;
 @property (nonatomic, strong) NSString *user_avatar;
 @property (nonatomic, strong) NSString *user_avatar_url;

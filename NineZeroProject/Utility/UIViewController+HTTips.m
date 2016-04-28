@@ -16,7 +16,7 @@
     UIView *tipsBackView = [[UIView alloc] init];
     tipsBackView.backgroundColor = COMMON_PINK_COLOR;
     tipsBackView.hidden = YES;
-    [self.view addSubview:tipsBackView];
+    [KEY_WINDOW addSubview:tipsBackView];
     
     UILabel *tipsLabel = [[UILabel alloc] init];
     tipsLabel.font = [UIFont systemFontOfSize:16];
