@@ -23,6 +23,8 @@
 #import "APService.h"
 #import "HTRelaxController.h"
 #import "HTAlertView.h"
+#import "easing.h"
+#import "YXEasing.h"
 
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
@@ -502,15 +504,29 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             [_eggCoverImageView addGestureRecognizer:panGesture];
             
             [KEY_WINDOW addSubview:_eggCoverImageView];
-            [UIView animateWithDuration:1.0 delay:0 usingSpringWithDamping:1.0 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                _eggCoverImageView.left = 0;
-            } completion:^(BOOL finished) {
-                [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
-            }];
+            [self bounceEaseOut];
+//            [UIView animateWithDuration:1.0 delay:0 usingSpringWithDamping:1.0 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//                _eggCoverImageView.left = 0;
+//            } completion:^(BOOL finished) {
+//                [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
+//            }];
         }
     }
     _scrollDirection = (scrollView.contentOffset.x > preContentOffsetX) ? HTScrollDirectionLeft : HTScrollDirectionRight;
     preContentOffsetX = scrollView.contentOffset.x;
+}
+
+- (void)bounceEaseOut {
+    CAKeyframeAnimation *keyFrameAnimation = [CAKeyframeAnimation animation];
+    keyFrameAnimation.keyPath = @"position";
+    keyFrameAnimation.duration = 0.8f;
+    keyFrameAnimation.values = [YXEasing calculateFrameFromPoint:_eggCoverImageView.center
+                                                         toPoint:CGPointMake(self.view.frame.size.width/2., self.view.frame.size.height/2.)
+                                                            func:BounceEaseOut
+                                                      frameCount:2 * 30];
+    _eggCoverImageView.center = CGPointMake(self.view.frame.size.width/2., self.view.frame.size.height/2.);
+    [_eggCoverImageView.layer addAnimation:keyFrameAnimation forKey:nil];
+    [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
 }
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)recognizer {
