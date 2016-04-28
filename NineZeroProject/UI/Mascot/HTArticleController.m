@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @interface HTArticleController () <UIWebViewDelegate, UIScrollViewDelegate> {
     UIImageView *_backgroundImageView;
     UIVisualEffectView *_visualEfView;
+    float lastOffsetY;
 }
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIButton *likeButton;
@@ -192,12 +193,35 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - UIScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y < SCREEN_HEIGHT) {
-        CGFloat alpha = 1 - (scrollView.contentOffset.y / SCREEN_HEIGHT);
-        self.backButton.alpha = alpha;
-        self.shareButton.alpha = alpha;
-        self.likeButton.alpha = alpha;
+    if (scrollView.contentOffset.y <= 100) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.backButton.alpha = 1.;
+            self.shareButton.alpha = 1.;
+            self.likeButton.alpha = 1.;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }else{
+        if (lastOffsetY >= scrollView.contentOffset.y) {
+            [UIView animateWithDuration:0.3 animations:^{
+                self.backButton.alpha = 1.;
+                self.shareButton.alpha = 1.;
+                self.likeButton.alpha = 1.;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }else{
+            [UIView animateWithDuration:0.3 animations:^{
+                self.backButton.alpha = 0;
+                self.shareButton.alpha = 0;
+                self.likeButton.alpha = 0;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }
     }
+    
+    lastOffsetY = scrollView.contentOffset.y;
 }
 
 #pragma mark - UIWebView Delegate
