@@ -61,7 +61,7 @@
         [_alertView addSubview:_messageLabel];
         
         if ([[HTStorageManager sharedInstance] userInfo].address == nil || [[[HTStorageManager sharedInstance] userInfo].address isEqualToString:@""]) {
-            _messageLabel.text = @"在兑换之前，请到个人主页右上角设置填写管理地址，否则我们无法寄出！";
+            _messageLabel.text = @"在兑换之前，请到个人主页右上角设置填写管理地址！";
         }else{
             _messageLabel.text = [NSString stringWithFormat:@"你是否确定要兑换%@礼包？", _prop.prop_name];
         }
