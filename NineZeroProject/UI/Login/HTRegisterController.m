@@ -71,7 +71,7 @@
     // 登录前混淆加密
     _loginUser.user_password = [NSString confusedPasswordWithLoginUser:_loginUser];
     // TODO:这些值不能临时填
-    _loginUser.user_email = @"test";
+    _loginUser.user_email = @"null";
     if (_loginUser.user_avatar.length == 0) _loginUser.user_avatar = @"";
     _loginUser.user_area_id = @"010";
     // end
