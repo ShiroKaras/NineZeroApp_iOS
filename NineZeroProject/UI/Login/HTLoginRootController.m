@@ -132,17 +132,17 @@
          if (state == SSDKResponseStateSuccess)
          {
              
-             NSLog(@"uid=%@",user.uid);
-             NSLog(@"%@",user.credential);
-             NSLog(@"token=%@",user.credential.token);
-             NSLog(@"nickname=%@",user.nickname);
+             DLog(@"uid=%@",user.uid);
+             DLog(@"%@",user.credential);
+             DLog(@"token=%@",user.credential.token);
+             DLog(@"nickname=%@",user.nickname);
              
              [self loginWithUser:user];
          }
 
          else
          {
-             NSLog(@"%@",error);
+             DLog(@"%@",error);
          }
          
      }];
@@ -155,17 +155,17 @@
          if (state == SSDKResponseStateSuccess)
          {
              
-             NSLog(@"uid=%@",user.uid);
-             NSLog(@"credential=%@",user.credential);
-             NSLog(@"token=%@",user.credential.token);
-             NSLog(@"nickname=%@",user.nickname);
+             DLog(@"uid=%@",user.uid);
+             DLog(@"credential=%@",user.credential);
+             DLog(@"token=%@",user.credential.token);
+             DLog(@"nickname=%@",user.nickname);
              
              [self loginWithUser:user];
          }
          
          else
          {
-             NSLog(@"%@",error);
+             DLog(@"%@",error);
          }
          
      }];
@@ -178,17 +178,17 @@ onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
         if (state == SSDKResponseStateSuccess)
         {
             
-            NSLog(@"uid=%@",user.uid);
-            NSLog(@"%@",user.credential);
-            NSLog(@"token=%@",user.credential.token);
-            NSLog(@"nickname=%@",user.nickname);
-            NSLog(@"icon=%@",user.icon);
+            DLog(@"uid=%@",user.uid);
+            DLog(@"%@",user.credential);
+            DLog(@"token=%@",user.credential.token);
+            DLog(@"nickname=%@",user.nickname);
+            DLog(@"icon=%@",user.icon);
             
             [self loginWithUser:user];
         }
         else
         {
-            NSLog(@"%@",error);
+            DLog(@"%@",error);
         }
         
     }];

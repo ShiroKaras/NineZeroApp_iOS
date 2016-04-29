@@ -29,7 +29,7 @@
     if (self = [super init]) {
         _prop = prop;
         
-        NSLog(@"address-> %@",[[HTStorageManager sharedInstance] userInfo].address);
+        DLog(@"address-> %@",[[HTStorageManager sharedInstance] userInfo].address);
         
         _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.85];

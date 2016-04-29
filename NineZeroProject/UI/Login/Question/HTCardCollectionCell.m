@@ -622,9 +622,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     AVPlayerItem *playerItem = (AVPlayerItem *)object;
     if ([keyPath isEqualToString:@"status"]) {
         if ([playerItem status] == AVPlayerStatusReadyToPlay) {
-            NSLog(@"AVPlayerStatusReadyToPlay");
+            DLog(@"AVPlayerStatusReadyToPlay");
         } else if ([playerItem status] == AVPlayerStatusFailed) {
-            NSLog(@"AVPlayerStatusFailed");
+            DLog(@"AVPlayerStatusFailed");
         }
     }
 }

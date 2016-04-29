@@ -139,7 +139,7 @@
 }
 
 - (void)getRewards:(HTGetRewardsCallback)callback {
-    NSLog(@"userid = %@", [[HTStorageManager sharedInstance] getUserID]);
+    DLog(@"userid = %@", [[HTStorageManager sharedInstance] getUserID]);
     if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getUserTicketsCGIKey] parameters:@{ @"user_id" : [[HTStorageManager sharedInstance] getUserID] } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -230,7 +230,7 @@
 }
 
 - (void)getBadges:(HTGetBadgesCallback)callback {
-    NSLog(@"userid = %@", [[HTStorageManager sharedInstance] getUserID]);
+    DLog(@"userid = %@", [[HTStorageManager sharedInstance] getUserID]);
     if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getBadgesCGIKey] parameters:@{ @"user_id" : [[HTStorageManager sharedInstance] getUserID] } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {

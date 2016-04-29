@@ -372,7 +372,7 @@ static NSInteger const kChangeNameViewTag = 12345;
         } else if (response.resultCode == -2002) {
             [self showTipsWithText:@"该用户名已存在"];
         }
-        NSLog(@"Name: %@", _userInfo.user_name);
+        DLog(@"Name: %@", _userInfo.user_name);
     }];
 }
 

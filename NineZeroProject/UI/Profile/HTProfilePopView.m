@@ -30,6 +30,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, weak) HTProfilePopView *profilePopView;
 @end
 @implementation HTPopView
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:CGRectMake(0, 0, [self intrinsicContentSize].width, [self intrinsicContentSize].height)]) {
         _bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_list_bg"]];
@@ -148,7 +149,6 @@ typedef enum : NSUInteger {
         _maskView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
         UITapGestureRecognizer *tapOnMaskView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMaskView)];
         [_maskView addGestureRecognizer:tapOnMaskView];
-        
         _alertView = [[HTPopView alloc] initWithFrame:CGRectZero];
         _alertView.profilePopView = self;
     }

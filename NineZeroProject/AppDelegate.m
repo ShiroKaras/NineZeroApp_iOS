@@ -83,12 +83,12 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken : %@", deviceToken);
+    DLog(@"didRegisterForRemoteNotificationsWithDeviceToken : %@", deviceToken);
     [APService registerDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    NSLog(@"didReceiveRemoteNotification : %@", userInfo);
+    DLog(@"didReceiveRemoteNotification : %@", userInfo);
     [APService handleRemoteNotification:userInfo];
 }
 
@@ -101,7 +101,7 @@
 //    NSDictionary *dataDict = userInfo[@"data"];
     
     // TODO: 通过type去拉不同的数据
-    NSLog(@"didReceiveRemoteNotification, completionHandler: %@", userInfo);
+    DLog(@"didReceiveRemoteNotification, completionHandler: %@", userInfo);
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }
@@ -147,11 +147,11 @@
     // 带逆地理（返回坐标和地址信息）
     [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
         if (error){
-            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+            DLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
         }
-        NSLog(@"location:%@", location);
+        DLog(@"location:%@", location);
         if (regeocode){
-            NSLog(@"citycode:%@", regeocode.citycode);
+            DLog(@"citycode:%@", regeocode.citycode);
             self.cityCode = regeocode.citycode;
         }
     }];

@@ -65,9 +65,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     self.locationManager.delegate = self;
     [self.locationManager startUpdatingLocation];
     [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
-        NSLog(@"%@", location);
+        DLog(@"%@", location);
         if (!error) {
-            NSLog(@"cityCode = %@", regeocode.citycode);
+            DLog(@"cityCode = %@", regeocode.citycode);
         }
     }];
 

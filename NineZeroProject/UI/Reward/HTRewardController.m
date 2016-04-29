@@ -143,7 +143,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     }
     
     if (rsp.data[@"gold"]) {
-        NSLog(@"Type-> %lu", type);
+        DLog(@"Type-> %lu", type);
         _goldNumber = [[NSString stringWithFormat:@"%@", rsp.data[@"gold"]] integerValue];
         _goldenLabel.text = [NSString stringWithFormat:@"%ld", (long)_goldNumber];
         [_goldenLabel sizeToFit];
