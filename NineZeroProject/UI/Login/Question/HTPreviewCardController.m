@@ -258,6 +258,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [self.view bringSubviewToFront:_dimmingView];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
+}
+
 - (void)backToToday {
     [self backToToday:YES];
 }
