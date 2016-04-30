@@ -135,6 +135,7 @@ static CGFloat kDuration = 0.3;
         make.bottom.equalTo(@0);
         make.width.equalTo(self.view.mas_width);
         make.height.equalTo(ROUND_HEIGHT(180));
+        make.centerX.equalTo(self.view.mas_centerX);
     }];
     
     [self.mascotView mas_makeConstraints:^(MASConstraintMaker *make) {
