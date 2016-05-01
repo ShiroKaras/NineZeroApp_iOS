@@ -100,7 +100,8 @@
 @property (nonatomic, strong) NSString *mascotPic;             // 零仔图片
 @property (nonatomic, strong) NSString *mascotDescription;     // 零仔描述
 @property (nonatomic, strong) NSString *pet_gif;               // 零仔的gif图
-@property (nonatomic, assign) NSUInteger articles;
+@property (nonatomic, assign) NSUInteger articles;              //文章数
+@property (nonatomic, assign) NSUInteger unread_articles;       //未读文章数
 @property (nonatomic, strong) NSArray<HTArticle *> *article_list;  // 文章
 
 @end

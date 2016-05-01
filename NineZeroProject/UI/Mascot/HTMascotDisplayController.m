@@ -83,14 +83,14 @@ static CGFloat kDuration = 0.3;
 //    [self buildConstraints];
 }
 
-- (void)debugChangeView {
-    if (self.mascots.count == 1) {
-        self.mascots = [HTMascotHelper mascotsFake];
-    } else {
-        self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
-    }
-    [self reloadViews];
-}
+//- (void)debugChangeView {
+//    if (self.mascots.count == 1) {
+//        self.mascots = [HTMascotHelper mascotsFake];
+//    } else {
+//        self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
+//    }
+//    [self reloadViews];
+//}
 
 - (void)reloadAllData {
     [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
@@ -168,7 +168,7 @@ static CGFloat kDuration = 0.3;
         self.tipLabel.hidden = NO;
         self.mascotView.hidden = YES;
         self.onlyOneMascotImageView.mascot = self.mascots[0];
-        self.mascotTipView.tipNumber = self.mascots[0].articles;
+        self.mascotTipView.tipNumber = self.mascots[0].unread_articles;
     } else {
         self.onlyOneMascotImageView.hidden = YES;
         self.mascotTipView.hidden = YES;

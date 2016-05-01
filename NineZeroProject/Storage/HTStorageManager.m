@@ -21,6 +21,7 @@
 
 @synthesize userInfo = _userInfo;
 @synthesize profileInfo = _profileInfo;
+@synthesize mascotInfo = _mascotInfo;
 @synthesize qiniuPublicToken = _qiniuPublicToken;
 
 + (instancetype)sharedInstance {
@@ -66,6 +67,17 @@
     if (_profileInfo) return _profileInfo;
     _profileInfo = [HTProfileInfo objectWithKeyValues:[_storageService getObjectById:kStorageProfileInfoKey fromTable:kStorageTableKey]];
     return _profileInfo;
+}
+
+- (void)setMascotInfo:(HTMascot *)mascotInfo {
+    _mascotInfo = mascotInfo;
+    [_storageService putObject:[mascotInfo keyValues] withId:kStorageMascotInfoKey intoTable:kStorageTableKey];
+}
+
+- (HTMascot *)getMascotInfo {
+    if (_mascotInfo)    return _mascotInfo;
+    _mascotInfo = [HTMascot objectWithKeyValues:[_storageService getObjectById:kStorageMascotInfoKey fromTable:kStorageTableKey]];
+    return _mascotInfo;
 }
 
 - (void)updateLoginUser:(HTLoginUser *)loginUser {

@@ -240,7 +240,7 @@ const char *kTapItemAssociatedKey;
     for (HTMascotTipView *tip in _mascotTips) {
         if (tip.index == mascot.mascotID - 1) {
             tip.hidden = NO;
-            [tip setTipNumber:mascot.articles];
+            [tip setTipNumber:mascot.unread_articles];
         } else {
             tip.hidden = YES;
         }

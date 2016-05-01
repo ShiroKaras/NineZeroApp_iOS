@@ -29,6 +29,7 @@ extern NSString *const kStorageSaltKey;
 
 extern NSString *const kStorageUserInfoKey;
 extern NSString *const kStorageProfileInfoKey;
+extern NSString *const kStorageMascotInfoKey;
 
 #pragma mark - Question
 

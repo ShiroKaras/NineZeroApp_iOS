@@ -21,7 +21,10 @@
         if (rsp.resultCode == 0) {
             NSMutableArray<HTMascot *> *mascots = [[NSMutableArray alloc] init];
             for (int i = 0; i != [responseObject[@"data"] count]; i++) {
-                [mascots addObject:[HTMascot objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]]];
+                HTMascot *mascot = [HTMascot objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
+                //获取未读文章数
+                mascot.unread_articles = mascot.articles - [[HTStorageManager sharedInstance] getMascotInfo].articles;
+                [mascots addObject:mascot];
             }
             callback(true, mascots);
         } else {
@@ -50,6 +53,9 @@
                 [articleList addObject:article];
             }
             mascot.article_list = articleList;
+            //存储已读文章数
+            mascot.articles = mascot.article_list.count;
+            [[HTStorageManager sharedInstance] setMascotInfo:mascot];
             callback(true, mascot);
         } else {
             callback(false, nil);

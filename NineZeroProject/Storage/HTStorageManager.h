@@ -11,6 +11,7 @@
 @class HTLoginUser;
 @class HTUserInfo;
 @class HTProfileInfo;
+@class HTMascot;
 
 @interface HTStorageManager : NSObject
 
@@ -18,6 +19,7 @@
 
 @property (nonatomic, strong) HTUserInfo *userInfo;
 @property (nonatomic, strong) HTProfileInfo *profileInfo;
+@property (nonatomic, strong) HTMascot *mascotInfo;
 
 @property (nonatomic, strong) NSString *qiniuPublicToken;
 
@@ -37,5 +39,8 @@
 // 七牛Token
 - (void)updateQiniuToken:(NSString *)token;
 - (NSString *)getQiniuToken;
+
+- (void)setMascotInfo:(HTMascot *)mascotInfo;
+- (HTMascot *)getMascotInfo;
 
 @end
