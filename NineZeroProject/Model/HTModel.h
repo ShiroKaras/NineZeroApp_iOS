@@ -159,6 +159,7 @@
 @property (nonatomic, assign) NSUInteger answer_time;
 @property (nonatomic, assign) NSUInteger use_time;
 @property (nonatomic, assign) NSUInteger gold;
+@property (nonatomic, strong) NSString *question_video_cover;
 @end
 
 @interface HTProfileInfo : NSObject
