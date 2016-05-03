@@ -84,7 +84,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = UIColorMake(14, 14, 14);
 
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
@@ -213,8 +212,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                       completion:^(BOOL finished) {
                                           [self backToToday:NO];
                                       }];
+        if (![self isAllowedNotification]) {
+            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
+            [alertView show];
+        }
     });
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -375,9 +377,15 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypeAR: {
-            HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] initWithQuestion:cell.question];
-            arCaptureController.delegate = self;
-            [self presentViewController:arCaptureController animated:YES completion:nil];
+            //判断GPS是否开启
+            if (([CLLocationManager locationServicesEnabled]) && ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized)) {
+                HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] initWithQuestion:cell.question];
+                arCaptureController.delegate = self;
+                [self presentViewController:arCaptureController animated:YES completion:nil];
+            }else {
+                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+                [alertView show];
+            }
             break;
         }
         case HTCardCollectionClickTypePause: {
@@ -572,11 +580,33 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [self willAppearQuestionAtIndex:targetIndex];
 }
 
+#pragma mark - Remote Notification
+
+- (BOOL)isAllowedNotification
+{
+    if
+        ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {// system is iOS8 +
+            UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
+            if
+                (UIUserNotificationTypeNone != setting.types) {
+                    return YES;
+                }
+        }
+    else
+    {// iOS7
+        UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        
+        if(UIRemoteNotificationTypeNone != type)
+            return YES;
+    }
+    return NO;
+}
+
 #pragma mark - Action
 
 - (void)willAppearQuestionAtIndex:(NSInteger)index {
     if (index < 0 || index > questionList.count) return;
-    _chapterLabel.text = [NSString stringWithFormat:@"%02lu", questionList[index].serial];
+    _chapterLabel.text = [NSString stringWithFormat:@"%02lu", (unsigned long)questionList[index].serial];
     [_timeView setQuestion:questionList[index] andQuestionInfo:questionInfo];
     [_recordView setQuestion:questionList[index]];
     // 背景
