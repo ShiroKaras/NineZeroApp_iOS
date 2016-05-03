@@ -43,8 +43,12 @@
         UIImage *image;
         if (type == HTAlertViewTypeLocation) {
             image = [UIImage imageNamed:@"img_ask_permission_location"];
-        } else {
+        } else if (type == HTAlertViewTypePush){
             image = [UIImage imageNamed:@"img_ask_permission_notification"];
+        } else if (type == HTAlertViewTypePhotoLibrary) {
+            image = [UIImage imageNamed:@"img_ask_permission_album"];
+        } else {
+            
         }
         _titleImageView = [[UIImageView alloc] initWithImage:image];
         [_alertView addSubview:_titleImageView];
@@ -63,7 +67,7 @@
         } else if (type == HTAlertViewTypePush){
             messageText = @"九零需要你允许我们推送相关通知，我们会悄悄把线索塞给你，嘘！";
         }else if (type == HTAlertViewTypePhotoLibrary){
-            messageText = @"拜托你快去“设置—隐私—相机”的选项中，让我们找到你。";
+            messageText = @"拜托你快去“设置—隐私—相机”中的选项，让零仔瞅瞅你的相册。";
         }else {
             
         }
