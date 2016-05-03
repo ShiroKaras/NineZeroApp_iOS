@@ -63,7 +63,7 @@
         } else if (type == HTAlertViewTypePush){
             messageText = @"九零需要你允许我们推送相关通知，我们会悄悄把线索塞给你，嘘！";
         }else if (type == HTAlertViewTypePhotoLibrary){
-            messageText = @"请在iPhone的“设置-隐私-相机”选项中，允许90访问你的相机。";
+            messageText = @"拜托你快去“设置—隐私—相机”的选项中，让我们找到你。";
         }else {
             
         }
