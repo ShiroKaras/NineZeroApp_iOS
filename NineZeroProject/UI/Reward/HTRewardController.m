@@ -118,6 +118,9 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
             _suffixOverImageView3.hidden = NO;
         }else{
             _percentLabel.text = [[NSString stringWithFormat:@"%.1lf", 100. - [rsp.data[@"rank"] integerValue]/10.] stringByAppendingString:@"%"];
+            if (_rankNumber >= 700) {
+                _percentLabel.text = @"30%";
+            }
             _suffixOverImageView.hidden = NO;
         }
         [_percentLabel sizeToFit];
