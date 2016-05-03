@@ -31,8 +31,8 @@
 #define ROUND_WIDTH_FLOAT(w) (w / 320.0) * SCREEN_WIDTH
 #define ROUND_HEIGHT_FLOAT(h) (h / 568.0) * SCREEN_HEIGHT
 
-#define ARTICLE_URL_STRING @"http://101.201.39.169:8001/views/article.html"
-#define ANSWER_URL_STRING @"http://101.201.39.169:8001/views/answer.html"
+//#define ARTICLE_URL_STRING @"http://101.201.39.169:8001/views/article.html"
+//#define ANSWER_URL_STRING @"http://101.201.39.169:8001/views/answer.html"
 
 #define COMMON_BG_COLOR UIColorMake(14, 14, 14)
 #define MOON_FONT_OF_SIZE(s) [UIFont fontWithName:@"Moon-Bold" size:s]

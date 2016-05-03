@@ -10,7 +10,6 @@
 #import "HTCardTimeView.h"
 #import "HTCardCollectionCell.h"
 #import "HTUIHeader.h"
-#import "HTQuestionHelper.h"
 #import "HTComposeView.h"
 #import "HTDescriptionView.h"
 #import "HTShowDetailView.h"
@@ -87,7 +86,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [super viewDidLoad];
     
     self.view.backgroundColor = UIColorMake(14, 14, 14);
-//    questionInfo = [HTQuestionHelper questionInfoFake];
 
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
     if (_cardType == HTPreviewCardTypeDefault) {

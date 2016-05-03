@@ -50,10 +50,10 @@ static CGFloat kLineSpace = 10.0;
     if (mascot.mascotID == 8) {
         [_gifImageView setImage:[UIImage imageNamed:@"mascot_page8"]];
     } else {
-        NSString *gifName = [NSString stringWithFormat:@"mascot_page%ld_animation", mascot.mascotID];
+        NSString *gifName = [NSString stringWithFormat:@"mascot_page%ld_animation", (unsigned long)mascot.mascotID];
         [_gifImageView setAnimatedImageWithName:gifName];
     }
-    [_mascotNumberImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_mascot_%ld_page_title", mascot.mascotID]]];
+    [_mascotNumberImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_mascot_%ld_page_title", (unsigned long)mascot.mascotID]]];
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = NSTextAlignmentLeft;

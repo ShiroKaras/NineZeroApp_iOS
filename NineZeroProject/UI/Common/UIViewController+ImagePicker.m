@@ -48,7 +48,7 @@ static char *kAssociatedKey;
 			}];
 		}
 		else {
-			NSString *noAuthTipText = @"请在iPhone的“设置-隐私-相机”选项中，允许RTX访问你的相机。";
+			NSString *noAuthTipText = @"请在iPhone的“设置-隐私-相机”选项中，允许90访问你的相机。";
 			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
 																message:noAuthTipText
 															   delegate:nil
