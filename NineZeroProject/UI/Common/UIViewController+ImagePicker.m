@@ -49,13 +49,6 @@ static char *kAssociatedKey;
 			}];
 		}
 		else {
-//			NSString *noAuthTipText = @"请在iPhone的“设置-隐私-相机”选项中，允许90访问你的相机。";
-//			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-//																message:noAuthTipText
-//															   delegate:nil
-//													  cancelButtonTitle:@"我知道了"
-//													  otherButtonTitles:nil];
-//			[alertView show];
             HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePhotoLibrary];
             [alertView show];
 		}

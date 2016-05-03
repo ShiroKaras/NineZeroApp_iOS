@@ -31,5 +31,6 @@
 #import <UIImageView+WebCache.h>
 #import "HTBlankView.h"
 #import "HTProgressHUD.h"
+#import "HTAlertView.h"
 
 #endif /* HTUIHeader_h */
