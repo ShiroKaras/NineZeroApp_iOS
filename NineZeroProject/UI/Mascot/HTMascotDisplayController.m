@@ -71,16 +71,16 @@ static CGFloat kDuration = 0.3;
     [self.view addSubview:self.mascotView];
     [self.view sendSubviewToBack:self.mascotView];
     
-//    [self buildConstraints];
-//    [self reloadAllData];
-//    [self reloadViews];
+    [self buildConstraints];
+    [self reloadAllData];
+    [self reloadViews];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+//    [self buildConstraints];
     [self reloadAllData];
     [self reloadViews];
-//    [self buildConstraints];
 }
 
 //- (void)debugChangeView {
