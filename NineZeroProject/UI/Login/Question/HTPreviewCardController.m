@@ -166,6 +166,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _collectionView.dataSource = self;
     _collectionView.decelerationRate = 0;
     _collectionView.backgroundColor = [UIColor clearColor];
+    _collectionView.alwaysBounceHorizontal = YES;
     [_collectionView setShowsHorizontalScrollIndicator:NO];
     [_collectionView registerClass:[HTCardCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([HTCardCollectionCell class])];
     [self.view addSubview:_collectionView];
