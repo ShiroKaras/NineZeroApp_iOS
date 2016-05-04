@@ -70,7 +70,7 @@
     _numberCircleView.centerX = self.width / 2;
     _numberCircleView.top = 27;
     _numberLabel.center = _numberCircleView.center;
-    _numberLabel.top = _numberLabel.top + 2;
+    _numberLabel.top = _numberLabel.top + 1;
     _tipImageView.top = _numberCircleView.bottom + 8;
     _tipImageView.centerX = self.width / 2 - _coinNumberLabel.width / 2;
     [_coinNumberLabel sizeToFit];
@@ -117,6 +117,7 @@
         [HTProgressHUD dismiss];
         if (success) {
             self.badges = badges;
+            
             [_collectionView reloadData];
         }
     }];
@@ -148,8 +149,12 @@
     HTBadgeHeaderView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind  withReuseIdentifier:NSStringFromClass([HTBadgeHeaderView class]) forIndexPath:indexPath];
     NSInteger badgeLevel = [self badgeLevel];
     NSInteger targetLevel = [[[self badgeLevels] objectAtIndex:badgeLevel] integerValue];
-    view.numberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)badgeLevel];
-    view.coinNumberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)(targetLevel - [self.profileInfo.gold integerValue])];
+    view.numberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)badgeLevel+1];
+    if ([self.profileInfo.gold integerValue] < 1200) {
+        view.coinNumberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)(targetLevel - [self.profileInfo.gold integerValue])];
+    }else{
+        view.coinNumberLabel.text = @"0";
+    }
     if (badgeLevel == 0) {
         CGFloat progress = 1 - (targetLevel - [self.profileInfo.gold integerValue]) / targetLevel;
         [view.progressView setProgress:progress];
@@ -179,9 +184,11 @@
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     HTDescriptionView *descriptionView = [[HTDescriptionView alloc] initWithURLString:nil andType:HTDescriptionTypeBadge];
     HTBadge *badge = self.badges[indexPath.row];
-    [descriptionView setBadge:badge];
-    [KEY_WINDOW addSubview:descriptionView];
-    [descriptionView showAnimated];
+    if (badge.have) {
+        [descriptionView setBadge:badge];
+        [KEY_WINDOW addSubview:descriptionView];
+        [descriptionView showAnimated];
+    }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     });
