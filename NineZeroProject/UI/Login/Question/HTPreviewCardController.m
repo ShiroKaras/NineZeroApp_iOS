@@ -213,7 +213,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                       completion:^(BOOL finished) {
                                           [self backToToday:NO];
                                       }];
-        if (![self isAllowedNotification]) {
+        if ([UD boolForKey:@"firstLaunch"]) {
+            //第一次运行
             HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
             [alertView show];
         }

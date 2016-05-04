@@ -52,4 +52,6 @@
     (UIViewController *)__responder; \
 })
 
+#define UD [NSUserDefaults standardUserDefaults]
+
 #endif /* CommonDefine_h */
