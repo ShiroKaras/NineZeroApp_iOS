@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIView *cardBackView;
 
 @property (nonatomic, strong) UIView *playBackView;
+@property (nonatomic, strong) UIView *replayBackView;
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIButton *replayButton;
 @property (nonatomic, strong) UIButton *shareButton;
@@ -102,22 +103,30 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         _progressView.backgroundColor = COMMON_GREEN_COLOR;
         [_progressBgView addSubview:_progressView];
 
+        
+        // 2.5 蒙层
+        _replayBackView = [[UIView alloc] init];
+        _replayBackView.backgroundColor = [UIColor clearColor];
+        UITapGestureRecognizer *noTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
+        [_replayBackView addGestureRecognizer:noTap];
+        [_playBackView addSubview:_replayBackView];
+        
+        // 2.5.1 重播按钮
         _replayButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay"] forState:UIControlStateNormal];
         [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay_highlight"] forState:UIControlStateHighlighted];
         [_replayButton addTarget:self action:@selector(onClickReplayButton) forControlEvents:UIControlEventTouchUpInside];
-        _replayButton.alpha = 0;
         _replayButton.tag = HTButtonTypeReplay;
         [_replayButton sizeToFit];
-        [_playBackView addSubview:_replayButton];
+        [_replayBackView addSubview:_replayButton];
         
+        // 2.5.2 分享按钮
         _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_shareButton setImage:[UIImage imageNamed:@"btn_home_share"] forState:UIControlStateNormal];
         [_shareButton setImage:[UIImage imageNamed:@"btn_home_share_highlight"] forState:UIControlStateHighlighted];
         [_shareButton addTarget:self action:@selector(onClickShareButton:) forControlEvents:UIControlEventTouchUpInside];
-        _shareButton.alpha = 0;
         [_shareButton sizeToFit];
-        [_playBackView addSubview:_shareButton];
+        [_replayBackView addSubview:_shareButton];
         
         // 3. 下方背景
         _contentBackView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -154,8 +163,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)onClickReplayButton {
     [UIView animateWithDuration:0.3 animations:^{
-        _replayButton.alpha = 0.;
-        _shareButton.alpha = 0.;
+//        _replayButton.alpha = 0.;
+//        _shareButton.alpha = 0.;
+        _replayBackView.alpha = 0.;
     }];
     [self play];
     [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypePlay];
@@ -329,8 +339,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)stop {
     _playButton.hidden = NO;
-    _replayButton.alpha = 0;
-    _shareButton.alpha = 0;
+//    _replayButton.alpha = 0;
+//    _shareButton.alpha = 0;
+    _replayBackView.alpha = 0;
     _pauseImageView.hidden = YES;
     [_playerItem seekToTime:kCMTimeZero];
     [_player setRate:0];
@@ -351,8 +362,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_player pause];
     _coverImageView.hidden = NO;
     [UIView animateWithDuration:0.3 animations:^{
-        _replayButton.alpha = 1.;
-        _shareButton.alpha = 1.;
+//        _replayButton.alpha = 1.;
+//        _shareButton.alpha = 1.;
+        _replayBackView.alpha = 1.;
     }];
 }
 
@@ -648,9 +660,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _playerLayer.frame = CGRectMake(0, 0, self.width, self.width);
 //    _playButton.center = CGPointMake(self.width / 2 , self.width / 2);
     
+    _replayBackView.frame = CGRectMake(0, 0, _playBackView.frame.size.width, _playBackView.frame.size.height);
     _playButton.frame = CGRectMake(_playBackView.width / 2 - 35, _playBackView.height / 2 - 35, 70, 70);
-    _replayButton.frame = CGRectMake(_playBackView.width /2 -35 -70, _playBackView.height / 2 -35, 70, 70);
-    _shareButton.frame = CGRectMake(_playBackView.width / 2 +35, _playBackView.height / 2 -35, 70, 70);
+    _replayButton.frame = CGRectMake(_replayBackView.width /2 -35 -70, _replayBackView.height / 2 -35, 70, 70);
+    _shareButton.frame = CGRectMake(_replayBackView.width / 2 +35, _replayBackView.height / 2 -35, 70, 70);
     
     _soundImageView.right = _playBackView.width - 13;
     _soundImageView.top = 5;
