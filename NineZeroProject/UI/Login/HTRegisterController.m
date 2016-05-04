@@ -129,4 +129,16 @@
     } option:nil];
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == self.nickTextField) {
+        if(range.length + range.location > textField.text.length)
+        {
+            return NO;
+        }
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        return newLength <= 8;
+    }else
+        return YES;
+}
+
 @end
