@@ -42,6 +42,8 @@
     
     _avatarButton.layer.cornerRadius = _avatarButton.width / 2;
     _avatarButton.layer.masksToBounds = YES;
+    
+    [self.nickTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 
 #pragma mark - Subclass
@@ -129,16 +131,13 @@
     } option:nil];
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+- (void)textFieldDidChange:(UITextField *)textField
+{
     if (textField == self.nickTextField) {
-        if(range.length + range.location > textField.text.length)
-        {
-            return NO;
+        if (textField.text.length > 8) {
+            textField.text = [textField.text substringToIndex:8];
         }
-        NSUInteger newLength = [textField.text length] + [string length] - range.length;
-        return newLength <= 8;
-    }else
-        return YES;
+    }
 }
 
 @end
