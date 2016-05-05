@@ -22,8 +22,6 @@
 #import "APService.h"
 #import "HTRelaxController.h"
 #import "HTAlertView.h"
-#import "easing.h"
-#import "YXEasing.h"
 
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
@@ -128,22 +126,22 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         
         _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_timeView];
+        
+        _eggCoverImageView = [UIImageView new];
+        _eggCoverImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _eggCoverImageView.layer.masksToBounds = YES;
+        [[[HTServiceManager sharedInstance] questionService] getCoverPicture:^(BOOL success, HTResponsePackage *response) {
+            if (success && response.resultCode == 0) {
+                NSDictionary *dataDict = response.data;
+                [_eggCoverImageView sd_setImageWithURL:dataDict[@"pet_gif"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                }];
+            }
+        }];
     } else if (_cardType == HTPreviewCardTypeRecord) {
         questionList = [[[[HTServiceManager sharedInstance] questionService] questionListSuccessful] mutableCopy];
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_recordView];
     }
-    
-    _eggCoverImageView = [UIImageView new];
-    _eggCoverImageView.contentMode = UIViewContentModeScaleAspectFill;
-    _eggCoverImageView.layer.masksToBounds = YES;
-    [[[HTServiceManager sharedInstance] questionService] getCoverPicture:^(BOOL success, HTResponsePackage *response) {
-        if (success && response.resultCode == 0) {
-            NSDictionary *dataDict = response.data;
-            [_eggCoverImageView sd_setImageWithURL:dataDict[@"pet_gif"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            }];
-        }
-    }];
     
     // 1. 背景
     UIImage *bgImage;
