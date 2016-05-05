@@ -32,5 +32,7 @@
 #import "HTBlankView.h"
 #import "HTProgressHUD.h"
 #import "HTAlertView.h"
+#import "easing.h"
+#import "YXEasing.h"
 
 #endif /* HTUIHeader_h */
