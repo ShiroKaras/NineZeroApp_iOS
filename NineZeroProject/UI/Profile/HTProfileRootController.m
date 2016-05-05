@@ -74,18 +74,17 @@
     
     _profileInfo = [[HTStorageManager sharedInstance] profileInfo];
     _userInfo = [[HTStorageManager sharedInstance] userInfo];
-    [self reloadData];
+//    [self reloadData];
     
+    self.navigationController.navigationBar.hidden = YES;
     
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
     [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
         if (success) {
             _profileInfo = profileInfo;
-            [[HTStorageManager sharedInstance] setProfileInfo:profileInfo];
             if (_profileInfo.answer_list.count == 0) {
                 self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
                 [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:9];
@@ -192,6 +191,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HTProfileRecordCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([HTProfileRecordCell class]) forIndexPath:indexPath];
     if (_profileInfo.answer_list.count != 0) {
+        DLog(@"Index:%ld", indexPath.row)
         DLog(@"answerList->%@", _profileInfo.answer_list[indexPath.row].question_video_cover);
         [cell.coverImageView sd_setImageWithURL:_profileInfo.answer_list[indexPath.row].question_video_cover placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
     }

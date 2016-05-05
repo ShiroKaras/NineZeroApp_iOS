@@ -42,6 +42,7 @@
                         }
                     }
                     profileInfo.answer_list = answerList;
+                    [[HTStorageManager sharedInstance] setProfileInfo:profileInfo];
                     callback(true, profileInfo);
                 }];
             } else {
