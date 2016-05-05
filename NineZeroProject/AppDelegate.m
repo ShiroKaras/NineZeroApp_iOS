@@ -43,13 +43,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    if (![UD boolForKey:@"everLaunched"]) {
-        [UD setBool:YES forKey:@"everLaunched"];
-        [UD setBool:YES forKey:@"firstLaunch"];
-    }
-    else{
-        [UD setBool:NO forKey:@"firstLaunch"];
-    }
+//    if (![UD boolForKey:@"everLaunched"]) {
+//        [UD setBool:YES forKey:@"everLaunched"];
+//        [UD setBool:YES forKey:@"firstLaunch"];
+//    }
+//    else{
+//        [UD setBool:NO forKey:@"firstLaunch"];
+//    }
     
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerQiniuService];

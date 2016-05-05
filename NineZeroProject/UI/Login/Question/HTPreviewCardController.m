@@ -213,10 +213,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                       completion:^(BOOL finished) {
                                           [self backToToday:NO];
                                       }];
-        if ([UD boolForKey:@"firstLaunch"]) {
-            //第一次运行
+        if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
+            //未显示过
             HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
             [alertView show];
+            [UD setBool:YES forKey:@"hasShowPushAlert"];
         }
     });
 }
