@@ -15,7 +15,7 @@
     if (text.length == 0) text = @"操作失败";
     UIView *tipsBackView = [[UIView alloc] init];
     tipsBackView.backgroundColor = COMMON_PINK_COLOR;
-    tipsBackView.hidden = YES;
+//    tipsBackView.hidden = YES;
     [KEY_WINDOW addSubview:tipsBackView];
     
     UILabel *tipsLabel = [[UILabel alloc] init];
@@ -24,13 +24,15 @@
     tipsLabel.textColor = [UIColor whiteColor];
     [tipsBackView addSubview:tipsLabel];
     
+    
+    
     [tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         if (self.navigationController == nil || self.navigationController.navigationBar.hidden == YES) {
-            make.top.equalTo(self.view).offset(20);
+            make.top.equalTo(KEY_WINDOW).offset(20);
         } else {
-            make.top.equalTo(self.view).offset(0);
+            make.top.equalTo(KEY_WINDOW).offset(0);
         }
-        make.width.equalTo(self.view);
+        make.width.equalTo(KEY_WINDOW);
         make.height.equalTo(@30);
     }];
     
