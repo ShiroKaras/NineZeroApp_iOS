@@ -74,14 +74,12 @@
     
     _profileInfo = [[HTStorageManager sharedInstance] profileInfo];
     _userInfo = [[HTStorageManager sharedInstance] userInfo];
-//    [self reloadData];
-    
-    self.navigationController.navigationBar.hidden = YES;
-    
+    [self reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
     [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
         if (success) {
             _profileInfo = profileInfo;
