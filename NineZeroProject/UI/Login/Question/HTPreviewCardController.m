@@ -381,9 +381,17 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         case HTCardCollectionClickTypeAR: {
             //判断GPS是否开启
             if (([CLLocationManager locationServicesEnabled]) && ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized)) {
-                HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] initWithQuestion:cell.question];
-                arCaptureController.delegate = self;
-                [self presentViewController:arCaptureController animated:YES completion:nil];
+                AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+                //判断相机是否开启
+                if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied)
+                {
+                    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+                    [alertView show];
+                } else {
+                    HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] initWithQuestion:cell.question];
+                    arCaptureController.delegate = self;
+                    [self presentViewController:arCaptureController animated:YES completion:nil];
+                }
             }else {
                 HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
                 [alertView show];

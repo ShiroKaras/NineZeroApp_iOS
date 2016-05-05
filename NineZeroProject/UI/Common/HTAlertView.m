@@ -67,9 +67,9 @@
         } else if (type == HTAlertViewTypePush){
             messageText = @"九零需要你允许我们推送相关通知，我们会悄悄把线索塞给你，嘘！";
         }else if (type == HTAlertViewTypePhotoLibrary){
-            messageText = @"拜托你快去“设置—隐私—相机”中的选项，让零仔瞅瞅你的相册。";
-        }else {
-            
+            messageText = @"拜托你快去“设置—隐私—照片”中的选项，让零仔瞅瞅你的相册。";
+        }else if (type == HTAlertViewTypeCamera){
+            messageText = @"拜托你快去“设置—隐私—相机”中的选项，让零仔看看这个世界";
         }
         _messageLabel.text = messageText;
         [_alertView addSubview:_messageLabel];

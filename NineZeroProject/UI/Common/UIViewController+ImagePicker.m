@@ -11,6 +11,7 @@
 #import "CommonUI.h"
 #import "HTAlertView.h"
 #import <objc/runtime.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 static char *kAssociatedKey;
 
@@ -38,20 +39,32 @@ static char *kAssociatedKey;
 		imagePicker.delegate = self;
 		imagePicker.sourceType = sourceType;
 		imagePicker.allowsEditing = YES;
-		AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-		if (status == AVAuthorizationStatusAuthorized) {
-			[self presentViewController:imagePicker animated:YES completion:nil];
-		} else if (status == AVAuthorizationStatusNotDetermined) {
-			[AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-				if(granted){
-					[self presentViewController:imagePicker animated:YES completion:nil];
-				}
-			}];
-		}
-		else {
-            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePhotoLibrary];
-            [alertView show];
-		}
+        if (sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
+            ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+            if (author == ALAuthorizationStatusRestricted || author ==ALAuthorizationStatusDenied){
+                //无权限访问相册
+                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePhotoLibrary];
+                [alertView show];
+            }
+            else
+                [self presentViewController:imagePicker animated:YES completion:nil];
+        } else if (sourceType == UIImagePickerControllerSourceTypeCamera) {
+            AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+            if (status == AVAuthorizationStatusAuthorized) {
+                [self presentViewController:imagePicker animated:YES completion:nil];
+            } else if (status == AVAuthorizationStatusNotDetermined) {
+                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                    if(granted){
+                        [self presentViewController:imagePicker animated:YES completion:nil];
+                    }
+                }];
+            }
+            else {
+                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePhotoLibrary];
+                [alertView show];
+            }
+        }
+        
 	}
 }
 

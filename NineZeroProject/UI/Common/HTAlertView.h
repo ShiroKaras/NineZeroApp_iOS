@@ -12,6 +12,7 @@ typedef enum : NSUInteger {
     HTAlertViewTypeLocation,
     HTAlertViewTypePush,
     HTAlertViewTypePhotoLibrary,
+    HTAlertViewTypeCamera,
     HTAlertViewTypeUnknown,
 } HTAlertViewType;
 
