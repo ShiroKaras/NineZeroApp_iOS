@@ -205,8 +205,10 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 - (void)createGifView {
     _andImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_7_page_title-1"]];
+    _andImageView.contentMode = UIViewContentModeScaleAspectFit;
     [_scrollView addSubview:_andImageView];
     _getImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_5"]];
+    _getImageView.contentMode = UIViewContentModeScaleAspectFit;
     [_scrollView addSubview:_getImageView];
     // gif
     _imageView = [[UIImageView alloc] init];
