@@ -621,6 +621,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)willAppearQuestionAtIndex:(NSInteger)index {
     if (index < 0 || index > questionList.count) return;
+    if (questionList.count == 0) return;
     _chapterLabel.text = [NSString stringWithFormat:@"%02lu", (unsigned long)questionList[index].serial];
     [_timeView setQuestion:questionList[index] andQuestionInfo:questionInfo];
     [_recordView setQuestion:questionList[index]];
