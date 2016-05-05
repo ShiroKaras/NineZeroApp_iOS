@@ -90,7 +90,7 @@ const char *kTapItemAssociatedKey;
 - (void)reloadDisplayMascots {
     for (HTMascot *iter in _mascots) {
         NSInteger displayIndex = iter.mascotID - 1;
-        displayIndex = MIN(0, MAX(7, displayIndex));
+        displayIndex = MAX(0, MIN(7, displayIndex));
         _mascotItems[displayIndex].hidden = NO;
         _mascotItems[displayIndex].mascot = iter;
         if (iter.mascotID == 1) {
