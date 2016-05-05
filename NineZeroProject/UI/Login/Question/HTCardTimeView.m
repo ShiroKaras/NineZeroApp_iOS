@@ -53,6 +53,7 @@
         _mainTimeLabel.hidden = YES;
         _detailTimeLabel.hidden = YES;
         _resultImageView.hidden = NO;
+        _resultImageView.contentMode = UIViewContentModeScaleAspectFit;
         if (question.isPassed) {
             [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
         } else {
