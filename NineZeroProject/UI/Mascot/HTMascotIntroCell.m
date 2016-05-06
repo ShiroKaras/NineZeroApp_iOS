@@ -70,13 +70,13 @@ static CGFloat kLineSpace = 10.0;
     [_gifImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@35);
         make.centerX.equalTo(self);
-        make.width.equalTo(@186);
-        make.height.equalTo(@124);
+        make.width.equalTo(@225);
+        make.height.equalTo(@150);
     }];
     
     [_mascotNumberImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(_gifImageView.mas_bottom).offset(25);
+        make.top.equalTo(_gifImageView.mas_bottom).offset(20);
     }];
     
     [_mascotIntroLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -95,7 +95,7 @@ static CGFloat kLineSpace = 10.0;
 
 + (CGFloat)calculateCellHeightWithMascot:(HTMascot *)mascot {
     // 固定的指标
-    CGFloat standardHeight = 35 + 124 + 25 + 25 + 32;
+    CGFloat standardHeight = 35 + 150 + 20 + 25 + 32;
     
     // 图片的高度
     UIImageView *mascotNumber = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_1_page_title"]];
