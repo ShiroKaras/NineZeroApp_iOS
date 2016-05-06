@@ -9,7 +9,7 @@
 #ifndef CommonDefine_h
 #define CommonDefine_h
 #import <UIKit/UIKit.h>
-
+#import "AppDelegate.h"
 #define HT_DEBUG NO
 
 #define IS_LANDSCAPE UIDeviceOrientationIsLandscape((UIDeviceOrientation)[UIApplication sharedApplication].statusBarOrientation)
@@ -35,13 +35,14 @@
 //#define ANSWER_URL_STRING @"http://101.201.39.169:8001/views/answer.html"
 
 #define COMMON_BG_COLOR UIColorMake(14, 14, 14)
-#define MOON_FONT_OF_SIZE(s) [UIFont fontWithName:@"Moon-Bold" size:s]
-#define COMMON_GREEN_COLOR [UIColor colorWithHex:0x24ddb2]
-#define COMMON_PINK_COLOR [UIColor colorWithHex:0xd40e88]
-#define COMMON_SEPARATOR_COLOR [UIColor colorWithHex:0x1f1f1f]
-#define KEYWINDS_ROOT_CONTROLLER [[[[UIApplication sharedApplication] delegate] window] rootViewController]
-#define KEY_WINDOW [[[UIApplication sharedApplication] delegate] window]
-#define APPLICATION_DELEGATE [[UIApplication sharedApplication] delegate]
+#define MOON_FONT_OF_SIZE(s)        [UIFont fontWithName:@"Moon-Bold" size:s]
+#define COMMON_GREEN_COLOR          [UIColor colorWithHex:0x24ddb2]
+#define COMMON_PINK_COLOR           [UIColor colorWithHex:0xd40e88]
+#define COMMON_SEPARATOR_COLOR      [UIColor colorWithHex:0x1f1f1f]
+#define KEYWINDS_ROOT_CONTROLLER    [[[[UIApplication sharedApplication] delegate] window] rootViewController]
+#define KEY_WINDOW                  [[[UIApplication sharedApplication] delegate] window]
+#define APPLICATION_DELEGATE        [[UIApplication sharedApplication] delegate]
+#define AppDelegateInstance         ((AppDelegate*)([UIApplication sharedApplication].delegate))
 
 #define NO_NETWORK ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO)
 

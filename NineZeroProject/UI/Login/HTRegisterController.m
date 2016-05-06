@@ -75,7 +75,7 @@
     // TODO:这些值不能临时填
     _loginUser.user_email = @"null";
     if (_loginUser.user_avatar.length == 0) _loginUser.user_avatar = @"";
-    _loginUser.user_area_id = @"010";
+    _loginUser.user_area_id = AppDelegateInstance.cityCode;
     // end
     
     [HTProgressHUD show];

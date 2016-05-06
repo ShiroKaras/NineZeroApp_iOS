@@ -36,21 +36,13 @@
 @interface AppDelegate ()
 
 @property (nonatomic, strong) AMapLocationManager *locationManager;
-@property (nonatomic, strong) NSString *cityCode;
 @end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-//    if (![UD boolForKey:@"everLaunched"]) {
-//        [UD setBool:YES forKey:@"everLaunched"];
-//        [UD setBool:YES forKey:@"firstLaunch"];
-//    }
-//    else{
-//        [UD setBool:NO forKey:@"firstLaunch"];
-//    }
-    
+    _cityCode = @"010";
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerQiniuService];
     [self registerShareSDK];
@@ -160,7 +152,7 @@
         DLog(@"location:%@", location);
         if (regeocode){
             DLog(@"citycode:%@", regeocode.citycode);
-            self.cityCode = regeocode.citycode;
+            _cityCode = regeocode.citycode;
         }
     }];
 }

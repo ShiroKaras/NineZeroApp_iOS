@@ -15,6 +15,7 @@
 #import "HTModel.h"
 #import <Qiniu/QiniuSDK.h>
 #import <YTKKeyValueStore.h>
+#import "CommonDefine.h"
 
 @interface HTServiceManager : NSObject
 

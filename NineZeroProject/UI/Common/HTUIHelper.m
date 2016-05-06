@@ -8,7 +8,6 @@
 
 #import "HTUIHelper.h"
 #import "HTUIHeader.h"
-#import "AppDelegate.h"
 
 @implementation HTUIHelper
 + (UIBarButtonItem *)commonLeftBarItem {
@@ -28,7 +27,7 @@
 }
 
 + (HTMainViewController *)mainController {
-    return [(AppDelegate *)[[UIApplication sharedApplication] delegate] mainController];
+    return AppDelegateInstance.mainController;
 }
 
 @end

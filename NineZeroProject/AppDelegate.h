@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) HTMainViewController *mainController;
+@property (nonatomic, strong) NSString *cityCode;
 
 @end
 

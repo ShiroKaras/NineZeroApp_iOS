@@ -198,7 +198,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
 {
-    DLog(@"location:{lat:%f; lon:%f; accuracy:%f}", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
     [self.prARManager startARWithData:[self getDummyData] forLocation:location.coordinate];
 }
 
