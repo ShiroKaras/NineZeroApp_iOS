@@ -8,7 +8,6 @@
 
 #import "HTShowAnswerView.h"
 #import "HTUIHeader.h"
-#import "AppDelegate.h"
 
 @interface HTShowAnswerView () <UIWebViewDelegate>
 
@@ -59,8 +58,7 @@
 }
 
 - (void)didClickCancelButton {
-    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    [[appDelegate mainController] showBottomButton:YES];
+    [AppDelegateInstance.mainController showBottomButton:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.top = self.height;

@@ -15,7 +15,6 @@
 #import "HTShowDetailView.h"
 #import "HTShowAnswerView.h"
 #import "HTARCaptureController.h"
-#import "AppDelegate.h"
 #import "HTRewardController.h"
 #import "Reachability.h"
 #import "SharkfoodMuteSwitchDetector.h"
@@ -348,8 +347,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)collectionCell:(HTCardCollectionCell *)cell didClickButtonWithType:(HTCardCollectionClickType)type {
     switch (type) {
         case HTCardCollectionClickTypeAnswer: {
-            AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-            [[appDelegate mainController] showBottomButton:NO];
+            [AppDelegateInstance.mainController showBottomButton:NO];
             _showAnswerView = [[HTShowAnswerView alloc] initWithURL:cell.question.detailURL];
             _showAnswerView.alpha = 0.0;
             _showAnswerView.frame = self.view.bounds;
@@ -494,17 +492,18 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 #pragma mark - HTARCaptureController Delegate
 
 - (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller {
-    [controller dismissViewControllerAnimated:NO completion:nil];
-    questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
-    [self willAppearQuestionAtIndex:questionList.count - 1];
-    [self.collectionView reloadData];
-    HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:controller.rewardID questionID:controller.question.questionID];
-    reward.view.backgroundColor = [UIColor clearColor];
-    if (IOS_VERSION >= 8.0) {
-        reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    }
-    [self presentViewController:reward animated:YES completion:nil];
-    [[HTUIHelper mainController] reloadMascotViewData];
+    [controller dismissViewControllerAnimated:NO completion:^{
+        questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
+        [self willAppearQuestionAtIndex:questionList.count - 1];
+        [self.collectionView reloadData];
+        HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:controller.rewardID questionID:controller.question.questionID];
+        reward.view.backgroundColor = [UIColor clearColor];
+        if (IOS_VERSION >= 8.0) {
+            reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        }
+        [self presentViewController:reward animated:YES completion:nil];
+        [[HTUIHelper mainController] reloadMascotViewData];
+    }];
 }
 
 #pragma mark - UIScrollView Delegate
