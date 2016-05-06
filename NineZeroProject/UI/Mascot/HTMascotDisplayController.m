@@ -78,19 +78,9 @@ static CGFloat kDuration = 0.3;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    [self buildConstraints];
     [self reloadAllData];
     [self reloadViews];
 }
-
-//- (void)debugChangeView {
-//    if (self.mascots.count == 1) {
-//        self.mascots = [HTMascotHelper mascotsFake];
-//    } else {
-//        self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
-//    }
-//    [self reloadViews];
-//}
 
 - (void)reloadAllData {
     [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
@@ -196,8 +186,13 @@ static CGFloat kDuration = 0.3;
 }
 
 - (void)mascotView:(HTMascotView *)mascotView didClickMascotTipView:(HTMascotTipView *)mascotTipView {
-    HTMascotIntroController *introController = [[HTMascotIntroController alloc] initWithMascot:self.mascots[mascotTipView.index]];
-    [self presentViewController:introController animated:YES completion:nil];
+    for (HTMascot *mascot in self.mascots) {
+        NSLog(@"mas_index:%ld", mascot.mascotID);
+        if (mascot.mascotID-1 == mascotTipView.index) {
+            HTMascotIntroController *introController = [[HTMascotIntroController alloc] initWithMascot:mascot];
+            [self presentViewController:introController animated:YES completion:nil];
+        }
+    }
 }
 
 #pragma mark - HTMascotPropView Delegate
