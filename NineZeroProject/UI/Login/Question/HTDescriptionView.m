@@ -112,6 +112,7 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIButton *cancelButton;
 @property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) UIView *backView;
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) UIView *converView;
 @property (nonatomic, strong) UIButton *exchangeButton;
@@ -127,14 +128,21 @@
         _type = type;
     
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickCancelButton)];
+        
         _dimmingView = [[UIView alloc] init];
-        _dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
-        [_dimmingView addGestureRecognizer:tap];
+        _dimmingView.backgroundColor = [UIColor blackColor];
+        _dimmingView.alpha = 0.8;
+//        [_dimmingView addGestureRecognizer:tap];
         [self addSubview:_dimmingView];
     
+        _backView = [[UIView alloc] init];
+        _backView.backgroundColor = [UIColor clearColor];
+        [_backView addGestureRecognizer:tap];
+        [self addSubview:_backView];
+        
         _converView = [[UIView alloc] init];
         _converView.backgroundColor = COMMON_SEPARATOR_COLOR;
-        [self addSubview:_converView];
+        [_backView addSubview:_converView];
         
         UIImage *coverImage = (type == HTDescriptionTypeProp) ? [UIImage imageNamed:@"props_cover"] : [UIImage imageNamed:@"test_imaga"];
         _imageView = [[UIImageView alloc] initWithImage:coverImage];
@@ -155,7 +163,7 @@
         [_cancelButton setImage:[UIImage imageNamed:@"btn_popover_close_highlight"] forState:UIControlStateHighlighted];
         [_cancelButton sizeToFit];
         [_cancelButton setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
-        [self addSubview:_cancelButton];
+        [_backView addSubview:_cancelButton];
 
         if (type == HTDescriptionTypeReward) {
             _rewardDescriptionView = [[HTTicketDescriptionView alloc] initWithFrame:CGRectZero];
@@ -190,7 +198,8 @@
 
 - (void)didClickCancelButton {
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.top = self.height;
+        _backView.top = _backView.height;
+        _dimmingView.alpha = 0;
         self.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
@@ -203,28 +212,17 @@
     [_changeView show];
 }
 
-- (void)showInView:(UIView *)parentView {
-    self.frame = parentView.bounds;
-    self.alpha = 0;
-    self.top = parentView.bottom;
-    _dimmingView.top = -SCREEN_HEIGHT;
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _dimmingView.top = 0;
-        self.top = 0;
-        self.alpha = 1.0;
-    } completion:nil];
-}
-
 - (void)showAnimated {
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     UIView *parentView = [self superview];
     self.frame = parentView.bounds;
     self.alpha = 0;
-    self.top = parentView.bottom;
-    _dimmingView.top = -SCREEN_HEIGHT;
+    self.top = parentView.top;
+    _dimmingView.top = 0;
+    _backView.top = parentView.bottom;
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _dimmingView.top = 0;
-        self.top = 0;
+        _dimmingView.alpha = 0.8;
+        _backView.top = 0;
         self.alpha = 1.0;
     } completion:^(BOOL finished) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -262,10 +260,11 @@
     CGFloat width = 280;
     CGFloat imageHeight = 240;
     CGFloat webViewHeight = 140;
+    _backView.frame = self.bounds;
     _dimmingView.frame = self.bounds;
     _converView.frame = CGRectMake(self.width / 2 - width / 2, (80.0 / 568.0) * SCREEN_HEIGHT, width, imageHeight + webViewHeight);
     if (SCREEN_WIDTH > IPHONE5_SCREEN_WIDTH) {
-        _converView.centerY = self.centerY - 20;
+        _converView.centerY = _backView.centerY - 20;
     }
     _converView.layer.cornerRadius = 5.0f;
     _converView.layer.masksToBounds = YES;
