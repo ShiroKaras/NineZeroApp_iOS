@@ -125,20 +125,18 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
         }
         [_percentLabel sizeToFit];
     }
-    if (rsp.data[@"ticket"]
-        && [rsp.data[@"ticket"] isKindOfClass:[NSDictionary class]]
-        ) {
+    if (rsp.data[@"ticket"]) {
             type += NZRewardTypeTicket;
             HTTicket *ticket = [HTTicket objectWithKeyValues:rsp.data[@"ticket"]];
             _ticket = ticket;
             [self createTicketView];
     }
-    if (rsp.data[@"pet"] && [[rsp.data[@"pet"] class] isKindOfClass:[NSDictionary class]]) {
+    if (rsp.data[@"pet"]) {
         type += NZRewardTypePet;
         HTMascot *mascot = [HTMascot objectWithKeyValues:rsp.data[@"pet"]];
         _mascot = mascot;
     }
-    if (rsp.data[@"prop"] && [[rsp.data[@"prop"] class] isKindOfClass:[NSDictionary class]]) {
+    if (rsp.data[@"prop"]) {
         type += NZRewardTypeProp;
         HTMascotProp *prop = [HTMascotProp objectWithKeyValues:rsp.data[@"prop"]];
         _prop = prop;
