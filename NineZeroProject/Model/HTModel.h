@@ -29,21 +29,21 @@
 
 @interface HTQuestionInfo : NSObject
 
-@property (nonatomic, assign) NSUInteger questionID;          // 唯一标识ID
-@property (nonatomic, assign) NSUInteger endTime;             // 截止时间
-@property (nonatomic, assign) NSUInteger updateTime;          // 更新时间
+@property (nonatomic, assign) uint64_t questionID;          // 唯一标识ID
+@property (nonatomic, assign) uint64_t endTime;             // 截止时间
+@property (nonatomic, assign) uint64_t updateTime;          // 更新时间
 @property (nonatomic, assign) NSUInteger questionCount;       // 题目总数量
 
 @end
 
 @interface HTQuestion : NSObject
 
-@property (nonatomic, assign) NSUInteger questionID;          // 唯一标识ID
+@property (nonatomic, assign) uint64_t questionID;          // 唯一标识ID
 @property (nonatomic, assign) NSUInteger serial;              // 章节
 @property (nonatomic, assign) NSUInteger type;                // 问题类型(0 ar, 1 文字)
 @property (nonatomic, assign) NSUInteger areaID;              // 用户所在城市ID
-@property (nonatomic, assign) NSUInteger rewardID;            // 奖励ID
-@property (nonatomic, assign) NSUInteger useTime;            // 回答问题使用的时间
+@property (nonatomic, assign) uint64_t rewardID;            // 奖励ID
+@property (nonatomic, assign) uint64_t useTime;            // 回答问题使用的时间
 @property (nonatomic, assign) NSUInteger coinNumber;          // 回答问题使用的金币
 @property (nonatomic, assign) BOOL isPassed;                  // 是否闯关成功
 @property (nonatomic, strong) NSArray<NSString *> *answers;   // 答案
@@ -74,9 +74,9 @@
 
 @interface HTArticle : NSObject
 
-@property (nonatomic, assign) NSUInteger mascotID;         // 零仔ID（为0代表停赛日文章）
+@property (nonatomic, assign) uint64_t mascotID;         // 零仔ID（为0代表停赛日文章）
 @property (nonatomic, assign) NSUInteger articleID;        // 文章ID
-@property (nonatomic, assign) NSUInteger time;
+@property (nonatomic, assign) uint64_t time;
 @property (nonatomic, strong) NSString *articleURL;        // 文章链接
 @property (nonatomic, strong) NSString *articleTitle;      // 文章标题 (缺)
 @property (nonatomic, strong) NSString *article_subtitle;  // 文章副标题
@@ -94,8 +94,8 @@
 // 零仔
 @interface HTMascot : NSObject
 
-@property (nonatomic, assign) NSUInteger mascotID;             // 零仔ID
-@property (nonatomic, assign) NSUInteger getTime;              // 获取时间
+@property (nonatomic, assign) uint64_t mascotID;             // 零仔ID
+@property (nonatomic, assign) uint64_t getTime;              // 获取时间
 @property (nonatomic, strong) NSString *mascotName;            // 零仔名称
 @property (nonatomic, strong) NSString *mascotPic;             // 零仔图片
 @property (nonatomic, strong) NSString *mascotDescription;     // 零仔描述
@@ -109,9 +109,9 @@
 // 零仔道具
 @interface HTMascotProp : NSObject
 
-@property (nonatomic, assign) NSUInteger prop_id;
-@property (nonatomic, assign) NSUInteger time;
-@property (nonatomic, assign) NSUInteger exchange_time;
+@property (nonatomic, assign) uint64_t prop_id;
+@property (nonatomic, assign) uint64_t time;
+@property (nonatomic, assign) uint64_t exchange_time;
 @property (nonatomic, strong) NSString *prop_icon;
 @property (nonatomic, strong) NSString *prop_pic;
 @property (nonatomic, strong) NSString *prop_gif;
@@ -127,17 +127,17 @@
 
 // 礼券
 @interface HTTicket : NSObject
-@property (nonatomic, assign) NSUInteger ticket_id;              // 礼券id
-@property (nonatomic, assign) NSUInteger code;                   // 兑换码
-@property (nonatomic, assign) NSUInteger create_time;            // 创建时间
+@property (nonatomic, assign) uint64_t ticket_id;              // 礼券id
+@property (nonatomic, assign) uint64_t code;                   // 兑换码
+@property (nonatomic, assign) uint64_t create_time;            // 创建时间
 @property (nonatomic, assign) BOOL used;                         // 是否已经兑换
-@property (nonatomic, assign) NSUInteger used_time;              // 兑换时间
+@property (nonatomic, assign) uint64_t used_time;              // 兑换时间
 @property (nonatomic, assign) NSUInteger type;                   // type
 @property (nonatomic, strong) NSString *title;                   // 标题
 @property (nonatomic, strong) NSString *pic;                     // 封面名字
 @property (nonatomic, strong) NSString *address;                 // 地点
 @property (nonatomic, strong) NSString *mobile;                  // 手机号
-@property (nonatomic, assign) NSUInteger expire_time;            // 失效时间
+@property (nonatomic, assign) uint64_t expire_time;            // 失效时间
 @property (nonatomic, assign) NSUInteger total_num;              // 总共多少张礼券?
 @property (nonatomic, strong) NSString *ticket_cover;            //礼券方形封面
 @end
@@ -148,17 +148,17 @@
 
 // 通知单元结构体
 @interface HTNotification : NSObject
-@property (nonatomic, assign) NSUInteger notice_id;            // 消息id
-@property (nonatomic, assign) NSUInteger user_id;               // 用户id
-@property (nonatomic, assign) NSUInteger time;                  // 通知时间
+@property (nonatomic, assign) uint64_t notice_id;            // 消息id
+@property (nonatomic, assign) uint64_t user_id;               // 用户id
+@property (nonatomic, assign) uint64_t time;                  // 通知时间
 @property (nonatomic, strong) NSString *content;                // 内容
 @end
 
 @interface HTProfileAnswer : NSObject
-@property (nonatomic, assign) NSUInteger user_id;
-@property (nonatomic, assign) NSUInteger qid;
-@property (nonatomic, assign) NSUInteger answer_time;
-@property (nonatomic, assign) NSUInteger use_time;
+@property (nonatomic, assign) uint64_t user_id;
+@property (nonatomic, assign) uint64_t qid;
+@property (nonatomic, assign) uint64_t answer_time;
+@property (nonatomic, assign) uint64_t use_time;
 @property (nonatomic, assign) NSUInteger gold;
 @property (nonatomic, strong) NSString *question_video_cover;
 @end
@@ -198,7 +198,7 @@
 @property (nonatomic, assign) BOOL have;
 @property (nonatomic, strong) NSString *medal_description;
 @property (nonatomic, strong) NSString *medal_icon;
-@property (nonatomic, assign) NSUInteger medal_id;
+@property (nonatomic, assign) uint64_t medal_id;
 @property (nonatomic, strong) NSString *medal_level;         // 拿到这个勋章需要的金币数
 @property (nonatomic, strong) NSString *medal_name;
 @property (nonatomic, strong) NSString *medal_pic;
