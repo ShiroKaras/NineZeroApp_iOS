@@ -85,7 +85,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 126;
+    return SCREEN_WIDTH/320*126;
 }
 
 @end
