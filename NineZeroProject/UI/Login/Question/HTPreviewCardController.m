@@ -348,7 +348,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     switch (type) {
         case HTCardCollectionClickTypeAnswer: {
             [AppDelegateInstance.mainController showBottomButton:NO];
-            DLog(@"%@", cell.question.detailURL);
             _showAnswerView = [[HTShowAnswerView alloc] initWithURL:cell.question.detailURL];
             _showAnswerView.alpha = 0.0;
             _showAnswerView.frame = self.view.bounds;

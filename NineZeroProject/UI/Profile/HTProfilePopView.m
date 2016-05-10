@@ -38,6 +38,7 @@ typedef enum : NSUInteger {
         [self addSubview:_bgView];
         
         _head = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+        _head.contentMode = UIViewContentModeScaleAspectFill;
         _head.userInteractionEnabled = YES;
         [_bgView addSubview:_head];
         
@@ -52,6 +53,7 @@ typedef enum : NSUInteger {
         [_name sizeToFit];
         
         _decorateImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_list_deco"]];
+        _decorateImageView.contentMode = UIViewContentModeScaleAspectFill;
         [_bgView addSubview:_decorateImageView];
         
         _itemButtons = [NSMutableArray arrayWithCapacity:4];

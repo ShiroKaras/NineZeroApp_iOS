@@ -147,7 +147,7 @@
         UIImage *coverImage = (type == HTDescriptionTypeProp) ? [UIImage imageNamed:@"props_cover"] : [UIImage imageNamed:@"test_imaga"];
         _imageView = [[UIImageView alloc] initWithImage:coverImage];
         _imageView.layer.masksToBounds = YES;
-        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.backgroundColor = COMMON_SEPARATOR_COLOR;
         [_converView addSubview:_imageView];
     
@@ -247,7 +247,8 @@
 
 - (void)setReward:(HTTicket *)reward {
     [_rewardDescriptionView setReward:reward];
-    [_imageView sd_setImageWithURL:[NSURL URLWithString:reward.pic] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
+    NSLog(@"%@", reward.ticket_cover);
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:reward.ticket_cover] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
 }
 
 - (void)setBadge:(HTBadge *)badge {

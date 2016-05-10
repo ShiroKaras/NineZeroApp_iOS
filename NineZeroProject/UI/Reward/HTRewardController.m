@@ -125,18 +125,20 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
         }
         [_percentLabel sizeToFit];
     }
-    if (rsp.data[@"ticket"]) {
-        type += NZRewardTypeTicket;
-        HTTicket *ticket = [HTTicket objectWithKeyValues:rsp.data[@"ticket"]];
-        _ticket = ticket;
-        [self createTicketView];
+    if (rsp.data[@"ticket"]
+        && [rsp.data[@"ticket"] isKindOfClass:[NSDictionary class]]
+        ) {
+            type += NZRewardTypeTicket;
+            HTTicket *ticket = [HTTicket objectWithKeyValues:rsp.data[@"ticket"]];
+            _ticket = ticket;
+            [self createTicketView];
     }
-    if (rsp.data[@"pet"]) {
+    if (rsp.data[@"pet"] && [[rsp.data[@"pet"] class] isKindOfClass:[NSDictionary class]]) {
         type += NZRewardTypePet;
         HTMascot *mascot = [HTMascot objectWithKeyValues:rsp.data[@"pet"]];
         _mascot = mascot;
     }
-    if (rsp.data[@"prop"]) {
+    if (rsp.data[@"prop"] && [[rsp.data[@"prop"] class] isKindOfClass:[NSDictionary class]]) {
         type += NZRewardTypeProp;
         HTMascotProp *prop = [HTMascotProp objectWithKeyValues:rsp.data[@"prop"]];
         _prop = prop;
@@ -146,7 +148,6 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     }
     
     if (rsp.data[@"gold"]) {
-        DLog(@"Type-> %lu", type);
         _goldNumber = [[NSString stringWithFormat:@"%@", rsp.data[@"gold"]] integerValue];
         _goldenLabel.text = [NSString stringWithFormat:@"%ld", (long)_goldNumber];
         [_goldenLabel sizeToFit];

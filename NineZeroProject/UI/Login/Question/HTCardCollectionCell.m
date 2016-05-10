@@ -163,8 +163,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)onClickReplayButton {
     [UIView animateWithDuration:0.3 animations:^{
-//        _replayButton.alpha = 0.;
-//        _shareButton.alpha = 0.;
         _replayBackView.alpha = 0.;
     }];
     [self play];
