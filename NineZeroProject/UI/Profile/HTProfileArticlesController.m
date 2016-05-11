@@ -72,7 +72,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HTProfileArticleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HTProfileArticleCellIdentifier" forIndexPath:indexPath];
-    HTArticle *article = _articles[indexPath.row];
+    HTArticle *article = _articles[_articles.count - indexPath.row - 1];
     [cell setArticle:article];
     return cell;
 }
