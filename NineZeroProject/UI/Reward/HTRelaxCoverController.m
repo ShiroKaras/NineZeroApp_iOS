@@ -40,6 +40,16 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [self.bgImageView addGestureRecognizer:tap];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+}
+
 - (IBAction)didClickButton:(UIButton *)sender {
     [self saveToPhotoLibrary];
 //    [self share:sender];
