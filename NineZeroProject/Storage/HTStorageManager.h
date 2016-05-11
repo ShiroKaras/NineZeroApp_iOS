@@ -40,7 +40,7 @@
 - (void)updateQiniuToken:(NSString *)token;
 - (NSString *)getQiniuToken;
 
-- (void)setMascotInfo:(HTMascot *)mascotInfo;
-- (HTMascot *)getMascotInfo;
+- (void)setMascotInfo:(HTMascot *)mascotInfo withIndex:(NSUInteger)index;
+- (HTMascot *)getMascotInfoWithIndex:(NSUInteger)index;
 
 @end
