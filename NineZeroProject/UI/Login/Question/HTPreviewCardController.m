@@ -138,8 +138,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         }];
     } else if (_cardType == HTPreviewCardTypeRecord) {
         questionList = [[[[HTServiceManager sharedInstance] questionService] questionListSuccessful] mutableCopy];
-        _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
-        [self.collectionView addSubview:_eggImageView];
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_recordView];
     }
@@ -168,7 +166,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     if (_cardType == HTPreviewCardTypeDefault)
         _collectionView.alwaysBounceHorizontal = YES;
     else if (_cardType == HTPreviewCardTypeRecord)
-        _collectionView.alwaysBounceHorizontal = YES;
+        _collectionView.alwaysBounceHorizontal = NO;
     [_collectionView setShowsHorizontalScrollIndicator:NO];
     [_collectionView registerClass:[HTCardCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([HTCardCollectionCell class])];
     [self.view addSubview:_collectionView];
@@ -257,8 +255,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _closeButton.bottom = self.view.height - 25;
     _closeButton.centerX = self.view.width / 2;
     
-    _eggImageView.left = _collectionView.contentSize.width;
-    _eggImageView.centerY = SCREEN_HEIGHT / 2;
+    if (_cardType == HTPreviewCardTypeDefault) {
+        _eggImageView.left = _collectionView.contentSize.width;
+        _eggImageView.centerY = SCREEN_HEIGHT / 2;
+    }
     
     [self.view bringSubviewToFront:_dimmingView];
 }
@@ -522,22 +522,24 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         }
     }
     static CGFloat preContentOffsetX = 0.0;
-    if (scrollView.contentOffset.x + SCREEN_WIDTH >= _eggImageView.right && preContentOffsetX != 0) {
-        [scrollView setContentOffset:CGPointMake(_eggImageView.right - SCREEN_WIDTH, scrollView.contentOffset.y)];
-        if (!_eggCoverImageView.superview) {
-            _eggCoverImageView.frame = SCREEN_BOUNDS;
-            _eggCoverImageView.left = SCREEN_WIDTH;
-            _eggCoverImageView.userInteractionEnabled = YES;
-            UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
-            [_eggCoverImageView addGestureRecognizer:panGesture];
-            
-            [KEY_WINDOW addSubview:_eggCoverImageView];
-            [self bounceEaseOut];
-//            [UIView animateWithDuration:1.0 delay:0 usingSpringWithDamping:1.0 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//                _eggCoverImageView.left = 0;
-//            } completion:^(BOOL finished) {
-//                [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
-//            }];
+    if (_cardType == HTPreviewCardTypeDefault) {
+        if (scrollView.contentOffset.x + SCREEN_WIDTH >= _eggImageView.right && preContentOffsetX != 0) {
+            [scrollView setContentOffset:CGPointMake(_eggImageView.right - SCREEN_WIDTH, scrollView.contentOffset.y)];
+            if (!_eggCoverImageView.superview) {
+                _eggCoverImageView.frame = SCREEN_BOUNDS;
+                _eggCoverImageView.left = SCREEN_WIDTH;
+                _eggCoverImageView.userInteractionEnabled = YES;
+                UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+                [_eggCoverImageView addGestureRecognizer:panGesture];
+                
+                [KEY_WINDOW addSubview:_eggCoverImageView];
+                [self bounceEaseOut];
+                //            [UIView animateWithDuration:1.0 delay:0 usingSpringWithDamping:1.0 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                //                _eggCoverImageView.left = 0;
+                //            } completion:^(BOOL finished) {
+                //                [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
+                //            }];
+            }
         }
     }
     _scrollDirection = (scrollView.contentOffset.x > preContentOffsetX) ? HTScrollDirectionLeft : HTScrollDirectionRight;
