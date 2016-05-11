@@ -140,7 +140,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         questionList = [[[[HTServiceManager sharedInstance] questionService] questionListSuccessful] mutableCopy];
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_recordView];
+    } else if (_cardType == HTPreviewCardTypeIndexRecord) {
+        _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
+        [self.view addSubview:_recordView];
     }
+    
     
     // 1. 背景
     UIImage *bgImage;
@@ -198,7 +202,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     };
     
     // 4.关闭按钮
-    if (_cardType == HTPreviewCardTypeRecord) {
+    if (_cardType == HTPreviewCardTypeRecord || _cardType == HTPreviewCardTypeIndexRecord) {
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_closeButton setImage:[UIImage imageNamed:@"btn_fullscreen_close"] forState:UIControlStateNormal];
         [_closeButton setImage:[UIImage imageNamed:@"btn_fullscreen_close_highlight"] forState:UIControlStateHighlighted];
