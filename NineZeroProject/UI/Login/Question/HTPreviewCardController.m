@@ -138,6 +138,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         }];
     } else if (_cardType == HTPreviewCardTypeRecord) {
         questionList = [[[[HTServiceManager sharedInstance] questionService] questionListSuccessful] mutableCopy];
+        _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
+        [self.collectionView addSubview:_eggImageView];
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_recordView];
     }
@@ -166,7 +168,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     if (_cardType == HTPreviewCardTypeDefault)
         _collectionView.alwaysBounceHorizontal = YES;
     else if (_cardType == HTPreviewCardTypeRecord)
-        _collectionView.alwaysBounceHorizontal = NO;
+        _collectionView.alwaysBounceHorizontal = YES;
     [_collectionView setShowsHorizontalScrollIndicator:NO];
     [_collectionView registerClass:[HTCardCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([HTCardCollectionCell class])];
     [self.view addSubview:_collectionView];
