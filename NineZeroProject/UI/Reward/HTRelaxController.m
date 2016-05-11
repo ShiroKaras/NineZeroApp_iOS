@@ -15,7 +15,7 @@
 
 typedef enum : NSUInteger {
     HTRelaxTypeArticle,
-    HTRelaxTypeVedio,
+    HTRelaxTypeVideo,
     HTRelaxTypeGif,
     HTRelaxTypeUnknown,
 } HTRelaxType;
@@ -43,7 +43,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) HTRelaxCoverController *coverController;
 @property (nonatomic, strong) HTArticle *currentArticle;
-@property (nonatomic, strong) NSString *vedioUrlString;
+@property (nonatomic, strong) NSString *videoUrlString;
 @property (nonatomic, strong) MPMoviePlayerViewController *moviePlayer;
 @end
 
@@ -107,11 +107,12 @@ typedef enum : NSUInteger {
                         }
                     }];
                 }
-            } else if (contentType == HTRelaxTypeVedio) {
+            } else if (contentType == HTRelaxTypeVideo) {
                 [HTProgressHUD dismiss];
-                [self showViewWithRelaxType:HTRelaxTypeVedio];
+                [self showViewWithRelaxType:HTRelaxTypeVideo];
                 self.movieTitle.text = [NSString stringWithFormat:@"%@", jsonDict[@"title"]];
-                self.vedioUrlString = [NSString stringWithFormat:@"%@", jsonDict[@"url"]];
+                self.videoUrlString = [NSString stringWithFormat:@"%@", jsonDict[@"url"]];
+                [self.movieCover sd_setImageWithURL:[NSURL URLWithString:[[jsonDict[@"url"] stringByDeletingPathExtension] stringByAppendingString:@".jpg"]]];
             } else if (contentType == HTRelaxTypeGif) {
                 // 零仔gif链接
                 [HTProgressHUD dismiss];
@@ -186,7 +187,7 @@ typedef enum : NSUInteger {
 }
 
 - (IBAction)didClickPlayButton:(UIButton *)sender {
-    _moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:_vedioUrlString]];
+    _moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:_videoUrlString]];
     _moviePlayer.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:_moviePlayer animated:YES completion:nil];
     [_moviePlayer.moviePlayer play];
@@ -207,7 +208,7 @@ typedef enum : NSUInteger {
             [self hideMovieTips:YES];
             break;
         }
-        case HTRelaxTypeVedio: {
+        case HTRelaxTypeVideo: {
             [self hideTextTips:YES];
             [self hideGIFTips:YES];
             [self hideMovieTips:NO];
