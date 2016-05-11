@@ -137,7 +137,7 @@
 @property (nonatomic, strong) NSString *pic;                     // 封面名字
 @property (nonatomic, strong) NSString *address;                 // 地点
 @property (nonatomic, strong) NSString *mobile;                  // 手机号
-@property (nonatomic, assign) uint64_t expire_time;            // 失效时间
+@property (nonatomic, strong) NSString *expire_time;            // 失效时间
 @property (nonatomic, assign) NSUInteger total_num;              // 总共多少张礼券?
 @property (nonatomic, strong) NSString *ticket_cover;            //礼券方形封面
 @end

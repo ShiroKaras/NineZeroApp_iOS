@@ -61,20 +61,23 @@
     [self.logo sd_setImageWithURL:[NSURL URLWithString:reward.pic] placeholderImage:[UIImage imageNamed:@"img_voucher_cover_default"]];
     self.logo.contentMode = UIViewContentModeScaleAspectFill;
     self.titleLabel.text = reward.title;
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:reward.expire_time];
-    self.ddlLabel.text = [NSString stringWithFormat:@"有效期至%04ld-%02ld-%02ld", (long)[date year], (long)[date month], (long)[date day]];
+//    NSDate *date = [NSDate dateWithTimeIntervalSince1970:reward.expire_time];
+    NSString *year = [reward.expire_time substringWithRange:NSMakeRange(0, 4)];
+    NSString *month = [reward.expire_time substringWithRange:NSMakeRange(4, 2)];
+    NSString *day = [reward.expire_time substringWithRange:NSMakeRange(6, 2)];
+    self.ddlLabel.text = [NSString stringWithFormat:@"有效期至%@-%@-%@", year, month, day];
     self.exchangedCode.text = [NSString stringWithFormat:@"唯一兑换码：%ld", (unsigned long)reward.code];
-    if (date < [NSDate date]) {
-        // 已过期
-        self.alpha = 0.4;
-        self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_voucher_expired"]];
-        [self addSubview:_tipImageView];
-    } else if (reward.used) {
-        // 已兑换
-        self.alpha = 0.4;
-        self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_voucher_redeemed"]];
-        [self addSubview:_tipImageView];
-    }
+//    if (date < [NSDate date]) {
+//        // 已过期
+//        self.alpha = 0.4;
+//        self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_voucher_expired"]];
+//        [self addSubview:_tipImageView];
+//    } else if (reward.used) {
+//        // 已兑换
+//        self.alpha = 0.4;
+//        self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_voucher_redeemed"]];
+//        [self addSubview:_tipImageView];
+//    }
 }
 
 - (CGSize)intrinsicContentSize {
