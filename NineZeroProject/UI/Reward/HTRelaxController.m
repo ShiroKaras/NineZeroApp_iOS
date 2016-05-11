@@ -83,7 +83,7 @@ typedef enum : NSUInteger {
             NSDictionary *dataDict = response.data;
             NSInteger contentType = [dataDict[@"content_type"] integerValue];
             time_t endTime = [dataDict[@"end_time"] integerValue];
-            contentType = MIN(0, MAX(2, contentType));
+            contentType = MAX(0, MIN(2, contentType));
             NSString *jsonString = [NSString stringWithFormat:@"%@", dataDict[@"content_data"]];
             NSError *jsonError;
             NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
