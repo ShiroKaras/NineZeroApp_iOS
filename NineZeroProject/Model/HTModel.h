@@ -74,7 +74,7 @@
 
 @interface HTArticle : NSObject
 
-@property (nonatomic, assign) uint64_t mascotID;         // 零仔ID（为0代表停赛日文章）
+@property (nonatomic, assign) NSUInteger mascotID;         // 零仔ID（为0代表停赛日文章）
 @property (nonatomic, assign) NSUInteger articleID;        // 文章ID
 @property (nonatomic, assign) uint64_t time;
 @property (nonatomic, strong) NSString *articleURL;        // 文章链接
@@ -94,7 +94,7 @@
 // 零仔
 @interface HTMascot : NSObject
 
-@property (nonatomic, assign) uint64_t mascotID;             // 零仔ID
+@property (nonatomic, assign) NSUInteger mascotID;             // 零仔ID
 @property (nonatomic, assign) uint64_t getTime;              // 获取时间
 @property (nonatomic, strong) NSString *mascotName;            // 零仔名称
 @property (nonatomic, strong) NSString *mascotPic;             // 零仔图片

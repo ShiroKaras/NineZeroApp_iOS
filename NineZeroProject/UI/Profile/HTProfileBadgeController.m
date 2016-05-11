@@ -151,7 +151,7 @@
     NSInteger targetLevel = [[[self badgeLevels] objectAtIndex:badgeLevel] integerValue];
     view.numberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)badgeLevel+1];
     if ([self.profileInfo.gold integerValue] < 1200) {
-        view.coinNumberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)(targetLevel - [self.profileInfo.gold integerValue])];
+        view.coinNumberLabel.text = [NSString stringWithFormat:@"%ld", (long)(targetLevel - [self.profileInfo.gold integerValue])];
     }else{
         view.coinNumberLabel.text = @"0";
     }

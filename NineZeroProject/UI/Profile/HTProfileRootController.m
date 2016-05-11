@@ -191,7 +191,7 @@
     if (_profileInfo.answer_list.count != 0) {
         DLog(@"Index:%ld", indexPath.row)
         DLog(@"answerList->%@", _profileInfo.answer_list[indexPath.row].question_video_cover);
-        [cell.coverImageView sd_setImageWithURL:_profileInfo.answer_list[indexPath.row].question_video_cover placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
+        [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:_profileInfo.answer_list[indexPath.row].question_video_cover] placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
     }
     cell.delegate = self;
     cell.indexPath = indexPath;

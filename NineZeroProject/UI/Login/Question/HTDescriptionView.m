@@ -70,7 +70,7 @@
     _location.text = [NSString stringWithFormat:@"地点：%@", reward.address];
     _mobile.text = [NSString stringWithFormat:@"电话：%@", reward.mobile];
     _codeTipLabel.text = @"唯一兑换码";
-    _codeLabel.text = [NSString stringWithFormat:@"%ld", reward.code];
+    _codeLabel.text = [NSString stringWithFormat:@"%llu", reward.code];
     _careTipLabel.text = @"注意事项：";
     _careTip1.text = @"1.本活动仅限本人；";
     _careTip2.text = @"2.如有疑问，请联系客服；";
