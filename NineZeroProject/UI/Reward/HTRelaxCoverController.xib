@@ -23,12 +23,12 @@
             <rect key="frame" x="0.0" y="0.0" width="289" height="508"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_article" translatesAutoresizingMaskIntoConstraints="NO" id="6qR-NR-K1d">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6qR-NR-K1d">
                     <rect key="frame" x="0.0" y="0.0" width="289" height="508"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvR-Xx-goS" userLabel="share">
                     <rect key="frame" x="124" y="431" width="40" height="40"/>
-                    <state key="normal" image="btn_fullscreen_share"/>
+                    <state key="normal" image="btn_fullscreen_download"/>
                     <state key="highlighted" image="btn_fullscreen_share_highlight"/>
                     <connections>
                         <action selector="didClickButton:" destination="-1" eventType="touchUpInside" id="ZoR-vE-Kr7"/>
@@ -107,14 +107,13 @@
         </view>
     </objects>
     <resources>
-        <image name="bg_article" width="746" height="1134"/>
         <image name="btn_fullscreen_close" width="40" height="40"/>
         <image name="btn_fullscreen_close_highlight" width="40" height="40"/>
+        <image name="btn_fullscreen_download" width="40" height="40"/>
         <image name="btn_fullscreen_moments" width="40" height="40"/>
         <image name="btn_fullscreen_moments_highlight" width="40" height="40"/>
         <image name="btn_fullscreen_qq" width="40" height="40"/>
         <image name="btn_fullscreen_qq_highlight" width="40" height="40"/>
-        <image name="btn_fullscreen_share" width="40" height="40"/>
         <image name="btn_fullscreen_share_highlight" width="40" height="40"/>
         <image name="btn_fullscreen_wechat" width="40" height="40"/>
         <image name="btn_fullscreen_wechat_highlight" width="40" height="40"/>

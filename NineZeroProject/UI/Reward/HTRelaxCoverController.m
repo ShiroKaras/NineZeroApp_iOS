@@ -34,6 +34,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.shareButton setImage:[UIImage imageNamed:@"btn_fullscreen_download_highlight"] forState:UIControlStateHighlighted];
     self.bgImageView.userInteractionEnabled = YES;
     self.bgImageView.contentMode = UIViewContentModeScaleAspectFill;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickBgImageView)];
