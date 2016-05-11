@@ -15,8 +15,8 @@
 
 typedef enum : NSUInteger {
     HTRelaxTypeArticle,
-    HTRelaxTypeGif,
     HTRelaxTypeVedio,
+    HTRelaxTypeGif,
     HTRelaxTypeUnknown,
 } HTRelaxType;
 
@@ -93,7 +93,7 @@ typedef enum : NSUInteger {
             _endTime = endTime;
             [self scheduleCountDownTimer];
             _relaxType = contentType;
-            if (contentType == 0) {
+            if (contentType == HTRelaxTypeArticle) {
                 // 文章
                 if (jsonDict[@"article_id"]) {
                     NSString *articleID = [NSString stringWithFormat:@"%@", jsonDict[@"article_id"]];
@@ -107,18 +107,18 @@ typedef enum : NSUInteger {
                         }
                     }];
                 }
-            } else if (contentType == 1) {
+            } else if (contentType == HTRelaxTypeVedio) {
+                [HTProgressHUD dismiss];
+                [self showViewWithRelaxType:HTRelaxTypeVedio];
+                self.movieTitle.text = [NSString stringWithFormat:@"%@", jsonDict[@"title"]];
+                self.vedioUrlString = [NSString stringWithFormat:@"%@", jsonDict[@"url"]];
+            } else if (contentType == HTRelaxTypeGif) {
                 // 零仔gif链接
                 [HTProgressHUD dismiss];
                 [self showViewWithRelaxType:HTRelaxTypeGif];
                 UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", jsonDict[@"pic_url"]]]];
                 _gifImageView.image = gifImage;
                 [_gifImageView startAnimating];
-            } else if (contentType == 2) {
-                [HTProgressHUD dismiss];
-                [self showViewWithRelaxType:HTRelaxTypeVedio];
-                self.movieTitle.text = [NSString stringWithFormat:@"%@", jsonDict[@"title"]];
-                self.vedioUrlString = [NSString stringWithFormat:@"%@", jsonDict[@"url"]];
             }
         }
     }];
