@@ -324,11 +324,11 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         needShowMascot = NO;
     }
     CGFloat distance = self.prARManager.arObject.distance.floatValue;
-    if (distance > 100){
+    if (distance > 200){
         self.tipLabel.text = _question.hint;
         self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
         needShowMascot = NO;
-    }else if(distance <= 100){
+    }else if(distance <= 200){
         self.tipLabel.text = kTipTapMascotToCapture;
         self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
         needShowMascot = YES;
