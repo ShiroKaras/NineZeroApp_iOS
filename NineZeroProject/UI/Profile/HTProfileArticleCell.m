@@ -31,7 +31,7 @@
 
 - (void)setArticle:(HTArticle *)article {
     _article = article;
-    NSInteger mascotID = MIN(1, MAX(8, article.mascotID));
+    NSInteger mascotID = MAX(1, MIN(8, article.mascotID));
     [_bgImageView sd_setImageWithURL:[NSURL URLWithString:article.article_pic_2] placeholderImage:[UIImage imageNamed:@"img_profile_archive_cover_default"]];
     _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
     _bgImageView.layer.masksToBounds = YES;
