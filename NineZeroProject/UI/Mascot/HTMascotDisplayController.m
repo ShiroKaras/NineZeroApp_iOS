@@ -187,7 +187,7 @@ static CGFloat kDuration = 0.3;
 
 - (void)mascotView:(HTMascotView *)mascotView didClickMascotTipView:(HTMascotTipView *)mascotTipView {
     for (HTMascot *mascot in self.mascots) {
-        NSLog(@"mas_index:%ld", mascot.mascotID);
+        NSLog(@"mas_index:%ld", (unsigned long)mascot.mascotID);
         if (mascot.mascotID-1 == mascotTipView.index) {
             HTMascotIntroController *introController = [[HTMascotIntroController alloc] initWithMascot:mascot];
             [self presentViewController:introController animated:YES completion:nil];

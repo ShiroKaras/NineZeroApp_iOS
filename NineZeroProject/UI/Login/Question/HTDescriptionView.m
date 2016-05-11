@@ -66,7 +66,7 @@
 - (void)setReward:(HTTicket *)reward {
     _title.text = reward.title;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:reward.expire_time];
-    _deadLine.text = [NSString stringWithFormat:@"有效期至%04ld-%02ld-%02ld", [date year], [date month], [date day]];
+    _deadLine.text = [NSString stringWithFormat:@"有效期至%04ld-%02ld-%02ld", (long)[date year], [date month], [date day]];
     _location.text = [NSString stringWithFormat:@"地点：%@", reward.address];
     _mobile.text = [NSString stringWithFormat:@"电话：%@", reward.mobile];
     _codeTipLabel.text = @"唯一兑换码";

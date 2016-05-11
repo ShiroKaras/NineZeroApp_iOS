@@ -130,7 +130,7 @@
 }
 
 - (void)setQuestion:(HTQuestion *)question {
-    self.coinLabel.text = [NSString stringWithFormat:@"%ld", question.coinNumber];
+    self.coinLabel.text = [NSString stringWithFormat:@"%ld", (unsigned long)question.coinNumber];
     time_t oneHour = 3600;
     time_t hour = question.useTime / oneHour;
     time_t minute = (question.useTime % oneHour) / 60;
