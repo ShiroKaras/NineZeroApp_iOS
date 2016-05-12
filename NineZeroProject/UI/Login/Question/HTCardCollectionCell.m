@@ -667,7 +667,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _soundImageView.top = 5;
     _pauseImageView.right = _playBackView.width - 8;
     _pauseImageView.bottom = _playBackView.height - 8;
-    _contentLabel.left = 21;
+    _contentLabel.left = 16;
     _contentLabel.centerY = 40;
     [_composeButton sizeToFit];
     _composeButton.top = _contentBackView.bottom - 21;
