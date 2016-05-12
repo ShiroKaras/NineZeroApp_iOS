@@ -253,6 +253,7 @@
                                            categories:nil];
     }
     [APService setupWithOption:launchOptions];
+    [APService resetBadge];
     if ([[HTStorageManager sharedInstance] getUserID]) {
         [APService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
     }
