@@ -228,7 +228,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         return cell;
     } else {
         HTMascotArticleCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTMascotArticleCell class]) forIndexPath:indexPath];
-        [cell setArticle:self.mascot.article_list[indexPath.row - 2]];
+        [cell setArticle:self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1]];
         return cell;
     }
     return [[UITableViewCell alloc] init];
