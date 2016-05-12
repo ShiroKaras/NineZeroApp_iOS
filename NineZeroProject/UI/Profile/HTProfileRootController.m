@@ -54,7 +54,7 @@
     } else if (SCREEN_WIDTH ==IPHONE6_SCREEN_WIDTH) {
         self.AvatarTopConstraint.constant = 66;
     } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        self.AvatarTopConstraint.constant = 145;
+        self.AvatarTopConstraint.constant = 100;
     }
     
     _avatar.layer.cornerRadius = _avatar.width / 2;
