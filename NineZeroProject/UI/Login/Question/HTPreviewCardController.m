@@ -353,6 +353,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)collectionCell:(HTCardCollectionCell *)cell didClickButtonWithType:(HTCardCollectionClickType)type {
     switch (type) {
         case HTCardCollectionClickTypeAnswer: {
+            [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
             [AppDelegateInstance.mainController showBottomButton:NO];
             _showAnswerView = [[HTShowAnswerView alloc] initWithURL:cell.question.detailURL];
             _showAnswerView.alpha = 0.0;
@@ -377,6 +378,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypeReward: {
+            [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
             HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:cell.question.rewardID questionID:cell.question.questionID];
             reward.view.backgroundColor = [UIColor clearColor];
             if (IOS_VERSION >= 8.0) {
@@ -386,6 +388,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypeAR: {
+            [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
             //判断GPS是否开启
             if ([CLLocationManager locationServicesEnabled]
 //                && ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
