@@ -25,6 +25,8 @@
  *  @brief 重置零仔页面动画状态
  */
 - (void)reloadDisplayMascots;
+
+- (void)reloadDisplayMascotsWithIndex:(NSUInteger)index;
 @end
 
 

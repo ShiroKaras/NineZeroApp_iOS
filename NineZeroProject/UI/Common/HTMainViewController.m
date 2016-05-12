@@ -12,6 +12,7 @@
 #import "HTRelaxController.h"
 #import "HTRelaxCoverController.h"
 #import "HTProfilePopView.h"
+#import "HTUIHeader.h"
 
 #define USER_NEW_CARD
 
@@ -111,7 +112,7 @@ CGFloat alphaLight = 1.0;
     [self showBackToToday:NO];
     if ([_currentViewController isKindOfClass:[HTMascotDisplayController class]]) return;
     [self changedToViewController:_mascotController];
-    [_mascotController reloadDisplayMascots];
+    [_mascotController reloadDisplayMascotsWithIndex:[UD integerForKey:@"selectedMascotKey"]==0?1:[UD integerForKey:@"selectedMascotKey"]];
 }
 
 - (IBAction)didClickMeButton:(id)sender {

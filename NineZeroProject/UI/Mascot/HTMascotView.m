@@ -101,6 +101,20 @@ const char *kTapItemAssociatedKey;
     }
 }
 
+- (void)reloadDisplayMascotsWithIndex:(NSUInteger)index {
+    for (HTMascot *iter in _mascots) {
+        NSInteger displayIndex = iter.mascotID - 1;
+        displayIndex = MAX(0, MIN(7, displayIndex));
+        _mascotItems[displayIndex].hidden = NO;
+        _mascotItems[displayIndex].mascot = iter;
+        if (iter.mascotID == index) {
+            // 默认播放
+            [self showTipWithMascot:iter];
+            [self playAniamtionWithNumber:2 item:_mascotItems[displayIndex]];
+        }
+    }
+}
+
 - (void)resizeTouchArea {
     if (_mascotItems.count < MASCOT_ITEMS_COUNT) {
         return;
