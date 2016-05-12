@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		110F9D841CD887640097EB8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110F9D831CD887640097EB8A /* Assets.xcassets */; };
+		1114AE041CE48DD800CCF92C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1114AE031CE48DD800CCF92C /* Assets.xcassets */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
@@ -772,7 +772,7 @@
 /* Begin PBXFileReference section */
 		0166A9928B62B530CF913E62 /* libPods-NineZeroProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A08D05845ABA9A5572B0C27 /* Pods-NineZeroProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.debug.xcconfig"; sourceTree = "<group>"; };
-		110F9D831CD887640097EB8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1114AE031CE48DD800CCF92C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
 		11B385E41CCBA5F8009B8D6F /* SKShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKShareView.m; sourceTree = "<group>"; };
@@ -1725,7 +1725,7 @@
 		110F9D7F1CD880E20097EB8A /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				110F9D831CD887640097EB8A /* Assets.xcassets */,
+				1114AE031CE48DD800CCF92C /* Assets.xcassets */,
 				17A247911C623B9900359CCF /* right_answer_gif */,
 				17A2476A1C623B9300359CCF /* raw_wrong_answer_gif */,
 				17461CE71C7493DF00C847E8 /* img_ar_right_answer_gif */,
@@ -3386,7 +3386,7 @@
 				17461B541C71EF6600C847E8 /* img_mascot_1_animation_4_0020.png in Resources */,
 				17461B251C71EF6600C847E8 /* img_mascot_1_animation_3_0007.png in Resources */,
 				17461B8F1C71EF6600C847E8 /* img_mascot_2_animation_4_0005.png in Resources */,
-				110F9D841CD887640097EB8A /* Assets.xcassets in Resources */,
+				1114AE041CE48DD800CCF92C /* Assets.xcassets in Resources */,
 				17461BEF1C71EF6600C847E8 /* img_mascot_4_animation_4_0005.png in Resources */,
 				17461C821C71EF6600C847E8 /* img_mascot_6_animation_4_0021.png in Resources */,
 				17461C7C1C71EF6600C847E8 /* img_mascot_6_animation_4_0015.png in Resources */,

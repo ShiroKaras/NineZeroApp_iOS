@@ -29,7 +29,7 @@
         if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
             _headerBackView.image = [UIImage imageNamed:@"img_profile_badge_cover_750x375"];
         } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-            _headerBackView.image = [UIImage imageNamed:@"img_profile_badge_cover_1242x621"];
+            _headerBackView.image = [UIImage imageNamed:@"img_profile_badge_cover_1242x480"];
         }
         [self addSubview:_headerBackView];
         
