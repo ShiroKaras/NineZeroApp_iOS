@@ -134,8 +134,8 @@
 - (void)textFieldDidChange:(UITextField *)textField
 {
     if (textField == self.nickTextField) {
-        if (textField.text.length > 8) {
-            textField.text = [textField.text substringToIndex:8];
+        if (textField.text.length > 10) {
+            textField.text = [textField.text substringToIndex:10];
         }
     }
 }
