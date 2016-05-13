@@ -72,13 +72,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HTProfileArticleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HTProfileArticleCellIdentifier" forIndexPath:indexPath];
-    HTArticle *article = _articles[_articles.count - indexPath.row - 1];
+//    HTArticle *article = _articles[_articles.count - indexPath.row - 1];
+    HTArticle *article = _articles[indexPath.row];
     [cell setArticle:article];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    HTArticle *article = _articles[_articles.count - indexPath.row - 1];
+//    HTArticle *article = _articles[_articles.count - indexPath.row - 1];
+    HTArticle *article = _articles[indexPath.row];
     HTArticleController *controller = [[HTArticleController alloc] initWithArticle:article];
 //    [self presentViewController:controller animated:YES completion:nil];
     [self.navigationController pushViewController:controller animated:YES];
