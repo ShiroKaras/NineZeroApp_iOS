@@ -84,6 +84,65 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     self.view.backgroundColor = UIColorMake(14, 14, 14);
 
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
+    
+    [self loadData];
+    
+    [self createUI];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    if (self.cardType == HTPreviewCardTypeDefault) {
+        // fix布局bug
+        self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+    _collectionView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    _timeView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
+    _timeView.right = SCREEN_WIDTH - kItemMargin;
+    _timeView.bottom = ROUND_HEIGHT_FLOAT(96) - 7;
+    
+    _recordView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
+    _recordView.right = SCREEN_WIDTH - kItemMargin;
+    _recordView.bottom = ROUND_HEIGHT_FLOAT(96) - 12;
+    
+    _chapterImageView.left = 30;
+    _chapterImageView.top = ROUND_HEIGHT_FLOAT(62);
+    if (SCREEN_WIDTH > IPHONE5_SCREEN_WIDTH) {
+        _chapterImageView.top = _chapterImageView.top + 3;
+    }
+    _chapterLabel.top = _chapterImageView.top + 6.5;
+    _chapterLabel.right = _chapterImageView.left + 46;
+    
+    _bgImageView.frame = self.view.bounds;
+    [self.view sendSubviewToBack:_bgImageView];
+    
+    _closeButton.bottom = self.view.height - 25;
+    _closeButton.centerX = self.view.width / 2;
+    
+    if (_cardType == HTPreviewCardTypeDefault) {
+        _eggImageView.left = _collectionView.contentSize.width;
+        _eggImageView.centerY = SCREEN_HEIGHT / 2;
+    }
+    
+    [self.view bringSubviewToFront:_dimmingView];
+}
+
+- (void)loadData {
     if (_cardType == HTPreviewCardTypeDefault) {
         [HTProgressHUD show];
         _dimmingView = [[UIView alloc] initWithFrame:SCREEN_BOUNDS];
@@ -145,7 +204,22 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [self.view addSubview:_recordView];
     }
     
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+        [self.collectionView performBatchUpdates:^{}
+                                      completion:^(BOOL finished) {
+                                          [self backToToday:NO];
+                                      }];
+        if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
+            //未显示过
+            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
+            [alertView show];
+            [UD setBool:YES forKey:@"hasShowPushAlert"];
+        }
+    });
+}
+
+- (void)createUI {
     // 1. 背景
     UIImage *bgImage;
     if (SCREEN_WIDTH <= IPHONE5_SCREEN_WIDTH) {
@@ -174,7 +248,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [_collectionView setShowsHorizontalScrollIndicator:NO];
     [_collectionView registerClass:[HTCardCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([HTCardCollectionCell class])];
     [self.view addSubview:_collectionView];
-//    [self.collectionView addSubview:_eggImageView];
+    //    [self.collectionView addSubview:_eggImageView];
     
     // 3. 左上角章节
     _chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_chapter"]];
@@ -210,66 +284,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [_closeButton addTarget:self action:@selector(onClickCloseButton) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_closeButton];
     }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.collectionView reloadData];
-        [self.collectionView performBatchUpdates:^{}
-                                      completion:^(BOOL finished) {
-                                          [self backToToday:NO];
-                                      }];
-        if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
-            //未显示过
-            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
-            [alertView show];
-            [UD setBool:YES forKey:@"hasShowPushAlert"];
-        }
-    });
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
-}
-
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    if (self.cardType == HTPreviewCardTypeDefault) {
-        // fix布局bug
-        self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    }
-    _collectionView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    _timeView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
-    _timeView.right = SCREEN_WIDTH - kItemMargin;
-    _timeView.bottom = ROUND_HEIGHT_FLOAT(96) - 7;
-    
-    _recordView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
-    _recordView.right = SCREEN_WIDTH - kItemMargin;
-    _recordView.bottom = ROUND_HEIGHT_FLOAT(96) - 12;
-    
-    _chapterImageView.left = 30;
-    _chapterImageView.top = ROUND_HEIGHT_FLOAT(62);
-    if (SCREEN_WIDTH > IPHONE5_SCREEN_WIDTH) {
-        _chapterImageView.top = _chapterImageView.top + 3;
-    }
-    _chapterLabel.top = _chapterImageView.top + 6.5;
-    _chapterLabel.right = _chapterImageView.left + 46;
-    
-    _bgImageView.frame = self.view.bounds;
-    [self.view sendSubviewToBack:_bgImageView];
-    
-    _closeButton.bottom = self.view.height - 25;
-    _closeButton.centerX = self.view.width / 2;
-    
-    if (_cardType == HTPreviewCardTypeDefault) {
-        _eggImageView.left = _collectionView.contentSize.width;
-        _eggImageView.centerY = SCREEN_HEIGHT / 2;
-    }
-    
-    [self.view bringSubviewToFront:_dimmingView];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
 }
 
 - (void)backToToday {
