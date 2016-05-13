@@ -78,7 +78,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    HTArticle *article = _articles[indexPath.row];
+    HTArticle *article = _articles[_articles.count - indexPath.row - 1];
     HTArticleController *controller = [[HTArticleController alloc] initWithArticle:article];
 //    [self presentViewController:controller animated:YES completion:nil];
     [self.navigationController pushViewController:controller animated:YES];
