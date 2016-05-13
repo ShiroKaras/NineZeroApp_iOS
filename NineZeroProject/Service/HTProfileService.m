@@ -152,7 +152,7 @@
         if (rsp.resultCode == 0) {
             for (NSDictionary *dataDict in rsp.data) {
                 HTNotification *notification = [HTNotification objectWithKeyValues:dataDict];
-                [notifications addObject:notification];
+                [notifications insertObject:notification atIndex:0];
             }
             callback(true, notifications);
         } else {
