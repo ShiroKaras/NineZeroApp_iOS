@@ -94,12 +94,11 @@
                             _questionListSuccessful = [NSMutableArray array];
                             for (HTQuestion *question in questions) {
                                 question.isPassed = NO;
-                                for (HTProfileAnswer *answer in profileInfo.answer_list) {
-                                    if (answer.qid == question.questionID) {
+                                for (HTQuestion *answer_question in profileInfo.answer_list) {
+                                    answer_question.isPassed = YES;
+                                    [_questionListSuccessful addObject:answer_question];
+                                    if (answer_question.questionID == question.questionID) {
                                         question.isPassed = YES;
-                                        question.useTime = answer.use_time;
-                                        question.coinNumber = answer.gold;
-                                        [_questionListSuccessful addObject:question];
                                     }
                                 }
                             }
@@ -164,18 +163,6 @@
         if (rsp.resultCode == 0) {
             [self getQuestionDetailWithQuestionID:questionID callback:^(BOOL success, HTQuestion *question) {
                 if (success) {
-//                    [_questionListSuccessful enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                        if (obj.questionID == questionID) {
-//                            _questionListSuccessful[idx] = question;
-//                            *stop = YES;
-//                        }
-//                    }];
-//                    [_questionList enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                        if (obj.questionID == questionID) {
-//                            _questionList[idx] = question;
-//                            *stop = YES;
-//                        }
-//                    }];
                     // 回答成功的问题加入回答成功的列表中
                     __block BOOL isFound = NO;
                     [_questionListSuccessful enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

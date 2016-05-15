@@ -25,7 +25,7 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="img_profile_success_page_coin" translatesAutoresizingMaskIntoConstraints="NO" id="jk5-xG-vg2">
                     <rect key="frame" x="60" y="49.5" width="18" height="18"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_profile_success_page_text1" translatesAutoresizingMaskIntoConstraints="NO" id="PmV-di-Y0P">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="img_profile_success_page_text1" translatesAutoresizingMaskIntoConstraints="NO" id="PmV-di-Y0P">
                     <rect key="frame" x="49" y="29" width="32" height="16"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="img_profile_success_page_text2" translatesAutoresizingMaskIntoConstraints="NO" id="wmg-gJ-vtt">
@@ -40,7 +40,7 @@
                     <color key="textColor" red="0.92941176469999998" green="0.12549019610000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBK-Jm-Kgb">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBK-Jm-Kgb">
                     <rect key="frame" x="87" y="28.5" width="64" height="17"/>
                     <fontDescription key="fontDescription" name="Moon-Bold" family="Moon" pointSize="16"/>
                     <color key="textColor" red="0.92941176470588238" green="0.12549019607843137" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>

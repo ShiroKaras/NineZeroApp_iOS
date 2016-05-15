@@ -23,11 +23,11 @@
         if (rsp.resultCode == 0) {
             HTProfileInfo *profileInfo = [HTProfileInfo objectWithKeyValues:rsp.data];
             if (profileInfo.answer_list.count!=0) {
-                NSMutableArray<HTProfileAnswer *> *answerList = [NSMutableArray new];
+                NSMutableArray<HTQuestion *> *answerList = [NSMutableArray new];
                 NSMutableArray<NSString *> *downloadKeys = [NSMutableArray new];
                 for (int i = 0; i != [responseObject[@"data"][@"answer_list"] count]; i++) {
                     @autoreleasepool {
-                        HTProfileAnswer *answer = [HTProfileAnswer objectWithKeyValues:[responseObject[@"data"][@"answer_list"] objectAtIndex:i]];
+                        HTQuestion *answer = [HTQuestion objectWithKeyValues:[responseObject[@"data"][@"answer_list"] objectAtIndex:i]];
                         //                    [answerList insertObject:answer atIndex:0];
                         [answerList addObject:answer];
                         if (answer.question_video_cover) [downloadKeys addObject:answer.question_video_cover];
@@ -35,7 +35,7 @@
                 }
                 //从七牛上获取下载链接
                 [[[HTServiceManager sharedInstance] questionService] getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, HTResponsePackage *response) {
-                    for (HTProfileAnswer *answer in answerList) {
+                    for (HTQuestion *answer in answerList) {
                         @autoreleasepool {
                             NSDictionary *dataDict = response.data;
                             if (answer.question_video_cover) answer.question_video_cover = dataDict[answer.question_video_cover];

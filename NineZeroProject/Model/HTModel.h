@@ -43,8 +43,8 @@
 @property (nonatomic, assign) NSUInteger type;                // 问题类型(0 ar, 1 文字)
 @property (nonatomic, assign) NSUInteger areaID;              // 用户所在城市ID
 @property (nonatomic, assign) NSUInteger rewardID;            // 奖励ID
-@property (nonatomic, assign) NSUInteger useTime;            // 回答问题使用的时间
-@property (nonatomic, assign) NSUInteger coinNumber;          // 回答问题使用的金币
+@property (nonatomic, assign) NSUInteger use_time;            // 回答问题使用的时间
+@property (nonatomic, assign) NSUInteger gold;                // 回答问题使用的金币
 @property (nonatomic, assign) BOOL isPassed;                  // 是否闯关成功
 @property (nonatomic, strong) NSArray<NSString *> *answers;   // 答案
 @property (nonatomic, copy) NSString *chapterText;            // 章节名
@@ -153,14 +153,14 @@
 @property (nonatomic, strong) NSString *content;                // 内容
 @end
 
-@interface HTProfileAnswer : NSObject
-@property (nonatomic, assign) NSUInteger user_id;
-@property (nonatomic, assign) NSUInteger qid;
-@property (nonatomic, assign) NSUInteger answer_time;
-@property (nonatomic, assign) NSUInteger use_time;
-@property (nonatomic, assign) NSUInteger gold;
-@property (nonatomic, strong) NSString *question_video_cover;
-@end
+//@interface HTProfileAnswer : NSObject
+//@property (nonatomic, assign) NSUInteger user_id;
+//@property (nonatomic, assign) NSUInteger qid;
+//@property (nonatomic, assign) NSUInteger answer_time;
+//@property (nonatomic, assign) NSUInteger use_time;
+//@property (nonatomic, assign) NSUInteger gold;
+//@property (nonatomic, strong) NSString *question_video_cover;
+//@end
 
 @interface HTProfileInfo : NSObject
 @property (nonatomic, strong) NSString *gold;
@@ -169,7 +169,7 @@
 @property (nonatomic, strong) NSString *rank;
 @property (nonatomic, strong) NSString *article;
 @property (nonatomic, strong) NSString *medal;
-@property (nonatomic, strong) NSArray<HTProfileAnswer *> *answer_list;
+@property (nonatomic, strong) NSArray<HTQuestion *> *answer_list;
 @end
 
 @interface HTUserInfo : NSObject <NSCopying>
