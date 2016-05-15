@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 };
 
 @interface HTArticleController () <UIWebViewDelegate, UIScrollViewDelegate> {
-    UIImageView *_backgroundImageView;
+    UIView *_backgroundImageView;
     UIVisualEffectView *_visualEfView;
     float lastOffsetY;
 }
@@ -49,8 +49,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _backgroundImageView = [[UIImageView alloc] init];
-    _backgroundImageView.image = [UIImage imageNamed:@"bg_article"];
+    _backgroundImageView = [[UIView alloc] init];
+    _backgroundImageView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:_backgroundImageView];
     
     if (IOS_VERSION >= 8.0) {
@@ -151,8 +151,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }
 }
 
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     if (self.navigationController) {
         self.navigationController.navigationBarHidden = YES;
     }
@@ -160,6 +162,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     if (self.navigationController) {
         self.navigationController.navigationBarHidden = NO;
     }

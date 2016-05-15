@@ -8,7 +8,6 @@
 
 #import "HTShowAnswerView.h"
 #import "HTUIHeader.h"
-#import "AppDelegate.h"
 
 @interface HTShowAnswerView () <UIWebViewDelegate>
 
@@ -50,17 +49,17 @@
     return self;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [HTProgressHUD dismiss];
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.webView.frame = self.bounds;
+    self.cancelButton.right = self.right - 11;
+    self.cancelButton.top = 11;
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [HTProgressHUD dismiss];
-}
+#pragma mark - Action
 
 - (void)didClickCancelButton {
-    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    [[appDelegate mainController] showBottomButton:YES];
+    [AppDelegateInstance.mainController showBottomButton:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.top = self.height;
@@ -70,11 +69,20 @@
     }];
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.webView.frame = self.bounds;
-    self.cancelButton.right = self.right - 11;
-    self.cancelButton.top = 11;
+#pragma mark - UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    return YES;
 }
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [HTProgressHUD dismiss];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [HTProgressHUD dismiss];
+}
+
+
 
 @end

@@ -196,7 +196,7 @@ onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
 
 -(void)loginWithUser:(SSDKUser*)user {
     HTLoginUser *loginUser = [HTLoginUser new];
-    loginUser.user_area_id = @"010";
+    loginUser.user_area_id = AppDelegateInstance.cityCode;
     loginUser.third_id = user.uid;
     loginUser.user_name = user.nickname;
     loginUser.user_avatar = user.icon;

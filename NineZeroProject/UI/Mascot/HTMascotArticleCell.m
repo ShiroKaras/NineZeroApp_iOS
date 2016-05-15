@@ -48,7 +48,7 @@
     
     _title.text = article.articleTitle;
     _number.textColor = [HTMascotHelper colorWithMascotIndex:article.mascotID];
-    _number.text = [NSString stringWithFormat:@"/零仔NO.%ld", article.mascotID];
+    _number.text = [NSString stringWithFormat:@"/零仔NO.%ld", (unsigned long)article.mascotID];
     _tipIcon.hidden = article.hasRead;
     [_cover sd_setImageWithURL:[NSURL URLWithString:article.article_pic_1] placeholderImage:[UIImage imageNamed:@"test_imaga"]];
     _cover.layer.masksToBounds = YES;

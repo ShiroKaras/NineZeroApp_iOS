@@ -79,7 +79,7 @@
         
         // 5. 提示
         [_tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_dimmingView).offset(0);
+            make.top.equalTo(_dimmingView).offset(20);
             make.width.equalTo(_dimmingView);
             make.height.equalTo(@30);
         }];
@@ -106,7 +106,9 @@
 }
 
 - (void)onClickSureButton {
-    if (![_userInfo.user_name isEqualToString:_textField.text]) {
+    if ([_textField.text isEqualToString:@""]||_textField.text==nil) {
+        [self showTipsWithText:@"昵称不可为空"];
+    } else if (![_userInfo.user_name isEqualToString:_textField.text]) {
         HTUserInfo *userInfo = [_userInfo copy];
         userInfo.user_name = _textField.text;
         [self.delegate onClickUserButtonWithUserInfo:userInfo];
@@ -118,6 +120,15 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self onClickSureButton];
     return YES;
+}
+
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    if (textField == _textField) {
+        if (textField.text.length > 10) {
+            textField.text = [textField.text substringToIndex:10];
+        }
+    }
 }
 
 - (void)layoutSubviews {
@@ -370,7 +381,7 @@ static NSInteger const kChangeNameViewTag = 12345;
             [cell setTitleText:userInfo.user_name];
             [[KEY_WINDOW viewWithTag:kChangeNameViewTag] removeFromSuperview];
         } else if (response.resultCode == -2002) {
-            [self showTipsWithText:@"该用户名已存在"];
+            [self showTipsWithText:@"该用户名已存在" offset:20];
         }
         DLog(@"Name: %@", _userInfo.user_name);
     }];

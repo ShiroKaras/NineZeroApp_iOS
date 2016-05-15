@@ -27,9 +27,9 @@
         
         _headerBackView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_badge_cover"]];
         if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-            _headerBackView.image = [UIImage imageNamed:@"img_profile_badge_cover_750x375"];
+            _headerBackView.image = [UIImage imageNamed:@"img_profile_badge_cover_750x320"];
         } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-            _headerBackView.image = [UIImage imageNamed:@"img_profile_badge_cover_1242x621"];
+            _headerBackView.image = [UIImage imageNamed:@"img_profile_badge_cover_1242x480"];
         }
         [self addSubview:_headerBackView];
         
@@ -151,7 +151,7 @@
     NSInteger targetLevel = [[[self badgeLevels] objectAtIndex:badgeLevel] integerValue];
     view.numberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)badgeLevel+1];
     if ([self.profileInfo.gold integerValue] < 1200) {
-        view.coinNumberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)(targetLevel - [self.profileInfo.gold integerValue])];
+        view.coinNumberLabel.text = [NSString stringWithFormat:@"%ld", (long)(targetLevel - [self.profileInfo.gold integerValue])];
     }else{
         view.coinNumberLabel.text = @"0";
     }

@@ -11,6 +11,7 @@
 typedef enum : NSUInteger {
     HTPreviewCardTypeDefault,
     HTPreviewCardTypeRecord,
+    HTPreviewCardTypeIndexRecord,
     HTPreviewCardTypeUnknown,
 } HTPreviewCardType;
 

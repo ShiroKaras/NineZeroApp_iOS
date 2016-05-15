@@ -49,7 +49,7 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
  *  @brief 获取题目的具体信息
  *  @param questionID question_id
  */
-- (void)getQuestionDetailWithQuestionID:(NSUInteger)questionID callback:(HTQuestionCallback)callback;
+- (void)getQuestionDetailWithQuestionID:(uint64_t)questionID callback:(HTQuestionCallback)callback;
 
 /**
  *  @brief 验证答案
@@ -57,12 +57,12 @@ typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionIn
  *  @param user_id    用户id
  *  @param answer     答案
  */
-- (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback;
+- (void)verifyQuestion:(uint64_t)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback;
 
 /**
  *  @brief 验证AR答案
  */
-- (void)verifyQuestion:(NSUInteger)questionID withLocation:(CGPoint)location callback:(HTResponseCallback)callback;
+- (void)verifyQuestion:(uint64_t)questionID withLocation:(CGPoint)location callback:(HTResponseCallback)callback;
 
 /**
  *  @brief 获取七牛下载链接

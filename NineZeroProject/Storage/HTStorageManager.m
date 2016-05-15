@@ -69,14 +69,14 @@
     return _profileInfo;
 }
 
-- (void)setMascotInfo:(HTMascot *)mascotInfo {
+- (void)setMascotInfo:(HTMascot *)mascotInfo withIndex:(NSUInteger)index{
     _mascotInfo = mascotInfo;
-    [_storageService putObject:[mascotInfo keyValues] withId:kStorageMascotInfoKey intoTable:kStorageTableKey];
+    [_storageService putObject:[mascotInfo keyValues] withId:[NSString stringWithFormat:@"%@_%lu",kStorageMascotInfoKey, (unsigned long)index] intoTable:kStorageTableKey];
 }
 
-- (HTMascot *)getMascotInfo {
-    if (_mascotInfo)    return _mascotInfo;
-    _mascotInfo = [HTMascot objectWithKeyValues:[_storageService getObjectById:kStorageMascotInfoKey fromTable:kStorageTableKey]];
+- (HTMascot *)getMascotInfoWithIndex:(NSUInteger)index {
+//    if (_mascotInfo)    return _mascotInfo;
+    _mascotInfo = [HTMascot objectWithKeyValues:[_storageService getObjectById:[NSString stringWithFormat:@"%@_%lu",kStorageMascotInfoKey, (unsigned long)index] fromTable:kStorageTableKey]];
     return _mascotInfo;
 }
 

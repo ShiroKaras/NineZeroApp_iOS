@@ -106,6 +106,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     self.tipImageView = [[UIImageView alloc] init];
     self.tipImageView.layer.masksToBounds = YES;
     self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
+    self.tipImageView.contentMode = UIViewContentModeBottom;
     [self.view addSubview:self.tipImageView];
     self.tipLabel = [[UILabel alloc] init];
     self.tipLabel.font = [UIFont systemFontOfSize:13];
@@ -176,11 +177,13 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.tipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(@(-55));
         make.centerX.equalTo(self.view);
+        make.width.equalTo(@(191));
+        make.height.equalTo(@(86));
     }];
     
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.tipImageView);
-        make.centerY.equalTo(self.tipImageView).offset(3);
+        make.bottom.equalTo(self.tipImageView.mas_bottom).offset(-27);
     }];
     
     [self.mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -198,7 +201,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
 {
-    DLog(@"location:{lat:%f; lon:%f; accuracy:%f}", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
     [self.prARManager startARWithData:[self getDummyData] forLocation:location.coordinate];
 }
 
@@ -322,11 +324,11 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         needShowMascot = NO;
     }
     CGFloat distance = self.prARManager.arObject.distance.floatValue;
-    if (distance > 100){
+    if (distance > 200){
         self.tipLabel.text = _question.hint;
         self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
         needShowMascot = NO;
-    }else if(distance <= 100){
+    }else if(distance <= 200){
         self.tipLabel.text = kTipTapMascotToCapture;
         self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
         needShowMascot = YES;

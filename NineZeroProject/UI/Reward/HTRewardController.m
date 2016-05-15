@@ -126,10 +126,10 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
         [_percentLabel sizeToFit];
     }
     if (rsp.data[@"ticket"]) {
-        type += NZRewardTypeTicket;
-        HTTicket *ticket = [HTTicket objectWithKeyValues:rsp.data[@"ticket"]];
-        _ticket = ticket;
-        [self createTicketView];
+            type += NZRewardTypeTicket;
+            HTTicket *ticket = [HTTicket objectWithKeyValues:rsp.data[@"ticket"]];
+            _ticket = ticket;
+            [self createTicketView];
     }
     if (rsp.data[@"pet"]) {
         type += NZRewardTypePet;
@@ -146,7 +146,6 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     }
     
     if (rsp.data[@"gold"]) {
-        DLog(@"Type-> %lu", type);
         _goldNumber = [[NSString stringWithFormat:@"%@", rsp.data[@"gold"]] integerValue];
         _goldenLabel.text = [NSString stringWithFormat:@"%ld", (long)_goldNumber];
         [_goldenLabel sizeToFit];

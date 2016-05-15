@@ -15,8 +15,8 @@
 
 typedef enum : NSUInteger {
     HTRelaxTypeArticle,
+    HTRelaxTypeVideo,
     HTRelaxTypeGif,
-    HTRelaxTypeVedio,
     HTRelaxTypeUnknown,
 } HTRelaxType;
 
@@ -43,7 +43,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) HTRelaxCoverController *coverController;
 @property (nonatomic, strong) HTArticle *currentArticle;
-@property (nonatomic, strong) NSString *vedioUrlString;
+@property (nonatomic, strong) NSString *videoUrlString;
 @property (nonatomic, strong) MPMoviePlayerViewController *moviePlayer;
 @end
 
@@ -83,7 +83,7 @@ typedef enum : NSUInteger {
             NSDictionary *dataDict = response.data;
             NSInteger contentType = [dataDict[@"content_type"] integerValue];
             time_t endTime = [dataDict[@"end_time"] integerValue];
-            contentType = MIN(0, MAX(2, contentType));
+            contentType = MAX(0, MIN(2, contentType));
             NSString *jsonString = [NSString stringWithFormat:@"%@", dataDict[@"content_data"]];
             NSError *jsonError;
             NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
@@ -93,7 +93,7 @@ typedef enum : NSUInteger {
             _endTime = endTime;
             [self scheduleCountDownTimer];
             _relaxType = contentType;
-            if (contentType == 0) {
+            if (contentType == HTRelaxTypeArticle) {
                 // 文章
                 if (jsonDict[@"article_id"]) {
                     NSString *articleID = [NSString stringWithFormat:@"%@", jsonDict[@"article_id"]];
@@ -107,18 +107,19 @@ typedef enum : NSUInteger {
                         }
                     }];
                 }
-            } else if (contentType == 1) {
+            } else if (contentType == HTRelaxTypeVideo) {
+                [HTProgressHUD dismiss];
+                [self showViewWithRelaxType:HTRelaxTypeVideo];
+                self.movieTitle.text = [NSString stringWithFormat:@"%@", jsonDict[@"title"]];
+                self.videoUrlString = [NSString stringWithFormat:@"%@", jsonDict[@"url"]];
+                [self.movieCover sd_setImageWithURL:[NSURL URLWithString:[[jsonDict[@"url"] stringByDeletingPathExtension] stringByAppendingString:@".jpg"]]];
+            } else if (contentType == HTRelaxTypeGif) {
                 // 零仔gif链接
                 [HTProgressHUD dismiss];
                 [self showViewWithRelaxType:HTRelaxTypeGif];
                 UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", jsonDict[@"pic_url"]]]];
                 _gifImageView.image = gifImage;
                 [_gifImageView startAnimating];
-            } else if (contentType == 2) {
-                [HTProgressHUD dismiss];
-                [self showViewWithRelaxType:HTRelaxTypeVedio];
-                self.movieTitle.text = [NSString stringWithFormat:@"%@", jsonDict[@"title"]];
-                self.vedioUrlString = [NSString stringWithFormat:@"%@", jsonDict[@"url"]];
             }
         }
     }];
@@ -186,7 +187,7 @@ typedef enum : NSUInteger {
 }
 
 - (IBAction)didClickPlayButton:(UIButton *)sender {
-    _moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:_vedioUrlString]];
+    _moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:_videoUrlString]];
     _moviePlayer.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:_moviePlayer animated:YES completion:nil];
     [_moviePlayer.moviePlayer play];
@@ -207,7 +208,7 @@ typedef enum : NSUInteger {
             [self hideMovieTips:YES];
             break;
         }
-        case HTRelaxTypeVedio: {
+        case HTRelaxTypeVideo: {
             [self hideTextTips:YES];
             [self hideGIFTips:YES];
             [self hideMovieTips:NO];

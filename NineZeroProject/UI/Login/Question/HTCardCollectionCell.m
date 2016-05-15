@@ -163,8 +163,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)onClickReplayButton {
     [UIView animateWithDuration:0.3 animations:^{
-//        _replayButton.alpha = 0.;
-//        _shareButton.alpha = 0.;
         _replayBackView.alpha = 0.;
     }];
     [self play];
@@ -669,7 +667,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _soundImageView.top = 5;
     _pauseImageView.right = _playBackView.width - 8;
     _pauseImageView.bottom = _playBackView.height - 8;
-    _contentLabel.left = 21;
+    _contentLabel.left = 16;
     _contentLabel.centerY = 40;
     [_composeButton sizeToFit];
     _composeButton.top = _contentBackView.bottom - 21;

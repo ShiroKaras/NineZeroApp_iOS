@@ -34,7 +34,7 @@
 }
 
 - (void)getQuestionInfoWithCallback:(HTQuestionInfoCallback)callback {
-    NSDictionary *dict = @{@"area_id" : @"010"};
+    NSDictionary *dict = @{@"area_id" : AppDelegateInstance.cityCode};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionInfoCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
@@ -56,7 +56,7 @@
 }
 
 - (void)getQuestionListWithPage:(NSUInteger)page count:(NSUInteger)count callback:(HTQuestionListCallback)callback {
-    NSDictionary *dict = @{@"area_id" : @"010",
+    NSDictionary *dict = @{@"area_id" : AppDelegateInstance.cityCode,
                            @"page"    : @(0) /* 全量拉取 */,
                            @"count"   : [NSString stringWithFormat:@"%lud", (unsigned long)count]
                            };
@@ -131,9 +131,9 @@
     return _questionList;
 }
 
-- (void)getQuestionDetailWithQuestionID:(NSUInteger)questionID callback:(HTQuestionCallback)callback {
+- (void)getQuestionDetailWithQuestionID:(uint64_t)questionID callback:(HTQuestionCallback)callback {
     NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID],
-                           @"area_id" : @(010),
+                           @"area_id" : AppDelegateInstance.cityCode,
                            @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionDetailCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -145,7 +145,7 @@
     }];
 }
 
-- (void)verifyQuestion:(NSUInteger)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback {
+- (void)verifyQuestion:(uint64_t)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback {
     NSString *user_id = [[HTStorageManager sharedInstance] getUserID];
     if (user_id.length == 0) {
         callback(false, nil);
@@ -196,7 +196,7 @@
     }];
 }
 
-- (void)verifyQuestion:(NSUInteger)questionID withLocation:(CGPoint)location callback:(HTResponseCallback)callback {
+- (void)verifyQuestion:(uint64_t)questionID withLocation:(CGPoint)location callback:(HTResponseCallback)callback {
     NSDictionary *dataDict = @{
                                @"lng" : @(location.x),
                                @"lat" : @(location.y),
@@ -283,7 +283,7 @@
     }];
 }
 
-- (HTQuestion *)findQuestionInQuestionList:(NSUInteger)questionID {
+- (HTQuestion *)findQuestionInQuestionList:(uint64_t)questionID {
     __block HTQuestion *question;
     [_questionList enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (questionID == obj.questionID) {

@@ -10,6 +10,7 @@
 #import "HTRelaxController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
+#import "HTUIHeader.h"
 
 typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeShare = 0,
@@ -34,10 +35,21 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.shareButton setImage:[UIImage imageNamed:@"btn_fullscreen_download_highlight"] forState:UIControlStateHighlighted];
     self.bgImageView.userInteractionEnabled = YES;
     self.bgImageView.contentMode = UIViewContentModeScaleAspectFill;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickBgImageView)];
     [self.bgImageView addGestureRecognizer:tap];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
 - (IBAction)didClickButton:(UIButton *)sender {
@@ -231,12 +243,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)saveToPhotoLibrary {
     UIImageWriteToSavedPhotosAlbum(_bgImageView.image, nil, nil, nil);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"存储照片成功"
-                                                    message:@"您已将照片存储于图片库中，打开照片库即可查看。"
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
+    [MBProgressHUD bwm_showTitle:@"已下载至相册" toView:self.view hideAfter:1.0];
 }
 
 - (void)setShareAppear:(BOOL)appear {

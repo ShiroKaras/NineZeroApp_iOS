@@ -65,12 +65,14 @@
 
 - (void)setReward:(HTTicket *)reward {
     _title.text = reward.title;
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:reward.expire_time];
-    _deadLine.text = [NSString stringWithFormat:@"有效期至%04ld-%02ld-%02ld", [date year], [date month], [date day]];
+    NSString *year = [reward.expire_time substringWithRange:NSMakeRange(0, 4)];
+    NSString *month = [reward.expire_time substringWithRange:NSMakeRange(4, 2)];
+    NSString *day = [reward.expire_time substringWithRange:NSMakeRange(6, 2)];
+    _deadLine.text =  [NSString stringWithFormat:@"有效期至%@-%@-%@", year, month, day];
     _location.text = [NSString stringWithFormat:@"地点：%@", reward.address];
     _mobile.text = [NSString stringWithFormat:@"电话：%@", reward.mobile];
     _codeTipLabel.text = @"唯一兑换码";
-    _codeLabel.text = [NSString stringWithFormat:@"%ld", reward.code];
+    _codeLabel.text = [NSString stringWithFormat:@"%llu", reward.code];
     _careTipLabel.text = @"注意事项：";
     _careTip1.text = @"1.本活动仅限本人；";
     _careTip2.text = @"2.如有疑问，请联系客服；";
@@ -112,6 +114,7 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIButton *cancelButton;
 @property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) UIView *backView;
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) UIView *converView;
 @property (nonatomic, strong) UIButton *exchangeButton;
@@ -127,19 +130,26 @@
         _type = type;
     
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickCancelButton)];
+        
         _dimmingView = [[UIView alloc] init];
-        _dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
-        [_dimmingView addGestureRecognizer:tap];
+        _dimmingView.backgroundColor = [UIColor blackColor];
+        _dimmingView.alpha = 0.8;
+//        [_dimmingView addGestureRecognizer:tap];
         [self addSubview:_dimmingView];
     
+        _backView = [[UIView alloc] init];
+        _backView.backgroundColor = [UIColor clearColor];
+        [_backView addGestureRecognizer:tap];
+        [self addSubview:_backView];
+        
         _converView = [[UIView alloc] init];
         _converView.backgroundColor = COMMON_SEPARATOR_COLOR;
-        [self addSubview:_converView];
+        [_backView addSubview:_converView];
         
         UIImage *coverImage = (type == HTDescriptionTypeProp) ? [UIImage imageNamed:@"props_cover"] : [UIImage imageNamed:@"test_imaga"];
         _imageView = [[UIImageView alloc] initWithImage:coverImage];
         _imageView.layer.masksToBounds = YES;
-        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.backgroundColor = COMMON_SEPARATOR_COLOR;
         [_converView addSubview:_imageView];
     
@@ -155,7 +165,7 @@
         [_cancelButton setImage:[UIImage imageNamed:@"btn_popover_close_highlight"] forState:UIControlStateHighlighted];
         [_cancelButton sizeToFit];
         [_cancelButton setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
-        [self addSubview:_cancelButton];
+        [_backView addSubview:_cancelButton];
 
         if (type == HTDescriptionTypeReward) {
             _rewardDescriptionView = [[HTTicketDescriptionView alloc] initWithFrame:CGRectZero];
@@ -190,7 +200,8 @@
 
 - (void)didClickCancelButton {
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.top = self.height;
+        _backView.top = _backView.height;
+        _dimmingView.alpha = 0;
         self.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
@@ -203,28 +214,17 @@
     [_changeView show];
 }
 
-- (void)showInView:(UIView *)parentView {
-    self.frame = parentView.bounds;
-    self.alpha = 0;
-    self.top = parentView.bottom;
-    _dimmingView.top = -SCREEN_HEIGHT;
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _dimmingView.top = 0;
-        self.top = 0;
-        self.alpha = 1.0;
-    } completion:nil];
-}
-
 - (void)showAnimated {
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     UIView *parentView = [self superview];
     self.frame = parentView.bounds;
     self.alpha = 0;
-    self.top = parentView.bottom;
-    _dimmingView.top = -SCREEN_HEIGHT;
+    self.top = parentView.top;
+    _dimmingView.top = 0;
+    _backView.top = parentView.bottom;
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _dimmingView.top = 0;
-        self.top = 0;
+        _dimmingView.alpha = 0.8;
+        _backView.top = 0;
         self.alpha = 1.0;
     } completion:^(BOOL finished) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -249,7 +249,8 @@
 
 - (void)setReward:(HTTicket *)reward {
     [_rewardDescriptionView setReward:reward];
-    [_imageView sd_setImageWithURL:[NSURL URLWithString:reward.pic] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
+    NSLog(@"%@", reward.ticket_cover);
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:reward.ticket_cover] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
 }
 
 - (void)setBadge:(HTBadge *)badge {
@@ -262,10 +263,11 @@
     CGFloat width = 280;
     CGFloat imageHeight = 240;
     CGFloat webViewHeight = 140;
+    _backView.frame = self.bounds;
     _dimmingView.frame = self.bounds;
     _converView.frame = CGRectMake(self.width / 2 - width / 2, (80.0 / 568.0) * SCREEN_HEIGHT, width, imageHeight + webViewHeight);
     if (SCREEN_WIDTH > IPHONE5_SCREEN_WIDTH) {
-        _converView.centerY = self.centerY - 20;
+        _converView.centerY = _backView.centerY - 20;
     }
     _converView.layer.cornerRadius = 5.0f;
     _converView.layer.masksToBounds = YES;

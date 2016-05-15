@@ -26,13 +26,13 @@
 
 - (void)setTipNumber:(NSInteger)tipNumber {
     _tipNumber = tipNumber;
-    if (tipNumber <= 1) {
+    if (tipNumber < 1) {
         _arrawView.hidden = NO;
         _tipLabel.hidden = YES;
     } else {
         _arrawView.hidden = YES;
         _tipLabel.hidden = NO;
-        _tipLabel.text = [NSString stringWithFormat:@"%ld", tipNumber];
+        _tipLabel.text = [NSString stringWithFormat:@"%ld", (long)tipNumber];
     }
 }
 

@@ -54,7 +54,7 @@
     } else if (SCREEN_WIDTH ==IPHONE6_SCREEN_WIDTH) {
         self.AvatarTopConstraint.constant = 66;
     } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        self.AvatarTopConstraint.constant = 145;
+        self.AvatarTopConstraint.constant = 100;
     }
     
     _avatar.layer.cornerRadius = _avatar.width / 2;
@@ -189,9 +189,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HTProfileRecordCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([HTProfileRecordCell class]) forIndexPath:indexPath];
     if (_profileInfo.answer_list.count != 0) {
-        DLog(@"Index:%ld", indexPath.row)
+        DLog(@"Index:%ld", (long)indexPath.row)
         DLog(@"answerList->%@", _profileInfo.answer_list[indexPath.row].question_video_cover);
-        [cell.coverImageView sd_setImageWithURL:_profileInfo.answer_list[indexPath.row].question_video_cover placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
+        [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:_profileInfo.answer_list[indexPath.row].question_video_cover] placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
     }
     cell.delegate = self;
     cell.indexPath = indexPath;
@@ -231,7 +231,7 @@
     [self.view addSubview:_animatedImageView];
     _animatedImageView.alpha = 0;
     
-    NSInteger index = MIN(0, MAX(questionList.count, cell.indexPath.row));
+    NSInteger index = MAX(0, MIN(questionList.count, cell.indexPath.row));
     HTQuestionInfo *questionInfo = [[[HTServiceManager sharedInstance] questionService] questionInfo];
     HTQuestion *question = questionList[index];
     _snapView = [[HTCardCollectionCell alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -250,7 +250,8 @@
         _animatedImageView.alpha = 1.0;
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((duration - 0.2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeRecord];
+        NSArray<HTQuestion *>* questionArray = @[question];
+        HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeIndexRecord andQuestList:questionArray];
         cardController.delegate = self;
         cardController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         [self presentViewController:cardController animated:YES completion:^{

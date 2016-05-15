@@ -10,6 +10,6 @@
 
 @interface HTMascotDisplayController : UIViewController
 // 重置状态
-- (void)reloadDisplayMascots;
+- (void)reloadDisplayMascotsWithIndex:(NSUInteger)index;
 - (void)reloadAllData;
 @end

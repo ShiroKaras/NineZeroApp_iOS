@@ -17,6 +17,7 @@
 #import "HTMascotIntroController.h"
 
 static CGFloat kDuration = 0.3;
+static NSString *selectedMascotKey = @"selectedMascotKey";
 
 @interface HTMascotDisplayController () <HTMascotPropViewDelegate, HTMascotPropMoreViewDelegate, HTMascotViewDelegate>
 
@@ -71,6 +72,8 @@ static CGFloat kDuration = 0.3;
     [self.view addSubview:self.mascotView];
     [self.view sendSubviewToBack:self.mascotView];
     
+    [UD setInteger:1 forKey:selectedMascotKey];
+    
     [self buildConstraints];
     [self reloadAllData];
     [self reloadViews];
@@ -78,19 +81,9 @@ static CGFloat kDuration = 0.3;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    [self buildConstraints];
     [self reloadAllData];
     [self reloadViews];
 }
-
-//- (void)debugChangeView {
-//    if (self.mascots.count == 1) {
-//        self.mascots = [HTMascotHelper mascotsFake];
-//    } else {
-//        self.mascots = [NSMutableArray arrayWithObject:self.mascots[0]];
-//    }
-//    [self reloadViews];
-//}
 
 - (void)reloadAllData {
     [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
@@ -102,7 +95,7 @@ static CGFloat kDuration = 0.3;
                 [_mascotView setMascots:self.mascots];
             }
             [self reloadViews];
-            [self reloadDisplayMascots];
+            [self reloadDisplayMascotsWithIndex:[UD integerForKey:selectedMascotKey]];
         } else {
             [self showTipsWithText:@"网络不给力哦，请稍后重试"];
         }
@@ -156,8 +149,8 @@ static CGFloat kDuration = 0.3;
     }];
 }
 
-- (void)reloadDisplayMascots {
-    [_mascotView reloadDisplayMascots];
+- (void)reloadDisplayMascotsWithIndex:(NSUInteger)index {
+    [_mascotView reloadDisplayMascotsWithIndex:index];
 }
 
 - (void)reloadViews {
@@ -196,8 +189,14 @@ static CGFloat kDuration = 0.3;
 }
 
 - (void)mascotView:(HTMascotView *)mascotView didClickMascotTipView:(HTMascotTipView *)mascotTipView {
-    HTMascotIntroController *introController = [[HTMascotIntroController alloc] initWithMascot:self.mascots[mascotTipView.index]];
-    [self presentViewController:introController animated:YES completion:nil];
+    for (HTMascot *mascot in self.mascots) {
+        NSLog(@"mas_index:%ld", (unsigned long)mascot.mascotID);
+        if (mascot.mascotID-1 == mascotTipView.index) {
+            HTMascotIntroController *introController = [[HTMascotIntroController alloc] initWithMascot:mascot];
+            [UD setInteger:mascot.mascotID forKey:selectedMascotKey];
+            [self presentViewController:introController animated:YES completion:nil];
+        }
+    }
 }
 
 #pragma mark - HTMascotPropView Delegate

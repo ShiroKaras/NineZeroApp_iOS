@@ -15,7 +15,6 @@
 #import "HTShowDetailView.h"
 #import "HTShowAnswerView.h"
 #import "HTARCaptureController.h"
-#import "AppDelegate.h"
 #import "HTRewardController.h"
 #import "Reachability.h"
 #import "SharkfoodMuteSwitchDetector.h"
@@ -85,6 +84,65 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     self.view.backgroundColor = UIColorMake(14, 14, 14);
 
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
+    
+    [self loadData];
+    
+    [self createUI];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    if (self.cardType == HTPreviewCardTypeDefault) {
+        // fix布局bug
+        self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+    _collectionView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    _timeView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
+    _timeView.right = SCREEN_WIDTH - kItemMargin;
+    _timeView.bottom = ROUND_HEIGHT_FLOAT(96) - 7;
+    
+    _recordView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
+    _recordView.right = SCREEN_WIDTH - kItemMargin;
+    _recordView.bottom = ROUND_HEIGHT_FLOAT(96) - 12;
+    
+    _chapterImageView.left = 30;
+    _chapterImageView.top = ROUND_HEIGHT_FLOAT(62);
+    if (SCREEN_WIDTH > IPHONE5_SCREEN_WIDTH) {
+        _chapterImageView.top = _chapterImageView.top + 3;
+    }
+    _chapterLabel.top = _chapterImageView.top + 6.5;
+    _chapterLabel.right = _chapterImageView.left + 46;
+    
+    _bgImageView.frame = self.view.bounds;
+    [self.view sendSubviewToBack:_bgImageView];
+    
+    _closeButton.bottom = self.view.height - 25;
+    _closeButton.centerX = self.view.width / 2;
+    
+    if (_cardType == HTPreviewCardTypeDefault) {
+        _eggImageView.left = _collectionView.contentSize.width;
+        _eggImageView.centerY = SCREEN_HEIGHT / 2;
+    }
+    
+    [self.view bringSubviewToFront:_dimmingView];
+}
+
+- (void)loadData {
     if (_cardType == HTPreviewCardTypeDefault) {
         [HTProgressHUD show];
         _dimmingView = [[UIView alloc] initWithFrame:SCREEN_BOUNDS];
@@ -141,8 +199,27 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         questionList = [[[[HTServiceManager sharedInstance] questionService] questionListSuccessful] mutableCopy];
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_recordView];
+    } else if (_cardType == HTPreviewCardTypeIndexRecord) {
+        _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
+        [self.view addSubview:_recordView];
     }
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+        [self.collectionView performBatchUpdates:^{}
+                                      completion:^(BOOL finished) {
+                                          [self backToToday:NO];
+                                      }];
+        if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
+            //未显示过
+            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
+            [alertView show];
+            [UD setBool:YES forKey:@"hasShowPushAlert"];
+        }
+    });
+}
+
+- (void)createUI {
     // 1. 背景
     UIImage *bgImage;
     if (SCREEN_WIDTH <= IPHONE5_SCREEN_WIDTH) {
@@ -171,7 +248,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [_collectionView setShowsHorizontalScrollIndicator:NO];
     [_collectionView registerClass:[HTCardCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([HTCardCollectionCell class])];
     [self.view addSubview:_collectionView];
-//    [self.collectionView addSubview:_eggImageView];
+    //    [self.collectionView addSubview:_eggImageView];
     
     // 3. 左上角章节
     _chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_chapter"]];
@@ -199,7 +276,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     };
     
     // 4.关闭按钮
-    if (_cardType == HTPreviewCardTypeRecord) {
+    if (_cardType == HTPreviewCardTypeRecord || _cardType == HTPreviewCardTypeIndexRecord) {
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_closeButton setImage:[UIImage imageNamed:@"btn_fullscreen_close"] forState:UIControlStateNormal];
         [_closeButton setImage:[UIImage imageNamed:@"btn_fullscreen_close_highlight"] forState:UIControlStateHighlighted];
@@ -207,64 +284,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [_closeButton addTarget:self action:@selector(onClickCloseButton) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_closeButton];
     }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.collectionView reloadData];
-        [self.collectionView performBatchUpdates:^{}
-                                      completion:^(BOOL finished) {
-                                          [self backToToday:NO];
-                                      }];
-        if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
-            //未显示过
-            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
-            [alertView show];
-            [UD setBool:YES forKey:@"hasShowPushAlert"];
-        }
-    });
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
-}
-
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    if (self.cardType == HTPreviewCardTypeDefault) {
-        // fix布局bug
-        self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    }
-    _collectionView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    _timeView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
-    _timeView.right = SCREEN_WIDTH - kItemMargin;
-    _timeView.bottom = ROUND_HEIGHT_FLOAT(96) - 7;
-    
-    _recordView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
-    _recordView.right = SCREEN_WIDTH - kItemMargin;
-    _recordView.bottom = ROUND_HEIGHT_FLOAT(96) - 12;
-    
-    _chapterImageView.left = 30;
-    _chapterImageView.top = ROUND_HEIGHT_FLOAT(62);
-    if (SCREEN_WIDTH > IPHONE5_SCREEN_WIDTH) {
-        _chapterImageView.top = _chapterImageView.top + 3;
-    }
-    _chapterLabel.top = _chapterImageView.top + 6.5;
-    _chapterLabel.right = _chapterImageView.left + 46;
-    
-    _bgImageView.frame = self.view.bounds;
-    [self.view sendSubviewToBack:_bgImageView];
-    
-    _closeButton.bottom = self.view.height - 25;
-    _closeButton.centerX = self.view.width / 2;
-    
-    _eggImageView.left = _collectionView.contentSize.width;
-    _eggImageView.centerY = SCREEN_HEIGHT / 2;
-    
-    [self.view bringSubviewToFront:_dimmingView];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
 }
 
 - (void)backToToday {
@@ -348,8 +367,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)collectionCell:(HTCardCollectionCell *)cell didClickButtonWithType:(HTCardCollectionClickType)type {
     switch (type) {
         case HTCardCollectionClickTypeAnswer: {
-            AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-            [[appDelegate mainController] showBottomButton:NO];
+            [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
+            [AppDelegateInstance.mainController showBottomButton:NO];
             _showAnswerView = [[HTShowAnswerView alloc] initWithURL:cell.question.detailURL];
             _showAnswerView.alpha = 0.0;
             _showAnswerView.frame = self.view.bounds;
@@ -357,6 +376,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             [UIView animateWithDuration:0.3 animations:^{
                 _showAnswerView.alpha = 1.0f;
                 [self.view addSubview:_showAnswerView];
+                [self.view bringSubviewToFront:_showAnswerView];
             }];
             
             break;
@@ -372,6 +392,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypeReward: {
+            [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
             HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:cell.question.rewardID questionID:cell.question.questionID];
             reward.view.backgroundColor = [UIColor clearColor];
             if (IOS_VERSION >= 8.0) {
@@ -381,6 +402,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypeAR: {
+            [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
             //判断GPS是否开启
             if ([CLLocationManager locationServicesEnabled]
 //                && ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
@@ -494,17 +516,18 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 #pragma mark - HTARCaptureController Delegate
 
 - (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller {
-    [controller dismissViewControllerAnimated:NO completion:nil];
-    questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
-    [self willAppearQuestionAtIndex:questionList.count - 1];
-    [self.collectionView reloadData];
-    HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:controller.rewardID questionID:controller.question.questionID];
-    reward.view.backgroundColor = [UIColor clearColor];
-    if (IOS_VERSION >= 8.0) {
-        reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    }
-    [self presentViewController:reward animated:YES completion:nil];
-    [[HTUIHelper mainController] reloadMascotViewData];
+    [controller dismissViewControllerAnimated:NO completion:^{
+        questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
+        [self willAppearQuestionAtIndex:questionList.count - 1];
+        [self.collectionView reloadData];
+        HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:controller.rewardID questionID:controller.question.questionID];
+        reward.view.backgroundColor = [UIColor clearColor];
+        if (IOS_VERSION >= 8.0) {
+            reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        }
+        [self presentViewController:reward animated:YES completion:nil];
+        [[HTUIHelper mainController] reloadMascotViewData];
+    }];
 }
 
 #pragma mark - UIScrollView Delegate
@@ -520,22 +543,24 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         }
     }
     static CGFloat preContentOffsetX = 0.0;
-    if (scrollView.contentOffset.x + SCREEN_WIDTH >= _eggImageView.right && preContentOffsetX != 0) {
-        [scrollView setContentOffset:CGPointMake(_eggImageView.right - SCREEN_WIDTH, scrollView.contentOffset.y)];
-        if (!_eggCoverImageView.superview) {
-            _eggCoverImageView.frame = SCREEN_BOUNDS;
-            _eggCoverImageView.left = SCREEN_WIDTH;
-            _eggCoverImageView.userInteractionEnabled = YES;
-            UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
-            [_eggCoverImageView addGestureRecognizer:panGesture];
-            
-            [KEY_WINDOW addSubview:_eggCoverImageView];
-            [self bounceEaseOut];
-//            [UIView animateWithDuration:1.0 delay:0 usingSpringWithDamping:1.0 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//                _eggCoverImageView.left = 0;
-//            } completion:^(BOOL finished) {
-//                [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
-//            }];
+    if (_cardType == HTPreviewCardTypeDefault) {
+        if (scrollView.contentOffset.x + SCREEN_WIDTH >= _eggImageView.right && preContentOffsetX != 0) {
+            [scrollView setContentOffset:CGPointMake(_eggImageView.right - SCREEN_WIDTH, scrollView.contentOffset.y)];
+            if (!_eggCoverImageView.superview) {
+                _eggCoverImageView.frame = SCREEN_BOUNDS;
+                _eggCoverImageView.left = SCREEN_WIDTH;
+                _eggCoverImageView.userInteractionEnabled = YES;
+                UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+                [_eggCoverImageView addGestureRecognizer:panGesture];
+                
+                [KEY_WINDOW addSubview:_eggCoverImageView];
+                [self bounceEaseOut];
+                //            [UIView animateWithDuration:1.0 delay:0 usingSpringWithDamping:1.0 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                //                _eggCoverImageView.left = 0;
+                //            } completion:^(BOOL finished) {
+                //                [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
+                //            }];
+            }
         }
     }
     _scrollDirection = (scrollView.contentOffset.x > preContentOffsetX) ? HTScrollDirectionLeft : HTScrollDirectionRight;

@@ -36,28 +36,20 @@
 @interface AppDelegate ()
 
 @property (nonatomic, strong) AMapLocationManager *locationManager;
-@property (nonatomic, strong) NSString *cityCode;
 @end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-//    if (![UD boolForKey:@"everLaunched"]) {
-//        [UD setBool:YES forKey:@"everLaunched"];
-//        [UD setBool:YES forKey:@"firstLaunch"];
-//    }
-//    else{
-//        [UD setBool:NO forKey:@"firstLaunch"];
-//    }
-    
+    _cityCode = @"010";
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerQiniuService];
     [self registerShareSDK];
     [self registerAMap];
+    [self registerLocation];
     
     [self createWindowAndVisible];
-    
     // 光标颜色
     [[UITextField appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
     [[UITextView appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
@@ -144,32 +136,27 @@
 
 - (void)registerAMap{
     [AMapLocationServices sharedServices].apiKey = @"2cb1a94b85ace5b91f5f00b37c0422e9";
+}
+
+- (void)registerLocation {
     self.locationManager = [[AMapLocationManager alloc] init];
     // 带逆地理信息的一次定位（返回坐标和地址信息）
     [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
     //   定位超时时间，可修改，最小2s
-    self.locationManager.locationTimeout = 3;
+    self.locationManager.locationTimeout = 2;
     //   逆地理请求超时时间，可修改，最小2s
-    self.locationManager.reGeocodeTimeout = 3;
+    self.locationManager.reGeocodeTimeout = 2;
     
     // 带逆地理（返回坐标和地址信息）
     [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
         if (error){
             DLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+//            _cityCode = @"010";
         }
         DLog(@"location:%@", location);
         if (regeocode){
             DLog(@"citycode:%@", regeocode.citycode);
-            self.cityCode = regeocode.citycode;
-        }
-    }];
-}
-
-- (void)registerLocation {
-    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyBlock timeout:10.0 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-        if (status == INTULocationStatusSuccess) {
-        } else if (status == INTULocationStatusTimedOut) {
-        } else {
+//            _cityCode = @"010";
         }
     }];
 }
@@ -261,6 +248,7 @@
                                            categories:nil];
     }
     [APService setupWithOption:launchOptions];
+    [APService resetBadge];
     if ([[HTStorageManager sharedInstance] getUserID]) {
         [APService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
     }

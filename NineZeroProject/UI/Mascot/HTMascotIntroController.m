@@ -228,7 +228,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         return cell;
     } else {
         HTMascotArticleCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTMascotArticleCell class]) forIndexPath:indexPath];
-        [cell setArticle:self.mascot.article_list[indexPath.row - 2]];
+        [cell setArticle:self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1]];
         return cell;
     }
     return [[UITableViewCell alloc] init];
@@ -248,7 +248,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row >= 2) {
-        HTArticleController *articleController = [[HTArticleController alloc] initWithArticle:self.mascot.article_list[indexPath.row - 2]];
+        HTArticleController *articleController = [[HTArticleController alloc] initWithArticle:self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1]];
         [self presentViewController:articleController animated:YES completion:nil];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

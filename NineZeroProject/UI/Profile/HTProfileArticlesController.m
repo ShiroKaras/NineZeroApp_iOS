@@ -35,7 +35,7 @@
     self.tableView.tableFooterView = footerView;
     
     [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] profileService] getArticlesInPastWithPage:0 count:10 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
+    [[[HTServiceManager sharedInstance] profileService] getArticlesInPastWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
         [HTProgressHUD dismiss];
         if (success) {
             _articles = articles;
@@ -72,12 +72,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HTProfileArticleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HTProfileArticleCellIdentifier" forIndexPath:indexPath];
+//    HTArticle *article = _articles[_articles.count - indexPath.row - 1];
     HTArticle *article = _articles[indexPath.row];
     [cell setArticle:article];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    HTArticle *article = _articles[_articles.count - indexPath.row - 1];
     HTArticle *article = _articles[indexPath.row];
     HTArticleController *controller = [[HTArticleController alloc] initWithArticle:article];
 //    [self presentViewController:controller animated:YES completion:nil];
@@ -85,7 +87,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 126;
+    return SCREEN_WIDTH/320*126;
 }
 
 @end

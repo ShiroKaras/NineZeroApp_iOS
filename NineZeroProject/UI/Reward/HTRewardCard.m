@@ -59,22 +59,25 @@
 - (void)setReward:(HTTicket *)reward {
     _reward = reward;
     [self.logo sd_setImageWithURL:[NSURL URLWithString:reward.pic] placeholderImage:[UIImage imageNamed:@"img_voucher_cover_default"]];
-    self.logo.contentMode = UIViewContentModeScaleAspectFit;
+    self.logo.contentMode = UIViewContentModeScaleAspectFill;
     self.titleLabel.text = reward.title;
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:reward.expire_time];
-    self.ddlLabel.text = [NSString stringWithFormat:@"有效期至%04ld-%02ld-%02ld", (long)[date year], (long)[date month], [date day]];
+//    NSDate *date = [NSDate dateWithTimeIntervalSince1970:reward.expire_time];
+    NSString *year = [reward.expire_time substringWithRange:NSMakeRange(0, 4)];
+    NSString *month = [reward.expire_time substringWithRange:NSMakeRange(4, 2)];
+    NSString *day = [reward.expire_time substringWithRange:NSMakeRange(6, 2)];
+    self.ddlLabel.text = [NSString stringWithFormat:@"有效期至%@-%@-%@", year, month, day];
     self.exchangedCode.text = [NSString stringWithFormat:@"唯一兑换码：%ld", (unsigned long)reward.code];
-    if (date < [NSDate date]) {
-        // 已过期
-        self.alpha = 0.4;
-        self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_voucher_expired"]];
-        [self addSubview:_tipImageView];
-    } else if (reward.used) {
-        // 已兑换
-        self.alpha = 0.4;
-        self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_voucher_redeemed"]];
-        [self addSubview:_tipImageView];
-    }
+//    if (date < [NSDate date]) {
+//        // 已过期
+//        self.alpha = 0.4;
+//        self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_voucher_expired"]];
+//        [self addSubview:_tipImageView];
+//    } else if (reward.used) {
+//        // 已兑换
+//        self.alpha = 0.4;
+//        self.tipImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_voucher_redeemed"]];
+//        [self addSubview:_tipImageView];
+//    }
 }
 
 - (CGSize)intrinsicContentSize {
@@ -84,7 +87,7 @@
 - (void)layoutSubviews {
     self.titleLabel.frame = CGRectMake(8, 14, self.width, self.titleLabel.height);
     self.ddlLabel.frame = CGRectMake(self.titleLabel.left, self.titleLabel.bottom + 5, self.width, self.ddlLabel.height);
-    self.logo.frame = CGRectMake(0, self.ddlLabel.bottom + 4, self.width, 85);
+    self.logo.frame = CGRectMake(0, self.ddlLabel.bottom + 4, self.width, self.width/56*17);
     self.bgImageView.frame = CGRectMake(0, 0, self.width, self.logo.bottom + 5);
     self.exchangedCode.frame = CGRectMake(0, self.logo.bottom + 13, self.width, 20);
     if (_reward.used) {

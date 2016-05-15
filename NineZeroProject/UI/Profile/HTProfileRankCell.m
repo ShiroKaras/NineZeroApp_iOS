@@ -107,14 +107,14 @@
 - (void)setRanker:(HTRanker *)ranker {
     _ranker = ranker;
     if (ranker.rank == 1 || ranker.rank == 2 || ranker.rank == 3) {
-        _orderImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_profile_leaderboard_no%ld", ranker.rank]];
+        _orderImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_profile_leaderboard_no%ld", (unsigned long)ranker.rank]];
         [_orderImageView sizeToFit];
         _orderImageView.hidden = NO;
         _orderLabel.hidden = YES;
     } else {
         _orderLabel.hidden = NO;
         _orderImageView.hidden = YES;
-        _orderLabel.text = [NSString stringWithFormat:@"%ld", ranker.rank];
+        _orderLabel.text = [NSString stringWithFormat:@"%ld", (unsigned long)ranker.rank];
         [_orderLabel sizeToFit];
     }
 
@@ -124,7 +124,7 @@
     [_nickName sizeToFit];
     [_progressView setProgress:MIN(1.0, ranker.gold / 1500.0)];
     [_progressView setCoverColor:[self colorWithCoin:ranker.gold]];
-    _coinLabel.text = [NSString stringWithFormat:@"%ld", ranker.gold];
+    _coinLabel.text = [NSString stringWithFormat:@"%ld", (unsigned long)ranker.gold];
     _coinLabel.textColor = [self colorWithCoin:ranker.gold];
     [_coinLabel sizeToFit];
 }
