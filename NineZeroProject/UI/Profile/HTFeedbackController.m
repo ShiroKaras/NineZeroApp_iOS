@@ -47,7 +47,7 @@
     [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"反馈中"];
     [[[HTServiceManager sharedInstance] profileService] feedbackWithContent:self.textView.text mobile:self.textField.text completion:^(BOOL success, HTResponsePackage *response) {
         [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
-        [MBProgressHUD bwm_showTitle:@"感谢反馈" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeSuccessful];
+        [MBProgressHUD bwm_showTitle:@"感谢反馈" toView:KEY_WINDOW hideAfter:1.0];
         if (success && response.resultCode == 0) {
             [self.navigationController popViewControllerAnimated:YES];
         }
