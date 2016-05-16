@@ -332,12 +332,12 @@ static NSInteger const kChangeNameViewTag = 12345;
                     HTProfileSettingAvatarCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
                     [cell setImage:image];
                 } else {
-                    [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeError];
+                    [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0];
                 }
             }];
         } else {
             [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
-            [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeError];
+            [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0];
         }
     } option:nil];
 }

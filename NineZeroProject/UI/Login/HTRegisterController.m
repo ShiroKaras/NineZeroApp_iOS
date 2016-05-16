@@ -126,7 +126,7 @@
             [_avatarButton setImage:image forState:UIControlStateNormal];
         } else {
             [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
-            [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeError];
+            [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0];
         }
     } option:nil];
 }
