@@ -96,11 +96,13 @@
                                 question.isPassed = NO;
                                 for (HTQuestion *answer_question in profileInfo.answer_list) {
                                     answer_question.isPassed = YES;
-                                    [_questionListSuccessful addObject:answer_question];
                                     if (answer_question.questionID == question.questionID) {
                                         question.isPassed = YES;
                                     }
                                 }
+                            }
+                            for (HTQuestion *answer_question in profileInfo.answer_list) {
+                                [_questionListSuccessful addObject:answer_question];
                             }
                             _questionList = questions;
                             callback(YES, questions);
