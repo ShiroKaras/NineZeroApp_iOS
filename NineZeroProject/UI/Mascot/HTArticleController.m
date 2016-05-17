@@ -342,10 +342,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"分享内容test"
+                [shareParams SSDKSetupShareParamsByText:_article.article_subtitle
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
-                                                  title:@"分享文章"
+                                                    url:[NSURL URLWithString:_article.articleURL]
+                                                  title:_article.articleTitle
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
@@ -382,10 +382,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"分享内容test"
+                [shareParams SSDKSetupShareParamsByText:_article.article_subtitle
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
-                                                  title:@"分享文章"
+                                                    url:[NSURL URLWithString:_article.articleURL]
+                                                  title:_article.articleTitle
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
@@ -422,10 +422,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"分享内容test http://www.baidu.com"
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"%@ %@", _article.article_subtitle, _article.articleURL]
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
-                                                  title:@"分享文章"
+                                                    url:[NSURL URLWithString:_article.articleURL]
+                                                  title:_article.articleTitle
                                                    type:SSDKContentTypeImage];
                 [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
@@ -462,10 +462,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"分享内容test"
+                [shareParams SSDKSetupShareParamsByText:_article.article_subtitle
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
-                                                  title:@"分享文章"
+                                                    url:[NSURL URLWithString:_article.articleURL]
+                                                  title:_article.articleTitle
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeQQFriend parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
