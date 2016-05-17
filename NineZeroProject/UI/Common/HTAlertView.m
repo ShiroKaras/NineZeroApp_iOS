@@ -48,7 +48,7 @@
         } else if (type == HTAlertViewTypePhotoLibrary) {
             image = [UIImage imageNamed:@"img_ask_permission_album"];
         } else {
-            
+            image = [UIImage imageNamed:@"img_ask_permission_camera"];
         }
         _titleImageView = [[UIImageView alloc] initWithImage:image];
         [_alertView addSubview:_titleImageView];
