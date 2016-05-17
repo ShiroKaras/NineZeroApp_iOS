@@ -105,7 +105,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     self.tipImageView = [[UIImageView alloc] init];
     self.tipImageView.layer.masksToBounds = YES;
     self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
-    self.tipImageView.contentMode = UIViewContentModeBottom;
+    self.tipImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:self.tipImageView];
     self.tipLabel = [[UILabel alloc] init];
     self.tipLabel.font = [UIFont systemFontOfSize:13];
