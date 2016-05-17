@@ -208,23 +208,25 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                       completion:^(BOOL finished) {
                                           [self backToToday:NO];
                                       }];
-        if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
-            //未显示过
-            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
-            [alertView show];
-            [UD setBool:YES forKey:@"hasShowPushAlert"];
-        }
-        if ([CLLocationManager locationServicesEnabled]) {
-            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
-                || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-                DLog(@"authorizationStatus -> %d", [CLLocationManager authorizationStatus]);
+        if (_cardType == HTPreviewCardTypeDefault) {
+            if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
+                //未显示过
+                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
+                [alertView show];
+                [UD setBool:YES forKey:@"hasShowPushAlert"];
+            }
+            if ([CLLocationManager locationServicesEnabled]) {
+                if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
+                    || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+                    DLog(@"authorizationStatus -> %d", [CLLocationManager authorizationStatus]);
+                }else {
+                    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+                    [alertView show];
+                }
             }else {
                 HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
                 [alertView show];
             }
-        }else {
-            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-            [alertView show];
         }
     });
 }
