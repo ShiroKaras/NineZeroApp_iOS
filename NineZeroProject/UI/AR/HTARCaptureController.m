@@ -48,8 +48,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
                 double lat = [[NSString stringWithFormat:@"%@", locationDict[@"lat"]] doubleValue];
                 double lng = [[NSString stringWithFormat:@"%@", locationDict[@"lng"]] doubleValue];
                 DLog(@"lat=>%f \n lng=>%f", lat, lng);
-//                _testMascotPoint = CLLocationCoordinate2DMake(lat, lng);
-                _testMascotPoint = CLLocationCoordinate2DMake(39.923114, 116.517409);
+                _testMascotPoint = CLLocationCoordinate2DMake(lat, lng);
             }
         }
         
@@ -201,6 +200,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
 {
+    _currentLocation = location;
     [self.prARManager startARWithData:[self getDummyData] forLocation:location.coordinate];
 }
 

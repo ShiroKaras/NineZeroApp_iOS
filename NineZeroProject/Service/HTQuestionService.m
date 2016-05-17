@@ -197,7 +197,8 @@
 }
 
 - (void)verifyQuestion:(uint64_t)questionID withLocation:(CGPoint)location callback:(HTResponseCallback)callback {
-    NSDictionary *dataDict = @{
+    NSDictionary *dataDict = @{@"area_id" : AppDelegateInstance.cityCode,
+                               @"question" : @(questionID),
                                @"lng" : @(location.x),
                                @"lat" : @(location.y),
                                @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
