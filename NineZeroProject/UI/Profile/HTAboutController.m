@@ -10,6 +10,8 @@
 #import "HTUIHeader.h"
 
 @interface HTAboutController ()
+@property (weak, nonatomic) IBOutlet UIImageView *aboutImageView;
+@property (weak, nonatomic) IBOutlet UILabel *aboutLabel;
 
 @end
 
@@ -19,11 +21,23 @@
     [super viewDidLoad];
     self.title = @"关于我们";
     self.view.backgroundColor = COMMON_BG_COLOR;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickLabel)];
+    
+    self.aboutLabel.userInteractionEnabled = YES;
+    [self.aboutLabel addGestureRecognizer:tap];
+    
+    self.aboutImageView.userInteractionEnabled = YES;
+    [self.aboutImageView addGestureRecognizer:tap];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)onClickLabel {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.90app.tv"]];
 }
 
 /*
