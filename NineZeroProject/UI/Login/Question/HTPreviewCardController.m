@@ -121,7 +121,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _recordView.bottom = ROUND_HEIGHT_FLOAT(96) - 12;
     
     _chapterImageView.left = 30;
-    _chapterImageView.top = ROUND_HEIGHT_FLOAT(62);
+    _chapterImageView.top = ROUND_HEIGHT_FLOAT(64);
     if (SCREEN_WIDTH > IPHONE5_SCREEN_WIDTH) {
         _chapterImageView.top = _chapterImageView.top + 3;
     }
@@ -257,7 +257,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _chapterLabel = [[UILabel alloc] init];
     _chapterLabel.text = [NSString stringWithFormat:@"%02lu", questionList.lastObject.serial];
     _chapterLabel.font = MOON_FONT_OF_SIZE(14);
-    _chapterLabel.textColor = COMMON_PINK_COLOR;
+    _chapterLabel.textColor = COMMON_GREEN_COLOR;
     [_chapterLabel sizeToFit];
     [self.view addSubview:_chapterLabel];
     [self.view sendSubviewToBack:_chapterImageView];
