@@ -149,6 +149,12 @@
         DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         NSMutableArray<HTNotification *> *notifications = [NSMutableArray array];
+        HTNotification *firstNotification = [HTNotification objectWithKeyValues:
+        @{
+            @"time": @"0",
+            @"content": @"欢迎加入“九零”，你已经被零仔锁定，现在，你可以通过这里帮助九零发现更大的世界！"
+        }];
+        [notifications addObject:firstNotification];
         if (rsp.resultCode == 0) {
             for (NSDictionary *dataDict in rsp.data) {
                 HTNotification *notification = [HTNotification objectWithKeyValues:dataDict];

@@ -82,11 +82,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColorMake(14, 14, 14);
-
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
     
     [self loadData];
-    
     [self createUI];
 }
 
@@ -121,7 +119,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _recordView.bottom = ROUND_HEIGHT_FLOAT(96) - 12;
     
     _chapterImageView.left = 30;
-    _chapterImageView.top = ROUND_HEIGHT_FLOAT(62);
+    _chapterImageView.top = ROUND_HEIGHT_FLOAT(64);
     if (SCREEN_WIDTH > IPHONE5_SCREEN_WIDTH) {
         _chapterImageView.top = _chapterImageView.top + 3;
     }
@@ -210,11 +208,25 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                       completion:^(BOOL finished) {
                                           [self backToToday:NO];
                                       }];
-        if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
-            //未显示过
-            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
-            [alertView show];
-            [UD setBool:YES forKey:@"hasShowPushAlert"];
+        if (_cardType == HTPreviewCardTypeDefault) {
+            if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
+                //未显示过
+                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
+                [alertView show];
+                [UD setBool:YES forKey:@"hasShowPushAlert"];
+            }
+            if ([CLLocationManager locationServicesEnabled]) {
+                if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
+                    || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+                    DLog(@"authorizationStatus -> %d", [CLLocationManager authorizationStatus]);
+                }else {
+                    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+                    [alertView show];
+                }
+            }else {
+                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+                [alertView show];
+            }
         }
     });
 }
@@ -257,7 +269,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _chapterLabel = [[UILabel alloc] init];
     _chapterLabel.text = [NSString stringWithFormat:@"%02lu", questionList.lastObject.serial];
     _chapterLabel.font = MOON_FONT_OF_SIZE(14);
-    _chapterLabel.textColor = COMMON_PINK_COLOR;
+    _chapterLabel.textColor = COMMON_GREEN_COLOR;
     [_chapterLabel sizeToFit];
     [self.view addSubview:_chapterLabel];
     [self.view sendSubviewToBack:_chapterImageView];
@@ -404,20 +416,24 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         case HTCardCollectionClickTypeAR: {
             [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
             //判断GPS是否开启
-            if ([CLLocationManager locationServicesEnabled]
-//                && ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
-//                    || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse)
-                )  {
-                //判断相机是否开启
-                AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-                if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied)
-                {
-                    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+            if ([CLLocationManager locationServicesEnabled]) {
+                if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
+                    || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+                    //判断相机是否开启
+                    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+                    if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied)
+                    {
+                        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+                        [alertView show];
+                    } else {
+                        HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] initWithQuestion:cell.question];
+                        arCaptureController.delegate = self;
+                        [self presentViewController:arCaptureController animated:YES completion:nil];
+                    }
+
+                }else {
+                    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
                     [alertView show];
-                } else {
-                    HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] initWithQuestion:cell.question];
-                    arCaptureController.delegate = self;
-                    [self presentViewController:arCaptureController animated:YES completion:nil];
                 }
             }else {
                 HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];

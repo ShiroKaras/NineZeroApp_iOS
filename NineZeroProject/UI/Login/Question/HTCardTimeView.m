@@ -85,21 +85,21 @@
     } else if (delta > oneHour * 16 && delta < oneHour * 24) {
         // 大于16小时 小于24小时
         _mainTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
-        _mainTimeLabel.textColor = [UIColor colorWithHex:0xed203b];
+        _mainTimeLabel.textColor = COMMON_GREEN_COLOR;
         _decoImageView.image = [UIImage imageNamed:@"img_timer_2_deco"];
     } else if (delta > oneHour * 8 && delta < oneHour * 16) {
         // 大于8小时 小于16小时
         _mainTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
-        _mainTimeLabel.textColor = COMMON_PINK_COLOR;
+        _mainTimeLabel.textColor = COMMON_GREEN_COLOR;
         _decoImageView.image = [UIImage imageNamed:@"img_timer_3_deco"];
     } else if (delta > 0 && delta < oneHour * 8) {
         // 小于1小时
         _mainTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", hour, minute];
-        _mainTimeLabel.textColor = COMMON_PINK_COLOR;
+        _mainTimeLabel.textColor = COMMON_GREEN_COLOR;
         _decoImageView.hidden = YES;
         _detailTimeLabel.hidden = NO;
         _detailTimeLabel.text = [NSString stringWithFormat:@"%02ld", second];
-        _detailTimeLabel.textColor = COMMON_PINK_COLOR;
+        _detailTimeLabel.textColor = COMMON_GREEN_COLOR;
     } else {
         // 过去时间
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];

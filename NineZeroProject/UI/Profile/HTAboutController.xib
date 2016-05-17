@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HTAboutController">
             <connections>
+                <outlet property="aboutImageView" destination="mnL-hC-1hh" id="EIa-a3-5aB"/>
+                <outlet property="aboutLabel" destination="x1u-7O-JfT" id="3CA-m2-C7N"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,7 +21,7 @@
                     <rect key="frame" x="55" y="55" width="175" height="98"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="© 2016 90app.tv All rights reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x1u-7O-JfT">
-                    <rect key="frame" x="53" y="396" width="205" height="14"/>
+                    <rect key="frame" x="53" y="395" width="206" height="15"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.61176470588235299" green="0.61176470588235299" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>

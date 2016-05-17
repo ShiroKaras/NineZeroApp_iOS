@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeQQ,
 };
 
-@interface HTArticleController () <UIWebViewDelegate, UIScrollViewDelegate> {
+@interface HTArticleController () <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate> {
     UIView *_backgroundImageView;
     UIVisualEffectView *_visualEfView;
     float lastOffsetY;
@@ -61,6 +61,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }
     
     [HTProgressHUD show];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickBackView)];
+    tap.delegate = self;
+    tap.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tap];
+    
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     _webView.scrollView.delaysContentTouches = NO;
     _webView.opaque = NO;
@@ -154,7 +160,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     if (self.navigationController) {
         self.navigationController.navigationBarHidden = YES;
     }
@@ -162,7 +168,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     if (self.navigationController) {
         self.navigationController.navigationBarHidden = NO;
     }
@@ -196,6 +202,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - UIScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    _cancelButton.alpha = 0;
+    _shareButton.alpha = _likeButton.alpha;
+    [self setShareAppear:NO];
+    
     if (scrollView.contentOffset.y <= 100) {
         [UIView animateWithDuration:0.3 animations:^{
             self.backButton.alpha = 1.;
@@ -227,6 +237,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     lastOffsetY = scrollView.contentOffset.y;
 }
 
+#pragma mark - UIGestureRecognizer Delegate
+
+// 允许多个手势并发
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
 #pragma mark - UIWebView Delegate
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -238,6 +255,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 #pragma mark - Action
+
+- (void)onClickBackView {
+    [self setShareAppear:NO];
+    self.shareButton.alpha = self.likeButton.alpha;
+    self.cancelButton.alpha = self.likeButton.alpha == 0?0:1-self.shareButton.alpha;
+}
 
 - (void)onClickBackButton {
     if (self.navigationController && self.navigationController.viewControllers.count >= 2) {
@@ -319,10 +342,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"分享内容test"
+                [shareParams SSDKSetupShareParamsByText:_article.article_subtitle
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
-                                                  title:@"分享文章"
+                                                    url:[NSURL URLWithString:_article.articleURL]
+                                                  title:_article.articleTitle
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
@@ -359,10 +382,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"分享内容test"
+                [shareParams SSDKSetupShareParamsByText:_article.article_subtitle
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
-                                                  title:@"分享文章"
+                                                    url:[NSURL URLWithString:_article.articleURL]
+                                                  title:_article.articleTitle
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
@@ -399,10 +422,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"分享内容test http://www.baidu.com"
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"%@ %@", _article.article_subtitle, _article.articleURL]
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
-                                                  title:@"分享文章"
+                                                    url:[NSURL URLWithString:_article.articleURL]
+                                                  title:_article.articleTitle
                                                    type:SSDKContentTypeImage];
                 [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
@@ -439,10 +462,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"分享内容test"
+                [shareParams SSDKSetupShareParamsByText:_article.article_subtitle
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
-                                                  title:@"分享文章"
+                                                    url:[NSURL URLWithString:_article.articleURL]
+                                                  title:_article.articleTitle
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeQQFriend parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {

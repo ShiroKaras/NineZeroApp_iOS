@@ -248,6 +248,11 @@ static NSInteger const kChangeNameViewTag = 12345;
     } else if (type == HTProfileSettingTypeQuitLogin) {
         HTProfileSettingQuitLoginCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingQuitLoginCell class]) forIndexPath:indexPath];
         return cell;
+    } else if (type == HTProfileSettingTypeClearCache) {
+        HTProfileSettingTextCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingTextCell class]) forIndexPath:indexPath];
+        [cell setTitleText:[self titleWithIndexPath:indexPath]];
+        [cell setTitleColor:[UIColor whiteColor]];
+        return cell;
     } else {
         HTProfileSettingTextCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingTextCell class]) forIndexPath:indexPath];
         [cell setTitleText:[self titleWithIndexPath:indexPath]];
@@ -289,7 +294,7 @@ static NSInteger const kChangeNameViewTag = 12345;
         [changeView setOffsetY:68 + 44 + 20 - self.tableView.contentOffset.y];
         [KEY_WINDOW addSubview:changeView];
     } else if (type ==HTProfileSettingTypeClearCache) {
-        [MBProgressHUD bwm_showTitle:@"清除成功" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeSuccessful];
+        [MBProgressHUD bwm_showTitle:@"清除成功" toView:KEY_WINDOW hideAfter:1.0];
     } else if (type ==HTProfileSettingTypeExplain){
         
     }
@@ -327,12 +332,12 @@ static NSInteger const kChangeNameViewTag = 12345;
                     HTProfileSettingAvatarCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
                     [cell setImage:image];
                 } else {
-                    [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeError];
+                    [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0];
                 }
             }];
         } else {
             [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
-            [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0 msgType:BWMMBProgressHUDMsgTypeError];
+            [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0];
         }
     } option:nil];
 }

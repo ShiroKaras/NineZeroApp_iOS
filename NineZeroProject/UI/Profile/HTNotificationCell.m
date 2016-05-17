@@ -56,12 +56,17 @@ static CGFloat kLineSpace = 7;
 }
 
 - (void)setNotification:(HTNotification *)notification {
-    _nameLabel.text = @"零仔NO.1";
+    _nameLabel.text = @"零仔〇";
     _nameLabel.textColor = [HTMascotHelper colorWithMascotIndex:1];
     [_nameLabel sizeToFit];
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:notification.time];
-    _timeLabel.text = [self stringWithDate:date];
-    [_timeLabel sizeToFit];
+    if (notification.time != 0) {
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:notification.time];
+        _timeLabel.text = [self stringWithDate:date];
+        [_timeLabel sizeToFit];
+    }else {
+        _timeLabel.hidden = YES;
+    }
+    
     
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.lineSpacing = kLineSpace;

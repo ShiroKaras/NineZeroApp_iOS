@@ -60,7 +60,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HTNotificationCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTNotificationCell class]) forIndexPath:indexPath];
-    [cell setNotification:_notices[_notices.count - indexPath.row - 1]];
+    [cell setNotification:_notices[indexPath.row]];
     return cell;
 }
 

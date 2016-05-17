@@ -17,6 +17,7 @@
 #import "HTRelaxController.h"
 #import "INTULocationManager.h"
 #import "HTMainViewController.h"
+#import "HTArticleController.h"
 
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <ShareSDK/ShareSDK.h>
@@ -50,6 +51,16 @@
     [self registerLocation];
     
     [self createWindowAndVisible];
+    
+    // 用户通过点击图标启动程序 还是  点击通知启动程序
+    // 获取启动时收到的APN
+    NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (message) {
+        NSString *payloadMsg = [message objectForKey:@"payload"];
+        NSString *record = [NSString stringWithFormat:@"[APN]%@, %@", [NSDate date], payloadMsg];
+        self.window.rootViewController = self.mainController;
+    }
+    
     // 光标颜色
     [[UITextField appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
     [[UITextView appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
@@ -97,11 +108,18 @@
 // 3. 零仔文章
 // 4. 休息日文章
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-//    NSString *method = userInfo[@"method"];
-//    NSDictionary *dataDict = userInfo[@"data"];
-    
+    NSString *method = userInfo[@"method"];
+    NSDictionary *dataDict = userInfo[@"data"];
     // TODO: 通过type去拉不同的数据
-    DLog(@"didReceiveRemoteNotification, completionHandler: %@", userInfo);
+    DLog(@"didReceiveRemoteNotification, completionHandler: %@ \nApplicationState,%ld", userInfo, [UIApplication sharedApplication].applicationState);
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        if ([method isEqual:@1]) {
+            [[[HTServiceManager sharedInstance] profileService] getArticle:[dataDict[@"article_id"] integerValue] completion:^(BOOL success, HTArticle *articles) {
+                HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
+                [self.mainController presentViewController:articleViewController animated:YES completion:nil];
+            }];
+        }
+    }
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }

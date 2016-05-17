@@ -48,7 +48,7 @@
         } else if (type == HTAlertViewTypePhotoLibrary) {
             image = [UIImage imageNamed:@"img_ask_permission_album"];
         } else {
-            
+            image = [UIImage imageNamed:@"img_ask_permission_camera"];
         }
         _titleImageView = [[UIImageView alloc] initWithImage:image];
         [_alertView addSubview:_titleImageView];
@@ -63,7 +63,7 @@
         
         NSString *messageText;
         if (type == HTAlertViewTypeLocation) {
-            messageText = @"九零需要访问您的地理位置，要不然零仔怎么找到你？";
+            messageText = @"请在设置—隐私—定位服务中，允许九零访问你的位置。";
         } else if (type == HTAlertViewTypePush){
             messageText = @"九零需要你允许我们推送相关通知，我们会悄悄把线索塞给你，嘘！";
         }else if (type == HTAlertViewTypePhotoLibrary){
