@@ -82,11 +82,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColorMake(14, 14, 14);
-
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
     
     [self loadData];
-    
     [self createUI];
 }
 
@@ -215,6 +213,18 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
             [alertView show];
             [UD setBool:YES forKey:@"hasShowPushAlert"];
+        }
+        if ([CLLocationManager locationServicesEnabled]) {
+            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
+                || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+                DLog(@"authorizationStatus -> %d", [CLLocationManager authorizationStatus]);
+            }else {
+                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+                [alertView show];
+            }
+        }else {
+            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+            [alertView show];
         }
     });
 }
