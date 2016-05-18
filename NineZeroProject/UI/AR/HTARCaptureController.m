@@ -105,7 +105,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     self.tipImageView = [[UIImageView alloc] init];
     self.tipImageView.layer.masksToBounds = YES;
     self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
-    self.tipImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.tipImageView.contentMode = UIViewContentModeBottom;
+    [self.tipImageView sizeToFit];
     [self.view addSubview:self.tipImageView];
     self.tipLabel = [[UILabel alloc] init];
     self.tipLabel.font = [UIFont systemFontOfSize:13];
@@ -176,7 +177,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.tipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(@(-55));
         make.centerX.equalTo(self.view);
-        make.width.equalTo(@(191));
+        make.width.equalTo(@(288));
         make.height.equalTo(@(86));
     }];
     
