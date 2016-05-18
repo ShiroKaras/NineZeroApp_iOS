@@ -31,6 +31,7 @@
                         //                    [answerList insertObject:answer atIndex:0];
                         [answerList addObject:answer];
                         if (answer.question_video_cover) [downloadKeys addObject:answer.question_video_cover];
+                        if (answer.descriptionPic) [downloadKeys addObject:answer.descriptionPic];
                     }
                 }
                 //从七牛上获取下载链接
@@ -39,6 +40,7 @@
                         @autoreleasepool {
                             NSDictionary *dataDict = response.data;
                             if (answer.question_video_cover) answer.question_video_cover = dataDict[answer.question_video_cover];
+                            if (answer.descriptionPic) answer.descriptionURL = dataDict[answer.descriptionPic];
                         }
                     }
                     profileInfo.answer_list = answerList;
