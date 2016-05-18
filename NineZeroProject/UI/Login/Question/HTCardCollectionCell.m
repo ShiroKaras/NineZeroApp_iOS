@@ -12,6 +12,9 @@
 #import "SharkfoodMuteSwitchDetector.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
+#import <CommonCrypto/CommonDigest.h>
+
+#define SHARE_URL(u,v) [NSString stringWithFormat:@"http://101.201.39.169:9111/index.php?s=/Home/user/detail.html&area_id=%@&id=%@", (u), [self md5:[NSString stringWithFormat:@"%llu",(v)]]]
 
 typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeShare = 0,
@@ -160,6 +163,23 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }
     return self;
 }
+
+#pragma mark - ToolMethod
+
+- (NSString *) md5:(NSString *)str
+{
+     const char *cStr = [str UTF8String];
+     unsigned char result[16];
+     CC_MD5( cStr, strlen(cStr), result );
+     return [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+                            result[0], result[1], result[2], result[3],
+                            result[4], result[5], result[6], result[7],
+                            result[8], result[9], result[10], result[11],
+                            result[12], result[13], result[14], result[15]
+   ];
+}
+
+#pragma mark - Actions
 
 - (void)onClickReplayButton {
     [UIView animateWithDuration:0.3 animations:^{
@@ -469,7 +489,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKEnableUseClientShare];
                 [shareParams SSDKSetupShareParamsByText:_question.content
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
+                                                    url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
                                                   title:_question.chapterText
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
@@ -509,7 +529,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKEnableUseClientShare];
                 [shareParams SSDKSetupShareParamsByText:_question.content
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
+                                                    url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
                                                   title:_question.chapterText
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
@@ -547,9 +567,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"分享内容test http://www.baidu.com"
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"分享内容 %@", [NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]]
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
+                                                    url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
                                                   title:_question.chapterText
                                                    type:SSDKContentTypeImage];
                 [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
@@ -589,7 +609,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKEnableUseClientShare];
                 [shareParams SSDKSetupShareParamsByText:_question.content
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:@"http://www.mob.com"]
+                                                    url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
                                                   title:_question.chapterText
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeQQFriend parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
