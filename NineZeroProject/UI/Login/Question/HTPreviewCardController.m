@@ -21,6 +21,7 @@
 #import "APService.h"
 #import "HTRelaxController.h"
 #import "HTAlertView.h"
+#import "HTBlankView.h"
 
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
@@ -84,8 +85,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     self.view.backgroundColor = UIColorMake(14, 14, 14);
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
     
-    [self loadData];
     [self createUI];
+    [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -195,8 +196,19 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         }];
     } else if (_cardType == HTPreviewCardTypeRecord) {
         questionList = [[[[HTServiceManager sharedInstance] questionService] questionListSuccessful] mutableCopy];
-        _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
-        [self.view addSubview:_recordView];
+        if (questionList.count>0) {
+            _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
+            [self.view addSubview:_recordView];
+        }else{
+            [_chapterImageView removeFromSuperview];
+            [_chapterLabel removeFromSuperview];
+            [_bgImageView removeFromSuperview];
+            
+            HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+            blankView.center = self.view.center;
+            [blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:11];
+            [self.view addSubview:blankView];
+        }
     } else if (_cardType == HTPreviewCardTypeIndexRecord) {
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_recordView];
