@@ -104,22 +104,10 @@
     [APService handleRemoteNotification:userInfo];
 }
 
-// 1. 问题提示
-// 2. 系统通知
-// 3. 零仔文章
-// 4. 休息日文章
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    NSString *method = userInfo[@"method"];
-    NSDictionary *dataDict = userInfo[@"data"];
-    // TODO: 通过type去拉不同的数据
     DLog(@"didReceiveRemoteNotification, completionHandler: %@ \nApplicationState,%ld", userInfo, [UIApplication sharedApplication].applicationState);
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-        if ([method isEqual:@1]) {
-            [[[HTServiceManager sharedInstance] profileService] getArticle:[dataDict[@"article_id"] integerValue] completion:^(BOOL success, HTArticle *articles) {
-                HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
-                [self.mainController presentViewController:articleViewController animated:YES completion:nil];
-            }];
-        }
+        [self handleAPNsDict:userInfo];
     }
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
@@ -130,6 +118,21 @@
 //}
 
 #pragma mark - Action
+
+// 1. 问题提示
+// 2. 系统通知
+// 3. 零仔文章
+// 4. 休息日文章
+- (void)handleAPNsDict:(NSDictionary *)dict {
+    NSString *method = dict[@"method"];
+    NSDictionary *dataDict = dict[@"data"];
+    if ([method isEqual:@1]) {
+        [[[HTServiceManager sharedInstance] profileService] getArticle:[dataDict[@"article_id"] integerValue] completion:^(BOOL success, HTArticle *articles) {
+            HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
+            [self.mainController presentViewController:articleViewController animated:YES completion:nil];
+        }];
+    }
+}
 
 - (void)createWindowAndVisibleWithOptions:(NSDictionary*)launchOptions {
     if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
@@ -142,14 +145,7 @@
         // 获取启动时收到的APN
         NSDictionary* remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (remoteNotification) {
-            NSString *method = remoteNotification[@"method"];
-            NSDictionary *dataDict = remoteNotification[@"data"];
-            if ([method isEqual:@1]) {
-                [[[HTServiceManager sharedInstance] profileService] getArticle:[dataDict[@"article_id"] integerValue] completion:^(BOOL success, HTArticle *articles) {
-                    HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
-                    [self.mainController presentViewController:articleViewController animated:YES completion:nil];
-                }];
-            }
+            [self handleAPNsDict:remoteNotification];
         }
     } else {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -163,14 +159,7 @@
         // 获取启动时收到的APN
         NSDictionary* remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (remoteNotification) {
-            NSString *method = remoteNotification[@"method"];
-            NSDictionary *dataDict = remoteNotification[@"data"];
-            if ([method isEqual:@1]) {
-                [[[HTServiceManager sharedInstance] profileService] getArticle:[dataDict[@"article_id"] integerValue] completion:^(BOOL success, HTArticle *articles) {
-                    HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
-                    [self.mainController presentViewController:articleViewController animated:YES completion:nil];
-                }];
-            }
+            [self handleAPNsDict:remoteNotification];
         }
     }
 }
