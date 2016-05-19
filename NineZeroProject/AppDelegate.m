@@ -50,16 +50,7 @@
     [self registerAMap];
     [self registerLocation];
     
-    [self createWindowAndVisible];
-    
-    // 用户通过点击图标启动程序 还是  点击通知启动程序
-    // 获取启动时收到的APN
-    NSDictionary* message = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (message) {
-        NSString *payloadMsg = [message objectForKey:@"payload"];
-        NSString *record = [NSString stringWithFormat:@"[APN]%@, %@", [NSDate date], payloadMsg];
-        self.window.rootViewController = self.mainController;
-    }
+    [self createWindowAndVisibleWithOptions:launchOptions];
     
     // 光标颜色
     [[UITextField appearance] setTintColor:[UIColor colorWithHex:0xed203b]];
@@ -93,6 +84,16 @@
     }];
 }
 
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    DLog(@"applicationWillEnterForeground");
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    DLog(@"applicationDidBecomeActive");
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    [APService resetBadge];
+}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     DLog(@"didRegisterForRemoteNotificationsWithDeviceToken : %@", deviceToken);
     [APService registerDeviceToken:deviceToken];
@@ -112,7 +113,7 @@
     NSDictionary *dataDict = userInfo[@"data"];
     // TODO: 通过type去拉不同的数据
     DLog(@"didReceiveRemoteNotification, completionHandler: %@ \nApplicationState,%ld", userInfo, [UIApplication sharedApplication].applicationState);
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
         if ([method isEqual:@1]) {
             [[[HTServiceManager sharedInstance] profileService] getArticle:[dataDict[@"article_id"] integerValue] completion:^(BOOL success, HTArticle *articles) {
                 HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
@@ -124,22 +125,32 @@
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-}
-
 //- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
 //
 //}
 
 #pragma mark - Action
 
-- (void)createWindowAndVisible {
+- (void)createWindowAndVisibleWithOptions:(NSDictionary*)launchOptions {
     if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _mainController = [[HTMainViewController alloc] init];
         self.window.rootViewController = _mainController;
         [self.window makeKeyAndVisible];
+        
+        // 用户通过点击图标启动程序 还是  点击通知启动程序
+        // 获取启动时收到的APN
+        NSDictionary* remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (remoteNotification) {
+            NSString *method = remoteNotification[@"method"];
+            NSDictionary *dataDict = remoteNotification[@"data"];
+            if ([method isEqual:@1]) {
+                [[[HTServiceManager sharedInstance] profileService] getArticle:[dataDict[@"article_id"] integerValue] completion:^(BOOL success, HTArticle *articles) {
+                    HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
+                    [self.mainController presentViewController:articleViewController animated:YES completion:nil];
+                }];
+            }
+        }
     } else {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
@@ -147,6 +158,20 @@
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
         [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
+        
+        // 用户通过点击图标启动程序 还是  点击通知启动程序
+        // 获取启动时收到的APN
+        NSDictionary* remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (remoteNotification) {
+            NSString *method = remoteNotification[@"method"];
+            NSDictionary *dataDict = remoteNotification[@"data"];
+            if ([method isEqual:@1]) {
+                [[[HTServiceManager sharedInstance] profileService] getArticle:[dataDict[@"article_id"] integerValue] completion:^(BOOL success, HTArticle *articles) {
+                    HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
+                    [self.mainController presentViewController:articleViewController animated:YES completion:nil];
+                }];
+            }
+        }
     }
 }
 
