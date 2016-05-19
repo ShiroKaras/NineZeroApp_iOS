@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test_article_bg" translatesAutoresizingMaskIntoConstraints="NO" id="yLA-D8-Rtz">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yLA-D8-Rtz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_profile_archive_title_bg" translatesAutoresizingMaskIntoConstraints="NO" id="Whx-lr-gIw">
@@ -98,6 +98,5 @@
     <resources>
         <image name="img_profile_archive_mascot1" width="22" height="22"/>
         <image name="img_profile_archive_title_bg" width="2" height="71"/>
-        <image name="test_article_bg" width="480" height="184"/>
     </resources>
 </document>

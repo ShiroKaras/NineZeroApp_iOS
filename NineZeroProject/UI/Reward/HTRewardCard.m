@@ -27,13 +27,13 @@
         
         self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.font = [UIFont systemFontOfSize:14];
-        self.titleLabel.text = @"草间弥生上海个展门票";
+        self.titleLabel.text = @"获取中...";
         [self addSubview:self.titleLabel];
         [self.titleLabel sizeToFit];
         
         self.ddlLabel = [[UILabel alloc] init];
         self.ddlLabel.font = [UIFont systemFontOfSize:11];
-        self.ddlLabel.text = @"有效期至2015-12-31";
+        self.ddlLabel.text = @"有效期至2020-12-31";
         self.ddlLabel.textColor = [UIColor colorWithHex:0x474747];
         [self addSubview:self.ddlLabel];
         [self.ddlLabel sizeToFit];
