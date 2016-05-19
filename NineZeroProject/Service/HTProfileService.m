@@ -220,8 +220,14 @@
 }
 
 - (void)getArticle:(uint64_t)articleID completion:(HTGetArticleCallback)callback {
-    
-    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getArticleCGIKey] parameters:@{@"article_id" : @(articleID)} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    NSDictionary *dict;
+    if ([[HTStorageManager sharedInstance] getUserID]){
+        dict = @{@"article_id"  :   @(articleID),
+                 @"user_id"     :   [[HTStorageManager sharedInstance] getUserID]};
+    }else{
+        dict = @{@"article_id"  :   @(articleID)};
+    }
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getArticleCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         HTArticle *article = [HTArticle objectWithKeyValues:rsp.data];
