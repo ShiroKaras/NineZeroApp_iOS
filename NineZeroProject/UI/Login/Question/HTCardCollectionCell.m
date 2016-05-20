@@ -482,7 +482,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonType type = (HTButtonType)sender.tag;
     switch (type) {
         case HTButtonTypeWechat: {
-            NSArray* imageArray = @[_question.descriptionURL];
+            NSArray* imageArray = @[_question.question_video_cover];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -522,7 +522,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeMoment: {
-            NSArray* imageArray = @[_question.descriptionURL];
+            NSArray* imageArray = @[_question.question_video_cover];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -562,7 +562,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeWeibo: {
-            NSArray* imageArray = @[_question.descriptionURL];
+            NSArray* imageArray = @[_question.question_video_cover];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -602,7 +602,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeQQ: {
-            NSArray* imageArray = @[_question.descriptionURL];
+            NSArray* imageArray = @[_question.question_video_cover];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
