@@ -487,10 +487,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:_question.content
+                [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
-                                                  title:_question.chapterText
+                                                  title:[NSString stringWithFormat:@"第%ld章",_question.serial]
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
@@ -527,10 +527,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:_question.chapterText
+                [shareParams SSDKSetupShareParamsByText:_question.content
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
-                                                  title:_question.chapterText
+                                                  title:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
@@ -567,7 +567,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"%@ %@ 来自@90APP", _question.chapterText ,[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]]
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验 %@ 来自@九零APP", [NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]]
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
                                                   title:_question.chapterText
@@ -607,10 +607,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:_question.content
+                [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
-                                                  title:_question.chapterText
+                                                  title:[NSString stringWithFormat:@"第%ld章",_question.serial]
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeQQFriend parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
