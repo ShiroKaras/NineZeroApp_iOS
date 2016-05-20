@@ -30,8 +30,8 @@
     for (int i = 0; i != 8; i++) {
         HTMascot *mascot = [[HTMascot alloc] init];
         mascot.mascotID = i + 1;
-        mascot.mascotName = @"零仔〇";
-        mascot.mascotDescription = @"从世界尽头归来，也从新世界开始，〇来自传说中的529D星球。〇纯洁如一张白纸，却孤独如一片深海。虽然这个世界与自己残存的记忆中的星球有太多类似的地方，但是它还是需要找到529D星球的一些线索，它希望知道自己的来处，希望了解关于529D星球的一切真相。";
+        mascot.mascotName = @"呵呵";
+        mascot.mascotDescription = @"这只零仔是懒惰的，特征主要体现在行为上，走哪睡哪，吃东西会睡着，洗澡会睡着，上学的路上会睡着，它可以映射着歌时代的学生们，在压力之下的疲乏于无所作为。";
         NSInteger articleCount = 9;
         NSMutableArray<HTArticle *> *articles = [NSMutableArray arrayWithCapacity:10];
         for (int j = 0; j != articleCount; j++) {
@@ -39,7 +39,7 @@
             article.mascotID = i + 1;
             article.hasRead = NO;
             article.articleURL = @"www.baidu.com";
-            article.articleTitle = @"这里是文章标题";
+            article.articleTitle = @"这里是文章标题这是是文章";
             [articles addObject:article];
         }
         mascot.article_list = articles;
@@ -52,8 +52,8 @@
 + (HTMascot *)defaultMascots {
     HTMascot *mascot = [[HTMascot alloc] init];
     mascot.mascotID = 1;
-    mascot.mascotName = @"零仔〇";
-    mascot.mascotDescription = @"从世界尽头归来，也从新世界开始，〇来自传说中的529D星球。〇纯洁如一张白纸，却孤独如一片深海。虽然这个世界与自己残存的记忆中的星球有太多类似的地方，但是它还是需要找到529D星球的一些线索，它希望知道自己的来处，希望了解关于529D星球的一切真相。";
+    mascot.mascotName = @"呵呵";
+    mascot.mascotDescription = @"这只零仔是懒惰的，特征主要体现在行为上，走哪睡哪，吃东西会睡着，洗澡会睡着，上学的路上会睡着，它可以映射着歌时代的学生们，在压力之下的疲乏于无所作为。";
     NSInteger articleCount = 0;
     NSMutableArray<HTArticle *> *articles = [NSMutableArray arrayWithCapacity:10];
     for (int j = 0; j != articleCount; j++) {
@@ -61,7 +61,7 @@
         article.mascotID = 1;
         article.hasRead = NO;
         article.articleURL = @"www.baidu.com";
-        article.articleTitle = @"这里是文章标题";
+        article.articleTitle = @"这里是文章标题这是是文章";
         [articles addObject:article];
     }
     mascot.article_list = articles;
