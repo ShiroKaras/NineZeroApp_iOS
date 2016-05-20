@@ -422,7 +422,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"%@ %@ 来自@90APP", _article.article_subtitle, _article.articleURL]
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"%@ %@ 来自@90APP", _article.articleTitle , _article.articleURL]
                                                  images:imageArray
                                                     url:[NSURL URLWithString:_article.articleURL]
                                                   title:_article.articleTitle
