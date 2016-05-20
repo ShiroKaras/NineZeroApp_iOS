@@ -74,7 +74,7 @@ CATransform3DMake(CGFloat m11, CGFloat m12, CGFloat m13, CGFloat m14,
         geoobjectVerts[ar_id] = @1;
     }
     
-    [self setupDataForAR];
+//    [self setupDataForAR];
     
     return geoobjectOverlays;
 }
