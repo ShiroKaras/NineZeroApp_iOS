@@ -51,6 +51,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (nonatomic, strong) UIImageView *eggImageView;
 @property (nonatomic, strong) UIImageView *eggCoverImageView;
 @property (nonatomic, strong) UIView *dimmingView;
+
+@property (nonatomic, strong) UIView *courseView;
+@property (nonatomic, strong) UIImageView *courseImageView;
+@property (nonatomic, strong) NSMutableArray *courseImageArray;                      //教程图片组
+@property (nonatomic, assign) NSUInteger currentCourseImageIndex;
 @end
 
 @implementation HTPreviewCardController {
@@ -221,23 +226,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                           [self backToToday:NO];
                                       }];
         if (_cardType == HTPreviewCardTypeDefault) {
-            if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
-                //未显示过
-                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
-                [alertView show];
-                [UD setBool:YES forKey:@"hasShowPushAlert"];
-            }
-            if ([CLLocationManager locationServicesEnabled]) {
-                if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
-                    || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-                    DLog(@"authorizationStatus -> %d", [CLLocationManager authorizationStatus]);
-                }else {
-                    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-                    [alertView show];
-                }
-            }else {
-                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-                [alertView show];
+            //教程
+            if ([UD boolForKey:@"firstLaunch"]) {
+                [self showCourseView];
             }
         }
     });
@@ -705,6 +696,76 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     if (index >= questionList.count) index = questionList.count - 1;
     if (index <= 0) index = 0;
     return (self.view.width - kItemMargin - 13) * index;
+}
+
+#pragma mark - ShowCourseView
+
+- (void)showCourseView {
+    UIView *blackView = [[UIView alloc] initWithFrame:self.view.frame];
+    blackView.backgroundColor = [UIColor blackColor];
+    
+    _courseView = [[UIView alloc] initWithFrame:self.view.frame];
+    _courseView.alpha = 0;
+    
+    [KEY_WINDOW addSubview:blackView];
+    [KEY_WINDOW bringSubviewToFront:blackView];
+    [KEY_WINDOW addSubview:_courseView];
+    [KEY_WINDOW bringSubviewToFront:_courseView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickCourseImage)];
+    [_courseView addGestureRecognizer:tap];
+    
+    _courseImageArray = [NSMutableArray new];
+    _currentCourseImageIndex = 0;
+    for (int i=1; i<=5; i++) {
+        [_courseImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"coach_mark_%d",i]]];
+    }
+    _courseImageView = [[UIImageView alloc] initWithFrame:_courseView.frame];
+    _courseImageView.image = _courseImageArray[_currentCourseImageIndex];
+    [_courseView addSubview:_courseImageView];
+    
+    [UIView animateWithDuration:1.2 animations:^{
+        blackView.alpha = 0;
+        _courseView.alpha = 1;
+    } completion:^(BOOL finished) {
+        _currentCourseImageIndex = 1;
+    }];
+}
+
+- (void)onClickCourseImage {
+    if (_currentCourseImageIndex == 5) {
+        [UIView animateWithDuration:0.3 animations:^{
+            _courseView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [_courseView removeFromSuperview];
+            
+            //通知Alert
+            if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
+                //未显示过
+                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
+                [alertView show];
+                [UD setBool:YES forKey:@"hasShowPushAlert"];
+            }
+            
+            //地理位置Alert
+            if ([CLLocationManager locationServicesEnabled]) {
+                if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
+                    || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+                    DLog(@"authorizationStatus -> %d", [CLLocationManager authorizationStatus]);
+                }else {
+                    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+                    [alertView show];
+                }
+            }else {
+                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+                [alertView show];
+            }
+            
+        }];
+    } else if (_currentCourseImageIndex<=4) {
+        _courseImageView.image = _courseImageArray[_currentCourseImageIndex];
+        _currentCourseImageIndex++;
+    }
 }
 
 @end

@@ -44,6 +44,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     _cityCode = @"010";
+    if (![UD boolForKey:@"everLaunched"]) {
+        [UD setBool:YES forKey:@"everLaunched"];
+        [UD setBool:YES forKey:@"firstLaunch"];
+    }
+    else{
+        [UD setBool:NO forKey:@"firstLaunch"];
+    }
+    
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerQiniuService];
     [self registerShareSDK];
