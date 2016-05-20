@@ -34,7 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] profileService] getCollectArticlesWithPage:0 count:10 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
+    [[[HTServiceManager sharedInstance] profileService] getCollectArticlesWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
         [HTProgressHUD dismiss];
         if (success) {
             _articles = articles;
