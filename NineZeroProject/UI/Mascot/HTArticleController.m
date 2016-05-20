@@ -337,12 +337,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeWechat: {
-            NSArray* imageArray = @[@"http://ww1.sinaimg.cn/mw690/94d94f1ajw8eqntgc1y9cj205c05c749.jpg"];
+            NSArray* imageArray = @[_article.articleConverURL];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:_article.article_subtitle
+                [shareParams SSDKSetupShareParamsByText:_article.articleTitle
                                                  images:imageArray
                                                     url:[NSURL URLWithString:_article.articleURL]
                                                   title:_article.articleTitle
@@ -377,7 +377,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeMoment: {
-            NSArray* imageArray = @[@"http://ww1.sinaimg.cn/mw690/94d94f1ajw8eqntgc1y9cj205c05c749.jpg"];
+            NSArray* imageArray = @[_article.articleConverURL];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -417,7 +417,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeWeibo: {
-            NSArray* imageArray = @[@"http://ww1.sinaimg.cn/mw690/94d94f1ajw8eqntgc1y9cj205c05c749.jpg"];
+            NSArray* imageArray = @[_article.articleConverURL];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -457,7 +457,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeQQ: {
-            NSArray* imageArray = @[@"http://ww1.sinaimg.cn/mw690/94d94f1ajw8eqntgc1y9cj205c05c749.jpg"];
+            NSArray* imageArray = @[_article.articleConverURL];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
