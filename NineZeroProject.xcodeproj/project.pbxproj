@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1114AE041CE48DD800CCF92C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1114AE031CE48DD800CCF92C /* Assets.xcassets */; };
+		112167611CEF565A0048EA01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1121675F1CEF565A0048EA01 /* LaunchScreen.storyboard */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
@@ -588,7 +589,6 @@
 		17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 17713D3F1C04D6AD00DB8BB0 /* HTStorageManager.m */; };
 		1777D36A1BE798F400AC0203 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D3691BE798F400AC0203 /* main.m */; };
 		1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D36C1BE798F400AC0203 /* AppDelegate.m */; };
-		1777D3781BE798F400AC0203 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */; };
 		1777D3831BE798F400AC0203 /* NineZeroProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D3821BE798F400AC0203 /* NineZeroProjectTests.m */; };
 		1777D38E1BE798F500AC0203 /* NineZeroProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D38D1BE798F500AC0203 /* NineZeroProjectUITests.m */; };
 		1787FD141C4A8884006E55A6 /* ARController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD011C4A8884006E55A6 /* ARController.m */; };
@@ -773,6 +773,7 @@
 		0166A9928B62B530CF913E62 /* libPods-NineZeroProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A08D05845ABA9A5572B0C27 /* Pods-NineZeroProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.debug.xcconfig"; sourceTree = "<group>"; };
 		1114AE031CE48DD800CCF92C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		112167601CEF565A0048EA01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
 		11B385E41CCBA5F8009B8D6F /* SKShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKShareView.m; sourceTree = "<group>"; };
@@ -1400,7 +1401,6 @@
 		1777D3691BE798F400AC0203 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1777D36B1BE798F400AC0203 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1777D36C1BE798F400AC0203 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1777D3771BE798F400AC0203 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1777D3791BE798F400AC0203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1777D37E1BE798F400AC0203 /* NineZeroProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NineZeroProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1777D3821BE798F400AC0203 /* NineZeroProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NineZeroProjectTests.m; sourceTree = "<group>"; };
@@ -2796,7 +2796,7 @@
 				110F9D801CD881090097EB8A /* Resource */,
 				1777D36B1BE798F400AC0203 /* AppDelegate.h */,
 				1777D36C1BE798F400AC0203 /* AppDelegate.m */,
-				1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */,
+				1121675F1CEF565A0048EA01 /* LaunchScreen.storyboard */,
 				1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */,
 			);
 			path = NineZeroProject;
@@ -3461,6 +3461,7 @@
 				17461C8B1C71EF6600C847E8 /* img_mascot_7_animation_2_0000.png in Resources */,
 				17461C8D1C71EF6600C847E8 /* img_mascot_7_animation_2_0002.png in Resources */,
 				17461CE41C71EF6600C847E8 /* img_mascot_7_animation_4_0025.png in Resources */,
+				112167611CEF565A0048EA01 /* LaunchScreen.storyboard in Resources */,
 				17461C641C71EF6600C847E8 /* img_mascot_6_animation_3_0017.png in Resources */,
 				17461C551C71EF6600C847E8 /* img_mascot_6_animation_3_0002.png in Resources */,
 				17A247AD1C623B9900359CCF /* right_answer_gif_0006.png in Resources */,
@@ -3581,7 +3582,6 @@
 				17461C911C71EF6600C847E8 /* img_mascot_7_animation_2_0006.png in Resources */,
 				17461B4A1C71EF6600C847E8 /* img_mascot_1_animation_4_0010.png in Resources */,
 				17461BFE1C71EF6600C847E8 /* img_mascot_5_animation_2_0007.png in Resources */,
-				1777D3781BE798F400AC0203 /* LaunchScreen.storyboard in Resources */,
 				17461B4F1C71EF6600C847E8 /* img_mascot_1_animation_4_0015.png in Resources */,
 				17461CE01C71EF6600C847E8 /* img_mascot_7_animation_4_0021.png in Resources */,
 				17461C9C1C71EF6600C847E8 /* img_mascot_7_animation_2_0017.png in Resources */,
@@ -4177,10 +4177,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		1777D3761BE798F400AC0203 /* LaunchScreen.storyboard */ = {
+		1121675F1CEF565A0048EA01 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1777D3771BE798F400AC0203 /* Base */,
+				112167601CEF565A0048EA01 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -4275,6 +4275,7 @@
 			baseConfigurationReference = 0A08D05845ABA9A5572B0C27 /* Pods-NineZeroProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Zac Yang (5P67F5SADB)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -4371,6 +4372,7 @@
 			baseConfigurationReference = 46F8E2BB8F9FE55C9BDFF37B /* Pods-NineZeroProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Zac Yang (5P67F5SADB)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;

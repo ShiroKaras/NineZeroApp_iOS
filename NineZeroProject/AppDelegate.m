@@ -42,7 +42,6 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     _cityCode = @"010";
     if (![UD boolForKey:@"everLaunched"]) {
         [UD setBool:YES forKey:@"everLaunched"];
@@ -58,6 +57,7 @@
     [self registerAMap];
     [self registerLocation];
     
+    [NSThread sleepForTimeInterval:2];
     [self createWindowAndVisibleWithOptions:launchOptions];
     
     // 光标颜色
@@ -148,7 +148,7 @@
         _mainController = [[HTMainViewController alloc] init];
         self.window.rootViewController = _mainController;
         [self.window makeKeyAndVisible];
-        
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         // 用户通过点击图标启动程序 还是  点击通知启动程序
         // 获取启动时收到的APN
         NSDictionary* remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -161,6 +161,7 @@
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
         
         // 用户通过点击图标启动程序 还是  点击通知启动程序
