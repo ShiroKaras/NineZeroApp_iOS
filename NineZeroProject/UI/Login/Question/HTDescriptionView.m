@@ -146,7 +146,7 @@
         _converView.backgroundColor = COMMON_SEPARATOR_COLOR;
         [_backView addSubview:_converView];
         
-        UIImage *coverImage = (type == HTDescriptionTypeProp) ? [UIImage imageNamed:@"props_cover"] : [UIImage imageNamed:@"test_imaga"];
+        UIImage *coverImage = (type == HTDescriptionTypeProp) ? [UIImage imageNamed:@"props_cover"] : [UIImage imageNamed:@"img_profile_archive_cover_default"];
         _imageView = [[UIImageView alloc] initWithImage:coverImage];
         _imageView.layer.masksToBounds = YES;
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
