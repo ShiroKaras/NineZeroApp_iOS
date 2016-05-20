@@ -30,7 +30,7 @@
         _label.font = [UIFont systemFontOfSize:16];
         _label.textColor = [UIColor colorWithHex:0x878787];
         _label.textAlignment = NSTextAlignmentCenter;
-        _label.text = (type == HTBlankViewTypeNetworkError) ? @"网络不给力～" : @"空空如也";
+        _label.text = (type == HTBlankViewTypeNetworkError) ? @"网络不给力" : @"空空如也";
         [self addSubview:_label];
         [_label sizeToFit];
     }

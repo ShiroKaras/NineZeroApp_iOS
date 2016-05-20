@@ -172,6 +172,15 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             } else {
                 [HTProgressHUD dismiss];
                 [_dimmingView removeFromSuperview];
+                
+                UIView *backView = [[UIView alloc] initWithFrame:self.view.frame];
+                backView.backgroundColor = [UIColor blackColor];
+                [KEY_WINDOW  addSubview:backView];
+                
+                HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+                blankView.center = self.view.center;
+                [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:11];
+                [backView addSubview:blankView];
             }
         }];
         if ([[HTStorageManager sharedInstance] getUserID]) {
@@ -211,7 +220,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             
             HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
             blankView.center = self.view.center;
-            [blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:11];
+            [blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:11];
             [self.view addSubview:blankView];
         }
     } else if (_cardType == HTPreviewCardTypeIndexRecord) {

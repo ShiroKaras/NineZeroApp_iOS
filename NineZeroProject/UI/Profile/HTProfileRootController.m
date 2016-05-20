@@ -84,40 +84,44 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
-    [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
-        if (success) {
-            _profileInfo = profileInfo;
-            if (_profileInfo.answer_list.count == 0) {
-                self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
-                [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:9];
-                [self.view addSubview:self.blankView];
-            }
-            [self reloadData];
-        }
-    }];
-    
-    [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
-        if (success) {
-            _userInfo = userInfo;
-            [self reloadData];
-            [[HTStorageManager sharedInstance] setUserInfo:userInfo];
-        }
-    }];
-    
-    [[[HTServiceManager sharedInstance] profileService] getNotifications:^(BOOL success, NSArray<HTNotification *> *notifications) {
-        if (success) {
-            if(notifications.count - [UD integerForKey:@"notificationsHasReadKey"]!=0) self.notificationFlagImageView.hidden = NO;
-            else self.notificationFlagImageView.hidden = YES;
-            [UD setInteger:notifications.count forKey:@"notificationsHasReadKey"];
-        }
-    }];
     
     if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
         _profileInfo.answer_list = nil;
+        _recordView.hidden = YES;
+        
         self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
         [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_small"] andOffset:12];
         [self.view addSubview:self.blankView];
         [self reloadData];
+    } else {
+        _recordView.hidden = NO;
+        [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
+            if (success) {
+                _profileInfo = profileInfo;
+                if (_profileInfo.answer_list.count == 0) {
+                    self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+                    [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:9];
+                    [self.view addSubview:self.blankView];
+                }
+                [self reloadData];
+            }
+        }];
+        
+        [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
+            if (success) {
+                _userInfo = userInfo;
+                [self reloadData];
+                [[HTStorageManager sharedInstance] setUserInfo:userInfo];
+            }
+        }];
+        
+        [[[HTServiceManager sharedInstance] profileService] getNotifications:^(BOOL success, NSArray<HTNotification *> *notifications) {
+            if (success) {
+                if(notifications.count - [UD integerForKey:@"notificationsHasReadKey"]!=0) self.notificationFlagImageView.hidden = NO;
+                else self.notificationFlagImageView.hidden = YES;
+                [UD setInteger:notifications.count forKey:@"notificationsHasReadKey"];
+            }
+        }];
     }
 }
 

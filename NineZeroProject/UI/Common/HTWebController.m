@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"金币";
     self.view.backgroundColor = [UIColor blackColor];
      _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     _webView.scrollView.delaysContentTouches = NO;
@@ -49,7 +50,15 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [HTProgressHUD dismiss];
-    [self showTipsWithText:@"加载失败"];
+//    [self showTipsWithText:@"加载失败" offset:64];
+    UIView *backView = [[UIView alloc] initWithFrame:self.view.frame];
+    backView.backgroundColor = [UIColor blackColor];
+    [self.view  addSubview:backView];
+    
+    HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+    blankView.center = self.view.center;
+    [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:11];
+    [backView addSubview:blankView];
 }
 
 @end
