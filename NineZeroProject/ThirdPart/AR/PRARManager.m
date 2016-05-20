@@ -156,9 +156,9 @@
     
     [self.arController.locationMath startTrackingWithLocation:location
                                                    andSize:frameSize];
-//    _arObjectsDict = [self.arController buildAROverlaysForData:arData
-//                                                           andLocation:location];
-//    [self setupAROverlaysWithData:_arObjectsDict];
+    _arObjectsDict = [self.arController buildAROverlaysForData:arData
+                                                           andLocation:location];
+    [self setupAROverlaysWithData:_arObjectsDict];
     if (radarOption) [self setupRadar];
     [cameraSession startRunning];
     
