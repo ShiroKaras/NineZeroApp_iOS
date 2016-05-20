@@ -117,20 +117,6 @@
     }
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self onClickSureButton];
-    return YES;
-}
-
-- (void)textFieldDidChange:(UITextField *)textField
-{
-    if (textField == _textField) {
-        if (textField.text.length > 10) {
-            textField.text = [textField.text substringToIndex:10];
-        }
-    }
-}
-
 - (void)layoutSubviews {
     [super layoutSubviews];
     _dimmingView.frame = self.bounds;
@@ -158,6 +144,25 @@
             }];
         });
     }];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self onClickSureButton];
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == _textField) {
+        if(range.length + range.location > textField.text.length)
+        {
+            return NO;
+        }
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        return newLength <= 10;
+    }else
+        return YES;
 }
 
 @end
