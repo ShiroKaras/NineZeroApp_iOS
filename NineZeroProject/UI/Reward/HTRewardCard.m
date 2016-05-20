@@ -38,7 +38,7 @@
         [self addSubview:self.ddlLabel];
         [self.ddlLabel sizeToFit];
         
-        self.logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"reward_logo_demo"]];
+        self.logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_archive_cover_default"]];
         [self addSubview:self.logo];
         
         self.exchangedCode = [[UILabel alloc] init];

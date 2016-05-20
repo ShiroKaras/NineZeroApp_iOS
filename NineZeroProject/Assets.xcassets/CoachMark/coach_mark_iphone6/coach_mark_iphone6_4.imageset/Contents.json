@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "reward_logo_demo.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "coach_mark_750x1334_4.png",
       "scale" : "2x"
     },
     {

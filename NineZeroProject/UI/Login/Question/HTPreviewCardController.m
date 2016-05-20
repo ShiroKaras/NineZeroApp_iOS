@@ -55,6 +55,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (nonatomic, strong) UIView *courseView;
 @property (nonatomic, strong) UIImageView *courseImageView;
 @property (nonatomic, strong) NSMutableArray *courseImageArray;                      //教程图片组
+@property (nonatomic, strong) NSMutableArray *courseImageArray_iPhone6;                      //教程图片组iphone6
 @property (nonatomic, assign) NSUInteger currentCourseImageIndex;
 @end
 
@@ -235,10 +236,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                           [self backToToday:NO];
                                       }];
         if (_cardType == HTPreviewCardTypeDefault) {
-            //教程
-            if ([UD boolForKey:@"firstLaunch"]) {
+            //coach mark
+            if ([UD boolForKey:@"firstLaunch"])
                 [self showCourseView];
-            }
         }
     });
 }
@@ -726,8 +726,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     
     _courseImageArray = [NSMutableArray new];
     _currentCourseImageIndex = 0;
-    for (int i=1; i<=5; i++) {
-        [_courseImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"coach_mark_%d",i]]];
+    if (SCREEN_WIDTH<=IPHONE5_SCREEN_WIDTH || SCREEN_WIDTH>=IPHONE6_PLUS_SCREEN_WIDTH) {
+        for (int i=1; i<=5; i++) {
+            [_courseImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"coach_mark_%d",i]]];
+        }
+    } else {
+        for (int i=1; i<=5; i++) {
+            [_courseImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"coach_mark_iphone6_%d",i]]];
+        }
     }
     _courseImageView = [[UIImageView alloc] initWithFrame:_courseView.frame];
     _courseImageView.image = _courseImageArray[_currentCourseImageIndex];
