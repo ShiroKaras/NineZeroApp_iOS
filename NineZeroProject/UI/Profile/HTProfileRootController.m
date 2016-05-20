@@ -103,6 +103,10 @@
                     [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:9];
                     [self.view addSubview:self.blankView];
                 }
+                if([_profileInfo.notice integerValue]+1 - [UD integerForKey:@"notificationsHasReadKey"]>0)
+                    self.notificationFlagImageView.hidden = NO;
+                else
+                    self.notificationFlagImageView.hidden = YES;
                 [self reloadData];
             }
         }];
@@ -112,14 +116,6 @@
                 _userInfo = userInfo;
                 [self reloadData];
                 [[HTStorageManager sharedInstance] setUserInfo:userInfo];
-            }
-        }];
-        
-        [[[HTServiceManager sharedInstance] profileService] getNotifications:^(BOOL success, NSArray<HTNotification *> *notifications) {
-            if (success) {
-                if(notifications.count - [UD integerForKey:@"notificationsHasReadKey"]!=0) self.notificationFlagImageView.hidden = NO;
-                else self.notificationFlagImageView.hidden = YES;
-                [UD setInteger:notifications.count forKey:@"notificationsHasReadKey"];
             }
         }];
     }

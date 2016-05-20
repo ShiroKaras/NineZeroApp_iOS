@@ -162,6 +162,7 @@
                 HTNotification *notification = [HTNotification objectWithKeyValues:dataDict];
                 [notifications insertObject:notification atIndex:0];
             }
+            [UD setInteger:notifications.count forKey:@"notificationsHasReadKey"];
             callback(true, notifications);
         } else {
             callback(false, nil);
