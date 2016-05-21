@@ -165,13 +165,19 @@
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
         
-        self.launchViewController = [[SKLaunchAnimationViewController alloc] init];
-        [self.window addSubview:self.launchViewController.view];
-        __weak AppDelegate *weakSelf = self;
-        self.launchViewController.didSelectedEnter = ^() {
-            weakSelf.launchViewController = nil;
-        };
-        
+        if ([UD boolForKey:@"firstLaunch"]){
+            self.launchViewController = [[SKLaunchAnimationViewController alloc] init];
+            [self.window addSubview:self.launchViewController.view];
+            __weak AppDelegate *weakSelf = self;
+            self.launchViewController.didSelectedEnter = ^() {
+                [UIView animateWithDuration:0.3 animations:^{
+                    weakSelf.launchViewController.view.alpha = 0;
+                } completion:^(BOOL finished) {
+                    weakSelf.launchViewController = nil;
+                    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+                }];
+            };
+        }
         
         [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
         

@@ -103,6 +103,10 @@
     _enterButton.alpha = 1.0;
 }
 
+- (void)hideSkipButton {
+    _skipButton.alpha = 0;
+}
+
 - (void)onClickSkipButton:(UIButton*)sender {
     if (self.didSelectedEnter) {
         self.didSelectedEnter();
@@ -122,6 +126,7 @@
     if ([notification.object isEqual:self.playerItem]) {
         //显示进入按钮
         [self showEnterButton];
+        [self hideSkipButton];
     }
 }
 
