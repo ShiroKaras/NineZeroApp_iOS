@@ -57,6 +57,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (nonatomic, strong) NSMutableArray *courseImageArray;                      //教程图片组
 @property (nonatomic, strong) NSMutableArray *courseImageArray_iPhone6;                      //教程图片组iphone6
 @property (nonatomic, assign) NSUInteger currentCourseImageIndex;
+@property (nonatomic, assign) BOOL isRelaxDay;
 @end
 
 @implementation HTPreviewCardController {
@@ -191,6 +192,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
             NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
             if (success && response.resultCode == 0 && [dictData isEqualToString:@"1"]) {
+                self.isRelaxDay = [dictData boolValue];
                 HTRelaxController *relaxController = [[HTRelaxController alloc] init];
                 [self presentViewController:relaxController animated:NO completion:nil];
             }
@@ -237,7 +239,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                       }];
         if (_cardType == HTPreviewCardTypeDefault) {
             //coach mark
-            if ([UD boolForKey:@"firstLaunch"])
+            if ([UD boolForKey:@"firstLaunch"] && !self.isRelaxDay)
                 [self showCourseView];
         }
     });
