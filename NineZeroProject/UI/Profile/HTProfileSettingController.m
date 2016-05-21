@@ -14,6 +14,7 @@
 #import "HTUIHeader.h"
 #import "UIViewController+ImagePicker.h"
 #import "HTLoginRootController.h"
+#import "HTWebController.h"
 
 @protocol HTProfileSettingChangeNameViewDelegate <NSObject>
 - (void)onClickUserButtonWithUserInfo:(HTUserInfo *)userInfo;
@@ -301,7 +302,8 @@ static NSInteger const kChangeNameViewTag = 12345;
     } else if (type ==HTProfileSettingTypeClearCache) {
         [MBProgressHUD bwm_showTitle:@"清除成功" toView:KEY_WINDOW hideAfter:1.0];
     } else if (type ==HTProfileSettingTypeExplain){
-        
+        HTWebController *webController = [[HTWebController alloc] initWithURLString:@"http://admin.90app.tv/Home/User/about"];
+        [self.navigationController pushViewController:webController animated:YES];
     }
 }
 
