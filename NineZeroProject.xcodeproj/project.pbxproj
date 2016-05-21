@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1114AE041CE48DD800CCF92C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1114AE031CE48DD800CCF92C /* Assets.xcassets */; };
 		112167611CEF565A0048EA01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1121675F1CEF565A0048EA01 /* LaunchScreen.storyboard */; };
+		112167641CF0637B0048EA01 /* SKLaunchAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 112167631CF0637B0048EA01 /* SKLaunchAnimationViewController.m */; };
+		112167661CF06CD70048EA01 /* trailer_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 112167651CF06CD70048EA01 /* trailer_video.mp4 */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
@@ -774,6 +776,9 @@
 		0A08D05845ABA9A5572B0C27 /* Pods-NineZeroProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.debug.xcconfig"; sourceTree = "<group>"; };
 		1114AE031CE48DD800CCF92C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		112167601CEF565A0048EA01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		112167621CF0637B0048EA01 /* SKLaunchAnimationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLaunchAnimationViewController.h; sourceTree = "<group>"; };
+		112167631CF0637B0048EA01 /* SKLaunchAnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLaunchAnimationViewController.m; sourceTree = "<group>"; };
+		112167651CF06CD70048EA01 /* trailer_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = trailer_video.mp4; path = ../../../Downloads/trailer_video.mp4; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
 		11B385E41CCBA5F8009B8D6F /* SKShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKShareView.m; sourceTree = "<group>"; };
@@ -1741,6 +1746,7 @@
 			children = (
 				110F9D7F1CD880E20097EB8A /* Image */,
 				17C648BC1CA2DBDD00D89278 /* PushConfig.plist */,
+				112167651CF06CD70048EA01 /* trailer_video.mp4 */,
 				176B756F1C7625140069DE89 /* mute.caf */,
 				1777D3791BE798F400AC0203 /* Info.plist */,
 				26BD341D1C12DF3300472E46 /* moonbold.ttf */,
@@ -2796,6 +2802,8 @@
 				110F9D801CD881090097EB8A /* Resource */,
 				1777D36B1BE798F400AC0203 /* AppDelegate.h */,
 				1777D36C1BE798F400AC0203 /* AppDelegate.m */,
+				112167621CF0637B0048EA01 /* SKLaunchAnimationViewController.h */,
+				112167631CF0637B0048EA01 /* SKLaunchAnimationViewController.m */,
 				1121675F1CEF565A0048EA01 /* LaunchScreen.storyboard */,
 				1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */,
 			);
@@ -3670,6 +3678,7 @@
 				17461CB81C71EF6600C847E8 /* img_mascot_7_animation_3_0010.png in Resources */,
 				17461C361C71EF6600C847E8 /* img_mascot_5_animation_4_0021.png in Resources */,
 				17461BFA1C71EF6600C847E8 /* img_mascot_5_animation_2_0003.png in Resources */,
+				112167661CF06CD70048EA01 /* trailer_video.mp4 in Resources */,
 				17461C281C71EF6600C847E8 /* img_mascot_5_animation_4_0007.png in Resources */,
 				17461B781C71EF6600C847E8 /* img_mascot_2_animation_3_0007.png in Resources */,
 				26973B071C005FBF00160D25 /* HTRegisterController.xib in Resources */,
@@ -4052,6 +4061,7 @@
 				17A92CD31CA809B100BE893D /* MJRefreshBackGifFooter.m in Sources */,
 				17A92CD61CA809B100BE893D /* MJRefreshGifHeader.m in Sources */,
 				17A92CDD1CA809B100BE893D /* UIView+MJExtension.m in Sources */,
+				112167641CF0637B0048EA01 /* SKLaunchAnimationViewController.m in Sources */,
 				17F45AFB1C7E25E0004F2E32 /* HTProfileRewardController.m in Sources */,
 				26973B021C005ED900160D25 /* HTNavigationController.m in Sources */,
 				170992BD1C264F0C004433EB /* HTShowDetailView.m in Sources */,

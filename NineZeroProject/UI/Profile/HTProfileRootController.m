@@ -164,7 +164,7 @@
 
 - (IBAction)didClickCoin:(UIButton *)sender {
     HTWebController *webController = [[HTWebController alloc] init];
-    [webController setUrlString:[NSString stringWithFormat:@"http://101.201.39.169:9111/index.php?s=/Home/user/coin/id/%@", [[HTStorageManager sharedInstance] getUserID]]];
+    [webController setUrlString:[NSString stringWithFormat:@"http://admin.90app.tv/index.php?s=/Home/user/coin/id/%@", [[HTStorageManager sharedInstance] getUserID]]];
     [self.navigationController pushViewController:webController animated:YES];
 }
 

@@ -18,11 +18,12 @@
 #import "INTULocationManager.h"
 #import "HTMainViewController.h"
 #import "HTArticleController.h"
+#import "SKLaunchAnimationViewController.h"
 
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
-
+#import <UMengAnalytics/MobClick.h>
 //腾讯开放平台（对应QQ和QQ空间）SDK头文件
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/QQApiInterface.h>
@@ -37,6 +38,7 @@
 @interface AppDelegate ()
 
 @property (nonatomic, strong) AMapLocationManager *locationManager;
+@property (nonatomic, strong) SKLaunchAnimationViewController *launchViewController;
 @end
 
 @implementation AppDelegate
@@ -56,8 +58,9 @@
     [self registerShareSDK];
     [self registerAMap];
     [self registerLocation];
+    [self registerUserAgent];
     
-    [NSThread sleepForTimeInterval:2];
+    [NSThread sleepForTimeInterval:3];
     [self createWindowAndVisibleWithOptions:launchOptions];
     
     // 光标颜色
@@ -161,7 +164,15 @@
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+        
+        self.launchViewController = [[SKLaunchAnimationViewController alloc] init];
+        [self.window addSubview:self.launchViewController.view];
+        __weak AppDelegate *weakSelf = self;
+        self.launchViewController.didSelectedEnter = ^() {
+            weakSelf.launchViewController = nil;
+        };
+        
+        
         [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
         
         // 用户通过点击图标启动程序 还是  点击通知启动程序
@@ -171,6 +182,15 @@
             [self handleAPNsDict:remoteNotification];
         }
     }
+}
+
+- (void)registerUserAgent {
+    UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    NSString* secretAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+   
+    NSString *newUagent = [NSString stringWithFormat:@"%@ 90app529D",secretAgent];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:newUagent forKey:@"UserAgent"];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 }
 
 #pragma mark - Location
@@ -209,6 +229,12 @@
     }];
     [[[HTServiceManager sharedInstance] loginService] getQiniuPublicTokenWithCompletion:^(NSString *token) {
     }];
+}
+
+#pragma mark - Umeng
+
+-(void)registerUmeng {
+    
 }
 
 #pragma mark - ShareSDK
