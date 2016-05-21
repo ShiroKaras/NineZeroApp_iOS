@@ -113,7 +113,7 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    DLog(@"didReceiveRemoteNotification, completionHandler: %@ \nApplicationState,%ld", userInfo, [UIApplication sharedApplication].applicationState);
+    DLog(@"didReceiveRemoteNotification, completionHandler: %@ \nApplicationState,%ld", userInfo, (long)[UIApplication sharedApplication].applicationState);
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
         [self handleAPNsDict:userInfo];
     }

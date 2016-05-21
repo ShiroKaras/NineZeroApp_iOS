@@ -44,13 +44,13 @@
 
 - (NSString *)stringWithDate:(NSDate *)date {
     if ([date isToday]) {
-        return [NSString stringWithFormat:@"%02ld:%02ld", (long)[date hour], [date minute]];
+        return [NSString stringWithFormat:@"%02ld:%02ld", (long)[date hour], (long)[date minute]];
     } else if ([date isYesterday]) {
         return @"昨天";
     } else if ([date isLastYear]) {
         return @"1年前";
     } else if ([date isInPast]) {
-        return [NSString stringWithFormat:@"%04ld-%02ld-%02ld", (long)[date year], [date month], [date day]];
+        return [NSString stringWithFormat:@"%04ld-%02ld-%02ld", (long)[date year], (long)[date month], [date day]];
     }
     return @"";
 }

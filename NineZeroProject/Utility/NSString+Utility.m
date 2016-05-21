@@ -117,7 +117,7 @@
 }
 
 + (NSString *)avatarName {
-    return [NSString stringWithFormat:@"avatar_%ld_%@", (NSInteger)[[NSDate date] timeIntervalSince1970], [[HTStorageManager sharedInstance] getUserID]];
+    return [NSString stringWithFormat:@"avatar_%ld_%@", (time_t)[[NSDate date] timeIntervalSince1970], [[HTStorageManager sharedInstance] getUserID]];
 }
 
 - (NSDictionary *)dictionaryWithJsonString {

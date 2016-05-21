@@ -490,7 +490,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
-                                                  title:[NSString stringWithFormat:@"第%ld章",_question.serial]
+                                                  title:[NSString stringWithFormat:@"第%ld章",(NSUInteger)_question.serial]
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {

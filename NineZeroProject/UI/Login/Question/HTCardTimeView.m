@@ -44,7 +44,7 @@
 - (void)setQuestion:(HTQuestion *)question andQuestionInfo:(HTQuestionInfo *)questionInfo {
     _questionInfo = questionInfo;
     _question = question;
-    _endTime = questionInfo.endTime;
+    _endTime = (time_t)questionInfo.endTime;
     if (_question.questionID == _questionInfo.questionID && _question.isPassed == NO) {
         [self scheduleCountDownTimer];
     } else {
