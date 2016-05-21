@@ -337,7 +337,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeWechat: {
-            NSArray* imageArray = @[_article.article_pic_2];
+            NSArray* imageArray = @[_article.article_pic_1];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -377,7 +377,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeMoment: {
-            NSArray* imageArray = @[_article.article_pic_2];
+            NSArray* imageArray = @[_article.article_pic_1];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -417,7 +417,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeWeibo: {
-            NSArray* imageArray = @[_article.article_pic_2];
+            NSArray* imageArray = @[_article.article_pic_1];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -457,7 +457,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeQQ: {
-            NSArray* imageArray = @[_article.article_pic_2];
+            NSArray* imageArray = @[_article.article_pic_1];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
