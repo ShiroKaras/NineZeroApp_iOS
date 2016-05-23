@@ -12,6 +12,74 @@
 
 @implementation HTProfileService
 
+- (void)backupUserInfoWithDict:(NSDictionary*)dict callback:(SKBackupUserInfoCallBack)callback {
+    [[AFHTTPRequestOperationManager manager] POST:@"http://90server.daoapp.io/api/user_info_backup" parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        
+    }];
+}
+
+- (void)getbackupUserInfo:(SKBackupUserInfoCallBack)callback {
+    NSMutableDictionary *bodyDict = [NSMutableDictionary dictionary];
+    NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
+    
+    [bodyDict setObject:@"90app529D" forKey:@"access_token"];
+    
+    NSMutableDictionary *baseInfo = [NSMutableDictionary new];
+    if ([[HTStorageManager sharedInstance] getLoginUser].user_mobile != nil && ![[[HTStorageManager sharedInstance] getLoginUser].user_mobile isEqualToString:@""])
+        [baseInfo setObject:[[HTStorageManager sharedInstance] getLoginUser].user_mobile forKey:@"mobile"];
+    if ([[HTStorageManager sharedInstance] getLoginUser].user_password != nil && ![[[HTStorageManager sharedInstance] getLoginUser].user_password isEqualToString:@""])
+        [baseInfo setObject:[[HTStorageManager sharedInstance] getLoginUser].user_password forKey:@"password"];
+    if ([[HTStorageManager sharedInstance] getLoginUser].third_id != nil && ![[[HTStorageManager sharedInstance] getLoginUser].third_id isEqualToString:@""])
+        [baseInfo setObject:[[HTStorageManager sharedInstance] getLoginUser].third_id forKey:@"third_id"];
+    
+    //获取基本信息（user_name push_setting user_avatar）
+    [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
+        if (success) {
+            [baseInfo setObject:userInfo.user_name forKey:@"username"];
+            [baseInfo setValue:@(userInfo.push_setting) forKey:@"push_setting"];
+            if (userInfo.user_avatar != nil && ![userInfo.user_avatar isEqualToString:@""]) {
+                [baseInfo setObject:userInfo.user_avatar forKey:@"user_avatar"];
+            }
+            
+            //获取用户闯关数据
+            [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
+                if (success) {
+                    [baseInfo setObject:@([profileInfo.gold integerValue]) forKey:@"gold"];
+                    NSMutableArray *answer_list = [NSMutableArray array];
+                    for (HTQuestion *question in profileInfo.answer_list) {
+                        [answer_list addObject:@{@"serial":@(question.serial), @"use_time":@(question.use_time)}];
+                    }
+                    
+                    //获取用户收藏文章
+                    [[[HTServiceManager sharedInstance] profileService] getCollectArticlesWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
+                        if (success) {
+                            NSMutableArray *article_collections = [NSMutableArray array];
+                            for (HTArticle *article in articles) {
+                                [article_collections addObject:@{@"article_title":article.articleTitle, @"pet_id":@(article.mascotID)}];
+                            }
+                            [dataDict setObject:baseInfo forKey:@"base_info"];
+                            [dataDict setObject:answer_list forKey:@"answer_list"];
+                            [dataDict setObject:article_collections forKey:@"article_collections"];
+                            [bodyDict setObject:dataDict forKey:@"data"];
+                            callback(YES, bodyDict);
+                        } else {
+                            callback(NO, nil);
+                        }
+                    }];
+                } else {
+                    callback(NO, nil);
+                }
+            }];
+        } else {
+            callback(NO, nil);
+        }
+    }];
+}
+
+
+
 - (void)getProfileInfo:(HTGetProfileInfoCallback)callback {
     DLog(@"userid = %@", [[HTStorageManager sharedInstance] getUserID]);
     if ([[HTStorageManager sharedInstance] getUserID] == nil) return;

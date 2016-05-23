@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "HTLogicHeader.h"
 
+typedef void (^SKBackupUserInfoCallBack) (BOOL success, NSDictionary *backupDict);
 typedef void (^HTGetProfileInfoCallback) (BOOL success, HTProfileInfo *profileInfo);
 typedef void (^HTGetNotificationsCallback) (BOOL success, NSArray<HTNotification *> *notifications);
 typedef void (^HTGetRewardsCallback) (BOOL success, NSArray<HTTicket *> *rewards);
@@ -30,6 +31,14 @@ typedef NS_ENUM(NSUInteger, HTUpdateUserInfoType) {
  *  @brief 负责个人中心相关逻辑
  */
 @interface HTProfileService : NSObject
+/**
+ *  @brief 备份用户数据
+ */
+- (void)backupUserInfoWithDict:(NSDictionary*)dict callback:(SKBackupUserInfoCallBack)callback;
+/**
+ *  @brief 获取用户需要备份的数据
+ */
+- (void)getbackupUserInfo:(SKBackupUserInfoCallBack)callback;
 /**
  *  @brief 获取个人主页信息
  */

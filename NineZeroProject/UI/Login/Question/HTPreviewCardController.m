@@ -91,6 +91,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[[HTServiceManager sharedInstance] profileService] getbackupUserInfo:^(BOOL success, NSDictionary *backupDict) {
+        DLog(@"bodyDict -> %@", backupDict);
+        if (success) {
+            [[[HTServiceManager sharedInstance] profileService] backupUserInfoWithDict:backupDict callback:^(BOOL success, NSDictionary *backupDict) {
+                
+            }];
+        }
+    }];
     self.view.backgroundColor = UIColorMake(14, 14, 14);
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
     
