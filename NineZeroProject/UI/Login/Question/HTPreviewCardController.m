@@ -51,6 +51,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (nonatomic, strong) UIImageView *eggImageView;
 @property (nonatomic, strong) UIImageView *eggCoverImageView;
 @property (nonatomic, strong) UIView *dimmingView;
+@property (nonatomic, strong) UIView *blankBackView;
+@property (nonatomic, strong) HTBlankView *blankView;
 
 @property (nonatomic, strong) UIView *courseView;
 @property (nonatomic, strong) UIImageView *courseImageView;
@@ -154,49 +156,48 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         _dimmingView = [[UIView alloc] initWithFrame:SCREEN_BOUNDS];
         _dimmingView.backgroundColor = COMMON_BG_COLOR;
         [self.view addSubview:_dimmingView];
-        [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
-            if (success) {
-                questionInfo = callbackQuestionInfo;
-                [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
-                    [HTProgressHUD dismiss];
-                    [_dimmingView removeFromSuperview];
-                    if (success2) {
-                        questionList = [callbackQuestionList mutableCopy];
-                        [self.collectionView reloadData];
-                        [self.collectionView performBatchUpdates:^{}
-                                                      completion:^(BOOL finished) {
-                                                          [self backToToday:NO];
-                                                      }];
-                    }
-                }];
-                _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
-                [self.collectionView addSubview:_eggImageView];
-            } else {
-                [HTProgressHUD dismiss];
-                [_dimmingView removeFromSuperview];
-                
-                UIView *backView = [[UIView alloc] initWithFrame:self.view.frame];
-                backView.backgroundColor = [UIColor blackColor];
-                [KEY_WINDOW  addSubview:backView];
-                
-                HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-                blankView.center = self.view.center;
-                [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:11];
-                [backView addSubview:blankView];
-            }
-        }];
-        if ([[HTStorageManager sharedInstance] getUserID]) {
-            [APService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
-        }
         
         [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
             NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
-            if (success && response.resultCode == 0 && [dictData isEqualToString:@"1"]) {
-                self.isRelaxDay = [dictData boolValue];
-                HTRelaxController *relaxController = [[HTRelaxController alloc] init];
-                [self presentViewController:relaxController animated:NO completion:nil];
+            if (success && response.resultCode == 0) {
+                if ([dictData isEqualToString:@"1"]) {
+                    self.isRelaxDay = [dictData boolValue];
+                    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
+                    [self presentViewController:relaxController animated:NO completion:nil];
+                    [self.view bringSubviewToFront:relaxController.view];
+                } else if ([dictData isEqualToString:@"0"]){
+                    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
+                        if (success) {
+                            questionInfo = callbackQuestionInfo;
+                            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
+                                [HTProgressHUD dismiss];
+                                [_dimmingView removeFromSuperview];
+                                if (success2) {
+                                    questionList = [callbackQuestionList mutableCopy];
+                                    [self.collectionView reloadData];
+                                    [self.collectionView performBatchUpdates:^{}
+                                                                  completion:^(BOOL finished) {
+                                                                      [self backToToday:NO];
+                                                                  }];
+                                }
+                            }];
+                            _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
+                            [self.collectionView addSubview:_eggImageView];
+                        } else {
+                            [HTProgressHUD dismiss];
+                            [_dimmingView removeFromSuperview];
+                            [self showBlankView];
+                        }
+                    }];
+                }
+            } else {
+                [self showBlankView];
             }
         }];
+        
+        if ([[HTStorageManager sharedInstance] getUserID]) {
+            [APService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
+        }
         
         _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_timeView];
@@ -217,14 +218,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
             [self.view addSubview:_recordView];
         }else{
-            [_chapterImageView removeFromSuperview];
-            [_chapterLabel removeFromSuperview];
-            [_bgImageView removeFromSuperview];
-            
-            HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
-            blankView.center = self.view.center;
-            [blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:11];
-            [self.view addSubview:blankView];
+            [self showBlankView];
         }
     } else if (_cardType == HTPreviewCardTypeIndexRecord) {
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
@@ -319,6 +313,24 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)backToToday:(BOOL)animated {
     [_collectionView setContentOffset:CGPointMake([self contentOffsetWithIndex:questionList.count - 1], 0) animated:animated];
     [self willAppearQuestionAtIndex:questionList.count - 1];
+}
+
+- (void)showBlankView {
+    _blankBackView = [[UIView alloc] initWithFrame:self.view.frame];
+    _blankBackView.backgroundColor = [UIColor blackColor];
+    [KEY_WINDOW  addSubview:_blankBackView];
+    
+    _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+    _blankView.center = self.view.center;
+    [_blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:11];
+    [_blankBackView addSubview:_blankView];
+}
+
+- (void)removeBlankView {
+    _blankView = nil;
+    [_blankView removeFromSuperview];
+    _blankBackView = nil;
+    [_blankBackView removeFromSuperview];
 }
 
 - (void)onClickCloseButton {
