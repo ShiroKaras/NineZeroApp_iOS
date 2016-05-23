@@ -179,6 +179,8 @@
                     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
                 }];
             };
+        }else {
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         }
         
         [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
