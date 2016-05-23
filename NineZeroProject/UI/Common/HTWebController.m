@@ -24,7 +24,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"金币";
     self.view.backgroundColor = [UIColor blackColor];
      _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     _webView.scrollView.delaysContentTouches = NO;

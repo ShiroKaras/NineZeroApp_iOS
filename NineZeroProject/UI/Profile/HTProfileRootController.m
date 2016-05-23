@@ -165,6 +165,7 @@
 - (IBAction)didClickCoin:(UIButton *)sender {
     HTWebController *webController = [[HTWebController alloc] init];
     [webController setUrlString:[NSString stringWithFormat:@"http://admin.90app.tv/index.php?s=/Home/user/coin/id/%@", [[HTStorageManager sharedInstance] getUserID]]];
+    webController.title = @"金币";
     [self.navigationController pushViewController:webController animated:YES];
 }
 
