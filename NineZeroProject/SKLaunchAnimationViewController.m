@@ -96,15 +96,16 @@
 }
 
 - (void)showSkipButton {
-    _skipButton.alpha = 1.0;
+    [UIView animateWithDuration:0.3 animations:^{
+        _skipButton.alpha = 1.0;
+    }];
 }
 
 - (void)showEnterButton {
-    _enterButton.alpha = 1.0;
-}
-
-- (void)hideSkipButton {
-    _skipButton.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        _enterButton.alpha = 1.0;
+        _skipButton.alpha = 0;
+    }];
 }
 
 - (void)onClickSkipButton:(UIButton*)sender {
@@ -126,7 +127,6 @@
     if ([notification.object isEqual:self.playerItem]) {
         //显示进入按钮
         [self showEnterButton];
-        [self hideSkipButton];
     }
 }
 
