@@ -170,10 +170,13 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             if (success && response.resultCode == 0) {
                 if ([dictData isEqualToString:@"1"]) {
                     [HTProgressHUD dismiss];
-                    self.isRelaxDay = [dictData boolValue];
+                    _isRelaxDay = [dictData boolValue];
                     HTRelaxController *relaxController = [[HTRelaxController alloc] init];
                     [self presentViewController:relaxController animated:NO completion:nil];
                     [self.view bringSubviewToFront:relaxController.view];
+                    if ([UD boolForKey:@"firstLaunch"])
+                        [self showAlert];
+                    
                 } else if ([dictData isEqualToString:@"0"]){
                     [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
                         if (success) {
@@ -192,12 +195,16 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                             }];
                             _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
                             [self.collectionView addSubview:_eggImageView];
+                            if ([UD boolForKey:@"firstLaunch"]) {
+                                [self showCourseView];
+                            }
                         } else {
                             [HTProgressHUD dismiss];
                             [_dimmingView removeFromSuperview];
                             [self showBlankView];
                         }
                     }];
+                    
                 }
             } else {
                 [HTProgressHUD dismiss];
@@ -241,11 +248,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                       completion:^(BOOL finished) {
                                           [self backToToday:NO];
                                       }];
-        if (_cardType == HTPreviewCardTypeDefault) {
-            //coach mark
-            if ([UD boolForKey:@"firstLaunch"] && !self.isRelaxDay)
-                [self showCourseView];
-        }
     });
 }
 
@@ -777,33 +779,35 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             _courseView.alpha = 0;
         } completion:^(BOOL finished) {
             [_courseView removeFromSuperview];
-            
-            //通知Alert
-            if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
-                //未显示过
-                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
-                [alertView show];
-                [UD setBool:YES forKey:@"hasShowPushAlert"];
-            }
-            
-            //地理位置Alert
-            if ([CLLocationManager locationServicesEnabled]) {
-                if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
-                    || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-                    DLog(@"authorizationStatus -> %d", [CLLocationManager authorizationStatus]);
-                }else {
-                    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-                    [alertView show];
-                }
-            }else {
-                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-                [alertView show];
-            }
-            
+            [self showAlert];
         }];
     } else if (_currentCourseImageIndex<=4) {
         _courseImageView.image = _courseImageArray[_currentCourseImageIndex];
         _currentCourseImageIndex++;
+    }
+}
+
+- (void)showAlert {
+    //通知Alert
+    if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
+        //未显示过
+        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
+        [alertView show];
+        [UD setBool:YES forKey:@"hasShowPushAlert"];
+    }
+    
+    //地理位置Alert
+    if ([CLLocationManager locationServicesEnabled]) {
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways
+            || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+            DLog(@"authorizationStatus -> %d", [CLLocationManager authorizationStatus]);
+        }else {
+            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+            [alertView show];
+        }
+    }else {
+        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+        [alertView show];
     }
 }
 

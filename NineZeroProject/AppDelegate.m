@@ -55,10 +55,10 @@
     }
 
     [self registerJPushWithLaunchOptions:launchOptions];
-    [self registerQiniuService];
-    [self registerShareSDK];
     [self registerAMap];
     [self registerLocation];
+    [self registerQiniuService];
+    [self registerShareSDK];
     [self registerUmeng];
     [self registerUserAgent];
     
