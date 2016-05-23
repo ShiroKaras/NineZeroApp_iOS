@@ -161,6 +161,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
             if (success && response.resultCode == 0) {
                 if ([dictData isEqualToString:@"1"]) {
+                    [HTProgressHUD dismiss];
                     self.isRelaxDay = [dictData boolValue];
                     HTRelaxController *relaxController = [[HTRelaxController alloc] init];
                     [self presentViewController:relaxController animated:NO completion:nil];
@@ -191,6 +192,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     }];
                 }
             } else {
+                [HTProgressHUD dismiss];
                 [self showBlankView];
             }
         }];
