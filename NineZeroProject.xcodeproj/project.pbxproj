@@ -11,6 +11,8 @@
 		112167611CEF565A0048EA01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1121675F1CEF565A0048EA01 /* LaunchScreen.storyboard */; };
 		112167641CF0637B0048EA01 /* SKLaunchAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 112167631CF0637B0048EA01 /* SKLaunchAnimationViewController.m */; };
 		112167681CF300060048EA01 /* trailer_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 112167671CF300060048EA01 /* trailer_video.mp4 */; };
+		1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */; };
+		1121676D1CF3358E0048EA01 /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
@@ -779,6 +781,9 @@
 		112167621CF0637B0048EA01 /* SKLaunchAnimationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLaunchAnimationViewController.h; sourceTree = "<group>"; };
 		112167631CF0637B0048EA01 /* SKLaunchAnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLaunchAnimationViewController.m; sourceTree = "<group>"; };
 		112167671CF300060048EA01 /* trailer_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = trailer_video.mp4; sourceTree = "<group>"; };
+		112167691CF3358D0048EA01 /* SKUserAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKUserAgreementViewController.h; sourceTree = "<group>"; };
+		1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKUserAgreementViewController.m; sourceTree = "<group>"; };
+		1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SKUserAgreementViewController.xib; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
 		11B385E41CCBA5F8009B8D6F /* SKShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKShareView.m; sourceTree = "<group>"; };
@@ -1903,6 +1908,9 @@
 				1721D71B1BEFB7A100498304 /* HTLoginRootController.h */,
 				1721D71C1BEFB7A100498304 /* HTLoginRootController.m */,
 				1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */,
+				112167691CF3358D0048EA01 /* SKUserAgreementViewController.h */,
+				1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */,
+				1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */,
 				26973B031C005F9800160D25 /* HTRegisterController.h */,
 				26973B041C005F9800160D25 /* HTRegisterController.m */,
 				26973B061C005FBF00160D25 /* HTRegisterController.xib */,
@@ -3956,6 +3964,7 @@
 				17461CB71C71EF6600C847E8 /* img_mascot_7_animation_3_0009.png in Resources */,
 				17461BFC1C71EF6600C847E8 /* img_mascot_5_animation_2_0005.png in Resources */,
 				17A247901C623B9300359CCF /* raw_wrong_answer_gif_0018.png in Resources */,
+				1121676D1CF3358E0048EA01 /* SKUserAgreementViewController.xib in Resources */,
 				17461BE01C71EF6600C847E8 /* img_mascot_4_animation_2_0008.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4099,6 +4108,7 @@
 				17F45AF41C7E1D7A004F2E32 /* HTProfileArticleCell.m in Sources */,
 				17A92CD21CA809B100BE893D /* MJRefreshAutoStateFooter.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
+				1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */,
 				17F0F47C1C95D1510050F0EB /* HTProfileService.m in Sources */,
 				17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,

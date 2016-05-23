@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -11,6 +11,7 @@
                 <outlet property="avatarButton" destination="0Fg-9J-AxF" id="lmX-hZ-mNk"/>
                 <outlet property="nickTextField" destination="MLA-d0-z0h" id="uvI-ZS-kD0"/>
                 <outlet property="sendAgainButton" destination="nNo-gQ-I7a" id="r9B-Ci-HUW"/>
+                <outlet property="userAgreementButton" destination="oCW-r3-C2a" id="q0U-F7-lrs"/>
                 <outlet property="verifyTextField" destination="8ET-ET-tdn" id="uem-2u-9P4"/>
                 <outlet property="view" destination="FQm-ur-f52" id="2MR-4c-S43"/>
             </connections>
@@ -166,12 +167,15 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_signup_deco" translatesAutoresizingMaskIntoConstraints="NO" id="rX0-XG-z4D">
                     <rect key="frame" x="19" y="299" width="44" height="34"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCW-r3-C2a">
-                    <rect key="frame" x="229" y="296" width="56" height="29"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCW-r3-C2a">
+                    <rect key="frame" x="229" y="297" width="56" height="29"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="用户协议">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="userAgreementButtonClicked:" destination="-1" eventType="touchUpInside" id="0Gh-gB-uP5"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

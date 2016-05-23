@@ -14,6 +14,8 @@
 #import "HTLoginController.h"
 #import "NSString+Utility.h"
 #import "HTMainViewController.h"
+#import "HTWebController.h"
+#import "SKUserAgreementViewController.h"
 
 @interface HTRegisterController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
@@ -21,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *nickTextField;
 @property (weak, nonatomic) IBOutlet HTLoginButton *sendAgainButton;
 @property (weak, nonatomic) IBOutlet UIButton *avatarButton;
+@property (weak, nonatomic) IBOutlet UIButton *userAgreementButton;
 
 @end
 
@@ -95,6 +98,13 @@
     }];
 }
 
+- (IBAction)userAgreementButtonClicked:(id)sender {
+//    HTWebController *webController = [[HTWebController alloc] initWithURLString:[NSURL URLWithString:@""]];
+//    webController.title = @"用户协议";
+//    [self.navigationController pushViewController:webController animated:YES];
+    SKUserAgreementViewController *userAgreementViewController = [[SKUserAgreementViewController alloc] init];
+    [self.navigationController pushViewController:userAgreementViewController animated:YES];
+}
 #pragma mark - UIActionSheet Delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
