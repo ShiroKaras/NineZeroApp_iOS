@@ -24,6 +24,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
 #import <UMengAnalytics/MobClick.h>
+
 //腾讯开放平台（对应QQ和QQ空间）SDK头文件
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/QQApiInterface.h>
@@ -52,12 +53,13 @@
     else{
         [UD setBool:NO forKey:@"firstLaunch"];
     }
-    
+
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerQiniuService];
     [self registerShareSDK];
     [self registerAMap];
     [self registerLocation];
+    [self registerUmeng];
     [self registerUserAgent];
     
     [NSThread sleepForTimeInterval:3];
@@ -240,7 +242,10 @@
 #pragma mark - Umeng
 
 -(void)registerUmeng {
-    
+    [MobClick startWithAppkey:@"574011a6e0f55acb3200270a" reportPolicy:BATCH channelId:@""];
+    [MobClick setLogEnabled:YES];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
 }
 
 #pragma mark - ShareSDK
