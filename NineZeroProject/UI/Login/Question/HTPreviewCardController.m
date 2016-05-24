@@ -328,14 +328,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)showBlankViewNoContent {
-    _blankBackView = [[UIView alloc] initWithFrame:self.view.frame];
-    _blankBackView.backgroundColor = [UIColor blackColor];
-    [KEY_WINDOW  addSubview:_blankBackView];
+    [_bgImageView removeFromSuperview];
+    [_chapterLabel removeFromSuperview];
+    [_chapterImageView removeFromSuperview];
     
     _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
     _blankView.center = self.view.center;
     [_blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:11];
-    [_blankBackView addSubview:_blankView];
+    [self.view addSubview:_blankView];
 
 }
 
