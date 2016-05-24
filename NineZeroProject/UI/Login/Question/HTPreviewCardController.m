@@ -201,14 +201,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                         } else {
                             [HTProgressHUD dismiss];
                             [_dimmingView removeFromSuperview];
-                            [self showBlankView];
+                            [self showBlankViewNetWorkError];
                         }
                     }];
                     
                 }
             } else {
                 [HTProgressHUD dismiss];
-                [self showBlankView];
+                [self showBlankViewNetWorkError];
             }
         }];
         
@@ -235,7 +235,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
             [self.view addSubview:_recordView];
         }else{
-            [self showBlankView];
+            [self showBlankViewNoContent];
         }
     } else if (_cardType == HTPreviewCardTypeIndexRecord) {
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
@@ -327,7 +327,19 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [self willAppearQuestionAtIndex:questionList.count - 1];
 }
 
-- (void)showBlankView {
+- (void)showBlankViewNoContent {
+    _blankBackView = [[UIView alloc] initWithFrame:self.view.frame];
+    _blankBackView.backgroundColor = [UIColor blackColor];
+    [KEY_WINDOW  addSubview:_blankBackView];
+    
+    _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+    _blankView.center = self.view.center;
+    [_blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:11];
+    [_blankBackView addSubview:_blankView];
+
+}
+
+- (void)showBlankViewNetWorkError {
     _blankBackView = [[UIView alloc] initWithFrame:self.view.frame];
     _blankBackView.backgroundColor = [UIColor blackColor];
     [KEY_WINDOW  addSubview:_blankBackView];
