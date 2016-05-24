@@ -13,14 +13,14 @@
 
 @implementation NSObject (MJCoding)
 
-- (void)mj_encode:(NSCoder *)encoder
+- (void)encode:(NSCoder *)encoder
 {
-    Class clazz = [self class];
+    Class aClass = [self class];
     
-    NSArray *allowedCodingPropertyNames = [clazz mj_totalAllowedCodingPropertyNames];
-    NSArray *ignoredCodingPropertyNames = [clazz mj_totalIgnoredCodingPropertyNames];
+    NSArray *allowedCodingPropertyNames = [aClass totalAllowedCodingPropertyNames];
+    NSArray *ignoredCodingPropertyNames = [aClass totalIgnoredCodingPropertyNames];
     
-    [clazz mj_enumerateProperties:^(MJProperty *property, BOOL *stop) {
+    [aClass enumerateProperties:^(MJProperty *property, BOOL *stop) {
         // 检测是否被忽略
         if (allowedCodingPropertyNames.count && ![allowedCodingPropertyNames containsObject:property.name]) return;
         if ([ignoredCodingPropertyNames containsObject:property.name]) return;
@@ -31,14 +31,14 @@
     }];
 }
 
-- (void)mj_decode:(NSCoder *)decoder
+- (void)decode:(NSCoder *)decoder
 {
-    Class clazz = [self class];
+    Class aClass = [self class];
     
-    NSArray *allowedCodingPropertyNames = [clazz mj_totalAllowedCodingPropertyNames];
-    NSArray *ignoredCodingPropertyNames = [clazz mj_totalIgnoredCodingPropertyNames];
+    NSArray *allowedCodingPropertyNames = [aClass totalAllowedCodingPropertyNames];
+    NSArray *ignoredCodingPropertyNames = [aClass totalIgnoredCodingPropertyNames];
     
-    [clazz mj_enumerateProperties:^(MJProperty *property, BOOL *stop) {
+    [aClass enumerateProperties:^(MJProperty *property, BOOL *stop) {
         // 检测是否被忽略
         if (allowedCodingPropertyNames.count && ![allowedCodingPropertyNames containsObject:property.name]) return;
         if ([ignoredCodingPropertyNames containsObject:property.name]) return;

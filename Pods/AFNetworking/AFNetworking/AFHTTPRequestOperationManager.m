@@ -169,6 +169,20 @@
 {
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithHTTPMethod:@"POST" URLString:URLString parameters:parameters success:success failure:failure];
 
+    // add by HHHHTTTT
+    operation.securityPolicy.allowInvalidCertificates = YES;
+//    self.requestSerializer = [AFJSONRequestSerializer serializer];
+//    [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+    self.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    self.requestSerializer = [AFJSONRequestSerializer serializer];
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
+    // end
+    
+    [self.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+    self.requestSerializer.timeoutInterval = 10.f;
+    [self.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+    
+    
     [self.operationQueue addOperation:operation];
 
     return operation;
@@ -260,10 +274,6 @@
 
     self.requestSerializer = [decoder decodeObjectOfClass:[AFHTTPRequestSerializer class] forKey:NSStringFromSelector(@selector(requestSerializer))];
     self.responseSerializer = [decoder decodeObjectOfClass:[AFHTTPResponseSerializer class] forKey:NSStringFromSelector(@selector(responseSerializer))];
-    AFSecurityPolicy *decodedPolicy = [decoder decodeObjectOfClass:[AFSecurityPolicy class] forKey:NSStringFromSelector(@selector(securityPolicy))];
-    if (decodedPolicy) {
-        self.securityPolicy = decodedPolicy;
-    }
 
     return self;
 }
@@ -272,7 +282,6 @@
     [coder encodeObject:self.baseURL forKey:NSStringFromSelector(@selector(baseURL))];
     [coder encodeObject:self.requestSerializer forKey:NSStringFromSelector(@selector(requestSerializer))];
     [coder encodeObject:self.responseSerializer forKey:NSStringFromSelector(@selector(responseSerializer))];
-    [coder encodeObject:self.securityPolicy forKey:NSStringFromSelector(@selector(securityPolicy))];
 }
 
 #pragma mark - NSCopying
@@ -282,7 +291,6 @@
 
     HTTPClient.requestSerializer = [self.requestSerializer copyWithZone:zone];
     HTTPClient.responseSerializer = [self.responseSerializer copyWithZone:zone];
-    HTTPClient.securityPolicy = [self.securityPolicy copyWithZone:zone];
 
     return HTTPClient;
 }

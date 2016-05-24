@@ -8,26 +8,17 @@
 #define MJExtensionDeprecated(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
 
 // 构建错误
-#define MJExtensionBuildError(clazz, msg) \
-NSError *error = [NSError errorWithDomain:msg code:250 userInfo:nil]; \
-[clazz setMj_error:error];
-
-// 日志输出
-#ifdef DEBUG
-#define MJExtensionLog(...) NSLog(__VA_ARGS__)
-#else
-#define MJExtensionLog(...)
-#endif
+#define MJExtensionBuildError(error, msg) \
+if (error) *error = [NSError errorWithDomain:msg code:250 userInfo:nil];
 
 /**
  * 断言
  * @param condition   条件
  * @param returnValue 返回值
  */
-#define MJExtensionAssertError(condition, returnValue, clazz, msg) \
-[clazz setMj_error:nil]; \
+#define MJExtensionAssertError(condition, returnValue, error, msg) \
 if ((condition) == NO) { \
-    MJExtensionBuildError(clazz, msg); \
+    MJExtensionBuildError(error, msg); \
     return returnValue;\
 }
 
@@ -60,7 +51,7 @@ MJExtensionAssert2((param) != nil, returnValue)
 #define MJLogAllIvars \
 -(NSString *)description \
 { \
-    return [self mj_keyValues].description; \
+    return [self keyValues].description; \
 }
 #define MJExtensionLogAllProperties MJLogAllIvars
 

@@ -54,7 +54,7 @@
 	NSArray *ipArray = [ips componentsSeparatedByString:@";"];
 	NSMutableArray *ret = [[NSMutableArray alloc] initWithCapacity:ipArray.count];
 	for (int i = 0; i < ipArray.count; i++) {
-		QNRecord *record = [[QNRecord alloc]init:[ipArray objectAtIndex:i] ttl:ttl type:kQNTypeA];
+		QNRecord *record = [[QNRecord alloc]init:[ipArray objectAtIndex:i] ttl:ttl type:0];
 		[ret addObject:record];
 	}
 	return ret;

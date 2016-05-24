@@ -10,24 +10,21 @@
 #import "MJExtension.h"
 #import "MJFoundation.h"
 #import "MJExtensionConst.h"
+#import "MJDictionaryCache.h"
 
 @implementation MJPropertyType
-
-static NSMutableDictionary *types_;
-+ (void)initialize
-{
-    types_ = [NSMutableDictionary dictionary];
-}
 
 + (instancetype)cachedTypeWithCode:(NSString *)code
 {
     MJExtensionAssertParamNotNil2(code, nil);
     
-    MJPropertyType *type = types_[code];
+    static const char MJCachedTypesKey = '\0';
+    
+    MJPropertyType *type = [MJDictionaryCache objectForKey:code forDictId:&MJCachedTypesKey];
     if (type == nil) {
         type = [[self alloc] init];
         type.code = code;
-        types_[code] = type;
+        [MJDictionaryCache setObject:type forKey:code forDictId:&MJCachedTypesKey];
     }
     return type;
 }
@@ -48,8 +45,7 @@ static NSMutableDictionary *types_;
         _code = [code substringWithRange:NSMakeRange(2, code.length - 3)];
         _typeClass = NSClassFromString(_code);
         _fromFoundation = [MJFoundation isClassFromFoundation:_typeClass];
-        _numberType = [_typeClass isSubclassOfClass:[NSNumber class]];
-        
+        _numberType = (_typeClass == [NSNumber class] || [_typeClass isSubclassOfClass:[NSNumber class]]);
     } else if ([code isEqualToString:MJPropertyTypeSEL] ||
                [code isEqualToString:MJPropertyTypeIvar] ||
                [code isEqualToString:MJPropertyTypeMethod]) {
@@ -58,7 +54,7 @@ static NSMutableDictionary *types_;
     
     // 是否为数字类型
     NSString *lowerCode = _code.lowercaseString;
-    NSArray *numberTypes = @[MJPropertyTypeInt, MJPropertyTypeShort, MJPropertyTypeBOOL1, MJPropertyTypeBOOL2, MJPropertyTypeFloat, MJPropertyTypeDouble, MJPropertyTypeLong, MJPropertyTypeLongLong, MJPropertyTypeChar];
+    NSArray *numberTypes = @[MJPropertyTypeInt, MJPropertyTypeShort, MJPropertyTypeBOOL1, MJPropertyTypeBOOL2, MJPropertyTypeFloat, MJPropertyTypeDouble, MJPropertyTypeLong, MJPropertyTypeChar];
     if ([numberTypes containsObject:lowerCode]) {
         _numberType = YES;
         

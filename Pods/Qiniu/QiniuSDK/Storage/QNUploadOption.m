@@ -37,10 +37,6 @@ static NSString *mime(NSString *mimeType) {
 	return [self initWithMime:nil progressHandler:progress params:nil checkCrc:NO cancellationSignal:nil];
 }
 
-- (instancetype)initWithProgressHandler:(QNUpProgressHandler)progress {
-	return [self initWithMime:nil progressHandler:progress params:nil checkCrc:NO cancellationSignal:nil];
-}
-
 - (instancetype)initWithMime:(NSString *)mimeType
              progressHandler:(QNUpProgressHandler)progress
                       params:(NSDictionary *)params

@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MJExtensionConst.h"
-
 /**
  *  Codeing协议
  */
@@ -17,22 +15,22 @@
 /**
  *  这个数组中的属性名才会进行归档
  */
-+ (NSArray *)mj_allowedCodingPropertyNames;
++ (NSArray *)allowedCodingPropertyNames;
 /**
  *  这个数组中的属性名将会被忽略：不进行归档
  */
-+ (NSArray *)mj_ignoredCodingPropertyNames;
++ (NSArray *)ignoredCodingPropertyNames;
 @end
 
 @interface NSObject (MJCoding) <MJCoding>
 /**
  *  解码（从文件中解析对象）
  */
-- (void)mj_decode:(NSCoder *)decoder;
+- (void)decode:(NSCoder *)decoder;
 /**
  *  编码（将对象写入文件中）
  */
-- (void)mj_encode:(NSCoder *)encoder;
+- (void)encode:(NSCoder *)encoder;
 @end
 
 /**
@@ -42,14 +40,14 @@
 - (id)initWithCoder:(NSCoder *)decoder \
 { \
 if (self = [super init]) { \
-[self mj_decode:decoder]; \
+[self decode:decoder]; \
 } \
 return self; \
 } \
 \
 - (void)encodeWithCoder:(NSCoder *)encoder \
 { \
-[self mj_encode:encoder]; \
+[self encode:encoder]; \
 }
 
 #define MJExtensionCodingImplementation MJCodingImplementation

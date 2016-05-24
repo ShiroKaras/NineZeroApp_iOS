@@ -44,14 +44,12 @@ typedef void (^AFDownloadProgressBlock)(AFDownloadRequestOperation *operation, N
 
 @class YTKBaseRequest;
 
-typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
-
 @protocol YTKRequestDelegate <NSObject>
-
-@optional
 
 - (void)requestFinished:(YTKBaseRequest *)request;
 - (void)requestFailed:(YTKBaseRequest *)request;
+
+@optional
 - (void)clearRequest;
 
 @end
@@ -79,9 +77,8 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 /// request delegate object
 @property (nonatomic, weak) id<YTKRequestDelegate> delegate;
 
-@property (nonatomic, strong, readonly) NSDictionary *responseHeaders;
 
-@property (nonatomic, strong, readonly) NSData *responseData;
+@property (nonatomic, strong, readonly) NSDictionary *responseHeaders;
 
 @property (nonatomic, strong, readonly) NSString *responseString;
 
@@ -89,9 +86,9 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 @property (nonatomic, readonly) NSInteger responseStatusCode;
 
-@property (nonatomic, copy) YTKRequestCompletionBlock successCompletionBlock;
+@property (nonatomic, copy) void (^successCompletionBlock)(YTKBaseRequest *);
 
-@property (nonatomic, copy) YTKRequestCompletionBlock failureCompletionBlock;
+@property (nonatomic, copy) void (^failureCompletionBlock)(YTKBaseRequest *);
 
 @property (nonatomic, strong) NSMutableArray *requestAccessories;
 
@@ -104,11 +101,11 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 - (BOOL)isExecuting;
 
 /// block回调
-- (void)startWithCompletionBlockWithSuccess:(YTKRequestCompletionBlock)success
-                                    failure:(YTKRequestCompletionBlock)failure;
+- (void)startWithCompletionBlockWithSuccess:(void (^)(YTKBaseRequest *request))success
+                                    failure:(void (^)(YTKBaseRequest *request))failure;
 
-- (void)setCompletionBlockWithSuccess:(YTKRequestCompletionBlock)success
-                              failure:(YTKRequestCompletionBlock)failure;
+- (void)setCompletionBlockWithSuccess:(void (^)(YTKBaseRequest *request))success
+                              failure:(void (^)(YTKBaseRequest *request))failure;
 
 /// 把block置nil来打破循环引用
 - (void)clearCompletionBlock;

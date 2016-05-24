@@ -15,7 +15,6 @@
 #import "QNUploadOption+Private.h"
 #import "QNRecorderDelegate.h"
 #import "QNCrc32.h"
-#import "QNStats.h"
 
 @interface QNFormUpload ()
 
@@ -27,7 +26,6 @@
 @property (nonatomic, strong) QNUploadOption *option;
 @property (nonatomic, strong) QNUpCompletionHandler complete;
 @property (nonatomic, strong) QNConfiguration *config;
-@property (nonatomic, strong) NSMutableDictionary *stats;
 
 @end
 
@@ -48,9 +46,6 @@
 		_complete = block;
 		_httpManager = http;
 		_config = config;
-		_stats = [[NSMutableDictionary alloc] init];
-		setStat(_stats, @"ak", token.access);
-		setStat(_stats, @"bucket", token.bucket);
 	}
 	return self;
 }
@@ -95,9 +90,9 @@
 			_complete([QNResponseInfo cancel], _key, nil);
 			return;
 		}
-		NSString *nextHost = _config.up.address;
+		NSString *nextHost = _config.upHost;
 		if (info.isConnectionBroken || info.needSwitchServer) {
-			nextHost = _config.upBackup.address;
+			nextHost = _config.upHostBackup;
 		}
 
 		QNCompleteBlock retriedComplete = ^(QNResponseInfo *info, NSDictionary *resp) {
@@ -107,23 +102,21 @@
 			_complete(info, _key, resp);
 		};
 
-		[_httpManager multipartPost:nextHost
+		[_httpManager multipartPost:[NSString stringWithFormat:@"http://%@:%u/", nextHost, (unsigned int)_config.upPort]
 		 withData:_data
 		 withParams:parameters
 		 withFileName:fileName
 		 withMimeType:_option.mimeType
-		 withStats:_stats
 		 withCompleteBlock:retriedComplete
 		 withProgressBlock:p
 		 withCancelBlock:_option.cancellationSignal];
 	};
 
-	[_httpManager multipartPost:_config.up.address
+	[_httpManager multipartPost:[NSString stringWithFormat:@"http://%@:%u/", _config.upHost, (unsigned int)_config.upPort]
 	 withData:_data
 	 withParams:parameters
 	 withFileName:fileName
 	 withMimeType:_option.mimeType
-	 withStats:_stats
 	 withCompleteBlock:complete
 	 withProgressBlock:p
 	 withCancelBlock:_option.cancellationSignal];

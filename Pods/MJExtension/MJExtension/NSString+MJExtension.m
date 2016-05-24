@@ -9,7 +9,7 @@
 #import "NSString+MJExtension.h"
 
 @implementation NSString (MJExtension)
-- (NSString *)mj_underlineFromCamel
+- (NSString *)underlineFromCamel
 {
     if (self.length == 0) return self;
     NSMutableString *string = [NSMutableString string];
@@ -27,7 +27,7 @@
     return string;
 }
 
-- (NSString *)mj_camelFromUnderline
+- (NSString *)camelFromUnderline
 {
     if (self.length == 0) return self;
     NSMutableString *string = [NSMutableString string];
@@ -44,7 +44,7 @@
     return string;
 }
 
-- (NSString *)mj_firstCharLower
+- (NSString *)firstCharLower
 {
     if (self.length == 0) return self;
     NSMutableString *string = [NSMutableString string];
@@ -53,7 +53,7 @@
     return string;
 }
 
-- (NSString *)mj_firstCharUpper
+- (NSString *)firstCharUpper
 {
     if (self.length == 0) return self;
     NSMutableString *string = [NSMutableString string];
@@ -62,49 +62,15 @@
     return string;
 }
 
-- (BOOL)mj_isPureInt
+- (BOOL)isPureInt
 {
     NSScanner *scan = [NSScanner scannerWithString:self];
     int val;
     return [scan scanInt:&val] && [scan isAtEnd];
 }
 
-- (NSURL *)mj_url
-{
-//    [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"!$&'()*+,-./:;=?@_~%#[]"]];
-    
-    return [NSURL URLWithString:(NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]", NULL,kCFStringEncodingUTF8))];
-}
-@end
-
-@implementation NSString (MJExtensionDeprecated_v_2_5_16)
-- (NSString *)underlineFromCamel
-{
-    return self.mj_underlineFromCamel;
-}
-
-- (NSString *)camelFromUnderline
-{
-    return self.mj_camelFromUnderline;
-}
-
-- (NSString *)firstCharLower
-{
-    return self.mj_firstCharLower;
-}
-
-- (NSString *)firstCharUpper
-{
-    return self.mj_firstCharUpper;
-}
-
-- (BOOL)isPureInt
-{
-    return self.mj_isPureInt;
-}
-
 - (NSURL *)url
 {
-    return self.mj_url;
+    return [NSURL URLWithString:(NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]", NULL,kCFStringEncodingUTF8))];
 }
 @end

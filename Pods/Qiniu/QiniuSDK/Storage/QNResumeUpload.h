@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "QNUploadManager.h"
-#import "QNHttpDelegate.h"
+#import "QNhttpDelegate.h"
 #import "QNUpToken.h"
 #import "QNFileDelegate.h"
 
