@@ -597,7 +597,6 @@
 		1777D38E1BE798F500AC0203 /* NineZeroProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777D38D1BE798F500AC0203 /* NineZeroProjectUITests.m */; };
 		1787FD141C4A8884006E55A6 /* ARController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD011C4A8884006E55A6 /* ARController.m */; };
 		1787FD151C4A8884006E55A6 /* ARObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD031C4A8884006E55A6 /* ARObject.m */; };
-		1787FD161C4A8884006E55A6 /* ARObject.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1787FD041C4A8884006E55A6 /* ARObject.xib */; };
 		1787FD171C4A8884006E55A6 /* ar_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1787FD071C4A8884006E55A6 /* ar_icon.png */; };
 		1787FD181C4A8884006E55A6 /* ar_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 1787FD081C4A8884006E55A6 /* ar_overlay.png */; };
 		1787FD191C4A8884006E55A6 /* ar_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1787FD091C4A8884006E55A6 /* ar_overlay@2x.png */; };
@@ -1422,7 +1421,6 @@
 		1787FD011C4A8884006E55A6 /* ARController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARController.m; sourceTree = "<group>"; };
 		1787FD021C4A8884006E55A6 /* ARObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARObject.h; sourceTree = "<group>"; };
 		1787FD031C4A8884006E55A6 /* ARObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARObject.m; sourceTree = "<group>"; };
-		1787FD041C4A8884006E55A6 /* ARObject.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ARObject.xib; sourceTree = "<group>"; };
 		1787FD051C4A8884006E55A6 /* ARSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARSettings.h; sourceTree = "<group>"; };
 		1787FD071C4A8884006E55A6 /* ar_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ar_icon.png; sourceTree = "<group>"; };
 		1787FD081C4A8884006E55A6 /* ar_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ar_overlay.png; sourceTree = "<group>"; };
@@ -2864,7 +2862,6 @@
 				1787FD011C4A8884006E55A6 /* ARController.m */,
 				1787FD021C4A8884006E55A6 /* ARObject.h */,
 				1787FD031C4A8884006E55A6 /* ARObject.m */,
-				1787FD041C4A8884006E55A6 /* ARObject.xib */,
 			);
 			path = AR;
 			sourceTree = "<group>";
@@ -3406,7 +3403,6 @@
 				17461BEF1C71EF6600C847E8 /* img_mascot_4_animation_4_0005.png in Resources */,
 				17461C821C71EF6600C847E8 /* img_mascot_6_animation_4_0021.png in Resources */,
 				17461C7C1C71EF6600C847E8 /* img_mascot_6_animation_4_0015.png in Resources */,
-				1787FD161C4A8884006E55A6 /* ARObject.xib in Resources */,
 				17461C391C71EF6600C847E8 /* img_mascot_5_animation_4_0024.png in Resources */,
 				17461CA81C71EF6600C847E8 /* img_mascot_7_animation_2_0029.png in Resources */,
 				17461C9E1C71EF6600C847E8 /* img_mascot_7_animation_2_0019.png in Resources */,
