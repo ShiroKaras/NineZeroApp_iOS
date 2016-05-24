@@ -91,6 +91,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (![UD boolForKey:@"everLaunched"]) {
+        [UD setBool:YES forKey:@"everLaunched"];
+        [UD setBool:YES forKey:@"firstLaunch"];
+    }
+    else{
+        [UD setBool:NO forKey:@"firstLaunch"];
+    }
+    
     [[[HTServiceManager sharedInstance] profileService] getbackupUserInfo:^(BOOL success, NSDictionary *backupDict) {
         DLog(@"bodyDict -> %@", backupDict);
         if (success) {
@@ -174,9 +182,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     HTRelaxController *relaxController = [[HTRelaxController alloc] init];
                     [self presentViewController:relaxController animated:NO completion:nil];
                     [self.view bringSubviewToFront:relaxController.view];
-                    if ([UD boolForKey:@"firstLaunch"])
-                        [self showAlert];
-                    
+                    [self showAlert];
                 } else if ([dictData isEqualToString:@"0"]){
                     [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
                         if (success) {
@@ -197,6 +203,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                             [self.collectionView addSubview:_eggImageView];
                             if ([UD boolForKey:@"firstLaunch"]) {
                                 [self showCourseView];
+                            } else{
+                                [self showAlert];
                             }
                         } else {
                             [HTProgressHUD dismiss];
@@ -467,7 +475,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
             //判断GPS是否开启
             if ([CLLocationManager locationServicesEnabled]) {
-                if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
+                if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways
                     || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
                     //判断相机是否开启
                     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
@@ -802,13 +810,16 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)showAlert {
     //通知Alert
     if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
-        //未显示过
-        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
-        [alertView show];
-        [UD setBool:YES forKey:@"hasShowPushAlert"];
+        if ([UD boolForKey:@"firstLaunch"]){
+            //未显示过
+            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
+            [alertView show];
+            [UD setBool:YES forKey:@"hasShowPushAlert"];
+        }
     }
     
     //地理位置Alert
+    //判断GPS是否开启
     if ([CLLocationManager locationServicesEnabled]) {
         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways
             || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
