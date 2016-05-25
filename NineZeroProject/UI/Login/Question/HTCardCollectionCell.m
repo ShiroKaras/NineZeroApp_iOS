@@ -182,6 +182,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - Actions
 
 - (void)onClickReplayButton {
+    [MobClick event:@"replay"];
     [UIView animateWithDuration:0.3 animations:^{
         _replayBackView.alpha = 0.;
     }];
@@ -190,30 +191,36 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)onClickPlayButton {
+    [MobClick event:@"play"];
     [self play];
     [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypePlay];
 }
 
 - (void)onClickContent {
+    [MobClick event:@"introduce"];
     [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeContent];
 }
 
 - (void)onClickComposeButton:(UIButton *)button {
     if (_questionInfo.questionID == _question.questionID && _question.isPassed == NO) {
+        [MobClick event:@"answer"];
         if (_question.type == 0) {
             [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAR];
         } else {
             [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];
         }
     } else {
+        [MobClick event:@"exanswer"];
         [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAnswer];
     }
 }
 
 - (void)onClickHintButton:(UIButton *)button {
     if (_question.isPassed) {
+        [MobClick event:@"Vgift"];
         [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeReward];
     } else {
+        [MobClick event:@"warning"];
         [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeHint];
     }
 }
@@ -479,6 +486,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)shareWithThirdPlatform:(UIButton*)sender {
+    [MobClick event:@"share"];
     HTButtonType type = (HTButtonType)sender.tag;
     switch (type) {
         case HTButtonTypeWechat: {

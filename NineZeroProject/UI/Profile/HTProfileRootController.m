@@ -155,6 +155,7 @@
 }
 
 - (IBAction)didClickNotification:(UIButton *)sender {
+    [MobClick event:@"push"];
     HTNotificationController *controller = [[HTNotificationController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
@@ -165,6 +166,7 @@
 }
 
 - (IBAction)didClickCoin:(UIButton *)sender {
+    [MobClick event:@"goldcoin"];
     HTWebController *webController = [[HTWebController alloc] init];
     [webController setUrlString:[NSString stringWithFormat:@"http://admin.90app.tv/index.php?s=/Home/user/coin/id/%@", [[HTStorageManager sharedInstance] getUserID]]];
     webController.title = @"金币";
@@ -172,21 +174,25 @@
 }
 
 - (IBAction)didClickRank:(UIButton *)sender {
+    [MobClick event:@"rankinglist"];
     HTProfileRankController *rankController = [[HTProfileRankController alloc] init];
     [self.navigationController pushViewController:rankController animated:YES];
 }
 
 - (IBAction)didClickMedal:(UIButton *)sender {
+    [MobClick event:@"badge"];
     HTProfileBadgeController *badgeController = [[HTProfileBadgeController alloc] init];
     [self.navigationController pushViewController:badgeController animated:YES];
 }
 
 - (IBAction)didClickCollectionArticle:(UIButton *)sender {
+    [MobClick event:@"Cessay"];
     HTCollectionController *collectionController = [[HTCollectionController alloc] init];
     [self.navigationController pushViewController:collectionController animated:YES];
 }
 
 - (IBAction)didClickReward:(UIButton *)sender {
+    [MobClick event:@"gift"];
     HTProfileRewardController *rewardController = [[HTProfileRewardController alloc] init];
     [self.navigationController pushViewController:rewardController animated:YES];
 }

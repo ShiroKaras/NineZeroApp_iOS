@@ -84,17 +84,20 @@ typedef enum : NSUInteger {
             break;
         }
         case HTProfileTypeRecord: {
+            [MobClick event:@"record"];
             HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeRecord];
             [controller presentViewController:cardController animated:YES completion:nil];
             break;
         }
         case HTProfileTypeReward: {
+            [MobClick event:@"bonus"];
             HTProfileRewardController *rewardController = [[HTProfileRewardController alloc] init];
             HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rewardController];
             [controller presentViewController:navController animated:YES completion:nil];
             break;
         }
         case HTProfileTypeArticle: {
+            [MobClick event:@"exessay"];
             HTProfileArticlesController *articleController = [[HTProfileArticlesController alloc] initWithStyle:UITableViewStylePlain];
             HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:articleController];
             [controller presentViewController:navController animated:YES completion:nil];

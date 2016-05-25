@@ -49,6 +49,7 @@
 #pragma mark - Action
 
 - (IBAction)didClickLoginButton:(UIButton *)sender {
+    [MobClick event:@"login"];
     HTLoginUser *loginUser = [[HTLoginUser alloc] init];
     loginUser.user_mobile = self.userNameTextField.text;
     loginUser.user_password = self.passwordTextField.text;
@@ -73,6 +74,7 @@
 }
 
 - (IBAction)didClickForgetPassword:(UIButton *)sender {
+    [MobClick event:@"forget password"];
     HTForgetPasswordController *forgetPwdController = [[HTForgetPasswordController alloc] init];
     [self.navigationController pushViewController:forgetPwdController animated:YES];
 }

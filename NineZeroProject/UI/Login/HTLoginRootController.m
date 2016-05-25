@@ -87,6 +87,7 @@
 #pragma mark - Action
 
 - (IBAction)registerButtonClicked:(UIButton *)sender {
+    [MobClick event:@"register"];
     if (self.userNameTextField.text.length != 11) {
         [self showTipsWithText:@"请检查手机号码是否正确"];
         return;
@@ -126,6 +127,7 @@
 }
 
 - (IBAction)loginButtonWeixinClicked:(id)sender {
+    [MobClick event:@"weixin register"];
     [ShareSDK getUserInfo:SSDKPlatformTypeWechat
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
      {
@@ -149,6 +151,7 @@
 }
 
 - (IBAction)loginButtonQQClicked:(id)sender {
+    [MobClick event:@"weibo register"];
     [ShareSDK getUserInfo:SSDKPlatformTypeQQ
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
      {
@@ -172,6 +175,7 @@
 }
 
 - (IBAction)loginButtonWeiboClicked:(id)sender {
+    [MobClick event:@"QQ register"];
     [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
 onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
     {
