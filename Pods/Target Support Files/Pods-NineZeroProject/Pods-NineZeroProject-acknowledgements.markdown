@@ -312,11 +312,6 @@ For these and/or other purposes and motivations, and without any expectation of 
 
 
 
-## UMengAnalytics
-
-Copyright 2011 - 2015 UMeng.com. All rights reserved.
-
-
 ## YLGIFImage
 
 The MIT License (MIT)

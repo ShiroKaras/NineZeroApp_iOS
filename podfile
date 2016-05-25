@@ -17,7 +17,7 @@ target 'NineZeroProject' do
   pod 'TTTAttributedLabel'
   pod 'YLGIFImage'
   pod 'AMapLocation'  #定位SDK
-  pod 'UMengAnalytics' #标准SDK，含IDFA
+  #pod 'UMengAnalytics' #标准SDK，含IDFA
 end
 
 target 'NineZeroProjectTests' do

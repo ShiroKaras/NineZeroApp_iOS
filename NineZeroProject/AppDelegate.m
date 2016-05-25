@@ -23,7 +23,7 @@
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
-#import <UMengAnalytics/MobClick.h>
+#import "UMMobClick/MobClick.h"
 
 //腾讯开放平台（对应QQ和QQ空间）SDK头文件
 #import <TencentOpenAPI/TencentOAuth.h>
@@ -244,10 +244,13 @@
 #pragma mark - Umeng
 
 -(void)registerUmeng {
-    [MobClick startWithAppkey:@"574011a6e0f55acb3200270a" reportPolicy:BATCH channelId:@""];
-    [MobClick setLogEnabled:YES];
+//    [MobClick startWithAppkey:@"574011a6e0f55acb3200270a" reportPolicy:BATCH channelId:@""];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
+    UMConfigInstance.appKey = @"574011a6e0f55acb3200270a";
+    UMConfigInstance.channelId = @"";
+    UMConfigInstance.ePolicy = BATCH;
+    [MobClick setLogEnabled:YES];
 }
 
 #pragma mark - ShareSDK

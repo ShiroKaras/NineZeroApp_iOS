@@ -13,6 +13,7 @@
 		112167681CF300060048EA01 /* trailer_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 112167671CF300060048EA01 /* trailer_video.mp4 */; };
 		1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */; };
 		1121676D1CF3358E0048EA01 /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */; };
+		1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
@@ -783,6 +784,7 @@
 		112167691CF3358D0048EA01 /* SKUserAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKUserAgreementViewController.h; sourceTree = "<group>"; };
 		1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKUserAgreementViewController.m; sourceTree = "<group>"; };
 		1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SKUserAgreementViewController.xib; sourceTree = "<group>"; };
+		1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
 		11B385E41CCBA5F8009B8D6F /* SKShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKShareView.m; sourceTree = "<group>"; };
@@ -1693,6 +1695,7 @@
 				17617F6A1BEFAE05000B2BFA /* Security.framework in Frameworks */,
 				11F2185B1CBB951300D2ED44 /* libWeChatSDK.a in Frameworks */,
 				178E7AF91C91EC4B00E4B84F /* Reveal.framework in Frameworks */,
+				1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */,
 				176B75711C76264A0069DE89 /* AudioToolbox.framework in Frameworks */,
 				11F218591CBB951300D2ED44 /* libWeiboSDK.a in Frameworks */,
 				11F218561CBB951300D2ED44 /* ShareSDKUI.framework in Frameworks */,
@@ -1755,6 +1758,22 @@
 				26BD341D1C12DF3300472E46 /* moonbold.ttf */,
 			);
 			name = Resource;
+			sourceTree = "<group>";
+		};
+		1126BFC51CF59BBE00E4FAC3 /* UMeng */ = {
+			isa = PBXGroup;
+			children = (
+				1126BFC61CF59BBE00E4FAC3 /* UMengMobClick */,
+			);
+			path = UMeng;
+			sourceTree = "<group>";
+		};
+		1126BFC61CF59BBE00E4FAC3 /* UMengMobClick */ = {
+			isa = PBXGroup;
+			children = (
+				1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */,
+			);
+			path = UMengMobClick;
 			sourceTree = "<group>";
 		};
 		11CA0C531CD24E4200C06333 /* Easing */ = {
@@ -2989,6 +3008,7 @@
 		17A89A8F1C1DB9BB0087BF00 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				1126BFC51CF59BBE00E4FAC3 /* UMeng */,
 				11CA0C531CD24E4200C06333 /* Easing */,
 				11F218301CBB951300D2ED44 /* ShareSDK */,
 				17A92C9E1CA809B100BE893D /* MJRefresh */,
@@ -4303,6 +4323,7 @@
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/Optional",
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/UMeng/UMengMobClick",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/NineZeroProject-Prefix.pch";
@@ -4400,6 +4421,7 @@
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/Optional",
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/UMeng/UMengMobClick",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/NineZeroProject-Prefix.pch";
