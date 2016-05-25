@@ -12,7 +12,7 @@
 @class HTMascotPropItem;
 @protocol HTMascotPropViewDelegate <NSObject>
 @required;
-- (void)didClickBottomArrawInMascotPropView:(HTMascotPropView *)mascotPropView;
+- (void)didClickBottomArrowInMascotPropView:(HTMascotPropView *)mascotPropView;
 //- (void)propView:(HTMascotPropView *)propView didClickPropItem:(HTMascotPropItem *)item;
 @end
 // 零仔道具主页面

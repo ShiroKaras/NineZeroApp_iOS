@@ -15,8 +15,8 @@ NSInteger kPageItemCount = 15;
 @interface HTMascotPropMoreView ()
 @property (nonatomic, strong) NSMutableArray<HTMascotPropItem *> *propItems;
 @property (nonatomic, strong) NSArray<HTMascotProp *> *props;
-@property (nonatomic, strong) UIButton *topArraw;
-@property (nonatomic, strong) UIButton *bottomArraw;
+@property (nonatomic, strong) UIButton *topArrow;
+@property (nonatomic, strong) UIButton *bottomArrow;
 @property (nonatomic, assign, readwrite) NSInteger pageCount;
 @end
 
@@ -27,18 +27,18 @@ NSInteger kPageItemCount = 15;
         _props = props;
         self.backgroundColor = COMMON_BG_COLOR;
         
-        _topArraw = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_topArraw setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_up_grey"] forState:UIControlStateNormal];
-        [_topArraw setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_up_grey_highlight"] forState:UIControlStateHighlighted];
-        [_topArraw addTarget:self action:@selector(onClickTopArraw) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_topArraw];
+        _topArrow = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_topArrow setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_up_grey"] forState:UIControlStateNormal];
+        [_topArrow setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_up_grey_highlight"] forState:UIControlStateHighlighted];
+        [_topArrow addTarget:self action:@selector(onClickTopArrow) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_topArrow];
         
-        _bottomArraw = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_bottomArraw setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_down_grey"] forState:UIControlStateNormal];
-        [_bottomArraw setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_down_grey_highlight"] forState:UIControlStateHighlighted];
-        [_bottomArraw addTarget:self action:@selector(onClickBottomArraw) forControlEvents:UIControlEventTouchUpInside];
-        _bottomArraw.hidden = !(_props.count - pageCount * kPageItemCount > kPageItemCount);
-        [self addSubview:_bottomArraw];
+        _bottomArrow = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_bottomArrow setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_down_grey"] forState:UIControlStateNormal];
+        [_bottomArrow setImage:[UIImage imageNamed:@"img_mascot_prop_arrow_down_grey_highlight"] forState:UIControlStateHighlighted];
+        [_bottomArrow addTarget:self action:@selector(onClickBottomArrow) forControlEvents:UIControlEventTouchUpInside];
+        _bottomArrow.hidden = !(_props.count - pageCount * kPageItemCount > kPageItemCount);
+        [self addSubview:_bottomArrow];
         
         _decorateView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prop_title"]];
         [self addSubview:_decorateView];
@@ -64,12 +64,12 @@ NSInteger kPageItemCount = 15;
     [self setNeedsUpdateConstraints];
 }
 
-- (void)onClickTopArraw {
-    [self.delegate didClickTopArrawInPropMoreView:self];
+- (void)onClickTopArrow {
+    [self.delegate didClickTopArrowInPropMoreView:self];
 }
 
-- (void)onClickBottomArraw {
-    [self.delegate didClickBottomArrawInPropMoreView:self];
+- (void)onClickBottomArrow {
+    [self.delegate didClickBottomArrowInPropMoreView:self];
 }
 
 - (void)updateConstraints {
@@ -78,14 +78,14 @@ NSInteger kPageItemCount = 15;
         make.top.equalTo(ROUND_HEIGHT(37));
     }];
     
-    [_topArraw mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_topArrow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
         make.top.equalTo(_decorateView);
     }];
     
-    [_bottomArraw mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_bottomArrow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(ROUND_HEIGHT(-61));
-        make.centerX.equalTo(_topArraw);
+        make.centerX.equalTo(_topArrow);
     }];
     
     UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_prop_arrow_up_grey"]];
@@ -96,7 +96,7 @@ NSInteger kPageItemCount = 15;
         [item mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.equalTo(@45);
             if (line == 0 && row == 1) {
-                make.top.equalTo(_topArraw.mas_bottom).offset(27);
+                make.top.equalTo(_topArrow.mas_bottom).offset(27);
                 make.centerX.equalTo(self.mas_centerX);
             } else if (line == 0 && row == 0) {
                 make.top.equalTo(_propItems[1]);

@@ -56,7 +56,7 @@
 }
 
 - (void)onClickMoreButton {
-    [self.delegate didClickBottomArrawInMascotPropView:self];
+    [self.delegate didClickBottomArrowInMascotPropView:self];
 }
 
 - (void)updateConstraints {

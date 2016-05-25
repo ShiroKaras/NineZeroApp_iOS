@@ -10,7 +10,7 @@
 #import "HTUIHeader.h"
 
 @implementation HTMascotTipView {
-    UIImageView *_arrawView;
+    UIImageView *_ArrowView;
     UILabel *_tipLabel;
 }
 
@@ -27,17 +27,17 @@
 - (void)setTipNumber:(NSInteger)tipNumber {
     _tipNumber = tipNumber;
     if (tipNumber < 1) {
-        _arrawView.hidden = NO;
+        _ArrowView.hidden = NO;
         _tipLabel.hidden = YES;
     } else {
-        _arrawView.hidden = YES;
+        _ArrowView.hidden = YES;
         _tipLabel.hidden = NO;
         _tipLabel.text = [NSString stringWithFormat:@"%ld", (long)tipNumber];
     }
 }
 
 - (void)updateConstraints {
-    [_arrawView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_ArrowView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self).offset(7);
     }];
@@ -51,9 +51,9 @@
 }
 
 - (void)buildViewsIfNeed {
-    if (_arrawView == nil) {
-        _arrawView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_notification_arrow"]];
-        [self addSubview:_arrawView];
+    if (_ArrowView == nil) {
+        _ArrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_notification_arrow"]];
+        [self addSubview:_ArrowView];
     }
     if (_tipLabel == nil) {
         _tipLabel = [[UILabel alloc] init];

@@ -207,7 +207,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 
 #pragma mark - HTMascotPropView Delegate
 
-- (void)didClickBottomArrawInMascotPropView:(HTMascotPropView *)mascotPropView {
+- (void)didClickBottomArrowInMascotPropView:(HTMascotPropView *)mascotPropView {
     _moreView = [[HTMascotPropMoreView alloc] initWithProps:self.props andPageCount:0];
     [self.view addSubview:_moreView];
     _moreView.top = SCREEN_HEIGHT;
@@ -219,7 +219,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 
 #pragma mark - HTMascotPropMoreView Delegate
 
-- (void)didClickTopArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView {
+- (void)didClickTopArrowInPropMoreView:(HTMascotPropMoreView *)propMoreView {
     if (propMoreView.pageCount == 0) {
         [UIView animateWithDuration:kDuration animations:^{
             propMoreView.top = SCREEN_HEIGHT;
@@ -244,7 +244,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     }
 }
 
-- (void)didClickBottomArrawInPropMoreView:(HTMascotPropMoreView *)propMoreView {
+- (void)didClickBottomArrowInPropMoreView:(HTMascotPropMoreView *)propMoreView {
     _moreView = [[HTMascotPropMoreView alloc] initWithProps:self.props andPageCount:propMoreView.pageCount + 1];
     [self.view addSubview:_moreView];
     _moreView.top = SCREEN_HEIGHT;
