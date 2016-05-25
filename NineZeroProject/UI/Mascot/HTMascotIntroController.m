@@ -177,6 +177,14 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [MobClick beginLogPageView:@"mascotintro page"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [MobClick endLogPageView:@"mascotintro page"];
+}
+
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     self.backButton.origin = CGPointMake(11, 34);

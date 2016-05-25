@@ -36,6 +36,16 @@
 //#endif
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"login page"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"login page"];
+}
+
 #pragma mark - Action
 
 - (IBAction)didClickLoginButton:(UIButton *)sender {

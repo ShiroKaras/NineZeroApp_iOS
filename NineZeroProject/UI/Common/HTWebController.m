@@ -38,6 +38,18 @@
     [HTProgressHUD show];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    if ([self.title isEqualToString:@"金币"]) {
+        [MobClick beginLogPageView:@"goldcoin page"];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    if ([self.title isEqualToString:@"金币"]){
+        [MobClick endLogPageView:@"goldcoin page"];
+    }
+}
+
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     _webView.frame = self.view.bounds;

@@ -123,6 +123,14 @@
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [MobClick beginLogPageView:@"badge page"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [MobClick endLogPageView:@"badge page"];
+}
+
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     _collectionView.frame = CGRectMake(0, 0, self.view.width, self.view.height);

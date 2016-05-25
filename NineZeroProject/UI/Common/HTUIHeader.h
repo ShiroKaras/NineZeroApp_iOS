@@ -35,4 +35,6 @@
 #import "easing.h"
 #import "YXEasing.h"
 
+#import "UMMobClick/MobClick.h"
+
 #endif /* HTUIHeader_h */

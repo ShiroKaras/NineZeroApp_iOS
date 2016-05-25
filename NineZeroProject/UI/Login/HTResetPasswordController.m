@@ -24,6 +24,16 @@
     self.title = @"输入密码";
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"Cpassword"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"Cpassword"];
+}
+
 - (instancetype)initWithLoginUser:(HTLoginUser *)loginUser {
     if (self = [super init]) {
         _loginUser = loginUser;

@@ -33,6 +33,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"Cessay page"];
+    
     [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] profileService] getCollectArticlesWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
         [HTProgressHUD dismiss];
@@ -73,6 +75,10 @@
         [self.view addSubview:self.blankView];
         self.blankView.top = ROUND_HEIGHT_FLOAT(157);
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [MobClick endLogPageView:@"Cessay page"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

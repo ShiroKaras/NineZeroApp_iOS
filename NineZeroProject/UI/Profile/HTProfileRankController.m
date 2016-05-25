@@ -58,6 +58,14 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [MobClick beginLogPageView:@"ranking page"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [MobClick endLogPageView:@"ranking page"];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

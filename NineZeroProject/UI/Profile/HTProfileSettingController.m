@@ -216,6 +216,14 @@ static NSInteger const kChangeNameViewTag = 12345;
     [self.tableView registerClass:[HTProfileSettingQuitLoginCell class] forCellReuseIdentifier:NSStringFromClass([HTProfileSettingQuitLoginCell class])];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [MobClick beginLogPageView:@"setting page"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [MobClick endLogPageView:@"setting page"];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _cellTypes.count;
 }
