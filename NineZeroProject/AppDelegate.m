@@ -62,7 +62,7 @@
     [self registerUmeng];
     [self registerUserAgent];
     
-    [NSThread sleepForTimeInterval:3];
+    [NSThread sleepForTimeInterval:2];
     [self createWindowAndVisibleWithOptions:launchOptions];
     
     // 光标颜色
