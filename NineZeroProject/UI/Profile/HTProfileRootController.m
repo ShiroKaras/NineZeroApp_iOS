@@ -90,9 +90,14 @@
         _profileInfo.answer_list = nil;
         _recordView.hidden = YES;
         
-        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_small"] andOffset:12];
-        [self.view addSubview:self.blankView];
+        if (self.blankView == nil) {
+            self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+            [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_small"] andOffset:12];
+            [self.view addSubview:self.blankView];
+        } else {
+            [self.view bringSubviewToFront:self.blankView];
+        }
+        
         [self reloadData];
     } else {
         _recordView.hidden = NO;
@@ -100,9 +105,13 @@
             if (success) {
                 _profileInfo = profileInfo;
                 if (_profileInfo.answer_list.count == 0) {
-                    self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
-                    [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:9];
-                    [self.view addSubview:self.blankView];
+                    if (self.blankView == nil) {
+                        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+                        [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_small"] andOffset:9];
+                        [self.view addSubview:self.blankView];
+                    } else {
+                        [self.view bringSubviewToFront:self.blankView];
+                    }
                 }
                 if([_profileInfo.notice integerValue]+1 - [UD integerForKey:@"notificationsHasReadKey"]>0)
                     self.notificationFlagImageView.hidden = NO;
