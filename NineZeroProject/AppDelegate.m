@@ -46,7 +46,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _cityCode = @"010";
-
+    
+    if (![UD boolForKey:@"everLaunched"]) {
+        [UD setBool:YES forKey:@"firstLaunch"];
+    }
+    else{
+        [UD setBool:NO forKey:@"firstLaunch"];
+    }
+    
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerAMap];
     [self registerLocation];
@@ -160,7 +167,7 @@
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
         
-        if ([UD boolForKey:@"firstLaunch"]){
+        if (![UD boolForKey:@"everLaunch"]){
             self.launchViewController = [[SKLaunchAnimationViewController alloc] init];
             [self.window addSubview:self.launchViewController.view];
             __weak AppDelegate *weakSelf = self;
