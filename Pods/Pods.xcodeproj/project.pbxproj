@@ -1440,6 +1440,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>212DB125428ACDEFEBCE6F6FAB370390</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>B5554A60F825AFCD365E3E666A6A97BE</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>21444D2E966FCE37F3315E2C6C03E6CE</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -1575,22 +1588,6 @@
 			<string>PBXGroup</string>
 			<key>name</key>
 			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2433B24828736953CA617ECD95734FB8</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>FCD62D8887054BDBA3919F70445531BC</string>
-				<string>A68D59CA28822A61EE33750F20C16864</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>JPush</string>
-			<key>path</key>
-			<string>JPush</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -2725,7 +2722,7 @@
 				<string>31A7154B45FD0C9F9F8F776F1A576F0C</string>
 				<string>D8B8EB40E7DD345A784BE847612B07A4</string>
 				<string>3DDBB327B4F7F5ED4D857EE7A2AEF5AD</string>
-				<string>2433B24828736953CA617ECD95734FB8</string>
+				<string>924E3E8E816866669EFAC5836DE988F1</string>
 				<string>1477F98FC6C7F49FDE23D508232506AF</string>
 				<string>08815836D4F30BC62E563CC63F50485D</string>
 				<string>2806F9C77E45C0369549EAB2728C02C7</string>
@@ -3175,6 +3172,21 @@
 			<string>CA8335D93422622BF721ED34F9FCB1F0</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>429AE8713753CAED1D2C01811C884D9B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>JPUSHService.h</string>
+			<key>path</key>
+			<string>lib/JPUSHService.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>432BD50F1E699EDF2EA007E850FFCEF7</key>
 		<dict>
@@ -6783,6 +6795,22 @@
 				</array>
 			</dict>
 		</dict>
+		<key>924E3E8E816866669EFAC5836DE988F1</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>429AE8713753CAED1D2C01811C884D9B</string>
+				<string>212DB125428ACDEFEBCE6F6FAB370390</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>JPush</string>
+			<key>path</key>
+			<string>JPush</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>9263F5F52AB34D6BC9817AC60F5D7EF1</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -7577,19 +7605,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>A68D59CA28822A61EE33750F20C16864</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D5BEA72E6C9D8EE2BEDE413A0304A05B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>A6FE5B3169128D6BE8A39F24ED096598</key>
 		<dict>
 			<key>fileRef</key>
@@ -8320,6 +8335,21 @@
 			<string>08689EEF154465C3AF815F2EF4711675</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>B5554A60F825AFCD365E3E666A6A97BE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>archive.ar</string>
+			<key>name</key>
+			<string>libjpush-ios-2.1.0.a</string>
+			<key>path</key>
+			<string>lib/libjpush-ios-2.1.0.a</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>B557978FD9EA3D6F5921C1735446FDC6</key>
 		<dict>
@@ -9917,21 +9947,6 @@
 			<string>PBXGroup</string>
 			<key>name</key>
 			<string>NSURLConnection</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D5BEA72E6C9D8EE2BEDE413A0304A05B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>archive.ar</string>
-			<key>name</key>
-			<string>libPushSDK-1.8.5.a</string>
-			<key>path</key>
-			<string>lib/libPushSDK-1.8.5.a</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -11612,21 +11627,6 @@
 			<string>9E6C740C44D0395DEF7A17F1EE40176D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>FCD62D8887054BDBA3919F70445531BC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>APService.h</string>
-			<key>path</key>
-			<string>lib/APService.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>FD39EBE3398E1A99965AC003B273450D</key>
 		<dict>

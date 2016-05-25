@@ -29,7 +29,7 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - HappyDNS (0.2.1)
-  - JPush (1.8.5)
+  - JPush (2.1.0)
   - Masonry (0.6.2)
   - MBProgressHUD (0.9.1)
   - MBProgressHUD+BWMExtension (1.0.0):
@@ -54,7 +54,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.6)
   - AMapLocation
-  - JPush (~> 1.8.5)
+  - JPush (~> 2.1.0)
   - Masonry (~> 0.6.2)
   - MBProgressHUD+BWMExtension (~> 1.0.0)
   - MJExtension
@@ -73,7 +73,7 @@ SPEC CHECKSUMS:
   AMapLocation: 5412fbf0385716d4d481e39a95929057cddc093f
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   HappyDNS: 8eb3c929ee6143eb56bfddfc9e6052ca9429699c
-  JPush: ba06a6f866ce11f11c15149e7fa67488a23eec87
+  JPush: 92cb879829f0d81ab17b2c9ad009fdb88c6cf6e5
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MBProgressHUD+BWMExtension: dd1dff033c1802edf7cb613c5643db5f090575bd

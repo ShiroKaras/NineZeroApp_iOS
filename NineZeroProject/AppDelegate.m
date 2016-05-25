@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "APService.h"
+#import "JPUSHService.h"
 #import "HTLoginRootController.h"
 #import "HTServiceManager.h"
 #import "HTNavigationController.h"
@@ -104,17 +104,17 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     DLog(@"applicationDidBecomeActive");
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    [APService resetBadge];
+    [JPUSHService resetBadge];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     DLog(@"didRegisterForRemoteNotificationsWithDeviceToken : %@", deviceToken);
-    [APService registerDeviceToken:deviceToken];
+    [JPUSHService registerDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     DLog(@"didReceiveRemoteNotification : %@", userInfo);
-    [APService handleRemoteNotification:userInfo];
+    [JPUSHService handleRemoteNotification:userInfo];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
@@ -122,7 +122,7 @@
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
         [self handleAPNsDict:userInfo];
     }
-    [APService handleRemoteNotification:userInfo];
+    [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
@@ -317,20 +317,20 @@
 - (void)registerJPushWithLaunchOptions:(NSDictionary *)launchOptions {
     // JPush
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        [APService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
                                                        UIUserNotificationTypeSound |
                                                        UIUserNotificationTypeAlert)
                                            categories:nil];
     } else {
-        [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+        [JPUSHService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
                                                        UIRemoteNotificationTypeSound |
                                                        UIRemoteNotificationTypeAlert)
                                            categories:nil];
     }
-    [APService setupWithOption:launchOptions];
-    [APService resetBadge];
+    [JPUSHService setupWithOption:launchOptions];
+    [JPUSHService resetBadge];
     if ([[HTStorageManager sharedInstance] getUserID]) {
-        [APService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
+        [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
     }
 }
 

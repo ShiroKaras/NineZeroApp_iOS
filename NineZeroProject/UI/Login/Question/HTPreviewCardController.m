@@ -18,7 +18,7 @@
 #import "HTRewardController.h"
 #import "Reachability.h"
 #import "SharkfoodMuteSwitchDetector.h"
-#import "APService.h"
+#import "JPUSHService.h"
 #import "HTRelaxController.h"
 #import "HTAlertView.h"
 #import "HTBlankView.h"
@@ -221,7 +221,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         }];
         
         if ([[HTStorageManager sharedInstance] getUserID]) {
-            [APService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
+            [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
         }
         
         _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
