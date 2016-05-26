@@ -490,9 +490,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonType type = (HTButtonType)sender.tag;
     switch (type) {
         case HTButtonTypeWechat: {
-            UIImage *oImage = [SKImageHelper getImageFromURL:_question.question_video_cover];
-            UIImage *finImage = [SKImageHelper compressImage:oImage toMaxFileSize:32];
-            NSArray* imageArray = @[finImage];
+//            UIImage *oImage = [SKImageHelper getImageFromURL:_question.question_video_cover];
+//            UIImage *finImage = [SKImageHelper compressImage:oImage toMaxFileSize:32];
+            NSArray* imageArray = @[_question.question_video_cover];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -533,9 +533,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeMoment: {
-            UIImage *oImage = [SKImageHelper getImageFromURL:_question.question_video_cover];
-            UIImage *finImage = [SKImageHelper compressImage:oImage toMaxFileSize:32];
-            NSArray* imageArray = @[finImage];
+//            UIImage *oImage = [SKImageHelper getImageFromURL:_question.question_video_cover];
+//            UIImage *finImage = [SKImageHelper compressImage:oImage toMaxFileSize:32];
+            NSArray* imageArray = @[_question.question_video_cover];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
