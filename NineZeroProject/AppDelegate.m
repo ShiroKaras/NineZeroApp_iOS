@@ -184,7 +184,7 @@
         }
         
         [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
-        
+        [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
         // 用户通过点击图标启动程序 还是  点击通知启动程序
         // 获取启动时收到的APN
         NSDictionary* remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];

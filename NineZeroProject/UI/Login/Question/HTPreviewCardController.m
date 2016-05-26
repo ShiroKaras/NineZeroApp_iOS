@@ -176,6 +176,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)loadData {
+    [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
     if (_cardType == HTPreviewCardTypeDefault) {
         [HTProgressHUD show];
         _dimmingView = [[UIView alloc] initWithFrame:SCREEN_BOUNDS];
@@ -247,7 +248,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             }
         }];
     } else if (_cardType == HTPreviewCardTypeRecord) {
-        questionList = [[[[HTServiceManager sharedInstance] questionService] questionListSuccessful] mutableCopy];
+        questionList = [[[HTStorageManager sharedInstance] profileInfo].answer_list mutableCopy];
         if (questionList.count>0) {
             _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
             [self.view addSubview:_recordView];
@@ -560,6 +561,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         _composeView.composeButton.enabled = YES;
         if (success) {
             if (response.resultCode == 0) {
+                [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
                 [_composeView showAnswerCorrect:YES];
                 clickCount = 0;
                 questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];

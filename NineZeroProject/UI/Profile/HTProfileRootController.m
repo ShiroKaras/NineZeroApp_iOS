@@ -154,11 +154,6 @@
     [_recordView reloadData];
 }
 
-//- (NSString *)truncatingWithString:(NSString *)string {
-//    NSUInteger number = [string integerValue];
-//    if (number > )
-//}
-
 - (IBAction)didClickBackButton:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -213,7 +208,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [[[HTServiceManager sharedInstance] questionService] questionListSuccessful].count;
+    return _profileInfo.answer_list.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -243,7 +238,7 @@
 #pragma mark - HTProfileRecordCell Delegate
 
 - (void)onClickedPlayButtonInCollectionCell:(HTProfileRecordCell *)cell {
-    NSArray<HTQuestion *> *questionList = [[[HTServiceManager sharedInstance] questionService] questionListSuccessful];
+    NSArray<HTQuestion *> *questionList = _profileInfo.answer_list;
     if (questionList.count <= 0) return;
     _snapCell = [cell.coverImageView snapshotViewAfterScreenUpdates:YES];
     

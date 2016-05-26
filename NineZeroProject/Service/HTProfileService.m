@@ -96,7 +96,7 @@
                 for (int i = 0; i != [responseObject[@"data"][@"answer_list"] count]; i++) {
                     @autoreleasepool {
                         HTQuestion *answer = [HTQuestion objectWithKeyValues:[responseObject[@"data"][@"answer_list"] objectAtIndex:i]];
-                        //                    [answerList insertObject:answer atIndex:0];
+                        answer.isPassed = YES;
                         [answerList addObject:answer];
                         if (answer.question_video_cover) [downloadKeys addObject:answer.question_video_cover];
                         if (answer.descriptionPic) [downloadKeys addObject:answer.descriptionPic];
@@ -191,6 +191,14 @@
     [self getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
         if (success) {
             [[HTStorageManager sharedInstance] setUserInfo:userInfo];
+        }
+    }];
+}
+
+- (void)updateProfileInfoFromServer {
+    [self getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
+        if (success) {
+            [[HTStorageManager sharedInstance] setProfileInfo:profileInfo];
         }
     }];
 }
