@@ -34,6 +34,7 @@
 #import "HTAlertView.h"
 #import "easing.h"
 #import "YXEasing.h"
+#import "SKImageHelper.h"
 
 #import "UMMobClick/MobClick.h"
 

@@ -490,7 +490,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonType type = (HTButtonType)sender.tag;
     switch (type) {
         case HTButtonTypeWechat: {
-            NSArray* imageArray = @[_question.question_video_cover];
+            UIImage *oImage = [SKImageHelper getImageFromURL:_question.question_video_cover];
+            UIImage *finImage = [SKImageHelper compressImage:oImage toMaxFileSize:32];
+            NSArray* imageArray = @[finImage];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -501,6 +503,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                   title:[NSString stringWithFormat:@"第%ld章",(NSUInteger)_question.serial]
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    DLog(@"State -> %lu", (unsigned long)state);
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
@@ -530,7 +533,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeMoment: {
-            NSArray* imageArray = @[_question.question_video_cover];
+            UIImage *oImage = [SKImageHelper getImageFromURL:_question.question_video_cover];
+            UIImage *finImage = [SKImageHelper compressImage:oImage toMaxFileSize:32];
+            NSArray* imageArray = @[finImage];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
