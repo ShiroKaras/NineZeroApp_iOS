@@ -611,7 +611,6 @@
 		1787FD231C4A895B006E55A6 /* HTARCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD221C4A895B006E55A6 /* HTARCaptureController.m */; };
 		1787FD2B1C4A9E85006E55A6 /* INTULocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD271C4A9E85006E55A6 /* INTULocationManager.m */; };
 		1787FD2C1C4A9E85006E55A6 /* INTULocationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1787FD291C4A9E85006E55A6 /* INTULocationRequest.m */; };
-		178E7AF91C91EC4B00E4B84F /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178E7AF81C91EC4B00E4B84F /* Reveal.framework */; };
 		179622BE1C5E1D6C00DCA470 /* HTMascotArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 179622BD1C5E1D6C00DCA470 /* HTMascotArticleCell.m */; };
 		17967AB51C174ED500571924 /* HTQuestionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 17967AB41C174ED500571924 /* HTQuestionService.m */; };
 		179D2BAA1C5E414F000A4461 /* HTArticleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 179D2BA91C5E414F000A4461 /* HTArticleController.m */; };
@@ -1697,7 +1696,6 @@
 				17617F7E1BEFB0EE000B2BFA /* libicucore.tbd in Frameworks */,
 				17617F6A1BEFAE05000B2BFA /* Security.framework in Frameworks */,
 				11F2185B1CBB951300D2ED44 /* libWeChatSDK.a in Frameworks */,
-				178E7AF91C91EC4B00E4B84F /* Reveal.framework in Frameworks */,
 				1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */,
 				176B75711C76264A0069DE89 /* AudioToolbox.framework in Frameworks */,
 				11F218591CBB951300D2ED44 /* libWeiboSDK.a in Frameworks */,
@@ -4318,7 +4316,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zac Yang (5P67F5SADB)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zac Yang (6H2SM536G6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
@@ -4346,7 +4344,6 @@
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-weak_library",
 					/usr/lib/libz.dylib,
 					"-l\"AFDownloadRequestOperation\"",
@@ -4399,10 +4396,8 @@
 					"\"SystemConfiguration\"",
 					"-framework",
 					"\"UIKit\"",
-					"-ObjC",
 					"-lz",
-					"-framework",
-					Reveal,
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4417,7 +4412,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zac Yang (5P67F5SADB)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zac Yang (6H2SM536G6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
@@ -4445,7 +4440,6 @@
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-weak_library",
 					/usr/lib/libz.dylib,
 					"-l\"AFDownloadRequestOperation\"",
@@ -4498,10 +4492,8 @@
 					"\"SystemConfiguration\"",
 					"-framework",
 					"\"UIKit\"",
-					"-ObjC",
 					"-lz",
-					"-framework",
-					Reveal,
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
