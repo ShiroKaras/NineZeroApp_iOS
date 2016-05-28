@@ -250,6 +250,7 @@
     UMConfigInstance.appKey = @"574011a6e0f55acb3200270a";
     UMConfigInstance.channelId = @"";
     UMConfigInstance.ePolicy = BATCH;
+    [MobClick startWithConfigure:UMConfigInstance];
     [MobClick setLogEnabled:YES];
 }
 
