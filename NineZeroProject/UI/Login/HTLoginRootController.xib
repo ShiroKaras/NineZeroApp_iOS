@@ -90,14 +90,14 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKj-pQ-4mv" userLabel="wechat">
-                    <rect key="frame" x="79" y="430" width="38" height="38"/>
+                    <rect key="frame" x="169" y="430" width="38" height="38"/>
                     <state key="normal" image="btn_signup_wechat"/>
                     <state key="highlighted" image="btn_signup_wechat_highlight"/>
                     <connections>
                         <action selector="loginButtonWeixinClicked:" destination="-1" eventType="touchUpInside" id="Elh-7H-Ad8"/>
                     </connections>
                 </button>
-                <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9C-AH-epn" userLabel="weibo">
+                <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9C-AH-epn" userLabel="weibo">
                     <rect key="frame" x="257" y="430" width="38" height="38"/>
                     <state key="normal" image="btn_signup_weibo"/>
                 </button>
@@ -143,7 +143,7 @@
                         <action selector="loginButtonClicked:" destination="-1" eventType="touchUpInside" id="dKc-6n-UPk"/>
                     </connections>
                 </button>
-                <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bw-vK-ZTK" userLabel="qq">
+                <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bw-vK-ZTK" userLabel="qq">
                     <rect key="frame" x="168" y="430" width="38" height="38"/>
                     <state key="normal" image="btn_signup_qq"/>
                 </button>
@@ -156,40 +156,30 @@
                 <constraint firstAttribute="trailing" secondItem="riS-rR-xha" secondAttribute="trailing" id="9na-KX-Fki"/>
                 <constraint firstItem="5bw-vK-ZTK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="AbY-8K-Vrh"/>
                 <constraint firstItem="5bw-vK-ZTK" firstAttribute="centerY" secondItem="oKj-pQ-4mv" secondAttribute="centerY" id="Hui-Hn-jFZ"/>
-                <constraint firstItem="oKj-pQ-4mv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="106" id="JP1-ei-xwY"/>
                 <constraint firstItem="WrT-aC-PWi" firstAttribute="bottom" secondItem="kOp-fE-le8" secondAttribute="bottom" constant="10" id="Kwj-DI-5Ym"/>
-                <constraint firstItem="WrT-aC-PWi" firstAttribute="top" secondItem="kOp-fE-le8" secondAttribute="top" id="NK9-zy-e7l"/>
                 <constraint firstItem="g9C-AH-epn" firstAttribute="leading" secondItem="5bw-vK-ZTK" secondAttribute="trailing" constant="51" id="QRA-FT-Sqe"/>
                 <constraint firstAttribute="trailing" secondItem="MAo-EP-LTN" secondAttribute="trailing" id="XSz-A2-gEK"/>
                 <constraint firstItem="MAo-EP-LTN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Y2W-GN-uA2"/>
                 <constraint firstAttribute="trailing" secondItem="w2K-Bt-Fji" secondAttribute="trailing" constant="18" id="YVe-kq-JfV"/>
                 <constraint firstItem="kOp-fE-le8" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-20" id="YuA-fA-Fe0"/>
                 <constraint firstItem="riS-rR-xha" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="aZd-9g-6t4"/>
-                <constraint firstItem="5bw-vK-ZTK" firstAttribute="top" secondItem="MAo-EP-LTN" secondAttribute="bottom" constant="33" id="cpA-yE-AwT"/>
-                <constraint firstAttribute="trailing" secondItem="g9C-AH-epn" secondAttribute="trailing" constant="78" id="dHy-ue-Ejl"/>
                 <constraint firstItem="riS-rR-xha" firstAttribute="top" secondItem="nCL-V8-2Gm" secondAttribute="bottom" id="g6t-Cb-iV9"/>
                 <constraint firstItem="g9C-AH-epn" firstAttribute="centerY" secondItem="oKj-pQ-4mv" secondAttribute="centerY" id="gH6-NX-KA9"/>
                 <constraint firstItem="MAo-EP-LTN" firstAttribute="top" secondItem="riS-rR-xha" secondAttribute="bottom" constant="9" id="kwf-Vg-MY6"/>
                 <constraint firstItem="w2K-Bt-Fji" firstAttribute="top" secondItem="MAo-EP-LTN" secondAttribute="bottom" constant="12" id="mPe-Pg-lA7"/>
                 <constraint firstItem="nCL-V8-2Gm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rnm-M9-h93"/>
-                <constraint firstItem="g9C-AH-epn" firstAttribute="top" secondItem="MAo-EP-LTN" secondAttribute="bottom" constant="33" id="t9z-mm-AAR"/>
+                <constraint firstItem="oKj-pQ-4mv" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sWO-aD-Gib"/>
                 <constraint firstItem="5bw-vK-ZTK" firstAttribute="leading" secondItem="oKj-pQ-4mv" secondAttribute="trailing" constant="51" id="tCG-Yg-4l0"/>
                 <constraint firstItem="nCL-V8-2Gm" firstAttribute="top" secondItem="kOp-fE-le8" secondAttribute="bottom" constant="31" id="uBS-Ht-wEW"/>
                 <constraint firstAttribute="trailing" secondItem="WrT-aC-PWi" secondAttribute="trailing" id="wTl-7q-UdW"/>
-                <constraint firstItem="WrT-aC-PWi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="92" id="x6W-53-Hyc"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="NK9-zy-e7l"/>
-                    <exclude reference="x6W-53-Hyc"/>
-                    <exclude reference="JP1-ei-xwY"/>
-                    <exclude reference="cpA-yE-AwT"/>
-                    <exclude reference="dHy-ue-Ejl"/>
-                    <exclude reference="t9z-mm-AAR"/>
+                    <exclude reference="tCG-Yg-4l0"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="-206.5" y="376.5"/>
+            <point key="canvasLocation" x="-316.5" y="419.5"/>
         </view>
     </objects>
     <resources>
