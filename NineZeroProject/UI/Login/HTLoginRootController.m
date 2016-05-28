@@ -127,7 +127,7 @@
 }
 
 - (IBAction)loginButtonWeixinClicked:(id)sender {
-    [MobClick event:@"weixin register"];
+    [MobClick event:@"weixinregister"];
     [ShareSDK getUserInfo:SSDKPlatformTypeWechat
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
      {
@@ -151,7 +151,7 @@
 }
 
 - (IBAction)loginButtonQQClicked:(id)sender {
-    [MobClick event:@"weibo register"];
+    [MobClick event:@"weiboregister"];
     [ShareSDK getUserInfo:SSDKPlatformTypeQQ
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
      {
@@ -175,7 +175,7 @@
 }
 
 - (IBAction)loginButtonWeiboClicked:(id)sender {
-    [MobClick event:@"QQ register"];
+    [MobClick event:@"QQregister"];
     [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
 onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
     {

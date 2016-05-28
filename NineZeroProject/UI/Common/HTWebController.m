@@ -40,13 +40,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     if ([self.title isEqualToString:@"金币"]) {
-        [MobClick beginLogPageView:@"goldcoin page"];
+        [MobClick beginLogPageView:@"goldcoinpage"];
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     if ([self.title isEqualToString:@"金币"]){
-        [MobClick endLogPageView:@"goldcoin page"];
+        [MobClick endLogPageView:@"goldcoinpage"];
     }
 }
 

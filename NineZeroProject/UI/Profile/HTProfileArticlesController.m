@@ -62,12 +62,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"exessay page"];
+    [MobClick beginLogPageView:@"exessaypage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"exessay page"];
+    [MobClick endLogPageView:@"exessaypage"];
 }
 
 

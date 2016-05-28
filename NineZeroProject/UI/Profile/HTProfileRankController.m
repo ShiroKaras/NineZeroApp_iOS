@@ -59,11 +59,11 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [MobClick beginLogPageView:@"ranking page"];
+    [MobClick beginLogPageView:@"rankingpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [MobClick endLogPageView:@"ranking page"];
+    [MobClick endLogPageView:@"rankingpage"];
 }
 
 #pragma mark - Table view data source

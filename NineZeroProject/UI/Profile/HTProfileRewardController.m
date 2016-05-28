@@ -58,12 +58,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"gift page"];
+    [MobClick beginLogPageView:@"giftpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"gift page"];
+    [MobClick endLogPageView:@"giftpage"];
 }
 
 #pragma mark - Table view data source

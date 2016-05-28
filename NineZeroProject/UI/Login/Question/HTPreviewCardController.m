@@ -117,9 +117,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (self.cardType == HTPreviewCardTypeDefault) {
-        [MobClick beginLogPageView:@"main page"];
+        [MobClick beginLogPageView:@"mainpage"];
     }else if (self.cardType == HTPreviewCardTypeRecord) {
-        [MobClick beginLogPageView:@"record page"];
+        [MobClick beginLogPageView:@"recordpage"];
     }
 }
 
@@ -127,9 +127,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [super viewDidAppear:animated];
     [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
     if (self.cardType == HTPreviewCardTypeDefault) {
-        [MobClick endLogPageView:@"main page"];
+        [MobClick endLogPageView:@"mainpage"];
     }else if (self.cardType == HTPreviewCardTypeRecord) {
-        [MobClick endLogPageView:@"record page"];
+        [MobClick endLogPageView:@"recordpage"];
     }
 }
 

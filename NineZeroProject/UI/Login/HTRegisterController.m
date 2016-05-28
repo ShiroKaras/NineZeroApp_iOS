@@ -51,12 +51,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"register page"];
+    [MobClick beginLogPageView:@"registerpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"register page"];
+    [MobClick endLogPageView:@"registerpage"];
 }
 
 #pragma mark - Subclass

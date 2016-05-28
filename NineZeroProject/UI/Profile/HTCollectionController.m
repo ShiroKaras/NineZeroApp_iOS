@@ -33,7 +33,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"Cessay page"];
+    [MobClick beginLogPageView:@"Cessaypage"];
     
     [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] profileService] getCollectArticlesWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
@@ -78,7 +78,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [MobClick endLogPageView:@"Cessay page"];
+    [MobClick endLogPageView:@"Cessaypage"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

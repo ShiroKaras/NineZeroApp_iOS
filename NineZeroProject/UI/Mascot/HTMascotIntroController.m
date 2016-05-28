@@ -178,11 +178,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [MobClick beginLogPageView:@"mascotintro page"];
+    [MobClick beginLogPageView:@"mascotintropage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [MobClick endLogPageView:@"mascotintro page"];
+    [MobClick endLogPageView:@"mascotintropage"];
 }
 
 - (void)viewWillLayoutSubviews {

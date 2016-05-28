@@ -83,7 +83,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"home page"];
+    [MobClick beginLogPageView:@"homepage"];
     self.navigationController.navigationBar.hidden = YES;
     
     if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
@@ -134,7 +134,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = NO;
-    [MobClick endLogPageView:@"home page"];
+    [MobClick endLogPageView:@"homepage"];
 }
 
 - (void)viewWillLayoutSubviews {

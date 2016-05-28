@@ -217,11 +217,11 @@ static NSInteger const kChangeNameViewTag = 12345;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [MobClick beginLogPageView:@"setting page"];
+    [MobClick beginLogPageView:@"settingpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [MobClick endLogPageView:@"setting page"];
+    [MobClick endLogPageView:@"settingpage"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

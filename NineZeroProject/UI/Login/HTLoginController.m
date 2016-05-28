@@ -38,12 +38,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"login page"];
+    [MobClick beginLogPageView:@"loginpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"login page"];
+    [MobClick endLogPageView:@"loginpage"];
 }
 
 #pragma mark - Action
@@ -74,7 +74,7 @@
 }
 
 - (IBAction)didClickForgetPassword:(UIButton *)sender {
-    [MobClick event:@"forget password"];
+    [MobClick event:@"forgetpassword"];
     HTForgetPasswordController *forgetPwdController = [[HTForgetPasswordController alloc] init];
     [self.navigationController pushViewController:forgetPwdController animated:YES];
 }

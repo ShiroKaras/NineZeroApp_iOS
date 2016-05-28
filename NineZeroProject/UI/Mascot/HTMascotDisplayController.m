@@ -81,13 +81,13 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"mascot page"];
+    [MobClick beginLogPageView:@"mascotpage"];
     [self reloadAllData];
     [self reloadViews];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [MobClick endLogPageView:@"mascot page"];
+    [MobClick endLogPageView:@"mascotpage"];
 }
 
 - (void)reloadAllData {
