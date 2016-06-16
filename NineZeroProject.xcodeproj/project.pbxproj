@@ -14,6 +14,7 @@
 		1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */; };
 		1121676D1CF3358E0048EA01 /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */; };
 		1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */; };
+		11630A521D12BF9A00B39FF9 /* SKCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11630A511D12BF9A00B39FF9 /* SKCGIManager.m */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
@@ -792,6 +793,9 @@
 		1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SKUserAgreementViewController.xib; sourceTree = "<group>"; };
 		1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
+		11630A501D12BF9A00B39FF9 /* SKCGIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKCGIManager.h; sourceTree = "<group>"; };
+		11630A511D12BF9A00B39FF9 /* SKCGIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKCGIManager.m; sourceTree = "<group>"; };
+		11630A531D12BFB700B39FF9 /* SKNetworkDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNetworkDefine.h; sourceTree = "<group>"; };
 		1196F29F1CF6DFA600E70C83 /* SKImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKImageHelper.h; sourceTree = "<group>"; };
 		1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKImageHelper.m; sourceTree = "<group>"; };
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
@@ -1795,6 +1799,16 @@
 			path = UMengMobClick;
 			sourceTree = "<group>";
 		};
+		11630A541D12DD4000B39FF9 /* SKNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				11630A501D12BF9A00B39FF9 /* SKCGIManager.h */,
+				11630A511D12BF9A00B39FF9 /* SKCGIManager.m */,
+				11630A531D12BFB700B39FF9 /* SKNetworkDefine.h */,
+			);
+			name = SKNetwork;
+			sourceTree = "<group>";
+		};
 		11CA0C531CD24E4200C06333 /* Easing */ = {
 			isa = PBXGroup;
 			children = (
@@ -1918,6 +1932,7 @@
 		1721D7171BEFB77E00498304 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				11630A541D12DD4000B39FF9 /* SKNetwork */,
 				1721D7201BEFB9F200498304 /* HTCGIManager.h */,
 				1721D7211BEFBAD200498304 /* HTCGIManager.m */,
 				17A47E8D1C03815F00BEC1DD /* HTNetworkDefine.h */,
@@ -4172,6 +4187,7 @@
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
 				1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */,
 				17F0F47C1C95D1510050F0EB /* HTProfileService.m in Sources */,
+				11630A521D12BF9A00B39FF9 /* SKCGIManager.m in Sources */,
 				17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
 				17A89AAF1C1DBA150087BF00 /* README.md in Sources */,
