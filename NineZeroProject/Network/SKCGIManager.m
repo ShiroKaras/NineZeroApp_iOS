@@ -150,4 +150,41 @@
 + (NSString *)profile_getMessageList_Action {
     return @"get_affiche";
 }
+
+#pragma mark 停赛日
++ (NSString *)restday_isRestday_Action {
+    return @"is_rest_day";
+}
+
++ (NSString *)restday_getRestday_Action {
+    return @"get_rest_day";
+}
+
+#pragma mark 题目
++ (NSString *)question_getCurrentQuestion_Action {
+    return @"get_current_question";
+}
+
++ (NSString *)question_getQuestionList_Action {
+    return @"get_list";
+}
+
++ (NSString *)question_checkAnswer_Action {
+    return @"check_answer";
+}
+
+#pragma mark 题目奖励
++ (NSString *)reward_getReward_Action {
+    return @"get_reward";
+}
+
+#pragma mark 以下API不需要登录
++ (NSString *)resource_getMascot_Action {
+    return @"get_pets";
+}
+
++ (NSString *)resource_getMedals_Action {
+    return @"get_medals";
+}
+
 @end
