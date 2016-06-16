@@ -20,6 +20,7 @@
 #import "HTArticleController.h"
 #import "SKLaunchAnimationViewController.h"
 
+#import <JSPatch/JSPatch.h>
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
@@ -55,6 +56,7 @@
     }
     
     [self registerJPushWithLaunchOptions:launchOptions];
+    [self registerJSPatch];
     [self registerAMap];
     [self registerLocation];
     [self registerQiniuService];
@@ -338,6 +340,13 @@
     if ([[HTStorageManager sharedInstance] getUserID]) {
         [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
     }
+}
+
+#pragma mark - JSPatch
+
+- (void)registerJSPatch {
+    [JSPatch startWithAppKey:@"76be4930cef557f7"];
+    [JSPatch sync];
 }
 
 @end

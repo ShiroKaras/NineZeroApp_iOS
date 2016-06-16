@@ -15,6 +15,7 @@
 		1121676D1CF3358E0048EA01 /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */; };
 		1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */; };
 		11630A521D12BF9A00B39FF9 /* SKCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11630A511D12BF9A00B39FF9 /* SKCGIManager.m */; };
+		11630A571D12E6B600B39FF9 /* JSPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11630A561D12E6B600B39FF9 /* JSPatch.framework */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
@@ -796,6 +797,7 @@
 		11630A501D12BF9A00B39FF9 /* SKCGIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKCGIManager.h; sourceTree = "<group>"; };
 		11630A511D12BF9A00B39FF9 /* SKCGIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKCGIManager.m; sourceTree = "<group>"; };
 		11630A531D12BFB700B39FF9 /* SKNetworkDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNetworkDefine.h; sourceTree = "<group>"; };
+		11630A561D12E6B600B39FF9 /* JSPatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatch.framework; sourceTree = "<group>"; };
 		1196F29F1CF6DFA600E70C83 /* SKImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKImageHelper.h; sourceTree = "<group>"; };
 		1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKImageHelper.m; sourceTree = "<group>"; };
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
@@ -1712,7 +1714,6 @@
 				1767F8D91CC93BB400BBD44E /* MediaPlayer.framework in Frameworks */,
 				174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */,
 				11F218611CBB986E00D2ED44 /* ImageIO.framework in Frameworks */,
-				17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */,
 				17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */,
 				17617F6C1BEFAE0F000B2BFA /* libz.tbd in Frameworks */,
 				17617F7E1BEFB0EE000B2BFA /* libicucore.tbd in Frameworks */,
@@ -1723,6 +1724,8 @@
 				11F218591CBB951300D2ED44 /* libWeiboSDK.a in Frameworks */,
 				11F218561CBB951300D2ED44 /* ShareSDKUI.framework in Frameworks */,
 				11F2185D1CBB951300D2ED44 /* MOBFoundation.framework in Frameworks */,
+				11630A571D12E6B600B39FF9 /* JSPatch.framework in Frameworks */,
+				17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */,
 				17617F621BEFADE8000B2BFA /* SystemConfiguration.framework in Frameworks */,
 				17617F801BEFB0FB000B2BFA /* MessageUI.framework in Frameworks */,
 				17617F681BEFADFF000B2BFA /* UIKit.framework in Frameworks */,
@@ -1807,6 +1810,14 @@
 				11630A531D12BFB700B39FF9 /* SKNetworkDefine.h */,
 			);
 			name = SKNetwork;
+			sourceTree = "<group>";
+		};
+		11630A551D12E6B600B39FF9 /* JSPatch */ = {
+			isa = PBXGroup;
+			children = (
+				11630A561D12E6B600B39FF9 /* JSPatch.framework */,
+			);
+			path = JSPatch;
 			sourceTree = "<group>";
 		};
 		11CA0C531CD24E4200C06333 /* Easing */ = {
@@ -3066,6 +3077,7 @@
 			children = (
 				1126BFC51CF59BBE00E4FAC3 /* UMeng */,
 				11CA0C531CD24E4200C06333 /* Easing */,
+				11630A551D12E6B600B39FF9 /* JSPatch */,
 				11F218301CBB951300D2ED44 /* ShareSDK */,
 				17A92C9E1CA809B100BE893D /* MJRefresh */,
 				176B756B1C7620480069DE89 /* SharkfoodMuteSwitchDetector */,
@@ -4388,6 +4400,7 @@
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/Required",
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/UMeng/UMengMobClick",
+					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/JSPatch",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/NineZeroProject-Prefix.pch";
@@ -4484,6 +4497,7 @@
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/Required",
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/UMeng/UMengMobClick",
+					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/JSPatch",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/NineZeroProject-Prefix.pch";
