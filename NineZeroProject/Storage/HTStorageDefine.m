@@ -22,6 +22,8 @@ NSString *const kStorageLoginUserKey          = @"kStorageLoginUserKey";
 
 NSString *const kStorageUserIdKey             = @"kStorageUserIdKey";
 
+NSString *const kStorageUserTokenKey          = @"kStorageUserTokenKey";
+
 NSString *const kStorageSaltKey               = @"kStorageSaltKey";
 
 NSString *const kQiniuTokenKey                = @"kQiniuTokenKey";

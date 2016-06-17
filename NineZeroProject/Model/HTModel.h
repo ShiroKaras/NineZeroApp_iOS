@@ -21,10 +21,10 @@
 @property (nonatomic, copy) NSString *user_mobile;
 @property (nonatomic, copy) NSString *user_email;
 @property (nonatomic, copy) NSString *user_avatar;
-@property (nonatomic, copy) NSString *user_area_id;     // 用户所在城市ID
-@property (nonatomic, copy) NSString *code;             // 验证码
+@property (nonatomic, copy) NSString *user_area_id;     //用户所在城市ID
+@property (nonatomic, copy) NSString *code;             //验证码
 @property (nonatomic, copy) NSString *third_id;         //第三方平台ID
-
+@property (nonatomic, copy) NSString *token;            //login token
 @end
 
 @interface HTQuestionInfo : NSObject
@@ -65,10 +65,19 @@
 
 @interface HTResponsePackage : NSObject
 
-@property (nonatomic, strong) id data;                    // 返回数据
-@property (nonatomic, strong) NSString *method;           // 方法名
-@property (nonatomic, assign) NSInteger resultCode;       // 结果code
-@property (nonatomic, strong) NSString *resultMsg;        // 结果信息
+@property (nonatomic, strong) id data;                      // 返回数据
+@property (nonatomic, strong) NSString *method;             // 方法名
+@property (nonatomic, assign) NSInteger resultCode;         // 结果code
+@property (nonatomic, strong) NSString *resultMsg;          // 结果信息
+
+@end
+
+@interface SKResponsePackage : NSObject
+
+@property (nonatomic, strong) id data;                      // 返回数据
+@property (nonatomic, strong) NSString *method;             // 方法名
+@property (nonatomic, assign) NSInteger resultCode;               // 结果code
+@property (nonatomic, strong) NSString *message;            // 结果信息
 
 @end
 

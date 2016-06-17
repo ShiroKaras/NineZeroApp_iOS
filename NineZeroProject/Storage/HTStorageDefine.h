@@ -22,6 +22,9 @@ extern NSString *const kStorageLoginUserKey;
 /** user_id */
 extern NSString *const kStorageUserIdKey;
 
+/** user_token */
+extern NSString *const kStorageUserTokenKey;
+
 /** 加密salt */
 extern NSString *const kStorageSaltKey;
 

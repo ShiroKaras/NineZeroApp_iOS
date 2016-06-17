@@ -83,6 +83,16 @@ HTINIT(HTResponsePackage)
 
 @end
 
+@implementation SKResponsePackage
+HTINIT(SKResponsePackage)
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"resultCode" : @"code",
+                                     @"method"     : @"action"
+                                     };
+    return propertyMapper;
+}
+@end
+
 @implementation HTArticle
 HTINIT(HTArticle)
 - (NSDictionary *)propertyMapper {

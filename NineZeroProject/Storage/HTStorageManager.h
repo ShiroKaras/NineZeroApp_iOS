@@ -32,6 +32,11 @@
 - (NSString *)getUserID;
 - (void)clearUserID;
 
+// user_token
+- (void)updateUserToken:(NSString *)token;
+- (NSString *)getUserToken;
+- (void)clearUserToken;
+
 // password salt
 - (void)updatePwdSalt:(NSString *)salt;
 - (NSString *)getPwdSalt;

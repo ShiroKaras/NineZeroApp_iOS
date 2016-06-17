@@ -98,14 +98,23 @@
 }
 
 - (NSString *)getUserID {
-//#ifdef DEBUG
-//    return @"2016030321302424224";
-//#endif
     return [_storageService getStringById:kStorageUserIdKey fromTable:kStorageTableKey];
 }
 
 - (void)clearUserID {
     [_storageService deleteObjectById:kStorageUserIdKey fromTable:kStorageTableKey];
+}
+
+- (void)updateUserToken:(NSString *)token {
+    [_storageService putString:token withId:kStorageUserTokenKey intoTable:kStorageTableKey];
+}
+
+- (NSString *)getUserToken {
+    return [_storageService getStringById:kStorageUserTokenKey fromTable:kStorageTableKey];
+}
+
+- (void)clearUserToken {
+    [_storageService deleteObjectById:kStorageUserTokenKey fromTable:kStorageTableKey];
 }
 
 - (void)updatePwdSalt:(NSString *)salt {

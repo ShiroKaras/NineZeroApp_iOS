@@ -798,6 +798,7 @@
 		11630A511D12BF9A00B39FF9 /* SKCGIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKCGIManager.m; sourceTree = "<group>"; };
 		11630A531D12BFB700B39FF9 /* SKNetworkDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNetworkDefine.h; sourceTree = "<group>"; };
 		11630A561D12E6B600B39FF9 /* JSPatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatch.framework; sourceTree = "<group>"; };
+		11630A581D13B46F00B39FF9 /* HTNetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNetworkDefine.h; sourceTree = "<group>"; };
 		1196F29F1CF6DFA600E70C83 /* SKImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKImageHelper.h; sourceTree = "<group>"; };
 		1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKImageHelper.m; sourceTree = "<group>"; };
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
@@ -1534,7 +1535,6 @@
 		17A277301BF8F8F400E46670 /* HTLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLog.h; sourceTree = "<group>"; };
 		17A47E8A1C037F3E00BEC1DD /* HTCommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCommonViewController.h; sourceTree = "<group>"; };
 		17A47E8B1C037F3E00BEC1DD /* HTCommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCommonViewController.m; sourceTree = "<group>"; };
-		17A47E8D1C03815F00BEC1DD /* HTNetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNetworkDefine.h; sourceTree = "<group>"; };
 		17A47E8E1C03869000BEC1DD /* HTLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTLoginButton.h; path = ../Common/HTLoginButton.h; sourceTree = "<group>"; };
 		17A47E8F1C03869000BEC1DD /* HTLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTLoginButton.m; path = ../Common/HTLoginButton.m; sourceTree = "<group>"; };
 		17A89AAA1C1DBA150087BF00 /* LTInfiniteScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LTInfiniteScrollView.h; path = LTInfiniteScrollView/LTInfiniteScrollView.h; sourceTree = "<group>"; };
@@ -1946,7 +1946,7 @@
 				11630A541D12DD4000B39FF9 /* SKNetwork */,
 				1721D7201BEFB9F200498304 /* HTCGIManager.h */,
 				1721D7211BEFBAD200498304 /* HTCGIManager.m */,
-				17A47E8D1C03815F00BEC1DD /* HTNetworkDefine.h */,
+				11630A581D13B46F00B39FF9 /* HTNetworkDefine.h */,
 			);
 			name = Network;
 			path = NineZeroProject/Network;
