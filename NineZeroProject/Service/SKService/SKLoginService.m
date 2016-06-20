@@ -9,6 +9,8 @@
 #import "SKLoginService.h"
 #import "HTLogicHeader.h"
 
+const NSString *secretSting = @"90app529D";
+
 @implementation SKLoginService {
     NSString *register_token;
     NSString *resetPassword_token;
@@ -24,7 +26,6 @@
 }
 
 #pragma mark - Public Method
-
 #pragma mark 登录
 - (void)loginWithUser:(HTLoginUser *)user completion:(SKResponseCallback)callback {
     NSDictionary *param = @{@"access_key"           : secretSting,

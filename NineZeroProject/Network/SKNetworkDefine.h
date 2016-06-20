@@ -8,9 +8,7 @@
 
 #ifndef SKNetworkDefine_h
 #define SKNetworkDefine_h
-#import "HTModel.h"
-
-const NSString *secretSting = @"90app529D";
+#import "SKModel.h"
 
 // 公用
 typedef void (^SKHTTPErrorCallback) (NSString *errorMessage);
