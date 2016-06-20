@@ -9,10 +9,9 @@
 #import "SKLoginService.h"
 #import "HTLogicHeader.h"
 
-const NSString *secretSting = @"90app529D";
-
 @implementation SKLoginService {
     NSString *register_token;
+    NSString *resetPassword_token;
 }
 
 - (instancetype)init {
@@ -92,6 +91,7 @@ const NSString *secretSting = @"90app529D";
 
 - (void)getRegisterVerifyCodeWithMobile:(NSString *)mobile completion:(SKResponseCallback)callback {
     if (mobile.length == 0) return;
+    if (register_token == nil || [register_token isEqualToString:@""]) return;
     NSDictionary *param = @{@"access_key"   : secretSting,
                             @"action"       : [SKCGIManager register_sendVerificationCode_Action],
                             @"action_token" : register_token,
@@ -111,8 +111,9 @@ const NSString *secretSting = @"90app529D";
 
 - (void)checkRegisterVerifyCodeWithPhone:(NSString *)mobile code:(NSString *)code completion:(SKResponseCallback)callback {
     if (mobile.length == 0) return;
+    if (register_token == nil || [register_token isEqualToString:@""]) return;
     NSDictionary *param = @{@"access_key"       : secretSting,
-                            @"action"           : [SKCGIManager register_sendVerificationCode_Action],
+                            @"action"           : [SKCGIManager register_checkVerificaitonCode_Action],
                             @"action_token"     : register_token,
                             @"phone"            : mobile,
                             @"verification_code": code};
@@ -139,7 +140,7 @@ const NSString *secretSting = @"90app529D";
                              @"password"   :   user.user_password
                              };
     NSDictionary *param = @{@"access_key"   : secretSting,
-                            @"action"       : [SKCGIManager register_sendVerificationCode_Action],
+                            @"action"       : [SKCGIManager register_create_Action],
                             @"action_token" : register_token,
                             @"data"         : data
                             };
@@ -154,6 +155,91 @@ const NSString *secretSting = @"90app529D";
             [[HTStorageManager sharedInstance] updateLoginUser:user];
         }
         callback(true, package);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        DLog(@"%@",error);
+        callback(false, nil);
+    }];
+}
+
+#pragma mark 重置密码
+- (void)createResetPasswordService:(SKResponseCallback)callback {
+    NSDictionary *param = @{@"access_key"   : secretSting,
+                            @"action"       : [SKCGIManager resetPassword_newService_Action]};
+    
+    [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager userResetPasswordCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        if (package.resultCode == 200) {
+            resetPassword_token = package.data[@"token"];
+            callback(true, package);
+        }else
+            callback(false, package);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        DLog(@"%@",error);
+        callback(false, nil);
+    }];
+}
+
+- (void)getResetPasswordVerifyCodeWithMobile:(NSString *)mobile completion:(SKResponseCallback)callback {
+    if (mobile.length == 0) return;
+    if (resetPassword_token == nil || [resetPassword_token isEqualToString:@""]) return;
+    NSDictionary *param = @{@"access_key"   : secretSting,
+                            @"action"       : [SKCGIManager resetPassword_sendVerificationCode_Action],
+                            @"action_token" : resetPassword_token,
+                            @"phone"        : mobile};
+    
+    [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager userResetPasswordCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        if (package.resultCode == 200) {
+            callback(true, package);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        DLog(@"%@",error);
+        callback(false, nil);
+    }];
+}
+
+- (void)checkResetPasswordVerifyCodeWithPhone:(NSString *)mobile code:(NSString *)code completion:(SKResponseCallback)callback {
+    if (mobile.length == 0) return;
+    if (resetPassword_token == nil || [resetPassword_token isEqualToString:@""]) return;
+    NSDictionary *param = @{@"access_key"       : secretSting,
+                            @"action"           : [SKCGIManager register_checkVerificaitonCode_Action],
+                            @"action_token"     : resetPassword_token,
+                            @"phone"            : mobile,
+                            @"verification_code": code};
+    
+    [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager userResetPasswordCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        if (package.resultCode == 200) {
+            callback(true, package);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        DLog(@"%@",error);
+        callback(false, nil);
+    }];
+}
+
+- (void)resetPasswordWithUser:(HTLoginUser *)user completion:(SKResponseCallback)callback {
+    if (user.user_mobile.length == 0) return;
+    if (user.user_password.length == 0) return;
+    if (resetPassword_token == nil || [resetPassword_token isEqualToString:@""]) return;
+    
+    NSDictionary *data  =  @{@"phone"      :   user.user_mobile,
+                             @"password"   :   user.user_password
+                             };
+    NSDictionary *param = @{@"access_key"   : secretSting,
+                            @"action"       : [SKCGIManager resetPassword_update_Action],
+                            @"action_token" : resetPassword_token,
+                            @"data"         : data
+                            };
+    [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager userBaseInfoCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        if (package.resultCode == 200) {
+            callback(true, package);
+        }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         DLog(@"%@",error);
         callback(false, nil);

@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)createRegisterService:(SKResponseCallback)callback;
 
 /**
- *  @brief 获取验证码
+ *  @brief 获取注册验证码
  */
 - (void)getRegisterVerifyCodeWithMobile:(NSString *)mobile completion:(SKResponseCallback)callback;
 
@@ -49,6 +49,28 @@ NS_ASSUME_NONNULL_BEGIN
  *  @brief 注册
  */
 - (void)registerWithUser:(HTLoginUser *)user completion:(SKResponseCallback)callback;
+
+#pragma mark 重置密码
+/**
+ *  @brief 创建注册服务
+ */
+- (void)createResetPasswordService:(SKResponseCallback)callback;
+
+/**
+ *  @brief 获取重置密码验证码
+ */
+- (void)getResetPasswordVerifyCodeWithMobile:(NSString *)mobile completion:(SKResponseCallback)callback;
+
+/**
+ *  @brief 检查修改密码验证码
+ */
+- (void)checkResetPasswordVerifyCodeWithPhone:(NSString *)mobile code:(NSString *)code completion:(SKResponseCallback)callback;
+
+/**
+ *  @brief 重置密码
+ */
+- (void)resetPasswordWithUser:(HTLoginUser *)user
+                   completion:(SKResponseCallback)callback;
 
 #pragma mark 七牛
 /**
