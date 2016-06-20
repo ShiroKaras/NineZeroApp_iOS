@@ -11,7 +11,9 @@
 
 const NSString *secretSting = @"90app529D";
 
-@implementation SKLoginService
+@implementation SKLoginService {
+    NSString *register_token;
+}
 
 - (instancetype)init {
     static BOOL hasCreate = NO;
@@ -24,6 +26,7 @@ const NSString *secretSting = @"90app529D";
 
 #pragma mark - Public Method
 
+#pragma mark 登录
 - (void)loginWithUser:(HTLoginUser *)user completion:(SKResponseCallback)callback {
     NSDictionary *param = @{@"access_key"           : secretSting,
                             @"action"               : [SKCGIManager login_Phonenumber_Action],
@@ -68,6 +71,7 @@ const NSString *secretSting = @"90app529D";
     }];
 }
 
+#pragma mark 注册
 - (void)createRegisterService:(SKResponseCallback)callback {
     NSDictionary *param = @{@"access_key"   : secretSting,
                             @"action"       : [SKCGIManager register_newService_Action]};
@@ -76,6 +80,7 @@ const NSString *secretSting = @"90app529D";
         DLog(@"%@", responseObject);
         SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
         if (package.resultCode == 200) {
+            register_token = package.data[@"token"];
             callback(true, package);
         }else
             callback(false, package);
@@ -85,11 +90,11 @@ const NSString *secretSting = @"90app529D";
     }];
 }
 
-- (void)getRegisterVerifyCodeWithMobile:(NSString *)mobile token:(NSString *)token completion:(SKResponseCallback)callback {
+- (void)getRegisterVerifyCodeWithMobile:(NSString *)mobile completion:(SKResponseCallback)callback {
     if (mobile.length == 0) return;
     NSDictionary *param = @{@"access_key"   : secretSting,
                             @"action"       : [SKCGIManager register_sendVerificationCode_Action],
-                            @"action_token" : token,
+                            @"action_token" : register_token,
                             @"phone"        : mobile};
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager userBaseRegisterCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -104,11 +109,11 @@ const NSString *secretSting = @"90app529D";
     }];
 }
 
-- (void)checkRegisterVerifyCodeWithPhone:(NSString *)mobile token:(NSString *)token code:(NSString *)code completion:(SKResponseCallback)callback {
+- (void)checkRegisterVerifyCodeWithPhone:(NSString *)mobile code:(NSString *)code completion:(SKResponseCallback)callback {
     if (mobile.length == 0) return;
     NSDictionary *param = @{@"access_key"       : secretSting,
                             @"action"           : [SKCGIManager register_sendVerificationCode_Action],
-                            @"action_token"     : token,
+                            @"action_token"     : register_token,
                             @"phone"            : mobile,
                             @"verification_code": code};
     
@@ -124,7 +129,7 @@ const NSString *secretSting = @"90app529D";
     }];
 }
 
-- (void)registerWithUser:(HTLoginUser *)user token:(NSString *)token completion:(SKResponseCallback)callback {
+- (void)registerWithUser:(HTLoginUser *)user completion:(SKResponseCallback)callback {
     if (user.user_name.length == 0)     return;
     if (user.user_password.length == 0) return;
     if (user.user_mobile.length == 0)   return;
@@ -135,7 +140,7 @@ const NSString *secretSting = @"90app529D";
                              };
     NSDictionary *param = @{@"access_key"   : secretSting,
                             @"action"       : [SKCGIManager register_sendVerificationCode_Action],
-                            @"action_token" : token,
+                            @"action_token" : register_token,
                             @"data"         : data
                             };
     
@@ -155,6 +160,7 @@ const NSString *secretSting = @"90app529D";
     }];
 }
 
+#pragma mark 七牛
 - (void)getQiniuPrivateTokenWithCompletion:(HTGetTokenCallback)callback {
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQiniuPrivateUploadTokenCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);

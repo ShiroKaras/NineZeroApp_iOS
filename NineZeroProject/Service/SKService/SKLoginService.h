@@ -38,21 +38,19 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  @brief 获取验证码
  */
-- (void)getRegisterVerifyCodeWithMobile:(NSString *)mobile token:(NSString *)token completion:(SKResponseCallback)callback;
+- (void)getRegisterVerifyCodeWithMobile:(NSString *)mobile completion:(SKResponseCallback)callback;
 
 /**
  *  @brief 验证验证码
  */
-- (void)checkRegisterVerifyCodeWithPhone:(NSString *)mobile token:(NSString *)token code:(NSString *)code completion:(SKResponseCallback)callback;
+- (void)checkRegisterVerifyCodeWithPhone:(NSString *)mobile code:(NSString *)code completion:(SKResponseCallback)callback;
 
 /**
  *  @brief 注册
  */
-- (void)registerWithUser:(HTLoginUser *)user
-              completion:(SKResponseCallback)callback;
+- (void)registerWithUser:(HTLoginUser *)user completion:(SKResponseCallback)callback;
 
-
-
+#pragma mark 七牛
 /**
  *  @brief 获取七牛token
  */
