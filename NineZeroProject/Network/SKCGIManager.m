@@ -76,7 +76,7 @@
 
 #pragma mark 注册
 + (NSString *)register_newService_Action {
-    return @"new_registeration";
+    return @"new_registration";
 }
 
 + (NSString *)register_sendVerificationCode_Action {
