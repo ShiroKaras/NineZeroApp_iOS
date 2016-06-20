@@ -1,15 +1,15 @@
 //
-//  HTModel.m
+//  SKModel.m
 //  NineZeroProject
 //
-//  Created by HHHHTTTT on 15/12/7.
-//  Copyright © 2015年 HHHHTTTT. All rights researrayed.
+//  Created by SinLemon on 16/6/20.
+//  CopyrigSK © 2016年 ronhu. All rigSKs reserved.
 //
 
-#import "HTModel.h"
+#import "SKModel.h"
 #import <MJExtension.h>
 
-#define HTINIT(T) - (instancetype)init { \
+#define SKINIT(T) - (instancetype)init { \
     if (self = [super init]) { \
         [T setupReplacedKeyFromPropertyName:^NSDictionary *{ \
             return [self propertyMapper]; \
@@ -24,14 +24,14 @@
     NSMutableDictionary *dict = [NSMutableDictionary new];
     unsigned int count;
     objc_property_t *properties = class_copyPropertyList([self class], &count);
-
+    
     for (int i = 0; i < count; i++) {
         const char *property = property_getName(properties[i]);
         NSString *propertyString = [NSString stringWithCString:property encoding:[NSString defaultCStringEncoding]];
         id obj = [self valueForKey:propertyString];
         [dict setValue:obj forKey:propertyString];
     }
-
+    
     free(properties);
     return [NSString stringWithFormat:@"<%@ %p %@>",
             [self class],
@@ -41,11 +41,11 @@
 
 @end
 
-@implementation HTLoginUser
+@implementation SKLoginUser
 @end
 
-@implementation HTQuestionInfo
-HTINIT(HTQuestionInfo)
+@implementation SKQuestionInfo
+SKINIT(SKQuestionInfo)
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"questionID" : @"current_question_id",
                                      @"endTime" : @"endtime",
@@ -57,8 +57,8 @@ HTINIT(HTQuestionInfo)
 
 @end
 
-@implementation HTQuestion
-HTINIT(HTQuestion)
+@implementation SKQuestion
+SKINIT(SKQuestion)
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"questionID" : @"qid",
                                      @"areaID" : @"area_id",
@@ -74,16 +74,16 @@ HTINIT(HTQuestion)
 }
 @end
 
-@implementation HTResponsePackage
-HTINIT(HTResponsePackage)
+@implementation SKResponsePackage
+SKINIT(SKResponsePackage)
 - (NSDictionary *)propertyMapper {
-    NSDictionary *propertyMapper = @{@"resultCode" : @"result"};
+    NSDictionary *propertyMapper = nil;
     return propertyMapper;
 }
 @end
 
-@implementation HTArticle
-HTINIT(HTArticle)
+@implementation SKArticle
+SKINIT(SKArticle)
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"mascotID"  : @"pet_id",
                                      @"articleID" : @"article_id",
@@ -93,8 +93,8 @@ HTINIT(HTArticle)
 }
 @end
 
-@implementation HTMascot
-HTINIT(HTMascot)
+@implementation SKMascot
+SKINIT(SKMascot)
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"mascotID" : @"pet_id",
                                      @"getTime" : @"time",
@@ -105,26 +105,26 @@ HTINIT(HTMascot)
 }
 @end
 
-@implementation HTMascotProp
+@implementation SKMascotProp
 @end
 
-@implementation HTReward
+@implementation SKReward
 @end
 
-@implementation HTTicket
+@implementation SKTicket
 @end
 
-@implementation HTNotification
+@implementation SKNotification
 @end
 
-//@implementation HTProfileAnswer
+//@implementation SKProfileAnswer
 //@end
 
-@implementation HTProfileInfo
+@implementation SKProfileInfo
 - (instancetype)init {
     if (self = [super init]) {
-        [HTProfileInfo setupObjectClassInArray:^NSDictionary *{
-            return @{@"answer_list" : @"HTQuestion"};
+        [SKProfileInfo setupObjectClassInArray:^NSDictionary *{
+            return @{@"answer_list" : @"SKQuestion"};
         }];
     }
     return self;
@@ -132,13 +132,13 @@ HTINIT(HTMascot)
 
 @end
 
-@implementation HTUserInfo
+@implementation SKUserInfo
 + (NSArray *)ignoredPropertyNames {
     return @[];
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    HTUserInfo *userInfo = [[HTUserInfo alloc] init];
+    SKUserInfo *userInfo = [[SKUserInfo alloc] init];
     userInfo.user_name = [_user_name copy];
     userInfo.user_avatar = [_user_avatar copy];
     userInfo.user_avatar_url = [_user_avatar_url copy];
@@ -151,8 +151,8 @@ HTINIT(HTMascot)
 
 @end
 
-@implementation HTRanker
+@implementation SKRanker
 @end
 
-@implementation HTBadge
+@implementation SKBadge
 @end

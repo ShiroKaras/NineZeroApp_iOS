@@ -16,6 +16,7 @@
 		1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */; };
 		11630A521D12BF9A00B39FF9 /* SKCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11630A511D12BF9A00B39FF9 /* SKCGIManager.m */; };
 		11630A571D12E6B600B39FF9 /* JSPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11630A561D12E6B600B39FF9 /* JSPatch.framework */; };
+		11630A5E1D17FF3400B39FF9 /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11630A5D1D17FF3400B39FF9 /* SKModel.m */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
@@ -799,6 +800,8 @@
 		11630A531D12BFB700B39FF9 /* SKNetworkDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNetworkDefine.h; sourceTree = "<group>"; };
 		11630A561D12E6B600B39FF9 /* JSPatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatch.framework; sourceTree = "<group>"; };
 		11630A581D13B46F00B39FF9 /* HTNetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNetworkDefine.h; sourceTree = "<group>"; };
+		11630A5C1D17FF3400B39FF9 /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKModel.h; sourceTree = "<group>"; };
+		11630A5D1D17FF3400B39FF9 /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKModel.m; sourceTree = "<group>"; };
 		1196F29F1CF6DFA600E70C83 /* SKImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKImageHelper.h; sourceTree = "<group>"; };
 		1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKImageHelper.m; sourceTree = "<group>"; };
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
@@ -3255,6 +3258,8 @@
 		17DB9CF21C0B4C2600A4D0EF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				11630A5C1D17FF3400B39FF9 /* SKModel.h */,
+				11630A5D1D17FF3400B39FF9 /* SKModel.m */,
 				17B1D8401C1544470082C86B /* HTModel.h */,
 				17B1D8411C1544470082C86B /* HTModel.m */,
 			);
@@ -4229,6 +4234,7 @@
 				17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */,
 				17F39B701C82107500D8A565 /* NSLayoutConstraintHairline.m in Sources */,
 				17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */,
+				11630A5E1D17FF3400B39FF9 /* SKModel.m in Sources */,
 				175F82D11CB4124D00AC2664 /* HTWebController.m in Sources */,
 				26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
