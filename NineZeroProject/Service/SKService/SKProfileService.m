@@ -19,17 +19,26 @@
                             @"user_id": [[HTStorageManager sharedInstance] getUserID],
                             };
     
-    [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager userBaseInfoCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager userBaseInfoCGIKey] parameters:param error:NULL];
+    
+    // Add Headers
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    // Fetch Request
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@", responseObject);
         SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
             callback(true, package);
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        DLog(@"%@",error);
-        callback(false, nil);
+        DLog(@"HTTP Request failed: %@", error);
     }];
-
+    
+    [manager.operationQueue addOperation:operation];
 }
 
 @end

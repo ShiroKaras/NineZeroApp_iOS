@@ -11,7 +11,7 @@
 
 #define SKINIT(T) - (instancetype)init { \
     if (self = [super init]) { \
-        [T setupReplacedKeyFromPropertyName:^NSDictionary *{ \
+        [T mj_setupReplacedKeyFromPropertyName:^NSDictionary *{ \
             return [self propertyMapper]; \
         }]; \
     } \
@@ -45,15 +45,7 @@
 @end
 
 @implementation SKQuestionInfo
-//SKINIT(SKQuestionInfo)
-- (instancetype)init {
-    if (self = [super init]) {
-        [SKQuestion setupReplacedKeyFromPropertyName:^NSDictionary *{
-            return [self propertyMapper];
-        }];
-    }
-    return self;
-}
+SKINIT(SKQuestionInfo)
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"questionID" : @"current_question_id",
                                      @"endTime" : @"endtime",
@@ -84,7 +76,8 @@ SKINIT(SKQuestion)
 @implementation SKResponsePackage
 SKINIT(SKResponsePackage)
 - (NSDictionary *)propertyMapper {
-    NSDictionary *propertyMapper = nil;
+    NSDictionary *propertyMapper = @{@"resultCode" : @"code"
+                                     };
     return propertyMapper;
 }
 @end

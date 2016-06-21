@@ -9,10 +9,14 @@
 #import "SKLoginService.h"
 #import "HTLogicHeader.h"
 
-@implementation SKLoginService {
-    NSString *register_token;
-    NSString *resetPassword_token;
-}
+@interface SKLoginService()
+
+@property (nonatomic, strong) NSString *register_token;
+@property (nonatomic, strong) NSString *resetPassword_token;
+
+@end
+
+@implementation SKLoginService
 
 - (instancetype)init {
     static BOOL hasCreate = NO;
@@ -109,7 +113,7 @@
         DLog(@"%@", responseObject);
         SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
-            register_token = package.data[@"token"];
+            _register_token = package.data[@"token"];
             callback(true, package);
         }else
             callback(false, package);
@@ -122,10 +126,10 @@
 
 - (void)getRegisterVerifyCodeWithMobile:(NSString *)mobile completion:(SKResponseCallback)callback {
     if (mobile.length == 0) return;
-    if (register_token == nil || [register_token isEqualToString:@""]) return;
+    if (_register_token == nil || [_register_token isEqualToString:@""]) return;
     NSDictionary *param = @{@"access_key"   : SECRET_STRING,
                             @"action"       : [SKCGIManager register_sendVerificationCode_Action],
-                            @"action_token" : register_token,
+                            @"action_token" : _register_token,
                             @"phone"        : mobile};
     
     // Create manager
@@ -152,10 +156,10 @@
 
 - (void)checkRegisterVerifyCodeWithPhone:(NSString *)mobile code:(NSString *)code completion:(SKResponseCallback)callback {
     if (mobile.length == 0) return;
-    if (register_token == nil || [register_token isEqualToString:@""]) return;
+    if (_register_token == nil || [_register_token isEqualToString:@""]) return;
     NSDictionary *param = @{@"access_key"       : SECRET_STRING,
                             @"action"           : [SKCGIManager register_checkVerificaitonCode_Action],
-                            @"action_token"     : register_token,
+                            @"action_token"     : _register_token,
                             @"phone"            : mobile,
                             @"verification_code": code};
     // Create manager
@@ -191,7 +195,7 @@
                              };
     NSDictionary *param = @{@"access_key"   : SECRET_STRING,
                             @"action"       : [SKCGIManager register_create_Action],
-                            @"action_token" : register_token,
+                            @"action_token" : _register_token,
                             @"data"         : data
                             };
     
@@ -239,7 +243,7 @@
         DLog(@"%@", responseObject);
         SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
-            resetPassword_token = package.data[@"token"];
+            _resetPassword_token = package.data[@"token"];
             callback(true, package);
         }else
             callback(false, package);
@@ -252,10 +256,10 @@
 
 - (void)getResetPasswordVerifyCodeWithMobile:(NSString *)mobile completion:(SKResponseCallback)callback {
     if (mobile.length == 0) return;
-    if (resetPassword_token == nil || [resetPassword_token isEqualToString:@""]) return;
+    if (_resetPassword_token == nil || [_resetPassword_token isEqualToString:@""]) return;
     NSDictionary *param = @{@"access_key"   : SECRET_STRING,
                             @"action"       : [SKCGIManager resetPassword_sendVerificationCode_Action],
-                            @"action_token" : resetPassword_token,
+                            @"action_token" : _resetPassword_token,
                             @"phone"        : mobile};
     // Create manager
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -281,10 +285,10 @@
 
 - (void)checkResetPasswordVerifyCodeWithPhone:(NSString *)mobile code:(NSString *)code completion:(SKResponseCallback)callback {
     if (mobile.length == 0) return;
-    if (resetPassword_token == nil || [resetPassword_token isEqualToString:@""]) return;
+    if (_resetPassword_token == nil || [_resetPassword_token isEqualToString:@""]) return;
     NSDictionary *param = @{@"access_key"       : SECRET_STRING,
                             @"action"           : [SKCGIManager register_checkVerificaitonCode_Action],
-                            @"action_token"     : resetPassword_token,
+                            @"action_token"     : _resetPassword_token,
                             @"phone"            : mobile,
                             @"verification_code": code};
     // Create manager
@@ -312,14 +316,14 @@
 - (void)resetPasswordWithUser:(HTLoginUser *)user completion:(SKResponseCallback)callback {
     if (user.user_mobile.length == 0) return;
     if (user.user_password.length == 0) return;
-    if (resetPassword_token == nil || [resetPassword_token isEqualToString:@""]) return;
+    if (_resetPassword_token == nil || [_resetPassword_token isEqualToString:@""]) return;
     
     NSDictionary *data  =  @{@"phone"      :   user.user_mobile,
                              @"password"   :   user.user_password
                              };
     NSDictionary *param = @{@"access_key"   : SECRET_STRING,
                             @"action"       : [SKCGIManager resetPassword_update_Action],
-                            @"action_token" : resetPassword_token,
+                            @"action_token" : _resetPassword_token,
                             @"data"         : data
                             };
     // Create manager
