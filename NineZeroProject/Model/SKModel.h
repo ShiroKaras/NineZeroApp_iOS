@@ -10,7 +10,7 @@
 #import <MJExtension/MJExtension.h>
 
 // 不要覆盖description方法
-@interface NSObject (PropertyPrint)
+@interface NSObject (PropertyPrintf)
 - (NSString *)debugDescription;
 @end
 

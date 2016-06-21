@@ -8,7 +8,7 @@
 
 #import "SKCGIManager.h"
 
-#define CGI_EXTRA(e) [NSString stringWithFormat:@"%@%@", NETWORK_HOST,e]
+#define CGI_EXTRA(e) [NSString stringWithFormat:@"%@%@", SERVER_HOST,e]
 
 @implementation SKCGIManager
 

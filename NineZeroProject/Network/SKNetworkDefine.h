@@ -10,6 +10,8 @@
 #define SKNetworkDefine_h
 #import "SKModel.h"
 
+#define SECRET_STRING @"90app529D"
+
 // 公用
 typedef void (^SKHTTPErrorCallback) (NSString *errorMessage);
 typedef void (^SKHTTPSuccessCallback) (id responseObject);

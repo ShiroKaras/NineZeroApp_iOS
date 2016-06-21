@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define NETWORK_HOST @"http://90server.daoapp.io/"
+#define SERVER_HOST @"http://90app-test.daoapp.io/"
 
 @interface SKCGIManager : NSObject
 

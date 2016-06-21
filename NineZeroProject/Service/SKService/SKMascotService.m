@@ -7,6 +7,7 @@
 //
 
 #import "SKMascotService.h"
+#import "HTLogicHeader.h"
 
 @implementation SKMascotService
 

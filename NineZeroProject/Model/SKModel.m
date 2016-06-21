@@ -18,7 +18,7 @@
     return self; \
 }
 
-@implementation NSObject (PropertyPrint)
+@implementation NSObject (PropertyPrintf)
 
 - (NSString *)debugDescription {
     NSMutableDictionary *dict = [NSMutableDictionary new];
@@ -45,7 +45,15 @@
 @end
 
 @implementation SKQuestionInfo
-SKINIT(SKQuestionInfo)
+//SKINIT(SKQuestionInfo)
+- (instancetype)init {
+    if (self = [super init]) {
+        [SKQuestion setupReplacedKeyFromPropertyName:^NSDictionary *{
+            return [self propertyMapper];
+        }];
+    }
+    return self;
+}
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"questionID" : @"current_question_id",
                                      @"endTime" : @"endtime",
@@ -54,7 +62,6 @@ SKINIT(SKQuestionInfo)
                                      };
     return propertyMapper;
 }
-
 @end
 
 @implementation SKQuestion
