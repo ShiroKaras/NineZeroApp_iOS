@@ -42,7 +42,7 @@
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@", responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
             NSDictionary *dataDict = package.data;
             [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
@@ -73,7 +73,7 @@
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@", responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
             NSDictionary *dataDict = package.data;
             [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
@@ -107,7 +107,7 @@
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@", responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
             register_token = package.data[@"token"];
             callback(true, package);
@@ -139,7 +139,7 @@
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@", responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
             callback(true, package);
         }
@@ -169,7 +169,7 @@
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@", responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
             callback(true, package);
         }
@@ -206,7 +206,7 @@
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@", responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
             NSDictionary *dataDict = package.data;
             [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
@@ -237,7 +237,7 @@
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@", responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
             resetPassword_token = package.data[@"token"];
             callback(true, package);
@@ -268,7 +268,7 @@
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@", responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
             callback(true, package);
         }
@@ -298,7 +298,7 @@
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@", responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
             callback(true, package);
         }
@@ -333,7 +333,7 @@
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@", responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
             callback(true, package);
         }

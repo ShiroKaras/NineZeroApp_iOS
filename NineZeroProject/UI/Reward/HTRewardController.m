@@ -127,18 +127,18 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     }
     if (rsp.data[@"ticket"]) {
             type += NZRewardTypeTicket;
-            HTTicket *ticket = [HTTicket objectWithKeyValues:rsp.data[@"ticket"]];
+            HTTicket *ticket = [HTTicket mj_objectWithKeyValues:rsp.data[@"ticket"]];
             _ticket = ticket;
             [self createTicketView];
     }
     if (rsp.data[@"pet"]) {
         type += NZRewardTypePet;
-        HTMascot *mascot = [HTMascot objectWithKeyValues:rsp.data[@"pet"]];
+        HTMascot *mascot = [HTMascot mj_objectWithKeyValues:rsp.data[@"pet"]];
         _mascot = mascot;
     }
     if (rsp.data[@"prop"]) {
         type += NZRewardTypeProp;
-        HTMascotProp *prop = [HTMascotProp objectWithKeyValues:rsp.data[@"prop"]];
+        HTMascotProp *prop = [HTMascotProp mj_objectWithKeyValues:rsp.data[@"prop"]];
         _prop = prop;
     }
     if (_prop || _mascot) {

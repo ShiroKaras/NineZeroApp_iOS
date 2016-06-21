@@ -23,10 +23,10 @@
 #pragma mark - Public Method
 
 - (void)registerWithUser:(HTLoginUser *)user completion:(HTResponseCallback)callback {
-    NSDictionary *parameters = [user keyValues];
+    NSDictionary *parameters = [user mj_keyValues];
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseRegisterCGIKey] parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
-        HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *package = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         if (package.resultCode == 0) {
             NSDictionary *dataDict = package.data;
             [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
@@ -46,7 +46,7 @@
                            };
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseLoginCGIKey] parameters:para success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
-        HTResponsePackage *resp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *resp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         callback(true, resp);
         if (resp.resultCode == 0) {
             [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", responseObject[@"data"][@"user_id"]]];
@@ -67,7 +67,7 @@
                            };
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userLoginThirdCGIKey] parameters:para success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
-        HTResponsePackage *resp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *resp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         callback(true,resp);
         if (resp.resultCode == 0) {
             [[HTStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", responseObject[@"data"][@"user_id"]]];
@@ -116,7 +116,7 @@
                             };
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseResetPwdCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
-        callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
+        callback(true, [HTResponsePackage mj_objectWithKeyValues:responseObject]);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
     }];
@@ -127,7 +127,7 @@
     NSDictionary *dict = @{ @"user_mobile" : mobile };
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager userBaseVerifyMobileCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
-        callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
+        callback(true, [HTResponsePackage mj_objectWithKeyValues:responseObject]);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
     }];

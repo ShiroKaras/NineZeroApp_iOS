@@ -87,15 +87,15 @@
     NSDictionary *dict = @{@"user_id" : [[HTStorageManager sharedInstance] getUserID]};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getProfileInfoCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
-            HTProfileInfo *profileInfo = [HTProfileInfo objectWithKeyValues:rsp.data];
+            HTProfileInfo *profileInfo = [HTProfileInfo mj_objectWithKeyValues:rsp.data];
             if (profileInfo.answer_list.count!=0) {
                 NSMutableArray<HTQuestion *> *answerList = [NSMutableArray new];
                 NSMutableArray<NSString *> *downloadKeys = [NSMutableArray new];
                 for (int i = 0; i != [responseObject[@"data"][@"answer_list"] count]; i++) {
                     @autoreleasepool {
-                        HTQuestion *answer = [HTQuestion objectWithKeyValues:[responseObject[@"data"][@"answer_list"] objectAtIndex:i]];
+                        HTQuestion *answer = [HTQuestion mj_objectWithKeyValues:[responseObject[@"data"][@"answer_list"] objectAtIndex:i]];
                         answer.isPassed = YES;
                         [answerList addObject:answer];
                         if (answer.question_video_cover) [downloadKeys addObject:answer.question_video_cover];
@@ -132,9 +132,9 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getUserInfoCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
-            HTUserInfo *userInfo = [HTUserInfo objectWithKeyValues:rsp.data];
+            HTUserInfo *userInfo = [HTUserInfo mj_objectWithKeyValues:rsp.data];
             callback(true, userInfo);
         } else {
             callback(false, nil);
@@ -175,7 +175,7 @@
     NSString *cgiKey = (isAvatarOrName) ? [HTCGIManager updateUserInfoCGIKey] : [HTCGIManager updateSettingCGIKey];
     [[AFHTTPRequestOperationManager manager] POST:cgiKey parameters:paraDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             callback(true, rsp);
             [[HTStorageManager sharedInstance] setUserInfo:userInfo];
@@ -209,7 +209,7 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager updateFeedbackCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
@@ -225,9 +225,9 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getUserNoticesCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         NSMutableArray<HTNotification *> *notifications = [NSMutableArray array];
-        HTNotification *firstNotification = [HTNotification objectWithKeyValues:
+        HTNotification *firstNotification = [HTNotification mj_objectWithKeyValues:
         @{
             @"time": @"0",
             @"content": @"欢迎加入“九零”，你已经被零仔锁定，现在，你可以通过这里帮助九零发现更大的世界！"
@@ -235,7 +235,7 @@
         [notifications addObject:firstNotification];
         if (rsp.resultCode == 0) {
             for (NSDictionary *dataDict in rsp.data) {
-                HTNotification *notification = [HTNotification objectWithKeyValues:dataDict];
+                HTNotification *notification = [HTNotification mj_objectWithKeyValues:dataDict];
                 [notifications insertObject:notification atIndex:0];
             }
             [UD setInteger:notifications.count forKey:@"notificationsHasReadKey"];
@@ -254,11 +254,11 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getUserTicketsCGIKey] parameters:@{ @"user_id" : [[HTStorageManager sharedInstance] getUserID] } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             NSMutableArray *rewards = [NSMutableArray array];
             for (NSDictionary *dataDict in rsp.data) {
-                HTTicket *reward = [HTTicket objectWithKeyValues:dataDict];
+                HTTicket *reward = [HTTicket mj_objectWithKeyValues:dataDict];
                 [rewards addObject:reward];
             }
             callback(true, rewards);
@@ -279,11 +279,11 @@
 
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getArticlesCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         NSMutableArray<HTArticle *> *articles = [NSMutableArray array];
         if (rsp.resultCode == 0) {
             for (NSDictionary *dataDict in rsp.data) {
-                HTArticle *article = [HTArticle objectWithKeyValues:dataDict];
+                HTArticle *article = [HTArticle mj_objectWithKeyValues:dataDict];
 //                [articles addObject:article];
                 [articles insertObject:article atIndex:0];
             }
@@ -306,10 +306,10 @@
     }
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getArticleCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
-        HTArticle *article = [HTArticle objectWithKeyValues:rsp.data];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
+        HTArticle *article = [HTArticle mj_objectWithKeyValues:rsp.data];
         if (rsp.data) {
-            article = [HTArticle objectWithKeyValues:rsp.data];
+            article = [HTArticle mj_objectWithKeyValues:rsp.data];
         }
         callback(true, article);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -328,11 +328,11 @@
 
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getCollectArticlesCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         NSMutableArray<HTArticle *> *articles = [NSMutableArray array];
         if (rsp.resultCode == 0) {
             for (NSDictionary *dataDict in rsp.data) {
-                HTArticle *article = [HTArticle objectWithKeyValues:dataDict];
+                HTArticle *article = [HTArticle mj_objectWithKeyValues:dataDict];
                 article.is_collect = YES;
                 [articles addObject:article];
             }
@@ -351,11 +351,11 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getBadgesCGIKey] parameters:@{ @"user_id" : [[HTStorageManager sharedInstance] getUserID] } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             NSMutableArray *badges = [NSMutableArray array];
             for (NSDictionary *dataDict in rsp.data) {
-                HTBadge *badge = [HTBadge objectWithKeyValues:dataDict];
+                HTBadge *badge = [HTBadge mj_objectWithKeyValues:dataDict];
                 [badges addObject:badge];
             }
             callback(true, badges);
@@ -374,9 +374,9 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getMyRankCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
-            HTRanker *ranker = [HTRanker objectWithKeyValues:rsp.data];
+            HTRanker *ranker = [HTRanker mj_objectWithKeyValues:rsp.data];
             callback(true, ranker);
         } else {
             callback(false, nil);
@@ -389,11 +389,11 @@
 - (void)getRankList:(HTGetRankListCallback)callback {
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getAllRanksCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
 //        DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             NSMutableArray<HTRanker *> *rankers = [NSMutableArray array];
             for (NSDictionary *dataDict in rsp.data) {
-                HTRanker *ranker = [HTRanker objectWithKeyValues:dataDict];
+                HTRanker *ranker = [HTRanker mj_objectWithKeyValues:dataDict];
                 [rankers addObject:ranker];
             }
             callback(true, rankers);
@@ -412,7 +412,7 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager collectArticleCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);

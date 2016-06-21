@@ -36,9 +36,9 @@
 - (void)getQuestionInfoWithCallback:(HTQuestionInfoCallback)callback {
     NSDictionary *dict = @{@"area_id" : AppDelegateInstance.cityCode};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionInfoCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
-            HTQuestionInfo *questionInfo = [HTQuestionInfo objectWithKeyValues:responseObject[@"data"]];
+            HTQuestionInfo *questionInfo = [HTQuestionInfo mj_objectWithKeyValues:responseObject[@"data"]];
             _questionInfo = questionInfo;
             callback(YES, questionInfo);
         } else {
@@ -62,13 +62,13 @@
                            };
     // 1. 取全部题目
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionListCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             NSMutableArray<HTQuestion *> *questions = [[NSMutableArray alloc] init];
             NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
             for (int i = 0; i != [responseObject[@"data"] count]; i++) {
                 @autoreleasepool {
-                    HTQuestion *question = [HTQuestion objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
+                    HTQuestion *question = [HTQuestion mj_objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
                     [questions insertObject:question atIndex:0]; // UI需要反向
                     if (question.videoName) [downloadKeys addObject:question.videoName];
                     if (question.descriptionPic) [downloadKeys addObject:question.descriptionPic];
@@ -139,7 +139,7 @@
                            @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionDetailCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        callback(YES, [HTQuestion objectWithKeyValues:responseObject[@"data"]]);
+        callback(YES, [HTQuestion mj_objectWithKeyValues:responseObject[@"data"]]);
         DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
@@ -161,7 +161,7 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager verifyAnswerCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             [self getQuestionDetailWithQuestionID:questionID callback:^(BOOL success, HTQuestion *question) {
                 if (success) {
@@ -205,7 +205,7 @@
                                @"lat" : @(location.y),
                                @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager verifyLocationCGIKey] parameters:dataDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
         // 回答成功的问题加入回答成功的列表中
         __block BOOL isFound = NO;
         [_questionListSuccessful enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -244,7 +244,7 @@
     NSString *string = [self dictionaryToJson:dataDict];
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQiniuDownloadUrlCGIKey] parameters:@{@"url_array" : string} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
+        callback(true, [HTResponsePackage mj_objectWithKeyValues:responseObject]);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
     }];
@@ -259,7 +259,7 @@
 - (void)getRelaxDayInfo:(HTResponseCallback)callback {
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getRelaxDayInfoCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@",responseObject);
-        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
+        callback(YES, [HTResponsePackage mj_objectWithKeyValues:responseObject]);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);
@@ -268,7 +268,7 @@
 
 - (void)getIsRelaxDay:(HTResponseCallback)callback {
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getIsMondayCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
+        callback(YES, [HTResponsePackage mj_objectWithKeyValues:responseObject]);
         DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
@@ -278,7 +278,7 @@
 
 - (void)getCoverPicture:(HTResponseCallback)callback {
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getCoverPictureCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
+        callback(YES, [HTResponsePackage mj_objectWithKeyValues:responseObject]);
         DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);

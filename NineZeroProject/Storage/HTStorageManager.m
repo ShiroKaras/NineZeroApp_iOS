@@ -49,43 +49,43 @@
 
 - (void)setUserInfo:(HTUserInfo *)userInfo {
     _userInfo = userInfo;
-    [_storageService putObject:[userInfo keyValues] withId:kStorageUserInfoKey intoTable:kStorageTableKey];
+    [_storageService putObject:[userInfo mj_keyValues] withId:kStorageUserInfoKey intoTable:kStorageTableKey];
 }
 
 - (HTUserInfo *)userInfo {
     if (_userInfo != nil) return _userInfo;
-    _userInfo = [HTUserInfo objectWithKeyValues:[_storageService getObjectById:kStorageUserInfoKey fromTable:kStorageTableKey]];
+    _userInfo = [HTUserInfo mj_objectWithKeyValues:[_storageService getObjectById:kStorageUserInfoKey fromTable:kStorageTableKey]];
     return _userInfo;
 }
 
 - (void)setProfileInfo:(HTProfileInfo *)profileInfo {
     _profileInfo = profileInfo;
-    [_storageService putObject:[profileInfo keyValues] withId:kStorageProfileInfoKey intoTable:kStorageTableKey];
+    [_storageService putObject:[profileInfo mj_keyValues] withId:kStorageProfileInfoKey intoTable:kStorageTableKey];
 }
 
 - (HTProfileInfo *)profileInfo {
     if (_profileInfo) return _profileInfo;
-    _profileInfo = [HTProfileInfo objectWithKeyValues:[_storageService getObjectById:kStorageProfileInfoKey fromTable:kStorageTableKey]];
+    _profileInfo = [HTProfileInfo mj_objectWithKeyValues:[_storageService getObjectById:kStorageProfileInfoKey fromTable:kStorageTableKey]];
     return _profileInfo;
 }
 
 - (void)setMascotInfo:(HTMascot *)mascotInfo withIndex:(NSUInteger)index{
     _mascotInfo = mascotInfo;
-    [_storageService putObject:[mascotInfo keyValues] withId:[NSString stringWithFormat:@"%@_%lu",kStorageMascotInfoKey, (unsigned long)index] intoTable:kStorageTableKey];
+    [_storageService putObject:[mascotInfo mj_keyValues] withId:[NSString stringWithFormat:@"%@_%lu",kStorageMascotInfoKey, (unsigned long)index] intoTable:kStorageTableKey];
 }
 
 - (HTMascot *)getMascotInfoWithIndex:(NSUInteger)index {
 //    if (_mascotInfo)    return _mascotInfo;
-    _mascotInfo = [HTMascot objectWithKeyValues:[_storageService getObjectById:[NSString stringWithFormat:@"%@_%lu",kStorageMascotInfoKey, (unsigned long)index] fromTable:kStorageTableKey]];
+    _mascotInfo = [HTMascot mj_objectWithKeyValues:[_storageService getObjectById:[NSString stringWithFormat:@"%@_%lu",kStorageMascotInfoKey, (unsigned long)index] fromTable:kStorageTableKey]];
     return _mascotInfo;
 }
 
 - (void)updateLoginUser:(HTLoginUser *)loginUser {
-    [_storageService putObject:[loginUser keyValues] withId:kStorageLoginUserKey intoTable:kStorageTableKey];
+    [_storageService putObject:[loginUser mj_keyValues] withId:kStorageLoginUserKey intoTable:kStorageTableKey];
 }
 
 - (HTLoginUser *)getLoginUser {
-    HTLoginUser *user = (HTLoginUser *)[HTLoginUser objectWithKeyValues:[_storageService getObjectById:kStorageLoginUserKey fromTable:kStorageTableKey]];
+    HTLoginUser *user = (HTLoginUser *)[HTLoginUser mj_objectWithKeyValues:[_storageService getObjectById:kStorageLoginUserKey fromTable:kStorageTableKey]];
     return user;
 }
 

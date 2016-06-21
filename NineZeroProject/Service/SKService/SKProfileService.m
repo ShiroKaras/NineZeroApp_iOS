@@ -21,7 +21,7 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager userBaseInfoCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if ([package.resultCode isEqualToString:@"200"]) {
             callback(true, package);
         }
