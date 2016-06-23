@@ -171,12 +171,13 @@
 
 // 排名单元
 @interface SKRanker : NSObject
-@property (nonatomic, strong) NSString *gold;          // 金币
-@property (nonatomic, strong) NSString *rank;          // 排名
+@property (nonatomic, assign) NSUInteger gold;          // 金币
+@property (nonatomic, assign) NSUInteger rank;          // 排名
 @property (nonatomic, strong) NSString *user_id;
 @property (nonatomic, strong) NSString *user_avatar;    // 头像(名？)
 @property (nonatomic, strong) NSString *user_name;
 @property (nonatomic, strong) NSString *area_name;
+@property (nonatomic, strong) NSString *city_code;
 @end
 
 // 金币记录

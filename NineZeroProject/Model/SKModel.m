@@ -124,7 +124,7 @@ SKINIT(SKMascot)
 - (instancetype)init {
     if (self = [super init]) {
         [SKProfileInfo mj_setupObjectClassInArray:^NSDictionary *{
-            return @{@"answer_list" : @"SKQuestion"};
+            return @{@"user_answers" : @"SKQuestion"};
         }];
         
         [SKProfileInfo mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
@@ -165,6 +165,13 @@ SKINIT(SKMascot)
 @end
 
 @implementation SKRanker
+SKINIT(SKRanker)
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"user_name"   : @"name",
+                                     @"user_avatar" : @"avatar_url"
+                                     };
+    return propertyMapper;
+}
 @end
 
 @implementation SKBadge

@@ -103,15 +103,15 @@
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@",responseObject);
-        SKResponsePackage *rsp = [SKResponsePackage mj_objectWithKeyValues:responseObject];
-        if (rsp.resultCode == 0) {
-            SKProfileInfo *profileInfo = [SKProfileInfo mj_objectWithKeyValues:rsp.data];
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
+        if (package.resultCode == 0) {
+            SKProfileInfo *profileInfo = [SKProfileInfo mj_objectWithKeyValues:package.data];
             if (profileInfo.answer_list.count!=0) {
                 NSMutableArray<SKQuestion *> *answerList = [NSMutableArray new];
                 NSMutableArray<NSString *> *downloadKeys = [NSMutableArray new];
-                for (int i = 0; i != [responseObject[@"data"][@"answer_list"] count]; i++) {
+                for (int i = 0; i != [responseObject[@"data"][@"user_answers"] count]; i++) {
                     @autoreleasepool {
-                        SKQuestion *answer = [SKQuestion mj_objectWithKeyValues:[responseObject[@"data"][@"answer_list"] objectAtIndex:i]];
+                        SKQuestion *answer = [SKQuestion mj_objectWithKeyValues:[responseObject[@"data"][@"user_answers"] objectAtIndex:i]];
                         answer.isPassed = YES;
                         [answerList addObject:answer];
                         if (answer.question_video_cover) [downloadKeys addObject:answer.question_video_cover];
@@ -143,5 +143,86 @@
     
     [manager.operationQueue addOperation:operation];
 }
+
+#pragma mark 排行榜
+- (void)getRankList:(SKGetRankListCallback)callback {
+    
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // JSON Body
+    NSDictionary* bodyObject = @{
+                                 @"top_number": @"500",
+                                 @"user_id": [[SKStorageManager sharedInstance] getUserID],
+                                 @"access_key": SECRET_STRING,
+                                 @"login_token": [[SKStorageManager sharedInstance] getUserToken],
+                                 @"action": [SKCGIManager profile_getRankList_Action]
+                                 };
+    
+    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager userRankCGIKey] parameters:bodyObject error:NULL];
+    
+    // Add Headers
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    // Fetch Request
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DLog(@"HTTP Response Body: %@", responseObject);
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
+        if (package.resultCode == 200) {
+            NSMutableArray *rankListArray = [NSMutableArray array];
+            for (int i=0; i!=[package.data count]; i++) {
+                SKRanker *ranker = [SKRanker mj_objectWithKeyValues:package.data[i]];
+                ranker.rank = i+1;
+                [rankListArray addObject:ranker];
+            }
+            callback(true, rankListArray);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"HTTP Request failed: %@", error);
+    }];
+    
+    [manager.operationQueue addOperation:operation];
+}
+
+#pragma mark 金币记录
+- (void)getGoldRecord:(SKGetGoldRecordCallback)callback {
+    
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // JSON Body
+    NSDictionary* bodyObject = @{
+                                 @"user_id": [[SKStorageManager sharedInstance] getUserID],
+                                 @"access_key": SECRET_STRING,
+                                 @"login_token": [[SKStorageManager sharedInstance] getUserToken],
+                                 @"action": [SKCGIManager profile_getGoldRecords_Action]
+                                 };
+    
+    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager userProfileCGIKey] parameters:bodyObject error:NULL];
+    
+    // Add Headers
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    // Fetch Request
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DLog(@"%@", responseObject);
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
+        if (package.resultCode == 200) {
+            NSMutableArray<SKGoldRecord *> *goldRecordArray = [NSMutableArray array];
+            for (int i=0; i!=[package.data count]; i++) {
+                SKGoldRecord *record = [SKGoldRecord mj_objectWithKeyValues:package.data[i]];
+                [goldRecordArray addObject:record];
+            }
+            callback(true, goldRecordArray);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"HTTP Request failed: %@", error);
+    }];
+    
+    [manager.operationQueue addOperation:operation];
+
+}
+
+
 
 @end

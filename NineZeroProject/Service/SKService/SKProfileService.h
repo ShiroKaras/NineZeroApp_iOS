@@ -17,9 +17,9 @@ typedef void (^SKGetUserInfoCallback) (BOOL success, SKUserInfo *userInfo);
 typedef void (^SKGetArticlesCallback) (BOOL success, NSArray<SKArticle *> *articles);
 typedef void (^SKGetArticleCallback) (BOOL success, SKArticle *articles);
 typedef void (^SKGetMyRankCallback) (BOOL success, SKRanker *ranker);
-typedef void (^SKGetRankListCallback) (BOOL success, NSArray<SKRanker *> *ranker);
+typedef void (^SKGetRankListCallback) (BOOL success, NSArray<SKRanker *> *rankList);
 typedef void (^SKGetBadgesCallback) (BOOL success, NSArray<SKBadge *> *badges) ;
-typedef void (^SKGetGoldRecordCallback) (BOOL success, NSArray<SKGoldRecord *> *goldrecord);
+typedef void (^SKGetGoldRecordCallback) (BOOL success, NSArray<SKGoldRecord *> *goldrecordList);
 
 @interface SKProfileService : NSObject
 
@@ -50,7 +50,7 @@ typedef void (^SKGetGoldRecordCallback) (BOOL success, NSArray<SKGoldRecord *> *
 /**
  *  @brief 金币记录
  */
-- (void)getGoldRecord:()callback;
+- (void)getGoldRecord:(SKGetGoldRecordCallback)callback;
 
 
 @end
