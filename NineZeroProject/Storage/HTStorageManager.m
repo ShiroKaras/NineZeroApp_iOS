@@ -46,7 +46,7 @@
 }
 
 #pragma mark - Public Method
-
+#pragma mark 用户设置信息
 - (void)setUserInfo:(HTUserInfo *)userInfo {
     _userInfo = userInfo;
     [_storageService putObject:[userInfo mj_keyValues] withId:kStorageUserInfoKey intoTable:kStorageTableKey];
@@ -58,6 +58,7 @@
     return _userInfo;
 }
 
+#pragma mark 个人主页信息
 - (void)setProfileInfo:(HTProfileInfo *)profileInfo {
     _profileInfo = profileInfo;
     [_storageService putObject:[profileInfo mj_keyValues] withId:kStorageProfileInfoKey intoTable:kStorageTableKey];
@@ -69,6 +70,7 @@
     return _profileInfo;
 }
 
+#pragma mark 零仔信息
 - (void)setMascotInfo:(HTMascot *)mascotInfo withIndex:(NSUInteger)index{
     _mascotInfo = mascotInfo;
     [_storageService putObject:[mascotInfo mj_keyValues] withId:[NSString stringWithFormat:@"%@_%lu",kStorageMascotInfoKey, (unsigned long)index] intoTable:kStorageTableKey];
@@ -80,6 +82,7 @@
     return _mascotInfo;
 }
 
+#pragma mark LoginUser
 - (void)updateLoginUser:(HTLoginUser *)loginUser {
     [_storageService putObject:[loginUser mj_keyValues] withId:kStorageLoginUserKey intoTable:kStorageTableKey];
 }
@@ -93,6 +96,7 @@
     [_storageService deleteObjectById:kStorageLoginUserKey fromTable:kStorageTableKey];
 }
 
+#pragma mark 用户ID
 - (void)updateUserID:(NSString *)userID {
     [_storageService putString:userID withId:kStorageUserIdKey intoTable:kStorageTableKey];
 }
@@ -105,6 +109,7 @@
     [_storageService deleteObjectById:kStorageUserIdKey fromTable:kStorageTableKey];
 }
 
+#pragma mark 用户LoginToken
 - (void)updateUserToken:(NSString *)token {
     [_storageService putString:token withId:kStorageUserTokenKey intoTable:kStorageTableKey];
 }
@@ -117,6 +122,7 @@
     [_storageService deleteObjectById:kStorageUserTokenKey fromTable:kStorageTableKey];
 }
 
+#pragma mark PwdSalt(无用)
 - (void)updatePwdSalt:(NSString *)salt {
     [_storageService putString:salt withId:kStorageSaltKey intoTable:kStorageTableKey];
 }
@@ -129,6 +135,7 @@
     [_storageService putString:token withId:kQiniuTokenKey intoTable:kStorageTableKey];
 }
 
+#pragma mark 七牛token
 - (NSString *)getQiniuToken {
     return [_storageService getStringById:kQiniuTokenKey fromTable:kStorageTableKey];
 }
