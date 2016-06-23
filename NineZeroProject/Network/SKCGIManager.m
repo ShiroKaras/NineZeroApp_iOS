@@ -109,7 +109,7 @@
 }
 
 #pragma mark 修改用户名
-+ (NSString *)resetUserName_Action {
++ (NSString *)updateUserName_Action {
     return @"update_user_name";
 }
 

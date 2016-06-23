@@ -100,7 +100,7 @@
 /**
  *  @brief 修改用户名
  */
-+ (NSString *)resetUserName_Action;
++ (NSString *)updateUserName_Action;
 
 #pragma mark 修改头像
 /**
