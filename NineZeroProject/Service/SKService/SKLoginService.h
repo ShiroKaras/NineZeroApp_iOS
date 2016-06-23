@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SKNetworkDefine.h"
+#import "HTLogicHeader.h"
 
 @class HTLoginUser;
 
