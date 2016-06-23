@@ -7,16 +7,22 @@
 //
 
 #import "SKProfileService.h"
-#import "HTLogicHeader.h"
+#import "SKServiceManager.h"
 
 @implementation SKProfileService
 
-#pragma mark 修改头像
-- (void)createUpdateAvatarService:(SKResponseCallback)callback {
+#pragma  mark 修改用户名
+- (void)updateUsername:(SKUserInfo *)username completion:(SKResponseCallback)callback {
+    DLog(@"userid = %@", [[SKStorageManager sharedInstance] getUserID]);
+    if ([[SKStorageManager sharedInstance] getUserID]==nil) return;
+    
     NSDictionary *param = @{@"access_key": SECRET_STRING,
-                            @"action": @"new_update_user_avatar",
-                            @"login_token": [[HTStorageManager sharedInstance] getLoginUser].token,
-                            @"user_id": [[HTStorageManager sharedInstance] getUserID],
+                            @"login_token":[[SKStorageManager sharedInstance] getUserToken],
+                            @"action": [SKCGIManager updateUserName_Action],
+                            @"user_id": [[SKStorageManager sharedInstance] getUserID],
+                            @"data": @{
+                                @"name": username
+                                }
                             };
     
     // Create manager
@@ -31,10 +37,107 @@
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"%@", responseObject);
         SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
-        if ([package.resultCode isEqualToString:@"200"]) {
+        if (package.resultCode == 200) {
             callback(true, package);
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        DLog(@"HTTP Request failed: %@", error);
+    }];
+    
+    [manager.operationQueue addOperation:operation];
+}
+
+#pragma mark 修改头像
+- (void)createUpdateAvatarService:(SKResponseCallback)callback {
+    NSDictionary *param = @{@"access_key": SECRET_STRING,
+                            @"action": @"new_update_user_avatar",
+                            @"login_token": [[SKStorageManager sharedInstance] getUserToken],
+                            @"user_id": [[SKStorageManager sharedInstance] getUserID],
+                            };
+    
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager userBaseInfoCGIKey] parameters:param error:NULL];
+    
+    // Add Headers
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    // Fetch Request
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DLog(@"%@", responseObject);
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
+        if (package.resultCode == 200) {
+            callback(true, package);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        DLog(@"HTTP Request failed: %@", error);
+    }];
+    
+    [manager.operationQueue addOperation:operation];
+}
+
+#pragma mark 主页信息
+
+//TODO Success callback
+- (void)getProfileInfo:(SKGetProfileInfoCallback)callback {
+    DLog(@"userid = %@", [[SKStorageManager sharedInstance] getUserID]);
+    if ([[SKStorageManager sharedInstance] getUserID] == nil) return;
+    
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // JSON Body
+    NSDictionary* bodyObject = @{
+                                 @"access_key": SECRET_STRING,
+                                 @"user_id": [[SKStorageManager sharedInstance] getUserID],
+                                 @"login_token": [[SKStorageManager sharedInstance] getUserToken],
+                                 @"action": [SKCGIManager profile_getProfile_Action]
+                                 };
+    
+    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager userProfileCGIKey] parameters:bodyObject error:NULL];
+    
+    // Add Headers
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    // Fetch Request
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DLog(@"%@",responseObject);
+        SKResponsePackage *rsp = [SKResponsePackage mj_objectWithKeyValues:responseObject];
+        if (rsp.resultCode == 0) {
+            SKProfileInfo *profileInfo = [SKProfileInfo mj_objectWithKeyValues:rsp.data];
+            if (profileInfo.answer_list.count!=0) {
+                NSMutableArray<SKQuestion *> *answerList = [NSMutableArray new];
+                NSMutableArray<NSString *> *downloadKeys = [NSMutableArray new];
+                for (int i = 0; i != [responseObject[@"data"][@"answer_list"] count]; i++) {
+                    @autoreleasepool {
+                        SKQuestion *answer = [SKQuestion mj_objectWithKeyValues:[responseObject[@"data"][@"answer_list"] objectAtIndex:i]];
+                        answer.isPassed = YES;
+                        [answerList addObject:answer];
+                        if (answer.question_video_cover) [downloadKeys addObject:answer.question_video_cover];
+                        if (answer.descriptionPic) [downloadKeys addObject:answer.descriptionPic];
+                    }
+                }
+                //从七牛上获取下载链接
+                [[[SKServiceManager sharedInstance] questionService] getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, SKResponsePackage *response) {
+                    for (HTQuestion *answer in answerList) {
+                        @autoreleasepool {
+                            NSDictionary *dataDict = response.data;
+                            if (answer.question_video_cover) answer.question_video_cover = dataDict[answer.question_video_cover];
+                            if (answer.descriptionPic) answer.descriptionURL = dataDict[answer.descriptionPic];
+                        }
+                    }
+                    profileInfo.answer_list = answerList;
+                    [[SKStorageManager sharedInstance] setProfileInfo:profileInfo];
+                    callback(true, profileInfo);
+                }];
+            } else {
+                callback(true, profileInfo);
+            }
+        } else {
+            callback(false, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"HTTP Request failed: %@", error);
     }];
     

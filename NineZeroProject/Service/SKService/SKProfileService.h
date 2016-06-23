@@ -3,18 +3,30 @@
 //  NineZeroProject
 //
 //  Created by SinLemon on 16/6/14.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  CopyrigSK © 2016年 ronhu. All rigSKs reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "SKNetworkDefine.h"
+
+typedef void (^SKBackupUserInfoCallBack) (BOOL success, NSDictionary *backupDict);
+typedef void (^SKGetProfileInfoCallback) (BOOL success, SKProfileInfo *profileInfo);
+typedef void (^SKGetNotificationsCallback) (BOOL success, NSArray<SKNotification *> *notifications);
+typedef void (^SKGetRewardsCallback) (BOOL success, NSArray<SKTicket *> *rewards);
+typedef void (^SKGetUserInfoCallback) (BOOL success, SKUserInfo *userInfo);
+typedef void (^SKGetArticlesCallback) (BOOL success, NSArray<SKArticle *> *articles);
+typedef void (^SKGetArticleCallback) (BOOL success, SKArticle *articles);
+typedef void (^SKGetMyRankCallback) (BOOL success, SKRanker *ranker);
+typedef void (^SKGetRankListCallback) (BOOL success, NSArray<SKRanker *> *ranker);
+typedef void (^SKGetBadgesCallback) (BOOL success, NSArray<SKBadge *> *badges) ;
+typedef void (^SKGetGoldRecordCallback) (BOOL success, NSArray<SKGoldRecord *> *goldrecord);
 
 @interface SKProfileService : NSObject
 
 /**
  *  @brief 修改用户名
  */
-- (void)updateUsername:(NSString *)username completion:(SKResponseCallback)callback;
+- (void)updateUsername:(SKUserInfo *)username completion:(SKResponseCallback)callback;
 
 #pragma mark 修改头像
 /**
@@ -22,6 +34,23 @@
  */
 - (void)createUpdateAvatarService:(SKResponseCallback)callback;
 
+//- (void)updateUserAvatar:()
+
+#pragma mark 主页信息
+/**
+ *  @brief 个人主页整合数据
+ */
+- (void)getProfileInfo:(SKGetProfileInfoCallback)callback;
+
+/**
+ *  @brief 排行榜
+ */
+- (void)getRankList:(SKGetRankListCallback)callback;
+
+/**
+ *  @brief 金币记录
+ */
+- (void)getGoldRecord:()callback;
 
 
 @end
