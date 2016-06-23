@@ -11,7 +11,7 @@
 
 #define HTINIT(T) - (instancetype)init { \
     if (self = [super init]) { \
-        [T setupReplacedKeyFromPropertyName:^NSDictionary *{ \
+        [T mj_setupReplacedKeyFromPropertyName:^NSDictionary *{ \
             return [self propertyMapper]; \
         }]; \
     } \
@@ -123,7 +123,7 @@ HTINIT(HTMascot)
 @implementation HTProfileInfo
 - (instancetype)init {
     if (self = [super init]) {
-        [HTProfileInfo setupObjectClassInArray:^NSDictionary *{
+        [HTProfileInfo mj_setupObjectClassInArray:^NSDictionary *{
             return @{@"answer_list" : @"HTQuestion"};
         }];
     }
