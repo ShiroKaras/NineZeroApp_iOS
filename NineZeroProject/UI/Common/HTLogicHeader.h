@@ -12,6 +12,7 @@
 #import <MJExtension.h>
 
 #import "HTModel.h"
+#import "SKModel.h"
 
 #import "HTCGIManager.h"
 #import "SKCGIManager.h"
@@ -20,6 +21,7 @@
 #import "SKNetworkDefine.h"
 
 #import "HTStorageManager.h"
+#import "SKStorageManager.h"
 
 #import "HTLog.h"
 #import "NSString+Utility.h"
