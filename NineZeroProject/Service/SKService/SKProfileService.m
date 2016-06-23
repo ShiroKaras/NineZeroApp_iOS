@@ -178,7 +178,7 @@
             callback(true, rankListArray);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"HTTP Request failed: %@", error);
+        DLog(@"HTTP Request failed: %@", error);
     }];
     
     [manager.operationQueue addOperation:operation];
@@ -216,7 +216,7 @@
             callback(true, goldRecordArray);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"HTTP Request failed: %@", error);
+        DLog(@"HTTP Request failed: %@", error);
     }];
     
     [manager.operationQueue addOperation:operation];
