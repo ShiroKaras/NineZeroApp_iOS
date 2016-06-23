@@ -11,8 +11,8 @@
 #import "SKQuestionService.h"
 #import "SKMascotService.h"
 #import "SKProfileService.h"
-#import "HTStorageManager.h"
-#import "HTModel.h"
+#import "SKStorageManager.h"
+#import "SKModel.h"
 #import <Qiniu/QiniuSDK.h>
 #import <YTKKeyValueStore.h>
 #import "CommonDefine.h"
