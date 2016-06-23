@@ -11,4 +11,6 @@
 
 @interface SKQuestionService : NSObject
 
+- (void)getQiniuDownloadURLsWithKeys:(NSArray<NSString *> *)keys callback:(SKResponseCallback)callback;
+
 @end
