@@ -19,6 +19,7 @@
 		11630A5E1D17FF3400B39FF9 /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11630A5D1D17FF3400B39FF9 /* SKModel.m */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
+		11C394311D1AAEB800087A61 /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C394301D1AAEB800087A61 /* SKStorageManager.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
 		11DE52FD1D0FF832008398DA /* SKServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE52FC1D0FF832008398DA /* SKServiceManager.m */; };
@@ -806,6 +807,8 @@
 		1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKImageHelper.m; sourceTree = "<group>"; };
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
 		11B385E41CCBA5F8009B8D6F /* SKShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKShareView.m; sourceTree = "<group>"; };
+		11C3942F1D1AAEB800087A61 /* SKStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKStorageManager.h; sourceTree = "<group>"; };
+		11C394301D1AAEB800087A61 /* SKStorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKStorageManager.m; sourceTree = "<group>"; };
 		11CA0C541CD24E4200C06333 /* easing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easing.c; sourceTree = "<group>"; };
 		11CA0C551CD24E4200C06333 /* easing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easing.h; sourceTree = "<group>"; };
 		11CA0C561CD24E4200C06333 /* YXEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXEasing.h; sourceTree = "<group>"; };
@@ -1823,6 +1826,15 @@
 			path = JSPatch;
 			sourceTree = "<group>";
 		};
+		11C3942E1D1AAE8600087A61 /* SKStorage */ = {
+			isa = PBXGroup;
+			children = (
+				11C3942F1D1AAEB800087A61 /* SKStorageManager.h */,
+				11C394301D1AAEB800087A61 /* SKStorageManager.m */,
+			);
+			name = SKStorage;
+			sourceTree = "<group>";
+		};
 		11CA0C531CD24E4200C06333 /* Easing */ = {
 			isa = PBXGroup;
 			children = (
@@ -1958,6 +1970,7 @@
 		1721D7181BEFB77E00498304 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				11C3942E1D1AAE8600087A61 /* SKStorage */,
 				1721D7261BEFBE1400498304 /* HTStorageDefine.h */,
 				1721D7271BEFBE1400498304 /* HTStorageDefine.m */,
 				17713D3E1C04D6AD00DB8BB0 /* HTStorageManager.h */,
@@ -4148,6 +4161,7 @@
 				17A20A0C1C4FFE4600364EEF /* HTMascotPropView.m in Sources */,
 				1787FD231C4A895B006E55A6 /* HTARCaptureController.m in Sources */,
 				17F393A41C8C87D8004E1DB7 /* HTPreviewCardController.m in Sources */,
+				11C394311D1AAEB800087A61 /* SKStorageManager.m in Sources */,
 				179D2BB31C5E5444000A4461 /* HTRelaxController.m in Sources */,
 				17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */,
 				1787FD1F1C4A8884006E55A6 /* PRARManager.m in Sources */,
