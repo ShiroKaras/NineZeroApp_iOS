@@ -60,7 +60,7 @@
 @interface SKResponsePackage : NSObject
 @property (nonatomic, strong) id data;                      // 返回数据
 @property (nonatomic, strong) NSString *method;             // 方法名
-@property (nonatomic, strong) NSString *resultCode;         // 结果code
+@property (nonatomic, assign) NSUInteger resultCode;         // 结果code
 @property (nonatomic, strong) NSString *message;            // 结果信息
 @end
 
@@ -150,11 +150,12 @@
 
 @interface SKProfileInfo : NSObject
 @property (nonatomic, strong) NSString *gold;
-@property (nonatomic, strong) NSString *ticket;
-@property (nonatomic, strong) NSString *notice;
 @property (nonatomic, strong) NSString *rank;
-@property (nonatomic, strong) NSString *article;
-@property (nonatomic, strong) NSString *medal;
+@property (nonatomic, strong) NSString *ticketCount;
+@property (nonatomic, strong) NSString *medalCount;
+@property (nonatomic, strong) NSString *propCount;
+@property (nonatomic, strong) NSString *articleCount;
+@property (nonatomic, strong) NSString *noticeCount;
 @property (nonatomic, strong) NSArray<SKQuestion *> *answer_list;
 @end
 
@@ -176,6 +177,12 @@
 @property (nonatomic, strong) NSString *user_avatar;    // 头像(名？)
 @property (nonatomic, strong) NSString *user_name;
 @property (nonatomic, strong) NSString *area_name;
+@end
+
+// 金币记录
+@interface SKGoldRecord : NSObject
+@property (nonatomic, strong) NSString *number;
+@property (nonatomic, strong) NSString *description;
 @end
 
 // 勋章

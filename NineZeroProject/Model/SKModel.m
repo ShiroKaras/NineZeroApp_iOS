@@ -123,13 +123,26 @@ SKINIT(SKMascot)
 @implementation SKProfileInfo
 - (instancetype)init {
     if (self = [super init]) {
-        [SKProfileInfo setupObjectClassInArray:^NSDictionary *{
+        [SKProfileInfo mj_setupObjectClassInArray:^NSDictionary *{
             return @{@"answer_list" : @"SKQuestion"};
+        }];
+        
+        [SKProfileInfo mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+            return [self propertyMapper];
         }];
     }
     return self;
 }
 
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"ticketCount" : @"ticket_count",
+                                     @"medalCount"  : @"medal_count",
+                                     @"propCount"   : @"prop_count",
+                                     @"articleCount": @"article_collection_count",
+                                     @"noticeCount" : @"message_unread_count"
+                                     };
+    return propertyMapper;
+}
 @end
 
 @implementation SKUserInfo
