@@ -86,9 +86,9 @@ SKINIT(SKResponsePackage)
 SKINIT(SKArticle)
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"mascotID"  : @"pet_id",
-                                     @"articleID" : @"article_id",
-                                     @"articleURL" : @"article_url",
-                                     @"articleTitle" : @"article_title"};
+                                     @"articleID" : @"id",              //缺
+                                     @"articleURL" : @"content.url",
+                                     @"articleTitle" : @"title"};
     return propertyMapper;
 }
 @end
@@ -115,6 +115,12 @@ SKINIT(SKMascot)
 @end
 
 @implementation SKNotification
+SKINIT(SKNotification)
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"notice_id" : @"id",
+                                     };
+    return propertyMapper;
+}
 @end
 
 //@implementation SKProfileAnswer
@@ -169,6 +175,16 @@ SKINIT(SKRanker)
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"user_name"   : @"name",
                                      @"user_avatar" : @"avatar_url"
+                                     };
+    return propertyMapper;
+}
+@end
+
+@implementation SKGoldRecord
+SKINIT(SKGoldRecord)
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"goldNumber"   : @"number",
+                                     @"goldDescription" : @"description"
                                      };
     return propertyMapper;
 }
