@@ -52,5 +52,14 @@ typedef void (^SKGetGoldRecordCallback) (BOOL success, NSArray<SKGoldRecord *> *
  */
 - (void)getGoldRecord:(SKGetGoldRecordCallback)callback;
 
+/**
+ *  @brief 文章收藏列表
+ */
+- (void)getArticleCollectionList:(SKGetArticlesCallback)callback;
+
+/**
+ *  @brief 消息列表
+ */
+- (void)getNotificationList:(SKGetNotificationsCallback)callback;
 
 @end

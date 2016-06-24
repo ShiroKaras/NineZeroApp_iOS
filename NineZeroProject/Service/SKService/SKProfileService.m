@@ -42,6 +42,7 @@
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         DLog(@"HTTP Request failed: %@", error);
+        callback(false, nil);
     }];
     
     [manager.operationQueue addOperation:operation];
@@ -72,6 +73,7 @@
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         DLog(@"HTTP Request failed: %@", error);
+        callback(false, nil);
     }];
     
     [manager.operationQueue addOperation:operation];
@@ -139,6 +141,7 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"HTTP Request failed: %@", error);
+        callback(false, nil);
     }];
     
     [manager.operationQueue addOperation:operation];
@@ -179,6 +182,7 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"HTTP Request failed: %@", error);
+        callback(false, nil);
     }];
     
     [manager.operationQueue addOperation:operation];
@@ -186,7 +190,7 @@
 
 #pragma mark 金币记录
 - (void)getGoldRecord:(SKGetGoldRecordCallback)callback {
-    
+
     // Create manager
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -217,12 +221,83 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"HTTP Request failed: %@", error);
+        callback(false, nil);
     }];
     
     [manager.operationQueue addOperation:operation];
 
 }
 
+#pragma 文章收藏列表
+- (void)getArticleCollectionList:(SKGetArticlesCallback)callback {
+    
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // JSON Body
+    NSDictionary* bodyObject = @{
+                                 @"user_id": [[SKStorageManager sharedInstance] getUserID],
+                                 @"access_key": SECRET_STRING,
+                                 @"login_token": [[SKStorageManager sharedInstance] getUserToken],
+                                 @"action": [SKCGIManager profile_getCollectionAticles_Action]
+                                 };
+    
+    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager userProfileCGIKey] parameters:bodyObject error:NULL];
+    
+    // Add Headers
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    // Fetch Request
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DLog(@"HTTP Response Body: %@", responseObject);
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
+        if (package.resultCode == 200) {
+            //TODO 待接口完善
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DLog(@"HTTP Request failed: %@", error);
+        callback(false, nil);
+    }];
+    
+    [manager.operationQueue addOperation:operation];
+}
 
+#pragma 获取消息列表
+- (void)getNotificationList:(SKGetNotificationsCallback)callback {
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // JSON Body
+    NSDictionary* bodyObject = @{
+                                 @"user_id": [[SKStorageManager sharedInstance] getUserID],
+                                 @"access_key": SECRET_STRING,
+                                 @"login_token": [[SKStorageManager sharedInstance] getUserToken],
+                                 @"action": [SKCGIManager profile_getNotification_Action]
+                                 };
+    
+    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager messageCGIKey] parameters:bodyObject error:NULL];
+    
+    // Add Headers
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    // Fetch Request
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DLog(@"HTTP Response Body: %@", responseObject);
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
+        NSMutableArray<SKNotification *> *notifications = [NSMutableArray array];
+        if (package.resultCode == 200) {
+            for (NSDictionary *dataDict in package.data) {
+                SKNotification *notification = [SKNotification mj_objectWithKeyValues:dataDict];
+                [notifications insertObject:notification atIndex:0];
+            }
+            callback(true, notifications);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DLog(@"HTTP Request failed: %@", error);
+        callback(false, nil);
+    }];
+    
+    [manager.operationQueue addOperation:operation];
+}
 
 @end
