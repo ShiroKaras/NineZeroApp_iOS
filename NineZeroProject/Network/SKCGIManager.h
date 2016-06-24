@@ -147,7 +147,7 @@
 /**
  *  @brief 消息列表
  */
-+ (NSString *)profile_getMessageList_Action;
++ (NSString *)profile_getNotification_Action;
 
 #pragma mark 停赛日
 /**

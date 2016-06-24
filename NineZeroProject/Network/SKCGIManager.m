@@ -147,7 +147,7 @@
     return @"get_success_question";
 }
 
-+ (NSString *)profile_getMessageList_Action {
++ (NSString *)profile_getNotification_Action {
     return @"get_affiche";
 }
 
