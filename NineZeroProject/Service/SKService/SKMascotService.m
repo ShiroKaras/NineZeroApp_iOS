@@ -7,8 +7,47 @@
 //
 
 #import "SKMascotService.h"
-#import "HTLogicHeader.h"
+#import "SKServiceManager.h"
 
 @implementation SKMascotService
 
+- (void)getUserMascots:(SKGetMascotsCallback)callback {
+    
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
+    // JSON Body
+    NSDictionary* bodyObject = @{
+                                 @"user_id": [[SKStorageManager sharedInstance] getUserID],
+                                 @"access_key": SECRET_STRING,
+                                 @"login_token": [[SKStorageManager sharedInstance] getUserToken],
+                                 @"action": [SKCGIManager profile_getMascot_Action]
+                                 };
+    
+    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager userProfileCGIKey] parameters:bodyObject error:NULL];
+    
+    // Add Headers
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    // Fetch Request
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DLog(@"HTTP Response Body: %@", responseObject);
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
+        if (package.resultCode == 200) {
+            NSMutableArray<SKMascot *> *mascots = [[NSMutableArray alloc] init];
+            for (int i = 0; i != [responseObject[@"data"] count]; i++) {
+                SKMascot *mascot = [SKMascot mj_objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
+                //获取未读文章数
+//                mascot.unread_articles = mascot.articles - [[HTStorageManager sharedInstance] getMascotInfoWithIndex:mascot.mascotID].articles;
+                [mascots addObject:mascot];
+            }
+            callback(true, mascots);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DLog(@"HTTP Request failed: %@", error);
+        callback(false, nil);
+    }];
+    
+    [manager.operationQueue addOperation:operation];
+}
 @end
