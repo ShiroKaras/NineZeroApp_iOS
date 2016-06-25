@@ -96,11 +96,12 @@ SKINIT(SKArticle)
 @implementation SKMascot
 SKINIT(SKMascot)
 - (NSDictionary *)propertyMapper {
-    NSDictionary *propertyMapper = @{@"mascotID" : @"pet_id",
+    NSDictionary *propertyMapper = @{@"mascotID" : @"id",
+                                     @"mascotName" : @"name",
                                      @"getTime" : @"time",
-                                     @"mascotName" : @"pet_name",
-                                     @"mascotPic" : @"pet_pic",
-                                     @"mascotDescription" : @"pet_desc"};
+                                     @"mascotPic" : @"picture.url",
+                                     @"mascotGif" : @"gif.url",
+                                     @"mascotDescription" : @"description"};
     return propertyMapper;
 }
 @end

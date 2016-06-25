@@ -83,11 +83,11 @@
 // 零仔
 @interface SKMascot : NSObject
 @property (nonatomic, copy) NSString *mascotID;             // 零仔ID
-@property (nonatomic, copy) NSString *getTime;              // 获取时间
 @property (nonatomic, copy) NSString *mascotName;            // 零仔名称
+@property (nonatomic, copy) NSString *getTime;              // 获取时间
 @property (nonatomic, copy) NSString *mascotPic;             // 零仔图片
+@property (nonatomic, copy) NSString *mascotGif;               // 零仔的gif图
 @property (nonatomic, copy) NSString *mascotDescription;     // 零仔描述
-@property (nonatomic, copy) NSString *pet_gif;               // 零仔的gif图
 @property (nonatomic, copy) NSString *articles;              //文章数
 @property (nonatomic, copy) NSString *unread_articles;       //未读文章数
 @property (nonatomic, copy) NSArray<SKArticle *> *article_list;  // 文章

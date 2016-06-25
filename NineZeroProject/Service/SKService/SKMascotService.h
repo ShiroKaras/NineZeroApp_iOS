@@ -18,6 +18,11 @@ typedef void (^SKGetRewardCallback) (BOOL success, SKResponsePackage *rsp);
 @interface SKMascotService : NSObject
 
 /**
+ *  @brief 获取零仔完整数据
+ */
+- (void)getBaseMascotsInfo:(SKGetMascotsCallback)callback;
+
+/**
  *  @brief 零仔收藏
  */
 - (void)getUserMascots:(SKGetMascotsCallback)callback;
