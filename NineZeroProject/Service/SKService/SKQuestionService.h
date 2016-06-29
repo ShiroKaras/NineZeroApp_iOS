@@ -12,7 +12,7 @@
 typedef void (^SKQuestionCallback) (BOOL success, SKQuestion *question);
 typedef void (^SKQuestionListCallback) (BOOL success, NSArray<SKQuestion *> *questionList);
 typedef void (^SKQuestionInfoCallback) (BOOL success, SKQuestionInfo *questionInfo);
-
+typedef void (^SKGetRewardCallback) (BOOL success, SKResponsePackage *rsp);
 
 @interface SKQuestionService : NSObject
 
