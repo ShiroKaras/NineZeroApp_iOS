@@ -1835,6 +1835,25 @@
 			name = SKStorage;
 			sourceTree = "<group>";
 		};
+		11C394321D211DE300087A61 /* HTService */ = {
+			isa = PBXGroup;
+			children = (
+				17A277261BF79C8000E46670 /* HTServiceManager.h */,
+				17A277271BF79C8000E46670 /* HTServiceManager.m */,
+				17A277291BF79CA900E46670 /* HTLoginService.h */,
+				17A2772A1BF79CA900E46670 /* HTLoginService.m */,
+				17967AB31C174ED500571924 /* HTQuestionService.h */,
+				17967AB41C174ED500571924 /* HTQuestionService.m */,
+				17C40B3E1C5538A200DAE22A /* HTMascotService.h */,
+				17C40B3F1C5538A200DAE22A /* HTMascotService.m */,
+				17F0F47A1C95D1510050F0EB /* HTProfileService.h */,
+				17F0F47B1C95D1510050F0EB /* HTProfileService.m */,
+				17E8DE4F1C0E154B009D4F9F /* HTQiNiuService.h */,
+				17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */,
+			);
+			name = HTService;
+			sourceTree = "<group>";
+		};
 		11CA0C531CD24E4200C06333 /* Easing */ = {
 			isa = PBXGroup;
 			children = (
@@ -3070,19 +3089,8 @@
 		17A277251BF79C5F00E46670 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				11C394321D211DE300087A61 /* HTService */,
 				11DE52FA1D0FF7E9008398DA /* SKService */,
-				17A277261BF79C8000E46670 /* HTServiceManager.h */,
-				17A277271BF79C8000E46670 /* HTServiceManager.m */,
-				17A277291BF79CA900E46670 /* HTLoginService.h */,
-				17A2772A1BF79CA900E46670 /* HTLoginService.m */,
-				17967AB31C174ED500571924 /* HTQuestionService.h */,
-				17967AB41C174ED500571924 /* HTQuestionService.m */,
-				17C40B3E1C5538A200DAE22A /* HTMascotService.h */,
-				17C40B3F1C5538A200DAE22A /* HTMascotService.m */,
-				17F0F47A1C95D1510050F0EB /* HTProfileService.h */,
-				17F0F47B1C95D1510050F0EB /* HTProfileService.m */,
-				17E8DE4F1C0E154B009D4F9F /* HTQiNiuService.h */,
-				17E8DE501C0E154B009D4F9F /* HTQiNiuService.m */,
 			);
 			name = Service;
 			path = NineZeroProject/Service;

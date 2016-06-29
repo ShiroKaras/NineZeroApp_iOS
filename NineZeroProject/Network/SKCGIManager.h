@@ -172,6 +172,12 @@
 + (NSString *)question_getQuestionList_Action;
 
 /**
+ *  @brief 获取答题成功列表
+ */
+
++ (NSString *)question_getQuestionList_Successful_Action;
+
+/**
  *  @brief 答题
  */
 + (NSString *)question_checkAnswer_Action;

@@ -169,6 +169,10 @@
     return @"get_list";
 }
 
++ (NSString *)question_getQuestionList_Successful_Action {
+    return @"get_success_question";
+}
+
 + (NSString *)question_checkAnswer_Action {
     return @"check_answer";
 }
