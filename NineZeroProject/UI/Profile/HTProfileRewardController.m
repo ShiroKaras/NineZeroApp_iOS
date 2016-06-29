@@ -90,7 +90,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 21 + cardHeight;
+    return 11 + (SCREEN_WIDTH-40)/2;
 }
 
 @end
