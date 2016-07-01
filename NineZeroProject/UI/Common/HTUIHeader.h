@@ -35,6 +35,7 @@
 #import "easing.h"
 #import "YXEasing.h"
 #import "SKImageHelper.h"
+#import "MJRefresh.h"
 
 #import "UMMobClick/MobClick.h"
 

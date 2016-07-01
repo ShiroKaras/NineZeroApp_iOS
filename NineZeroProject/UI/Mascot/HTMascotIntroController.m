@@ -167,6 +167,18 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             [HTProgressHUD dismiss];
             if (success && mascot.article_list.count != 0) {
                 _mascot.article_list = mascot.article_list;
+                
+                MJRefreshAutoGifFooter *footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+                NSMutableArray<UIImage *> *refreshingImages = [NSMutableArray array];
+                for (int i = 0; i != 3; i++) {
+                    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"list_view_loader_grey_%d", (i + 1)]];
+                    [refreshingImages addObject:image];
+                }
+                [footer setImages:refreshingImages duration:1.0 forState:MJRefreshStateRefreshing];
+                footer.refreshingTitleHidden = YES;
+                self.tableView.mj_footer = footer;
+                footer.height = 0;
+                
                 [self.tableView reloadData];
             } else if (_mascot.article_list.count == 0) {
                 noContentHandler();
@@ -175,6 +187,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             }
         }];
     }
+}
+
+- (void)loadMoreData {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView.mj_footer endRefreshing];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
