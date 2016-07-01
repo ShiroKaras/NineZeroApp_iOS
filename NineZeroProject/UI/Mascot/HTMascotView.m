@@ -21,7 +21,9 @@ const char *kTapItemAssociatedKey;
 
 @interface HTMascotView ()
 @property (nonatomic, strong) NSMutableArray<HTMascotItem *> *mascotItems;
+@property (nonatomic, strong) NSMutableArray<UIImageView *> *mascotPlaceholderImageArray;
 @property (nonatomic, strong) NSMutableArray<HTMascotTipView *> *mascotTips;
+@property (nonatomic, strong) NSArray<NSNumber *> *mascotPlaceholderImageViewsLayers;
 @property (nonatomic, strong) NSArray<NSNumber *> *mascotLayers;
 @end
 
@@ -33,7 +35,9 @@ const char *kTapItemAssociatedKey;
         _mascotItems = [NSMutableArray arrayWithCapacity:MASCOT_ITEMS_COUNT];
         _mascotTips = [NSMutableArray arrayWithCapacity:MASCOT_ITEMS_COUNT];
         // 零仔展示层级对应的index关系
+        _mascotPlaceholderImageViewsLayers = @[@6, @4, @1, @2, @5, @3, @0];
         _mascotLayers = @[@7, @5, @2, @3, @6, @4, @1, @0];
+        [self buildPlaceholderView];
         [self buildViews];
         [self reloadDisplayMascots];
         self.userInteractionEnabled = YES;
@@ -41,12 +45,82 @@ const char *kTapItemAssociatedKey;
     return self;
 }
 
+/**
+ *  @brief 载入实际数据
+ *
+ *  @param mascots 已有的零仔
+ */
 - (void)setMascots:(NSArray<HTMascot *> *)mascots {
     _mascots = mascots;
     [self reloadDisplayMascots];
     [self needsUpdateConstraints];
 }
 
+/**
+ *  @brief 构造 占位图View
+ */
+- (void)buildPlaceholderView {
+    _mascotPlaceholderImageArray = [NSMutableArray new];
+    [_mascotPlaceholderImageArray addObject:[UIImageView new]];
+    for (int i=2; i<=8; i++) {
+        UIImageView *mascotPlaceholderImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_mascot_%u_outline", i]]];
+        [_mascotPlaceholderImageArray addObject:mascotPlaceholderImageView];
+    }
+    
+    // 零仔层级调整
+    for (int i = 0; i != MASCOT_ITEMS_COUNT-1; i++) {
+        NSInteger layerIndex = [_mascotLayers[i] integerValue];
+        UIImageView *item = _mascotPlaceholderImageArray[layerIndex];
+        [self addSubview:item];
+    }
+    
+    [_mascotPlaceholderImageArray[1] mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(ROUND_WIDTH(137.0));
+        make.bottom.equalTo(ROUND_HEIGHT(-184));
+        make.width.equalTo(@140);
+        make.height.equalTo(@140);
+    }];
+    [_mascotPlaceholderImageArray[2] mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(ROUND_WIDTH(63));
+        make.bottom.equalTo(ROUND_HEIGHT(-196));
+        make.width.equalTo(@203);
+        make.height.equalTo(@203);
+    }];
+    [_mascotPlaceholderImageArray[3] mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(ROUND_WIDTH(0));
+        make.bottom.equalTo(ROUND_HEIGHT(-196));
+        make.width.equalTo(@177);
+        make.height.equalTo(@177);
+    }];
+    [_mascotPlaceholderImageArray[4] mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(ROUND_WIDTH(0));
+        make.bottom.equalTo(ROUND_HEIGHT(-191));
+        make.width.equalTo(@105);
+        make.height.equalTo(@105);
+    }];
+    [_mascotPlaceholderImageArray[5] mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(ROUND_WIDTH(5));
+        make.bottom.equalTo(ROUND_HEIGHT(-360));
+        make.width.equalTo(@150);
+        make.height.equalTo(@150);
+    }];
+    [_mascotPlaceholderImageArray[6] mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(ROUND_WIDTH(167));
+        make.bottom.equalTo(ROUND_HEIGHT(-213));
+        make.width.equalTo(@153);
+        make.height.equalTo(@153);
+    }];
+    [_mascotPlaceholderImageArray[7] mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(ROUND_WIDTH(0));
+        make.bottom.equalTo(ROUND_HEIGHT(-187));
+        make.width.equalTo(@284);
+        make.height.equalTo(@315);
+    }];
+}
+
+/**
+ *  @brief 构造 初始化
+ */
 - (void)buildViews {
     [_mascotItems makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [_mascotItems removeAllObjects];
@@ -87,11 +161,15 @@ const char *kTapItemAssociatedKey;
     [self resizeTouchArea];
 }
 
+/**
+ *  @brief 重新加载
+ */
 - (void)reloadDisplayMascots {
     for (HTMascot *iter in _mascots) {
         NSInteger displayIndex = iter.mascotID - 1;
         displayIndex = MAX(0, MIN(7, displayIndex));
         _mascotItems[displayIndex].hidden = NO;
+        _mascotPlaceholderImageArray[displayIndex].hidden = YES;
         _mascotItems[displayIndex].mascot = iter;
         if (iter.mascotID == 1) {
             // 默认播放
@@ -132,6 +210,9 @@ const char *kTapItemAssociatedKey;
         [super updateConstraints];
         return;
     }
+
+    /****************************************************************/
+
     [_mascotItems[0] mas_makeConstraints:^(MASConstraintMaker *make) {
        make.left.equalTo(ROUND_WIDTH(81.0));
        make.bottom.equalTo(ROUND_HEIGHT(-180));
