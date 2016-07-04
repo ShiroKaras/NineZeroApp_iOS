@@ -14,6 +14,7 @@
 #import "HTDescriptionView.h"
 #import "HTShowDetailView.h"
 #import "HTShowAnswerView.h"
+#import "SKAnswerDetailView.h"
 #import "HTARCaptureController.h"
 #import "HTRewardController.h"
 #import "Reachability.h"
@@ -43,6 +44,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (strong, nonatomic) HTDescriptionView *descriptionView;             // 详情页面
 @property (strong, nonatomic) HTShowDetailView *showDetailView;               // 提示详情
 @property (strong, nonatomic) HTShowAnswerView *showAnswerView;               // 查看答案
+@property (strong, nonatomic) SKAnswerDetailView *showAnswerDetailView;       // 查看答案详情
 
 @property (nonatomic, strong) UIButton *closeButton;
 
