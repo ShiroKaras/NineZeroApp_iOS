@@ -91,6 +91,15 @@
 
 @end
 
+// 答案详情
+@interface HTAnswerDetail : NSObject
+@property (nonatomic, copy) NSString *headerImageURL;
+@property (nonatomic, copy) NSString *backgroundImageURL;
+@property (nonatomic, copy) NSString *contentText;
+@property (nonatomic, strong) NSArray *articles;
+
+@end
+
 // 零仔
 @interface HTMascot : NSObject
 

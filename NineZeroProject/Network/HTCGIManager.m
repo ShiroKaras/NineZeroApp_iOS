@@ -65,6 +65,10 @@
     return [NSString stringWithFormat:@"%@Question/detail", NETWORK_HOST];
 }
 
++ (NSString *)getAnswerDetail {
+    return [NSString stringWithFormat:@"%@Question/getAnswerDetail", NETWORK_HOST];
+}
+
 + (NSString *)getExtraHintCGIKey {
     return [NSString stringWithFormat:@"%@Question/getRestHint", NETWORK_HOST];
 }

@@ -147,6 +147,25 @@
     }];
 }
 
+- (void)getAnswerDetailWithQuestionID:(uint64_t)questionID callback:(HTAnswerDetailInfoCallback)callback {
+    NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID],
+                           @"area_id" : AppDelegateInstance.cityCode,
+                           @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getAnswerDetail] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        if (rsp.resultCode == 0) {
+            HTAnswerDetail *answerDetail = [HTAnswerDetail objectWithKeyValues:responseObject[@"data"]];
+            callback (YES, answerDetail);
+        } else {
+            callback(NO, nil);
+        }
+        DLog(@"%@",responseObject);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(NO, nil);
+        DLog(@"%@", error);
+    }];
+}
+
 - (void)verifyQuestion:(uint64_t)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback {
     NSString *user_id = [[HTStorageManager sharedInstance] getUserID];
     if (user_id.length == 0) {

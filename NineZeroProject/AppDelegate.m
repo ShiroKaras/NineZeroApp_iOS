@@ -151,7 +151,8 @@
     if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _mainController = [[HTMainViewController alloc] init];
-        self.window.rootViewController = _mainController;
+        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:_mainController];
+        self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         // 用户通过点击图标启动程序 还是  点击通知启动程序

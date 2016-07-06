@@ -99,6 +99,11 @@
 + (NSString *)getQuestionDetailCGIKey;
 
 /**
+ *  @brief 获取答案详情
+ */
++ (NSString *)getAnswerDetail;
+
+/**
  *  @brief 获取额外的提示
  */
 + (NSString *)getExtraHintCGIKey;
