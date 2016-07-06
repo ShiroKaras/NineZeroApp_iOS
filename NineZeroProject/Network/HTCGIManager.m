@@ -65,7 +65,7 @@
     return [NSString stringWithFormat:@"%@Question/detail", NETWORK_HOST];
 }
 
-+ (NSString *)getAnswerDetail {
++ (NSString *)getAnswerDetailCGIKey {
     return [NSString stringWithFormat:@"%@Question/getAnswerDetail", NETWORK_HOST];
 }
 

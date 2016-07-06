@@ -101,7 +101,7 @@
 /**
  *  @brief 获取答案详情
  */
-+ (NSString *)getAnswerDetail;
++ (NSString *)getAnswerDetailCGIKey;
 
 /**
  *  @brief 获取额外的提示

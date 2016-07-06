@@ -151,7 +151,7 @@
     NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID],
                            @"area_id" : AppDelegateInstance.cityCode,
                            @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
-    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getAnswerDetail] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getAnswerDetailCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             HTAnswerDetail *answerDetail = [HTAnswerDetail objectWithKeyValues:responseObject[@"data"]];
