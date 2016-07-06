@@ -14,11 +14,13 @@
 #import "HTBlankView.h"
 #import "HTServiceManager.h"
 #import "HTArticleController.h"
+#import "UIImage+ImageEffects.h"
 
 @interface SKAnswerDetailView ()<UIScrollViewDelegate>
 
 @property (nonatomic, assign) uint64_t quesitonID;
 
+@property (nonatomic, strong) UIImageView *backImageView;
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) UIScrollView *backScrollView;
 @property (nonatomic, strong) UIButton *cancelButton;           //关闭按钮
@@ -47,6 +49,10 @@
 - (void)loadDataWithQuestionID:(uint64_t)questionID {
     [HTProgressHUD dismiss];
     [[[HTServiceManager sharedInstance] questionService] getAnswerDetailWithQuestionID:questionID callback:^(BOOL success, HTAnswerDetail *answerDetail) {
+        [_backImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.backgroundImageURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [_backImageView setImage:[image applyLightEffect]];
+        }];
+        
         [_headerImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.headerImageURL]];
         _contentView.text = answerDetail.contentText;
         [_contentView sizeToFit];
@@ -65,6 +71,9 @@
 - (void)createUI {
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
+    _backImageView = [[UIImageView alloc] initWithFrame:self.frame];
+    [self addSubview:_backImageView];
+    
     _backScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
     _backScrollView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
     _backScrollView.showsVerticalScrollIndicator = NO;
@@ -81,7 +90,6 @@
     _contentView.font = [UIFont systemFontOfSize:15];
     _contentView.numberOfLines = 0;
     _contentView.textAlignment = NSTextAlignmentCenter;
-//    [_contentView sizeToFit];
     [_backScrollView addSubview:_contentView];
 
     _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -107,7 +115,7 @@
     [self addSubview:_articleBackView];
     
     UIView *dimView = [UIView new];
-    dimView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+    dimView.backgroundColor = [UIColor colorWithWhite:0 alpha:1];
     [_articleBackView addSubview:dimView];
     
     UIImageView *articleDimmingView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_answer_page_article_title_bg"]];
@@ -142,6 +150,8 @@
     
     for (int i=0; i<articleCount; i++) {
         UIImageView *view = [UIImageView new];
+        view.contentMode = UIViewContentModeScaleAspectFill;
+        view.layer.masksToBounds = YES;
         view.userInteractionEnabled = YES;
         [view sd_setImageWithURL:[NSURL URLWithString:articles[i][@"article_pic_2"]]];
         [_articleBackView addSubview:view];
