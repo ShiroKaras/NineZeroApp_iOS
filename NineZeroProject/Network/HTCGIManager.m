@@ -141,6 +141,10 @@
     return [NSString stringWithFormat:@"%@Article/getMyArticles", NETWORK_HOST];
 }
 
++ (NSString *)readArticleCGIKey {
+    return [NSString stringWithFormat:@"%@Article/readArticle", NETWORK_HOST];
+}
+
 + (NSString *)getUserNoticesCGIKey {
     return [NSString stringWithFormat:@"%@User/getNotice", NETWORK_HOST];
 }

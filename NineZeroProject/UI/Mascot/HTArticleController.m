@@ -146,6 +146,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self.qqButton.alpha = 0;
     [self.view addSubview:self.qqButton];
     
+    [[[HTServiceManager sharedInstance] profileService] readArticleWithArticleID:_article.articleID completion:^(BOOL success, HTResponsePackage *response) {
+        
+    }];
+    
     if (NO_NETWORK) {
         [_webView removeFromSuperview];
         [_backgroundImageView removeFromSuperview];

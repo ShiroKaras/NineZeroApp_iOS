@@ -51,7 +51,7 @@
     else _number.textColor = [HTMascotHelper colorWithMascotIndex:article.mascotID];
     NSArray *mascotNameArray = @[@"停赛日文章", @"零仔〇", @"零仔Sloth·S", @"零仔Pride·W", @"零仔Wrath·C", @"零仔Envy·I", @"零仔Lust·B", @"零仔Gluttony·T", @"零仔Greed·F"];
     _number.text = [NSString stringWithFormat:@"/ %@",mascotNameArray[article.mascotID]];
-    _tipIcon.hidden = article.hasRead;
+    _tipIcon.hidden = article.is_read;
     [_cover sd_setImageWithURL:[NSURL URLWithString:article.article_pic_1] placeholderImage:[UIImage imageNamed:@"img_mascot_article_list_cover_default"]];
     _cover.layer.masksToBounds = YES;
     _cover.contentMode = UIViewContentModeScaleAspectFill;

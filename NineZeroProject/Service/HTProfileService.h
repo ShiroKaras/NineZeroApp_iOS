@@ -85,6 +85,10 @@ typedef NS_ENUM(NSUInteger, HTUpdateUserInfoType) {
  */
 - (void)getCollectArticlesWithPage:(NSUInteger)page count:(NSUInteger)count callback:(HTGetArticlesCallback)callback;
 /**
+ *  @brief 文章标记为已读
+ */
+- (void)readArticleWithArticleID:(NSUInteger)articleID completion:(HTResponseCallback)callback;
+/**
  *  @brief 获取勋章
  */
 - (void)getBadges:(HTGetBadgesCallback)callback;

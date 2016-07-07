@@ -81,13 +81,13 @@
 @property (nonatomic, strong) NSString *articleTitle;      // 文章标题 (缺)
 @property (nonatomic, strong) NSString *article_subtitle;  // 文章副标题
 @property (nonatomic, strong) NSString *articleConverURL;  // 文章封面url (缺)
-@property (nonatomic, assign) NSInteger hasRead;           // 是否已读
 @property (nonatomic, strong) NSString *article_content;
 @property (nonatomic, strong) NSString *article_pic;
 @property (nonatomic, strong) NSString *article_pic_1;
 @property (nonatomic, strong) NSString *article_pic_2;
 @property (nonatomic, strong) NSString *publish_time;
 @property (nonatomic, assign) NSUInteger is_collect;
+@property (nonatomic, assign) BOOL is_read;                 //是否已读
 
 @end
 

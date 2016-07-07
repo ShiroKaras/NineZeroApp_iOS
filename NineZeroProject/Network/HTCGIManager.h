@@ -248,6 +248,11 @@
 + (NSString *)collectArticleCGIKey;
 
 /**
+ *  @brief 标记已读
+ */
++ (NSString *)readArticleCGIKey;
+
+/**
  *  @brief 获取勋章
  *  "user_id"
  */
