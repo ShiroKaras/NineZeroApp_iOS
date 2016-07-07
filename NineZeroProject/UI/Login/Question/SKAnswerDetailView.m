@@ -54,10 +54,10 @@
         
         [_backImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.backgroundImageURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [_backImageView setImage:[image applyLightEffect]];
+            [self hideHUD];
         }];
         
         [_headerImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.headerImageURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            [self hideHUD];
         }];
         _contentView.text = answerDetail.contentText;
         [_contentView sizeToFit];
@@ -133,7 +133,11 @@
 
 - (void)showHUD {
     [AppDelegateInstance.window addSubview:_HUDView];
-    [_HUDImageView startAnimating];
+    _HUDView.alpha = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        _HUDView.alpha = 1;
+        [_HUDImageView startAnimating];
+    }];
 }
 
 - (void)hideHUD {

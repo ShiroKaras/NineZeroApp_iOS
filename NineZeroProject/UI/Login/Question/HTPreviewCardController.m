@@ -460,10 +460,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
             [AppDelegateInstance.mainController showBottomButton:NO];
             _showAnswerDetailView = [[SKAnswerDetailView alloc] initWithFrame:self.view.bounds questionID:cell.question.questionID];
+            [self.view addSubview:_showAnswerDetailView];
             _showAnswerDetailView.alpha = 0;
-            [UIView animateWithDuration:0.3 animations:^{
+            [UIView animateWithDuration:0.5 animations:^{
                 _showAnswerDetailView.alpha = 1.0f;
-                [self.view addSubview:_showAnswerDetailView];
+            } completion:^(BOOL finished) {
                 [self.view bringSubviewToFront:_showAnswerDetailView];
             }];
             
