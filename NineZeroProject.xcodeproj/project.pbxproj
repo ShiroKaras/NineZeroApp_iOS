@@ -2843,7 +2843,6 @@
 		1777D3671BE798F400AC0203 /* NineZeroProject */ = {
 			isa = PBXGroup;
 			children = (
-				1777D3681BE798F400AC0203 /* Supporting Files */,
 				110F9D801CD881090097EB8A /* Resource */,
 				1777D36B1BE798F400AC0203 /* AppDelegate.h */,
 				1777D36C1BE798F400AC0203 /* AppDelegate.m */,
@@ -2851,6 +2850,7 @@
 				112167631CF0637B0048EA01 /* SKLaunchAnimationViewController.m */,
 				1121675F1CEF565A0048EA01 /* LaunchScreen.storyboard */,
 				1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */,
+				1777D3681BE798F400AC0203 /* Supporting Files */,
 			);
 			path = NineZeroProject;
 			sourceTree = "<group>";

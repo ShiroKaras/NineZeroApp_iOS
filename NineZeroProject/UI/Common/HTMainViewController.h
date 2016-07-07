@@ -20,4 +20,7 @@
 
 - (void)reloadMascotViewData;
 
+- (void)showUnreadArticleFlag;
+
+- (void)removeUnreadArticleFlag;
 @end

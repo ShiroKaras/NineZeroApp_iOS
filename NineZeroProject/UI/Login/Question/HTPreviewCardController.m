@@ -118,6 +118,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     }else if (self.cardType == HTPreviewCardTypeRecord) {
         [MobClick beginLogPageView:@"recordpage"];
     }
+    [self loadUnreadArticleFlag];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -264,6 +265,18 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                           [self backToToday:NO];
                                       }];
     });
+}
+
+- (void)loadUnreadArticleFlag {
+    [AppDelegateInstance.mainController removeUnreadArticleFlag];
+    [[[HTServiceManager sharedInstance] profileService] getArticlesInPastWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
+        NSLog(@"hasread: %ld",[UD integerForKey:@"hasreadArticlesCount"]);
+        if (articles.count - [UD integerForKey:@"hasreadArticlesCount"])
+            [AppDelegateInstance.mainController showUnreadArticleFlag];
+        else
+            [AppDelegateInstance.mainController removeUnreadArticleFlag];
+        [UD setInteger:articles.count forKey:@"hasreadArticlesCount"];
+    }];
 }
 
 - (void)createUI {
