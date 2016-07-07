@@ -132,7 +132,7 @@
 }
 
 - (void)showHUD {
-    [self addSubview:_HUDView];
+    [AppDelegateInstance.window addSubview:_HUDView];
     [_HUDImageView startAnimating];
 }
 
