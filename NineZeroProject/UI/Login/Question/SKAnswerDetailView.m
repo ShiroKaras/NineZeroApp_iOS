@@ -30,6 +30,8 @@
 @property (nonatomic, strong) UIView *articleBackView;
 @property (nonatomic, strong) UIButton *arrowButton;
 
+@property (nonatomic, strong) UIView *HUDView;
+@property (nonatomic, strong) UIImageView *HUDImageView;
 @end
 
 @implementation SKAnswerDetailView{
@@ -55,7 +57,7 @@
         }];
         
         [_headerImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.headerImageURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            [HTProgressHUD dismiss];
+            [self hideHUD];
         }];
         _contentView.text = answerDetail.contentText;
         [_contentView sizeToFit];
@@ -72,7 +74,6 @@
 }
 
 - (void)createUI {
-    [HTProgressHUD show];
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
@@ -105,12 +106,38 @@
     [_cancelButton setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
     [self addSubview:_cancelButton];
     
+    _HUDView = [[UIView alloc] initWithFrame:self.frame];
+    _HUDView.backgroundColor = [UIColor blackColor];
+    NSInteger count = 40;
+    NSMutableArray *images = [NSMutableArray array];
+    CGFloat length = 156;
+    _HUDImageView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - length / 2, SCREEN_HEIGHT / 2 - length / 2, length, length)];
+    for (int i = 0; i != count; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"loader_png_00%02d", i]];
+        [images addObject:image];
+    }
+    _HUDImageView.animationImages = images;
+    _HUDImageView.animationDuration = 2.0;
+    _HUDImageView.animationRepeatCount = 0;
+    [_HUDView addSubview:_HUDImageView];
+    
     [_cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_top).mas_offset(11);
         make.right.mas_equalTo(self.mas_right).mas_offset(-11);
         make.width.mas_equalTo(40);
         make.height.mas_equalTo(40);
     }];
+    
+    [self showHUD];
+}
+
+- (void)showHUD {
+    [self addSubview:_HUDView];
+    [_HUDImageView startAnimating];
+}
+
+- (void)hideHUD {
+    [_HUDView removeFromSuperview];
 }
 
 - (void)createBottomViewWithArticles:(NSArray *)articles {
