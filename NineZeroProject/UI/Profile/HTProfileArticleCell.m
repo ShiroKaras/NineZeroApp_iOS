@@ -36,7 +36,7 @@
     _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
     _bgImageView.layer.masksToBounds = YES;
     _titleLabel.text = article.articleTitle;
-    _timeLabel.text = [self stringWithDate:[NSDate dateWithTimeIntervalSince1970:[article.publish_time integerValue]]];
+//    _timeLabel.text = [self stringWithDate:[NSDate dateWithTimeIntervalSince1970:[article.publish_time integerValue]]];
     _mascotImageView.image = [self imageWithMascotID:mascotID];
     NSArray *mascotNameArray = @[@"零仔〇", @"零仔Sloth·S", @"零仔Pride·W", @"零仔Wrath·C", @"零仔Envy·I", @"零仔Lust·B", @"零仔Gluttony·T", @"零仔Greed·F"];
     _mascotNumberLabel.text = [NSString stringWithFormat:@"/ %@", mascotNameArray[mascotID-1]];
