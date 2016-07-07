@@ -34,6 +34,7 @@
 
 @implementation SKAnswerDetailView{
     NSInteger articleCount;
+    float lastOffsetY;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame questionID:(uint64_t)questionID{
@@ -47,15 +48,15 @@
 }
 
 - (void)loadDataWithQuestionID:(uint64_t)questionID {
-    [HTProgressHUD dismiss];
     [[[HTServiceManager sharedInstance] questionService] getAnswerDetailWithQuestionID:questionID callback:^(BOOL success, HTAnswerDetail *answerDetail) {
-        [HTProgressHUD dismiss];
         
         [_backImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.backgroundImageURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [_backImageView setImage:[image applyLightEffect]];
         }];
         
-        [_headerImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.headerImageURL]];
+        [_headerImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.headerImageURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [HTProgressHUD dismiss];
+        }];
         _contentView.text = answerDetail.contentText;
         [_contentView sizeToFit];
         _contentView.centerX = self.centerX;
@@ -81,9 +82,9 @@
     _backScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
     _backScrollView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
     _backScrollView.showsVerticalScrollIndicator = NO;
+    _backScrollView.alwaysBounceVertical = YES;
+    _backScrollView.delegate = self;
     [self addSubview:_backScrollView];
-    
-    [HTProgressHUD show];
     
     _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(7, 11+40+5, self.frame.size.width-14, (self.frame.size.width-14)/307*72)];
     _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -128,7 +129,7 @@
     _arrowButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_arrowButton setImage:[UIImage imageNamed:@"btn_answer_page_collapse"] forState:UIControlStateNormal];
     [_arrowButton sizeToFit];
-    [_arrowButton addTarget:self action:@selector(didClickArrowButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_arrowButton addTarget:self action:@selector(didClickArrowButton) forControlEvents:UIControlEventTouchUpInside];
     [_articleBackView addSubview:_arrowButton];
     
     [articleDimmingView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -211,6 +212,26 @@
     }];
 }
 
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (scrollView.contentOffset.y <= 100) {
+        NSLog(@"1");
+        [self didClickArrowButtonBack];
+    }else{
+        if (lastOffsetY >= scrollView.contentOffset.y) {
+            NSLog(@"2");
+//            [self didClickArrowButtonBack];
+        }else{
+            NSLog(@"3");
+            [self didClickArrowButton];
+        }
+    }
+    
+    lastOffsetY = scrollView.contentOffset.y;
+}
+
 #pragma mark - Action
 
 - (void)didClickCancelButton {
@@ -224,9 +245,9 @@
     }];
 }
 
-- (void)didClickArrowButton:(UIButton *)sender {
+- (void)didClickArrowButton {
     [UIView animateWithDuration:0.3 animations:^{
-        sender.transform = CGAffineTransformMakeRotation(M_PI);
+        _arrowButton.transform = CGAffineTransformMakeRotation(M_PI);
         [_articleBackView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.mas_bottom).mas_offset(-52.5);
             make.width.mas_equalTo(self);
@@ -235,13 +256,13 @@
         }];
         [_articleBackView.superview layoutIfNeeded];
     } completion:^(BOOL finished) {
-        [sender addTarget:self action:@selector(didClickArrowButtonBack:) forControlEvents:UIControlEventTouchUpInside];
+        [_arrowButton addTarget:self action:@selector(didClickArrowButtonBack) forControlEvents:UIControlEventTouchUpInside];
     }];
 }
 
-- (void)didClickArrowButtonBack:(UIButton *)sender {
+- (void)didClickArrowButtonBack {
     [UIView animateWithDuration:0.3 animations:^{
-        sender.transform = CGAffineTransformMakeRotation(0);
+        _arrowButton.transform = CGAffineTransformMakeRotation(0);
         [_articleBackView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(self);
             make.centerX.mas_equalTo(self);
@@ -250,7 +271,7 @@
         }];
         [_articleBackView.superview layoutIfNeeded];
     } completion:^(BOOL finished) {
-        [sender addTarget:self action:@selector(didClickArrowButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_arrowButton addTarget:self action:@selector(didClickArrowButton) forControlEvents:UIControlEventTouchUpInside];
     }];
 }
 
