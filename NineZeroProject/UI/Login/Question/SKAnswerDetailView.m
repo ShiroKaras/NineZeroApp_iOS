@@ -49,6 +49,8 @@
 - (void)loadDataWithQuestionID:(uint64_t)questionID {
     [HTProgressHUD dismiss];
     [[[HTServiceManager sharedInstance] questionService] getAnswerDetailWithQuestionID:questionID callback:^(BOOL success, HTAnswerDetail *answerDetail) {
+        [HTProgressHUD dismiss];
+        
         [_backImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.backgroundImageURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [_backImageView setImage:[image applyLightEffect]];
         }];
@@ -69,6 +71,8 @@
 }
 
 - (void)createUI {
+    [HTProgressHUD show];
+    
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     _backImageView = [[UIImageView alloc] initWithFrame:self.frame];
@@ -252,9 +256,6 @@
 
 - (void)didClickArticle:(UIButton *)sender {
     NSInteger articleID = sender.tag-300;
-//    if ([self respondsToSelector:@selector(didClickArticleWithID:)]) {
-//        [_delegate didClickArticleWithID:articleID];
-//    }
     [[[HTServiceManager sharedInstance] profileService] getArticle:articleID completion:^(BOOL success, HTArticle *articles) {
         HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
         [[self viewController].navigationController pushViewController:articleViewController animated:YES];

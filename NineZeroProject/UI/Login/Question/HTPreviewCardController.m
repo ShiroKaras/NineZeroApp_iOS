@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, HTScrollDirection) {
 
 static CGFloat kItemMargin = 17;         // item之间间隔
 
-@interface HTPreviewCardController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTCardCollectionCellDelegate, HTARCaptureControllerDelegate, HTComposeViewDelegate, SKAnswerDetailViewDelegate>
+@interface HTPreviewCardController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTCardCollectionCellDelegate, HTARCaptureControllerDelegate, HTComposeViewDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (strong, nonatomic) UIImageView *bgImageView;
 @property (nonatomic, strong) HTCardTimeView *timeView;
@@ -448,7 +448,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             [AppDelegateInstance.mainController showBottomButton:NO];
             _showAnswerDetailView = [[SKAnswerDetailView alloc] initWithFrame:self.view.bounds questionID:cell.question.questionID];
             _showAnswerDetailView.alpha = 0;
-            _showAnswerDetailView.delegate = self;
             [UIView animateWithDuration:0.3 animations:^{
                 _showAnswerDetailView.alpha = 1.0f;
                 [self.view addSubview:_showAnswerDetailView];
@@ -541,15 +540,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         default:
             break;
     }
-}
-
-#pragma mark - SKAnswerDetail Delegate
-
-- (void)didClickArticleWithID:(NSInteger)articleID {
-    [[[HTServiceManager sharedInstance] profileService] getArticle:articleID completion:^(BOOL success, HTArticle *articles) {
-        HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
-        [self.navigationController pushViewController:articleViewController animated:YES];
-    }];
 }
 
 #pragma mark - HTComposeView Delegate
