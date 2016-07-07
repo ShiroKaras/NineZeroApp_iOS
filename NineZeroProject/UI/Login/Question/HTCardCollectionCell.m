@@ -91,7 +91,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         // 2.3 暂停按钮，静音按钮
         _soundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_mute"]];
         _soundImageView.alpha = 0.32;
-        [_playBackView addSubview:_soundImageView];
+        if(SCREEN_WIDTH != IPHONE6_PLUS_SCREEN_WIDTH) {
+            [_playBackView addSubview:_soundImageView];
+        }
         _pauseImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_pause"]];
         _pauseImageView.alpha = 0.32;
         [_playBackView addSubview:_pauseImageView];
