@@ -241,22 +241,21 @@
 
 #pragma mark - UIScrollView Delegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    if (scrollView.contentOffset.y <= 100) {
-        NSLog(@"1");
-        [self didClickArrowButtonBack];
-    }else{
-        if (lastOffsetY >= scrollView.contentOffset.y) {
-            NSLog(@"2");
-//            [self didClickArrowButtonBack];
-        }else{
-            NSLog(@"3");
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    int currentPostion = scrollView.contentOffset.y;
+    if (scrollView.dragging && !scrollView.decelerating) {
+        if (currentPostion - lastOffsetY > 25) {
+            lastOffsetY = currentPostion;
+            NSLog(@"ScrollUp now");
             [self didClickArrowButton];
         }
+        else if (lastOffsetY - currentPostion > 25)
+        {
+            lastOffsetY = currentPostion;
+            NSLog(@"ScrollDown now");
+            [self didClickArrowButtonBack];
+        }
     }
-    
-    lastOffsetY = scrollView.contentOffset.y;
 }
 
 #pragma mark - Action
