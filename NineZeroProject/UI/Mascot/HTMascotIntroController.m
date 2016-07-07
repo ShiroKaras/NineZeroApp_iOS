@@ -135,6 +135,16 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self.statusBarCoverView.backgroundColor = [HTMascotHelper colorWithMascotIndex:_mascot.mascotID];
     self.statusBarCoverView.alpha = 0;
     [self.view addSubview:self.statusBarCoverView];
+}
+
+- (void)loadMoreData {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView.mj_footer endRefreshing];
+    });
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [MobClick beginLogPageView:@"mascotintropage"];
     
     void (^netWorkErrorHandler)() = ^() {
         _mascot.article_list = nil;
@@ -187,16 +197,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             }
         }];
     }
-}
-
-- (void)loadMoreData {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView.mj_footer endRefreshing];
-    });
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [MobClick beginLogPageView:@"mascotintropage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
