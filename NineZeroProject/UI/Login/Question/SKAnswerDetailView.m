@@ -51,6 +51,22 @@
 
 - (void)loadDataWithQuestionID:(uint64_t)questionID {
     [[[HTServiceManager sharedInstance] questionService] getAnswerDetailWithQuestionID:questionID callback:^(BOOL success, HTAnswerDetail *answerDetail) {
+        _contentView.text = answerDetail.contentText;
+        [_contentView sizeToFit];
+        _contentView.centerX = self.centerX;
+        _contentView.alpha = 0;
+        _backImageView.alpha = 0;
+        _headerImageView.alpha = 0;
+        _articleBackView.alpha = 0;
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            _contentView.alpha = 1.0;
+            _backImageView.alpha = 1.0;
+            _headerImageView.alpha = 1.0;
+            _articleBackView.alpha = 1.0;
+        } completion:^(BOOL finished) {
+            
+        }];
         
         [_backImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.backgroundImageURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [_backImageView setImage:[image applyLightEffect]];
@@ -59,9 +75,6 @@
         
         [_headerImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.headerImageURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         }];
-        _contentView.text = answerDetail.contentText;
-        [_contentView sizeToFit];
-        _contentView.centerX = self.centerX;
         
         CGFloat scrollViewHeight = 0.0f;
         for (UIView* view in _backScrollView.subviews)
