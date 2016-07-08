@@ -79,9 +79,11 @@ CGFloat alphaLight = 1.0;
 }
 
 - (void)showBottomButton:(BOOL)show {
-    _mainButton.hidden = !show;
-    _mascotButton.hidden = !show;
-    _meButton.hidden = !show;
+    int _show = show;
+    _unreadArticleFlagImageView.alpha = _show;
+    _mainButton.alpha = _show;
+    _mascotButton.alpha = _show;
+    _meButton.alpha = _show;
 }
 
 - (void)showBackToToday:(BOOL)show {
