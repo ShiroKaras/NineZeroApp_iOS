@@ -119,6 +119,12 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [MobClick beginLogPageView:@"recordpage"];
     }
     [self loadUnreadArticleFlag];
+    
+    for (UIView *view in self.view.subviews) {
+        if ([view isKindOfClass:[SKAnswerDetailView class]]) {
+            [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
