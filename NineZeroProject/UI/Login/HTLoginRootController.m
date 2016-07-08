@@ -211,7 +211,11 @@ onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
         if (success) {
             if (response.resultCode == 0) {
                 HTMainViewController *controller = [[HTMainViewController alloc] init];
-                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+//                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+                AppDelegateInstance.mainController = controller;
+                HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
+                AppDelegateInstance.window.rootViewController = navController;
+                [AppDelegateInstance.window makeKeyAndVisible];
                 [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
             } else {
                 [self showTipsWithText:response.resultMsg];
