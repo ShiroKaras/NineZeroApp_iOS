@@ -74,7 +74,7 @@
 }
 
 - (void)createUI {
-    
+    [AppDelegateInstance.mainController showBottomButton:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     _backImageView = [[UIImageView alloc] initWithFrame:self.frame];
