@@ -104,7 +104,11 @@
     _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
     [_backScrollView addSubview:_headerImageView];
     
-    _contentView = [[UILabel alloc] initWithFrame:CGRectMake(23, _headerImageView.bottom+21, self.width-46, 500)];
+    if (IPHONE5_SCREEN_WIDTH) {
+        _contentView = [[UILabel alloc] initWithFrame:CGRectMake(23, _headerImageView.bottom+6, self.width-46, 500)];
+    }else {
+        _contentView = [[UILabel alloc] initWithFrame:CGRectMake(23, _headerImageView.bottom+21, self.width-46, 500)];
+    }
     _contentView.textColor = [UIColor colorWithHex:0xd9d9d9];
     _contentView.font = [UIFont systemFontOfSize:15];
     _contentView.numberOfLines = 0;
