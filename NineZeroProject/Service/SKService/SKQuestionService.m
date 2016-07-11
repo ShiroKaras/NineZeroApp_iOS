@@ -132,7 +132,37 @@
 }
 
 #pragma mark - 奖励
+- (void)getRewardWithID:(NSUInteger)rewardID questionID:(NSUInteger)qid completion:(SKGetRewardCallback)callback {
+    // Reward userid=6 (POST http://90app-test.daoapp.io/api/reward)
+    
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // JSON Body
+    NSDictionary* bodyObject = @{
+                                 @"access_key": SECRET_STRING,
+                                 @"city_code": @"010",
+                                 @"reward_id": [NSString stringWithFormat:@"%lu", (unsigned long)rewardID],
+                                 @"user_id": [[SKStorageManager sharedInstance] getUserID],
+                                 @"login_token": [[SKStorageManager sharedInstance] getUserToken],
+                                 @"action": [SKCGIManager reward_getReward_Action]
+                                 };
+    
+    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager rewardCGIKey] parameters:bodyObject error:NULL];
+    
+    // Add Headers
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    // Fetch Request
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DLog(@"HTTP Response Body: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DLog(@"HTTP Request failed: %@", error);
+    }];
+    
+    [manager.operationQueue addOperation:operation];
 
+}
 
 #pragma mark - 七牛
 - (void)getQiniuDownloadURLsWithKeys:(NSArray<NSString *> *)keys callback:(SKResponseCallback)callback {

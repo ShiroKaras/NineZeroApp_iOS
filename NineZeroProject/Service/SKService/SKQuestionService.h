@@ -41,6 +41,6 @@ typedef void (^SKGetRewardCallback) (BOOL success, SKResponsePackage *rsp);
 /**
  *  @brief 获取奖励
  */
-- (void)getRewardWithID:(uint64_t)rewardID questionID:(uint64_t)qid completion:(SKGetRewardCallback)callback;
+- (void)getRewardWithID:(NSUInteger)rewardID questionID:(NSUInteger)qid completion:(SKGetRewardCallback)callback;
 
 @end

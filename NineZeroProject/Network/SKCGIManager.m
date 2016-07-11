@@ -51,7 +51,7 @@
 }
 
 + (NSString *)rewardCGIKey {
-    return CGI_EXTRA(@"api/restday");
+    return CGI_EXTRA(@"api/reward");
 }
 
 + (NSString *)answerCGIKey {
