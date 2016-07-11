@@ -15,25 +15,29 @@
 @end
 
 @interface HTLoginUser : NSObject
+
 @property (nonatomic, copy) NSString *user_name;
 @property (nonatomic, copy) NSString *user_password;
 @property (nonatomic, copy) NSString *user_mobile;
 @property (nonatomic, copy) NSString *user_email;
 @property (nonatomic, copy) NSString *user_avatar;
-@property (nonatomic, copy) NSString *user_area_id;     //用户所在城市ID
-@property (nonatomic, copy) NSString *code;             //验证码
+@property (nonatomic, copy) NSString *user_area_id;     // 用户所在城市ID
+@property (nonatomic, copy) NSString *code;             // 验证码
 @property (nonatomic, copy) NSString *third_id;         //第三方平台ID
-@property (nonatomic, copy) NSString *token;            //login token
+
 @end
 
 @interface HTQuestionInfo : NSObject
+
 @property (nonatomic, assign) uint64_t questionID;          // 唯一标识ID
 @property (nonatomic, assign) uint64_t endTime;             // 截止时间
 @property (nonatomic, assign) uint64_t updateTime;          // 更新时间
 @property (nonatomic, assign) NSUInteger questionCount;       // 题目总数量
+
 @end
 
 @interface HTQuestion : NSObject
+
 @property (nonatomic, assign) uint64_t questionID;          // 唯一标识ID
 @property (nonatomic, assign) NSUInteger serial;              // 章节
 @property (nonatomic, assign) NSUInteger type;                // 问题类型(0 ar, 1 文字)
@@ -55,16 +59,21 @@
 @property (nonatomic, copy) NSString *question_ar_location;   // ar
 @property (nonatomic, copy) NSString *question_ar_pet;        // ar的gif
 @property (nonatomic, copy) NSString *question_video_cover;   // vedio的封面
+
+
 @end
 
 @interface HTResponsePackage : NSObject
-@property (nonatomic, strong) id data;                      // 返回数据
-@property (nonatomic, strong) NSString *method;             // 方法名
-@property (nonatomic, assign) NSInteger resultCode;         // 结果code
-@property (nonatomic, strong) NSString *resultMsg;          // 结果信息
+
+@property (nonatomic, strong) id data;                    // 返回数据
+@property (nonatomic, strong) NSString *method;           // 方法名
+@property (nonatomic, assign) NSInteger resultCode;       // 结果code
+@property (nonatomic, strong) NSString *resultMsg;        // 结果信息
+
 @end
 
 @interface HTArticle : NSObject
+
 @property (nonatomic, assign) NSUInteger mascotID;         // 零仔ID（为0代表停赛日文章）
 @property (nonatomic, assign) NSUInteger articleID;        // 文章ID
 @property (nonatomic, assign) uint64_t time;
@@ -72,17 +81,28 @@
 @property (nonatomic, strong) NSString *articleTitle;      // 文章标题 (缺)
 @property (nonatomic, strong) NSString *article_subtitle;  // 文章副标题
 @property (nonatomic, strong) NSString *articleConverURL;  // 文章封面url (缺)
-@property (nonatomic, assign) NSInteger hasRead;           // 是否已读
 @property (nonatomic, strong) NSString *article_content;
 @property (nonatomic, strong) NSString *article_pic;
 @property (nonatomic, strong) NSString *article_pic_1;
 @property (nonatomic, strong) NSString *article_pic_2;
 @property (nonatomic, strong) NSString *publish_time;
 @property (nonatomic, assign) NSUInteger is_collect;
+@property (nonatomic, assign) BOOL is_read;                 //是否已读
+
+@end
+
+// 答案详情
+@interface HTAnswerDetail : NSObject
+@property (nonatomic, copy) NSString *headerImageURL;
+@property (nonatomic, copy) NSString *backgroundImageURL;
+@property (nonatomic, copy) NSString *contentText;
+@property (nonatomic, strong) NSArray *articles;
+
 @end
 
 // 零仔
 @interface HTMascot : NSObject
+
 @property (nonatomic, assign) NSUInteger mascotID;             // 零仔ID
 @property (nonatomic, assign) uint64_t getTime;              // 获取时间
 @property (nonatomic, strong) NSString *mascotName;            // 零仔名称
@@ -92,10 +112,12 @@
 @property (nonatomic, assign) NSUInteger articles;              //文章数
 @property (nonatomic, assign) NSUInteger unread_articles;       //未读文章数
 @property (nonatomic, strong) NSArray<HTArticle *> *article_list;  // 文章
+
 @end
 
 // 零仔道具
 @interface HTMascotProp : NSObject
+
 @property (nonatomic, assign) uint64_t prop_id;
 @property (nonatomic, assign) uint64_t time;
 @property (nonatomic, assign) uint64_t exchange_time;
@@ -106,6 +128,7 @@
 @property (nonatomic, strong) NSString *prop_desc;
 @property (nonatomic, assign) BOOL used;
 @property (nonatomic, assign) BOOL prop_exchange;
+
 @end
 
 @interface HTReward : NSObject
@@ -129,6 +152,7 @@
 @end
 
 @interface HTPrize : NSObject
+
 @end
 
 // 通知单元结构体

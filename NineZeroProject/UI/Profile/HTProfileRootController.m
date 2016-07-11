@@ -145,7 +145,7 @@
 
 - (void)reloadData {
     _coinLabel.text = _profileInfo.gold;
-    _rankLabel.text = _profileInfo.rank;
+    _rankLabel.text = [_profileInfo.rank integerValue]>999?@"1000+":_profileInfo.rank;
     _rewardLabel.text = _profileInfo.ticket;
     _metaLabel.text = _profileInfo.medal;
     _collectionLabel.text = _profileInfo.article;

@@ -10,7 +10,7 @@
 #import "HTUIHeader.h"
 #import "HTRewardCard.h"
 
-CGFloat cardHeight = 143;
+//CGFloat cardHeight = (SCREEN_WIDTH-40)/2;
 
 @interface HTProfileRewardCell ()
 @property (nonatomic, strong) HTTicketCard *card;
@@ -37,7 +37,7 @@ CGFloat cardHeight = 143;
     [super layoutSubviews];
     _card.top = 21;
     _card.centerX = self.width / 2;
-    _card.height = cardHeight;
+    _card.height = (SCREEN_WIDTH-40)/2;
 }
 
 @end

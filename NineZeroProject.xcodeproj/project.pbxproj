@@ -14,20 +14,22 @@
 		1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */; };
 		1121676D1CF3358E0048EA01 /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */; };
 		1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */; };
-		11630A521D12BF9A00B39FF9 /* SKCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11630A511D12BF9A00B39FF9 /* SKCGIManager.m */; };
-		11630A571D12E6B600B39FF9 /* JSPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11630A561D12E6B600B39FF9 /* JSPatch.framework */; };
-		11630A5E1D17FF3400B39FF9 /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11630A5D1D17FF3400B39FF9 /* SKModel.m */; };
+		11866F791D338C0A00DECB37 /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11866F781D338C0A00DECB37 /* SKModel.m */; };
+		11866F891D338E1500DECB37 /* SKLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11866F7E1D338E1500DECB37 /* SKLoginService.m */; };
+		11866F8A1D338E1500DECB37 /* SKMascotService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11866F801D338E1500DECB37 /* SKMascotService.m */; };
+		11866F8B1D338E1500DECB37 /* SKProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11866F821D338E1500DECB37 /* SKProfileService.m */; };
+		11866F8C1D338E1500DECB37 /* SKQiNiuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11866F841D338E1500DECB37 /* SKQiNiuService.m */; };
+		11866F8D1D338E1500DECB37 /* SKQuestionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11866F861D338E1500DECB37 /* SKQuestionService.m */; };
+		11866F8E1D338E1500DECB37 /* SKServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11866F881D338E1500DECB37 /* SKServiceManager.m */; };
+		11866F921D338E2600DECB37 /* SKCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11866F901D338E2600DECB37 /* SKCGIManager.m */; };
+		11866F951D338E3000DECB37 /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11866F941D338E3000DECB37 /* SKStorageManager.m */; };
+		11866F981D338E8E00DECB37 /* JSPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11866F971D338E8E00DECB37 /* JSPatch.framework */; };
+		11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
-		11C394311D1AAEB800087A61 /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C394301D1AAEB800087A61 /* SKStorageManager.m */; };
+		11C394351D2A0B3200087A61 /* SKAnswerDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C394341D2A0B3200087A61 /* SKAnswerDetailView.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
-		11DE52FD1D0FF832008398DA /* SKServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE52FC1D0FF832008398DA /* SKServiceManager.m */; };
-		11DE53001D0FF8CB008398DA /* SKLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE52FF1D0FF8CB008398DA /* SKLoginService.m */; };
-		11DE53031D0FF8E9008398DA /* SKQuestionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE53021D0FF8E9008398DA /* SKQuestionService.m */; };
-		11DE53091D0FF918008398DA /* SKProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE53081D0FF918008398DA /* SKProfileService.m */; };
-		11DE530C1D0FF93A008398DA /* SKMascotService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE530B1D0FF93A008398DA /* SKMascotService.m */; };
-		11DE530F1D0FF966008398DA /* SKQiNiuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE530E1D0FF966008398DA /* SKQiNiuService.m */; };
 		11F218531CBB951300D2ED44 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218311CBB951300D2ED44 /* ShareSDK.framework */; };
 		11F218541CBB951300D2ED44 /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218341CBB951300D2ED44 /* ShareSDKExtension.framework */; };
 		11F218551CBB951300D2ED44 /* ShareSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11F218351CBB951300D2ED44 /* ShareSDKUI.bundle */; };
@@ -796,35 +798,38 @@
 		1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SKUserAgreementViewController.xib; sourceTree = "<group>"; };
 		1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
-		11630A501D12BF9A00B39FF9 /* SKCGIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKCGIManager.h; sourceTree = "<group>"; };
-		11630A511D12BF9A00B39FF9 /* SKCGIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKCGIManager.m; sourceTree = "<group>"; };
-		11630A531D12BFB700B39FF9 /* SKNetworkDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNetworkDefine.h; sourceTree = "<group>"; };
-		11630A561D12E6B600B39FF9 /* JSPatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatch.framework; sourceTree = "<group>"; };
-		11630A581D13B46F00B39FF9 /* HTNetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNetworkDefine.h; sourceTree = "<group>"; };
-		11630A5C1D17FF3400B39FF9 /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKModel.h; sourceTree = "<group>"; };
-		11630A5D1D17FF3400B39FF9 /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKModel.m; sourceTree = "<group>"; };
+		11866F771D338C0A00DECB37 /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKModel.h; sourceTree = "<group>"; };
+		11866F781D338C0A00DECB37 /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKModel.m; sourceTree = "<group>"; };
+		11866F7D1D338E1500DECB37 /* SKLoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLoginService.h; sourceTree = "<group>"; };
+		11866F7E1D338E1500DECB37 /* SKLoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLoginService.m; sourceTree = "<group>"; };
+		11866F7F1D338E1500DECB37 /* SKMascotService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKMascotService.h; sourceTree = "<group>"; };
+		11866F801D338E1500DECB37 /* SKMascotService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKMascotService.m; sourceTree = "<group>"; };
+		11866F811D338E1500DECB37 /* SKProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKProfileService.h; sourceTree = "<group>"; };
+		11866F821D338E1500DECB37 /* SKProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKProfileService.m; sourceTree = "<group>"; };
+		11866F831D338E1500DECB37 /* SKQiNiuService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKQiNiuService.h; sourceTree = "<group>"; };
+		11866F841D338E1500DECB37 /* SKQiNiuService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKQiNiuService.m; sourceTree = "<group>"; };
+		11866F851D338E1500DECB37 /* SKQuestionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKQuestionService.h; sourceTree = "<group>"; };
+		11866F861D338E1500DECB37 /* SKQuestionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKQuestionService.m; sourceTree = "<group>"; };
+		11866F871D338E1500DECB37 /* SKServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKServiceManager.h; sourceTree = "<group>"; };
+		11866F881D338E1500DECB37 /* SKServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKServiceManager.m; sourceTree = "<group>"; };
+		11866F8F1D338E2600DECB37 /* SKCGIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKCGIManager.h; sourceTree = "<group>"; };
+		11866F901D338E2600DECB37 /* SKCGIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKCGIManager.m; sourceTree = "<group>"; };
+		11866F911D338E2600DECB37 /* SKNetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKNetworkDefine.h; sourceTree = "<group>"; };
+		11866F931D338E3000DECB37 /* SKStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKStorageManager.h; sourceTree = "<group>"; };
+		11866F941D338E3000DECB37 /* SKStorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKStorageManager.m; sourceTree = "<group>"; };
+		11866F971D338E8E00DECB37 /* JSPatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatch.framework; sourceTree = "<group>"; };
+		11961CDA1D2D2B3400A00AF9 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		1196F29F1CF6DFA600E70C83 /* SKImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKImageHelper.h; sourceTree = "<group>"; };
 		1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKImageHelper.m; sourceTree = "<group>"; };
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
 		11B385E41CCBA5F8009B8D6F /* SKShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKShareView.m; sourceTree = "<group>"; };
-		11C3942F1D1AAEB800087A61 /* SKStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKStorageManager.h; sourceTree = "<group>"; };
-		11C394301D1AAEB800087A61 /* SKStorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKStorageManager.m; sourceTree = "<group>"; };
+		11C394331D2A0B3200087A61 /* SKAnswerDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKAnswerDetailView.h; sourceTree = "<group>"; };
+		11C394341D2A0B3200087A61 /* SKAnswerDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKAnswerDetailView.m; sourceTree = "<group>"; };
 		11CA0C541CD24E4200C06333 /* easing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easing.c; sourceTree = "<group>"; };
 		11CA0C551CD24E4200C06333 /* easing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easing.h; sourceTree = "<group>"; };
 		11CA0C561CD24E4200C06333 /* YXEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXEasing.h; sourceTree = "<group>"; };
 		11CA0C571CD24E4200C06333 /* YXEasing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXEasing.m; sourceTree = "<group>"; };
-		11DE52FB1D0FF832008398DA /* SKServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKServiceManager.h; path = SKService/SKServiceManager.h; sourceTree = "<group>"; };
-		11DE52FC1D0FF832008398DA /* SKServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKServiceManager.m; path = SKService/SKServiceManager.m; sourceTree = "<group>"; };
-		11DE52FE1D0FF8CB008398DA /* SKLoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKLoginService.h; path = SKService/SKLoginService.h; sourceTree = "<group>"; };
-		11DE52FF1D0FF8CB008398DA /* SKLoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKLoginService.m; path = SKService/SKLoginService.m; sourceTree = "<group>"; };
-		11DE53011D0FF8E9008398DA /* SKQuestionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKQuestionService.h; path = SKService/SKQuestionService.h; sourceTree = "<group>"; };
-		11DE53021D0FF8E9008398DA /* SKQuestionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKQuestionService.m; path = SKService/SKQuestionService.m; sourceTree = "<group>"; };
-		11DE53071D0FF918008398DA /* SKProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKProfileService.h; path = SKService/SKProfileService.h; sourceTree = "<group>"; };
-		11DE53081D0FF918008398DA /* SKProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKProfileService.m; path = SKService/SKProfileService.m; sourceTree = "<group>"; };
-		11DE530A1D0FF93A008398DA /* SKMascotService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMascotService.h; path = SKService/SKMascotService.h; sourceTree = "<group>"; };
-		11DE530B1D0FF93A008398DA /* SKMascotService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMascotService.m; path = SKService/SKMascotService.m; sourceTree = "<group>"; };
-		11DE530D1D0FF966008398DA /* SKQiNiuService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKQiNiuService.h; path = SKService/SKQiNiuService.h; sourceTree = "<group>"; };
-		11DE530E1D0FF966008398DA /* SKQiNiuService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKQiNiuService.m; path = SKService/SKQiNiuService.m; sourceTree = "<group>"; };
 		11F218311CBB951300D2ED44 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		11F218341CBB951300D2ED44 /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
 		11F218351CBB951300D2ED44 /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
@@ -1541,6 +1546,7 @@
 		17A277301BF8F8F400E46670 /* HTLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTLog.h; sourceTree = "<group>"; };
 		17A47E8A1C037F3E00BEC1DD /* HTCommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCommonViewController.h; sourceTree = "<group>"; };
 		17A47E8B1C037F3E00BEC1DD /* HTCommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCommonViewController.m; sourceTree = "<group>"; };
+		17A47E8D1C03815F00BEC1DD /* HTNetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTNetworkDefine.h; sourceTree = "<group>"; };
 		17A47E8E1C03869000BEC1DD /* HTLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTLoginButton.h; path = ../Common/HTLoginButton.h; sourceTree = "<group>"; };
 		17A47E8F1C03869000BEC1DD /* HTLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTLoginButton.m; path = ../Common/HTLoginButton.m; sourceTree = "<group>"; };
 		17A89AAA1C1DBA150087BF00 /* LTInfiniteScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LTInfiniteScrollView.h; path = LTInfiniteScrollView/LTInfiniteScrollView.h; sourceTree = "<group>"; };
@@ -1720,6 +1726,7 @@
 				1767F8D91CC93BB400BBD44E /* MediaPlayer.framework in Frameworks */,
 				174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */,
 				11F218611CBB986E00D2ED44 /* ImageIO.framework in Frameworks */,
+				17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */,
 				17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */,
 				17617F6C1BEFAE0F000B2BFA /* libz.tbd in Frameworks */,
 				17617F7E1BEFB0EE000B2BFA /* libicucore.tbd in Frameworks */,
@@ -1730,8 +1737,7 @@
 				11F218591CBB951300D2ED44 /* libWeiboSDK.a in Frameworks */,
 				11F218561CBB951300D2ED44 /* ShareSDKUI.framework in Frameworks */,
 				11F2185D1CBB951300D2ED44 /* MOBFoundation.framework in Frameworks */,
-				11630A571D12E6B600B39FF9 /* JSPatch.framework in Frameworks */,
-				17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */,
+				11866F981D338E8E00DECB37 /* JSPatch.framework in Frameworks */,
 				17617F621BEFADE8000B2BFA /* SystemConfiguration.framework in Frameworks */,
 				17617F801BEFB0FB000B2BFA /* MessageUI.framework in Frameworks */,
 				17617F681BEFADFF000B2BFA /* UIKit.framework in Frameworks */,
@@ -1808,34 +1814,7 @@
 			path = UMengMobClick;
 			sourceTree = "<group>";
 		};
-		11630A541D12DD4000B39FF9 /* SKNetwork */ = {
-			isa = PBXGroup;
-			children = (
-				11630A501D12BF9A00B39FF9 /* SKCGIManager.h */,
-				11630A511D12BF9A00B39FF9 /* SKCGIManager.m */,
-				11630A531D12BFB700B39FF9 /* SKNetworkDefine.h */,
-			);
-			name = SKNetwork;
-			sourceTree = "<group>";
-		};
-		11630A551D12E6B600B39FF9 /* JSPatch */ = {
-			isa = PBXGroup;
-			children = (
-				11630A561D12E6B600B39FF9 /* JSPatch.framework */,
-			);
-			path = JSPatch;
-			sourceTree = "<group>";
-		};
-		11C3942E1D1AAE8600087A61 /* SKStorage */ = {
-			isa = PBXGroup;
-			children = (
-				11C3942F1D1AAEB800087A61 /* SKStorageManager.h */,
-				11C394301D1AAEB800087A61 /* SKStorageManager.m */,
-			);
-			name = SKStorage;
-			sourceTree = "<group>";
-		};
-		11C394321D211DE300087A61 /* HTService */ = {
+		11866F7A1D338D8C00DECB37 /* HTService */ = {
 			isa = PBXGroup;
 			children = (
 				17A277261BF79C8000E46670 /* HTServiceManager.h */,
@@ -1854,6 +1833,42 @@
 			name = HTService;
 			sourceTree = "<group>";
 		};
+		11866F7C1D338E1500DECB37 /* SKService */ = {
+			isa = PBXGroup;
+			children = (
+				11866F7D1D338E1500DECB37 /* SKLoginService.h */,
+				11866F7E1D338E1500DECB37 /* SKLoginService.m */,
+				11866F7F1D338E1500DECB37 /* SKMascotService.h */,
+				11866F801D338E1500DECB37 /* SKMascotService.m */,
+				11866F811D338E1500DECB37 /* SKProfileService.h */,
+				11866F821D338E1500DECB37 /* SKProfileService.m */,
+				11866F831D338E1500DECB37 /* SKQiNiuService.h */,
+				11866F841D338E1500DECB37 /* SKQiNiuService.m */,
+				11866F851D338E1500DECB37 /* SKQuestionService.h */,
+				11866F861D338E1500DECB37 /* SKQuestionService.m */,
+				11866F871D338E1500DECB37 /* SKServiceManager.h */,
+				11866F881D338E1500DECB37 /* SKServiceManager.m */,
+			);
+			path = SKService;
+			sourceTree = "<group>";
+		};
+		11866F961D338E8E00DECB37 /* JSPatch */ = {
+			isa = PBXGroup;
+			children = (
+				11866F971D338E8E00DECB37 /* JSPatch.framework */,
+			);
+			path = JSPatch;
+			sourceTree = "<group>";
+		};
+		11961CD91D2D2B3400A00AF9 /* ImageEffects */ = {
+			isa = PBXGroup;
+			children = (
+				11961CDA1D2D2B3400A00AF9 /* UIImage+ImageEffects.h */,
+				11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */,
+			);
+			path = ImageEffects;
+			sourceTree = "<group>";
+		};
 		11CA0C531CD24E4200C06333 /* Easing */ = {
 			isa = PBXGroup;
 			children = (
@@ -1863,25 +1878,6 @@
 				11CA0C571CD24E4200C06333 /* YXEasing.m */,
 			);
 			path = Easing;
-			sourceTree = "<group>";
-		};
-		11DE52FA1D0FF7E9008398DA /* SKService */ = {
-			isa = PBXGroup;
-			children = (
-				11DE52FB1D0FF832008398DA /* SKServiceManager.h */,
-				11DE52FC1D0FF832008398DA /* SKServiceManager.m */,
-				11DE52FE1D0FF8CB008398DA /* SKLoginService.h */,
-				11DE52FF1D0FF8CB008398DA /* SKLoginService.m */,
-				11DE53011D0FF8E9008398DA /* SKQuestionService.h */,
-				11DE53021D0FF8E9008398DA /* SKQuestionService.m */,
-				11DE530A1D0FF93A008398DA /* SKMascotService.h */,
-				11DE530B1D0FF93A008398DA /* SKMascotService.m */,
-				11DE53071D0FF918008398DA /* SKProfileService.h */,
-				11DE53081D0FF918008398DA /* SKProfileService.m */,
-				11DE530D1D0FF966008398DA /* SKQiNiuService.h */,
-				11DE530E1D0FF966008398DA /* SKQiNiuService.m */,
-			);
-			name = SKService;
 			sourceTree = "<group>";
 		};
 		11F218301CBB951300D2ED44 /* ShareSDK */ = {
@@ -1977,10 +1973,12 @@
 		1721D7171BEFB77E00498304 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				11630A541D12DD4000B39FF9 /* SKNetwork */,
+				11866F8F1D338E2600DECB37 /* SKCGIManager.h */,
+				11866F901D338E2600DECB37 /* SKCGIManager.m */,
+				11866F911D338E2600DECB37 /* SKNetworkDefine.h */,
 				1721D7201BEFB9F200498304 /* HTCGIManager.h */,
 				1721D7211BEFBAD200498304 /* HTCGIManager.m */,
-				11630A581D13B46F00B39FF9 /* HTNetworkDefine.h */,
+				17A47E8D1C03815F00BEC1DD /* HTNetworkDefine.h */,
 			);
 			name = Network;
 			path = NineZeroProject/Network;
@@ -1989,7 +1987,8 @@
 		1721D7181BEFB77E00498304 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				11C3942E1D1AAE8600087A61 /* SKStorage */,
+				11866F931D338E3000DECB37 /* SKStorageManager.h */,
+				11866F941D338E3000DECB37 /* SKStorageManager.m */,
 				1721D7261BEFBE1400498304 /* HTStorageDefine.h */,
 				1721D7271BEFBE1400498304 /* HTStorageDefine.m */,
 				17713D3E1C04D6AD00DB8BB0 /* HTStorageManager.h */,
@@ -2881,6 +2880,8 @@
 				17F393AC1C8CA4D2004E1DB7 /* HTCardTimeView.m */,
 				17F393AE1C8CA4E1004E1DB7 /* HTCardTimeView.xib */,
 				17A92C9C1CA7C6DB00BE893D /* HTRecordView.xib */,
+				11C394331D2A0B3200087A61 /* SKAnswerDetailView.h */,
+				11C394341D2A0B3200087A61 /* SKAnswerDetailView.m */,
 			);
 			name = Question;
 			path = Login/Question;
@@ -2924,7 +2925,6 @@
 		1777D3671BE798F400AC0203 /* NineZeroProject */ = {
 			isa = PBXGroup;
 			children = (
-				1777D3681BE798F400AC0203 /* Supporting Files */,
 				110F9D801CD881090097EB8A /* Resource */,
 				1777D36B1BE798F400AC0203 /* AppDelegate.h */,
 				1777D36C1BE798F400AC0203 /* AppDelegate.m */,
@@ -2932,6 +2932,7 @@
 				112167631CF0637B0048EA01 /* SKLaunchAnimationViewController.m */,
 				1121675F1CEF565A0048EA01 /* LaunchScreen.storyboard */,
 				1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */,
+				1777D3681BE798F400AC0203 /* Supporting Files */,
 			);
 			path = NineZeroProject;
 			sourceTree = "<group>";
@@ -3089,8 +3090,8 @@
 		17A277251BF79C5F00E46670 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				11C394321D211DE300087A61 /* HTService */,
-				11DE52FA1D0FF7E9008398DA /* SKService */,
+				11866F7C1D338E1500DECB37 /* SKService */,
+				11866F7A1D338D8C00DECB37 /* HTService */,
 			);
 			name = Service;
 			path = NineZeroProject/Service;
@@ -3099,9 +3100,10 @@
 		17A89A8F1C1DB9BB0087BF00 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				11866F961D338E8E00DECB37 /* JSPatch */,
+				11961CD91D2D2B3400A00AF9 /* ImageEffects */,
 				1126BFC51CF59BBE00E4FAC3 /* UMeng */,
 				11CA0C531CD24E4200C06333 /* Easing */,
-				11630A551D12E6B600B39FF9 /* JSPatch */,
 				11F218301CBB951300D2ED44 /* ShareSDK */,
 				17A92C9E1CA809B100BE893D /* MJRefresh */,
 				176B756B1C7620480069DE89 /* SharkfoodMuteSwitchDetector */,
@@ -3279,8 +3281,8 @@
 		17DB9CF21C0B4C2600A4D0EF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				11630A5C1D17FF3400B39FF9 /* SKModel.h */,
-				11630A5D1D17FF3400B39FF9 /* SKModel.m */,
+				11866F771D338C0A00DECB37 /* SKModel.h */,
+				11866F781D338C0A00DECB37 /* SKModel.m */,
 				17B1D8401C1544470082C86B /* HTModel.h */,
 				17B1D8411C1544470082C86B /* HTModel.m */,
 			);
@@ -3465,6 +3467,7 @@
 			knownRegions = (
 				Base,
 				"zh-Hans",
+				en,
 			);
 			mainGroup = 1777D35C1BE798F400AC0203;
 			productRefGroup = 1777D3661BE798F400AC0203 /* Products */;
@@ -4151,6 +4154,7 @@
 				17F45AF81C7E2564004F2E32 /* HTRewardCard.m in Sources */,
 				17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */,
 				17A92CD11CA809B100BE893D /* MJRefreshAutoNormalFooter.m in Sources */,
+				11866F8E1D338E1500DECB37 /* SKServiceManager.m in Sources */,
 				17D1F8D71C29D7BD0029E4AF /* HTTextField.m in Sources */,
 				17F0F4761C93275C0050F0EB /* HTProfileBadgeController.m in Sources */,
 				179D2BAA1C5E414F000A4461 /* HTArticleController.m in Sources */,
@@ -4169,7 +4173,6 @@
 				17A20A0C1C4FFE4600364EEF /* HTMascotPropView.m in Sources */,
 				1787FD231C4A895B006E55A6 /* HTARCaptureController.m in Sources */,
 				17F393A41C8C87D8004E1DB7 /* HTPreviewCardController.m in Sources */,
-				11C394311D1AAEB800087A61 /* SKStorageManager.m in Sources */,
 				179D2BB31C5E5444000A4461 /* HTRelaxController.m in Sources */,
 				17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */,
 				1787FD1F1C4A8884006E55A6 /* PRARManager.m in Sources */,
@@ -4178,7 +4181,6 @@
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
 				1744BFCA1C9D52EB00708716 /* UIViewController+HTTips.m in Sources */,
 				1747B0171C9F060500B37411 /* HTBlankView.m in Sources */,
-				11DE53001D0FF8CB008398DA /* SKLoginService.m in Sources */,
 				17A92CD31CA809B100BE893D /* MJRefreshBackGifFooter.m in Sources */,
 				17A92CD61CA809B100BE893D /* MJRefreshGifHeader.m in Sources */,
 				17A92CDD1CA809B100BE893D /* UIView+MJExtension.m in Sources */,
@@ -4186,9 +4188,7 @@
 				17F45AFB1C7E25E0004F2E32 /* HTProfileRewardController.m in Sources */,
 				26973B021C005ED900160D25 /* HTNavigationController.m in Sources */,
 				170992BD1C264F0C004433EB /* HTShowDetailView.m in Sources */,
-				11DE53091D0FF918008398DA /* SKProfileService.m in Sources */,
 				17A92CDB1CA809B100BE893D /* UIScrollView+MJExtension.m in Sources */,
-				11DE52FD1D0FF832008398DA /* SKServiceManager.m in Sources */,
 				17AA63571C4AB85A0047BADF /* HTMainViewController.m in Sources */,
 				17F45AFE1C7E2652004F2E32 /* HTProfileRewardCell.m in Sources */,
 				17A92CCD1CA809B100BE893D /* MJRefreshComponent.m in Sources */,
@@ -4202,9 +4202,10 @@
 				17262CDD1C5E058B000FDA1B /* HTMascotIntroCell.m in Sources */,
 				17F37A791C259EB8006759D1 /* HTDescriptionView.m in Sources */,
 				17B429021C54D4A8008AFBA9 /* YYImage.m in Sources */,
-				11DE530F1D0FF966008398DA /* SKQiNiuService.m in Sources */,
 				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,
+				11866F791D338C0A00DECB37 /* SKModel.m in Sources */,
 				17F45AEA1C7E1A41004F2E32 /* HTProfileArticlesController.m in Sources */,
+				11866F8B1D338E1500DECB37 /* SKProfileService.m in Sources */,
 				17F39B691C820D7500D8A565 /* HTProfileRootController.m in Sources */,
 				17F393AD1C8CA4D2004E1DB7 /* HTCardTimeView.m in Sources */,
 				17A92CCB1CA809B100BE893D /* MJRefreshAutoFooter.m in Sources */,
@@ -4213,20 +4214,23 @@
 				17F39B731C82234900D8A565 /* HTProfileSettingController.m in Sources */,
 				17B1D8421C1544470082C86B /* HTModel.m in Sources */,
 				17F37A761C255420006759D1 /* HUD+Utility.m in Sources */,
+				11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */,
 				17F0F4791C9331290050F0EB /* HTProfileBadgeCollectionCell.m in Sources */,
 				1787FD1C1C4A8884006E55A6 /* ARRadar.m in Sources */,
 				17A92CD01CA809B100BE893D /* MJRefreshAutoGifFooter.m in Sources */,
 				17A89ABC1C1DBA290087BF00 /* README.md in Sources */,
 				17AE3B371C9884B10082390F /* NSDate+TimeAgo.m in Sources */,
-				11DE530C1D0FF93A008398DA /* SKMascotService.m in Sources */,
 				26973B221C006A6900160D25 /* HTLoginController.m in Sources */,
+				11866F8A1D338E1500DECB37 /* SKMascotService.m in Sources */,
+				11866F921D338E2600DECB37 /* SKCGIManager.m in Sources */,
 				17967AB51C174ED500571924 /* HTQuestionService.m in Sources */,
+				11C394351D2A0B3200087A61 /* SKAnswerDetailView.m in Sources */,
 				17F45AF41C7E1D7A004F2E32 /* HTProfileArticleCell.m in Sources */,
 				17A92CD21CA809B100BE893D /* MJRefreshAutoStateFooter.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
+				11866F891D338E1500DECB37 /* SKLoginService.m in Sources */,
 				1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */,
 				17F0F47C1C95D1510050F0EB /* HTProfileService.m in Sources */,
-				11630A521D12BF9A00B39FF9 /* SKCGIManager.m in Sources */,
 				17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
 				17A89AAF1C1DBA150087BF00 /* README.md in Sources */,
@@ -4242,6 +4246,7 @@
 				17262CB41C5DF1D7000FDA1B /* HTMascotHelper.m in Sources */,
 				17A92CCF1CA809B100BE893D /* MJRefreshHeader.m in Sources */,
 				11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */,
+				11866F8D1D338E1500DECB37 /* SKQuestionService.m in Sources */,
 				1787FD141C4A8884006E55A6 /* ARController.m in Sources */,
 				11CA0C581CD24E4200C06333 /* easing.c in Sources */,
 				17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */,
@@ -4249,6 +4254,7 @@
 				17AE3B341C987F550082390F /* NSDate+Utility.m in Sources */,
 				175641931C269DD20009AE7B /* HTShowAnswerView.m in Sources */,
 				17F393A71C8C9521004E1DB7 /* HTProfileRecordCell.m in Sources */,
+				11866F8C1D338E1500DECB37 /* SKQiNiuService.m in Sources */,
 				17A92CD41CA809B100BE893D /* MJRefreshBackNormalFooter.m in Sources */,
 				17A92CD81CA809B100BE893D /* MJRefreshStateHeader.m in Sources */,
 				17FA110D1C83417A00FA9102 /* HTAboutController.m in Sources */,
@@ -4256,11 +4262,11 @@
 				17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */,
 				17F39B701C82107500D8A565 /* NSLayoutConstraintHairline.m in Sources */,
 				17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */,
-				11630A5E1D17FF3400B39FF9 /* SKModel.m in Sources */,
 				175F82D11CB4124D00AC2664 /* HTWebController.m in Sources */,
 				26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 				17A20A0F1C51444C00364EEF /* HTMascotPropMoreView.m in Sources */,
+				11866F951D338E3000DECB37 /* SKStorageManager.m in Sources */,
 				179622BE1C5E1D6C00DCA470 /* HTMascotArticleCell.m in Sources */,
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
 				17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */,
@@ -4271,7 +4277,6 @@
 				17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */,
 				11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */,
 				17C40B401C5538A200DAE22A /* HTMascotService.m in Sources */,
-				11DE53031D0FF8E9008398DA /* SKQuestionService.m in Sources */,
 				17F39B761C8224BA00D8A565 /* HTProfileSettingCell.m in Sources */,
 				17262CDA1C5E02A4000FDA1B /* HTImageView.m in Sources */,
 				176B756E1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m in Sources */,

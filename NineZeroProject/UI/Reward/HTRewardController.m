@@ -38,6 +38,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 @property (nonatomic, strong) UIImageView   *andImageView;
 @property (nonatomic, strong) UIImageView   *andImageView2;
 @property (nonatomic, strong) UIImageView   *getImageView;
+@property (nonatomic, strong) UIImageView   *happyMascotImageView;
 
 @property (nonatomic, strong) HTTicketCard *card;          // 奖品卡片
 @property (nonatomic, strong) UIImageView *imageView;
@@ -152,6 +153,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
         if (type==NZRewardTypeGold) {
             //TODO 居中-只获取到金币的情况
             _topBackView.center = _scrollView.center;
+            _happyMascotImageView.hidden = NO;
         }
     }
     
@@ -177,8 +179,10 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     [_topBackView addSubview:_prefixGetImageView];
     _suffixGetImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_4"]];
     [_topBackView addSubview:_suffixGetImageView];
-    
-    
+    _happyMascotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_happy_mascot"]];
+    _happyMascotImageView.hidden = YES;
+    [_happyMascotImageView sizeToFit];
+    [_topBackView addSubview:_happyMascotImageView];
     
     _percentLabel = [[UILabel alloc] init];
     _percentLabel.font = MOON_FONT_OF_SIZE(32.5);
@@ -247,6 +251,9 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     
     _suffixOverImageView3.top = _prefixOverImageView.bottom + 10;
     _suffixOverImageView3.left = _prefixOverImageView.left + 82;
+    
+    _happyMascotImageView.left = _prefixOverImageView.right + 7;
+    _happyMascotImageView.bottom = _percentLabel.top - 10;
     
     // "你获得了 x 金币"
     _prefixGetImageView.left = ROUND_WIDTH_FLOAT(54);

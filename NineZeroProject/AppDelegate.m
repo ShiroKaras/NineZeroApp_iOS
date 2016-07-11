@@ -58,7 +58,7 @@
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerJSPatch];
     [self registerAMap];
-    [self registerLocation];
+//    [self registerLocation];
     [self registerQiniuService];
     [self registerShareSDK];
     [self registerUmeng];
@@ -153,7 +153,8 @@
     if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _mainController = [[HTMainViewController alloc] init];
-        self.window.rootViewController = _mainController;
+        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:_mainController];
+        self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         // 用户通过点击图标启动程序 还是  点击通知启动程序
@@ -308,8 +309,8 @@
                                        appSecret:@"9b878253531427e0216f4c456a6216bc"];
                  break;
              case SSDKPlatformTypeQQ:
-                 [appInfo SSDKSetupQQByAppId:@"1105336032"
-                                      appKey:@"JBvAhpWdPjMxhGJt"
+                 [appInfo SSDKSetupQQByAppId:@"1105267679"
+                                      appKey:@"kQ0GorXbIWGY7LMk"
                                     authType:SSDKAuthTypeBoth];
                  break;
              default:

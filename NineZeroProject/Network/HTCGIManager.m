@@ -65,6 +65,10 @@
     return [NSString stringWithFormat:@"%@Question/detail", NETWORK_HOST];
 }
 
++ (NSString *)getAnswerDetailCGIKey {
+    return [NSString stringWithFormat:@"%@Question/getAnswerDetail", NETWORK_HOST];
+}
+
 + (NSString *)getExtraHintCGIKey {
     return [NSString stringWithFormat:@"%@Question/getRestHint", NETWORK_HOST];
 }
@@ -135,6 +139,10 @@
 
 + (NSString *)getCollectArticlesCGIKey {
     return [NSString stringWithFormat:@"%@Article/getMyArticles", NETWORK_HOST];
+}
+
++ (NSString *)readArticleCGIKey {
+    return [NSString stringWithFormat:@"%@Article/readArticle", NETWORK_HOST];
 }
 
 + (NSString *)getUserNoticesCGIKey {

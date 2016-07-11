@@ -37,7 +37,7 @@
         for (int j = 0; j != articleCount; j++) {
             HTArticle *article = [[HTArticle alloc] init];
             article.mascotID = i + 1;
-            article.hasRead = NO;
+            article.is_read = NO;
             article.articleURL = @"www.baidu.com";
             article.articleTitle = @"这里是文章标题这是是文章";
             [articles addObject:article];
@@ -59,7 +59,7 @@
     for (int j = 0; j != articleCount; j++) {
         HTArticle *article = [[HTArticle alloc] init];
         article.mascotID = 1;
-        article.hasRead = NO;
+        article.is_read = NO;
         article.articleURL = @"www.baidu.com";
         article.articleTitle = @"这里是文章标题这是是文章";
         [articles addObject:article];

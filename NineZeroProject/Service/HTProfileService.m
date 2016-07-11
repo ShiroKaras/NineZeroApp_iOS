@@ -100,6 +100,7 @@
                         [answerList addObject:answer];
                         if (answer.question_video_cover) [downloadKeys addObject:answer.question_video_cover];
                         if (answer.descriptionPic) [downloadKeys addObject:answer.descriptionPic];
+                        if (answer.videoName) [downloadKeys addObject:answer.videoName];
                     }
                 }
                 //从七牛上获取下载链接
@@ -109,6 +110,7 @@
                             NSDictionary *dataDict = response.data;
                             if (answer.question_video_cover) answer.question_video_cover = dataDict[answer.question_video_cover];
                             if (answer.descriptionPic) answer.descriptionURL = dataDict[answer.descriptionPic];
+                            if (answer.videoName) answer.videoURL = dataDict[answer.videoName];
                         }
                     }
                     profileInfo.answer_list = answerList;
@@ -340,6 +342,19 @@
         } else {
             callback(false, nil);
         }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(false, nil);
+    }];
+}
+
+- (void)readArticleWithArticleID:(NSUInteger)articleID completion:(HTResponseCallback)callback {
+    if ([[HTStorageManager sharedInstance] getUserID]==nil) return;
+    NSDictionary *dict = @{@"article_id"  :   @(articleID),
+                           @"user_id"     :   [[HTStorageManager sharedInstance] getUserID]};
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager readArticleCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@",responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
+        callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
     }];

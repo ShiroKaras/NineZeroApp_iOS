@@ -91,7 +91,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         // 2.3 暂停按钮，静音按钮
         _soundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_mute"]];
         _soundImageView.alpha = 0.32;
-        [_playBackView addSubview:_soundImageView];
+        if(SCREEN_WIDTH != IPHONE6_PLUS_SCREEN_WIDTH) {
+            [_playBackView addSubview:_soundImageView];
+        }
         _pauseImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_pause"]];
         _pauseImageView.alpha = 0.32;
         [_playBackView addSubview:_pauseImageView];
@@ -137,7 +139,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         
         _contentLabel = [[UILabel alloc] init];
         _contentLabel.font = [UIFont systemFontOfSize:15];
-        _contentLabel.textColor = [UIColor colorWithHex:0xb0b0b0];
+        _contentLabel.textColor = [UIColor colorWithHex:0x24ddb2];
         [_contentBackView addSubview:_contentLabel];
         
         UITapGestureRecognizer *tapOnContent = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickContent)];
@@ -500,7 +502,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
-                                                  title:[NSString stringWithFormat:@"第%ld章",(NSUInteger)_question.serial]
+                                                  title:[NSString stringWithFormat:@"第%ld章",(unsigned long)_question.serial]
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     DLog(@"State -> %lu", (unsigned long)state);
@@ -623,7 +625,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
-                                                  title:[NSString stringWithFormat:@"第%ld章",_question.serial]
+                                                  title:[NSString stringWithFormat:@"第%ld章",(unsigned long)_question.serial]
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeQQFriend parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {

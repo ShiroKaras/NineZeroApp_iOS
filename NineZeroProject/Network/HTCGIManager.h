@@ -99,6 +99,11 @@
 + (NSString *)getQuestionDetailCGIKey;
 
 /**
+ *  @brief 获取答案详情
+ */
++ (NSString *)getAnswerDetailCGIKey;
+
+/**
  *  @brief 获取额外的提示
  */
 + (NSString *)getExtraHintCGIKey;
@@ -241,6 +246,11 @@
  *  "article_id"
  */
 + (NSString *)collectArticleCGIKey;
+
+/**
+ *  @brief 标记已读
+ */
++ (NSString *)readArticleCGIKey;
 
 /**
  *  @brief 获取勋章

@@ -14,6 +14,7 @@
 #import "HTDescriptionView.h"
 #import "HTShowDetailView.h"
 #import "HTShowAnswerView.h"
+#import "SKAnswerDetailView.h"
 #import "HTARCaptureController.h"
 #import "HTRewardController.h"
 #import "Reachability.h"
@@ -22,6 +23,7 @@
 #import "HTRelaxController.h"
 #import "HTAlertView.h"
 #import "HTBlankView.h"
+#import "HTArticleController.h"
 
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
@@ -43,6 +45,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (strong, nonatomic) HTDescriptionView *descriptionView;             // 详情页面
 @property (strong, nonatomic) HTShowDetailView *showDetailView;               // 提示详情
 @property (strong, nonatomic) HTShowAnswerView *showAnswerView;               // 查看答案
+@property (strong, nonatomic) SKAnswerDetailView *showAnswerDetailView;       // 查看答案详情
 
 @property (nonatomic, strong) UIButton *closeButton;
 
@@ -99,27 +102,28 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [UD setBool:NO forKey:@"firstLaunch"];
     }
     
-    [[[HTServiceManager sharedInstance] profileService] getbackupUserInfo:^(BOOL success, NSDictionary *backupDict) {
-        DLog(@"bodyDict -> %@", backupDict);
-        if (success) {
-            [[[HTServiceManager sharedInstance] profileService] backupUserInfoWithDict:backupDict callback:^(BOOL success, NSDictionary *backupDict) {
-                
-            }];
-        }
-    }];
     self.view.backgroundColor = UIColorMake(14, 14, 14);
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
     
+    [HTProgressHUD dismiss];
     [self createUI];
     [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:YES];
     if (self.cardType == HTPreviewCardTypeDefault) {
         [MobClick beginLogPageView:@"mainpage"];
     }else if (self.cardType == HTPreviewCardTypeRecord) {
         [MobClick beginLogPageView:@"recordpage"];
+    }
+    [self loadUnreadArticleFlag];
+    
+    for (UIView *view in self.view.subviews) {
+        if ([view isKindOfClass:[SKAnswerDetailView class]]) {
+            [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        }
     }
 }
 
@@ -267,6 +271,18 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                                           [self backToToday:NO];
                                       }];
     });
+}
+
+- (void)loadUnreadArticleFlag {
+    [AppDelegateInstance.mainController removeUnreadArticleFlag];
+    [[[HTServiceManager sharedInstance] profileService] getArticlesInPastWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
+        NSLog(@"hasread: %ld",[UD integerForKey:@"hasreadArticlesCount"]);
+        if (articles.count - [UD integerForKey:@"hasreadArticlesCount"])
+            [AppDelegateInstance.mainController showUnreadArticleFlag];
+        else
+            [AppDelegateInstance.mainController removeUnreadArticleFlag];
+        [UD setInteger:articles.count forKey:@"hasreadArticlesCount"];
+    }];
 }
 
 - (void)createUI {
@@ -448,15 +464,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     switch (type) {
         case HTCardCollectionClickTypeAnswer: {
             [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
-            [AppDelegateInstance.mainController showBottomButton:NO];
-            _showAnswerView = [[HTShowAnswerView alloc] initWithURL:cell.question.detailURL];
-            _showAnswerView.alpha = 0.0;
-            _showAnswerView.frame = self.view.bounds;
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                _showAnswerView.alpha = 1.0f;
-                [self.view addSubview:_showAnswerView];
-                [self.view bringSubviewToFront:_showAnswerView];
+            _showAnswerDetailView = [[SKAnswerDetailView alloc] initWithFrame:self.view.bounds questionID:cell.question.questionID];
+            [self.view addSubview:_showAnswerDetailView];
+            _showAnswerDetailView.alpha = 0;
+            [UIView animateWithDuration:0.5 animations:^{
+                _showAnswerDetailView.alpha = 1.0f;
+            } completion:^(BOOL finished) {
+                [AppDelegateInstance.mainController showBottomButton:NO];
+                [self.view bringSubviewToFront:_showAnswerDetailView];
             }];
             
             break;
@@ -547,7 +562,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     }
 }
 
-
 #pragma mark - HTComposeView Delegate
 
 - (void)composeView:(HTComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
@@ -596,7 +610,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [self.view endEditing:YES];
     [composeView removeFromSuperview];
 }
-
 
 #pragma mark - HTARCaptureController Delegate
 

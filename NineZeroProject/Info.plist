@@ -17,11 +17,19 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.zacyang.NineZero</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>NineZeroApp</string>
+			</array>
+		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
@@ -43,7 +51,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>QQ0915BC1A</string>
+				<string>QQ41E10BDF</string>
 			</array>
 		</dict>
 		<dict>
@@ -51,15 +59,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>tencent1105336032</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>QQ41E216E0</string>
+				<string>tencent1105267679</string>
 			</array>
 		</dict>
 	</array>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -25,7 +25,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热爱摇滚的青年，现在过得怎么样" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNP-vi-5JH">
-                        <rect key="frame" x="14" y="80" width="286" height="17"/>
+                        <rect key="frame" x="14" y="80" width="210" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -71,7 +71,7 @@
             <constraints>
                 <constraint firstItem="qNP-vi-5JH" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="14" id="6y9-jH-NWk"/>
                 <constraint firstAttribute="trailing" secondItem="yLA-D8-Rtz" secondAttribute="trailing" id="8Az-pz-TIS"/>
-                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="qNP-vi-5JH" secondAttribute="trailing" constant="20" id="9mW-tD-Scx"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qNP-vi-5JH" secondAttribute="trailing" constant="14" id="9mW-tD-Scx"/>
                 <constraint firstItem="Pnp-74-hk5" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="14" id="Ed9-zF-7da"/>
                 <constraint firstAttribute="bottom" secondItem="l8D-Uk-kE7" secondAttribute="bottom" constant="8" id="Oko-6J-rcW"/>
                 <constraint firstItem="yLA-D8-Rtz" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" id="Qno-Iz-Cyq"/>

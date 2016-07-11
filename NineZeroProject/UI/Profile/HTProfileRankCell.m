@@ -115,6 +115,9 @@
         _orderLabel.hidden = NO;
         _orderImageView.hidden = YES;
         _orderLabel.text = [NSString stringWithFormat:@"%ld", (unsigned long)ranker.rank];
+        if (ranker.rank>999) {
+            _orderLabel.text = @"1K+";
+        }
         [_orderLabel sizeToFit];
     }
 

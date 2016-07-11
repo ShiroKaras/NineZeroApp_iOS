@@ -113,8 +113,8 @@
                                  @"action": [SKCGIManager question_getQuestionList_Successful_Action],
                                  @"user_id": [[SKStorageManager sharedInstance] getUserID],
                                  @"login_token": [[SKStorageManager sharedInstance] getUserToken],
-                                 @"page": [NSString stringWithFormat:@"%lu", page],
-                                 @"page_size": [NSString stringWithFormat:@"%lu", count]
+                                 @"page": [NSString stringWithFormat:@"%lu", (unsigned long)page],
+                                 @"page_size": [NSString stringWithFormat:@"%lu", (unsigned long)count]
                                  };
     
     NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:@"http://90app-test.daoapp.io/api/question" parameters:bodyObject error:NULL];

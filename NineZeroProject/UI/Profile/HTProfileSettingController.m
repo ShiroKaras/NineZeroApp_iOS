@@ -255,7 +255,7 @@ static NSInteger const kChangeNameViewTag = 12345;
     } else if (type == HTProfileSettingTypeAbout) {
         HTProfileSettingTextCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingTextCell class]) forIndexPath:indexPath];
         [cell showAccessoryArrow:NO];
-        [cell setDetailTitleText:@"v1.0"];
+        [cell setDetailTitleText:[NSString stringWithFormat:@"v%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]];
         [cell setTitleColor:[UIColor whiteColor]];
         [cell setTitleText:[self titleWithIndexPath:indexPath]];
         return cell;

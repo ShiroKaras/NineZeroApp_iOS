@@ -134,12 +134,32 @@
 }
 
 - (void)getQuestionDetailWithQuestionID:(uint64_t)questionID callback:(HTQuestionCallback)callback {
-    NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID],
+    NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%llu", questionID],
                            @"area_id" : AppDelegateInstance.cityCode,
                            @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionDetailCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         callback(YES, [HTQuestion mj_objectWithKeyValues:responseObject[@"data"]]);
+        DLog(@"%@",responseObject);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(NO, nil);
+        DLog(@"%@", error);
+    }];
+}
+
+- (void)getAnswerDetailWithQuestionID:(uint64_t)questionID callback:(HTAnswerDetailInfoCallback)callback {
+    NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%llu", questionID],
+                           @"area_id" : AppDelegateInstance.cityCode,
+                           @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
+    DLog(@"%@", dict);
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getAnswerDetailCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
+        if (rsp.resultCode == 0) {
+            HTAnswerDetail *answerDetail = [HTAnswerDetail mj_objectWithKeyValues:responseObject[@"data"]];
+            callback (YES, answerDetail);
+        } else {
+            callback(NO, nil);
+        }
         DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
@@ -155,7 +175,7 @@
     }
     NSDictionary *dict = @{
                            @"user_id" : user_id,
-                           @"question_id" : [NSString stringWithFormat:@"%ld", (unsigned long)questionID],
+                           @"question_id" : [NSString stringWithFormat:@"%llu", questionID],
                            @"answer" : answer
                            };
     
