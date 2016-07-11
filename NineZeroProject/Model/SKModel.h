@@ -14,6 +14,13 @@
 - (NSString *)debugDescription;
 @end
 
+@interface SKResponsePackage : NSObject
+@property (nonatomic, copy) id data;                      // 返回数据
+@property (nonatomic, copy) NSString *method;             // 方法名
+@property (nonatomic, assign) NSUInteger resultCode;         // 结果code
+@property (nonatomic, copy) NSString *message;            // 结果信息
+@end
+
 @interface SKLoginUser : NSObject
 @property (nonatomic, copy) NSString *user_name;
 @property (nonatomic, copy) NSString *user_password;
@@ -57,11 +64,25 @@
 @property (nonatomic, copy) NSString *question_video_cover;   // vedio的封面
 @end
 
-@interface SKResponsePackage : NSObject
-@property (nonatomic, copy) id data;                      // 返回数据
-@property (nonatomic, copy) NSString *method;             // 方法名
-@property (nonatomic, assign) NSUInteger resultCode;         // 结果code
-@property (nonatomic, copy) NSString *message;            // 结果信息
+@interface SKRestDay : NSObject
+@property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) NSString *backgroundPictureURL;
+@property (nonatomic, copy) NSString *endTime;
+
+@property (nonatomic, copy) NSString *article_id;
+@property (nonatomic, copy) NSString *article_title;
+@property (nonatomic, copy) NSString *article_subtitle;
+@property (nonatomic, copy) NSString *article_iconURL;
+@property (nonatomic, copy) NSString *article_pictureURL;
+@property (nonatomic, copy) NSString *article_detailURL;
+@property (nonatomic, copy) NSString *article_petID;
+@property (nonatomic, assign) BOOL    article_pushed;
+@property (nonatomic, copy) NSString *article_pushTime;
+
+@property (nonatomic, copy) NSString *video_id;
+@property (nonatomic, copy) NSString *video_title;
+@property (nonatomic, copy) NSString *video_coverURL;
+@property (nonatomic, copy) NSString *video_resourceURL;
 @end
 
 @interface SKArticle : NSObject

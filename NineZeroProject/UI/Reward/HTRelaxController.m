@@ -59,16 +59,6 @@ typedef enum : NSUInteger {
     _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:_backgroundImageView];
     
-    [[[HTServiceManager sharedInstance] questionService] getCoverPicture:^(BOOL success, HTResponsePackage *response) {
-        if (success && response.resultCode == 0) {
-            NSDictionary *dataDict = response.data;
-            
-            [_backgroundImageView sd_setImageWithURL:dataDict[@"rest_cover"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            }];
-        }
-    }];
-    
-    
     if (IOS_VERSION >= 8.0) {
         _visualEfView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
         _visualEfView.alpha = 1.0;
@@ -78,51 +68,72 @@ typedef enum : NSUInteger {
     
     [self showViewWithRelaxType:HTRelaxTypeUnknown];
     [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] questionService] getRelaxDayInfo:^(BOOL success, HTResponsePackage *response) {
-        if (success && response.resultCode == 0) {
-            NSDictionary *dataDict = response.data;
-            NSInteger contentType = [dataDict[@"content_type"] integerValue];
-            time_t endTime = [dataDict[@"end_time"] integerValue];
-            contentType = MAX(0, MIN(2, contentType));
-            NSString *jsonString = [NSString stringWithFormat:@"%@", dataDict[@"content_data"]];
-            NSError *jsonError;
-            NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:objectData
-                                                                     options:NSJSONReadingMutableContainers
-                                                                       error:&jsonError];
-            _endTime = endTime;
-            [self scheduleCountDownTimer];
-            _relaxType = contentType;
-            if (contentType == HTRelaxTypeArticle) {
-                // 文章
-                if (jsonDict[@"article_id"]) {
-                    NSString *articleID = [NSString stringWithFormat:@"%@", jsonDict[@"article_id"]];
-                    [[[HTServiceManager sharedInstance] profileService] getArticle:[articleID integerValue] completion:^(BOOL success, HTArticle *article) {
-                        [HTProgressHUD dismiss];
-                        if (success) {
-                            [self showViewWithRelaxType:HTRelaxTypeArticle];
-                            _currentArticle = article;
-                            self.textTopLabel.text = article.articleTitle;
-                            self.textBottomLabel.text = article.article_subtitle;
-                        }
-                    }];
-                }
-            } else if (contentType == HTRelaxTypeVideo) {
+    
+    [[[SKServiceManager sharedInstance] questionService] getRelaxDayInfo:^(BOOL success, SKRestDay *restday) {
+        [_backgroundImageView sd_setImageWithURL:[NSURL URLWithString:restday.backgroundPictureURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        }];
+        _endTime = [restday.endTime integerValue];;
+        if ([restday.type isEqualToString:@"article"]) {
+            NSString *articleID = restday.article_id;
+            [[[SKServiceManager sharedInstance] profileService] getArticle:articleID completion:^(BOOL success, SKArticle *articles) {
                 [HTProgressHUD dismiss];
-                [self showViewWithRelaxType:HTRelaxTypeVideo];
-                self.movieTitle.text = [NSString stringWithFormat:@"%@", jsonDict[@"title"]];
-                self.videoUrlString = [NSString stringWithFormat:@"%@", jsonDict[@"url"]];
-                [self.movieCover sd_setImageWithURL:[NSURL URLWithString:[[jsonDict[@"url"] stringByDeletingPathExtension] stringByAppendingString:@".jpg"]]];
-            } else if (contentType == HTRelaxTypeGif) {
-                // 零仔gif链接
-                [HTProgressHUD dismiss];
-                [self showViewWithRelaxType:HTRelaxTypeGif];
-                UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", jsonDict[@"pic_url"]]]];
-                _gifImageView.image = gifImage;
-                [_gifImageView startAnimating];
-            }
+                [self showViewWithRelaxType:HTRelaxTypeArticle];
+                //TODO 获取文章
+            }];
+        } else if ([restday.type isEqualToString:@"video"]) {
+            [HTProgressHUD dismiss];
+            [self showViewWithRelaxType:HTRelaxTypeVideo];
+            self.movieTitle.text = restday.video_title;
+            self.videoUrlString = restday.video_resourceURL;
+            [self.movieCover sd_setImageWithURL:[NSURL URLWithString:restday.video_coverURL]];
         }
     }];
+    
+//    [[[HTServiceManager sharedInstance] questionService] getRelaxDayInfo:^(BOOL success, HTResponsePackage *response) {
+//        if (success && response.resultCode == 0) {
+//            NSDictionary *dataDict = response.data;
+//            NSInteger contentType = [dataDict[@"content_type"] integerValue];
+//            time_t endTime = [dataDict[@"end_time"] integerValue];
+//            contentType = MAX(0, MIN(2, contentType));
+//            NSString *jsonString = [NSString stringWithFormat:@"%@", dataDict[@"content_data"]];
+//            NSError *jsonError;
+//            NSData *objectData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+//            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:objectData
+//                                                                     options:NSJSONReadingMutableContainers
+//                                                                       error:&jsonError];
+//            _endTime = endTime;
+//            [self scheduleCountDownTimer];
+//            _relaxType = contentType;
+//            if (contentType == HTRelaxTypeArticle) {
+//                // 文章
+//                if (jsonDict[@"article_id"]) {
+//                    NSString *articleID = [NSString stringWithFormat:@"%@", jsonDict[@"article_id"]];
+//                    [[[HTServiceManager sharedInstance] profileService] getArticle:[articleID integerValue] completion:^(BOOL success, HTArticle *article) {
+//                        [HTProgressHUD dismiss];
+//                        if (success) {
+//                            [self showViewWithRelaxType:HTRelaxTypeArticle];
+//                            _currentArticle = article;
+//                            self.textTopLabel.text = article.articleTitle;
+//                            self.textBottomLabel.text = article.article_subtitle;
+//                        }
+//                    }];
+//                }
+//            } else if (contentType == HTRelaxTypeVideo) {
+//                [HTProgressHUD dismiss];
+//                [self showViewWithRelaxType:HTRelaxTypeVideo];
+//                self.movieTitle.text = [NSString stringWithFormat:@"%@", jsonDict[@"title"]];
+//                self.videoUrlString = [NSString stringWithFormat:@"%@", jsonDict[@"url"]];
+//                [self.movieCover sd_setImageWithURL:[NSURL URLWithString:[[jsonDict[@"url"] stringByDeletingPathExtension] stringByAppendingString:@".jpg"]]];
+//            } else if (contentType == HTRelaxTypeGif) {
+//                // 零仔gif链接
+//                [HTProgressHUD dismiss];
+//                [self showViewWithRelaxType:HTRelaxTypeGif];
+//                UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", jsonDict[@"pic_url"]]]];
+//                _gifImageView.image = gifImage;
+//                [_gifImageView startAnimating];
+//            }
+//        }
+//    }];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickBackView)];
     [self.view addGestureRecognizer:tap];

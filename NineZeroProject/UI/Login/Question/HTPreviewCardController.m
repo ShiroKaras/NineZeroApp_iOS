@@ -187,52 +187,74 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         _dimmingView.backgroundColor = COMMON_BG_COLOR;
         [self.view addSubview:_dimmingView];
         
-        [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
-            NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
-            if (success && response.resultCode == 0) {
-                if ([dictData isEqualToString:@"1"]) {
+        [[[SKServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, SKResponsePackage *response) {
+            NSDictionary *dictData = [NSDictionary dictionaryWithDictionary:response.data];
+            if (success && response.resultCode == 200) {
+                if (dictData[@"is_rest_day"]) {
                     [HTProgressHUD dismiss];
-                    _isRelaxDay = [dictData boolValue];
+                    _isRelaxDay = dictData[@"is_rest_day"];
                     HTRelaxController *relaxController = [[HTRelaxController alloc] init];
                     [self presentViewController:relaxController animated:NO completion:nil];
                     [self.view bringSubviewToFront:relaxController.view];
                     [self showAlert];
-                } else if ([dictData isEqualToString:@"0"]){
-                    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
-                        if (success) {
-                            questionInfo = callbackQuestionInfo;
-                            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
-                                [HTProgressHUD dismiss];
-                                [_dimmingView removeFromSuperview];
-                                if (success2) {
-                                    questionList = [callbackQuestionList mutableCopy];
-                                    [self.collectionView reloadData];
-                                    [self.collectionView performBatchUpdates:^{}
-                                                                  completion:^(BOOL finished) {
-                                                                      [self backToToday:NO];
-                                                                  }];
-                                }
-                            }];
-                            _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
-                            [self.collectionView addSubview:_eggImageView];
-                            if ([UD boolForKey:@"firstLaunch"]) {
-                                [self showCourseView];
-                            } else{
-                                [self showAlert];
-                            }
-                        } else {
-                            [HTProgressHUD dismiss];
-                            [_dimmingView removeFromSuperview];
-                            [self showBlankViewNetWorkError];
-                        }
-                    }];
+                } else if (!dictData[@"is_rest_day"]){
+                    //TODO 题目信息
                     
+                } else {
+                    [HTProgressHUD dismiss];
+                    [self showBlankViewNetWorkError];
                 }
-            } else {
-                [HTProgressHUD dismiss];
-                [self showBlankViewNetWorkError];
             }
         }];
+        
+        
+        
+//        [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
+//            NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
+//            if (success && response.resultCode == 0) {
+//                if ([dictData isEqualToString:@"1"]) {
+//                    [HTProgressHUD dismiss];
+//                    _isRelaxDay = [dictData boolValue];
+//                    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
+//                    [self presentViewController:relaxController animated:NO completion:nil];
+//                    [self.view bringSubviewToFront:relaxController.view];
+//                    [self showAlert];
+//                } else if ([dictData isEqualToString:@"0"]){
+//                    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
+//                        if (success) {
+//                            questionInfo = callbackQuestionInfo;
+//                            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
+//                                [HTProgressHUD dismiss];
+//                                [_dimmingView removeFromSuperview];
+//                                if (success2) {
+//                                    questionList = [callbackQuestionList mutableCopy];
+//                                    [self.collectionView reloadData];
+//                                    [self.collectionView performBatchUpdates:^{}
+//                                                                  completion:^(BOOL finished) {
+//                                                                      [self backToToday:NO];
+//                                                                  }];
+//                                }
+//                            }];
+//                            _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
+//                            [self.collectionView addSubview:_eggImageView];
+//                            if ([UD boolForKey:@"firstLaunch"]) {
+//                                [self showCourseView];
+//                            } else{
+//                                [self showAlert];
+//                            }
+//                        } else {
+//                            [HTProgressHUD dismiss];
+//                            [_dimmingView removeFromSuperview];
+//                            [self showBlankViewNetWorkError];
+//                        }
+//                    }];
+//                    
+//                }
+//            } else {
+//                [HTProgressHUD dismiss];
+//                [self showBlankViewNetWorkError];
+//            }
+//        }];
         
         if ([[HTStorageManager sharedInstance] getUserID]) {
             [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];

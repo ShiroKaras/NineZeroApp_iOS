@@ -30,27 +30,38 @@
     
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         DLog(@"HTTP Response Body: %@", responseObject);
+        callback(true, package);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"HTTP Request failed: %@", error);
+        callback(false, nil);
     }];
     
     [manager.operationQueue addOperation:operation];
 }
 
-- (void)getRelaxDayInfo:(SKResponseCallback)callback {
+- (void)getRelaxDayInfo:(SKGetRestDayCallback)callback {
     
     // Create manager
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     // JSON Body
+//    NSDictionary* bodyObject = @{
+//                                 @"access_key": SECRET_STRING,
+//                                 @"action": [SKCGIManager restday_getRestday_Action],
+//                                 @"user_id": [[SKStorageManager sharedInstance] getUserID],
+//                                 @"login_token": [[SKStorageManager sharedInstance] getUserToken],
+//                                 @"city_code": @"010"
+//                                 };
     NSDictionary* bodyObject = @{
                                  @"access_key": SECRET_STRING,
                                  @"action": [SKCGIManager restday_getRestday_Action],
-                                 @"user_id": [[SKStorageManager sharedInstance] getUserID],
-                                 @"login_token": [[SKStorageManager sharedInstance] getUserToken],
+                                 @"user_id": @"6",
+                                 @"login_token": @"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NjkyNzA5NTAsIm5hbWUiOiIiLCJzYWx0IjoiODEzOCIsInVzZXJfaWQiOiI2In0.CMm7FbVG4fOWI4Z4zjsgfcOpuGjgXnmRnF3L5qWR2Cw",
                                  @"city_code": @"010"
                                  };
+
     
     NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager restdayCGIKey] parameters:bodyObject error:NULL];
     
@@ -60,8 +71,13 @@
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         DLog(@"HTTP Response Body: %@", responseObject);
+        SKResponsePackage *rsp = [SKResponsePackage mj_objectWithKeyValues:responseObject];
+        if (rsp.resultCode == 200) {
+            callback(true, [SKRestDay mj_objectWithKeyValues:responseObject[@"data"]]);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"HTTP Request failed: %@", error);
+        callback(false, nil);
     }];
     
     [manager.operationQueue addOperation:operation];

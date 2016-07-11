@@ -13,6 +13,7 @@ typedef void (^SKQuestionCallback) (BOOL success, SKQuestion *question);
 typedef void (^SKQuestionListCallback) (BOOL success, NSArray<SKQuestion *> *questionList);
 typedef void (^SKQuestionInfoCallback) (BOOL success, SKQuestionInfo *questionInfo);
 typedef void (^SKGetRewardCallback) (BOOL success, SKResponsePackage *rsp);
+typedef void (^SKGetRestDayCallback) (BOOL success, SKRestDay *restday);
 
 @interface SKQuestionService : NSObject
 
@@ -26,7 +27,7 @@ typedef void (^SKGetRewardCallback) (BOOL success, SKResponsePackage *rsp);
 /**
  *  @brief 获取休息日信息
  */
-- (void)getRelaxDayInfo:(SKResponseCallback)callback;
+- (void)getRelaxDayInfo:(SKGetRestDayCallback)callback;
 
 /**
  *  @brief 主页问题列表

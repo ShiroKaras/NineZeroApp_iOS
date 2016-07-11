@@ -300,4 +300,10 @@
     [manager.operationQueue addOperation:operation];
 }
 
+#pragma mark 获取文章
+
+- (void)getArticle:(NSString *)articleID completion:(SKGetArticleCallback)callback {
+    
+}
+
 @end

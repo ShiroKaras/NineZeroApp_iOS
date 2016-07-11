@@ -41,6 +41,15 @@
 
 @end
 
+@implementation SKResponsePackage
+SKINIT(SKResponsePackage)
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"resultCode" : @"code"
+                                     };
+    return propertyMapper;
+}
+@end
+
 @implementation SKLoginUser
 @end
 
@@ -73,10 +82,26 @@ SKINIT(SKQuestion)
 }
 @end
 
-@implementation SKResponsePackage
-SKINIT(SKResponsePackage)
+@implementation SKRestDay
+SKINIT(SKRestDay)
 - (NSDictionary *)propertyMapper {
-    NSDictionary *propertyMapper = @{@"resultCode" : @"code"
+    NSDictionary *propertyMapper = @{@"backgroundPictureURL" : @"background_picture.url",
+                                     @"endTime" : @"end_at_seconds",
+                                     
+                                     @"article_id" : @"article.id",
+                                     @"article_title" : @"article.title",
+                                     @"article_subtitle" : @"article.subtitle",
+                                     @"article_iconURL" : @"article.icon.url",
+                                     @"article_pictureURL" : @"article.picture.url",
+                                     @"article_detailURL" : @"article.detail.url",
+                                     @"article_petID" : @"article.pet_id",
+                                     @"article_pushed" : @"article.pushed",
+                                     @"article_pushTime" : @"article_pushed_at",
+                                     
+                                     @"video_id" : @"video.id",
+                                     @"video_title" : @"video.title",
+                                     @"video_coverURL" : @"video.cover_picture.url",
+                                     @"video_resourceURL" : @"video.resource.url"
                                      };
     return propertyMapper;
 }
