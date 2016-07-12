@@ -40,7 +40,7 @@
                         <action selector="didClickMascotButton:" destination="-1" eventType="touchUpInside" id="dRl-mb-eCv"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_profile_notification_number" translatesAutoresizingMaskIntoConstraints="NO" id="vwf-tP-OSd" userLabel="notificationFlagImage">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_profile_notification_number" translatesAutoresizingMaskIntoConstraints="NO" id="vwf-tP-OSd" userLabel="notificationFlagImage">
                     <rect key="frame" x="291" y="621" width="10" height="10"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="10" id="aej-9I-szE"/>

@@ -84,10 +84,20 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     [MobClick beginLogPageView:@"mascotpage"];
     [self reloadAllData];
     [self reloadViews];
+    
+    [self loadUnreadArticleFlag];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [MobClick endLogPageView:@"mascotpage"];
+}
+
+- (void)loadUnreadArticleFlag {
+    [[[HTServiceManager sharedInstance] profileService] getArticlesInPastWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
+        NSLog(@"hasread: %ld",[UD integerForKey:@"hasreadArticlesCount"]);
+        [AppDelegateInstance.mainController removeUnreadArticleFlag];
+        [UD setInteger:articles.count forKey:@"hasreadArticlesCount"];
+    }];
 }
 
 - (void)reloadAllData {

@@ -101,6 +101,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     else{
         [UD setBool:NO forKey:@"firstLaunch"];
     }
+    [self loadUnreadArticleFlag];
     
     self.view.backgroundColor = UIColorMake(14, 14, 14);
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
@@ -118,8 +119,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     }else if (self.cardType == HTPreviewCardTypeRecord) {
         [MobClick beginLogPageView:@"recordpage"];
     }
-    [self loadUnreadArticleFlag];
-    
     for (UIView *view in self.view.subviews) {
         if ([view isKindOfClass:[SKAnswerDetailView class]]) {
             [[UIApplication sharedApplication] setStatusBarHidden:YES];
@@ -296,14 +295,13 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)loadUnreadArticleFlag {
-    [AppDelegateInstance.mainController removeUnreadArticleFlag];
     [[[HTServiceManager sharedInstance] profileService] getArticlesInPastWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
         NSLog(@"hasread: %ld",[UD integerForKey:@"hasreadArticlesCount"]);
+        
         if (articles.count - [UD integerForKey:@"hasreadArticlesCount"])
             [AppDelegateInstance.mainController showUnreadArticleFlag];
         else
             [AppDelegateInstance.mainController removeUnreadArticleFlag];
-        [UD setInteger:articles.count forKey:@"hasreadArticlesCount"];
     }];
 }
 
