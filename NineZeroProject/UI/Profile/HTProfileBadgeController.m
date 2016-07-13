@@ -124,10 +124,12 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"badgepage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"badgepage"];
 }
 

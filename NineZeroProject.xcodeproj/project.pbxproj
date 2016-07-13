@@ -1836,18 +1836,18 @@
 		11866F7C1D338E1500DECB37 /* SKService */ = {
 			isa = PBXGroup;
 			children = (
+				11866F871D338E1500DECB37 /* SKServiceManager.h */,
+				11866F881D338E1500DECB37 /* SKServiceManager.m */,
 				11866F7D1D338E1500DECB37 /* SKLoginService.h */,
 				11866F7E1D338E1500DECB37 /* SKLoginService.m */,
 				11866F7F1D338E1500DECB37 /* SKMascotService.h */,
 				11866F801D338E1500DECB37 /* SKMascotService.m */,
 				11866F811D338E1500DECB37 /* SKProfileService.h */,
 				11866F821D338E1500DECB37 /* SKProfileService.m */,
-				11866F831D338E1500DECB37 /* SKQiNiuService.h */,
-				11866F841D338E1500DECB37 /* SKQiNiuService.m */,
 				11866F851D338E1500DECB37 /* SKQuestionService.h */,
 				11866F861D338E1500DECB37 /* SKQuestionService.m */,
-				11866F871D338E1500DECB37 /* SKServiceManager.h */,
-				11866F881D338E1500DECB37 /* SKServiceManager.m */,
+				11866F831D338E1500DECB37 /* SKQiNiuService.h */,
+				11866F841D338E1500DECB37 /* SKQiNiuService.m */,
 			);
 			path = SKService;
 			sourceTree = "<group>";
