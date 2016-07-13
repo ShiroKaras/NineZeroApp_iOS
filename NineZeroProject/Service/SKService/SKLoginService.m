@@ -31,32 +31,35 @@
 #pragma mark - Public Method
 #pragma mark 登录
 - (void)loginWithUser:(SKLoginUser *)user completion:(SKResponseCallback)callback {
-    NSDictionary *param = @{@"access_key"           : SECRET_STRING,
-                            @"action"               : [SKCGIManager login_Phonenumber_Action],
-                            @"mobile_phone_number"  : user.user_mobile,
-                            @"password"             : user.user_password};
-    
     // Create manager
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager userBaseLoginCGIKey] parameters:param error:NULL];
+    // JSON Body
+    NSDictionary* bodyObject = @{
+                                 @"access_key": SECRET_STRING,
+                                 @"action": @"phone_password_login",
+                                 @"mobile_phone_number": user.user_mobile,
+                                 @"password": user.user_password
+                                 };
+    
+    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager userBaseLoginCGIKey] parameters:bodyObject error:NULL];
     
     // Add Headers
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        DLog(@"%@", responseObject);
         SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if (package.resultCode == 200) {
-            NSDictionary *dataDict = package.data;
+        NSDictionary *dataDict = package.data;
             [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
-            [[SKStorageManager sharedInstance] updateUserToken:[NSString stringWithFormat:@"%@", dataDict[@"token"]]];
             [[SKStorageManager sharedInstance] updateLoginUser:user];
+            [[SKStorageManager sharedInstance] updateUserToken:[NSString stringWithFormat:@"%@", dataDict[@"token"]]];
         }
         callback(true, package);
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"HTTP Request failed: %@", error);
+        callback(false, nil);
     }];
     
     [manager.operationQueue addOperation:operation];
@@ -315,7 +318,7 @@
     [manager.operationQueue addOperation:operation];
 }
 
-- (void)resetPasswordWithUser:(HTLoginUser *)user completion:(SKResponseCallback)callback {
+- (void)resetPasswordWithUser:(SKLoginUser *)user completion:(SKResponseCallback)callback {
     if (user.user_mobile.length == 0) return;
     if (user.user_password.length == 0) return;
     if (_resetPassword_newPassword_token == nil || [_resetPassword_newPassword_token isEqualToString:@""]) return;

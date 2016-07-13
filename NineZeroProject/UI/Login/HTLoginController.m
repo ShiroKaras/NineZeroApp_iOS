@@ -50,30 +50,30 @@
 
 - (IBAction)didClickLoginButton:(UIButton *)sender {
     [MobClick event:@"login"];
-    HTLoginUser *loginUser = [[HTLoginUser alloc] init];
+    SKLoginUser *loginUser = [[SKLoginUser alloc] init];
     loginUser.user_mobile = self.userNameTextField.text;
     loginUser.user_password = self.passwordTextField.text;
-    loginUser.user_password = [NSString confusedPasswordWithLoginUser:loginUser];
+//    loginUser.user_password = [NSString confusedPasswordWithLoginUser:loginUser];
 
     [self.view endEditing:YES];
     [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] loginService] loginWithUser:loginUser completion:^(BOOL success, HTResponsePackage *response) {
-        [HTProgressHUD dismiss];
+    [[[SKServiceManager sharedInstance] loginService] loginWithUser:loginUser completion:^(BOOL success, SKResponsePackage *response) {
         if (success) {
-            if (response.resultCode == 0) {
+            if (response.resultCode == 200) {
                 HTMainViewController *controller = [[HTMainViewController alloc] init];
-//                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+                //                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
                 AppDelegateInstance.mainController = controller;
                 HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
                 AppDelegateInstance.window.rootViewController = navController;
                 [AppDelegateInstance.window makeKeyAndVisible];
-                [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
+                //                [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
             } else {
-                [self showTipsWithText:response.resultMsg];
+                [self showTipsWithText:response.message];
             }
         } else {
             [self showTipsWithText:@"网络连接错误"];
         }
+
     }];
 }
 

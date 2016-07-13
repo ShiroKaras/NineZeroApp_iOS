@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "HTLogicHeader.h"
 
-@class HTLoginUser;
+@class SKLoginUser;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,13 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  @brief 手机号登录
  */
-- (void)loginWithUser:(HTLoginUser *)user
+- (void)loginWithUser:(SKLoginUser *)user
            completion:(SKResponseCallback)callback;
 
 /**
  *  @brief 第三方平台登录
  */
-- (void)bindUserWithThirdPlatform:(HTLoginUser *)user completion:(SKResponseCallback)callback;
+- (void)bindUserWithThirdPlatform:(SKLoginUser *)user completion:(SKResponseCallback)callback;
 
 #pragma mark 注册
 /**
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  @brief 注册
  */
-- (void)registerWithUser:(HTLoginUser *)user completion:(SKResponseCallback)callback;
+- (void)registerWithUser:(SKLoginUser *)user completion:(SKResponseCallback)callback;
 
 #pragma mark 重置密码
 /**
@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  @brief 重置密码
  */
-- (void)resetPasswordWithUser:(HTLoginUser *)user
+- (void)resetPasswordWithUser:(SKLoginUser *)user
                    completion:(SKResponseCallback)callback;
 
 #pragma mark 七牛
@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //***************************
 // Get相关
-- (HTLoginUser *)loginUser;
+- (SKLoginUser *)loginUser;
 - (NSString *)qiniuToken;
 
 - (void)quitLogin;

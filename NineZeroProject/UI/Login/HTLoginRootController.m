@@ -12,6 +12,7 @@
 #import "HTLoginController.h"
 #import <MBProgressHUD+BWMExtension.h>
 #import "HTModel.h"
+#import "SKModel.h"
 #import "HTUIHeader.h"
 #import "NSString+Utility.h"
 #import <ShareSDK/ShareSDK.h>
@@ -199,32 +200,31 @@ onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
 }
 
 -(void)loginWithUser:(SSDKUser*)user {
-    HTLoginUser *loginUser = [HTLoginUser new];
+    SKLoginUser *loginUser = [SKLoginUser new];
     loginUser.user_area_id = AppDelegateInstance.cityCode;
     loginUser.third_id = user.uid;
     loginUser.user_name = user.nickname;
     loginUser.user_avatar = user.icon;
     [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] loginService] bindUserWithThirdPlatform:loginUser completion:^(BOOL success, HTResponsePackage *response) {
+    
+    [[[SKServiceManager sharedInstance] loginService] bindUserWithThirdPlatform:loginUser completion:^(BOOL success, SKResponsePackage *response) {
         [HTProgressHUD dismiss];
-        DLog(@"%@", response);
         if (success) {
-            if (response.resultCode == 0) {
+            if (response.resultCode == 200) {
                 HTMainViewController *controller = [[HTMainViewController alloc] init];
-//                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+                //                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
                 AppDelegateInstance.mainController = controller;
                 HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
                 AppDelegateInstance.window.rootViewController = navController;
                 [AppDelegateInstance.window makeKeyAndVisible];
-                [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
+                //            [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
             } else {
-                [self showTipsWithText:response.resultMsg];
+                [self showTipsWithText:response.message];
             }
         } else {
             [self showTipsWithText:@"网络连接错误"];
         }
     }];
-
 }
 
 #pragma mark - Tool Method

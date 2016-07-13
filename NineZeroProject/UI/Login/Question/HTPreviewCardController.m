@@ -187,17 +187,16 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [self.view addSubview:_dimmingView];
         
         [[[SKServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, SKResponsePackage *response) {
-            NSDictionary *dictData = [NSDictionary dictionaryWithDictionary:response.data];
             if (success && response.resultCode == 200) {
-                if (dictData[@"is_rest_day"]) {
+                if ([response.data[@"is_rest_day"] boolValue]) {
                     [HTProgressHUD dismiss];
-                    _isRelaxDay = dictData[@"is_rest_day"];
+                    _isRelaxDay = response.data[@"is_rest_day"];
                     HTRelaxController *relaxController = [[HTRelaxController alloc] init];
                     [self presentViewController:relaxController animated:NO completion:nil];
                     [self.view bringSubviewToFront:relaxController.view];
                     [self showAlert];
-                } else if (!dictData[@"is_rest_day"]){
-                    //TODO 题目信息
+                } else if (![response.data[@"is_rest_day"] boolValue]){
+                    //TODO 获取题目列表
                     
                 } else {
                     [HTProgressHUD dismiss];
