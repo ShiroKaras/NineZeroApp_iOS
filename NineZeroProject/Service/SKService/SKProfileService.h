@@ -14,7 +14,7 @@ typedef void (^SKGetProfileInfoCallback) (BOOL success, SKProfileInfo *profileIn
 typedef void (^SKGetNotificationsCallback) (BOOL success, NSArray<SKNotification *> *notifications);
 typedef void (^SKGetRewardsCallback) (BOOL success, NSArray<SKTicket *> *rewards);
 typedef void (^SKGetUserInfoCallback) (BOOL success, SKUserInfo *userInfo);
-typedef void (^SKGetArticlesCallback) (BOOL success, NSArray<SKArticle *> *articles);
+typedef void (^SKGetArticleListCallback) (BOOL success, NSArray<SKArticle *> *articles);
 typedef void (^SKGetArticleCallback) (BOOL success, SKArticle *articles);
 typedef void (^SKGetMyRankCallback) (BOOL success, SKRanker *ranker);
 typedef void (^SKGetRankListCallback) (BOOL success, NSArray<SKRanker *> *rankList);
@@ -55,7 +55,7 @@ typedef void (^SKGetGoldRecordCallback) (BOOL success, NSArray<SKGoldRecord *> *
 /**
  *  @brief 文章收藏列表
  */
-- (void)getArticleCollectionList:(SKGetArticlesCallback)callback;
+- (void)getArticleCollectionList:(SKGetArticleListCallback)callback;
 
 /**
  *  @brief 消息列表
@@ -63,7 +63,30 @@ typedef void (^SKGetGoldRecordCallback) (BOOL success, NSArray<SKGoldRecord *> *
 - (void)getNotificationList:(SKGetNotificationsCallback)callback;
 
 #pragma mark 文章
-
+/**
+ *  @brief 根据文章ID获取文章
+ */
 - (void)getArticle:(NSString *)articleID completion:(SKGetArticleCallback)callback;
+
+/**
+ *  @brief 获取往期文章
+ */
+- (void)getArticlesInPastWithPage:(NSUInteger)page count:(NSUInteger)count callback:(SKGetArticleListCallback)callback;
+
+/**
+ *  @brief 收藏文章
+ */
+- (void)collectArticleWithArticleID:(NSUInteger)articleID completion:(SKResponseCallback)callback;
+
+/**
+ *  @brief 取消收藏文章
+ */
+- (void)cancelCollectArticleWithArticleID:(NSUInteger)articleID completion:(SKResponseCallback)callback;
+
+/**
+ *  @brief 文章标记为已读
+ */
+- (void)readArticleWithArticleID:(NSUInteger)articleID completion:(SKResponseCallback)callback;
+
 
 @end

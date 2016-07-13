@@ -229,7 +229,7 @@
 }
 
 #pragma 文章收藏列表
-- (void)getArticleCollectionList:(SKGetArticlesCallback)callback {
+- (void)getArticleCollectionList:(SKGetArticleListCallback)callback {
     
     // Create manager
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -303,6 +303,22 @@
 #pragma mark 获取文章
 
 - (void)getArticle:(NSString *)articleID completion:(SKGetArticleCallback)callback {
+    
+}
+
+- (void)getArticlesInPastWithPage:(NSUInteger)page count:(NSUInteger)count callback:(SKGetArticleListCallback)callback {
+    
+}
+
+- (void)collectArticleWithArticleID:(NSUInteger)articleID completion:(SKResponseCallback)callback {
+
+}
+
+- (void)cancelCollectArticleWithArticleID:(NSUInteger)articleID completion:(SKResponseCallback)callback {
+
+}
+
+- (void)readArticleWithArticleID:(NSUInteger)articleID completion:(SKResponseCallback)callback {
     
 }
 

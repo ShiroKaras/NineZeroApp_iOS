@@ -63,6 +63,10 @@
     return CGI_EXTRA(@"api/resource");
 }
 
++ (NSString *)articleCGIKey {
+    return CGI_EXTRA(@"api/article");
+}
+
 #pragma mark - Actions
 
 #pragma mark 登录
@@ -189,6 +193,23 @@
 
 + (NSString *)resource_getMedals_Action {
     return @"get_medals";
+}
+
+#pragma mark 文章
++ (NSString *)article_get_all_articles_Action {
+    return @"get_all_articles";
+}
+
++ (NSString *)article_collect_article_Aciton {
+    return @"collect_article";
+}
+
++ (NSString *)article_cancel_collect_article_Action {
+    return @"cancel_collect_article";
+}
+
++ (NSString *)article_read_article_Action {
+    return @"read_article";
 }
 
 @end

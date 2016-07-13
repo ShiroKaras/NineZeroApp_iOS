@@ -174,7 +174,6 @@
 /**
  *  @brief 获取答题成功列表
  */
-
 + (NSString *)question_getQuestionList_Successful_Action;
 
 /**
@@ -198,5 +197,26 @@
  *  @brief 获取所有勋章信息
  */
 + (NSString *)resource_getMedals_Action;
+
+#pragma mark 文章
+/**
+ *  @brief 获取历史文章列表
+ */
++ (NSString *)article_get_all_articles_Action;
+
+/**
+ *  @brief 收藏文章
+ */
++ (NSString *)article_collect_article_Aciton;
+
+/**
+ *  @brief 取消收藏文章
+ */
++ (NSString *)article_cancel_collect_article_Action;
+
+/**
+ *  @brief 标记文章为已读
+ */
++ (NSString *)article_read_article_Action;
 
 @end
