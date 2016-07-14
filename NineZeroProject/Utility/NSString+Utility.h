@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class HTLoginUser;
+@class SKLoginUser;
 
 @interface NSString (Utility)
 
@@ -27,7 +27,7 @@
 /**
  *  @brief 混淆加密后的密码
  */
-+ (NSString *)confusedPasswordWithLoginUser:(HTLoginUser *)loginUser;
++ (NSString *)confusedPasswordWithLoginUser:(SKLoginUser *)loginUser;
 
 + (NSString *)qiniuDownloadURLWithFileName:(NSString *)fileName;
 + (NSString *)avatarName;

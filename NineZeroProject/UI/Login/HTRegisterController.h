@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "HTCommonViewController.h"
 
-@class HTLoginUser;
+@class SKLoginUser;
 
 @interface HTRegisterController : HTCommonViewController
 
-- (instancetype)initWithUser:(HTLoginUser *)user;
+- (instancetype)initWithUser:(SKLoginUser *)user;
 
 @end

@@ -28,11 +28,11 @@
 @end
 
 @implementation HTRegisterController {
-    HTLoginUser *_loginUser;
+    SKLoginUser *_loginUser;
     NSInteger _secondsToCountDown;
 }
 
-- (instancetype)initWithUser:(HTLoginUser *)user {
+- (instancetype)initWithUser:(SKLoginUser *)user {
     if (self = [super init]) {
         _loginUser = user;
     }
@@ -70,7 +70,10 @@
 }
 
 - (void)needGetVerificationCode {
-    [[[HTServiceManager sharedInstance] loginService] getMobileCode:_loginUser.user_mobile];
+//    [[[HTServiceManager sharedInstance] loginService] getMobileCode:_loginUser.user_mobile];
+    [[[SKServiceManager sharedInstance] loginService] getRegisterVerifyCodeWithMobile:_loginUser.user_mobile completion:^(BOOL success, SKResponsePackage *response) {
+        
+    }];
 }
 
 #pragma mark - Action
@@ -92,22 +95,27 @@
     // end
     
     [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] loginService] registerWithUser:_loginUser completion:^(BOOL success, HTResponsePackage *response) {
-        [HTProgressHUD dismiss];
-        if (success) {
-            if (response.resultCode == 0) {
-                HTMainViewController *controller = [[HTMainViewController alloc] init];
-//                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
-                AppDelegateInstance.mainController = controller;
-                HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
-                AppDelegateInstance.window.rootViewController = navController;
-                [AppDelegateInstance.window makeKeyAndVisible];
-                [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
-            } else {
-                [self showTipsWithText:response.resultMsg];
-            }
-        } else {
-            [self showTipsWithText:@"网络连接错误"];
+    
+    [[[SKServiceManager sharedInstance] loginService] checkRegisterVerifyCodeWithPhone:_loginUser.user_mobile code:self.verifyTextField.text completion:^(BOOL success, SKResponsePackage *response) {
+        if (success && response.resultCode == 200) {
+            [[[SKServiceManager sharedInstance] loginService] registerWithUser:_loginUser completion:^(BOOL success, SKResponsePackage *response) {
+                [HTProgressHUD dismiss];
+                if (success) {
+                    if (response.resultCode == 200) {
+                        HTMainViewController *controller = [[HTMainViewController alloc] init];
+                        //                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+                        AppDelegateInstance.mainController = controller;
+                        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
+                        AppDelegateInstance.window.rootViewController = navController;
+                        [AppDelegateInstance.window makeKeyAndVisible];
+                        [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
+                    } else {
+                        [self showTipsWithText:response.message];
+                    }
+                } else {
+                    [self showTipsWithText:@"网络连接错误"];
+                }
+            }];
         }
     }];
 }
