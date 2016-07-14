@@ -16,7 +16,7 @@
 @end
 
 @implementation HTResetPasswordController {
-    HTLoginUser *_loginUser;
+    SKLoginUser *_loginUser;
 }
 
 - (void)viewDidLoad {
@@ -34,7 +34,7 @@
     [MobClick endLogPageView:@"Cpassword"];
 }
 
-- (instancetype)initWithLoginUser:(HTLoginUser *)loginUser {
+- (instancetype)initWithLoginUser:(SKLoginUser *)loginUser {
     if (self = [super init]) {
         _loginUser = loginUser;
     }
@@ -56,9 +56,10 @@
     }
     _loginUser.user_password = _secondTextField.text;
     _loginUser.user_password = [NSString confusedPasswordWithLoginUser:_loginUser];
-    [[[HTServiceManager sharedInstance] loginService] resetPasswordWithUser:_loginUser completion:^(BOOL success, HTResponsePackage *response) {
+    
+    [[[SKServiceManager sharedInstance] loginService] resetPasswordWithUser:_loginUser completion:^(BOOL success, SKResponsePackage *response) {
         if (success) {
-            if (response.resultCode == 0) {
+            if (response.resultCode == 200) {
                 NSArray *controllers = self.navigationController.viewControllers;
                 UIViewController *loginController = nil;
                 for (UIViewController *controller in controllers) {
@@ -68,11 +69,12 @@
                 }
                 if (loginController != nil) [self.navigationController popToViewController:loginController animated:YES];
             } else {
-                [self showTipsWithText:response.resultMsg];
+                [self showTipsWithText:response.message];
             }
         } else {
             [self showTipsWithText:@"网络连接错误"];
         }
+
     }];
 }
 

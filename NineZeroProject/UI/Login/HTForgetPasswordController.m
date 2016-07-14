@@ -17,7 +17,7 @@
 @end
 
 @implementation HTForgetPasswordController {
-    HTLoginUser *_loginUser;
+    SKLoginUser *_loginUser;
 }
 
 - (void)viewDidLoad {
@@ -25,7 +25,7 @@
     self.title = @"忘记密码";
     _firstTextField.placeholder = @"手机号";
     _secondTextField.placeholder = @"输入验证码";
-    _loginUser = [[HTLoginUser alloc] init];
+    _loginUser = [[SKLoginUser alloc] init];
     _verifyButton.enabled = YES;
 }
 
@@ -36,8 +36,15 @@
 }
 
 - (void)needGetVerificationCode {
-//    [[[HTServiceManager sharedInstance] loginService] getMobileCode:_loginUser.user_mobile];
-    [[[HTServiceManager sharedInstance] loginService] getMobileCode:_firstTextField.text];
+    [[[SKServiceManager sharedInstance] loginService] createResetPasswordService:^(BOOL success, SKResponsePackage *response) {
+        if (success && response.resultCode == 200) {
+            [[[SKServiceManager sharedInstance] loginService] getResetPasswordVerifyCodeWithMobile:_firstTextField.text completion:^(BOOL success, SKResponsePackage *response) {
+                if (success && response.resultCode == 200) {
+                    [self showTipsWithText:@"验证码已发送"];
+                }
+            }];
+        }
+    }];
 }
 
 #pragma mark - Action
@@ -45,8 +52,13 @@
 - (IBAction)didClickNextButton:(UIButton *)sender {
     _loginUser.user_mobile = _firstTextField.text;
     _loginUser.code = _secondTextField.text;
-    HTResetPasswordController *resetPwdController = [[HTResetPasswordController alloc] initWithLoginUser:_loginUser];
-    [self.navigationController pushViewController:resetPwdController animated:YES];
+    
+    [[[SKServiceManager sharedInstance] loginService] checkResetPasswordVerifyCodeWithPhone:_loginUser.user_mobile code:_loginUser.code completion:^(BOOL success, SKResponsePackage *response) {
+        if (success && response.resultCode == 200) {
+            HTResetPasswordController *resetPwdController = [[HTResetPasswordController alloc] initWithLoginUser:_loginUser];
+            [self.navigationController pushViewController:resetPwdController animated:YES];
+        }
+    }];
 }
 
 - (IBAction)didClickGetVerifyCodeButton:(UIButton *)sender {
