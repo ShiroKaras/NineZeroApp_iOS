@@ -309,6 +309,7 @@
         DLog(@"%@", responseObject);
         SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         if (package.resultCode == 200) {
+            _resetPassword_newPassword_token = package.data[@"token"];
             callback(true, package);
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {

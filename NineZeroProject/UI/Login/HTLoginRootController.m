@@ -101,23 +101,29 @@
         [self showTipsWithText:@"密码不能多于20个字，请重新输入"];
         return;
     }
+    
     _loginButton.enabled = NO;
     [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] loginService] verifyMobile:self.userNameTextField.text completion:^(BOOL success, HTResponsePackage *response) {
-        _loginButton.enabled = YES;
-        [HTProgressHUD dismiss];
-        if (success) {
-            if (response.resultCode == 0) {
-                HTLoginUser *loginUser = [[HTLoginUser alloc] init];
-                loginUser.user_mobile = self.userNameTextField.text;
-                loginUser.user_password = self.userPasswordTextField.text;
-                HTRegisterController *registerController = [[HTRegisterController alloc] initWithUser:loginUser];
-                [self.navigationController pushViewController:registerController animated:YES];
-            } else {
-                [self showTipsWithText:response.resultMsg];
-            }
-        } else {
-            [self showTipsWithText:@"网络连接错误"];
+        
+    [[[SKServiceManager sharedInstance] loginService] createRegisterService:^(BOOL success, SKResponsePackage *response) {
+        if (response.resultCode == 200) {
+            [[[SKServiceManager sharedInstance] loginService] getRegisterVerifyCodeWithMobile:self.userNameTextField.text completion:^(BOOL success, SKResponsePackage *response) {
+                _loginButton.enabled = YES;
+                [HTProgressHUD dismiss];
+                if (success) {
+                    if (response.resultCode == 200) {
+                        SKLoginUser *loginUser = [[SKLoginUser alloc] init];
+                        loginUser.user_mobile = self.userNameTextField.text;
+                        loginUser.user_password = self.userPasswordTextField.text;
+                        HTRegisterController *registerController = [[HTRegisterController alloc] initWithUser:loginUser];
+                        [self.navigationController pushViewController:registerController animated:YES];
+                    } else {
+                        [self showTipsWithText:response.message];
+                    }
+                } else {
+                    [self showTipsWithText:@"网络连接错误"];
+                }
+            }];
         }
     }];
 }

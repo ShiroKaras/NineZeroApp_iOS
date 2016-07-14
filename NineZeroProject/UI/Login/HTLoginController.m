@@ -53,7 +53,7 @@
     SKLoginUser *loginUser = [[SKLoginUser alloc] init];
     loginUser.user_mobile = self.userNameTextField.text;
     loginUser.user_password = self.passwordTextField.text;
-//    loginUser.user_password = [NSString confusedPasswordWithLoginUser:loginUser];
+    loginUser.user_password = [NSString confusedPasswordWithLoginUser:loginUser];
 
     [self.view endEditing:YES];
     [HTProgressHUD show];

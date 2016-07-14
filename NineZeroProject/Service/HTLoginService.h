@@ -23,39 +23,39 @@ NS_ASSUME_NONNULL_BEGIN
 //*************************
 // 业务相关
 
-/**
- *  @brief 注册
- */
-- (void)registerWithUser:(HTLoginUser *)user
-              completion:(HTResponseCallback)callback;
-
-/**
- *  @brief 登录
- */
-- (void)loginWithUser:(HTLoginUser *)user
-           completion:(HTResponseCallback)callback;
-
-/**
- *  @brief 第三方平台登录
- */
-- (void)bindUserWithThirdPlatform:(HTLoginUser *)user completion:(HTResponseCallback)callback;
-
-/**
- *  @brief 获取验证码
- */
-- (void)getMobileCode:(NSString *)mobile;
-
-/**
- *  @brief 重置密码
- */
-- (void)resetPasswordWithUser:(HTLoginUser *)user
-                   completion:(HTResponseCallback)callback;
-
-/**
- *  @brief 验证手机号
- */
-- (void)verifyMobile:(NSString *)mobile
-          completion:(HTResponseCallback)callback;
+///**
+// *  @brief 注册
+// */
+//- (void)registerWithUser:(HTLoginUser *)user
+//              completion:(HTResponseCallback)callback;
+//
+///**
+// *  @brief 登录
+// */
+//- (void)loginWithUser:(HTLoginUser *)user
+//           completion:(HTResponseCallback)callback;
+//
+///**
+// *  @brief 第三方平台登录
+// */
+//- (void)bindUserWithThirdPlatform:(HTLoginUser *)user completion:(HTResponseCallback)callback;
+//
+///**
+// *  @brief 获取验证码
+// */
+//- (void)getMobileCode:(NSString *)mobile;
+//
+///**
+// *  @brief 重置密码
+// */
+//- (void)resetPasswordWithUser:(HTLoginUser *)user
+//                   completion:(HTResponseCallback)callback;
+//
+///**
+// *  @brief 验证手机号
+// */
+//- (void)verifyMobile:(NSString *)mobile
+//          completion:(HTResponseCallback)callback;
 
 /**
  *  @brief 获取七牛token
@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //***************************
 // Get相关
-- (HTLoginUser *)loginUser;
+- (HTLoginUser *)loginUser;  //推送的时候用来检测用户是否登录
 - (NSString *)qiniuToken;
 
 - (void)quitLogin;
