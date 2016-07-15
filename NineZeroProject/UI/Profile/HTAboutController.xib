@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="aboutImageView" destination="mnL-hC-1hh" id="EIa-a3-5aB"/>
                 <outlet property="aboutLabel" destination="x1u-7O-JfT" id="3CA-m2-C7N"/>
+                <outlet property="versionLabel" destination="vt1-lx-zjM" id="j8P-Wr-DT8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -26,8 +27,8 @@
                     <color key="textColor" red="0.61176470588235299" green="0.61176470588235299" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt1-lx-zjM">
-                    <rect key="frame" x="140" y="361" width="31" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt1-lx-zjM">
+                    <rect key="frame" x="52" y="361" width="206" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -36,11 +37,12 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="x1u-7O-JfT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="56D-u9-mSK"/>
-                <constraint firstItem="vt1-lx-zjM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="RL9-tI-XFV"/>
                 <constraint firstItem="mnL-hC-1hh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="55" id="Ysv-KH-4Xj"/>
+                <constraint firstItem="vt1-lx-zjM" firstAttribute="trailing" secondItem="x1u-7O-JfT" secondAttribute="trailing" id="cKo-Ek-8Ki"/>
                 <constraint firstItem="mnL-hC-1hh" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-13" id="emF-Wx-TwO"/>
+                <constraint firstItem="x1u-7O-JfT" firstAttribute="top" secondItem="vt1-lx-zjM" secondAttribute="bottom" constant="13" id="s2Q-Br-CoQ"/>
+                <constraint firstItem="vt1-lx-zjM" firstAttribute="leading" secondItem="x1u-7O-JfT" secondAttribute="leading" id="yK2-mh-bIg"/>
                 <constraint firstAttribute="bottom" secondItem="x1u-7O-JfT" secondAttribute="bottom" constant="67" id="yM2-Gs-cpK"/>
-                <constraint firstItem="x1u-7O-JfT" firstAttribute="top" secondItem="vt1-lx-zjM" secondAttribute="bottom" constant="13" id="zne-Oy-BHF"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="72" y="304.5"/>
