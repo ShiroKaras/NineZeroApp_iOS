@@ -38,12 +38,12 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     UIView *_arView;
 }
 
-- (instancetype)initWithQuestion:(HTQuestion *)question {
+- (instancetype)initWithQuestion:(SKQuestion *)question {
     if (self = [super init]) {
         _question = question;
         
-        if (_question.question_ar_location.length != 0) {
-            NSDictionary *locationDict = [_question.question_ar_location dictionaryWithJsonString];
+        if (_question.location.length != 0) {
+            NSDictionary *locationDict = [_question.location dictionaryWithJsonString];
             if (locationDict && locationDict[@"lng"] && locationDict[@"lat"]) {
                 double lat = [[NSString stringWithFormat:@"%@", locationDict[@"lat"]] doubleValue];
                 double lng = [[NSString stringWithFormat:@"%@", locationDict[@"lng"]] doubleValue];
@@ -122,7 +122,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     }
     self.mascotImageView = [[UIImageView alloc] init];
     self.mascotImageView.layer.masksToBounds = YES;
-    UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:_question.question_ar_pet]];
+    UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:_question.pet_gif]];
     self.mascotImageView.image = gifImage;
     [self.mascotImageView startAnimating];
     self.mascotImageView.hidden = YES;
@@ -222,7 +222,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [[[HTServiceManager sharedInstance] questionService] verifyQuestion:_question.questionID withLocation:currentLocation callback:^(BOOL success, HTResponsePackage *response) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         if (success && response.resultCode == 0) {
-            self.rewardID = [response.data[@"reward_id"] integerValue];
+            self.rewardID = response.data[@"reward_id"];
             // 6.捕获成功
             self.successBackgroundView = [[UIView alloc] init];
             self.successBackgroundView.backgroundColor = [UIColor colorWithHex:0x1f1f1f alpha:0.8];

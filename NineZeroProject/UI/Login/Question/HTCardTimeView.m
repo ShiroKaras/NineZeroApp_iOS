@@ -15,8 +15,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *decoImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *resultImageView;
 @property (nonatomic, assign) time_t endTime;
-@property (nonatomic, strong) HTQuestionInfo *questionInfo;
-@property (nonatomic, strong) HTQuestion *question;
+@property (nonatomic, strong) SKQuestion *questionInfo;
+@property (nonatomic, strong) SKQuestion *question;
 @end
 
 @implementation HTCardTimeView
@@ -41,7 +41,7 @@
     self.backgroundColor = [UIColor clearColor];
 }
 
-- (void)setQuestion:(HTQuestion *)question andQuestionInfo:(HTQuestionInfo *)questionInfo {
+- (void)setQuestion:(SKQuestion *)question andQuestionInfo:(SKQuestion *)questionInfo {
     _questionInfo = questionInfo;
     _question = question;
     _endTime = (time_t)questionInfo.endTime;

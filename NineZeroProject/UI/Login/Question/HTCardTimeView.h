@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class HTQuestionInfo;
-@class HTQuestion;
+@class SKQuestionInfo;
+@class SKQuestion;
 @interface HTCardTimeView : UIView
-@property (nonatomic, strong, readonly) HTQuestionInfo *questionInfo;
-@property (nonatomic, strong, readonly) HTQuestion *question;
-- (void)setQuestion:(HTQuestion *)question andQuestionInfo:(HTQuestionInfo *)questionInfo;
+//@property (nonatomic, strong, readonly) SKQuestion *questionInfo;
+//@property (nonatomic, strong, readonly) SKQuestion *question;
+- (void)setQuestion:(SKQuestion *)question andQuestionInfo:(SKQuestion *)questionInfo;
 @end
 
 @interface HTRecordView : UIView
-@property (nonatomic, strong) HTQuestion *question;
+@property (nonatomic, strong) SKQuestion *question;
 @end

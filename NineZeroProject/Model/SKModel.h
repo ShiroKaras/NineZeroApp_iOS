@@ -15,10 +15,10 @@
 @end
 
 @interface SKResponsePackage : NSObject
-@property (nonatomic, copy) id data;                      // 返回数据
-@property (nonatomic, copy) NSString *method;             // 方法名
 @property (nonatomic, assign) NSUInteger resultCode;         // 结果code
+@property (nonatomic, copy) NSString *method;             // 方法名
 @property (nonatomic, copy) NSString *message;            // 结果信息
+@property (nonatomic, copy) id data;                      // 返回数据
 @end
 
 @interface SKLoginUser : NSObject
@@ -35,8 +35,8 @@
 
 @interface SKQuestionInfo : NSObject
 @property (nonatomic, copy) NSString *questionID;          // 唯一标识ID
-@property (nonatomic, copy) NSString *endTime;             // 截止时间
-@property (nonatomic, copy) NSString *updateTime;          // 更新时间
+@property (nonatomic, assign) uint64_t endTime;             // 截止时间
+@property (nonatomic, assign) uint64_t updateTime;          // 更新时间
 @property (nonatomic, copy) NSString *questionCount;       // 题目总数量
 @end
 
@@ -48,7 +48,7 @@
 @property (nonatomic, copy) NSString *chapterText;         // 章节序号(eg:第3章)
 @property (nonatomic, copy) NSString *content;               //标题内容
 @property (nonatomic, copy) NSString *hint;                   // 提示
-@property (nonatomic, copy) NSString *loaction;               // AR地址
+@property (nonatomic, copy) NSString *location;               // AR地址
 //描述
 @property (nonatomic, copy) NSString *questionDescription;    // 问题描述
 @property (nonatomic, copy) NSString *descriptionPic;         // 题目描述配图
@@ -64,6 +64,8 @@
 @property (nonatomic, copy) NSString *answerBackgroundPicURL;
 @property (nonatomic, copy) NSString *answerPic;
 @property (nonatomic, copy) NSString *answerPicURL;
+//其他
+@property (nonatomic, assign) uint64_t endTime;
 @property (nonatomic, copy) NSString *rewardID;            // 奖励ID
 @property (nonatomic, assign) NSUInteger *use_time;            // 回答问题使用的时间
 @property (nonatomic, assign) NSUInteger *gold;                // 回答问题使用的金币
@@ -74,7 +76,7 @@
 //@property (nonatomic, copy) NSArray<NSString *> *answers;   // 答案
 //@property (nonatomic, copy) NSString *detailURL;              // 详情链接
 //@property (nonatomic, copy) NSString *question_ar_location;   // ar
-@property (nonatomic, copy) NSString *question_ar_pet;        // ar的gif
+@property (nonatomic, copy) NSString *pet_gif;        // ar的gif
 @end
 
 @interface SKRestDay : NSObject

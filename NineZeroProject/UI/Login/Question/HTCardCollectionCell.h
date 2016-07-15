@@ -21,8 +21,9 @@ typedef NS_ENUM(NSUInteger, HTCardCollectionClickType) {
 
 
 @class HTCardCollectionCell;
-@class HTQuestion;
-@class HTQuestionInfo;
+@class SKQuestion;
+@class SKQuestionInfo;
+
 @protocol HTCardCollectionCellDelegate <NSObject>
 - (void)collectionCell:(HTCardCollectionCell *)cell didClickButtonWithType:(HTCardCollectionClickType)type;
 @end
@@ -30,10 +31,10 @@ typedef NS_ENUM(NSUInteger, HTCardCollectionClickType) {
 @interface HTCardCollectionCell : UICollectionViewCell
 - (void)play;
 - (void)stop;
-- (void)setQuestion:(HTQuestion *)question questionInfo:(HTQuestionInfo *)questionInfo;
+- (void)setQuestion:(SKQuestion *)question questionInfo:(SKQuestion *)questionInfo;
 @property (nonatomic, weak) id<HTCardCollectionCellDelegate> delegate;
-@property (nonatomic, strong) HTQuestion *question;
-@property (nonatomic, strong) HTQuestionInfo *questionInfo;
+@property (nonatomic, strong) SKQuestion *question;
+@property (nonatomic, strong) SKQuestion *questionInfo;
 @property (nonatomic, assign) CGRect hintRect;
 @property (nonatomic, assign) BOOL soundHidden;
 

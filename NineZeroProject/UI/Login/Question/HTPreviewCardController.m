@@ -67,8 +67,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 @implementation HTPreviewCardController {
     CGFloat itemWidth; // 显示控件的宽度
-    HTQuestionInfo *questionInfo;
-    NSMutableArray<HTQuestion *> *questionList;
+    SKQuestion *_questionInfo;
+    NSMutableArray<SKQuestion *> *questionList;
     HTScrollDirection _scrollDirection;
 }
 
@@ -162,7 +162,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         _chapterImageView.top = _chapterImageView.top + 3;
     }
     _chapterLabel.top = _chapterImageView.top + 6.5;
-    _chapterLabel.right = _chapterImageView.left + 46;
+    _chapterLabel.left = _chapterImageView.left + 29.5;
+//    _chapterLabel.centerX = _chapterImageView.centerX;
+//    _chapterLabel.centerY = _chapterImageView.centerY;
     
     _bgImageView.frame = self.view.bounds;
     [self.view sendSubviewToBack:_bgImageView];
@@ -191,53 +193,25 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             if (success && response.resultCode == 200) {
                 if ([response.data[@"is_rest_day"] boolValue]) {
                     [HTProgressHUD dismiss];
-                    _isRelaxDay = response.data[@"is_rest_day"];
+                    _isRelaxDay = [response.data[@"is_rest_day"] boolValue];
                     HTRelaxController *relaxController = [[HTRelaxController alloc] init];
                     [self presentViewController:relaxController animated:NO completion:nil];
                     [self.view bringSubviewToFront:relaxController.view];
                     [self showAlert];
                 } else if (![response.data[@"is_rest_day"] boolValue]){
                     //TODO 获取题目列表
-                    [[[SKServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<SKQuestion *> *questionList) {
+                    [[[SKServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<SKQuestion *> *callbackQuestionList) {
+                        [HTProgressHUD dismiss];
+                        [_dimmingView removeFromSuperview];
                         if(success) {
+                            _questionInfo = [callbackQuestionList lastObject];
+                            questionList = [callbackQuestionList mutableCopy];
+                            [self.collectionView reloadData];
+                            [self.collectionView performBatchUpdates:^{}
+                                                          completion:^(BOOL finished) {
+                                                              [self backToToday:NO];
+                                                          }];
                             
-                        }
-                    }];
-                } else {
-                    [HTProgressHUD dismiss];
-                    [self showBlankViewNetWorkError];
-                }
-            }
-        }];
-        
-        
-        
-        [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
-            NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
-            if (success && response.resultCode == 0) {
-                if ([dictData isEqualToString:@"1"]) {
-                    [HTProgressHUD dismiss];
-                    _isRelaxDay = [dictData boolValue];
-                    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
-                    [self presentViewController:relaxController animated:NO completion:nil];
-                    [self.view bringSubviewToFront:relaxController.view];
-                    [self showAlert];
-                } else if ([dictData isEqualToString:@"0"]){
-                    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
-                        if (success) {
-                            questionInfo = callbackQuestionInfo;
-                            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
-                                [HTProgressHUD dismiss];
-                                [_dimmingView removeFromSuperview];
-                                if (success2) {
-                                    questionList = [callbackQuestionList mutableCopy];
-                                    [self.collectionView reloadData];
-                                    [self.collectionView performBatchUpdates:^{}
-                                                                  completion:^(BOOL finished) {
-                                                                      [self backToToday:NO];
-                                                                  }];
-                                }
-                            }];
                             _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
                             [self.collectionView addSubview:_eggImageView];
                             if ([UD boolForKey:@"firstLaunch"]) {
@@ -251,14 +225,12 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                             [self showBlankViewNetWorkError];
                         }
                     }];
-                    
+                } else {
+                    [HTProgressHUD dismiss];
+                    [self showBlankViewNetWorkError];
                 }
-            } else {
-                [HTProgressHUD dismiss];
-                [self showBlankViewNetWorkError];
             }
         }];
-        
         
         if ([[HTStorageManager sharedInstance] getUserID]) {
             [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
@@ -301,7 +273,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)loadUnreadArticleFlag {
     [[[HTServiceManager sharedInstance] profileService] getArticlesInPastWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
-        NSLog(@"hasread: %ld",[UD integerForKey:@"hasreadArticlesCount"]);
+        NSLog(@"hasread: %ld",(long)[UD integerForKey:@"hasreadArticlesCount"]);
         
         if (articles.count - [UD integerForKey:@"hasreadArticlesCount"])
             [AppDelegateInstance.mainController showUnreadArticleFlag];
@@ -343,10 +315,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     
     // 3. 左上角章节
     _chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_chapter"]];
+    [_chapterImageView sizeToFit];
     [self.view addSubview:_chapterImageView];
     
     _chapterLabel = [[UILabel alloc] init];
-    _chapterLabel.text = [NSString stringWithFormat:@"%02lu", questionList.lastObject.serial];
+    _chapterLabel.text = [NSString stringWithFormat:@"%2@", questionList.lastObject.serial];
     _chapterLabel.font = MOON_FONT_OF_SIZE(14);
     _chapterLabel.textColor = COMMON_GREEN_COLOR;
     [_chapterLabel sizeToFit];
@@ -453,8 +426,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HTCardCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([HTCardCollectionCell class]) forIndexPath:indexPath];
     cell.delegate = self;
-    HTQuestion *question = questionList[indexPath.row];
-    [cell setQuestion:question questionInfo:questionInfo];
+    SKQuestion *question = questionList[indexPath.row];
+    [cell setQuestion:question questionInfo:_questionInfo];
     return cell;
 }
 
@@ -569,7 +542,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypeContent: {
-            _descriptionView = [[HTDescriptionView alloc] initWithURLString:cell.question.questionDescription andType:HTDescriptionTypeQuestion andImageUrl:cell.question.descriptionURL];
+            _descriptionView = [[HTDescriptionView alloc] initWithURLString:cell.question.questionDescription andType:HTDescriptionTypeQuestion andImageUrl:cell.question.descriptionPicURL];
             [self.view addSubview:_descriptionView];
             [_descriptionView showAnimated];
             break;
@@ -593,7 +566,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [self composeWithAnswer:answer question:composeView.associatedQuestion];
 }
 
-- (void)composeWithAnswer:(NSString *)answer question:(HTQuestion *)question {
+- (void)composeWithAnswer:(NSString *)answer question:(SKQuestion *)question {
     static int clickCount = 0;
     _composeView.composeButton.enabled = NO;
     [[[HTServiceManager sharedInstance] questionService] verifyQuestion:question.questionID withAnswer:answer callback:^(BOOL success, HTResponsePackage *response) {
@@ -770,8 +743,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)willAppearQuestionAtIndex:(NSInteger)index {
     if (index < 0 || index > questionList.count) return;
     if (questionList.count == 0) return;
-    _chapterLabel.text = [NSString stringWithFormat:@"%02lu", (unsigned long)questionList[index].serial];
-    [_timeView setQuestion:questionList[index] andQuestionInfo:questionInfo];
+    _chapterLabel.text = [NSString stringWithFormat:@"%02lu", [questionList[index].serial integerValue]];
+    [_timeView setQuestion:questionList[index] andQuestionInfo:_questionInfo];
     [_recordView setQuestion:questionList[index]];
     // 背景
     if (questionList[index].isPassed) {

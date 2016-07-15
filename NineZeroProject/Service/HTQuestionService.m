@@ -147,8 +147,8 @@
     }];
 }
 
-- (void)getAnswerDetailWithQuestionID:(uint64_t)questionID callback:(HTAnswerDetailInfoCallback)callback {
-    NSDictionary *dict = @{@"question_id" : [NSString stringWithFormat:@"%llu", questionID],
+- (void)getAnswerDetailWithQuestionID:(NSString *)questionID callback:(HTAnswerDetailInfoCallback)callback {
+    NSDictionary *dict = @{@"question_id" : questionID,
                            @"area_id" : AppDelegateInstance.cityCode,
                            @"user_id" : [[HTStorageManager sharedInstance] getUserID]};
     DLog(@"%@", dict);

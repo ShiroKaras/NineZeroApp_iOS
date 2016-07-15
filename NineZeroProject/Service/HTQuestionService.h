@@ -58,7 +58,7 @@ typedef void (^HTAnswerDetailInfoCallback) (BOOL success, HTAnswerDetail *answer
  *
  *  @param questionID 问题ID
  */
-- (void)getAnswerDetailWithQuestionID:(uint64_t)questionID callback:(HTAnswerDetailInfoCallback)callback;
+- (void)getAnswerDetailWithQuestionID:(NSString *)questionID callback:(HTAnswerDetailInfoCallback)callback;
 
 /**
  *  @brief 验证答案

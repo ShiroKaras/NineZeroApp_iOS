@@ -53,11 +53,11 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 @end
 
 @implementation HTRewardController {
-    uint64_t _rewardID;
-    uint64_t _qid;
+    NSString *_rewardID;
+    NSString *_qid;
 }
 
-- (instancetype)initWithRewardID:(uint64_t)rewardID questionID:(uint64_t)qid {
+- (instancetype)initWithRewardID:(NSString *)rewardID questionID:(NSString *)qid {
     if (self = [super init]) {
         _rewardID = rewardID;
         _qid = qid;

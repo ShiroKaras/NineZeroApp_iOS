@@ -84,8 +84,8 @@ SKINIT(SKQuestion)
                                      @"answerBackgroundPic" : @"answer_background_picture.file_name",
                                      @"answerBackgroundPicURL" : @"answer_background_picture.url",
                                      @"answerPic" : @"answer_picture.file_name",
-                                     @"answerPicURL" : @"answer_picture.url"
-                                     
+                                     @"answerPicURL" : @"answer_picture.url",
+                                     @"endTime" : @"end_at"
 //                                     @"answers" : @"question_answer",
 //                                     @"detailURL" : @"detail_url",
                                      };

@@ -18,7 +18,7 @@
 
 @interface SKAnswerDetailView ()<UIScrollViewDelegate>
 
-@property (nonatomic, assign) uint64_t quesitonID;
+@property (nonatomic, assign) NSString *quesitonID;
 
 @property (nonatomic, strong) UIImageView *backImageView;
 @property (nonatomic, strong) UIView *dimmingView;
@@ -39,7 +39,7 @@
     float lastOffsetY;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame questionID:(uint64_t)questionID{
+- (instancetype)initWithFrame:(CGRect)frame questionID:(NSString *)questionID{
     if (self = [super init]) {
         _quesitonID = questionID;
         self.frame = frame;
@@ -49,7 +49,7 @@
     return self;
 }
 
-- (void)loadDataWithQuestionID:(uint64_t)questionID {
+- (void)loadDataWithQuestionID:(NSString *)questionID {
     [[[HTServiceManager sharedInstance] questionService] getAnswerDetailWithQuestionID:questionID callback:^(BOOL success, HTAnswerDetail *answerDetail) {
         _contentView.text = answerDetail.contentText;
         [_contentView sizeToFit];

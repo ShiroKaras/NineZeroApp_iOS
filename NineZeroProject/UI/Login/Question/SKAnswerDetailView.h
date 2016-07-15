@@ -12,6 +12,6 @@
 
 @interface SKAnswerDetailView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame questionID:(uint64_t)questionID;
+- (instancetype)initWithFrame:(CGRect)frame questionID:(NSString *)questionID;
 
 @end

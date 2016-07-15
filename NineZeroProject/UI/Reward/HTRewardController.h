@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class HTMascot;
-@class HTMascotProp;
-@class HTTicket;
+@class SKMascot;
+@class SKMascotProp;
+@class SKTicket;
 
 @interface HTRewardController : UIViewController
-- (instancetype)initWithRewardID:(uint64_t)rewardID questionID:(uint64_t)qid;
+- (instancetype)initWithRewardID:(NSString *)rewardID questionID:(NSString *)qid;
 @end

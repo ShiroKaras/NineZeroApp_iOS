@@ -14,7 +14,7 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import <CommonCrypto/CommonDigest.h>
 
-#define SHARE_URL(u,v) [NSString stringWithFormat:@"http://admin.90app.tv/index.php?s=/Home/user/detail.html&area_id=%@&id=%@", (u), [self md5:[NSString stringWithFormat:@"%llu",(v)]]]
+#define SHARE_URL(u,v) [NSString stringWithFormat:@"http://admin.90app.tv/index.php?s=/Home/user/detail.html&area_id=%@&id=%@", (u), [self md5:(v)]]
 
 typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeShare = 0,
@@ -244,7 +244,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self.soundImageView.hidden = soundHidden;
 }
 
-- (void)setQuestion:(HTQuestion *)question questionInfo:(HTQuestionInfo *)questionInfo {
+- (void)setQuestion:(SKQuestion *)question questionInfo:(SKQuestion *)questionInfo {
     _question = question;
 
     [self stop];
@@ -304,7 +304,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         }];
     }
     
-    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:_question.question_video_cover] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
+    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:_question.videoCoverPicURL] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
     
     _questionInfo = questionInfo;
     _contentLabel.text = question.content;
@@ -494,7 +494,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         case HTButtonTypeWechat: {
 //            UIImage *oImage = [SKImageHelper getImageFromURL:_question.question_video_cover];
 //            UIImage *finImage = [SKImageHelper compressImage:oImage toMaxFileSize:32];
-            NSArray* imageArray = @[_question.question_video_cover];
+            NSArray* imageArray = @[_question.videoCoverPicURL];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -502,7 +502,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
-                                                  title:[NSString stringWithFormat:@"第%ld章",(unsigned long)_question.serial]
+                                                  title:[NSString stringWithFormat:@"第%@章",_question.serial]
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     DLog(@"State -> %lu", (unsigned long)state);
@@ -537,7 +537,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         case HTButtonTypeMoment: {
 //            UIImage *oImage = [SKImageHelper getImageFromURL:_question.question_video_cover];
 //            UIImage *finImage = [SKImageHelper compressImage:oImage toMaxFileSize:32];
-            NSArray* imageArray = @[_question.question_video_cover];
+            NSArray* imageArray = @[_question.videoCoverPicURL];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -577,7 +577,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeWeibo: {
-            NSArray* imageArray = @[_question.question_video_cover];
+            NSArray* imageArray = @[_question.videoCoverPicURL];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -585,7 +585,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验 %@ 来自@九零APP", [NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]]
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
-                                                  title:_question.chapterText
+                                                  title:[NSString stringWithFormat:@"第%@章",_question.serial]
                                                    type:SSDKContentTypeImage];
                 [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
@@ -617,7 +617,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeQQ: {
-            NSArray* imageArray = @[_question.question_video_cover];
+            NSArray* imageArray = @[_question.videoCoverPicURL];
             if (imageArray) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -625,7 +625,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, _question.questionID)]
-                                                  title:[NSString stringWithFormat:@"第%ld章",(unsigned long)_question.serial]
+                                                  title:[NSString stringWithFormat:@"第%@章",_question.serial]
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeQQFriend parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                     switch (state) {
