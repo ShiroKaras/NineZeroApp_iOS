@@ -12,6 +12,7 @@
 @interface HTAboutController ()
 @property (weak, nonatomic) IBOutlet UIImageView *aboutImageView;
 @property (weak, nonatomic) IBOutlet UILabel *aboutLabel;
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 
 @end
 
@@ -29,6 +30,8 @@
     
     self.aboutImageView.userInteractionEnabled = YES;
     [self.aboutImageView addGestureRecognizer:tap];
+    
+    self.versionLabel.text = [NSString stringWithFormat:@"v%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
 }
 
 - (void)didReceiveMemoryWarning {

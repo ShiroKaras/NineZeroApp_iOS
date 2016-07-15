@@ -122,7 +122,7 @@
     }
 
     [_avatar sd_setImageWithURL:[NSURL URLWithString:ranker.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
-    NSString *displayName = (ranker.area_name.length != 0) ? [NSString stringWithFormat:@"%@ | %@", ranker.user_name, ranker.area_name] : ranker.user_name;
+    NSString *displayName = (ranker.area_name.length != 0) ? [NSString stringWithFormat:@"%@", ranker.user_name] : ranker.user_name;
     _nickName.text = displayName;
     [_nickName sizeToFit];
     [_progressView setProgress:MIN(1.0, ranker.gold / 1500.0)];
