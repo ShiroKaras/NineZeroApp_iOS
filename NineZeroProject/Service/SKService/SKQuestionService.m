@@ -109,7 +109,22 @@
     
     // Fetch Request
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        DLog(@"HTTP Response Body: %@", responseObject);
+        SKResponsePackage *package = [responseObject mj_objectWithKeyValues:responseObject];
+        if (package.resultCode == 200) {
+            NSMutableArray<HTQuestion *> *questions = [[NSMutableArray alloc] init];
+            NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
+            for (int i = 0; i != [responseObject[@"data"] count]; i++) {
+                @autoreleasepool {
+                    HTQuestion *question = [HTQuestion mj_objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
+                    [questions addObject:question];
+                    if (question.videoName) [downloadKeys addObject:question.videoName];
+                    if (question.descriptionPic) [downloadKeys addObject:question.descriptionPic];
+                    if (question.question_ar_pet) [downloadKeys addObject:question.question_ar_pet];
+                    if (question.question_video_cover) [downloadKeys addObject:question.question_video_cover];
+                }
+            }
+        }
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"HTTP Request failed: %@", error);
     }];

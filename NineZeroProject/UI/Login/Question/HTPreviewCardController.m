@@ -180,6 +180,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)loadData {
     [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
+    
     if (_cardType == HTPreviewCardTypeDefault) {
         [HTProgressHUD show];
         _dimmingView = [[UIView alloc] initWithFrame:SCREEN_BOUNDS];
@@ -197,7 +198,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     [self showAlert];
                 } else if (![response.data[@"is_rest_day"] boolValue]){
                     //TODO 获取题目列表
-                    
+                    [[[SKServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<SKQuestion *> *questionList) {
+                        if(success) {
+                            
+                        }
+                    }];
                 } else {
                     [HTProgressHUD dismiss];
                     [self showBlankViewNetWorkError];
@@ -207,52 +212,53 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         
         
         
-//        [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
-//            NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
-//            if (success && response.resultCode == 0) {
-//                if ([dictData isEqualToString:@"1"]) {
-//                    [HTProgressHUD dismiss];
-//                    _isRelaxDay = [dictData boolValue];
-//                    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
-//                    [self presentViewController:relaxController animated:NO completion:nil];
-//                    [self.view bringSubviewToFront:relaxController.view];
-//                    [self showAlert];
-//                } else if ([dictData isEqualToString:@"0"]){
-//                    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
-//                        if (success) {
-//                            questionInfo = callbackQuestionInfo;
-//                            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
-//                                [HTProgressHUD dismiss];
-//                                [_dimmingView removeFromSuperview];
-//                                if (success2) {
-//                                    questionList = [callbackQuestionList mutableCopy];
-//                                    [self.collectionView reloadData];
-//                                    [self.collectionView performBatchUpdates:^{}
-//                                                                  completion:^(BOOL finished) {
-//                                                                      [self backToToday:NO];
-//                                                                  }];
-//                                }
-//                            }];
-//                            _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
-//                            [self.collectionView addSubview:_eggImageView];
-//                            if ([UD boolForKey:@"firstLaunch"]) {
-//                                [self showCourseView];
-//                            } else{
-//                                [self showAlert];
-//                            }
-//                        } else {
-//                            [HTProgressHUD dismiss];
-//                            [_dimmingView removeFromSuperview];
-//                            [self showBlankViewNetWorkError];
-//                        }
-//                    }];
-//                    
-//                }
-//            } else {
-//                [HTProgressHUD dismiss];
-//                [self showBlankViewNetWorkError];
-//            }
-//        }];
+        [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
+            NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
+            if (success && response.resultCode == 0) {
+                if ([dictData isEqualToString:@"1"]) {
+                    [HTProgressHUD dismiss];
+                    _isRelaxDay = [dictData boolValue];
+                    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
+                    [self presentViewController:relaxController animated:NO completion:nil];
+                    [self.view bringSubviewToFront:relaxController.view];
+                    [self showAlert];
+                } else if ([dictData isEqualToString:@"0"]){
+                    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
+                        if (success) {
+                            questionInfo = callbackQuestionInfo;
+                            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
+                                [HTProgressHUD dismiss];
+                                [_dimmingView removeFromSuperview];
+                                if (success2) {
+                                    questionList = [callbackQuestionList mutableCopy];
+                                    [self.collectionView reloadData];
+                                    [self.collectionView performBatchUpdates:^{}
+                                                                  completion:^(BOOL finished) {
+                                                                      [self backToToday:NO];
+                                                                  }];
+                                }
+                            }];
+                            _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
+                            [self.collectionView addSubview:_eggImageView];
+                            if ([UD boolForKey:@"firstLaunch"]) {
+                                [self showCourseView];
+                            } else{
+                                [self showAlert];
+                            }
+                        } else {
+                            [HTProgressHUD dismiss];
+                            [_dimmingView removeFromSuperview];
+                            [self showBlankViewNetWorkError];
+                        }
+                    }];
+                    
+                }
+            } else {
+                [HTProgressHUD dismiss];
+                [self showBlankViewNetWorkError];
+            }
+        }];
+        
         
         if ([[HTStorageManager sharedInstance] getUserID]) {
             [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];

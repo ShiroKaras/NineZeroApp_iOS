@@ -68,15 +68,26 @@ SKINIT(SKQuestionInfo)
 @implementation SKQuestion
 SKINIT(SKQuestion)
 - (NSDictionary *)propertyMapper {
-    NSDictionary *propertyMapper = @{@"questionID" : @"qid",
-                                     @"areaID" : @"area_id",
-                                     @"rewardID" : @"reward_id",
-                                     @"answers" : @"question_answer",
-                                     @"chapterText" : @"chapter",
+    NSDictionary *propertyMapper = @{@"questionID" : @"id",
+                                     @"areaID" : @"city_code",
+                                     @"type" : @"category",
+                                     @"content" : @"title",
                                      @"questionDescription" : @"description",
-                                     @"detailURL" : @"detail_url",
-                                     @"descriptionPic" : @"description_pic",
-                                     @"videoName" : @"question_video"
+                                     @"descriptionPic" : @"description_pic.file_name",
+                                     @"descriptionPicURL" : @"description_pic.url",
+                                     @"rewardID" : @"reward_id",
+                                     @"use_time" : @"time_taken",
+                                     @"videoName" : @"video.resource.file_name",
+                                     @"videoURL" : @"video.resource.url",
+                                     @"videoCoverPic" : @"video.cover_picture.file_name",
+                                     @"videoCoverPicURL" : @"video.cover_picture.url",
+                                     @"answerBackgroundPic" : @"answer_background_picture.file_name",
+                                     @"answerBackgroundPicURL" : @"answer_background_picture.url",
+                                     @"answerPic" : @"answer_picture.file_name",
+                                     @"answerPicURL" : @"answer_picture.url"
+                                     
+//                                     @"answers" : @"question_answer",
+//                                     @"detailURL" : @"detail_url",
                                      };
     return propertyMapper;
 }
