@@ -94,7 +94,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 
 - (void)loadUnreadArticleFlag {
     [[[HTServiceManager sharedInstance] profileService] getArticlesInPastWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
-        NSLog(@"hasread: %ld",[UD integerForKey:@"hasreadArticlesCount"]);
+        NSLog(@"hasread: %ld",(long)[UD integerForKey:@"hasreadArticlesCount"]);
         [AppDelegateInstance.mainController removeUnreadArticleFlag];
         [UD setInteger:articles.count forKey:@"hasreadArticlesCount"];
     }];
