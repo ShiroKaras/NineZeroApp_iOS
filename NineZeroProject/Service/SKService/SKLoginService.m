@@ -37,7 +37,7 @@
     // JSON Body
     NSDictionary* bodyObject = @{
                                  @"access_key": SECRET_STRING,
-                                 @"action": @"phone_password_login",
+                                 @"action": [SKCGIManager login_Phonenumber_Action],
                                  @"mobile_phone_number": user.user_mobile,
                                  @"password": user.user_password
                                  };
@@ -66,14 +66,18 @@
 }
 
 - (void)bindUserWithThirdPlatform:(SKLoginUser *)user completion:(SKResponseCallback)callback {
-    NSDictionary *param = @{@"access_key"           : SECRET_STRING,
-                            @"action"               : [SKCGIManager login_ThirdPlatform_Action],
-                            @"mobile_phone_number"  : user.user_mobile,
-                            @"password"             : user.user_password};
+    NSDictionary* bodyObject = @{
+                                 @"access_key": SECRET_STRING,
+                                 @"action": [SKCGIManager login_ThirdPlatform_Action],
+                                 @"third_party_id": user.third_id,
+                                 @"avatar_url": user.user_avatar,
+                                 @"name": user.user_name
+                                 };
+
     // Create manager
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager userBaseLoginCGIKey] parameters:param error:NULL];
+    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager userBaseLoginCGIKey] parameters:bodyObject error:NULL];
     
     // Add Headers
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
