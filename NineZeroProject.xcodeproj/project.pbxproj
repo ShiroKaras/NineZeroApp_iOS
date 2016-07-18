@@ -676,10 +676,8 @@
 		17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A47E8B1C037F3E00BEC1DD /* HTCommonViewController.m */; };
 		17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A47E8F1C03869000BEC1DD /* HTLoginButton.m */; };
 		17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AAB1C1DBA150087BF00 /* LTInfiniteScrollView.m */; };
-		17A89AAF1C1DBA150087BF00 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AAC1C1DBA150087BF00 /* README.md */; };
 		17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB41C1DBA290087BF00 /* FLAnimatedImage.m */; };
 		17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB61C1DBA290087BF00 /* FLAnimatedImageView.m */; };
-		17A89ABC1C1DBA290087BF00 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 17A89AB81C1DBA290087BF00 /* README.md */; };
 		17A92C9D1CA7C6DB00BE893D /* HTRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17A92C9C1CA7C6DB00BE893D /* HTRecordView.xib */; };
 		17A92CCB1CA809B100BE893D /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A92CA11CA809B100BE893D /* MJRefreshAutoFooter.m */; };
 		17A92CCC1CA809B100BE893D /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A92CA31CA809B100BE893D /* MJRefreshBackFooter.m */; };
@@ -1551,12 +1549,10 @@
 		17A47E8F1C03869000BEC1DD /* HTLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTLoginButton.m; path = ../Common/HTLoginButton.m; sourceTree = "<group>"; };
 		17A89AAA1C1DBA150087BF00 /* LTInfiniteScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LTInfiniteScrollView.h; path = LTInfiniteScrollView/LTInfiniteScrollView.h; sourceTree = "<group>"; };
 		17A89AAB1C1DBA150087BF00 /* LTInfiniteScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LTInfiniteScrollView.m; path = LTInfiniteScrollView/LTInfiniteScrollView.m; sourceTree = "<group>"; };
-		17A89AAC1C1DBA150087BF00 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		17A89AB31C1DBA290087BF00 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLAnimatedImage.h; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImage.h; sourceTree = "<group>"; };
 		17A89AB41C1DBA290087BF00 /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImage.m; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImage.m; sourceTree = "<group>"; };
 		17A89AB51C1DBA290087BF00 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLAnimatedImageView.h; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImageView.h; sourceTree = "<group>"; };
 		17A89AB61C1DBA290087BF00 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImageView.m; path = FLAnimatedImageDemo/FLAnimatedImage/FLAnimatedImageView.m; sourceTree = "<group>"; };
-		17A89AB81C1DBA290087BF00 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		17A92C9C1CA7C6DB00BE893D /* HTRecordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTRecordView.xib; sourceTree = "<group>"; };
 		17A92CA01CA809B100BE893D /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		17A92CA11CA809B100BE893D /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
@@ -3124,7 +3120,6 @@
 			children = (
 				17A89AAA1C1DBA150087BF00 /* LTInfiniteScrollView.h */,
 				17A89AAB1C1DBA150087BF00 /* LTInfiniteScrollView.m */,
-				17A89AAC1C1DBA150087BF00 /* README.md */,
 			);
 			path = LTInfiniteScrollView;
 			sourceTree = "<group>";
@@ -3136,7 +3131,6 @@
 				17A89AB41C1DBA290087BF00 /* FLAnimatedImage.m */,
 				17A89AB51C1DBA290087BF00 /* FLAnimatedImageView.h */,
 				17A89AB61C1DBA290087BF00 /* FLAnimatedImageView.m */,
-				17A89AB81C1DBA290087BF00 /* README.md */,
 			);
 			path = FLAnimatedImage;
 			sourceTree = "<group>";
@@ -4218,7 +4212,6 @@
 				17F0F4791C9331290050F0EB /* HTProfileBadgeCollectionCell.m in Sources */,
 				1787FD1C1C4A8884006E55A6 /* ARRadar.m in Sources */,
 				17A92CD01CA809B100BE893D /* MJRefreshAutoGifFooter.m in Sources */,
-				17A89ABC1C1DBA290087BF00 /* README.md in Sources */,
 				17AE3B371C9884B10082390F /* NSDate+TimeAgo.m in Sources */,
 				26973B221C006A6900160D25 /* HTLoginController.m in Sources */,
 				11866F8A1D338E1500DECB37 /* SKMascotService.m in Sources */,
@@ -4233,7 +4226,6 @@
 				17F0F47C1C95D1510050F0EB /* HTProfileService.m in Sources */,
 				17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
-				17A89AAF1C1DBA150087BF00 /* README.md in Sources */,
 				17A92CCE1CA809B100BE893D /* MJRefreshFooter.m in Sources */,
 				17FA11081C82DE9B00FA9102 /* HTProfileLocationController.m in Sources */,
 				17A92CE01CA816A600BE893D /* HTAlertView.m in Sources */,
