@@ -196,6 +196,10 @@
 }
 
 #pragma mark 文章
++ (NSString *)article_get_article {
+    return @"get_article";
+}
+
 + (NSString *)article_get_all_articles_Action {
     return @"get_all_articles";
 }

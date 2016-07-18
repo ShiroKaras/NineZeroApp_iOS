@@ -303,7 +303,34 @@
 #pragma mark 获取文章
 
 - (void)getArticle:(NSString *)articleID completion:(SKGetArticleCallback)callback {
+    // get Article (POST http://90app-test.daoapp.io/api/article)
     
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // JSON Body
+    NSDictionary* bodyObject = @{
+                                 @"access_key": SECRET_STRING,
+                                 @"article_id": articleID,
+                                 @"user_id": [[SKStorageManager sharedInstance] getUserID],
+                                 @"login_token": [[SKStorageManager sharedInstance] getUserToken],
+                                 @"action": [SKCGIManager article_get_article]
+                                 };
+    
+    NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:[SKCGIManager articleCGIKey] parameters:bodyObject error:NULL];
+    
+    // Add Headers
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    // Fetch Request
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DLog(@"%@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"HTTP Request failed: %@", error);
+    }];
+    
+    [manager.operationQueue addOperation:operation];
+
 }
 
 - (void)getArticlesInPastWithPage:(NSUInteger)page count:(NSUInteger)count callback:(SKGetArticleListCallback)callback {

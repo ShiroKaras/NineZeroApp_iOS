@@ -41,6 +41,9 @@
 
 + (NSString *)resourceCGIKey;
 
+
++ (NSString *)articleCGIKey;
+
 #pragma mark - Actions
 
 #pragma mark 登录
@@ -199,6 +202,11 @@
 + (NSString *)resource_getMedals_Action;
 
 #pragma mark 文章
+/**
+ *  @brief 获取文章
+ */
++ (NSString *)article_get_article;
+
 /**
  *  @brief 获取历史文章列表
  */
