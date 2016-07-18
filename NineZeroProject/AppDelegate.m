@@ -56,7 +56,7 @@
     
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerAMap];
-//    [self registerLocation];
+    [self registerLocation];
     [self registerQiniuService];
     [self registerShareSDK];
     [self registerUmeng];
