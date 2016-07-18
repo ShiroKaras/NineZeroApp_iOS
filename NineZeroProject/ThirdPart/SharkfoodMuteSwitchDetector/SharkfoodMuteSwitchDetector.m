@@ -181,7 +181,7 @@ void MuteSoundPlaybackComplete(SystemSoundID  ssID,void* clientData){
 }
 
 BOOL createSoundFileIfRequired(NSString* soundFile) {
-    if ([[NSFileManager defaultManager] fileExistsAtPath:soundFile isDirectory:NO])
+    if ([[NSFileManager defaultManager] fileExistsAtPath:soundFile isDirectory:FALSE])
         return YES;
     
     NSUInteger length = SAMPLE_RATE * SAMPLES * 2; // 2 bytes per sample
