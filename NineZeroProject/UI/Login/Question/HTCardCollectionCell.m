@@ -40,6 +40,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UIButton *composeButton;
 @property (nonatomic, strong) UIButton *hintButton;
+@property (nonatomic, strong) UIButton *rankButton;
 @property (nonatomic, strong) UIImageView *coverImageView;
 
 @property (nonatomic, strong) UIView *shareView;
@@ -160,6 +161,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [_hintButton sizeToFit];
         [self.contentView addSubview:_hintButton];
 
+        // 6. 查看排名
+        _rankButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_rankButton addTarget:self action:@selector(onClickRankButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_rankButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
+        [_rankButton sizeToFit];
+        [self.contentView addSubview:_rankButton];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     
     }
@@ -225,6 +232,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [MobClick event:@"warning"];
         [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeHint];
     }
+}
+
+- (void)onClickRankButton:(UIButton *)button {
+    
 }
 
 - (void)onClickPlayBackView {
@@ -310,9 +321,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _contentLabel.text = question.content;
     if (_questionInfo.questionID == question.questionID && _question.isPassed == NO) {
         [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
-        // TODO:判断是否需要显示"获取提示"
+        //判断是否需要显示"获取提示"
         _hintButton.hidden = (_questionInfo.endTime - time(NULL))>(3600*16)?YES:NO;
         
+        //判断答题按钮图标
         if (_question.type == 0) {
             // ar
             [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam"] forState:UIControlStateNormal];
@@ -321,7 +333,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
             [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
         }
-//        _hintButton.hidden = YES;
+        
+        //TODO:显示每题排名
+        
     } else {
         [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_ans"] forState:UIControlStateNormal];
         [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_ans_highlight"] forState:UIControlStateHighlighted];
@@ -709,6 +723,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _composeButton.right = _cardBackView.right - 18;
     _hintButton.left = 5;
     _hintButton.top = _contentBackView.bottom;
+    _rankButton.centerX = _contentBackView.centerX;
+    _rankButton.top = _contentBackView.bottom;
     
     _progressBgView.frame = CGRectMake(0, 0, self.width, 3);
 //    _progressView.frame = CGRectMake(0, 0, 0, 3);
