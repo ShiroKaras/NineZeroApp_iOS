@@ -115,11 +115,11 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self showtipImageView];
     
     // 5.零仔
-    NSMutableArray<UIImage *> *animatedImages = [NSMutableArray arrayWithCapacity:52];
-    for (int i = 0; i != 52; i++) {
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"ar_mascot2_00%02d", i]];
-        [animatedImages addObject:image];
-    }
+//    NSMutableArray<UIImage *> *animatedImages = [NSMutableArray arrayWithCapacity:52];
+//    for (int i = 0; i != 52; i++) {
+//        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"ar_mascot2_00%02d", i]];
+//        [animatedImages addObject:image];
+//    }
     self.mascotImageView = [[UIImageView alloc] init];
     self.mascotImageView.layer.masksToBounds = YES;
     UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:_question.question_ar_pet]];
