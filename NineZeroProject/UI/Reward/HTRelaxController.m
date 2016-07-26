@@ -190,6 +190,8 @@ typedef enum : NSUInteger {
     _moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:_videoUrlString]];
     _moviePlayer.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:_moviePlayer animated:YES completion:nil];
+    CGAffineTransform landscapeTransform = CGAffineTransformMakeRotation(M_PI / 2);
+    _moviePlayer.view.transform = landscapeTransform;
     [_moviePlayer.moviePlayer play];
 }
 
