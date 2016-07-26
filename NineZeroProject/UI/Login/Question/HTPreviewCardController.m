@@ -200,7 +200,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
                         if (success) {
                             questionInfo = callbackQuestionInfo;
-                            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:20 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
+                            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
                                 [HTProgressHUD dismiss];
                                 [_dimmingView removeFromSuperview];
                                 if (success2) {
