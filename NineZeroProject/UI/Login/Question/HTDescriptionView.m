@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UILabel *deadLine;
 @property (nonatomic, strong) UILabel *location;
 @property (nonatomic, strong) UILabel *mobile;
+@property (nonatomic, strong) UILabel *remarksLabel;    //备注
 @property (nonatomic, strong) UILabel *codeTipLabel;   // “唯一兑换码”
 @property (nonatomic, strong) UILabel *codeLabel;
 @property (nonatomic, strong) UILabel *careTipLabel;   // “注意事项”
@@ -45,7 +46,10 @@
         
         _deadLine = [self commonStyleLabel];
         _location = [self commonStyleLabel];
+        _location.numberOfLines = 0;
         _mobile = [self commonStyleLabel];
+        _remarksLabel = [self commonStyleLabel];
+        _remarksLabel.numberOfLines = 0;
         _codeTipLabel = [self commonStyleLabel];
         
         _codeLabel = [[UILabel alloc] init];
@@ -68,9 +72,12 @@
     NSString *year = [reward.expire_time substringWithRange:NSMakeRange(0, 4)];
     NSString *month = [reward.expire_time substringWithRange:NSMakeRange(4, 2)];
     NSString *day = [reward.expire_time substringWithRange:NSMakeRange(6, 2)];
-    _deadLine.text =  [NSString stringWithFormat:@"有效期至%@-%@-%@", year, month, day];
+    _deadLine.text =  [NSString stringWithFormat:@"礼券有效期至%@-%@-%@", year, month, day];
     _location.text = [NSString stringWithFormat:@"地点：%@", reward.address];
     _mobile.text = [NSString stringWithFormat:@"电话：%@", reward.mobile];
+    if (reward.remarks!=nil&&![reward.remarks isEqualToString:@""]) {
+        _remarksLabel.text = [NSString stringWithFormat:@"备注：%@", reward.remarks];
+    }
     _codeTipLabel.text = @"唯一兑换码";
     _codeLabel.text = [NSString stringWithFormat:@"%llu", reward.code];
     _careTipLabel.text = @"注意事项：";
@@ -86,9 +93,16 @@
     CGFloat labelVerticalMargin = 11;
     _title.frame = CGRectMake(leftMargin, 18, self.width - 2 * leftMargin, 20);
     _deadLine.frame = CGRectMake(leftMargin, _title.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
-    _location.frame = CGRectMake(leftMargin, _deadLine.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    [_location sizeToFit];
+    _location.frame = CGRectMake(leftMargin, _deadLine.bottom + labelVerticalMargin, self.width - 2 * leftMargin, _location.height);
     _mobile.frame = CGRectMake(leftMargin, _location.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
-    _codeTipLabel.frame = CGRectMake(leftMargin, _mobile.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    if (_remarksLabel.text!=nil&&![_remarksLabel.text isEqualToString:@""]) {
+        [_remarksLabel sizeToFit];
+        _remarksLabel.frame = CGRectMake(leftMargin, _mobile.bottom + labelVerticalMargin, self.width - 2 * leftMargin, _remarksLabel.height);
+        _codeTipLabel.frame = CGRectMake(leftMargin, _remarksLabel.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    } else {
+        _codeTipLabel.frame = CGRectMake(leftMargin, _mobile.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
+    }
     _codeLabel.frame = CGRectMake(leftMargin, _codeTipLabel.bottom + 9, self.width - 2 * leftMargin, 30);
     _careTipLabel.frame = CGRectMake(leftMargin, _codeLabel.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
     _careTip1.frame = CGRectMake(leftMargin, _careTipLabel.bottom + labelVerticalMargin, self.width - 2 * leftMargin, 13);
