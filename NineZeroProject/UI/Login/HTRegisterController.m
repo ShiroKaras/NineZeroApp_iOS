@@ -82,7 +82,7 @@
 - (IBAction)nextButtonClicked:(UIButton *)sender {
     [self.view endEditing:YES];
     _loginUser.code = self.verifyTextField.text;
-    _loginUser.user_name = self.nickTextField.text;
+    _loginUser.user_name = [self.nickTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     // 登录前混淆加密
     _loginUser.user_password = [NSString confusedPasswordWithLoginUser:_loginUser];
     // TODO:这些值不能临时填
