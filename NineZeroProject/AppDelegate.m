@@ -99,6 +99,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     DLog(@"applicationWillEnterForeground");
+    [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
