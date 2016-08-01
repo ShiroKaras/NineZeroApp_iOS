@@ -196,6 +196,7 @@
             _webView.delegate = self;
             NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
             [_webView stringByEvaluatingJavaScriptFromString:padding];
+            _webView.alpha = 0;
             [_converView addSubview:_webView];
         }
     }
@@ -243,22 +244,12 @@
     } completion:^(BOOL finished) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     }];
-}
-
-- (void)setProp:(HTMascotProp *)prop {
-    _prop = prop;
-    [_webView loadHTMLString:[self htmlStringWithContent:prop.prop_desc] baseURL:nil];
-    [_imageView sd_setImageWithURL:[NSURL URLWithString:prop.prop_pic] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
-    if (prop && prop.used) {
-        _exchangeButton.backgroundColor = [UIColor colorWithHex:0x545454];
-        [_exchangeButton setTitle:@"已兑换" forState:UIControlStateNormal];
-        _exchangeButton.enabled = NO;
-    } else {
-        _exchangeButton.backgroundColor = COMMON_GREEN_COLOR;
-        [_exchangeButton setTitle:@"兑换" forState:UIControlStateNormal];
-        _exchangeButton.enabled = YES;
-    }
-    [self setNeedsLayout];
+    
+    [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionLayoutSubviews animations:^{
+        _webView.alpha = 1.;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 - (void)setReward:(HTTicket *)reward {
@@ -305,6 +296,9 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    if (webView.isLoading) {
+        return;
+    }
     NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
     [_webView stringByEvaluatingJavaScriptFromString:padding];
 }
