@@ -321,7 +321,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _chapterLabel = [[UILabel alloc] init];
     _chapterLabel.text = [NSString stringWithFormat:@"%02lu", questionList.lastObject.serial];
     _chapterLabel.font = MOON_FONT_OF_SIZE(14);
-    _chapterLabel.textColor = COMMON_GREEN_COLOR;
+    _chapterLabel.textColor = COMMON_PINK_COLOR;
     [_chapterLabel sizeToFit];
     [self.view addSubview:_chapterLabel];
     [self.view sendSubviewToBack:_chapterImageView];
