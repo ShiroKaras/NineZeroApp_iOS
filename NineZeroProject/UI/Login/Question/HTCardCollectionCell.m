@@ -40,7 +40,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UIButton *composeButton;
 @property (nonatomic, strong) UIButton *hintButton;
-@property (nonatomic, strong) UIButton *rankButton;
 @property (nonatomic, strong) UIImageView *coverImageView;
 
 @property (nonatomic, strong) UIView *shareView;
@@ -56,6 +55,17 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIView *progressView;
 @property (nonatomic, strong) UIView *progressBgView;
 @property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
+
+@property (nonatomic, strong) UIView    *dimmingView;
+
+@property (nonatomic, strong) UIButton  *buttonMoreRank;
+@property (nonatomic, strong) UIButton  *buttonMoreReward;
+@property (nonatomic, strong) UIButton  *buttonMoreAnswer;
+@property (nonatomic, strong) UIButton  *buttonMoreClose;
+
+@property (nonatomic, strong) UILabel   *labelMoreRank;
+@property (nonatomic, strong) UILabel   *labelMoreReward;
+@property (nonatomic, strong) UILabel   *labelMoreAnswer;
 
 @end
 
@@ -145,7 +155,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         
         UITapGestureRecognizer *tapOnContent = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickContent)];
         [_contentBackView addGestureRecognizer:tapOnContent];
-        
 
         // 4. 发布按钮
         _composeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -160,15 +169,63 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
         [_hintButton sizeToFit];
         [self.contentView addSubview:_hintButton];
-
-        // 6. 查看排名
-        _rankButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_rankButton addTarget:self action:@selector(onClickRankButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_rankButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
-        [_rankButton sizeToFit];
-        [self.contentView addSubview:_rankButton];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-    
+        
+        // 6. More
+        _dimmingView = [[UIView alloc] initWithFrame:AppDelegateInstance.mainController.view.frame];
+        _dimmingView.backgroundColor = [UIColor blackColor];
+        _dimmingView.alpha = 0;
+        UITapGestureRecognizer *tapDimmingView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMoreButtons)];
+        [_dimmingView addGestureRecognizer:tapDimmingView];
+        [AppDelegateInstance.window addSubview:_dimmingView];
+        
+        _buttonMoreRank = [UIButton buttonWithType:UIButtonTypeCustom];
+        _buttonMoreRank.alpha = 1;
+        [_buttonMoreRank setImage:[UIImage imageNamed:@"btn_more_leaderboard"] forState:UIControlStateNormal];
+        [_buttonMoreRank setImage:[UIImage imageNamed:@"btn_more_leaderboard_highlight"] forState:UIControlStateHighlighted];
+        [_buttonMoreRank addTarget:self action:@selector(onClickRankButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_dimmingView addSubview:_buttonMoreRank];
+        _labelMoreRank = [[UILabel alloc] init];
+        _labelMoreRank.text = @"排行榜";
+        _labelMoreRank.font = [UIFont fontWithName:@"Regular" size:30];
+        _labelMoreRank.textColor = COMMON_GREEN_COLOR;
+        _labelMoreRank.alpha = 0;
+        [_labelMoreRank sizeToFit];
+        [_dimmingView addSubview:_labelMoreRank];
+        
+        _buttonMoreReward = [UIButton buttonWithType:UIButtonTypeCustom];
+        _buttonMoreReward.alpha = 1;
+        [_buttonMoreReward setImage:[UIImage imageNamed:@"btn_more_reward"] forState:UIControlStateNormal];
+        [_buttonMoreReward setImage:[UIImage imageNamed:@"btn_more_reward_highlight"] forState:UIControlStateHighlighted];
+        [_buttonMoreReward addTarget:self action:@selector(onClickRewardButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_dimmingView addSubview:_buttonMoreReward];
+        _labelMoreReward = [[UILabel alloc] init];
+        _labelMoreReward.text = @"查看奖品";
+        _labelMoreReward.font = [UIFont fontWithName:@"Regular" size:30];
+        _labelMoreReward.textColor = COMMON_GREEN_COLOR;
+        _labelMoreReward.alpha = 0;
+        [_labelMoreReward sizeToFit];
+        [_dimmingView addSubview:_labelMoreReward];
+        
+        _buttonMoreAnswer = [UIButton buttonWithType:UIButtonTypeCustom];
+        _buttonMoreAnswer.alpha = 1;
+        [_buttonMoreAnswer setImage:[UIImage imageNamed:@"btn_more_answer"] forState:UIControlStateNormal];
+        [_buttonMoreAnswer setImage:[UIImage imageNamed:@"btn_more_answer_highlight"] forState:UIControlStateHighlighted];
+        [_buttonMoreAnswer addTarget:self action:@selector(onClickAnswerButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_dimmingView addSubview:_buttonMoreAnswer];
+        _labelMoreAnswer = [[UILabel alloc] init];
+        _labelMoreAnswer.text = @"查看答案";
+        _labelMoreAnswer.font = [UIFont fontWithName:@"Regular" size:30];
+        _labelMoreAnswer.textColor = COMMON_GREEN_COLOR;
+        _labelMoreAnswer.alpha = 0;
+        [_labelMoreAnswer sizeToFit];
+        [_dimmingView addSubview:_labelMoreAnswer];
+        
+        _buttonMoreClose = [UIButton buttonWithType:UIButtonTypeCustom];
+        _buttonMoreClose.alpha = 1;
+        [_buttonMoreClose setImage:[UIImage imageNamed:@"btn_more_close"] forState:UIControlStateNormal];
+        [_buttonMoreClose setImage:[UIImage imageNamed:@"btn_more_close_highlight"] forState:UIControlStateHighlighted];
+        [_buttonMoreClose addTarget:self action:@selector(hideMoreButtons) forControlEvents:UIControlEventTouchUpInside];
+        [_dimmingView addSubview:_buttonMoreClose];
     }
     return self;
 }
@@ -189,6 +246,86 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 #pragma mark - Actions
+
+- (void)showMoreButtons {
+    CGRect rect=[_composeButton convertRect: _composeButton.bounds toView:AppDelegateInstance.window];
+    _buttonMoreClose.frame = rect;
+    _buttonMoreClose.alpha = 0;
+    
+    _buttonMoreAnswer.frame = rect;
+    _buttonMoreAnswer.alpha = 0;
+    
+    _buttonMoreReward.frame = rect;
+    _buttonMoreReward.alpha = 0;
+    
+    _buttonMoreRank.frame = rect;
+    _buttonMoreRank.alpha = 0;
+    
+    _labelMoreRank.frame = CGRectMake(rect.origin.x-13-_labelMoreRank.width, rect.origin.y, _labelMoreRank.size.width, _labelMoreRank.size.height);
+    _labelMoreReward.frame = CGRectMake(rect.origin.x-13-_labelMoreReward.width, rect.origin.y, _labelMoreReward.size.width, _labelMoreReward.size.height);
+    _labelMoreAnswer.frame = CGRectMake(rect.origin.x-13-_labelMoreAnswer.width, rect.origin.y, _labelMoreAnswer.size.width, _labelMoreAnswer.size.height);
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        _dimmingView.alpha = 0.8;
+        
+        _buttonMoreClose.frame = rect;
+        _buttonMoreClose.alpha = 1;
+        
+        _buttonMoreAnswer.frame = CGRectMake(rect.origin.x, rect.origin.y-55, rect.size.width, rect.size.height);
+        _buttonMoreAnswer.alpha = 1;
+        _labelMoreAnswer.frame = CGRectMake(_buttonMoreAnswer.frame.origin.x-13-_labelMoreAnswer.width, _buttonMoreAnswer.origin.y, _labelMoreAnswer.width, _labelMoreAnswer.height);
+        _labelMoreAnswer.centerY = _buttonMoreAnswer.centerY;
+        _labelMoreAnswer.alpha = 1;
+        
+        if (_question.isPassed == YES) {
+            _buttonMoreReward.frame = CGRectMake(rect.origin.x, rect.origin.y-55*2, rect.size.width, rect.size.height);
+            _buttonMoreReward.alpha = 1;
+            _labelMoreReward.frame = CGRectMake(_buttonMoreReward.frame.origin.x-13-_labelMoreReward.width, _buttonMoreReward.origin.y, _labelMoreReward.width, _labelMoreReward.height);
+            _labelMoreReward.centerY = _buttonMoreReward.centerY;
+            _labelMoreReward.alpha = 1;
+            
+            _buttonMoreRank.frame = CGRectMake(rect.origin.x, rect.origin.y-55*3, rect.size.width, rect.size.height);
+            _buttonMoreRank.alpha = 1;
+            _labelMoreRank.frame = CGRectMake(_buttonMoreRank.frame.origin.x-13-_labelMoreRank.width, _buttonMoreRank.origin.y, _labelMoreRank.width, _labelMoreRank.height);
+            _labelMoreRank.centerY = _buttonMoreRank.centerY;
+            _labelMoreRank.alpha = 1;
+            
+        } else {
+            _buttonMoreRank.frame = CGRectMake(rect.origin.x, rect.origin.y-55*2, rect.size.width, rect.size.height);
+            _buttonMoreRank.alpha = 1;
+            _labelMoreRank.frame = CGRectMake(_buttonMoreRank.frame.origin.x-13-_labelMoreRank.width, _buttonMoreRank.origin.y, _labelMoreRank.width, _labelMoreRank.height);
+            _labelMoreRank.centerY = _buttonMoreRank.centerY;
+            _labelMoreRank.alpha = 1;
+        }
+    }];
+}
+
+- (void)hideMoreButtons {
+    [UIView animateWithDuration:0.2 animations:^{
+        _dimmingView.alpha = 0;
+
+        CGRect rect=[_composeButton convertRect: _composeButton.bounds toView:AppDelegateInstance.window];
+        
+        _buttonMoreClose.frame = rect;
+        _buttonMoreClose.alpha = 0;
+        
+        _buttonMoreAnswer.frame = rect;
+        _buttonMoreAnswer.alpha = 0;
+        
+        _buttonMoreReward.frame = rect;
+        _buttonMoreReward.alpha = 0;
+        
+        _buttonMoreRank.frame = rect;
+        _buttonMoreRank.alpha = 0;
+        
+        _labelMoreRank.frame = CGRectMake(rect.origin.x-13-_labelMoreRank.width, rect.origin.y, _labelMoreRank.width, _labelMoreRank.height);
+        _labelMoreReward.frame = CGRectMake(rect.origin.x-13-_labelMoreReward.width, rect.origin.y, _labelMoreReward.width, _labelMoreReward.height);
+        _labelMoreAnswer.frame = CGRectMake(rect.origin.x-13-_labelMoreAnswer.width, rect.origin.y, _labelMoreAnswer.width, _labelMoreAnswer.height);
+        _labelMoreRank.alpha = 0;
+        _labelMoreReward.alpha = 0;
+        _labelMoreAnswer.alpha = 0;
+    }];
+}
 
 - (void)onClickReplayButton {
     [MobClick event:@"replay"];
@@ -219,23 +356,31 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];
         }
     } else {
-        [MobClick event:@"exanswer"];
-        [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAnswer];
+        [self showMoreButtons];
     }
 }
 
 - (void)onClickHintButton:(UIButton *)button {
-    if (_question.isPassed) {
-        [MobClick event:@"Vgift"];
-        [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeReward];
-    } else {
-        [MobClick event:@"warning"];
-        [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeHint];
-    }
+    [MobClick event:@"warning"];
+    [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeHint];
+    
 }
 
 - (void)onClickRankButton:(UIButton *)button {
-    
+    [self hideMoreButtons];
+    [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeRank];
+}
+
+- (void)onClickRewardButton:(UIButton *)button {
+    [MobClick event:@"Vgift"];
+    [self hideMoreButtons];
+    [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeReward];
+}
+
+- (void)onClickAnswerButton:(UIButton *)button {
+    [MobClick event:@"exanswer"];
+    [self hideMoreButtons];
+    [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAnswer];
 }
 
 - (void)onClickPlayBackView {
@@ -333,18 +478,18 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
             [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
         }
-        
-        //TODO:显示每题排名
-        
     } else {
-        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_ans"] forState:UIControlStateNormal];
-        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_ans_highlight"] forState:UIControlStateHighlighted];
+        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_more"] forState:UIControlStateNormal];
+        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_more_highlight"] forState:UIControlStateHighlighted];
         if (_question.isPassed) {
-            _hintButton.hidden = NO;
-            [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_check_prize"] forState:UIControlStateNormal];
-        } else {
-            [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
+            //已答对的题目
             _hintButton.hidden = YES;
+            [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
+            
+        } else {
+            //未答对的题目
+            _hintButton.hidden = YES;
+            [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
         }
     }
     [_contentLabel sizeToFit];
@@ -721,10 +866,15 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_composeButton sizeToFit];
     _composeButton.top = _contentBackView.bottom - 21;
     _composeButton.right = _cardBackView.right - 18;
+    
+    CGRect rect=[_composeButton convertRect: _composeButton.bounds toView:AppDelegateInstance.window];
+    _buttonMoreRank.frame = rect;
+    _buttonMoreReward.frame = rect;
+    _buttonMoreAnswer.frame = rect;
+    _buttonMoreClose.frame = rect;
+    
     _hintButton.left = 5;
     _hintButton.top = _contentBackView.bottom;
-    _rankButton.centerX = _contentBackView.centerX;
-    _rankButton.top = _contentBackView.bottom;
     
     _progressBgView.frame = CGRectMake(0, 0, self.width, 3);
 //    _progressView.frame = CGRectMake(0, 0, 0, 3);

@@ -460,6 +460,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)collectionCell:(HTCardCollectionCell *)cell didClickButtonWithType:(HTCardCollectionClickType)type {
     switch (type) {
+        case HTCardCollectionClickTypeRank: {
+            
+            break;
+        }
         case HTCardCollectionClickTypeAnswer: {
             [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
             _showAnswerDetailView = [[SKAnswerDetailView alloc] initWithFrame:self.view.bounds questionID:cell.question.questionID];
