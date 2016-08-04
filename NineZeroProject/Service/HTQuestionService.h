@@ -18,6 +18,7 @@ typedef void (^HTQuestionCallback) (BOOL success, HTQuestion *question);
 typedef void (^HTQuestionListCallback) (BOOL success, NSArray<HTQuestion *> *questionList);
 typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionInfo);
 typedef void (^HTAnswerDetailInfoCallback) (BOOL success, HTAnswerDetail *answerDetailInfo);
+typedef void (^HTGetRankListCallback) (BOOL success, NSArray<HTRanker *> *ranker);
 
 /**
  *  该类只允许HTServiceManager创建一次，多次创建直接crash
@@ -64,7 +65,7 @@ typedef void (^HTAnswerDetailInfoCallback) (BOOL success, HTAnswerDetail *answer
  *  @brief 每道题前十名单
  *  @param
  */
-- (void)getRankListWithQuestion:(uint64_t)questionID callback:(HTResponseCallback)callback;
+- (void)getRankListWithQuestion:(uint64_t)questionID callback:(HTGetRankListCallback)callback;
 
 /**
  *  @brief 验证答案

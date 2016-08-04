@@ -99,6 +99,11 @@
 + (NSString *)getQuestionDetailCGIKey;
 
 /**
+ *  @brief 前十名
+ */
++ (NSString *)getRankListCGIKey;
+
+/**
  *  @brief 获取答案详情
  */
 + (NSString *)getAnswerDetailCGIKey;

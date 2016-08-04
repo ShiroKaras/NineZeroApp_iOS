@@ -14,7 +14,6 @@
 #import "HTDescriptionView.h"
 #import "HTShowDetailView.h"
 #import "HTShowAnswerView.h"
-#import "SKAnswerDetailView.h"
 #import "HTARCaptureController.h"
 #import "HTRewardController.h"
 #import "Reachability.h"
@@ -24,6 +23,9 @@
 #import "HTAlertView.h"
 #import "HTBlankView.h"
 #import "HTArticleController.h"
+
+#import "SKAnswerDetailView.h"
+#import "SKRankInQuestionViewController.h"
 
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
@@ -46,6 +48,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (strong, nonatomic) HTShowDetailView *showDetailView;               // 提示详情
 @property (strong, nonatomic) HTShowAnswerView *showAnswerView;               // 查看答案
 @property (strong, nonatomic) SKAnswerDetailView *showAnswerDetailView;       // 查看答案详情
+@property (strong, nonatomic) SKRankInQuestionViewController *showRankView;    //查看排名
 
 @property (nonatomic, strong) UIButton *closeButton;
 
@@ -461,7 +464,13 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)collectionCell:(HTCardCollectionCell *)cell didClickButtonWithType:(HTCardCollectionClickType)type {
     switch (type) {
         case HTCardCollectionClickTypeRank: {
-            
+            [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
+            _showRankView = [[SKRankInQuestionViewController alloc] init];
+            _showRankView.questionID = cell.question.questionID;
+            if (IOS_VERSION >= 8.0) {
+                _showRankView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            }
+            [self presentViewController:_showRankView animated:YES completion:nil];
             break;
         }
         case HTCardCollectionClickTypeAnswer: {

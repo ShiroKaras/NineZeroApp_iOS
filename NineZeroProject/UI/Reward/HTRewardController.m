@@ -69,7 +69,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     [super viewDidLoad];
 
     _scrollView = [[UIScrollView alloc] init];
-    _scrollView.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.85];
+    _scrollView.backgroundColor = [UIColor colorWithHex:0x000000 alpha:1];
     _scrollView.delaysContentTouches = NO;
     [self.view addSubview:_scrollView];
     

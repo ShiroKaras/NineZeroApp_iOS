@@ -69,6 +69,10 @@
     return [NSString stringWithFormat:@"%@Question/getAnswerDetail", NETWORK_HOST];
 }
 
++ (NSString *)getRankListCGIKey {
+    return [NSString stringWithFormat:@"%@Question/getTopAnsweredUserList", NETWORK_HOST];
+}
+
 + (NSString *)getExtraHintCGIKey {
     return [NSString stringWithFormat:@"%@Question/getRestHint", NETWORK_HOST];
 }
