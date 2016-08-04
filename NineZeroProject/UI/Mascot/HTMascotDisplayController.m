@@ -21,6 +21,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 
 @interface HTMascotDisplayController () <HTMascotPropViewDelegate, HTMascotPropMoreViewDelegate, HTMascotViewDelegate>
 
+@property (nonatomic, strong) UIImageView  *onlyOneMascotBackgroundImageView;
 @property (nonatomic, strong) HTMascotItem *onlyOneMascotImageView;
 @property (nonatomic, strong) HTMascotView *mascotView;
 @property (nonatomic, strong) UIImageView *tipImageView;
@@ -40,6 +41,10 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     self.mascots = [NSMutableArray arrayWithObject:[HTMascotHelper defaultMascots]];
     self.props = [NSMutableArray array];
 
+    self.onlyOneMascotBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_default_bg"]];
+    [self.onlyOneMascotBackgroundImageView sizeToFit];
+    [self.view addSubview:self.onlyOneMascotBackgroundImageView];
+    
     self.onlyOneMascotImageView = [[HTMascotItem alloc] init];
     self.onlyOneMascotImageView.index = 0;
     self.onlyOneMascotImageView.mascot = self.mascots[0];
@@ -135,6 +140,10 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
         make.height.equalTo(@157);
     }];
     
+    [self.onlyOneMascotBackgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.onlyOneMascotImageView);
+    }];
+
     [self.mascotTipView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.onlyOneMascotImageView.mas_top).offset(24);
         make.centerX.equalTo(self.onlyOneMascotImageView);

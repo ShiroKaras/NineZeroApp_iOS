@@ -61,6 +61,12 @@ typedef void (^HTAnswerDetailInfoCallback) (BOOL success, HTAnswerDetail *answer
 - (void)getAnswerDetailWithQuestionID:(NSString *)questionID callback:(HTAnswerDetailInfoCallback)callback;
 
 /**
+ *  @brief 每道题前十名单
+ *  @param
+ */
+- (void)getRankListWithQuestion:(uint64_t)questionID callback:(HTResponseCallback)callback;
+
+/**
  *  @brief 验证答案
  *  @param questionID 问题id
  *  @param user_id    用户id

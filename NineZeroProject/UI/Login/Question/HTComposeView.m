@@ -13,12 +13,15 @@
 
 @interface HTComposeView () <UITextFieldDelegate>
 
-@property (nonatomic, strong, readwrite) UITextField *textField; ///< 输入框
-@property (nonatomic, strong) UIView *textFieldBackView;         ///< 输入框背景
-@property (nonatomic, strong) HTImageView *resultImageView;      ///< 显示结果
-@property (nonatomic, strong) UILabel *tipsLabel;                ///< 提示
-@property (nonatomic, strong) UIView *tipsBackView;              ///< 提示背景
-@property (nonatomic, strong) UIView *dimmingView;               ///< 答题背景
+@property (nonatomic, strong, readwrite) UITextField *textField;    ///< 输入框
+@property (nonatomic, strong) UIView *textFieldBackView;            ///< 输入框背景
+@property (nonatomic, strong) HTImageView *resultImageView;         ///< 显示结果
+@property (nonatomic, strong) UILabel *tipsLabel;                   ///< 提示
+@property (nonatomic, strong) UIView *tipsBackView;                 ///< 提示背景
+@property (nonatomic, strong) UIView *dimmingView;                  ///< 答题背景
+@property (nonatomic, strong) UIView *participatorView;             //  参与者
+@property (nonatomic, strong) UIImageView *participatorImageView;   //  头图
+@property (nonatomic, strong) NSArray *participatorArray;           //  参与者
 
 @end
 
@@ -37,6 +40,26 @@
         tap.numberOfTapsRequired = 1;
         [_dimmingView addGestureRecognizer:tap];
         
+        // 1.1 参与者
+        _participatorView = [UIView new];
+        _participatorView.backgroundColor = [UIColor clearColor];
+        [_dimmingView addSubview:_participatorView];
+        
+        _participatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_who_else"]];
+        [_participatorImageView sizeToFit];
+        [_participatorView addSubview:_participatorImageView];
+        
+        _participatorArray = [NSArray array];
+        float sidePadding = (SCREEN_WIDTH-(42*4+19*3))/2.;
+        for (int i=0; i<12; i++) {
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(sidePadding+i%4*(42+23), 42+floor(i/4)*(42+14), 42, 42)];
+            imageView.layer.masksToBounds = YES;
+            imageView.layer.borderWidth = 2;
+            imageView.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
+            imageView.backgroundColor = [UIColor purpleColor];
+            [_participatorView addSubview:imageView];            
+        }
+        
         // 2. 答题按钮
         _composeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_composeButton setImage:[UIImage imageNamed:@"btn_ans_send"] forState:UIControlStateNormal];
@@ -53,7 +76,7 @@
         
         _textField = [[UITextField alloc] init];
         _textField.delegate = self;
-        _textField.font = [UIFont systemFontOfSize:17];
+        _textField.font = [UIFont systemFontOfSize:22];
         _textField.placeholder = @"请输入你的答案";
         _textField.textColor = COMMON_GREEN_COLOR;
         [_textField setValue:[UIColor colorWithHex:0x4f4f4f] forKeyPath:@"_placeholderLabel.textColor"];
@@ -90,6 +113,19 @@
         make.edges.equalTo(self);
     }];
     
+    // 1.1 参与者
+    [_participatorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_dimmingView).offset(54);
+        make.left.equalTo(_dimmingView);
+        make.right.equalTo(_dimmingView);
+        make.bottom.equalTo(_textFieldBackView.mas_top);
+    }];
+    
+    [_participatorImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_participatorView);
+        make.centerX.equalTo(_participatorView);
+    }];
+    
     // 2. 答题按钮
     [_composeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom).offset(-22);
@@ -101,7 +137,7 @@
         make.bottom.equalTo(self.mas_bottom);
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
-        make.height.equalTo(@42);
+        make.height.equalTo(@47);
     }];
     
     [_textField mas_makeConstraints:^(MASConstraintMaker *make) {

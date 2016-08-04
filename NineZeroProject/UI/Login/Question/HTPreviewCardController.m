@@ -321,7 +321,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _chapterLabel = [[UILabel alloc] init];
     _chapterLabel.text = [NSString stringWithFormat:@"%2@", questionList.lastObject.serial];
     _chapterLabel.font = MOON_FONT_OF_SIZE(14);
-    _chapterLabel.textColor = COMMON_GREEN_COLOR;
+    _chapterLabel.textColor = COMMON_PINK_COLOR;
     [_chapterLabel sizeToFit];
     [self.view addSubview:_chapterLabel];
     [self.view sendSubviewToBack:_chapterImageView];
@@ -460,6 +460,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)collectionCell:(HTCardCollectionCell *)cell didClickButtonWithType:(HTCardCollectionClickType)type {
     switch (type) {
+        case HTCardCollectionClickTypeRank: {
+            
+            break;
+        }
         case HTCardCollectionClickTypeAnswer: {
             [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
             _showAnswerDetailView = [[SKAnswerDetailView alloc] initWithFrame:self.view.bounds questionID:cell.question.questionID];

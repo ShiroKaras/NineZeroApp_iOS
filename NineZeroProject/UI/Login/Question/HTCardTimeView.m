@@ -74,32 +74,16 @@
     _mainTimeLabel.hidden = NO;
     _detailTimeLabel.hidden = YES;
     _resultImageView.hidden = YES;
-    if (delta > oneHour * 48) {
-        // 大于48小时
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
-    } else if (delta > oneHour * 24 && delta < oneHour * 48) {
-        // 大于24小时 小于48小时
-        _mainTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
-        _mainTimeLabel.textColor = COMMON_GREEN_COLOR;
-        _decoImageView.image = [UIImage imageNamed:@"img_timer_1_deco"];
-    } else if (delta > oneHour * 16 && delta < oneHour * 24) {
-        // 大于16小时 小于24小时
-        _mainTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
-        _mainTimeLabel.textColor = COMMON_GREEN_COLOR;
-        _decoImageView.image = [UIImage imageNamed:@"img_timer_2_deco"];
-    } else if (delta > oneHour * 8 && delta < oneHour * 16) {
-        // 大于8小时 小于16小时
-        _mainTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
-        _mainTimeLabel.textColor = COMMON_GREEN_COLOR;
-        _decoImageView.image = [UIImage imageNamed:@"img_timer_3_deco"];
-    } else if (delta > 0 && delta < oneHour * 8) {
+    
+    //TODO: 更改TimeView
+    if (delta > 0) {
         // 小于1小时
         _mainTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", hour, minute];
-        _mainTimeLabel.textColor = COMMON_GREEN_COLOR;
+        _mainTimeLabel.textColor = COMMON_PINK_COLOR;
         _decoImageView.hidden = YES;
         _detailTimeLabel.hidden = NO;
         _detailTimeLabel.text = [NSString stringWithFormat:@"%02ld", second];
-        _detailTimeLabel.textColor = COMMON_GREEN_COLOR;
+        _detailTimeLabel.textColor = COMMON_PINK_COLOR;
     } else {
         // 过去时间
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];

@@ -265,12 +265,12 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView.dragging && !scrollView.decelerating) {
         if (scrollView.contentOffset.y - lastOffsetY > 25) {
-            NSLog(@"ScrollUp now: %lf %lf", lastOffsetY, scrollView.contentOffset.y);
+            DLog(@"ScrollUp now: %lf %lf", lastOffsetY, scrollView.contentOffset.y);
             lastOffsetY = MIN(scrollView.contentOffset.y, scrollView.contentSize.height-SCREEN_HEIGHT);
             [self didClickArrowButton];
         }
         else if (lastOffsetY - scrollView.contentOffset.y > 25){
-            NSLog(@"ScrollDown now: %lf %lf", lastOffsetY, scrollView.contentOffset.y);
+            DLog(@"ScrollDown now: %lf %lf", lastOffsetY, scrollView.contentOffset.y);
             lastOffsetY = MIN(scrollView.contentOffset.y, scrollView.contentSize.height-SCREEN_HEIGHT);
             [self didClickArrowButtonBack];
         }

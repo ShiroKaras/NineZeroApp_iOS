@@ -13,6 +13,7 @@ typedef NS_ENUM(NSUInteger, HTCardCollectionClickType) {
     HTCardCollectionClickTypeAR,
     HTCardCollectionClickTypeContent,
     HTCardCollectionClickTypeHint,
+    HTCardCollectionClickTypeRank,
     HTCardCollectionClickTypeReward,
     HTCardCollectionClickTypeAnswer,
     HTCardCollectionClickTypePlay,

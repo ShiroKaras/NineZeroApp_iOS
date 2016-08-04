@@ -167,6 +167,22 @@
     }];
 }
 
+- (void)getRankListWithQuestion:(uint64_t)questionID callback:(HTResponseCallback)callback {
+    NSDictionary *dict = @{@"qid" : [NSString stringWithFormat:@"%llu", questionID]};
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getAnswerDetailCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
+        if (package.resultCode == 0) {
+            callback(YES,package);
+        } else {
+            callback(NO, nil);
+        }
+        DLog(@"%@",responseObject);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(NO, nil);
+        DLog(@"%@", error);
+    }];
+}
+
 - (void)verifyQuestion:(uint64_t)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback {
     NSString *user_id = [[HTStorageManager sharedInstance] getUserID];
     if (user_id.length == 0) {
