@@ -38,6 +38,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.backgroundColor = [UIColor clearColor];
 }
 
@@ -110,6 +111,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.backgroundColor = [UIColor clearColor];
 }
 
