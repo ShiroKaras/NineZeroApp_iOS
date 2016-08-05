@@ -289,4 +289,8 @@
  */
 + (NSString *)getAllRanksCGIKey;
 
+/**
+ *  @brief 获取版本号
+ */
++ (NSString *)getVersionCGIKey;
 @end

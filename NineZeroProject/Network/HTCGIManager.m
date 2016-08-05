@@ -181,4 +181,8 @@
     return [NSString stringWithFormat:@"%@Article/collectArticle", NETWORK_HOST];
 }
 
++ (NSString *)getVersionCGIKey {
+    return [NSString stringWithFormat:@"%@Common/latestClientVersion", NETWORK_HOST];
+}
+
 @end

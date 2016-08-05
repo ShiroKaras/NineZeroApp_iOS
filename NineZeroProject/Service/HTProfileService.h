@@ -104,4 +104,11 @@ typedef NS_ENUM(NSUInteger, HTUpdateUserInfoType) {
  *  @brief 收藏文章
  */
 - (void)collectArticleWithArticleID:(NSUInteger)articleID completion:(HTResponseCallback)callback;
+
+#pragma mark - 最新版本号
+/**
+ *  @brief 最新版本号
+ */
+- (void)getVersion:(void (^)(NSDictionary *posts, NSError *error))callback;
+
 @end

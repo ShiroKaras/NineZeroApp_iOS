@@ -434,4 +434,24 @@
     }];
 }
 
+- (void)getVersion:(void (^)(NSDictionary *response, NSError *error))callback{
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // Create request
+    NSDictionary* URLParameters = @{
+                                    @"id":@"1117413473",
+                                    };
+    NSMutableURLRequest* request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:@"http://itunes.apple.com/lookup" parameters:URLParameters error:NULL];
+    
+    // Fetch Request
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        callback(responseObject, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        callback(nil, error);
+    }];
+    
+    [manager.operationQueue addOperation:operation];
+}
+
 @end
