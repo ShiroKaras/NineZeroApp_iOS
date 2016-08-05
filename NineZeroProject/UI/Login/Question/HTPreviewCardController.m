@@ -605,12 +605,12 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     [[HTUIHelper mainController] reloadMascotViewData];
                 });
             } else {
-                if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", question.hint]];
+                if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
                 [_composeView showAnswerCorrect:NO];
                 clickCount++;
             }
         } else {
-            if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", question.hint]];
+            if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
             [_composeView showAnswerCorrect:NO];
             clickCount++;
         }
