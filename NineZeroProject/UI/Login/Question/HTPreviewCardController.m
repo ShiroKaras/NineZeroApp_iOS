@@ -539,11 +539,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypeCompose: {
-            _composeView = [[HTComposeView alloc] init];
+            _composeView = [[HTComposeView alloc] initWithQustionID:cell.question.questionID frame:CGRectMake(0, 0, self.view.width, self.view.height)];
             _composeView.delegate = self;
-            _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+//            _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
             _composeView.alpha = 0.0;
-            _composeView.associatedQuestion = cell.question;
             [self.view addSubview:_composeView];
             [_composeView becomeFirstResponder];
             [UIView animateWithDuration:0.3 animations:^{
@@ -576,6 +575,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 #pragma mark - HTComposeView Delegate
 
 - (void)composeView:(HTComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
+    _composeView.participatorView.hidden = YES;
     [self composeWithAnswer:answer question:composeView.associatedQuestion];
 }
 

@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @class HTComposeView;
 @class HTQuestion;
+@class HTRanker;
 @protocol HTComposeViewDelegate <NSObject>
 
 @required
@@ -32,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<HTComposeViewDelegate> delegate; ///< 代理
 @property (nonatomic, strong) HTQuestion *associatedQuestion;
 @property (nonatomic, strong) UIButton *composeButton;           ///< 输入按钮
+@property (nonatomic, strong) UIView *participatorView;             //  参与者
+
+- (instancetype)initWithQustionID:(uint64_t)questionID frame:(CGRect)frame;
 
 /**
  *  @biref 响应键盘

@@ -167,7 +167,7 @@
     }];
 }
 
-- (void)getRankListWithQuestion:(uint64_t)questionID callback:(HTGetRankListCallback)callback {
+- (void)getRankListWithQuestion:(uint64_t)questionID callback:(HTGetUsersListCallback)callback {
     NSDictionary *dict = @{@"qid" : [NSString stringWithFormat:@"%llu", questionID]};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getRankListCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
@@ -187,6 +187,28 @@
         callback(NO, nil);
         DLog(@"%@", error);
     }];
+}
+
+- (void)getUsersRandomListWithQuestion:(uint64_t)questionID callback:(HTGetUsersListCallback)callback {
+    NSDictionary *dict = @{@"qid" : [NSString stringWithFormat:@"%llu", questionID]};
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getUsersRandomListCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
+        if (package.resultCode == 0) {
+            NSMutableArray<HTRanker *> *rankers = [NSMutableArray array];
+            for (NSDictionary *dataDict in package.data) {
+                HTRanker *ranker = [HTRanker objectWithKeyValues:dataDict];
+                [rankers addObject:ranker];
+            }
+            callback(true, rankers);
+        } else {
+            callback(NO, nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(NO, nil);
+        DLog(@"%@", error);
+    }];
+
 }
 
 - (void)verifyQuestion:(uint64_t)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback {

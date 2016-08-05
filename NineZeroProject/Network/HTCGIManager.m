@@ -73,6 +73,10 @@
     return [NSString stringWithFormat:@"%@Question/getTopAnsweredUserList", NETWORK_HOST];
 }
 
++ (NSString *)getUsersRandomListCGIKey {
+    return [NSString stringWithFormat:@"%@Question/getAnsweredRandUserList", NETWORK_HOST];
+}
+
 + (NSString *)getExtraHintCGIKey {
     return [NSString stringWithFormat:@"%@Question/getRestHint", NETWORK_HOST];
 }

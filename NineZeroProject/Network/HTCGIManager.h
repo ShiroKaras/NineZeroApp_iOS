@@ -104,6 +104,11 @@
 + (NSString *)getRankListCGIKey;
 
 /**
+ *  @brief 随机参加者
+ */
++ (NSString *)getUsersRandomListCGIKey;
+
+/**
  *  @brief 获取答案详情
  */
 + (NSString *)getAnswerDetailCGIKey;
