@@ -21,7 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *userPasswordTextField;
-@property (weak, nonatomic) IBOutlet UIButton *registerButton;
+@property (weak, nonatomic) IBOutlet HTLoginButton *registerButton;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton_Weixin;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton_QQ;
@@ -86,7 +86,13 @@
 
 #pragma mark - Action
 
+
+- (IBAction)registerButtonClickedTouchDown:(id)sender {
+    _registerButton.backgroundColor = COMMON_PINK_COLOR;
+}
+
 - (IBAction)registerButtonClicked:(UIButton *)sender {
+    _registerButton.backgroundColor = COMMON_GREEN_COLOR;
     [MobClick event:@"register"];
     if (self.userNameTextField.text.length != 11) {
         [self showTipsWithText:@"请检查手机号码是否正确"];

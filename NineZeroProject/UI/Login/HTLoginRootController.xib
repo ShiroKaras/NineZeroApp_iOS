@@ -40,6 +40,7 @@
                     </state>
                     <connections>
                         <action selector="registerButtonClicked:" destination="-1" eventType="touchUpInside" id="sRy-Hm-8Og"/>
+                        <action selector="registerButtonClickedTouchDown:" destination="-1" eventType="touchDown" id="ARI-Mp-Dw5"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="nCL-V8-2Gm" userLabel="userNameView">
