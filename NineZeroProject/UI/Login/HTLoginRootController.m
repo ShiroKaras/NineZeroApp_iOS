@@ -87,12 +87,12 @@
 #pragma mark - Action
 
 
-- (IBAction)registerButtonClickedTouchDown:(id)sender {
-    _registerButton.backgroundColor = COMMON_PINK_COLOR;
-}
+//- (IBAction)registerButtonClickedTouchDown:(id)sender {
+//    _registerButton.backgroundColor = COMMON_PINK_COLOR;
+//}
 
 - (IBAction)registerButtonClicked:(UIButton *)sender {
-    _registerButton.backgroundColor = COMMON_GREEN_COLOR;
+//    _registerButton.backgroundColor = COMMON_GREEN_COLOR;
     [MobClick event:@"register"];
     if (self.userNameTextField.text.length != 11) {
         [self showTipsWithText:@"请检查手机号码是否正确"];

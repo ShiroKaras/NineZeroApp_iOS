@@ -195,9 +195,8 @@ typedef NS_ENUM(NSUInteger, WWKSwitchBoolValue) {
 @implementation HTProfileSettingQuitLoginCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = COMMON_GREEN_COLOR;
-    
+        
         _quitLabel = [[UILabel alloc] init];
         _quitLabel.font = [UIFont systemFontOfSize:18];
         _quitLabel.textColor = [UIColor whiteColor];

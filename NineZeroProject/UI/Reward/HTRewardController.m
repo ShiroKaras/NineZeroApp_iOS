@@ -78,11 +78,21 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     _sureButton.titleLabel.font = [UIFont systemFontOfSize:18];
     _sureButton.backgroundColor = COMMON_GREEN_COLOR;
     [_sureButton addTarget:self action:@selector(onClickSureButton) forControlEvents:UIControlEventTouchUpInside];
+    [_sureButton addTarget:self action:@selector(onClickSureButtonDown) forControlEvents:UIControlEventTouchDown];
+    [_sureButton addTarget:self action:@selector(onClickSureButtonDragExit) forControlEvents:UIControlEventTouchDragExit];
     [self.view addSubview:_sureButton];
 }
 
 - (void)reloadView {
     [self viewWillLayoutSubviews];
+}
+
+- (void)onClickSureButtonDragExit {
+    _sureButton.backgroundColor = COMMON_GREEN_COLOR;
+}
+
+- (void)onClickSureButtonDown {
+    _sureButton.backgroundColor = COMMON_PINK_COLOR;
 }
 
 - (void)onClickSureButton {
@@ -292,5 +302,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     
     _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, MAX(SCREEN_HEIGHT - 50, maxOffsetY + 100));
 }
+
+
 
 @end

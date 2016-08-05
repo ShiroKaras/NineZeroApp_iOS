@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet HTLoginButton *sendAgainButton;
 @property (weak, nonatomic) IBOutlet UIButton *avatarButton;
 @property (weak, nonatomic) IBOutlet UIButton *userAgreementButton;
+//@property (weak, nonatomic) IBOutlet HTLoginButton *nextButton;
 
 @end
 
@@ -80,6 +81,7 @@
 }
 
 - (IBAction)nextButtonClicked:(UIButton *)sender {
+    _nextButton.backgroundColor = COMMON_GREEN_COLOR;
     [self.view endEditing:YES];
     _loginUser.code = self.verifyTextField.text;
     _loginUser.user_name = [self.nickTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

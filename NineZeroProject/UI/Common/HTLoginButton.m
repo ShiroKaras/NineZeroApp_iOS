@@ -19,6 +19,9 @@
         self.titleLabel.textColor = [UIColor whiteColor];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+        [self addTarget:self action:@selector(touchDown) forControlEvents:UIControlEventTouchDown];
+        [self addTarget:self action:@selector(touchUpInside) forControlEvents:UIControlEventTouchUpInside];
+        [self addTarget:self action:@selector(touchUpInside) forControlEvents:UIControlEventTouchDragExit];
     } else {
         self.backgroundColor = [UIColor colorWithHex:0x0a3e32];
         self.titleLabel.textColor = [UIColor colorWithWhite:1 alpha:0.28];
@@ -36,4 +39,11 @@
     }
 }
 
+- (void)touchDown {
+    self.backgroundColor = COMMON_PINK_COLOR;
+}
+
+- (void)touchUpInside {
+    self.backgroundColor = COMMON_GREEN_COLOR;
+}
 @end

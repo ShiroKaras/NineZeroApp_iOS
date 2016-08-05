@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<HTRanker *> *rankerList;
 @property (nonatomic, strong) HTBlankView *blankView;
+@property (nonatomic, strong) UIButton *completeButton;
 @end
 
 @implementation SKRankInQuestionViewController
@@ -31,12 +32,14 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
-    UIButton *completeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    completeButton.frame = CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50);
-    completeButton.backgroundColor = COMMON_GREEN_COLOR;
-    [completeButton setTitle:@"完成" forState:UIControlStateNormal];
-    [completeButton addTarget:self action:@selector(onClickCompleteButton) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:completeButton];
+    _completeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _completeButton.frame = CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50);
+    _completeButton.backgroundColor = COMMON_GREEN_COLOR;
+    [_completeButton setTitle:@"完成" forState:UIControlStateNormal];
+    [_completeButton addTarget:self action:@selector(onClickCompleteButton) forControlEvents:UIControlEventTouchUpInside];
+    [_completeButton addTarget:self action:@selector(onClickCompleteButtonDown) forControlEvents:UIControlEventTouchDown];
+    [_completeButton addTarget:self action:@selector(onClickCompleteButtonDragExit) forControlEvents:UIControlEventTouchDragExit];
+    [self.view addSubview:_completeButton];
     
     
     self.rankerList = [NSArray array];
@@ -66,7 +69,30 @@
     [super didReceiveMemoryWarning];
 }
 
+//  颜色转换为背景图片
+- (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 #pragma mark - Aciton
+
+- (void)onClickCompleteButtonDragExit {
+    _completeButton.backgroundColor = COMMON_GREEN_COLOR;
+}
+
+- (void)onClickCompleteButtonDown {
+    _completeButton.backgroundColor = COMMON_PINK_COLOR;
+}
 
 - (void)onClickCompleteButton {
     [self dismissViewControllerAnimated:YES completion:nil];
