@@ -29,6 +29,7 @@
     [self.tableView registerClass:[SKRankInQuestionTableViewCell class] forCellReuseIdentifier:@"RankCell"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"RankCellHeader"];
     self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.alpha = 0.9;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
@@ -40,7 +41,6 @@
     [_completeButton addTarget:self action:@selector(onClickCompleteButtonDown) forControlEvents:UIControlEventTouchDown];
     [_completeButton addTarget:self action:@selector(onClickCompleteButtonDragExit) forControlEvents:UIControlEventTouchDragExit];
     [self.view addSubview:_completeButton];
-    
     
     self.rankerList = [NSArray array];
     [HTProgressHUD show];
