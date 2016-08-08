@@ -180,6 +180,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 - (void)reloadViews {
     if (self.mascots.count == 1) {
         self.onlyOneMascotImageView.hidden = NO;
+        self.onlyOneMascotBackgroundImageView.hidden = NO;
         self.mascotTipView.hidden = NO;
         self.tipImageView.hidden = NO;
         self.tipLabel.hidden = NO;
@@ -188,6 +189,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
         self.mascotTipView.tipNumber = self.mascots[0].unread_articles;
     } else {
         self.onlyOneMascotImageView.hidden = YES;
+        self.onlyOneMascotBackgroundImageView.hidden = YES;
         self.mascotTipView.hidden = YES;
         self.tipImageView.hidden = YES;
         self.tipLabel.hidden = YES;
