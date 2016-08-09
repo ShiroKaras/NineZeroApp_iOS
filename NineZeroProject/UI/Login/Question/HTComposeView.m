@@ -128,7 +128,7 @@
         } else if (SCREEN_WIDTH >= IPHONE6_PLUS_SCREEN_WIDTH) {
             make.top.equalTo(_dimmingView).offset(74);
         } else {
-            make.top.equalTo(_dimmingView).offset(54);
+            make.top.equalTo(_dimmingView).offset(62);
         }
         make.left.equalTo(_dimmingView);
         make.right.equalTo(_dimmingView);
