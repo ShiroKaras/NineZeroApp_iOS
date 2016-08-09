@@ -144,6 +144,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"mascotintropage"];
     
     void (^netWorkErrorHandler)() = ^() {
@@ -200,6 +201,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"mascotintropage"];
 }
 

@@ -94,6 +94,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"mascotpage"];
 }
 

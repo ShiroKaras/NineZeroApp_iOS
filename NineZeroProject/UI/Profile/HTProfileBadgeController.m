@@ -124,10 +124,12 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"badgepage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"badgepage"];
 }
 
@@ -157,7 +159,7 @@
     HTBadgeHeaderView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind  withReuseIdentifier:NSStringFromClass([HTBadgeHeaderView class]) forIndexPath:indexPath];
     NSInteger badgeLevel = [self badgeLevel];
     NSInteger targetLevel = [[[self badgeLevels] objectAtIndex:badgeLevel] integerValue];
-    view.numberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)badgeLevel+1];
+    view.numberLabel.text = [NSString stringWithFormat:@"%d", (NSInteger)badgeLevel+1];
     if ([self.profileInfo.gold integerValue] < 1200) {
         view.coinNumberLabel.text = [NSString stringWithFormat:@"%ld", (long)(targetLevel - [self.profileInfo.gold integerValue])];
     }else{

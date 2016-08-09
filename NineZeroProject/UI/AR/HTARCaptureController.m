@@ -195,6 +195,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 #pragma mark - AMapDelegate

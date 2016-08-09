@@ -217,10 +217,12 @@ static NSInteger const kChangeNameViewTag = 12345;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"settingpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"settingpage"];
 }
 
