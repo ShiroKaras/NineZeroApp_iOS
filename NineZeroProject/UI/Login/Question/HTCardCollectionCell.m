@@ -278,6 +278,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _labelMoreAnswer.frame = CGRectMake(rect.origin.x-13-_labelMoreAnswer.width, rect.origin.y, _labelMoreAnswer.size.width, _labelMoreAnswer.size.height);
     
     [UIView animateWithDuration:0.2 animations:^{
+        _composeButton.alpha = 0;
         _dimmingView.alpha = 0.8;
         
         _buttonMoreClose.frame = rect;
@@ -313,7 +314,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)hideMoreButtons {
+    
     [UIView animateWithDuration:0.2 animations:^{
+        _composeButton.alpha = 1;
         _dimmingView.alpha = 0;
 
         CGRect rect=[_composeButton convertRect: _composeButton.bounds toView:AppDelegateInstance.window];
