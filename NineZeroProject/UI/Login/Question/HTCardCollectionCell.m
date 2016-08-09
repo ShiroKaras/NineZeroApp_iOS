@@ -238,6 +238,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [_buttonMoreClose setImage:[UIImage imageNamed:@"btn_more_close_highlight"] forState:UIControlStateHighlighted];
         [_buttonMoreClose addTarget:self action:@selector(hideMoreButtons) forControlEvents:UIControlEventTouchUpInside];
         [_dimmingView addSubview:_buttonMoreClose];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     }
     return self;
 }
