@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -19,7 +19,7 @@
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnd-iO-C5t">
                     <rect key="frame" x="12" y="19" width="390" height="3859"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <mutableString key="text">重要须知：		
+                    <string key="text">重要须知：		
 
 深圳九零九五网络科技有限公司在此特别提醒用户认真阅读、充分理解本《服务协议》（下称《协议》）用户应认真阅读、充分理解本《协议》中各条款，包括免除或者限制深圳九零九五网络科技有限公司责任的免责条款及对用户的权利限制条款。请您审慎阅读并选择接受或不接受本《协议》（未成年人应在法定监护人陪同下阅读）。除非您接受本《协议》所有条款，否则您无权注册、登录或使用本协议所涉相关服务。您的注册、登录、使用等行为将视为对本《协议》的接受，并同意接受本《协议》各项条款的约束。
 
@@ -89,7 +89,7 @@
 		1、深圳九零九五网络科技有限公司郑重提醒用户注意本《协议》中免除深圳九零九五网络科技有限公司责任和加重用户义务的条款，请用户仔细阅读，自主考虑风险。未成年人应在法定监护人的陪同下阅读本《协议》。以上各项条款内容的最终解释权及修改权归深圳九零九五网络科技有限公司所有。
 		2、本《协议》所定的任何条款的部分或全部无效者，不影响其它条款的效力。
 		3、本《协议》的版权由深圳九零九五网络科技有限公司所有，深圳九零九五网络科技有限公司保留一切解释和修改权利。
-</mutableString>
+</string>
                     <color key="textColor" red="0.79607843137254897" green="0.79607843137254897" blue="0.79607843137254897" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

@@ -100,7 +100,7 @@
                         <constraint firstItem="l1O-i1-1Nd" firstAttribute="leading" secondItem="PFP-CU-6qo" secondAttribute="leading" id="u2T-qO-pKc"/>
                     </constraints>
                 </view>
-                <button opaque="NO" tag="300" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SK6-ZF-dm7" userLabel="SureButton" customClass="HTLoginButton">
+                <button opaque="NO" tag="300" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SK6-ZF-dm7" userLabel="SureButton" customClass="HTLoginButton">
                     <rect key="frame" x="0.0" y="111" width="375" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="db6-D3-R1m"/>
