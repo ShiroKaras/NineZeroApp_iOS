@@ -183,7 +183,7 @@ typedef enum : NSUInteger {
 
 static NSInteger const kChangeNameViewTag = 12345;
 
-@interface HTProfileSettingController () <HTProfileSettingPushCellDelegate, HTProfileSettingChangeNameViewDelegate>
+@interface HTProfileSettingController () <HTProfileSettingPushCellDelegate, HTProfileSettingChangeNameViewDelegate, HTProfileSettingQuitCellDelegate>
 
 @end
 
@@ -261,6 +261,7 @@ static NSInteger const kChangeNameViewTag = 12345;
         return cell;
     } else if (type == HTProfileSettingTypeQuitLogin) {
         HTProfileSettingQuitLoginCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingQuitLoginCell class]) forIndexPath:indexPath];
+        cell.delegate = self;
         return cell;
     } else if (type == HTProfileSettingTypeClearCache) {
         HTProfileSettingTextCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingTextCell class]) forIndexPath:indexPath];
@@ -299,8 +300,8 @@ static NSInteger const kChangeNameViewTag = 12345;
         [self presentSystemPhotoLibraryController];
     } else if (type == HTProfileSettingTypeQuitLogin) {
         //TODO 修改
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
-        [alertView show];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+//        [alertView show];
     } else if (type == HTProfileSettingTypeName) {
         HTProfileSettingChangeNameView *changeView = [[HTProfileSettingChangeNameView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         [changeView setUserInfo:_userInfo];
@@ -388,6 +389,13 @@ static NSInteger const kChangeNameViewTag = 12345;
     _userInfo.settingType = HTUpdateUserInfoTypePushSetting;
     [[[HTServiceManager sharedInstance] profileService] updateUserInfo:_userInfo completion:^(BOOL success, HTResponsePackage *response) {
     }];
+}
+
+#pragma mark - HTProfileSettingQuitCell Delegate 
+
+- (void)onClickQuitSettingButton {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    [alertView show];
 }
 
 #pragma mark - HTProfileSettingChangeNameView Delegate
