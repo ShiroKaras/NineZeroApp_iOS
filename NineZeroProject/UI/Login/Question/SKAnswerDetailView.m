@@ -32,6 +32,8 @@
 
 @property (nonatomic, strong) UIView *HUDView;
 @property (nonatomic, strong) UIImageView *HUDImageView;
+
+@property (nonatomic, strong) NSArray *articlesArray;
 @end
 
 @implementation SKAnswerDetailView{
@@ -82,6 +84,8 @@
         [_backScrollView setContentSize:(CGSizeMake(self.frame.size.width, scrollViewHeight+52.5+56+21))];
         if (answerDetail.articles.count>0) {
             [self createBottomViewWithArticles:answerDetail.articles];
+            self.articlesArray = answerDetail.articles;
+            DLog(@"ansDetailArticles:%@", answerDetail.articles);
         }
     }];
 }
@@ -222,7 +226,7 @@
         [view addSubview:titleLabel];
         
         UIButton *tap = [UIButton buttonWithType:UIButtonTypeCustom];
-        tap.tag = 300+ [articles[i][@"article_id"] integerValue];
+        tap.tag = 1000 + i;
         [tap addTarget:self action:@selector(didClickArticle:) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:tap];
         
@@ -321,8 +325,8 @@
 }
 
 - (void)didClickArticle:(UIButton *)sender {
-    NSInteger articleID = sender.tag-300;
-    [[[HTServiceManager sharedInstance] profileService] getArticle:articleID completion:^(BOOL success, HTArticle *articles) {
+    NSNumber *articleID = self.articlesArray[sender.tag-1000][@"article_id"];
+    [[[HTServiceManager sharedInstance] profileService] getArticle:[articleID integerValue] completion:^(BOOL success, HTArticle *articles) {
         HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
         [[self viewController].navigationController pushViewController:articleViewController animated:YES];
     }];
