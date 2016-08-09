@@ -31,7 +31,6 @@
                 </imageView>
                 <button opaque="NO" tag="300" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAo-EP-LTN" userLabel="SureButton" customClass="HTLoginButton">
                     <rect key="frame" x="0.0" y="303" width="375" height="50"/>
-                    <color key="backgroundColor" red="0.14117647059999999" green="0.86666666670000003" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="RlN-SL-tkd"/>
                     </constraints>
@@ -184,8 +183,8 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="tCG-Yg-4l0"/>
                     <exclude reference="sWO-aD-Gib"/>
+                    <exclude reference="tCG-Yg-4l0"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="-316.5" y="419.5"/>

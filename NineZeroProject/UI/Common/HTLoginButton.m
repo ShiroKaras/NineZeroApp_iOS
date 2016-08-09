@@ -15,13 +15,14 @@
 - (void)setEnabled:(BOOL)enabled {
     [super setEnabled:enabled];
     if (enabled == YES) {
-        self.backgroundColor = COMMON_GREEN_COLOR;
         self.titleLabel.textColor = [UIColor whiteColor];
+        
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
-        [self addTarget:self action:@selector(touchDown) forControlEvents:UIControlEventTouchDown];
-        [self addTarget:self action:@selector(touchUpInside) forControlEvents:UIControlEventTouchUpInside];
-        [self addTarget:self action:@selector(touchUpInside) forControlEvents:UIControlEventTouchDragExit];
+        
+        [self setBackgroundImage:[self imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateNormal];
+        [self setBackgroundImage:[self imageWithColor:COMMON_PINK_COLOR] forState:UIControlStateHighlighted];
     } else {
         self.backgroundColor = [UIColor colorWithHex:0x0a3e32];
         self.titleLabel.textColor = [UIColor colorWithWhite:1 alpha:0.28];
@@ -39,11 +40,19 @@
     }
 }
 
-- (void)touchDown {
-    self.backgroundColor = COMMON_PINK_COLOR;
+//  颜色转换为背景图片
+- (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
-- (void)touchUpInside {
-    self.backgroundColor = COMMON_GREEN_COLOR;
-}
 @end

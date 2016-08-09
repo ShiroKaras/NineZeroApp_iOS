@@ -298,6 +298,7 @@ static NSInteger const kChangeNameViewTag = 12345;
     } else if (type == HTProfileSettingTypeAvatar) {
         [self presentSystemPhotoLibraryController];
     } else if (type == HTProfileSettingTypeQuitLogin) {
+        //TODO 修改
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
         [alertView show];
     } else if (type == HTProfileSettingTypeName) {

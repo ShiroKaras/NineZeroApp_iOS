@@ -15,7 +15,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<HTRanker *> *rankerList;
 @property (nonatomic, strong) HTBlankView *blankView;
-@property (nonatomic, strong) UIButton *completeButton;
+@property (nonatomic, strong) HTLoginButton *completeButton;
 @end
 
 @implementation SKRankInQuestionViewController
@@ -33,13 +33,12 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
-    _completeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _completeButton = [HTLoginButton buttonWithType:UIButtonTypeCustom];
     _completeButton.frame = CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50);
-    _completeButton.backgroundColor = COMMON_GREEN_COLOR;
+    _completeButton.enabled = YES;
     [_completeButton setTitle:@"完成" forState:UIControlStateNormal];
     [_completeButton addTarget:self action:@selector(onClickCompleteButton) forControlEvents:UIControlEventTouchUpInside];
-    [_completeButton addTarget:self action:@selector(onClickCompleteButtonDown) forControlEvents:UIControlEventTouchDown];
-    [_completeButton addTarget:self action:@selector(onClickCompleteButtonDragExit) forControlEvents:UIControlEventTouchDragExit];
+    
     [self.view addSubview:_completeButton];
     
     self.rankerList = [NSArray array];
@@ -85,14 +84,6 @@
 }
 
 #pragma mark - Aciton
-
-- (void)onClickCompleteButtonDragExit {
-    _completeButton.backgroundColor = COMMON_GREEN_COLOR;
-}
-
-- (void)onClickCompleteButtonDown {
-    _completeButton.backgroundColor = COMMON_PINK_COLOR;
-}
 
 - (void)onClickCompleteButton {
     [self dismissViewControllerAnimated:YES completion:nil];
