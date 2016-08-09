@@ -106,7 +106,7 @@
                     imageView.layer.masksToBounds = YES;
                     imageView.layer.borderWidth = 2;
                     imageView.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
-                    [imageView sd_setImageWithURL:[NSURL URLWithString:_participatorArray[i].user_avatar]];
+                    [imageView sd_setImageWithURL:[NSURL URLWithString:_participatorArray[i].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
                     [_participatorView addSubview:imageView];
                 }
             }
