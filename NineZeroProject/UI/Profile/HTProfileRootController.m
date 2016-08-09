@@ -277,9 +277,10 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((duration - 0.2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         NSArray<HTQuestion *>* questionArray = @[question];
         HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeIndexRecord andQuestList:questionArray];
+        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:cardController];
         cardController.delegate = self;
         cardController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:cardController animated:YES completion:^{
+        [self presentViewController:navController animated:YES completion:^{
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             
             [_snapView removeFromSuperview];

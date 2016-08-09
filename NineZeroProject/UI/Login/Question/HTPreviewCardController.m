@@ -540,8 +540,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         }
         case HTCardCollectionClickTypeCompose: {
             _composeView = [[HTComposeView alloc] initWithQustionID:cell.question.questionID frame:CGRectMake(0, 0, self.view.width, self.view.height)];
+            _composeView.associatedQuestion = cell.question;
             _composeView.delegate = self;
-//            _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
             _composeView.alpha = 0.0;
             [self.view addSubview:_composeView];
             [_composeView becomeFirstResponder];
@@ -589,9 +589,12 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                 [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
                 [_composeView showAnswerCorrect:YES];
                 clickCount = 0;
-                questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
-                [self willAppearQuestionAtIndex:questionList.count - 1];
-                [self.collectionView reloadData];
+                [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *qL) {
+                    questionList = [qL mutableCopy];
+                    [self willAppearQuestionAtIndex:questionList.count - 1];
+                    [self.collectionView reloadData];
+//                    questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
+                }];
                 // 获取成功了，开始分刮奖励
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
