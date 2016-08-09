@@ -92,6 +92,10 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    if (self.navigationController) {
+        self.navigationController.navigationBarHidden = YES;
+    }
     [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID questionID:_qid completion:^(BOOL success, HTResponsePackage *rsp) {
         [HTProgressHUD dismiss];
@@ -105,6 +109,15 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    if (self.navigationController) {
+        self.navigationController.navigationBarHidden = NO;
+    }
 }
 
 - (void)createTopViewWith:(HTResponsePackage*)rsp {
