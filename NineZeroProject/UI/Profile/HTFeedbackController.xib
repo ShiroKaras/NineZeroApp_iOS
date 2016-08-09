@@ -67,12 +67,11 @@
                         <outlet property="delegate" destination="-1" id="Yg8-Ui-63h"/>
                     </connections>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pG4-i2-HOC" customClass="HTLoginButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pG4-i2-HOC" customClass="HTLoginButton">
                     <rect key="frame" x="0.0" y="196" width="326" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="0zg-7j-YVR"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="提交">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
