@@ -72,11 +72,12 @@
                                 </mask>
                             </variation>
                         </textField>
-                        <button opaque="NO" tag="400" contentMode="scaleToFill" placeholderIntrinsicWidth="246" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNo-gQ-I7a" customClass="HTLoginButton">
+                        <button opaque="NO" tag="400" contentMode="scaleToFill" placeholderIntrinsicWidth="246" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNo-gQ-I7a" customClass="HTLoginButton">
                             <rect key="frame" x="302" y="11" width="104" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="104" id="18T-id-Llg"/>
                             </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="再发一次(180)">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
