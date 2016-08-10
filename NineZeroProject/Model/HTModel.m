@@ -117,18 +117,19 @@ HTINIT(HTAnswerDetail)
 
 @implementation HTMascot
 HTINIT(HTMascot)
-+ (NSDictionary *)objectClassInArray{
-    return @{
-             @"articles" : @"HTArticle",
-             };
-}
+//+ (NSDictionary *)objectClassInArray{
+//    return @{
+//             @"articles" : @"HTArticle",
+//             };
+//}
 
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"mascotID" : @"pet_id",
                                      @"getTime" : @"time",
                                      @"mascotName" : @"pet_name",
                                      @"mascotPic" : @"pet_pic",
-                                     @"mascotDescription" : @"pet_desc"};
+                                     @"mascotDescription" : @"pet_desc",
+                                     @"articles" : @"articles"};
     return propertyMapper;
 }
 @end

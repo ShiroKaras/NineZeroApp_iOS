@@ -43,7 +43,7 @@
             [articles addObject:article];
         }
         mascot.article_list = articles;
-        mascot.articles = 8;
+        mascot.articlesCount = 8;
         [mascots addObject:mascot];
     }
     return mascots;
@@ -65,7 +65,7 @@
         [articles addObject:article];
     }
     mascot.article_list = articles;
-    mascot.articles = articleCount;
+    mascot.articlesCount = articleCount;
     return mascot;
 }
 

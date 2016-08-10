@@ -99,12 +99,20 @@ CGFloat alphaLight = 1.0;
     [_mascotController reloadAllData];
 }
 
+- (void)showFlag:(NSInteger)unreadCount {
+    if (unreadCount>0) {
+        [self showUnreadArticleFlag];
+    }else {
+        [self removeUnreadArticleFlag];
+    }
+}
+
 - (void)showUnreadArticleFlag {
-    self.unreadArticleFlagImageView.hidden = NO;
+    self.unreadArticleFlagImageView.alpha = 1;
 }
 
 - (void)removeUnreadArticleFlag {
-    self.unreadArticleFlagImageView.hidden = YES;
+    self.unreadArticleFlagImageView.alpha = 0;
 }
 
 #pragma mark - Action

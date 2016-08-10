@@ -20,7 +20,9 @@
 
 - (void)reloadMascotViewData;
 
-- (void)showUnreadArticleFlag;
+- (void)showFlag:(NSInteger)unreadCount;
 
-- (void)removeUnreadArticleFlag;
+//- (void)showUnreadArticleFlag;
+//
+//- (void)removeUnreadArticleFlag;
 @end

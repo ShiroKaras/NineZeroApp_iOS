@@ -23,7 +23,7 @@
             for (int i = 0; i != [responseObject[@"data"] count]; i++) {
                 HTMascot *mascot = [HTMascot objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
                 //获取未读文章数
-                mascot.unread_articles = mascot.articles - [[HTStorageManager sharedInstance] getMascotInfoWithIndex:mascot.mascotID].articles;
+                mascot.unread_articles = mascot.articlesCount - [[HTStorageManager sharedInstance] getMascotInfoWithIndex:mascot.mascotID].articlesCount;
                 [mascots addObject:mascot];
             }
             callback(true, mascots);
@@ -54,7 +54,7 @@
             }
             mascot.article_list = articleList;
             //存储已读文章数
-            mascot.articles = mascot.article_list.count;
+            mascot.articlesCount = mascot.article_list.count;
             [[HTStorageManager sharedInstance] setMascotInfo:mascot withIndex:mascotID];
             callback(true, mascot);
         } else {
