@@ -25,7 +25,7 @@ static CGFloat kDurationPerAnimate = 0.1;
 
 - (void)setIndex:(NSInteger)index {
     _index = index;
-    NSString *imageName = [NSString stringWithFormat:@"img_mascot_%d_animation_2_0000", (_index + 1)];
+    NSString *imageName = [NSString stringWithFormat:@"img_mascot_%ld_animation_2_0000", (_index + 1)];
     YYImage *image = [YYImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imageName ofType:@"png"]];
     [self setImage:image];
 }

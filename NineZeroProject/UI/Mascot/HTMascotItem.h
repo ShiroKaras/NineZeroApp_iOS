@@ -14,7 +14,7 @@
  */
 @class HTMascot;
 @interface HTMascotItem : YYAnimatedImageView
-@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) long index;
 @property (nonatomic, strong) HTMascot *mascot;
 /**
  *  @brief 播放几号动画，支持2，3，4号三种动画
