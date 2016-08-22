@@ -99,6 +99,11 @@
 + (NSString *)getQuestionDetailCGIKey;
 
 /**
+ *  @brief 分享题目
+ */
++ (NSString *)shareQuestionCGIKey;
+
+/**
  *  @brief 前十名
  */
 + (NSString *)getRankListCGIKey;
@@ -256,6 +261,11 @@
  *  "article_id"
  */
 + (NSString *)collectArticleCGIKey;
+
+/**
+ *  @brief 分享文章
+ */
++ (NSString *)shareArticleCGIKey;
 
 /**
  *  @brief 标记已读

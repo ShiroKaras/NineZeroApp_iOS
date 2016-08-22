@@ -87,6 +87,11 @@ typedef void (^HTGetUsersListCallback) (BOOL success, NSArray<HTRanker *> *ranke
 - (void)verifyQuestion:(uint64_t)questionID withLocation:(CGPoint)location callback:(HTResponseCallback)callback;
 
 /**
+ *  @brief 分享题目
+ */
+- (void)shareQuestionWithQuestionID:(uint64_t)questionID callback:(HTResponseCallback)callback;
+
+/**
  *  @brief 获取七牛下载链接
  *  @param key      服务器给的key
  */

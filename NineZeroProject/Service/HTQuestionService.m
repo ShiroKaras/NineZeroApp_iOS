@@ -297,6 +297,20 @@
     }];
 }
 
+- (void)shareQuestionWithQuestionID:(uint64_t)questionID callback:(HTResponseCallback)callback {
+    if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
+    NSDictionary *dict = @{@"user_id" : [[HTStorageManager sharedInstance] getUserID],
+                           @"area_id" : AppDelegateInstance.cityCode,
+                           @"qid" : @(questionID)};
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager shareQuestionCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@",responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        callback(true, rsp);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(false, nil);
+    }];
+}
+
 - (void)getQiniuDownloadURLsWithKeys:(NSArray<NSString *> *)keys callback:(HTResponseCallback)callback {
     if (keys.count == 0) return;
     NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
