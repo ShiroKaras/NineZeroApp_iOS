@@ -12,6 +12,8 @@
 
 @interface SKIndexViewController ()
 
+@property (nonatomic, strong) NSArray<HTQuestion*>* questionList;
+
 @end
 
 @implementation SKIndexViewController
@@ -31,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,6 +41,12 @@
 }
 
 #pragma mark - Create UI
+- (void)loadData {
+    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
+        self.questionList = questionList;
+    }];
+}
+
 - (void)createUI {
     self.view.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
     __weak __typeof(self)weakSelf = self;
@@ -148,12 +157,27 @@
         make.top.equalTo(mascotButton);
         make.centerX.equalTo(timerLevelButton);
     }];
+    
+    //倒计时
+    //非休息日
+    UIView *countDownView = [UIView new];
+    countDownView.backgroundColor = [UIColor colorWithHex:0xFF063E];
+    countDownView.layer.cornerRadius = 5;
+    [self.view addSubview:countDownView];
+    
+    [countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@(72));
+        make.height.equalTo(@(29));
+        make.left.equalTo(timerLevelButton.mas_centerX);
+        make.centerY.equalTo(timerLevelButton.mas_top);
+    }];
 }
 
 #pragma mark - Actions
 
 - (void)allLevelButtonClick:(UIButton *)sender{
     SKQuestionPageViewController *controller = [[SKQuestionPageViewController alloc] init];
+    controller.questionList = self.questionList;
     [self.navigationController pushViewController:controller animated:YES];
 }
 

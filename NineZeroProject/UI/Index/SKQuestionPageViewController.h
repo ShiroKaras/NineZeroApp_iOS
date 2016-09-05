@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTUIHeader.h"
 
 @interface SKQuestionPageViewController : UIViewController
+
+@property(nonatomic, strong) NSArray<HTQuestion*>* questionList;
 
 @end
