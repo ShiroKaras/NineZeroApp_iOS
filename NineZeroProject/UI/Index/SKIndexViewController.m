@@ -13,7 +13,7 @@
 @interface SKIndexViewController ()
 
 @property (nonatomic, strong) NSArray<HTQuestion*>* questionList;
-
+@property (nonatomic, assign) uint64_t endTime;
 @end
 
 @implementation SKIndexViewController
@@ -160,17 +160,68 @@
     
     //倒计时
     //非休息日
-    UIView *countDownView = [UIView new];
-    countDownView.backgroundColor = [UIColor colorWithHex:0xFF063E];
-    countDownView.layer.cornerRadius = 5;
-    [self.view addSubview:countDownView];
-    
-    [countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@(72));
-        make.height.equalTo(@(29));
-        make.left.equalTo(timerLevelButton.mas_centerX);
-        make.centerY.equalTo(timerLevelButton.mas_top);
-    }];
+    BOOL isRestDay = YES;
+    if (isRestDay) {
+        [timerLevelButton setImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
+        
+        UIView *countDownView = [UIView new];
+        countDownView.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:countDownView];
+        
+        UIImageView *countDownImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"popup_homepage_timer"]];
+        [countDownView sizeToFit];
+        [countDownView addSubview:countDownImageView];
+        
+        UILabel *timeLabel = [UILabel new];
+        timeLabel.text = @"00:00:00";
+        timeLabel.textColor = [UIColor whiteColor];
+        timeLabel.font = MOON_FONT_OF_SIZE(12);
+        timeLabel.textAlignment = NSTextAlignmentCenter;
+        [countDownView addSubview:timeLabel];
+        
+        [countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@(80));
+            make.height.equalTo(@(41));
+            make.right.equalTo(timerLevelButton.mas_right).offset(-20);
+            make.bottom.equalTo(timerLevelButton.mas_top).offset(9);
+        }];
+        
+        [countDownImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(countDownView);
+            make.height.equalTo(countDownView);
+            make.center.equalTo(countDownView);
+        }];
+        
+        [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(countDownView);
+            make.bottom.equalTo(countDownView.mas_bottom).offset(-9);
+        }];
+    } else {
+        UIView *countDownView = [UIView new];
+        countDownView.backgroundColor = [UIColor colorWithHex:0xFF063E];
+        countDownView.layer.cornerRadius = 5;
+        [self.view addSubview:countDownView];
+        
+        UILabel *timeLabel = [UILabel new];
+        timeLabel.text = @"00:00:00";
+        timeLabel.textColor = [UIColor whiteColor];
+        timeLabel.font = MOON_FONT_OF_SIZE(16);
+        timeLabel.textAlignment = NSTextAlignmentCenter;
+        [countDownView addSubview:timeLabel];
+        
+        [countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@(72));
+            make.height.equalTo(@(29));
+            make.left.equalTo(timerLevelButton.mas_centerX);
+            make.centerY.equalTo(timerLevelButton.mas_top);
+        }];
+        
+        [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(countDownView);
+            make.height.equalTo(countDownView);
+            make.center.equalTo(countDownView);
+        }];
+    }
 }
 
 #pragma mark - Actions
