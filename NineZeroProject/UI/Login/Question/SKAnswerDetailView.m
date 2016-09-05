@@ -91,7 +91,7 @@
 }
 
 - (void)createUI {
-    [AppDelegateInstance.mainController showBottomButton:NO];
+//    [AppDelegateInstance.mainController showBottomButton:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     _backImageView = [[UIImageView alloc] initWithFrame:self.frame];
@@ -284,7 +284,7 @@
 #pragma mark - Action
 
 - (void)didClickCancelButton {
-    [AppDelegateInstance.mainController showBottomButton:YES];
+//    [AppDelegateInstance.mainController showBottomButton:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.top = self.height;

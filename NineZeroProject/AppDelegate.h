@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "HTMainViewController.h"
+#import "SKIndexViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, strong) HTMainViewController *mainController;
+@property (nonatomic, strong) SKIndexViewController *mainController;
 @property (nonatomic, strong) NSString *cityCode;
 
 @end

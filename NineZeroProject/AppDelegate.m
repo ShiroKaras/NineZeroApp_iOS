@@ -17,6 +17,7 @@
 #import "HTRelaxController.h"
 #import "INTULocationManager.h"
 #import "HTMainViewController.h"
+#import "SKIndexViewController.h"
 #import "HTArticleController.h"
 #import "SKLaunchAnimationViewController.h"
 
@@ -152,7 +153,7 @@
 - (void)createWindowAndVisibleWithOptions:(NSDictionary*)launchOptions {
     if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        _mainController = [[HTMainViewController alloc] init];
+        _mainController = [[SKIndexViewController alloc] init];
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:_mainController];
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];

@@ -14,6 +14,8 @@
 		1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */; };
 		1121676D1CF3358E0048EA01 /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */; };
 		1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */; };
+		117417EA1D795AC300B5458F /* SKIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417E91D795AC300B5458F /* SKIndexViewController.m */; };
+		117417EE1D797F5C00B5458F /* SKQuestionPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417ED1D797F5C00B5458F /* SKQuestionPageViewController.m */; };
 		11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
@@ -788,6 +790,10 @@
 		1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SKUserAgreementViewController.xib; sourceTree = "<group>"; };
 		1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
+		117417E81D795AC300B5458F /* SKIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKIndexViewController.h; path = NineZeroProject/UI/Index/SKIndexViewController.h; sourceTree = SOURCE_ROOT; };
+		117417E91D795AC300B5458F /* SKIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKIndexViewController.m; path = NineZeroProject/UI/Index/SKIndexViewController.m; sourceTree = SOURCE_ROOT; };
+		117417EC1D797F5C00B5458F /* SKQuestionPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKQuestionPageViewController.h; path = Index/SKQuestionPageViewController.h; sourceTree = "<group>"; };
+		117417ED1D797F5C00B5458F /* SKQuestionPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKQuestionPageViewController.m; path = Index/SKQuestionPageViewController.m; sourceTree = "<group>"; };
 		11961CDA1D2D2B3400A00AF9 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		1196F29F1CF6DFA600E70C83 /* SKImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKImageHelper.h; sourceTree = "<group>"; };
@@ -1785,6 +1791,17 @@
 			path = UMengMobClick;
 			sourceTree = "<group>";
 		};
+		117417EB1D795ACE00B5458F /* Index */ = {
+			isa = PBXGroup;
+			children = (
+				117417E81D795AC300B5458F /* SKIndexViewController.h */,
+				117417E91D795AC300B5458F /* SKIndexViewController.m */,
+				117417EC1D797F5C00B5458F /* SKQuestionPageViewController.h */,
+				117417ED1D797F5C00B5458F /* SKQuestionPageViewController.m */,
+			);
+			name = Index;
+			sourceTree = "<group>";
+		};
 		11961CD91D2D2B3400A00AF9 /* ImageEffects */ = {
 			isa = PBXGroup;
 			children = (
@@ -1921,6 +1938,7 @@
 		1721D7191BEFB78B00498304 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				117417EB1D795ACE00B5458F /* Index */,
 				26973AFF1C005ECF00160D25 /* Common */,
 				1721D71A1BEFB7A100498304 /* Login */,
 				174CF77F1C146E15002E0DBB /* Question */,
@@ -4087,6 +4105,7 @@
 				11E827ED1D5324D2001047D4 /* SKRankInQuestionViewController.m in Sources */,
 				17F0F4761C93275C0050F0EB /* HTProfileBadgeController.m in Sources */,
 				179D2BAA1C5E414F000A4461 /* HTArticleController.m in Sources */,
+				117417EA1D795AC300B5458F /* SKIndexViewController.m in Sources */,
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
 				176B75751C7759B20069DE89 /* HTRelaxCoverController.m in Sources */,
 				17BE473A1C8603D300797E8E /* HTProfileRankCell.m in Sources */,
@@ -4191,6 +4210,7 @@
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
 				17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */,
 				17D997C11C1D49930091978E /* HTComposeView.m in Sources */,
+				117417EE1D797F5C00B5458F /* SKQuestionPageViewController.m in Sources */,
 				17F45AED1C7E1A8E004F2E32 /* HTUIHelper.m in Sources */,
 				17A92CDA1CA809B100BE893D /* MJRefreshConst.m in Sources */,
 				173A21171C568A34006A423D /* HTRewardController.m in Sources */,

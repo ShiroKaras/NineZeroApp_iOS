@@ -26,7 +26,7 @@
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
-+ (HTMainViewController *)mainController {
++ (SKIndexViewController *)mainController {
     return AppDelegateInstance.mainController;
 }
 

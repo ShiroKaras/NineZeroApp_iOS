@@ -216,7 +216,7 @@ onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
         DLog(@"%@", response);
         if (success) {
             if (response.resultCode == 0) {
-                HTMainViewController *controller = [[HTMainViewController alloc] init];
+                SKIndexViewController *controller = [[SKIndexViewController alloc] init];
 //                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
                 AppDelegateInstance.mainController = controller;
                 HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];

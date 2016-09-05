@@ -278,7 +278,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)loadUnreadArticleFlag {
     [[[HTServiceManager sharedInstance] profileService] getArticlesInPastWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
         NSLog(@"hasread: %ld",[UD integerForKey:@"hasreadArticlesCount"]);
-        [AppDelegateInstance.mainController showFlag:articles.count - [UD integerForKey:@"hasreadArticlesCount"]];
+//        [AppDelegateInstance.mainController showFlag:articles.count - [UD integerForKey:@"hasreadArticlesCount"]];
     }];
 }
 
@@ -477,7 +477,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             [UIView animateWithDuration:0.5 animations:^{
                 _showAnswerDetailView.alpha = 1.0f;
             } completion:^(BOOL finished) {
-                [AppDelegateInstance.mainController showBottomButton:NO];
+//                [AppDelegateInstance.mainController showBottomButton:NO];
                 [self.view bringSubviewToFront:_showAnswerDetailView];
             }];
             
@@ -602,7 +602,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                         reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                     }
                     [self presentViewController:reward animated:YES completion:nil];
-                    [[HTUIHelper mainController] reloadMascotViewData];
+//                    [[HTUIHelper mainController] reloadMascotViewData];
                 });
             } else {
                 if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
@@ -635,7 +635,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         }
         [self presentViewController:reward animated:YES completion:nil];
-        [[HTUIHelper mainController] reloadMascotViewData];
+//        [[HTUIHelper mainController] reloadMascotViewData];
     }];
 }
 
@@ -645,10 +645,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     NSInteger currentIndex = [self indexWithContentOffsetX:scrollView.contentOffset.x];
     if (self.cardType == HTPreviewCardTypeDefault && questionList.count > 3) {
         if (currentIndex <= questionList.count - 4) {
-            [[HTUIHelper mainController] showBackToToday:YES];
+//            [[HTUIHelper mainController] showBackToToday:YES];
         }
         if (currentIndex >= questionList.count - 3) {
-            [[HTUIHelper mainController] showBackToToday:NO];
+//            [[HTUIHelper mainController] showBackToToday:NO];
         }
     }
     static CGFloat preContentOffsetX = 0.0;

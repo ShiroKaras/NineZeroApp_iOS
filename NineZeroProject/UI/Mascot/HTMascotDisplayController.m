@@ -102,7 +102,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     [[[HTServiceManager sharedInstance] profileService] getArticlesInPastWithPage:0 count:0 callback:^(BOOL success, NSArray<HTArticle *> *articles) {
         NSLog(@"hasread: %ld",(long)[UD integerForKey:@"hasreadArticlesCount"]);
         [UD setInteger:articles.count forKey:@"hasreadArticlesCount"];
-        [AppDelegateInstance.mainController showFlag:articles.count - [UD integerForKey:@"hasreadArticlesCount"]];
+//        [AppDelegateInstance.mainController showFlag:articles.count - [UD integerForKey:@"hasreadArticlesCount"]];
     }];
 }
 

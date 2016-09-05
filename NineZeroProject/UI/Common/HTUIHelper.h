@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "HTMainViewController.h"
+#import "SKIndexViewController.h"
 
 @interface HTUIHelper : NSObject
 + (UIBarButtonItem *)commonLeftBarItem;
-+ (HTMainViewController *)mainController;
++ (SKIndexViewController *)mainController;
 @end
