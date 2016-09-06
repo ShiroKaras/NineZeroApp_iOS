@@ -8,11 +8,19 @@
 
 #import "SKIndexViewController.h"
 #import "SKQuestionPageViewController.h"
+#import "HTPreviewCardController.h"
+#import "HTMascotDisplayController.h"
+#import "HTProfileRootController.h"
+#import "HTProfileSettingController.h"
+#import "HTNotificationController.h"
+#import "HTProfileRankController.h"
+
 #import "HTUIHeader.h"
 
 @interface SKIndexViewController ()
 
 @property (nonatomic, strong) NSArray<HTQuestion*>* questionList;
+@property (nonatomic, strong) HTUserInfo *userInfo;
 @property (nonatomic, assign) uint64_t endTime;
 @end
 
@@ -45,6 +53,13 @@
     [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
         self.questionList = questionList;
     }];
+    
+    [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
+        if (success) {
+            _userInfo = userInfo;
+            [[HTStorageManager sharedInstance] setUserInfo:userInfo];
+        }
+    }];
 }
 
 - (void)createUI {
@@ -56,6 +71,7 @@
     [notificationButton setImage:[UIImage imageNamed:@"btn_homepage_notification"] forState:UIControlStateNormal];
     [notificationButton setImage:[UIImage imageNamed:@"btn_homepage_notification_highlight"] forState:UIControlStateHighlighted];
     [notificationButton sizeToFit];
+    [notificationButton addTarget:self action:@selector(notificationButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:notificationButton];
     
     [notificationButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,6 +98,7 @@
     [rankButton setImage:[UIImage imageNamed:@"btn_homepage_top"] forState:UIControlStateNormal];
     [rankButton setImage:[UIImage imageNamed:@"btn_homepage_top_highlight"] forState:UIControlStateHighlighted];
     [rankButton sizeToFit];
+    [rankButton addTarget:self action:@selector(rankButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:rankButton];
     
     [rankButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -94,6 +111,7 @@
     [settingButton setImage:[UIImage imageNamed:@"btn_homepage_setting"] forState:UIControlStateNormal];
     [settingButton setImage:[UIImage imageNamed:@"btn_homepage_setting_highlight"] forState:UIControlStateHighlighted];
     [settingButton sizeToFit];
+    [settingButton addTarget:self action:@selector(settingButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:settingButton];
     
     [settingButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -117,18 +135,21 @@
     [timerLevelButton setImage:[UIImage imageNamed:@"btn_homepage_timer_level"] forState:UIControlStateNormal];
     [timerLevelButton setImage:[UIImage imageNamed:@"btn_homepage_timer_level_highlight"] forState:UIControlStateHighlighted];
     [timerLevelButton sizeToFit];
+    [timerLevelButton addTarget:self action:@selector(timerLevelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [dimmingView addSubview:timerLevelButton];
     
     UIButton *mascotButton = [UIButton new];
     [mascotButton setImage:[UIImage imageNamed:@"btn_homepage_lingzai"] forState:UIControlStateNormal];
     [mascotButton setImage:[UIImage imageNamed:@"btn_homepage_lingzai_highlight"] forState:UIControlStateHighlighted];
     [mascotButton sizeToFit];
+    [mascotButton addTarget:self action:@selector(mascotButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [dimmingView addSubview:mascotButton];
     
     UIButton *meButton = [UIButton new];
     [meButton setImage:[UIImage imageNamed:@"btn_homepage_me"] forState:UIControlStateNormal];
     [meButton setImage:[UIImage imageNamed:@"btn_homepage_me_highlight"] forState:UIControlStateHighlighted];
-    [mascotButton sizeToFit];
+    [meButton sizeToFit];
+    [meButton addTarget:self action:@selector(meButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [dimmingView addSubview:meButton];
     
     [dimmingView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -163,6 +184,7 @@
     BOOL isRestDay = YES;
     if (isRestDay) {
         [timerLevelButton setImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
+        [timerLevelButton setImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateHighlighted];
         
         UIView *countDownView = [UIView new];
         countDownView.backgroundColor = [UIColor clearColor];
@@ -233,7 +255,55 @@
 }
 
 - (void)timerLevelButtonClick:(UIButton *)sender {
-    
+    HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeIndexRecord andQuestList:@[self.questionList.lastObject]];
+    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:cardController];
+    cardController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:navController animated:YES completion:^{
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    }];
+}
+
+- (void)mascotButtonClick:(UIButton *)sender {
+    HTMascotDisplayController *mascotController = [[HTMascotDisplayController alloc] init];
+    [self.navigationController pushViewController:mascotController animated:YES];
+}
+
+- (void)meButtonClick:(UIButton *)sender {
+    HTProfileRootController *rootController = [[HTProfileRootController alloc] init];
+    [self.navigationController pushViewController:rootController animated:YES];
+}
+
+- (void)rankButtonClick:(UIButton *)sender {
+    HTProfileRankController *rankController = [[HTProfileRankController alloc] init];
+    [self.navigationController pushViewController:rankController animated:YES];
+}
+
+- (void)settingButtonClick:(UIButton *)sender {
+    HTProfileSettingController *settingController = [[HTProfileSettingController alloc] initWithUserInfo:_userInfo];
+    [self.navigationController pushViewController:settingController animated:YES];
+}
+
+- (void)notificationButtonClick:(UIButton *)sender {
+    HTNotificationController *controller = [[HTNotificationController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+#pragma mark - HTPreviewCardController
+
+- (void)didClickCloseButtonInController:(HTPreviewCardController *)controller {
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [controller dismissViewControllerAnimated:NO completion:^{
+//        _snapCell.frame = _animatedToFrame;
+//        [self.view addSubview:_snapCell];
+        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//            _snapCell.frame = _animatedFromFrame;
+//            _animatedImageView.alpha = 0;
+        } completion:^(BOOL finished) {
+//            [_snapCell removeFromSuperview];
+//            [_animatedImageView removeFromSuperview];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        }];
+    }];
 }
 
 @end

@@ -155,7 +155,8 @@
 }
 
 - (IBAction)didClickBackButton:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)didClickNotification:(UIButton *)sender {

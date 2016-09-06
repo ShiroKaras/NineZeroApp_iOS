@@ -7,6 +7,7 @@
 //
 
 #import "SKQuestionPageViewController.h"
+#import "HTPreviewCardController.h"
 
 #define PAGE_COUNT (floor(self.questionList.count/12)+1)
 
@@ -92,6 +93,8 @@
 
         //按钮
         UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        mImageButton.tag = questionNumber;
+        [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
         if (questionList[questionNumber].isPassed) {
             if (![questionList[questionNumber].question_ar_location isEqualToString:@""]) {
@@ -110,7 +113,7 @@
         //关卡号
         UILabel *mQuestionNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
         mQuestionNumberLabel.textColor = [UIColor whiteColor];
-        mQuestionNumberLabel.text = [NSString stringWithFormat:@"%d",questionNumber];
+        mQuestionNumberLabel.text = [NSString stringWithFormat:@"%d",questionNumber+1];
         mQuestionNumberLabel.textAlignment = NSTextAlignmentCenter;
         mQuestionNumberLabel.font = MOON_FONT_OF_SIZE(23);
         [itemView addSubview:mQuestionNumberLabel];
@@ -157,6 +160,34 @@
 
 - (void)cancelButtonClick:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)questionSelectButtonClick:(UIButton *)sender {
+    NSLog(@"%ld", sender.tag);
+    HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeIndexRecord andQuestList:@[self.questionList[sender.tag]]];
+    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:cardController];
+    cardController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:navController animated:YES completion:^{
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    }];
+}
+
+#pragma mark - HTPreviewCardController
+
+- (void)didClickCloseButtonInController:(HTPreviewCardController *)controller {
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [controller dismissViewControllerAnimated:NO completion:^{
+        //        _snapCell.frame = _animatedToFrame;
+        //        [self.view addSubview:_snapCell];
+        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            //            _snapCell.frame = _animatedFromFrame;
+            //            _animatedImageView.alpha = 0;
+        } completion:^(BOOL finished) {
+            //            [_snapCell removeFromSuperview];
+            //            [_animatedImageView removeFromSuperview];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        }];
+    }];
 }
 
 @end
