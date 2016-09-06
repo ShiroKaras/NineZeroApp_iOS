@@ -159,7 +159,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _recordView.right = SCREEN_WIDTH - kItemMargin;
     _recordView.bottom = ROUND_HEIGHT_FLOAT(96) - 12;
     
-    _chapterImageView.left = 30;
+    _chapterImageView.left = 17;
     _chapterImageView.top = ROUND_HEIGHT_FLOAT(64);
     if (SCREEN_WIDTH > IPHONE5_SCREEN_WIDTH) {
         _chapterImageView.top = _chapterImageView.top + 3;
@@ -431,7 +431,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat width = SCREEN_WIDTH - 47;
+    CGFloat width = SCREEN_WIDTH - 34;
     return CGSizeMake(width, SCREEN_HEIGHT - ROUND_HEIGHT_FLOAT(96));
 }
 
@@ -440,7 +440,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(ROUND_HEIGHT_FLOAT(96), 30, 0, kItemMargin);
+    return UIEdgeInsetsMake(ROUND_HEIGHT_FLOAT(96), kItemMargin, 0, kItemMargin);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
