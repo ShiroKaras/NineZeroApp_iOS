@@ -11,7 +11,7 @@
 
 #define PAGE_COUNT (floor(self.questionList.count/12)+1)
 
-@interface SKQuestionPageViewController ()<UIScrollViewDelegate>
+@interface SKQuestionPageViewController ()<UIScrollViewDelegate, HTPreviewCardControllerDelegate>
 
 @property(nonatomic, strong) UIScrollView *mScrollView;
 @property(nonatomic, strong) UIPageControl *pageContrl;
@@ -163,31 +163,15 @@
 }
 
 - (void)questionSelectButtonClick:(UIButton *)sender {
-    NSLog(@"%ld", sender.tag);
     HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeIndexRecord andQuestList:@[self.questionList[sender.tag]]];
-    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:cardController];
-    cardController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self presentViewController:navController animated:YES completion:^{
-        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-    }];
+    cardController.delegate = self;
+    [self.navigationController pushViewController:cardController animated:YES];
 }
 
 #pragma mark - HTPreviewCardController
 
 - (void)didClickCloseButtonInController:(HTPreviewCardController *)controller {
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [controller dismissViewControllerAnimated:NO completion:^{
-        //        _snapCell.frame = _animatedToFrame;
-        //        [self.view addSubview:_snapCell];
-        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            //            _snapCell.frame = _animatedFromFrame;
-            //            _animatedImageView.alpha = 0;
-        } completion:^(BOOL finished) {
-            //            [_snapCell removeFromSuperview];
-            //            [_animatedImageView removeFromSuperview];
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        }];
-    }];
+    [controller.navigationController popViewControllerAnimated:YES];
 }
 
 @end

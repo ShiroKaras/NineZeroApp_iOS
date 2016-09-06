@@ -341,8 +341,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     // 4.关闭按钮
     if (_cardType == HTPreviewCardTypeRecord || _cardType == HTPreviewCardTypeIndexRecord) {
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_closeButton setImage:[UIImage imageNamed:@"btn_fullscreen_close"] forState:UIControlStateNormal];
-        [_closeButton setImage:[UIImage imageNamed:@"btn_fullscreen_close_highlight"] forState:UIControlStateHighlighted];
+        [_closeButton setImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
+        [_closeButton setImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
         [_closeButton sizeToFit];
         [_closeButton addTarget:self action:@selector(onClickCloseButton) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_closeButton];
