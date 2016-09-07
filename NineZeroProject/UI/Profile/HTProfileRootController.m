@@ -264,7 +264,7 @@
     [_snapView setQuestion:question questionInfo:questionInfo];
     
     _animatedFromFrame = [cell convertRect:cell.coverImageView.frame toView:self.view];
-    _animatedToFrame = CGRectMake(30, ROUND_HEIGHT_FLOAT(96), SCREEN_WIDTH - 47, SCREEN_WIDTH - 47);
+    _animatedToFrame = CGRectMake(17, ROUND_HEIGHT_FLOAT(96), SCREEN_WIDTH - 34, SCREEN_WIDTH - 34);
     _snapView.frame = _animatedFromFrame;
     [self.view addSubview:_snapView];
     CGFloat duration = 0.5;
