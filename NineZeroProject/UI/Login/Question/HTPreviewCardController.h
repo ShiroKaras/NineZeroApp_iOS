@@ -17,7 +17,7 @@ typedef enum : NSUInteger {
 
 @class  HTPreviewCardController;
 @protocol HTPreviewCardControllerDelegate <NSObject>
-@optional;
+@optional
 - (void)didClickCloseButtonInController:(HTPreviewCardController *)controller;
 @end
 
