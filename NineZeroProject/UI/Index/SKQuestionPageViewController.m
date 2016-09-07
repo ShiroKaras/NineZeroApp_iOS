@@ -8,6 +8,7 @@
 
 #import "SKQuestionPageViewController.h"
 #import "HTPreviewCardController.h"
+#import "SKHelperView.h"
 
 #define PAGE_COUNT (floor(self.questionList.count/12)+1)
 
@@ -67,6 +68,19 @@
         make.height.equalTo(@(40));
         make.centerX.equalTo(weakSelf.view);
         make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-26);
+    }];
+    
+    UIButton *helpButton = [UIButton new];
+    [helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+    [helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
+    [helpButton addTarget:self action:@selector(helpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:helpButton];
+    
+    [helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+        make.top.equalTo(weakSelf.view).offset(10);
+        make.left.equalTo(weakSelf.view).offset(10);
     }];
 }
 
@@ -166,6 +180,26 @@
     HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeIndexRecord andQuestList:@[self.questionList[sender.tag]]];
     cardController.delegate = self;
     [self.navigationController pushViewController:cardController animated:YES];
+}
+
+- (void)helpButtonClick:(UIButton *)sender {
+    SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeQuestion];
+    helpView.frame = CGRectZero;
+    helpView.alpha = 0;
+    [self.view addSubview:helpView];
+
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        helpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        helpView.alpha = 1;
+    } completion:^(BOOL finished) {
+        
+    }];
+//    CGFloat duration = 0.5;
+//    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//        helpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//        helpView.alpha = 1;
+//    } completion:^(BOOL finished) {
+//    }];
 }
 
 #pragma mark - HTPreviewCardController
