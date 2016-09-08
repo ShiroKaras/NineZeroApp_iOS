@@ -113,6 +113,10 @@
     return [NSString stringWithFormat:@"%@Answer/answerText", NETWORK_HOST];
 }
 
++ (NSString *)verifyOldAnswerCGIKey {
+    return [NSString stringWithFormat:@"%@Answer/answerOldText", NETWORK_HOST];
+}
+
 + (NSString *)verifyLocationCGIKey {
     return [NSString stringWithFormat:@"%@Answer/answerAR", NETWORK_HOST];
 }

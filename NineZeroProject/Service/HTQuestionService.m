@@ -262,6 +262,57 @@
     }];
 }
 
+- (void)verifyHistoryQuestion:(uint64_t)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback {
+    NSString *user_id = [[HTStorageManager sharedInstance] getUserID];
+    if (user_id.length == 0) {
+        callback(false, nil);
+        return;
+    }
+    NSDictionary *dict = @{
+                           @"user_id" : user_id,
+                           @"question_id" : [NSString stringWithFormat:@"%llu", questionID],
+                           @"answer" : answer
+                           };
+    
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager verifyOldAnswerCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
+        if (rsp.resultCode == 0) {
+            [self getQuestionDetailWithQuestionID:questionID callback:^(BOOL success, HTQuestion *question) {
+                if (success) {
+                    // 回答成功的问题加入回答成功的列表中
+                    __block BOOL isFound = NO;
+                    [_questionListSuccessful enumerateObjectsUsingBlock:^(HTQuestion * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if (obj.questionID == questionID) {
+                            isFound = YES;
+                            *stop = YES;
+                        }
+                    }];
+                    // 已经在回答成功的列表中的问题不需要重复添加
+                    if (!isFound) {
+                        HTQuestion *question = [self findQuestionInQuestionList:questionID];
+                        if (question) {
+                            question.isPassed = YES;
+                            if (rsp.data[@"reward_id"]) {
+                                question.rewardID = [[NSString stringWithFormat:@"%@", rsp.data[@"reward_id"]] integerValue];
+                            }
+                            [_questionListSuccessful addObject:question];
+                        }
+                    }
+                    callback(YES, rsp);
+                } else {
+                    callback(NO, rsp);
+                }
+            }];
+        } else {
+            callback(NO, rsp);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(NO, nil);
+        DLog(@"%@", error);
+    }];
+}
+
 - (void)verifyQuestion:(uint64_t)questionID withLocation:(CGPoint)location callback:(HTResponseCallback)callback {
     NSDictionary *dataDict = @{@"area_id" : AppDelegateInstance.cityCode,
                                @"question" : @(questionID),

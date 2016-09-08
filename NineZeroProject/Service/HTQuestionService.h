@@ -82,6 +82,14 @@ typedef void (^HTGetUsersListCallback) (BOOL success, NSArray<HTRanker *> *ranke
 - (void)verifyQuestion:(uint64_t)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback;
 
 /**
+ *  @brief 验证历史题目答案
+ *  @param questionID 问题id
+ *  @param user_id    用户id
+ *  @param answer     答案
+ */
+- (void)verifyHistoryQuestion:(uint64_t)questionID withAnswer:(NSString *)answer callback:(HTResponseCallback)callback;
+
+/**
  *  @brief 验证AR答案
  */
 - (void)verifyQuestion:(uint64_t)questionID withLocation:(CGPoint)location callback:(HTResponseCallback)callback;

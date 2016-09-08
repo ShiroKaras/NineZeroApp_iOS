@@ -161,6 +161,12 @@
  */
 + (NSString *)verifyAnswerCGIKey;
 /**
+ *  @brief 验证往期题目回答答案
+ *  "question_id" : "2015120423201902904"
+ *  "answer" : "testtest"
+ */
++ (NSString *)verifyOldAnswerCGIKey;
+/**
  *  @brief 验证ar位置
  *  "location" : ""x":100 ,"y": 100"
  */
