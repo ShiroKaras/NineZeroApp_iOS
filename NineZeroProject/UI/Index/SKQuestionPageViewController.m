@@ -194,12 +194,6 @@
     } completion:^(BOOL finished) {
         
     }];
-//    CGFloat duration = 0.5;
-//    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//        helpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-//        helpView.alpha = 1;
-//    } completion:^(BOOL finished) {
-//    }];
 }
 
 #pragma mark - HTPreviewCardController

@@ -15,6 +15,7 @@
 #import "HTMascotTipView.h"
 #import "HTMascotItem.h"
 #import "HTMascotIntroController.h"
+#import "SKHelperView.h"
 
 static CGFloat kDuration = 0.3;
 static NSString *selectedMascotKey = @"selectedMascotKey";
@@ -77,6 +78,33 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     [self.view addSubview:self.mascotView];
     [self.view sendSubviewToBack:self.mascotView];
     
+    __weak __typeof(self)weakSelf = self;
+    UIButton *helpButton = [UIButton new];
+    [helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+    [helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
+    [helpButton addTarget:self action:@selector(helpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:helpButton];
+    
+    [helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+        make.top.equalTo(weakSelf.view).offset(10);
+        make.left.equalTo(weakSelf.view).offset(10);
+    }];
+    
+    UIButton *cancelButton = [UIButton new];
+    [cancelButton setImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
+    [cancelButton setImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
+    [cancelButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cancelButton];
+    
+    [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@(40));
+        make.height.equalTo(@(40));
+        make.centerX.equalTo(weakSelf.view);
+        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-26);
+    }];
+    
     [UD setInteger:1 forKey:selectedMascotKey];
     
     [self buildConstraints];
@@ -87,6 +115,9 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"mascotpage"];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self reloadAllData];
     [self reloadViews];
     
@@ -96,6 +127,9 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"mascotpage"];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (void)loadUnreadArticleFlag {
@@ -208,6 +242,24 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 
 - (void)doubleTapOnDefaultMascot {
     [self.onlyOneMascotImageView playAnimatedNumber:arc4random() % 2 + 3];
+}
+
+- (void)cancelButtonClick:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)helpButtonClick:(UIButton *)sender {
+    SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeMascot];
+    helpView.frame = CGRectZero;
+    helpView.alpha = 0;
+    [self.view addSubview:helpView];
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        helpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        helpView.alpha = 1;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 #pragma mark - HTMascotView Delegate

@@ -33,10 +33,12 @@
         
         UIView *cardView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-276)/2, ROUND_HEIGHT_FLOAT(60), 276, 356)];
         cardView.layer.cornerRadius = 5;
+        cardView.layer.masksToBounds = YES;
         cardView.backgroundColor = [UIColor colorWithHex:0x1D1D1D];
         [self addSubview:cardView];
         
         _cardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 276, 293)];
+        _cardImageView.layer.masksToBounds = YES;
         [cardView addSubview:_cardImageView];
         
         _textLabel = [UILabel new];
@@ -93,6 +95,7 @@
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [text length])];
     _textLabel.attributedText = attributedString;
     [_textLabel sizeToFit];
+    _cardImageView.image = image;
 }
 
 #pragma mark - Actions
@@ -128,7 +131,11 @@
     [self addSubview:_scrollView];
     
     if (type == SKHelperScrollViewTypeQuestion) {
-        int pageNumber = 4;
+        NSArray *textArray = @[@"“我是零仔〇，住在529D星球”",
+                               @"“这个星球除了我，其他的同族都离奇的失踪了”",
+                               @"“追寻着同族留下的线索，我来到了你们的世界”",
+                               @"“请留意视频内容，破解谜团，帮助我找到其他零仔”"];
+        NSInteger pageNumber = textArray.count;
         _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
         _scrollView.pagingEnabled = YES;
         for (int i= 0; i<pageNumber; i++) {
@@ -142,6 +149,31 @@
                 helpView.nextstepButton.tag = i;
                 [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             }
+            [helpView setImage:nil andText:textArray[i]];
+        }
+    } else if (type == SKHelperScrollViewTypeMascot) {
+        NSArray *textArray = @[@"帮助零仔〇找到失落在地球上的其他零仔们",
+                               @"点击零仔头顶的路标去发现这个星球上最九零的人、物、事",
+                               @"破解重重关卡，你将解锁更多的原创文章"];
+        NSArray *imgArray  = @[@"img_introduce_lingzaipage_1",
+                               @"img_introduce_lingzaipage_2",
+                               @"img_introduce_lingzaipage_3"
+                               ];
+        NSInteger pageNumber = textArray.count;
+        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
+        _scrollView.pagingEnabled = YES;
+        for (int i= 0; i<pageNumber; i++) {
+            SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeNoMascot index:i];
+            [_scrollView addSubview:helpView];
+            if (i == pageNumber-1) {
+                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete"] forState:UIControlStateNormal];
+                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete_highlight"] forState:UIControlStateHighlighted];
+                [helpView.nextstepButton addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            } else {
+                helpView.nextstepButton.tag = i;
+                [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            }
+            [helpView setImage:[UIImage imageNamed:imgArray[i]] andText:textArray[i]];
         }
     }
 }
