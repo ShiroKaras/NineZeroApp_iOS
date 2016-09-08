@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "img_introduce_lingzaipapge_2.png",
+      "filename" : "img_introduce_lingzaipage_2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "img_introduce_lingzaipapge_2@2x.png",
+      "filename" : "img_introduce_lingzaipage_2@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "img_introduce_lingzaipapge_2@3x.png",
+      "filename" : "img_introduce_lingzaipage_2@3x.png",
       "scale" : "3x"
     }
   ],
