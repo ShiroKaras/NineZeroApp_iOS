@@ -26,6 +26,7 @@
 
 #import "SKAnswerDetailView.h"
 #import "SKRankInQuestionViewController.h"
+#import "SKHelperView.h"
 
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
@@ -61,6 +62,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (nonatomic, strong) HTBlankView *blankView;
 
 @property (nonatomic, strong) UIView *courseView;
+@property (nonatomic, strong) SKHelperGuideView *guideView;
 @property (nonatomic, strong) UIImageView *courseImageView;
 @property (nonatomic, strong) NSMutableArray *courseImageArray;                      //教程图片组
 @property (nonatomic, strong) NSMutableArray *courseImageArray_iPhone6;                      //教程图片组iphone6
@@ -217,7 +219,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                             }];
                             _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
                             [self.collectionView addSubview:_eggImageView];
-                            if (FIRST_LAUNCH) {
+                            if (!FIRST_LAUNCH) {
                                 [self showCourseView];
                             } else{
                                 [self showAlert];
@@ -264,6 +266,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     } else if (_cardType == HTPreviewCardTypeIndexRecord) {
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_recordView];
+        if (!FIRST_LAUNCH) {
+            [self showGuideview];
+        } else{
+            [self showAlert];
+        }
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -790,6 +797,26 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 #pragma mark - ShowCourseView
 
+- (void)showGuideview {
+    UIView *blackView = [[UIView alloc] initWithFrame:self.view.frame];
+    blackView.backgroundColor = [UIColor blackColor];
+    
+    _guideView = [[SKHelperGuideView alloc] initWithFrame:self.view.frame withType:SKHelperGuideViewTypeTimerLevel];
+    _guideView.alpha = 0;
+    
+    [KEY_WINDOW addSubview:blackView];
+    [KEY_WINDOW bringSubviewToFront:blackView];
+    [KEY_WINDOW addSubview:_guideView];
+    [KEY_WINDOW bringSubviewToFront:_guideView];
+    
+    [UIView animateWithDuration:1.2 animations:^{
+        blackView.alpha = 0;
+        _guideView.alpha = 1;
+    } completion:^(BOOL finished) {
+        _currentCourseImageIndex = 1;
+    }];
+}
+
 - (void)showCourseView {
     UIView *blackView = [[UIView alloc] initWithFrame:self.view.frame];
     blackView.backgroundColor = [UIColor blackColor];
@@ -802,8 +829,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [KEY_WINDOW addSubview:_courseView];
     [KEY_WINDOW bringSubviewToFront:_courseView];
     
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickCourseImage)];
-//    [_courseView addGestureRecognizer:tap];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickCourseImage)];
+    [_courseView addGestureRecognizer:tap];
     
     //step.1
     UIView *view1 = [UIView new];
@@ -820,11 +847,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _courseImageArray = [NSMutableArray new];
     _currentCourseImageIndex = 0;
     if (SCREEN_WIDTH<=IPHONE5_SCREEN_WIDTH || SCREEN_WIDTH>=IPHONE6_PLUS_SCREEN_WIDTH) {
-        for (int i=1; i<=5; i++) {
+        for (int i=1; i<=4; i++) {
             [_courseImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"coach_mark_%d",i]]];
         }
     } else {
-        for (int i=1; i<=5; i++) {
+        for (int i=1; i<=4; i++) {
             [_courseImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"coach_mark_iphone6_%d",i]]];
         }
     }

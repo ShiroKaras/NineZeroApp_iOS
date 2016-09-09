@@ -215,6 +215,10 @@
 @interface SKHelperGuideView ()
 
 @property (nonatomic, assign) SKHelperGuideViewType  type;
+@property (nonatomic, strong) UIView *view1;
+@property (nonatomic, strong) UIView *view2;
+@property (nonatomic, strong) UIView *view3;
+@property (nonatomic, strong) UIView *view4;
 
 @end
 
@@ -222,9 +226,125 @@
 
 - (instancetype)initWithFrame:(CGRect)frame withType:(SKHelperGuideViewType)type {
     if (self = [super initWithFrame:frame]) {
-        
+        _type = type;
+        [self createUIWithType:type];
     }
     return self;
+}
+
+- (void)createUIWithType:(SKHelperGuideViewType)type {
+    //step.1
+    _view1 = [[UIView alloc] initWithFrame:self.frame];
+    UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:_view1.frame];
+    imageView1.image = [UIImage imageNamed:@"coach_mark_1"];
+    [_view1 addSubview:imageView1];
+    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button1 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
+    [button1 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
+    [button1 addTarget:self action:@selector(onClickTurnToView2) forControlEvents:UIControlEventTouchUpInside];
+    [button1 sizeToFit];
+    button1.centerX = _view1.centerX;
+    button1.bottom = _view1.bottom - 84;
+    [_view1 addSubview:button1];
+    
+    //step.2
+    _view2 = [[UIView alloc] initWithFrame:self.frame];
+    UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:_view2.frame];
+    imageView2.image = [UIImage imageNamed:@"coach_mark_2"];
+    [_view2 addSubview:imageView2];
+    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button2 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
+    [button2 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
+    [button2 sizeToFit];
+    button2.centerX = _view2.centerX;
+    button2.bottom = _view2.bottom - 122;
+    [_view2 addSubview:button2];
+    
+    //step.3
+    _view3 = [[UIView alloc] initWithFrame:self.frame];
+    UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:_view3.frame];
+    imageView3.image = [UIImage imageNamed:@"coach_mark_3"];
+    [_view3 addSubview:imageView3];
+    UIButton *button3 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button3 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
+    [button3 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
+    [button3 sizeToFit];
+    button3.left = 64;
+    button3.top = 163;
+    [_view3 addSubview:button3];
+
+    //step.4
+    _view4 = [[UIView alloc] initWithFrame:self.frame];
+    UIImageView *imageView4 = [[UIImageView alloc] initWithFrame:_view4.frame];
+    imageView4.image = [UIImage imageNamed:@"coach_mark_4"];
+    [_view4 addSubview:imageView4];
+    UIButton *button4 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button4 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
+    [button4 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
+    [button4 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [button4 sizeToFit];
+    button4.centerX = _view4.centerX;
+    button4.top = _view4.top +121;
+    [_view4 addSubview:button4];
+
+    switch (type) {
+        case SKHelperGuideViewTypeTimerLevel:{
+            [self addSubview:_view1];
+            [self addSubview:_view2];
+            [self addSubview:_view3];
+            [self addSubview:_view4];
+            _view1.alpha = 1;
+            _view2.alpha = 0;
+            _view3.alpha = 0;
+            _view4.alpha = 0;
+            [button2 addTarget:self action:@selector(onClickTurnToView3) forControlEvents:UIControlEventTouchUpInside];
+            [button3 addTarget:self action:@selector(onClickTurnToView4) forControlEvents:UIControlEventTouchUpInside];
+            [button4 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            break;
+        }
+        case SKHelperGuideViewTypeHistoryLevel:{
+            [self addSubview:_view1];
+            [self addSubview:_view2];
+            [self addSubview:_view4];
+            _view1.alpha = 1;
+            _view2.alpha = 0;
+            _view4.alpha = 0;
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)onClickTurnToView2 {
+    [UIView animateWithDuration:0.3 animations:^{
+        _view1.alpha = 0;
+        _view2.alpha = 1;
+        _view3.alpha = 0;
+        _view4.alpha = 0;
+    }];
+}
+
+- (void)onClickTurnToView3 {
+    [UIView animateWithDuration:0.3 animations:^{
+        _view1.alpha = 0;
+        _view2.alpha = 0;
+        _view3.alpha = 1;
+        _view4.alpha = 0;
+    }];
+}
+
+- (void)onClickTurnToView4 {
+    [UIView animateWithDuration:0.3 animations:^{
+        _view1.alpha = 0;
+        _view2.alpha = 0;
+        _view3.alpha = 0;
+        _view4.alpha = 1;        
+    }];
+}
+
+- (void)completeButtonClick:(UIButton *)sender {
+    [self removeFromSuperview];
 }
 
 @end

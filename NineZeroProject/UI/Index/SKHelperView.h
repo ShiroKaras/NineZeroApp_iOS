@@ -21,14 +21,13 @@ typedef enum : NSUInteger {
 @end
 
 @interface SKHelperView : UIView
-
 @property (nonatomic, strong) UIButton *nextstepButton;
 @property (nonatomic, weak) id<SKHelperViewDelegate> delegate;
-
 - (instancetype)initWithFrame:(CGRect)frame withType:(SKHelperType)type index:(NSInteger)index;
 - (void)setImage:(UIImage *)image andText:(NSString *)text;
-
 @end
+
+
 
 //ScrollView
 typedef enum : NSUInteger {
@@ -41,13 +40,14 @@ typedef enum : NSUInteger {
 - (instancetype)initWithFrame:(CGRect)frame withType:(SKHelperScrollViewType)type;
 @end
 
+
+
 //Guide
 typedef enum : NSUInteger {
     SKHelperGuideViewTypeTimerLevel,
     SKHelperGuideViewTypeHistoryLevel
 } SKHelperGuideViewType;
+
 @interface SKHelperGuideView : UIView
-
 - (instancetype)initWithFrame:(CGRect)frame withType:(SKHelperGuideViewType)type;
-
 @end
