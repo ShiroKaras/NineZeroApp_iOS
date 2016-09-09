@@ -13,12 +13,6 @@ typedef enum : NSUInteger {
     SKHelperTypeNoMascot,
 } SKHelperType;
 
-typedef enum : NSUInteger {
-    SKHelperScrollViewTypeQuestion,
-    SKHelperScrollViewTypeMascot,
-    SKHelperScrollViewTypeAR
-} SKHelperScrollViewType;
-
 @class SKHelperView;
 
 @protocol SKHelperViewDelegate <NSObject>
@@ -36,6 +30,24 @@ typedef enum : NSUInteger {
 
 @end
 
+//ScrollView
+typedef enum : NSUInteger {
+    SKHelperScrollViewTypeQuestion,
+    SKHelperScrollViewTypeMascot,
+    SKHelperScrollViewTypeAR
+} SKHelperScrollViewType;
+
 @interface SKHelperScrollView : UIView
 - (instancetype)initWithFrame:(CGRect)frame withType:(SKHelperScrollViewType)type;
+@end
+
+//Guide
+typedef enum : NSUInteger {
+    SKHelperGuideViewTypeTimerLevel,
+    SKHelperGuideViewTypeHistoryLevel
+} SKHelperGuideViewType;
+@interface SKHelperGuideView : UIView
+
+- (instancetype)initWithFrame:(CGRect)frame withType:(SKHelperGuideViewType)type;
+
 @end

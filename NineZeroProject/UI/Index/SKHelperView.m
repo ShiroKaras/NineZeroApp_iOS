@@ -175,6 +175,26 @@
             }
             [helpView setImage:[UIImage imageNamed:imgArray[i]] andText:textArray[i]];
         }
+    } else if (type == SKHelperScrollViewTypeAR) {
+        NSArray *textArray = @[@"本关为线下关卡，你需要去往户外，根据线索提示，发现并捕捉周边的零仔"];
+        NSArray *imgArray  = @[@"img_introduce_ar"];
+        NSInteger pageNumber = textArray.count;
+        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
+        _scrollView.pagingEnabled = YES;
+        for (int i= 0; i<pageNumber; i++) {
+            SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeNoMascot index:i];
+            [_scrollView addSubview:helpView];
+            if (i == pageNumber-1) {
+                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete"] forState:UIControlStateNormal];
+                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete_highlight"] forState:UIControlStateHighlighted];
+                [helpView.nextstepButton addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            } else {
+                helpView.nextstepButton.tag = i;
+                [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            }
+            [helpView setImage:[UIImage imageNamed:imgArray[i]] andText:textArray[i]];
+        }
+
     }
 }
 
@@ -186,6 +206,25 @@
 
 - (void)completeButtonClick:(UIButton *)sender {
     [self removeFromSuperview];
+}
+
+@end
+
+
+
+@interface SKHelperGuideView ()
+
+@property (nonatomic, assign) SKHelperGuideViewType  type;
+
+@end
+
+@implementation SKHelperGuideView
+
+- (instancetype)initWithFrame:(CGRect)frame withType:(SKHelperGuideViewType)type {
+    if (self = [super initWithFrame:frame]) {
+        
+    }
+    return self;
 }
 
 @end

@@ -54,5 +54,6 @@
 })
 
 #define UD [NSUserDefaults standardUserDefaults]
+#define FIRST_LAUNCH [UD boolForKey:@"firstLaunch"]
 
 #endif /* CommonDefine_h */

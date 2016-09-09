@@ -217,7 +217,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                             }];
                             _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
                             [self.collectionView addSubview:_eggImageView];
-                            if ([UD boolForKey:@"firstLaunch"]) {
+                            if (FIRST_LAUNCH) {
                                 [self showCourseView];
                             } else{
                                 [self showAlert];
@@ -802,8 +802,20 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [KEY_WINDOW addSubview:_courseView];
     [KEY_WINDOW bringSubviewToFront:_courseView];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickCourseImage)];
-    [_courseView addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickCourseImage)];
+//    [_courseView addGestureRecognizer:tap];
+    
+    //step.1
+    UIView *view1 = [UIView new];
+    [_courseView addSubview:view1];
+    UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:_courseView.frame];
+    [view1 addSubview:imageView1];
+    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button1 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
+    [button1 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
+    [view1 addSubview:button1];
+    
+    
     
     _courseImageArray = [NSMutableArray new];
     _currentCourseImageIndex = 0;
@@ -816,6 +828,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             [_courseImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"coach_mark_iphone6_%d",i]]];
         }
     }
+    
     _courseImageView = [[UIImageView alloc] initWithFrame:_courseView.frame];
     _courseImageView.image = _courseImageArray[_currentCourseImageIndex];
     [_courseView addSubview:_courseImageView];
@@ -842,10 +855,12 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     }
 }
 
+#pragma mark - GPS Alert
+
 - (void)showAlert {
     //通知Alert
     if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
-        if ([UD boolForKey:@"firstLaunch"]){
+        if (FIRST_LAUNCH){
             //未显示过
             HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
             [alertView show];
