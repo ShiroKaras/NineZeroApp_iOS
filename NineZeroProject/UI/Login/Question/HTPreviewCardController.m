@@ -118,6 +118,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadUnreadArticleFlag];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self.navigationController.navigationBar setHidden:YES];
     if (self.cardType == HTPreviewCardTypeDefault) {
         [MobClick beginLogPageView:@"mainpage"];
@@ -143,6 +144,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
 }
 
