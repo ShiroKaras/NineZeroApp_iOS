@@ -365,13 +365,15 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)onClickComposeButton:(UIButton *)button {
-    if (_questionInfo.questionID == _question.questionID && _question.isPassed == NO) {
+    if (
+//        _questionInfo.questionID == _question.questionID &&
+        _question.isPassed == NO) {
         [MobClick event:@"answer"];
         if (_question.type == 0) {
             [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAR];
         } else {
             [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];
-        }
+        } 
     } else {
         [self showMoreButtons];
     }
@@ -502,7 +504,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     _questionInfo = questionInfo;
     _contentLabel.text = question.content;
-    if (_questionInfo.questionID == question.questionID && _question.isPassed == NO) {
+    //
+    if (
+//        _questionInfo.questionID == question.questionID&&
+        _question.isPassed == NO) {
         [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
         //判断是否需要显示"获取提示"
         _hintButton.hidden = (_questionInfo.endTime - time(NULL))>(3600*16)?YES:NO;
@@ -516,7 +521,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
             [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
         }
-    } else {
+    }
+    //未答对
+    else {
         [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_more"] forState:UIControlStateNormal];
         [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_more_highlight"] forState:UIControlStateHighlighted];
         if (_question.isPassed) {
@@ -530,6 +537,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
         }
     }
+    
     [_contentLabel sizeToFit];
     _pauseImageView.hidden = YES;
     _playButton.hidden = NO;

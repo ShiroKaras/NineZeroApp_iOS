@@ -27,6 +27,7 @@
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
+    self.questionList = [[[HTServiceManager sharedInstance] questionService] questionList];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

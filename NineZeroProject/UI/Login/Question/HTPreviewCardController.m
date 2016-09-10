@@ -581,7 +581,53 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)composeView:(HTComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
     _composeView.participatorView.hidden = YES;
-    [self composeWithAnswer:answer question:composeView.associatedQuestion];
+    if (composeView.associatedQuestion.questionID == [[HTServiceManager sharedInstance] questionService].questionInfo.questionID) {
+        [self composeWithAnswer:answer question:composeView.associatedQuestion];
+    } else {
+        [self composeHistoryQuestionWithAnswer:answer question:composeView.associatedQuestion];
+    }
+}
+
+- (void)composeHistoryQuestionWithAnswer:(NSString *)answer question:(HTQuestion *)question {
+    static int clickCount = 0;
+    _composeView.composeButton.enabled = NO;
+    [[[HTServiceManager sharedInstance] questionService] verifyHistoryQuestion:question.questionID withAnswer:answer callback:^(BOOL success, HTResponsePackage *response) {
+        _composeView.composeButton.enabled = YES;
+        if (success) {
+            if (response.resultCode == 0) {
+                [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
+                [_composeView showAnswerCorrect:YES];
+                clickCount = 0;
+                [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *qL) {
+                    questionList = [qL mutableCopy];
+                    [self willAppearQuestionAtIndex:questionList.count - 1];
+                    [self.collectionView reloadData];
+                    //                    questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
+                }];
+                // 获取成功了，开始分刮奖励
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [_composeView endEditing:YES];
+                    [_composeView removeFromSuperview];
+                    NSNumber *rewardid = response.data[@"reward_id"];
+                    HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:[rewardid integerValue] questionID:question.questionID];
+                    reward.view.backgroundColor = [UIColor clearColor];
+                    if (IOS_VERSION >= 8.0) {
+                        reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                    }
+                    [self presentViewController:reward animated:YES completion:nil];
+                    //                    [[HTUIHelper mainController] reloadMascotViewData];
+                });
+            } else {
+                if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
+                [_composeView showAnswerCorrect:NO];
+                clickCount++;
+            }
+        } else {
+            if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
+            [_composeView showAnswerCorrect:NO];
+            clickCount++;
+        }
+    }];
 }
 
 - (void)composeWithAnswer:(NSString *)answer question:(HTQuestion *)question {
