@@ -268,7 +268,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     } else if (_cardType == HTPreviewCardTypeIndexRecord) {
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_recordView];
-        if (!FIRST_LAUNCH) {
+        if (FIRST_LAUNCH) {
             [self showGuideview];
         } else{
             [self showAlert];
