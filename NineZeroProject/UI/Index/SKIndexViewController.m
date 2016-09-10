@@ -21,6 +21,7 @@
 
 @property (nonatomic, strong) NSArray<HTQuestion*>* questionList;
 @property (nonatomic, strong) HTUserInfo *userInfo;
+@property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, assign) uint64_t endTime;
 @end
 
@@ -50,6 +51,10 @@
 
 #pragma mark - Create UI
 - (void)loadData {
+    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *questionInfo) {
+        [self setQuestionInfo:questionInfo];
+    }];
+    
     [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
         self.questionList = questionList;
     }];
@@ -194,12 +199,12 @@
         [countDownView sizeToFit];
         [countDownView addSubview:countDownImageView];
         
-        UILabel *timeLabel = [UILabel new];
-        timeLabel.text = @"00:00:00";
-        timeLabel.textColor = [UIColor whiteColor];
-        timeLabel.font = MOON_FONT_OF_SIZE(12);
-        timeLabel.textAlignment = NSTextAlignmentCenter;
-        [countDownView addSubview:timeLabel];
+        _timeLabel = [UILabel new];
+        _timeLabel.text = @"00:00:00";
+        _timeLabel.textColor = [UIColor whiteColor];
+        _timeLabel.font = MOON_FONT_OF_SIZE(12);
+        _timeLabel.textAlignment = NSTextAlignmentCenter;
+        [countDownView addSubview:_timeLabel];
         
         [countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@(80));
@@ -214,7 +219,7 @@
             make.center.equalTo(countDownView);
         }];
         
-        [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(countDownView);
             make.bottom.equalTo(countDownView.mas_bottom).offset(-9);
         }];
@@ -243,6 +248,31 @@
             make.height.equalTo(countDownView);
             make.center.equalTo(countDownView);
         }];
+    }
+}
+
+#pragma mark - Time
+
+- (void)setQuestionInfo:(HTQuestionInfo *)questionInfo {
+    _endTime = (time_t)questionInfo.endTime;
+    [self scheduleCountDownTimer];
+}
+
+- (void)scheduleCountDownTimer {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
+    [self performSelector:@selector(scheduleCountDownTimer) withObject:nil afterDelay:1.0];
+    time_t delta = _endTime - time(NULL);
+    time_t oneHour = 3600;
+    time_t hour = delta / oneHour;
+    time_t minute = (delta % oneHour) / 60;
+    time_t second = delta - hour * oneHour - minute * 60;
+    
+    //TODO: 更改TimeView
+    if (delta > 0) {
+        _timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+    } else {
+        // 过去时间
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
     }
 }
 
