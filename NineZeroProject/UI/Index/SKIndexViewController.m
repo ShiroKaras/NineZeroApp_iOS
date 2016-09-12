@@ -68,9 +68,31 @@
             [[HTStorageManager sharedInstance] setUserInfo:userInfo];
         }
     }];
+    
+    [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
+        NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
+        if (success && response.resultCode == 0) {
+            if ([dictData isEqualToString:@"1"]) {
+                [HTProgressHUD dismiss];
+                [[[HTServiceManager sharedInstance] questionService] getRelaxDayInfo:^(BOOL success, HTResponsePackage *response) {
+                    if (success && response.resultCode == 0) {
+                        NSDictionary *dataDict = response.data;
+                        _endTime = (time_t)[dataDict[@"end_time"] integerValue];
+                        [self scheduleCountDownTimer];
+                    }
+                }];
+            } else if ([dictData isEqualToString:@"0"]) {
+                [HTProgressHUD dismiss];
+            } else {
+                [HTProgressHUD dismiss];
+            }
+        }
+    }];
 }
 
 - (void)createUI {
+    [HTProgressHUD show];
+    
     self.view.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
     __weak __typeof(self)weakSelf = self;
     
