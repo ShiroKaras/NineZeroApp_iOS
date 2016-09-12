@@ -218,11 +218,13 @@ static NSInteger const kChangeNameViewTag = 12345;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [MobClick beginLogPageView:@"settingpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [MobClick endLogPageView:@"settingpage"];
 }
 

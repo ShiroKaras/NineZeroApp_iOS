@@ -85,7 +85,7 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"homepage"];
     self.navigationController.navigationBar.hidden = YES;
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
         _profileInfo.answer_list = nil;
         _recordView.hidden = YES;
@@ -134,6 +134,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = NO;
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [MobClick endLogPageView:@"homepage"];
 }
 
