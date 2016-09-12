@@ -17,6 +17,7 @@
 		117417EA1D795AC300B5458F /* SKIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417E91D795AC300B5458F /* SKIndexViewController.m */; };
 		117417EE1D797F5C00B5458F /* SKQuestionPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417ED1D797F5C00B5458F /* SKQuestionPageViewController.m */; };
 		117417F41D7FE3CC00B5458F /* SKHelperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417F31D7FE3CC00B5458F /* SKHelperView.m */; };
+		117417F71D86A1B200B5458F /* SKActivityNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417F61D86A1B100B5458F /* SKActivityNotificationView.m */; };
 		11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
@@ -797,6 +798,8 @@
 		117417ED1D797F5C00B5458F /* SKQuestionPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKQuestionPageViewController.m; path = Index/SKQuestionPageViewController.m; sourceTree = "<group>"; };
 		117417F21D7FE3CC00B5458F /* SKHelperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKHelperView.h; path = Index/SKHelperView.h; sourceTree = "<group>"; };
 		117417F31D7FE3CC00B5458F /* SKHelperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKHelperView.m; path = Index/SKHelperView.m; sourceTree = "<group>"; };
+		117417F51D86A1B100B5458F /* SKActivityNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKActivityNotificationView.h; path = Index/SKActivityNotificationView.h; sourceTree = "<group>"; };
+		117417F61D86A1B100B5458F /* SKActivityNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKActivityNotificationView.m; path = Index/SKActivityNotificationView.m; sourceTree = "<group>"; };
 		11961CDA1D2D2B3400A00AF9 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		1196F29F1CF6DFA600E70C83 /* SKImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKImageHelper.h; sourceTree = "<group>"; };
@@ -1803,6 +1806,8 @@
 				117417ED1D797F5C00B5458F /* SKQuestionPageViewController.m */,
 				117417F21D7FE3CC00B5458F /* SKHelperView.h */,
 				117417F31D7FE3CC00B5458F /* SKHelperView.m */,
+				117417F51D86A1B100B5458F /* SKActivityNotificationView.h */,
+				117417F61D86A1B100B5458F /* SKActivityNotificationView.m */,
 			);
 			name = Index;
 			sourceTree = "<group>";
@@ -4157,6 +4162,7 @@
 				17F37A791C259EB8006759D1 /* HTDescriptionView.m in Sources */,
 				17B429021C54D4A8008AFBA9 /* YYImage.m in Sources */,
 				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,
+				117417F71D86A1B200B5458F /* SKActivityNotificationView.m in Sources */,
 				17F45AEA1C7E1A41004F2E32 /* HTProfileArticlesController.m in Sources */,
 				17F39B691C820D7500D8A565 /* HTProfileRootController.m in Sources */,
 				17F393AD1C8CA4D2004E1DB7 /* HTCardTimeView.m in Sources */,

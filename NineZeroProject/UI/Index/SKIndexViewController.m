@@ -14,6 +14,7 @@
 #import "HTProfileSettingController.h"
 #import "HTNotificationController.h"
 #import "HTProfileRankController.h"
+#import "SKActivityNotificationView.h"
 
 #import "HTUIHeader.h"
 
@@ -43,6 +44,8 @@
     [super viewDidLoad];
     [self createUI];
     [self loadData];
+    SKActivityNotificationView *view = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.view addSubview:view];
 }
 
 - (void)didReceiveMemoryWarning {
