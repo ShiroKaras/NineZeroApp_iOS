@@ -27,7 +27,7 @@
 - (void)setTipNumber:(NSInteger)tipNumber {
     _tipNumber = tipNumber;
     if (tipNumber < 1) {
-        _ArrowView.hidden = YES;
+        _ArrowView.hidden = NO;
         _tipLabel.hidden = YES;
     } else {
         _ArrowView.hidden = YES;
