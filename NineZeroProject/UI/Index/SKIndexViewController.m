@@ -155,30 +155,30 @@
     [self.view addSubview:dimmingView];
     
     UIButton *allLevelButton = [UIButton new];
-    [allLevelButton setImage:[UIImage imageNamed:@"btn_homepage_traditional_level"] forState:UIControlStateNormal];
-    [allLevelButton setImage:[UIImage imageNamed:@"btn_homepage_traditional_level_highlight"] forState:UIControlStateHighlighted];
-    [allLevelButton sizeToFit];
+    [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional_level"] forState:UIControlStateNormal];
+    [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional_level_highlight"] forState:UIControlStateHighlighted];
+//    [allLevelButton sizeToFit];
     [allLevelButton addTarget:self  action:@selector(allLevelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [dimmingView addSubview:allLevelButton];
     
     UIButton *timerLevelButton = [UIButton new];
-    [timerLevelButton setImage:[UIImage imageNamed:@"btn_homepage_timer_level"] forState:UIControlStateNormal];
-    [timerLevelButton setImage:[UIImage imageNamed:@"btn_homepage_timer_level_highlight"] forState:UIControlStateHighlighted];
-    [timerLevelButton sizeToFit];
+    [timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level"] forState:UIControlStateNormal];
+    [timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level_highlight"] forState:UIControlStateHighlighted];
+//    [timerLevelButton sizeToFit];
     [timerLevelButton addTarget:self action:@selector(timerLevelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [dimmingView addSubview:timerLevelButton];
     
     UIButton *mascotButton = [UIButton new];
-    [mascotButton setImage:[UIImage imageNamed:@"btn_homepage_lingzai"] forState:UIControlStateNormal];
-    [mascotButton setImage:[UIImage imageNamed:@"btn_homepage_lingzai_highlight"] forState:UIControlStateHighlighted];
-    [mascotButton sizeToFit];
+    [mascotButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai"] forState:UIControlStateNormal];
+    [mascotButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai_highlight"] forState:UIControlStateHighlighted];
+//    [mascotButton sizeToFit];
     [mascotButton addTarget:self action:@selector(mascotButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [dimmingView addSubview:mascotButton];
     
     UIButton *meButton = [UIButton new];
-    [meButton setImage:[UIImage imageNamed:@"btn_homepage_me"] forState:UIControlStateNormal];
-    [meButton setImage:[UIImage imageNamed:@"btn_homepage_me_highlight"] forState:UIControlStateHighlighted];
-    [meButton sizeToFit];
+    [meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me"] forState:UIControlStateNormal];
+    [meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me_highlight"] forState:UIControlStateHighlighted];
+//    [meButton sizeToFit];
     [meButton addTarget:self action:@selector(meButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [dimmingView addSubview:meButton];
     
@@ -190,21 +190,29 @@
     }];
     
     [allLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(ROUND_WIDTH(100));
+        make.height.equalTo(ROUND_HEIGHT(130));
         make.bottom.equalTo(dimmingView.mas_centerY).offset(-18);
         make.right.equalTo(dimmingView.mas_centerX).offset(-20);
     }];
     
     [timerLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(ROUND_WIDTH(100));
+        make.height.equalTo(ROUND_HEIGHT(130));
         make.top.equalTo(allLevelButton);
         make.left.equalTo(dimmingView.mas_centerX).offset(20);
     }];
     
     [mascotButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(ROUND_WIDTH(100));
+        make.height.equalTo(ROUND_HEIGHT(130));
         make.top.equalTo(dimmingView.mas_centerY).offset(18);
         make.centerX.equalTo(allLevelButton);
     }];
     
     [meButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(ROUND_WIDTH(100));
+        make.height.equalTo(ROUND_HEIGHT(130));
         make.top.equalTo(mascotButton);
         make.centerX.equalTo(timerLevelButton);
     }];
@@ -213,8 +221,8 @@
     //非休息日
     BOOL isRestDay = YES;
     if (isRestDay) {
-        [timerLevelButton setImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
-        [timerLevelButton setImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateHighlighted];
+        [timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
+        [timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateHighlighted];
         
         UIView *countDownView = [UIView new];
         countDownView.backgroundColor = [UIColor clearColor];
@@ -227,13 +235,13 @@
         _timeLabel = [UILabel new];
         _timeLabel.text = @"00:00:00";
         _timeLabel.textColor = [UIColor whiteColor];
-        _timeLabel.font = MOON_FONT_OF_SIZE(12);
+        _timeLabel.font = MOON_FONT_OF_SIZE(16);
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         [countDownView addSubview:_timeLabel];
         
         [countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@(80));
-            make.height.equalTo(@(41));
+            make.width.equalTo(ROUND_WIDTH(80));
+            make.height.equalTo(ROUND_HEIGHT(41));
             make.right.equalTo(timerLevelButton.mas_right).offset(-20);
             make.bottom.equalTo(timerLevelButton.mas_top).offset(9);
         }];
@@ -262,8 +270,8 @@
         [countDownView addSubview:timeLabel];
         
         [countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@(72));
-            make.height.equalTo(@(29));
+            make.width.equalTo(ROUND_WIDTH(72));
+            make.height.equalTo(ROUND_HEIGHT(29));
             make.left.equalTo(timerLevelButton.mas_centerX);
             make.centerY.equalTo(timerLevelButton.mas_top);
         }];
