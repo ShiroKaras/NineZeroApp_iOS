@@ -203,6 +203,7 @@ static NSInteger const kChangeNameViewTag = 12345;
     [super viewDidLoad];
     self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     
     self.navigationItem.title = @"设置";
@@ -219,12 +220,16 @@ static NSInteger const kChangeNameViewTag = 12345;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+//    CGRect rect = self.navigationController.navigationBar.frame;
+//    self.navigationController.navigationBar.frame = CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, 64);
     [MobClick beginLogPageView:@"settingpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
+//    CGRect rect = self.navigationController.navigationBar.frame;
+//    self.navigationController.navigationBar.frame = CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, 44);
     [MobClick endLogPageView:@"settingpage"];
 }
 

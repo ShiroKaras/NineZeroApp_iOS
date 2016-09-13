@@ -45,7 +45,7 @@
                         <action selector="didClickBackButton:" destination="-1" eventType="touchUpInside" id="ZPh-P4-l7y"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNW-0b-0Z6" userLabel="notificationButton">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNW-0b-0Z6" userLabel="notificationButton">
                     <rect key="frame" x="281" y="11" width="40" height="40"/>
                     <state key="normal" image="btn_profile_notification"/>
                     <state key="highlighted" image="btn_profile_notification_highlight"/>
@@ -53,7 +53,7 @@
                         <action selector="didClickNotification:" destination="-1" eventType="touchUpInside" id="Bsk-vR-FvE"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ue-oz-GgY" userLabel="settingButton">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ue-oz-GgY" userLabel="settingButton">
                     <rect key="frame" x="324" y="11" width="40" height="40"/>
                     <state key="normal" image="btn_profile_setting"/>
                     <state key="highlighted" image="btn_profile_setting_highlight"/>
