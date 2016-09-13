@@ -52,9 +52,9 @@
     }];
     
     UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelButton setImage:[UIImage imageNamed:@"btn_navi_cancel"] forState:UIControlStateNormal];
-    [cancelButton setImage:[UIImage imageNamed:@"btn_navi_cancel_highlight"] forState:UIControlStateHighlighted];
-    [cancelButton sizeToFit];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"btn_navi_cancel"] forState:UIControlStateNormal];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"btn_navi_cancel_highlight"] forState:UIControlStateHighlighted];
+    
     [cancelButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:cancelButton];
     
@@ -62,7 +62,7 @@
         make.width.equalTo(@(40));
         make.height.equalTo(@(40));
         make.centerX.equalTo(weakSelf);
-        make.bottom.equalTo(weakSelf.mas_bottom).offset(-26);
+        make.top.equalTo(_contentImageView.mas_bottom).offset(26);
     }];
 }
 
