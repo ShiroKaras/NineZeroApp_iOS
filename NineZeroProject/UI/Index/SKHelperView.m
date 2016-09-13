@@ -31,7 +31,7 @@
         dimmingView.alpha = 0.8;
         [self addSubview:dimmingView];
         
-        UIView *cardView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-276)/2, ROUND_HEIGHT_FLOAT(60), 276, 356)];
+        UIView *cardView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-276)/2, (SCREEN_HEIGHT-356)/2, 276, 356)];
         cardView.layer.cornerRadius = 5;
         cardView.layer.masksToBounds = YES;
         cardView.backgroundColor = [UIColor colorWithHex:0x1D1D1D];
@@ -132,9 +132,9 @@
     
     if (type == SKHelperScrollViewTypeQuestion) {
         NSArray *textArray = @[@"“我是零仔〇，住在529D星球”",
-                               @"“这个星球除了我，其他的同族都离奇的失踪了”",
-                               @"“追寻着同族留下的线索，我来到了你们的世界”",
-                               @"“请留意视频内容，破解谜团，帮助我找到其他零仔”"];
+                               @"“这个星球除了我，其他同族都离奇的失踪了”",
+                               @"“追寻同族留下的线索，我来到了你们的世界”",
+                               @"“请留意视频，破解谜团，帮我找到其他零仔”"];
         NSInteger pageNumber = textArray.count;
         _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
         _scrollView.pagingEnabled = YES;
@@ -153,7 +153,7 @@
         }
     } else if (type == SKHelperScrollViewTypeMascot) {
         NSArray *textArray = @[@"帮助零仔〇找到失落在地球上的其他零仔们",
-                               @"点击零仔头顶的路标去发现这个星球上最九零的人、物、事",
+                               @"点击零仔头顶的手指去发现这个星球上最九零的人、物、事",
                                @"破解重重关卡，你将解锁更多的原创文章"];
         NSArray *imgArray  = @[@"img_introduce_lingzaipage_1",
                                @"img_introduce_lingzaipage_2",
