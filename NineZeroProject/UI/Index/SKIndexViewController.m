@@ -18,6 +18,8 @@
 
 #import "HTUIHeader.h"
 
+#define EVERYDAY_FIRST_ACTIVITY_NOTIFICATION @"EVERYDAY_FIRST_ACTIVITY_NOTIFICATION"
+
 @interface SKIndexViewController () <HTPreviewCardControllerDelegate>
 
 @property (nonatomic, strong) NSArray<HTQuestion*>* questionList;
@@ -44,8 +46,7 @@
     [super viewDidLoad];
     [self createUI];
     [self loadData];
-    SKActivityNotificationView *view = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    [self.view addSubview:view];
+    [self judgementDate];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -307,6 +308,19 @@
         // 过去时间
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
     }
+}
+
+- (void)judgementDate {
+    NSDate *  senddate=[NSDate date];
+    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"YYYYMMdd"];
+    NSString *locationString=[dateformatter stringFromDate:senddate];
+    
+    if (![locationString isEqualToString:[UD objectForKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION]]) {
+        SKActivityNotificationView *view = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [self.view addSubview:view];
+    }
+    [UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
 }
 
 #pragma mark - Actions
