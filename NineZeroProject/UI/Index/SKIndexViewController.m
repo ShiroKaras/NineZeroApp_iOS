@@ -77,6 +77,10 @@
     [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
         NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
         if (success && response.resultCode == 0) {
+            UIView *countDownView = [UIView new];
+            countDownView.backgroundColor = [UIColor clearColor];
+            [self.view addSubview:countDownView];
+            
             if ([dictData isEqualToString:@"1"]) {
                 [HTProgressHUD dismiss];
                 [[[HTServiceManager sharedInstance] questionService] getRelaxDayInfo:^(BOOL success, HTResponsePackage *response) {
@@ -86,77 +90,68 @@
                         [self scheduleCountDownTimer];
                     }
                 }];
-                //倒计时
-                //非休息日
-                BOOL isRestDay = YES;
-                if (isRestDay) {
-                    [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
-                    [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateHighlighted];
-                    
-                    UIView *countDownView = [UIView new];
-                    countDownView.backgroundColor = [UIColor clearColor];
-                    [self.view addSubview:countDownView];
-                    
-                    UIImageView *countDownImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"popup_homepage_timer"]];
-                    [countDownView sizeToFit];
-                    [countDownView addSubview:countDownImageView];
-                    
-                    _timeLabel = [UILabel new];
-                    _timeLabel.text = @"00:00:00";
-                    _timeLabel.textColor = [UIColor whiteColor];
-                    _timeLabel.font = MOON_FONT_OF_SIZE(16);
-                    _timeLabel.textAlignment = NSTextAlignmentCenter;
-                    [countDownView addSubview:_timeLabel];
-                    
-                    [countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.width.equalTo(ROUND_WIDTH(80));
-                        make.height.equalTo(ROUND_HEIGHT(41));
-                        make.right.equalTo(_timerLevelButton.mas_right).offset(-20);
-                        make.bottom.equalTo(_timerLevelButton.mas_top).offset(9);
-                    }];
-                    
-                    [countDownImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.width.equalTo(countDownView);
-                        make.height.equalTo(countDownView);
-                        make.center.equalTo(countDownView);
-                    }];
-                    
-                    [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.centerX.equalTo(countDownView);
-                        make.bottom.equalTo(countDownView.mas_bottom).offset(-9);
-                    }];
-                } else {
-                    [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level"] forState:UIControlStateNormal];
-                    [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level_highlight"] forState:UIControlStateHighlighted];
-                    
-                    UIView *countDownView = [UIView new];
-                    countDownView.backgroundColor = [UIColor colorWithHex:0xFF063E];
-                    countDownView.layer.cornerRadius = 5;
-                    [self.view addSubview:countDownView];
-                    
-                    UILabel *timeLabel = [UILabel new];
-                    timeLabel.text = @"00:00:00";
-                    timeLabel.textColor = [UIColor whiteColor];
-                    timeLabel.font = MOON_FONT_OF_SIZE(16);
-                    timeLabel.textAlignment = NSTextAlignmentCenter;
-                    [countDownView addSubview:timeLabel];
-                    
-                    [countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.width.equalTo(ROUND_WIDTH(72));
-                        make.height.equalTo(ROUND_HEIGHT(29));
-                        make.left.equalTo(_timerLevelButton.mas_centerX);
-                        make.centerY.equalTo(_timerLevelButton.mas_top);
-                    }];
-                    
-                    [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.width.equalTo(countDownView);
-                        make.height.equalTo(countDownView);
-                        make.center.equalTo(countDownView);
-                    }];
-                }
-
+                
+                [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
+                [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateHighlighted];
+                
+                UIImageView *countDownImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"popup_homepage_timer"]];
+                [countDownView sizeToFit];
+                [countDownView addSubview:countDownImageView];
+                
+                _timeLabel = [UILabel new];
+                _timeLabel.text = @"00:00:00";
+                _timeLabel.textColor = [UIColor whiteColor];
+                _timeLabel.font = MOON_FONT_OF_SIZE(16);
+                _timeLabel.textAlignment = NSTextAlignmentCenter;
+                [countDownView addSubview:_timeLabel];
+                
+                [countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(ROUND_WIDTH(80));
+                    make.height.equalTo(ROUND_HEIGHT(41));
+                    make.right.equalTo(_timerLevelButton.mas_right).offset(-20);
+                    make.bottom.equalTo(_timerLevelButton.mas_top).offset(9);
+                }];
+                
+                [countDownImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(countDownView);
+                    make.height.equalTo(countDownView);
+                    make.center.equalTo(countDownView);
+                }];
+                
             } else if ([dictData isEqualToString:@"0"]) {
                 [HTProgressHUD dismiss];
+                [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(countDownView);
+                    make.bottom.equalTo(countDownView.mas_bottom).offset(-9);
+                }];
+                
+                [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level"] forState:UIControlStateNormal];
+                [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level_highlight"] forState:UIControlStateHighlighted];
+                
+                UIView *countDownView = [UIView new];
+                countDownView.backgroundColor = [UIColor colorWithHex:0xFF063E];
+                countDownView.layer.cornerRadius = 5;
+                [self.view addSubview:countDownView];
+                
+                _timeLabel = [UILabel new];
+                _timeLabel.text = @"00:00:00";
+                _timeLabel.textColor = [UIColor whiteColor];
+                _timeLabel.font = MOON_FONT_OF_SIZE(16);
+                _timeLabel.textAlignment = NSTextAlignmentCenter;
+                [countDownView addSubview:_timeLabel];
+                
+                [countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(ROUND_WIDTH(72));
+                    make.height.equalTo(ROUND_HEIGHT(29));
+                    make.left.equalTo(_timerLevelButton.mas_centerX);
+                    make.centerY.equalTo(_timerLevelButton.mas_top);
+                }];
+                
+                [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(countDownView);
+                    make.height.equalTo(countDownView);
+                    make.center.equalTo(countDownView);
+                }];
             } else {
                 [HTProgressHUD dismiss];
             }
@@ -344,7 +339,7 @@
     SKQuestionPageViewController *controller = [[SKQuestionPageViewController alloc] init];
     NSMutableArray *list = [NSMutableArray arrayWithArray:self.questionList];
     [list removeObjectAtIndex:0];
-    controller.questionList = self.questionList;
+    controller.questionList = list;
     [self.navigationController pushViewController:controller animated:YES];
 }
 

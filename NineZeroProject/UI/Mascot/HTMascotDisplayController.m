@@ -199,8 +199,8 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     }];
     
     [self.tipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(self.onlyOneMascotImageView.mas_bottom).equalTo(@11);
+        make.left.equalTo(_mascotView.mas_left).offset(ROUND_WIDTH_FLOAT(40));
+        make.bottom.equalTo(self.view.mas_bottom).offset(ROUND_HEIGHT_FLOAT(-180)+49.5);
     }];
     
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -214,23 +214,21 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 }
 
 - (void)reloadViews {
-//    if (self.mascots.count == 1) {
-//        self.onlyOneMascotImageView.hidden = NO;
-//        self.onlyOneMascotBackgroundImageView.hidden = NO;
-//        self.mascotTipView.hidden = NO;
-//        self.tipImageView.hidden = NO;
-//        self.tipLabel.hidden = NO;
-//        self.mascotView.hidden = YES;
-//        self.onlyOneMascotImageView.mascot = self.mascots[0];
-//        self.mascotTipView.tipNumber = self.mascots[0].unread_articles;
-//    } else {
+    if (self.mascots.count == 1) {
+        self.onlyOneMascotImageView.hidden = YES;
+        self.onlyOneMascotBackgroundImageView.hidden = YES;
+        self.mascotTipView.hidden = YES;
+        self.tipImageView.hidden = NO;
+        self.tipLabel.hidden = NO;
+        self.mascotView.hidden = NO;
+    } else {
         self.onlyOneMascotImageView.hidden = YES;
         self.onlyOneMascotBackgroundImageView.hidden = YES;
         self.mascotTipView.hidden = YES;
         self.tipImageView.hidden = YES;
         self.tipLabel.hidden = YES;
         self.mascotView.hidden = NO;
-//    }
+    }
 }
 
 #pragma mark - Action
