@@ -98,9 +98,6 @@
 }
 
 - (NSString *)getUserID {
-//#ifdef DEBUG
-//    return @"2016030321302424224";
-//#endif
     return [_storageService getStringById:kStorageUserIdKey fromTable:kStorageTableKey];
 }
 

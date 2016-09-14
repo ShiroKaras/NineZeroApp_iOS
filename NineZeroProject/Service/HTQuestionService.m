@@ -57,6 +57,7 @@
 
 - (void)getQuestionListWithPage:(NSUInteger)page count:(NSUInteger)count callback:(HTQuestionListCallback)callback {
     NSDictionary *dict = @{@"area_id" : AppDelegateInstance.cityCode,
+                           @"user_id" : [[HTStorageManager sharedInstance] getUserID],
                            @"page"    : @(0) /* 全量拉取 */,
                            @"count"   : [NSString stringWithFormat:@"%lud", (unsigned long)count]
                            };

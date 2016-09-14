@@ -65,6 +65,10 @@
     
     [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
         self.questionList = questionList;
+        for (HTQuestion *q in questionList) {
+            DLog(@"%ld", q.rewardID);
+            DLog(@"%i", q.isPassed);
+        }
     }];
     
     [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
@@ -338,7 +342,7 @@
 - (void)allLevelButtonClick:(UIButton *)sender{
     SKQuestionPageViewController *controller = [[SKQuestionPageViewController alloc] init];
     NSMutableArray *list = [NSMutableArray arrayWithArray:self.questionList];
-    [list removeObjectAtIndex:0];
+    [list removeLastObject];
     controller.questionList = list;
     [self.navigationController pushViewController:controller animated:YES];
 }
