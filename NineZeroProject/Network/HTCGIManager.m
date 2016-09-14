@@ -196,5 +196,8 @@
 + (NSString *)getVersionCGIKey {
     return [NSString stringWithFormat:@"%@Common/latestClientVersion", NETWORK_HOST];
 }
++ (NSString *)getAdvertisingCGIKey {
+    return [NSString stringWithFormat:@"%@Advertise/getAdvertising", NETWORK_HOST];
+}
 
 @end

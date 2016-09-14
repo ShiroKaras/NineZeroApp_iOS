@@ -467,4 +467,16 @@
     [manager.operationQueue addOperation:operation];
 }
 
+- (void)getActivityNotification:(HTResponseCallback)callback {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableURLRequest* request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:[HTCGIManager getAdvertisingCGIKey] parameters:nil error:NULL];
+    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
+        callback(true, package);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        callback(false, nil);
+    }];
+    
+    [manager.operationQueue addOperation:operation];
+}
 @end

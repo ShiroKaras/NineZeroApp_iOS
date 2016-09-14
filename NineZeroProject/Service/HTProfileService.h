@@ -113,5 +113,8 @@ typedef NS_ENUM(NSUInteger, HTUpdateUserInfoType) {
  *  @brief 最新版本号
  */
 - (void)getVersion:(void (^)(NSDictionary *posts, NSError *error))callback;
-
+/**
+ *  @brief 弹屏通知
+ */
+- (void)getActivityNotification:(HTResponseCallback)callback;
 @end

@@ -309,4 +309,10 @@
  *  @brief 获取版本号
  */
 + (NSString *)getVersionCGIKey;
+
+/**
+ *  @brief 获取弹屏信息
+ *
+ */
++ (NSString *)getAdvertisingCGIKey;
 @end
