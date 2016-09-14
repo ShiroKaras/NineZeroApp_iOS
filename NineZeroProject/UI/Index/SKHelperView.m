@@ -255,6 +255,7 @@
     UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
     [button2 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
     [button2 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
+    [button2 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [button2 sizeToFit];
     button2.centerX = _view2.centerX;
     button2.bottom = _view2.bottom - 122;
@@ -268,6 +269,7 @@
     UIButton *button3 = [UIButton buttonWithType:UIButtonTypeCustom];
     [button3 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
     [button3 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
+    [button3 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [button3 sizeToFit];
     button3.left = 64;
     button3.top = 163;
@@ -288,27 +290,21 @@
     [_view4 addSubview:button4];
 
     switch (type) {
-        case SKHelperGuideViewTypeTimerLevel:{
+        case SKHelperGuideViewType1:{
             [self addSubview:_view1];
             [self addSubview:_view2];
-            [self addSubview:_view3];
-            [self addSubview:_view4];
             _view1.alpha = 1;
             _view2.alpha = 0;
-            _view3.alpha = 0;
-            _view4.alpha = 0;
-            [button2 addTarget:self action:@selector(onClickTurnToView3) forControlEvents:UIControlEventTouchUpInside];
-            [button3 addTarget:self action:@selector(onClickTurnToView4) forControlEvents:UIControlEventTouchUpInside];
-            [button4 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             break;
         }
-        case SKHelperGuideViewTypeHistoryLevel:{
-            [self addSubview:_view1];
-            [self addSubview:_view2];
+        case SKHelperGuideViewType2:{
+            [self addSubview:_view3];
+            _view3.alpha = 1;
+            break;
+        }
+        case SKHelperGuideViewType3:{
             [self addSubview:_view4];
             _view1.alpha = 1;
-            _view2.alpha = 0;
-            _view4.alpha = 0;
             break;
         }
         default:
@@ -322,24 +318,6 @@
         _view2.alpha = 1;
         _view3.alpha = 0;
         _view4.alpha = 0;
-    }];
-}
-
-- (void)onClickTurnToView3 {
-    [UIView animateWithDuration:0.3 animations:^{
-        _view1.alpha = 0;
-        _view2.alpha = 0;
-        _view3.alpha = 1;
-        _view4.alpha = 0;
-    }];
-}
-
-- (void)onClickTurnToView4 {
-    [UIView animateWithDuration:0.3 animations:^{
-        _view1.alpha = 0;
-        _view2.alpha = 0;
-        _view3.alpha = 0;
-        _view4.alpha = 1;        
     }];
 }
 
