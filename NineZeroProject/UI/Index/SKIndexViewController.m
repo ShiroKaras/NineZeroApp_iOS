@@ -323,10 +323,17 @@
     NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
     [dateformatter setDateFormat:@"YYYYMMdd"];
     NSString *locationString=[dateformatter stringFromDate:senddate];
-    
     if (![locationString isEqualToString:[UD objectForKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION]]) {
-        SKActivityNotificationView *view = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        [self.view addSubview:view];
+        [[[HTServiceManager sharedInstance] profileService] getActivityNotification:^(BOOL success, HTResponsePackage *response) {
+            if (success) {
+                if (response.resultCode == 0) {
+                    SKActivityNotificationView *view = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+                    [view.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]]];
+                    [self.view addSubview:view];
+                }
+            }
+        }];
+        
     }
     [UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
 }
@@ -335,12 +342,14 @@
 
 - (void)allLevelButtonClick:(UIButton *)sender{
     SKQuestionPageViewController *controller = [[SKQuestionPageViewController alloc] init];
+    NSMutableArray *list = [NSMutableArray arrayWithArray:self.questionList];
+    [list removeObjectAtIndex:0];
     controller.questionList = self.questionList;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)timerLevelButtonClick:(UIButton *)sender {
-    HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeIndexRecord andQuestList:@[self.questionList.lastObject] questionInfo:_questionInfo];
+    HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeTimeLevel andQuestList:@[self.questionList.lastObject] questionInfo:_questionInfo];
     cardController.delegate = self;
     [self.navigationController pushViewController:cardController animated:YES];
 }

@@ -2812,6 +2812,8 @@
 		174CF77F1C146E15002E0DBB /* Question */ = {
 			isa = PBXGroup;
 			children = (
+				117418011D89396400B5458F /* HTPreviewCardController.h */,
+				117418021D89396400B5458F /* HTPreviewCardController.m */,
 				117417F81D89396300B5458F /* HTCardCollectionCell.h */,
 				117417F91D89396400B5458F /* HTCardCollectionCell.m */,
 				117417FA1D89396400B5458F /* HTCardTimeView.h */,
@@ -2821,8 +2823,6 @@
 				117417FE1D89396400B5458F /* HTComposeView.m */,
 				117417FF1D89396400B5458F /* HTDescriptionView.h */,
 				117418001D89396400B5458F /* HTDescriptionView.m */,
-				117418011D89396400B5458F /* HTPreviewCardController.h */,
-				117418021D89396400B5458F /* HTPreviewCardController.m */,
 				117418031D89396400B5458F /* HTRecordView.xib */,
 				117418041D89396400B5458F /* HTShowAnswerView.h */,
 				117418051D89396400B5458F /* HTShowAnswerView.m */,

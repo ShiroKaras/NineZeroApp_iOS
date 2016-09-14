@@ -285,11 +285,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             questionInfo = callbackQuestionInfo;
         }];
         
+        _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
+        [self.view addSubview:_recordView];
+        [self showAlert];
+    } else if (_cardType == HTPreviewCardTypeTimeLevel){
         _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
         [self.view addSubview:_timeView];
-        
-        _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
-//        [self.view addSubview:_recordView];
+        [self showAlert];
+    } else if (_cardType == HTPreviewCardTypeHistoryLevel) {
         [self showAlert];
     }
     
@@ -366,7 +369,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     };
     
     // 4.关闭按钮
-    if (_cardType == HTPreviewCardTypeRecord || _cardType == HTPreviewCardTypeIndexRecord) {
+    if (_cardType == HTPreviewCardTypeRecord || _cardType == HTPreviewCardTypeIndexRecord || _cardType == HTPreviewCardTypeHistoryLevel || _cardType == HTPreviewCardTypeTimeLevel) {
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_closeButton setImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
         [_closeButton setImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];

@@ -149,17 +149,17 @@
         mImageButton.tag = questionNumber;
         [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
-        if (questionList[questionNumber].isPassed) {
-            if (![questionList[questionNumber].question_ar_location isEqualToString:@""]) {
-                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
-                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
-            } else {
+        if (![questionList[questionNumber].question_ar_location isEqualToString:@""]) {
+            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
+            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
+        } else {
+            if (questionList[questionNumber].isPassed) {
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
-            }
-        } else {
-            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_uncompleted"] forState:UIControlStateNormal];
-            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_uncompleted_highlight"] forState:UIControlStateHighlighted];
+            } else {
+                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_uncompleted"] forState:UIControlStateNormal];
+                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_uncompleted_highlight"] forState:UIControlStateHighlighted];
+            }        
         }
         [itemView addSubview:mImageButton];
         
@@ -216,7 +216,7 @@
 }
 
 - (void)questionSelectButtonClick:(UIButton *)sender {
-    HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeIndexRecord andQuestList:@[self.questionList[sender.tag]]];
+    HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeHistoryLevel andQuestList:@[self.questionList[sender.tag]]];
     cardController.delegate = self;
     [self.navigationController pushViewController:cardController animated:YES];
 }
