@@ -68,6 +68,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (nonatomic, strong) NSMutableArray *courseImageArray_iPhone6;                      //教程图片组iphone6
 @property (nonatomic, assign) NSUInteger currentCourseImageIndex;
 @property (nonatomic, assign) BOOL isRelaxDay;
+
+@property (nonatomic, strong) UIButton *helpButton;
 @end
 
 @implementation HTPreviewCardController {
@@ -80,6 +82,19 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (instancetype)initWithType:(HTPreviewCardType)type andQuestList:(NSArray<HTQuestion *> *)questions {
     if (self = [super init]) {
         _cardType = type;
+        if (questions != nil) {
+            questionList = [questions mutableCopy];
+        } else {
+            questionList = [NSMutableArray array];
+        }
+    }
+    return self;
+}
+
+- (instancetype)initWithType:(HTPreviewCardType)type andQuestList:(NSArray<HTQuestion *> *)questions questionInfo:(HTQuestionInfo*)info {
+    if (self = [super init]) {
+        _cardType = type;
+        questionInfo = info;
         if (questions != nil) {
             questionList = [questions mutableCopy];
         } else {
@@ -221,7 +236,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                             }];
                             _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
                             [self.collectionView addSubview:_eggImageView];
-                            if (!FIRST_LAUNCH) {
+                            if (FIRST_LAUNCH) {
                                 [self showCourseView];
                             } else{
                                 [self showAlert];
@@ -266,13 +281,16 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             [self showBlankViewNoContent];
         }
     } else if (_cardType == HTPreviewCardTypeIndexRecord) {
+        [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
+            questionInfo = callbackQuestionInfo;
+        }];
+        
+        _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
+        [self.view addSubview:_timeView];
+        
         _recordView = [[HTRecordView alloc] initWithFrame:CGRectZero];
-        [self.view addSubview:_recordView];
-        if (FIRST_LAUNCH) {
-            [self showGuideview];
-        } else{
-            [self showAlert];
-        }
+//        [self.view addSubview:_recordView];
+        [self showAlert];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -356,6 +374,33 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [_closeButton addTarget:self action:@selector(onClickCloseButton) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_closeButton];
     }
+    
+    // 5.左上灯泡
+    _helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+    [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
+    
+    [_helpButton addTarget:self action:@selector(arQuestionHelpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_helpButton sizeToFit];
+    _helpButton.top = 10;
+    _helpButton.left = 10;
+    [self.view addSubview:_helpButton];
+}
+
+- (void)arQuestionHelpButtonClick:(UIButton *)sender {
+    SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
+    [self.view addSubview:helpView];
+    
+    helpView.frame = CGRectZero;
+    helpView.alpha = 0;
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        helpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        helpView.alpha = 1;
+    } completion:^(BOOL finished) {
+        
+    }];
+
 }
 
 - (void)backToToday {
@@ -849,7 +894,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     UIView *blackView = [[UIView alloc] initWithFrame:self.view.frame];
     blackView.backgroundColor = [UIColor blackColor];
     
-    _guideView = [[SKHelperGuideView alloc] initWithFrame:self.view.frame withType:SKHelperGuideViewTypeTimerLevel];
+    _guideView = [[SKHelperGuideView alloc] initWithFrame:self.view.frame withType:SKHelperGuideViewType1];
     _guideView.alpha = 0;
     
     [KEY_WINDOW addSubview:blackView];
@@ -935,7 +980,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)showAlert {
     //通知Alert
     if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
-        if (FIRST_LAUNCH){
+        if (!FIRST_LAUNCH){
             //未显示过
             HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
             [alertView show];

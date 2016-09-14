@@ -22,9 +22,11 @@ typedef enum : NSUInteger {
 @end
 
 @class HTQuestion;
+@class HTQuestionInfo;
 @interface HTPreviewCardController : UIViewController
 - (instancetype)initWithType:(HTPreviewCardType)type;
 - (instancetype)initWithType:(HTPreviewCardType)type andQuestList:(NSArray<HTQuestion *> *)questions;
+- (instancetype)initWithType:(HTPreviewCardType)type andQuestList:(NSArray<HTQuestion *> *)questions questionInfo:(HTQuestionInfo*)info;
 - (void)backToToday;
 
 @property (nonatomic, weak) id<HTPreviewCardControllerDelegate> delegate;
