@@ -83,13 +83,6 @@ typedef enum : NSUInteger {
             [controller presentViewController:navController animated:YES completion:nil];
             break;
         }
-        case HTProfileTypeRecord: {
-            [MobClick event:@"record"];
-            HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeRecord];
-            HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:cardController];
-            [controller presentViewController:navController animated:YES completion:nil];
-            break;
-        }
         case HTProfileTypeReward: {
             [MobClick event:@"bonus"];
             HTProfileRewardController *rewardController = [[HTProfileRewardController alloc] init];
