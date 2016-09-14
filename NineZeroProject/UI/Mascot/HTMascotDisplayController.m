@@ -47,6 +47,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     [self.view addSubview:self.onlyOneMascotBackgroundImageView];
     
     self.onlyOneMascotImageView = [[HTMascotItem alloc] init];
+    self.onlyOneMascotImageView.hidden = YES;
     self.onlyOneMascotImageView.index = 0;
     self.onlyOneMascotImageView.mascot = self.mascots[0];
     [self.onlyOneMascotImageView playAnimatedNumber:2];
@@ -145,10 +146,10 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
         [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
         if (success) {
             // AT LEAST ONE MASCOT
-            if (mascots.count != 0) {
+//            if (mascots.count != 0) {
                 self.mascots = [mascots mutableCopy];
                 [_mascotView setMascots:self.mascots];
-            }
+//            }
             [self reloadViews];
             [self reloadDisplayMascotsWithIndex:[UD integerForKey:selectedMascotKey]];
         } else {
@@ -213,23 +214,23 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 }
 
 - (void)reloadViews {
-    if (self.mascots.count == 1) {
-        self.onlyOneMascotImageView.hidden = NO;
-        self.onlyOneMascotBackgroundImageView.hidden = NO;
-        self.mascotTipView.hidden = NO;
-        self.tipImageView.hidden = NO;
-        self.tipLabel.hidden = NO;
-        self.mascotView.hidden = YES;
-        self.onlyOneMascotImageView.mascot = self.mascots[0];
-        self.mascotTipView.tipNumber = self.mascots[0].unread_articles;
-    } else {
+//    if (self.mascots.count == 1) {
+//        self.onlyOneMascotImageView.hidden = NO;
+//        self.onlyOneMascotBackgroundImageView.hidden = NO;
+//        self.mascotTipView.hidden = NO;
+//        self.tipImageView.hidden = NO;
+//        self.tipLabel.hidden = NO;
+//        self.mascotView.hidden = YES;
+//        self.onlyOneMascotImageView.mascot = self.mascots[0];
+//        self.mascotTipView.tipNumber = self.mascots[0].unread_articles;
+//    } else {
         self.onlyOneMascotImageView.hidden = YES;
         self.onlyOneMascotBackgroundImageView.hidden = YES;
         self.mascotTipView.hidden = YES;
         self.tipImageView.hidden = YES;
         self.tipLabel.hidden = YES;
         self.mascotView.hidden = NO;
-    }
+//    }
 }
 
 #pragma mark - Action
