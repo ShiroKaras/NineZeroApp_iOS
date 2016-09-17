@@ -373,12 +373,18 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [imageView sizeToFit];
         imageView.right = _composeButton.right +33;
         imageView.bottom = _composeButton.top -5;
+        imageView.alpha = 0;
         [self addSubview:imageView];
-        [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            imageView.alpha = 0;
+        [UIView animateWithDuration:0.5 animations:^{
+            imageView.alpha = 1;
         } completion:^(BOOL finished) {
-            [imageView removeFromSuperview];
+            [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                imageView.alpha = 0;
+            } completion:^(BOOL finished) {
+                [imageView removeFromSuperview];
+            }];
         }];
+        
     } else {
         if (_question.isPassed == NO
             //        _questionInfo.questionID == _question.questionID &&
