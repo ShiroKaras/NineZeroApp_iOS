@@ -345,6 +345,9 @@
                     SKActivityNotificationView *view = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
                     [view.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]]];
                     [self.view addSubview:view];
+                    
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(timerLevelButtonClick:)];
+                    [view addGestureRecognizer:tap];
                 }
             }
         }];
