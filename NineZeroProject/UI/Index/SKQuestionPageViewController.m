@@ -27,7 +27,7 @@
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
-    self.questionList = [[[HTServiceManager sharedInstance] questionService] questionList];
+    [self updateUIWithData:[[[HTServiceManager sharedInstance] questionService] questionList]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -39,7 +39,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    [self updateUIWithData:self.questionList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -104,7 +103,7 @@
         NSURL *coverURL = [questionList[questionNumber].thumbnail_pic isEqualToString:@""]?[NSURL URLWithString:questionList[questionNumber].question_video_cover]: [NSURL URLWithString:questionList[questionNumber].thumbnail_pic];
         [coverImageView sd_setImageWithURL:coverURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             int type;
-            if (questionList[questionNumber].isPassed || ![questionList[questionNumber].question_ar_location isEqualToString:@""])  type = 0;
+            if (questionList[questionNumber].is_answer || ![questionList[questionNumber].question_ar_location isEqualToString:@""])  type = 0;
             else    type = 1;
             
             [[SDWebImageManager sharedManager] downloadImageWithURL:imageURL options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
@@ -153,7 +152,7 @@
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
         } else {
-            if (questionList[questionNumber].isPassed) {
+            if (questionList[questionNumber].is_answer) {
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
             } else {

@@ -78,10 +78,6 @@
     
     [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
         self.questionList = questionList;
-        for (HTQuestion *q in questionList) {
-            DLog(@"%ld", q.rewardID);
-            DLog(@"%i", q.isPassed);
-        }
     }];
     
     [[[HTServiceManager sharedInstance] profileService] getUserInfo:^(BOOL success, HTUserInfo *userInfo) {
