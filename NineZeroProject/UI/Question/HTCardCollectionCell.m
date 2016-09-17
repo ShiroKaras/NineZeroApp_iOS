@@ -527,9 +527,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _questionInfo = questionInfo;
     _contentLabel.text = question.content;
     
+    //往期AR关卡
     if (_question.type == 0 && _question.questionID!=questionInfo.questionID) {
         [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked"] forState:UIControlStateNormal];
         [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked_highlight"] forState:UIControlStateHighlighted];
+        _hintButton.hidden = YES;
     } else {
         if (_question.isPassed == NO
             //        _questionInfo.questionID == question.questionID&&
