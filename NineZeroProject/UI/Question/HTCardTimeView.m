@@ -44,23 +44,39 @@
     self.backgroundColor = [UIColor clearColor];
 }
 
-- (void)setQuestion:(HTQuestion *)question andQuestionInfo:(HTQuestionInfo *)questionInfo {
+- (void)setQuestion:(HTQuestion *)question andQuestionInfo:(HTQuestionInfo *)questionInfo{
     _questionInfo = questionInfo;
     _question = question;
     _endTime = (time_t)questionInfo.endTime;
-    if (_question.questionID == _questionInfo.questionID && _question.isPassed == NO) {
-        [self scheduleCountDownTimer];
+    if (_question.questionID == _questionInfo.questionID) {
+        if (question.isPassed == NO) {
+            [self scheduleCountDownTimer];
+        } else {
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
+            _decoImageView.hidden = YES;
+            _mainTimeLabel.hidden = YES;
+            _detailTimeLabel.hidden = YES;
+            _resultImageView.hidden = NO;
+            _resultImageView.contentMode = UIViewContentModeScaleAspectFit;
+            if (question.isPassed) {
+                [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
+            } else {
+                [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_gameover"]];
+            }
+        }
     } else {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
         _decoImageView.hidden = YES;
         _mainTimeLabel.hidden = YES;
         _detailTimeLabel.hidden = YES;
         _resultImageView.hidden = NO;
-        _resultImageView.contentMode = UIViewContentModeScaleAspectFit;
-        if (question.isPassed) {
-            [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
+        if (question.type == 0) {
+            [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_AR"]];
         } else {
-            [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_gameover"]];
+            if (question.isPassed) {
+                [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
+            } else {
+                _resultImageView.hidden = YES;
+            }
         }
     }
 }

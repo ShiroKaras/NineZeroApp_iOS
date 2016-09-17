@@ -295,6 +295,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [self.view addSubview:_timeView];
         [self showAlert];
     } else if (_cardType == HTPreviewCardTypeHistoryLevel) {
+        _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
+        [self.view addSubview:_timeView];
         [self showAlert];
     }
     
