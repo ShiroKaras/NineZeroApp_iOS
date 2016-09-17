@@ -223,13 +223,13 @@
 
 - (void)helpButtonClick:(UIButton *)sender {
     SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeQuestion];
-    helpView.frame = CGRectZero;
-    helpView.alpha = 0;
+    helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
+    helpView.dimmingView.alpha = 0;
     [self.view addSubview:helpView];
 
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        helpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        helpView.alpha = 1;
+        helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        helpView.dimmingView.alpha = 0.9;
     } completion:^(BOOL finished) {
         
     }];

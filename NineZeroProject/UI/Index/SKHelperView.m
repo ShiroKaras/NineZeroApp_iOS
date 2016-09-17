@@ -26,10 +26,10 @@
         _index = index;
         _type = type;
         
-        UIView *dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        dimmingView.backgroundColor = [UIColor blackColor];
-        dimmingView.alpha = 0.8;
-        [self addSubview:dimmingView];
+//        UIView *dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//        dimmingView.backgroundColor = [UIColor blackColor];
+//        dimmingView.alpha = 0.9;
+//        [self addSubview:dimmingView];
         
         UIView *cardView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-276)/2, (SCREEN_HEIGHT-356)/2, 276, 356)];
         cardView.layer.cornerRadius = 5;
@@ -111,8 +111,7 @@
 
 
 @interface  SKHelperScrollView ()
-//<SKHelperViewDelegate>
-@property (nonatomic, strong) UIScrollView *scrollView;
+
 @end
 
 @implementation SKHelperScrollView
@@ -125,6 +124,11 @@
 }
 
 - (void)createUIWithType:(SKHelperScrollViewType)type {
+    _dimmingView = [[UIView alloc] initWithFrame:self.frame];
+    _dimmingView.backgroundColor = [UIColor blackColor];
+    _dimmingView.alpha = 0.9;
+    [self addSubview:_dimmingView];
+    
     _scrollView = [[UIScrollView alloc] initWithFrame:self.frame];
     _scrollView.backgroundColor = [UIColor clearColor];
     _scrollView.bounces = NO;
@@ -140,6 +144,7 @@
         _scrollView.pagingEnabled = YES;
         for (int i= 0; i<pageNumber; i++) {
             SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeHasMascot index:i];
+            helpView.backgroundColor = [UIColor clearColor];
             [_scrollView addSubview:helpView];
             if (i == pageNumber-1) {
                 [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete"] forState:UIControlStateNormal];
@@ -205,7 +210,12 @@
 }
 
 - (void)completeButtonClick:(UIButton *)sender {
-    [self removeFromSuperview];
+    [UIView animateWithDuration:0.3 animations:^{
+        _scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
+        _dimmingView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
 }
 
 @end

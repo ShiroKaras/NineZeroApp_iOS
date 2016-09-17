@@ -37,6 +37,8 @@ typedef enum : NSUInteger {
 } SKHelperScrollViewType;
 
 @interface SKHelperScrollView : UIView
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIView *dimmingView;
 - (instancetype)initWithFrame:(CGRect)frame withType:(SKHelperScrollViewType)type;
 @end
 

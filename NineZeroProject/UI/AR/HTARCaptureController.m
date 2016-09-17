@@ -15,6 +15,7 @@
 #import "HTUIHeader.h"
 #import <UIImage+animatedGIF.h>
 #import <AMapLocationKit/AMapLocationKit.h>
+#import "SKHelperView.h"
 
 NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
 NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
@@ -29,6 +30,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) HTImageView *captureSuccessImageView;
 @property (nonatomic, strong) UIView *successBackgroundView;
 @property (nonatomic, strong) AMapLocationManager *locationManager;
+@property (nonatomic, strong) UIButton *helpButton;
+@property (nonatomic, strong) SKHelperGuideView *guideView;
 @end
 
 @implementation HTARCaptureController {
@@ -131,6 +134,23 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
     [self.mascotImageView addGestureRecognizer:tap];
     
+    //帮助按钮
+    // 5.左上灯泡
+    _helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+    [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
+    
+    [_helpButton addTarget:self action:@selector(arQuestionHelpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_helpButton sizeToFit];
+    _helpButton.top = 10;
+    _helpButton.left = 10;
+    [KEY_WINDOW addSubview:_helpButton];
+    
+    if (FIRST_TYPE_3) {
+        [self showGuideviewWithType:SKHelperGuideViewType3];
+        [UD setBool:YES forKey:@"firstLaunchType3"];
+    }
+    
     [self buildConstrains];
 }
 
@@ -142,6 +162,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [_helpButton removeFromSuperview];
     [self.prARManager stopAR];
     [self.locationManager stopUpdatingLocation];
 }
@@ -198,6 +219,28 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [super viewDidAppear:animated];
 }
 
+
+- (void)showGuideviewWithType:(SKHelperGuideViewType)type {
+    UIView *blackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    blackView.backgroundColor = [UIColor blackColor];
+    
+    _guideView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:type];
+    _guideView.alpha = 0;
+    
+    [KEY_WINDOW addSubview:blackView];
+    [KEY_WINDOW bringSubviewToFront:blackView];
+    [KEY_WINDOW addSubview:_guideView];
+    [KEY_WINDOW bringSubviewToFront:_guideView];
+    
+    [UIView animateWithDuration:1.2 animations:^{
+        blackView.alpha = 0;
+        _guideView.alpha = 1;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+
 #pragma mark - AMapDelegate
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
@@ -207,6 +250,20 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 #pragma mark - Action
+
+- (void)arQuestionHelpButtonClick:(UIButton *)sender {
+    SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
+    helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
+    helpView.dimmingView.alpha = 0;
+    [self.view addSubview:helpView];
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        helpView.dimmingView.alpha = 0.9;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
 
 - (void)onClickBack {
     [self dismissViewControllerAnimated:YES completion:nil];
