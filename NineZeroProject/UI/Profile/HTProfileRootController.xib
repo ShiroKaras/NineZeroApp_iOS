@@ -260,7 +260,7 @@
                         <constraint firstItem="WKh-I0-DEA" firstAttribute="centerY" secondItem="JaX-Zq-xnm" secondAttribute="centerY" id="u4m-y9-xTe"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_profile_notification_number" translatesAutoresizingMaskIntoConstraints="NO" id="vSC-ZZ-3QZ" userLabel="notificationFlagImage">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_profile_notification_number" translatesAutoresizingMaskIntoConstraints="NO" id="vSC-ZZ-3QZ" userLabel="notificationFlagImage">
                     <rect key="frame" x="306" y="15" width="14" height="14"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="14" id="klM-rK-jvU"/>
