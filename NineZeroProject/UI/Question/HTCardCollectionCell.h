@@ -37,6 +37,7 @@ typedef NS_ENUM(NSUInteger, HTCardCollectionClickType) {
 @property (nonatomic, weak) id<HTCardCollectionCellDelegate> delegate;
 @property (nonatomic, strong) HTQuestion *question;
 @property (nonatomic, strong) HTQuestionInfo *questionInfo;
+@property (nonatomic, strong) UIButton *hintButton;
 @property (nonatomic, assign) CGRect hintRect;
 @property (nonatomic, assign) BOOL soundHidden;
 

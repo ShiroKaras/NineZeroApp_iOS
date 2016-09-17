@@ -40,7 +40,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIView *contentBackView;
 @property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UIButton *composeButton;
-@property (nonatomic, strong) UIButton *hintButton;
 @property (nonatomic, strong) UIImageView *coverImageView;
 
 @property (nonatomic, strong) UIView *shareView;

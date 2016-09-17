@@ -70,6 +70,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (nonatomic, assign) BOOL isRelaxDay;
 
 @property (nonatomic, strong) UIButton *helpButton;
+@property (nonatomic, strong) HTCardCollectionCell *mCell;
+
 @end
 
 @implementation HTPreviewCardController {
@@ -479,6 +481,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HTCardCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([HTCardCollectionCell class]) forIndexPath:indexPath];
+    _mCell = cell;
     cell.delegate = self;
     HTQuestion *question = questionList[indexPath.row];
     [cell setQuestion:question questionInfo:questionInfo];
@@ -664,12 +667,18 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     //                    [[HTUIHelper mainController] reloadMascotViewData];
                 });
             } else {
-                if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
+                if (clickCount >= 3){
+                    [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
+                    _mCell.hintButton.hidden = NO;
+                }
                 [_composeView showAnswerCorrect:NO];
                 clickCount++;
             }
         } else {
-            if (clickCount >= 3) [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
+            if (clickCount >= 3){
+                [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
+                _mCell.hintButton.hidden = NO;
+            }
             [_composeView showAnswerCorrect:NO];
             clickCount++;
         }
