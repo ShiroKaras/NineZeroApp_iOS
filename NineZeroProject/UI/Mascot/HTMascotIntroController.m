@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self.statusBarCoverView = [[UIView alloc] init];
     self.statusBarCoverView.backgroundColor = [HTMascotHelper colorWithMascotIndex:_mascot.mascotID];
     self.statusBarCoverView.alpha = 0;
-    [self.view addSubview:self.statusBarCoverView];
+//    [self.view addSubview:self.statusBarCoverView];
 }
 
 - (void)loadMoreData {
