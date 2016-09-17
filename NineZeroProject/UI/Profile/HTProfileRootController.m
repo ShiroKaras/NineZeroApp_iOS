@@ -30,7 +30,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *collectionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rewardLabel;
 @property (weak, nonatomic) IBOutlet UIView *recordBackView;
-@property (weak, nonatomic) IBOutlet UIImageView *notificationFlagImageView;
 
 @property (nonatomic, strong) UICollectionView *recordView;
 @property (nonatomic, strong) HTProfileInfo *profileInfo;
@@ -62,8 +61,6 @@
     _avatar.layer.cornerRadius = _avatar.width / 2;
     _avatar.layer.masksToBounds = YES;
     _avatar.userInteractionEnabled = NO;
-    
-    _notificationFlagImageView.hidden = YES;
     
     self.navigationController.navigationBar.hidden = YES;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -113,10 +110,6 @@
                         [self.view bringSubviewToFront:self.blankView];
                     }
                 }
-                if([_profileInfo.notice integerValue]+1 - [UD integerForKey:@"notificationsHasReadKey"]>0)
-                    self.notificationFlagImageView.hidden = NO;
-                else
-                    self.notificationFlagImageView.hidden = YES;
                 [self reloadData];
             }
         }];

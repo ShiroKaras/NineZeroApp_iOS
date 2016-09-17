@@ -25,7 +25,6 @@
                 <outlet property="metaLabel" destination="ZxY-rI-FhH" id="C5B-nA-G2i"/>
                 <outlet property="nickName" destination="DZu-oW-XMu" id="bpX-Mg-RD0"/>
                 <outlet property="nickNameBottonConstraint" destination="apK-EY-Bwv" id="WkD-PM-dBn"/>
-                <outlet property="notificationFlagImageView" destination="vSC-ZZ-3QZ" id="3zz-r0-hJH"/>
                 <outlet property="rankLabel" destination="lsu-yD-BPn" id="K9f-hm-Djf"/>
                 <outlet property="recordBackView" destination="RqC-o8-IHp" id="vGh-ty-ggg"/>
                 <outlet property="rewardLabel" destination="KfV-gY-h0t" id="ZQh-Om-51Y"/>
@@ -260,13 +259,6 @@
                         <constraint firstItem="WKh-I0-DEA" firstAttribute="centerY" secondItem="JaX-Zq-xnm" secondAttribute="centerY" id="u4m-y9-xTe"/>
                     </constraints>
                 </view>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_profile_notification_number" translatesAutoresizingMaskIntoConstraints="NO" id="vSC-ZZ-3QZ" userLabel="notificationFlagImage">
-                    <rect key="frame" x="306" y="15" width="14" height="14"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="14" id="klM-rK-jvU"/>
-                        <constraint firstAttribute="height" constant="14" id="oKQ-SD-8dJ"/>
-                    </constraints>
-                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -307,7 +299,6 @@
                 <constraint firstItem="RqC-o8-IHp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NaE-hT-Dk0"/>
                 <constraint firstItem="vEN-hd-mvJ" firstAttribute="top" secondItem="7o5-0m-oZB" secondAttribute="bottom" constant="11" id="OF9-MN-wBM"/>
                 <constraint firstItem="W4I-aX-iZp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="OM4-oP-jcJ"/>
-                <constraint firstItem="vSC-ZZ-3QZ" firstAttribute="centerY" secondItem="aNW-0b-0Z6" secondAttribute="centerY" constant="-9" id="P03-d8-W2F"/>
                 <constraint firstAttribute="trailing" secondItem="GM6-Eg-CqE" secondAttribute="leading" multiplier="0.5" id="RCX-AP-8PB"/>
                 <constraint firstItem="8iw-uZ-BqK" firstAttribute="height" secondItem="qZd-N7-4Cu" secondAttribute="height" id="REq-MN-O0l"/>
                 <constraint firstItem="ZxY-rI-FhH" firstAttribute="centerY" secondItem="lsu-yD-BPn" secondAttribute="centerY" id="RIS-DN-6G0"/>
@@ -315,7 +306,6 @@
                 <constraint firstItem="EzN-8x-a3U" firstAttribute="centerY" secondItem="S3O-SQ-24P" secondAttribute="centerY" id="Rb3-DD-1gd"/>
                 <constraint firstItem="GM6-Eg-CqE" firstAttribute="leading" secondItem="NJY-D3-BgB" secondAttribute="trailing" constant="10" id="TZz-s2-yKZ"/>
                 <constraint firstItem="KfV-gY-h0t" firstAttribute="leading" secondItem="611-Xh-Wov" secondAttribute="trailing" constant="8" id="U4K-82-KLh"/>
-                <constraint firstItem="vSC-ZZ-3QZ" firstAttribute="centerX" secondItem="aNW-0b-0Z6" secondAttribute="centerX" constant="12" id="Ucf-SQ-Zg9"/>
                 <constraint firstAttribute="trailing" secondItem="7o5-0m-oZB" secondAttribute="trailing" id="Uk4-9o-sca"/>
                 <constraint firstItem="611-Xh-Wov" firstAttribute="leading" secondItem="Qlr-OB-9jl" secondAttribute="trailing" constant="10" id="VwW-ks-Aa6"/>
                 <constraint firstItem="lsu-yD-BPn" firstAttribute="centerY" secondItem="yHl-6c-1mj" secondAttribute="centerY" id="Wuc-af-qgJ"/>
@@ -383,7 +373,6 @@
         <image name="btn_profile_back_highlight" width="40" height="40"/>
         <image name="btn_profile_notification" width="40" height="40"/>
         <image name="btn_profile_notification_highlight" width="40" height="40"/>
-        <image name="btn_profile_notification_number" width="14" height="14"/>
         <image name="btn_profile_setting" width="40" height="40"/>
         <image name="btn_profile_setting_highlight" width="40" height="40"/>
         <image name="ico_profile_coin" width="13" height="13"/>
