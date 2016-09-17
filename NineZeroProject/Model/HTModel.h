@@ -88,6 +88,7 @@
 @property (nonatomic, strong) NSString *publish_time;
 @property (nonatomic, assign) NSUInteger is_collect;
 @property (nonatomic, assign) BOOL is_read;                 //是否已读
+@property (nonatomic, assign) BOOL is_locked;               //是否锁定
 
 @end
 
