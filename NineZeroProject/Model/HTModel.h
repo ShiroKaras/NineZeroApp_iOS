@@ -59,6 +59,7 @@
 @property (nonatomic, copy) NSString *question_ar_location;   // ar
 @property (nonatomic, copy) NSString *question_ar_pet;        // ar的gif
 @property (nonatomic, copy) NSString *question_video_cover;   // vedio的封面
+@property (nonatomic, copy) NSString *thumbnail_pic;
 @property (nonatomic, assign) NSInteger wrongAnswerCount;     // 答错次数
 
 @end

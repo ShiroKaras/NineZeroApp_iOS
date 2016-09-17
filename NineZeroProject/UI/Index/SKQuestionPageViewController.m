@@ -102,7 +102,7 @@
         UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
         UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
         
-        [coverImageView sd_setImageWithURL:[NSURL URLWithString:questionList[questionNumber].question_video_cover] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [coverImageView sd_setImageWithURL:[NSURL URLWithString:questionList[questionNumber].thumbnail_pic] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             int type;
             if (questionList[questionNumber].isPassed || ![questionList[questionNumber].question_ar_location isEqualToString:@""])  type = 0;
             else    type = 1;
