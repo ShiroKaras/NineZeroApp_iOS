@@ -136,15 +136,14 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     
     //帮助按钮
     // 5.左上灯泡
-    _helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
-    [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
+    self.helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+    [self.helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
     
-    [_helpButton addTarget:self action:@selector(arQuestionHelpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_helpButton sizeToFit];
-    _helpButton.top = 10;
-    _helpButton.left = 10;
-    [KEY_WINDOW addSubview:_helpButton];
+    [self.helpButton addTarget:self action:@selector(arQuestionHelpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.helpButton sizeToFit];
+    [self.view addSubview:_helpButton];
+    [self.view bringSubviewToFront:_helpButton];
     
     if (FIRST_TYPE_3) {
         [self showGuideviewWithType:SKHelperGuideViewType3];
@@ -162,7 +161,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    [_helpButton removeFromSuperview];
+//    [_helpButton removeFromSuperview];
     [self.prARManager stopAR];
     [self.locationManager stopUpdatingLocation];
 }
@@ -212,6 +211,11 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         make.centerX.equalTo(self.view);
         make.width.equalTo(@265);
         make.height.equalTo(@265);
+    }];
+    
+    [self.helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@10);
+        make.left.equalTo(@10);
     }];
 }
 
@@ -366,6 +370,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.view bringSubviewToFront:self.backButton];
     [self.view bringSubviewToFront:self.radarImageView];
     [self.view bringSubviewToFront:self.tipImageView];
+    [self.view bringSubviewToFront:self.helpButton];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.view bringSubviewToFront:self.mascotImageView];
         [self.view bringSubviewToFront:self.captureSuccessImageView];
