@@ -27,8 +27,8 @@
         _cover = [[UIImageView alloc] init];
         [self.contentView addSubview:_cover];
         
-        _cover_locked = [[UIImageView alloc] init];
-        _cover_locked.hidden = YES;
+        _cover_locked = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_locked"]];
+        _cover_locked.hidden = NO;
         [self.contentView addSubview:_cover_locked];
         
         _title = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];

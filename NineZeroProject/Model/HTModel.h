@@ -91,6 +91,7 @@
 @property (nonatomic, assign) NSUInteger is_collect;
 @property (nonatomic, assign) BOOL is_read;                 //是否已读
 @property (nonatomic, assign) BOOL is_locked;               //是否锁定
+@property (nonatomic, copy)   NSString *qid;                //文章所属章节号
 
 @end
 

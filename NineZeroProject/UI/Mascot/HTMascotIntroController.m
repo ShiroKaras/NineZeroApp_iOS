@@ -276,8 +276,39 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row >= 2) {
-        HTArticleController *articleController = [[HTArticleController alloc] initWithArticle:self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1]];
-        [self presentViewController:articleController animated:YES completion:nil];
+        if (self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1].is_locked) {
+            UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
+            [promptImageView sizeToFit];
+            UIView *promptView = [[UIView alloc] initWithFrame:promptImageView.frame];
+            promptView.alpha = 0;
+            [KEY_WINDOW addSubview:promptView];
+            promptImageView.center = self.view.center;
+            [promptView addSubview:promptImageView];
+            
+            UILabel *promptLabel = [UILabel new];
+            promptLabel.text = [NSString stringWithFormat:@"闯过第%@章后，解锁本篇研究报告", self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1].qid];
+            promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
+            promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+            [promptLabel sizeToFit];
+            promptLabel.centerX = promptImageView.centerX;
+            promptLabel.left = promptImageView.left + 8.5;
+            promptLabel.right = promptImageView.right - 8.5;
+            promptLabel.bottom = promptImageView.bottom - 10.5;
+            [promptView addSubview:promptLabel];
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                promptView.alpha =1;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    promptView.alpha = 0;
+                } completion:^(BOOL finished) {
+                    [promptView removeFromSuperview];
+                }];
+            }];
+        } else {
+            HTArticleController *articleController = [[HTArticleController alloc] initWithArticle:self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1]];
+            [self presentViewController:articleController animated:YES completion:nil];
+        }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
