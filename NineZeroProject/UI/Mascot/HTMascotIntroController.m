@@ -281,7 +281,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             [promptImageView sizeToFit];
             UIView *promptView = [[UIView alloc] initWithFrame:promptImageView.frame];
             promptView.alpha = 0;
-            [KEY_WINDOW addSubview:promptView];
+            [self.view addSubview:promptView];
             promptImageView.center = self.view.center;
             [promptView addSubview:promptImageView];
             
@@ -296,10 +296,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             promptLabel.bottom = promptImageView.bottom - 10.5;
             [promptView addSubview:promptLabel];
             
-            [UIView animateWithDuration:0.5 animations:^{
+            [UIView animateWithDuration:0.3 animations:^{
                 promptView.alpha =1;
             } completion:^(BOOL finished) {
-                [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                [UIView animateWithDuration:0.3 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
                     promptView.alpha = 0;
                 } completion:^(BOOL finished) {
                     [promptView removeFromSuperview];

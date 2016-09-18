@@ -22,8 +22,6 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 
 @interface HTMascotDisplayController () <HTMascotPropViewDelegate, HTMascotPropMoreViewDelegate, HTMascotViewDelegate, SKHelperScrollViewDelegate>
 
-@property (nonatomic, strong) UIImageView  *onlyOneMascotBackgroundImageView;
-@property (nonatomic, strong) HTMascotItem *onlyOneMascotImageView;
 @property (nonatomic, strong) HTMascotView *mascotView;
 @property (nonatomic, strong) UIImageView *tipImageView;
 @property (nonatomic, strong) UILabel *tipLabel;
@@ -41,20 +39,6 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     self.view.backgroundColor = COMMON_BG_COLOR;
     self.mascots = [NSMutableArray arrayWithObject:[HTMascotHelper defaultMascots]];
     self.props = [NSMutableArray array];
-
-    self.onlyOneMascotBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_default_bg"]];
-    [self.onlyOneMascotBackgroundImageView sizeToFit];
-    [self.view addSubview:self.onlyOneMascotBackgroundImageView];
-    
-    self.onlyOneMascotImageView = [[HTMascotItem alloc] init];
-    self.onlyOneMascotImageView.hidden = YES;
-    self.onlyOneMascotImageView.index = 0;
-    self.onlyOneMascotImageView.mascot = self.mascots[0];
-    [self.onlyOneMascotImageView playAnimatedNumber:2];
-    [self.view addSubview:self.onlyOneMascotImageView];
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapOnDefaultMascot)];
-    doubleTap.numberOfTapsRequired = 2;
-    [self.onlyOneMascotImageView addGestureRecognizer:doubleTap];
     
     self.mascotTipView = [[HTMascotTipView alloc] initWithIndex:0];
     [self.mascotTipView addTarget:self action:@selector(didClickTipNumber) forControlEvents:UIControlEventTouchUpInside];
@@ -173,22 +157,6 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 }
 
 - (void)buildConstraints {
-    [self.onlyOneMascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(ROUND_HEIGHT(175));
-        make.width.equalTo(@157);
-        make.height.equalTo(@157);
-    }];
-    
-    [self.onlyOneMascotBackgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.onlyOneMascotImageView);
-    }];
-
-    [self.mascotTipView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.onlyOneMascotImageView.mas_top).offset(24);
-        make.centerX.equalTo(self.onlyOneMascotImageView);
-    }];
-    
     [self.propView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(@0);
         make.width.equalTo(self.view.mas_width);
@@ -219,21 +187,10 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 }
 
 - (void)reloadViews {
-    if (self.mascots.count == 1) {
-        self.onlyOneMascotImageView.hidden = YES;
-        self.onlyOneMascotBackgroundImageView.hidden = YES;
-        self.mascotTipView.hidden = YES;
-        self.tipImageView.hidden = NO;
-        self.tipLabel.hidden = NO;
-        self.mascotView.hidden = NO;
-    } else {
-        self.onlyOneMascotImageView.hidden = YES;
-        self.onlyOneMascotBackgroundImageView.hidden = YES;
-        self.mascotTipView.hidden = YES;
-        self.tipImageView.hidden = YES;
-        self.tipLabel.hidden = YES;
-        self.mascotView.hidden = NO;
-    }
+    self.mascotTipView.hidden = YES;
+    self.tipImageView.hidden = YES;
+    self.tipLabel.hidden = YES;
+    self.mascotView.hidden = NO;
 }
 
 #pragma mark - Action
@@ -242,10 +199,6 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     [MobClick event:@"essay"];
     HTMascotIntroController *introController = [[HTMascotIntroController alloc] initWithMascot:self.mascots[0]];
     [self presentViewController:introController animated:YES completion:nil];
-}
-
-- (void)doubleTapOnDefaultMascot {
-    [self.onlyOneMascotImageView playAnimatedNumber:arc4random() % 2 + 3];
 }
 
 - (void)cancelButtonClick:(UIButton *)sender {
