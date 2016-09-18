@@ -319,14 +319,14 @@
     [button4 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [button4 sizeToFit];
     if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-        button3.top = _view3.top + 121.5;
-        button3.right = _view3.right - 122;
+        button4.top = _view3.top + 121.5;
+        button4.right = _view3.right - 122;
     } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-        button3.top = _view3.top + 131.5;
-        button3.right = _view3.right - 172;
+        button4.top = _view3.top + 131.5;
+        button4.right = _view3.right - 172;
     } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        button3.top = _view3.top + 206.7;
-        button3.right = _view3.right - 201.3;
+        button4.top = _view3.top + 148.7;
+        button4.right = _view3.right - 189.7;
     }
     [_view4 addSubview:button4];
 
