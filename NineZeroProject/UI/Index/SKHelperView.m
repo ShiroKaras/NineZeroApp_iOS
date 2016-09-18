@@ -254,7 +254,11 @@
     [button1 addTarget:self action:@selector(onClickTurnToView2) forControlEvents:UIControlEventTouchUpInside];
     [button1 sizeToFit];
     button1.centerX = _view1.centerX;
-    button1.bottom = _view1.bottom - 84;
+    if (SCREEN_WIDTH < IPHONE6_PLUS_SCREEN_WIDTH) {
+        button1.bottom = _view1.bottom - 84;
+    } else {
+        button1.bottom = _view1.bottom - 128;
+    }
     [_view1 addSubview:button1];
     
     //step.2
@@ -267,8 +271,16 @@
     [button2 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
     [button2 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [button2 sizeToFit];
-    button2.centerX = _view2.centerX;
-    button2.bottom = _view2.bottom - 122;
+    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+        button2.right = _view2.right - 124.5;
+        button2.bottom = _view2.bottom - 122;
+    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+        button2.right = _view2.right - 127;
+        button2.bottom = _view2.bottom - 150;
+    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+        button2.right = _view2.right - 123;
+        button2.bottom = _view2.bottom - 163;
+    }
     [_view2 addSubview:button2];
     
     //step.3
@@ -281,8 +293,16 @@
     [button3 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
     [button3 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [button3 sizeToFit];
-    button3.left = 64;
-    button3.top = 163;
+    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+        button3.top = _view3.top + 163;
+        button3.right = _view3.right - 176;
+    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+        button3.top = _view3.top + 181;
+        button3.right = _view3.right - 178;
+    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+        button3.top = _view3.top + 206.7;
+        button3.right = _view3.right - 201.3;
+    }
     [_view3 addSubview:button3];
 
     //step.4
@@ -295,8 +315,16 @@
     [button4 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
     [button4 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [button4 sizeToFit];
-    button4.centerX = _view4.centerX;
-    button4.top = _view4.top +121;
+    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+        button3.top = _view3.top + 121.5;
+        button3.right = _view3.right - 122;
+    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+        button3.top = _view3.top + 131.5;
+        button3.right = _view3.right - 172;
+    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+        button3.top = _view3.top + 206.7;
+        button3.right = _view3.right - 201.3;
+    }
     [_view4 addSubview:button4];
 
     switch (type) {
