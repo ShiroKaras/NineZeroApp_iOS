@@ -12,11 +12,11 @@
 
 #define PAGE_COUNT (floor(self.questionList.count/12)+1)
 
-@interface SKQuestionPageViewController ()<UIScrollViewDelegate, HTPreviewCardControllerDelegate>
+@interface SKQuestionPageViewController ()<UIScrollViewDelegate, HTPreviewCardControllerDelegate, SKHelperScrollViewDelegate>
 
 @property(nonatomic, strong) UIScrollView *mScrollView;
 @property(nonatomic, strong) UIPageControl *pageContrl;
-
+@property(nonatomic, strong) UIButton *helpButton;
 @end
 
 @implementation SKQuestionPageViewController {
@@ -72,13 +72,13 @@
         make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-26);
     }];
     
-    UIButton *helpButton = [UIButton new];
-    [helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
-    [helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
-    [helpButton addTarget:self action:@selector(helpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:helpButton];
+    _helpButton = [UIButton new];
+    [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+    [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
+    [_helpButton addTarget:self action:@selector(helpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_helpButton];
     
-    [helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@40);
         make.height.equalTo(@40);
         make.top.equalTo(weakSelf.view).offset(10);
@@ -224,6 +224,7 @@
 
 - (void)helpButtonClick:(UIButton *)sender {
     SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeQuestion];
+    helpView.delegate = self;
     helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
     helpView.dimmingView.alpha = 0;
     [self.view addSubview:helpView];
@@ -233,6 +234,29 @@
         helpView.dimmingView.alpha = 0.9;
     } completion:^(BOOL finished) {
         
+    }];
+}
+
+#pragma mark - SKHelperScrollViewDelegate
+
+- (void)didClickCompleteButton {
+    [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateNormal];
+    [UIView animateWithDuration:0.075 animations:^{
+        _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 1.1, 1.1);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.075 animations:^{
+            _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 0.9, 0.9);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.075 animations:^{
+                _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 1.1, 1.1);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.075 animations:^{
+                    _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 0.9, 0.9);
+                } completion:^(BOOL finished) {
+                    [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+                }];
+            }];
+        }];
     }];
 }
 

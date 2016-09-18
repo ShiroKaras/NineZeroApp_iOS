@@ -20,7 +20,7 @@
 static CGFloat kDuration = 0.3;
 static NSString *selectedMascotKey = @"selectedMascotKey";
 
-@interface HTMascotDisplayController () <HTMascotPropViewDelegate, HTMascotPropMoreViewDelegate, HTMascotViewDelegate>
+@interface HTMascotDisplayController () <HTMascotPropViewDelegate, HTMascotPropMoreViewDelegate, HTMascotViewDelegate, SKHelperScrollViewDelegate>
 
 @property (nonatomic, strong) UIImageView  *onlyOneMascotBackgroundImageView;
 @property (nonatomic, strong) HTMascotItem *onlyOneMascotImageView;
@@ -31,6 +31,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 @property (nonatomic, strong) HTMascotPropView *propView;
 @property (nonatomic, strong) HTMascotPropMoreView *moreView;
 @property (nonatomic, strong) NSMutableArray<HTMascotProp *> *props;
+@property (nonatomic, strong) UIButton *helpButton;
 @end
 
 @implementation HTMascotDisplayController
@@ -79,13 +80,13 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     [self.view sendSubviewToBack:self.mascotView];
     
     __weak __typeof(self)weakSelf = self;
-    UIButton *helpButton = [UIButton new];
-    [helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
-    [helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
-    [helpButton addTarget:self action:@selector(helpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:helpButton];
+    _helpButton = [UIButton new];
+    [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+    [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
+    [_helpButton addTarget:self action:@selector(helpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_helpButton];
     
-    [helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@40);
         make.height.equalTo(@40);
         make.top.equalTo(weakSelf.view).offset(10);
@@ -253,6 +254,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 
 - (void)helpButtonClick:(UIButton *)sender {
     SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeMascot];
+    helpView.delegate = self;
     helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
     helpView.dimmingView.alpha = 0;
     [self.view addSubview:helpView];
@@ -334,6 +336,29 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     } completion:^(BOOL finished) {
         [propMoreView removeFromSuperview];
         _moreView.decorateView.hidden = NO;
+    }];
+}
+
+#pragma mark - SKHelperScrollViewDelegate
+
+- (void)didClickCompleteButton {
+    [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateNormal];
+    [UIView animateWithDuration:0.075 animations:^{
+        _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 1.1, 1.1);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.075 animations:^{
+            _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 0.9, 0.9);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.075 animations:^{
+                _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 1.1, 1.1);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.075 animations:^{
+                    _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 0.9, 0.9);
+                } completion:^(BOOL finished) {
+                    [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+                }];
+            }];
+        }];
     }];
 }
 
