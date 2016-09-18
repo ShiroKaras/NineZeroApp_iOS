@@ -9,7 +9,13 @@
 #import "HTMascotService.h"
 #import "HTLogicHeader.h"
 
-@implementation HTMascotService
+@implementation HTMascotService {
+    NSMutableArray<HTMascot*> *_mascotsArray;
+}
+
+- (NSArray<HTMascot *> *)mascotsArray {
+    return _mascotsArray;
+}
 
 - (void)getUserMascots:(HTGetMascotsCallback)callback {
     DLog(@"userid = %@", [[HTStorageManager sharedInstance] getUserID]);
@@ -20,6 +26,7 @@
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             NSMutableArray<HTMascot *> *mascots = [[NSMutableArray alloc] init];
+            _mascotsArray = mascots;
             for (int i = 0; i != [responseObject[@"data"] count]; i++) {
                 HTMascot *mascot = [HTMascot objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
                 //获取未读文章数

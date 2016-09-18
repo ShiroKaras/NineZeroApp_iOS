@@ -30,7 +30,6 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 @property (nonatomic, strong) HTMascotTipView *mascotTipView;
 @property (nonatomic, strong) HTMascotPropView *propView;
 @property (nonatomic, strong) HTMascotPropMoreView *moreView;
-@property (nonatomic, strong) NSMutableArray<HTMascot *> *mascots;
 @property (nonatomic, strong) NSMutableArray<HTMascotProp *> *props;
 @end
 
@@ -122,7 +121,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     [self reloadAllData];
     [self reloadViews];
     
-    [self loadUnreadArticleFlag];
+//    [self loadUnreadArticleFlag];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -142,20 +141,25 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 }
 
 - (void)reloadAllData {
-    [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
-        [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
-        if (success) {
-            // AT LEAST ONE MASCOT
-//            if (mascots.count != 0) {
-                self.mascots = [mascots mutableCopy];
-                [_mascotView setMascots:self.mascots];
-//            }
-            [self reloadViews];
-            [self reloadDisplayMascotsWithIndex:[UD integerForKey:selectedMascotKey]];
-        } else {
-            [self showTipsWithText:@"网络不给力哦，请稍后重试"];
-        }
-    }];
+    self.mascots = [[[[HTServiceManager sharedInstance] mascotService] mascotsArray] mutableCopy];
+    [_mascotView setMascots:self.mascots];
+    [self reloadViews];
+    [self reloadDisplayMascotsWithIndex:[UD integerForKey:selectedMascotKey]];
+    
+//    [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
+//        [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
+//        if (success) {
+//            // AT LEAST ONE MASCOT
+////            if (mascots.count != 0) {
+//                self.mascots = [mascots mutableCopy];
+//                [_mascotView setMascots:self.mascots];
+////            }
+//            [self reloadViews];
+//            [self reloadDisplayMascotsWithIndex:[UD integerForKey:selectedMascotKey]];
+//        } else {
+//            [self showTipsWithText:@"网络不给力哦，请稍后重试"];
+//        }
+//    }];
     
     [[[HTServiceManager sharedInstance] mascotService] getUserProps:^(BOOL success, NSArray<HTMascotProp *> *props) {
         if (success) {

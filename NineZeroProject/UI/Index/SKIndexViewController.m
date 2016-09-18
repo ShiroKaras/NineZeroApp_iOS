@@ -29,6 +29,7 @@
 @property (nonatomic, strong) NSArray<HTQuestion*>* questionList;
 @property (nonatomic, strong) HTQuestionInfo *questionInfo;
 @property (nonatomic, strong) HTUserInfo *userInfo;
+@property (nonatomic, strong) NSArray<HTMascot *> *mascots;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, assign) uint64_t endTime;
 @end
@@ -39,6 +40,7 @@
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
+    [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -51,7 +53,7 @@
     [super viewDidLoad];
     [HTProgressHUD show];
     [self createUI];
-    [self loadData];
+//    [self loadData];
     [self judgementDate];
 }
 
@@ -84,6 +86,15 @@
         if (success) {
             _userInfo = userInfo;
             [[HTStorageManager sharedInstance] setUserInfo:userInfo];
+        }
+    }];
+    
+    [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
+//        [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
+        if (success) {
+            self.mascots = mascots;
+        } else {
+            
         }
     }];
     
@@ -370,6 +381,7 @@
 
 - (void)mascotButtonClick:(UIButton *)sender {
     HTMascotDisplayController *mascotController = [[HTMascotDisplayController alloc] init];
+    mascotController.mascots = [self.mascots mutableCopy];
     [self.navigationController pushViewController:mascotController animated:YES];
 }
 
