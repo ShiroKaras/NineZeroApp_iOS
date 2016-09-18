@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -19,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_signup_logo" translatesAutoresizingMaskIntoConstraints="NO" id="mnL-hC-1hh">
-                    <rect key="frame" x="55" y="55" width="175" height="98"/>
+                    <rect key="frame" x="55" y="115" width="175" height="98"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2016 90app.tv All rights reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x1u-7O-JfT">
                     <rect key="frame" x="52" y="395" width="206" height="15"/>
@@ -33,19 +33,31 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关于" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqZ-do-icb">
+                    <rect key="frame" x="8" y="0.0" width="294" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="eGS-Id-AfO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="zqZ-do-icb" secondAttribute="trailing" constant="8" id="0Ap-Vg-aww"/>
                 <constraint firstItem="x1u-7O-JfT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="56D-u9-mSK"/>
-                <constraint firstItem="mnL-hC-1hh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="55" id="Ysv-KH-4Xj"/>
+                <constraint firstItem="zqZ-do-icb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="Qau-1P-9By"/>
+                <constraint firstItem="mnL-hC-1hh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="115" id="Ysv-KH-4Xj"/>
                 <constraint firstItem="vt1-lx-zjM" firstAttribute="trailing" secondItem="x1u-7O-JfT" secondAttribute="trailing" id="cKo-Ek-8Ki"/>
                 <constraint firstItem="mnL-hC-1hh" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-13" id="emF-Wx-TwO"/>
+                <constraint firstItem="zqZ-do-icb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="kXu-c1-LIe"/>
                 <constraint firstItem="x1u-7O-JfT" firstAttribute="top" secondItem="vt1-lx-zjM" secondAttribute="bottom" constant="13" id="s2Q-Br-CoQ"/>
                 <constraint firstItem="vt1-lx-zjM" firstAttribute="leading" secondItem="x1u-7O-JfT" secondAttribute="leading" id="yK2-mh-bIg"/>
                 <constraint firstAttribute="bottom" secondItem="x1u-7O-JfT" secondAttribute="bottom" constant="67" id="yM2-Gs-cpK"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="72" y="304.5"/>
+            <point key="canvasLocation" x="75" y="311.5"/>
         </view>
     </objects>
     <resources>
