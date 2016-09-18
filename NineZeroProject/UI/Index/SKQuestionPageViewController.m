@@ -27,7 +27,9 @@
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
-    [self updateUIWithData:[[[HTServiceManager sharedInstance] questionService] questionList]];
+    NSMutableArray *dataArray = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
+    [dataArray removeLastObject];
+    [self updateUIWithData:dataArray];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
