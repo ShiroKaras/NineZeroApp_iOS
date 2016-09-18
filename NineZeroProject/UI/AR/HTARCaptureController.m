@@ -32,6 +32,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 @property (nonatomic, strong) UIButton *helpButton;
 @property (nonatomic, strong) SKHelperGuideView *guideView;
+@property (nonatomic, strong) SKHelperScrollView *helpView;
 @end
 
 @implementation HTARCaptureController {
@@ -134,19 +135,29 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
     [self.mascotImageView addGestureRecognizer:tap];
     
-    //帮助按钮
-    // 5.左上灯泡
-    self.helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
-    [self.helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
-    
-    [self.helpButton addTarget:self action:@selector(arQuestionHelpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.helpButton sizeToFit];
-    [self.view addSubview:_helpButton];
-    [self.view bringSubviewToFront:_helpButton];
+    //帮助
+//    // 5.左上灯泡
+//    self.helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [self.helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+//    [self.helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
+//    
+//    [self.helpButton addTarget:self action:@selector(arQuestionHelpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.helpButton sizeToFit];
+//    [self.view addSubview:_helpButton];
+//    [self.view bringSubviewToFront:_helpButton];
     
     if (FIRST_TYPE_3) {
-        [self showGuideviewWithType:SKHelperGuideViewType3];
+        SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
+        helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
+        helpView.dimmingView.alpha = 0;
+        [KEY_WINDOW addSubview:helpView];
+        
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            helpView.dimmingView.alpha = 0.9;
+        } completion:^(BOOL finished) {
+            
+        }];
         [UD setBool:YES forKey:@"firstLaunchType3"];
     }
     
@@ -161,7 +172,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-//    [_helpButton removeFromSuperview];
     [self.prARManager stopAR];
     [self.locationManager stopUpdatingLocation];
 }
@@ -256,14 +266,14 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 #pragma mark - Action
 
 - (void)arQuestionHelpButtonClick:(UIButton *)sender {
-    SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
-    helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
-    helpView.dimmingView.alpha = 0;
-    [self.view addSubview:helpView];
+    _helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
+    _helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
+    _helpView.dimmingView.alpha = 0;
+    [self.view addSubview:_helpView];
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        helpView.dimmingView.alpha = 0.9;
+        _helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        _helpView.dimmingView.alpha = 0.9;
     } completion:^(BOOL finished) {
         
     }];
@@ -371,6 +381,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.view bringSubviewToFront:self.radarImageView];
     [self.view bringSubviewToFront:self.tipImageView];
     [self.view bringSubviewToFront:self.helpButton];
+    [self.view bringSubviewToFront:self.helpView];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.view bringSubviewToFront:self.mascotImageView];
         [self.view bringSubviewToFront:self.captureSuccessImageView];
