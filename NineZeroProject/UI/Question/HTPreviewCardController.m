@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, HTScrollDirection) {
 
 static CGFloat kItemMargin = 17;         // item之间间隔
 
-@interface HTPreviewCardController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTCardCollectionCellDelegate, HTARCaptureControllerDelegate, HTComposeViewDelegate>
+@interface HTPreviewCardController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HTCardCollectionCellDelegate, HTARCaptureControllerDelegate, HTComposeViewDelegate, SKHelperScrollViewDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (strong, nonatomic) UIImageView *bgImageView;
 @property (nonatomic, strong) HTCardTimeView *timeView;
@@ -71,6 +71,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 @property (nonatomic, strong) UIButton *helpButton;
 @property (nonatomic, strong) HTCardCollectionCell *mCell;
+
+@property (nonatomic, assign) NSInteger clickCount;
 
 @end
 
@@ -126,7 +128,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     
     self.view.backgroundColor = UIColorMake(14, 14, 14);
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
-    
+    _clickCount = 0;
     [HTProgressHUD dismiss];
     [self createUI];
     [self loadData];
@@ -396,6 +398,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)arQuestionHelpButtonClick:(UIButton *)sender {
     SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
+    helpView.delegate = self;
     helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
     helpView.dimmingView.alpha = 0;
     [self.view addSubview:helpView];
@@ -640,7 +643,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)composeHistoryQuestionWithAnswer:(NSString *)answer question:(HTQuestion *)question {
-    static int clickCount = 0;
     _composeView.composeButton.enabled = NO;
     [[[HTServiceManager sharedInstance] questionService] verifyHistoryQuestion:question.questionID withAnswer:answer callback:^(BOOL success, HTResponsePackage *response) {
         _composeView.composeButton.enabled = YES;
@@ -648,7 +650,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             if (response.resultCode == 0) {
                 [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
                 [_composeView showAnswerCorrect:YES];
-                clickCount = 0;
+                _clickCount = 0;
                 [self willAppearQuestionAtIndex:questionList.count - 1];
                 [self.collectionView reloadData];
                 [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *qL) { }];
@@ -663,23 +665,28 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                         reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                     }
                     [self presentViewController:reward animated:YES completion:nil];
-                    //                    [[HTUIHelper mainController] reloadMascotViewData];
                 });
             } else {
-                if (clickCount >= 3){
-                    [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
+                if (_clickCount >= 1){
+                    if (_clickCount >= 2) {
+                        [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
+                    }
                     _mCell.hintButton.hidden = NO;
+                    [[UD mutableArrayValueForKey:kQuestionHintArray] replaceObjectAtIndex:question.serial-1 withObject:@1];
                 }
                 [_composeView showAnswerCorrect:NO];
-                clickCount++;
+                _clickCount++;
             }
         } else {
-            if (clickCount >= 3){
-                [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
+            if (_clickCount >= 1){
+                if (_clickCount >= 2) {
+                    [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
+                }
                 _mCell.hintButton.hidden = NO;
+                [[UD mutableArrayValueForKey:kQuestionHintArray] replaceObjectAtIndex:question.serial-1 withObject:@1];
             }
             [_composeView showAnswerCorrect:NO];
-            clickCount++;
+            _clickCount++;
         }
     }];
 }
@@ -1011,6 +1018,29 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
         [alertView show];
     }
+}
+
+#pragma mark - SKHelperScrollViewDelegate
+
+- (void)didClickCompleteButton {
+    [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateNormal];
+    [UIView animateWithDuration:0.075 animations:^{
+        _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 1.1, 1.1);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.075 animations:^{
+            _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 0.9, 0.9);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.075 animations:^{
+                _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 1.1, 1.1);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.075 animations:^{
+                    _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 0.9, 0.9);
+                } completion:^(BOOL finished) {
+                    [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+                }];
+            }];
+        }];
+    }];
 }
 
 @end

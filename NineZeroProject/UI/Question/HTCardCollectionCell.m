@@ -532,12 +532,14 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked_highlight"] forState:UIControlStateHighlighted];
         _hintButton.hidden = YES;
     } else {
-        if (_question.isPassed == NO
-            //        _questionInfo.questionID == question.questionID&&
-            ) {
+        if (_question.isPassed == NO) {
             [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
             //判断是否需要显示"获取提示"
-            _hintButton.hidden = (_questionInfo.endTime - time(NULL))>(3600*16)?YES:NO;
+            if (_question.questionID == questionInfo.questionID) {
+                _hintButton.hidden = (_questionInfo.endTime - time(NULL))>(3600*16)?YES:NO;
+            } else {
+                _hintButton.hidden = ![[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] boolValue];
+            }
             
             //判断答题按钮图标
             if (_question.type == 0) {
@@ -548,9 +550,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
             }
-        }
-        //未答对
-        else {
+        } else {
             [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_more"] forState:UIControlStateNormal];
             [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_more_highlight"] forState:UIControlStateHighlighted];
             if (_question.isPassed) {
