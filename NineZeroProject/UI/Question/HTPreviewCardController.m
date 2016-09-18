@@ -681,6 +681,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             if (_clickCount >= 1){
                 if (_clickCount >= 2) {
                     [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
+                    //显示GuideView
+                    if (FIRST_TYPE_4) {
+                        [self showGuideviewWithType:SKHelperGuideViewType3];
+                        [UD setBool:YES forKey:@"firstLaunchType4"];
+                    }
                 }
                 _mCell.hintButton.hidden = NO;
                 [[UD mutableArrayValueForKey:kQuestionHintArray] replaceObjectAtIndex:question.serial-1 withObject:@1];
@@ -736,6 +741,26 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 - (void)didClickDimingViewInComposeView:(HTComposeView *)composeView {
     [self.view endEditing:YES];
     [composeView removeFromSuperview];
+}
+
+- (void)showGuideviewWithType:(SKHelperGuideViewType)type {
+    UIView *blackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    blackView.backgroundColor = [UIColor blackColor];
+    
+    _guideView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:type];
+    _guideView.alpha = 0;
+    
+    [KEY_WINDOW addSubview:blackView];
+    [KEY_WINDOW bringSubviewToFront:blackView];
+    [KEY_WINDOW addSubview:_guideView];
+    [KEY_WINDOW bringSubviewToFront:_guideView];
+    
+    [UIView animateWithDuration:1.2 animations:^{
+        blackView.alpha = 0;
+        _guideView.alpha = 1;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 #pragma mark - HTARCaptureController Delegate

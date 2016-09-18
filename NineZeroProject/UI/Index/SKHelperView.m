@@ -215,6 +215,9 @@
         _dimmingView.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
+        if ([self.delegate respondsToSelector:@selector(didClickCompleteButton)]) {
+            [self.delegate didClickCompleteButton];
+        }
     }];
 }
 

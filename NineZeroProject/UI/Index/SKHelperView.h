@@ -36,7 +36,12 @@ typedef enum : NSUInteger {
     SKHelperScrollViewTypeAR
 } SKHelperScrollViewType;
 
+@protocol SKHelperScrollViewDelegate <NSObject>
+- (void)didClickCompleteButton;
+@end
+
 @interface SKHelperScrollView : UIView
+@property (nonatomic, weak) id<SKHelperScrollViewDelegate> delegate;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *dimmingView;
 - (instancetype)initWithFrame:(CGRect)frame withType:(SKHelperScrollViewType)type;
