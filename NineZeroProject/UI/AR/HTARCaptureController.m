@@ -171,7 +171,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [self.prARManager stopAR];
     [self.locationManager stopUpdatingLocation];
 }

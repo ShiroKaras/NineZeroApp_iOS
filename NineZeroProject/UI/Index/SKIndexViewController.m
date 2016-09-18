@@ -40,13 +40,14 @@
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-    [self.navigationController.navigationBar setHidden:NO];
+    //[self.navigationController.navigationBar setHidden:NO];
 }
 
 - (void)viewDidLoad {

@@ -157,7 +157,7 @@
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:_mainController];
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         // 用户通过点击图标启动程序 还是  点击通知启动程序
         // 获取启动时收到的APN
         NSDictionary* remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -180,11 +180,11 @@
                     weakSelf.launchViewController.view.alpha = 0;
                 } completion:^(BOOL finished) {
                     weakSelf.launchViewController = nil;
-                    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+                    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                 }];
             };
         }else {
-            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         }
         
         [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];

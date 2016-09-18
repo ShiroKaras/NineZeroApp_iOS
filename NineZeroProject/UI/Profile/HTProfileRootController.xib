@@ -37,7 +37,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9OC-jm-dz5" userLabel="backButton">
-                    <rect key="frame" x="11" y="11" width="40" height="40"/>
+                    <rect key="frame" x="10" y="10" width="40" height="40"/>
                     <state key="normal" image="btn_profile_back"/>
                     <state key="highlighted" image="btn_profile_back_highlight"/>
                     <connections>
@@ -45,7 +45,7 @@
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNW-0b-0Z6" userLabel="notificationButton">
-                    <rect key="frame" x="281" y="11" width="40" height="40"/>
+                    <rect key="frame" x="281" y="10" width="40" height="40"/>
                     <state key="normal" image="btn_profile_notification"/>
                     <state key="highlighted" image="btn_profile_notification_highlight"/>
                     <connections>
@@ -53,7 +53,7 @@
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ue-oz-GgY" userLabel="settingButton">
-                    <rect key="frame" x="324" y="11" width="40" height="40"/>
+                    <rect key="frame" x="324" y="10" width="40" height="40"/>
                     <state key="normal" image="btn_profile_setting"/>
                     <state key="highlighted" image="btn_profile_setting_highlight"/>
                     <connections>
@@ -262,7 +262,7 @@
             </subviews>
             <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="9OC-jm-dz5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="11" id="04m-A2-oXE"/>
+                <constraint firstItem="9OC-jm-dz5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="04m-A2-oXE"/>
                 <constraint firstItem="Nzg-wr-d2i" firstAttribute="leading" secondItem="GM6-Eg-CqE" secondAttribute="trailing" constant="8" id="0N7-MF-ktY"/>
                 <constraint firstItem="lP6-vo-wh3" firstAttribute="top" secondItem="qZd-N7-4Cu" secondAttribute="bottom" id="0TA-bC-bFL"/>
                 <constraint firstItem="lP6-vo-wh3" firstAttribute="centerX" secondItem="7o5-0m-oZB" secondAttribute="centerX" id="0Ue-Jd-Pkf"/>
@@ -290,7 +290,7 @@
                 <constraint firstItem="4b2-gJ-fns" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="Hzj-ab-dVJ"/>
                 <constraint firstItem="jKU-Uo-Q29" firstAttribute="leading" secondItem="8iw-uZ-BqK" secondAttribute="trailing" id="IKI-VZ-jaB"/>
                 <constraint firstItem="lP6-vo-wh3" firstAttribute="top" secondItem="7o5-0m-oZB" secondAttribute="bottom" constant="62" id="JCV-HP-Vfn"/>
-                <constraint firstItem="9OC-jm-dz5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="11" id="JCX-HM-87y"/>
+                <constraint firstItem="9OC-jm-dz5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="JCX-HM-87y"/>
                 <constraint firstItem="jKU-Uo-Q29" firstAttribute="height" secondItem="8iw-uZ-BqK" secondAttribute="height" id="KTO-yR-09Q"/>
                 <constraint firstItem="7o5-0m-oZB" firstAttribute="leading" secondItem="W4I-aX-iZp" secondAttribute="trailing" constant="-124" id="MMD-vA-wWe"/>
                 <constraint firstItem="NWV-SE-tel" firstAttribute="top" secondItem="611-Xh-Wov" secondAttribute="bottom" id="Mae-HX-ypX"/>

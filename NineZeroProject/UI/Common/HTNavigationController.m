@@ -8,6 +8,9 @@
 
 #import "HTNavigationController.h"
 #import "CommonUI.h"
+#import "SKQuestionPageViewController.h"
+#import "HTPreviewCardController.h"
+#import "HTMascotDisplayController.h"
 
 @implementation HTNavigationController
 
@@ -18,7 +21,12 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 
-
+    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, self.view.bounds.size.width, 20)];
+    //设置成绿色
+    statusBarView.backgroundColor=[UIColor greenColor];
+    // 添加到 navigationBar 上
+    [self.navigationController.navigationBar addSubview:statusBarView];
+    
     //自定义返回按钮
     UIImage *backButtonImage = [[UIImage imageNamed:@"btn_profile_back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -44,9 +52,17 @@
         [button setImage:[UIImage imageNamed:@"btn_profile_back"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"btn_profile_back_highlight"] forState:UIControlStateHighlighted];
         [button sizeToFit];
-        button.width += 10;
+        button.top += 10;
+        button.left += 10;
         [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+//        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        if ([viewController isKindOfClass:[SKQuestionPageViewController class]] ||
+            [viewController isKindOfClass:[HTPreviewCardController class]] ||
+            [viewController isKindOfClass:[HTMascotDisplayController class]]) {
+            
+        } else {
+            [viewController.view addSubview:button];
+        }
     }
 }
 

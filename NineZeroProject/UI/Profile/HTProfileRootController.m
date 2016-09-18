@@ -126,8 +126,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.hidden = NO;
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+//    self.navigationController.navigationBar.hidden = NO;
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO];
     [MobClick endLogPageView:@"homepage"];
 }
 
