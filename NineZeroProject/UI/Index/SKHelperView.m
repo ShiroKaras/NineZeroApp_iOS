@@ -394,6 +394,10 @@
         button4.top = _view3.top + 148.7;
         button4.right = _view3.right - 189.7;
     }
+    UIImageView *buttonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_help"]];
+    [buttonImage sizeToFit];
+    buttonImage.frame = CGRectMake(10, 10, 40, 40);
+    [_view4 addSubview:buttonImage];
     [_view4 addSubview:button4];
 
     switch (type) {

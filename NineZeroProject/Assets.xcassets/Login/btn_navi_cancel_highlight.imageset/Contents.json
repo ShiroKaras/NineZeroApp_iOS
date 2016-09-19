@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "btn_navi_cancel_highlight.png",
       "scale" : "1x"
     },
     {

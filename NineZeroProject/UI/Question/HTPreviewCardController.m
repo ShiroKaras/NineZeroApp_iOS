@@ -382,15 +382,21 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
     [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
     
-    [_helpButton addTarget:self action:@selector(arQuestionHelpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_helpButton addTarget:self action:@selector(helpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_helpButton sizeToFit];
     _helpButton.top = 10;
     _helpButton.left = 10;
     [self.view addSubview:_helpButton];
 }
 
-- (void)arQuestionHelpButtonClick:(UIButton *)sender {
-    SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeTimeLimitQuestion];
+
+- (void)helpButtonClick:(UIButton *)sender {
+    SKHelperScrollView *helpView;
+    if (questionList[0].type == 0) {
+        helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
+    } else if (questionList[0].type == 1){
+        helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeTimeLimitQuestion];
+    }
     helpView.delegate = self;
     helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
     helpView.dimmingView.alpha = 0;
