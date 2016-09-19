@@ -41,6 +41,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    if (FIRST_LAUNCH_QUESTIONLIST) {
+        [self helpButtonClick:nil];
+        [UD setBool:YES forKey:@"firstLaunchQuestionList"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

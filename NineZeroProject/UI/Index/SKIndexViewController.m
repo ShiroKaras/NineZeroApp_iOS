@@ -54,6 +54,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (![UD boolForKey:@"everLaunched"]) {
+        [UD setBool:YES forKey:@"everLaunched"];
+        [UD setBool:YES forKey:@"firstLaunch"];
+    }
+    else{
+        [UD setBool:NO forKey:@"firstLaunch"];
+    }
+    
     [HTProgressHUD show];
     [self createUI];
 //    [self loadData];

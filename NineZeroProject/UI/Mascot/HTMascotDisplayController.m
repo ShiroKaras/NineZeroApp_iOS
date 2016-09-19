@@ -95,6 +95,11 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     [self buildConstraints];
     [self reloadAllData];
     [self reloadViews];
+    
+    if (FIRST_LAUNCH_MASCOTVIEW) {
+        [self helpButtonClick:nil];
+        [UD setBool:YES forKey:@"firstLaunchMascotView"];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

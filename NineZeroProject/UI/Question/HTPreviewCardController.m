@@ -118,20 +118,13 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (![UD boolForKey:@"everLaunched"]) {
-        [UD setBool:YES forKey:@"everLaunched"];
-        [UD setBool:YES forKey:@"firstLaunch"];
-    }
-    else{
-        [UD setBool:NO forKey:@"firstLaunch"];
-    }
-    
     self.view.backgroundColor = UIColorMake(14, 14, 14);
     itemWidth = SCREEN_WIDTH - 13 - kItemMargin * 2;
     _clickCount = 0;
     [HTProgressHUD dismiss];
     [self createUI];
     [self loadData];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -394,6 +387,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _helpButton.top = 10;
     _helpButton.left = 10;
     [self.view addSubview:_helpButton];
+    
+    if (FIRST_LAUNCH_QUESTIONVIEW) {
+        [self arQuestionHelpButtonClick:nil];
+        [UD setBool:YES forKey:@"firstLaunchQuestionView"];
+    }
 }
 
 - (void)arQuestionHelpButtonClick:(UIButton *)sender {
