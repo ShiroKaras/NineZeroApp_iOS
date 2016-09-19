@@ -118,12 +118,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.tipImageView addSubview:self.tipLabel];
     [self showtipImageView];
     
-    // 5.零仔
-//    NSMutableArray<UIImage *> *animatedImages = [NSMutableArray arrayWithCapacity:52];
-//    for (int i = 0; i != 52; i++) {
-//        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"ar_mascot2_00%02d", i]];
-//        [animatedImages addObject:image];
-//    }
     self.mascotImageView = [[UIImageView alloc] init];
     self.mascotImageView.layer.masksToBounds = YES;
     UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:_question.question_ar_pet]];
@@ -134,17 +128,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.view addSubview:self.mascotImageView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
     [self.mascotImageView addGestureRecognizer:tap];
-    
-    //帮助
-//    // 5.左上灯泡
-//    self.helpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
-//    [self.helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
-//    
-//    [self.helpButton addTarget:self action:@selector(arQuestionHelpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.helpButton sizeToFit];
-//    [self.view addSubview:_helpButton];
-//    [self.view bringSubviewToFront:_helpButton];
     
     if (FIRST_TYPE_3) {
         SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];

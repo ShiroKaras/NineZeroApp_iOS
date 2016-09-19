@@ -31,7 +31,9 @@
 @property (nonatomic, strong) HTUserInfo *userInfo;
 @property (nonatomic, strong) NSArray<HTMascot *> *mascots;
 @property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel *relaxDayTimeLabel;
 @property (nonatomic, assign) uint64_t endTime;
+@property (nonatomic, assign) BOOL isMonday;
 @end
 
 @implementation SKIndexViewController
@@ -114,22 +116,24 @@
         if (success && response.resultCode == 0) {
             if ([dictData isEqualToString:@"1"]) {
                 [HTProgressHUD dismiss];
+                _isMonday = YES;
                 [[[HTServiceManager sharedInstance] questionService] getRelaxDayInfo:^(BOOL success, HTResponsePackage *response) {
                     if (success && response.resultCode == 0) {
                         NSDictionary *dataDict = response.data;
                         _endTime = (time_t)[dataDict[@"end_time"] integerValue];
                         [self scheduleCountDownTimer];
-                        _relaxDayCountView.alpha = 1;
+                        _relaxDayCountView.alpha = 0;
                     }
                 }];
-                
+                [_timerLevelButton addTarget:self action:@selector(showRelaxDayTimeLabel:) forControlEvents:UIControlEventTouchUpInside];
                 [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
                 [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateHighlighted];
 
             } else if ([dictData isEqualToString:@"0"]) {
+                _isMonday = NO;
                 [HTProgressHUD dismiss];
                 _timerLevelCountView.alpha = 1;
-                
+                [_timerLevelButton addTarget:self action:@selector(timerLevelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
                 [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level"] forState:UIControlStateNormal];
                 [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level_highlight"] forState:UIControlStateHighlighted];
                 
@@ -213,7 +217,6 @@
     [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level"] forState:UIControlStateNormal];
     [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level_highlight"] forState:UIControlStateHighlighted];
 //    [timerLevelButton sizeToFit];
-    [_timerLevelButton addTarget:self action:@selector(timerLevelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [dimmingView addSubview:_timerLevelButton];
     
     UIButton *mascotButton = [UIButton new];
@@ -274,12 +277,12 @@
     [_relaxDayCountView sizeToFit];
     [_relaxDayCountView addSubview:countDownImageView];
     
-    _timeLabel = [UILabel new];
-    _timeLabel.text = @"00:00:00";
-    _timeLabel.textColor = [UIColor whiteColor];
-    _timeLabel.font = MOON_FONT_OF_SIZE(16);
-    _timeLabel.textAlignment = NSTextAlignmentCenter;
-    [_relaxDayCountView addSubview:_timeLabel];
+    _relaxDayTimeLabel = [UILabel new];
+    _relaxDayTimeLabel.text = @"00:00:00";
+    _relaxDayTimeLabel.textColor = [UIColor whiteColor];
+    _relaxDayTimeLabel.font = MOON_FONT_OF_SIZE(16);
+    _relaxDayTimeLabel.textAlignment = NSTextAlignmentCenter;
+    [_relaxDayCountView addSubview:_relaxDayTimeLabel];
     
     _relaxDayCountView.alpha = 0;
     
@@ -296,6 +299,11 @@
         make.center.equalTo(_relaxDayCountView);
     }];
 
+    [_relaxDayTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_relaxDayCountView);
+        make.right.equalTo(_relaxDayCountView);
+        make.bottom.equalTo(_relaxDayCountView).offset(-9);
+    }];
     
     //限时关卡倒计时
     _timerLevelCountView = [UIView new];
@@ -344,7 +352,10 @@
     
     //TODO: 更改TimeView
     if (delta > 0) {
-        _timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        if (_isMonday) {
+            _relaxDayTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        } else
+            _timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
     } else {
         // 过去时间
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
@@ -388,6 +399,19 @@
     HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeTimeLevel andQuestList:@[self.questionList.lastObject] questionInfo:_questionInfo];
     cardController.delegate = self;
     [self.navigationController pushViewController:cardController animated:YES];
+}
+
+- (void)showRelaxDayTimeLabel:(UIButton *)sender {
+    [UIView animateWithDuration:0.3 animations:^{
+        _relaxDayCountView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            _relaxDayCountView.alpha = 0;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }];
+    
 }
 
 - (void)mascotButtonClick:(UIButton *)sender {

@@ -39,6 +39,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) HTBlankView *blankView;
 @property (nonatomic, strong) UIView *blankCoverView;
 @property (nonatomic, assign) CGFloat headerViewHeight;
+@property (nonatomic, strong) UIView *promptView;
+@property (nonatomic, strong) UILabel *promptLabel;
 
 @end
 
@@ -135,6 +137,24 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self.statusBarCoverView.backgroundColor = [HTMascotHelper colorWithMascotIndex:_mascot.mascotID];
     self.statusBarCoverView.alpha = 0;
 //    [self.view addSubview:self.statusBarCoverView];
+    
+    UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
+    [promptImageView sizeToFit];
+    
+    _promptView = [UIView new];
+    _promptView.size = promptImageView.size;
+    _promptView.center = self.view.center;
+    _promptView.alpha = 0;
+    [self.view addSubview:_promptView];
+    
+    promptImageView.frame = CGRectMake(0, 0, _promptView.width, _promptView.height);
+    [_promptView addSubview:promptImageView];
+    
+    _promptLabel = [UILabel new];
+    _promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
+    _promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    [_promptView addSubview:_promptLabel];
+    _promptLabel.frame = CGRectMake(8.5, _promptView.height-12.5-13, _promptView.width-17, 57);
 }
 
 - (void)loadMoreData {
@@ -280,33 +300,17 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row >= 2) {
+        _promptView.alpha = 0;
         if (self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1].is_locked) {
-            UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
-            [promptImageView sizeToFit];
-            UIView *promptView = [[UIView alloc] initWithFrame:promptImageView.frame];
-            promptView.alpha = 0;
-            [self.view addSubview:promptView];
-            promptImageView.center = self.view.center;
-            [promptView addSubview:promptImageView];
-            
-            UILabel *promptLabel = [UILabel new];
-            promptLabel.text = [NSString stringWithFormat:@"闯过第%@章后，解锁本篇研究报告", self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1].qid];
-            promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
-            promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
-            [promptLabel sizeToFit];
-            promptLabel.centerX = promptImageView.centerX;
-            promptLabel.left = promptImageView.left + 8.5;
-            promptLabel.right = promptImageView.right - 8.5;
-            promptLabel.bottom = promptImageView.bottom - 10.5;
-            [promptView addSubview:promptLabel];
-            
+            _promptLabel.text = [NSString stringWithFormat:@"闯过第%@章后，解锁本篇研究报告", self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1].qid];
+            [_promptLabel sizeToFit];
             [UIView animateWithDuration:0.3 animations:^{
-                promptView.alpha =1;
+                _promptView.alpha =1;
             } completion:^(BOOL finished) {
                 [UIView animateWithDuration:0.3 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    promptView.alpha = 0;
+                    _promptView.alpha = 0;
                 } completion:^(BOOL finished) {
-                    [promptView removeFromSuperview];
+                    
                 }];
             }];
         } else {
