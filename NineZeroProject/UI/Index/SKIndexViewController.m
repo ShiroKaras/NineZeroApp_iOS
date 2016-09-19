@@ -424,8 +424,7 @@
 
 - (void)mascotButtonClick:(UIButton *)sender {
     HTMascotDisplayController *mascotController = [[HTMascotDisplayController alloc] init];
-    mascotController.mascots = [self.mascots mutableCopy];
-//    mascotController.mascots = [[[[HTServiceManager sharedInstance] mascotService] mascotsArray] mutableCopy];
+    mascotController.mascots = [[[[HTServiceManager sharedInstance] mascotService] mascotsArray] mutableCopy];
     [self.navigationController pushViewController:mascotController animated:YES];
 }
 
