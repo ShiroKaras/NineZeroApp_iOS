@@ -22,11 +22,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"收藏文章";
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    headerView.backgroundColor = [UIColor blackColor];
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = @"收藏的文章";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont systemFontOfSize:17];
+    [titleLabel sizeToFit];
+    titleLabel.center = headerView.center;
+    [headerView addSubview:titleLabel];
+    self.tableView.tableHeaderView = headerView;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
+    
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     
     [self.tableView registerClass:[HTMascotArticleCell class] forCellReuseIdentifier:NSStringFromClass([HTMascotArticleCell class])];
 }
@@ -40,9 +51,6 @@
         [HTProgressHUD dismiss];
         if (success) {
             _articles = articles;
-            UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5.5)];
-            headerView.backgroundColor = [UIColor whiteColor];
-            self.tableView.tableHeaderView = headerView;
             MJRefreshAutoGifFooter *footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
             NSMutableArray<UIImage *> *refreshingImages = [NSMutableArray array];
             for (int i = 0; i != 3; i++) {

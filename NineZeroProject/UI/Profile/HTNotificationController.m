@@ -22,6 +22,18 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.view.backgroundColor = [UIColor blackColor];
     self.title = @"消息通知";
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    headerView.backgroundColor = [UIColor blackColor];
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = @"消息通知";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont systemFontOfSize:17];
+    [titleLabel sizeToFit];
+    titleLabel.center = headerView.center;
+    [headerView addSubview:titleLabel];
+    
+    self.tableView.tableHeaderView = headerView;
     [self.tableView registerClass:[HTNotificationCell class] forCellReuseIdentifier:NSStringFromClass([HTNotificationCell class])];
     self.notices = [NSArray array];
     [HTProgressHUD show];
@@ -45,6 +57,14 @@
         [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
         [self.view addSubview:self.blankView];
         self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    if (self.navigationController) {
+        self.navigationController.navigationBarHidden = YES;
     }
 }
 

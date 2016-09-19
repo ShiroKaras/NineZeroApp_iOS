@@ -25,7 +25,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
-     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    headerView.backgroundColor = [UIColor blackColor];
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = @"金币";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont systemFontOfSize:17];
+    [titleLabel sizeToFit];
+    titleLabel.center = headerView.center;
+    [headerView addSubview:titleLabel];
+    [self.view addSubview:headerView];
+
+     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 60, self.view.bounds.size.width, self.view.bounds.size.height-60)];
     _webView.scrollView.delaysContentTouches = NO;
     _webView.opaque = NO;
     _webView.backgroundColor = [UIColor clearColor];
@@ -54,7 +66,7 @@
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    _webView.frame = self.view.bounds;
+    _webView.frame = CGRectMake(0, 60, self.view.bounds.size.width, self.view.bounds.size.height-60);
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -64,7 +76,7 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [HTProgressHUD dismiss];
 //    [self showTipsWithText:@"加载失败" offset:64];
-    UIView *backView = [[UIView alloc] initWithFrame:self.view.frame];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, self.view.bounds.size.width, self.view.bounds.size.height-60)];
     backView.backgroundColor = [UIColor blackColor];
     [self.view  addSubview:backView];
     

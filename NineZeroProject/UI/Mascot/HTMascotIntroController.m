@@ -145,6 +145,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    if (self.navigationController) {
+        self.navigationController.navigationBarHidden = YES;
+    }
     [MobClick beginLogPageView:@"mascotintropage"];
     
     void (^netWorkErrorHandler)() = ^() {
@@ -207,7 +211,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    self.backButton.origin = CGPointMake(11, 34);
+    self.backButton.origin = CGPointMake(10, 10);
     self.shareButton.top = self.backButton.top;
     self.shareButton.right = SCREEN_WIDTH - 11;
     self.cancelButton.origin = self.shareButton.origin;

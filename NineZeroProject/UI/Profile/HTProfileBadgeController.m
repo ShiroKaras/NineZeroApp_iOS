@@ -109,6 +109,17 @@
     _collectionView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:_collectionView];
     
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    headerView.backgroundColor = [UIColor blackColor];
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = @"我的勋章";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont systemFontOfSize:17];
+    [titleLabel sizeToFit];
+    titleLabel.center = headerView.center;
+    [headerView addSubview:titleLabel];
+    [self.view addSubview:headerView];
+    
     [_collectionView registerClass:[HTProfileBadgeCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([HTProfileBadgeCollectionCell class])];
     [_collectionView registerClass:[HTBadgeHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader  withReuseIdentifier:NSStringFromClass([HTBadgeHeaderView class])];
     
@@ -135,7 +146,7 @@
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    _collectionView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+    _collectionView.frame = CGRectMake(0, 60, self.view.width, self.view.height-60);
 }
 
 #pragma mark - UICollectionView

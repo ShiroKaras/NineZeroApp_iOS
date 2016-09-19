@@ -198,7 +198,8 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 - (void)didClickTipNumber {
     [MobClick event:@"essay"];
     HTMascotIntroController *introController = [[HTMascotIntroController alloc] initWithMascot:self.mascots[0]];
-    [self presentViewController:introController animated:YES completion:nil];
+//    [self presentViewController:introController animated:YES completion:nil];
+    [self.navigationController pushViewController:introController animated:YES];
 }
 
 - (void)cancelButtonClick:(UIButton *)sender {
@@ -232,7 +233,8 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
         if (mascot.mascotID-1 == mascotTipView.index) {
             HTMascotIntroController *introController = [[HTMascotIntroController alloc] initWithMascot:mascot];
             [UD setInteger:mascot.mascotID forKey:selectedMascotKey];
-            [self presentViewController:introController animated:YES completion:nil];
+//            [self presentViewController:introController animated:YES completion:nil];
+            [self.navigationController pushViewController:introController animated:YES];
         }
     }
 }
