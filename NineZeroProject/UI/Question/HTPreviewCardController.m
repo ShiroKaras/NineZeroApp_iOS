@@ -387,11 +387,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     _helpButton.top = 10;
     _helpButton.left = 10;
     [self.view addSubview:_helpButton];
-    
-    if (FIRST_LAUNCH_QUESTIONVIEW) {
-        [self arQuestionHelpButtonClick:nil];
-        [UD setBool:YES forKey:@"firstLaunchQuestionView"];
-    }
 }
 
 - (void)arQuestionHelpButtonClick:(UIButton *)sender {

@@ -204,7 +204,7 @@
                                @"1011010会是线索吗？代表音符？二进制？还是蔡依林？",
                                @"最可能的答案是二进制！1011010对应的十进制就是90",
                                @"验证你的推论，输入90，闯关成功！"];
-        NSArray *videoArray = @[@"guide_1.mp4", @"guide_2.mp4", @"guide_3.mp4", @"guide_4.mp4"];
+        NSArray *videoArray = @[@"guide_1", @"guide_2", @"guide_3", @"guide_4"];
         NSInteger pageNumber = textArray.count;
         _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
         _scrollView.pagingEnabled = YES;
