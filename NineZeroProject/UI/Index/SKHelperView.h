@@ -25,6 +25,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, weak) id<SKHelperViewDelegate> delegate;
 - (instancetype)initWithFrame:(CGRect)frame withType:(SKHelperType)type index:(NSInteger)index;
 - (void)setImage:(UIImage *)image andText:(NSString *)text;
+- (void)setVideoName:(NSString *)videoName andText:(NSString *)text;
 @end
 
 
@@ -32,6 +33,7 @@ typedef enum : NSUInteger {
 //ScrollView
 typedef enum : NSUInteger {
     SKHelperScrollViewTypeQuestion,
+    SKHelperScrollViewTypeTimeLimitQuestion,
     SKHelperScrollViewTypeMascot,
     SKHelperScrollViewTypeAR
 } SKHelperScrollViewType;

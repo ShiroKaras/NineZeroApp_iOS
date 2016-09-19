@@ -395,7 +395,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)arQuestionHelpButtonClick:(UIButton *)sender {
-    SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
+    SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeTimeLimitQuestion];
     helpView.delegate = self;
     helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
     helpView.dimmingView.alpha = 0;

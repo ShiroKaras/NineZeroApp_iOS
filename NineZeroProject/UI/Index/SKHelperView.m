@@ -7,6 +7,7 @@
 //
 
 #import "SKHelperView.h"
+#import <AVFoundation/AVFoundation.h>
 #import "HTUIHeader.h"
 
 @interface SKHelperView (){
@@ -17,6 +18,11 @@
 @property (nonatomic, assign) NSInteger     index;
 @property (nonatomic, assign) SKHelperType  type;
 
+@property (nonatomic, strong) UIView *playBackView;
+@property (strong, nonatomic) AVPlayer *player;
+@property (strong, nonatomic) AVPlayerLayer *playerLayer;
+@property (strong, nonatomic) AVPlayerItem *playerItem;
+
 @end
 
 @implementation SKHelperView
@@ -25,11 +31,6 @@
     if (self = [super initWithFrame:frame]) {
         _index = index;
         _type = type;
-        
-//        UIView *dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-//        dimmingView.backgroundColor = [UIColor blackColor];
-//        dimmingView.alpha = 0.9;
-//        [self addSubview:dimmingView];
         
         UIView *cardView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-276)/2, (SCREEN_HEIGHT-356)/2, 276, 356)];
         cardView.layer.cornerRadius = 5;
@@ -40,6 +41,22 @@
         _cardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 276, 293)];
         _cardImageView.layer.masksToBounds = YES;
         [cardView addSubview:_cardImageView];
+        
+        _playerItem = nil;
+        _player = nil;
+        [_playerLayer removeFromSuperlayer];
+        _playerLayer = nil;
+        
+        _playBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 276, 276)];
+        [cardView addSubview:_playBackView];
+        
+        NSURL *URL = [[NSBundle mainBundle] URLForResource:@"guide_1" withExtension:@"mp4"];
+        _player = [AVPlayer playerWithURL:URL];
+        _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+        _playerLayer.frame = _playBackView.frame;
+        [_playBackView.layer addSublayer:_playerLayer];
+        _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+        [_player play];
         
         _textLabel = [UILabel new];
         _textLabel.numberOfLines = 2;
@@ -74,7 +91,6 @@
         _nextstepButton = [UIButton new];
         [_nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_next"] forState:UIControlStateNormal];
         [_nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_next_highlight"] forState:UIControlStateHighlighted];
-//        [_nextstepButton addTarget:self action:@selector(nextstepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_nextstepButton];
         
         [_nextstepButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -84,11 +100,13 @@
             make.right.equalTo(cardView.mas_right).offset(-12);
         }];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     }
     return self;
 }
 
 - (void)setImage:(UIImage *)image andText:(NSString *)text {
+    _playBackView.hidden = YES;
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:7];//调整行间距
@@ -96,6 +114,30 @@
     _textLabel.attributedText = attributedString;
     [_textLabel sizeToFit];
     _cardImageView.image = image;
+}
+
+- (void)setVideoName:(NSString *)videoName andText:(NSString *)text {
+    _cardImageView.hidden = YES;
+    //视频
+    NSURL *URL = [[NSBundle mainBundle] URLForResource:videoName withExtension:@"mp4"];
+    _player = [AVPlayer playerWithURL:URL];
+    _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+    _playerLayer.frame = _playBackView.frame;
+    [_playBackView.layer addSublayer:_playerLayer];
+    _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+    [_player play];
+    //文字
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:7];//调整行间距
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [text length])];
+    _textLabel.attributedText = attributedString;
+    [_textLabel sizeToFit];
+}
+
+- (void)playItemDidPlayToEndTime:(NSNotification *)notification {
+    [_player seekToTime:CMTimeMake(0, 1)];
+    [_player play];
 }
 
 #pragma mark - Actions
@@ -139,6 +181,7 @@
                                @"“这个星球除了我，其他同族都离奇的失踪了”",
                                @"“追寻同族留下的线索，我来到了你们的世界”",
                                @"“请留意视频，破解谜团，帮我找到其他零仔”"];
+        NSArray *videoArray = @[@"trailer_1", @"trailer_2", @"trailer_3", @"trailer_4"];
         NSInteger pageNumber = textArray.count;
         _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
         _scrollView.pagingEnabled = YES;
@@ -154,7 +197,30 @@
                 helpView.nextstepButton.tag = i;
                 [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             }
-            [helpView setImage:nil andText:textArray[i]];
+            [helpView setVideoName:videoArray[i] andText:textArray[i]];
+        }
+    } else if (type == SKHelperScrollViewTypeTimeLimitQuestion) {
+        NSArray *textArray = @[@"在九零APP里，每一个关卡，每一段视频，每一个文字都可能成为线索！",
+                               @"1011010会是线索吗？代表音符？二进制？还是蔡依林？",
+                               @"最可能的答案是二进制！1011010对应的十进制就是90",
+                               @"验证你的推论，输入90，闯关成功！"];
+        NSArray *videoArray = @[@"guide_1.mp4", @"guide_2.mp4", @"guide_3.mp4", @"guide_4.mp4"];
+        NSInteger pageNumber = textArray.count;
+        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
+        _scrollView.pagingEnabled = YES;
+        for (int i= 0; i<pageNumber; i++) {
+            SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeNoMascot index:i];
+            helpView.backgroundColor = [UIColor clearColor];
+            [_scrollView addSubview:helpView];
+            if (i == pageNumber-1) {
+                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete"] forState:UIControlStateNormal];
+                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete_highlight"] forState:UIControlStateHighlighted];
+                [helpView.nextstepButton addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            } else {
+                helpView.nextstepButton.tag = i;
+                [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            }
+            [helpView setVideoName:videoArray[i] andText:textArray[i]];
         }
     } else if (type == SKHelperScrollViewTypeMascot) {
         NSArray *textArray = @[@"帮助零仔〇找到失落在地球上的其他零仔们",
