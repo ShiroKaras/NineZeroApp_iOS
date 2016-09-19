@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnd-iO-C5t">
-                    <rect key="frame" x="12" y="19" width="390" height="3859"/>
+                    <rect key="frame" x="12" y="79" width="390" height="3909"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <mutableString key="text">重要须知：		
 
@@ -97,7 +97,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="lnd-iO-C5t" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="19" id="LmS-zf-7VT"/>
+                <constraint firstItem="lnd-iO-C5t" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="79" id="LmS-zf-7VT"/>
                 <constraint firstItem="lnd-iO-C5t" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="Zcd-PF-hha"/>
                 <constraint firstAttribute="trailing" secondItem="lnd-iO-C5t" secondAttribute="trailing" constant="12" id="k5G-jM-mqJ"/>
                 <constraint firstAttribute="bottom" secondItem="lnd-iO-C5t" secondAttribute="bottom" constant="19" id="oP6-Vq-pgF"/>
