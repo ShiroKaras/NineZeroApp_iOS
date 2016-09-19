@@ -55,7 +55,7 @@
         
         // 3. 答题框
         _textFieldBackView = [[UIView alloc] init];
-        _textFieldBackView.backgroundColor = [UIColor colorWithHex:0x1a1a1a];
+        _textFieldBackView.backgroundColor = COMMON_TITLE_BG_COLOR;
         [self insertSubview:_textFieldBackView belowSubview:_composeButton];
         
         _textField = [[UITextField alloc] init];

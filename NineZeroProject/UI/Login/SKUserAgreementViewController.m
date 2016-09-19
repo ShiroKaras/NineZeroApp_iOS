@@ -27,6 +27,17 @@
 
 - (void)createUI {
     self.title = @"用户协议";
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = @"用户协议";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont systemFontOfSize:17];
+    [titleLabel sizeToFit];
+    titleLabel.center = headerView.center;
+    [headerView addSubview:titleLabel];
+    [self.view addSubview:headerView];
+    
     _textView.editable = NO;
     _textView.textColor = [UIColor colorWithHex:0xCBCBCB];
     _textView.contentOffset = CGPointMake(0, 0);

@@ -27,7 +27,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-    headerView.backgroundColor = [UIColor blackColor];
+    headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"金币";
     titleLabel.textColor = [UIColor whiteColor];

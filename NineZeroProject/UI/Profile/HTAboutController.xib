@@ -34,7 +34,8 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关于" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqZ-do-icb">
-                    <rect key="frame" x="8" y="0.0" width="294" height="60"/>
+                    <rect key="frame" x="0.0" y="0.0" width="310" height="60"/>
+                    <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="eGS-Id-AfO"/>
                     </constraints>
@@ -45,9 +46,9 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="zqZ-do-icb" secondAttribute="trailing" constant="8" id="0Ap-Vg-aww"/>
+                <constraint firstAttribute="trailing" secondItem="zqZ-do-icb" secondAttribute="trailing" id="0Ap-Vg-aww"/>
                 <constraint firstItem="x1u-7O-JfT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="56D-u9-mSK"/>
-                <constraint firstItem="zqZ-do-icb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="Qau-1P-9By"/>
+                <constraint firstItem="zqZ-do-icb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Qau-1P-9By"/>
                 <constraint firstItem="mnL-hC-1hh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="115" id="Ysv-KH-4Xj"/>
                 <constraint firstItem="vt1-lx-zjM" firstAttribute="trailing" secondItem="x1u-7O-JfT" secondAttribute="trailing" id="cKo-Ek-8Ki"/>
                 <constraint firstItem="mnL-hC-1hh" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-13" id="emF-Wx-TwO"/>

@@ -110,7 +110,7 @@
     [self.view addSubview:_collectionView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-    headerView.backgroundColor = [UIColor blackColor];
+    headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"我的勋章";
     titleLabel.textColor = [UIColor whiteColor];

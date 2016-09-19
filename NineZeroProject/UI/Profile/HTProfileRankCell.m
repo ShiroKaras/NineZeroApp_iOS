@@ -130,7 +130,7 @@
 }
 
 - (void)showWithMe:(BOOL)me {
-    self.contentView.backgroundColor = (me) ? [UIColor colorWithHex:0x1a1a1a] : [UIColor blackColor];
+    self.contentView.backgroundColor = (me) ? COMMON_TITLE_BG_COLOR : [UIColor blackColor];
     _nickName.textColor = (me) ? [UIColor colorWithHex:0x24ddb2] : [UIColor whiteColor];
 }
 

@@ -17,7 +17,7 @@
 @implementation HTProfileBadgeCollectionCell
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor colorWithHex:0x1a1a1a];
+        self.backgroundColor = COMMON_TITLE_BG_COLOR;
     
         _badgeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_badge_1"]];
         [self addSubview:_badgeImageView];

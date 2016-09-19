@@ -108,7 +108,8 @@
                     </connections>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="管理地址" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogp-lo-0Zs">
-                    <rect key="frame" x="8" y="0.0" width="294" height="60"/>
+                    <rect key="frame" x="0.0" y="0.0" width="310" height="60"/>
+                    <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="MTj-T1-1oL"/>
                     </constraints>
@@ -119,7 +120,7 @@
             </subviews>
             <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="ogp-lo-0Zs" secondAttribute="trailing" constant="8" id="2vW-sd-9JI"/>
+                <constraint firstAttribute="trailing" secondItem="ogp-lo-0Zs" secondAttribute="trailing" id="2vW-sd-9JI"/>
                 <constraint firstAttribute="trailing" secondItem="H3P-Je-htt" secondAttribute="trailing" id="4cP-Sf-X7I"/>
                 <constraint firstItem="9YO-df-EZg" firstAttribute="top" secondItem="Yx2-Eh-iVn" secondAttribute="bottom" constant="6" id="4ns-yW-8DK"/>
                 <constraint firstItem="H3P-Je-htt" firstAttribute="top" secondItem="q40-hr-27C" secondAttribute="bottom" constant="6" id="4oU-dr-iZT"/>
@@ -129,7 +130,7 @@
                 <constraint firstAttribute="trailing" secondItem="9YO-df-EZg" secondAttribute="trailing" id="BHN-0C-Tva"/>
                 <constraint firstAttribute="trailing" secondItem="YNo-3c-yTK" secondAttribute="trailing" constant="23" id="FJd-sN-B1s"/>
                 <constraint firstItem="Yx2-Eh-iVn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="MDX-sN-fa1"/>
-                <constraint firstItem="ogp-lo-0Zs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="Qiw-Ko-dI0"/>
+                <constraint firstItem="ogp-lo-0Zs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Qiw-Ko-dI0"/>
                 <constraint firstItem="x84-t3-tUG" firstAttribute="top" secondItem="Y8h-Vz-XXm" secondAttribute="bottom" constant="13" id="SuJ-c8-Yco"/>
                 <constraint firstAttribute="trailing" secondItem="rYs-d0-jqI" secondAttribute="trailing" id="TYu-eN-9tT"/>
                 <constraint firstItem="BZQ-Dx-y0h" firstAttribute="top" secondItem="H3P-Je-htt" secondAttribute="bottom" constant="51" id="XPe-vb-f4K"/>

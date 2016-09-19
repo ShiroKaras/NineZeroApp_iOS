@@ -25,7 +25,7 @@
         self.backgroundColor = COMMON_BG_COLOR;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         _separator = [[UIView alloc] init];
-        _separator.backgroundColor = [UIColor colorWithHex:0x1a1a1a];
+        _separator.backgroundColor = COMMON_TITLE_BG_COLOR;
         [self.contentView addSubview:_separator];
         
         _titleLabel = [[UILabel alloc] init];

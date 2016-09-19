@@ -25,15 +25,18 @@
     self.tableView.backgroundColor = COMMON_BG_COLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 65)];
     headerView.backgroundColor = [UIColor blackColor];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    titleView.backgroundColor = COMMON_TITLE_BG_COLOR;
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"排行榜";
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = [UIFont systemFontOfSize:17];
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
-    [headerView addSubview:titleLabel];
+    [titleView addSubview:titleLabel];
+    [headerView addSubview:titleView];
     self.tableView.tableHeaderView = headerView;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     self.title = @"排行榜";
