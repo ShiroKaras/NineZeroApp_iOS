@@ -21,7 +21,6 @@
 @property (nonatomic, strong) UIView *playBackView;
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
-@property (strong, nonatomic) AVPlayerItem *playerItem;
 
 @end
 
@@ -41,11 +40,6 @@
         _cardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 276, 293)];
         _cardImageView.layer.masksToBounds = YES;
         [cardView addSubview:_cardImageView];
-        
-        _playerItem = nil;
-        _player = nil;
-        [_playerLayer removeFromSuperlayer];
-        _playerLayer = nil;
         
         _playBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 276, 276)];
         [cardView addSubview:_playBackView];
@@ -126,7 +120,6 @@
     _playerLayer.frame = _playBackView.frame;
     [_playBackView.layer addSublayer:_playerLayer];
     _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-//    [_player play];
     //文字
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -137,18 +130,22 @@
 }
 
 - (void)playItemDidPlayToEndTime:(NSNotification *)notification {
-    [_player seekToTime:CMTimeMake(0, 12)];
+    [_player seekToTime:kCMTimeZero];
     [_player play];
 }
 
 #pragma mark - Actions
+- (void)stop {
+    [_player setRate:0];
+    [_player seekToTime:kCMTimeZero];
+    [_player pause];
+}
 
 - (void)pause {
     [_player pause];
 }
 
 - (void)play {
-    [_player seekToTime:CMTimeMake(0, 12)];
     [_player play];
 }
 
@@ -242,14 +239,19 @@
                 [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             }
             [helpView setVideoName:videoArray[i] andText:textArray[i]];
-            [helpView play];
+            if (i==0) {
+                [helpView play];
+            }else {
+                [helpView stop];
+            }
         }
     } else if (type == SKHelperScrollViewTypeTimeLimitQuestion) {
         NSArray *textArray = @[@"在九零APP里，每一个关卡，每一段视频，每一个文字都可能成为线索！",
                                @"1011010会是线索吗？代表音符？二进制？还是蔡依林？",
                                @"最可能的答案是二进制！1011010对应的十进制就是90",
                                @"验证你的推论，输入90，闯关成功！"];
-        NSArray *videoArray = @[@"guide_1", @"guide_2", @"guide_3", @"guide_4"];
+        NSArray *videoArray = @[@"guide_1", @"guide_2", @"guide_3", @"trailer_4"];
+//        NSArray *videoArray = @[@"guide_1", @"guide_2", @"guide_3", @"guide_4"];
         NSInteger pageNumber = textArray.count;
         _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
         _scrollView.pagingEnabled = YES;
@@ -267,7 +269,11 @@
                 [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             }
             [helpView setVideoName:videoArray[i] andText:textArray[i]];
-            [helpView play];
+            if (i==0) {
+                [helpView play];
+            }else {
+                [helpView stop];
+            }
         }
     } else if (type == SKHelperScrollViewTypeMascot) {
         NSArray *textArray = @[@"帮助零仔〇找到失落在地球上的其他零仔们",
@@ -322,7 +328,7 @@
 
 - (void)nextStepButtonClick:(UIButton *)sender {
     [_scrollView setContentOffset:CGPointMake(SCREEN_WIDTH*(sender.tag+1-100), 0) animated:YES];
-    [(SKHelperView*)[self viewWithTag:sender.tag+100] pause];
+    [(SKHelperView*)[self viewWithTag:sender.tag+100] stop];
     [(SKHelperView*)[self viewWithTag:sender.tag+1+100] play];
 }
 
