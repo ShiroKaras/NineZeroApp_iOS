@@ -403,7 +403,7 @@
 
 - (void)allLevelButtonClick:(UIButton *)sender{
     SKQuestionPageViewController *controller = [[SKQuestionPageViewController alloc] init];
-    NSMutableArray *list = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
+    NSMutableArray *list = [self.questionList mutableCopy];
     [list removeLastObject];
     controller.questionList = list;
     [self.navigationController pushViewController:controller animated:YES];

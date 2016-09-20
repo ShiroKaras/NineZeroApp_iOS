@@ -40,9 +40,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
-        [self updateUIWithData:questionList];
-    }];
     
     [self createUI];
     if (FIRST_LAUNCH_QUESTIONLIST) {
