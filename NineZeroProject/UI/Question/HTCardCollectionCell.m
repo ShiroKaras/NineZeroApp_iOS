@@ -545,7 +545,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             } else if (_question.type == 1){
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
-                _hintButton.hidden = ![[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] boolValue];
+                _hintButton.hidden = [[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue]>1? NO:YES;
             }
         } else {
             //当前关卡

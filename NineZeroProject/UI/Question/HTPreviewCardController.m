@@ -666,7 +666,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     [self presentViewController:reward animated:YES completion:nil];
                 });
             } else {
-                if (_clickCount >= 1){
+                if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] >= 1){
                     if (_clickCount >= 2) {
                         [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
                         //显示GuideView
@@ -678,13 +678,13 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                         }
                     }
                     _mCell.hintButton.hidden = NO;
-                    [[UD mutableArrayValueForKey:kQuestionHintArray] replaceObjectAtIndex:question.serial-1 withObject:@1];
                 }
+                [[UD mutableArrayValueForKey:kQuestionHintArray] replaceObjectAtIndex:question.serial-1 withObject:[NSNumber numberWithInteger:[[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] + 1]];
                 [_composeView showAnswerCorrect:NO];
                 _clickCount++;
             }
         } else {
-            if (_clickCount >= 1){
+            if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] >= 1){
                 if (_clickCount >= 2) {
                     [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
                     //显示GuideView
@@ -696,8 +696,8 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     }
                 }
                 _mCell.hintButton.hidden = NO;
-                [[UD mutableArrayValueForKey:kQuestionHintArray] replaceObjectAtIndex:question.serial-1 withObject:@1];
             }
+            [[UD mutableArrayValueForKey:kQuestionHintArray] replaceObjectAtIndex:question.serial-1 withObject:[NSNumber numberWithInteger:[[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] + 1]];
             [_composeView showAnswerCorrect:NO];
             _clickCount++;
         }
