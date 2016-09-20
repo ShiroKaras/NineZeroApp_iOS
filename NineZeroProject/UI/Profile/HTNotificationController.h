@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HTNotificationController : UITableViewController
+@interface HTNotificationController : UIViewController
 
 @end

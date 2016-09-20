@@ -10,17 +10,24 @@
 #import "HTUIHeader.h"
 #import "HTNotificationCell.h"
 
-@interface HTNotificationController ()
+@interface HTNotificationController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSArray<HTNotification *> *notices;
 @property (nonatomic, strong) HTBlankView *blankView;
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation HTNotificationController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.view.backgroundColor = [UIColor blackColor];
+    self.tableView.backgroundColor = [UIColor blackColor];
     self.title = @"消息通知";
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
@@ -31,9 +38,8 @@
     titleLabel.font = [UIFont systemFontOfSize:17];
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
-    [headerView addSubview:titleLabel];
+    [self.view addSubview:headerView];
     
-    self.tableView.tableHeaderView = headerView;
     [self.tableView registerClass:[HTNotificationCell class] forCellReuseIdentifier:NSStringFromClass([HTNotificationCell class])];
     self.notices = [NSArray array];
     [HTProgressHUD show];

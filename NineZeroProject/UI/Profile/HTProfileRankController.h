@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HTProfileRankController : UITableViewController
+@interface HTProfileRankController : UIViewController
 
 @end

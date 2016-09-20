@@ -12,18 +12,25 @@
 
 #define RIGISTER_CLASS(clazz)  [self.tableView registerClass:[clazz class] forCellReuseIdentifier:NSStringFromClass([clazz class])];
 
-@interface HTProfileRankController ()
+@interface HTProfileRankController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray<HTRanker *> *rankerList;
 @property (nonatomic, strong) HTRanker *myRank;
 @property (nonatomic, strong) HTBlankView *blankView;
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation HTProfileRankController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.backgroundColor = COMMON_BG_COLOR;
+    self.view.backgroundColor = [UIColor blackColor];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 65)];
     headerView.backgroundColor = [UIColor blackColor];
@@ -37,7 +44,7 @@
     titleLabel.center = headerView.center;
     [titleView addSubview:titleLabel];
     [headerView addSubview:titleView];
-    self.tableView.tableHeaderView = headerView;
+    [self.view addSubview:headerView];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     self.title = @"排行榜";
     RIGISTER_CLASS(HTProfileRankCell);

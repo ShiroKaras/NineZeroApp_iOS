@@ -13,15 +13,21 @@
 #import "HTProfileArticlesController.h"
 #import "HTArticleController.h"
 
-@interface HTCollectionController ()
+@interface HTCollectionController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray<HTArticle *> *articles;
 @property (nonatomic, strong) HTBlankView *blankView;
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation HTCollectionController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = COMMON_BG_COLOR;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
@@ -33,7 +39,8 @@
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
     [headerView addSubview:titleLabel];
-    self.tableView.tableHeaderView = headerView;
+    [self.view addSubview:headerView];
+    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     
     self.tableView.backgroundColor = [UIColor whiteColor];

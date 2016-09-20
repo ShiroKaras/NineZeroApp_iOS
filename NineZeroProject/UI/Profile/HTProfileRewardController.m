@@ -11,15 +11,22 @@
 #import "HTProfileRewardCell.h"
 #import "HTDescriptionView.h"
 
-@interface HTProfileRewardController ()
+@interface HTProfileRewardController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray<HTTicket *> *rewards;
 @property (nonatomic, strong) HTBlankView *blankView;
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation HTProfileRewardController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = COMMON_BG_COLOR;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     if (self.navigationController.viewControllers.count == 1) {
         self.navigationItem.leftBarButtonItem = [HTUIHelper commonLeftBarItem];
@@ -39,7 +46,7 @@
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
     [headerView addSubview:titleLabel];
-    self.tableView.tableHeaderView = headerView;
+    [self.view addSubview:headerView];
     
     _rewards = [NSArray array];
     

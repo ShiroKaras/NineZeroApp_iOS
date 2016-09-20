@@ -183,8 +183,9 @@ typedef enum : NSUInteger {
 
 static NSInteger const kChangeNameViewTag = 12345;
 
-@interface HTProfileSettingController () <HTProfileSettingPushCellDelegate, HTProfileSettingChangeNameViewDelegate, HTProfileSettingQuitCellDelegate>
-
+@interface HTProfileSettingController ()
+<UITableViewDataSource, UITableViewDelegate, HTProfileSettingPushCellDelegate, HTProfileSettingChangeNameViewDelegate, HTProfileSettingQuitCellDelegate>
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation HTProfileSettingController {
@@ -201,6 +202,14 @@ static NSInteger const kChangeNameViewTag = 12345;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = COMMON_BG_COLOR;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
+    self.tableView.bounces = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -213,8 +222,8 @@ static NSInteger const kChangeNameViewTag = 12345;
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
     [headerView addSubview:titleLabel];
-
-    self.tableView.tableHeaderView = headerView;
+    [self.view addSubview:headerView];
+    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     
     self.navigationItem.title = @"设置";
