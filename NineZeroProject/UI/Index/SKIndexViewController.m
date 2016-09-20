@@ -45,11 +45,12 @@
     [self.navigationController.navigationBar setHidden:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self loadData];
+    [self judgementDate];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [_activityNotificationView removeFromSuperview];
+//    [_activityNotificationView removeFromSuperview];
 }
 
 - (void)viewDidLoad {
@@ -65,7 +66,6 @@
     [HTProgressHUD show];
     [self createUI];
 //    [self loadData];
-    [self judgementDate];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -340,6 +340,13 @@
         make.height.equalTo(_timerLevelCountView);
         make.center.equalTo(_timerLevelCountView);
     }];
+    
+    _activityNotificationView = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    _activityNotificationView.hidden = YES;
+    [self.view addSubview:_activityNotificationView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(timerLevelButtonClick:)];
+    [_activityNotificationView addGestureRecognizer:tap];
 }
 
 #pragma mark - Time
@@ -376,19 +383,17 @@
     [dateformatter setDateFormat:@"YYYYMMdd"];
     NSString *locationString=[dateformatter stringFromDate:senddate];
     if (![locationString isEqualToString:[UD objectForKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION]]) {
+        _activityNotificationView.hidden = NO;
         [[[HTServiceManager sharedInstance] profileService] getActivityNotification:^(BOOL success, HTResponsePackage *response) {
             if (success) {
                 if (response.resultCode == 0) {
-                    _activityNotificationView = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-                    [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]]];
-                    [self.view addSubview:_activityNotificationView];
-                    
-                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(timerLevelButtonClick:)];
-                    [_activityNotificationView addGestureRecognizer:tap];
+                   [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]]];
                 }
             }
         }];
         
+    } else {
+        _activityNotificationView.hidden = YES;
     }
     [UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
 }
