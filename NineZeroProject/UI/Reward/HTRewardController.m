@@ -114,7 +114,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 //    if (self.navigationController) {
 //        self.navigationController.navigationBarHidden = NO;
 //    }
