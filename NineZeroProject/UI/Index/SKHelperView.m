@@ -44,13 +44,6 @@
         _playBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 276, 276)];
         [cardView addSubview:_playBackView];
         
-        NSURL *URL = [[NSBundle mainBundle] URLForResource:@"guide_1" withExtension:@"mp4"];
-        _player = [AVPlayer playerWithURL:URL];
-        _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-        _playerLayer.frame = _playBackView.frame;
-        [_playBackView.layer addSublayer:_playerLayer];
-        _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-        
         _textLabel = [UILabel new];
         _textLabel.numberOfLines = 2;
         _textLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
@@ -120,6 +113,7 @@
     _playerLayer.frame = _playBackView.frame;
     [_playBackView.layer addSublayer:_playerLayer];
     _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+    [self stop];
     //文字
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -130,14 +124,14 @@
 }
 
 - (void)playItemDidPlayToEndTime:(NSNotification *)notification {
-    [_player seekToTime:kCMTimeZero];
+    [_player seekToTime:CMTimeMake(0, 1)];
     [_player play];
 }
 
 #pragma mark - Actions
 - (void)stop {
     [_player setRate:0];
-    [_player seekToTime:kCMTimeZero];
+    [_player seekToTime:CMTimeMake(0, 1)];
     [_player pause];
 }
 
@@ -250,7 +244,7 @@
                                @"1011010会是线索吗？代表音符？二进制？还是蔡依林？",
                                @"最可能的答案是二进制！1011010对应的十进制就是90",
                                @"验证你的推论，输入90，闯关成功！"];
-        NSArray *videoArray = @[@"guide_1", @"guide_2", @"guide_3", @"trailer_4"];
+        NSArray *videoArray = @[@"guide_1", @"guide_2", @"guide_3", @"guide_4"];
 //        NSArray *videoArray = @[@"guide_1", @"guide_2", @"guide_3", @"guide_4"];
         NSInteger pageNumber = textArray.count;
         _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
