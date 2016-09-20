@@ -56,7 +56,6 @@
         _playerLayer.frame = _playBackView.frame;
         [_playBackView.layer addSublayer:_playerLayer];
         _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-        [_player play];
         
         _textLabel = [UILabel new];
         _textLabel.numberOfLines = 2;
@@ -105,6 +104,8 @@
     return self;
 }
 
+#pragma mark - Setter
+
 - (void)setImage:(UIImage *)image andText:(NSString *)text {
     _playBackView.hidden = YES;
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
@@ -125,7 +126,7 @@
     _playerLayer.frame = _playBackView.frame;
     [_playBackView.layer addSublayer:_playerLayer];
     _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-    [_player play];
+//    [_player play];
     //文字
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -136,8 +137,49 @@
 }
 
 - (void)playItemDidPlayToEndTime:(NSNotification *)notification {
-    [_player seekToTime:CMTimeMake(0, 1)];
+    [_player seekToTime:CMTimeMake(0, 12)];
     [_player play];
+}
+
+#pragma mark - Actions
+
+- (void)pause {
+    [_player pause];
+}
+
+- (void)play {
+    [_player seekToTime:CMTimeMake(0, 12)];
+    [_player play];
+}
+
+- (BOOL)isDisplayedInScreen {
+    if (self == nil) {
+        return FALSE;
+    }
+    CGRect screenRect = [UIScreen mainScreen].bounds;
+    // 转换view对应window的Rect
+    CGRect rect = [self convertRect:self.frame fromView:nil];
+    if (CGRectIsEmpty(rect) || CGRectIsNull(rect)) {
+        return FALSE;
+    }
+    // 若view 隐藏
+    if (self.hidden) {
+        return FALSE;
+    }
+    // 若没有superview
+    if (self.superview == nil) {
+        return FALSE;
+    }
+    // 若size为CGrectZero
+    if (CGSizeEqualToSize(rect.size, CGSizeZero)) {
+        return  FALSE;
+    }
+    // 获取 该view与window 交叉的 Rect
+    CGRect intersectionRect = CGRectIntersection(rect, screenRect);
+    if (CGRectIsEmpty(intersectionRect) || CGRectIsNull(intersectionRect)) {
+        return FALSE;
+    }
+    return TRUE;
 }
 
 #pragma mark - Actions
@@ -152,7 +194,7 @@
 
 
 
-@interface  SKHelperScrollView ()
+@interface  SKHelperScrollView () <UIScrollViewDelegate>
 
 @end
 
@@ -174,6 +216,7 @@
     _scrollView = [[UIScrollView alloc] initWithFrame:self.frame];
     _scrollView.backgroundColor = [UIColor clearColor];
     _scrollView.bounces = NO;
+    _scrollView.delegate = self;
     [self addSubview:_scrollView];
     
     if (type == SKHelperScrollViewTypeQuestion) {
@@ -187,6 +230,7 @@
         _scrollView.pagingEnabled = YES;
         for (int i= 0; i<pageNumber; i++) {
             SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeHasMascot index:i];
+            helpView.tag = i+200;
             helpView.backgroundColor = [UIColor clearColor];
             [_scrollView addSubview:helpView];
             if (i == pageNumber-1) {
@@ -194,10 +238,11 @@
                 [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete_highlight"] forState:UIControlStateHighlighted];
                 [helpView.nextstepButton addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             } else {
-                helpView.nextstepButton.tag = i;
+                helpView.nextstepButton.tag = i+100;
                 [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             }
             [helpView setVideoName:videoArray[i] andText:textArray[i]];
+            [helpView play];
         }
     } else if (type == SKHelperScrollViewTypeTimeLimitQuestion) {
         NSArray *textArray = @[@"在九零APP里，每一个关卡，每一段视频，每一个文字都可能成为线索！",
@@ -210,6 +255,7 @@
         _scrollView.pagingEnabled = YES;
         for (int i= 0; i<pageNumber; i++) {
             SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeNoMascot index:i];
+            helpView.tag = i+200;
             helpView.backgroundColor = [UIColor clearColor];
             [_scrollView addSubview:helpView];
             if (i == pageNumber-1) {
@@ -217,10 +263,11 @@
                 [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete_highlight"] forState:UIControlStateHighlighted];
                 [helpView.nextstepButton addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             } else {
-                helpView.nextstepButton.tag = i;
+                helpView.nextstepButton.tag = i+100;
                 [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             }
             [helpView setVideoName:videoArray[i] andText:textArray[i]];
+            [helpView play];
         }
     } else if (type == SKHelperScrollViewTypeMascot) {
         NSArray *textArray = @[@"帮助零仔〇找到失落在地球上的其他零仔们",
@@ -235,13 +282,14 @@
         _scrollView.pagingEnabled = YES;
         for (int i= 0; i<pageNumber; i++) {
             SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeNoMascot index:i];
+            helpView.tag = i+200;
             [_scrollView addSubview:helpView];
             if (i == pageNumber-1) {
                 [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete"] forState:UIControlStateNormal];
                 [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete_highlight"] forState:UIControlStateHighlighted];
                 [helpView.nextstepButton addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             } else {
-                helpView.nextstepButton.tag = i;
+                helpView.nextstepButton.tag = i+100;
                 [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             }
             [helpView setImage:[UIImage imageNamed:imgArray[i]] andText:textArray[i]];
@@ -254,13 +302,14 @@
         _scrollView.pagingEnabled = YES;
         for (int i= 0; i<pageNumber; i++) {
             SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeNoMascot index:i];
+            helpView.tag = i+200;
             [_scrollView addSubview:helpView];
             if (i == pageNumber-1) {
                 [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete"] forState:UIControlStateNormal];
                 [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete_highlight"] forState:UIControlStateHighlighted];
                 [helpView.nextstepButton addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             } else {
-                helpView.nextstepButton.tag = i;
+                helpView.nextstepButton.tag = i+100;
                 [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             }
             [helpView setImage:[UIImage imageNamed:imgArray[i]] andText:textArray[i]];
@@ -271,8 +320,10 @@
 
 #pragma mark - Actions
 
-- (void)nextStepButtonClick:(UIControl *)sender {
-    [_scrollView setContentOffset:CGPointMake(SCREEN_WIDTH*(sender.tag+1), 0) animated:YES];
+- (void)nextStepButtonClick:(UIButton *)sender {
+    [_scrollView setContentOffset:CGPointMake(SCREEN_WIDTH*(sender.tag+1-100), 0) animated:YES];
+    [(SKHelperView*)[self viewWithTag:sender.tag+100] pause];
+    [(SKHelperView*)[self viewWithTag:sender.tag+1+100] play];
 }
 
 - (void)completeButtonClick:(UIButton *)sender {
@@ -286,6 +337,10 @@
         }
     }];
 }
+
+#pragma mark - UIScrollView Delegate
+
+
 
 @end
 

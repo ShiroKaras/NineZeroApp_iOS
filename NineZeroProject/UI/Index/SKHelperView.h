@@ -26,6 +26,8 @@ typedef enum : NSUInteger {
 - (instancetype)initWithFrame:(CGRect)frame withType:(SKHelperType)type index:(NSInteger)index;
 - (void)setImage:(UIImage *)image andText:(NSString *)text;
 - (void)setVideoName:(NSString *)videoName andText:(NSString *)text;
+- (void)play;
+- (void)pause;
 @end
 
 
