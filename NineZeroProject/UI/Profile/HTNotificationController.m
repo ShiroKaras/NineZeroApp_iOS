@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blackColor];;
+    self.view.backgroundColor = [UIColor blackColor];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -28,7 +28,6 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor blackColor];
-    self.title = @"消息通知";
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
     headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
@@ -38,6 +37,7 @@
     titleLabel.font = [UIFont systemFontOfSize:17];
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
+    [headerView addSubview:titleLabel];
     [self.view addSubview:headerView];
     
     [self.tableView registerClass:[HTNotificationCell class] forCellReuseIdentifier:NSStringFromClass([HTNotificationCell class])];
