@@ -172,7 +172,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 //    if (self.navigationController) {
 //        self.navigationController.navigationBarHidden = NO;
 //    }

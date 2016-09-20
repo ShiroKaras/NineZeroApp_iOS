@@ -119,7 +119,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"mascotpage"];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
