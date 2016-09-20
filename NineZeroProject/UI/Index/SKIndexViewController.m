@@ -141,7 +141,7 @@
                 _isMonday = NO;
                 [HTProgressHUD dismiss];
                 _timerLevelCountView.alpha = 1;
-                [_timerLevelButton addTarget:self action:@selector(timerLevelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+                [_timerLevelButton addTarget:self action:@selector(timerLevelButtonClick) forControlEvents:UIControlEventTouchUpInside];
                 [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level"] forState:UIControlStateNormal];
                 [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level_highlight"] forState:UIControlStateHighlighted];
                 
@@ -345,7 +345,7 @@
     _activityNotificationView.hidden = YES;
     [self.view addSubview:_activityNotificationView];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(timerLevelButtonClick:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(timerLevelButtonClick)];
     [_activityNotificationView addGestureRecognizer:tap];
 }
 
@@ -408,7 +408,7 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)timerLevelButtonClick:(UIButton *)sender {
+- (void)timerLevelButtonClick {
     HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeTimeLevel andQuestList:@[self.questionList.lastObject] questionInfo:_questionInfo];
     cardController.delegate = self;
     [self.navigationController pushViewController:cardController animated:YES];
