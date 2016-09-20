@@ -367,35 +367,40 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)onClickComposeButton:(UIButton *)button {
-    if (_question.type ==0 && _question.questionID != _questionInfo.questionID) {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prompt_Invalid Invalid"]];
-        [imageView sizeToFit];
-        imageView.right = _composeButton.right +33;
-        imageView.bottom = _composeButton.top -5;
-        imageView.alpha = 0;
-        [self addSubview:imageView];
-        [UIView animateWithDuration:0.5 animations:^{
-            imageView.alpha = 1;
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                imageView.alpha = 0;
-            } completion:^(BOOL finished) {
-                [imageView removeFromSuperview];
-            }];
-        }];
-        
+    if (_question.isPassed) {
+        [self showMoreButtons];
     } else {
-        if (_question.isPassed == NO
-            //        _questionInfo.questionID == _question.questionID &&
-            ) {
-            [MobClick event:@"answer"];
+        [MobClick event:@"answer"];
+        if (_question.questionID != _questionInfo.questionID) {
+            //往期关卡
             if (_question.type == 0) {
-                [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAR];
-            } else {
-                [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];
+                UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prompt_Invalid Invalid"]];
+                [imageView sizeToFit];
+                imageView.right = _composeButton.right +33;
+                imageView.bottom = _composeButton.top -5;
+                imageView.alpha = 0;
+                [self addSubview:imageView];
+                [UIView animateWithDuration:0.5 animations:^{
+                    imageView.alpha = 1;
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        imageView.alpha = 0;
+                    } completion:^(BOOL finished) {
+                        [imageView removeFromSuperview];
+                    }];
+                }];
+            } else if (_question.type == 1){
+                [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
+                [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
+                _hintButton.hidden = ![[UD mutableArrayValueForKey:kQuestionHintArray][_question.serial-1] boolValue];
             }
         } else {
-            [self showMoreButtons];
+            //当前关卡
+            if (_question.type == 0) {
+                [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAR];
+            } else if (_question.type == 1) {
+                [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];
+            }
         }
     }
 }
