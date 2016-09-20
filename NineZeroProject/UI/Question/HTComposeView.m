@@ -160,7 +160,7 @@
     
     // 5. 提示
     [_tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(20);
+        make.top.equalTo(self).offset(0);
         make.width.equalTo(self);
         make.height.equalTo(@30);
     }];

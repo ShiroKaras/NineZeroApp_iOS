@@ -669,13 +669,13 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                 if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] >= 1){
                     if (_clickCount >= 2) {
                         [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
-                        //显示GuideView
-                        if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] ==2 && FIRST_TYPE_4) {
-                            [_composeView endEditing:YES];
-                            [_composeView removeFromSuperview];
-                            [self showGuideviewWithType:SKHelperGuideViewType3];
-                            [UD setBool:YES forKey:@"firstLaunchType4"];
-                        }
+                    }
+                    //显示GuideView
+                    if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] ==2 && FIRST_TYPE_4) {
+                        [_composeView endEditing:YES];
+                        [_composeView removeFromSuperview];
+                        [self showGuideviewWithType:SKHelperGuideViewType3];
+                        [UD setBool:YES forKey:@"firstLaunchType4"];
                     }
                     _mCell.hintButton.hidden = NO;
                 }
@@ -687,13 +687,13 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] >= 1){
                 if (_clickCount >= 2) {
                     [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
-                    //显示GuideView
-                    if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] ==2 && FIRST_TYPE_4) {
-                        [_composeView endEditing:YES];
-                        [_composeView removeFromSuperview];
-                        [self showGuideviewWithType:SKHelperGuideViewType3];
-                        [UD setBool:YES forKey:@"firstLaunchType4"];
-                    }
+                }
+                //显示GuideView
+                if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] ==2 && FIRST_TYPE_4) {
+                    [_composeView endEditing:YES];
+                    [_composeView removeFromSuperview];
+                    [self showGuideviewWithType:SKHelperGuideViewType3];
+                    [UD setBool:YES forKey:@"firstLaunchType4"];
                 }
                 _mCell.hintButton.hidden = NO;
             }
