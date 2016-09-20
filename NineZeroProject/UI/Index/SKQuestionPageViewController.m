@@ -40,6 +40,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
+        [self updateUIWithData:questionList];
+    }];
+    
     [self createUI];
     if (FIRST_LAUNCH_QUESTIONLIST) {
         [self helpButtonClick:nil];
@@ -106,7 +110,7 @@
         int j = floor(itemInPage/3);
         UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
         UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
-        NSURL *coverURL = [questionList[questionNumber].thumbnail_pic isEqualToString:@""]?[NSURL URLWithString:questionList[questionNumber].question_video_cover]: [NSURL URLWithString:questionList[questionNumber].thumbnail_pic];
+        NSURL *coverURL = ([questionList[questionNumber].thumbnail_pic isEqualToString:@""]||questionList[questionNumber].thumbnail_pic==nil)?[NSURL URLWithString:questionList[questionNumber].question_video_cover]: [NSURL URLWithString:questionList[questionNumber].thumbnail_pic];
         [coverImageView sd_setImageWithURL:coverURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             int type;
             if (questionList[questionNumber].is_answer || ![questionList[questionNumber].question_ar_location isEqualToString:@""])  type = 0;
@@ -119,14 +123,14 @@
                 NSString* imagePath = [[SDImageCache sharedImageCache] defaultCachePathForKey:key];
                 NSData* newData = [NSData dataWithContentsOfFile:imagePath];
                 if (!result || !newData) {
-                    //                    BOOL imageIsPng = ImageDataHasPNGPreffixWithData(nil);
+                    BOOL imageIsPng = [[self typeForImageData:newData] isEqualToString:@"image/png"];
                     NSData* imageData = nil;
-                    //                    if (imageIsPng) {
-                    //                        imageData = UIImagePNGRepresentation(image);
-                    //                    }
-                    //                    else {
-                    imageData = UIImageJPEGRepresentation(image, (CGFloat)1.0);
-                    //                    }
+                    if (imageIsPng) {
+                        imageData = UIImagePNGRepresentation(image);
+                    }
+                    else {
+                        imageData = UIImageJPEGRepresentation(image, (CGFloat)1.0);
+                    }
                     NSFileManager* _fileManager = [NSFileManager defaultManager];
                     if (imageData) {
                         [_fileManager removeItemAtPath:imagePath error:nil];
@@ -271,6 +275,23 @@
 }
 
 #pragma mark - Tool
+- (NSString *)typeForImageData:(NSData *)data {
+    uint8_t c;
+    [data getBytes:&c length:1];
+    switch (c) {
+        case 0xFF:
+            return @"image/jpeg";
+        case 0x89:
+            return @"image/png";
+        case 0x47:
+            return @"image/gif";
+        case 0x49:
+            
+        case 0x4D:
+            return @"image/tiff";
+    }
+    return nil;
+}
 
 - (UIImage*)grayscale:(UIImage*)anImage type:(int)type {
     CGImageRef imageRef = anImage.CGImage;
