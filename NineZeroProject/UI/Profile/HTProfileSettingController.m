@@ -342,7 +342,7 @@ static NSInteger const kChangeNameViewTag = 12345;
         [MBProgressHUD bwm_showTitle:@"清除成功" toView:KEY_WINDOW hideAfter:1.0];
     } else if (type ==HTProfileSettingTypeExplain){
         HTWebController *webController = [[HTWebController alloc] initWithURLString:@"http://admin.90app.tv/Home/User/about"];
-        webController.title = @"什么是九零";
+        webController.titleString = @"什么是九零";
         [self.navigationController pushViewController:webController animated:YES];
     }
 }

@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UIButton *timerLevelButton;
 @property (nonatomic, strong) UIView   *timerLevelCountView;
 @property (nonatomic, strong) UIView   *relaxDayCountView;
+@property (nonatomic, strong) SKActivityNotificationView *activityNotificationView;
 
 @property (nonatomic, strong) NSArray<HTQuestion*>* questionList;
 @property (nonatomic, strong) HTQuestionInfo *questionInfo;
@@ -48,8 +49,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-    //[self.navigationController.navigationBar setHidden:NO];
+    [_activityNotificationView removeFromSuperview];
 }
 
 - (void)viewDidLoad {
@@ -379,12 +379,12 @@
         [[[HTServiceManager sharedInstance] profileService] getActivityNotification:^(BOOL success, HTResponsePackage *response) {
             if (success) {
                 if (response.resultCode == 0) {
-                    SKActivityNotificationView *view = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-                    [view.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]]];
-                    [self.view addSubview:view];
+                    _activityNotificationView = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+                    [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]]];
+                    [self.view addSubview:_activityNotificationView];
                     
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(timerLevelButtonClick:)];
-                    [view addGestureRecognizer:tap];
+                    [_activityNotificationView addGestureRecognizer:tap];
                 }
             }
         }];

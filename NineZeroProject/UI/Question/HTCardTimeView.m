@@ -69,13 +69,11 @@
         _mainTimeLabel.hidden = YES;
         _detailTimeLabel.hidden = YES;
         _resultImageView.hidden = NO;
-        if (question.type == 0) {
-            [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_AR"]];
+        if (question.isPassed) {
+            [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
         } else {
-            if (question.isPassed) {
-                [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
-            } else {
-                _resultImageView.hidden = YES;
+            if (question.type == 0) {
+                [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_AR"]];
             }
         }
     }

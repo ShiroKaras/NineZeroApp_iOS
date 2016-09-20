@@ -10,5 +10,6 @@
 
 @interface HTWebController : UIViewController
 - (instancetype)initWithURLString:(NSString *)urlString;
+@property (nonatomic, copy) NSString *titleString;
 @property (nonatomic, copy) NSString *urlString;
 @end
