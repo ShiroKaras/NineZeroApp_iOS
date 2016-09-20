@@ -74,6 +74,8 @@
         } else {
             if (question.type == 0) {
                 [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_AR"]];
+            } else {
+                _resultImageView.hidden = YES;
             }
         }
     }

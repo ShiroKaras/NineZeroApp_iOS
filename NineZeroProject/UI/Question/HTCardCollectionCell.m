@@ -390,9 +390,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     }];
                 }];
             } else if (_question.type == 1){
-                [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
-                [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
-                _hintButton.hidden = ![[UD mutableArrayValueForKey:kQuestionHintArray][_question.serial-1] boolValue];
+                [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];   
             }
         } else {
             //当前关卡
