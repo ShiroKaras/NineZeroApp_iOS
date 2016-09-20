@@ -196,11 +196,12 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 - (void)reloadViews {
     if (self.mascots.count == 1) {
         self.tipImageView.hidden = NO;
+    } else {
+        self.mascotTipView.hidden = YES;
+        self.tipImageView.hidden = YES;
+        self.tipLabel.hidden = YES;
+        self.mascotView.hidden = NO;
     }
-    self.mascotTipView.hidden = YES;
-    self.tipImageView.hidden = YES;
-    self.tipLabel.hidden = YES;
-    self.mascotView.hidden = NO;
 }
 
 #pragma mark - Action
