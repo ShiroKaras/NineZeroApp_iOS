@@ -345,8 +345,9 @@
     _activityNotificationView.hidden = YES;
     [self.view addSubview:_activityNotificationView];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(timerLevelButtonClick)];
-    [_activityNotificationView addGestureRecognizer:tap];
+    [_activityNotificationView.adButton addTarget:self action:@selector(timerLevelButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(timerLevelButtonClick)];
+//    [_activityNotificationView addGestureRecognizer:tap];
 }
 
 #pragma mark - Time

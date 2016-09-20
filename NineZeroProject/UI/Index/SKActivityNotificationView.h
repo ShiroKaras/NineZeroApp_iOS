@@ -11,5 +11,6 @@
 @interface SKActivityNotificationView : UIView
 
 @property (nonatomic, strong) UIImageView *contentImageView;
+@property (nonatomic, strong) UIButton    *adButton;
 
 @end

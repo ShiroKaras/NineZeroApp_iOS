@@ -35,11 +35,18 @@
     _contentImageView.layer.masksToBounds = YES;
     [self addSubview:_contentImageView];
     
+    _adButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self addSubview:_adButton];
+    
     [_contentImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf).offset(56);
         make.left.equalTo(weakSelf).offset(20);
         make.right.equalTo(weakSelf).offset(-20);
         make.height.mas_equalTo(_contentImageView.mas_width).multipliedBy(1.5);
+    }];
+    
+    [_adButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(_contentImageView);
     }];
     
     UIImageView *handImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_pop_hand"]];
