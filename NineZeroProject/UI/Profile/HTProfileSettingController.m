@@ -80,7 +80,7 @@
         
         // 5. 提示
         [_tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_dimmingView).offset(20);
+            make.top.equalTo(_dimmingView).offset(0);
             make.width.equalTo(_dimmingView);
             make.height.equalTo(@30);
         }];

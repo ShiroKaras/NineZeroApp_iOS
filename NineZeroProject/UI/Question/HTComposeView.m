@@ -197,7 +197,7 @@
     _tipsBackView.top = -_tipsBackView.height;
     [UIView animateWithDuration:0.3 animations:^{
         _tipsBackView.hidden = NO;
-        _tipsBackView.top = 20;
+        _tipsBackView.top = 0;
     } completion:^(BOOL finished) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:0.3 animations:^{
