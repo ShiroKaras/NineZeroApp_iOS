@@ -152,7 +152,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         
         _contentLabel = [[UILabel alloc] init];
         _contentLabel.font = [UIFont systemFontOfSize:15];
-        _contentLabel.textColor = [UIColor colorWithHex:0x24ddb2];
+        _contentLabel.textColor = [UIColor colorWithHex:0xb0b0b0];
         [_contentBackView addSubview:_contentLabel];
         
         UITapGestureRecognizer *tapOnContent = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickContent)];
