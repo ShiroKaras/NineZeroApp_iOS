@@ -670,7 +670,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     if (_clickCount >= 2) {
                         [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
                         //显示GuideView
-                        if (_clickCount ==2 && FIRST_TYPE_4) {
+                        if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] ==2 && FIRST_TYPE_4) {
                             [_composeView endEditing:YES];
                             [_composeView removeFromSuperview];
                             [self showGuideviewWithType:SKHelperGuideViewType3];
@@ -688,7 +688,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                 if (_clickCount >= 2) {
                     [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
                     //显示GuideView
-                    if (_clickCount ==2 && FIRST_TYPE_4) {
+                    if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] ==2 && FIRST_TYPE_4) {
                         [_composeView endEditing:YES];
                         [_composeView removeFromSuperview];
                         [self showGuideviewWithType:SKHelperGuideViewType3];
