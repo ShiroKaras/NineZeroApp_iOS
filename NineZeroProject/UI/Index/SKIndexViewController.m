@@ -322,7 +322,8 @@
     _timeLabel = [UILabel new];
     _timeLabel.text = @"00:00:00";
     _timeLabel.textColor = [UIColor whiteColor];
-    _timeLabel.font = MOON_FONT_OF_SIZE(16);
+    if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH)  _timeLabel.font = MOON_FONT_OF_SIZE(19);
+    else                                            _timeLabel.font = MOON_FONT_OF_SIZE(16);
     _timeLabel.textAlignment = NSTextAlignmentCenter;
     [_timerLevelCountView addSubview:_timeLabel];
     
