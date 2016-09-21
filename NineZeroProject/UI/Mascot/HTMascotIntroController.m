@@ -153,6 +153,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _promptLabel = [UILabel new];
     _promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
     _promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    _promptLabel.textAlignment = NSTextAlignmentCenter;
     [_promptView addSubview:_promptLabel];
     _promptLabel.frame = CGRectMake(8.5, _promptView.height-12.5-13, _promptView.width-17, 57);
 }
