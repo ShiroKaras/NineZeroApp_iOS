@@ -89,6 +89,13 @@
         make.top.equalTo(weakSelf.view).offset(10);
         make.left.equalTo(weakSelf.view).offset(10);
     }];
+    
+    _pageContrl = [[UIPageControl alloc] init];
+    _pageContrl.numberOfPages = PAGE_COUNT;
+    _pageContrl.pageIndicatorTintColor = [UIColor colorWithHex:0x004d40];
+    _pageContrl.currentPageIndicatorTintColor = COMMON_GREEN_COLOR;
+    _pageContrl.userInteractionEnabled = NO;
+    [self.view addSubview:_pageContrl];
 }
 
 - (void)loadData {
