@@ -19,6 +19,7 @@
 @property (nonatomic, assign) SKHelperType  type;
 
 @property (nonatomic, strong) UIView *playBackView;
+@property (nonatomic, strong) AVPlayerItem *playerItem;
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
 
@@ -107,13 +108,22 @@
 - (void)setVideoName:(NSString *)videoName andText:(NSString *)text {
     _cardImageView.hidden = YES;
     //视频
-    NSURL *URL = [[NSBundle mainBundle] URLForResource:videoName withExtension:@"mp4"];
-    _player = [AVPlayer playerWithURL:URL];
-    _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+//    [self stop];
+    _playerItem = nil;
+    _player = nil;
+    [_playerLayer removeFromSuperlayer];
+    _playerLayer = nil;
+    
+    NSURL *localUrl = [[NSBundle mainBundle] URLForResource:videoName withExtension:@"mp4"];
+    AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
+    self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
+    self.player = [AVPlayer playerWithPlayerItem:_playerItem];
+    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+    _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     _playerLayer.frame = _playBackView.frame;
     [_playBackView.layer addSublayer:_playerLayer];
-    _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-    [self stop];
+//    [_playBackView.layer insertSublayer:_playerLayer atIndex:0];
+    
     //文字
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -455,7 +465,7 @@
         button4.top = _view3.top + 148.7;
         button4.right = _view3.right - 189.7;
     }
-    UIImageView *buttonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_help"]];
+    UIImageView *buttonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_help_highlight"]];
     [buttonImage sizeToFit];
     buttonImage.frame = CGRectMake(10, 10, 40, 40);
     [_view4 addSubview:buttonImage];
