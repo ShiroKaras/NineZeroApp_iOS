@@ -12,5 +12,6 @@
 @interface SKQuestionPageViewController : UIViewController
 
 @property(nonatomic, strong) NSArray<HTQuestion*>* questionList;
+@property(nonatomic, assign) BOOL isMonday;
 
 @end

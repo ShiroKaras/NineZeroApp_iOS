@@ -407,8 +407,11 @@
 - (void)allLevelButtonClick:(UIButton *)sender{
     SKQuestionPageViewController *controller = [[SKQuestionPageViewController alloc] init];
     NSMutableArray *list = [self.questionList mutableCopy];
-    [list removeLastObject];
+    if (!_isMonday) {
+        [list removeLastObject];
+    }
     controller.questionList = list;
+    controller.isMonday = _isMonday;
     [self.navigationController pushViewController:controller animated:YES];
 }
 

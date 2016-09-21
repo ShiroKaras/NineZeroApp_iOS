@@ -28,7 +28,9 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
     NSMutableArray *dataArray = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
-    [dataArray removeLastObject];
+    if (!_isMonday) {
+        [dataArray removeLastObject];
+    }
     [self updateUIWithData:dataArray];
 }
 
