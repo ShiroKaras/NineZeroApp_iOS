@@ -470,6 +470,13 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     [_composeView removeFromSuperview];
+    //显示GuideView
+    if ([[UD mutableArrayValueForKey:kQuestionHintArray][questionList[0].serial-1] integerValue] >2 && FIRST_TYPE_3) {
+        [_composeView endEditing:YES];
+        [_composeView removeFromSuperview];
+        [self showGuideviewWithType:SKHelperGuideViewType3];
+        [UD setBool:YES forKey:@"firstLaunchType3"];
+    }
 }
 
 #pragma mark - UICollectionView
@@ -669,13 +676,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                     if (_clickCount >= 2) {
                         [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
                     }
-                    //显示GuideView
-                    if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] ==2 && FIRST_TYPE_4) {
-                        [_composeView endEditing:YES];
-                        [_composeView removeFromSuperview];
-                        [self showGuideviewWithType:SKHelperGuideViewType3];
-                        [UD setBool:YES forKey:@"firstLaunchType4"];
-                    }
                     _mCell.hintButton.hidden = NO;
                 }
                 [[UD mutableArrayValueForKey:kQuestionHintArray] replaceObjectAtIndex:question.serial-1 withObject:[NSNumber numberWithInteger:[[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] + 1]];
@@ -686,13 +686,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] >= 1){
                 if (_clickCount >= 2) {
                     [_composeView showAnswerTips:[NSString stringWithFormat:@"提示:%@", [questionList lastObject].hint]];
-                }
-                //显示GuideView
-                if ([[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue] ==2 && FIRST_TYPE_4) {
-                    [_composeView endEditing:YES];
-                    [_composeView removeFromSuperview];
-                    [self showGuideviewWithType:SKHelperGuideViewType3];
-                    [UD setBool:YES forKey:@"firstLaunchType4"];
                 }
                 _mCell.hintButton.hidden = NO;
             }
