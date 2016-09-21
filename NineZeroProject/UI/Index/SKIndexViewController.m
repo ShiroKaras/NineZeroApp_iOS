@@ -390,6 +390,8 @@
             if (success) {
                 if (response.resultCode == 0) {
                    [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]]];
+                } else {
+                    _activityNotificationView.hidden = YES;
                 }
             }
         }];
