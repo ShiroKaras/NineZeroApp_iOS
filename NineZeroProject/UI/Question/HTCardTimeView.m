@@ -9,6 +9,7 @@
 #import "HTCardTimeView.h"
 #import "HTUIHeader.h"
 #import "SKHelperView.h"
+#import "HTARCaptureController.h"
 
 @interface HTCardTimeView ()
 @property (weak, nonatomic) IBOutlet UILabel *mainTimeLabel;
@@ -129,8 +130,55 @@
         blackView.alpha = 0;
         _guideView.alpha = 1;
     } completion:^(BOOL finished) {
-        
+        [self showAlert];
     }];
+}
+
+- (void)showAlert {
+    //通知Alert
+    if (![UD boolForKey:@"hasShowPushAlert"]&&![self isAllowedNotification]) {
+        if (!FIRST_LAUNCH){
+            //未显示过
+            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypePush];
+            [alertView show];
+            [UD setBool:YES forKey:@"hasShowPushAlert"];
+        }
+    }
+    
+    //地理位置Alert
+    //判断GPS是否开启
+    if ([CLLocationManager locationServicesEnabled]) {
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways
+            || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+            DLog(@"authorizationStatus -> %d", [CLLocationManager authorizationStatus]);
+        }else {
+            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+            [alertView show];
+        }
+    }else {
+        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+        [alertView show];
+    }
+}
+
+- (BOOL)isAllowedNotification
+{
+    if
+        ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {// system is iOS8 +
+            UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
+            if
+                (UIUserNotificationTypeNone != setting.types) {
+                    return YES;
+                }
+        }
+    else
+    {// iOS7
+        UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        
+        if(UIRemoteNotificationTypeNone != type)
+            return YES;
+    }
+    return NO;
 }
 
 @end
