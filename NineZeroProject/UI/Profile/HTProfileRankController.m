@@ -32,19 +32,18 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 65)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
     headerView.backgroundColor = [UIColor blackColor];
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-    titleView.backgroundColor = COMMON_TITLE_BG_COLOR;
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"排行榜";
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = [UIFont systemFontOfSize:17];
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
-    [titleView addSubview:titleLabel];
-    [headerView addSubview:titleView];
+    [headerView addSubview:titleLabel];
     [self.view addSubview:headerView];
+    
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5)];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     self.title = @"排行榜";
     RIGISTER_CLASS(HTProfileRankCell);
