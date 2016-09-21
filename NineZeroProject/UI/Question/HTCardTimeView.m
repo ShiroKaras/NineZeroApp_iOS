@@ -119,6 +119,7 @@
     blackView.backgroundColor = [UIColor blackColor];
     
     _guideView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:type];
+    [_guideView.button3 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _guideView.alpha = 0;
     
     [KEY_WINDOW addSubview:blackView];
@@ -130,6 +131,15 @@
         blackView.alpha = 0;
         _guideView.alpha = 1;
     } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)completeButtonClick:(UIButton *)sender {
+    [UIView animateWithDuration:0.5 animations:^{
+        _guideView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [_guideView removeFromSuperview];
         [self showAlert];
     }];
 }

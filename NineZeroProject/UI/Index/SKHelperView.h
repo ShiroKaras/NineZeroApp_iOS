@@ -61,5 +61,6 @@ typedef enum : NSUInteger {
 } SKHelperGuideViewType;
 
 @interface SKHelperGuideView : UIView
+@property (nonatomic, strong) UIButton *button3;
 - (instancetype)initWithFrame:(CGRect)frame withType:(SKHelperGuideViewType)type;
 @end

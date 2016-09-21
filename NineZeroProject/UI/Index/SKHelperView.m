@@ -363,7 +363,6 @@
 @property (nonatomic, strong) UIView *view2;
 @property (nonatomic, strong) UIView *view3;
 @property (nonatomic, strong) UIView *view4;
-
 @end
 
 @implementation SKHelperGuideView
@@ -428,22 +427,22 @@
     UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:_view3.frame];
     imageView3.image = [UIImage imageNamed:@"coach_mark_3"];
     [_view3 addSubview:imageView3];
-    UIButton *button3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button3 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
-    [button3 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
-    [button3 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [button3 sizeToFit];
+    _button3 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_button3 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
+    [_button3 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
+//    [_button3 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_button3 sizeToFit];
     if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-        button3.top = _view3.top + 163;
-        button3.right = _view3.right - 160.5;
+        _button3.top = _view3.top + 163;
+        _button3.right = _view3.right - 160.5;
     } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-        button3.top = _view3.top + 189;
-        button3.right = _view3.right - 209.5;
+        _button3.top = _view3.top + 189;
+        _button3.right = _view3.right - 209.5;
     } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        button3.top = _view3.top + 206.7;
-        button3.right = _view3.right - 201.3;
+        _button3.top = _view3.top + 206.7;
+        _button3.right = _view3.right - 201.3;
     }
-    [_view3 addSubview:button3];
+    [_view3 addSubview:_button3];
 
     //step.4
     _view4 = [[UIView alloc] initWithFrame:self.frame];
