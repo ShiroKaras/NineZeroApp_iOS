@@ -129,7 +129,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
     [self.mascotImageView addGestureRecognizer:tap];
     
-    if (FIRST_TYPE_3) {
+    if (FIRST_LAUNCH_AR) {
         SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
         helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
         helpView.dimmingView.alpha = 0;

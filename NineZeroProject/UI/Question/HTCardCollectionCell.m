@@ -626,7 +626,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)pause {
-    if (FIRST_TYPE_1) {
+    if (FIRST_TYPE_1 && !_question.isPassed) {
         [self showGuideviewWithType:SKHelperGuideViewType1];
         [UD setBool:YES forKey:@"firstLaunchType1"];
     }
@@ -968,7 +968,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 //        [self stop];
         //显示分享界面
         [self showReplayAndShareButton];
-        if (FIRST_TYPE_1) {
+        if (FIRST_TYPE_1 && !_question.isPassed) {
             [self showGuideviewWithType:SKHelperGuideViewType1];
             [UD setBool:YES forKey:@"firstLaunchType1"];
         }
