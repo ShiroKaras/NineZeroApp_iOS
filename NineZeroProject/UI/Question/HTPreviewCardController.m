@@ -879,18 +879,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (BOOL)isAllowedNotification
 {
-    if
-        ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {// system is iOS8 +
-            UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
-            if
-                (UIUserNotificationTypeNone != setting.types) {
-                    return YES;
-                }
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {// system is iOS8 +
+        UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
+        if (UIUserNotificationTypeNone != setting.types) {
+            return YES;
         }
-    else
-    {// iOS7
+    }
+    else {// iOS7
         UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-        
         if(UIRemoteNotificationTypeNone != type)
             return YES;
     }
