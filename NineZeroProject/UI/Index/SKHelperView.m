@@ -378,11 +378,17 @@
     [button1 addTarget:self action:@selector(onClickTurnToView2) forControlEvents:UIControlEventTouchUpInside];
     [button1 sizeToFit];
     button1.centerX = _view1.centerX;
-    if (SCREEN_WIDTH < IPHONE6_PLUS_SCREEN_WIDTH) {
+    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
         button1.bottom = _view1.bottom - 84;
-    } else {
-        button1.bottom = _view1.bottom - 128;
+        button1.left = _view1.left + 141.5;
+    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+        button1.bottom = _view1.bottom - 103.5;
+        button1.left =  _view1.left + 141;
+    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+        button1.bottom = _view1.bottom - 108;
+        button1.left = _view1.left + 180.7;
     }
+
     [_view1 addSubview:button1];
     
     //step.2
@@ -397,13 +403,13 @@
     [button2 sizeToFit];
     if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
         button2.right = _view2.right - 124.5;
-        button2.bottom = _view2.bottom - 122;
+        button2.bottom = _view2.bottom - 84;
     } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
         button2.right = _view2.right - 127;
-        button2.bottom = _view2.bottom - 150;
+        button2.bottom = _view2.bottom - 103.5;
     } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
         button2.right = _view2.right - 123;
-        button2.bottom = _view2.bottom - 163;
+        button2.bottom = _view2.bottom - 108;
     }
     [_view2 addSubview:button2];
     
@@ -419,10 +425,10 @@
     [button3 sizeToFit];
     if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
         button3.top = _view3.top + 163;
-        button3.right = _view3.right - 176;
+        button3.right = _view3.right - 160.5;
     } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-        button3.top = _view3.top + 181;
-        button3.right = _view3.right - 178;
+        button3.top = _view3.top + 189;
+        button3.right = _view3.right - 209.5;
     } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
         button3.top = _view3.top + 206.7;
         button3.right = _view3.right - 201.3;
