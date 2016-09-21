@@ -19,6 +19,8 @@
 @property (nonatomic, assign) SKHelperType  type;
 
 @property (nonatomic, strong) UIView *playBackView;
+@property (nonatomic, strong) UIButton *playButton;
+
 @property (nonatomic, strong) AVPlayerItem *playerItem;
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
@@ -108,7 +110,6 @@
 - (void)setVideoName:(NSString *)videoName andText:(NSString *)text {
     _cardImageView.hidden = YES;
     //视频
-//    [self stop];
     _playerItem = nil;
     _player = nil;
     [_playerLayer removeFromSuperlayer];
@@ -122,7 +123,14 @@
     _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     _playerLayer.frame = _playBackView.frame;
     [_playBackView.layer addSublayer:_playerLayer];
-//    [_playBackView.layer insertSublayer:_playerLayer atIndex:0];
+    _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_playButton setImage:[UIImage imageNamed:@"btn_home_replay"] forState:UIControlStateNormal];
+    [_playButton setImage:[UIImage imageNamed:@"btn_home_replay_highlight" ] forState:UIControlStateHighlighted];
+    [_playButton sizeToFit];
+    _playButton.center = _playBackView.center;
+    [_playBackView addSubview:_playButton];
+    [_playButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
+    _playButton.hidden = YES;
     
     //文字
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
@@ -134,23 +142,30 @@
 }
 
 - (void)playItemDidPlayToEndTime:(NSNotification *)notification {
-    [_player seekToTime:CMTimeMake(0, 1)];
-    [_player play];
+    [self stop];
 }
 
 #pragma mark - Actions
 - (void)stop {
+    _playButton.hidden = NO;
     [_player setRate:0];
     [_player seekToTime:CMTimeMake(0, 1)];
     [_player pause];
 }
 
 - (void)pause {
+    _playButton.hidden = YES;
     [_player pause];
 }
 
 - (void)play {
+    _playButton.hidden = YES;
     [_player play];
+}
+
+- (void)replay {
+    [_player seekToTime:CMTimeMake(0, 1)];
+    [self play];
 }
 
 - (BOOL)isDisplayedInScreen {
