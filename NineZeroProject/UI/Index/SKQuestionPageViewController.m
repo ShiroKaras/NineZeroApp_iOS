@@ -162,17 +162,17 @@
         mImageButton.tag = questionNumber;
         [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
-        if (![questionList[questionNumber].question_ar_location isEqualToString:@""]) {
-            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
-            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
+        if (questionList[questionNumber].is_answer) {
+            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
+            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
         } else {
-            if (questionList[questionNumber].is_answer) {
-                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
-                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+            if (questionList[questionNumber].type == 0 ) {
+                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
+                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
             } else {
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_uncompleted"] forState:UIControlStateNormal];
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_uncompleted_highlight"] forState:UIControlStateHighlighted];
-            }        
+            }            
         }
         [itemView addSubview:mImageButton];
         
@@ -186,13 +186,6 @@
         
         [_mScrollView addSubview:itemView];
     }
-    
-    _pageContrl = [[UIPageControl alloc] init];
-    _pageContrl.numberOfPages = PAGE_COUNT;
-    _pageContrl.pageIndicatorTintColor = [UIColor colorWithHex:0x004d40];
-    _pageContrl.currentPageIndicatorTintColor = COMMON_GREEN_COLOR;
-    _pageContrl.userInteractionEnabled = NO;
-    [self.view addSubview:_pageContrl];
 
     __weak __typeof(self)weakSelf = self;
     [_pageContrl mas_makeConstraints:^(MASConstraintMaker *make) {
