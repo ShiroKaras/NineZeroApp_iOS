@@ -626,10 +626,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)pause {
-    if (FIRST_TYPE_1 && !_question.isPassed) {
-        [self showGuideviewWithType:SKHelperGuideViewType1];
-        [UD setBool:YES forKey:@"firstLaunchType1"];
-    }
     _playButton.hidden = YES;
     _pauseImageView.hidden = NO;
     [_player pause];

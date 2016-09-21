@@ -32,6 +32,7 @@ typedef NS_ENUM(NSUInteger, HTCardCollectionClickType) {
 
 @interface HTCardCollectionCell : UICollectionViewCell
 - (void)play;
+- (void)pause;
 - (void)stop;
 - (void)setQuestion:(HTQuestion *)question questionInfo:(HTQuestionInfo *)questionInfo;
 @property (nonatomic, weak) id<HTCardCollectionCellDelegate> delegate;

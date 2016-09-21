@@ -395,6 +395,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 
 - (void)helpButtonClick:(UIButton *)sender {
+    [_mCell pause];
     SKHelperScrollView *helpView;
     if (questionList[0].type == 0) {
         helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
