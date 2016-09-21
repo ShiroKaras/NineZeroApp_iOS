@@ -131,7 +131,7 @@
 
 - (void)showWithMe:(BOOL)me {
     self.contentView.backgroundColor = (me) ? COMMON_TITLE_BG_COLOR : [UIColor blackColor];
-    _nickName.textColor = (me) ? [UIColor colorWithHex:0x24ddb2] : [UIColor whiteColor];
+    _nickName.textColor = (me) ? COMMON_GREEN_COLOR : [UIColor whiteColor];
 }
 
 - (void)layoutSubviews {
