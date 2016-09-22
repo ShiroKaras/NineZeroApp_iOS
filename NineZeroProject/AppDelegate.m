@@ -26,6 +26,8 @@
 #import <ShareSDKConnector/ShareSDKConnector.h>
 #import "UMMobClick/MobClick.h"
 
+#import "TalkingData.h"
+
 //腾讯开放平台（对应QQ和QQ空间）SDK头文件
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/QQApiInterface.h>
@@ -63,6 +65,7 @@
     [self registerShareSDK];
     [self registerUmeng];
     [self registerUserAgent];
+    [self registerTalkingData];
     
     [NSThread sleepForTimeInterval:2];
     [self createWindowAndVisibleWithOptions:launchOptions];
@@ -231,6 +234,12 @@
     NSString *newUagent = [NSString stringWithFormat:@"%@ 90app529D",secretAgent];
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:newUagent forKey:@"UserAgent"];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+}
+
+- (void)registerTalkingData {
+    // App ID: 在 App Analytics 创建应用后，进入数据报表页中，在“系统设置”-“编辑应用”页面里查看App ID。
+    // 渠道 ID: 是渠道标识符，可通过不同渠道单独追踪数据。
+    [TalkingData sessionStarted:@"EB304F0B34B5B775BD23554F6456B3C4" withChannelId:@"iOS"];
 }
 
 #pragma mark - Location

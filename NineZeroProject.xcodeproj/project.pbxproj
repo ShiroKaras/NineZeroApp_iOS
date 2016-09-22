@@ -41,6 +41,8 @@
 		11B44EC11D8FF2C200CD2BAC /* trailer_3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 11B44EB91D8FF2C200CD2BAC /* trailer_3.mp4 */; };
 		11B44EC21D8FF2C200CD2BAC /* trailer_4.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 11B44EBA1D8FF2C200CD2BAC /* trailer_4.mp4 */; };
 		11B44EC41D8FF30D00CD2BAC /* trailer_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 11B44EC31D8FF30D00CD2BAC /* trailer_video.mp4 */; };
+		11BC2DFE1D93C98200C9E775 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFC1D93C98200C9E775 /* libTalkingData.a */; };
+		11BC2E001D93C9CF00C9E775 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
 		11F218531CBB951300D2ED44 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218311CBB951300D2ED44 /* ShareSDK.framework */; };
@@ -844,6 +846,9 @@
 		11B44EB91D8FF2C200CD2BAC /* trailer_3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = trailer_3.mp4; sourceTree = "<group>"; };
 		11B44EBA1D8FF2C200CD2BAC /* trailer_4.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = trailer_4.mp4; sourceTree = "<group>"; };
 		11B44EC31D8FF30D00CD2BAC /* trailer_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = trailer_video.mp4; sourceTree = "<group>"; };
+		11BC2DFC1D93C98200C9E775 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
+		11BC2DFD1D93C98200C9E775 /* TalkingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingData.h; sourceTree = "<group>"; };
+		11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		11CA0C541CD24E4200C06333 /* easing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easing.c; sourceTree = "<group>"; };
 		11CA0C551CD24E4200C06333 /* easing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easing.h; sourceTree = "<group>"; };
 		11CA0C561CD24E4200C06333 /* YXEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXEasing.h; sourceTree = "<group>"; };
@@ -1723,8 +1728,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17617F621BEFADE8000B2BFA /* SystemConfiguration.framework in Frameworks */,
+				17617F601BEFADE1000B2BFA /* CoreTelephony.framework in Frameworks */,
+				11BC2E001D93C9CF00C9E775 /* AdSupport.framework in Frameworks */,
 				1767F8D91CC93BB400BBD44E /* MediaPlayer.framework in Frameworks */,
 				174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */,
+				11BC2DFE1D93C98200C9E775 /* libTalkingData.a in Frameworks */,
 				11F218611CBB986E00D2ED44 /* ImageIO.framework in Frameworks */,
 				17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */,
 				17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */,
@@ -1737,12 +1746,10 @@
 				11F218591CBB951300D2ED44 /* libWeiboSDK.a in Frameworks */,
 				11F218561CBB951300D2ED44 /* ShareSDKUI.framework in Frameworks */,
 				11F2185D1CBB951300D2ED44 /* MOBFoundation.framework in Frameworks */,
-				17617F621BEFADE8000B2BFA /* SystemConfiguration.framework in Frameworks */,
 				17617F801BEFB0FB000B2BFA /* MessageUI.framework in Frameworks */,
 				17617F681BEFADFF000B2BFA /* UIKit.framework in Frameworks */,
 				17617F661BEFADF8000B2BFA /* Foundation.framework in Frameworks */,
 				17617F641BEFADEF000B2BFA /* CoreGraphics.framework in Frameworks */,
-				17617F601BEFADE1000B2BFA /* CoreTelephony.framework in Frameworks */,
 				17617F5E1BEFADDC000B2BFA /* CoreFoundation.framework in Frameworks */,
 				17617F5C1BEFADD6000B2BFA /* CFNetwork.framework in Frameworks */,
 				11F218541CBB951300D2ED44 /* ShareSDKExtension.framework in Frameworks */,
@@ -1851,6 +1858,15 @@
 				11B44EBA1D8FF2C200CD2BAC /* trailer_4.mp4 */,
 			);
 			path = Video;
+			sourceTree = "<group>";
+		};
+		11BC2DFB1D93C98200C9E775 /* TalkingData */ = {
+			isa = PBXGroup;
+			children = (
+				11BC2DFC1D93C98200C9E775 /* libTalkingData.a */,
+				11BC2DFD1D93C98200C9E775 /* TalkingData.h */,
+			);
+			path = TalkingData;
 			sourceTree = "<group>";
 		};
 		11CA0C531CD24E4200C06333 /* Easing */ = {
@@ -3094,6 +3110,7 @@
 		17A89A8F1C1DB9BB0087BF00 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				11BC2DFB1D93C98200C9E775 /* TalkingData */,
 				11961CD91D2D2B3400A00AF9 /* ImageEffects */,
 				1126BFC51CF59BBE00E4FAC3 /* UMeng */,
 				11CA0C531CD24E4200C06333 /* Easing */,
@@ -3314,6 +3331,7 @@
 		26E633BCA682E11CD6C30957 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */,
 				1767F8D81CC93BB400BBD44E /* MediaPlayer.framework */,
 				11F218601CBB986E00D2ED44 /* ImageIO.framework */,
 				17A92CE11CAE9D6000BE893D /* libipsec.tbd */,
@@ -4440,6 +4458,7 @@
 					"$(SRCROOT)/..imagelbs",
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/PlatformSDK/WeChatSDK",
+					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/TalkingData",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -4536,6 +4555,7 @@
 					"$(SRCROOT)/..imagelbs",
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/ShareSDK/Support/PlatformSDK/WeChatSDK",
+					"$(PROJECT_DIR)/NineZeroProject/ThirdPart/TalkingData",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

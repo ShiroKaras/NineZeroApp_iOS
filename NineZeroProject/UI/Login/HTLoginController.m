@@ -41,12 +41,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"loginpage"];
+    [TalkingData trackPageBegin:@"loginpage"];
+//    [MobClick beginLogPageView:@"loginpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"loginpage"];
+    [TalkingData trackPageEnd:@"loginpage"];
+//    [MobClick endLogPageView:@"loginpage"];
 }
 
 #pragma mark - Action

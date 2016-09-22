@@ -28,12 +28,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"Cpassword"];
+    [TalkingData trackPageBegin:@"cpassword"];
+//    [MobClick beginLogPageView:@"Cpassword"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"Cpassword"];
+    [TalkingData trackPageEnd:@"cpassword"];
+//    [MobClick endLogPageView:@"Cpassword"];
 }
 
 - (instancetype)initWithLoginUser:(HTLoginUser *)loginUser {

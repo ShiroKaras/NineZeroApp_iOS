@@ -54,12 +54,14 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-    [MobClick beginLogPageView:@"registerpage"];
+    [TalkingData trackPageBegin:@"registerpage"];
+//    [MobClick beginLogPageView:@"registerpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"registerpage"];
+    [TalkingData trackPageEnd:@"registerpage"];
+//    [MobClick endLogPageView:@"registerpage"];
 }
 
 #pragma mark - Subclass

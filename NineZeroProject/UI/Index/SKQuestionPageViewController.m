@@ -32,10 +32,12 @@
         [dataArray removeLastObject];
     }
     [self updateUIWithData:dataArray];
+    [TalkingData trackPageBegin:@"alllevelspage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [TalkingData trackPageEnd:@"alllevelspage"];
 //    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     //[self.navigationController.navigationBar setHidden:NO];
 }

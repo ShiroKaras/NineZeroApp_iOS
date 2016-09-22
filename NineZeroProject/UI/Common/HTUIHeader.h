@@ -39,5 +39,6 @@
 #import "HTLoginButton.h"
 
 #import "UMMobClick/MobClick.h"
+#import "TalkingData.h"
 
 #endif /* HTUIHeader_h */

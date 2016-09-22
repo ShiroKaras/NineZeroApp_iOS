@@ -46,10 +46,12 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self loadData];
     [self judgementDate];
+    [TalkingData trackPageBegin:@"homepage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [TalkingData trackPageEnd:@"homepage"];
 //    [_activityNotificationView removeFromSuperview];
 }
 
