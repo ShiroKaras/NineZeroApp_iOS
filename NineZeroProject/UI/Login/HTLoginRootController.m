@@ -93,7 +93,7 @@
 
 - (IBAction)registerButtonClicked:(UIButton *)sender {
 //    _registerButton.backgroundColor = COMMON_GREEN_COLOR;
-    [MobClick event:@"register"];
+    //[MobClick event:@"register"];
     if (self.userNameTextField.text.length != 11) {
         [self showTipsWithText:@"请检查手机号码是否正确"];
         return;
@@ -133,7 +133,7 @@
 }
 
 - (IBAction)loginButtonWeixinClicked:(id)sender {
-    [MobClick event:@"weixinregister"];
+    //[MobClick event:@"weixinregister"];
     [ShareSDK getUserInfo:SSDKPlatformTypeWechat
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
      {
@@ -157,7 +157,7 @@
 }
 
 - (IBAction)loginButtonQQClicked:(id)sender {
-    [MobClick event:@"weiboregister"];
+    //[MobClick event:@"weiboregister"];
     [ShareSDK getUserInfo:SSDKPlatformTypeQQ
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
      {
@@ -181,7 +181,7 @@
 }
 
 - (IBAction)loginButtonWeiboClicked:(id)sender {
-    [MobClick event:@"QQregister"];
+    //[MobClick event:@"QQregister"];
     [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
 onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
     {

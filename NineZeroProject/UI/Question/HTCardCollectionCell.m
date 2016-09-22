@@ -348,7 +348,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)onClickReplayButton {
-    [MobClick event:@"replay"];
+    //[MobClick event:@"replay"];
     [UIView animateWithDuration:0.3 animations:^{
         _replayBackView.alpha = 0.;
     }];
@@ -357,13 +357,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)onClickPlayButton {
-    [MobClick event:@"play"];
+    //[MobClick event:@"play"];
     [self play];
     [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypePlay];
 }
 
 - (void)onClickContent {
-    [MobClick event:@"introduce"];
+    //[MobClick event:@"introduce"];
     [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeContent];
 }
 
@@ -371,7 +371,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     if (_question.isPassed) {
         [self showMoreButtons];
     } else {
-        [MobClick event:@"answer"];
+        //[MobClick event:@"answer"];
         if (_question.questionID != _questionInfo.questionID) {
             //往期关卡
             if (_question.type == 0) {
@@ -405,7 +405,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)onClickHintButton:(UIButton *)button {
-    [MobClick event:@"warning"];
+    //[MobClick event:@"warning"];
     [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeHint];
     
 }
@@ -426,7 +426,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)onClickRewardButton:(UIButton *)button {
     _labelMoreReward.textColor = COMMON_GREEN_COLOR;
-    [MobClick event:@"Vgift"];
+    //[MobClick event:@"Vgift"];
     [self hideMoreButtons];
     [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeReward];
 }
@@ -437,7 +437,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)onClickAnswerButton:(UIButton *)button {
     _labelMoreAnswer.textColor = COMMON_GREEN_COLOR;
-    [MobClick event:@"exanswer"];
+    //[MobClick event:@"exanswer"];
     [self hideMoreButtons];
     [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAnswer];
 }
@@ -760,7 +760,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)shareWithThirdPlatform:(UIButton*)sender {
-    [MobClick event:@"share"];
+    //[MobClick event:@"share"];
     HTButtonType type = (HTButtonType)sender.tag;
     switch (type) {
         case HTButtonTypeWechat: {

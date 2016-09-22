@@ -209,7 +209,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 #pragma mark - Action
 
 - (void)didClickTipNumber {
-    [MobClick event:@"essay"];
+    //[MobClick event:@"essay"];
     HTMascotIntroController *introController = [[HTMascotIntroController alloc] initWithMascot:self.mascots[0]];
 //    [self presentViewController:introController animated:YES completion:nil];
     [self.navigationController pushViewController:introController animated:YES];
