@@ -29,6 +29,8 @@
     [super viewDidLoad];
     self.title = @"登录";
     self.userNameTextField.delegate = self;
+    [self setTipsOffsetY:60];
+    [self.view bringSubviewToFront:[self.view viewWithTag:1000]];
 //#ifdef DEBUG
 //    HTLoginUser *user = [[[HTServiceManager sharedInstance] loginService] loginUser];
 //    self.userNameTextField.text = user.user_mobile;

@@ -22,6 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"输入密码";
+    [self.view bringSubviewToFront:[self.view viewWithTag:1000]];
+    [self setTipsOffsetY:60];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

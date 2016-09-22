@@ -36,7 +36,7 @@
     self.title = @"主界面";
     self.userNameTextField.delegate = self;
     [_loginButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
-    [self setTipsOffsetY:0];
+    [self setTipsOffsetY:60];
 }
 
 - (void)dealloc {
