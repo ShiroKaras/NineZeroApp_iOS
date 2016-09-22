@@ -105,8 +105,8 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"mascotpage"];
-    
+    //[MobClick beginLogPageView:@"mascotpage"];
+    [TalkingData trackPageBegin:@"lingzaipage"];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self reloadAllData];
@@ -117,7 +117,8 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"mascotpage"];
+    //[MobClick endLogPageView:@"mascotpage"];
+    [TalkingData trackPageEnd:@"lingzaipage"];
     
 //    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:NO animated:animated];

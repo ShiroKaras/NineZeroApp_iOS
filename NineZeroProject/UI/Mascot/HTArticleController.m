@@ -164,6 +164,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [TalkingData trackPageBegin:@"articlepage"];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     if (self.navigationController) {
         self.navigationController.navigationBarHidden = YES;
@@ -172,6 +173,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [TalkingData trackPageEnd:@"articlepage"];
 //    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 //    if (self.navigationController) {
 //        self.navigationController.navigationBarHidden = NO;

@@ -136,6 +136,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [MobClick beginLogPageView:@"mainpage"];
     }else if (self.cardType == HTPreviewCardTypeRecord) {
         [MobClick beginLogPageView:@"recordpage"];
+    } else if (self.cardType == HTPreviewCardTypeTimeLevel) {
+        [TalkingData trackPageBegin:@"timelimitpage"];
+    } else if (self.cardType == HTPreviewCardTypeHistoryLevel) {
+        [TalkingData trackPageBegin:@"historylevelpage"];
     }
     for (UIView *view in self.view.subviews) {
         if ([view isKindOfClass:[SKAnswerDetailView class]]) {
@@ -151,6 +155,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         [MobClick endLogPageView:@"mainpage"];
     }else if (self.cardType == HTPreviewCardTypeRecord) {
         [MobClick endLogPageView:@"recordpage"];
+    }else if (self.cardType == HTPreviewCardTypeTimeLevel) {
+        [TalkingData trackPageEnd:@"timelimitpage"];
+    }else if (self.cardType == HTPreviewCardTypeHistoryLevel) {
+        [TalkingData trackPageEnd:@"historylevelpage"];
     }
 }
 

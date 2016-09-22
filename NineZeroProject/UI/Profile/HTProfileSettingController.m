@@ -242,7 +242,8 @@ static NSInteger const kChangeNameViewTag = 12345;
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 //    CGRect rect = self.navigationController.navigationBar.frame;
 //    self.navigationController.navigationBar.frame = CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, 64);
-    [MobClick beginLogPageView:@"settingpage"];
+    //[MobClick beginLogPageView:@"settingpage"];
+    [TalkingData trackPageBegin:@"settingpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -250,7 +251,8 @@ static NSInteger const kChangeNameViewTag = 12345;
     //[[UIApplication sharedApplication] setStatusBarHidden:NO];
 //    CGRect rect = self.navigationController.navigationBar.frame;
 //    self.navigationController.navigationBar.frame = CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, 44);
-    [MobClick endLogPageView:@"settingpage"];
+    //[MobClick endLogPageView:@"settingpage"];
+    [TalkingData trackPageEnd:@"settingpage"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

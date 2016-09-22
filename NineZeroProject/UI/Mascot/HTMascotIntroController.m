@@ -170,7 +170,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     if (self.navigationController) {
         self.navigationController.navigationBarHidden = YES;
     }
-    [MobClick beginLogPageView:@"mascotintropage"];
+    //[MobClick beginLogPageView:@"mascotintropage"];
+    [TalkingData trackPageBegin:@"lingdetailpage"];
     
     void (^netWorkErrorHandler)() = ^() {
         _mascot.article_list = nil;
@@ -227,7 +228,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"mascotintropage"];
+    //[MobClick endLogPageView:@"mascotintropage"];
+    [TalkingData trackPageEnd:@"lingdetailpage"];
 }
 
 - (void)viewWillLayoutSubviews {

@@ -80,7 +80,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"homepage"];
+    //[MobClick beginLogPageView:@"homepage"];
+    [TalkingData trackPageBegin:@"personalpage"];
     self.navigationController.navigationBar.hidden = YES;
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
@@ -128,7 +129,8 @@
     [super viewWillDisappear:animated];
 //    self.navigationController.navigationBar.hidden = NO;
     //[[UIApplication sharedApplication] setStatusBarHidden:NO];
-    [MobClick endLogPageView:@"homepage"];
+    //[MobClick endLogPageView:@"homepage"];
+    [TalkingData trackPageEnd:@"personalpage"];
 }
 
 - (void)viewWillLayoutSubviews {

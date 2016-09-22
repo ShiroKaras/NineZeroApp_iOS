@@ -72,8 +72,13 @@
     if (self.navigationController) {
         self.navigationController.navigationBarHidden = YES;
     }
+    [TalkingData trackPageBegin:@"pushpage"];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [TalkingData trackPageEnd:@"pushpage"];
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

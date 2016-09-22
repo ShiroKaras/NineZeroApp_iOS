@@ -80,12 +80,14 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    [MobClick beginLogPageView:@"rankingpage"];
+    //[MobClick beginLogPageView:@"rankingpage"];
+    [TalkingData trackPageBegin:@"rankingpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"rankingpage"];
+    //[MobClick endLogPageView:@"rankingpage"];
+    [TalkingData trackPageEnd:@"rankingpage"];
 }
 
 #pragma mark - Table view data source
