@@ -27,6 +27,8 @@
     _secondTextField.placeholder = @"输入验证码";
     _loginUser = [[HTLoginUser alloc] init];
     _verifyButton.enabled = YES;
+    [self setTipsOffsetY:60];
+    [self.view bringSubviewToFront:[self.view viewWithTag:1000]];
 }
 
 #pragma mark - Subclass
