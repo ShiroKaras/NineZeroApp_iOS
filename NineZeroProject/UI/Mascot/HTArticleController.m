@@ -323,6 +323,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)share:(UIButton*)sender {
     //[MobClick event:@"shareone"];
+    [TalkingData trackEvent:@"shareone"];
     HTButtonType type = (HTButtonType)sender.tag;
     switch (type) {
         case HTButtonTypeShare: {

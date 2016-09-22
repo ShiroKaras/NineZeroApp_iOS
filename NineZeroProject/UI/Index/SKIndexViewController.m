@@ -413,6 +413,7 @@
 #pragma mark - Actions
 
 - (void)allLevelButtonClick:(UIButton *)sender{
+    [TalkingData trackEvent:@"alllevels"];
     if (self.questionList.count != 0) {
         SKQuestionPageViewController *controller = [[SKQuestionPageViewController alloc] init];
         NSMutableArray *list = [self.questionList mutableCopy];
@@ -426,6 +427,7 @@
 }
 
 - (void)timerLevelButtonClick {
+    [TalkingData trackEvent:@"timelimit"];
     if (self.questionList.count != 0) {
         HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeTimeLevel andQuestList:@[self.questionList.lastObject] questionInfo:_questionInfo];
         cardController.delegate = self;
@@ -447,27 +449,32 @@
 }
 
 - (void)mascotButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"lingzai"];
     HTMascotDisplayController *mascotController = [[HTMascotDisplayController alloc] init];
     mascotController.mascots = [[[[HTServiceManager sharedInstance] mascotService] mascotsArray] mutableCopy];
     [self.navigationController pushViewController:mascotController animated:YES];
 }
 
 - (void)meButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"myhomepage"];
     HTProfileRootController *rootController = [[HTProfileRootController alloc] init];
     [self.navigationController pushViewController:rootController animated:YES];
 }
 
 - (void)rankButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"rankinglist"];
     HTProfileRankController *rankController = [[HTProfileRankController alloc] init];
     [self.navigationController pushViewController:rankController animated:YES];
 }
 
 - (void)settingButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"setting"];
     HTProfileSettingController *settingController = [[HTProfileSettingController alloc] initWithUserInfo:_userInfo];
     [self.navigationController pushViewController:settingController animated:YES];
 }
 
 - (void)notificationButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"push"];
     HTNotificationController *controller = [[HTNotificationController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }

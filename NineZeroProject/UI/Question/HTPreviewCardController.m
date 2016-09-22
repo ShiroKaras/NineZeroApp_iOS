@@ -403,6 +403,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 
 - (void)helpButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"noviceguide"];
     [_mCell pause];
     SKHelperScrollView *helpView;
     if (questionList[0].type == 0) {

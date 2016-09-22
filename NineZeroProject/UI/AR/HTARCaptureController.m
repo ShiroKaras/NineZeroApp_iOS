@@ -235,6 +235,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 #pragma mark - Action
 
 - (void)arQuestionHelpButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"vrtips"];
     _helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
     _helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
     _helpView.dimmingView.alpha = 0;

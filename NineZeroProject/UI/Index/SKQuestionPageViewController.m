@@ -234,6 +234,7 @@
 }
 
 - (void)helpButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"backgroundtips"];
     SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeQuestion];
     helpView.delegate = self;
     helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);

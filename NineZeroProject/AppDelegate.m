@@ -149,6 +149,7 @@
         [[[HTServiceManager sharedInstance] profileService] getArticle:[dataDict[@"article_id"] integerValue] completion:^(BOOL success, HTArticle *articles) {
             HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
             [self.mainController presentViewController:articleViewController animated:YES completion:nil];
+            [TalkingData trackEvent:@"toarticle" label:@"push"];
         }];
     }
 }

@@ -210,6 +210,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 
 - (void)didClickTipNumber {
     //[MobClick event:@"essay"];
+    [TalkingData trackEvent:@"finger"];
     HTMascotIntroController *introController = [[HTMascotIntroController alloc] initWithMascot:self.mascots[0]];
 //    [self presentViewController:introController animated:YES completion:nil];
     [self.navigationController pushViewController:introController animated:YES];
@@ -220,6 +221,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 }
 
 - (void)helpButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"lingzaitips"];
     SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeMascot];
     helpView.delegate = self;
     helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);

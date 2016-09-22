@@ -325,6 +325,7 @@
 }
 
 - (void)didClickArticle:(UIButton *)sender {
+    [TalkingData trackEvent:@"toanswer" label:@"answer"];
     NSNumber *articleID = self.articlesArray[sender.tag-1000][@"article_id"];
     [[[HTServiceManager sharedInstance] profileService] getArticle:[articleID integerValue] completion:^(BOOL success, HTArticle *articles) {
         HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];

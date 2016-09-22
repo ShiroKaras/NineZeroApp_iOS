@@ -317,6 +317,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 }];
             }];
         } else {
+            [TalkingData trackEvent:@"toarticle" label:@"lingdetail"];
             HTArticleController *articleController = [[HTArticleController alloc] initWithArticle:self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1]];
             [self presentViewController:articleController animated:YES completion:nil];
         }

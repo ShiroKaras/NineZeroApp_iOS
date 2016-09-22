@@ -10,7 +10,6 @@
 #import "HTUIHeader.h"
 #import "HTMascotArticleCell.h"
 #import "MJRefresh.h"
-#import "HTProfileArticlesController.h"
 #import "HTArticleController.h"
 
 @interface HTCollectionController () <UITableViewDelegate, UITableViewDataSource>
@@ -113,6 +112,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [TalkingData trackEvent:@"toarticle" label:@"collection"];
     HTArticle *article = _articles[indexPath.row];
     HTArticleController *controller = [[HTArticleController alloc] initWithArticle:article];
     [self presentViewController:controller animated:YES completion:nil];
