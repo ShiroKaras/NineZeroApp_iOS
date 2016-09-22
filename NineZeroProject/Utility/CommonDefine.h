@@ -62,7 +62,7 @@
 #define FIRST_TYPE_2 ![UD boolForKey:@"firstLaunchType2"]
 #define FIRST_TYPE_3 ![UD boolForKey:@"firstLaunchType3"]
 
-#define FIRST_LAUNCH_AR ![UD boolForKey:@"firstLaunchType3"]
+#define FIRST_LAUNCH_AR ![UD boolForKey:@"firstLaunchTypeAR"]
 #define FIRST_LAUNCH_QUESTIONLIST ![UD boolForKey:@"firstLaunchQuestionList"]
 #define FIRST_LAUNCH_QUESTIONVIEW ![UD boolForKey:@"firstLaunchQuestionView"]
 #define FIRST_LAUNCH_MASCOTVIEW   ![UD boolForKey:@"firstLaunchMascotView"]

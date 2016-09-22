@@ -141,7 +141,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         } completion:^(BOOL finished) {
             
         }];
-        [UD setBool:YES forKey:@"firstLaunchType3"];
+        [UD setBool:YES forKey:@"firstLaunchTypeAR"];
     }
     
     [self buildConstrains];
