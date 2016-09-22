@@ -13,4 +13,6 @@
 @property (nonatomic, strong) UIImageView *contentImageView;
 @property (nonatomic, strong) UIButton    *adButton;
 
+- (void)show;
+- (void)hide;
 @end

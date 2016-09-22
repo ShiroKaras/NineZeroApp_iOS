@@ -397,13 +397,8 @@
             if (success) {
                 if (response.resultCode == 0) {
                     _activityNotificationView.hidden = NO;
-                    _activityNotificationView.bottom = 0;
                     [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]]];
-                    [UIView animateWithDuration:1 animations:^{
-                        _activityNotificationView.bottom = SCREEN_HEIGHT;
-                    } completion:^(BOOL finished) {
-                        
-                    }];
+                    [_activityNotificationView show];
                 } else {
                     _activityNotificationView.hidden = YES;
                 }
