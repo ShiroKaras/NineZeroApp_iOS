@@ -153,6 +153,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         _contentLabel = [[UILabel alloc] init];
         _contentLabel.font = [UIFont systemFontOfSize:15];
         _contentLabel.textColor = COMMON_GREEN_COLOR;
+        _contentLabel.numberOfLines = 2;
         [_contentBackView addSubview:_contentLabel];
         
         UITapGestureRecognizer *tapOnContent = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickContent)];
@@ -993,6 +994,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _pauseImageView.bottom = _playBackView.height - 8;
     _contentLabel.left = 16;
     _contentLabel.centerY = 40;
+    _contentLabel.width = _playBackView.width - 32;
     [_composeButton sizeToFit];
     _composeButton.top = _contentBackView.bottom - 21;
     _composeButton.right = _cardBackView.right - 18;
