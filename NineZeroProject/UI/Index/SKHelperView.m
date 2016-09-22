@@ -286,7 +286,13 @@
     _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
     _scrollView.pagingEnabled = YES;
     for (int i= 0; i<pageNumber; i++) {
-        SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeNoMascot index:i];
+        SKHelperType helpType;
+        if (type == SKHelperScrollViewTypeQuestion) {
+            helpType = SKHelperTypeHasMascot;
+        } else {
+            helpType = SKHelperTypeNoMascot;
+        }
+        SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:helpType index:i];
         helpView.tag = i+200;
         [_scrollView addSubview:helpView];
         if (i == pageNumber-1) {
