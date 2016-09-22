@@ -756,23 +756,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)showGuideviewWithType:(SKHelperGuideViewType)type {
-    UIView *blackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    blackView.backgroundColor = [UIColor blackColor];
-    
     _guideView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:type];
-    _guideView.alpha = 0;
-    
-    [KEY_WINDOW addSubview:blackView];
-    [KEY_WINDOW bringSubviewToFront:blackView];
     [KEY_WINDOW addSubview:_guideView];
     [KEY_WINDOW bringSubviewToFront:_guideView];
-    
-    [UIView animateWithDuration:1.2 animations:^{
-        blackView.alpha = 0;
-        _guideView.alpha = 1;
-    } completion:^(BOOL finished) {
-        
-    }];
 }
 
 #pragma mark - HTARCaptureController Delegate

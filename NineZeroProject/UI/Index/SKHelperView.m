@@ -508,12 +508,10 @@
 }
 
 - (void)onClickTurnToView2 {
-    [UIView animateWithDuration:0.3 animations:^{
-        _view1.alpha = 0;
-        _view2.alpha = 1;
-        _view3.alpha = 0;
-        _view4.alpha = 0;
-    }];
+    _view1.alpha = 0;
+    _view2.alpha = 1;
+    _view3.alpha = 0;
+    _view4.alpha = 0;
 }
 
 - (void)completeButtonClick:(UIButton *)sender {
