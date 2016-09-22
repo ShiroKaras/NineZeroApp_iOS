@@ -62,7 +62,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 @property (nonatomic, strong) HTBlankView *blankView;
 
 @property (nonatomic, strong) UIView *courseView;
-@property (nonatomic, strong) SKHelperGuideView *guideView;
 @property (nonatomic, strong) UIImageView *courseImageView;
 @property (nonatomic, strong) NSMutableArray *courseImageArray;                      //教程图片组
 @property (nonatomic, strong) NSMutableArray *courseImageArray_iPhone6;                      //教程图片组iphone6
@@ -368,6 +367,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     
     self.detector = [SharkfoodMuteSwitchDetector shared];
     __weak typeof(self) weakSelf = self;
@@ -394,7 +394,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
     [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
     
-    [_helpButton addTarget:self action:@selector(helpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_helpButton addTarget:self action:@selector(helpButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [_helpButton sizeToFit];
     _helpButton.top = 10;
     _helpButton.left = 10;
@@ -402,7 +402,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 
-- (void)helpButtonClick:(UIButton *)sender {
+- (void)helpButtonClicked:(UIButton *)sender {
     [TalkingData trackEvent:@"noviceguide"];
     [_mCell pause];
     SKHelperScrollView *helpView;
@@ -485,15 +485,16 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     [_composeView removeFromSuperview];
+    [_composeView endEditing:YES];
+}
+
+- (void)keyboardDidHide:(NSNotification *)notification {
     //显示GuideView
     if ([[UD mutableArrayValueForKey:kQuestionHintArray][questionList[0].serial-1] integerValue] >2 && FIRST_TYPE_3) {
-        [_composeView endEditing:YES];
-        [_composeView removeFromSuperview];
         [self showGuideviewWithType:SKHelperGuideViewType3];
         [UD setBool:YES forKey:@"firstLaunchType3"];
     }
 }
-
 #pragma mark - UICollectionView
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -765,9 +766,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)showGuideviewWithType:(SKHelperGuideViewType)type {
-    _guideView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:type];
-    [KEY_WINDOW addSubview:_guideView];
-    [KEY_WINDOW bringSubviewToFront:_guideView];
+    SKHelperGuideView *guideView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:type];
+    [KEY_WINDOW addSubview:guideView];
+    [KEY_WINDOW bringSubviewToFront:guideView];
 }
 
 #pragma mark - HTARCaptureController Delegate
@@ -930,93 +931,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     if (index >= questionList.count) index = questionList.count - 1;
     if (index <= 0) index = 0;
     return (self.view.width - kItemMargin - 13) * index;
-}
-
-#pragma mark - ShowCourseView
-
-- (void)showGuideview {
-    UIView *blackView = [[UIView alloc] initWithFrame:self.view.frame];
-    blackView.backgroundColor = [UIColor blackColor];
-    
-    _guideView = [[SKHelperGuideView alloc] initWithFrame:self.view.frame withType:SKHelperGuideViewType1];
-    _guideView.alpha = 0;
-    
-    [KEY_WINDOW addSubview:blackView];
-    [KEY_WINDOW bringSubviewToFront:blackView];
-    [KEY_WINDOW addSubview:_guideView];
-    [KEY_WINDOW bringSubviewToFront:_guideView];
-    
-    [UIView animateWithDuration:1.2 animations:^{
-        blackView.alpha = 0;
-        _guideView.alpha = 1;
-    } completion:^(BOOL finished) {
-        _currentCourseImageIndex = 1;
-    }];
-}
-
-- (void)showCourseView {
-    UIView *blackView = [[UIView alloc] initWithFrame:self.view.frame];
-    blackView.backgroundColor = [UIColor blackColor];
-    
-    _courseView = [[UIView alloc] initWithFrame:self.view.frame];
-    _courseView.alpha = 0;
-    
-    [KEY_WINDOW addSubview:blackView];
-    [KEY_WINDOW bringSubviewToFront:blackView];
-    [KEY_WINDOW addSubview:_courseView];
-    [KEY_WINDOW bringSubviewToFront:_courseView];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickCourseImage)];
-    [_courseView addGestureRecognizer:tap];
-    
-    //step.1
-    UIView *view1 = [UIView new];
-    [_courseView addSubview:view1];
-    UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:_courseView.frame];
-    [view1 addSubview:imageView1];
-    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button1 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
-    [button1 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
-    [view1 addSubview:button1];
-    
-    
-    
-    _courseImageArray = [NSMutableArray new];
-    _currentCourseImageIndex = 0;
-    if (SCREEN_WIDTH<=IPHONE5_SCREEN_WIDTH || SCREEN_WIDTH>=IPHONE6_PLUS_SCREEN_WIDTH) {
-        for (int i=1; i<=4; i++) {
-            [_courseImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"coach_mark_%d",i]]];
-        }
-    } else {
-        for (int i=1; i<=4; i++) {
-            [_courseImageArray addObject:[UIImage imageNamed:[NSString stringWithFormat:@"coach_mark_iphone6_%d",i]]];
-        }
-    }
-    
-    _courseImageView = [[UIImageView alloc] initWithFrame:_courseView.frame];
-    _courseImageView.image = _courseImageArray[_currentCourseImageIndex];
-    [_courseView addSubview:_courseImageView];
-    
-    [UIView animateWithDuration:1.2 animations:^{
-        blackView.alpha = 0;
-        _courseView.alpha = 1;
-    } completion:^(BOOL finished) {
-        _currentCourseImageIndex = 1;
-    }];
-}
-
-- (void)onClickCourseImage {
-    if (_currentCourseImageIndex == 5) {
-        [UIView animateWithDuration:0.3 animations:^{
-            _courseView.alpha = 0;
-        } completion:^(BOOL finished) {
-            [_courseView removeFromSuperview];
-            [self showAlert];
-        }];
-    } else if (_currentCourseImageIndex<=4) {
-        _courseImageView.image = _courseImageArray[_currentCourseImageIndex];
-        _currentCourseImageIndex++;
-    }
 }
 
 #pragma mark - GPS Alert

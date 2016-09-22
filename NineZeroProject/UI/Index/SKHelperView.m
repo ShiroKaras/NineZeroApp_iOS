@@ -456,18 +456,14 @@
         case SKHelperGuideViewType1:{
             [self addSubview:_view1];
             [self addSubview:_view2];
-            _view1.alpha = 1;
-            _view2.alpha = 0;
             break;
         }
         case SKHelperGuideViewType2:{
             [self addSubview:_view3];
-            _view3.alpha = 1;
             break;
         }
         case SKHelperGuideViewType3:{
             [self addSubview:_view4];
-            _view1.alpha = 1;
             break;
         }
         default:
