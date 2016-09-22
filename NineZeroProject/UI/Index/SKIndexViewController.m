@@ -44,6 +44,7 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [HTProgressHUD show];
     [self loadData];
     [self judgementDate];
     [TalkingData trackPageBegin:@"homepage"];
@@ -162,7 +163,7 @@
 - (void)createUI {
     self.view.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
     __weak __typeof(self)weakSelf = self;
-    
+    [HTProgressHUD show];
     //通知按钮
     UIButton *notificationButton = [UIButton new];
     [notificationButton setImage:[UIImage imageNamed:@"btn_homepage_notification"] forState:UIControlStateNormal];
@@ -392,20 +393,19 @@
     [dateformatter setDateFormat:@"YYYYMMdd"];
     NSString *locationString=[dateformatter stringFromDate:senddate];
     if (![locationString isEqualToString:[UD objectForKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION]]) {
-        _activityNotificationView.hidden = NO;
         [[[HTServiceManager sharedInstance] profileService] getActivityNotification:^(BOOL success, HTResponsePackage *response) {
             if (success) {
                 if (response.resultCode == 0) {
                     _activityNotificationView.hidden = NO;
+                    [_activityNotificationView show];
                     [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                        [_activityNotificationView show];
+                        [HTProgressHUD dismiss];
                     }];
                 } else {
                     _activityNotificationView.hidden = YES;
                 }
             }
         }];
-        
     } else {
         _activityNotificationView.hidden = YES;
     }
