@@ -445,7 +445,6 @@
     _button3 = [UIButton buttonWithType:UIButtonTypeCustom];
     [_button3 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
     [_button3 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
-//    [_button3 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_button3 sizeToFit];
     if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
         _button3.top = _view3.top + 163;
@@ -470,14 +469,14 @@
     [button4 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [button4 sizeToFit];
     if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-        button4.top = _view3.top + 121.5;
-        button4.right = _view3.right - 122;
+        button4.top = _view4.top + 117.5;
+        button4.right = _view4.right - 109;
     } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-        button4.top = _view3.top + 131.5;
-        button4.right = _view3.right - 172;
+        button4.top = _view4.top + 127.5;
+        button4.right = _view4.right - 159;
     } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        button4.top = _view3.top + 148.7;
-        button4.right = _view3.right - 189.7;
+        button4.top = _view4.top + 123;
+        button4.right = _view4.right - 176;
     }
     UIImageView *buttonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_help_highlight"]];
     [buttonImage sizeToFit];
