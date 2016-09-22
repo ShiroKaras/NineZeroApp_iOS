@@ -30,7 +30,7 @@
     [self addSubview:dimmingView];
     
     _contentImageView = [[UIImageView alloc] init];
-    _contentImageView.backgroundColor = [UIColor colorWithHex:0xd8d8d8];
+    _contentImageView.backgroundColor = [UIColor blackColor];
     _contentImageView.layer.cornerRadius = 5;
     _contentImageView.layer.masksToBounds = YES;
     [self addSubview:_contentImageView];

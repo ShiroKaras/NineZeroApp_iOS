@@ -52,7 +52,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [TalkingData trackPageEnd:@"homepage"];
-//    [_activityNotificationView removeFromSuperview];
 }
 
 - (void)viewDidLoad {
@@ -397,7 +396,14 @@
         [[[HTServiceManager sharedInstance] profileService] getActivityNotification:^(BOOL success, HTResponsePackage *response) {
             if (success) {
                 if (response.resultCode == 0) {
-                   [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]]];
+                    _activityNotificationView.hidden = NO;
+                    _activityNotificationView.bottom = 0;
+                    [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]]];
+                    [UIView animateWithDuration:1 animations:^{
+                        _activityNotificationView.bottom = SCREEN_HEIGHT;
+                    } completion:^(BOOL finished) {
+                        
+                    }];
                 } else {
                     _activityNotificationView.hidden = YES;
                 }
