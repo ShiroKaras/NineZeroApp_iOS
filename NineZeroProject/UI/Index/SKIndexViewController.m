@@ -411,20 +411,24 @@
 #pragma mark - Actions
 
 - (void)allLevelButtonClick:(UIButton *)sender{
-    SKQuestionPageViewController *controller = [[SKQuestionPageViewController alloc] init];
-    NSMutableArray *list = [self.questionList mutableCopy];
-    if (!_isMonday) {
-        [list removeLastObject];
+    if (self.questionList.count != 0) {
+        SKQuestionPageViewController *controller = [[SKQuestionPageViewController alloc] init];
+        NSMutableArray *list = [self.questionList mutableCopy];
+        if (!_isMonday) {
+            [list removeLastObject];
+        }
+        controller.questionList = list;
+        controller.isMonday = _isMonday;
+        [self.navigationController pushViewController:controller animated:YES];
     }
-    controller.questionList = list;
-    controller.isMonday = _isMonday;
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)timerLevelButtonClick {
-    HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeTimeLevel andQuestList:@[self.questionList.lastObject] questionInfo:_questionInfo];
-    cardController.delegate = self;
-    [self.navigationController pushViewController:cardController animated:YES];
+    if (self.questionList.count != 0) {
+        HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeTimeLevel andQuestList:@[self.questionList.lastObject] questionInfo:_questionInfo];
+        cardController.delegate = self;
+        [self.navigationController pushViewController:cardController animated:YES];
+    }
 }
 
 - (void)showRelaxDayTimeLabel:(UIButton *)sender {
