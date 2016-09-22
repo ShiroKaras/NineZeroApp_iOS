@@ -297,7 +297,7 @@
     } else if (type == SKHelperScrollViewTypeMascot) {
         NSArray *textArray = @[@"帮助零仔〇找到失落在地球上的其他零仔们",
                                @"点击零仔头顶的手指去发现这个星球上最九零的人、物、事",
-                               @"破解重重关卡，你将解锁更多的原创文章"];
+                               @"破解重重关卡，你将解锁更多的研究报告"];
         NSArray *imgArray  = @[@"img_introduce_lingzaipage_1",
                                @"img_introduce_lingzaipage_2",
                                @"img_introduce_lingzaipage_3"

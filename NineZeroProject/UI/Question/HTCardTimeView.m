@@ -136,12 +136,8 @@
 }
 
 - (void)completeButtonClick:(UIButton *)sender {
-    [UIView animateWithDuration:0.5 animations:^{
-        _guideView.alpha = 0;
-    } completion:^(BOOL finished) {
-        [_guideView removeFromSuperview];
-        [self showAlert];
-    }];
+    [_guideView removeFromSuperview];
+    [self showAlert];
 }
 
 - (void)showAlert {

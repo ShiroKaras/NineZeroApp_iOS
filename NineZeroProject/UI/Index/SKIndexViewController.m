@@ -93,13 +93,19 @@
         self.questionList = questionList;
         
         if (FIRST_LAUNCH) {
-            if ([UD arrayForKey:kQuestionHintArray].count == 0) {
+            if ([UD mutableArrayValueForKey:kQuestionHintArray].count == 0) {
                 NSMutableArray *hintArray = [NSMutableArray array];
                 for (HTQuestion *question in questionList) {
                     [hintArray addObject:@0];
                 }
                 [UD setObject:hintArray forKey:kQuestionHintArray];
-            };
+            }
+        } else {
+            if ([UD mutableArrayValueForKey:kQuestionHintArray].count < questionList.count) {
+                do {
+                    [[UD mutableArrayValueForKey:kQuestionHintArray] addObject:@0];
+                } while ([UD mutableArrayValueForKey:kQuestionHintArray].count == questionList.count);
+            }
         }
     }];
     

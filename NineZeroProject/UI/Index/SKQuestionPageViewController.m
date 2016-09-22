@@ -63,6 +63,8 @@
     _mScrollView.delegate = self;
     _mScrollView.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT, scrollViewHeight);
     _mScrollView.pagingEnabled = YES;
+    _mScrollView.showsHorizontalScrollIndicator = NO;
+    _mScrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_mScrollView];
     
     __weak __typeof(self)weakSelf = self;
