@@ -397,8 +397,9 @@
             if (success) {
                 if (response.resultCode == 0) {
                     _activityNotificationView.hidden = NO;
-                    [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]]];
-                    [_activityNotificationView show];
+                    [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                        [_activityNotificationView show];
+                    }];
                 } else {
                     _activityNotificationView.hidden = YES;
                 }
