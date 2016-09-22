@@ -18,7 +18,7 @@
 @property (nonatomic, assign) NSInteger     index;
 @property (nonatomic, assign) SKHelperType  type;
 
-@property (nonatomic, strong) UIView *playBackView;
+@property (nonatomic, strong) UIImageView *playBackView;
 @property (nonatomic, strong) UIButton *playButton;
 
 @property (nonatomic, strong) AVPlayerItem *playerItem;
@@ -44,7 +44,9 @@
         _cardImageView.layer.masksToBounds = YES;
         [cardView addSubview:_cardImageView];
         
-        _playBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 276, 276)];
+        _playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 276, 276)];
+        _playBackView.layer.masksToBounds = YES;
+        _playBackView.contentMode = UIViewContentModeScaleAspectFit;
         [cardView addSubview:_playBackView];
         
         _textLabel = [UILabel new];
@@ -98,13 +100,23 @@
 
 - (void)setImage:(UIImage *)image andText:(NSString *)text {
     _playBackView.hidden = YES;
+    [self setText:text];
+    _cardImageView.image = image;
+}
+
+- (void)setSquareImage:(UIImage*)image andText:(NSString *)text {
+    _cardImageView.hidden = NO;
+    [self setText:text];
+    _playBackView.image = image;
+}
+
+- (void)setText:(NSString *)text {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:7];//调整行间距
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [text length])];
     _textLabel.attributedText = attributedString;
     [_textLabel sizeToFit];
-    _cardImageView.image = image;
 }
 
 - (void)setVideoName:(NSString *)videoName andText:(NSString *)text {
@@ -211,7 +223,8 @@
 
 
 @interface  SKHelperScrollView () <UIScrollViewDelegate>
-
+@property (nonatomic, strong) NSArray *textArray;
+@property (nonatomic, strong) NSArray *imgArray;
 @end
 
 @implementation SKHelperScrollView
@@ -236,110 +249,59 @@
     [self addSubview:_scrollView];
     
     if (type == SKHelperScrollViewTypeQuestion) {
-        NSArray *textArray = @[@"“我是零仔〇，住在529D星球”",
-                               @"“这个星球除了我，其他同族都离奇的失踪了”",
-                               @"“追寻同族留下的线索，我来到了你们的世界”",
-                               @"“请留意视频，破解谜团，帮我找到其他零仔”"];
-        NSArray *videoArray = @[@"trailer_1", @"trailer_2", @"trailer_3", @"trailer_4"];
-        NSInteger pageNumber = textArray.count;
-        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
-        _scrollView.pagingEnabled = YES;
-        for (int i= 0; i<pageNumber; i++) {
-            SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeHasMascot index:i];
-            helpView.tag = i+200;
-            helpView.backgroundColor = [UIColor clearColor];
-            [_scrollView addSubview:helpView];
-            if (i == pageNumber-1) {
-                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete"] forState:UIControlStateNormal];
-                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete_highlight"] forState:UIControlStateHighlighted];
-                [helpView.nextstepButton addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            } else {
-                helpView.nextstepButton.tag = i+100;
-                [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            }
-            [helpView setVideoName:videoArray[i] andText:textArray[i]];
-            if (i==0) {
-                [helpView play];
-            }else {
-                [helpView stop];
-            }
-        }
+        _textArray = @[@"“我是零仔〇，住在529D星球”",
+                       @"“这个星球除了我，其他同族都离奇的失踪了”",
+                       @"“追寻同族留下的线索，我来到了你们的世界”",
+                       @"“请留意视频，破解谜团，帮我找到其他零仔”"
+                       ];
+        _imgArray = @[@"img_introduce_story1",
+                      @"img_introduce_story2",
+                      @"img_introduce_story3",
+                      @"img_introduce_story4"];
     } else if (type == SKHelperScrollViewTypeTimeLimitQuestion) {
-        NSArray *textArray = @[@"在九零APP里，每一个关卡，每一段视频，每一个文字都可能成为线索！",
-                               @"1011010会是线索吗？代表音符？二进制？还是蔡依林？",
-                               @"最可能的答案是二进制！1011010对应的十进制就是90",
-                               @"验证你的推论，输入90，闯关成功！"];
-        NSArray *videoArray = @[@"guide_1", @"guide_2", @"guide_3", @"guide_4"];
-//        NSArray *videoArray = @[@"guide_1", @"guide_2", @"guide_3", @"guide_4"];
-        NSInteger pageNumber = textArray.count;
-        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
-        _scrollView.pagingEnabled = YES;
-        for (int i= 0; i<pageNumber; i++) {
-            SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeNoMascot index:i];
-            helpView.tag = i+200;
-            helpView.backgroundColor = [UIColor clearColor];
-            [_scrollView addSubview:helpView];
-            if (i == pageNumber-1) {
-                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete"] forState:UIControlStateNormal];
-                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete_highlight"] forState:UIControlStateHighlighted];
-                [helpView.nextstepButton addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            } else {
-                helpView.nextstepButton.tag = i+100;
-                [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            }
-            [helpView setVideoName:videoArray[i] andText:textArray[i]];
-            if (i==0) {
-                [helpView play];
-            }else {
-                [helpView stop];
-            }
-        }
+        _textArray = @[@"在九零APP里，每一个关卡，每一段视频，每一个文字都可能成为线索！",
+                       @"1011010会是线索吗？代表音符？二进制？还是蔡依林？",
+                       @"最可能的答案是二进制！1011010对应的十进制就是90",
+                       @"验证你的推论，输入90，闯关成功！"
+                       ];
+        _imgArray = @[@"img_introduce_help1",
+                      @"img_introduce_help2",
+                      @"img_introduce_help3",
+                      @"img_introduce_help4"];
     } else if (type == SKHelperScrollViewTypeMascot) {
-        NSArray *textArray = @[@"帮助零仔〇找到失落在地球上的其他零仔们",
-                               @"点击零仔头顶的手指去发现这个星球上最九零的人、物、事",
-                               @"破解重重关卡，你将解锁更多的研究报告"];
-        NSArray *imgArray  = @[@"img_introduce_lingzaipage_1",
-                               @"img_introduce_lingzaipage_2",
-                               @"img_introduce_lingzaipage_3"
-                               ];
-        NSInteger pageNumber = textArray.count;
-        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
-        _scrollView.pagingEnabled = YES;
-        for (int i= 0; i<pageNumber; i++) {
-            SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeNoMascot index:i];
-            helpView.tag = i+200;
-            [_scrollView addSubview:helpView];
-            if (i == pageNumber-1) {
-                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete"] forState:UIControlStateNormal];
-                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete_highlight"] forState:UIControlStateHighlighted];
-                [helpView.nextstepButton addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            } else {
-                helpView.nextstepButton.tag = i+100;
-                [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            }
-            [helpView setImage:[UIImage imageNamed:imgArray[i]] andText:textArray[i]];
-        }
+        _textArray = @[@"帮助零仔〇找到失落在地球上的其他零仔们",
+                       @"点击零仔头顶的手指去发现这个星球上最九零的人、物、事",
+                       @"破解重重关卡，你将解锁更多的研究报告"
+                       ];
+        _imgArray  = @[@"img_introduce_lingzaipage_1",
+                       @"img_introduce_lingzaipage_2",
+                       @"img_introduce_lingzaipage_3"
+                       ];
     } else if (type == SKHelperScrollViewTypeAR) {
-        NSArray *textArray = @[@"本关为线下关卡，你需要去往户外，根据线索提示，发现并捕捉周边的零仔"];
-        NSArray *imgArray  = @[@"img_introduce_ar"];
-        NSInteger pageNumber = textArray.count;
-        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
-        _scrollView.pagingEnabled = YES;
-        for (int i= 0; i<pageNumber; i++) {
-            SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeNoMascot index:i];
-            helpView.tag = i+200;
-            [_scrollView addSubview:helpView];
-            if (i == pageNumber-1) {
-                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete"] forState:UIControlStateNormal];
-                [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete_highlight"] forState:UIControlStateHighlighted];
-                [helpView.nextstepButton addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            } else {
-                helpView.nextstepButton.tag = i+100;
-                [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            }
-            [helpView setImage:[UIImage imageNamed:imgArray[i]] andText:textArray[i]];
+        _textArray = @[@"本关为线下关卡，你需要去往户外，根据线索提示，发现并捕捉周边的零仔"];
+        _imgArray  = @[@"img_introduce_ar"];
+    }
+    
+    NSInteger pageNumber = _textArray.count;
+    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*pageNumber, SCREEN_HEIGHT);
+    _scrollView.pagingEnabled = YES;
+    for (int i= 0; i<pageNumber; i++) {
+        SKHelperView *helpView = [[SKHelperView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperTypeNoMascot index:i];
+        helpView.tag = i+200;
+        [_scrollView addSubview:helpView];
+        if (i == pageNumber-1) {
+            [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete"] forState:UIControlStateNormal];
+            [helpView.nextstepButton setImage:[UIImage imageNamed:@"btn_introduce_complete_highlight"] forState:UIControlStateHighlighted];
+            [helpView.nextstepButton addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        } else {
+            helpView.nextstepButton.tag = i+100;
+            [helpView.nextstepButton addTarget:self action:@selector(nextStepButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         }
-
+        if (type == SKHelperScrollViewTypeQuestion || type == SKHelperScrollViewTypeTimeLimitQuestion) {
+            [helpView setSquareImage:[UIImage imageNamed:_imgArray[i]] andText:_textArray[i]];
+        } else {
+            [helpView setImage:[UIImage imageNamed:_imgArray[i]] andText:_textArray[i]];
+        }
     }
 }
 
@@ -347,8 +309,8 @@
 
 - (void)nextStepButtonClick:(UIButton *)sender {
     [_scrollView setContentOffset:CGPointMake(SCREEN_WIDTH*(sender.tag+1-100), 0) animated:YES];
-    [(SKHelperView*)[self viewWithTag:sender.tag+100] stop];
-    [(SKHelperView*)[self viewWithTag:sender.tag+1+100] play];
+    //[(SKHelperView*)[self viewWithTag:sender.tag+100] stop];
+    //[(SKHelperView*)[self viewWithTag:sender.tag+1+100] play];
 }
 
 - (void)completeButtonClick:(UIButton *)sender {
