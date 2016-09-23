@@ -60,7 +60,7 @@
                 self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
                 [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
                 [self.view addSubview:self.blankView];
-                self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+                self.blankView.top = ROUND_HEIGHT_FLOAT(217);
             }
         }
     }];
