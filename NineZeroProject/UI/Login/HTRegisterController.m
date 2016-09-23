@@ -45,6 +45,9 @@
     [super viewDidLoad];
     self.title = @"注册";
     
+    [self setTipsOffsetY:60];
+    [self.view bringSubviewToFront:[self.view viewWithTag:1000]];
+    
     _avatarButton.layer.cornerRadius = _avatarButton.width / 2;
     _avatarButton.layer.masksToBounds = YES;
     
