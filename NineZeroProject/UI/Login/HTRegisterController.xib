@@ -22,8 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fg-9J-AxF">
-                    <frame key="frameInset" minX="167" minY="85" width="80" height="80"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fg-9J-AxF">
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="5TR-tB-7H5"/>
                         <constraint firstAttribute="height" constant="80" id="D4f-gN-iMe"/>
@@ -33,28 +32,22 @@
                         <action selector="avatarButtonClicked:" destination="-1" eventType="touchUpInside" id="p4U-Y8-5ra"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="btn_profile_photo_camera" translatesAutoresizingMaskIntoConstraints="NO" id="TNK-Ov-s5l">
-                    <frame key="frameInset" minX="222" minY="140" width="25" height="25"/>
-                </imageView>
-                <view contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="YXe-oQ-8hS" userLabel="userNameView">
-                    <frame key="frameInset" minY="185" width="414" height="51"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_profile_photo_camera" translatesAutoresizingMaskIntoConstraints="NO" id="TNK-Ov-s5l"/>
+                <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="75" translatesAutoresizingMaskIntoConstraints="NO" id="YXe-oQ-8hS" userLabel="userNameView">
                     <subviews>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="00u-9q-a4f" userLabel="separator">
-                            <frame key="frameInset" width="414" height="1"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="00u-9q-a4f" userLabel="separator">
                             <color key="backgroundColor" red="0.09223233163356781" green="0.092229574918746948" blue="0.092231146991252899" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="xGs-zn-Pfn"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="htV-1d-VDa" userLabel="separator">
-                            <frame key="frameInset" minY="50" width="414" height="1"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="htV-1d-VDa" userLabel="separator">
                             <color key="backgroundColor" red="0.09223233163356781" green="0.092229574918746948" blue="0.092231146991252899" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="3Gf-fA-1uX"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="293" placeholderIntrinsicHeight="25" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="验证码15分钟内有效" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8ET-ET-tdn">
-                            <frame key="frameInset" minX="23" minY="12" width="271" height="28"/>
+                        <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" placeholderIntrinsicWidth="293" placeholderIntrinsicHeight="25" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="验证码15分钟内有效" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8ET-ET-tdn">
                             <constraints>
                                 <constraint firstAttribute="height" constant="28" id="eVs-kJ-EQf"/>
                                 <constraint firstAttribute="width" constant="200" id="lAj-79-cv9"/>
@@ -73,8 +66,7 @@
                                 </mask>
                             </variation>
                         </textField>
-                        <button opaque="NO" tag="400" contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="246" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNo-gQ-I7a" customClass="HTLoginButton">
-                            <frame key="frameInset" minX="302" minY="11" width="104" height="30"/>
+                        <button opaque="NO" tag="400" contentMode="scaleToFill" placeholderIntrinsicWidth="246" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNo-gQ-I7a" customClass="HTLoginButton">
                             <constraints>
                                 <constraint firstAttribute="width" constant="104" id="18T-id-Llg"/>
                             </constraints>
@@ -109,18 +101,15 @@
                         <constraint firstAttribute="trailing" secondItem="nNo-gQ-I7a" secondAttribute="trailing" constant="8" id="xUM-B8-Osg"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="0xG-or-RFb" userLabel="userPswView">
-                    <frame key="frameInset" minY="236" width="414" height="51"/>
+                <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="70" translatesAutoresizingMaskIntoConstraints="NO" id="0xG-or-RFb" userLabel="userPswView">
                     <subviews>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZpG-9B-shk" userLabel="separator">
-                            <frame key="frameInset" minY="50" width="414" height="1"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZpG-9B-shk" userLabel="separator">
                             <color key="backgroundColor" red="0.09223233163356781" green="0.092229574918746948" blue="0.092231146991252899" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="L6V-1G-Xbf"/>
                             </constraints>
                         </view>
-                        <textField opaque="NO" clipsSubviews="YES" tag="200" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="输入昵称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MLA-d0-z0h">
-                            <frame key="frameInset" minX="23" minY="12" width="371" height="28"/>
+                        <textField opaque="NO" clipsSubviews="YES" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="输入昵称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MLA-d0-z0h">
                             <constraints>
                                 <constraint firstAttribute="height" constant="28" id="e6m-BL-NkS"/>
                             </constraints>
@@ -145,18 +134,14 @@
                         <constraint firstItem="ZpG-9B-shk" firstAttribute="leading" secondItem="0xG-or-RFb" secondAttribute="leading" id="tq1-0S-2Pk"/>
                     </constraints>
                 </view>
-                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehI-dz-SKT">
-                    <frame key="frameInset" minX="107" minY="359" width="140" height="29"/>
+                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehI-dz-SKT">
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="点击下一步表示你同意">
                         <color key="titleColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="img_signup_deco" translatesAutoresizingMaskIntoConstraints="NO" id="rX0-XG-z4D">
-                    <frame key="frameInset" minX="19" minY="361" width="44" height="34"/>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCW-r3-C2a">
-                    <frame key="frameInset" minX="249" minY="359" width="56" height="29"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_signup_deco" translatesAutoresizingMaskIntoConstraints="NO" id="rX0-XG-z4D"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCW-r3-C2a">
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <state key="normal" title="用户协议">
                         <color key="titleColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -165,8 +150,7 @@
                         <action selector="userAgreementButtonClicked:" destination="-1" eventType="touchUpInside" id="0Gh-gB-uP5"/>
                     </connections>
                 </button>
-                <button opaque="NO" tag="300" contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEv-B1-G6N" userLabel="SureButton" customClass="HTLoginButton">
-                    <frame key="frameInset" minY="296" width="414" height="50"/>
+                <button opaque="NO" tag="300" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEv-B1-G6N" userLabel="SureButton" customClass="HTLoginButton">
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="7Sl-3h-8JP"/>
                     </constraints>

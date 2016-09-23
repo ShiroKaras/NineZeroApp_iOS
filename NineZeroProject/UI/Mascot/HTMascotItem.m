@@ -50,7 +50,7 @@ static CGFloat kDurationPerAnimate = 0.1;
     NSInteger count = [animatedCount[_index] integerValue];
     NSMutableArray<UIImage *> *animatedImages = [NSMutableArray arrayWithCapacity:count];
     for (int i = 0; i != count; i++) {
-        NSString *imageName = [NSString stringWithFormat:@"img_mascot_%ld_animation_%ld_%04d", (_index + 1), number , i];
+        NSString *imageName = [NSString stringWithFormat:@"img_mascot_%ld_animation_%ld_%04d", (_index + 1), (long)number , i];
         YYImage *image = [YYImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imageName ofType:@"png"]];
         [animatedImages addObject:image];
     }
