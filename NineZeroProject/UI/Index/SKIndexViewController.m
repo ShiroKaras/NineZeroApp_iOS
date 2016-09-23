@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIView   *timerLevelCountView;
 @property (nonatomic, strong) UIView   *relaxDayCountView;
 @property (nonatomic, strong) SKActivityNotificationView *activityNotificationView;
+@property (nonatomic, strong) UIImageView *notificationFlag;
 
 @property (nonatomic, strong) NSArray<HTQuestion*>* questionList;
 @property (nonatomic, strong) HTQuestionInfo *questionInfo;
@@ -118,6 +119,15 @@
         }
     }];
     
+    [[[HTServiceManager sharedInstance] profileService] getProfileInfo:^(BOOL success, HTProfileInfo *profileInfo) {
+        if (success) {
+            if([profileInfo.notice integerValue]+1 - [UD integerForKey:@"notificationsHasReadKey"]>0)
+                self.notificationFlag.hidden = NO;
+            else
+                self.notificationFlag.hidden = YES;
+        }
+    }];
+    
     [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
 //        [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
         if (success) {
@@ -176,6 +186,17 @@
         make.top.equalTo(weakSelf.view).offset(10);
         make.right.equalTo(weakSelf.view).offset(-10);
     }];
+    
+    //通知标记
+    _notificationFlag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_profile_notification_number"]];
+    [self.view addSubview:_notificationFlag];
+    [_notificationFlag mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@14);
+        make.height.equalTo(@14);
+        make.top.equalTo(notificationButton.mas_top).offset(2);
+        make.right.equalTo(notificationButton.mas_right).offset(-2);
+    }];
+    [self.view addSubview:_notificationFlag];
     
     //底部Banner图
     UIImageView *bannerImageView = [UIImageView new];
@@ -479,6 +500,24 @@
     [TalkingData trackEvent:@"push"];
     HTNotificationController *controller = [[HTNotificationController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+#pragma mark - Util
+
+- (void)showFlag:(NSInteger)unreadCount {
+    if (unreadCount>0) {
+        [self showUnreadArticleFlag];
+    }else {
+        [self removeUnreadArticleFlag];
+    }
+}
+
+- (void)showUnreadArticleFlag {
+    self.notificationFlag.alpha = 1;
+}
+
+- (void)removeUnreadArticleFlag {
+    self.notificationFlag.alpha = 0;
 }
 
 #pragma mark - HTPreviewCardController
