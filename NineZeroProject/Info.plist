@@ -4,8 +4,6 @@
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>九零想要访问您的相册</string>
-	<key>NSLocationUsageDescription</key>
-	<string>九零想要开启地理位置服务</string>
 	<key>NSCameraUsageDescription</key>
 	<string>九零想要访问您的相机</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -96,9 +94,9 @@
 		<true/>
 	</dict>
 	<key>NSLocationUsageDescription </key>
-	<string>90申请使用你的当前地理位置</string>
+	<string>九零申请使用你的当前地理位置</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>90申请使用你的当前地理位置</string>
+	<string>九零申请使用你的当前地理位置</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
