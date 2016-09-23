@@ -24,11 +24,9 @@
     tipsLabel.textColor = [UIColor whiteColor];
     [tipsBackView addSubview:tipsLabel];
     
-    
-    
     [tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         if (self.navigationController == nil || self.navigationController.navigationBar.hidden == YES) {
-            make.top.equalTo(KEY_WINDOW).offset(20);
+            make.top.equalTo(KEY_WINDOW).offset(0);
         } else {
             make.top.equalTo(KEY_WINDOW).offset(0);
         }
