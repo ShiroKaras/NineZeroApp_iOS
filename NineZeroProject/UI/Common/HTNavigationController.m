@@ -11,6 +11,7 @@
 #import "SKQuestionPageViewController.h"
 #import "HTPreviewCardController.h"
 #import "HTMascotDisplayController.h"
+#import "HTArticleController.h"
 
 @implementation HTNavigationController
 
@@ -58,7 +59,8 @@
 //        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
         if ([viewController isKindOfClass:[SKQuestionPageViewController class]] ||
             [viewController isKindOfClass:[HTPreviewCardController class]] ||
-            [viewController isKindOfClass:[HTMascotDisplayController class]]) {
+            [viewController isKindOfClass:[HTMascotDisplayController class]] ||
+            [viewController isKindOfClass:[HTArticleController class]]) {
             
         } else {
             [viewController.view addSubview:button];
