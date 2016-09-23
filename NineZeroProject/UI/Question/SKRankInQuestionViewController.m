@@ -38,7 +38,6 @@
     _completeButton.enabled = YES;
     [_completeButton setTitle:@"完成" forState:UIControlStateNormal];
     [_completeButton addTarget:self action:@selector(onClickCompleteButton) forControlEvents:UIControlEventTouchUpInside];
-    
     [self.view addSubview:_completeButton];
     
     self.rankerList = [NSArray array];
@@ -54,13 +53,10 @@
     }];
     
     if (NO_NETWORK) {
-        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-        converView.backgroundColor = COMMON_BG_COLOR;
-        [self.view addSubview:converView];
         self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
         [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
         [self.view addSubview:self.blankView];
-        self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+        self.blankView.top = ROUND_HEIGHT_FLOAT(217);
     }
 }
 

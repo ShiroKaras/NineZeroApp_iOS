@@ -39,6 +39,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 @property (nonatomic, strong) UIImageView   *andImageView2;
 @property (nonatomic, strong) UIImageView   *getImageView;
 @property (nonatomic, strong) UIImageView   *happyMascotImageView;
+@property (nonatomic, strong) HTBlankView   *blankView;
 
 @property (nonatomic, strong) HTTicketCard *card;          // 奖品卡片
 @property (nonatomic, strong) UIImageView *imageView;
@@ -80,6 +81,13 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     [_sureButton addTarget:self action:@selector(onClickSureButton) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:_sureButton];
+    
+    if (NO_NETWORK) {
+        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:self.blankView];
+        self.blankView.top = ROUND_HEIGHT_FLOAT(217);
+    }
 }
 
 - (void)reloadView {
