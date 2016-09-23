@@ -67,13 +67,13 @@
     }];
     
     if (NO_NETWORK) {
-        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, self.view.width, self.view.height-60)];
         converView.backgroundColor = COMMON_BG_COLOR;
         [self.view addSubview:converView];
         self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
         [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
         [self.view addSubview:self.blankView];
-        self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+        self.blankView.top = ROUND_HEIGHT_FLOAT(217);
     }
 }
 

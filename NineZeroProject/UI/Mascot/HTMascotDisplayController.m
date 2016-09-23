@@ -151,6 +151,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
             [HTProgressHUD dismiss];
         } else {
             [self showTipsWithText:@"网络不给力哦，请稍后重试"];
+            [HTProgressHUD dismiss];
         }
     }];
     
