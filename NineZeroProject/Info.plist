@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>九零想要访问您的相册</string>
-	<key>NSCameraUsageDescription</key>
-	<string>九零想要访问您的相机</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -68,7 +64,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>15</string>
+	<string>16</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sinaweibo</string>
@@ -93,10 +89,14 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>九零想要访问您的相机</string>
 	<key>NSLocationUsageDescription </key>
 	<string>九零申请使用你的当前地理位置</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>九零申请使用你的当前地理位置</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>九零想要访问您的相册</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
