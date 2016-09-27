@@ -65,7 +65,7 @@
     [self registerShareSDK];
     [self registerUmeng];
     [self registerUserAgent];
-    [self registerTalkingData];
+//    [self registerTalkingData];
     
     [NSThread sleepForTimeInterval:2];
     [self createWindowAndVisibleWithOptions:launchOptions];
@@ -201,22 +201,22 @@
         }
     }
     
-    [[[HTServiceManager sharedInstance] profileService] getVersion:^(NSDictionary *posts, NSError *error) {
-        NSArray* infoArray = [posts objectForKey:@"results"];
-        if (infoArray.count>0) {
-            NSDictionary* releaseInfo =[infoArray objectAtIndex:0];
-            NSString* appStoreVersion = [releaseInfo objectForKey:@"version"];
-            NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-            NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
-            if (![appStoreVersion isEqualToString:currentVersion])
-            {
-                _trackViewURL = [[NSString alloc] initWithString:[releaseInfo objectForKey:@"trackViewUrl"]];
-                NSString *msg =[releaseInfo objectForKey:@"releaseNotes"];
-                UIAlertView* alertview =[[UIAlertView alloc] initWithTitle:@"版本升级" message:[NSString stringWithFormat:@"%@%@%@", @"新版本特性:",msg, @"\n是否升级？"] delegate:self cancelButtonTitle:@"稍后升级" otherButtonTitles:@"马上升级", nil];
-                [alertview show];
-            }
-        }
-    }];
+//    [[[HTServiceManager sharedInstance] profileService] getVersion:^(NSDictionary *posts, NSError *error) {
+//        NSArray* infoArray = [posts objectForKey:@"results"];
+//        if (infoArray.count>0) {
+//            NSDictionary* releaseInfo =[infoArray objectAtIndex:0];
+//            NSString* appStoreVersion = [releaseInfo objectForKey:@"version"];
+//            NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+//            NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
+//            if (![appStoreVersion isEqualToString:currentVersion])
+//            {
+//                _trackViewURL = [[NSString alloc] initWithString:[releaseInfo objectForKey:@"trackViewUrl"]];
+//                NSString *msg =[releaseInfo objectForKey:@"releaseNotes"];
+//                UIAlertView* alertview =[[UIAlertView alloc] initWithTitle:@"版本升级" message:[NSString stringWithFormat:@"%@%@%@", @"新版本特性:",msg, @"\n是否升级？"] delegate:self cancelButtonTitle:@"稍后升级" otherButtonTitles:@"马上升级", nil];
+//                [alertview show];
+//            }
+//        }
+//    }];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
