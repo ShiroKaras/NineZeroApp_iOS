@@ -515,6 +515,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             _playerLayer.videoGravity = AVLayerVideoGravityResize;
             [_playBackView.layer insertSublayer:_playerLayer atIndex:0];
             [self setNeedsLayout];
+            [self hideMoreButtons];
         }];
         [_downloadTask resume];
         [manager setDownloadTaskDidWriteDataBlock:^(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
@@ -566,46 +567,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             }
         }
     }
-    
-//    //往期AR关卡
-//    if (_question.type == 0 && _question.questionID!=questionInfo.questionID) {
-//        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked"] forState:UIControlStateNormal];
-//        [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked_highlight"] forState:UIControlStateHighlighted];
-//        _hintButton.hidden = YES;
-//    } else {
-//        if (_question.isPassed == NO) {
-//            [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
-//            //判断是否需要显示"获取提示"
-//            if (_question.questionID == questionInfo.questionID) {
-//                _hintButton.hidden = (_questionInfo.endTime - time(NULL))>(3600*16)?YES:NO;
-//            } else {
-//                _hintButton.hidden = ![[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] boolValue];
-//            }
-//            
-//            //判断答题按钮图标
-//            if (_question.type == 0) {
-//                // ar
-//                [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam"] forState:UIControlStateNormal];
-//                [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam_highlight"] forState:UIControlStateHighlighted];
-//            } else {
-//                [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
-//                [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
-//            }
-//        } else {
-//            [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_more"] forState:UIControlStateNormal];
-//            [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_more_highlight"] forState:UIControlStateHighlighted];
-//            if (_question.isPassed) {
-//                //已答对的题目
-//                _hintButton.hidden = YES;
-//                [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
-//                
-//            } else {
-//                //未答对的题目
-//                _hintButton.hidden = YES;
-//                [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_get_hint"] forState:UIControlStateNormal];
-//            }
-//        }
-//    }
     
     [_contentLabel sizeToFit];
     _pauseImageView.hidden = YES;
