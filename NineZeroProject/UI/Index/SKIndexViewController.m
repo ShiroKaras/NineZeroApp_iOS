@@ -185,6 +185,27 @@
         make.right.equalTo(weakSelf.view).offset(-10);
     }];
     
+    UILabel *headerLabel = [UILabel new];
+    headerLabel.text = @"下滑开启扫一扫";
+    headerLabel.font = [UIFont systemFontOfSize:14];
+    headerLabel.textColor = [UIColor colorWithHex:0x00DFB4];
+    [headerLabel sizeToFit];
+    [self.view addSubview:headerLabel];
+    
+    UIImageView *scanningMascotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_scanning"]];
+    [scanningMascotImageView sizeToFit];
+    [self.view addSubview:scanningMascotImageView];
+    
+    [headerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.view.mas_top).offset(8);
+        make.centerX.equalTo(weakSelf.view.mas_centerX);
+    }];
+    
+    [scanningMascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.view.mas_top);
+        make.right.equalTo(headerLabel.mas_left).offset(-5);
+    }];
+    
     //通知标记
     _notificationFlag = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_profile_notification_number"]];
     [self.view addSubview:_notificationFlag];
