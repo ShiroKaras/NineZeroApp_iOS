@@ -95,14 +95,12 @@
     [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
         self.questionList = questionList;
         
-        if (FIRST_LAUNCH) {
-            if ([UD mutableArrayValueForKey:kQuestionHintArray].count == 0) {
-                NSMutableArray *hintArray = [NSMutableArray array];
-                for (HTQuestion *question in questionList) {
-                    [hintArray addObject:@0];
-                }
-                [UD setObject:hintArray forKey:kQuestionHintArray];
+        if ([UD mutableArrayValueForKey:kQuestionHintArray]==nil || [UD mutableArrayValueForKey:kQuestionHintArray].count==0) {
+            NSMutableArray *hintArray = [NSMutableArray array];
+            for (HTQuestion *question in questionList) {
+                [hintArray addObject:@0];
             }
+            [UD setObject:hintArray forKey:kQuestionHintArray];
         } else {
             if ([UD mutableArrayValueForKey:kQuestionHintArray].count < questionList.count) {
                 do {

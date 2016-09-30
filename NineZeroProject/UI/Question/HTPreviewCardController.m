@@ -128,7 +128,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self loadUnreadArticleFlag];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self.navigationController.navigationBar setHidden:YES];
     if (self.cardType == HTPreviewCardTypeDefault) {
@@ -713,7 +712,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)composeWithAnswer:(NSString *)answer question:(HTQuestion *)question {
-    static int clickCount = 0;
     _composeView.composeButton.enabled = NO;
     [[[HTServiceManager sharedInstance] questionService] verifyQuestion:question.questionID withAnswer:answer callback:^(BOOL success, HTResponsePackage *response) {
         _composeView.composeButton.enabled = YES;
@@ -721,13 +719,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             if (response.resultCode == 0) {
                 [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
                 [_composeView showAnswerCorrect:YES];
-                clickCount = 0;
-                [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *qL) {
-                    questionList = [qL mutableCopy];
-                    [self willAppearQuestionAtIndex:questionList.count - 1];
-                    [self.collectionView reloadData];
-//                    questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
-                }];
+                [self willAppearQuestionAtIndex:questionList.count - 1];
+                [self.collectionView reloadData];
+                [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *qL) { }];
                 // 获取成功了，开始分刮奖励
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
@@ -739,7 +733,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                         reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                     }
                     [self presentViewController:reward animated:YES completion:nil];
-//                    [[HTUIHelper mainController] reloadMascotViewData];
                 });
             } else {
                 if (_clickCount >= 2) {
