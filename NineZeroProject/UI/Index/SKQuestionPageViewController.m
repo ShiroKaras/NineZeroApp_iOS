@@ -10,7 +10,7 @@
 #import "HTPreviewCardController.h"
 #import "SKHelperView.h"
 
-#define PAGE_COUNT (ceilf(self.questionList.count/12))
+#define PAGE_COUNT (ceil(self.questionList.count/12.))
 
 @interface SKQuestionPageViewController ()<UIScrollViewDelegate, HTPreviewCardControllerDelegate, SKHelperScrollViewDelegate>
 
