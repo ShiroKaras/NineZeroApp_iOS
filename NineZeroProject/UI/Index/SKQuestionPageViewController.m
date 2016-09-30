@@ -31,7 +31,7 @@
     if (!_isMonday) {
         [dataArray removeLastObject];
     }
-    [self updateUIWithData:dataArray];
+    [self createUIWithData:dataArray];
     [TalkingData trackPageBegin:@"alllevelspage"];
 }
 
@@ -110,8 +110,12 @@
     }];
 }
 
-- (void)updateUIWithData:(NSArray<HTQuestion*>*)questionList {
+- (void)createUIWithData:(NSArray<HTQuestion*>*)questionList {
     self.questionList = questionList;
+    
+    for (UIView *view in self.mScrollView.subviews) {
+        [view removeFromSuperview];
+    }
     
     for (int questionNumber=0; questionNumber<questionList.count; questionNumber++) {
         int pageNumber = floor(questionNumber/12);
@@ -199,6 +203,10 @@
         make.top.equalTo(_mScrollView.mas_bottom).offset(42);
         make.height.equalTo(@(8));
     }];
+}
+
+- (void)updateUIWithData:(NSArray<HTQuestion*>*)questionList {
+    
 }
 
 #pragma mark - UIScrollViewDelegate
