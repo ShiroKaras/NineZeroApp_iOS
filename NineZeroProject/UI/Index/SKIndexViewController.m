@@ -97,7 +97,7 @@
         
         if ([UD mutableArrayValueForKey:kQuestionHintArray]==nil || [UD mutableArrayValueForKey:kQuestionHintArray].count==0) {
             NSMutableArray *hintArray = [NSMutableArray array];
-            for (HTQuestion *question in questionList) {
+            for (int i = 0; i<questionList.count; i++) {
                 [hintArray addObject:@0];
             }
             [UD setObject:hintArray forKey:kQuestionHintArray];
@@ -402,7 +402,7 @@
 #pragma mark - Time
 
 - (void)setQuestionInfo:(HTQuestionInfo *)questionInfo {
-    _endTime = (time_t)questionInfo.endTime;
+    _endTime = questionInfo.endTime;
     [self scheduleCountDownTimer];
 }
 
