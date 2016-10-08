@@ -67,6 +67,6 @@
 #define FIRST_LAUNCH_QUESTIONVIEW ![UD boolForKey:@"firstLaunchQuestionView"]
 #define FIRST_LAUNCH_MASCOTVIEW   ![UD boolForKey:@"firstLaunchMascotView"]
 
-#define kQuestionHintArray @"kQuestionHintArray"
+#define kQuestionHintArray @"kQuestionHintArrayFixed"
 
 #endif /* CommonDefine_h */
