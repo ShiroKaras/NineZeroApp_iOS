@@ -20,25 +20,42 @@
 
 #define EVERYDAY_FIRST_ACTIVITY_NOTIFICATION @"EVERYDAY_FIRST_ACTIVITY_NOTIFICATION"
 
-@interface SKIndexViewController () <HTPreviewCardControllerDelegate>
+#define minTranslateYToSkip 0.35
+#define animationTime 0.25f
+#define translationAccelerate 1.5f
 
-@property (nonatomic, strong) UIButton *timerLevelButton;
-@property (nonatomic, strong) UIView   *timerLevelCountView;
-@property (nonatomic, strong) UIView   *relaxDayCountView;
-@property (nonatomic, strong) SKActivityNotificationView *activityNotificationView;
+typedef enum {
+    BSScrollDirectionUnknown,
+    BSScrollDirectionFromBottomToTop,
+    BSScrollDirectionFromTopToBottom
+} BSScrollDirection;
+
+@interface SKIndexViewController () <HTPreviewCardControllerDelegate, UIGestureRecognizerDelegate>
+
+@property (nonatomic, strong) UIButton  *timerLevelButton;
+@property (nonatomic, strong) UIView    *timerLevelCountView;
+@property (nonatomic, strong) UIView    *relaxDayCountView;
+@property (nonatomic, strong) SKActivityNotificationView    *activityNotificationView;
 @property (nonatomic, strong) UIImageView *notificationFlag;
+@property (nonatomic, strong) UIView    *swipeView;
+@property (nonatomic, strong) UIImageView *cameraImageView;
 
-@property (nonatomic, strong) NSArray<HTQuestion*>* questionList;
-@property (nonatomic, strong) HTQuestionInfo *questionInfo;
-@property (nonatomic, strong) HTUserInfo *userInfo;
-@property (nonatomic, strong) NSArray<HTMascot *> *mascots;
-@property (nonatomic, strong) UILabel *timeLabel;
-@property (nonatomic, strong) UILabel *relaxDayTimeLabel;
-@property (nonatomic, assign) uint64_t endTime;
-@property (nonatomic, assign) BOOL isMonday;
+@property (nonatomic, strong) NSArray<HTQuestion*>  *questionList;
+@property (nonatomic, strong) NSArray<HTMascot *>   *mascots;
+@property (nonatomic, strong) HTQuestionInfo        *questionInfo;
+@property (nonatomic, strong) HTUserInfo            *userInfo;
+@property (nonatomic, strong) UILabel   *timeLabel;
+@property (nonatomic, strong) UILabel   *relaxDayTimeLabel;
+@property (nonatomic, assign) uint64_t  endTime;
+@property (nonatomic, assign) BOOL  isMonday;
 @end
 
-@implementation SKIndexViewController
+@implementation SKIndexViewController {
+    UIPanGestureRecognizer *_panGesture;
+    BOOL _isOnTop;
+    
+    BSScrollDirection _scrollDirection;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -48,6 +65,9 @@
     [HTProgressHUD show];
     [self loadData];
     [self judgementDate];
+    if (_swipeView != nil) {
+        [self removeSnapshotViewFromSuperView];
+    }
     [TalkingData trackPageBegin:@"homepage"];
 }
 
@@ -390,6 +410,11 @@
         make.center.equalTo(_timerLevelCountView);
     }];
     
+    _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
+    [_panGesture setDelegate:self];
+    [self.view addGestureRecognizer:_panGesture];
+    
+    //活动通知
     _activityNotificationView = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     _activityNotificationView.hidden = YES;
     [self.view addSubview:_activityNotificationView];
@@ -521,6 +546,157 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+#pragma mark - panGestureRecognized
+//轻扫手势触发方法
+-(void)swipeGesture:(id)sender
+{
+    UISwipeGestureRecognizer *swipe = sender;
+    if (swipe.direction == UISwipeGestureRecognizerDirectionDown)
+    {
+        //向下轻扫
+        [UIView animateWithDuration:animationTime animations:^{
+            _swipeView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            _cameraImageView.centerX = _swipeView.centerX;
+            _cameraImageView.centerY = _swipeView.centerY;
+        } completion:^(BOOL finished) {
+
+        }];
+    }
+}
+
+- (void)panGestureRecognized:(UIPanGestureRecognizer *)sender {
+    CGPoint translate = [sender translationInView:self.view];
+    translate.y = translate.y * translationAccelerate;
+    CGFloat boundsW = CGRectGetWidth(self.view.bounds);
+    CGFloat boundsH = CGRectGetHeight(self.view.bounds);
+    
+    switch (sender.state) {
+        case UIGestureRecognizerStateBegan:
+            // reset all values
+            _scrollDirection = BSScrollDirectionUnknown;
+            _isOnTop = NO;
+            _cameraImageView.centerX = _swipeView.centerX;
+            _cameraImageView.centerY = _swipeView.centerY;
+            break;
+            
+        case UIGestureRecognizerStateChanged: {
+            
+            // Determinate Scroll Direction
+            if (_scrollDirection == BSScrollDirectionUnknown) {
+                _scrollDirection = translate.y < 0 ? BSScrollDirectionFromBottomToTop : BSScrollDirectionFromTopToBottom;
+                // add snapshot on top
+                [self addSnapshotViewOnTopWithDirection:_scrollDirection];
+            }
+            
+            _swipeView.frame = CGRectMake(0, -boundsH + translate.y, boundsW, boundsH);
+            _cameraImageView.centerX = _swipeView.centerX;
+            _cameraImageView.centerY = _swipeView.centerY;
+            
+            // If snapshot doesnt exist -> set isOnTop
+            if (!_swipeView) {
+                _isOnTop = YES;
+            }
+            
+            // Is on top and pulling to from top to bottom, gesture is driven by handlePanGestureToPullToRefresh
+            if (_isOnTop && _scrollDirection == BSScrollDirectionFromTopToBottom) {
+                return;
+            }
+            
+            break;
+        }
+        case UIGestureRecognizerStateCancelled : {
+            // gesture was canceled - snapshot view backs to start position
+            // collection view has no more items to show, pangesture is available only for 50px
+            [UIView animateWithDuration:animationTime animations:^{
+                if (_scrollDirection == BSScrollDirectionFromBottomToTop) {
+                    CGRect endRect = CGRectMake(0, 0, boundsW, boundsH);
+                    [_swipeView setFrame:endRect];
+                } else {
+                    _swipeView.frame = CGRectMake(0, -boundsH, boundsW, boundsH);
+                    _cameraImageView.centerX = _swipeView.centerX;
+                    _cameraImageView.centerY = _swipeView.centerY;
+                }
+            } completion:^(BOOL finished) {
+                [self removeSnapshotViewFromSuperView];
+            }];
+            break;
+        }
+        case UIGestureRecognizerStateEnded: {
+            // pull to refresh dragging, handled by handlePanGestureToPullToRefresh
+            if (_isOnTop && _scrollDirection == BSScrollDirectionFromTopToBottom) {
+                return;
+            }
+            
+            if (_scrollDirection == BSScrollDirectionFromTopToBottom && translate.y > minTranslateYToSkip * boundsH) {
+                [UIView animateWithDuration:animationTime animations:^{
+                    _swipeView.frame = CGRectMake(0, 0, boundsW, boundsH);
+                    _cameraImageView.centerX = _swipeView.centerX;
+                    _cameraImageView.centerY = _swipeView.centerY;
+                } completion:^(BOOL finished) {
+                    UIViewController *controller = [UIViewController new];
+                    [self.navigationController pushViewController:controller animated:NO];
+                }];
+            } else {
+                [UIView animateWithDuration:animationTime animations:^{
+                    _swipeView.frame = CGRectMake(0, -boundsH, boundsW, boundsH);
+                    _cameraImageView.centerX = _swipeView.centerX;
+                    _cameraImageView.centerY = _swipeView.centerY;
+                } completion:^(BOOL finished) {
+                    [self removeSnapshotViewFromSuperView];
+                }];
+            }
+            
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)removeSnapshotViewFromSuperView {
+    [_swipeView removeFromSuperview];
+    _swipeView = nil;
+}
+
+
+- (void)addSnapshotViewOnTopWithDirection:(BSScrollDirection)direction{
+    [self removeSnapshotViewFromSuperView];
+    
+    switch (direction) {
+        case BSScrollDirectionFromBottomToTop:
+            //下滑扫一扫
+            _swipeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+            _swipeView.backgroundColor = [UIColor blackColor];
+            _swipeView.alpha = 0.6;
+            [self.view addSubview:_swipeView];
+            
+            _cameraImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_camera"]];
+            [_cameraImageView sizeToFit];
+            _cameraImageView.centerX = _swipeView.centerX;
+            _cameraImageView.centerY = _swipeView.centerY;
+            [_swipeView addSubview:_cameraImageView];
+
+            break;
+        case BSScrollDirectionFromTopToBottom:
+            //下滑扫一扫
+            _swipeView = [[UIView alloc] initWithFrame:CGRectMake(0, -SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
+            _swipeView.backgroundColor = [UIColor blackColor];
+            _swipeView.alpha = 0.6;
+            [self.view addSubview:_swipeView];
+            
+            _cameraImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_camera"]];
+            [_cameraImageView sizeToFit];
+            _cameraImageView.centerX = _swipeView.centerX;
+            _cameraImageView.centerY = _swipeView.centerY;
+            [_swipeView addSubview:_cameraImageView];
+
+            [self.view addSubview:_swipeView];
+            
+            break;
+        default:
+            break;
+    }
+}
 #pragma mark - Util
 
 - (void)showFlag:(NSInteger)unreadCount {

@@ -2902,7 +2902,6 @@
 		1777D3671BE798F400AC0203 /* NineZeroProject */ = {
 			isa = PBXGroup;
 			children = (
-				11838DD11D953728001A24A3 /* NineZeroProject.entitlements */,
 				110F9D801CD881090097EB8A /* Resource */,
 				1777D36B1BE798F400AC0203 /* AppDelegate.h */,
 				1777D36C1BE798F400AC0203 /* AppDelegate.m */,
@@ -2918,6 +2917,7 @@
 		1777D3681BE798F400AC0203 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				11838DD11D953728001A24A3 /* NineZeroProject.entitlements */,
 				1777D3691BE798F400AC0203 /* main.m */,
 			);
 			name = "Supporting Files";
