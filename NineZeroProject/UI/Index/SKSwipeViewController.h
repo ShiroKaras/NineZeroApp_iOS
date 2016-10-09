@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OpenGLView.h"
 
 @interface SKSwipeViewController : UIViewController
+
+@property(nonatomic, strong) OpenGLView *glView;
 
 @end

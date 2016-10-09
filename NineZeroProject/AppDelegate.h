@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) SKIndexViewController *mainController;
 @property (nonatomic, strong) NSString *cityCode;
+@property (atomic) bool active;
 
 @end
 

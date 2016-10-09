@@ -50,6 +50,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _cityCode = @"010";
+    _active = true;
     
     if (![UD boolForKey:@"everLaunched"]) {
         [UD setBool:YES forKey:@"firstLaunch"];
@@ -93,6 +94,11 @@
 }
 #endif
 
+- (void)applicationWillResignActive:(UIApplication *)application {
+    (void)application;
+    _active = false;
+}
+
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(120.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -110,6 +116,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     DLog(@"applicationDidBecomeActive");
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    _active = true;
     [JPUSHService resetBadge];
 }
 
@@ -130,6 +137,10 @@
     }
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    _active = false;
 }
 
 //- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{

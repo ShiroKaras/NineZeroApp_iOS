@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include "ar.hpp"
-#include "renderer.hpp"
 
 /*
 * Steps to create the key for this sample:
@@ -34,7 +33,6 @@ public:
     virtual void render();
 private:
     Vec2I view_size;
-    Renderer renderer;
 };
 
 HelloAR::HelloAR()
@@ -44,7 +42,6 @@ HelloAR::HelloAR()
 
 void HelloAR::initGL()
 {
-    renderer.init();
     augmenter_ = Augmenter();
 }
 
@@ -83,10 +80,7 @@ void HelloAR::render()
     for (int i = 0; i < frame.targets().size(); ++i) {
         AugmentedTarget::Status status = frame.targets()[i].status();
         if(status == AugmentedTarget::kTargetStatusTracked){
-            Matrix44F projectionMatrix = getProjectionGL(camera_.cameraCalibration(), 0.2f, 500.f);
-            Matrix44F cameraview = getPoseGL(frame.targets()[i].pose());
-            ImageTarget target = frame.targets()[i].target().cast_dynamic<ImageTarget>();
-            renderer.render(projectionMatrix, cameraview, target.size());
+            NSLog(@"Get Image");
         }
     }
 }
