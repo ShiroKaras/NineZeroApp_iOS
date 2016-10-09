@@ -20,9 +20,9 @@
 
 #define EVERYDAY_FIRST_ACTIVITY_NOTIFICATION @"EVERYDAY_FIRST_ACTIVITY_NOTIFICATION"
 
-#define minTranslateYToSkip 0.35
+#define minTranslateYToSkip 0.25
 #define animationTime 0.25f
-#define translationAccelerate 1.5f
+#define translationAccelerate 1.f
 
 typedef enum {
     BSScrollDirectionUnknown,
@@ -588,9 +588,9 @@ typedef enum {
                 [self addSnapshotViewOnTopWithDirection:_scrollDirection];
             }
             
-            _swipeView.frame = CGRectMake(0, -boundsH + translate.y, boundsW, boundsH);
-            _cameraImageView.centerX = _swipeView.centerX;
-            _cameraImageView.centerY = _swipeView.centerY;
+            _swipeView.alpha = 0.7 * translate.y/SCREEN_HEIGHT;
+            _cameraImageView.centerX = self.view.centerX;
+            _cameraImageView.centerY = -_cameraImageView.height/2 + translate.y/2;
             
             // If snapshot doesnt exist -> set isOnTop
             if (!_swipeView) {
@@ -612,9 +612,9 @@ typedef enum {
                     CGRect endRect = CGRectMake(0, 0, boundsW, boundsH);
                     [_swipeView setFrame:endRect];
                 } else {
-                    _swipeView.frame = CGRectMake(0, -boundsH, boundsW, boundsH);
-                    _cameraImageView.centerX = _swipeView.centerX;
-                    _cameraImageView.centerY = _swipeView.centerY;
+                    _swipeView.alpha = 0.7;
+                    _cameraImageView.centerX = self.view.centerX;
+                    _cameraImageView.centerY = self.view.centerY;
                 }
             } completion:^(BOOL finished) {
                 [self removeSnapshotViewFromSuperView];
@@ -629,18 +629,18 @@ typedef enum {
             
             if (_scrollDirection == BSScrollDirectionFromTopToBottom && translate.y > minTranslateYToSkip * boundsH) {
                 [UIView animateWithDuration:animationTime animations:^{
-                    _swipeView.frame = CGRectMake(0, 0, boundsW, boundsH);
-                    _cameraImageView.centerX = _swipeView.centerX;
-                    _cameraImageView.centerY = _swipeView.centerY;
+                    _swipeView.alpha = 0.7;
+                    _cameraImageView.centerX = self.view.centerX;
+                    _cameraImageView.centerY = self.view.centerY;
                 } completion:^(BOOL finished) {
                     UIViewController *controller = [UIViewController new];
                     [self.navigationController pushViewController:controller animated:NO];
                 }];
             } else {
                 [UIView animateWithDuration:animationTime animations:^{
-                    _swipeView.frame = CGRectMake(0, -boundsH, boundsW, boundsH);
-                    _cameraImageView.centerX = _swipeView.centerX;
-                    _cameraImageView.centerY = _swipeView.centerY;
+                    _swipeView.alpha = 0;
+                    _cameraImageView.centerX = self.view.centerX;
+                    _cameraImageView.bottom = self.view.top;
                 } completion:^(BOOL finished) {
                     [self removeSnapshotViewFromSuperView];
                 }];
@@ -656,6 +656,8 @@ typedef enum {
 - (void)removeSnapshotViewFromSuperView {
     [_swipeView removeFromSuperview];
     _swipeView = nil;
+    [_cameraImageView removeFromSuperview];
+    _cameraImageView = nil;
 }
 
 
@@ -667,30 +669,28 @@ typedef enum {
             //下滑扫一扫
             _swipeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
             _swipeView.backgroundColor = [UIColor blackColor];
-            _swipeView.alpha = 0.6;
+            _swipeView.alpha = 0;
             [self.view addSubview:_swipeView];
             
             _cameraImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_camera"]];
             [_cameraImageView sizeToFit];
-            _cameraImageView.centerX = _swipeView.centerX;
-            _cameraImageView.centerY = _swipeView.centerY;
-            [_swipeView addSubview:_cameraImageView];
+            _cameraImageView.centerX = self.view.centerX;
+            _cameraImageView.bottom = self.view.top;
+            [self.view addSubview:_cameraImageView];
 
             break;
         case BSScrollDirectionFromTopToBottom:
             //下滑扫一扫
-            _swipeView = [[UIView alloc] initWithFrame:CGRectMake(0, -SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
+            _swipeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
             _swipeView.backgroundColor = [UIColor blackColor];
-            _swipeView.alpha = 0.6;
+            _swipeView.alpha = 0;
             [self.view addSubview:_swipeView];
             
             _cameraImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_camera"]];
             [_cameraImageView sizeToFit];
-            _cameraImageView.centerX = _swipeView.centerX;
-            _cameraImageView.centerY = _swipeView.centerY;
-            [_swipeView addSubview:_cameraImageView];
-
-            [self.view addSubview:_swipeView];
+            _cameraImageView.centerX = self.view.centerX;
+            _cameraImageView.bottom = self.view.top;
+            [self.view addSubview:_cameraImageView];
             
             break;
         default:
