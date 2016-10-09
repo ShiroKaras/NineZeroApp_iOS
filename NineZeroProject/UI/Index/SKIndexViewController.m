@@ -15,6 +15,7 @@
 #import "HTNotificationController.h"
 #import "HTProfileRankController.h"
 #import "SKActivityNotificationView.h"
+#import "SKSwipeViewController.h"
 
 #import "HTUIHeader.h"
 
@@ -633,8 +634,8 @@ typedef enum {
                     _cameraImageView.centerX = self.view.centerX;
                     _cameraImageView.centerY = self.view.centerY;
                 } completion:^(BOOL finished) {
-                    UIViewController *controller = [UIViewController new];
-                    [self.navigationController pushViewController:controller animated:NO];
+                    SKSwipeViewController *swipeViewController = [[SKSwipeViewController alloc] init];
+                    [self.navigationController pushViewController:swipeViewController animated:NO];
                 }];
             } else {
                 [UIView animateWithDuration:animationTime animations:^{

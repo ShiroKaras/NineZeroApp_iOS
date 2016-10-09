@@ -31,6 +31,7 @@
 		117418191D89396400B5458F /* SKRankInQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1174180D1D89396400B5458F /* SKRankInQuestionViewController.m */; };
 		11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
+		11AD0C331DAA1E0D007951C5 /* SKSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11AD0C321DAA1E0D007951C5 /* SKSwipeViewController.m */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
 		11B44EC41D8FF30D00CD2BAC /* trailer_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 11B44EC31D8FF30D00CD2BAC /* trailer_video.mp4 */; };
 		11BC2DFE1D93C98200C9E775 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFC1D93C98200C9E775 /* libTalkingData.a */; };
@@ -828,6 +829,8 @@
 		11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		1196F29F1CF6DFA600E70C83 /* SKImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKImageHelper.h; sourceTree = "<group>"; };
 		1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKImageHelper.m; sourceTree = "<group>"; };
+		11AD0C311DAA1E0D007951C5 /* SKSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKSwipeViewController.h; path = Index/SKSwipeViewController.h; sourceTree = "<group>"; };
+		11AD0C321DAA1E0D007951C5 /* SKSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKSwipeViewController.m; path = Index/SKSwipeViewController.m; sourceTree = "<group>"; };
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
 		11B385E41CCBA5F8009B8D6F /* SKShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKShareView.m; sourceTree = "<group>"; };
 		11B44EC31D8FF30D00CD2BAC /* trailer_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = trailer_video.mp4; sourceTree = "<group>"; };
@@ -1816,6 +1819,8 @@
 				117417F31D7FE3CC00B5458F /* SKHelperView.m */,
 				117417F51D86A1B100B5458F /* SKActivityNotificationView.h */,
 				117417F61D86A1B100B5458F /* SKActivityNotificationView.m */,
+				11AD0C311DAA1E0D007951C5 /* SKSwipeViewController.h */,
+				11AD0C321DAA1E0D007951C5 /* SKSwipeViewController.m */,
 			);
 			name = Index;
 			sourceTree = "<group>";
@@ -4263,6 +4268,7 @@
 				176B756E1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m in Sources */,
 				17FA11391C835C6500FA9102 /* HTNotificationCell.m in Sources */,
 				17FA112D1C8343DA00FA9102 /* HTFeedbackController.m in Sources */,
+				11AD0C331DAA1E0D007951C5 /* SKSwipeViewController.m in Sources */,
 				17FA11321C8357E800FA9102 /* HTCollectionController.m in Sources */,
 				17FA11361C835BE000FA9102 /* HTNotificationController.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,
