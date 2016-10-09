@@ -65,7 +65,7 @@
     [self registerShareSDK];
     [self registerUmeng];
     [self registerUserAgent];
-//    [self registerTalkingData];
+    [self registerTalkingData];
     
     [NSThread sleepForTimeInterval:2];
     [self createWindowAndVisibleWithOptions:launchOptions];
