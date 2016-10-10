@@ -7,9 +7,10 @@
 //
 
 #import "SKSwipeViewController.h"
+#import "HTUIHeader.h"
 
 @interface SKSwipeViewController ()
-
+@property (nonatomic, strong) UIImageView *scanningGridLine;
 @end
 
 @implementation SKSwipeViewController
@@ -19,6 +20,24 @@
     self.glView = [[OpenGLView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.glView];
     [self.glView setOrientation:self.interfaceOrientation];
+    
+    _scanningGridLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scanning_gridlines"]];
+    [_scanningGridLine sizeToFit];
+    _scanningGridLine.top = 0;
+    _scanningGridLine.right = 0;
+    [self.view addSubview:_scanningGridLine];
+    
+    [UIView animateWithDuration:1.0 animations:^{
+        _scanningGridLine.left = SCREEN_WIDTH;
+    } completion:^(BOOL finished) {
+        _scanningGridLine.right = 0;
+        _scanningGridLine.alpha = 0.4;
+        [UIView animateWithDuration:1.0 animations:^{
+            _scanningGridLine.left = SCREEN_WIDTH;
+        } completion:^(BOOL finished) {
+            [_scanningGridLine removeFromSuperview];
+        }];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
