@@ -159,6 +159,8 @@ EasyAR::samples::HelloAR ar;
 
 - (void)start{
     
+    ar.initCamera();
+    
     NSString *urlString = @"http://imgbbs.heiguang.net/forum/201507/04/111650h7or5rd5o452dd5z.jpg";
     NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:urlString]];
     UIImage *image = [UIImage imageWithData:data]; // 取得图片
@@ -176,12 +178,6 @@ EasyAR::samples::HelloAR ar;
         ar.loadFromImage([imageFilePath UTF8String], 0);
         ar.start();
     }
-    
-    ar.initCamera();
-
-//    ar.loadFromJsonFile("targets.json", "argame", 1);
-//    ar.loadFromJsonFile("targets.json", "idback", 0);
-//    ar.loadAllFromJsonFile("targets2.json", 1);
     
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkCallback:)];
     [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
