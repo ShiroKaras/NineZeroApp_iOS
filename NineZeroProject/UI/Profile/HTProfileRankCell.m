@@ -9,7 +9,8 @@
 #import "HTProfileRankCell.h"
 #import "HTUIHeader.h"
 
-#define ScaleToScreen ((SCREEN_WIDTH-20)/288.)
+#define ScaleToScreen ((SCREEN_WIDTH-32)/288.)
+#define PADDING 16
 
 @interface HTProfileProgressView ()
 @property (nonatomic, strong) UIView *backView;
@@ -250,12 +251,12 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    _backView.frame = CGRectMake(10, 0, SCREEN_WIDTH-20, self.height);
+    _backView.frame = CGRectMake(PADDING, 0, SCREEN_WIDTH-PADDING*2, self.height);
     
-    _orderImageView.left = 10;
+    _orderImageView.left = PADDING;
     _orderImageView.centerY = self.height / 2;
-    _orderLabel.frame = CGRectMake(30, self.height / 2 - 10, 39, 20);
-    _avatar.frame = CGRectMake(77, self.height / 2 - 28, 56, 56);
+    _orderLabel.frame = CGRectMake(PADDING+20, self.height / 2 - 10, 39, 20);
+    _avatar.frame = CGRectMake(PADDING +67, self.height / 2 - 28, 56, 56);
     _avatar.layer.cornerRadius = 28;
     _avatar.layer.masksToBounds = YES;
     _nickName.frame = CGRectMake(_avatar.right + 16, 18, 190, 15);
@@ -264,7 +265,7 @@
     _coinLabel.left = _coinImageView.right + 6;
     _coinLabel.centerY = _coinImageView.centerY;
     
-    _separator.frame = CGRectMake(10, self.height - 1, SCREEN_WIDTH-20, 1);
+    _separator.frame = CGRectMake(PADDING, self.height - 1, SCREEN_WIDTH-PADDING*2, 1);
     
     //TOP
     _topBackView.left = 0;
@@ -274,7 +275,7 @@
     
     _topBackImageView.centerX = _topBackView.centerX;
     _topBackImageView.top = _topBackView.top;
-    _topBackImageView.width = SCREEN_WIDTH-20;
+    _topBackImageView.width = SCREEN_WIDTH-PADDING*2;
     _topBackImageView.height = 281.*ScaleToScreen;
     
     _ranker_1_Avatar.width = 72*ScaleToScreen;
