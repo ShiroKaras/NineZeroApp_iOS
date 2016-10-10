@@ -10,7 +10,7 @@
 #import "HTProfileRankCell.h"
 #import "HTUIHeader.h"
 
-#define RIGISTER_CLASS(clazz)  [self.tableView registerClass:[clazz class] forCellReuseIdentifier:NSStringFromClass([clazz class])];
+#define REGISTER_CLASS(clazz)  [self.tableView registerClass:[clazz class] forCellReuseIdentifier:NSStringFromClass([clazz class])];
 
 @interface HTProfileRankController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray<HTRanker *> *rankerList;
@@ -25,28 +25,28 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-    headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
-    UILabel *titleLabel = [UILabel new];
-    titleLabel.text = @"排行榜";
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = [UIFont systemFontOfSize:17];
-    [titleLabel sizeToFit];
-    titleLabel.center = headerView.center;
-    [headerView addSubview:titleLabel];
-    [self.view addSubview:headerView];
+//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+//    headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
+//    UILabel *titleLabel = [UILabel new];
+//    titleLabel.text = @"排行榜";
+//    titleLabel.textColor = [UIColor whiteColor];
+//    titleLabel.font = [UIFont systemFontOfSize:17];
+//    [titleLabel sizeToFit];
+//    titleLabel.center = headerView.center;
+//    [headerView addSubview:titleLabel];
+//    [self.view addSubview:headerView];
     
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5)];
+//    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5)];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
-    self.title = @"排行榜";
-    RIGISTER_CLASS(HTProfileRankCell);
+    
+    REGISTER_CLASS(HTProfileRankCell);
 
     self.rankerList = [NSArray array];
     _myRank = [[HTRanker alloc] init];
@@ -98,24 +98,34 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (_rankerList.count == 0) return 0;
-    return _rankerList.count + 1;
+    return _rankerList.count - 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HTProfileRankCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileRankCell class])   forIndexPath:indexPath];
+
     if (indexPath.row == 0) {
+        NSArray<HTRanker*>* topRankers = [NSArray arrayWithObjects:_rankerList[0], _rankerList[1], _rankerList[2], nil];
+        [cell setTopThreeRankers:topRankers];
+        return cell;
+    } else if (indexPath.row == 1) {
         [cell setRanker:_myRank];
         [cell showWithMe:YES];
+        return cell;
     } else {
-        HTRanker *ranker = _rankerList[indexPath.row - 1];
+        HTRanker *ranker = _rankerList[indexPath.row +1];
         [cell setRanker:ranker];
         [cell showWithMe:NO];
+        return cell;
     }
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 75;
+    if (indexPath.row == 0) {
+        return (SCREEN_WIDTH-20)/288.*281.;
+    } else {
+        return 74;
+    }
 }
 
 @end

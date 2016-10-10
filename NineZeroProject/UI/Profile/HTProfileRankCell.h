@@ -18,6 +18,7 @@
 @interface HTProfileRankCell : UITableViewCell
 
 @property (nonatomic, strong) HTRanker *ranker;
+@property (nonatomic, strong) NSArray<HTRanker*>* topThreeRankers;
 
 - (void)showWithMe:(BOOL)me;
 
