@@ -179,7 +179,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         _dimmingView.alpha = 0;
         UITapGestureRecognizer *tapDimmingView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMoreButtons)];
         [_dimmingView addGestureRecognizer:tapDimmingView];
-        [AppDelegateInstance.window addSubview:_dimmingView];
+        [KEY_WINDOW addSubview:_dimmingView];
         
         _buttonMoreRank = [UIButton buttonWithType:UIButtonTypeCustom];
         _buttonMoreRank.alpha = 1;
@@ -578,11 +578,19 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)dealloc {
     [self stop];
+    if (_dimmingView) {
+        [self removeDimmingView];
+    }
     if (_shareView) {
         [_shareView removeFromSuperview];
     }
     _shareView = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)removeDimmingView {
+    [_dimmingView removeFromSuperview];
+    _dimmingView = nil;
 }
 
 - (void)play {

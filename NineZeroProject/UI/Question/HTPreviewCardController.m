@@ -164,6 +164,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [super viewWillDisappear:animated];
     //[[UIApplication sharedApplication] setStatusBarHidden:NO];
     [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(stop)];
+    [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(removeDimmingView)];
 }
 
 - (void)viewWillLayoutSubviews {
