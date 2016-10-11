@@ -6,6 +6,9 @@
 
 #import "OpenGLView.h"
 #import "AppDelegate.h"
+#import "HTUIHeader.h"
+#import "SKVideoView.h"
+#import <AVFoundation/AVFoundation.h>
 
 #include <iostream>
 #include "ar.hpp"
@@ -31,6 +34,7 @@ public:
     virtual void initGL();
     virtual void resizeGL(int width, int height);
     virtual void render();
+    int flag = 0;
 private:
     Vec2I view_size;
 };
@@ -81,10 +85,17 @@ void HelloAR::render()
         AugmentedTarget::Status status = frame.targets()[i].status();
         if(status == AugmentedTarget::kTargetStatusTracked){
             NSLog(@"Get Image");
+            if (flag == 0) {
+                SKVideoView *view = [[SKVideoView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+                [KEY_WINDOW addSubview:view];
+                flag = 1;
+            }
         }
     }
 }
 
+    
+    
 }
 }
 EasyAR::samples::HelloAR ar;
@@ -94,6 +105,10 @@ EasyAR::samples::HelloAR ar;
 }
 
 @property(nonatomic, strong) CADisplayLink * displayLink;
+
+@property (strong, nonatomic) AVPlayer      *player;
+@property (strong, nonatomic) AVPlayerLayer *playerLayer;
+@property (strong, nonatomic) AVPlayerItem  *playerItem;
 
 - (void)displayLinkCallback:(CADisplayLink*)displayLink;
 
