@@ -216,4 +216,14 @@
 @property (nonatomic, strong) NSString *medal_level;         // 拿到这个勋章需要的金币数
 @property (nonatomic, strong) NSString *medal_name;
 @property (nonatomic, strong) NSString *medal_pic;
+
+@end
+
+//扫一扫
+@interface HTScanning : NSObject
+@property (nonatomic, copy) NSString *status;       //状态（1：活动开启，0：活动关闭
+@property (nonatomic, copy) NSString *reward_id;
+@property (nonatomic, copy) NSString *file_url;
+@property (nonatomic, copy) NSString *link_url;
+@property (nonatomic, copy) NSString *link_type;    //链接类型（0：视频，1：GIF图，2：图片）
 @end

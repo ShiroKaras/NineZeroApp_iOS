@@ -13,12 +13,14 @@
 @class HTQuestion;
 @class HTArticle;
 @class HTResponsePackage;
+@class HTScanning;
 
 typedef void (^HTQuestionCallback) (BOOL success, HTQuestion *question);
 typedef void (^HTQuestionListCallback) (BOOL success, NSArray<HTQuestion *> *questionList);
 typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionInfo);
 typedef void (^HTAnswerDetailInfoCallback) (BOOL success, HTAnswerDetail *answerDetailInfo);
 typedef void (^HTGetUsersListCallback) (BOOL success, NSArray<HTRanker *> *ranker);
+typedef void (^HTGetScanningListCallback) (BOOL success, NSArray<HTScanning *> *ranker);
 
 /**
  *  该类只允许HTServiceManager创建一次，多次创建直接crash
@@ -121,5 +123,10 @@ typedef void (^HTGetUsersListCallback) (BOOL success, NSArray<HTRanker *> *ranke
  *  @brief 获取封面图
  */
 - (void)getCoverPicture:(HTResponseCallback)callback;
+
+/**
+ *  @brief 扫一扫
+ */
+- (void)getScanning:(HTGetScanningListCallback)callback;
 
 @end

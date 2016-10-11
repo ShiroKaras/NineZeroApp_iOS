@@ -185,3 +185,6 @@ HTINIT(HTMascot)
 
 @implementation HTBadge
 @end
+
+@implementation HTScanning
+@end

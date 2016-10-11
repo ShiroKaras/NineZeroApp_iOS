@@ -428,4 +428,22 @@
     return question;
 }
 
+- (void)getScanning:(HTGetScanningListCallback)callback {
+    [[AFHTTPRequestOperationManager manager] POST:@"http://101.201.39.169:8082/Scanning/getScanning" parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
+        if (package.resultCode == 0) {
+            NSMutableArray<HTScanning *> *scanningList = [NSMutableArray array];
+            for (int i=0; i< [package.data count]; i++) {
+                HTScanning *scanning = [HTScanning objectWithKeyValues:package.data[i]];
+                [scanningList addObject:scanning];
+            }
+            callback(true, scanningList);
+        } else {
+            callback(NO, nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(NO, nil);
+        DLog(@"%@", error);
+    }];
+}
 @end
