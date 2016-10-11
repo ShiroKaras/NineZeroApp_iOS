@@ -90,7 +90,37 @@ typedef enum {
     
     [HTProgressHUD show];
     [self createUI];
-//    [self loadData];
+    
+    [[[HTServiceManager sharedInstance] questionService] getScanning:^(BOOL success, NSArray<HTScanning *> *scanningList) {
+        DLog(@"%@", scanningList[0].file_url_true);
+        
+        // 本地沙盒目录
+        NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        //清除缓存
+        NSFileManager *fileManager=[NSFileManager defaultManager];
+        if ([fileManager fileExistsAtPath:path]) {
+            NSArray *childerFiles=[fileManager subpathsAtPath:path];
+            for (NSString *fileName in childerFiles) {
+                //如有需要，加入条件，过滤掉不想删除的文件
+                NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+                [fileManager removeItemAtPath:absolutePath error:nil];
+            }
+        }
+        
+        for (int i = 0; i<scanningList.count; i++) {
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:scanningList[i].file_url_true]];
+            UIImage *image = [UIImage imageWithData:data]; // 取得图片
+            
+            // 得到本地沙盒路径，"targetImage_x"是保存的图片名
+            NSString *imageFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"targetImage_%d.jpg",i]];
+            // 将取得的图片写入本地的沙盒中，其中0.5表示压缩比例，1表示不压缩，数值越小压缩比例越大
+            BOOL imageDownloadSuccess = [UIImageJPEGRepresentation(image, 1) writeToFile:imageFilePath  atomically:YES];
+            if (imageDownloadSuccess){
+                NSLog(@"写入本地成功");
+            }
+        }
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

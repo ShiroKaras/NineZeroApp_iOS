@@ -20,7 +20,7 @@ typedef void (^HTQuestionListCallback) (BOOL success, NSArray<HTQuestion *> *que
 typedef void (^HTQuestionInfoCallback) (BOOL success, HTQuestionInfo *questionInfo);
 typedef void (^HTAnswerDetailInfoCallback) (BOOL success, HTAnswerDetail *answerDetailInfo);
 typedef void (^HTGetUsersListCallback) (BOOL success, NSArray<HTRanker *> *ranker);
-typedef void (^HTGetScanningListCallback) (BOOL success, NSArray<HTScanning *> *ranker);
+typedef void (^HTGetScanningListCallback) (BOOL success, NSArray<HTScanning *> *scanningList);
 
 /**
  *  该类只允许HTServiceManager创建一次，多次创建直接crash

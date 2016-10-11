@@ -433,13 +433,25 @@
         HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
         if (package.resultCode == 0) {
             NSMutableArray<HTScanning *> *scanningList = [NSMutableArray array];
+            NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
             for (int i=0; i< [package.data count]; i++) {
                 HTScanning *scanning = [HTScanning objectWithKeyValues:package.data[i]];
                 [scanningList addObject:scanning];
+                if (scanning.file_url) [downloadKeys addObject:scanning.file_url];
             }
-            callback(true, scanningList);
+            [self getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, HTResponsePackage *response) {
+                if (success) {
+                    for (HTScanning *scanning in scanningList) {
+                        NSDictionary *dataDict = response.data;
+                        if (scanning.file_url) scanning.file_url_true = dataDict[scanning.file_url];
+                    }
+                    callback (YES, scanningList);
+                } else {
+                    callback (false, nil);
+                }
+            }];
         } else {
-            callback(NO, nil);
+            callback(false, nil);
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);

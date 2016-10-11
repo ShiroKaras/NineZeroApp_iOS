@@ -172,26 +172,14 @@ EasyAR::samples::HelloAR ar;
 }
 
 - (void)start{
-    
     ar.initCamera();
-    
-    NSString *urlString = @"http://imgbbs.heiguang.net/forum/201507/04/111650h7or5rd5o452dd5z.jpg";
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:urlString]];
-    UIImage *image = [UIImage imageWithData:data]; // 取得图片
     
     // 本地沙盒目录
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSLog(@"路径:%@", path);
-    // 得到本地沙盒中名为"MyImage"的路径，"MyImage"是保存的图片名
     NSString *imageFilePath = [path stringByAppendingPathComponent:@"targetImage.jpg"];
-    // 将取得的图片写入本地的沙盒中，其中0.5表示压缩比例，1表示不压缩，数值越小压缩比例越大
-    BOOL success = [UIImageJPEGRepresentation(image, 1) writeToFile:imageFilePath  atomically:YES];
-    if (success){
-        NSLog(@"写入本地成功");
-        //加载本地图片
-        ar.loadFromImage([imageFilePath UTF8String], 0);
-        ar.start();
-    }
+    
+    ar.loadFromImage([imageFilePath UTF8String], 0);
+    ar.start();
     
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkCallback:)];
     [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
