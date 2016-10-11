@@ -22,7 +22,7 @@
     if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getMascotsCGIKey] parameters:@{ @"user_id" : [[HTStorageManager sharedInstance] getUserID] } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             NSMutableArray<HTMascot *> *mascots = [[NSMutableArray alloc] init];
@@ -50,7 +50,7 @@
                                @"pet_id"  : @(mascotID)};
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getMascotInfoCGIKey] parameters:dataDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0 && responseObject[@"data"] && responseObject[@"data"][@"articles"]) {
             HTMascot *mascot = [HTMascot objectWithKeyValues:responseObject[@"data"][@"detail"]];
@@ -75,7 +75,7 @@
 - (void)getUserProps:(HTGetPropsCallback)callback {
     if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getMascotPropsCGIKey] parameters:@{ @"user_id" : [[HTStorageManager sharedInstance] getUserID] } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             NSMutableArray<HTMascotProp *> *props = [[NSMutableArray alloc] init];
@@ -98,7 +98,7 @@
                                @"prop_id" : @(prop.prop_id)};
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager exchangePropCGIKey] parameters:paraDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -112,7 +112,7 @@
                                @"qid" : @(qid)};
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getRewardCGIKey] parameters:paraDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {

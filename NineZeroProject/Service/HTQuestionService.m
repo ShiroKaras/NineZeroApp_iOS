@@ -44,7 +44,7 @@
         } else {
             callback(NO, nil);
         }
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);
@@ -119,7 +119,7 @@
         } else {
             callback(NO, nil);
         }
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);
@@ -141,7 +141,7 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionDetailCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         callback(YES, [HTQuestion objectWithKeyValues:responseObject[@"data"]]);
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);
@@ -161,7 +161,7 @@
         } else {
             callback(NO, nil);
         }
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);
@@ -355,7 +355,7 @@
                            @"area_id" : AppDelegateInstance.cityCode,
                            @"qid" : @(questionID)};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager shareQuestionCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -373,7 +373,7 @@
     }];
     NSString *string = [self dictionaryToJson:dataDict];
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQiniuDownloadUrlCGIKey] parameters:@{@"url_array" : string} success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
         callback(true, [HTResponsePackage objectWithKeyValues:responseObject]);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
@@ -388,7 +388,7 @@
 
 - (void)getRelaxDayInfo:(HTResponseCallback)callback {
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getRelaxDayInfoCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
         callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
@@ -399,7 +399,7 @@
 - (void)getIsRelaxDay:(HTResponseCallback)callback {
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getIsMondayCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);
@@ -409,7 +409,7 @@
 - (void)getCoverPicture:(HTResponseCallback)callback {
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getCoverPictureCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         callback(YES, [HTResponsePackage objectWithKeyValues:responseObject]);
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);
