@@ -14,6 +14,8 @@
 		1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */; };
 		1121676D1CF3358E0048EA01 /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */; };
 		1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */; };
+		1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */; };
+		1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */; };
 		117417EA1D795AC300B5458F /* SKIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417E91D795AC300B5458F /* SKIndexViewController.m */; };
 		117417EE1D797F5C00B5458F /* SKQuestionPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417ED1D797F5C00B5458F /* SKQuestionPageViewController.m */; };
 		117417F41D7FE3CC00B5458F /* SKHelperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417F31D7FE3CC00B5458F /* SKHelperView.m */; };
@@ -807,6 +809,10 @@
 		1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKUserAgreementViewController.m; sourceTree = "<group>"; };
 		1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SKUserAgreementViewController.xib; sourceTree = "<group>"; };
 		1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
+		1139CB9E1DACD4EB004FF6B0 /* NSString+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+AES256.h"; path = "AES256/NSString+AES256.h"; sourceTree = "<group>"; };
+		1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+AES256.m"; path = "AES256/NSString+AES256.m"; sourceTree = "<group>"; };
+		1139CBA11DACD5DC004FF6B0 /* NSData+Encryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Encryption.h"; path = "AES256/NSData+Encryption.h"; sourceTree = "<group>"; };
+		1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Encryption.m"; path = "AES256/NSData+Encryption.m"; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
 		117417E81D795AC300B5458F /* SKIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKIndexViewController.h; path = NineZeroProject/UI/Index/SKIndexViewController.h; sourceTree = SOURCE_ROOT; };
 		117417E91D795AC300B5458F /* SKIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKIndexViewController.m; path = NineZeroProject/UI/Index/SKIndexViewController.m; sourceTree = SOURCE_ROOT; };
@@ -1835,6 +1841,17 @@
 				1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */,
 			);
 			path = UMengMobClick;
+			sourceTree = "<group>";
+		};
+		1139CB9D1DACD4A3004FF6B0 /* AES256 */ = {
+			isa = PBXGroup;
+			children = (
+				1139CB9E1DACD4EB004FF6B0 /* NSString+AES256.h */,
+				1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */,
+				1139CBA11DACD5DC004FF6B0 /* NSData+Encryption.h */,
+				1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */,
+			);
+			name = AES256;
 			sourceTree = "<group>";
 		};
 		117417EB1D795ACE00B5458F /* Index */ = {
@@ -3159,6 +3176,7 @@
 		17A89A8F1C1DB9BB0087BF00 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				1139CB9D1DACD4A3004FF6B0 /* AES256 */,
 				11BC2DFB1D93C98200C9E775 /* TalkingData */,
 				11961CD91D2D2B3400A00AF9 /* ImageEffects */,
 				1126BFC51CF59BBE00E4FAC3 /* UMeng */,
@@ -4218,6 +4236,7 @@
 			files = (
 				17F45AF81C7E2564004F2E32 /* HTRewardCard.m in Sources */,
 				17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */,
+				1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */,
 				17A92CD11CA809B100BE893D /* MJRefreshAutoNormalFooter.m in Sources */,
 				17D1F8D71C29D7BD0029E4AF /* HTTextField.m in Sources */,
 				117418121D89396400B5458F /* HTDescriptionView.m in Sources */,
@@ -4229,6 +4248,7 @@
 				176B75751C7759B20069DE89 /* HTRelaxCoverController.m in Sources */,
 				17BE473A1C8603D300797E8E /* HTProfileRankCell.m in Sources */,
 				17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */,
+				1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */,
 				17B428F31C54CC9A008AFBA9 /* HTMascotItem.m in Sources */,
 				17116D051C9D366200530B7C /* HTPropChangedPopController.m in Sources */,
 				17A47E901C03869000BEC1DD /* HTLoginButton.m in Sources */,
