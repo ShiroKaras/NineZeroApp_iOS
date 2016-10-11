@@ -16,6 +16,7 @@
 #import "HTProfileRankController.h"
 #import "SKActivityNotificationView.h"
 #import "SKSwipeViewController.h"
+#import "HTAlertView.h"
 
 #import "HTUIHeader.h"
 
@@ -634,8 +635,16 @@ typedef enum {
                     _cameraImageView.centerX = self.view.centerX;
                     _cameraImageView.centerY = self.view.centerY;
                 } completion:^(BOOL finished) {
-                    SKSwipeViewController *swipeViewController = [[SKSwipeViewController alloc] init];
-                    [self.navigationController pushViewController:swipeViewController animated:NO];
+                    //判断相机是否开启
+                    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+                    if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied)
+                    {
+                        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+                        [alertView show];
+                    }else {
+                        SKSwipeViewController *swipeViewController = [[SKSwipeViewController alloc] init];
+                        [self.navigationController pushViewController:swipeViewController animated:NO];
+                    }
                 }];
             } else {
                 [UIView animateWithDuration:animationTime animations:^{

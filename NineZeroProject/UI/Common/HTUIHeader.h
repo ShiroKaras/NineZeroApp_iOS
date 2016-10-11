@@ -11,6 +11,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 #import <Masonry.h>
 #import <MBProgressHUD+BWMExtension.h>
 #import "UIButton+EnlargeTouchArea.h"

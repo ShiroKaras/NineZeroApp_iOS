@@ -7,7 +7,6 @@
 //
 
 #import "SKHelperView.h"
-#import <AVFoundation/AVFoundation.h>
 #import "HTUIHeader.h"
 
 @interface SKHelperView (){

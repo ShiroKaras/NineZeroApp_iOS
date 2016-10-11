@@ -7,7 +7,6 @@
 //
 
 #import "HTCardCollectionCell.h"
-#import <AVFoundation/AVFoundation.h>
 #import "HTUIHeader.h"
 #import "SharkfoodMuteSwitchDetector.h"
 #import <ShareSDK/ShareSDK.h>

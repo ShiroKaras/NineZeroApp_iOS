@@ -8,7 +8,6 @@
 
 #import "SKVideoView.h"
 #import "HTUIHeader.h"
-#import <AVFoundation/AVFoundation.h>
 
 @interface SKVideoView ()
 @property (strong, nonatomic) AVPlayer      *player;

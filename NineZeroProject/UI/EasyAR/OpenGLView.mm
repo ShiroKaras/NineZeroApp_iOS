@@ -8,7 +8,6 @@
 #import "AppDelegate.h"
 #import "HTUIHeader.h"
 #import "SKVideoView.h"
-#import <AVFoundation/AVFoundation.h>
 
 #include <iostream>
 #include "ar.hpp"

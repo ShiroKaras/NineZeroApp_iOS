@@ -7,7 +7,6 @@
 //
 
 #import "HTProfileRecordCell.h"
-#import <AVFoundation/AVFoundation.h>
 #import "HTUIHeader.h"
 
 @interface HTProfileRecordCell ()
