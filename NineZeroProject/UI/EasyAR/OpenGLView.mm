@@ -7,7 +7,7 @@
 #import "OpenGLView.h"
 #import "AppDelegate.h"
 #import "HTUIHeader.h"
-#import "SKVideoView.h"
+#import "SKScanningResultView.h"
 
 #include <iostream>
 #include "ar.hpp"
@@ -93,7 +93,7 @@ void HelloAR::render()
             if ([[NSString stringWithUTF8String:frame.targets()[i].target().name()] isEqualToString:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"targetImage_0"]]) {
                 NSLog(@"Get Image");
                 if (flag == 0) {
-                    SKVideoView *view = [[SKVideoView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+                    SKScanningResultView *view = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
                     [KEY_WINDOW addSubview:view];
                     flag = 1;
                 }

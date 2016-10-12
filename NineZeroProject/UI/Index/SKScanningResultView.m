@@ -1,21 +1,21 @@
 //
-//  SKVideoView.m
+//  SKScanningResultView.m
 //  NineZeroProject
 //
 //  Created by SinLemon on 16/10/10.
 //  Copyright © 2016年 ronhu. All rights reserved.
 //
 
-#import "SKVideoView.h"
+#import "SKScanningResultView.h"
 #import "HTUIHeader.h"
 
-@interface SKVideoView ()
+@interface SKScanningResultView ()
 @property (strong, nonatomic) AVPlayer      *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
 @property (strong, nonatomic) AVPlayerItem  *playerItem;
 @end
 
-@implementation SKVideoView
+@implementation SKScanningResultView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {

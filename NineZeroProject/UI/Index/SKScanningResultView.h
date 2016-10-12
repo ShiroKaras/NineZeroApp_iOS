@@ -1,5 +1,5 @@
 //
-//  SKVideoView.h
+//  SKScanningResultView.H
 //  NineZeroProject
 //
 //  Created by SinLemon on 16/10/10.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SKVideoView : UIView
+@interface SKScanningResultView : UIView
 
 @end
