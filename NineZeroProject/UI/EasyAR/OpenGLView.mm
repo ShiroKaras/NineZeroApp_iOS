@@ -36,6 +36,10 @@ public:
     int flag = 0;
 private:
     Vec2I view_size;
+    
+    int tracked_target;
+    int active_target;
+    int texid[3];
 };
 
 HelloAR::HelloAR()
@@ -80,14 +84,19 @@ void HelloAR::render()
     augmenter_.drawVideoBackground();
     glViewport(viewport_[0], viewport_[1], viewport_[2], viewport_[3]);
 
+    
     for (int i = 0; i < frame.targets().size(); ++i) {
         AugmentedTarget::Status status = frame.targets()[i].status();
         if(status == AugmentedTarget::kTargetStatusTracked){
-            NSLog(@"Get Image");
-            if (flag == 0) {
-                SKVideoView *view = [[SKVideoView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
-                [KEY_WINDOW addSubview:view];
-                flag = 1;
+            //NSLog(@"targetImageName:%s",frame.targets()[i].target().name());
+            //NSLog(@"trackImageName:%s",[[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"targetImage_0.jpg"] UTF8String]);
+            if ([[NSString stringWithUTF8String:frame.targets()[i].target().name()] isEqualToString:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"targetImage_0"]]) {
+                NSLog(@"Get Image");
+                if (flag == 0) {
+                    SKVideoView *view = [[SKVideoView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+                    [KEY_WINDOW addSubview:view];
+                    flag = 1;
+                }
             }
         }
     }
@@ -176,8 +185,15 @@ EasyAR::samples::HelloAR ar;
     
     // 本地沙盒目录
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *imageFilePath = [path stringByAppendingPathComponent:@"targetImage.jpg"];
-    
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles=[fileManager subpathsAtPath:path];
+        for (NSString *fileName in childerFiles) {
+            NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+            ar.loadFromImage([absolutePath UTF8String], 0);
+        }
+    }
+    NSString *imageFilePath = [path stringByAppendingPathComponent:@"targetImage_0.jpg"];
     ar.loadFromImage([imageFilePath UTF8String], 0);
     ar.start();
     

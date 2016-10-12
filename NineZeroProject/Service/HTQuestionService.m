@@ -75,6 +75,7 @@
                     if (question.descriptionPic) [downloadKeys addObject:question.descriptionPic];
                     if (question.question_ar_pet) [downloadKeys addObject:question.question_ar_pet];
                     if (question.question_video_cover) [downloadKeys addObject:question.question_video_cover];
+                    if (question.checkpoint_pic) [downloadKeys addObject:question.checkpoint_pic];
                 }
             }
             // 2. 从私有云上取下载链接
@@ -87,6 +88,7 @@
                             if (question.videoName) question.videoURL = dataDict[question.videoName];
                             if (question.question_video_cover) question.question_video_cover = dataDict[question.question_video_cover];
                             if (question.question_ar_pet) question.question_ar_pet = dataDict[question.question_ar_pet];
+                            if (question.checkpoint_pic) question.checkpoint_pic = dataDict[question.checkpoint_pic];
                         }
                     }
                     // 3. 找到哪些问题已经回答成功

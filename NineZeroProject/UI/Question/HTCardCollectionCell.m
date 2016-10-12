@@ -402,6 +402,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAR];
             } else if (_question.type == 1) {
                 [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];
+            } else if (_question.type == 2) {
+                [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeScanning];
             }
         }
     }

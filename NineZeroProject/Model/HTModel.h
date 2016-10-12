@@ -38,31 +38,31 @@
 
 @interface HTQuestion : NSObject
 
-@property (nonatomic, assign) uint64_t questionID;          // 唯一标识ID
-@property (nonatomic, assign) NSUInteger serial;              // 章节
-@property (nonatomic, assign) NSInteger type;                // 问题类型(0 ar, 1 文字)
-@property (nonatomic, assign) NSUInteger areaID;              // 用户所在城市ID
-@property (nonatomic, assign) NSUInteger rewardID;            // 奖励ID
-@property (nonatomic, assign) NSUInteger use_time;            // 回答问题使用的时间
-@property (nonatomic, assign) NSUInteger gold;                // 回答问题使用的金币
-@property (nonatomic, assign) BOOL isPassed;                  // 是否闯关成功
+@property (nonatomic, assign) uint64_t questionID;              // 唯一标识ID
+@property (nonatomic, assign) NSUInteger serial;                // 章节
+@property (nonatomic, assign) NSInteger type;                   // 问题类型(0 ar, 1 文字, 2扫图)
+@property (nonatomic, assign) NSUInteger areaID;                // 用户所在城市ID
+@property (nonatomic, assign) NSUInteger rewardID;              // 奖励ID
+@property (nonatomic, assign) NSUInteger use_time;              // 回答问题使用的时间
+@property (nonatomic, assign) NSUInteger gold;                  // 回答问题使用的金币
+@property (nonatomic, assign) BOOL isPassed;                    // 是否闯关成功
 @property (nonatomic, assign) BOOL is_answer;
-@property (nonatomic, strong) NSArray<NSString *> *answers;   // 答案
-@property (nonatomic, copy) NSString *chapterText;            // 章节名
-@property (nonatomic, copy) NSString *content;                // 问题内容
-@property (nonatomic, copy) NSString *questionDescription;    // 问题描述
-@property (nonatomic, copy) NSString *descriptionPic;         // 题目描述配图
-@property (nonatomic, copy) NSString *descriptionURL;         // 题目描述配图URL
-@property (nonatomic, copy) NSString *videoURL;               // 视频链接
-@property (nonatomic, copy) NSString *videoName;              // 视频名称
-@property (nonatomic, copy) NSString *detailURL;              // 详情链接
-@property (nonatomic, copy) NSString *hint;                   // 提示
-@property (nonatomic, copy) NSString *question_ar_location;   // ar
-@property (nonatomic, copy) NSString *question_ar_pet;        // ar的gif
-@property (nonatomic, copy) NSString *question_video_cover;   // vedio的封面
+@property (nonatomic, strong) NSArray<NSString *> *answers;     // 答案
+@property (nonatomic, copy) NSString *chapterText;              // 章节名
+@property (nonatomic, copy) NSString *content;                  // 问题内容
+@property (nonatomic, copy) NSString *questionDescription;      // 问题描述
+@property (nonatomic, copy) NSString *descriptionPic;           // 题目描述配图
+@property (nonatomic, copy) NSString *descriptionURL;           // 题目描述配图URL
+@property (nonatomic, copy) NSString *videoURL;                 // 视频链接
+@property (nonatomic, copy) NSString *videoName;                // 视频名称
+@property (nonatomic, copy) NSString *detailURL;                // 详情链接
+@property (nonatomic, copy) NSString *hint;                     // 提示
+@property (nonatomic, copy) NSString *question_ar_location;     // ar
+@property (nonatomic, copy) NSString *question_ar_pet;          // ar的gif
+@property (nonatomic, copy) NSString *question_video_cover;     // vedio的封面
 @property (nonatomic, copy) NSString *thumbnail_pic;
-@property (nonatomic, assign) NSInteger wrongAnswerCount;     // 答错次数
-
+@property (nonatomic, assign) NSInteger wrongAnswerCount;       // 答错次数
+@property (nonatomic, copy) NSString *checkpoint_pic;           // 扫一扫目标图
 @end
 
 @interface HTResponsePackage : NSObject

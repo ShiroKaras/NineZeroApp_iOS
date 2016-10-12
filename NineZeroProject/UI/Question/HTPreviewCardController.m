@@ -27,6 +27,7 @@
 #import "SKAnswerDetailView.h"
 #import "SKRankInQuestionViewController.h"
 #import "SKHelperView.h"
+#import "SKSwipeViewController.h"
 
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
@@ -613,6 +614,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
                 HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
                 [alertView show];
             }
+            break;
+        }
+        case HTCardCollectionClickTypeScanning: {
+            SKSwipeViewController *scanningViewController = [[SKSwipeViewController alloc] init];
+            [self.navigationController pushViewController:scanningViewController animated:YES];
             break;
         }
         case HTCardCollectionClickTypePause: {
