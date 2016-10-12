@@ -460,4 +460,18 @@
         DLog(@"%@", error);
     }];
 }
+
+- (void)getScanningReward:(HTResponseCallback)callback {
+    [[AFHTTPRequestOperationManager manager] POST:@"http://101.201.39.169:8082/Scanning/getRewardDetail" parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
+        if (package.resultCode == 0) {
+            callback(YES, package);
+        } else {
+            callback(NO, nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(NO, nil);
+        DLog(@"%@", error);
+    }];
+}
 @end
