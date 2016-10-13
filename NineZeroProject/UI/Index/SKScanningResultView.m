@@ -10,6 +10,7 @@
 #import "HTUIHeader.h"
 #import "SKScanningRewardView.h"
 #import "HTRewardController.h"
+#import "OpenGLView.h"
 
 @interface SKScanningResultView ()
 
@@ -72,7 +73,7 @@
         _player = [AVPlayer playerWithPlayerItem:_playerItem];
         _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
         _playerLayer.frame = CGRectMake(0, 0, self.width, self.height);
-        _playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
         [self.layer insertSublayer:_playerLayer atIndex:0];
         
         [_player play];
@@ -97,7 +98,7 @@
             self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
             self.player = [AVPlayer playerWithPlayerItem:_playerItem];
             self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-            _playerLayer.videoGravity = AVLayerVideoGravityResize;
+            _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
             [self setNeedsLayout];
             [_player play];
         }];
@@ -166,10 +167,17 @@
         }
     }
     //[self.successBackgroundView removeFromSuperview];
+    
     if (_swipeType == 0) {
-        SKScanningRewardView *rewardView = [[SKScanningRewardView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) rewardID:_scanning.reward_id];
-        [KEY_WINDOW addSubview:rewardView];
-        [KEY_WINDOW bringSubviewToFront:rewardView];
+        [[[HTServiceManager sharedInstance] questionService] getScanningRewardWithRewardId:_scanning.reward_id :^(BOOL success, HTResponsePackage *response) {
+            if (success && response.resultCode == 0) {
+                SKScanningRewardView *rewardView = [[SKScanningRewardView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) ticket:[HTTicket objectWithKeyValues:response.data[@"ticket"]]];
+                [KEY_WINDOW addSubview:rewardView];
+                [KEY_WINDOW bringSubviewToFront:rewardView];
+            } else {
+                
+            }
+        }];
     } else if (_swipeType == 1) {
         HTRewardController *rewardController = [[HTRewardController alloc] initWithRewardID:[[[[HTServiceManager sharedInstance] questionService] questionList] lastObject].rewardID questionID:[[[[HTServiceManager sharedInstance] questionService] questionList] lastObject].questionID];
         if (IOS_VERSION >= 8.0) {
@@ -181,12 +189,16 @@
     }
 }
 
-- (UIViewController *)viewController
-{
-    for (UIView* next = [self superview]; next; next = next.superview) {
-        UIResponder *nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController *)nextResponder;
+- (UIViewController *)viewController {
+    for (UIView *view in KEY_WINDOW.subviews) {
+        if ([view isKindOfClass:[OpenGLView class]]) {
+            for (UIView* next = [view superview]; next; next = next.superview) {
+                UIResponder *nextResponder = [next nextResponder];
+                if ([nextResponder isKindOfClass:[UIViewController class]]) {
+                    NSLog(@"Get ViewController");
+                    return (UIViewController *)nextResponder;
+                }
+            }
         }
     }
     return nil;

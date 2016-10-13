@@ -9,6 +9,7 @@
 #import "SKScanningRewardView.h"
 #import "HTRewardCard.h"
 #import "HTUIHeader.h"
+#import "OpenGLView.h"
 
 @interface SKScanningRewardView ()
 
@@ -24,6 +25,15 @@
 
 @implementation SKScanningRewardView {
     float maxOffsetY;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame ticket:(HTTicket*)ticket {
+    self = [super initWithFrame:frame];
+    if (self) {
+        _ticket = ticket;
+        [self createUI];
+    }
+    return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame rewardID:(NSString*)rewardID {
@@ -51,32 +61,34 @@
     [_sureButton addTarget:self action:@selector(onClickSureButton) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_sureButton];
     
+    _topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_sacnning_reward"]];
+    [_topImage sizeToFit];
+    [self addSubview:_topImage];
+    
+    _topImage.top = ROUND_HEIGHT_FLOAT(68);
+    _topImage.centerX = self.centerX;
+    
+    [self createTicketView];
+    if (_ticket) {
+        _card.top = _topImage.bottom +25;
+        _card.centerX = SCREEN_WIDTH / 2;
+        maxOffsetY = _card.bottom;
+    }
+    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, MAX(SCREEN_HEIGHT - 50, maxOffsetY + 100));
+    /*
     [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] questionService] getScanningRewardWithRewardId:_rewardID :^(BOOL success, HTResponsePackage *response) {
         [HTProgressHUD dismiss];
         if (success && response.resultCode == 0) {
-            _topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_sacnning_reward"]];
-            [_topImage sizeToFit];
-            [self addSubview:_topImage];
             
-            _topImage.top = ROUND_HEIGHT_FLOAT(68);
-            _topImage.centerX = self.centerX;
-            
-            _ticket = [HTTicket objectWithKeyValues:response.data[@"ticket"]];
-            [self createTicketView];
-            if (_ticket) {
-                _card.top = _topImage.bottom +25;
-                _card.centerX = SCREEN_WIDTH / 2;
-                maxOffsetY = _card.bottom;
-            }
-            _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, MAX(SCREEN_HEIGHT - 50, maxOffsetY + 100));
+            [[self activityViewController].navigationController popViewControllerAnimated:YES];
         } else if (success && response.resultCode == 501){
-            [[self viewController].navigationController popViewControllerAnimated:YES];
+            [[self activityViewController].navigationController popViewControllerAnimated:YES];
         } else {
-            [[self viewController].navigationController popViewControllerAnimated:YES];
+            [[self activityViewController].navigationController popViewControllerAnimated:YES];
         }
     }];
-    
+    */
     if (NO_NETWORK) {
         self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
         [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
@@ -91,12 +103,42 @@
     [_scrollView addSubview:_card];
 }
 
-- (UIViewController *)viewController
-{
-    for (UIView* next = [self superview]; next; next = next.superview) {
-        UIResponder *nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController *)nextResponder;
+- (UIViewController *)activityViewController {
+    UIViewController* activityViewController = nil;
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    if(window.windowLevel != UIWindowLevelNormal) {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow *tmpWin in windows) {
+            if(tmpWin.windowLevel == UIWindowLevelNormal) {
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    
+    NSArray *viewsArray = [window subviews];
+    if([viewsArray count] > 0) {
+        UIView *frontView = [viewsArray objectAtIndex:0];
+        id nextResponder = [frontView nextResponder];
+        if([nextResponder isKindOfClass:[UIViewController class]]) {
+            activityViewController = nextResponder;
+        } else {
+            activityViewController = window.rootViewController;
+        }
+    }
+    
+    return activityViewController;
+}
+
+- (UIViewController *)viewController {
+    for (UIView *view in KEY_WINDOW.subviews) {
+        if ([view isKindOfClass:[OpenGLView class]]) {
+            for (UIView* next = [view superview]; next; next = next.superview) {
+                UIResponder *nextResponder = [next nextResponder];
+                if ([nextResponder isKindOfClass:[UIViewController class]]) {
+                    return (UIViewController *)nextResponder;
+                }
+            }
         }
     }
     return nil;
