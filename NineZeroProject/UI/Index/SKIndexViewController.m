@@ -672,6 +672,13 @@ typedef enum {
                     {
                         HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
                         [alertView show];
+                        [UIView animateWithDuration:animationTime animations:^{
+                            _swipeView.alpha = 0;
+                            _cameraImageView.centerX = self.view.centerX;
+                            _cameraImageView.bottom = self.view.top;
+                        } completion:^(BOOL finished) {
+                            [self removeSnapshotViewFromSuperView];
+                        }];
                     }else {
                         SKSwipeViewController *swipeViewController = [[SKSwipeViewController alloc] initWithScanningList:_scanningList];
                         [self.navigationController pushViewController:swipeViewController animated:NO];
