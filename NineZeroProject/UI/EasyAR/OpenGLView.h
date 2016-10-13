@@ -15,6 +15,7 @@
 @property(nonatomic, strong) EAGLContext *context;
 @property(nonatomic) GLuint colorRenderBuffer;
 
+- (instancetype)initWithFrame:(CGRect)frame withSwipeType:(int)type;
 - (void)start;
 - (void)stop;
 - (void)resize:(CGRect)frame orientation:(UIInterfaceOrientation)orientation;

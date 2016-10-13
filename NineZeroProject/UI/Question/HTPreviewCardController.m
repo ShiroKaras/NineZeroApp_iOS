@@ -617,7 +617,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypeScanning: {
-            SKSwipeViewController *scanningViewController = [[SKSwipeViewController alloc] init];
+            SKSwipeViewController *scanningViewController = [[SKSwipeViewController alloc] initWithQuestion:cell.question];
             [self.navigationController pushViewController:scanningViewController animated:YES];
             break;
         }

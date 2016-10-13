@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class SKScanningResultView;
+
+@protocol SKScanningViewDelegate <NSObject>
+- (void)didClickBackButtonInScanningResultView:(SKScanningResultView *)view;
+@end
+
 @interface SKScanningResultView : UIView
-
-- (instancetype)initWithFrame:(CGRect)frame withIndex:(NSUInteger)index;
-
+@property (nonatomic, weak) id<SKScanningViewDelegate> delegate;
+- (instancetype)initWithFrame:(CGRect)frame withIndex:(NSUInteger)index swipeType:(int)type;
 @end

@@ -30,12 +30,14 @@ class HelloAR : public AR
 {
 public:
     HelloAR();
-    virtual void initGL();
+    virtual void initGL(int type);
     virtual void resizeGL(int width, int height);
     virtual void render();
     int flag = 0;
 private:
     Vec2I view_size;
+    
+    int swipeType;   //0 扫一扫, 1 LBS
     
     int tracked_target;
     int active_target;
@@ -47,10 +49,11 @@ HelloAR::HelloAR()
     view_size[0] = -1;
 }
 
-void HelloAR::initGL()
+void HelloAR::initGL(int type)
 {
     augmenter_ = Augmenter();
     flag = 0;
+    swipeType = type;
 }
 
 void HelloAR::resizeGL(int width, int height)
@@ -90,9 +93,8 @@ void HelloAR::render()
         AugmentedTarget::Status status = frame.targets()[i].status();
         if(status == AugmentedTarget::kTargetStatusTracked){
             if ([[[[NSString stringWithUTF8String:frame.targets()[i].target().name()] componentsSeparatedByString:@"/"] lastObject] isEqualToString:[NSString stringWithFormat:@"targetImage_%d",i]]) {
-                //NSLog(@"Get Image");
                 if (flag == 0) {
-                    SKScanningResultView *view = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:i];
+                    SKScanningResultView *view = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:i swipeType:swipeType];
                     [KEY_WINDOW addSubview:view];
                     flag = 1;
                 }
@@ -117,6 +119,8 @@ EasyAR::samples::HelloAR ar;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
 @property (strong, nonatomic) AVPlayerItem  *playerItem;
 
+@property (nonatomic, assign) int swipeType;   //0 扫一扫, 1 LBS
+
 - (void)displayLinkCallback:(CADisplayLink*)displayLink;
 
 @end
@@ -128,6 +132,11 @@ EasyAR::samples::HelloAR ar;
     return [CAEAGLLayer class];
 }
 
+- (instancetype)initWithFrame:(CGRect)frame withSwipeType:(int)type {
+    _swipeType = type;
+    return [self initWithFrame:frame];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     frame.size.width = frame.size.height = MAX(frame.size.width, frame.size.height);
@@ -136,7 +145,7 @@ EasyAR::samples::HelloAR ar;
         [self setupGL];
 
         EasyAR::initialize([key UTF8String]);
-        ar.initGL();
+        ar.initGL(_swipeType);
     }
 
     return self;

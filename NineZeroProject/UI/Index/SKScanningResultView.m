@@ -8,21 +8,30 @@
 
 #import "SKScanningResultView.h"
 #import "HTUIHeader.h"
+#import "SKScanningRewardView.h"
+#import "HTRewardController.h"
 
 @interface SKScanningResultView ()
 
 @property (nonatomic, assign) NSUInteger    index;
 @property (nonatomic, strong) UIImageView   *scanningImageView;
+@property (nonatomic, strong) HTImageView *captureSuccessImageView;
+@property (nonatomic, strong) UIView *successBackgroundView;
+
 @property (strong, nonatomic) AVPlayer      *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
 @property (strong, nonatomic) AVPlayerItem  *playerItem;
 @property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
+@property (nonatomic, assign) int swipeType;    //0 扫一扫, 1 LBS
+
+@property (nonatomic, strong) HTScanning *scanning;
 @end
 
 @implementation SKScanningResultView
 
-- (instancetype)initWithFrame:(CGRect)frame withIndex:(NSUInteger)index{
+- (instancetype)initWithFrame:(CGRect)frame withIndex:(NSUInteger)index swipeType:(int)type{
     if (self = [super initWithFrame:frame]) {
+        _swipeType = type;
         _index = index;
         [self loadData];
     }
@@ -31,13 +40,18 @@
 
 - (void)loadData {
     [[[HTServiceManager sharedInstance] questionService] getScanning:^(BOOL success, NSArray<HTScanning *> *scanningList) {
-        HTScanning *scanning = scanningList[_index];
-        DLog(@"Scanning Type:%@", scanning.link_type);
-        if ([scanning.link_type isEqualToString:@"0"] ) {
-            [self createVideoWithUrlString:scanning.link_url];
-        } else if ([scanning.link_type isEqualToString:@"1"] || [scanning.link_type isEqualToString:@"2"]) {
-            [self createImageWithUrlString:scanning.link_url];
+        _scanning = scanningList[_index];
+        DLog(@"Scanning Type:%@", _scanning.link_type);
+        if ([_scanning.link_type isEqualToString:@"0"] ) {
+            [self createVideoWithUrlString:_scanning.link_url];
+        } else if ([_scanning.link_type isEqualToString:@"1"] || [_scanning.link_type isEqualToString:@"2"]) {
+            [self createImageWithUrlString:_scanning.link_url];
         }
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, self.width, self.height);
+        button.tag = _swipeType;
+        [button addTarget:self  action:@selector(showScanningResult:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:button];
     }];
 }
 
@@ -100,6 +114,65 @@
         _scanningImageView.centerY = SCREEN_HEIGHT/2;
     }];
     
+}
+
+- (void)showScanningResult:(UIButton*)sender {
+    [_playerLayer removeFromSuperlayer];
+    [_scanningImageView removeFromSuperview];
+    // 6.捕获成功
+    self.successBackgroundView = [[UIView alloc] init];
+    self.successBackgroundView.backgroundColor = [UIColor colorWithHex:0x1f1f1f alpha:0.8];
+    self.successBackgroundView.layer.cornerRadius = 5.0f;
+    [self addSubview:self.successBackgroundView];
+    [self bringSubviewToFront:self.successBackgroundView];
+    
+    NSMutableArray<UIImage *> *images = [NSMutableArray array];
+    for (int i = 0; i != 18; i++) {
+        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"img_ar_right_answer_gif_00%02d", i]];
+        [images addObject:animatedImage];
+    }
+    self.captureSuccessImageView = [[HTImageView alloc] init];
+    self.captureSuccessImageView.animationImages = images;
+    self.captureSuccessImageView.animationDuration = 0.1 * 18;
+    self.captureSuccessImageView.animationRepeatCount = 1;
+    [self.successBackgroundView addSubview:self.captureSuccessImageView];
+    [self.captureSuccessImageView startAnimating];
+    
+    [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.top.equalTo(@161);
+        make.width.equalTo(@173);
+        make.height.equalTo(@173);
+    }];
+    
+    [self.captureSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@4);
+        make.top.equalTo(@4);
+        make.width.equalTo(@165);
+        make.height.equalTo(@165);
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.1 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self onCaptureMascotSuccessful];
+    });
+}
+
+- (void)onCaptureMascotSuccessful {
+    for (UIView *view in KEY_WINDOW.subviews) {
+        if ([view isKindOfClass:[SKScanningResultView class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    //[self.successBackgroundView removeFromSuperview];
+    if (_swipeType == 0) {
+        SKScanningRewardView *rewardView = [[SKScanningRewardView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) rewardID:_scanning.reward_id];
+        [KEY_WINDOW addSubview:rewardView];
+        [KEY_WINDOW bringSubviewToFront:rewardView];
+    } else if (_swipeType == 1) {
+        
+    } else {
+    
+    }
 }
 
 @end

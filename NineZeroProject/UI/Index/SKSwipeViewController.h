@@ -10,11 +10,12 @@
 #import "OpenGLView.h"
 
 @class HTScanning;
+@class HTQuestion;
 
 @interface SKSwipeViewController : UIViewController
 
 @property(nonatomic, strong) OpenGLView *glView;
 
 - (instancetype)initWithScanningList:(NSArray<HTScanning*>*)scanningList;
-
+- (instancetype)initWithQuestion:(HTQuestion *)question;
 @end

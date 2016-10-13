@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UIImageView *scanningGridLine;
 @property (nonatomic, strong) NSArray<HTScanning*>* scanningList;
+@property (nonatomic, strong) HTQuestion *question;
+@property (nonatomic, assign) int swipeType;
 @end
 
 @implementation SKSwipeViewController
@@ -22,18 +24,28 @@
 - (instancetype)initWithScanningList:(NSArray<HTScanning*>*)scanningList {
     self = [super init];
     if (self) {
+        _swipeType = 0;
         _scanningList = scanningList;
+    }
+    return self;
+}
+
+- (instancetype)initWithQuestion:(HTQuestion *)question {
+    self = [super init];
+    if (self) {
+        _swipeType = 1;
+        _question = question;
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.glView = [[OpenGLView alloc] initWithFrame:self.view.bounds];
+    self.glView = [[OpenGLView alloc] initWithFrame:self.view.bounds withSwipeType:_swipeType];
     [self.view addSubview:self.glView];
     [self.glView setOrientation:self.interfaceOrientation];
     
-    // 4.提示
+    //提示
     self.tipImageView = [[UIImageView alloc] init];
     self.tipImageView.layer.masksToBounds = YES;
     self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
@@ -47,6 +59,7 @@
     [self.tipImageView addSubview:self.tipLabel];
     [self showtipImageView];
     
+    //扫描线
     _scanningGridLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scanning_gridlines"]];
     [_scanningGridLine sizeToFit];
     _scanningGridLine.top = 0;

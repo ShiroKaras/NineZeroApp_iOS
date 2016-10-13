@@ -1,12 +1,12 @@
 //
-//  HTRewardController.m
+//  SKRewardViewController.m
 //  NineZeroProject
 //
-//  Created by HHHHTTTT on 16/1/26.
-//  Copyright © 2016年 HHHHTTTT. All rights reserved.
+//  Created by SinLemon on 16/10/13.
+//  Copyright © 2016年 ronhu. All rights reserved.
 //
 
-#import "HTRewardController.h"
+#import "SKRewardViewController.h"
 #import "HTUIHeader.h"
 #import <SDWebImage/UIImage+GIF.h>
 #import <YLGIFImage/YLImageView.h>
@@ -14,7 +14,6 @@
 #import "YYImage.h"
 #import "YYAnimatedImageView.h"
 #import "HTRewardCard.h"
-#import <UIImage+animatedGIF.h>
 
 typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     NZRewardTypeGold    = 0        ,
@@ -23,7 +22,12 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     NZRewardTypeTicket  = 1     <<2
 };
 
-@interface HTRewardController ()
+typedef NS_OPTIONS(NSUInteger, SKRewardType) {
+    SKRewardTypeOnlyTicket    = 0        ,
+    SKRewardTypeQuestion    = 1     <<0
+};
+
+@interface SKRewardViewController ()
 @property (nonatomic, strong) UIScrollView  *scrollView;
 @property (nonatomic, strong) HTLoginButton *sureButton;
 @property (nonatomic, strong) UIView        *topBackView;           //布局用View
@@ -47,28 +51,39 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 @property (nonatomic, strong) HTMascot *mascot;
 @property (nonatomic, strong) HTMascotProp *prop;
-@property (nonatomic, strong) HTTicket *ticket;
+@property (nonatomic, strong) HTTicket *ticket;;
 @property (nonatomic, assign) NSUInteger goldNumber;
 @property (nonatomic, assign) NSUInteger rankNumber;
 
+@property (nonatomic, strong) NSString *scanningRewardID;
 @end
 
-@implementation HTRewardController {
+@implementation SKRewardViewController {
+    SKRewardType _rewardType;
     uint64_t _rewardID;
     uint64_t _qid;
 }
 
-- (instancetype)initWithRewardID:(uint64_t)rewardID questionID:(uint64_t)qid {
+- (instancetype)initWithQuestionRewardID:(uint64_t)rewardID questionID:(uint64_t)qid {
     if (self = [super init]) {
+        _rewardType = SKRewardTypeQuestion;
         _rewardID = rewardID;
         _qid = qid;
     }
     return self;
 }
 
+- (instancetype)initWithScanningRewardID:(NSString*)rewardID {
+    if (self = [super init]) {
+        _rewardType = SKRewardTypeOnlyTicket;
+        _scanningRewardID = rewardID;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.9];
     _scrollView.delaysContentTouches = NO;
@@ -79,7 +94,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     _sureButton.titleLabel.font = [UIFont systemFontOfSize:18];
     _sureButton.enabled = YES;
     [_sureButton addTarget:self action:@selector(onClickSureButton) forControlEvents:UIControlEventTouchUpInside];
-
+    
     [self.view addSubview:_sureButton];
     
     if (NO_NETWORK) {
@@ -105,14 +120,32 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
         self.navigationController.navigationBarHidden = YES;
     }
     [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID questionID:_qid completion:^(BOOL success, HTResponsePackage *rsp) {
-        [HTProgressHUD dismiss];
-        if (success && rsp.resultCode == 0) {
-            [self createTopViewWith:rsp];
-        } else {
-            [self showTipsWithText:@"网络失败"];
+    switch (_rewardType) {
+        case SKRewardTypeQuestion: {
+            [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID questionID:_qid completion:^(BOOL success, HTResponsePackage *rsp) {
+                [HTProgressHUD dismiss];
+                if (success && rsp.resultCode == 0) {
+                    [self createTopViewWith:rsp];
+                } else {
+                    [self showTipsWithText:@"网络失败"];
+                }
+            }];
+            break;
         }
-    }];
+        case SKRewardTypeOnlyTicket: {
+            [[[HTServiceManager sharedInstance] questionService] getScanningRewardWithRewardId:_scanningRewardID :^(BOOL success, HTResponsePackage *response) {
+                [HTProgressHUD dismiss];
+                if (success && response.resultCode == 0) {
+                    NSLog(@"Create Ticket View");
+                } else {
+                    [self showTipsWithText:@"网络失败"];
+                }
+            }];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -122,10 +155,6 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-//    if (self.navigationController) {
-//        self.navigationController.navigationBarHidden = NO;
-//    }
 }
 
 - (void)createTopViewWith:(HTResponsePackage*)rsp {
@@ -149,10 +178,10 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
         [_percentLabel sizeToFit];
     }
     if (rsp.data[@"ticket"]) {
-            type += NZRewardTypeTicket;
-            HTTicket *ticket = [HTTicket objectWithKeyValues:rsp.data[@"ticket"]];
-            _ticket = ticket;
-            [self createTicketView];
+        type += NZRewardTypeTicket;
+        HTTicket *ticket = [HTTicket objectWithKeyValues:rsp.data[@"ticket"]];
+        _ticket = ticket;
+        [self createTicketView];
     }
     if (rsp.data[@"pet"]) {
         type += NZRewardTypePet;
@@ -245,9 +274,9 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
             gifString = _prop.prop_gif;
         }
         if (gifString.length == 0) gifString = @""; // 留一手，万一gif为nil呢？
-//        UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:gifString]];
-//        _imageView.image = gifImage;
-//        [_imageView startAnimating];
+        //        UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:gifString]];
+        //        _imageView.image = gifImage;
+        //        [_imageView startAnimating];
         [_imageView sd_setImageWithURL:[NSURL URLWithString:gifString]];
     });
 }
@@ -261,7 +290,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     _scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 50);
     _prefixOverImageView.left = ROUND_WIDTH_FLOAT(56);
     _prefixOverImageView.top = ROUND_HEIGHT_FLOAT(62);
-
+    
     _percentLabel.left = _prefixOverImageView.right + 5;
     _percentLabel.bottom = _prefixOverImageView.bottom + 5;
     
@@ -299,7 +328,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
         _imageView.top = _andImageView.bottom + 27;
         maxOffsetY = _imageView.bottom;
     }
-
+    
     // 礼券
     if (_ticket) {
         _andImageView2.top = maxOffsetY + 27;
@@ -309,12 +338,10 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
         _card.top = _andImageView2.bottom + 29;
         maxOffsetY = _card.bottom;
     }
-
+    
     _sureButton.frame = CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50);
     
     _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, MAX(SCREEN_HEIGHT - 50, maxOffsetY + 100));
 }
-
-
 
 @end
