@@ -35,6 +35,12 @@
     _loginUser = loginUser;
 }
 
+- (void)updateQustionListFromServer {
+    [self getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
+        
+    }];
+}
+
 - (void)getQuestionInfoWithCallback:(HTQuestionInfoCallback)callback {
     NSDictionary *dict = @{@"area_id" : AppDelegateInstance.cityCode};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getQuestionInfoCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {

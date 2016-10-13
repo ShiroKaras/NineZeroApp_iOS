@@ -124,7 +124,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [HTProgressHUD dismiss];
     [self createUI];
     [self loadData];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -132,6 +131,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self.navigationController.navigationBar setHidden:YES];
     
+    [[[HTServiceManager sharedInstance] questionService] updateQustionListFromServer];
     [self loadData];
     
     if (self.cardType == HTPreviewCardTypeDefault) {

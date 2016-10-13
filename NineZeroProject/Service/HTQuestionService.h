@@ -32,6 +32,11 @@ typedef void (^HTGetScanningListCallback) (BOOL success, NSArray<HTScanning *> *
 - (void)setLoginUser:(HTLoginUser *)loginUser;
 
 /**
+ *  @brief 从server上更新QuestionList
+ */
+- (void)updateQustionListFromServer;
+
+/**
  *  @brief 获取题目总体信息
  */
 - (void)getQuestionInfoWithCallback:(HTQuestionInfoCallback)callback;
