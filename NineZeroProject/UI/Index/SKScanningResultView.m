@@ -61,7 +61,7 @@
 - (void)createVideoWithUrlString:(NSString*)urlString {
 //    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"trailer_video" ofType:@"mp4"];
     NSString *fileName = [[urlString componentsSeparatedByString:@"/"] lastObject];
-    _playerLayer.frame = CGRectMake(0, 0, self.width, self.height);
+    _playerLayer.frame = CGRectMake(0, 0, self.width, self.height-60);
     // 本地沙盒目录
     //NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:fileName];
     
@@ -114,7 +114,7 @@
     [self addSubview:_scanningImageView];
     [_scanningImageView sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         _scanningImageView.centerX = SCREEN_WIDTH/2;
-        _scanningImageView.centerY = SCREEN_HEIGHT/2;
+        _scanningImageView.centerY = SCREEN_HEIGHT/2-60;
     }];
     
 }

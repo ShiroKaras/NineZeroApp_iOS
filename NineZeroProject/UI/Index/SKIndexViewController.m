@@ -246,7 +246,7 @@ typedef enum {
     }];
     
     _headerLabel = [UILabel new];
-    _headerLabel.text = @"下滑开启扫一扫";
+    _headerLabel.text = @"下划开启扫一扫";
     _headerLabel.font = [UIFont systemFontOfSize:14];
     _headerLabel.textColor = [UIColor colorWithHex:0x00DFB4];
     [_headerLabel sizeToFit];

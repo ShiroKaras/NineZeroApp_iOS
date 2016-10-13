@@ -620,8 +620,16 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             break;
         }
         case HTCardCollectionClickTypeScanning: {
-            SKSwipeViewController *scanningViewController = [[SKSwipeViewController alloc] initWithQuestion:cell.question];
-            [self.navigationController pushViewController:scanningViewController animated:YES];
+            //判断相机是否开启
+            AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+            if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied)
+            {
+                HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+                [alertView show];
+            } else {
+                SKSwipeViewController *scanningViewController = [[SKSwipeViewController alloc] initWithQuestion:cell.question];
+                [self.navigationController pushViewController:scanningViewController animated:YES];
+            }
             break;
         }
         case HTCardCollectionClickTypePause: {
