@@ -39,6 +39,9 @@ typedef enum {
 @property (nonatomic, strong) UIView    *relaxDayCountView;
 @property (nonatomic, strong) SKActivityNotificationView    *activityNotificationView;
 @property (nonatomic, strong) UIImageView *notificationFlag;
+
+@property (nonatomic, strong) UIImageView *scanningMascotImageView;
+@property (nonatomic, strong) UILabel *headerLabel;
 @property (nonatomic, strong) UIView    *swipeView;
 @property (nonatomic, strong) UIImageView *cameraImageView;
 
@@ -95,6 +98,10 @@ typedef enum {
     
     [[[HTServiceManager sharedInstance] questionService] getScanning:^(BOOL success, NSArray<HTScanning *> *scanningList) {
         _scanningList = scanningList;
+        
+        _headerLabel.hidden = !_scanningList[0].status;
+        _scanningMascotImageView.hidden = !_scanningList[0].status;
+        
         // 本地沙盒目录
         NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         //清除缓存
@@ -238,25 +245,27 @@ typedef enum {
         make.right.equalTo(weakSelf.view).offset(-10);
     }];
     
-    UILabel *headerLabel = [UILabel new];
-    headerLabel.text = @"下滑开启扫一扫";
-    headerLabel.font = [UIFont systemFontOfSize:14];
-    headerLabel.textColor = [UIColor colorWithHex:0x00DFB4];
-    [headerLabel sizeToFit];
-    [self.view addSubview:headerLabel];
+    _headerLabel = [UILabel new];
+    _headerLabel.text = @"下滑开启扫一扫";
+    _headerLabel.font = [UIFont systemFontOfSize:14];
+    _headerLabel.textColor = [UIColor colorWithHex:0x00DFB4];
+    [_headerLabel sizeToFit];
+    _headerLabel.hidden = YES;
+    [self.view addSubview:_headerLabel];
     
-    UIImageView *scanningMascotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_scanning"]];
-    [scanningMascotImageView sizeToFit];
-    [self.view addSubview:scanningMascotImageView];
+    _scanningMascotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_scanning"]];
+    [_scanningMascotImageView sizeToFit];
+    _scanningMascotImageView.hidden = YES;
+    [self.view addSubview:_scanningMascotImageView];
     
-    [headerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_headerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.view.mas_top).offset(8);
         make.centerX.equalTo(weakSelf.view.mas_centerX);
     }];
     
-    [scanningMascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_scanningMascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.view.mas_top);
-        make.right.equalTo(headerLabel.mas_left).offset(-5);
+        make.right.equalTo(_headerLabel.mas_left).offset(-5);
     }];
     
     //通知标记
