@@ -132,6 +132,6 @@ typedef void (^HTGetScanningListCallback) (BOOL success, NSArray<HTScanning *> *
 /**
  *  @brief 获取扫一扫奖励
  */
--(void)getScanningReward:(HTResponseCallback)callback;
+-(void)getScanningRewardWithRewardId:(NSString *)rewardID :(HTResponseCallback)callback;
 
 @end
