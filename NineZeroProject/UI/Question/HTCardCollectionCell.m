@@ -377,7 +377,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [TalkingData trackEvent:@"answer"];
         if (_question.questionID != _questionInfo.questionID) {
             //往期关卡
-            if (_question.type == 0) {
+            if (_question.base_type == 1 || _question.base_type == 2) {
                 UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prompt_Invalid Invalid"]];
                 [imageView sizeToFit];
                 imageView.right = _composeButton.right +33;
@@ -393,16 +393,16 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                         [imageView removeFromSuperview];
                     }];
                 }];
-            } else if (_question.type == 1){
+            } else if (_question.base_type == 0) {
                 [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];   
             }
         } else {
             //当前关卡
-            if (_question.type == 0) {
+            if (_question.base_type == 1) {
                 [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeAR];
-            } else if (_question.type == 1) {
+            } else if (_question.base_type == 0) {
                 [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeCompose];
-            } else if (_question.type == 2) {
+            } else if (_question.base_type == 2) {
                 [self.delegate collectionCell:self didClickButtonWithType:HTCardCollectionClickTypeScanning];
             }
         }
@@ -547,21 +547,21 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     } else {
         if (_question.questionID != questionInfo.questionID) {
             //往期关卡
-            if (_question.type == 0) {
+            if (_question.base_type == 1 || _question.base_type == 2) {
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked"] forState:UIControlStateNormal];
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked_highlight"] forState:UIControlStateHighlighted];
                 _hintButton.hidden = YES;
-            } else if (_question.type == 1){
+            } else if (_question.type == 0){
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
                 _hintButton.hidden = [[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue]>1? NO:YES;
             }
         } else {
             //当前关卡
-            if (_question.type == 0) {
+            if (_question.base_type == 1 || _question.base_type == 2) {
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam"] forState:UIControlStateNormal];
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam_highlight"] forState:UIControlStateHighlighted];
-            } else if (_question.type == 1) {
+            } else if (_question.type == 0) {
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
                 _hintButton.hidden = (_questionInfo.endTime - time(NULL))>(3600*16)?YES:NO;

@@ -81,7 +81,7 @@
             }
             _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, MAX(SCREEN_HEIGHT - 50, maxOffsetY + 100));
         } else if (success && response.resultCode == 501){
-            _topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_sacnning_reward"]];
+            _topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_sacnning_reward2"]];
             [_topImage sizeToFit];
             [self addSubview:_topImage];
             
@@ -99,11 +99,11 @@
         } else if (success && response.resultCode == 502){
             
         } else if (success && response.resultCode == 503){
-            _topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_sacnning_reward"]];
+            _topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_sacnning_end"]];
             [_topImage sizeToFit];
             [self addSubview:_topImage];
             
-            _topImage.top = ROUND_HEIGHT_FLOAT(68);
+            _topImage.top = ROUND_HEIGHT_FLOAT(108);
             _topImage.centerX = self.centerX;
         } else {
             

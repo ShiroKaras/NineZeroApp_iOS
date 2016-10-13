@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define NETWORK_HOST @"http://101.201.39.169:8992/"
+#define NETWORK_HOST @"http://101.201.39.169:8082/"
 
 @interface HTCGIManager : NSObject
 

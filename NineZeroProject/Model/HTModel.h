@@ -41,6 +41,7 @@
 @property (nonatomic, assign) uint64_t questionID;              // 唯一标识ID
 @property (nonatomic, assign) NSUInteger serial;                // 章节
 @property (nonatomic, assign) NSInteger type;                   // 问题类型(0 ar, 1 文字, 2扫图)
+@property (nonatomic, assign) NSInteger base_type;              // 1.4问题类型(0 ar, 1 文字, 2扫图)
 @property (nonatomic, assign) NSUInteger areaID;                // 用户所在城市ID
 @property (nonatomic, assign) NSUInteger rewardID;              // 奖励ID
 @property (nonatomic, assign) NSUInteger use_time;              // 回答问题使用的时间
