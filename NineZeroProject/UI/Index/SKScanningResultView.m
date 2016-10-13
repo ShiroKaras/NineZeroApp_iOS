@@ -61,7 +61,6 @@
 - (void)createVideoWithUrlString:(NSString*)urlString {
 //    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"trailer_video" ofType:@"mp4"];
     NSString *fileName = [[urlString componentsSeparatedByString:@"/"] lastObject];
-    _playerLayer.frame = CGRectMake(0, 0, self.width, self.height-60);
     // 本地沙盒目录
     //NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:fileName];
     
@@ -72,7 +71,7 @@
         _playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
         _player = [AVPlayer playerWithPlayerItem:_playerItem];
         _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-        _playerLayer.frame = CGRectMake(0, 0, self.width, self.height);
+        _playerLayer.frame = CGRectMake(0, 0, self.width, self.height-60);
         _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
         [self.layer insertSublayer:_playerLayer atIndex:0];
         
@@ -98,6 +97,7 @@
             self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
             self.player = [AVPlayer playerWithPlayerItem:_playerItem];
             self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+            _playerLayer.frame = CGRectMake(0, 0, self.width, self.height-60);
             _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
             [self setNeedsLayout];
             [_player play];

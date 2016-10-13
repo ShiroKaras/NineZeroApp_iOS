@@ -99,8 +99,8 @@ typedef enum {
     [[[HTServiceManager sharedInstance] questionService] getScanning:^(BOOL success, NSArray<HTScanning *> *scanningList) {
         _scanningList = scanningList;
         
-        _headerLabel.hidden = !_scanningList[0].status;
-        _scanningMascotImageView.hidden = !_scanningList[0].status;
+        _headerLabel.hidden = ![_scanningList[0].status integerValue];
+        _scanningMascotImageView.hidden = ![_scanningList[0].status integerValue];
         
         // 本地沙盒目录
         NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];

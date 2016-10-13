@@ -142,9 +142,10 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
         [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
         if (success) {
             // AT LEAST ONE MASCOT
-            if (mascots.count != 0) {
+            if (mascots.count == 0) {
                 self.tipLabel.hidden = NO;
-            }
+            } else
+                self.tipLabel.hidden = YES;
             self.mascots = [mascots mutableCopy];
             [self.mascots insertObject:[HTMascotHelper defaultMascots] atIndex:0];
             [_mascotView setMascots:self.mascots];
