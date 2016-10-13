@@ -38,7 +38,7 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
     [super viewDidLoad];
     [HTProgressHUD show];
     self.view.backgroundColor = COMMON_BG_COLOR;
-    self.mascots = [NSMutableArray arrayWithObject:[HTMascotHelper defaultMascots]];
+    self.mascots = [NSMutableArray array];
     self.props = [NSMutableArray array];
     
     self.mascotTipView = [[HTMascotTipView alloc] initWithIndex:0];
@@ -142,10 +142,12 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
         [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
         if (success) {
             // AT LEAST ONE MASCOT
-//            if (mascots.count != 0) {
-                self.mascots = [mascots mutableCopy];
-                [_mascotView setMascots:self.mascots];
-//            }
+            if (mascots.count != 0) {
+                self.tipLabel.hidden = NO;
+            }
+            self.mascots = [mascots mutableCopy];
+            [self.mascots insertObject:[HTMascotHelper defaultMascots] atIndex:0];
+            [_mascotView setMascots:self.mascots];
             [self reloadViews];
             [self reloadDisplayMascotsWithIndex:[UD integerForKey:selectedMascotKey]];
             [HTProgressHUD dismiss];
@@ -196,13 +198,13 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 }
 
 - (void)reloadViews {
-    if (self.mascots.count == 1) {
-        self.tipImageView.hidden = NO;
+    if (self.mascots.count == 0) {
+        self.tipImageView.hidden = YES;
         self.mascotTipView.hidden = YES;
     } else {
+        [self.tipLabel removeFromSuperview];
         self.mascotTipView.hidden = YES;
         self.tipImageView.hidden = YES;
-        self.tipLabel.hidden = YES;
         self.mascotView.hidden = NO;
     }
 }

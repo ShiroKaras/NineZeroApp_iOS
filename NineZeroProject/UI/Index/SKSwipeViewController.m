@@ -123,6 +123,12 @@
     }];
 }
 
+#pragma mark - Delegate
+
+- (void)onCaptureMascotSuccessful {
+    [self.delegate didClickBackButtonInScanningResultView:self];
+}
+
 #pragma mark - Actions
 
 - (void)showtipImageView {

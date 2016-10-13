@@ -131,6 +131,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self.navigationController.navigationBar setHidden:YES];
+    
+    [self loadData];
+    
     if (self.cardType == HTPreviewCardTypeDefault) {
         [MobClick beginLogPageView:@"mainpage"];
     }else if (self.cardType == HTPreviewCardTypeRecord) {

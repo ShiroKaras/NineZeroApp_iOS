@@ -12,9 +12,16 @@
 @class HTScanning;
 @class HTQuestion;
 
+@class SKSwipeViewController;
+
+@protocol SKScanningViewDelegate <NSObject>
+- (void)didClickBackButtonInScanningResultView:(SKSwipeViewController *)view;
+@end
+
 @interface SKSwipeViewController : UIViewController
 
 @property(nonatomic, strong) OpenGLView *glView;
+@property(nonatomic, weak)  id<SKScanningViewDelegate> delegate;
 
 - (instancetype)initWithScanningList:(NSArray<HTScanning*>*)scanningList;
 - (instancetype)initWithQuestion:(HTQuestion *)question;

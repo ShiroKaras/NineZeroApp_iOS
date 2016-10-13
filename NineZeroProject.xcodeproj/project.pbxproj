@@ -1854,6 +1854,8 @@
 			children = (
 				11AD0C311DAA1E0D007951C5 /* SKSwipeViewController.h */,
 				11AD0C321DAA1E0D007951C5 /* SKSwipeViewController.m */,
+				11AD0C3A1DAA32BE007951C5 /* OpenGLView.h */,
+				11AD0C3B1DAA32BE007951C5 /* OpenGLView.mm */,
 				1115B6901DABBE1200E1BDB7 /* SKScanningResultView.h */,
 				1115B6911DABBE1200E1BDB7 /* SKScanningResultView.m */,
 				112D129A1DAF478700588D30 /* SKScanningRewardView.h */,
@@ -1901,8 +1903,6 @@
 		11AD0C361DAA31E2007951C5 /* EasyAR */ = {
 			isa = PBXGroup;
 			children = (
-				11AD0C3A1DAA32BE007951C5 /* OpenGLView.h */,
-				11AD0C3B1DAA32BE007951C5 /* OpenGLView.mm */,
 				11AD0C371DAA322C007951C5 /* ar.cc */,
 				11AD0C381DAA322C007951C5 /* ar.hpp */,
 			);
