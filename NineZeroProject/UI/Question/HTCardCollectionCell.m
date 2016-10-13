@@ -551,7 +551,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked"] forState:UIControlStateNormal];
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked_highlight"] forState:UIControlStateHighlighted];
                 _hintButton.hidden = YES;
-            } else if (_question.type == 0){
+            } else if (_question.base_type == 0){
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
                 _hintButton.hidden = [[UD mutableArrayValueForKey:kQuestionHintArray][question.serial-1] integerValue]>1? NO:YES;
@@ -561,7 +561,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (_question.base_type == 1 || _question.base_type == 2) {
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam"] forState:UIControlStateNormal];
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam_highlight"] forState:UIControlStateHighlighted];
-            } else if (_question.type == 0) {
+            } else if (_question.base_type == 0) {
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil"] forState:UIControlStateNormal];
                 [_composeButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_pencil_highlight"] forState:UIControlStateHighlighted];
                 _hintButton.hidden = (_questionInfo.endTime - time(NULL))>(3600*16)?YES:NO;
