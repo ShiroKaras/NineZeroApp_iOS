@@ -143,9 +143,9 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
         if (success) {
             // AT LEAST ONE MASCOT
             if (mascots.count == 0) {
-                self.tipLabel.hidden = NO;
+                self.tipImageView.hidden = NO;
             } else
-                self.tipLabel.hidden = YES;
+                self.tipImageView.hidden = YES;
             self.mascots = [mascots mutableCopy];
             [self.mascots insertObject:[HTMascotHelper defaultMascots] atIndex:0];
             [_mascotView setMascots:self.mascots];
@@ -199,11 +199,10 @@ static NSString *selectedMascotKey = @"selectedMascotKey";
 }
 
 - (void)reloadViews {
-    if (self.mascots.count == 0) {
-        self.tipImageView.hidden = YES;
+    if (self.mascots.count == 1) {
+        self.tipImageView.hidden = NO;
         self.mascotTipView.hidden = YES;
     } else {
-        [self.tipLabel removeFromSuperview];
         self.mascotTipView.hidden = YES;
         self.tipImageView.hidden = YES;
         self.mascotView.hidden = NO;
