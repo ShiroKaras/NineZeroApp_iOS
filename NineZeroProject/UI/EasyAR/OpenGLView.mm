@@ -50,6 +50,7 @@ HelloAR::HelloAR()
 void HelloAR::initGL()
 {
     augmenter_ = Augmenter();
+    flag = 0;
 }
 
 void HelloAR::resizeGL(int width, int height)
@@ -88,12 +89,10 @@ void HelloAR::render()
     for (int i = 0; i < frame.targets().size(); ++i) {
         AugmentedTarget::Status status = frame.targets()[i].status();
         if(status == AugmentedTarget::kTargetStatusTracked){
-            //NSLog(@"targetImageName:%s",frame.targets()[i].target().name());
-            //NSLog(@"trackImageName:%s",[[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"targetImage_0.jpg"] UTF8String]);
-            if ([[NSString stringWithUTF8String:frame.targets()[i].target().name()] isEqualToString:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"targetImage_0"]]) {
-                NSLog(@"Get Image");
+            if ([[[[NSString stringWithUTF8String:frame.targets()[i].target().name()] componentsSeparatedByString:@"/"] lastObject] isEqualToString:[NSString stringWithFormat:@"targetImage_%d",i]]) {
+                //NSLog(@"Get Image");
                 if (flag == 0) {
-                    SKScanningResultView *view = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+                    SKScanningResultView *view = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:i];
                     [KEY_WINDOW addSubview:view];
                     flag = 1;
                 }

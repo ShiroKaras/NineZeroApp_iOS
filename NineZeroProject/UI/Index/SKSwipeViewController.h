@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "OpenGLView.h"
 
+@class HTScanning;
+
 @interface SKSwipeViewController : UIViewController
 
 @property(nonatomic, strong) OpenGLView *glView;
+
+- (instancetype)initWithScanningList:(NSArray<HTScanning*>*)scanningList;
 
 @end

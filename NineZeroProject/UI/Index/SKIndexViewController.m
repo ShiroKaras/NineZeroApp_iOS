@@ -50,6 +50,8 @@ typedef enum {
 @property (nonatomic, strong) UILabel   *relaxDayTimeLabel;
 @property (nonatomic, assign) uint64_t  endTime;
 @property (nonatomic, assign) BOOL  isMonday;
+
+@property (nonatomic, strong) NSArray<HTScanning *> *scanningList;
 @end
 
 @implementation SKIndexViewController {
@@ -92,8 +94,7 @@ typedef enum {
     [self createUI];
     
     [[[HTServiceManager sharedInstance] questionService] getScanning:^(BOOL success, NSArray<HTScanning *> *scanningList) {
-        DLog(@"%@", scanningList[0].file_url_true);
-        
+        _scanningList = scanningList;
         // 本地沙盒目录
         NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         //清除缓存
@@ -672,7 +673,7 @@ typedef enum {
                         HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
                         [alertView show];
                     }else {
-                        SKSwipeViewController *swipeViewController = [[SKSwipeViewController alloc] init];
+                        SKSwipeViewController *swipeViewController = [[SKSwipeViewController alloc] initWithScanningList:_scanningList];
                         [self.navigationController pushViewController:swipeViewController animated:NO];
                     }
                 }];

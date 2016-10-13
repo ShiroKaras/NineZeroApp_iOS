@@ -10,4 +10,6 @@
 
 @interface SKScanningResultView : UIView
 
+- (instancetype)initWithFrame:(CGRect)frame withIndex:(NSUInteger)index;
+
 @end
