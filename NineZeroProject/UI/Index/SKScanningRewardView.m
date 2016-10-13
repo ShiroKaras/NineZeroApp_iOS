@@ -62,7 +62,7 @@
     [self addSubview:_sureButton];
     
     [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] questionService] getScanningRewardWithRewardId:_rewardID :^(BOOL success, HTResponsePackage *response) {
+    [[[HTServiceManager sharedInstance] questionService] getScanningRewardWithRewardId:_rewardID callback:^(BOOL success, HTResponsePackage *response) {
         [HTProgressHUD dismiss];
         if (success && response.resultCode == 0) {
             _topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_sacnning_reward"]];

@@ -1,12 +1,12 @@
 //
-//  SKRewardViewController.m
+//  SKARRewardController.m
 //  NineZeroProject
 //
 //  Created by SinLemon on 16/10/13.
 //  Copyright © 2016年 ronhu. All rights reserved.
 //
 
-#import "SKRewardViewController.h"
+#import "SKARRewardController.h"
 #import "HTUIHeader.h"
 #import <SDWebImage/UIImage+GIF.h>
 #import <YLGIFImage/YLImageView.h>
@@ -14,6 +14,7 @@
 #import "YYImage.h"
 #import "YYAnimatedImageView.h"
 #import "HTRewardCard.h"
+#import <UIImage+animatedGIF.h>
 
 typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     NZRewardTypeGold    = 0        ,
@@ -22,12 +23,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     NZRewardTypeTicket  = 1     <<2
 };
 
-typedef NS_OPTIONS(NSUInteger, SKRewardType) {
-    SKRewardTypeOnlyTicket    = 0        ,
-    SKRewardTypeQuestion    = 1     <<0
-};
-
-@interface SKRewardViewController ()
+@interface SKARRewardController ()
 @property (nonatomic, strong) UIScrollView  *scrollView;
 @property (nonatomic, strong) HTLoginButton *sureButton;
 @property (nonatomic, strong) UIView        *topBackView;           //布局用View
@@ -51,32 +47,20 @@ typedef NS_OPTIONS(NSUInteger, SKRewardType) {
 
 @property (nonatomic, strong) HTMascot *mascot;
 @property (nonatomic, strong) HTMascotProp *prop;
-@property (nonatomic, strong) HTTicket *ticket;;
+@property (nonatomic, strong) HTTicket *ticket;
 @property (nonatomic, assign) NSUInteger goldNumber;
 @property (nonatomic, assign) NSUInteger rankNumber;
-
-@property (nonatomic, strong) NSString *scanningRewardID;
 @end
 
-@implementation SKRewardViewController {
-    SKRewardType _rewardType;
+@implementation SKARRewardController{
     uint64_t _rewardID;
     uint64_t _qid;
 }
 
-- (instancetype)initWithQuestionRewardID:(uint64_t)rewardID questionID:(uint64_t)qid {
+- (instancetype)initWithRewardID:(uint64_t)rewardID questionID:(uint64_t)qid {
     if (self = [super init]) {
-        _rewardType = SKRewardTypeQuestion;
         _rewardID = rewardID;
         _qid = qid;
-    }
-    return self;
-}
-
-- (instancetype)initWithScanningRewardID:(NSString*)rewardID {
-    if (self = [super init]) {
-        _rewardType = SKRewardTypeOnlyTicket;
-        _scanningRewardID = rewardID;
     }
     return self;
 }
@@ -120,32 +104,17 @@ typedef NS_OPTIONS(NSUInteger, SKRewardType) {
         self.navigationController.navigationBarHidden = YES;
     }
     [HTProgressHUD show];
-    switch (_rewardType) {
-        case SKRewardTypeQuestion: {
-            [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID questionID:_qid completion:^(BOOL success, HTResponsePackage *rsp) {
-                [HTProgressHUD dismiss];
-                if (success && rsp.resultCode == 0) {
-                    [self createTopViewWith:rsp];
-                } else {
-                    [self showTipsWithText:@"网络失败"];
-                }
-            }];
-            break;
-        }
-        case SKRewardTypeOnlyTicket: {
-            [[[HTServiceManager sharedInstance] questionService] getScanningRewardWithRewardId:_scanningRewardID :^(BOOL success, HTResponsePackage *response) {
-                [HTProgressHUD dismiss];
-                if (success && response.resultCode == 0) {
-                    NSLog(@"Create Ticket View");
-                } else {
-                    [self showTipsWithText:@"网络失败"];
-                }
-            }];
-            break;
-        }
-        default:
-            break;
-    }
+    
+    [[[HTServiceManager sharedInstance] questionService] getAnswerScanningARWithQuestionID:[NSString stringWithFormat:@"%llu", _rewardID] callback:^(BOOL success, HTResponsePackage *response) {
+        [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID questionID:_qid completion:^(BOOL success, HTResponsePackage *rsp) {
+            [HTProgressHUD dismiss];
+            if (success && rsp.resultCode == 0) {
+                [self createTopViewWith:rsp];
+            } else {
+                [self showTipsWithText:@"网络失败"];
+            }
+        }];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -155,6 +124,10 @@ typedef NS_OPTIONS(NSUInteger, SKRewardType) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    //    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    //    if (self.navigationController) {
+    //        self.navigationController.navigationBarHidden = NO;
+    //    }
 }
 
 - (void)createTopViewWith:(HTResponsePackage*)rsp {

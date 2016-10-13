@@ -14,7 +14,6 @@
 		1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */; };
 		1121676D1CF3358E0048EA01 /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */; };
 		1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */; };
-		112D12991DAF323E00588D30 /* SKRewardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 112D12981DAF323E00588D30 /* SKRewardViewController.m */; };
 		112D129C1DAF478700588D30 /* SKScanningRewardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 112D129B1DAF478700588D30 /* SKScanningRewardView.m */; };
 		1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */; };
 		1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */; };
@@ -34,6 +33,7 @@
 		117418171D89396400B5458F /* SKAnswerDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117418091D89396400B5458F /* SKAnswerDetailView.m */; };
 		117418181D89396400B5458F /* SKRankInQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1174180B1D89396400B5458F /* SKRankInQuestionTableViewCell.m */; };
 		117418191D89396400B5458F /* SKRankInQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1174180D1D89396400B5458F /* SKRankInQuestionViewController.m */; };
+		1179430E1DAFB774002F0DB9 /* SKARRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1179430D1DAFB774002F0DB9 /* SKARRewardController.m */; };
 		11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
 		11AD0C331DAA1E0D007951C5 /* SKSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11AD0C321DAA1E0D007951C5 /* SKSwipeViewController.m */; };
@@ -811,8 +811,6 @@
 		1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKUserAgreementViewController.m; sourceTree = "<group>"; };
 		1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SKUserAgreementViewController.xib; sourceTree = "<group>"; };
 		1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
-		112D12971DAF323E00588D30 /* SKRewardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKRewardViewController.h; sourceTree = "<group>"; };
-		112D12981DAF323E00588D30 /* SKRewardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKRewardViewController.m; sourceTree = "<group>"; };
 		112D129A1DAF478700588D30 /* SKScanningRewardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKScanningRewardView.h; path = Index/SKScanningRewardView.h; sourceTree = "<group>"; };
 		112D129B1DAF478700588D30 /* SKScanningRewardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKScanningRewardView.m; path = Index/SKScanningRewardView.m; sourceTree = "<group>"; };
 		1139CB9E1DACD4EB004FF6B0 /* NSString+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+AES256.h"; path = "AES256/NSString+AES256.h"; sourceTree = "<group>"; };
@@ -850,6 +848,8 @@
 		1174180B1D89396400B5458F /* SKRankInQuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRankInQuestionTableViewCell.m; path = NineZeroProject/UI/Question/SKRankInQuestionTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		1174180C1D89396400B5458F /* SKRankInQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRankInQuestionViewController.h; path = NineZeroProject/UI/Question/SKRankInQuestionViewController.h; sourceTree = SOURCE_ROOT; };
 		1174180D1D89396400B5458F /* SKRankInQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRankInQuestionViewController.m; path = NineZeroProject/UI/Question/SKRankInQuestionViewController.m; sourceTree = SOURCE_ROOT; };
+		1179430C1DAFB773002F0DB9 /* SKARRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKARRewardController.h; sourceTree = "<group>"; };
+		1179430D1DAFB774002F0DB9 /* SKARRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKARRewardController.m; sourceTree = "<group>"; };
 		11838DD11D953728001A24A3 /* NineZeroProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NineZeroProject.entitlements; sourceTree = "<group>"; };
 		11961CDA1D2D2B3400A00AF9 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
@@ -2154,6 +2154,8 @@
 		173A21141C568A1A006A423D /* Reward */ = {
 			isa = PBXGroup;
 			children = (
+				1179430C1DAFB773002F0DB9 /* SKARRewardController.h */,
+				1179430D1DAFB774002F0DB9 /* SKARRewardController.m */,
 				173A21151C568A34006A423D /* HTRewardController.h */,
 				173A21161C568A34006A423D /* HTRewardController.m */,
 				17F45AF61C7E2564004F2E32 /* HTRewardCard.h */,
@@ -2164,8 +2166,6 @@
 				176B75721C7759B20069DE89 /* HTRelaxCoverController.h */,
 				176B75731C7759B20069DE89 /* HTRelaxCoverController.m */,
 				176B75741C7759B20069DE89 /* HTRelaxCoverController.xib */,
-				112D12971DAF323E00588D30 /* SKRewardViewController.h */,
-				112D12981DAF323E00588D30 /* SKRewardViewController.m */,
 			);
 			path = Reward;
 			sourceTree = "<group>";
@@ -4279,7 +4279,6 @@
 				1787FD231C4A895B006E55A6 /* HTARCaptureController.m in Sources */,
 				179D2BB31C5E5444000A4461 /* HTRelaxController.m in Sources */,
 				17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */,
-				112D12991DAF323E00588D30 /* SKRewardViewController.m in Sources */,
 				117418111D89396400B5458F /* HTComposeView.m in Sources */,
 				112D129C1DAF478700588D30 /* SKScanningRewardView.m in Sources */,
 				1787FD1F1C4A8884006E55A6 /* PRARManager.m in Sources */,
@@ -4347,6 +4346,7 @@
 				1787FD2B1C4A9E85006E55A6 /* INTULocationManager.m in Sources */,
 				17B429011C54D4A8008AFBA9 /* YYFrameImage.m in Sources */,
 				17262CB41C5DF1D7000FDA1B /* HTMascotHelper.m in Sources */,
+				1179430E1DAFB774002F0DB9 /* SKARRewardController.m in Sources */,
 				117418161D89396400B5458F /* HTShowDetailView.m in Sources */,
 				117417F41D7FE3CC00B5458F /* SKHelperView.m in Sources */,
 				17A92CCF1CA809B100BE893D /* MJRefreshHeader.m in Sources */,

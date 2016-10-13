@@ -463,7 +463,7 @@
     }];
 }
 
-- (void)getScanningRewardWithRewardId:(NSString *)rewardID :(HTResponseCallback)callback {
+- (void)getScanningRewardWithRewardId:(NSString *)rewardID callback:(HTResponseCallback)callback {
     NSTimeInterval time=[[NSDate date] timeIntervalSince1970];// (NSTimeInterval) time = 1427189152.313643
     long long int currentTime=(long long int)time;      //NSTimeInterval返回的是double类型
     NSDictionary *dict = @{@"user_id":[[HTStorageManager sharedInstance] getUserID],
@@ -475,6 +475,28 @@
     NSDictionary *param = @{@"data" : aes256String};
     DLog(@"AES String:%@", param);
     [[AFHTTPRequestOperationManager manager] POST:@"http://101.201.39.169:8082/Scanning/getRewardDetail" parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"%@", responseObject);
+        HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
+        callback(YES, package);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        callback(NO, nil);
+        DLog(@"%@", error);
+    }];
+}
+
+- (void)getAnswerScanningARWithQuestionID:(NSString *)questionID callback:(HTResponseCallback)callback {
+    NSTimeInterval time=[[NSDate date] timeIntervalSince1970];// (NSTimeInterval) time = 1427189152.313643
+    long long int currentTime=(long long int)time;      //NSTimeInterval返回的是double类型
+    NSDictionary *dict = @{@"user_id":[[HTStorageManager sharedInstance] getUserID],
+                           @"question_id":questionID,
+                           @"time":@(currentTime)};
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *aes256String = [jsonString aes256_encrypt:@"a!dg#8ai@o43ht9s"];
+    NSDictionary *param = @{@"data" : aes256String};
+    DLog(@"AES String:%@", param);
+    
+    [[AFHTTPRequestOperationManager manager] POST:@"http://101.201.39.169:8082/Answer/answerScanningAR" parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
         HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
         callback(YES, package);

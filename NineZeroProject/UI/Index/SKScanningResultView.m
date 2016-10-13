@@ -9,7 +9,7 @@
 #import "SKScanningResultView.h"
 #import "HTUIHeader.h"
 #import "SKScanningRewardView.h"
-#import "HTRewardController.h"
+#import "SKARRewardController.h"
 #import "OpenGLView.h"
 
 @interface SKScanningResultView ()
@@ -173,7 +173,7 @@
         [KEY_WINDOW addSubview:rewardView];
         [KEY_WINDOW bringSubviewToFront:rewardView];
     } else if (_swipeType == 1) {
-        HTRewardController *rewardController = [[HTRewardController alloc] initWithRewardID:[[[[HTServiceManager sharedInstance] questionService] questionList] lastObject].rewardID questionID:[[[[HTServiceManager sharedInstance] questionService] questionList] lastObject].questionID];
+        SKARRewardController *rewardController = [[SKARRewardController alloc] initWithRewardID:[[[[HTServiceManager sharedInstance] questionService] questionList] lastObject].rewardID questionID:[[[[HTServiceManager sharedInstance] questionService] questionList] lastObject].questionID];
         if (IOS_VERSION >= 8.0) {
             rewardController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         }
