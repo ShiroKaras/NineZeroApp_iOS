@@ -38,6 +38,8 @@
     return self;
 }
 
+
+
 - (void)loadData {
     [[[HTServiceManager sharedInstance] questionService] getScanning:^(BOOL success, NSArray<HTScanning *> *scanningList) {
         _scanning = scanningList[_index];
@@ -169,10 +171,24 @@
         [KEY_WINDOW addSubview:rewardView];
         [KEY_WINDOW bringSubviewToFront:rewardView];
     } else if (_swipeType == 1) {
-        
+        HTRewardController *rewardController = [[HTRewardController alloc] initWithRewardID:[[[[HTServiceManager sharedInstance] questionService] questionList] lastObject].rewardID questionID:[[[[HTServiceManager sharedInstance] questionService] questionList] lastObject].questionID];
+        if (IOS_VERSION >= 8.0) {
+            rewardController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        }
+        [[self viewController] presentViewController:rewardController animated:YES completion:nil];
     } else {
-    
+        
     }
 }
 
+- (UIViewController *)viewController
+{
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
 @end

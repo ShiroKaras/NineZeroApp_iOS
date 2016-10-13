@@ -17,4 +17,5 @@
 @interface SKScanningResultView : UIView
 @property (nonatomic, weak) id<SKScanningViewDelegate> delegate;
 - (instancetype)initWithFrame:(CGRect)frame withIndex:(NSUInteger)index swipeType:(int)type;
+
 @end
