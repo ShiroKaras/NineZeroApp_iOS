@@ -53,7 +53,11 @@
     [self.tipImageView sizeToFit];
     [self.view addSubview:self.tipImageView];
     self.tipLabel = [[UILabel alloc] init];
-    self.tipLabel.text = _scanningList[0].hint;
+    if (_swipeType == 0) {
+        self.tipLabel.text = _scanningList[0].hint;
+    } else if (_swipeType == 1) {
+        self.tipLabel.text = _question.hint;
+    }
     self.tipLabel.font = [UIFont systemFontOfSize:13];
     self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
     [self.tipImageView addSubview:self.tipLabel];
