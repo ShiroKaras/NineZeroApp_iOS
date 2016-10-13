@@ -477,11 +477,7 @@
     [[AFHTTPRequestOperationManager manager] POST:@"http://101.201.39.169:8082/Scanning/getRewardDetail" parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
         HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
-        if (package.resultCode == 0) {
-            callback(YES, package);
-        } else {
-            callback(NO, nil);
-        }
+        callback(YES, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);

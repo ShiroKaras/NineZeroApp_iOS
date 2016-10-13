@@ -169,38 +169,45 @@
     //[self.successBackgroundView removeFromSuperview];
     
     if (_swipeType == 0) {
-        [[[HTServiceManager sharedInstance] questionService] getScanningRewardWithRewardId:_scanning.reward_id :^(BOOL success, HTResponsePackage *response) {
-            if (success && response.resultCode == 0) {
-                SKScanningRewardView *rewardView = [[SKScanningRewardView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) ticket:[HTTicket objectWithKeyValues:response.data[@"ticket"]]];
-                [KEY_WINDOW addSubview:rewardView];
-                [KEY_WINDOW bringSubviewToFront:rewardView];
-            } else {
-                
-            }
-        }];
+        SKScanningRewardView *rewardView = [[SKScanningRewardView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) rewardID:_scanning.reward_id];
+        [KEY_WINDOW addSubview:rewardView];
+        [KEY_WINDOW bringSubviewToFront:rewardView];
     } else if (_swipeType == 1) {
         HTRewardController *rewardController = [[HTRewardController alloc] initWithRewardID:[[[[HTServiceManager sharedInstance] questionService] questionList] lastObject].rewardID questionID:[[[[HTServiceManager sharedInstance] questionService] questionList] lastObject].questionID];
         if (IOS_VERSION >= 8.0) {
             rewardController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         }
-        [[self viewController] presentViewController:rewardController animated:YES completion:nil];
+        [[self activityViewController] presentViewController:rewardController animated:YES completion:nil];
     } else {
         
     }
 }
 
-- (UIViewController *)viewController {
-    for (UIView *view in KEY_WINDOW.subviews) {
-        if ([view isKindOfClass:[OpenGLView class]]) {
-            for (UIView* next = [view superview]; next; next = next.superview) {
-                UIResponder *nextResponder = [next nextResponder];
-                if ([nextResponder isKindOfClass:[UIViewController class]]) {
-                    NSLog(@"Get ViewController");
-                    return (UIViewController *)nextResponder;
-                }
+- (UIViewController *)activityViewController {
+    UIViewController* activityViewController = nil;
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    if(window.windowLevel != UIWindowLevelNormal) {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow *tmpWin in windows) {
+            if(tmpWin.windowLevel == UIWindowLevelNormal) {
+                window = tmpWin;
+                break;
             }
         }
     }
-    return nil;
+    
+    NSArray *viewsArray = [window subviews];
+    if([viewsArray count] > 0) {
+        UIView *frontView = [viewsArray objectAtIndex:0];
+        id nextResponder = [frontView nextResponder];
+        if([nextResponder isKindOfClass:[UIViewController class]]) {
+            activityViewController = nextResponder;
+        } else {
+            activityViewController = window.rootViewController;
+        }
+    }
+    
+    return activityViewController;
 }
+
 @end
