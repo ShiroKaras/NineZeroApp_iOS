@@ -101,7 +101,11 @@ typedef enum {
         
         _headerLabel.hidden = ![_scanningList[0].status integerValue];
         _scanningMascotImageView.hidden = ![_scanningList[0].status integerValue];
-        
+        if ([_scanningList[0].status integerValue] == 1) {
+            _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
+            [_panGesture setDelegate:self];
+            [self.view addGestureRecognizer:_panGesture];
+        }
         // 本地沙盒目录
         NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         //清除缓存
@@ -451,10 +455,6 @@ typedef enum {
         make.height.equalTo(_timerLevelCountView);
         make.center.equalTo(_timerLevelCountView);
     }];
-    
-    _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
-    [_panGesture setDelegate:self];
-    [self.view addGestureRecognizer:_panGesture];
     
     //活动通知
     _activityNotificationView = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
