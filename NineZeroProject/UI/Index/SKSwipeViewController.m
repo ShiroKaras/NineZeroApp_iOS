@@ -44,25 +44,7 @@
     self.glView = [[OpenGLView alloc] initWithFrame:self.view.bounds withSwipeType:_swipeType];
     [self.view addSubview:self.glView];
     [self.glView setOrientation:self.interfaceOrientation];
-    
-    //提示
-    self.tipImageView = [[UIImageView alloc] init];
-    self.tipImageView.layer.masksToBounds = YES;
-    self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
-    self.tipImageView.contentMode = UIViewContentModeBottom;
-    [self.tipImageView sizeToFit];
-    [self.view addSubview:self.tipImageView];
-    self.tipLabel = [[UILabel alloc] init];
-    if (_swipeType == 0) {
-        self.tipLabel.text = _scanningList[0].hint;
-    } else if (_swipeType == 1) {
-        self.tipLabel.text = _question.hint;
-    }
-    self.tipLabel.font = [UIFont systemFontOfSize:13];
-    self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
-    [self.tipImageView addSubview:self.tipLabel];
-    [self showtipImageView];
-    
+
     //扫描线
     _scanningGridLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scanning_gridlines"]];
     [_scanningGridLine sizeToFit];
@@ -82,6 +64,24 @@
         }];
     }];
 
+    //提示
+    self.tipImageView = [[UIImageView alloc] init];
+    self.tipImageView.layer.masksToBounds = YES;
+    self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
+    self.tipImageView.contentMode = UIViewContentModeBottom;
+    [self.tipImageView sizeToFit];
+    [self.view addSubview:self.tipImageView];
+    self.tipLabel = [[UILabel alloc] init];
+    if (_swipeType == 0) {
+        self.tipLabel.text = _scanningList[0].hint;
+    } else if (_swipeType == 1) {
+        self.tipLabel.text = _question.hint;
+    }
+    self.tipLabel.font = [UIFont systemFontOfSize:13];
+    self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
+    [self.tipImageView addSubview:self.tipLabel];
+    [self showtipImageView];
+    
     [self buildConstrains];
 }
 
