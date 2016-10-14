@@ -103,7 +103,7 @@
             [_topImage sizeToFit];
             [self addSubview:_topImage];
             
-            _topImage.top = ROUND_HEIGHT_FLOAT(108);
+            _topImage.centerY = self.centerY - 25;
             _topImage.centerX = self.centerX;
         } else {
             
