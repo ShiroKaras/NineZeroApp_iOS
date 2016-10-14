@@ -74,6 +74,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 @property (nonatomic, assign) NSInteger clickCount;
 
+@property (nonatomic, assign) HTQuestion *currentQuestion;
 @end
 
 @implementation HTPreviewCardController {
@@ -88,6 +89,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         _cardType = type;
         if (questions != nil) {
             questionList = [questions mutableCopy];
+            _currentQuestion = questionList[0];
         } else {
             questionList = [NSMutableArray array];
         }
@@ -101,6 +103,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
         questionInfo = info;
         if (questions != nil) {
             questionList = [questions mutableCopy];
+            _currentQuestion = questionList[0];
         } else {
             questionList = [NSMutableArray array];
         }
@@ -131,8 +134,10 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self.navigationController.navigationBar setHidden:YES];
     
-    [[[HTServiceManager sharedInstance] questionService] updateQustionListFromServer];
-    [self loadData];
+    [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
+    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *qL) { }];
+    questionList = [NSMutableArray arrayWithObject:[[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy][_currentQuestion.serial-1]];
+    [self.collectionView reloadData];
     
     if (self.cardType == HTPreviewCardTypeDefault) {
         [MobClick beginLogPageView:@"mainpage"];
@@ -786,8 +791,9 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller {
     [controller dismissViewControllerAnimated:NO completion:^{
-        questionList = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
-        [self willAppearQuestionAtIndex:questionList.count - 1];
+        [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
+        [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *qL) { }];
+        questionList = [NSMutableArray arrayWithObject:[[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy][_currentQuestion.serial-1]];
         [self.collectionView reloadData];
         HTRewardController *reward = [[HTRewardController alloc] initWithRewardID:controller.rewardID questionID:controller.question.questionID];
         reward.view.backgroundColor = [UIColor clearColor];
@@ -795,7 +801,6 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             reward.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         }
         [self presentViewController:reward animated:YES completion:nil];
-//        [[HTUIHelper mainController] reloadMascotViewData];
     }];
 }
 
