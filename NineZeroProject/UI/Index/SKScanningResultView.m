@@ -173,6 +173,8 @@
         [KEY_WINDOW addSubview:rewardView];
         [KEY_WINDOW bringSubviewToFront:rewardView];
     } else if (_swipeType == 1) {
+        [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
+        [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *qL) { }];
         SKARRewardController *rewardController = [[SKARRewardController alloc] initWithRewardID:[[[[HTServiceManager sharedInstance] questionService] questionList] lastObject].rewardID questionID:[[[[HTServiceManager sharedInstance] questionService] questionList] lastObject].questionID];
         if (IOS_VERSION >= 8.0) {
             rewardController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
