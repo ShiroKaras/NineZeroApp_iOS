@@ -122,7 +122,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        return (SCREEN_WIDTH-20)/288.*281.;
+        return (SCREEN_WIDTH-32)/288.*281.;
     } else {
         return 74;
     }

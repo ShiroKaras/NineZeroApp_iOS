@@ -125,10 +125,12 @@
         
         //TOP
         _topBackView = [[UIView alloc] init];
+        _topBackView.layer.masksToBounds = YES;
         _topBackView.backgroundColor = [UIColor blackColor];
         [self.contentView addSubview:_topBackView];
         
         _topBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rankpage_top"]];
+        _topBackImageView.layer.masksToBounds = YES;
         _topBackImageView.contentMode = UIViewContentModeScaleAspectFit;
         [_topBackView addSubview:_topBackImageView];
         
