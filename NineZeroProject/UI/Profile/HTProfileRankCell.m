@@ -200,17 +200,11 @@
 - (void)setRanker:(HTRanker *)ranker {
     _topBackView.hidden = YES;
     _ranker = ranker;
-    if (ranker.rank == 1 || ranker.rank == 2 || ranker.rank == 3) {
-//        _orderImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_profile_leaderboard_no%ld", (unsigned long)ranker.rank]];
-//        [_orderImageView sizeToFit];
-//        _orderImageView.hidden = NO;
-//        _orderLabel.hidden = YES;
-    } else {
-        _orderLabel.hidden = NO;
-        _orderImageView.hidden = YES;
-        _orderLabel.text = ranker.rank>999? @"1K+":[NSString stringWithFormat:@"%ld", (unsigned long)ranker.rank];
-        [_orderLabel sizeToFit];
-    }
+
+    _orderLabel.hidden = NO;
+    _orderImageView.hidden = YES;
+    _orderLabel.text = ranker.rank>999? @"1K+":[NSString stringWithFormat:@"%ld", (unsigned long)ranker.rank];
+    [_orderLabel sizeToFit];
 
     [_avatar sd_setImageWithURL:[NSURL URLWithString:ranker.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
     NSString *displayName = (ranker.area_name.length != 0) ? [NSString stringWithFormat:@"%@", ranker.user_name] : ranker.user_name;
