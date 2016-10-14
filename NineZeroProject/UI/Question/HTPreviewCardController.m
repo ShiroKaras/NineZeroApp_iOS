@@ -135,7 +135,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     [self.navigationController.navigationBar setHidden:YES];
     
     [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
-    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *qL) { }];
+//    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *qL) { }];
     questionList = [NSMutableArray arrayWithObject:[[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy][_currentQuestion.serial-1]];
     [self.collectionView reloadData];
     
