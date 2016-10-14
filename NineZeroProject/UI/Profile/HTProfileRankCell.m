@@ -78,6 +78,9 @@
 @property (nonatomic, strong) UILabel   *ranker_1_NameLabel;
 @property (nonatomic, strong) UILabel   *ranker_2_NameLabel;
 @property (nonatomic, strong) UILabel   *ranker_3_NameLabel;
+@property (nonatomic, strong) UIImageView   *ranker_1_Image;
+@property (nonatomic, strong) UIImageView   *ranker_2_Image;
+@property (nonatomic, strong) UIImageView   *ranker_3_Image;
 @property (nonatomic, strong) UILabel   *ranker_1_CoinLabel;
 @property (nonatomic, strong) UILabel   *ranker_2_CoinLabel;
 @property (nonatomic, strong) UILabel   *ranker_3_CoinLabel;
@@ -134,6 +137,7 @@
         _topBackImageView.contentMode = UIViewContentModeScaleAspectFit;
         [_topBackView addSubview:_topBackImageView];
         
+        //头像
         _ranker_1_Avatar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
         _ranker_1_Avatar.contentMode = UIViewContentModeScaleAspectFit;
         [_topBackView addSubview:_ranker_1_Avatar];
@@ -146,6 +150,20 @@
         _ranker_3_Avatar.contentMode = UIViewContentModeScaleAspectFit;
         [_topBackView addSubview:_ranker_3_Avatar];
         
+        //勋章
+        _ranker_1_Image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rankpage_top1"]];
+        _ranker_1_Image.contentMode = UIViewContentModeScaleAspectFit;
+        [_topBackView addSubview:_ranker_1_Image];
+        
+        _ranker_2_Image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rankpage_top2"]];
+        _ranker_2_Image.contentMode = UIViewContentModeScaleAspectFit;
+        [_topBackView addSubview:_ranker_2_Image];
+        
+        _ranker_3_Image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rankpage_top3"]];
+        _ranker_3_Image.contentMode = UIViewContentModeScaleAspectFit;
+        [_topBackView addSubview:_ranker_3_Image];
+        
+        //昵称
         _ranker_1_NameLabel = [[UILabel alloc] init];
         _ranker_1_NameLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
         _ranker_1_NameLabel.textColor = [UIColor whiteColor];
@@ -164,6 +182,7 @@
         _ranker_3_NameLabel.textAlignment = NSTextAlignmentCenter;
         [_topBackView addSubview:_ranker_3_NameLabel];
         
+        //金币
         _ranker_1_CoinLabel = [[UILabel alloc] init];
         _ranker_1_CoinLabel.font = MOON_FONT_OF_SIZE(15);
         _ranker_1_CoinLabel.textColor = [UIColor colorWithHex:0xFFBF26];
@@ -295,6 +314,15 @@
     _ranker_3_Avatar.layer.cornerRadius = 56*ScaleToScreen/2;
     _ranker_3_Avatar.layer.masksToBounds = YES;
 
+    _ranker_1_Image.right = _ranker_1_Avatar.right;
+    _ranker_1_Image.top = _ranker_1_Avatar.bottom - 21;
+    
+    _ranker_2_Image.right = _ranker_2_Avatar.right;
+    _ranker_2_Image.top = _ranker_2_Avatar.bottom - 21;
+    
+    _ranker_3_Image.right = _ranker_3_Avatar.right;
+    _ranker_3_Image.top = _ranker_3_Avatar.bottom - 21;
+    
     _ranker_1_NameLabel.top = _ranker_1_Avatar.bottom+14;
     _ranker_1_NameLabel.width = _ranker_1_Avatar.width;
     _ranker_1_NameLabel.centerX = _topBackView.centerX;
