@@ -13,6 +13,8 @@
 
 #import "NSString+AES256.h"
 
+#define AES_IV @"a!dg#8ai@o43ht9s"
+
 @implementation HTQuestionService {
     HTLoginUser *_loginUser;
     NSMutableArray<HTQuestion *> *_questionListSuccessful;
@@ -439,7 +441,7 @@
 }
 
 - (void)getScanning:(HTGetScanningListCallback)callback {
-    [[AFHTTPRequestOperationManager manager] POST:@"http://101.201.39.169:8082/Scanning/getScanning" parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getScanningCGIKey] parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
         if (package.resultCode == 0) {
             NSMutableArray<HTScanning *> *scanningList = [NSMutableArray array];
@@ -477,10 +479,10 @@
                            @"time":@(currentTime)};
     NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSString *aes256String = [jsonString aes256_encrypt:@"a!dg#8ai@o43ht9s"];
+    NSString *aes256String = [jsonString aes256_encrypt:AES_IV];
     NSDictionary *param = @{@"data" : aes256String};
     DLog(@"AES String:%@", param);
-    [[AFHTTPRequestOperationManager manager] POST:@"http://101.201.39.169:8082/Scanning/getRewardDetail" parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getRewardDetailCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
         HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
         callback(YES, package);
@@ -498,11 +500,11 @@
                            @"time":@(currentTime)};
     NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSString *aes256String = [jsonString aes256_encrypt:@"a!dg#8ai@o43ht9s"];
+    NSString *aes256String = [jsonString aes256_encrypt:AES_IV];
     NSDictionary *param = @{@"data" : aes256String};
     DLog(@"AES String:%@", param);
     
-    [[AFHTTPRequestOperationManager manager] POST:@"http://101.201.39.169:8082/Answer/answerScanningAR" parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager answerScanningARCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"%@", responseObject);
         HTResponsePackage *package = [HTResponsePackage objectWithKeyValues:responseObject];
         callback(YES, package);

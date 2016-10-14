@@ -196,8 +196,20 @@
 + (NSString *)getVersionCGIKey {
     return [NSString stringWithFormat:@"%@Common/latestClientVersion", NETWORK_HOST];
 }
+
 + (NSString *)getAdvertisingCGIKey {
     return [NSString stringWithFormat:@"%@Advertise/getAdvertising", NETWORK_HOST];
 }
 
++ (NSString *)getScanningCGIKey {
+    return [NSString stringWithFormat:@"%@Scanning/getScanning", NETWORK_HOST];
+}
+
++ (NSString *)getRewardDetailCGIKey {
+    return [NSString stringWithFormat:@"%@Scanning/getRewardDetail", NETWORK_HOST];
+}
+
++ (NSString *)answerScanningARCGIKey {
+    return [NSString stringWithFormat:@"%@Answer/answerScanningAR", NETWORK_HOST];
+}
 @end

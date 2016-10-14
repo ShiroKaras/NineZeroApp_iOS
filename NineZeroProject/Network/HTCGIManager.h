@@ -312,7 +312,22 @@
 
 /**
  *  @brief 获取弹屏信息
- *
  */
 + (NSString *)getAdvertisingCGIKey;
+
+/**
+ *  @brief 获取弹屏信息
+ */
++ (NSString *)getScanningCGIKey;
+
+/**
+ *  @brief 获取弹屏信息
+ */
++ (NSString *)getRewardDetailCGIKey;
+
+/**
+ *  @brief 获取弹屏信息
+ */
++ (NSString *)answerScanningARCGIKey;
+
 @end
