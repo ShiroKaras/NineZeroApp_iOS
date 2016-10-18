@@ -191,11 +191,21 @@ typedef enum {
     }];
     
     [[[HTServiceManager sharedInstance] mascotService] getUserMascots:^(BOOL success, NSArray<HTMascot *> *mascots) {
-//        [MBProgressHUD hideHUDForView:KEYWINDS_ROOT_CONTROLLER.view animated:YES];
         if (success) {
             self.mascots = mascots;
         } else {
             
+        }
+    }];
+    
+    [[[HTServiceManager sharedInstance] profileService] getBadges:^(BOOL success, NSArray<HTBadge *> *badges) {
+        [HTProgressHUD dismiss];
+        if (success) {
+            NSMutableArray *badgeLevels = [NSMutableArray array];
+            for (HTBadge *badge in badges) {
+                [badgeLevels addObject:[NSNumber numberWithInteger:[badge.medal_level integerValue]]];
+            }
+            [UD setObject:[badgeLevels copy] forKey:kBadgeLevels];
         }
     }];
     

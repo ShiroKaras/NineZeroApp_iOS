@@ -88,6 +88,7 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) HTBlankView *blankView;
 @property (nonatomic, strong) NSArray<HTBadge *> *badges;
+//@property (nonatomic, strong) NSMutableArray<NSNumber*> *badgeLevels;
 @property (nonatomic, strong) HTProfileInfo *profileInfo;
 @end
 
@@ -129,7 +130,6 @@
         [HTProgressHUD dismiss];
         if (success) {
             self.badges = badges;
-            
             [_collectionView reloadData];
         }
     }];
@@ -180,7 +180,7 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     HTBadgeHeaderView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind  withReuseIdentifier:NSStringFromClass([HTBadgeHeaderView class]) forIndexPath:indexPath];
     NSInteger badgeLevel = [self badgeLevel];
-    NSInteger targetLevel = [[[self badgeLevels] objectAtIndex:badgeLevel] integerValue];
+    NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel] longValue];
     view.numberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)badgeLevel+1];
     if ([self.profileInfo.gold integerValue] < 1200) {
         view.coinNumberLabel.text = [NSString stringWithFormat:@"%ld", (long)(targetLevel - [self.profileInfo.gold integerValue])];
@@ -191,7 +191,8 @@
         CGFloat progress = 1 - (targetLevel - [self.profileInfo.gold integerValue]) / targetLevel;
         [view.progressView setProgress:progress];
     } else {
-        CGFloat progress = 1 - (targetLevel - [self.profileInfo.gold integerValue]) / (targetLevel - [[[self badgeLevels] objectAtIndex:badgeLevel - 1] floatValue]);
+        CGFloat progress = 1 - (targetLevel - [self.profileInfo.gold integerValue]) / (targetLevel - [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel-1] floatValue]);
+//        NSLog(@"%ld", targetLevel - [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel] integerValue]);
         [view.progressView setProgress:progress];
     }
     return view;
@@ -199,7 +200,7 @@
 
 - (NSInteger)badgeLevel {
     __block NSInteger badgeLevel = 0;
-    [[self badgeLevels] enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [[UD objectForKey:kBadgeLevels] enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([_profileInfo.gold integerValue] < [obj integerValue]) {
             badgeLevel = idx;
             *stop = YES;
@@ -208,9 +209,13 @@
     return badgeLevel;
 }
 
-- (NSArray<NSNumber *> *)badgeLevels {
-    return @[@20, @50, @100, @150, @250, @500, @800, @1000, @1200];
-}
+//- (NSMutableArray<NSNumber *> *)badgeLevels {
+////    return [@[@0, @20, @50, @100, @150, @250, @500, @800, @1000, @1200] mutableCopy];
+//    for (HTBadge *badge in self.badges) {
+//        [_badgeLevels addObject:[NSNumber numberWithInteger:[badge.medal_level integerValue]]];
+//    }
+//    return _badgeLevels;
+//}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];

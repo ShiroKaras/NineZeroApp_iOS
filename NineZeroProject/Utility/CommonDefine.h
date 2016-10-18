@@ -69,4 +69,6 @@
 
 #define kQuestionHintArray @"kkQuestionHintArrayFixed"
 
+#define kBadgeLevels @"kBadgeLevels"
+
 #endif /* CommonDefine_h */
