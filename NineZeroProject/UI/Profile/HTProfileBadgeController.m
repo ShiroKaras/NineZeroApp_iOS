@@ -106,6 +106,7 @@
     layout.headerReferenceSize = CGSizeMake(self.view.width, 160);
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = [UIColor blackColor];
@@ -192,7 +193,6 @@
         [view.progressView setProgress:progress];
     } else {
         CGFloat progress = 1 - (targetLevel - [self.profileInfo.gold integerValue]) / (targetLevel - [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel-1] floatValue]);
-//        NSLog(@"%ld", targetLevel - [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel] integerValue]);
         [view.progressView setProgress:progress];
     }
     return view;
@@ -208,14 +208,6 @@
     }];
     return badgeLevel;
 }
-
-//- (NSMutableArray<NSNumber *> *)badgeLevels {
-////    return [@[@0, @20, @50, @100, @150, @250, @500, @800, @1000, @1200] mutableCopy];
-//    for (HTBadge *badge in self.badges) {
-//        [_badgeLevels addObject:[NSNumber numberWithInteger:[badge.medal_level integerValue]]];
-//    }
-//    return _badgeLevels;
-//}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
