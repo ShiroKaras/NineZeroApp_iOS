@@ -41,6 +41,7 @@
     
     UILabel *coinCountLabel = [[UILabel alloc] init];
     coinCountLabel.text = @"2";
+    coinCountLabel.textAlignment = NSTextAlignmentCenter;
     //coinCountLabel.text = [NSString stringWithFormat:@"%ld", _coinCount];
     coinCountLabel.textColor = [UIColor colorWithHex:0xED203B];
     coinCountLabel.font = MOON_FONT_OF_SIZE(19);
@@ -58,13 +59,13 @@
     __weak __typeof(self)weakSelf = self;
     
     [headerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(ROUND_HEIGHT_FLOAT(143));
-        make.centerX.equalTo(weakSelf);
+        make.top.equalTo(weakSelf.view).offset(ROUND_HEIGHT_FLOAT(143));
+        make.centerX.equalTo(weakSelf.view);
     }];
     
     [getImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(headerImageView);
-        make.top.equalTo(headerImageView).offset(20);
+        make.top.equalTo(headerImageView.mas_bottom).offset(20);
     }];
     
     [coinCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -76,6 +77,13 @@
     [coinImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(coinCountLabel.mas_right);
         make.centerY.equalTo(coinCountLabel);
+    }];
+    
+    [sureButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.view);
+        make.right.equalTo(weakSelf.view);
+        make.height.equalTo(@50);
+        make.bottom.equalTo(weakSelf.view.mas_bottom);
     }];
 }
 

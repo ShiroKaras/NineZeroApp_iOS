@@ -13,6 +13,7 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "SKHelperView.h"
+#import "SKShareRewardController.h"
 
 #define SHARE_URL(u,v) [NSString stringWithFormat:@"http://admin.90app.tv/index.php?s=/Home/user/detail.html&area_id=%@&id=%@", (u), [self md5:[NSString stringWithFormat:@"%llu",(v)]]]
 
@@ -758,12 +759,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                message:nil
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"确定"
-                                                                      otherButtonTitles:nil];
-                            [alertView show];
+                            [self hideShareView];
+                            [self.delegate sharedQuestion:self];
                             break;
                         }
                         case SSDKResponseStateFail:
@@ -800,12 +797,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                message:nil
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"确定"
-                                                                      otherButtonTitles:nil];
-                            [alertView show];
+                            [self hideShareView];
+                            [self.delegate sharedQuestion:self];
                             break;
                         }
                         case SSDKResponseStateFail:
@@ -840,12 +833,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                message:nil
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"确定"
-                                                                      otherButtonTitles:nil];
-                            [alertView show];
+                            [self hideShareView];
+                            [self.delegate sharedQuestion:self];
                             break;
                         }
                         case SSDKResponseStateFail:
@@ -880,12 +869,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                message:nil
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"确定"
-                                                                      otherButtonTitles:nil];
-                            [alertView show];
+                            [self hideShareView];
+                            [self.delegate sharedQuestion:self];
                             break;
                         }
                         case SSDKResponseStateFail:

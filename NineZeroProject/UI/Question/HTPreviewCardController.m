@@ -28,6 +28,7 @@
 #import "SKRankInQuestionViewController.h"
 #import "SKHelperView.h"
 #import "SKSwipeViewController.h"
+#import "SKShareRewardController.h"
 
 typedef NS_ENUM(NSUInteger, HTScrollDirection) {
     HTScrollDirectionLeft,
@@ -548,6 +549,11 @@ static CGFloat kItemMargin = 17;         // item之间间隔
             [iter stop];
         }
     }
+}
+
+- (void)sharedQuestion:(HTCardCollectionCell *)cell {
+    SKShareRewardController *shareRewardContrller = [[SKShareRewardController alloc] init];
+    [self presentViewController:shareRewardContrller animated:YES completion:nil];
 }
 
 - (void)collectionCell:(HTCardCollectionCell *)cell didClickButtonWithType:(HTCardCollectionClickType)type {

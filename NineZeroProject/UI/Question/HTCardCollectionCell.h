@@ -29,6 +29,7 @@ typedef NS_ENUM(NSUInteger, HTCardCollectionClickType) {
 @class HTQuestionInfo;
 @protocol HTCardCollectionCellDelegate <NSObject>
 - (void)collectionCell:(HTCardCollectionCell *)cell didClickButtonWithType:(HTCardCollectionClickType)type;
+- (void)sharedQuestion:(HTCardCollectionCell *)cell;
 @end
 
 @interface HTCardCollectionCell : UICollectionViewCell
