@@ -169,7 +169,7 @@
     //[self.successBackgroundView removeFromSuperview];
     
     if (_swipeType == 0) {
-        SKScanningRewardView *rewardView = [[SKScanningRewardView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) rewardID:_scanning.reward_id];
+        SKScanningRewardView *rewardView = [[SKScanningRewardView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) reward:_scanning];
         [KEY_WINDOW addSubview:rewardView];
         [KEY_WINDOW bringSubviewToFront:rewardView];
     } else if (_swipeType == 1) {

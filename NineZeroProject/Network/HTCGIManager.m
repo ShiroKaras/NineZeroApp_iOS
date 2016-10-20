@@ -206,7 +206,7 @@
 }
 
 + (NSString *)getRewardDetailCGIKey {
-    return [NSString stringWithFormat:@"%@Scanning/getRewardDetail", NETWORK_HOST];
+    return [NSString stringWithFormat:@"%@Scanning/getDifRewardDetail", NETWORK_HOST];
 }
 
 + (NSString *)answerScanningARCGIKey {

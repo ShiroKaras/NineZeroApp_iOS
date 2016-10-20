@@ -19,27 +19,17 @@
 @property (nonatomic, strong) UIImageView *topImage;
 @property (nonatomic, strong) HTTicketCard *card;          // 奖品卡片
 @property (nonatomic, strong) HTTicket *ticket;
-
-@property (nonatomic, assign) NSString *rewardID;
+@property (nonatomic, strong) HTScanning *scanningReward;
 @end
 
 @implementation SKScanningRewardView {
     float maxOffsetY;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame ticket:(HTTicket*)ticket {
+- (instancetype)initWithFrame:(CGRect)frame reward:(HTScanning*)reward {
     self = [super initWithFrame:frame];
     if (self) {
-        _ticket = ticket;
-        [self createUI];
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame rewardID:(NSString*)rewardID {
-    self = [super initWithFrame:frame];
-    if (self) {
-        _rewardID = rewardID;
+        _scanningReward = reward;
         [self createUI];
     }
     return self;
@@ -62,7 +52,7 @@
     [self addSubview:_sureButton];
     
     [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] questionService] getScanningRewardWithRewardId:_rewardID callback:^(BOOL success, HTResponsePackage *response) {
+    [[[HTServiceManager sharedInstance] questionService] getScanningRewardWithRewardId:_scanningReward.reward_id sid:_scanningReward.sid callback:^(BOOL success, HTResponsePackage *response) {
         [HTProgressHUD dismiss];
         if (success && response.resultCode == 0) {
             _topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_sacnning_reward"]];

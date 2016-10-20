@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HTTicket;
+@class HTScanning;
 @interface SKScanningRewardView : UIView
 
-//- (instancetype)initWithFrame:(CGRect)frame ticket:(HTTicket*)ticket;
-- (instancetype)initWithFrame:(CGRect)frame rewardID:(NSString*)rewardID;
+- (instancetype)initWithFrame:(CGRect)frame reward:(HTScanning*)reward;
 
 @end
