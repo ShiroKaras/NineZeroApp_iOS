@@ -222,7 +222,6 @@
 
 //扫一扫
 @interface HTScanning : NSObject
-@property (nonatomic, copy) NSString *sid;
 @property (nonatomic, copy) NSString *status;       //状态（1：活动开启，0：活动关闭
 @property (nonatomic, copy) NSString *hint;
 @property (nonatomic, copy) NSString *reward_id;
