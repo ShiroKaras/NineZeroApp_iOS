@@ -88,11 +88,10 @@ void HelloAR::render()
     augmenter_.drawVideoBackground();
     glViewport(viewport_[0], viewport_[1], viewport_[2], viewport_[3]);
 
-    NSLog(@"TargetsCount:%d", frame.targets().size());
     for (int i = 0; i < frame.targets().size(); ++i) {
         AugmentedTarget::Status status = frame.targets()[i].status();
         if(status == AugmentedTarget::kTargetStatusTracked){
-//            NSLog(@"Get Image");
+            NSLog(@"%s", frame.targets()[i].target().name());
             if ([[[[NSString stringWithUTF8String:frame.targets()[i].target().name()] componentsSeparatedByString:@"/"] lastObject] isEqualToString:[NSString stringWithFormat:@"swipeTargetImage_%d",i]]) {
                 if (flag == 0) {
                     SKScanningResultView *view = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:i swipeType:swipeType];
@@ -204,8 +203,10 @@ EasyAR::samples::HelloAR ar;
     if ([fileManager fileExistsAtPath:path]) {
         NSArray *childerFiles=[fileManager subpathsAtPath:path];
         for (NSString *fileName in childerFiles) {
-            NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
-            ar.loadFromImage([absolutePath UTF8String], 0);
+            if ([fileName containsString:@"TargetImage"]) {
+                NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+                ar.loadFromImage([absolutePath UTF8String], 0);
+            }
         }
     }
     
