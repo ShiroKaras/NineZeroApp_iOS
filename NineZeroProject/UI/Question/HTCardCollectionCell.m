@@ -174,77 +174,81 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [self.contentView addSubview:_hintButton];
         
         // 6. More
-        _dimmingView = [[UIView alloc] initWithFrame:AppDelegateInstance.mainController.view.frame];
-        _dimmingView.backgroundColor = [UIColor blackColor];
-        _dimmingView.alpha = 0;
-        UITapGestureRecognizer *tapDimmingView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMoreButtons)];
-        [_dimmingView addGestureRecognizer:tapDimmingView];
-        [KEY_WINDOW addSubview:_dimmingView];
-        
-        _buttonMoreRank = [UIButton buttonWithType:UIButtonTypeCustom];
-        _buttonMoreRank.alpha = 1;
-        [_buttonMoreRank setImage:[UIImage imageNamed:@"btn_more_leaderboard"] forState:UIControlStateNormal];
-        [_buttonMoreRank setImage:[UIImage imageNamed:@"btn_more_leaderboard_highlight"] forState:UIControlStateHighlighted];
-        [_buttonMoreRank addTarget:self action:@selector(onClickRankButtonDown:) forControlEvents:UIControlEventTouchDown];
-        [_buttonMoreRank addTarget:self action:@selector(onClickRankButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_buttonMoreRank addTarget:self action:@selector(resetLabelColor) forControlEvents:UIControlEventTouchDragExit];
-        [_dimmingView addSubview:_buttonMoreRank];
-        _labelMoreRank = [[UILabel alloc] init];
-        _labelMoreRank.text = @"排行榜";
-        _labelMoreRank.font = [UIFont fontWithName:@"Regular" size:30];
-        _labelMoreRank.textColor = COMMON_GREEN_COLOR;
-        _labelMoreRank.alpha = 0;
-        [_labelMoreRank sizeToFit];
-        UITapGestureRecognizer *tapOnMoreRank = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickRankButton:)];
-        [_labelMoreRank addGestureRecognizer:tapOnMoreRank];
-        [_dimmingView addSubview:_labelMoreRank];
-        
-        _buttonMoreReward = [UIButton buttonWithType:UIButtonTypeCustom];
-        _buttonMoreReward.alpha = 1;
-        [_buttonMoreReward setImage:[UIImage imageNamed:@"btn_more_reward"] forState:UIControlStateNormal];
-        [_buttonMoreReward setImage:[UIImage imageNamed:@"btn_more_reward_highlight"] forState:UIControlStateHighlighted];
-        [_buttonMoreReward addTarget:self action:@selector(onClickRewardButtonDown:) forControlEvents:UIControlEventTouchDown];
-        [_buttonMoreReward addTarget:self action:@selector(onClickRewardButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_buttonMoreReward addTarget:self action:@selector(resetLabelColor) forControlEvents:UIControlEventTouchDragExit];
-        [_dimmingView addSubview:_buttonMoreReward];
-        _labelMoreReward = [[UILabel alloc] init];
-        _labelMoreReward.text = @"查看奖品";
-        _labelMoreReward.font = [UIFont fontWithName:@"Regular" size:30];
-        _labelMoreReward.textColor = COMMON_GREEN_COLOR;
-        _labelMoreReward.alpha = 0;
-        [_labelMoreReward sizeToFit];
-        UITapGestureRecognizer *tapOnMoreReward = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickRewardButton:)];
-        [_labelMoreRank addGestureRecognizer:tapOnMoreReward];
-        [_dimmingView addSubview:_labelMoreReward];
-        
-        _buttonMoreAnswer = [UIButton buttonWithType:UIButtonTypeCustom];
-        _buttonMoreAnswer.alpha = 1;
-        [_buttonMoreAnswer setImage:[UIImage imageNamed:@"btn_more_answer"] forState:UIControlStateNormal];
-        [_buttonMoreAnswer setImage:[UIImage imageNamed:@"btn_more_answer_highlight"] forState:UIControlStateHighlighted];
-        [_buttonMoreAnswer addTarget:self action:@selector(onClickAnswerButtonDown:) forControlEvents:UIControlEventTouchDown];
-        [_buttonMoreAnswer addTarget:self action:@selector(onClickAnswerButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_buttonMoreAnswer addTarget:self action:@selector(resetLabelColor) forControlEvents:UIControlEventTouchDragExit];
-        [_dimmingView addSubview:_buttonMoreAnswer];
-        _labelMoreAnswer = [[UILabel alloc] init];
-        _labelMoreAnswer.text = @"查看答案";
-        _labelMoreAnswer.font = [UIFont fontWithName:@"Regular" size:30];
-        _labelMoreAnswer.textColor = COMMON_GREEN_COLOR;
-        _labelMoreAnswer.alpha = 0;
-        [_labelMoreAnswer sizeToFit];
-        UITapGestureRecognizer *tapOnMoreAnswer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickAnswerButton:)];
-        [_labelMoreRank addGestureRecognizer:tapOnMoreAnswer];
-        [_dimmingView addSubview:_labelMoreAnswer];
-        
-        _buttonMoreClose = [UIButton buttonWithType:UIButtonTypeCustom];
-        _buttonMoreClose.alpha = 1;
-        [_buttonMoreClose setImage:[UIImage imageNamed:@"btn_more_close"] forState:UIControlStateNormal];
-        [_buttonMoreClose setImage:[UIImage imageNamed:@"btn_more_close_highlight"] forState:UIControlStateHighlighted];
-        [_buttonMoreClose addTarget:self action:@selector(hideMoreButtons) forControlEvents:UIControlEventTouchUpInside];
-        [_dimmingView addSubview:_buttonMoreClose];
+        [self createMoreView];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     }
     return self;
+}
+
+- (void)createMoreView {
+    _dimmingView = [[UIView alloc] initWithFrame:AppDelegateInstance.mainController.view.frame];
+    _dimmingView.backgroundColor = [UIColor blackColor];
+    _dimmingView.alpha = 0;
+    UITapGestureRecognizer *tapDimmingView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMoreButtons)];
+    [_dimmingView addGestureRecognizer:tapDimmingView];
+    [KEY_WINDOW addSubview:_dimmingView];
+    
+    _buttonMoreRank = [UIButton buttonWithType:UIButtonTypeCustom];
+    _buttonMoreRank.alpha = 1;
+    [_buttonMoreRank setImage:[UIImage imageNamed:@"btn_more_leaderboard"] forState:UIControlStateNormal];
+    [_buttonMoreRank setImage:[UIImage imageNamed:@"btn_more_leaderboard_highlight"] forState:UIControlStateHighlighted];
+    [_buttonMoreRank addTarget:self action:@selector(onClickRankButtonDown:) forControlEvents:UIControlEventTouchDown];
+    [_buttonMoreRank addTarget:self action:@selector(onClickRankButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_buttonMoreRank addTarget:self action:@selector(resetLabelColor) forControlEvents:UIControlEventTouchDragExit];
+    [_dimmingView addSubview:_buttonMoreRank];
+    _labelMoreRank = [[UILabel alloc] init];
+    _labelMoreRank.text = @"排行榜";
+    _labelMoreRank.font = [UIFont fontWithName:@"Regular" size:30];
+    _labelMoreRank.textColor = COMMON_GREEN_COLOR;
+    _labelMoreRank.alpha = 0;
+    [_labelMoreRank sizeToFit];
+    UITapGestureRecognizer *tapOnMoreRank = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickRankButton:)];
+    [_labelMoreRank addGestureRecognizer:tapOnMoreRank];
+    [_dimmingView addSubview:_labelMoreRank];
+    
+    _buttonMoreReward = [UIButton buttonWithType:UIButtonTypeCustom];
+    _buttonMoreReward.alpha = 1;
+    [_buttonMoreReward setImage:[UIImage imageNamed:@"btn_more_reward"] forState:UIControlStateNormal];
+    [_buttonMoreReward setImage:[UIImage imageNamed:@"btn_more_reward_highlight"] forState:UIControlStateHighlighted];
+    [_buttonMoreReward addTarget:self action:@selector(onClickRewardButtonDown:) forControlEvents:UIControlEventTouchDown];
+    [_buttonMoreReward addTarget:self action:@selector(onClickRewardButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_buttonMoreReward addTarget:self action:@selector(resetLabelColor) forControlEvents:UIControlEventTouchDragExit];
+    [_dimmingView addSubview:_buttonMoreReward];
+    _labelMoreReward = [[UILabel alloc] init];
+    _labelMoreReward.text = @"查看奖品";
+    _labelMoreReward.font = [UIFont fontWithName:@"Regular" size:30];
+    _labelMoreReward.textColor = COMMON_GREEN_COLOR;
+    _labelMoreReward.alpha = 0;
+    [_labelMoreReward sizeToFit];
+    UITapGestureRecognizer *tapOnMoreReward = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickRewardButton:)];
+    [_labelMoreRank addGestureRecognizer:tapOnMoreReward];
+    [_dimmingView addSubview:_labelMoreReward];
+    
+    _buttonMoreAnswer = [UIButton buttonWithType:UIButtonTypeCustom];
+    _buttonMoreAnswer.alpha = 1;
+    [_buttonMoreAnswer setImage:[UIImage imageNamed:@"btn_more_answer"] forState:UIControlStateNormal];
+    [_buttonMoreAnswer setImage:[UIImage imageNamed:@"btn_more_answer_highlight"] forState:UIControlStateHighlighted];
+    [_buttonMoreAnswer addTarget:self action:@selector(onClickAnswerButtonDown:) forControlEvents:UIControlEventTouchDown];
+    [_buttonMoreAnswer addTarget:self action:@selector(onClickAnswerButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_buttonMoreAnswer addTarget:self action:@selector(resetLabelColor) forControlEvents:UIControlEventTouchDragExit];
+    [_dimmingView addSubview:_buttonMoreAnswer];
+    _labelMoreAnswer = [[UILabel alloc] init];
+    _labelMoreAnswer.text = @"查看答案";
+    _labelMoreAnswer.font = [UIFont fontWithName:@"Regular" size:30];
+    _labelMoreAnswer.textColor = COMMON_GREEN_COLOR;
+    _labelMoreAnswer.alpha = 0;
+    [_labelMoreAnswer sizeToFit];
+    UITapGestureRecognizer *tapOnMoreAnswer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickAnswerButton:)];
+    [_labelMoreRank addGestureRecognizer:tapOnMoreAnswer];
+    [_dimmingView addSubview:_labelMoreAnswer];
+    
+    _buttonMoreClose = [UIButton buttonWithType:UIButtonTypeCustom];
+    _buttonMoreClose.alpha = 1;
+    [_buttonMoreClose setImage:[UIImage imageNamed:@"btn_more_close"] forState:UIControlStateNormal];
+    [_buttonMoreClose setImage:[UIImage imageNamed:@"btn_more_close_highlight"] forState:UIControlStateHighlighted];
+    [_buttonMoreClose addTarget:self action:@selector(hideMoreButtons) forControlEvents:UIControlEventTouchUpInside];
+    [_dimmingView addSubview:_buttonMoreClose];
 }
 
 #pragma mark - ToolMethod
@@ -265,6 +269,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - Actions
 
 - (void)showMoreButtons {
+    if (_dimmingView == nil) {
+        [self createMoreView];
+    }
+    
     CGRect rect=[_composeButton convertRect: _composeButton.bounds toView:AppDelegateInstance.window];
     _buttonMoreClose.frame = rect;
     _buttonMoreClose.alpha = 0;
