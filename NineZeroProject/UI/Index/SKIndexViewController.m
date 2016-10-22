@@ -182,7 +182,6 @@ typedef enum {
             NSArray *childerFiles=[fileManager subpathsAtPath:path];
             for (NSString *fileName in childerFiles) {
                 //如有需要，加入条件，过滤掉不想删除的文件
-                NSLog(@"filesName:%@", fileName);
                 if ([fileName isEqualToString:@"lbsTargetImage"]) {
                     NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
                     [fileManager removeItemAtPath:absolutePath error:nil];
@@ -190,7 +189,6 @@ typedef enum {
             }
         }
         
-        NSLog(@"%@",[questionList lastObject].checkpoint_pic);
         NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:[questionList lastObject].checkpoint_pic]];
         UIImage *image = [UIImage imageWithData:data]; // 取得图片
         
