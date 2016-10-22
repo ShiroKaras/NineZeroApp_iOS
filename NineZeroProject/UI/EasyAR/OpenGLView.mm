@@ -88,11 +88,18 @@ void HelloAR::render()
     augmenter_.drawVideoBackground();
     glViewport(viewport_[0], viewport_[1], viewport_[2], viewport_[3]);
 
-    
+    NSLog(@"TargetsCount:%d", frame.targets().size());
     for (int i = 0; i < frame.targets().size(); ++i) {
         AugmentedTarget::Status status = frame.targets()[i].status();
         if(status == AugmentedTarget::kTargetStatusTracked){
-            if ([[[[NSString stringWithUTF8String:frame.targets()[i].target().name()] componentsSeparatedByString:@"/"] lastObject] isEqualToString:[NSString stringWithFormat:@"targetImage_%d",i]]) {
+//            NSLog(@"Get Image");
+            if ([[[[NSString stringWithUTF8String:frame.targets()[i].target().name()] componentsSeparatedByString:@"/"] lastObject] isEqualToString:[NSString stringWithFormat:@"swipeTargetImage_%d",i]]) {
+                if (flag == 0) {
+                    SKScanningResultView *view = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:i swipeType:swipeType];
+                    [KEY_WINDOW addSubview:view];
+                    flag = 1;
+                }
+            } else if ([[[[NSString stringWithUTF8String:frame.targets()[i].target().name()] componentsSeparatedByString:@"/"] lastObject] isEqualToString:@"lbsTargetImage"]) {
                 if (flag == 0) {
                     SKScanningResultView *view = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:i swipeType:swipeType];
                     [KEY_WINDOW addSubview:view];
@@ -201,8 +208,7 @@ EasyAR::samples::HelloAR ar;
             ar.loadFromImage([absolutePath UTF8String], 0);
         }
     }
-    NSString *imageFilePath = [path stringByAppendingPathComponent:@"targetImage_0.jpg"];
-    ar.loadFromImage([imageFilePath UTF8String], 0);
+    
     ar.start();
     
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkCallback:)];

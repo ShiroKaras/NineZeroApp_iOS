@@ -114,8 +114,10 @@ typedef enum {
             NSArray *childerFiles=[fileManager subpathsAtPath:path];
             for (NSString *fileName in childerFiles) {
                 //如有需要，加入条件，过滤掉不想删除的文件
-                NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
-                [fileManager removeItemAtPath:absolutePath error:nil];
+                if ([fileName containsString:@"swipeTargetImage"]) {
+                    NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+                    [fileManager removeItemAtPath:absolutePath error:nil];
+                }
             }
         }
         
@@ -123,8 +125,8 @@ typedef enum {
             NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:scanningList[i].file_url_true]];
             UIImage *image = [UIImage imageWithData:data]; // 取得图片
             
-            // 得到本地沙盒路径，"targetImage_x"是保存的图片名
-            NSString *imageFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"targetImage_%d.jpg",i]];
+            // 得到本地沙盒路径，"swipeTargetImage_x"是保存的图片名
+            NSString *imageFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"swipeTargetImage_%d.jpg",i]];
             // 将取得的图片写入本地的沙盒中，其中0.5表示压缩比例，1表示不压缩，数值越小压缩比例越大
             BOOL imageDownloadSuccess = [UIImageJPEGRepresentation(image, 1) writeToFile:imageFilePath  atomically:YES];
             if (imageDownloadSuccess){
@@ -149,7 +151,6 @@ typedef enum {
         time_t minute = (delta % oneHour) / 60;
         time_t second = delta - hour * oneHour - minute * 60;
         
-        //TODO: 更改TimeView
         if (delta > 0) {
             _timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
         }
@@ -171,6 +172,34 @@ typedef enum {
                     [[UD mutableArrayValueForKey:kQuestionHintArray] addObject:@0];
                 } while ([UD mutableArrayValueForKey:kQuestionHintArray].count == questionList.count);
             }
+        }
+        
+        // 本地沙盒目录
+        NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        //清除缓存
+        NSFileManager *fileManager=[NSFileManager defaultManager];
+        if ([fileManager fileExistsAtPath:path]) {
+            NSArray *childerFiles=[fileManager subpathsAtPath:path];
+            for (NSString *fileName in childerFiles) {
+                //如有需要，加入条件，过滤掉不想删除的文件
+                NSLog(@"filesName:%@", fileName);
+                if ([fileName isEqualToString:@"lbsTargetImage"]) {
+                    NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+                    [fileManager removeItemAtPath:absolutePath error:nil];
+                }
+            }
+        }
+        
+        NSLog(@"%@",[questionList lastObject].checkpoint_pic);
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:[questionList lastObject].checkpoint_pic]];
+        UIImage *image = [UIImage imageWithData:data]; // 取得图片
+        
+        // 得到本地沙盒路径，"targetImage_x"是保存的图片名
+        NSString *imageFilePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"lbsTargetImage.jpg"]];
+        // 将取得的图片写入本地的沙盒中，其中0.5表示压缩比例，1表示不压缩，数值越小压缩比例越大
+        BOOL imageDownloadSuccess = [UIImageJPEGRepresentation(image, 1) writeToFile:imageFilePath  atomically:YES];
+        if (imageDownloadSuccess){
+            NSLog(@"LBS图片写入本地成功");
         }
     }];
     
