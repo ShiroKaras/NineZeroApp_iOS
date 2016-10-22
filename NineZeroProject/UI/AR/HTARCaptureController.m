@@ -64,20 +64,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    //判断GPS是否开启
-    if ([CLLocationManager locationServicesEnabled]) {
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways
-            || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-            
-        }else {
-            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-            [alertView show];
-        }
-    }else {
-        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-        [alertView show];
-    }
-    
     self.locationManager = [[AMapLocationManager alloc] init];
     self.locationManager.delegate = self;
     [self.locationManager startUpdatingLocation];
@@ -159,6 +145,20 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     }
     
     [self buildConstrains];
+    
+    //判断GPS是否开启
+    if ([CLLocationManager locationServicesEnabled]) {
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways
+            || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+            
+        }else {
+            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+            [alertView show];
+        }
+    }else {
+        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+        [alertView show];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
