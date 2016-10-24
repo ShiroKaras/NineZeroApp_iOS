@@ -66,7 +66,7 @@
 }
 
 + (NSString *)shareQuestionCGIKey {
-    return [NSString stringWithFormat:@"%@Question/shareQuestion", NETWORK_HOST];
+    return [NSString stringWithFormat:@"%@Share/shareQuestion", NETWORK_HOST];
 }
 
 + (NSString *)getAnswerDetailCGIKey {
@@ -190,7 +190,7 @@
 }
 
 + (NSString *)shareArticleCGIKey {
-    return [NSString stringWithFormat:@"%@Article/shareArticle", NETWORK_HOST];
+    return [NSString stringWithFormat:@"%@Share/shareArticle", NETWORK_HOST];
 }
 
 + (NSString *)getVersionCGIKey {

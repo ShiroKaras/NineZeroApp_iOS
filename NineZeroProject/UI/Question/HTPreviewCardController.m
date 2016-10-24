@@ -552,8 +552,21 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 }
 
 - (void)sharedQuestion:(HTCardCollectionCell *)cell {
-    SKShareRewardController *shareRewardContrller = [[SKShareRewardController alloc] init];
-    [self presentViewController:shareRewardContrller animated:YES completion:nil];
+    [[[HTServiceManager sharedInstance] questionService] shareQuestionWithQuestionID:cell.question.questionID callback:^(BOOL success, HTResponsePackage *response) {
+        if (response.resultCode == 0) {
+            SKShareRewardController *shareRewardContrller = [[SKShareRewardController alloc] init];
+            [self presentViewController:shareRewardContrller animated:YES completion:nil];
+        } else if (response.resultCode == 203) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                message:nil
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:nil];
+            [alertView show];
+        } else {
+            
+        }
+    }];
 }
 
 - (void)collectionCell:(HTCardCollectionCell *)cell didClickButtonWithType:(HTCardCollectionClickType)type {

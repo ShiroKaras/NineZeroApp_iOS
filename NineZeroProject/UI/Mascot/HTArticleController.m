@@ -11,6 +11,8 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 
+#import "SKShareRewardController.h"
+
 typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeShare = 0,
     HTButtonTypeCancel,
@@ -359,12 +361,21 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                message:nil
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"确定"
-                                                                      otherButtonTitles:nil];
-                            [alertView show];
+                            [[[HTServiceManager sharedInstance] profileService] shareArticleWithArticleID:_article.articleID completion:^(BOOL success, HTResponsePackage *response) {
+                                if (response.resultCode == 0) {
+                                    SKShareRewardController *shareRewardContrller = [[SKShareRewardController alloc] init];
+                                    [self presentViewController:shareRewardContrller animated:YES completion:nil];
+                                } else if (response.resultCode == 203) {
+                                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                        message:nil
+                                                                                       delegate:nil
+                                                                              cancelButtonTitle:@"确定"
+                                                                              otherButtonTitles:nil];
+                                    [alertView show];
+                                } else {
+                                    
+                                }
+                            }];
                             break;
                         }
                         case SSDKResponseStateFail:
@@ -399,12 +410,21 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                message:nil
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"确定"
-                                                                      otherButtonTitles:nil];
-                            [alertView show];
+                            [[[HTServiceManager sharedInstance] profileService] shareArticleWithArticleID:_article.articleID completion:^(BOOL success, HTResponsePackage *response) {
+                                if (response.resultCode == 0) {
+                                    SKShareRewardController *shareRewardContrller = [[SKShareRewardController alloc] init];
+                                    [self presentViewController:shareRewardContrller animated:YES completion:nil];
+                                } else if (response.resultCode == 203) {
+                                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                        message:nil
+                                                                                       delegate:nil
+                                                                              cancelButtonTitle:@"确定"
+                                                                              otherButtonTitles:nil];
+                                    [alertView show];
+                                } else {
+                                    
+                                }
+                            }];
                             break;
                         }
                         case SSDKResponseStateFail:
@@ -439,12 +459,21 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                message:nil
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"确定"
-                                                                      otherButtonTitles:nil];
-                            [alertView show];
+                            [[[HTServiceManager sharedInstance] profileService] shareArticleWithArticleID:_article.articleID completion:^(BOOL success, HTResponsePackage *response) {
+                                if (response.resultCode == 0) {
+                                    SKShareRewardController *shareRewardContrller = [[SKShareRewardController alloc] init];
+                                    [self presentViewController:shareRewardContrller animated:YES completion:nil];
+                                } else if (response.resultCode == 203) {
+                                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                        message:nil
+                                                                                       delegate:nil
+                                                                              cancelButtonTitle:@"确定"
+                                                                              otherButtonTitles:nil];
+                                    [alertView show];
+                                } else {
+                                    
+                                }
+                            }];
                             break;
                         }
                         case SSDKResponseStateFail:
@@ -479,12 +508,22 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                message:nil
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"确定"
-                                                                      otherButtonTitles:nil];
-                            [alertView show];
+                            [[[HTServiceManager sharedInstance] profileService] shareArticleWithArticleID:_article.articleID completion:^(BOOL success, HTResponsePackage *response) {
+                                if (response.resultCode == 0) {
+                                    SKShareRewardController *shareRewardContrller = [[SKShareRewardController alloc] init];
+                                    [self presentViewController:shareRewardContrller animated:YES completion:nil];
+                                } else if (response.resultCode == 203) {
+                                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                                        message:nil
+                                                                                       delegate:nil
+                                                                              cancelButtonTitle:@"确定"
+                                                                              otherButtonTitles:nil];
+                                    [alertView show];
+                                } else {
+                                    
+                                }
+                            }];
+
                             break;
                         }
                         case SSDKResponseStateFail:
