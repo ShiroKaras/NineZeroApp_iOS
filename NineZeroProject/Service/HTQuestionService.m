@@ -471,10 +471,11 @@
     }];
 }
 
-- (void)getScanningRewardWithRewardId:(NSString *)rewardID callback:(HTResponseCallback)callback {
+- (void)getScanningRewardWithRewardId:(NSString *)rewardID sid:(NSString*)sid callback:(HTResponseCallback)callback {
     NSTimeInterval time=[[NSDate date] timeIntervalSince1970];// (NSTimeInterval) time = 1427189152.313643
     long long int currentTime=(long long int)time;      //NSTimeInterval返回的是double类型
     NSDictionary *dict = @{@"user_id":[[HTStorageManager sharedInstance] getUserID],
+                           @"sid":sid,
                            @"reward_id":rewardID,
                            @"time":@(currentTime)};
     NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
