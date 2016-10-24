@@ -42,20 +42,38 @@
 
 
 - (void)loadData {
-    [[[HTServiceManager sharedInstance] questionService] getScanning:^(BOOL success, NSArray<HTScanning *> *scanningList) {
-        _scanning = scanningList[_index];
-        DLog(@"Scanning Type:%@", _scanning.link_type);
-        if ([_scanning.link_type isEqualToString:@"0"] ) {
-            [self createVideoWithUrlString:_scanning.link_url];
-        } else if ([_scanning.link_type isEqualToString:@"1"] || [_scanning.link_type isEqualToString:@"2"]) {
-            [self createImageWithUrlString:_scanning.link_url];
+    switch (_swipeType) {
+        case 0:{
+            [[[HTServiceManager sharedInstance] questionService] getScanning:^(BOOL success, NSArray<HTScanning *> *scanningList) {
+                _scanning = scanningList[_index];
+                DLog(@"Scanning Type:%@", _scanning.link_type);
+                if ([_scanning.link_type isEqualToString:@"0"] ) {
+                    [self createVideoWithUrlString:_scanning.link_url];
+                } else if ([_scanning.link_type isEqualToString:@"1"] || [_scanning.link_type isEqualToString:@"2"]) {
+                    [self createImageWithUrlString:_scanning.link_url];
+                }
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+                button.frame = CGRectMake(0, 0, self.width, self.height);
+                button.tag = _swipeType;
+                [button addTarget:self  action:@selector(showScanningResult:) forControlEvents:UIControlEventTouchUpInside];
+                [self addSubview:button];
+            }];
+            break;
         }
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, self.width, self.height);
-        button.tag = _swipeType;
-        [button addTarget:self  action:@selector(showScanningResult:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:button];
-    }];
+        case 1:{
+            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
+                [self createImageWithUrlString:_scanning.link_url];
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+                button.frame = CGRectMake(0, 0, self.width, self.height);
+                button.tag = _swipeType;
+                [button addTarget:self  action:@selector(showScanningResult:) forControlEvents:UIControlEventTouchUpInside];
+                [self addSubview:button];
+            }];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 - (void)createVideoWithUrlString:(NSString*)urlString {
