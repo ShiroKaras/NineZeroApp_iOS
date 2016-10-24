@@ -30,7 +30,7 @@ class HelloAR : public AR
 {
 public:
     HelloAR();
-    virtual void initGL(int type);
+    virtual void initGL(int type, int count);
     virtual void resizeGL(int width, int height);
     virtual void render();
     int flag = 0;
@@ -38,10 +38,12 @@ private:
     Vec2I view_size;
     
     int swipeType;   //0 扫一扫, 1 LBS
+    int targetCount;
     
     int tracked_target;
     int active_target;
     int texid[3];
+    SKScanningResultView *resultView;
 };
 
 HelloAR::HelloAR()
@@ -49,11 +51,12 @@ HelloAR::HelloAR()
     view_size[0] = -1;
 }
 
-void HelloAR::initGL(int type)
+void HelloAR::initGL(int type, int count)
 {
     augmenter_ = Augmenter();
     flag = 0;
     swipeType = type;
+    targetCount = count;
 }
 
 void HelloAR::resizeGL(int width, int height)
@@ -87,30 +90,34 @@ void HelloAR::render()
     augmenter_.setViewPort(viewport_);
     augmenter_.drawVideoBackground();
     glViewport(viewport_[0], viewport_[1], viewport_[2], viewport_[3]);
-
-    for (int i = 0; i < frame.targets().size(); ++i) {
-        AugmentedTarget::Status status = frame.targets()[i].status();
-        if(status == AugmentedTarget::kTargetStatusTracked){
-            NSLog(@"%s", frame.targets()[i].target().name());
-            if ([[[[NSString stringWithUTF8String:frame.targets()[i].target().name()] componentsSeparatedByString:@"/"] lastObject] isEqualToString:[NSString stringWithFormat:@"swipeTargetImage_%d",i]]) {
-                if (flag == 0) {
-                    SKScanningResultView *view = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:i swipeType:swipeType];
-                    [KEY_WINDOW addSubview:view];
-                    flag = 1;
-                }
-            } else if ([[[[NSString stringWithUTF8String:frame.targets()[i].target().name()] componentsSeparatedByString:@"/"] lastObject] isEqualToString:@"lbsTargetImage"]) {
-                if (flag == 0) {
-                    SKScanningResultView *view = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:i swipeType:swipeType];
-                    [KEY_WINDOW addSubview:view];
-                    flag = 1;
-                }
+    
+    AugmentedTarget::Status status = frame.targets()[0].status();
+    if(status == AugmentedTarget::kTargetStatusTracked){
+        int tid = (frame.targets()[0].target().id()-1)%targetCount;
+        if(active_target && active_target != tid) {
+            tracked_target = 0;
+            active_target = 0;
+        }
+        if (!tracked_target) { }
+        if ([[[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"/"] lastObject] isEqualToString:[NSString stringWithFormat:@"swipeTargetImage_%d",tid]]) {
+            //if (resultView == NULL) {
+            if (flag == 0) {
+                resultView = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:tid swipeType:swipeType];
+                [KEY_WINDOW addSubview:resultView];
+                flag = 1;
+            }
+        } else if ([[[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"/"] lastObject] isEqualToString:@"lbsTargetImage"]) {
+            if (flag == 0) {
+                resultView = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:tid swipeType:swipeType];
+                [KEY_WINDOW addSubview:resultView];
+                flag = 1;
             }
         }
+    } else {
+//        [resultView removeFromSuperview];
+//        resultView = nil;
     }
 }
-
-    
-    
 }
 }
 EasyAR::samples::HelloAR ar;
@@ -126,6 +133,7 @@ EasyAR::samples::HelloAR ar;
 @property (strong, nonatomic) AVPlayerItem  *playerItem;
 
 @property (nonatomic, assign) int swipeType;   //0 扫一扫, 1 LBS
+@property (nonatomic, assign) int targetsCount; //目标图数量
 
 - (void)displayLinkCallback:(CADisplayLink*)displayLink;
 
@@ -138,8 +146,9 @@ EasyAR::samples::HelloAR ar;
     return [CAEAGLLayer class];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame withSwipeType:(int)type {
+- (instancetype)initWithFrame:(CGRect)frame withSwipeType:(int)type targetsCount:(int)count; {
     _swipeType = type;
+    _targetsCount = count;
     return [self initWithFrame:frame];
 }
 
@@ -151,7 +160,7 @@ EasyAR::samples::HelloAR ar;
         [self setupGL];
 
         EasyAR::initialize([key UTF8String]);
-        ar.initGL(_swipeType);
+        ar.initGL(_swipeType, _targetsCount);
     }
 
     return self;
@@ -203,9 +212,18 @@ EasyAR::samples::HelloAR ar;
     if ([fileManager fileExistsAtPath:path]) {
         NSArray *childerFiles=[fileManager subpathsAtPath:path];
         for (NSString *fileName in childerFiles) {
-            if ([fileName containsString:@"TargetImage"]) {
-                NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
-                ar.loadFromImage([absolutePath UTF8String], 0);
+            if (_swipeType == 0) {
+                if ([fileName containsString:@"swipeTargetImage"]) {
+                    NSLog(@"FileName: %@", fileName);
+                    NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+                    ar.loadFromImage([absolutePath UTF8String], 0);
+                }
+            } else if (_swipeType == 1) {
+                if ([fileName containsString:@"lbsTargetImage"]) {
+                    NSLog(@"FileName: %@", fileName);
+                    NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+                    ar.loadFromImage([absolutePath UTF8String], 0);
+                }
             }
         }
     }

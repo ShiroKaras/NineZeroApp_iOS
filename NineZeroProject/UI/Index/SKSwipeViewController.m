@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.glView = [[OpenGLView alloc] initWithFrame:self.view.bounds withSwipeType:_swipeType];
+    self.glView = [[OpenGLView alloc] initWithFrame:self.view.bounds withSwipeType:_swipeType targetsCount:(int)_scanningList.count];
     [self.view addSubview:self.glView];
     [self.glView setOrientation:self.interfaceOrientation];
 
