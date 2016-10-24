@@ -767,12 +767,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                message:nil
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"确定"
-                                                                      otherButtonTitles:nil];
-                            [alertView show];
+                            [self hideShareView];
+                            [self.delegate sharedQuestion:self];
                             break;
                         }
                         case SSDKResponseStateFail:
@@ -809,12 +805,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                message:nil
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"确定"
-                                                                      otherButtonTitles:nil];
-                            [alertView show];
+                            [self hideShareView];
+                            [self.delegate sharedQuestion:self];
                             break;
                         }
                         case SSDKResponseStateFail:
@@ -849,12 +841,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                message:nil
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"确定"
-                                                                      otherButtonTitles:nil];
-                            [alertView show];
+                            [self hideShareView];
+                            [self.delegate sharedQuestion:self];
                             break;
                         }
                         case SSDKResponseStateFail:
@@ -889,12 +877,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     switch (state) {
                         case SSDKResponseStateSuccess:
                         {
-                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-                                                                                message:nil
-                                                                               delegate:nil
-                                                                      cancelButtonTitle:@"确定"
-                                                                      otherButtonTitles:nil];
-                            [alertView show];
+                            [self hideShareView];
+                            [self.delegate sharedQuestion:self];
                             break;
                         }
                         case SSDKResponseStateFail:
