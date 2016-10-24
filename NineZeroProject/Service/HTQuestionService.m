@@ -364,10 +364,10 @@
 - (void)shareQuestionWithQuestionID:(uint64_t)questionID callback:(HTResponseCallback)callback {
     if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
     NSDictionary *dict = @{@"user_id" : [[HTStorageManager sharedInstance] getUserID],
-                           @"area_id" : AppDelegateInstance.cityCode,
+                           //@"area_id" : AppDelegateInstance.cityCode,
                            @"qid" : @(questionID)};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager shareQuestionCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        //DLog(@"%@",responseObject);
+        DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -456,6 +456,7 @@
                     for (HTScanning *scanning in scanningList) {
                         NSDictionary *dataDict = response.data;
                         if (scanning.file_url) scanning.file_url_true = dataDict[scanning.file_url];
+                        NSLog(@"FileURL: %@", scanning.file_url_true);
                     }
                     callback (YES, scanningList);
                 } else {
