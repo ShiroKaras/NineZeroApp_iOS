@@ -59,6 +59,7 @@
 @property (nonatomic, copy) NSString *detailURL;                // 详情链接
 @property (nonatomic, copy) NSString *hint;                     // 提示
 @property (nonatomic, copy) NSString *question_ar_location;     // ar
+@property (nonatomic, copy) NSArray  *question_location;    // 坐标数组
 @property (nonatomic, copy) NSString *question_ar_pet;          // ar的gif
 @property (nonatomic, copy) NSString *question_video_cover;     // vedio的封面
 @property (nonatomic, copy) NSString *thumbnail_pic;

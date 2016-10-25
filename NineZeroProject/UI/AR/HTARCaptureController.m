@@ -10,12 +10,15 @@
 #include <stdlib.h>
 #import <Masonry.h>
 #import "CommonUI.h"
-#import "INTULocationManager.h"
+
 #import "MBProgressHUD+BWMExtension.h"
 #import "HTUIHeader.h"
 #import <UIImage+animatedGIF.h>
-#import <AMapLocationKit/AMapLocationKit.h>
 #import "SKHelperView.h"
+
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <MAMapKit/MAMapKit.h>
 
 NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
 NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
@@ -30,6 +33,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) HTImageView *captureSuccessImageView;
 @property (nonatomic, strong) UIView *successBackgroundView;
 @property (nonatomic, strong) AMapLocationManager *locationManager;
+@property (nonatomic, strong) AMapLocationManager *singleLocationManager;
 @property (nonatomic, strong) UIButton *helpButton;
 @property (nonatomic, strong) SKHelperGuideView *guideView;
 @property (nonatomic, strong) SKHelperScrollView *helpView;
@@ -40,22 +44,22 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     CLLocationCoordinate2D _testMascotPoint;
     BOOL _needShowDebugLocation;
     UIView *_arView;
+    BOOL startFlag;
 }
 
 - (instancetype)initWithQuestion:(HTQuestion *)question {
     if (self = [super init]) {
         _question = question;
-        
-        if (_question.question_ar_location.length != 0) {
-            NSDictionary *locationDict = [_question.question_ar_location dictionaryWithJsonString];
-            if (locationDict && locationDict[@"lng"] && locationDict[@"lat"]) {
-                double lat = [[NSString stringWithFormat:@"%@", locationDict[@"lat"]] doubleValue];
-                double lng = [[NSString stringWithFormat:@"%@", locationDict[@"lng"]] doubleValue];
-                DLog(@"lat=>%f \n lng=>%f", lat, lng);
-                _testMascotPoint = CLLocationCoordinate2DMake(lat, lng);
-            }
-        }
-        
+        startFlag = false;
+//        if (_question.question_ar_location.length != 0) {
+//            NSDictionary *locationDict = [_question.question_ar_location dictionaryWithJsonString];
+//            if (locationDict && locationDict[@"lng"] && locationDict[@"lat"]) {
+//                double lat = [[NSString stringWithFormat:@"%@", locationDict[@"lat"]] doubleValue];
+//                double lng = [[NSString stringWithFormat:@"%@", locationDict[@"lng"]] doubleValue];
+//                DLog(@"lat=>%f \n lng=>%f", lat, lng);
+//                _testMascotPoint = CLLocationCoordinate2DMake(lat, lng);
+//            }
+//        }
     }
     return self;
 }
@@ -63,16 +67,11 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    [self registerLocation];
     
     self.locationManager = [[AMapLocationManager alloc] init];
     self.locationManager.delegate = self;
     [self.locationManager startUpdatingLocation];
-    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
-        DLog(@"%@", location);
-        if (!error) {
-            DLog(@"cityCode = %@", regeocode.citycode);
-        }
-    }];
 
     _needShowDebugLocation = NO;
     
@@ -237,13 +236,60 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [KEY_WINDOW bringSubviewToFront:_guideView];
 }
 
+#pragma mark - Location
+
+- (void)registerLocation {
+    self.singleLocationManager = [[AMapLocationManager alloc] init];
+    // 带逆地理信息的一次定位（返回坐标和地址信息）
+    [self.singleLocationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    //   定位超时时间，可修改，最小2s
+    self.singleLocationManager.locationTimeout = 2;
+    //   逆地理请求超时时间，可修改，最小2s
+    self.singleLocationManager.reGeocodeTimeout = 2;
+    
+    // 带逆地理（返回坐标和地址信息）
+    [self.singleLocationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        if (error){
+            DLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+        }
+        DLog(@"location:%@", location);
+        _testMascotPoint = [self getCurrentLocationWith:location];
+    }];
+}
+
+- (CLLocationCoordinate2D)getCurrentLocationWith:(CLLocation *)location {
+    CLLocationDistance currentDistance = -1;
+    CLLocationCoordinate2D currentPoint = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
+    
+    for (NSDictionary *dict in _question.question_location) {
+        double lat = [dict[@"lat"] doubleValue];
+        double lng = [dict[@"lng"] doubleValue];
+        
+        //1.将两个经纬度点转成投影点
+        MAMapPoint point1 = MAMapPointForCoordinate(CLLocationCoordinate2DMake(lat,lng));
+        MAMapPoint point2 = MAMapPointForCoordinate(CLLocationCoordinate2DMake(location.coordinate.latitude,location.coordinate.longitude));
+        //2.计算距离
+        CLLocationDistance distance = MAMetersBetweenMapPoints(point1,point2);
+        DLog(@"\nlat:%lf\nlng:%lf",lat , lng);
+        DLog(@"\n%lf", distance);
+        
+        if (currentDistance < 0 || distance < currentDistance) {
+            currentDistance = distance;
+            currentPoint = CLLocationCoordinate2DMake(lat, lng);
+        }
+    }
+    startFlag = true;
+    return currentPoint;
+}
 
 #pragma mark - AMapDelegate
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
 {
-    _currentLocation = location;
-    [self.prARManager startARWithData:[self getDummyData] forLocation:location.coordinate];
+    if (startFlag) {
+        _currentLocation = location;
+        [self.prARManager startARWithData:[self getDummyData] forLocation:location.coordinate];        
+    }
 }
 
 #pragma mark - Action
