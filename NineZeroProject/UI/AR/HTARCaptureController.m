@@ -68,10 +68,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self registerLocation];
-    
-    self.locationManager = [[AMapLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    [self.locationManager startUpdatingLocation];
 
     _needShowDebugLocation = NO;
     
@@ -254,6 +250,11 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         }
         DLog(@"location:%@", location);
         _testMascotPoint = [self getCurrentLocationWith:location];
+        
+        self.locationManager = [[AMapLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        [self.locationManager startUpdatingLocation];
+
     }];
 }
 
