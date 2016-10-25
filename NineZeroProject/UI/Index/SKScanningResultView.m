@@ -62,7 +62,7 @@
         }
         case 1:{
             [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
-                [self createImageWithUrlString:_scanning.link_url];
+                [self createImageWithUrlString:[questionList lastObject].question_ar_pet];
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
                 button.frame = CGRectMake(0, 0, self.width, self.height);
                 button.tag = _swipeType;
