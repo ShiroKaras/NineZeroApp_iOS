@@ -23,9 +23,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *userPasswordTextField;
 @property (weak, nonatomic) IBOutlet HTLoginButton *registerButton;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-@property (weak, nonatomic) IBOutlet UIButton *loginButton_Weixin;
-@property (weak, nonatomic) IBOutlet UIButton *loginButton_QQ;
-@property (weak, nonatomic) IBOutlet UIButton *loginButton_Weibo;
+@property (strong, nonatomic) UIButton *loginButton_Weixin;
+@property (strong, nonatomic) UIButton *loginButton_QQ;
+@property (strong, nonatomic) UIButton *loginButton_Weibo;
 
 @end
 
@@ -37,6 +37,119 @@
     self.userNameTextField.delegate = self;
     [_loginButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:10];
     [self setTipsOffsetY:0];
+    
+    _loginButton_QQ = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_loginButton_QQ setImage:[UIImage imageNamed:@"btn_signup_qq"] forState:UIControlStateNormal];
+    [_loginButton_QQ setImage:[UIImage imageNamed:@"btn_signup_qq_highlight"] forState:UIControlStateHighlighted];
+    [_loginButton_QQ addTarget:self action:@selector(loginButtonQQClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_loginButton_QQ];
+    
+    _loginButton_Weixin = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_loginButton_Weixin setImage:[UIImage imageNamed:@"btn_signup_wechat"] forState:UIControlStateNormal];
+    [_loginButton_Weixin setImage:[UIImage imageNamed:@"btn_signup_wechat_highlight"] forState:UIControlStateHighlighted];
+    [_loginButton_Weixin addTarget:self action:@selector(loginButtonWeixinClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_loginButton_Weixin];
+    
+    _loginButton_Weibo = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_loginButton_Weibo setImage:[UIImage imageNamed:@"btn_signup_weibo"] forState:UIControlStateNormal];
+    [_loginButton_Weibo setImage:[UIImage imageNamed:@"btn_signup_weibo_highlight"] forState:UIControlStateHighlighted];
+    [_loginButton_Weibo addTarget:self action:@selector(loginButtonWeiboClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_loginButton_Weibo];
+    
+    UILabel *_label = [UILabel new];
+    _label.text = @"使用其他账号";
+    _label.textColor = COMMON_GREEN_COLOR;
+    _label.font = [UIFont fontWithName:@"PingFangSC-Regular" size:12];
+    [_label sizeToFit];
+    [self.view addSubview:_label];
+    
+    UIView *_lSepLine = [UIView new];
+    _lSepLine.backgroundColor = [UIColor colorWithHex:0x1A1A1A];
+    [self.view addSubview:_lSepLine];
+    
+    UIView *_rSepLine = [UIView new];
+    _rSepLine.backgroundColor = [UIColor colorWithHex:0x1A1A1A];
+    [self.view addSubview:_rSepLine];
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    if (SCREEN_HEIGHT != IPHONE4_SCREEN_HEIGHT) {
+        [_loginButton_QQ mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@38);
+            make.height.equalTo(@38);
+            make.centerX.equalTo(weakSelf.view);
+            make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-52);
+        }];
+        
+        [_loginButton_Weixin mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.equalTo(_loginButton_QQ);
+            make.centerY.equalTo(_loginButton_QQ);
+            make.right.equalTo(_loginButton_QQ.mas_left).offset(-51);
+        }];
+        
+        [_loginButton_Weibo mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.equalTo(_loginButton_QQ);
+            make.centerY.equalTo(_loginButton_QQ);
+            make.left.equalTo(_loginButton_QQ.mas_right).offset(51);
+        }];
+        
+        [_label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(weakSelf.view);
+            make.bottom.equalTo(_loginButton_QQ.mas_top).offset(-45);
+        }];
+        
+        [_lSepLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@0.5);
+            make.centerY.equalTo(_label);
+            make.left.equalTo(weakSelf.view).offset(16);
+            make.right.equalTo(_label.mas_left).offset(-14);
+        }];
+        
+        [_rSepLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@0.5);
+            make.centerY.equalTo(_label);
+            make.left.equalTo(_label.mas_right).offset(14);
+            make.right.equalTo(weakSelf.view.mas_right).offset(-16);
+        }];
+    } else {
+        [_loginButton_QQ mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@38);
+            make.height.equalTo(@38);
+            make.centerX.equalTo(weakSelf.view);
+            make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-20);
+        }];
+        
+        [_loginButton_Weixin mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.equalTo(_loginButton_QQ);
+            make.centerY.equalTo(_loginButton_QQ);
+            make.right.equalTo(_loginButton_QQ.mas_left).offset(-51);
+        }];
+        
+        [_loginButton_Weibo mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.equalTo(_loginButton_QQ);
+            make.centerY.equalTo(_loginButton_QQ);
+            make.left.equalTo(_loginButton_QQ.mas_right).offset(51);
+        }];
+        
+        [_label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(weakSelf.view);
+            make.bottom.equalTo(_loginButton_QQ.mas_top).offset(-20);
+        }];
+        
+        [_lSepLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@0.5);
+            make.centerY.equalTo(_label);
+            make.left.equalTo(weakSelf.view).offset(16);
+            make.right.equalTo(_label.mas_left).offset(-14);
+        }];
+        
+        [_rSepLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@0.5);
+            make.centerY.equalTo(_label);
+            make.left.equalTo(_label.mas_right).offset(14);
+            make.right.equalTo(weakSelf.view.mas_right).offset(-16);
+        }];
+    }
 }
 
 - (void)dealloc {

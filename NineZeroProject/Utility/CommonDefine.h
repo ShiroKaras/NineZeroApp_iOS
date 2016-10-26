@@ -21,6 +21,7 @@
 #define IPHONE6_PLUS_SCREEN_WIDTH  414
 #define IPHONE6_SCREEN_WIDTH       375
 #define IPHONE5_SCREEN_WIDTH       320
+#define IPHONE4_SCREEN_HEIGHT      480
 
 #define UIColorMake(r, g, b) [[UIColor alloc] initWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 
