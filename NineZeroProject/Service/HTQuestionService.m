@@ -367,7 +367,7 @@
                            //@"area_id" : AppDelegateInstance.cityCode,
                            @"qid" : @(questionID)};
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager shareQuestionCGIKey] parameters:dict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
+        //DLog(@"%@",responseObject);
         HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {

@@ -368,27 +368,23 @@ typedef enum {
     UIButton *allLevelButton = [UIButton new];
     [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional_level"] forState:UIControlStateNormal];
     [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional_level_highlight"] forState:UIControlStateHighlighted];
-//    [allLevelButton sizeToFit];
     [allLevelButton addTarget:self  action:@selector(allLevelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [dimmingView addSubview:allLevelButton];
     
     _timerLevelButton = [UIButton new];
     [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level"] forState:UIControlStateNormal];
     [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level_highlight"] forState:UIControlStateHighlighted];
-//    [timerLevelButton sizeToFit];
     [dimmingView addSubview:_timerLevelButton];
     
     UIButton *mascotButton = [UIButton new];
     [mascotButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai"] forState:UIControlStateNormal];
     [mascotButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai_highlight"] forState:UIControlStateHighlighted];
-//    [mascotButton sizeToFit];
     [mascotButton addTarget:self action:@selector(mascotButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [dimmingView addSubview:mascotButton];
     
     UIButton *meButton = [UIButton new];
     [meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me"] forState:UIControlStateNormal];
     [meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me_highlight"] forState:UIControlStateHighlighted];
-//    [meButton sizeToFit];
     [meButton addTarget:self action:@selector(meButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [dimmingView addSubview:meButton];
     
@@ -499,8 +495,6 @@ typedef enum {
     [self.view addSubview:_activityNotificationView];
     
     [_activityNotificationView.adButton addTarget:self action:@selector(timerLevelButtonClick) forControlEvents:UIControlEventTouchUpInside];
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(timerLevelButtonClick)];
-//    [_activityNotificationView addGestureRecognizer:tap];
 }
 
 #pragma mark - Time
@@ -519,7 +513,6 @@ typedef enum {
     time_t minute = (delta % oneHour) / 60;
     time_t second = delta - hour * oneHour - minute * 60;
     
-    //TODO: 更改TimeView
     if (delta > 0) {
         if (_isMonday) {
             _relaxDayTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
