@@ -239,6 +239,7 @@ EasyAR::samples::HelloAR ar;
         }
     }
     
+    ((AppDelegate*)[[UIApplication sharedApplication]delegate]).active = true;
     ar.start();
     
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkCallback:)];
