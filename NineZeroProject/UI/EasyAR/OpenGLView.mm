@@ -247,6 +247,7 @@ EasyAR::samples::HelloAR ar;
 
 - (void)stop
 {
+    ((AppDelegate*)[[UIApplication sharedApplication]delegate]).active = false;
     ar.clear();
 }
 
