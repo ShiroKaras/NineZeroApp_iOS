@@ -18,6 +18,9 @@
 #import "SKSwipeViewController.h"
 #import "HTAlertView.h"
 
+#import "SKQuestionViewController.h"
+#import "SKHomepageViewController.h"
+
 #import "HTUIHeader.h"
 
 #define EVERYDAY_FIRST_ACTIVITY_NOTIFICATION @"EVERYDAY_FIRST_ACTIVITY_NOTIFICATION"
@@ -614,8 +617,14 @@ typedef enum {
 
 - (void)notificationButtonClick:(UIButton *)sender {
     [TalkingData trackEvent:@"push"];
-    HTNotificationController *controller = [[HTNotificationController alloc] init];
+//    HTNotificationController *controller = [[HTNotificationController alloc] init];
+//    [self.navigationController pushViewController:controller animated:YES];
+
+//    SKQuestionViewController *controller = [[SKQuestionViewController alloc] init];
+    SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
+    
+    
 }
 
 #pragma mark - panGestureRecognized
