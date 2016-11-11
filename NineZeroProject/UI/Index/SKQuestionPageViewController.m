@@ -12,7 +12,7 @@
 
 #define PAGE_COUNT (ceil(self.questionList.count/12.))
 
-@interface SKQuestionPageViewController ()<UIScrollViewDelegate, HTPreviewCardControllerDelegate, SKHelperScrollViewDelegate>
+@interface SKQuestionPageViewController ()<UIScrollViewDelegate, SKHelperScrollViewDelegate>
 
 @property(nonatomic, strong) UIScrollView *mScrollView;
 @property(nonatomic, strong) UIPageControl *pageContrl;
@@ -38,8 +38,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [TalkingData trackPageEnd:@"alllevelspage"];
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-    //[self.navigationController.navigationBar setHidden:NO];
 }
 
 - (void)viewDidLoad {
