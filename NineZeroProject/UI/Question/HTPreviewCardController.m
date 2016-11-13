@@ -137,14 +137,14 @@ static CGFloat kItemMargin = 17;         // item之间间隔
     
     [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
 //    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *qL) { }];
-    questionList = [NSMutableArray arrayWithObject:[[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy][_currentQuestion.serial-1]];
-    [self.collectionView reloadData];
     
     if (self.cardType == HTPreviewCardTypeDefault) {
         [MobClick beginLogPageView:@"mainpage"];
     }else if (self.cardType == HTPreviewCardTypeRecord) {
         [MobClick beginLogPageView:@"recordpage"];
     } else if (self.cardType == HTPreviewCardTypeTimeLevel) {
+        questionList = [NSMutableArray arrayWithObject:[[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy][_currentQuestion.serial-1]];
+        [self.collectionView reloadData];
         [TalkingData trackPageBegin:@"timelimitpage"];
     } else if (self.cardType == HTPreviewCardTypeHistoryLevel) {
         [TalkingData trackPageBegin:@"historylevelpage"];
@@ -216,79 +216,7 @@ static CGFloat kItemMargin = 17;         // item之间间隔
 
 - (void)loadData {
     [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
-    /*
-    if (_cardType == HTPreviewCardTypeDefault) {
-        [HTProgressHUD show];
-        _dimmingView = [[UIView alloc] initWithFrame:SCREEN_BOUNDS];
-        _dimmingView.backgroundColor = COMMON_BG_COLOR;
-        [self.view addSubview:_dimmingView];
-        
-        [[[HTServiceManager sharedInstance] questionService] getIsRelaxDay:^(BOOL success, HTResponsePackage *response) {
-            NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
-            if (success && response.resultCode == 0) {
-                if ([dictData isEqualToString:@"1"]) {
-                    [HTProgressHUD dismiss];
-                    _isRelaxDay = [dictData boolValue];
-                    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
-                    [self presentViewController:relaxController animated:NO completion:nil];
-                    [self.view bringSubviewToFront:relaxController.view];
-                    [self showAlert];
-                } else if ([dictData isEqualToString:@"0"]){
-                    [[[HTServiceManager sharedInstance] questionService] getQuestionInfoWithCallback:^(BOOL success, HTQuestionInfo *callbackQuestionInfo) {
-                        if (success) {
-                            questionInfo = callbackQuestionInfo;
-                            [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success2, NSArray<HTQuestion *> *callbackQuestionList) {
-                                [HTProgressHUD dismiss];
-                                [_dimmingView removeFromSuperview];
-                                if (success2) {
-                                    questionList = [callbackQuestionList mutableCopy];
-                                    [self.collectionView reloadData];
-                                    [self.collectionView performBatchUpdates:^{}
-                                                                  completion:^(BOOL finished) {
-                                                                      [self backToToday:NO];
-                                                                  }];
-                                }
-                            }];
-                            _eggImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_home_egg"]];
-                            [self.collectionView addSubview:_eggImageView];
-                            if (FIRST_LAUNCH) {
-                                [self showCourseView];
-                            } else{
-                                [self showAlert];
-                            }
-                        } else {
-                            [HTProgressHUD dismiss];
-                            [_dimmingView removeFromSuperview];
-                            [self showBlankViewNetWorkError];
-                        }
-                    }];
-                    
-                }
-            } else {
-                [HTProgressHUD dismiss];
-                [self showBlankViewNetWorkError];
-            }
-        }];
-        
-        if ([[HTStorageManager sharedInstance] getUserID]) {
-            [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
-        }
-        
-        _timeView = [[HTCardTimeView alloc] initWithFrame:CGRectZero];
-        [self.view addSubview:_timeView];
-        
-        _eggCoverImageView = [UIImageView new];
-        _eggCoverImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _eggCoverImageView.layer.masksToBounds = YES;
-        [[[HTServiceManager sharedInstance] questionService] getCoverPicture:^(BOOL success, HTResponsePackage *response) {
-            if (success && response.resultCode == 0) {
-                NSDictionary *dataDict = response.data;
-                [_eggCoverImageView sd_setImageWithURL:dataDict[@"pet_gif"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                }];
-            }
-        }];
-    } else
-    */
+    
     if (_cardType == HTPreviewCardTypeRecord) {
         questionList = [[[HTStorageManager sharedInstance] profileInfo].answer_list mutableCopy];
         if (questionList.count>0) {
