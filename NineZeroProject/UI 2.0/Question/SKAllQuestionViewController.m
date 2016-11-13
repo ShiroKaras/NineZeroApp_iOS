@@ -11,7 +11,7 @@
 
 #define PAGE_COUNT (ceil(self.questionList.count/12.))
 
-@interface SKAllQuestionViewController ()<UIScrollViewDelegate, HTPreviewCardControllerDelegate, SKHelperScrollViewDelegate>
+@interface SKAllQuestionViewController ()<UIScrollViewDelegate, SKHelperScrollViewDelegate>
 
 @property(nonatomic, strong) UIScrollView *mScrollView;
 @property(nonatomic, strong) UIPageControl *pageContrl;
@@ -236,9 +236,7 @@
 }
 
 - (void)questionSelectButtonClick:(UIButton *)sender {
-    HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeHistoryLevel andQuestList:@[self.questionList[sender.tag]]];
-    cardController.delegate = self;
-    [self.navigationController pushViewController:cardController animated:YES];
+    
 }
 
 - (void)helpButtonClick:(UIButton *)sender {
@@ -281,10 +279,6 @@
 }
 
 #pragma mark - HTPreviewCardController
-
-- (void)didClickCloseButtonInController:(HTPreviewCardController *)controller {
-    [controller.navigationController popViewControllerAnimated:YES];
-}
 
 #pragma mark - Tool
 - (NSString *)typeForImageData:(NSData *)data {
