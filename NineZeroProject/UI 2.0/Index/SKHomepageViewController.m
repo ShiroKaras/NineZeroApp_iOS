@@ -10,7 +10,7 @@
 #import "HTUIHeader.h"
 
 #import "SKAllQuestionViewController.h"
-#import "SKQuestionPageViewController.h"
+#import "SKMascotIndexViewController.h"
 
 @interface SKHomepageViewController ()
 
@@ -158,6 +158,7 @@
     
     //零仔
     UIButton *mascotButton = [UIButton new];
+    [mascotButton addTarget:self action:@selector(mascotButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [mascotButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai"] forState:UIControlStateNormal];
     [mascotButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:mascotButton];
@@ -218,7 +219,11 @@
 
 - (void)allLevelQuestionButtonClick:(UIButton*)sender {
     SKAllQuestionViewController *controller = [[SKAllQuestionViewController alloc] init];
-    //SKQuestionPageViewController *controller = [[SKQuestionPageViewController alloc] init];
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)mascotButtonClick:(UIButton*)sender {
+    SKMascotIndexViewController *controller = [[SKMascotIndexViewController alloc] init];
     [self presentViewController:controller animated:YES completion:nil];
 }
 
