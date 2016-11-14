@@ -16,6 +16,9 @@
 @property(nonatomic, strong) UIScrollView *mScrollView;
 @property(nonatomic, strong) UIPageControl *pageContrl;
 @property(nonatomic, strong) UIButton *helpButton;
+@property(nonatomic, strong) UIImageView *mascotImageView;
+@property(nonatomic, strong) UIButton *season1Button;
+@property(nonatomic, strong) UIButton *season2Button;
 
 @end
 
@@ -27,17 +30,11 @@
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
-    NSMutableArray *dataArray = [[[[HTServiceManager sharedInstance] questionService] questionList] mutableCopy];
-    if (!_isMonday) {
-        [dataArray removeLastObject];
-    }
-    [self createUIWithData:dataArray];
-    [TalkingData trackPageBegin:@"alllevelspage"];
+    [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [TalkingData trackPageEnd:@"alllevelspage"];
     //    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     //[self.navigationController.navigationBar setHidden:NO];
 }
@@ -61,7 +58,7 @@
     self.view.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
     
     float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
-    _mScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, scrollViewHeight)];
+    _mScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
     _mScrollView.delegate = self;
     _mScrollView.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT, scrollViewHeight);
     _mScrollView.pagingEnabled = YES;
@@ -75,25 +72,23 @@
     [cancelButton setImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
     [cancelButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:cancelButton];
-    
     [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@(40));
         make.height.equalTo(@(40));
-        make.centerX.equalTo(weakSelf.view);
-        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-26);
+        make.top.equalTo(weakSelf.view).offset(12);
+        make.left.equalTo(weakSelf.view).offset(4);
     }];
     
     _helpButton = [UIButton new];
-    [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
-    [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateHighlighted];
+    [_helpButton setImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
+    [_helpButton setImage:[UIImage imageNamed:@"btn_levelpage_help_highlight"] forState:UIControlStateHighlighted];
     [_helpButton addTarget:self action:@selector(helpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_helpButton];
-    
     [_helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@40);
         make.height.equalTo(@40);
-        make.top.equalTo(weakSelf.view).offset(10);
-        make.left.equalTo(weakSelf.view).offset(10);
+        make.top.equalTo(weakSelf.view).offset(12);
+        make.right.equalTo(weakSelf.view).offset(-4);
     }];
     
     _pageContrl = [[UIPageControl alloc] init];
@@ -102,16 +97,55 @@
     _pageContrl.currentPageIndicatorTintColor = COMMON_GREEN_COLOR;
     _pageContrl.userInteractionEnabled = NO;
     [self.view addSubview:_pageContrl];
+    [_pageContrl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(weakSelf.view);
+        make.top.equalTo(_mScrollView.mas_bottom).offset(28);
+        //make.bottom.equalTo(weakSelf.view).offset(-97-26);
+        make.height.equalTo(@(8));
+    }];
+    
+    _mascotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_levelpage_season1"]];
+    [self.view addSubview:_mascotImageView];
+    [_mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(weakSelf.view);
+        make.bottom.equalTo(weakSelf.view);
+    }];
+    
+    _season1Button = [UIButton new];
+    [_season1Button addTarget:self action:@selector(season1ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1_highlight"] forState:UIControlStateNormal];
+    [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:_season1Button];
+    [_season1Button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_mascotImageView);
+        make.bottom.equalTo(_mascotImageView.mas_top);
+    }];
+    
+    _season2Button = [UIButton new];
+    [_season2Button addTarget:self action:@selector(season2ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2"] forState:UIControlStateNormal];
+    [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:_season2Button];
+    [_season2Button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_mascotImageView);
+        make.bottom.equalTo(_mascotImageView.mas_top);
+    }];
 }
 
 - (void)loadData {
     [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
-        
+        NSMutableArray *mQuestionList = [questionList mutableCopy];
+        if (!_isMonday) {
+            [mQuestionList removeLastObject];
+        }
+        [self createUIWithData:mQuestionList];
     }];
 }
 
 - (void)createUIWithData:(NSArray<HTQuestion*>*)questionList {
     self.questionList = questionList;
+    _mScrollView.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT, (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4));
+    _pageContrl.numberOfPages = PAGE_COUNT;
     
     for (UIView *view in self.mScrollView.subviews) {
         [view removeFromSuperview];
@@ -196,13 +230,6 @@
         
         [_mScrollView addSubview:itemView];
     }
-    
-    __weak __typeof(self)weakSelf = self;
-    [_pageContrl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakSelf.view);
-        make.top.equalTo(_mScrollView.mas_bottom).offset(42);
-        make.height.equalTo(@(8));
-    }];
 }
 
 - (void)updateUIWithData:(NSArray<HTQuestion*>*)questionList {
@@ -232,7 +259,7 @@
 #pragma mark - Actions
 
 - (void)cancelButtonClick:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)questionSelectButtonClick:(UIButton *)sender {
@@ -253,6 +280,18 @@
     } completion:^(BOOL finished) {
         
     }];
+}
+
+- (void)season1ButtonClick:(UIButton *)sender {
+    _mascotImageView.image = [UIImage imageNamed:@"img_levelpage_season1"];
+    [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1_highlight"] forState:UIControlStateNormal];
+    [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2"] forState:UIControlStateNormal];
+}
+
+- (void)season2ButtonClick:(UIButton *)sender {
+    _mascotImageView.image = [UIImage imageNamed:@"img_levelpage_season2"];
+    [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1"] forState:UIControlStateNormal];
+    [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2_highlight"] forState:UIControlStateNormal];
 }
 
 #pragma mark - SKHelperScrollViewDelegate

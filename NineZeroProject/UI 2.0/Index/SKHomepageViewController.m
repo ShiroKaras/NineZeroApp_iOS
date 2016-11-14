@@ -9,6 +9,9 @@
 #import "SKHomepageViewController.h"
 #import "HTUIHeader.h"
 
+#import "SKAllQuestionViewController.h"
+#import "SKQuestionPageViewController.h"
+
 @interface SKHomepageViewController ()
 
 @end
@@ -143,6 +146,7 @@
     
     //全部关卡
     UIButton *allLevelButton = [UIButton new];
+    [allLevelButton addTarget:self action:@selector(allLevelQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional_level"] forState:UIControlStateNormal];
     [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional_level_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:allLevelButton];
@@ -208,6 +212,14 @@
         make.center.equalTo(timeCountDownBackView);
     }];
     
+}
+
+#pragma mark - Actions
+
+- (void)allLevelQuestionButtonClick:(UIButton*)sender {
+    SKAllQuestionViewController *controller = [[SKAllQuestionViewController alloc] init];
+    //SKQuestionPageViewController *controller = [[SKQuestionPageViewController alloc] init];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 @end
