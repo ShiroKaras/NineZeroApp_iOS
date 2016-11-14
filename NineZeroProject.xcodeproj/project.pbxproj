@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1106FFD11DD5D60D0002E36C /* SKAllQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFD01DD5D60D0002E36C /* SKAllQuestionViewController.m */; };
+		1106FFE41DD992250002E36C /* SKMascotIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFE31DD992250002E36C /* SKMascotIndexViewController.m */; };
+		1106FFE71DD9AC570002E36C /* SKMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFE61DD9AC570002E36C /* SKMascotView.m */; };
 		110A34A91DD07B4500207115 /* SKQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 110A34A81DD07B4500207115 /* SKQuestionViewController.m */; };
 		1114AE041CE48DD800CCF92C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1114AE031CE48DD800CCF92C /* Assets.xcassets */; };
 		1115B6921DABBE1200E1BDB7 /* SKScanningResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1115B6911DABBE1200E1BDB7 /* SKScanningResultView.m */; };
@@ -808,6 +810,10 @@
 		0696EDC999FBD0A955EEFA5C /* Pods-NineZeroProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProjectTests/Pods-NineZeroProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		1106FFCF1DD5D60D0002E36C /* SKAllQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKAllQuestionViewController.h; path = "NineZeroProject/UI 2.0/Question/SKAllQuestionViewController.h"; sourceTree = "<group>"; };
 		1106FFD01DD5D60D0002E36C /* SKAllQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKAllQuestionViewController.m; path = "NineZeroProject/UI 2.0/Question/SKAllQuestionViewController.m"; sourceTree = "<group>"; };
+		1106FFE21DD992250002E36C /* SKMascotIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMascotIndexViewController.h; path = "NineZeroProject/UI 2.0/Mascot/SKMascotIndexViewController.h"; sourceTree = "<group>"; };
+		1106FFE31DD992250002E36C /* SKMascotIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMascotIndexViewController.m; path = "NineZeroProject/UI 2.0/Mascot/SKMascotIndexViewController.m"; sourceTree = "<group>"; };
+		1106FFE51DD9AC570002E36C /* SKMascotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMascotView.h; path = "NineZeroProject/UI 2.0/Mascot/SKMascotView.h"; sourceTree = "<group>"; };
+		1106FFE61DD9AC570002E36C /* SKMascotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMascotView.m; path = "NineZeroProject/UI 2.0/Mascot/SKMascotView.m"; sourceTree = "<group>"; };
 		110A34A71DD07B4500207115 /* SKQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKQuestionViewController.h; path = "NineZeroProject/UI 2.0/Question/SKQuestionViewController.h"; sourceTree = "<group>"; };
 		110A34A81DD07B4500207115 /* SKQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKQuestionViewController.m; path = "NineZeroProject/UI 2.0/Question/SKQuestionViewController.m"; sourceTree = "<group>"; };
 		1114AE031CE48DD800CCF92C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1825,11 +1831,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1106FFE11DD991D60002E36C /* Mascot */ = {
+			isa = PBXGroup;
+			children = (
+				1106FFE21DD992250002E36C /* SKMascotIndexViewController.h */,
+				1106FFE31DD992250002E36C /* SKMascotIndexViewController.m */,
+				1106FFE51DD9AC570002E36C /* SKMascotView.h */,
+				1106FFE61DD9AC570002E36C /* SKMascotView.m */,
+			);
+			name = Mascot;
+			sourceTree = "<group>";
+		};
 		110A34A51DD07ACE00207115 /* UI 2.0 */ = {
 			isa = PBXGroup;
 			children = (
 				11E3C0901DD5B26800550286 /* Index */,
 				110A34A61DD07AEB00207115 /* Question */,
+				1106FFE11DD991D60002E36C /* Mascot */,
 			);
 			name = "UI 2.0";
 			sourceTree = "<group>";
@@ -4432,6 +4450,7 @@
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
 				1744BFCA1C9D52EB00708716 /* UIViewController+HTTips.m in Sources */,
 				1747B0171C9F060500B37411 /* HTBlankView.m in Sources */,
+				1106FFE41DD992250002E36C /* SKMascotIndexViewController.m in Sources */,
 				17A92CD31CA809B100BE893D /* MJRefreshBackGifFooter.m in Sources */,
 				17A92CD61CA809B100BE893D /* MJRefreshGifHeader.m in Sources */,
 				17A92CDD1CA809B100BE893D /* UIView+MJExtension.m in Sources */,
@@ -4474,6 +4493,7 @@
 				11AD0C391DAA322C007951C5 /* ar.cc in Sources */,
 				17A92CD21CA809B100BE893D /* MJRefreshAutoStateFooter.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
+				1106FFE71DD9AC570002E36C /* SKMascotView.m in Sources */,
 				1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */,
 				1115B6921DABBE1200E1BDB7 /* SKScanningResultView.m in Sources */,
 				117418131D89396400B5458F /* HTPreviewCardController.m in Sources */,
