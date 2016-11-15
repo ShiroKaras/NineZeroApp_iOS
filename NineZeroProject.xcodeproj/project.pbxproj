@@ -4892,7 +4892,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NineZeroProjectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ronhu.NineZeroProjectTests;
+				PRODUCT_BUNDLE_IDENTIFIER = ShiroKaras.NineZeroProjectTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NineZeroProject.app/NineZeroProject";
 			};
@@ -4905,7 +4905,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NineZeroProjectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ronhu.NineZeroProjectTests;
+				PRODUCT_BUNDLE_IDENTIFIER = ShiroKaras.NineZeroProjectTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NineZeroProject.app/NineZeroProject";
 			};
@@ -4917,7 +4917,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = NineZeroProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ronhu.NineZeroProjectUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = ShiroKaras.NineZeroProjectUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = NineZeroProject;
 				USES_XCTRUNNER = YES;
@@ -4930,7 +4930,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = NineZeroProjectUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ronhu.NineZeroProjectUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = ShiroKaras.NineZeroProjectUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = NineZeroProject;
 				USES_XCTRUNNER = YES;

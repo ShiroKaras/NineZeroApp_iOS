@@ -3,7 +3,7 @@
 //  NineZeroProject
 //
 //  Created by SinLemon on 16/10/11.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  Copyright © 2016年 ShiroKaras. All rights reserved.
 //
 
 #import "NSString+AES256.h"

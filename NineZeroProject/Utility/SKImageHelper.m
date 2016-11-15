@@ -3,7 +3,7 @@
 //  NineZeroProject
 //
 //  Created by SinLemon on 16/5/26.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  Copyright © 2016年 ShiroKaras. All rights reserved.
 //
 
 #import "SKImageHelper.h"
