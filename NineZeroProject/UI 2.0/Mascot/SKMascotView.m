@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIButton *skillButton;
 @property (nonatomic, strong) UIButton *infoButton;
 
+@property (nonatomic, strong) NSArray *mascotNameArray;
 @property (nonatomic, assign) SKMascotType mascotType;
 @end
 
@@ -24,6 +25,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _mascotType = mascotType;
+        _mascotNameArray = @[@"lingzai", @"envy", @"gluttony", @"greed", @"pride", @"sloth", @"wrath", @"lust"];
         [self createUIWithType:mascotType];
     }
     return self;
@@ -75,71 +77,16 @@
         make.right.equalTo(self.mas_right).offset(-4);
     }];
     
-    switch (type) {
-        case SKMascotTypeDefault: {
-            _fightButton.hidden = YES;
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill"] forState:UIControlStateNormal];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill_highlight"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case SKMascotTypeEnvy: {
-            _fightButton.hidden = NO;
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_envyfight"] forState:UIControlStateNormal];
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_envyfight_highlight"] forState:UIControlStateHighlighted];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_envyskill"] forState:UIControlStateNormal];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_envyskill_highlight"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case SKMascotTypeGluttony: {
-            _fightButton.hidden = NO;
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_gluttonyfight"] forState:UIControlStateNormal];
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_gluttonyfight_highlight"] forState:UIControlStateHighlighted];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_gluttonyskill"] forState:UIControlStateNormal];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_gluttonyskill_highlight"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case SKMascotTypeGreed: {
-            _fightButton.hidden = NO;
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_greedfight"] forState:UIControlStateNormal];
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_greedfight_highlight"] forState:UIControlStateHighlighted];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_greedskill"] forState:UIControlStateNormal];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_greedskill_highlight"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case SKMascotTypePride: {
-            _fightButton.hidden = NO;
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_pridefight"] forState:UIControlStateNormal];
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_pridefight_highlight"] forState:UIControlStateHighlighted];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_prideskill"] forState:UIControlStateNormal];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_prideskill_highlight"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case SKMascotTypeSloth: {
-            _fightButton.hidden = NO;
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_slothfight"] forState:UIControlStateNormal];
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_slothfight_highlight"] forState:UIControlStateHighlighted];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_slothskill"] forState:UIControlStateNormal];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_slothskill_highlight"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case SKMascotTypeWrath: {
-            _fightButton.hidden = NO;
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_wrathfight"] forState:UIControlStateNormal];
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_wrathfight_highlight"] forState:UIControlStateHighlighted];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_wrathskill"] forState:UIControlStateNormal];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_wrathskill_highlight"] forState:UIControlStateHighlighted];
-            break;
-        }
-        case SKMascotTypeLust: {
-            _fightButton.hidden = NO;
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lustfight"] forState:UIControlStateNormal];
-            [_fightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lustfight_highlight"] forState:UIControlStateHighlighted];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lustskill"] forState:UIControlStateNormal];
-            [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lustskill_highlight"] forState:UIControlStateHighlighted];
-            break;
-        }
-        default:
-            break;
+    if (type == SKMascotTypeDefault) {
+        _fightButton.hidden = YES;
+        [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill"] forState:UIControlStateNormal];
+        [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill_highlight"] forState:UIControlStateHighlighted];
+    } else {
+        _fightButton.hidden = NO;
+        [_fightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@fight", _mascotNameArray[type]]] forState:UIControlStateNormal];
+        [_fightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@fight_highlight", _mascotNameArray[type]]] forState:UIControlStateHighlighted];
+        [_skillButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@skill", _mascotNameArray[type]]] forState:UIControlStateNormal];
+        [_skillButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@skill_highlight", _mascotNameArray[type]]] forState:UIControlStateHighlighted];
     }
 }
 
@@ -376,8 +323,11 @@
     }];
     
     UILabel *introduceLabel = [UILabel new];
+    introduceLabel.text = @"零仔Sloth·S实在是太懒了，所以他总是会使用魔法变出一个答案道具，快速过关，因为他要抓紧去睡觉啦";
     introduceLabel.textColor = [UIColor whiteColor];
-    introduceLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+    introduceLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:16];
+    introduceLabel.numberOfLines = 0;
+    introduceLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:introduceLabel];
     [introduceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(ROUND_WIDTH(280));
