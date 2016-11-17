@@ -11,6 +11,7 @@
 
 #import "SKAllQuestionViewController.h"
 #import "SKMascotIndexViewController.h"
+#import "SKLoginRootViewController.h"
 
 @interface SKHomepageViewController ()
 
@@ -181,6 +182,7 @@
     
     //我
     UIButton *meButton = [UIButton new];
+    [meButton addTarget:self action:@selector(testButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me"] forState:UIControlStateNormal];
     [meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:meButton];
@@ -225,6 +227,11 @@
 - (void)mascotButtonClick:(UIButton*)sender {
     SKMascotIndexViewController *controller = [[SKMascotIndexViewController alloc] init];
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)testButtonClick {
+    SKLoginRootViewController *controller = [[SKLoginRootViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

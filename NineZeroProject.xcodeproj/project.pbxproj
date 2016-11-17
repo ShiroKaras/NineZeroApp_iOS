@@ -22,6 +22,8 @@
 		1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */; };
 		1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */; };
 		113D74B21DB4B66C00E513B7 /* SKShareRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113D74B11DB4B66C00E513B7 /* SKShareRewardController.m */; };
+		11644F4D1DDD97CB002E9FDE /* SKRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */; };
+		11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */; };
 		117417EA1D795AC300B5458F /* SKIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417E91D795AC300B5458F /* SKIndexViewController.m */; };
 		117417EE1D797F5C00B5458F /* SKQuestionPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417ED1D797F5C00B5458F /* SKQuestionPageViewController.m */; };
 		117417F41D7FE3CC00B5458F /* SKHelperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417F31D7FE3CC00B5458F /* SKHelperView.m */; };
@@ -74,6 +76,7 @@
 		11F2185E1CBB951300D2ED44 /* ShareSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11F218511CBB951300D2ED44 /* ShareSDK.bundle */; };
 		11F2185F1CBB951300D2ED44 /* ShareSDKConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218521CBB951300D2ED44 /* ShareSDKConnector.framework */; };
 		11F218611CBB986E00D2ED44 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218601CBB986E00D2ED44 /* ImageIO.framework */; };
+		11FF643D1DDD5C3500768080 /* SKLoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FF643C1DDD5C3500768080 /* SKLoginRootViewController.m */; };
 		1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706CB4A1BFA542E00E59255 /* NSString+Utility.m */; };
 		17116D051C9D366200530B7C /* HTPropChangedPopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17116D041C9D366200530B7C /* HTPropChangedPopController.m */; };
 		1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1721D71C1BEFB7A100498304 /* HTLoginRootController.m */; };
@@ -835,6 +838,10 @@
 		113D74B01DB4B66C00E513B7 /* SKShareRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareRewardController.h; sourceTree = "<group>"; };
 		113D74B11DB4B66C00E513B7 /* SKShareRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKShareRewardController.m; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
+		11644F4B1DDD97CB002E9FDE /* SKRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterViewController.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.h"; sourceTree = "<group>"; };
+		11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRegisterViewController.m; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.m"; sourceTree = "<group>"; };
+		11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterTextField.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterTextField.h"; sourceTree = "<group>"; };
+		11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRegisterTextField.m; path = "NineZeroProject/UI 2.0/Login/SKRegisterTextField.m"; sourceTree = "<group>"; };
 		117417E81D795AC300B5458F /* SKIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKIndexViewController.h; path = NineZeroProject/UI/Index/SKIndexViewController.h; sourceTree = SOURCE_ROOT; };
 		117417E91D795AC300B5458F /* SKIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKIndexViewController.m; path = NineZeroProject/UI/Index/SKIndexViewController.m; sourceTree = SOURCE_ROOT; };
 		117417EC1D797F5C00B5458F /* SKQuestionPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKQuestionPageViewController.h; path = Index/SKQuestionPageViewController.h; sourceTree = "<group>"; };
@@ -927,6 +934,8 @@
 		11F218511CBB951300D2ED44 /* ShareSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDK.bundle; sourceTree = "<group>"; };
 		11F218521CBB951300D2ED44 /* ShareSDKConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConnector.framework; sourceTree = "<group>"; };
 		11F218601CBB986E00D2ED44 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		11FF643B1DDD5C3500768080 /* SKLoginRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKLoginRootViewController.h; path = "NineZeroProject/UI 2.0/Login/SKLoginRootViewController.h"; sourceTree = "<group>"; };
+		11FF643C1DDD5C3500768080 /* SKLoginRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKLoginRootViewController.m; path = "NineZeroProject/UI 2.0/Login/SKLoginRootViewController.m"; sourceTree = "<group>"; };
 		1706CB491BFA542E00E59255 /* NSString+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utility.h"; sourceTree = "<group>"; };
 		1706CB4A1BFA542E00E59255 /* NSString+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utility.m"; sourceTree = "<group>"; };
 		17116D031C9D366200530B7C /* HTPropChangedPopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTPropChangedPopController.h; sourceTree = "<group>"; };
@@ -1845,6 +1854,7 @@
 		110A34A51DD07ACE00207115 /* UI 2.0 */ = {
 			isa = PBXGroup;
 			children = (
+				11FF643A1DDD5BF500768080 /* Login */,
 				11E3C0901DD5B26800550286 /* Index */,
 				110A34A61DD07AEB00207115 /* Question */,
 				1106FFE11DD991D60002E36C /* Mascot */,
@@ -2115,6 +2125,19 @@
 				11F218521CBB951300D2ED44 /* ShareSDKConnector.framework */,
 			);
 			path = Required;
+			sourceTree = "<group>";
+		};
+		11FF643A1DDD5BF500768080 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				11FF643B1DDD5C3500768080 /* SKLoginRootViewController.h */,
+				11FF643C1DDD5C3500768080 /* SKLoginRootViewController.m */,
+				11644F4B1DDD97CB002E9FDE /* SKRegisterViewController.h */,
+				11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */,
+				11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */,
+				11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 		1721D7171BEFB77E00498304 /* Network */ = {
@@ -4452,6 +4475,7 @@
 				1747B0171C9F060500B37411 /* HTBlankView.m in Sources */,
 				1106FFE41DD992250002E36C /* SKMascotIndexViewController.m in Sources */,
 				17A92CD31CA809B100BE893D /* MJRefreshBackGifFooter.m in Sources */,
+				11FF643D1DDD5C3500768080 /* SKLoginRootViewController.m in Sources */,
 				17A92CD61CA809B100BE893D /* MJRefreshGifHeader.m in Sources */,
 				17A92CDD1CA809B100BE893D /* UIView+MJExtension.m in Sources */,
 				112167641CF0637B0048EA01 /* SKLaunchAnimationViewController.m in Sources */,
@@ -4532,6 +4556,7 @@
 				17F39B701C82107500D8A565 /* NSLayoutConstraintHairline.m in Sources */,
 				17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */,
 				175F82D11CB4124D00AC2664 /* HTWebController.m in Sources */,
+				11644F4D1DDD97CB002E9FDE /* SKRegisterViewController.m in Sources */,
 				26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 				17A20A0F1C51444C00364EEF /* HTMascotPropMoreView.m in Sources */,
@@ -4556,6 +4581,7 @@
 				17FA112D1C8343DA00FA9102 /* HTFeedbackController.m in Sources */,
 				11AD0C331DAA1E0D007951C5 /* SKSwipeViewController.m in Sources */,
 				17FA11321C8357E800FA9102 /* HTCollectionController.m in Sources */,
+				11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */,
 				17FA11361C835BE000FA9102 /* HTNotificationController.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,
 				1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */,
