@@ -12,9 +12,8 @@
 #define padding 5
 #define heightSpaceing 2
 
-@interface SKRegisterTextField () <UITextFieldDelegate>
+@interface SKRegisterTextField ()
 
-@property (nonatomic,strong) UITextField *textField;        //文本框
 @property (nonatomic,strong) UILabel *placeholderLabel;     //注释
 @property (nonatomic,strong) UIView *lineView;              //线
 @property (nonatomic,strong) CALayer *lineLayer;            //填充线
@@ -30,14 +29,13 @@ static const CGFloat lineWidth = 1;
     if(self = [super initWithFrame:frame]) {
         _textField = [[UITextField alloc]initWithFrame:CGRectZero];
         _textField.borderStyle = UITextBorderStyleNone;
-        _textField.font = [UIFont systemFontOfSize:15.f];
+        _textField.font = [UIFont systemFontOfSize:18.f];
         _textField.textColor = [UIColor whiteColor];
-        _textField.delegate = self;
         _textField.tintColor = [UIColor whiteColor];
         [self addSubview:_textField];
         
         _placeholderLabel = [[UILabel alloc]initWithFrame:CGRectZero];
-        _placeholderLabel.font = [UIFont systemFontOfSize:13.f];
+        _placeholderLabel.font = [UIFont systemFontOfSize:18.f];
         _placeholderLabel.textColor = [UIColor whiteColor];
         [self addSubview:_placeholderLabel];
         
@@ -83,8 +81,8 @@ static const CGFloat lineWidth = 1;
     __block CGFloat moveX = x;
     __block CGFloat moveY = y;
     
-    _placeholderLabel.font = [UIFont systemFontOfSize:10.f];
-    _placeholderLabel.textColor = _placeholderSelectStateColor;
+    _placeholderLabel.font = [UIFont systemFontOfSize:12.f];
+    _placeholderLabel.textColor = [UIColor whiteColor];
     
     [UIView animateWithDuration:0.15 animations:^{
         moveY -= _placeholderLabel.frame.size.height/2 + heightSpaceing;
@@ -100,8 +98,8 @@ static const CGFloat lineWidth = 1;
     __block CGFloat moveX = x;
     __block CGFloat moveY = y;
     
-    _placeholderLabel.font = [UIFont systemFontOfSize:13.f];
-    _placeholderLabel.textColor = _placeholderNormalStateColor;
+    _placeholderLabel.font = [UIFont systemFontOfSize:18.f];
+    _placeholderLabel.textColor = [UIColor whiteColor];
     
     [UIView animateWithDuration:0.15 animations:^{
         moveY += _placeholderLabel.frame.size.height/2 + heightSpaceing;

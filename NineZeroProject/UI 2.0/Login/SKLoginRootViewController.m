@@ -63,8 +63,8 @@
     }];
     
     UIButton *loginButton_QQ = [UIButton new];
-    [loginButton_QQ setBackgroundImage:[UIImage imageNamed:@"btn_ logins_QQ"] forState:UIControlStateNormal];
-    [loginButton_QQ setBackgroundImage:[UIImage imageNamed:@"btn_ logins_QQ_highlight"] forState:UIControlStateHighlighted];
+    [loginButton_QQ setBackgroundImage:[UIImage imageNamed:@"btn_logins_QQ"] forState:UIControlStateNormal];
+    [loginButton_QQ setBackgroundImage:[UIImage imageNamed:@"btn_logins_QQ_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:loginButton_QQ];
     [loginButton_QQ mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@25);
@@ -74,8 +74,8 @@
     }];
     
     UIButton *loginButton_Weixin = [UIButton new];
-    [loginButton_Weixin setBackgroundImage:[UIImage imageNamed:@"btn_ logins_Wechat"] forState:UIControlStateNormal];
-    [loginButton_Weixin setBackgroundImage:[UIImage imageNamed:@"btn_ logins_Wechat_highlight"] forState:UIControlStateHighlighted];
+    [loginButton_Weixin setBackgroundImage:[UIImage imageNamed:@"btn_logins_Wechat"] forState:UIControlStateNormal];
+    [loginButton_Weixin setBackgroundImage:[UIImage imageNamed:@"btn_logins_Wechat_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:loginButton_Weixin];
     [loginButton_Weixin mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@25);
