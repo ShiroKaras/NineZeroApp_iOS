@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11023BE51DDEF89C00B6493F /* SKVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11023BE41DDEF89C00B6493F /* SKVerifyViewController.m */; };
 		1106FFD11DD5D60D0002E36C /* SKAllQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFD01DD5D60D0002E36C /* SKAllQuestionViewController.m */; };
 		1106FFE41DD992250002E36C /* SKMascotIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFE31DD992250002E36C /* SKMascotIndexViewController.m */; };
 		1106FFE71DD9AC570002E36C /* SKMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFE61DD9AC570002E36C /* SKMascotView.m */; };
@@ -811,6 +812,8 @@
 
 /* Begin PBXFileReference section */
 		0696EDC999FBD0A955EEFA5C /* Pods-NineZeroProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProjectTests/Pods-NineZeroProjectTests.release.xcconfig"; sourceTree = "<group>"; };
+		11023BE31DDEF89C00B6493F /* SKVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKVerifyViewController.h; path = "NineZeroProject/UI 2.0/Login/SKVerifyViewController.h"; sourceTree = "<group>"; };
+		11023BE41DDEF89C00B6493F /* SKVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKVerifyViewController.m; path = "NineZeroProject/UI 2.0/Login/SKVerifyViewController.m"; sourceTree = "<group>"; };
 		1106FFCF1DD5D60D0002E36C /* SKAllQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKAllQuestionViewController.h; path = "NineZeroProject/UI 2.0/Question/SKAllQuestionViewController.h"; sourceTree = "<group>"; };
 		1106FFD01DD5D60D0002E36C /* SKAllQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKAllQuestionViewController.m; path = "NineZeroProject/UI 2.0/Question/SKAllQuestionViewController.m"; sourceTree = "<group>"; };
 		1106FFE21DD992250002E36C /* SKMascotIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMascotIndexViewController.h; path = "NineZeroProject/UI 2.0/Mascot/SKMascotIndexViewController.h"; sourceTree = "<group>"; };
@@ -2136,6 +2139,8 @@
 				11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */,
 				11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */,
 				11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */,
+				11023BE31DDEF89C00B6493F /* SKVerifyViewController.h */,
+				11023BE41DDEF89C00B6493F /* SKVerifyViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -4562,6 +4567,7 @@
 				17A20A0F1C51444C00364EEF /* HTMascotPropMoreView.m in Sources */,
 				179622BE1C5E1D6C00DCA470 /* HTMascotArticleCell.m in Sources */,
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
+				11023BE51DDEF89C00B6493F /* SKVerifyViewController.m in Sources */,
 				17E8DE511C0E154B009D4F9F /* HTQiNiuService.m in Sources */,
 				117418151D89396400B5458F /* HTShowAnswerView.m in Sources */,
 				117417EE1D797F5C00B5458F /* SKQuestionPageViewController.m in Sources */,
