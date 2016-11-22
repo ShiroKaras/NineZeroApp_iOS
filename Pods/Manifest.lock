@@ -35,6 +35,9 @@ PODS:
     - FMDB/common
   - HappyDNS (0.2.1)
   - JPush (2.1.0)
+  - JSPatchPlatform (1.6.2):
+    - JSPatchPlatform/Core (= 1.6.2)
+  - JSPatchPlatform/Core (1.6.2)
   - Masonry (0.6.2)
   - MBProgressHUD (0.9.1)
   - MBProgressHUD+BWMExtension (1.0.0):
@@ -61,6 +64,7 @@ DEPENDENCIES:
   - AMapLocation
   - AMapSearch
   - JPush (~> 2.1.0)
+  - JSPatchPlatform
   - Masonry (~> 0.6.2)
   - MBProgressHUD+BWMExtension (~> 1.0.0)
   - MJExtension
@@ -82,6 +86,7 @@ SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   HappyDNS: 8eb3c929ee6143eb56bfddfc9e6052ca9429699c
   JPush: 92cb879829f0d81ab17b2c9ad009fdb88c6cf6e5
+  JSPatchPlatform: 105e331f1b899a397d2bc0300a9ace9f9d7b8f08
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MBProgressHUD+BWMExtension: dd1dff033c1802edf7cb613c5643db5f090575bd
@@ -94,6 +99,6 @@ SPEC CHECKSUMS:
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
   YTKNetwork: 3f163c181ce5f03d52cf88f39d6757f46894280c
 
-PODFILE CHECKSUM: 3abf708805cb2ab536254042c22b0e4000f9a99f
+PODFILE CHECKSUM: 518d98d1037e28bb667e24b4338796f80746e01d
 
 COCOAPODS: 1.1.1

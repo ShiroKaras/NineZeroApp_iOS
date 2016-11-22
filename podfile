@@ -21,6 +21,7 @@ target 'NineZeroProject' do
   #pod 'AMap2DMap' #2D地图SDK (2D和3D不能同时使⽤用)
   pod 'AMapSearch' #搜索服务SDK
   #pod 'UMengAnalytics' #标准SDK，含IDFA
+  pod 'JSPatchPlatform'
 end
 
 target 'NineZeroProjectTests' do
