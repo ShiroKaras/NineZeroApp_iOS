@@ -10,6 +10,7 @@
 		11023BE51DDEF89C00B6493F /* SKVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11023BE41DDEF89C00B6493F /* SKVerifyViewController.m */; };
 		11023BE81DE3E12F00B6493F /* SKLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11023BE71DE3E12F00B6493F /* SKLoginViewController.m */; };
 		11023BEB1DE3E66800B6493F /* SKResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11023BEA1DE3E66800B6493F /* SKResetPasswordViewController.m */; };
+		11023BEE1DE3FC3100B6493F /* SKConfirmPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11023BED1DE3FC3100B6493F /* SKConfirmPasswordViewController.m */; };
 		1106FFD11DD5D60D0002E36C /* SKAllQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFD01DD5D60D0002E36C /* SKAllQuestionViewController.m */; };
 		1106FFE41DD992250002E36C /* SKMascotIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFE31DD992250002E36C /* SKMascotIndexViewController.m */; };
 		1106FFE71DD9AC570002E36C /* SKMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFE61DD9AC570002E36C /* SKMascotView.m */; };
@@ -820,6 +821,8 @@
 		11023BE71DE3E12F00B6493F /* SKLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKLoginViewController.m; path = "NineZeroProject/UI 2.0/Login/SKLoginViewController.m"; sourceTree = "<group>"; };
 		11023BE91DE3E66800B6493F /* SKResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKResetPasswordViewController.h; path = "NineZeroProject/UI 2.0/Login/SKResetPasswordViewController.h"; sourceTree = "<group>"; };
 		11023BEA1DE3E66800B6493F /* SKResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKResetPasswordViewController.m; path = "NineZeroProject/UI 2.0/Login/SKResetPasswordViewController.m"; sourceTree = "<group>"; };
+		11023BEC1DE3FC3100B6493F /* SKConfirmPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKConfirmPasswordViewController.h; path = "NineZeroProject/UI 2.0/Login/SKConfirmPasswordViewController.h"; sourceTree = "<group>"; };
+		11023BED1DE3FC3100B6493F /* SKConfirmPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKConfirmPasswordViewController.m; path = "NineZeroProject/UI 2.0/Login/SKConfirmPasswordViewController.m"; sourceTree = "<group>"; };
 		1106FFCF1DD5D60D0002E36C /* SKAllQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKAllQuestionViewController.h; path = "NineZeroProject/UI 2.0/Question/SKAllQuestionViewController.h"; sourceTree = "<group>"; };
 		1106FFD01DD5D60D0002E36C /* SKAllQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKAllQuestionViewController.m; path = "NineZeroProject/UI 2.0/Question/SKAllQuestionViewController.m"; sourceTree = "<group>"; };
 		1106FFE21DD992250002E36C /* SKMascotIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMascotIndexViewController.h; path = "NineZeroProject/UI 2.0/Mascot/SKMascotIndexViewController.h"; sourceTree = "<group>"; };
@@ -2151,6 +2154,8 @@
 				11023BE71DE3E12F00B6493F /* SKLoginViewController.m */,
 				11023BE91DE3E66800B6493F /* SKResetPasswordViewController.h */,
 				11023BEA1DE3E66800B6493F /* SKResetPasswordViewController.m */,
+				11023BEC1DE3FC3100B6493F /* SKConfirmPasswordViewController.h */,
+				11023BED1DE3FC3100B6493F /* SKConfirmPasswordViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -4570,6 +4575,7 @@
 				17FA110D1C83417A00FA9102 /* HTAboutController.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
 				17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */,
+				11023BEE1DE3FC3100B6493F /* SKConfirmPasswordViewController.m in Sources */,
 				17F39B701C82107500D8A565 /* NSLayoutConstraintHairline.m in Sources */,
 				17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */,
 				175F82D11CB4124D00AC2664 /* HTWebController.m in Sources */,

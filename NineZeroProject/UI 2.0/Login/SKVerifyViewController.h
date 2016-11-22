@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    SKVerifyTypeRegister,
+    SKVerifyTypeResetPassword
+} SKVerifyType;
+
 @interface SKVerifyViewController : UIViewController
+
+- (instancetype)initWithType:(SKVerifyType)type;
 
 @end

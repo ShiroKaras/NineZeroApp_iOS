@@ -9,18 +9,30 @@
 #import "SKVerifyViewController.h"
 #import "HTUIHeader.h"
 
+#import "SKConfirmPasswordViewController.h"
+
 @interface SKVerifyViewController ()
 
 @property (nonatomic, strong) UITextField *verifyCodeTextField;
 @property (nonatomic, strong) UIButton *resendVerifyCodeButton;
+@property (nonatomic, assign) SKVerifyType type;
 
 @end
 
 @implementation SKVerifyViewController
 
+- (instancetype)initWithType:(SKVerifyType)type
+{
+    self = [super init];
+    if (self) {
+        _type = type;
+        [self createUIWithType:type];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self createUI];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -31,7 +43,7 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)createUI {
+- (void)createUIWithType:(SKVerifyType)type {
     self.view.backgroundColor = COMMON_PINK_COLOR;
     
     __weak __typeof(self)weakSelf = self;
@@ -48,25 +60,60 @@
         make.left.equalTo(@4);
     }];
     
-    UIImageView *stepImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_code"]];
-    [self.view addSubview:stepImageView];
-    [stepImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@26);
-        make.height.equalTo(@26);
-        make.top.equalTo(@19);
-        make.centerX.equalTo(weakSelf.view.mas_centerX).offset(11);
-    }];
-    
-    UIView *point = [UIView new];
-    point.backgroundColor = [UIColor whiteColor];
-    point.layer.cornerRadius = 6;
-    [self.view addSubview:point];
-    [point mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@12);
-        make.height.equalTo(@12);
-        make.right.equalTo(stepImageView.mas_left).offset(-10);
-        make.centerY.equalTo(stepImageView.mas_centerY);
-    }];
+    if (type == SKVerifyTypeRegister) {
+        UIImageView *stepImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_code"]];
+        [self.view addSubview:stepImageView];
+        [stepImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@26);
+            make.height.equalTo(@26);
+            make.top.equalTo(@19);
+            make.centerX.equalTo(weakSelf.view.mas_centerX).offset(11);
+        }];
+        
+        UIView *point = [UIView new];
+        point.backgroundColor = [UIColor whiteColor];
+        point.layer.cornerRadius = 6;
+        [self.view addSubview:point];
+        [point mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@12);
+            make.height.equalTo(@12);
+            make.right.equalTo(stepImageView.mas_left).offset(-10);
+            make.centerY.equalTo(stepImageView.mas_centerY);
+        }];
+    } else if (type == SKVerifyTypeResetPassword) {
+        UIImageView *stepImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_code"]];
+        [self.view addSubview:stepImageView];
+        [stepImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@26);
+            make.height.equalTo(@26);
+            make.top.equalTo(@19);
+            make.centerX.equalTo(weakSelf.view.mas_centerX);
+        }];
+        
+        UIView *point = [UIView new];
+        point.backgroundColor = [UIColor whiteColor];
+        point.layer.cornerRadius = 6;
+        [self.view addSubview:point];
+        [point mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@12);
+            make.height.equalTo(@12);
+            make.right.equalTo(stepImageView.mas_left).offset(-10);
+            make.centerY.equalTo(stepImageView.mas_centerY);
+        }];
+        
+        UIView *point1 = [UIView new];
+        point1.backgroundColor = [UIColor clearColor];
+        point1.layer.cornerRadius = 6;
+        point1.layer.borderWidth = 2;
+        point1.layer.borderColor = [UIColor whiteColor].CGColor;
+        [self.view addSubview:point1];
+        [point1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@12);
+            make.height.equalTo(@12);
+            make.left.equalTo(stepImageView.mas_right).offset(10);
+            make.centerY.equalTo(stepImageView.mas_centerY);
+        }];
+    }
     
     UILabel *contentLabel = [UILabel new];
     contentLabel.text = @"验证码短信马上就来\n28秒后可重新发送";
@@ -128,23 +175,21 @@
 - (void)textFieldTextDidChange:(NSNotification *)notification {
     if (_verifyCodeTextField.text.length == 0) {
         ((UILabel*)[self.view viewWithTag:100]).text = @"";
-        ((UILabel*)[self.view viewWithTag:101]).text = @"";
-        ((UILabel*)[self.view viewWithTag:102]).text = @"";
-        ((UILabel*)[self.view viewWithTag:103]).text = @"";
     } else if (_verifyCodeTextField.text.length == 1) {
         ((UILabel*)[self.view viewWithTag:100]).text = [_verifyCodeTextField.text substringWithRange:NSMakeRange(0, 1)];
         ((UILabel*)[self.view viewWithTag:101]).text = @"";
-        ((UILabel*)[self.view viewWithTag:102]).text = @"";
-        ((UILabel*)[self.view viewWithTag:103]).text = @"";
     } else if (_verifyCodeTextField.text.length == 2) {
         ((UILabel*)[self.view viewWithTag:101]).text = [_verifyCodeTextField.text substringWithRange:NSMakeRange(1, 1)];
         ((UILabel*)[self.view viewWithTag:102]).text = @"";
-        ((UILabel*)[self.view viewWithTag:103]).text = @"";
     } else if (_verifyCodeTextField.text.length ==  3) {
         ((UILabel*)[self.view viewWithTag:102]).text = [_verifyCodeTextField.text substringWithRange:NSMakeRange(2, 1)];
         ((UILabel*)[self.view viewWithTag:103]).text = @"";
     } else if (_verifyCodeTextField.text.length == 4) {
         ((UILabel*)[self.view viewWithTag:103]).text = [_verifyCodeTextField.text substringWithRange:NSMakeRange(3, 1)];
+        if (_type == SKVerifyTypeResetPassword) {
+            SKConfirmPasswordViewController *controller = [[SKConfirmPasswordViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
     } else {
         NSString *string = [_verifyCodeTextField.text substringWithRange:NSMakeRange(0, 4)];
         _verifyCodeTextField.text = string;

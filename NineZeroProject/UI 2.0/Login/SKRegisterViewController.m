@@ -117,7 +117,7 @@
 }
 
 - (void)nextButtonClick:(UIButton *)sender {
-    SKVerifyViewController *controller = [[SKVerifyViewController alloc] init];
+    SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeRegister];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
