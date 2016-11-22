@@ -1,27 +1,27 @@
 //
-//  SKRegisterViewController.m
+//  SKLoginViewController.m
 //  NineZeroProject
 //
-//  Created by SinLemon on 2016/11/17.
+//  Created by SinLemon on 2016/11/22.
 //  Copyright © 2016年 ronhu. All rights reserved.
 //
 
-#import "SKRegisterViewController.h"
+#import "SKLoginViewController.h"
 #import "HTUIHeader.h"
 
 #import "SKRegisterTextField.h"
-#import "SKVerifyViewController.h"
+#import "SKResetPasswordViewController.h"
 
-@interface SKRegisterViewController () <UITextFieldDelegate>
+@interface SKLoginViewController () <UITextViewDelegate>
 
 @property (nonatomic, strong) SKRegisterTextField *phoneTextField;
-@property (nonatomic, strong) SKRegisterTextField *usernameTextField;
 @property (nonatomic, strong) SKRegisterTextField *passwordTextField;
 @property (nonatomic, strong) UIButton *nextButton;
+@property (nonatomic, strong) UIButton *resetPasswordButton;
 
 @end
 
-@implementation SKRegisterViewController
+@implementation SKLoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,6 +31,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -60,7 +61,7 @@
     }];
     
     UILabel *titleLabel = [UILabel new];
-    titleLabel.text = @"开始吧！";
+    titleLabel.text = @"请登录";
     titleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,18 +73,7 @@
     _phoneTextField.ly_placeholder = @"手机号码";
     [self.view addSubview:_phoneTextField];
     [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@84);
-        make.centerX.equalTo(weakSelf.view);
-        make.width.equalTo(ROUND_WIDTH(252));
-        make.height.equalTo(ROUND_WIDTH(44));
-    }];
-    
-    _usernameTextField = [[SKRegisterTextField alloc] init];
-    _usernameTextField.alpha = 0;
-    _usernameTextField.ly_placeholder = @"用户名";
-    [self.view addSubview:_usernameTextField];
-    [_usernameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_phoneTextField.mas_bottom).offset(21);
+        make.top.equalTo(ROUND_HEIGHT(106));
         make.centerX.equalTo(weakSelf.view);
         make.width.equalTo(ROUND_WIDTH(252));
         make.height.equalTo(ROUND_WIDTH(44));
@@ -95,7 +85,7 @@
     _passwordTextField.ly_placeholder = @"密码";
     [self.view addSubview:_passwordTextField];
     [_passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_usernameTextField.mas_bottom).offset(21);
+        make.top.equalTo(_phoneTextField.mas_bottom).offset(26);
         make.centerX.equalTo(weakSelf.view);
         make.width.equalTo(ROUND_WIDTH(252));
         make.height.equalTo(ROUND_WIDTH(44));
@@ -108,6 +98,13 @@
     _nextButton.alpha = 0.6;
     [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
     [self.view addSubview:_nextButton];
+    
+    _resetPasswordButton = [UIButton new];
+    [_resetPasswordButton addTarget:self action:@selector(resetPasswordButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    _resetPasswordButton.backgroundColor = [UIColor clearColor];
+    [_resetPasswordButton setTitle:@"接收短信出问题了？重新发送验证码" forState:UIControlStateNormal];
+    _resetPasswordButton.frame = CGRectMake(0, self.view.height-100, self.view.width, 50);
+    [self.view addSubview:_resetPasswordButton];
 }
 
 #pragma mark - Actions
@@ -117,7 +114,11 @@
 }
 
 - (void)nextButtonClick:(UIButton *)sender {
-    SKVerifyViewController *controller = [[SKVerifyViewController alloc] init];
+    
+}
+
+- (void)resetPasswordButtonClick:(UIButton *)sender {
+    SKResetPasswordViewController *controller = [[SKResetPasswordViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -128,11 +129,6 @@
         _phoneTextField.textField.text = [_phoneTextField.textField.text substringToIndex:11];
     }
     if (_phoneTextField.textField.text.length == 11) {
-        [UIView animateWithDuration:0.3 animations:^{
-            _usernameTextField.alpha = 1;
-        }];
-    }
-    if (_usernameTextField.textField.text.length >= 3) {
         [UIView animateWithDuration:0.3 animations:^{
             _passwordTextField.alpha = 1;
         }];
@@ -145,14 +141,15 @@
     NSDictionary *info = [notification userInfo];
     CGRect keyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     _nextButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height-50, self.view.width, 50);
+    _resetPasswordButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height-100, self.view.width, 50);
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     _nextButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
+    _resetPasswordButton.frame = CGRectMake(0, self.view.height-100, self.view.width, 50);
 }
 
 - (void)keyboardDidHide:(NSNotification *)notification {
     
 }
-
 @end

@@ -10,6 +10,7 @@
 #import "HTUIHeader.h"
 
 #import "SKRegisterViewController.h"
+#import "SKLoginViewController.h"
 
 @interface SKLoginRootViewController ()
 
@@ -117,6 +118,7 @@
     }];
     
     UIButton *loginButton = [UIButton new];
+    [loginButton addTarget:self action:@selector(loginButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
     [bottomView2 addSubview:loginButton];
     [loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -132,7 +134,14 @@
 
 - (void)registerButtonClick:(UIButton *)sender {
     SKRegisterViewController *controller = [[SKRegisterViewController alloc] init];
-    [self presentViewController:controller animated:YES completion:nil];
+    UINavigationController *root = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentViewController:root animated:YES completion:nil];
+}
+
+- (void)loginButtonClick:(UIButton *)sender {
+    SKLoginViewController *controller = [[SKLoginViewController alloc] init];
+    UINavigationController *root = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentViewController:root animated:YES completion:nil];
 }
 
 @end

@@ -1,27 +1,25 @@
 //
-//  SKRegisterViewController.m
+//  SKResetPasswordViewController.m
 //  NineZeroProject
 //
-//  Created by SinLemon on 2016/11/17.
+//  Created by SinLemon on 2016/11/22.
 //  Copyright © 2016年 ronhu. All rights reserved.
 //
 
-#import "SKRegisterViewController.h"
+#import "SKResetPasswordViewController.h"
 #import "HTUIHeader.h"
 
 #import "SKRegisterTextField.h"
 #import "SKVerifyViewController.h"
 
-@interface SKRegisterViewController () <UITextFieldDelegate>
+@interface SKResetPasswordViewController ()
 
 @property (nonatomic, strong) SKRegisterTextField *phoneTextField;
-@property (nonatomic, strong) SKRegisterTextField *usernameTextField;
-@property (nonatomic, strong) SKRegisterTextField *passwordTextField;
 @property (nonatomic, strong) UIButton *nextButton;
 
 @end
 
-@implementation SKRegisterViewController
+@implementation SKResetPasswordViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,7 +58,7 @@
     }];
     
     UILabel *titleLabel = [UILabel new];
-    titleLabel.text = @"开始吧！";
+    titleLabel.text = @"忘记密码";
     titleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,30 +70,7 @@
     _phoneTextField.ly_placeholder = @"手机号码";
     [self.view addSubview:_phoneTextField];
     [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@84);
-        make.centerX.equalTo(weakSelf.view);
-        make.width.equalTo(ROUND_WIDTH(252));
-        make.height.equalTo(ROUND_WIDTH(44));
-    }];
-    
-    _usernameTextField = [[SKRegisterTextField alloc] init];
-    _usernameTextField.alpha = 0;
-    _usernameTextField.ly_placeholder = @"用户名";
-    [self.view addSubview:_usernameTextField];
-    [_usernameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_phoneTextField.mas_bottom).offset(21);
-        make.centerX.equalTo(weakSelf.view);
-        make.width.equalTo(ROUND_WIDTH(252));
-        make.height.equalTo(ROUND_WIDTH(44));
-    }];
-    
-    _passwordTextField = [[SKRegisterTextField alloc] init];
-    _passwordTextField.alpha = 0;
-    _passwordTextField.textField.secureTextEntry = YES;
-    _passwordTextField.ly_placeholder = @"密码";
-    [self.view addSubview:_passwordTextField];
-    [_passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_usernameTextField.mas_bottom).offset(21);
+        make.top.equalTo(ROUND_HEIGHT(161));
         make.centerX.equalTo(weakSelf.view);
         make.width.equalTo(ROUND_WIDTH(252));
         make.height.equalTo(ROUND_WIDTH(44));
@@ -126,16 +101,6 @@
 - (void)textFieldTextDidChange:(NSNotification *)notification {
     if (_phoneTextField.textField.text.length > 11) {
         _phoneTextField.textField.text = [_phoneTextField.textField.text substringToIndex:11];
-    }
-    if (_phoneTextField.textField.text.length == 11) {
-        [UIView animateWithDuration:0.3 animations:^{
-            _usernameTextField.alpha = 1;
-        }];
-    }
-    if (_usernameTextField.textField.text.length >= 3) {
-        [UIView animateWithDuration:0.3 animations:^{
-            _passwordTextField.alpha = 1;
-        }];
     }
 }
 
