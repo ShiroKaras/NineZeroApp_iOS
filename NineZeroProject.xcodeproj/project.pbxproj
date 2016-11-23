@@ -1800,6 +1800,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */,
 				17617F621BEFADE8000B2BFA /* SystemConfiguration.framework in Frameworks */,
 				17617F601BEFADE1000B2BFA /* CoreTelephony.framework in Frameworks */,
 				11BC2E001D93C9CF00C9E775 /* AdSupport.framework in Frameworks */,
@@ -1807,7 +1808,6 @@
 				174C53331BE7A47900893C22 /* libsqlite3.tbd in Frameworks */,
 				11BC2DFE1D93C98200C9E775 /* libTalkingData.a in Frameworks */,
 				11F218611CBB986E00D2ED44 /* ImageIO.framework in Frameworks */,
-				17617F821BEFB103000B2BFA /* JavaScriptCore.framework in Frameworks */,
 				17617F841BEFB109000B2BFA /* libstdc++.tbd in Frameworks */,
 				17617F6C1BEFAE0F000B2BFA /* libz.tbd in Frameworks */,
 				17617F7E1BEFB0EE000B2BFA /* libicucore.tbd in Frameworks */,

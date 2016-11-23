@@ -50,11 +50,11 @@
     
     if (viewController.navigationItem.leftBarButtonItem== nil && [self.viewControllers count] > 1) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage imageNamed:@"btn_profile_back"] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"btn_profile_back_highlight"] forState:UIControlStateHighlighted];
+        [button setImage:[UIImage imageNamed:@"btn_detailspage_return"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"btn_detailspage_return_highlight"] forState:UIControlStateHighlighted];
         [button sizeToFit];
-        button.top += 10;
-        button.left += 10;
+        button.top += 12;
+        button.left += 4;
         [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
 //        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
         if ([viewController isKindOfClass:[SKQuestionPageViewController class]] ||

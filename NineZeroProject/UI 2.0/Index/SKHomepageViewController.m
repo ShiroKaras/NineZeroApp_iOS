@@ -12,6 +12,7 @@
 #import "SKAllQuestionViewController.h"
 #import "SKMascotIndexViewController.h"
 #import "SKLoginRootViewController.h"
+#import "SKQuestionViewController.h"
 
 @interface SKHomepageViewController ()
 
@@ -124,6 +125,7 @@
     
     //限时关卡
     UIButton *timeLimitLevelButton = [UIButton new];
+    [timeLimitLevelButton addTarget:self action:@selector(timeLimitQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"] forState:UIControlStateNormal];
     [timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:timeLimitLevelButton];
@@ -218,6 +220,11 @@
 }
 
 #pragma mark - Actions
+
+- (void)timeLimitQuestionButtonClick:(UIButton *)sender {
+    SKQuestionViewController *controller = [[SKQuestionViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
 
 - (void)allLevelQuestionButtonClick:(UIButton*)sender {
     SKAllQuestionViewController *controller = [[SKAllQuestionViewController alloc] init];

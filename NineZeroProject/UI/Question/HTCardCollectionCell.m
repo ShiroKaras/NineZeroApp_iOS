@@ -246,7 +246,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _buttonMoreClose = [UIButton buttonWithType:UIButtonTypeCustom];
     _buttonMoreClose.alpha = 1;
     [_buttonMoreClose setImage:[UIImage imageNamed:@"btn_more_close"] forState:UIControlStateNormal];
-    [_buttonMoreClose setImage:[UIImage imageNamed:@"btn_more_close_highlight"] forState:UIControlStateHighlighted];
+    [_buttonMoreClose setImage:[UIImage imageNamed:@"btn_morie_close_highlight"] forState:UIControlStateHighlighted];
     [_buttonMoreClose addTarget:self action:@selector(hideMoreButtons) forControlEvents:UIControlEventTouchUpInside];
     [_dimmingView addSubview:_buttonMoreClose];
 }

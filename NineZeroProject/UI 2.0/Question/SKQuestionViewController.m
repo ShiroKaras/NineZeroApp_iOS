@@ -44,35 +44,76 @@
 
 - (void)createUI {
     self.view.backgroundColor = [UIColor blackColor];
+    __weak __typeof(self)weakSelf = self;
     
-    _playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_WIDTH)];
+    UIButton *lightButton = [UIButton new];
+    [lightButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
+    [lightButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:lightButton];
+    [lightButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+        make.top.equalTo(@12);
+        make.right.equalTo(weakSelf.view.mas_right).offset(-4);
+    }];
+    
+    _playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
     _playBackView.backgroundColor = [UIColor redColor];
     _playBackView.layer.masksToBounds = YES;
     _playBackView.contentMode = UIViewContentModeScaleAspectFit;
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_playBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _playBackView.bounds;
+    maskLayer.path = maskPath.CGPath;
+    _playBackView.layer.mask = maskLayer;
     [self.view addSubview:_playBackView];
     [self createVideo];
     
-    __weak __typeof(self)weakSelf = self;
-    
-    UIView *contentView = [UIView new];
-    contentView.backgroundColor = [UIColor lightGrayColor];
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(10, _playBackView.bottom, _playBackView.width, 72)];
+    contentView.backgroundColor = COMMON_SEPARATOR_COLOR;
     [self.view addSubview:contentView];
-    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.view);
-        make.right.equalTo(weakSelf.view);
-        make.top.equalTo(_playBackView.mas_bottom);
-        make.height.equalTo(@100);
+    UIBezierPath *maskPath2 = [UIBezierPath bezierPathWithRoundedRect:contentView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)];
+    CAShapeLayer *maskLayer2 = [[CAShapeLayer alloc] init];
+    maskLayer2.frame = contentView.bounds;
+    maskLayer2.path = maskPath2.CGPath;
+    contentView.layer.mask = maskLayer2;
+    
+    UIImageView *chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+    
+    UILabel *chapterTitleLabel = [UILabel new];
+    chapterTitleLabel.textColor = COMMON_PINK_COLOR;
+    chapterTitleLabel.text = @"#我是异类";
+    chapterTitleLabel.font = PINGFANG_FONT_OF_SIZE(14);
+    [self.view addSubview:chapterTitleLabel];
+    [chapterTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(contentView.mas_left).offset(12);
+        make.top.equalTo(contentView.mas_top).offset(13);
+        make.right.equalTo(contentView.mas_right).offset(-12);
     }];
     
-    UIButton *flowerButton = [UIButton new];
-    flowerButton.backgroundColor = [UIColor redColor];
-    [flowerButton addTarget:self action:@selector(flowerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:flowerButton];
-    [flowerButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@30);
-        make.height.equalTo(@30);
-        make.centerX.equalTo(weakSelf.view.mas_centerX);
-        make.bottom.equalTo(weakSelf.view.mas_bottom).with.offset(-20);
+    UILabel *chapterSubTitleLabel = [UILabel new];
+    chapterSubTitleLabel.textColor = COMMON_GREEN_COLOR;
+    chapterSubTitleLabel.text = @"帮助零仔解除炸弹";
+    chapterSubTitleLabel.font = PINGFANG_FONT_OF_SIZE(15);
+    [self.view addSubview:chapterSubTitleLabel];
+    [chapterSubTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(contentView.mas_left).offset(12);
+        make.top.equalTo(chapterTitleLabel.mas_bottom).offset(5);
+    }];
+    
+    UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_arrow"]];
+    [self.view addSubview:arrowImageView];
+    [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(chapterSubTitleLabel.mas_right).offset(6);
+        make.centerY.equalTo(chapterSubTitleLabel.mas_centerY);
+    }];
+    
+    UIImageView *triangleImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_detailspage_triangle"]];
+    [triangleImageView sizeToFit];
+    [self.view addSubview:triangleImageView];
+    [triangleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(contentView.mas_bottom);
+        make.left.equalTo(contentView.mas_left).offset(20);
     }];
 }
 
@@ -93,20 +134,16 @@
     [_playBackView.layer addSublayer:_playerLayer];
     
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_playButton setImage:[UIImage imageNamed:@"btn_home_replay"] forState:UIControlStateNormal];
-    [_playButton setImage:[UIImage imageNamed:@"btn_home_replay_highlight" ] forState:UIControlStateHighlighted];
+    [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_play"] forState:UIControlStateNormal];
+    [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_play_highlight" ] forState:UIControlStateHighlighted];
     [_playButton sizeToFit];
     _playButton.center = _playBackView.center;
-//    [_playButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(_playBackView.mas_centerX);
-//        make.centerY.equalTo(_playBackView.mas_centerY);
-//    }];
     [self.view addSubview:_playButton];
     [_playButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
     _playButton.hidden = NO;
 }
 
-#pragma mark - Actions
+#pragma mark - Video Actions
 - (void)stop {
     _playButton.hidden = NO;
     [_player setRate:0];
@@ -130,8 +167,7 @@
 }
 
 #pragma mark - Button Click
-- (void)flowerButtonClick:(UIButton*)sender {
-    
-}
+
+
 
 @end

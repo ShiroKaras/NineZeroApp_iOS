@@ -36,6 +36,7 @@
 //#define ANSWER_URL_STRING @"http://101.201.39.169:8001/views/answer.html"
 
 #define MOON_FONT_OF_SIZE(s)        [UIFont fontWithName:@"Moon-Bold" size:s]
+#define PINGFANG_FONT_OF_SIZE(s)    [UIFont fontWithName:@"PingFangSC-Regular" size:s]
 
 #define COMMON_BG_COLOR UIColorMake(14, 14, 14)
 #define COMMON_TITLE_BG_COLOR       [UIColor colorWithHex:0x1A1A1A]
