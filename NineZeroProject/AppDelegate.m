@@ -27,6 +27,7 @@
 #import "UMMobClick/MobClick.h"
 
 #import "TalkingData.h"
+#import <JSPatchPlatform/JSPatch.h>
 
 //腾讯开放平台（对应QQ和QQ空间）SDK头文件
 #import <TencentOpenAPI/TencentOAuth.h>
@@ -67,6 +68,7 @@
     [self registerUmeng];
     [self registerUserAgent];
     [self registerTalkingData];
+    [self registerJSPatch];
     
     [NSThread sleepForTimeInterval:2];
     [self createWindowAndVisibleWithOptions:launchOptions];
@@ -389,6 +391,13 @@
     if ([[HTStorageManager sharedInstance] getUserID]) {
         [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
     }
+}
+
+#pragma mark - JSPatch
+
+- (void)registerJSPatch {
+    [JSPatch startWithAppKey:@"76be4930cef557f7"];
+    [JSPatch sync];
 }
 
 @end
