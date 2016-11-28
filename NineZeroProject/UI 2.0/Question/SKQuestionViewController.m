@@ -454,7 +454,7 @@
             make.width.equalTo(@280);
             make.height.equalTo(@108);
             make.centerX.equalTo(rewardBaseInfoView);
-            make.bottom.equalTo(rewardBackView).offset(-10);
+            make.bottom.equalTo(rewardBackView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
         }];
     }
 }
