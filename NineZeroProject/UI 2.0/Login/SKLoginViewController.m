@@ -71,6 +71,7 @@
     
     _phoneTextField = [[SKRegisterTextField alloc] init];
     _phoneTextField.ly_placeholder = @"手机号码";
+    _phoneTextField.textField.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:_phoneTextField];
     [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ROUND_HEIGHT(106));
