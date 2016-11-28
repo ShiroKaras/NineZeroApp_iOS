@@ -18,6 +18,8 @@
 @property (nonatomic, strong) SKRegisterTextField *usernameTextField;
 @property (nonatomic, strong) SKRegisterTextField *passwordTextField;
 @property (nonatomic, strong) UIButton *nextButton;
+@property (nonatomic, assign) BOOL nextButtonIsShow;
+@property (nonatomic, assign) CGRect keyboardRect;
 
 @end
 
@@ -70,6 +72,7 @@
     
     _phoneTextField = [[SKRegisterTextField alloc] init];
     _phoneTextField.ly_placeholder = @"手机号码";
+    _phoneTextField.textField.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:_phoneTextField];
     [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@84);
@@ -103,7 +106,7 @@
     
     _nextButton = [UIButton new];
     [_nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    _nextButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
+    _nextButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
     _nextButton.backgroundColor = [UIColor blackColor];
     _nextButton.alpha = 0.6;
     [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
@@ -137,6 +140,14 @@
             _passwordTextField.alpha = 1;
         }];
     }
+    
+    if (_phoneTextField.textField.text.length==11 && _usernameTextField.textField.text.length>3 && _passwordTextField.textField.text.length>6) {
+        self.nextButtonIsShow = YES;
+        _nextButton.frame = CGRectMake(0, self.view.height - self.keyboardRect.size.height-50, self.view.width, 50);
+    } else {
+        self.nextButtonIsShow = NO;
+        _nextButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
+    }
 }
 
 #pragma mark - Keyboard
@@ -144,11 +155,20 @@
 - (void)keyboardWillShow:(NSNotification *)notification {
     NSDictionary *info = [notification userInfo];
     CGRect keyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    _nextButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height-50, self.view.width, 50);
+    self.keyboardRect = keyboardRect;
+    if (self.nextButtonIsShow) {
+        _nextButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height-50, self.view.width, 50);
+    } else {
+        _nextButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height, self.view.width, 50);
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    _nextButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
+    if (self.nextButtonIsShow) {
+        _nextButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
+    } else {
+        _nextButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
+    }
 }
 
 - (void)keyboardDidHide:(NSNotification *)notification {
