@@ -13,14 +13,13 @@
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(200))/4
 
-@interface SKQuestionViewController ()
+@interface SKQuestionViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) BOOL isAnswered;
 
 @property (nonatomic, strong) UIView *dimmingView;
 
-@property (nonatomic, strong) UIImageView *playBackView;
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIImageView *triangleImageView;
 
@@ -80,19 +79,19 @@
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
     _dimmingView.backgroundColor = [UIColor clearColor];
     
-    _playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
-    _playBackView.backgroundColor = [UIColor redColor];
-    _playBackView.layer.masksToBounds = YES;
-    _playBackView.contentMode = UIViewContentModeScaleAspectFit;
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_playBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+    UIImageView *playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
+    playBackView.backgroundColor = [UIColor redColor];
+    playBackView.layer.masksToBounds = YES;
+    playBackView.contentMode = UIViewContentModeScaleAspectFit;
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:playBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = _playBackView.bounds;
+    maskLayer.frame = playBackView.bounds;
     maskLayer.path = maskPath.CGPath;
-    _playBackView.layer.mask = maskLayer;
-    [self.view addSubview:_playBackView];
-    [self createVideo];
+    playBackView.layer.mask = maskLayer;
+    [self.view addSubview:playBackView];
+    [self createVideoOnView:playBackView withFrame:CGRectMake(0, 0, playBackView.width, playBackView.height)];
     
-    _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, _playBackView.bottom, _playBackView.width, 72)];
+    _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, playBackView.bottom, playBackView.width, 72)];
     _contentView.backgroundColor = COMMON_SEPARATOR_COLOR;
     [self.view addSubview:_contentView];
     UIBezierPath *maskPath2 = [UIBezierPath bezierPathWithRoundedRect:_contentView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)];
@@ -195,7 +194,7 @@
     }
 }
 
-- (void)createVideo {
+- (void)createVideoOnView:(UIView *)backView withFrame:(CGRect)frame {
     _playerItem = nil;
     _player = nil;
     [_playerLayer removeFromSuperlayer];
@@ -206,19 +205,19 @@
     self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
     self.player = [AVPlayer playerWithPlayerItem:_playerItem];
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-//    _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     _playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    _playerLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH);
-    [_playBackView.layer addSublayer:_playerLayer];
+    _playerLayer.frame = frame;
+    [backView.layer addSublayer:_playerLayer];
     
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_playButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
     [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_play"] forState:UIControlStateNormal];
     [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_play_highlight" ] forState:UIControlStateHighlighted];
     [_playButton sizeToFit];
-    _playButton.center = _playBackView.center;
-    [self.view addSubview:_playButton];
-    [_playButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
+    _playButton.center = backView.center;
     _playButton.hidden = NO;
+    [self.view addSubview:_playButton];
+//    _playButton.frame = CGRectMake(backView.width/2-_playButton.width/2, backView.height/2-_playButton.height/2, 70, 70);
 }
 
 #pragma mark - Tools View
@@ -291,6 +290,122 @@
             make.top.equalTo(@(ROUND_HEIGHT_FLOAT(132) + (75+ROUND_HEIGHT_FLOAT(70))*i));
             make.centerX.equalTo(_dimmingView);
         }];
+    }
+}
+
+#pragma mark - Answer View
+
+- (void)createAnswerViewWithAnswer:(NSDictionary *)answer {
+    [self.view addSubview:_dimmingView];
+    _dimmingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom);
+    
+    UIView *answerBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, _contentView.bottom-10)];
+    answerBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    answerBackView.layer.cornerRadius = 5;
+    [_dimmingView addSubview:answerBackView];
+    
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+    titleImageView.backgroundColor = [UIColor redColor];
+    [_dimmingView addSubview:titleImageView];
+    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(answerBackView);
+        make.right.equalTo(answerBackView);
+        make.top.equalTo(answerBackView);
+        make.height.equalTo(ROUND_HEIGHT(108));
+    }];
+    
+    //视频
+    UIImageView *playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(10, ROUND_HEIGHT_FLOAT(108)+12, answerBackView.width-20, ROUND_HEIGHT_FLOAT(157.6))];
+    playBackView.backgroundColor = [UIColor redColor];
+    playBackView.layer.masksToBounds = YES;
+    playBackView.contentMode = UIViewContentModeScaleAspectFit;
+    [answerBackView addSubview:playBackView];
+    
+    _playerItem = nil;
+    _player = nil;
+    [_playerLayer removeFromSuperlayer];
+    _playerLayer = nil;
+    
+    NSURL *localUrl = [[NSBundle mainBundle] URLForResource:@"trailer_video" withExtension:@"mp4"];
+    AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
+    self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
+    self.player = [AVPlayer playerWithPlayerItem:_playerItem];
+    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+    _playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    _playerLayer.frame = CGRectMake(0, 0, playBackView.width, playBackView.height);
+    [playBackView.layer addSublayer:_playerLayer];
+    
+    _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_playButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
+    [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_play"] forState:UIControlStateNormal];
+    [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_play_highlight" ] forState:UIControlStateHighlighted];
+    [_playButton sizeToFit];
+    _playButton.center = playBackView.center;
+    _playButton.hidden = NO;
+    [answerBackView addSubview:_playButton];
+    
+    //文本
+    UITextView *textView = [UITextView new];
+    
+}
+
+#pragma mark - Rank View
+
+- (void)createRankView {
+    [self.view addSubview:_dimmingView];
+    _dimmingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom);
+    
+    UIView *rankBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, _contentView.bottom-10)];
+    rankBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    rankBackView.layer.cornerRadius = 5;
+    [_dimmingView addSubview:rankBackView];
+
+    UIScrollView *rankScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, rankBackView.width, rankBackView.height)];
+    [rankBackView addSubview:rankScrollView];
+    
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_chapter_leaderboard"]];
+    [rankScrollView addSubview:titleImageView];
+    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(ROUND_WIDTH(160));
+        make.height.equalTo(@(ROUND_WIDTH_FLOAT(160)/160.*29.));
+        make.top.equalTo(@21);
+        make.centerX.equalTo(rankScrollView);
+    }];
+    
+    // 1-3
+    UIView *top13View = [UIView new];
+    top13View.backgroundColor = [UIColor redColor];
+    [rankScrollView addSubview:top13View];
+    [top13View mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(titleImageView.mas_bottom).offset(22);
+        make.width.equalTo(ROUND_WIDTH(268));
+        make.height.equalTo(ROUND_HEIGHT(114));
+        make.centerX.equalTo(rankScrollView);
+    }];
+    
+    UIView *splitLine = [UIView new];
+    splitLine.backgroundColor = [UIColor colorWithHex:0x303030];
+    [rankScrollView addSubview:splitLine];
+    [splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(top13View);
+        make.height.equalTo(@1);
+        make.top.equalTo(top13View.mas_bottom).offset(12);
+        make.centerX.equalTo(top13View);
+    }];
+    
+    // 4-10
+    for (int i=0; i<7; i++) {
+        UIView *top410ViewCell = [UIView new];
+        top410ViewCell.backgroundColor = [UIColor purpleColor];
+        [rankScrollView addSubview:top410ViewCell];
+        [top410ViewCell mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(ROUND_WIDTH(268));
+            make.height.equalTo(@56);
+            make.top.equalTo(splitLine.mas_bottom).offset(20+76*i);
+            make.centerX.equalTo(rankScrollView);
+        }];
+        
+        
     }
 }
 
@@ -459,6 +574,10 @@
     }
 }
 
+#pragma mark - Report View 
+
+
+
 #pragma mark - Video Actions
 - (void)stop {
     _playButton.hidden = NO;
@@ -492,10 +611,11 @@
             break;
         }
         case 201: {
-            
+            [self createAnswerViewWithAnswer:nil];
             break;
         }
         case 202: {
+            [self createRankView];
             break;
         }
         case 203: {
@@ -564,5 +684,7 @@
         }
     }
 }
+
+
 
 @end
