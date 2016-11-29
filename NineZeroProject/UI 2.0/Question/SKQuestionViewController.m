@@ -80,7 +80,6 @@
     _dimmingView.backgroundColor = [UIColor clearColor];
     
     UIImageView *playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
-    playBackView.backgroundColor = [UIColor redColor];
     playBackView.layer.masksToBounds = YES;
     playBackView.contentMode = UIViewContentModeScaleAspectFit;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:playBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
@@ -316,7 +315,6 @@
     
     //视频
     UIImageView *playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(10, ROUND_HEIGHT_FLOAT(108)+12, answerBackView.width-20, ROUND_HEIGHT_FLOAT(157.6))];
-    playBackView.backgroundColor = [UIColor redColor];
     playBackView.layer.masksToBounds = YES;
     playBackView.contentMode = UIViewContentModeScaleAspectFit;
     [answerBackView addSubview:playBackView];
@@ -345,6 +343,7 @@
     [answerBackView addSubview:_playButton];
     
     //文本
+    //TODO 答案页
     UITextView *textView = [UITextView new];
     
 }
@@ -352,6 +351,8 @@
 #pragma mark - Rank View
 
 - (void)createRankView {
+    int rankers = 10;
+    
     [self.view addSubview:_dimmingView];
     _dimmingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom);
     
@@ -361,6 +362,8 @@
     [_dimmingView addSubview:rankBackView];
 
     UIScrollView *rankScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, rankBackView.width, rankBackView.height)];
+    float height = 21+ROUND_WIDTH_FLOAT(160)/160.*29.+22+ROUND_HEIGHT_FLOAT(114)+12+1+76*(rankers-3)+20;
+    rankScrollView.contentSize = CGSizeMake(rankBackView.width, height);
     [rankBackView addSubview:rankScrollView];
     
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_chapter_leaderboard"]];
@@ -374,13 +377,78 @@
     
     // 1-3
     UIView *top13View = [UIView new];
-    top13View.backgroundColor = [UIColor redColor];
     [rankScrollView addSubview:top13View];
     [top13View mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(titleImageView.mas_bottom).offset(22);
         make.width.equalTo(ROUND_WIDTH(268));
-        make.height.equalTo(ROUND_HEIGHT(114));
+        make.height.equalTo(@114);
         make.centerX.equalTo(rankScrollView);
+    }];
+    
+    // top1
+    UIImageView *avatarImageView_top1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    [top13View addSubview:avatarImageView_top1];
+    [avatarImageView_top1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@72);
+        make.height.equalTo(@72);
+        make.centerX.equalTo(top13View);
+        make.top.equalTo(top13View);
+    }];
+    
+    UILabel *nameLabel_top1 = [UILabel new];
+    nameLabel_top1.text = @"Top1";
+    nameLabel_top1.textAlignment = NSTextAlignmentCenter;
+    nameLabel_top1.textColor = [UIColor whiteColor];
+    nameLabel_top1.font = PINGFANG_FONT_OF_SIZE(14);
+    [top13View addSubview:nameLabel_top1];
+    [nameLabel_top1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(avatarImageView_top1);
+        make.top.equalTo(avatarImageView_top1.mas_bottom).offset(14);
+        make.width.equalTo(@80);
+    }];
+    
+    // top2
+    UIImageView *avatarImageView_top2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    [top13View addSubview:avatarImageView_top2];
+    [avatarImageView_top2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@56);
+        make.height.equalTo(@56);
+        make.top.equalTo(top13View).offset(16);
+        make.centerX.equalTo(top13View.mas_left).offset(ROUND_WIDTH_FLOAT(268/6));
+    }];
+    
+    UILabel *nameLabel_top2 = [UILabel new];
+    nameLabel_top2.text = @"Top2";
+    nameLabel_top2.textAlignment = NSTextAlignmentCenter;
+    nameLabel_top2.textColor = [UIColor whiteColor];
+    nameLabel_top2.font = PINGFANG_FONT_OF_SIZE(14);
+    [top13View addSubview:nameLabel_top2];
+    [nameLabel_top2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(avatarImageView_top2);
+        make.top.equalTo(avatarImageView_top2.mas_bottom).offset(14);
+        make.width.equalTo(@80);
+    }];
+
+    // top3
+    UIImageView *avatarImageView_top3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    [top13View addSubview:avatarImageView_top3];
+    [avatarImageView_top3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@56);
+        make.height.equalTo(@56);
+        make.top.equalTo(top13View).offset(16);
+        make.centerX.equalTo(top13View.mas_right).offset(-ROUND_WIDTH_FLOAT(268/6));
+    }];
+    
+    UILabel *nameLabel_top3 = [UILabel new];
+    nameLabel_top3.text = @"Top3";
+    nameLabel_top3.textAlignment = NSTextAlignmentCenter;
+    nameLabel_top3.textColor = [UIColor whiteColor];
+    nameLabel_top3.font = PINGFANG_FONT_OF_SIZE(14);
+    [top13View addSubview:nameLabel_top3];
+    [nameLabel_top3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(avatarImageView_top3);
+        make.top.equalTo(avatarImageView_top3.mas_bottom).offset(14);
+        make.width.equalTo(@80);
     }];
     
     UIView *splitLine = [UIView new];
@@ -394,9 +462,9 @@
     }];
     
     // 4-10
-    for (int i=0; i<7; i++) {
+    for (int i=0; i<rankers-3; i++) {
         UIView *top410ViewCell = [UIView new];
-        top410ViewCell.backgroundColor = [UIColor purpleColor];
+        top410ViewCell.backgroundColor = [UIColor clearColor];
         [rankScrollView addSubview:top410ViewCell];
         [top410ViewCell mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(ROUND_WIDTH(268));
@@ -405,7 +473,36 @@
             make.centerX.equalTo(rankScrollView);
         }];
         
+        UILabel *orderLabel = [UILabel new];
+        orderLabel.textColor = COMMON_RED_COLOR;
+        orderLabel.text = [NSString stringWithFormat:@"%d", i+4];
+        orderLabel.font = MOON_FONT_OF_SIZE(18);
+        [orderLabel sizeToFit];
+        [top410ViewCell addSubview:orderLabel];
+        [orderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@32);
+            make.centerY.equalTo(top410ViewCell);
+        }];
         
+        UIImageView *avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+        [top410ViewCell addSubview:avatarImageView];
+        [avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@56);
+            make.height.equalTo(@56);
+            make.centerY.equalTo(top410ViewCell);
+            make.centerX.equalTo(top410ViewCell.mas_centerX).offset(-22);
+        }];
+        
+        UILabel *nameLabel = [UILabel new];
+        nameLabel.textColor = [UIColor whiteColor];
+        nameLabel.text = @"小冉";
+        nameLabel.font = PINGFANG_FONT_OF_SIZE(14);
+        [nameLabel sizeToFit];
+        [top410ViewCell addSubview:nameLabel];
+        [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(avatarImageView.mas_right).offset(16);
+            make.centerY.equalTo(avatarImageView);
+        }];
     }
 }
 
