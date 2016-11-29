@@ -294,7 +294,7 @@
 
 #pragma mark - Answer View
 
-- (void)createAnswerViewWithAnswer:(NSDictionary *)answer {
+- (void)createAnswerViewWithButton:(UIButton*)button answer:(NSDictionary *)answer {
     [self.view addSubview:_dimmingView];
     _dimmingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom);
     
@@ -302,6 +302,10 @@
     answerBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     answerBackView.layer.cornerRadius = 5;
     [_dimmingView addSubview:answerBackView];
+    
+    UIImageView *answerButtonImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_key_highlight"]];
+    [_dimmingView addSubview:answerButtonImageView];
+    answerButtonImageView.frame = button.frame;
     
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
     titleImageView.backgroundColor = [UIColor redColor];
@@ -350,7 +354,7 @@
 
 #pragma mark - Rank View
 
-- (void)createRankView {
+- (void)createRankViewWithButton:(UIButton*)button {
     int rankers = 10;
     
     [self.view addSubview:_dimmingView];
@@ -360,6 +364,10 @@
     rankBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     rankBackView.layer.cornerRadius = 5;
     [_dimmingView addSubview:rankBackView];
+    
+    UIImageView *rankImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_top_highlight"]];
+    [_dimmingView addSubview:rankImageView];
+    rankImageView.frame = button.frame;
 
     UIScrollView *rankScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, rankBackView.width, rankBackView.height)];
     float height = 21+ROUND_WIDTH_FLOAT(160)/160.*29.+22+ROUND_HEIGHT_FLOAT(114)+12+1+76*(rankers-3)+20;
@@ -508,7 +516,7 @@
 
 #pragma mark - Gift View
 
-- (void)createGiftViewWithRewardInfo:(NSDictionary*)reward ticket:(NSDictionary*)ticket {
+- (void)createGiftViewWithButton:(UIButton*)button reward:(NSDictionary*)reward ticket:(NSDictionary*)ticket {
     BOOL isTicket = YES;
     
     [self.view addSubview:_dimmingView];
@@ -518,6 +526,10 @@
     rewardBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     rewardBackView.layer.cornerRadius = 5;
     [_dimmingView addSubview:rewardBackView];
+    
+    UIImageView *giftImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_gift_highlight"]];
+    [_dimmingView addSubview:giftImageView];
+    giftImageView.frame = button.frame;
     
     UIView *rewardBaseInfoView = [UIView new];
     rewardBaseInfoView.backgroundColor = [UIColor clearColor];
@@ -673,7 +685,53 @@
 
 #pragma mark - Report View 
 
-
+- (void)createReportViewWithButton:(UIButton*)button articles:(NSArray *)articlesArray {
+    [self.view addSubview:_dimmingView];
+    _dimmingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom);
+    
+    UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
+    alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    alphaView.alpha = 0.6;
+    [_dimmingView addSubview:alphaView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
+    tap.numberOfTapsRequired = 1;
+    [_dimmingView addGestureRecognizer:tap];
+    
+    UIImageView *reportImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_article_highlight"]];
+    [_dimmingView addSubview:reportImageView];
+    reportImageView.frame = button.frame;
+    
+    [self.view bringSubviewToFront:_triangleImageView];
+    
+    UIView *reportBackView = [[UIView alloc] initWithFrame:CGRectMake(10, _contentView.bottom-(10+120*articlesArray.count), SCREEN_WIDTH-20, 10+120*articlesArray.count)];
+    reportBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    reportBackView.layer.cornerRadius = 5;
+    [_dimmingView addSubview:reportBackView];
+    
+    for (int i = 0; i<articlesArray.count; i++) {
+        UIImageView *articleCover = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+        articleCover.backgroundColor = [UIColor redColor];
+        [reportBackView addSubview:articleCover];
+        [articleCover mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(@(10+120*i));
+            make.left.equalTo(@10);
+            make.right.equalTo(reportBackView.mas_right).offset(-10);
+            make.height.equalTo(@110);
+        }];
+        
+        UILabel *articleTitleLabel = [UILabel new];
+        articleTitleLabel.textColor = [UIColor whiteColor];
+        articleTitleLabel.text = @"#TestTestTestTestTest";
+        articleTitleLabel.font = PINGFANG_FONT_OF_SIZE(12);
+        [reportBackView addSubview:articleTitleLabel];
+        [articleTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(articleCover);
+            make.bottom.equalTo(articleCover.mas_bottom).offset(-4);
+            make.width.equalTo(articleCover);
+        }];
+    }
+}
 
 #pragma mark - Video Actions
 - (void)stop {
@@ -701,6 +759,9 @@
 #pragma mark - Button Click
 
 - (void)bottomButtonsClick:(UIButton *)sender {
+    for (UIView *view in _dimmingView.subviews       ) {
+        [view removeFromSuperview];
+    }
     [_dimmingView removeFromSuperview];
     self.currentIndex = sender.tag - 200;
     switch (sender.tag) {
@@ -708,18 +769,19 @@
             break;
         }
         case 201: {
-            [self createAnswerViewWithAnswer:nil];
+            [self createAnswerViewWithButton:sender answer:nil];
             break;
         }
         case 202: {
-            [self createRankView];
+            [self createRankViewWithButton:sender];
             break;
         }
         case 203: {
-            [self createGiftViewWithRewardInfo:nil ticket:nil];
+            [self createGiftViewWithButton:sender reward:nil ticket:nil];
             break;
         }
         case 204: {
+            [self createReportViewWithButton:sender articles:@[@"report1",@"report2"]];
             break;
         }
         case 205: {
