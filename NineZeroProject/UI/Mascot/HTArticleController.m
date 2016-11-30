@@ -352,7 +352,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:_article.article_content
+                [shareParams SSDKSetupShareParamsByText:_article.article_subtitle
                                                  images:imageArray
                                                     url:[NSURL URLWithString:_article.articleURL]
                                                   title:_article.articleTitle
@@ -499,7 +499,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:_article.article_content
+                [shareParams SSDKSetupShareParamsByText:_article.article_subtitle
                                                  images:imageArray
                                                     url:[NSURL URLWithString:_article.articleURL]
                                                   title:_article.articleTitle
