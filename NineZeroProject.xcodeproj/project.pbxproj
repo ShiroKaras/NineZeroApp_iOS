@@ -48,6 +48,11 @@
 		11805B421DE84D1D00064607 /* SKTicketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11805B411DE84D1D00064607 /* SKTicketView.m */; };
 		11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
+		11A62ADC1DED7EF900C83F73 /* SKServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A62ADB1DED7EF900C83F73 /* SKServiceManager.m */; };
+		11A62ADF1DED7F9200C83F73 /* SKLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A62ADE1DED7F9200C83F73 /* SKLoginService.m */; };
+		11A62AE21DED7FA600C83F73 /* SKQuestionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A62AE11DED7FA600C83F73 /* SKQuestionService.m */; };
+		11A62AE71DED8B9E00C83F73 /* SKCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A62AE61DED8B9E00C83F73 /* SKCGIManager.m */; };
+		11A62AEC1DED917200C83F73 /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A62AEB1DED917200C83F73 /* SKModel.m */; };
 		11AD0C331DAA1E0D007951C5 /* SKSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11AD0C321DAA1E0D007951C5 /* SKSwipeViewController.m */; };
 		11AD0C351DAA3094007951C5 /* easyar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AD0C341DAA3093007951C5 /* easyar.framework */; };
 		11AD0C391DAA322C007951C5 /* ar.cc in Sources */ = {isa = PBXBuildFile; fileRef = 11AD0C371DAA322C007951C5 /* ar.cc */; };
@@ -894,6 +899,17 @@
 		11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		1196F29F1CF6DFA600E70C83 /* SKImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKImageHelper.h; sourceTree = "<group>"; };
 		1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKImageHelper.m; sourceTree = "<group>"; };
+		11A62ADA1DED7EF900C83F73 /* SKServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKServiceManager.h; path = "NineZeroProject/Service 2.0/SKServiceManager.h"; sourceTree = "<group>"; };
+		11A62ADB1DED7EF900C83F73 /* SKServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKServiceManager.m; path = "NineZeroProject/Service 2.0/SKServiceManager.m"; sourceTree = "<group>"; };
+		11A62ADD1DED7F9200C83F73 /* SKLoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKLoginService.h; path = "NineZeroProject/Service 2.0/SKLoginService.h"; sourceTree = "<group>"; };
+		11A62ADE1DED7F9200C83F73 /* SKLoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKLoginService.m; path = "NineZeroProject/Service 2.0/SKLoginService.m"; sourceTree = "<group>"; };
+		11A62AE01DED7FA600C83F73 /* SKQuestionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKQuestionService.h; path = "NineZeroProject/Service 2.0/SKQuestionService.h"; sourceTree = "<group>"; };
+		11A62AE11DED7FA600C83F73 /* SKQuestionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKQuestionService.m; path = "NineZeroProject/Service 2.0/SKQuestionService.m"; sourceTree = "<group>"; };
+		11A62AE41DED863D00C83F73 /* SKNetworkDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SKNetworkDefine.h; path = "NineZeroProject/Network 2.0/SKNetworkDefine.h"; sourceTree = "<group>"; };
+		11A62AE51DED8B9E00C83F73 /* SKCGIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKCGIManager.h; path = "NineZeroProject/Network 2.0/SKCGIManager.h"; sourceTree = "<group>"; };
+		11A62AE61DED8B9E00C83F73 /* SKCGIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKCGIManager.m; path = "NineZeroProject/Network 2.0/SKCGIManager.m"; sourceTree = "<group>"; };
+		11A62AEA1DED917200C83F73 /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKModel.h; path = NineZeroProject/Model/SKModel.h; sourceTree = "<group>"; };
+		11A62AEB1DED917200C83F73 /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKModel.m; path = NineZeroProject/Model/SKModel.m; sourceTree = "<group>"; };
 		11AD0C311DAA1E0D007951C5 /* SKSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKSwipeViewController.h; path = Index/SKSwipeViewController.h; sourceTree = "<group>"; };
 		11AD0C321DAA1E0D007951C5 /* SKSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKSwipeViewController.m; path = Index/SKSwipeViewController.m; sourceTree = "<group>"; };
 		11AD0C341DAA3093007951C5 /* easyar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = easyar.framework; sourceTree = "<group>"; };
@@ -1866,7 +1882,7 @@
 			name = Mascot;
 			sourceTree = "<group>";
 		};
-		110A34A51DD07ACE00207115 /* UI 2.0 */ = {
+		110A34A51DD07ACE00207115 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				11FF643A1DDD5BF500768080 /* Login */,
@@ -1874,7 +1890,7 @@
 				110A34A61DD07AEB00207115 /* Question */,
 				1106FFE11DD991D60002E36C /* Mascot */,
 			);
-			name = "UI 2.0";
+			name = UI;
 			sourceTree = "<group>";
 		};
 		110A34A61DD07AEB00207115 /* Question */ = {
@@ -1983,6 +1999,50 @@
 				11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */,
 			);
 			path = ImageEffects;
+			sourceTree = "<group>";
+		};
+		11A62AD91DED7E9D00C83F73 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				11A62ADA1DED7EF900C83F73 /* SKServiceManager.h */,
+				11A62ADB1DED7EF900C83F73 /* SKServiceManager.m */,
+				11A62ADD1DED7F9200C83F73 /* SKLoginService.h */,
+				11A62ADE1DED7F9200C83F73 /* SKLoginService.m */,
+				11A62AE01DED7FA600C83F73 /* SKQuestionService.h */,
+				11A62AE11DED7FA600C83F73 /* SKQuestionService.m */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		11A62AE31DED85FD00C83F73 /* NetWork */ = {
+			isa = PBXGroup;
+			children = (
+				11A62AE41DED863D00C83F73 /* SKNetworkDefine.h */,
+				11A62AE51DED8B9E00C83F73 /* SKCGIManager.h */,
+				11A62AE61DED8B9E00C83F73 /* SKCGIManager.m */,
+			);
+			name = NetWork;
+			sourceTree = "<group>";
+		};
+		11A62AE81DED910D00C83F73 /* 1.0 */ = {
+			isa = PBXGroup;
+			children = (
+				1721D7191BEFB78B00498304 /* UI */,
+				17DB9CF21C0B4C2600A4D0EF /* Model */,
+				17A277251BF79C5F00E46670 /* Service */,
+				1721D7171BEFB77E00498304 /* Network */,
+				1721D7181BEFB77E00498304 /* Storage */,
+			);
+			name = 1.0;
+			sourceTree = "<group>";
+		};
+		11A62AE91DED914D00C83F73 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				11A62AEA1DED917200C83F73 /* SKModel.h */,
+				11A62AEB1DED917200C83F73 /* SKModel.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		11AD0C361DAA31E2007951C5 /* EasyAR */ = {
@@ -3100,12 +3160,11 @@
 			isa = PBXGroup;
 			children = (
 				1777D3671BE798F400AC0203 /* NineZeroProject */,
-				110A34A51DD07ACE00207115 /* UI 2.0 */,
-				1721D7191BEFB78B00498304 /* UI */,
-				17DB9CF21C0B4C2600A4D0EF /* Model */,
-				17A277251BF79C5F00E46670 /* Service */,
-				1721D7171BEFB77E00498304 /* Network */,
-				1721D7181BEFB77E00498304 /* Storage */,
+				110A34A51DD07ACE00207115 /* UI */,
+				11A62AD91DED7E9D00C83F73 /* Service */,
+				11A62AE31DED85FD00C83F73 /* NetWork */,
+				11A62AE91DED914D00C83F73 /* Model */,
+				11A62AE81DED910D00C83F73 /* 1.0 */,
 				174C53351BE7A55400893C22 /* Utility */,
 				17A89A8F1C1DB9BB0087BF00 /* ThirdPart */,
 				26E633BCA682E11CD6C30957 /* Frameworks */,
@@ -4466,6 +4525,7 @@
 				17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */,
 				1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */,
 				17A92CD11CA809B100BE893D /* MJRefreshAutoNormalFooter.m in Sources */,
+				11A62AE71DED8B9E00C83F73 /* SKCGIManager.m in Sources */,
 				17D1F8D71C29D7BD0029E4AF /* HTTextField.m in Sources */,
 				117418121D89396400B5458F /* HTDescriptionView.m in Sources */,
 				117418171D89396400B5458F /* SKAnswerDetailView.m in Sources */,
@@ -4586,6 +4646,7 @@
 				17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */,
 				175F82D11CB4124D00AC2664 /* HTWebController.m in Sources */,
 				11644F4D1DDD97CB002E9FDE /* SKRegisterViewController.m in Sources */,
+				11A62AEC1DED917200C83F73 /* SKModel.m in Sources */,
 				26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 				17A20A0F1C51444C00364EEF /* HTMascotPropMoreView.m in Sources */,
@@ -4602,6 +4663,7 @@
 				173A21171C568A34006A423D /* HTRewardController.m in Sources */,
 				17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */,
 				11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */,
+				11A62ADF1DED7F9200C83F73 /* SKLoginService.m in Sources */,
 				17C40B401C5538A200DAE22A /* HTMascotService.m in Sources */,
 				1106FFD11DD5D60D0002E36C /* SKAllQuestionViewController.m in Sources */,
 				17F39B761C8224BA00D8A565 /* HTProfileSettingCell.m in Sources */,
@@ -4611,8 +4673,10 @@
 				17FA112D1C8343DA00FA9102 /* HTFeedbackController.m in Sources */,
 				11AD0C331DAA1E0D007951C5 /* SKSwipeViewController.m in Sources */,
 				17FA11321C8357E800FA9102 /* HTCollectionController.m in Sources */,
+				11A62ADC1DED7EF900C83F73 /* SKServiceManager.m in Sources */,
 				11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */,
 				17FA11361C835BE000FA9102 /* HTNotificationController.m in Sources */,
+				11A62AE21DED7FA600C83F73 /* SKQuestionService.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,
 				1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */,
 			);

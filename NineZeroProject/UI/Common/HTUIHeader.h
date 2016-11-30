@@ -23,6 +23,7 @@
 #import "HTNavigationController.h"
 #import "HTCommonViewController.h"
 #import "HTServiceManager.h"
+#import "SKServiceManager.h"
 #import "NSString+Utility.h"
 #import "HTImageView.h"
 #import "HTMascotHelper.h"
