@@ -93,7 +93,7 @@ typedef enum {
         [UD setBool:NO forKey:@"firstLaunch"];
     }
     
-    [HTProgressHUD show];
+//    [HTProgressHUD show];
     [self createUI];
     
     [[[HTServiceManager sharedInstance] questionService] getScanning:^(BOOL success, NSArray<HTScanning *> *scanningList) {
@@ -159,7 +159,7 @@ typedef enum {
     
     [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
         self.questionList = questionList;
-        
+        [HTProgressHUD dismiss];
         if ([UD mutableArrayValueForKey:kQuestionHintArray]==nil || [UD mutableArrayValueForKey:kQuestionHintArray].count==0) {
             NSMutableArray *hintArray = [NSMutableArray array];
             for (int i = 0; i<questionList.count; i++) {
@@ -226,7 +226,6 @@ typedef enum {
     }];
     
     [[[HTServiceManager sharedInstance] profileService] getBadges:^(BOOL success, NSArray<HTBadge *> *badges) {
-        [HTProgressHUD dismiss];
         if (success) {
             NSMutableArray *badgeLevels = [NSMutableArray array];
             for (HTBadge *badge in badges) {
@@ -240,7 +239,6 @@ typedef enum {
         NSString *dictData = [NSString stringWithFormat:@"%@", response.data];
         if (success && response.resultCode == 0) {
             if ([dictData isEqualToString:@"1"]) {
-                [HTProgressHUD dismiss];
                 _isMonday = YES;
                 [[[HTServiceManager sharedInstance] questionService] getRelaxDayInfo:^(BOOL success, HTResponsePackage *response) {
                     if (success && response.resultCode == 0) {
@@ -256,14 +254,13 @@ typedef enum {
 
             } else if ([dictData isEqualToString:@"0"]) {
                 _isMonday = NO;
-                [HTProgressHUD dismiss];
                 _timerLevelCountView.alpha = 1;
                 [_timerLevelButton addTarget:self action:@selector(timerLevelButtonClick) forControlEvents:UIControlEventTouchUpInside];
                 [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level"] forState:UIControlStateNormal];
                 [_timerLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_level_highlight"] forState:UIControlStateHighlighted];
                 
             } else {
-//                [HTProgressHUD dismiss];
+                
             }
         }
     }];
@@ -272,7 +269,7 @@ typedef enum {
 - (void)createUI {
     self.view.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
     __weak __typeof(self)weakSelf = self;
-    [HTProgressHUD show];
+    
     //通知按钮
     UIButton *notificationButton = [UIButton new];
     [notificationButton setImage:[UIImage imageNamed:@"btn_homepage_notification"] forState:UIControlStateNormal];
@@ -536,7 +533,6 @@ typedef enum {
                     _activityNotificationView.hidden = NO;
                     [_activityNotificationView show];
                     [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:response.data[@"adv_pic"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                        [HTProgressHUD dismiss];
                     }];
                 } else {
                     _activityNotificationView.hidden = YES;
