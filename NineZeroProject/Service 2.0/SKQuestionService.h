@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SKNetworkDefine.h"
+#import "HTLogicHeader.h"
 
 @interface SKQuestionService : NSObject
+
+- (void)questionBaseRequestWithParam:(NSDictionary*)dict callback:(SKResponseCallback)callback;
+
+//全部关卡（不含极难题）
+- (void)getAllQuestionListCallback:(SKResponseCallback)callback;
+
+//
 
 @end
