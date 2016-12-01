@@ -67,6 +67,7 @@
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
 		11B44EC41D8FF30D00CD2BAC /* trailer_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 11B44EC31D8FF30D00CD2BAC /* trailer_video.mp4 */; };
 		11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE831DEFD52A001A3E0F /* SKModel.m */; };
+		11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE901DEFF5DA001A3E0F /* SKStorageManager.m */; };
 		11BC2DFE1D93C98200C9E775 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFC1D93C98200C9E775 /* libTalkingData.a */; };
 		11BC2E001D93C9CF00C9E775 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
@@ -929,6 +930,8 @@
 		11B44EC31D8FF30D00CD2BAC /* trailer_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = trailer_video.mp4; sourceTree = "<group>"; };
 		11B8AE821DEFD52A001A3E0F /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKModel.h; path = NineZeroProject/Model/SKModel.h; sourceTree = "<group>"; };
 		11B8AE831DEFD52A001A3E0F /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKModel.m; path = NineZeroProject/Model/SKModel.m; sourceTree = "<group>"; };
+		11B8AE8F1DEFF5DA001A3E0F /* SKStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKStorageManager.h; path = NineZeroProject/Storage/SKStorageManager.h; sourceTree = "<group>"; };
+		11B8AE901DEFF5DA001A3E0F /* SKStorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKStorageManager.m; path = NineZeroProject/Storage/SKStorageManager.m; sourceTree = "<group>"; };
 		11BC2DFC1D93C98200C9E775 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
 		11BC2DFD1D93C98200C9E775 /* TalkingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingData.h; sourceTree = "<group>"; };
 		11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -977,8 +980,8 @@
 		1721D71D1BEFB7A100498304 /* HTLoginRootController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HTLoginRootController.xib; sourceTree = "<group>"; };
 		1721D7201BEFB9F200498304 /* HTCGIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCGIManager.h; sourceTree = "<group>"; };
 		1721D7211BEFBAD200498304 /* HTCGIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCGIManager.m; sourceTree = "<group>"; };
-		1721D7261BEFBE1400498304 /* HTStorageDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTStorageDefine.h; sourceTree = "<group>"; };
-		1721D7271BEFBE1400498304 /* HTStorageDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTStorageDefine.m; sourceTree = "<group>"; };
+		1721D7261BEFBE1400498304 /* HTStorageDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTStorageDefine.h; path = NineZeroProject/Storage/HTStorageDefine.h; sourceTree = "<group>"; };
+		1721D7271BEFBE1400498304 /* HTStorageDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTStorageDefine.m; path = NineZeroProject/Storage/HTStorageDefine.m; sourceTree = "<group>"; };
 		17262CAA1C5DEA00000FDA1B /* img_mascot_8_animation_2_0000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_mascot_8_animation_2_0000.png; sourceTree = "<group>"; };
 		17262CAB1C5DEA00000FDA1B /* img_mascot_8_animation_1_0000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_mascot_8_animation_1_0000.png; sourceTree = "<group>"; };
 		17262CAC1C5DEA00000FDA1B /* img_mascot_8_animation_3_0000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_mascot_8_animation_3_0000.png; sourceTree = "<group>"; };
@@ -2087,6 +2090,17 @@
 			path = Video;
 			sourceTree = "<group>";
 		};
+		11B8AE851DEFDA06001A3E0F /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				1721D7261BEFBE1400498304 /* HTStorageDefine.h */,
+				1721D7271BEFBE1400498304 /* HTStorageDefine.m */,
+				11B8AE8F1DEFF5DA001A3E0F /* SKStorageManager.h */,
+				11B8AE901DEFF5DA001A3E0F /* SKStorageManager.m */,
+			);
+			name = Storage;
+			sourceTree = "<group>";
+		};
 		11BC2DFB1D93C98200C9E775 /* TalkingData */ = {
 			isa = PBXGroup;
 			children = (
@@ -2241,8 +2255,6 @@
 		1721D7181BEFB77E00498304 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				1721D7261BEFBE1400498304 /* HTStorageDefine.h */,
-				1721D7271BEFBE1400498304 /* HTStorageDefine.m */,
 				17713D3E1C04D6AD00DB8BB0 /* HTStorageManager.h */,
 				17713D3F1C04D6AD00DB8BB0 /* HTStorageManager.m */,
 			);
@@ -3166,6 +3178,7 @@
 				11A62AD91DED7E9D00C83F73 /* Service */,
 				11A62AE31DED85FD00C83F73 /* NetWork */,
 				11A62AE91DED914D00C83F73 /* Model */,
+				11B8AE851DEFDA06001A3E0F /* Storage */,
 				11A62AE81DED910D00C83F73 /* 1.0 */,
 				174C53351BE7A55400893C22 /* Utility */,
 				17A89A8F1C1DB9BB0087BF00 /* ThirdPart */,
@@ -4644,6 +4657,7 @@
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
 				17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */,
 				11023BEE1DE3FC3100B6493F /* SKConfirmPasswordViewController.m in Sources */,
+				11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */,
 				17F39B701C82107500D8A565 /* NSLayoutConstraintHairline.m in Sources */,
 				17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */,
 				175F82D11CB4124D00AC2664 /* HTWebController.m in Sources */,
