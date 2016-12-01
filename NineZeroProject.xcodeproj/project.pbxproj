@@ -52,7 +52,6 @@
 		11A62ADF1DED7F9200C83F73 /* SKLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A62ADE1DED7F9200C83F73 /* SKLoginService.m */; };
 		11A62AE21DED7FA600C83F73 /* SKQuestionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A62AE11DED7FA600C83F73 /* SKQuestionService.m */; };
 		11A62AE71DED8B9E00C83F73 /* SKCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A62AE61DED8B9E00C83F73 /* SKCGIManager.m */; };
-		11A62AEC1DED917200C83F73 /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A62AEB1DED917200C83F73 /* SKModel.m */; };
 		11AD0C331DAA1E0D007951C5 /* SKSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11AD0C321DAA1E0D007951C5 /* SKSwipeViewController.m */; };
 		11AD0C351DAA3094007951C5 /* easyar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AD0C341DAA3093007951C5 /* easyar.framework */; };
 		11AD0C391DAA322C007951C5 /* ar.cc in Sources */ = {isa = PBXBuildFile; fileRef = 11AD0C371DAA322C007951C5 /* ar.cc */; };
@@ -67,6 +66,7 @@
 		11AD0C571DAA34A8007951C5 /* argame03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 11AD0C531DAA34A8007951C5 /* argame03.jpg */; };
 		11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B385E41CCBA5F8009B8D6F /* SKShareView.m */; };
 		11B44EC41D8FF30D00CD2BAC /* trailer_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 11B44EC31D8FF30D00CD2BAC /* trailer_video.mp4 */; };
+		11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE831DEFD52A001A3E0F /* SKModel.m */; };
 		11BC2DFE1D93C98200C9E775 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFC1D93C98200C9E775 /* libTalkingData.a */; };
 		11BC2E001D93C9CF00C9E775 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
@@ -890,6 +890,7 @@
 		1174180B1D89396400B5458F /* SKRankInQuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRankInQuestionTableViewCell.m; path = NineZeroProject/UI/Question/SKRankInQuestionTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		1174180C1D89396400B5458F /* SKRankInQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRankInQuestionViewController.h; path = NineZeroProject/UI/Question/SKRankInQuestionViewController.h; sourceTree = SOURCE_ROOT; };
 		1174180D1D89396400B5458F /* SKRankInQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRankInQuestionViewController.m; path = NineZeroProject/UI/Question/SKRankInQuestionViewController.m; sourceTree = SOURCE_ROOT; };
+		1175B4E71DEFD06D00302B67 /* SKLogicHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLogicHeader.h; sourceTree = "<group>"; };
 		1179430C1DAFB773002F0DB9 /* SKARRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKARRewardController.h; sourceTree = "<group>"; };
 		1179430D1DAFB774002F0DB9 /* SKARRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKARRewardController.m; sourceTree = "<group>"; };
 		11805B401DE84D1D00064607 /* SKTicketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKTicketView.h; path = "NineZeroProject/UI 2.0/Question/SKTicketView.h"; sourceTree = "<group>"; };
@@ -908,8 +909,6 @@
 		11A62AE41DED863D00C83F73 /* SKNetworkDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SKNetworkDefine.h; path = "NineZeroProject/Network 2.0/SKNetworkDefine.h"; sourceTree = "<group>"; };
 		11A62AE51DED8B9E00C83F73 /* SKCGIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKCGIManager.h; path = "NineZeroProject/Network 2.0/SKCGIManager.h"; sourceTree = "<group>"; };
 		11A62AE61DED8B9E00C83F73 /* SKCGIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKCGIManager.m; path = "NineZeroProject/Network 2.0/SKCGIManager.m"; sourceTree = "<group>"; };
-		11A62AEA1DED917200C83F73 /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKModel.h; path = NineZeroProject/Model/SKModel.h; sourceTree = "<group>"; };
-		11A62AEB1DED917200C83F73 /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKModel.m; path = NineZeroProject/Model/SKModel.m; sourceTree = "<group>"; };
 		11AD0C311DAA1E0D007951C5 /* SKSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKSwipeViewController.h; path = Index/SKSwipeViewController.h; sourceTree = "<group>"; };
 		11AD0C321DAA1E0D007951C5 /* SKSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKSwipeViewController.m; path = Index/SKSwipeViewController.m; sourceTree = "<group>"; };
 		11AD0C341DAA3093007951C5 /* easyar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = easyar.framework; sourceTree = "<group>"; };
@@ -928,6 +927,8 @@
 		11B385E31CCBA5F8009B8D6F /* SKShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareView.h; sourceTree = "<group>"; };
 		11B385E41CCBA5F8009B8D6F /* SKShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKShareView.m; sourceTree = "<group>"; };
 		11B44EC31D8FF30D00CD2BAC /* trailer_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = trailer_video.mp4; sourceTree = "<group>"; };
+		11B8AE821DEFD52A001A3E0F /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKModel.h; path = NineZeroProject/Model/SKModel.h; sourceTree = "<group>"; };
+		11B8AE831DEFD52A001A3E0F /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKModel.m; path = NineZeroProject/Model/SKModel.m; sourceTree = "<group>"; };
 		11BC2DFC1D93C98200C9E775 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
 		11BC2DFD1D93C98200C9E775 /* TalkingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingData.h; sourceTree = "<group>"; };
 		11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -2004,6 +2005,7 @@
 		11A62AD91DED7E9D00C83F73 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				1175B4E71DEFD06D00302B67 /* SKLogicHeader.h */,
 				11A62ADA1DED7EF900C83F73 /* SKServiceManager.h */,
 				11A62ADB1DED7EF900C83F73 /* SKServiceManager.m */,
 				11A62ADD1DED7F9200C83F73 /* SKLoginService.h */,
@@ -2039,8 +2041,8 @@
 		11A62AE91DED914D00C83F73 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				11A62AEA1DED917200C83F73 /* SKModel.h */,
-				11A62AEB1DED917200C83F73 /* SKModel.m */,
+				11B8AE821DEFD52A001A3E0F /* SKModel.h */,
+				11B8AE831DEFD52A001A3E0F /* SKModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -4646,7 +4648,7 @@
 				17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */,
 				175F82D11CB4124D00AC2664 /* HTWebController.m in Sources */,
 				11644F4D1DDD97CB002E9FDE /* SKRegisterViewController.m in Sources */,
-				11A62AEC1DED917200C83F73 /* SKModel.m in Sources */,
+				11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */,
 				26DA7F291C019C2100337A56 /* HTResetPasswordController.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 				17A20A0F1C51444C00364EEF /* HTMascotPropMoreView.m in Sources */,

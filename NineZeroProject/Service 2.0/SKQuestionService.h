@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SKNetworkDefine.h"
-#import "HTLogicHeader.h"
+#import "SKLogicHeader.h"
 
 @interface SKQuestionService : NSObject
 

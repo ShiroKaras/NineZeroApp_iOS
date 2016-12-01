@@ -1,15 +1,14 @@
 //
-//  HTLogicHeader.h
+//  SKLogicHeader.h
 //  NineZeroProject
 //
-//  Created by HHHHTTTT on 15/12/9.
-//  Copyright © 2015年 HHHHTTTT. All rights reserved.
+//  Created by SinLemon on 2016/12/1.
+//  Copyright © 2016年 ronhu. All rights reserved.
 //
 
-#ifndef HTLogicHeader_h
-#define HTLogicHeader_h
+#ifndef SKLogicHeader_h
+#define SKLogicHeader_h
 
-#import "HTModel.h"
 #import "SKModel.h"
 
 #import "HTCGIManager.h"
@@ -18,7 +17,6 @@
 #import "HTLog.h"
 #import "HTStorageManager.h"
 
-#import "HTNetworkDefine.h"
 #import "SKNetworkDefine.h"
 
 #import "NSString+Utility.h"
@@ -26,4 +24,4 @@
 #import <AFNetworking.h>
 #import <MJExtension.h>
 
-#endif /* HTLogicHeader_h */
+#endif /* SKLogicHeader_h */

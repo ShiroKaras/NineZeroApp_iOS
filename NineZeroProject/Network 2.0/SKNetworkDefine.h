@@ -9,9 +9,8 @@
 #ifndef SKNetworkDefine_h
 #define SKNetworkDefine_h
 
-#import "HTModel.h"
 #import "SKModel.h"
-#import "SKCGIManager.h"
+
 // 公用
 typedef void (^HTHTTPErrorCallback) (NSString *errorMessage);
 typedef void (^HTHTTPSuccessCallback) (id responseObject);

@@ -7,29 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SKNetworkDefine.h"
-#import "HTLogicHeader.h"
+#import "SKLogicHeader.h"
 
 @interface SKLoginService : NSObject
 
 - (void)loginBaseRequestWithParam:(NSDictionary*)dict callback:(SKResponseCallback)callback;
 
 //注册
-- (void)registerWithUsername:(NSString *)username password:(NSString *)password mobile:(NSString *)mobile vCode:(NSString *)vCode callback:(SKResponseCallback)callback;;
+- (void)registerWithUsername:(NSString *)username password:(NSString *)password mobile:(NSString *)mobile vCode:(NSString *)vCode callback:(SKResponseCallback)callback;
 
 //登录
-- (void)loginWithMobile:(NSString *)mobile password:(NSString *)password callback:(SKResponseCallback)callback;;
+- (void)loginWithMobile:(NSString *)mobile password:(NSString *)password callback:(SKResponseCallback)callback;
 
 //第三方登录
-- (void)loginWithThirdPlatform:(NSString *)third_id username:(NSString *)username avatarURL:(NSString *)avatarURL areaID:(NSString *)areaID callback:(SKResponseCallback)callback;;
+- (void)loginWithThirdPlatform:(NSString *)third_id username:(NSString *)username avatarURL:(NSString *)avatarURL areaID:(NSString *)areaID callback:(SKResponseCallback)callback;
 
 //重置密码
-- (void)resetPasswordWithMobile:(NSString *)mobile password:(NSString *)password verifyCode:(NSString *)vCode callback:(SKResponseCallback)callback;;
+- (void)resetPasswordWithMobile:(NSString *)mobile password:(NSString *)password verifyCode:(NSString *)vCode callback:(SKResponseCallback)callback;
 
 //发送验证码
 - (void)sendVerifyCodeWithMobile:(NSString *)mobile callback:(SKResponseCallback)callback;
 
 //验证手机是否注册
-- (void)checkMobileRegisterStatus:(NSString *)mobile callback:(SKResponseCallback)callback;;
+- (void)checkMobileRegisterStatus:(NSString *)mobile callback:(SKResponseCallback)callback;
 
 @end

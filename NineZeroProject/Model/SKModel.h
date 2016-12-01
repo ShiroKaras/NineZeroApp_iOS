@@ -2,17 +2,14 @@
 //  SKModel.h
 //  NineZeroProject
 //
-//  Created by SinLemon on 2016/11/29.
+//  Created by SinLemon on 2016/12/1.
 //  Copyright © 2016年 ronhu. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <MJExtension/MJExtension.h>
 
-// 不要覆盖description方法
-@interface NSObject (PropertyPrint)
-- (NSString *)debugDescription;
-@end
+
 
 // 基本返回包
 @interface SKResponsePackage : NSObject
