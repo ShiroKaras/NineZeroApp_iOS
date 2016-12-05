@@ -25,6 +25,9 @@
 
 #define UIColorMake(r, g, b) [[UIColor alloc] initWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 
+//Masonry
+#define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
+
 // 布局换算比例
 #define ROUND_WIDTH(w) @((w / 320.0) * SCREEN_WIDTH)
 #define ROUND_HEIGHT(h) @((h / 568.0) * SCREEN_HEIGHT)

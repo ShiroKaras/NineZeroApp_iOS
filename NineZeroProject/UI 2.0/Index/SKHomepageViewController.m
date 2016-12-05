@@ -13,6 +13,7 @@
 #import "SKMascotIndexViewController.h"
 #import "SKLoginRootViewController.h"
 #import "SKQuestionViewController.h"
+#import "SKProfileIndexViewController.h"
 
 @interface SKHomepageViewController ()
 
@@ -23,6 +24,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+//    [self testLoadData];
+}
+
+- (void)testLoadData {
+//    [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:@"18612484575" callback:^(BOOL success, SKResponsePackage *response) {
+//        
+//    }];
+    
+    [[[SKServiceManager sharedInstance] loginService] registerWithUsername:@"白鸦" password:@"qqqqqq" mobile:@"18612484575" vCode:@"7242" callback:^(BOOL success, SKResponsePackage *response) {
+        
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -173,6 +185,7 @@
     
     //公会
     UIButton *guildButton = [UIButton new];
+    [guildButton addTarget:self action:@selector(testButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [guildButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_guild"] forState:UIControlStateNormal];
     [guildButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_guild_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:guildButton];
@@ -184,7 +197,7 @@
     
     //我
     UIButton *meButton = [UIButton new];
-    [meButton addTarget:self action:@selector(testButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [meButton addTarget:self action:@selector(meButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me"] forState:UIControlStateNormal];
     [meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:meButton];
@@ -234,6 +247,12 @@
 - (void)mascotButtonClick:(UIButton*)sender {
     SKMascotIndexViewController *controller = [[SKMascotIndexViewController alloc] init];
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)meButtonClick:(UIButton*)sender {
+    SKProfileIndexViewController *controller = [[SKProfileIndexViewController alloc] init];
+    HTNavigationController *rootController = [[HTNavigationController alloc] initWithRootViewController:controller];
+    [self presentViewController:rootController animated:YES completion:nil];
 }
 
 - (void)testButtonClick {
