@@ -23,6 +23,7 @@
 		1121676D1CF3358E0048EA01 /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1121676B1CF3358D0048EA01 /* SKUserAgreementViewController.xib */; };
 		1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */; };
 		112D129C1DAF478700588D30 /* SKScanningRewardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 112D129B1DAF478700588D30 /* SKScanningRewardView.m */; };
+		1132B30B1DF506C100DA992F /* SKProfileIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1132B30A1DF506C100DA992F /* SKProfileIndexViewController.m */; };
 		1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */; };
 		1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */; };
 		113D74B21DB4B66C00E513B7 /* SKShareRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113D74B11DB4B66C00E513B7 /* SKShareRewardController.m */; };
@@ -68,6 +69,10 @@
 		11B44EC41D8FF30D00CD2BAC /* trailer_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 11B44EC31D8FF30D00CD2BAC /* trailer_video.mp4 */; };
 		11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE831DEFD52A001A3E0F /* SKModel.m */; };
 		11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE901DEFF5DA001A3E0F /* SKStorageManager.m */; };
+		11B8AEED1DF1820B001A3E0F /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEE61DF1820B001A3E0F /* AESCrypt.m */; };
+		11B8AEEE1DF1820B001A3E0F /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEE81DF1820B001A3E0F /* NSData+Base64.m */; };
+		11B8AEEF1DF1820B001A3E0F /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEEA1DF1820B001A3E0F /* NSData+CommonCrypto.m */; };
+		11B8AEF01DF1820B001A3E0F /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEEC1DF1820B001A3E0F /* NSString+Base64.m */; };
 		11BC2DFE1D93C98200C9E775 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFC1D93C98200C9E775 /* libTalkingData.a */; };
 		11BC2E001D93C9CF00C9E775 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
@@ -850,6 +855,8 @@
 		1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		112D129A1DAF478700588D30 /* SKScanningRewardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKScanningRewardView.h; path = Index/SKScanningRewardView.h; sourceTree = "<group>"; };
 		112D129B1DAF478700588D30 /* SKScanningRewardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKScanningRewardView.m; path = Index/SKScanningRewardView.m; sourceTree = "<group>"; };
+		1132B3091DF506C100DA992F /* SKProfileIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKProfileIndexViewController.h; path = "NineZeroProject/UI 2.0/Profile/SKProfileIndexViewController.h"; sourceTree = "<group>"; };
+		1132B30A1DF506C100DA992F /* SKProfileIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKProfileIndexViewController.m; path = "NineZeroProject/UI 2.0/Profile/SKProfileIndexViewController.m"; sourceTree = "<group>"; };
 		1139CB9E1DACD4EB004FF6B0 /* NSString+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+AES256.h"; path = "AES256/NSString+AES256.h"; sourceTree = "<group>"; };
 		1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+AES256.m"; path = "AES256/NSString+AES256.m"; sourceTree = "<group>"; };
 		1139CBA11DACD5DC004FF6B0 /* NSData+Encryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Encryption.h"; path = "AES256/NSData+Encryption.h"; sourceTree = "<group>"; };
@@ -932,6 +939,14 @@
 		11B8AE831DEFD52A001A3E0F /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKModel.m; path = NineZeroProject/Model/SKModel.m; sourceTree = "<group>"; };
 		11B8AE8F1DEFF5DA001A3E0F /* SKStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKStorageManager.h; path = NineZeroProject/Storage/SKStorageManager.h; sourceTree = "<group>"; };
 		11B8AE901DEFF5DA001A3E0F /* SKStorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKStorageManager.m; path = NineZeroProject/Storage/SKStorageManager.m; sourceTree = "<group>"; };
+		11B8AEE51DF1820B001A3E0F /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
+		11B8AEE61DF1820B001A3E0F /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
+		11B8AEE71DF1820B001A3E0F /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		11B8AEE81DF1820B001A3E0F /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		11B8AEE91DF1820B001A3E0F /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		11B8AEEA1DF1820B001A3E0F /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
+		11B8AEEB1DF1820B001A3E0F /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		11B8AEEC1DF1820B001A3E0F /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		11BC2DFC1D93C98200C9E775 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
 		11BC2DFD1D93C98200C9E775 /* TalkingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingData.h; sourceTree = "<group>"; };
 		11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -1889,6 +1904,7 @@
 		110A34A51DD07ACE00207115 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1132B2C61DF5058800DA992F /* Profile */,
 				11FF643A1DDD5BF500768080 /* Login */,
 				11E3C0901DD5B26800550286 /* Index */,
 				110A34A61DD07AEB00207115 /* Question */,
@@ -1967,6 +1983,15 @@
 				112D129B1DAF478700588D30 /* SKScanningRewardView.m */,
 			);
 			name = Scanning;
+			sourceTree = "<group>";
+		};
+		1132B2C61DF5058800DA992F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1132B3091DF506C100DA992F /* SKProfileIndexViewController.h */,
+				1132B30A1DF506C100DA992F /* SKProfileIndexViewController.m */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		1139CB9D1DACD4A3004FF6B0 /* AES256 */ = {
@@ -2099,6 +2124,21 @@
 				11B8AE901DEFF5DA001A3E0F /* SKStorageManager.m */,
 			);
 			name = Storage;
+			sourceTree = "<group>";
+		};
+		11B8AEE41DF1820B001A3E0F /* AESCrypt */ = {
+			isa = PBXGroup;
+			children = (
+				11B8AEE51DF1820B001A3E0F /* AESCrypt.h */,
+				11B8AEE61DF1820B001A3E0F /* AESCrypt.m */,
+				11B8AEE71DF1820B001A3E0F /* NSData+Base64.h */,
+				11B8AEE81DF1820B001A3E0F /* NSData+Base64.m */,
+				11B8AEE91DF1820B001A3E0F /* NSData+CommonCrypto.h */,
+				11B8AEEA1DF1820B001A3E0F /* NSData+CommonCrypto.m */,
+				11B8AEEB1DF1820B001A3E0F /* NSString+Base64.h */,
+				11B8AEEC1DF1820B001A3E0F /* NSString+Base64.m */,
+			);
+			path = AESCrypt;
 			sourceTree = "<group>";
 		};
 		11BC2DFB1D93C98200C9E775 /* TalkingData */ = {
@@ -3386,6 +3426,7 @@
 		17A89A8F1C1DB9BB0087BF00 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				11B8AEE41DF1820B001A3E0F /* AESCrypt */,
 				1139CB9D1DACD4A3004FF6B0 /* AES256 */,
 				11BC2DFB1D93C98200C9E775 /* TalkingData */,
 				11961CD91D2D2B3400A00AF9 /* ImageEffects */,
@@ -4564,6 +4605,7 @@
 				17A20A0C1C4FFE4600364EEF /* HTMascotPropView.m in Sources */,
 				1787FD231C4A895B006E55A6 /* HTARCaptureController.m in Sources */,
 				179D2BB31C5E5444000A4461 /* HTRelaxController.m in Sources */,
+				11B8AEF01DF1820B001A3E0F /* NSString+Base64.m in Sources */,
 				17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */,
 				117418111D89396400B5458F /* HTComposeView.m in Sources */,
 				112D129C1DAF478700588D30 /* SKScanningRewardView.m in Sources */,
@@ -4574,6 +4616,7 @@
 				1744BFCA1C9D52EB00708716 /* UIViewController+HTTips.m in Sources */,
 				1747B0171C9F060500B37411 /* HTBlankView.m in Sources */,
 				1106FFE41DD992250002E36C /* SKMascotIndexViewController.m in Sources */,
+				11B8AEEF1DF1820B001A3E0F /* NSData+CommonCrypto.m in Sources */,
 				17A92CD31CA809B100BE893D /* MJRefreshBackGifFooter.m in Sources */,
 				11FF643D1DDD5C3500768080 /* SKLoginRootViewController.m in Sources */,
 				17A92CD61CA809B100BE893D /* MJRefreshGifHeader.m in Sources */,
@@ -4623,6 +4666,7 @@
 				1115B6921DABBE1200E1BDB7 /* SKScanningResultView.m in Sources */,
 				117418131D89396400B5458F /* HTPreviewCardController.m in Sources */,
 				17F0F47C1C95D1510050F0EB /* HTProfileService.m in Sources */,
+				11B8AEEE1DF1820B001A3E0F /* NSData+Base64.m in Sources */,
 				11023BEB1DE3E66800B6493F /* SKResetPasswordViewController.m in Sources */,
 				17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */,
 				26973B051C005F9800160D25 /* HTRegisterController.m in Sources */,
@@ -4648,6 +4692,7 @@
 				17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */,
 				17461D0F1C74C8C900C847E8 /* Reachability.m in Sources */,
 				11023BE81DE3E12F00B6493F /* SKLoginViewController.m in Sources */,
+				11B8AEED1DF1820B001A3E0F /* AESCrypt.m in Sources */,
 				17AE3B341C987F550082390F /* NSDate+Utility.m in Sources */,
 				17F393A71C8C9521004E1DB7 /* HTProfileRecordCell.m in Sources */,
 				117418181D89396400B5458F /* SKRankInQuestionTableViewCell.m in Sources */,
@@ -4655,6 +4700,7 @@
 				17A92CD81CA809B100BE893D /* MJRefreshStateHeader.m in Sources */,
 				17FA110D1C83417A00FA9102 /* HTAboutController.m in Sources */,
 				1721D71E1BEFB7A100498304 /* HTLoginRootController.m in Sources */,
+				1132B30B1DF506C100DA992F /* SKProfileIndexViewController.m in Sources */,
 				17407A5B1C4EA28C00B60099 /* HTMascotView.m in Sources */,
 				11023BEE1DE3FC3100B6493F /* SKConfirmPasswordViewController.m in Sources */,
 				11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */,

@@ -15,7 +15,7 @@
 
 static char base64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-- (NSData *)aes256_encrypt:(NSString *)key   //加密
+- (NSData *)aes256_encrypt:(NSString *)key  //加密
 {
     char keyPtr[kCCKeySizeAES256+1];
     bzero(keyPtr, sizeof(keyPtr));
@@ -38,7 +38,7 @@ static char base64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123
     return nil;
 }
 
-- (NSData *)aes256_decrypt:(NSString *)key   //解密
+- (NSData *)aes256_decrypt:(NSString *)key  //解密
 {
     char keyPtr[kCCKeySizeAES256+1];
     bzero(keyPtr, sizeof(keyPtr));

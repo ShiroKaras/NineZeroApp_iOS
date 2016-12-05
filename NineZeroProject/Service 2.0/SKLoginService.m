@@ -23,11 +23,15 @@
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSString *aes256String = [jsonString aes256_encrypt:AES_KEY];
+    DLog(@"Json ParamString: %@", jsonString);
+    DLog(@"AES Param String: %@", aes256String);
+    DLog(@"DES Param String: %@", [aes256String aes256_decrypt:AES_KEY]);
     NSDictionary *param = @{@"data" : aes256String};
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager loginBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSString *jsonString = [responseObject[@"data"] aes256_decrypt:AES_KEY];
-//        DLog(@"Method:%@\n%@",dict[@"method"], [jsonString dictionaryWithJsonString]);
+        DLog(@"AESString:%@",responseObject[@"data"]);
+        DLog(@"Method:%@\n%@",[jsonString dictionaryWithJsonString][@"method"], [jsonString dictionaryWithJsonString]);
         SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:[jsonString dictionaryWithJsonString]];
         callback(YES, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
