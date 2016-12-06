@@ -9,11 +9,14 @@
 #import "SKProfileSettingViewController.h"
 #import "HTUIHeader.h"
 
-@interface SKProfileSettingViewController ()
+@interface SKProfileSettingViewController () <UITextFieldDelegate>
 @property (nonatomic, strong) UIScrollView  *scrollView;
 @property (nonatomic, strong) UIView        *backView1;
 @property (nonatomic, strong) UIView        *backView2;
 @property (nonatomic, strong) UIView        *backView3;
+@property (nonatomic, strong) UILabel       *usernameLabel;
+@property (nonatomic, strong) UITextField   *usernameTextField;
+@property (nonatomic, strong) UIView        *dimmingView;
 @end
 
 @implementation SKProfileSettingViewController
@@ -109,13 +112,13 @@
                 make.left.equalTo(@20);
             }];
         } else if (i==1) {
-            UILabel *titleLabel = [UILabel new];
-            titleLabel.textColor = [UIColor whiteColor];
-            titleLabel.text = @"用户昵称";
-            titleLabel.font = PINGFANG_FONT_OF_SIZE(14);
-            [titleLabel sizeToFit];
-            [view addSubview:titleLabel];
-            [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            _usernameLabel = [UILabel new];
+            _usernameLabel.textColor = [UIColor whiteColor];
+            _usernameLabel.text = @"用户昵称";
+            _usernameLabel.font = PINGFANG_FONT_OF_SIZE(16);
+            [_usernameLabel sizeToFit];
+            [view addSubview:_usernameLabel];
+            [_usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(view);
                 make.left.equalTo(@20);
             }];
@@ -133,12 +136,25 @@
         infoLabel.textColor = [UIColor whiteColor];
         if (i == 0)     infoLabel.text = @"修改头像";
         else if (i == 1)     infoLabel.text = @"修改昵称";
-        infoLabel.font = PINGFANG_FONT_OF_SIZE(14);
+        infoLabel.font = PINGFANG_FONT_OF_SIZE(16);
         [view addSubview:infoLabel];
         [infoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(arrowImageView.mas_left).offset(-5);
             make.centerY.equalTo(view);
         }];
+        
+        UIButton *button = [UIButton new];
+        [view addSubview:button];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.equalTo(view);
+            make.center.equalTo(view);
+        }];
+        
+        if (i==0) {
+            
+        } else if (i==1) {
+            [button addTarget:self action:@selector(updateUsername:) forControlEvents:UIControlEventTouchUpInside];
+        }
     }
 }
 
@@ -197,7 +213,7 @@
         titleLabel.textColor = [UIColor whiteColor];
         if (i == 0)     titleLabel.text = @"消息推送";
         else if (i == 1)     titleLabel.text = @"清除缓存";
-        titleLabel.font = PINGFANG_FONT_OF_SIZE(14);
+        titleLabel.font = PINGFANG_FONT_OF_SIZE(16);
         [view addSubview:titleLabel];
         [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(view).offset(20);
@@ -251,7 +267,7 @@
         titleLabel.textColor = [UIColor whiteColor];
         if (i == 0)     titleLabel.text = @"关于";
         else if (i == 1)     titleLabel.text = @"什么是九零";
-        titleLabel.font = PINGFANG_FONT_OF_SIZE(14);
+        titleLabel.font = PINGFANG_FONT_OF_SIZE(16);
         [view addSubview:titleLabel];
         [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(view).offset(20);
@@ -262,7 +278,7 @@
             UILabel *infoLabel = [UILabel new];
             infoLabel.text =  [NSString stringWithFormat:@"V%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
             infoLabel.textColor = [UIColor whiteColor];
-            infoLabel.font = PINGFANG_FONT_OF_SIZE(14);
+            infoLabel.font = PINGFANG_FONT_OF_SIZE(16);
             [view addSubview:infoLabel];
             [infoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(arrowImageView.mas_left).offset(-5);
@@ -270,6 +286,79 @@
             }];
         }
     }
+}
+
+#pragma mark - Actions
+
+- (void)updateUsername:(UIButton*)sender {
+    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _dimmingView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_dimmingView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelUpdateUsername)];
+    [_dimmingView addGestureRecognizer:tap];
+    
+    UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
+    alphaView.backgroundColor = [UIColor blackColor];
+    alphaView.alpha = 0.8;
+    [_dimmingView addSubview:alphaView];
+    
+    CGRect rect = [sender convertRect:sender.frame toView:self.view];
+    UIView *updateUsernameBackView = [[UIView alloc] initWithFrame:rect];
+    updateUsernameBackView.backgroundColor = [UIColor whiteColor];
+    updateUsernameBackView.layer.cornerRadius = 5;
+    [_dimmingView addSubview:updateUsernameBackView];
+    
+    _usernameTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, updateUsernameBackView.width-28-65, updateUsernameBackView.height)];
+    _usernameTextField.delegate = self;
+    _usernameTextField.text = _usernameLabel.text;
+    _usernameTextField.textColor = COMMON_GREEN_COLOR;
+    [_usernameTextField setValue:COMMON_GREEN_COLOR forKeyPath:@"_placeholderLabel.textColor"];
+    _usernameTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 60)];
+    _usernameTextField.leftViewMode = UITextFieldViewModeAlways;
+    [updateUsernameBackView addSubview:_usernameTextField];
+    
+    UIButton *completeButton = [UIButton new];
+    completeButton.layer.cornerRadius = 5;
+    [completeButton setBackgroundColor:COMMON_GREEN_COLOR];
+    completeButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(16);
+    [completeButton setTitle:@"完成" forState:UIControlStateNormal];
+    [completeButton addTarget:self action:@selector(completeUpdateUsername) forControlEvents:UIControlEventTouchUpInside];
+    [updateUsernameBackView addSubview:completeButton];
+    [completeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(65, 32));
+        make.centerY.equalTo(updateUsernameBackView);
+        make.right.equalTo(updateUsernameBackView).offset(-14);
+    }];
+}
+
+- (void)cancelUpdateUsername {
+    [_dimmingView removeFromSuperview];
+}
+
+- (void)completeUpdateUsername {
+    NSLog(@"%@",_usernameTextField.text);
+    _usernameLabel.text = _usernameTextField.text;
+    [_dimmingView removeFromSuperview];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self completeUpdateUsername];
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == _usernameTextField) {
+        if(range.length + range.location > textField.text.length)
+        {
+            return NO;
+        }
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        return newLength <= 10;
+    }else
+        return YES;
 }
 
 @end

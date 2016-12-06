@@ -10,6 +10,7 @@
 #import "HTUIHeader.h"
 
 #import "SKProfileSettingViewController.h"
+#import "SKProfileMyTicketsViewController.h"
 
 @interface SKProfileIndexViewController ()
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -219,6 +220,7 @@
     _backView2 = [UIView new];
     _backView2.backgroundColor = COMMON_SEPARATOR_COLOR;
     _backView2.layer.cornerRadius = 5;
+    _backView2.layer.masksToBounds = YES;
     [_scrollView addSubview:_backView2];
     [_backView2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH-20, 243));
@@ -228,6 +230,7 @@
     
     NSArray *iconNameArray = @[@"img_userptofiles_gift", @"img_userptofiles_medal", @"img_userptofiles_thing", @"img_userptofiles_progress"];
     NSArray *titleArray = @[@"我的礼券", @"我的勋章", @"已收集的玩意儿", @"帮助我们进步"];
+    NSArray *selectorNameArray = @[@"myTicketsClick", @"myBadgesClick", @"myThingsClick", @"helpUsClick"];
     
     for (int i = 0; i<4; i++) {
         UIView *view = [UIView new];
@@ -286,6 +289,14 @@
             make.right.equalTo(arrowImageView.mas_left).offset(-2);
             make.centerY.equalTo(view);
         }];
+        
+        UIButton *button = [UIButton new];
+        [button addTarget:self action:NSSelectorFromString(selectorNameArray[i]) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:button];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.equalTo(view);
+            make.center.equalTo(view);
+        }];
     }
 }
 
@@ -298,6 +309,23 @@
 
 - (void)closeButtonClick:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)myTicketsClick {
+    SKProfileMyTicketsViewController *controller = [[SKProfileMyTicketsViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)myBadgesClick {
+    
+}
+
+- (void)myThingsClick {
+
+}
+
+- (void)helpUsClick {
+    
 }
 
 @end
