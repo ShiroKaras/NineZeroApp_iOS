@@ -78,6 +78,7 @@
 		11BC2E001D93C9CF00C9E775 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
+		11CD0BBA1DF6A1210074E120 /* SKProfileMyTicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CD0BB91DF6A1210074E120 /* SKProfileMyTicketsViewController.m */; };
 		11E3C0931DD5B2FB00550286 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E3C0921DD5B2FB00550286 /* SKHomepageViewController.m */; };
 		11F218531CBB951300D2ED44 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218311CBB951300D2ED44 /* ShareSDK.framework */; };
 		11F218541CBB951300D2ED44 /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218341CBB951300D2ED44 /* ShareSDKExtension.framework */; };
@@ -957,6 +958,8 @@
 		11CA0C551CD24E4200C06333 /* easing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easing.h; sourceTree = "<group>"; };
 		11CA0C561CD24E4200C06333 /* YXEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXEasing.h; sourceTree = "<group>"; };
 		11CA0C571CD24E4200C06333 /* YXEasing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXEasing.m; sourceTree = "<group>"; };
+		11CD0BB81DF6A1210074E120 /* SKProfileMyTicketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKProfileMyTicketsViewController.h; path = "NineZeroProject/UI 2.0/Profile/SKProfileMyTicketsViewController.h"; sourceTree = "<group>"; };
+		11CD0BB91DF6A1210074E120 /* SKProfileMyTicketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKProfileMyTicketsViewController.m; path = "NineZeroProject/UI 2.0/Profile/SKProfileMyTicketsViewController.m"; sourceTree = "<group>"; };
 		11E3C0911DD5B2FB00550286 /* SKHomepageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKHomepageViewController.h; path = "NineZeroProject/UI 2.0/Index/SKHomepageViewController.h"; sourceTree = "<group>"; };
 		11E3C0921DD5B2FB00550286 /* SKHomepageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKHomepageViewController.m; path = "NineZeroProject/UI 2.0/Index/SKHomepageViewController.m"; sourceTree = "<group>"; };
 		11F218311CBB951300D2ED44 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
@@ -1923,8 +1926,6 @@
 				1106FFD01DD5D60D0002E36C /* SKAllQuestionViewController.m */,
 				110A34A71DD07B4500207115 /* SKQuestionViewController.h */,
 				110A34A81DD07B4500207115 /* SKQuestionViewController.m */,
-				11805B401DE84D1D00064607 /* SKTicketView.h */,
-				11805B411DE84D1D00064607 /* SKTicketView.m */,
 			);
 			name = Question;
 			sourceTree = "<group>";
@@ -1995,6 +1996,10 @@
 				1132B30A1DF506C100DA992F /* SKProfileIndexViewController.m */,
 				1132B30C1DF5574900DA992F /* SKProfileSettingViewController.h */,
 				1132B30D1DF5574900DA992F /* SKProfileSettingViewController.m */,
+				11CD0BB81DF6A1210074E120 /* SKProfileMyTicketsViewController.h */,
+				11CD0BB91DF6A1210074E120 /* SKProfileMyTicketsViewController.m */,
+				11805B401DE84D1D00064607 /* SKTicketView.h */,
+				11805B411DE84D1D00064607 /* SKTicketView.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -4740,6 +4745,7 @@
 				17FA11391C835C6500FA9102 /* HTNotificationCell.m in Sources */,
 				17FA112D1C8343DA00FA9102 /* HTFeedbackController.m in Sources */,
 				11AD0C331DAA1E0D007951C5 /* SKSwipeViewController.m in Sources */,
+				11CD0BBA1DF6A1210074E120 /* SKProfileMyTicketsViewController.m in Sources */,
 				17FA11321C8357E800FA9102 /* HTCollectionController.m in Sources */,
 				11A62ADC1DED7EF900C83F73 /* SKServiceManager.m in Sources */,
 				11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */,
