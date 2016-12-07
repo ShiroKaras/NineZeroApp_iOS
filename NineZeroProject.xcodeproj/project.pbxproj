@@ -79,6 +79,7 @@
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
 		11CD0BBA1DF6A1210074E120 /* SKProfileMyTicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CD0BB91DF6A1210074E120 /* SKProfileMyTicketsViewController.m */; };
+		11CD0BBD1DF6AE9B0074E120 /* SKMyBadgesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CD0BBC1DF6AE9B0074E120 /* SKMyBadgesViewController.m */; };
 		11E3C0931DD5B2FB00550286 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E3C0921DD5B2FB00550286 /* SKHomepageViewController.m */; };
 		11F218531CBB951300D2ED44 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218311CBB951300D2ED44 /* ShareSDK.framework */; };
 		11F218541CBB951300D2ED44 /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218341CBB951300D2ED44 /* ShareSDKExtension.framework */; };
@@ -960,6 +961,8 @@
 		11CA0C571CD24E4200C06333 /* YXEasing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXEasing.m; sourceTree = "<group>"; };
 		11CD0BB81DF6A1210074E120 /* SKProfileMyTicketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKProfileMyTicketsViewController.h; path = "NineZeroProject/UI 2.0/Profile/SKProfileMyTicketsViewController.h"; sourceTree = "<group>"; };
 		11CD0BB91DF6A1210074E120 /* SKProfileMyTicketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKProfileMyTicketsViewController.m; path = "NineZeroProject/UI 2.0/Profile/SKProfileMyTicketsViewController.m"; sourceTree = "<group>"; };
+		11CD0BBB1DF6AE9B0074E120 /* SKMyBadgesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMyBadgesViewController.h; path = "NineZeroProject/UI 2.0/Profile/SKMyBadgesViewController.h"; sourceTree = "<group>"; };
+		11CD0BBC1DF6AE9B0074E120 /* SKMyBadgesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMyBadgesViewController.m; path = "NineZeroProject/UI 2.0/Profile/SKMyBadgesViewController.m"; sourceTree = "<group>"; };
 		11E3C0911DD5B2FB00550286 /* SKHomepageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKHomepageViewController.h; path = "NineZeroProject/UI 2.0/Index/SKHomepageViewController.h"; sourceTree = "<group>"; };
 		11E3C0921DD5B2FB00550286 /* SKHomepageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKHomepageViewController.m; path = "NineZeroProject/UI 2.0/Index/SKHomepageViewController.m"; sourceTree = "<group>"; };
 		11F218311CBB951300D2ED44 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
@@ -2000,6 +2003,8 @@
 				11CD0BB91DF6A1210074E120 /* SKProfileMyTicketsViewController.m */,
 				11805B401DE84D1D00064607 /* SKTicketView.h */,
 				11805B411DE84D1D00064607 /* SKTicketView.m */,
+				11CD0BBB1DF6AE9B0074E120 /* SKMyBadgesViewController.h */,
+				11CD0BBC1DF6AE9B0074E120 /* SKMyBadgesViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -4691,6 +4696,7 @@
 				17262CB71C5DF486000FDA1B /* HTMascotTipView.m in Sources */,
 				1787FD2B1C4A9E85006E55A6 /* INTULocationManager.m in Sources */,
 				17B429011C54D4A8008AFBA9 /* YYFrameImage.m in Sources */,
+				11CD0BBD1DF6AE9B0074E120 /* SKMyBadgesViewController.m in Sources */,
 				17262CB41C5DF1D7000FDA1B /* HTMascotHelper.m in Sources */,
 				110A34A91DD07B4500207115 /* SKQuestionViewController.m in Sources */,
 				1179430E1DAFB774002F0DB9 /* SKARRewardController.m in Sources */,
