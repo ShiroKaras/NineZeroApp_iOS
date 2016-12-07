@@ -12,6 +12,7 @@
 #import "SKProfileSettingViewController.h"
 #import "SKProfileMyTicketsViewController.h"
 #import "SKMyBadgesViewController.h"
+#import "SKMyThingsViewController.h"
 
 @interface SKProfileIndexViewController ()
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -323,7 +324,8 @@
 }
 
 - (void)myThingsClick {
-
+    SKMyThingsViewController *controller = [[SKMyThingsViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)helpUsClick {

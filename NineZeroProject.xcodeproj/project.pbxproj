@@ -28,6 +28,7 @@
 		1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */; };
 		1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */; };
 		113D74B21DB4B66C00E513B7 /* SKShareRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113D74B11DB4B66C00E513B7 /* SKShareRewardController.m */; };
+		115381051DF7B86A00B50DF2 /* SKMyThingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115381041DF7B86A00B50DF2 /* SKMyThingsViewController.m */; };
 		11644F4D1DDD97CB002E9FDE /* SKRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */; };
 		11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */; };
 		117417EA1D795AC300B5458F /* SKIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417E91D795AC300B5458F /* SKIndexViewController.m */; };
@@ -869,6 +870,8 @@
 		113D74B01DB4B66C00E513B7 /* SKShareRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKShareRewardController.h; sourceTree = "<group>"; };
 		113D74B11DB4B66C00E513B7 /* SKShareRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKShareRewardController.m; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
+		115381031DF7B86A00B50DF2 /* SKMyThingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMyThingsViewController.h; path = "NineZeroProject/UI 2.0/Profile/SKMyThingsViewController.h"; sourceTree = "<group>"; };
+		115381041DF7B86A00B50DF2 /* SKMyThingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMyThingsViewController.m; path = "NineZeroProject/UI 2.0/Profile/SKMyThingsViewController.m"; sourceTree = "<group>"; };
 		11644F4B1DDD97CB002E9FDE /* SKRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterViewController.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.h"; sourceTree = "<group>"; };
 		11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRegisterViewController.m; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.m"; sourceTree = "<group>"; };
 		11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterTextField.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterTextField.h"; sourceTree = "<group>"; };
@@ -2005,6 +2008,8 @@
 				11805B411DE84D1D00064607 /* SKTicketView.m */,
 				11CD0BBB1DF6AE9B0074E120 /* SKMyBadgesViewController.h */,
 				11CD0BBC1DF6AE9B0074E120 /* SKMyBadgesViewController.m */,
+				115381031DF7B86A00B50DF2 /* SKMyThingsViewController.h */,
+				115381041DF7B86A00B50DF2 /* SKMyThingsViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -4741,6 +4746,7 @@
 				17A92CDA1CA809B100BE893D /* MJRefreshConst.m in Sources */,
 				173A21171C568A34006A423D /* HTRewardController.m in Sources */,
 				17A47E8C1C037F3E00BEC1DD /* HTCommonViewController.m in Sources */,
+				115381051DF7B86A00B50DF2 /* SKMyThingsViewController.m in Sources */,
 				11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */,
 				11A62ADF1DED7F9200C83F73 /* SKLoginService.m in Sources */,
 				17C40B401C5538A200DAE22A /* HTMascotService.m in Sources */,

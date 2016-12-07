@@ -9,6 +9,58 @@
 #import "SKMyBadgesViewController.h"
 #import "HTUIHeader.h"
 
+@interface SKBadgeCell: UITableViewCell
+@property (nonatomic, strong) UIImageView *badgeLeft;
+@property (nonatomic, strong) UIImageView *badgeRight;
+@end
+
+@implementation SKBadgeCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.backgroundColor = [UIColor clearColor];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        self.backgroundColor = COMMON_SEPARATOR_COLOR;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        UIView *headBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 6)];
+        headBar.backgroundColor = [UIColor colorWithHex:0x242424];
+        [self.contentView addSubview:headBar];
+        
+        UIView *footBar = [[UIView alloc] initWithFrame:CGRectMake(0, ROUND_HEIGHT_FLOAT(154)-4-25, SCREEN_WIDTH, 25)];
+        footBar.backgroundColor = [UIColor colorWithHex:0x242424];
+        [self.contentView addSubview:footBar];
+        UIView *footBar2 = [[UIView alloc] initWithFrame:CGRectMake(0, ROUND_HEIGHT_FLOAT(154)-4, SCREEN_WIDTH, 4)];
+        footBar2.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+        [self.contentView addSubview:footBar2];
+        
+        UIImageView *badgeLeft = [[UIImageView alloc] init];
+        badgeLeft.backgroundColor = [UIColor redColor];
+        [self addSubview:badgeLeft];
+        UIImageView *badgeRight = [[UIImageView alloc] init];
+        badgeRight.backgroundColor = [UIColor redColor];
+        [self addSubview:badgeRight];
+        [badgeLeft mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(ROUND_WIDTH(120));
+            make.height.mas_equalTo(ROUND_WIDTH_FLOAT(120)/120*90);
+            make.left.equalTo(ROUND_WIDTH(22));
+            make.bottom.equalTo(self.mas_bottom).offset(-14);
+        }];
+        [badgeRight mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(badgeLeft.mas_width);
+            make.height.equalTo(badgeLeft.mas_height);
+            make.right.equalTo(self.mas_right).offset(ROUND_WIDTH_FLOAT(-22));
+            make.bottom.equalTo(self.mas_bottom).offset(-14);
+        }];
+    }
+    return self;
+}
+
+@end
+
+
+
 @interface SKMyBadgesViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @end
@@ -96,47 +148,14 @@
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
+    [self.tableView registerClass:[SKBadgeCell class] forCellReuseIdentifier:NSStringFromClass([SKBadgeCell class])];
     [self.view addSubview:self.tableView];
 }
 
 #pragma mark - UITableViewDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
-    cell.backgroundColor = COMMON_SEPARATOR_COLOR;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    UIView *headBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.width, 6)];
-    headBar.backgroundColor = [UIColor colorWithHex:0x242424];
-    [cell addSubview:headBar];
-    
-    UIView *footBar = [[UIView alloc] initWithFrame:CGRectMake(0, 125, cell.width, 25)];
-    footBar.backgroundColor = [UIColor colorWithHex:0x242424];
-    [cell addSubview:footBar];
-    UIView *footBar2 = [[UIView alloc] initWithFrame:CGRectMake(0, 150, cell.width, 4)];
-    footBar2.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
-    
-    UIImageView *badgeLeft = [[UIImageView alloc] init];
-    badgeLeft.backgroundColor = [UIColor redColor];
-    [cell addSubview:badgeLeft];
-    UIImageView *badgeRight = [[UIImageView alloc] init];
-    badgeRight.backgroundColor = [UIColor redColor];
-    [cell addSubview:badgeRight];
-    [badgeLeft mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(ROUND_WIDTH(120));
-        make.height.mas_equalTo(ROUND_WIDTH_FLOAT(120)/120*90);
-        make.left.equalTo(ROUND_WIDTH(22));
-        make.bottom.equalTo(cell.mas_bottom).offset(-14);
-    }];
-    [badgeRight mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(badgeLeft.mas_width);
-        make.height.equalTo(badgeLeft.mas_height);
-        make.right.equalTo(cell.mas_right).offset(ROUND_WIDTH_FLOAT(-22));
-        make.bottom.equalTo(cell.mas_bottom).offset(-14);
-    }];
-    
-    [cell addSubview:footBar2];
+    SKBadgeCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKBadgeCell class]) forIndexPath:indexPath];
     
     return cell;
 }
