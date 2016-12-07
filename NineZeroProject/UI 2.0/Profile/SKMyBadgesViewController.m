@@ -142,7 +142,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 154;
+    return ROUND_HEIGHT_FLOAT(154);
 }
 
 #pragma mark - UITableViewDataSource
