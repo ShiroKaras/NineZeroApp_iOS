@@ -29,6 +29,7 @@
 		1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */; };
 		113D74B21DB4B66C00E513B7 /* SKShareRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113D74B11DB4B66C00E513B7 /* SKShareRewardController.m */; };
 		115381051DF7B86A00B50DF2 /* SKMyThingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115381041DF7B86A00B50DF2 /* SKMyThingsViewController.m */; };
+		1153810B1DF7C51600B50DF2 /* SKFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1153810A1DF7C51600B50DF2 /* SKFeedbackViewController.m */; };
 		11644F4D1DDD97CB002E9FDE /* SKRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */; };
 		11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */; };
 		117417EA1D795AC300B5458F /* SKIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417E91D795AC300B5458F /* SKIndexViewController.m */; };
@@ -872,6 +873,8 @@
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
 		115381031DF7B86A00B50DF2 /* SKMyThingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMyThingsViewController.h; path = "NineZeroProject/UI 2.0/Profile/SKMyThingsViewController.h"; sourceTree = "<group>"; };
 		115381041DF7B86A00B50DF2 /* SKMyThingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMyThingsViewController.m; path = "NineZeroProject/UI 2.0/Profile/SKMyThingsViewController.m"; sourceTree = "<group>"; };
+		115381091DF7C51600B50DF2 /* SKFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKFeedbackViewController.h; path = "NineZeroProject/UI 2.0/Profile/SKFeedbackViewController.h"; sourceTree = "<group>"; };
+		1153810A1DF7C51600B50DF2 /* SKFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKFeedbackViewController.m; path = "NineZeroProject/UI 2.0/Profile/SKFeedbackViewController.m"; sourceTree = "<group>"; };
 		11644F4B1DDD97CB002E9FDE /* SKRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterViewController.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.h"; sourceTree = "<group>"; };
 		11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRegisterViewController.m; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.m"; sourceTree = "<group>"; };
 		11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterTextField.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterTextField.h"; sourceTree = "<group>"; };
@@ -2010,6 +2013,8 @@
 				11CD0BBC1DF6AE9B0074E120 /* SKMyBadgesViewController.m */,
 				115381031DF7B86A00B50DF2 /* SKMyThingsViewController.h */,
 				115381041DF7B86A00B50DF2 /* SKMyThingsViewController.m */,
+				115381091DF7C51600B50DF2 /* SKFeedbackViewController.h */,
+				1153810A1DF7C51600B50DF2 /* SKFeedbackViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -4654,6 +4659,7 @@
 				1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */,
 				17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */,
 				1174180F1D89396400B5458F /* HTCardTimeView.m in Sources */,
+				1153810B1DF7C51600B50DF2 /* SKFeedbackViewController.m in Sources */,
 				26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */,
 				176A1AB31CA43BCB00026345 /* HTProgressHUD.m in Sources */,
 				173F55701C7CBB3D00C8A04A /* HTProfilePopView.m in Sources */,

@@ -13,6 +13,7 @@
 #import "SKProfileMyTicketsViewController.h"
 #import "SKMyBadgesViewController.h"
 #import "SKMyThingsViewController.h"
+#import "SKFeedbackViewController.h"
 
 @interface SKProfileIndexViewController ()
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -329,7 +330,8 @@
 }
 
 - (void)helpUsClick {
-    
+    SKFeedbackViewController *controller = [[SKFeedbackViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end
