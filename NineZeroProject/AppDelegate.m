@@ -20,6 +20,7 @@
 #import "SKIndexViewController.h"
 #import "HTArticleController.h"
 #import "SKLaunchAnimationViewController.h"
+#import "SKLoginRootViewController.h"
 
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <ShareSDK/ShareSDK.h>
@@ -183,7 +184,7 @@
         }
     } else {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
+        SKLoginRootViewController *rootController = [[SKLoginRootViewController alloc] init];
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];

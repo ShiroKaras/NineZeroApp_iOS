@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-#define APP_HOST @"http://112.74.133.183:8082/"
+#define APP_HOST @"http://112.74.133.183:8082"
 
 @interface SKCGIManager : NSObject
 
 + (NSString *)loginBaseCGIKey;
 
 + (NSString *)questionBaseCGIKey;
+
++ (NSString *)profileBaseCGIKey;
 
 @end

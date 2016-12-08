@@ -19,20 +19,17 @@
     NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:dict];
     [mDict setValue:[NSString stringWithFormat:@"%lld",currentTime] forKey:@"time"];
     [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
+    [mDict setValue:@"iOS" forKey:@"client"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSString *aes256String = [jsonString aes256_encrypt:AES_KEY];
     DLog(@"Json ParamString: %@", jsonString);
-    DLog(@"AES Param String: %@", aes256String);
-    DLog(@"DES Param String: %@", [aes256String aes256_decrypt:AES_KEY]);
-    NSDictionary *param = @{@"data" : aes256String};
+    NSDictionary *param = @{@"data" : jsonString};
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager loginBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        NSString *jsonString = [responseObject[@"data"] aes256_decrypt:AES_KEY];
-        DLog(@"AESString:%@",responseObject[@"data"]);
-        DLog(@"Method:%@\n%@",[jsonString dictionaryWithJsonString][@"method"], [jsonString dictionaryWithJsonString]);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:[jsonString dictionaryWithJsonString]];
+        DLog(@"Response:%@",responseObject);
+//        DLog(@"Method:%@\n%@",responseObject[@"data"][@"method"], responseObject[@"data"][@"data"]);
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
         callback(YES, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);

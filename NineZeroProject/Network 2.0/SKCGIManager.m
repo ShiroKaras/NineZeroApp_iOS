@@ -11,11 +11,15 @@
 @implementation SKCGIManager
 
 + (NSString *)loginBaseCGIKey {
-    return [NSString stringWithFormat:@"%@Login/appIndex",APP_HOST];
+    return [NSString stringWithFormat:@"%@/Login/appIndex",APP_HOST];
 }
 
 + (NSString *)questionBaseCGIKey {
-    return [NSString stringWithFormat:@"%@Question/appIndex",APP_HOST];    
+    return [NSString stringWithFormat:@"%@/Question/appIndex",APP_HOST];
+}
+
++ (NSString *)profileBaseCGIKey {
+    return [NSString stringWithFormat:@"%@/User/appIndex",APP_HOST];
 }
 
 @end

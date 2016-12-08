@@ -17,6 +17,16 @@
 //全部关卡（不含极难题）
 - (void)getAllQuestionListCallback:(SKResponseCallback)callback;
 
-//
+//极难题列表
+- (void)getDifficultQuestionListCallback:(SKResponseCallback)callback;
+
+//题目详情
+- (void)getQuestionDetailWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback;
+
+//关卡线索列表
+- (void)getQuestionDetailCluesWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback;
+
+//购买线索
+- (void)purchaseQuestionClueWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback;
 
 @end

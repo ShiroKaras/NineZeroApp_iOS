@@ -19,13 +19,14 @@
     NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:dict];
     [mDict setValue:[NSString stringWithFormat:@"%lld",currentTime] forKey:@"time"];
     [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
+    [mDict setValue:@"iOS" forKey:@"client"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSString *aes256String = [jsonString aes256_encrypt:AES_KEY];
-    NSDictionary *param = @{@"data" : aes256String};
+    NSDictionary *param = @{@"data" : jsonString};
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager questionBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        DLog(@"Response:%@",responseObject);
         NSString *jsonString = [responseObject[@"data"] aes256_decrypt:AES_KEY];
         //        DLog(@"Method:%@\n%@",dict[@"method"], [jsonString dictionaryWithJsonString]);
         SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:[jsonString dictionaryWithJsonString]];
@@ -36,6 +37,7 @@
     }];
 }
 
+//全部关卡
 - (void)getAllQuestionListCallback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"   :   @"getList",
@@ -49,6 +51,59 @@
 
 }
 
+//极难题列表
+- (void)getDifficultQuestionListCallback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method"   :   @"difficultProblem",
+                            @"area_id"  :   @"010",
+                            // TODO
+                            @"user_id"  :   @""
+                            };
+    [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
 
+//题目详情
+- (void)getQuestionDetailWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"detail",
+                            @"area_id"      :   @"010",
+                            // TODO
+                            @"user_id"      :   @"",
+                            @"question_id"  :   questionID
+                            };
+    [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
+//关卡线索列表
+- (void)getQuestionDetailCluesWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"clueList",
+                            @"area_id"      :   @"010",
+                            // TODO
+                            @"user_id"      :   @"",
+                            @"question_id"  :   questionID
+                            };
+    [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
+//购买线索
+- (void)purchaseQuestionClueWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"clueList",
+                            @"area_id"      :   @"010",
+                            // TODO
+                            @"user_id"      :   @"",
+                            @"question_id"  :   questionID
+                            };
+    [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
 
 @end

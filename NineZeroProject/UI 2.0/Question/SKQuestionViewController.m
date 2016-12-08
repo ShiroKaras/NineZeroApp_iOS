@@ -13,7 +13,7 @@
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(200))/4
 
-@interface SKQuestionViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface SKQuestionViewController ()
 
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) BOOL isAnswered;
@@ -156,9 +156,9 @@
     [self.view addSubview:_triangleImageView];
     
     //底部按钮组
-    NSArray *buttonsNameArray = @[@"puzzle", @"key", @"top", @"gift", @"article", @"tools"];
+    NSArray *buttonsNameArray = @[@"puzzle", @"key", @"top", @"gift", @"tools"];
     self.currentIndex = 0;
-    for (int i = 0; i<6; i++) {
+    for (int i = 0; i<5; i++) {
         UIButton *btn = [UIButton new];
         [btn setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_%@", buttonsNameArray[i]]] forState:UIControlStateNormal];
         [btn setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_%@_highlight", buttonsNameArray[i]]] forState:UIControlStateHighlighted];
@@ -166,7 +166,7 @@
         btn.hidden = YES;
         [btn addTarget:self action:@selector(bottomButtonsClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn];
-        if (i<5) {
+        if (i<4) {
             [btn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(ROUND_WIDTH(40));
                 make.height.equalTo(ROUND_WIDTH(40));
@@ -781,10 +781,6 @@
             break;
         }
         case 204: {
-            [self createReportViewWithButton:sender articles:@[@"report1",@"report2"]];
-            break;
-        }
-        case 205: {
             [self createToolsViewWithButton:sender];
             break;
         }
@@ -832,14 +828,12 @@
             [self.view viewWithTag:201].hidden = NO;
             [self.view viewWithTag:202].hidden = NO;
             [self.view viewWithTag:203].hidden = NO;
-            [self.view viewWithTag:204].hidden = NO;
-            [self.view viewWithTag:205].hidden = YES;
+            [self.view viewWithTag:204].hidden = YES;
         } else {
             [self.view viewWithTag:201].hidden = YES;
             [self.view viewWithTag:202].hidden = YES;
             [self.view viewWithTag:203].hidden = YES;
-            [self.view viewWithTag:204].hidden = YES;
-            [self.view viewWithTag:205].hidden = NO;
+            [self.view viewWithTag:204].hidden = NO;
         }
     }
 }

@@ -30,6 +30,7 @@
 		113D74B21DB4B66C00E513B7 /* SKShareRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113D74B11DB4B66C00E513B7 /* SKShareRewardController.m */; };
 		115381051DF7B86A00B50DF2 /* SKMyThingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 115381041DF7B86A00B50DF2 /* SKMyThingsViewController.m */; };
 		1153810B1DF7C51600B50DF2 /* SKFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1153810A1DF7C51600B50DF2 /* SKFeedbackViewController.m */; };
+		115381121DF9390B00B50DF2 /* SKProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 115381111DF9390B00B50DF2 /* SKProfileService.m */; };
 		11644F4D1DDD97CB002E9FDE /* SKRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */; };
 		11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */; };
 		117417EA1D795AC300B5458F /* SKIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417E91D795AC300B5458F /* SKIndexViewController.m */; };
@@ -875,6 +876,8 @@
 		115381041DF7B86A00B50DF2 /* SKMyThingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMyThingsViewController.m; path = "NineZeroProject/UI 2.0/Profile/SKMyThingsViewController.m"; sourceTree = "<group>"; };
 		115381091DF7C51600B50DF2 /* SKFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKFeedbackViewController.h; path = "NineZeroProject/UI 2.0/Profile/SKFeedbackViewController.h"; sourceTree = "<group>"; };
 		1153810A1DF7C51600B50DF2 /* SKFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKFeedbackViewController.m; path = "NineZeroProject/UI 2.0/Profile/SKFeedbackViewController.m"; sourceTree = "<group>"; };
+		115381101DF9390B00B50DF2 /* SKProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKProfileService.h; path = "NineZeroProject/Service 2.0/SKProfileService.h"; sourceTree = "<group>"; };
+		115381111DF9390B00B50DF2 /* SKProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKProfileService.m; path = "NineZeroProject/Service 2.0/SKProfileService.m"; sourceTree = "<group>"; };
 		11644F4B1DDD97CB002E9FDE /* SKRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterViewController.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.h"; sourceTree = "<group>"; };
 		11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRegisterViewController.m; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.m"; sourceTree = "<group>"; };
 		11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterTextField.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterTextField.h"; sourceTree = "<group>"; };
@@ -2065,6 +2068,8 @@
 				11A62ADE1DED7F9200C83F73 /* SKLoginService.m */,
 				11A62AE01DED7FA600C83F73 /* SKQuestionService.h */,
 				11A62AE11DED7FA600C83F73 /* SKQuestionService.m */,
+				115381101DF9390B00B50DF2 /* SKProfileService.h */,
+				115381111DF9390B00B50DF2 /* SKProfileService.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -4719,6 +4724,7 @@
 				11CA0C581CD24E4200C06333 /* easing.c in Sources */,
 				17AA63791C4AC10A0047BADF /* HTMascotDisplayController.m in Sources */,
 				17461D0F1C74C8C900C847E8 /* Reachability.m in Sources */,
+				115381121DF9390B00B50DF2 /* SKProfileService.m in Sources */,
 				11023BE81DE3E12F00B6493F /* SKLoginViewController.m in Sources */,
 				11B8AEED1DF1820B001A3E0F /* AESCrypt.m in Sources */,
 				17AE3B341C987F550082390F /* NSDate+Utility.m in Sources */,
