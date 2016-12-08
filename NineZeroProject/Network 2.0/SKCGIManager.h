@@ -21,4 +21,6 @@
 + (NSString *)propBaseCGIKey;
 
 + (NSString *)mascotBaseCGIKey;
+
++ (NSString *)answerBaseCGIKey;
 @end

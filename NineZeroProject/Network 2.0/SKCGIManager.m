@@ -30,4 +30,8 @@
     return [NSString stringWithFormat:@"%@/Pet/appIndex",APP_HOST];
 }
 
++ (NSString *)answerBaseCGIKey {
+    return [NSString stringWithFormat:@"%@/Answer/appIndex",APP_HOST];
+}
+
 @end
