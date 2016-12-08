@@ -22,4 +22,8 @@
     return [NSString stringWithFormat:@"%@/User/appIndex",APP_HOST];
 }
 
++ (NSString *)propBaseCGIKey {
+    return [NSString stringWithFormat:@"%@/Prop/appIndex",APP_HOST];
+}
+
 @end

@@ -18,4 +18,5 @@
 
 + (NSString *)profileBaseCGIKey;
 
++ (NSString *)propBaseCGIKey;
 @end
