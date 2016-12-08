@@ -12,4 +12,11 @@
 
 @interface SKPropService : NSObject
 
+//购买道具
+- (void)purchasePropWithPurchaseType:(NSString*)purchaseType propType:(NSString*)propType callback:(SKResponseCallback)callback;
+
+//使用道具
+- (void)usePropWithQuestionID:(NSString*)questionID seasonType:(NSString*)type callback:(SKResponseCallback)callback;
+
+
 @end

@@ -32,4 +32,32 @@
     }];
 }
 
+//购买道具
+- (void)purchasePropWithPurchaseType:(NSString*)purchaseType propType:(NSString*)propType callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"buyProp",
+                            // TODO
+                            @"user_id"      :   @"",
+                            @"buy_type"     :   purchaseType,
+                            @"prop_type"    :   propType
+                            };
+    [self propBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
+//使用道具
+- (void)usePropWithQuestionID:(NSString*)questionID seasonType:(NSString*)type callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"buyProp",
+                            // TODO
+                            @"user_id"      :   @"",
+                            @"question_id"  :   questionID,
+                            @"level_type"   :   type
+                            };
+    [self propBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
 @end
