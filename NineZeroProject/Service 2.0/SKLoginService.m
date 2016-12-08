@@ -28,7 +28,6 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager loginBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"Response:%@",responseObject);
-//        DLog(@"Method:%@\n%@",responseObject[@"data"][@"method"], responseObject[@"data"][@"data"]);
         SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
         callback(YES, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {

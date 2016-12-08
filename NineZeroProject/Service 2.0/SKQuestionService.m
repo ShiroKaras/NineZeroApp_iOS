@@ -29,7 +29,7 @@
         DLog(@"Response:%@",responseObject);
         NSString *jsonString = [responseObject[@"data"] aes256_decrypt:AES_KEY];
         //        DLog(@"Method:%@\n%@",dict[@"method"], [jsonString dictionaryWithJsonString]);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:[jsonString dictionaryWithJsonString]];
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
         callback(YES, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);

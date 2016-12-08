@@ -17,6 +17,8 @@
     [mDict setValue:[NSString stringWithFormat:@"%lld",currentTime] forKey:@"time"];
     [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
     [mDict setValue:@"iOS" forKey:@"client"];
+    // TODO
+    [mDict setValue:@"" forKey:@"user_id"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -24,7 +26,7 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager profileBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"Response:%@",responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:[jsonString dictionaryWithJsonString]];
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
         callback(YES, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
@@ -35,9 +37,7 @@
 //获取个人信息
 - (void)getUserInfoDetailCallback:(SKResponseCallback)callback {
     NSDictionary *param = @{
-                            @"method"       :   @"detail",
-                            // TODO
-                            @"user_id"      :   @""
+                            @"method"       :   @"detail"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
@@ -47,9 +47,7 @@
 //获取礼券列表
 - (void)getUserTicketsCallbackCallback:(SKResponseCallback)callback {
     NSDictionary *param = @{
-                            @"method"       :   @"getUserTickets",
-                            // TODO
-                            @"user_id"      :   @""
+                            @"method"       :   @"getUserTickets"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
@@ -59,9 +57,7 @@
 //获取个人排名
 - (void)getUserRankCallback:(SKResponseCallback)callback {
     NSDictionary *param = @{
-                            @"method"       :   @"getRank",
-                            // TODO
-                            @"user_id"      :   @""
+                            @"method"       :   @"getRank"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
@@ -71,9 +67,7 @@
 //获取个人通知列表
 - (void)getUserNotificationCallback:(SKResponseCallback)callback {
     NSDictionary *param = @{
-                            @"method"       :   @"getNotice",
-                            // TODO
-                            @"user_id"      :   @""
+                            @"method"       :   @"getNotice"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
@@ -83,9 +77,7 @@
 //获取基本信息
 - (void)getUserBaseInfoCallback:(SKResponseCallback)callback {
     NSDictionary *param = @{
-                            @"method"       :   @"getBaseInfo",
-                            // TODO
-                            @"user_id"      :   @""
+                            @"method"       :   @"getBaseInfo"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
@@ -95,9 +87,7 @@
 //获取所有排名
 - (void)getAllRankListCallback:(SKResponseCallback)callback {
     NSDictionary *param = @{
-                            @"method"       :   @"getAllRank",
-                            // TODO
-                            @"user_id"      :   @""
+                            @"method"       :   @"getAllRank"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
@@ -108,8 +98,6 @@
 - (void)updateSettingWith:(SKUserSetting*)userSetting callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"updateSetting",
-                            // TODO
-                            @"user_id"      :   @"",
                             @"address"      :   userSetting.address,
                             @"mobile"       :   userSetting.mobile,
                             @"push_setting" :   [NSString stringWithFormat:@"%d", userSetting.push_setting]
@@ -123,8 +111,6 @@
 - (void)updateUserInfoWith:(SKLoginUser*)userInfo callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"updateName",
-                            // TODO
-                            @"user_id"      :   @"",
                             @"user_name"    :   userInfo.user_name,
                             @"user_avatar"  :   userInfo.user_avatar
                             };
@@ -137,8 +123,6 @@
 - (void)feedbackWithContent:(NSString *)content contact:(NSString *)contact completion:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"updateSetting",
-                            // TODO
-                            @"user_id"      :   @"",
                             @"content"      :   content,
                             @"contact"      :   contact
                             };

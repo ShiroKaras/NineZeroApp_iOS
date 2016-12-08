@@ -17,6 +17,8 @@
     [mDict setValue:[NSString stringWithFormat:@"%lld",currentTime] forKey:@"time"];
     [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
     [mDict setValue:@"iOS" forKey:@"client"];
+    // TODO
+    [mDict setValue:@"" forKey:@"user_id"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -24,7 +26,7 @@
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager propBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"Response:%@",responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:[jsonString dictionaryWithJsonString]];
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
         callback(YES, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
@@ -36,8 +38,6 @@
 - (void)purchasePropWithPurchaseType:(NSString*)purchaseType propType:(NSString*)propType callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"buyProp",
-                            // TODO
-                            @"user_id"      :   @"",
                             @"buy_type"     :   purchaseType,
                             @"prop_type"    :   propType
                             };
@@ -49,9 +49,7 @@
 //使用道具
 - (void)usePropWithQuestionID:(NSString*)questionID seasonType:(NSString*)type callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
-                            @"method"       :   @"buyProp",
-                            // TODO
-                            @"user_id"      :   @"",
+                            @"method"       :   @"useProp",
                             @"question_id"  :   questionID,
                             @"level_type"   :   type
                             };

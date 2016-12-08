@@ -26,4 +26,8 @@
     return [NSString stringWithFormat:@"%@/Prop/appIndex",APP_HOST];
 }
 
++ (NSString *)mascotBaseCGIKey {
+    return [NSString stringWithFormat:@"%@/Pet/appIndex",APP_HOST];
+}
+
 @end

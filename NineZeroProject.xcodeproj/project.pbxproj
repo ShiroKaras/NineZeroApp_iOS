@@ -32,6 +32,7 @@
 		1153810B1DF7C51600B50DF2 /* SKFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1153810A1DF7C51600B50DF2 /* SKFeedbackViewController.m */; };
 		115381121DF9390B00B50DF2 /* SKProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 115381111DF9390B00B50DF2 /* SKProfileService.m */; };
 		115381151DF9467B00B50DF2 /* SKPropService.m in Sources */ = {isa = PBXBuildFile; fileRef = 115381141DF9467B00B50DF2 /* SKPropService.m */; };
+		1153811B1DF9512C00B50DF2 /* SKMascotService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1153811A1DF9512C00B50DF2 /* SKMascotService.m */; };
 		11644F4D1DDD97CB002E9FDE /* SKRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */; };
 		11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */; };
 		117417EA1D795AC300B5458F /* SKIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417E91D795AC300B5458F /* SKIndexViewController.m */; };
@@ -881,6 +882,8 @@
 		115381111DF9390B00B50DF2 /* SKProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKProfileService.m; path = "NineZeroProject/Service 2.0/SKProfileService.m"; sourceTree = "<group>"; };
 		115381131DF9467B00B50DF2 /* SKPropService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKPropService.h; path = "NineZeroProject/Service 2.0/SKPropService.h"; sourceTree = "<group>"; };
 		115381141DF9467B00B50DF2 /* SKPropService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKPropService.m; path = "NineZeroProject/Service 2.0/SKPropService.m"; sourceTree = "<group>"; };
+		115381191DF9512C00B50DF2 /* SKMascotService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMascotService.h; path = "NineZeroProject/Service 2.0/SKMascotService.h"; sourceTree = "<group>"; };
+		1153811A1DF9512C00B50DF2 /* SKMascotService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMascotService.m; path = "NineZeroProject/Service 2.0/SKMascotService.m"; sourceTree = "<group>"; };
 		11644F4B1DDD97CB002E9FDE /* SKRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterViewController.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.h"; sourceTree = "<group>"; };
 		11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRegisterViewController.m; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.m"; sourceTree = "<group>"; };
 		11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterTextField.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterTextField.h"; sourceTree = "<group>"; };
@@ -2075,6 +2078,8 @@
 				115381111DF9390B00B50DF2 /* SKProfileService.m */,
 				115381131DF9467B00B50DF2 /* SKPropService.h */,
 				115381141DF9467B00B50DF2 /* SKPropService.m */,
+				115381191DF9512C00B50DF2 /* SKMascotService.h */,
+				1153811A1DF9512C00B50DF2 /* SKMascotService.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -4782,6 +4787,7 @@
 				17FA11361C835BE000FA9102 /* HTNotificationController.m in Sources */,
 				11A62AE21DED7FA600C83F73 /* SKQuestionService.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,
+				1153811B1DF9512C00B50DF2 /* SKMascotService.m in Sources */,
 				1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

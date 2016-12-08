@@ -19,4 +19,6 @@
 + (NSString *)profileBaseCGIKey;
 
 + (NSString *)propBaseCGIKey;
+
++ (NSString *)mascotBaseCGIKey;
 @end
