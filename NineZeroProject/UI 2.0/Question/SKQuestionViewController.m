@@ -19,6 +19,7 @@
 @property (nonatomic, assign) BOOL isAnswered;
 
 @property (nonatomic, strong) UIView *dimmingView;
+@property (nonatomic, strong) UIView *dimmingView2;
 
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIImageView *triangleImageView;
@@ -31,6 +32,8 @@
 @property (nonatomic, strong) AVPlayerItem *playerItem;
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
+
+@property (nonatomic, strong) SKReward *questionReward;
 @end
 
 @implementation SKQuestionViewController
@@ -78,6 +81,10 @@
     
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
     _dimmingView.backgroundColor = [UIColor clearColor];
+    
+    _dimmingView2 = [[UIView alloc] initWithFrame:self.view.bounds];
+    _dimmingView2.alpha = 0.9;
+    _dimmingView2.backgroundColor = [UIColor blackColor];
     
     UIImageView *playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
     playBackView.layer.masksToBounds = YES;
@@ -522,6 +529,7 @@
     [self.view addSubview:_dimmingView];
     _dimmingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom);
     
+    //rewardBackView
     UIView *rewardBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, _contentView.bottom-10)];
     rewardBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     rewardBackView.layer.cornerRadius = 5;
@@ -542,6 +550,22 @@
         else            make.top.equalTo(@86);
     }];
     
+    [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
+    
+    //Ticket
+    if (isTicket) {
+        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero];
+        [rewardBaseInfoView addSubview:card];
+        [card mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@280);
+            make.height.equalTo(@108);
+            make.centerX.equalTo(rewardBaseInfoView);
+            make.bottom.equalTo(rewardBackView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
+        }];
+    }
+}
+
+- (void)createRewardBaseInfoWithBaseInfoView:(UIView*)rewardBaseInfoView {
     UIImageView *rewardImageView_mascot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_mascot"]];
     [rewardBaseInfoView addSubview:rewardImageView_mascot];
     [rewardImageView_mascot mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -669,67 +693,65 @@
         make.left.equalTo(diamondCountLabel.mas_right).offset(6);
         make.centerY.equalTo(diamondCountLabel);
     }];
+}
+
+- (void)showRewardViewWithReward:(SKReward*)reward {
+    BOOL isTicket = YES;
     
-    //Ticket
+    [self.view addSubview:_dimmingView2];
+    _dimmingView2.backgroundColor = [UIColor blackColor];
+    _dimmingView2.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    _dimmingView2.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        _dimmingView2.alpha = 0.9;
+    }];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView2)];
+    tap.numberOfTapsRequired = 1;
+    [_dimmingView2 addGestureRecognizer:tap];
+    
+    UIView *rewardBaseInfoView = [UIView new];
+    rewardBaseInfoView.backgroundColor = [UIColor clearColor];
+    [_dimmingView2 addSubview:rewardBaseInfoView];
+    
+    UILabel *bottomLabel = [UILabel new];
+    bottomLabel.text = @"点击任意区域关闭";
+    bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+    bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+    [bottomLabel sizeToFit];
+    [_dimmingView2 addSubview:bottomLabel];
+    [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_dimmingView2);
+        make.bottom.equalTo(_dimmingView2).offset(-16);
+    }];
+    
     if (isTicket) {
+        [rewardBaseInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@248);
+            make.height.equalTo(@294);
+            make.centerX.equalTo(_dimmingView2);
+            make.top.equalTo(@54);
+        }];
+        
+        [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
+        
         SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero];
         [rewardBaseInfoView addSubview:card];
         [card mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@280);
             make.height.equalTo(@108);
             make.centerX.equalTo(rewardBaseInfoView);
-            make.bottom.equalTo(rewardBackView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
+            make.bottom.equalTo(_dimmingView2.mas_bottom).offset(-(_dimmingView2.height-320-108)/2);
         }];
-    }
-}
-
-#pragma mark - Report View 
-
-- (void)createReportViewWithButton:(UIButton*)button articles:(NSArray *)articlesArray {
-    [self.view addSubview:_dimmingView];
-    _dimmingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom);
-    
-    UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
-    alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
-    alphaView.alpha = 0.6;
-    [_dimmingView addSubview:alphaView];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
-    tap.numberOfTapsRequired = 1;
-    [_dimmingView addGestureRecognizer:tap];
-    
-    UIImageView *reportImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_article_highlight"]];
-    [_dimmingView addSubview:reportImageView];
-    reportImageView.frame = button.frame;
-    
-    [self.view bringSubviewToFront:_triangleImageView];
-    
-    UIView *reportBackView = [[UIView alloc] initWithFrame:CGRectMake(10, _contentView.bottom-(10+120*articlesArray.count), SCREEN_WIDTH-20, 10+120*articlesArray.count)];
-    reportBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
-    reportBackView.layer.cornerRadius = 5;
-    [_dimmingView addSubview:reportBackView];
-    
-    for (int i = 0; i<articlesArray.count; i++) {
-        UIImageView *articleCover = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
-        articleCover.backgroundColor = [UIColor redColor];
-        [reportBackView addSubview:articleCover];
-        [articleCover mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@(10+120*i));
-            make.left.equalTo(@10);
-            make.right.equalTo(reportBackView.mas_right).offset(-10);
-            make.height.equalTo(@110);
+    } else {
+        [rewardBaseInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@248);
+            make.height.equalTo(@294);
+            make.centerX.equalTo(_dimmingView2);
+            make.centerY.equalTo(_dimmingView2);
         }];
         
-        UILabel *articleTitleLabel = [UILabel new];
-        articleTitleLabel.textColor = [UIColor whiteColor];
-        articleTitleLabel.text = @"#TestTestTestTestTest";
-        articleTitleLabel.font = PINGFANG_FONT_OF_SIZE(12);
-        [reportBackView addSubview:articleTitleLabel];
-        [articleTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(articleCover);
-            make.bottom.equalTo(articleCover.mas_bottom).offset(-4);
-            make.width.equalTo(articleCover);
-        }];
+        [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
     }
 }
 
@@ -797,6 +819,13 @@
     self.currentIndex = 0;
 }
 
+- (void)removeDimmingView2 {
+    for (UIView *view in _dimmingView2.subviews) {
+        [view removeFromSuperview];
+    }
+    [_dimmingView2 removeFromSuperview];
+}
+
 - (void)hintButtonClick:(UIButton *)sender {
     [self removeDimmingView];
     [self createHintView];
@@ -805,6 +834,7 @@
 - (void)answerButtonClick:(UIButton *)sender {
     self.isAnswered = YES;
     self.answerButton.hidden = self.isAnswered;
+    [self showRewardViewWithReward:nil];
 }
 
 #pragma mark - Notification

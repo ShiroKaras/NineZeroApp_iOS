@@ -37,3 +37,8 @@
 @property (nonatomic, assign)   int         push_setting;   // 推送开关
 
 @end
+
+//用户奖励
+@interface SKReward : NSObject
+
+@end
