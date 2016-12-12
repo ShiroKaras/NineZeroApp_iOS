@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class SKLoginUser;
+
 typedef enum : NSUInteger {
     SKVerifyTypeRegister,
     SKVerifyTypeResetPassword
@@ -15,6 +17,6 @@ typedef enum : NSUInteger {
 
 @interface SKVerifyViewController : UIViewController
 
-- (instancetype)initWithType:(SKVerifyType)type;
+- (instancetype)initWithType:(SKVerifyType)type userLoginInfo:(SKLoginUser*)loginUser;
 
 @end

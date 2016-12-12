@@ -7,6 +7,8 @@
 //
 
 #import "SKLoginService.h"
+#import "SKStorageManager.h"
+#import "SKModel.h"
 
 #import "NSString+AES256.h"
 #define AES_KEY @"a!dg#8ai@o43ht9s"
@@ -29,33 +31,42 @@
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager loginBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"Response:%@",responseObject);
         SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
-        callback(YES, package);
+        if (package.result == 0) {
+            callback(YES, package);
+        } else
+            NSLog(@"%ld", (long)package.result);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);
     }];
 }
 
-- (void)registerWithUsername:(NSString *)username password:(NSString *)password mobile:(NSString *)mobile vCode:(NSString *)vCode callback:(SKResponseCallback)callback{
+- (void)registerWith:(SKLoginUser *)user callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"register",
-                            @"user_name"    :   username,
-                            @"user_password":   password,
-                            @"user_mobile"  :   mobile,
-                            @"vcode"        :   vCode
+                            @"user_name"    :   user.user_name,
+                            @"user_password":   user.user_password,
+                            @"user_mobile"  :   user.user_mobile,
+                            @"vcode"        :   user.code
                             };
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSDictionary *dataDict = response.data;
+        [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
+        [[SKStorageManager sharedInstance] updateLoginUser:user];
         callback(success, response);
     }];
 }
 
-- (void)loginWithMobile:(NSString *)mobile password:(NSString *)password callback:(SKResponseCallback)callback {
+- (void)loginWith:(SKLoginUser *)user callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"login",
-                            @"user_password":   password,
-                            @"user_mobile"  :   mobile,
+                            @"user_password":   user.user_password,
+                            @"user_mobile"  :   user.user_mobile,
                             };
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSDictionary *dataDict = response.data;
+        [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
+        [[SKStorageManager sharedInstance] updateLoginUser:user];
         callback(success, response);
     }];
 }
@@ -103,6 +114,10 @@
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
     }];
+}
+
+- (SKLoginUser *)loginUser {
+    return [[SKStorageManager sharedInstance] getLoginUser];
 }
 
 @end

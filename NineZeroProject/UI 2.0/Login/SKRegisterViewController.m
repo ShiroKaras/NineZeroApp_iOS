@@ -21,6 +21,8 @@
 @property (nonatomic, assign) BOOL nextButtonIsShow;
 @property (nonatomic, assign) CGRect keyboardRect;
 
+@property (nonatomic, strong) SKLoginUser *loginUser;
+
 @end
 
 @implementation SKRegisterViewController
@@ -120,8 +122,15 @@
 }
 
 - (void)nextButtonClick:(UIButton *)sender {
-    SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeRegister];
+    self.loginUser = [SKLoginUser new];
+    self.loginUser.user_mobile  = _phoneTextField.textField.text;
+    self.loginUser.user_name    = _usernameTextField.textField.text;
+    self.loginUser.user_password = _passwordTextField.textField.text;
+    
+    SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeRegister userLoginInfo:self.loginUser];
     [self.navigationController pushViewController:controller animated:YES];
+    
+    [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:self.loginUser.user_mobile callback:^(BOOL success, SKResponsePackage *response) { }];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -135,13 +144,13 @@
             _usernameTextField.alpha = 1;
         }];
     }
-    if (_usernameTextField.textField.text.length >= 3) {
+    if (_usernameTextField.textField.text.length >= 2) {
         [UIView animateWithDuration:0.3 animations:^{
             _passwordTextField.alpha = 1;
         }];
     }
     
-    if (_phoneTextField.textField.text.length==11 && _usernameTextField.textField.text.length>3 && _passwordTextField.textField.text.length>6) {
+    if (_phoneTextField.textField.text.length==11 && _usernameTextField.textField.text.length>=2 && _passwordTextField.textField.text.length>=6) {
         self.nextButtonIsShow = YES;
         _nextButton.frame = CGRectMake(0, self.view.height - self.keyboardRect.size.height-50, self.view.width, 50);
     } else {

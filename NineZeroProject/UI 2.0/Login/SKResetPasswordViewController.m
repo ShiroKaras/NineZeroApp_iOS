@@ -17,6 +17,8 @@
 @property (nonatomic, strong) SKRegisterTextField *phoneTextField;
 @property (nonatomic, strong) UIButton *nextButton;
 
+@property (nonatomic, strong) SKLoginUser *loginUser;
+
 @end
 
 @implementation SKResetPasswordViewController
@@ -92,7 +94,9 @@
 }
 
 - (void)nextButtonClick:(UIButton *)sender {
-    SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeResetPassword];
+    self.loginUser.user_mobile = _phoneTextField.textField.text;
+    
+    SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeResetPassword userLoginInfo:self.loginUser];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

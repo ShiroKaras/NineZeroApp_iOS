@@ -17,15 +17,18 @@
 @property (nonatomic, strong) UIButton *resendVerifyCodeButton;
 @property (nonatomic, assign) SKVerifyType type;
 
+@property (nonatomic, strong) SKLoginUser *loginUser;
+
 @end
 
 @implementation SKVerifyViewController
 
-- (instancetype)initWithType:(SKVerifyType)type
+- (instancetype)initWithType:(SKVerifyType)type userLoginInfo:(SKLoginUser *)loginUser
 {
     self = [super init];
     if (self) {
         _type = type;
+        self.loginUser = loginUser;
         [self createUIWithType:type];
     }
     return self;
@@ -153,8 +156,10 @@
     }
     
     _resendVerifyCodeButton = [UIButton new];
+    [_resendVerifyCodeButton addTarget:self action:@selector(resendVerifyCodeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _resendVerifyCodeButton.backgroundColor = [UIColor clearColor];
     [_resendVerifyCodeButton setTitle:@"接收短信出问题了？重新发送验证码" forState:UIControlStateNormal];
+    _resendVerifyCodeButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
     _resendVerifyCodeButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
     [self.view addSubview:_resendVerifyCodeButton];
     
@@ -168,6 +173,12 @@
 
 - (void)closeButtonClick:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)resendVerifyCodeButtonClick:(UIButton*)sender {
+    [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:self.loginUser.user_mobile callback:^(BOOL success, SKResponsePackage *response) {
+        
+    }];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -186,10 +197,24 @@
         ((UILabel*)[self.view viewWithTag:103]).text = @"";
     } else if (_verifyCodeTextField.text.length == 4) {
         ((UILabel*)[self.view viewWithTag:103]).text = [_verifyCodeTextField.text substringWithRange:NSMakeRange(3, 1)];
-        if (_type == SKVerifyTypeResetPassword) {
+        
+        self.loginUser.code = _verifyCodeTextField.text;
+        if (_type == SKVerifyTypeRegister) {
+            //注册
+            [[[SKServiceManager sharedInstance] loginService] registerWith:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
+                SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
+                //                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+                AppDelegateInstance.mainController = controller;
+                HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
+                AppDelegateInstance.window.rootViewController = navController;
+                [AppDelegateInstance.window makeKeyAndVisible];
+            }];
+        } else if (_type == SKVerifyTypeResetPassword) {
+            //找回密码
             SKConfirmPasswordViewController *controller = [[SKConfirmPasswordViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
+        
     } else {
         NSString *string = [_verifyCodeTextField.text substringWithRange:NSMakeRange(0, 4)];
         _verifyCodeTextField.text = string;

@@ -25,6 +25,23 @@
     return manager;
 }
 
+#pragma mark - LoginUser
+
+- (void)updateLoginUser:(SKLoginUser *)loginUser {
+    [_storageService putObject:[loginUser keyValues] withId:kStorageLoginUserKey intoTable:kStorageTableKey];
+}
+
+- (SKLoginUser *)getLoginUser {
+    SKLoginUser *user = (SKLoginUser *)[SKLoginUser objectWithKeyValues:[_storageService getObjectById:kStorageLoginUserKey fromTable:kStorageTableKey]];
+    return user;
+}
+
+- (void)clearLoginUser {
+    [_storageService deleteObjectById:kStorageLoginUserKey fromTable:kStorageTableKey];
+}
+
+#pragma mark - User ID
+
 - (void)updateUserID:(NSString *)userID {
     [_storageService putString:userID withId:kStorageUserIdKey intoTable:kStorageTableKey];
 }

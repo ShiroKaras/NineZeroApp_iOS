@@ -169,7 +169,7 @@
 }
 
 - (void)createWindowAndVisibleWithOptions:(NSDictionary*)launchOptions {
-    if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
+    if ([[[SKServiceManager sharedInstance] loginService] loginUser] != nil) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _mainController = [[SKHomepageViewController alloc] init];
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:_mainController];

@@ -14,10 +14,10 @@
 - (void)loginBaseRequestWithParam:(NSDictionary*)dict callback:(SKResponseCallback)callback;
 
 //注册
-- (void)registerWithUsername:(NSString *)username password:(NSString *)password mobile:(NSString *)mobile vCode:(NSString *)vCode callback:(SKResponseCallback)callback;
+- (void)registerWith:(SKLoginUser *)user callback:(SKResponseCallback)callback;
 
 //登录
-- (void)loginWithMobile:(NSString *)mobile password:(NSString *)password callback:(SKResponseCallback)callback;
+- (void)loginWith:(SKLoginUser *)user callback:(SKResponseCallback)callback;
 
 //第三方登录
 - (void)loginWithThirdPlatform:(NSString *)third_id username:(NSString *)username avatarURL:(NSString *)avatarURL areaID:(NSString *)areaID callback:(SKResponseCallback)callback;
@@ -30,5 +30,8 @@
 
 //验证手机是否注册
 - (void)checkMobileRegisterStatus:(NSString *)mobile callback:(SKResponseCallback)callback;
+
+
+- (SKLoginUser *)loginUser;
 
 @end

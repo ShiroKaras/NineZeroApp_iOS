@@ -28,14 +28,6 @@
 }
 
 - (void)testLoadData {
-//    [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:@"18612484575" callback:^(BOOL success, SKResponsePackage *response) {
-//        
-//    }];
-    
-    [[[SKServiceManager sharedInstance] loginService] registerWithUsername:@"白鸦" password:@"qqqqqq" mobile:@"18612484575" vCode:@"7183" callback:^(BOOL success, SKResponsePackage *response) {
-        
-    }];
-    
 //    [[[SKServiceManager sharedInstance] loginService] loginWithMobile:@"18612484575" password:@"qqqqqq" callback:^(BOOL success, SKResponsePackage *response) {
 //        
 //    }];

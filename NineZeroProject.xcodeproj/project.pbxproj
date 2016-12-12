@@ -2312,8 +2312,6 @@
 				11FF643C1DDD5C3500768080 /* SKLoginRootViewController.m */,
 				11644F4B1DDD97CB002E9FDE /* SKRegisterViewController.h */,
 				11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */,
-				11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */,
-				11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */,
 				11023BE31DDEF89C00B6493F /* SKVerifyViewController.h */,
 				11023BE41DDEF89C00B6493F /* SKVerifyViewController.m */,
 				11023BE61DE3E12F00B6493F /* SKLoginViewController.h */,
@@ -2322,6 +2320,8 @@
 				11023BEA1DE3E66800B6493F /* SKResetPasswordViewController.m */,
 				11023BEC1DE3FC3100B6493F /* SKConfirmPasswordViewController.h */,
 				11023BED1DE3FC3100B6493F /* SKConfirmPasswordViewController.m */,
+				11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */,
+				11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";

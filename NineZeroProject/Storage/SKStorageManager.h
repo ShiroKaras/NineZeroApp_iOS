@@ -8,9 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@class SKLoginUser;
+
 @interface SKStorageManager : NSObject
 
 + (instancetype)sharedInstance;
+
+// LoginUser
+- (void)updateLoginUser:(SKLoginUser *)loginUser;
+- (SKLoginUser *)getLoginUser;
+- (void)clearLoginUser;
 
 // user_id
 - (void)updateUserID:(NSString *)userID;
