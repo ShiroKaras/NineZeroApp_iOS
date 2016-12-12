@@ -19,7 +19,6 @@
 @property (nonatomic, assign) BOOL isAnswered;
 
 @property (nonatomic, strong) UIView *dimmingView;
-@property (nonatomic, strong) UIView *dimmingView2;
 
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIImageView *triangleImageView;
@@ -40,6 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.season = 1;
     [self createUI];
     
     [self addObserver:self forKeyPath:@"currentIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
@@ -79,12 +79,9 @@
         make.right.equalTo(weakSelf.view.mas_right).offset(-4);
     }];
     
-    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
-    _dimmingView.backgroundColor = [UIColor clearColor];
-    
-    _dimmingView2 = [[UIView alloc] initWithFrame:self.view.bounds];
-    _dimmingView2.alpha = 0.9;
-    _dimmingView2.backgroundColor = [UIColor blackColor];
+//    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+//    _dimmingView = [UIView new];
+//    _dimmingView.backgroundColor = [UIColor clearColor];
     
     UIImageView *playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
     playBackView.layer.masksToBounds = YES;
@@ -229,8 +226,9 @@
 #pragma mark - Tools View
 
 - (void)createToolsViewWithButton:(UIButton *)button {
+    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
-    _dimmingView.frame = self.view.bounds;
     
     UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
     alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
@@ -269,7 +267,7 @@
     }];
     
     UIButton *toolAnswerButton = [UIButton new];
-    [toolAnswerButton addTarget:self action:@selector(hintButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [toolAnswerButton addTarget:self action:@selector(answerPropButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [toolAnswerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_solution"] forState:UIControlStateNormal];
     [toolAnswerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_solution_highlight"] forState:UIControlStateHighlighted];
     [toolBackView addSubview:toolAnswerButton];
@@ -280,12 +278,64 @@
 }
 
 - (void)createHintView {
+    int hintPropCount = 0;
+    
+    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
+    tap.numberOfTapsRequired = 1;
+    [_dimmingView addGestureRecognizer:tap];
     
     UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
     alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
-    alphaView.alpha = 0.6;
+    alphaView.alpha = 0.9;
     [_dimmingView addSubview:alphaView];
+    
+    UIView *rightCornerBackView = [UIView new];
+    rightCornerBackView.layer.cornerRadius = 15;
+    rightCornerBackView.layer.masksToBounds = YES;
+    rightCornerBackView.backgroundColor = [UIColor blackColor];
+    [_dimmingView addSubview:rightCornerBackView];
+    [rightCornerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@(97+15));
+        make.height.equalTo(@30);
+        make.right.equalTo(_dimmingView).offset(15);
+        make.top.equalTo(@13);
+    }];
+    
+    UIButton *addButton = [UIButton new];
+    if (hintPropCount==0) {
+        [addButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_clue_add"] forState:UIControlStateNormal];
+    } else {
+        [addButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_clue_season%lu",(unsigned long)_season]] forState:UIControlStateNormal];
+    }
+    [rightCornerBackView addSubview:addButton];
+    [addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(25, 25));
+        make.left.equalTo(rightCornerBackView).offset(2.5);
+        make.centerY.equalTo(rightCornerBackView);
+    }];
+    
+    UIImageView *textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_solution_text"]];
+    [textImageView sizeToFit];
+    [rightCornerBackView addSubview:textImageView];
+    [textImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(addButton.mas_right).offset(6);
+        make.centerY.equalTo(addButton);
+    }];
+    
+    UILabel *propCountLabel = [UILabel new];
+    propCountLabel.text = [NSString stringWithFormat:@"%d",hintPropCount];
+    propCountLabel.textColor = [UIColor whiteColor];
+    propCountLabel.font = MOON_FONT_OF_SIZE(18);
+    [propCountLabel sizeToFit];
+    [rightCornerBackView addSubview:propCountLabel];
+    [propCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(textImageView.mas_right).offset(4);
+        make.centerY.equalTo(textImageView);
+    }];
     
     for (int i = 0; i<3; i++) {
         UIImageView *hintBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_cluebg"]];
@@ -296,14 +346,215 @@
             make.top.equalTo(@(ROUND_HEIGHT_FLOAT(132) + (75+ROUND_HEIGHT_FLOAT(70))*i));
             make.centerX.equalTo(_dimmingView);
         }];
+        
+        UIButton *hintButton = [UIButton new];
+        [hintButton addTarget:self action:@selector(getHintButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [hintButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_season%lu",(unsigned long)_season]] forState:UIControlStateNormal];
+        [_dimmingView addSubview:hintButton];
+        [hintButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.equalTo(hintBackgroundView);
+            make.center.equalTo(hintBackgroundView);
+        }];
     }
+}
+
+- (void)showAnswerPropAlertView {
+    int propCount = 0;
+
+    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _dimmingView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_dimmingView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
+    tap.numberOfTapsRequired = 1;
+    [_dimmingView addGestureRecognizer:tap];
+    
+    UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
+    alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    alphaView.alpha = 0.9;
+    [_dimmingView addSubview:alphaView];
+    
+    UIView *alertBackView = [UIView new];
+    alertBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    [_dimmingView addSubview:alertBackView];
+    [alertBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@270);
+        make.height.equalTo(@146);
+        make.center.equalTo(_dimmingView);
+    }];
+    
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = @"确定要使用答案道具通过本关吗？";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = PINGFANG_FONT_OF_SIZE(14);
+    [titleLabel sizeToFit];
+    [alertBackView addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(alertBackView);
+        make.top.equalTo(alertBackView).offset(17);
+    }];
+    
+    UIImageView *iconImageview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_solution_season1"]];
+    [iconImageview sizeToFit];
+    [alertBackView addSubview:iconImageview];
+    [iconImageview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(titleLabel.mas_bottom).offset(17);
+        make.centerX.equalTo(alertBackView).offset(-29);
+    }];
+    
+    UIImageView *textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_solution_text"]];
+    [textImageView sizeToFit];
+    [alertBackView addSubview:textImageView];
+    [textImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(iconImageview.mas_right).offset(4);
+        make.centerY.equalTo(iconImageview);
+    }];
+    
+    UILabel *propCountLabel = [UILabel new];
+    propCountLabel.text = [NSString stringWithFormat:@"%d",propCount];
+    propCountLabel.textColor = [UIColor whiteColor];
+    propCountLabel.font = MOON_FONT_OF_SIZE(18);
+    [propCountLabel sizeToFit];
+    [alertBackView addSubview:propCountLabel];
+    [propCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(textImageView.mas_right).offset(4);
+        make.centerY.equalTo(textImageView);
+    }];
+    
+    //取消按钮
+    UIButton *cancelButton = [UIButton new];
+    [cancelButton addTarget:self action:@selector(cancelButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
+    [cancelButton addTarget:self action:@selector(cancelButtonOnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton addTarget:self action:@selector(cancelButtonTouchExit:) forControlEvents:UIControlEventTouchDragExit];
+    cancelButton.backgroundColor = alertBackView.backgroundColor;
+    cancelButton.layer.cornerRadius = 3;
+    cancelButton.layer.borderWidth = 1;
+    cancelButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    cancelButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(14);
+    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    if (_season == 1)   [cancelButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateHighlighted];
+    else if (_season == 2)  [cancelButton setTitleColor:COMMON_PINK_COLOR forState:UIControlStateHighlighted];
+    [alertBackView addSubview:cancelButton];
+    [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(120, 42));
+        make.left.equalTo(alertBackView).offset(10);
+        make.bottom.equalTo(alertBackView).offset(-10);
+    }];
+ 
+    if (propCount>0) {
+        //使用道具
+        UIButton *usePropButton = [UIButton new];
+        [usePropButton addTarget:self action:@selector(usePropButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
+        [usePropButton addTarget:self action:@selector(usePropButtonOnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [usePropButton addTarget:self action:@selector(usePropButtonTouchExit:) forControlEvents:UIControlEventTouchDragExit];
+        usePropButton.layer.cornerRadius = 3;
+        usePropButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(14);
+        [usePropButton setTitle:@"使用道具" forState:UIControlStateNormal];
+        [usePropButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [usePropButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        if (_season == 1)       usePropButton.backgroundColor = COMMON_GREEN_COLOR;
+        else if (_season == 2)  usePropButton.backgroundColor = COMMON_PINK_COLOR;
+        [alertBackView addSubview:usePropButton];
+        [usePropButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(120, 42));
+            make.right.equalTo(alertBackView).offset(-10);
+            make.bottom.equalTo(alertBackView).offset(-10);
+        }];
+    } else {
+        //购买道具
+        UIButton *purchPropButton = [UIButton new];
+        [purchPropButton addTarget:self action:@selector(purchasePropButtonOnClickPropButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
+        [purchPropButton addTarget:self action:@selector(purchasePropButtonOnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [purchPropButton addTarget:self action:@selector(purchasePropButtonOnClickPropButtonTouchExit:) forControlEvents:UIControlEventTouchDragExit];
+        purchPropButton.layer.cornerRadius = 3;
+        purchPropButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(14);
+        [purchPropButton setTitle:@"去购买" forState:UIControlStateNormal];
+        [purchPropButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [purchPropButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        purchPropButton.backgroundColor = [UIColor colorWithHex:0xed203b];
+        [alertBackView addSubview:purchPropButton];
+        [purchPropButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(120, 42));
+            make.right.equalTo(alertBackView).offset(-10);
+            make.bottom.equalTo(alertBackView).offset(-10);
+        }];
+    }
+    
+}
+
+//取消
+- (void)cancelButtonOnClick:(UIButton*)sender {
+    [self removeDimmingView];
+}
+
+- (void)cancelButtonTouchDown:(UIButton*)sender {
+    switch (_season) {
+        case 1:
+            sender.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
+            break;
+        case 2:
+            sender.layer.borderColor = COMMON_PINK_COLOR.CGColor;
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)cancelButtonTouchExit:(UIButton*)sender {
+    sender.layer.borderColor = [UIColor whiteColor].CGColor;
+}
+
+//使用道具
+- (void)usePropButtonOnClick:(UIButton*)sender {
+    [self removeDimmingView];
+}
+
+- (void)usePropButtonTouchDown:(UIButton*)sender {
+    switch (_season) {
+        case 1:
+            sender.backgroundColor = COMMON_PINK_COLOR;
+            break;
+        case 2:
+            sender.backgroundColor = COMMON_GREEN_COLOR;
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)usePropButtonTouchExit:(UIButton*)sender {
+    switch (_season) {
+        case 1:
+            sender.backgroundColor = COMMON_GREEN_COLOR;
+            break;
+        case 2:
+            sender.backgroundColor = COMMON_PINK_COLOR;
+            break;
+        default:
+            break;
+    }
+}
+
+//购买道具
+- (void)purchasePropButtonOnClick:(UIButton*)sender {
+    [self removeDimmingView];
+}
+
+- (void)purchasePropButtonOnClickPropButtonTouchDown:(UIButton*)sender {
+    sender.backgroundColor = COMMON_GREEN_COLOR;
+}
+
+- (void)purchasePropButtonOnClickPropButtonTouchExit:(UIButton*)sender {
+    sender.backgroundColor = [UIColor colorWithHex:0xed203b];
 }
 
 #pragma mark - Answer View
 
 - (void)createAnswerViewWithButton:(UIButton*)button answer:(NSDictionary *)answer {
+    _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom)];
+    _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
-    _dimmingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom);
     
     UIView *answerBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, _contentView.bottom-10)];
     answerBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
@@ -364,8 +615,9 @@
 - (void)createRankViewWithButton:(UIButton*)button {
     int rankers = 10;
     
+    _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom)];
+    _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
-    _dimmingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom);
     
     UIView *rankBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, _contentView.bottom-10)];
     rankBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
@@ -526,8 +778,9 @@
 - (void)createGiftViewWithButton:(UIButton*)button reward:(NSDictionary*)reward ticket:(NSDictionary*)ticket {
     BOOL isTicket = YES;
     
+    _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom)];
+    _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
-    _dimmingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom);
     
     //rewardBackView
     UIView *rewardBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, _contentView.bottom-10)];
@@ -697,39 +950,41 @@
 
 - (void)showRewardViewWithReward:(SKReward*)reward {
     BOOL isTicket = YES;
+    BOOL isMascot = YES;
+    BOOL isThing  = YES;
     
-    [self.view addSubview:_dimmingView2];
-    _dimmingView2.backgroundColor = [UIColor blackColor];
-    _dimmingView2.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    _dimmingView2.alpha = 0;
+    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _dimmingView.backgroundColor = [UIColor blackColor];
+    _dimmingView.alpha = 0;
+    [self.view addSubview:_dimmingView];
     [UIView animateWithDuration:0.3 animations:^{
-        _dimmingView2.alpha = 0.9;
+        _dimmingView.alpha = 0.9;
     }];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView2)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
     tap.numberOfTapsRequired = 1;
-    [_dimmingView2 addGestureRecognizer:tap];
+    [_dimmingView addGestureRecognizer:tap];
     
     UIView *rewardBaseInfoView = [UIView new];
     rewardBaseInfoView.backgroundColor = [UIColor clearColor];
-    [_dimmingView2 addSubview:rewardBaseInfoView];
+    [_dimmingView addSubview:rewardBaseInfoView];
     
     UILabel *bottomLabel = [UILabel new];
     bottomLabel.text = @"点击任意区域关闭";
     bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
     bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
     [bottomLabel sizeToFit];
-    [_dimmingView2 addSubview:bottomLabel];
+    [_dimmingView addSubview:bottomLabel];
     [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(_dimmingView2);
-        make.bottom.equalTo(_dimmingView2).offset(-16);
+        make.centerX.equalTo(_dimmingView);
+        make.bottom.equalTo(_dimmingView).offset(-16);
     }];
     
     if (isTicket) {
         [rewardBaseInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@248);
             make.height.equalTo(@294);
-            make.centerX.equalTo(_dimmingView2);
+            make.centerX.equalTo(_dimmingView);
             make.top.equalTo(@54);
         }];
         
@@ -741,18 +996,145 @@
             make.width.equalTo(@280);
             make.height.equalTo(@108);
             make.centerX.equalTo(rewardBaseInfoView);
-            make.bottom.equalTo(_dimmingView2.mas_bottom).offset(-(_dimmingView2.height-320-108)/2);
+            make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
         }];
     } else {
         [rewardBaseInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@248);
             make.height.equalTo(@294);
-            make.centerX.equalTo(_dimmingView2);
-            make.centerY.equalTo(_dimmingView2);
+            make.centerX.equalTo(_dimmingView);
+            make.centerY.equalTo(_dimmingView);
         }];
         
         [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
     }
+    
+    if (isMascot) {
+        [_dimmingView removeGestureRecognizer:tap];
+        UITapGestureRecognizer *tap_showMascot = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMascotViewWithReward:)];
+        tap_showMascot.numberOfTapsRequired = 1;
+        [_dimmingView addGestureRecognizer:tap_showMascot];
+    } else {
+        if (isThing) {
+            [_dimmingView removeGestureRecognizer:tap];
+            UITapGestureRecognizer *tap_showThing = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showThingViewWithReward:)];
+            tap_showThing.numberOfTapsRequired = 1;
+            [_dimmingView addGestureRecognizer:tap_showThing];
+        }
+    }
+}
+
+- (void)createMascotRewardViewWithReward:(SKReward*)reward {
+    BOOL isThing  = YES;
+    
+    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:_dimmingView];
+    _dimmingView.backgroundColor = [UIColor blackColor];
+    _dimmingView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        _dimmingView.alpha = 0.9;
+    }];
+    
+    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_giftbg"]];
+    bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+    bgImageView.frame = _dimmingView.frame;
+    [_dimmingView addSubview:bgImageView];
+    
+    UIImageView *mascotImageView = [UIImageView new];
+    [_dimmingView addSubview:mascotImageView];
+    [mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(SCREEN_WIDTH-32);
+        make.height.mas_equalTo(SCREEN_WIDTH-32);
+        make.top.equalTo(_dimmingView.mas_top).offset(94);
+        make.centerX.equalTo(_dimmingView);
+    }];
+    
+    UIImageView *contentImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_gifttext"]];
+    [contentImageView sizeToFit];
+    [_dimmingView addSubview:contentImageView];
+    [contentImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(mascotImageView.mas_bottom).offset(14);
+        make.centerX.equalTo(_dimmingView);
+    }];
+    
+    UILabel *bottomLabel = [UILabel new];
+    bottomLabel.text = @"点击任意区域关闭";
+    bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+    bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+    [bottomLabel sizeToFit];
+    [_dimmingView addSubview:bottomLabel];
+    [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_dimmingView);
+        make.bottom.equalTo(_dimmingView).offset(-16);
+    }];
+    
+    if (isThing) {
+        UITapGestureRecognizer *tap_showThing = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showThingViewWithReward:)];
+        tap_showThing.numberOfTapsRequired = 1;
+        [_dimmingView addGestureRecognizer:tap_showThing];
+    } else {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
+        tap.numberOfTapsRequired = 1;
+        [_dimmingView addGestureRecognizer:tap];
+    }
+}
+
+- (void)createThingRewardViewWithReward:(SKReward*)reward {
+    _dimmingView = [UIView new];
+    [self.view addSubview:_dimmingView];
+    _dimmingView.backgroundColor = [UIColor blackColor];
+    _dimmingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    _dimmingView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        _dimmingView.alpha = 0.9;
+    }];
+    
+    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_giftbg"]];
+    bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+    bgImageView.frame = _dimmingView.frame;
+    [_dimmingView addSubview:bgImageView];
+    
+    UIImageView *mascotImageView = [UIImageView new];
+    [_dimmingView addSubview:mascotImageView];
+    [mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(SCREEN_WIDTH-32);
+        make.height.mas_equalTo(SCREEN_WIDTH-32);
+        make.top.equalTo(_dimmingView.mas_top).offset(94);
+        make.centerX.equalTo(_dimmingView);
+    }];
+    
+    UIImageView *contentImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_gifttext2"]];
+    [contentImageView sizeToFit];
+    [_dimmingView addSubview:contentImageView];
+    [contentImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(mascotImageView.mas_bottom).offset(14);
+        make.centerX.equalTo(_dimmingView);
+    }];
+    
+    UILabel *bottomLabel = [UILabel new];
+    bottomLabel.text = @"点击任意区域关闭";
+    bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+    bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+    [bottomLabel sizeToFit];
+    [_dimmingView addSubview:bottomLabel];
+    [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_dimmingView);
+        make.bottom.equalTo(_dimmingView).offset(-16);
+    }];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
+    tap.numberOfTapsRequired = 1;
+    [_dimmingView addGestureRecognizer:tap];
+}
+
+- (void)showMascotViewWithReward:(SKReward*)reward {
+    [self removeDimmingView];
+    [self createMascotRewardViewWithReward:reward];
+}
+
+- (void)showThingViewWithReward:(SKReward*)reward {
+    [self removeDimmingView];
+    [self createThingRewardViewWithReward:reward];
 }
 
 #pragma mark - Video Actions
@@ -812,23 +1194,43 @@
 }
 
 - (void)removeDimmingView {
-    for (UIView *view in _dimmingView.subviews) {
-        [view removeFromSuperview];
-    }
     [_dimmingView removeFromSuperview];
+    _dimmingView = nil;
     self.currentIndex = 0;
 }
 
 - (void)removeDimmingView2 {
-    for (UIView *view in _dimmingView2.subviews) {
-        [view removeFromSuperview];
-    }
-    [_dimmingView2 removeFromSuperview];
+    [_dimmingView removeFromSuperview];
+    _dimmingView = nil;
 }
 
 - (void)hintButtonClick:(UIButton *)sender {
     [self removeDimmingView];
     [self createHintView];
+}
+
+- (void)getHintButtonClick:(UIButton *)sender {
+    UIView *alertViewBackView = [[UIView alloc] initWithFrame:self.view.bounds];
+    alertViewBackView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:alertViewBackView];
+    
+    UIImageView *propmtImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
+    [propmtImageView sizeToFit];
+    [alertViewBackView addSubview:propmtImageView];
+    [propmtImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(alertViewBackView);
+    }];
+    
+    [UIView animateWithDuration:0.5 delay:3 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        alertViewBackView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [alertViewBackView removeFromSuperview];
+    }];
+}
+
+- (void)answerPropButtonClick:(UIButton *)sender {
+    [self removeDimmingView];
+    [self showAnswerPropAlertView];
 }
 
 - (void)answerButtonClick:(UIButton *)sender {

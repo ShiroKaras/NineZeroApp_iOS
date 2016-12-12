@@ -10,4 +10,6 @@
 
 @interface SKQuestionViewController : UIViewController
 
+@property (nonatomic, assign) NSUInteger season;
+
 @end
