@@ -34,4 +34,5 @@
 
 - (SKLoginUser *)loginUser;
 
+- (void)quitLogin;
 @end

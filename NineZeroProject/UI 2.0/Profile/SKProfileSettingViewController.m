@@ -9,6 +9,8 @@
 #import "SKProfileSettingViewController.h"
 #import "HTUIHeader.h"
 
+#import "SKLoginRootViewController.h"
+
 @interface SKProfileSettingViewController () <UITextFieldDelegate>
 @property (nonatomic, strong) UIScrollView  *scrollView;
 @property (nonatomic, strong) UIView        *backView1;
@@ -55,6 +57,7 @@
     [self createBackView3];
     
     UIButton *quitButton = [UIButton new];
+    [quitButton addTarget:self action:@selector(quitButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     quitButton.backgroundColor = [UIColor colorWithHex:0xed203b];
     quitButton.layer.cornerRadius = 5;
     [quitButton setTitle:@"退出登录" forState:UIControlStateNormal];
@@ -340,6 +343,15 @@
     NSLog(@"%@",_usernameTextField.text);
     _usernameLabel.text = _usernameTextField.text;
     [_dimmingView removeFromSuperview];
+}
+
+#pragma mark - Actions
+
+- (void)quitButtonClick:(UIButton *)sender {
+    [[[SKServiceManager sharedInstance] loginService] quitLogin];
+    SKLoginRootViewController *rootController = [[SKLoginRootViewController alloc] init];
+    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
+    [[[UIApplication sharedApplication] delegate] window].rootViewController = navController;
 }
 
 #pragma mark - UITextFieldDelegate
