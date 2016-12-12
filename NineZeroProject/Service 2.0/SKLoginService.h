@@ -20,10 +20,10 @@
 - (void)loginWith:(SKLoginUser *)user callback:(SKResponseCallback)callback;
 
 //第三方登录
-- (void)loginWithThirdPlatform:(NSString *)third_id username:(NSString *)username avatarURL:(NSString *)avatarURL areaID:(NSString *)areaID callback:(SKResponseCallback)callback;
+- (void)loginWithThirdPlatform:(SKLoginUser *)user callback:(SKResponseCallback)callback;
 
 //重置密码
-- (void)resetPasswordWithMobile:(NSString *)mobile password:(NSString *)password verifyCode:(NSString *)vCode callback:(SKResponseCallback)callback;
+- (void)resetPassword:(SKLoginUser *)user callback:(SKResponseCallback)callback;
 
 //发送验证码
 - (void)sendVerifyCodeWithMobile:(NSString *)mobile callback:(SKResponseCallback)callback;

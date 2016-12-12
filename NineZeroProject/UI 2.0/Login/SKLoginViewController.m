@@ -119,9 +119,10 @@
     self.loginUser = [SKLoginUser new];
     self.loginUser.user_mobile = _phoneTextField.textField.text;
     self.loginUser.user_password = _passwordTextField.textField.text;
+    [self.view endEditing:YES];
     [[[SKServiceManager sharedInstance] loginService] loginWith:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
+        //登录成功进入主页
         SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
-        //                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
         AppDelegateInstance.mainController = controller;
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
         AppDelegateInstance.window.rootViewController = navController;

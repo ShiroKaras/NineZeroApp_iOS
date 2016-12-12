@@ -28,9 +28,7 @@
 }
 
 - (void)testLoadData {
-//    [[[SKServiceManager sharedInstance] loginService] loginWithMobile:@"18612484575" password:@"qqqqqq" callback:^(BOOL success, SKResponsePackage *response) {
-//        
-//    }];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -50,6 +48,8 @@
 
 - (void)createUI {
     __weak __typeof(self)weakSelf = self;
+    
+    self.view.backgroundColor = [UIColor blackColor];
     
     HTImageView *headerImageView = [[HTImageView alloc] init];
     headerImageView.backgroundColor = [UIColor redColor];

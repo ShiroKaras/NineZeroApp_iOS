@@ -17,6 +17,7 @@
 
 #import "HTLog.h"
 #import "HTStorageManager.h"
+#import "SKStorageManager.h"
 
 #import "HTNetworkDefine.h"
 #import "SKNetworkDefine.h"

@@ -202,8 +202,9 @@
         if (_type == SKVerifyTypeRegister) {
             //注册
             [[[SKServiceManager sharedInstance] loginService] registerWith:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
+                //登录成功进入主页
+                [self.view endEditing:YES];
                 SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
-                //                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
                 AppDelegateInstance.mainController = controller;
                 HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
                 AppDelegateInstance.window.rootViewController = navController;

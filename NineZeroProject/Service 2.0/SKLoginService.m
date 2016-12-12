@@ -71,25 +71,28 @@
     }];
 }
 
-- (void)loginWithThirdPlatform:(NSString *)third_id username:(NSString *)username avatarURL:(NSString *)avatarURL areaID:(NSString *)areaID callback:(SKResponseCallback)callback {
+- (void)loginWithThirdPlatform:(SKLoginUser *)user callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"third_login",
-                            @"user_name"    :   username,
-                            @"user_avatar"  :   avatarURL,
-                            @"user_area_id" :   areaID,
-                            @"thid_id"      :   third_id
+                            @"user_name"    :   user.user_name,
+                            @"user_avatar"  :   user.user_avatar,
+                            @"user_area_id" :   user.user_area_id,
+                            @"thid_id"      :   user.third_id
                             };
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSDictionary *dataDict = response.data;
+        [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
+        [[SKStorageManager sharedInstance] updateLoginUser:user];
         callback(success, response);
     }];
 }
 
-- (void)resetPasswordWithMobile:(NSString *)mobile password:(NSString *)password verifyCode:(NSString *)vCode callback:(SKResponseCallback)callback {
+- (void)resetPassword:(SKLoginUser *)user callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"reset",
-                            @"user_password":   password,
-                            @"user_mobile"  :   mobile,
-                            @"vcode"        :   vCode
+                            @"user_password":   user.user_password,
+                            @"user_mobile"  :   user.user_mobile,
+                            @"vcode"        :   user.code
                             };
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
@@ -119,5 +122,7 @@
 - (SKLoginUser *)loginUser {
     return [[SKStorageManager sharedInstance] getLoginUser];
 }
+
+
 
 @end

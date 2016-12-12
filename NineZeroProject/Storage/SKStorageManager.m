@@ -25,6 +25,18 @@
     return manager;
 }
 
+- (instancetype)init {
+    if (self = [super init]) {
+        [self createStorageServiceIfNeed];
+    }
+    return self;
+}
+
+- (void)createStorageServiceIfNeed {
+    _storageService = [[YTKKeyValueStore alloc] initDBWithName:kStorageDBNameKey];
+    [_storageService createTableWithName:kStorageTableKey];
+}
+
 #pragma mark - LoginUser
 
 - (void)updateLoginUser:(SKLoginUser *)loginUser {
