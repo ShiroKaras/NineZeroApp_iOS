@@ -10,10 +10,10 @@
 #import "HTUIHeader.h"
 
 @interface SKMascotView ()
-@property (nonatomic, strong) UIButton *fightButton;
-@property (nonatomic, strong) UIButton *mascotdexButton;
-@property (nonatomic, strong) UIButton *skillButton;
-@property (nonatomic, strong) UIButton *infoButton;
+@property (nonatomic, strong) UIButton *fightButton;        //战斗按钮
+@property (nonatomic, strong) UIButton *mascotdexButton;    //图鉴按钮
+@property (nonatomic, strong) UIButton *skillButton;        //技能按钮
+@property (nonatomic, strong) UIButton *infoButton;         //信息按钮
 
 @property (nonatomic, strong) NSArray *mascotNameArray;
 @property (nonatomic, assign) SKMascotType mascotType;
@@ -35,64 +35,6 @@
     UIImageView *mBackImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     mBackImageView.backgroundColor = [UIColor blackColor];
     [self addSubview:mBackImageView];
-    
-    _fightButton = [UIButton new];
-    _fightButton.hidden = YES;
-    [self addSubview:_fightButton];
-    [_fightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@50);
-        make.height.equalTo(@70);
-        make.centerX.equalTo(self.mas_centerX);
-        make.bottom.equalTo(self.mas_bottom).offset(-30);
-    }];
-    
-    _mascotdexButton = [UIButton new];
-    [_mascotdexButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_albums"] forState:UIControlStateNormal];
-    [_mascotdexButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_albums_highlight"] forState:UIControlStateHighlighted];
-    [self addSubview:_mascotdexButton];
-    [_mascotdexButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@40);
-        make.height.equalTo(@60);
-        make.left.equalTo(@16);
-        make.bottom.equalTo(self.mas_bottom).offset(-12);
-    }];
-    
-    _skillButton = [UIButton new];
-    [_skillButton addTarget:self action:@selector(skillButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_skillButton];
-    [_skillButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@40);
-        make.height.equalTo(@60);
-        make.right.equalTo(self.mas_right).offset(-16);
-        make.bottom.equalTo(self.mas_bottom).offset(-12);
-    }];
-    
-    _infoButton = [UIButton new];
-    [_infoButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_info"] forState:UIControlStateNormal];
-    [_infoButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_info_highlight"] forState:UIControlStateHighlighted];
-    [_infoButton sizeToFit];
-    [self addSubview:_infoButton];
-    [_infoButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@12);
-        make.right.equalTo(self.mas_right).offset(-4);
-    }];
-    
-    if (type == SKMascotTypeDefault) {
-        _fightButton.hidden = YES;
-        [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill"] forState:UIControlStateNormal];
-        [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill_highlight"] forState:UIControlStateHighlighted];
-    } else {
-        _fightButton.hidden = NO;
-        [_fightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@fight", _mascotNameArray[type]]] forState:UIControlStateNormal];
-        [_fightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@fight_highlight", _mascotNameArray[type]]] forState:UIControlStateHighlighted];
-        [_skillButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@skill", _mascotNameArray[type]]] forState:UIControlStateNormal];
-        [_skillButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@skill_highlight", _mascotNameArray[type]]] forState:UIControlStateHighlighted];
-    }
-}
-
-- (void)skillButtonClick:(UIButton*)sender {
-    SKMascotSkillView *skillView = [[SKMascotSkillView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:_mascotType];
-    [KEY_WINDOW addSubview:skillView];
 }
 
 @end
