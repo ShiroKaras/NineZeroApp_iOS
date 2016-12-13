@@ -212,7 +212,7 @@
             }];
         } else if (_type == SKVerifyTypeResetPassword) {
             //找回密码
-            SKConfirmPasswordViewController *controller = [[SKConfirmPasswordViewController alloc] init];
+            SKConfirmPasswordViewController *controller = [[SKConfirmPasswordViewController alloc] initWithUserLoginInfo:self.loginUser];
             [self.navigationController pushViewController:controller animated:YES];
         }
         

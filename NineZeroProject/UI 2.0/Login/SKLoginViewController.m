@@ -103,7 +103,7 @@
     _resetPasswordButton = [UIButton new];
     [_resetPasswordButton addTarget:self action:@selector(resetPasswordButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _resetPasswordButton.backgroundColor = [UIColor clearColor];
-    [_resetPasswordButton setTitle:@"接收短信出问题了？重新发送验证码" forState:UIControlStateNormal];
+    [_resetPasswordButton setTitle:@"忘记密码了？" forState:UIControlStateNormal];
     _resetPasswordButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
     _resetPasswordButton.frame = CGRectMake(0, self.view.height-100, self.view.width, 50);
     [self.view addSubview:_resetPasswordButton];
@@ -133,9 +133,6 @@
 - (void)resetPasswordButtonClick:(UIButton *)sender {
     SKResetPasswordViewController *controller = [[SKResetPasswordViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
-    [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:_phoneTextField.textField.text callback:^(BOOL success, SKResponsePackage *response) {
-        
-    }];
 }
 
 #pragma mark - UITextFieldDelegate

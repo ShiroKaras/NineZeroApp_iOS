@@ -9,11 +9,25 @@
 #import "SKConfirmPasswordViewController.h"
 #import "HTUIHeader.h"
 
-@interface SKConfirmPasswordViewController ()
+#import "SKRegisterTextField.h"
 
+@interface SKConfirmPasswordViewController ()
+@property (nonatomic, strong) SKRegisterTextField *passwordTextField;
+@property (nonatomic, strong) SKRegisterTextField *passwordConfirmTextField;
+@property (nonatomic, strong) UIButton *nextButton;
+@property (nonatomic, strong) SKLoginUser *loginUser;
 @end
 
 @implementation SKConfirmPasswordViewController
+
+- (instancetype)initWithUserLoginInfo:(SKLoginUser *)loginUser
+{
+    self = [super init];
+    if (self) {
+        self.loginUser = loginUser;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -72,6 +86,56 @@
         make.centerY.equalTo(point.mas_centerY);
     }];
     
+    _passwordTextField = [[SKRegisterTextField alloc] init];
+    _passwordTextField.ly_placeholder = @"密码";
+    [self.view addSubview:_passwordTextField];
+    [_passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(ROUND_HEIGHT(106));
+        make.centerX.equalTo(weakSelf.view);
+        make.width.equalTo(ROUND_WIDTH(252));
+        make.height.equalTo(ROUND_WIDTH(44));
+    }];
+    
+    _passwordConfirmTextField = [[SKRegisterTextField alloc] init];
+    _passwordConfirmTextField.alpha = 0;
+    _passwordConfirmTextField.textField.secureTextEntry = YES;
+    _passwordConfirmTextField.ly_placeholder = @"密码";
+    [self.view addSubview:_passwordConfirmTextField];
+    [_passwordConfirmTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_passwordTextField.mas_bottom).offset(26);
+        make.centerX.equalTo(weakSelf.view);
+        make.width.equalTo(ROUND_WIDTH(252));
+        make.height.equalTo(ROUND_WIDTH(44));
+    }];
+    
+    _nextButton = [UIButton new];
+    [_nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    _nextButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
+    _nextButton.backgroundColor = [UIColor blackColor];
+    _nextButton.alpha = 0.6;
+    [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
+    [self.view addSubview:_nextButton];
+}
+
+#pragma mark - Actions
+
+- (void)closeButtonClick:(UIButton *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)nextButtonClick:(UIButton *)sender {
+    self.loginUser = [SKLoginUser new];
+    self.loginUser.user_password = _passwordTextField.textField.text;
+    
+    [self.view endEditing:YES];
+    [[[SKServiceManager sharedInstance] loginService] resetPassword:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
+        //登录成功进入主页
+        SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
+        AppDelegateInstance.mainController = controller;
+        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
+        AppDelegateInstance.window.rootViewController = navController;
+        [AppDelegateInstance.window makeKeyAndVisible];
+    }];
 }
 
 @end

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class SKLoginUser;
+
 @interface SKConfirmPasswordViewController : UIViewController
+
+- (instancetype)initWithUserLoginInfo:(SKLoginUser *)loginUser;
 
 @end

@@ -94,10 +94,15 @@
 }
 
 - (void)nextButtonClick:(UIButton *)sender {
+    self.loginUser = [SKLoginUser new];
     self.loginUser.user_mobile = _phoneTextField.textField.text;
     
     SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeResetPassword userLoginInfo:self.loginUser];
     [self.navigationController pushViewController:controller animated:YES];
+    
+    [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:self.loginUser.user_mobile callback:^(BOOL success, SKResponsePackage *response) {
+        
+    }];
 }
 
 #pragma mark - UITextFieldDelegate
