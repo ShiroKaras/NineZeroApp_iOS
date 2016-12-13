@@ -8,6 +8,7 @@
 
 #import "SKProfileIndexViewController.h"
 #import "HTUIHeader.h"
+#import "SKStorageManager.h"
 
 #import "SKProfileSettingViewController.h"
 #import "SKProfileMyTicketsViewController.h"
@@ -15,10 +16,18 @@
 #import "SKMyThingsViewController.h"
 #import "SKFeedbackViewController.h"
 
+#define PROFILE_TICKET  100
+#define PROFILE_BADGE   101
+#define PROFILE_THING   102
+
 @interface SKProfileIndexViewController ()
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;
+@property (nonatomic, strong) UILabel *rankLabel;
+@property (nonatomic, strong) UILabel *coinLabel;
+@property (nonatomic, strong) UILabel *diamondLabel;
+
 @property (nonatomic, strong) UIView *backView1;
 @property (nonatomic, strong) UIView *backView2;
 @end
@@ -28,6 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -43,6 +53,17 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKUserInfo *response) {
+        _rankLabel.text = response.rank;
+        _coinLabel.text = response.user_gold;
+        _diamondLabel.text = response.user_gemstone;
+        ((UILabel*)[self.view viewWithTag:PROFILE_TICKET]).text = response.ticket_num;
+        ((UILabel*)[self.view viewWithTag:PROFILE_BADGE]).text = response.medal_num;
+        ((UILabel*)[self.view viewWithTag:PROFILE_THING]).text = response.piece_num;
+    }];
 }
 
 - (void)createUI {
@@ -71,7 +92,7 @@
     }];
     
     _usernameLabel = [UILabel new];
-    _usernameLabel.text = @"用户名称";
+    _usernameLabel.text = [[SKStorageManager sharedInstance] getLoginUser].user_name;
     _usernameLabel.textColor = COMMON_GREEN_COLOR;
     _usernameLabel.font = PINGFANG_FONT_OF_SIZE(14);
     _usernameLabel.textAlignment = NSTextAlignmentCenter;
@@ -144,13 +165,13 @@
         make.centerX.equalTo(rankView);
     }];
     
-    UILabel *rankLabel = [UILabel new];
-    rankLabel.text = @"1K+";
-    rankLabel.textColor = COMMON_PINK_COLOR;
-    rankLabel.font = MOON_FONT_OF_SIZE(25);
-    [rankLabel sizeToFit];
-    [rankView addSubview:rankLabel];
-    [rankLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _rankLabel = [UILabel new];
+    _rankLabel.text = @"1K+";
+    _rankLabel.textColor = COMMON_PINK_COLOR;
+    _rankLabel.font = MOON_FONT_OF_SIZE(25);
+    [_rankLabel sizeToFit];
+    [rankView addSubview:_rankLabel];
+    [_rankLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(rankView);
         make.bottom.equalTo(rankView).offset(-12);
     }];
@@ -175,13 +196,13 @@
         make.centerX.equalTo(coinView);
     }];
     
-    UILabel *coinLabel = [UILabel new];
-    coinLabel.text = @"9999";
-    coinLabel.textColor = rankLabel.textColor;
-    coinLabel.font = rankLabel.font;
-    [rankLabel sizeToFit];
-    [rankView addSubview:coinLabel];
-    [coinLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _coinLabel = [UILabel new];
+    _coinLabel.text = @"9999";
+    _coinLabel.textColor = _rankLabel.textColor;
+    _coinLabel.font = _rankLabel.font;
+    [_rankLabel sizeToFit];
+    [rankView addSubview:_coinLabel];
+    [_coinLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(coinView);
         make.bottom.equalTo(coinView).offset(-12);
     }];
@@ -206,13 +227,13 @@
         make.centerX.equalTo(diamondView);
     }];
     
-    UILabel *diamondLabel = [UILabel new];
-    diamondLabel.text = @"9999";
-    diamondLabel.textColor = rankLabel.textColor;
-    diamondLabel.font = rankLabel.font;
-    [diamondLabel sizeToFit];
-    [rankView addSubview:diamondLabel];
-    [diamondLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _diamondLabel = [UILabel new];
+    _diamondLabel.text = @"9999";
+    _diamondLabel.textColor = _rankLabel.textColor;
+    _diamondLabel.font = _rankLabel.font;
+    [_diamondLabel sizeToFit];
+    [rankView addSubview:_diamondLabel];
+    [_diamondLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(diamondView);
         make.bottom.equalTo(diamondView).offset(-12);
     }];
@@ -282,16 +303,19 @@
             make.centerY.equalTo(view);
         }];
         
-        UILabel *countLabel = [UILabel new];
-        countLabel.text = @"99+";
-        countLabel.textColor = COMMON_PINK_COLOR;
-        countLabel.font = MOON_FONT_OF_SIZE(14);
-        [countLabel sizeToFit];
-        [view addSubview:countLabel];
-        [countLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(arrowImageView.mas_left).offset(-2);
-            make.centerY.equalTo(view);
-        }];
+        if (i!=3) {
+            UILabel *countLabel = [UILabel new];
+            countLabel.tag = 100+i;
+            countLabel.text = @"99+";
+            countLabel.textColor = COMMON_PINK_COLOR;
+            countLabel.font = MOON_FONT_OF_SIZE(14);
+            [countLabel sizeToFit];
+            [view addSubview:countLabel];
+            [countLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(arrowImageView.mas_left).offset(-2);
+                make.centerY.equalTo(view);
+            }];
+        }
         
         UIButton *button = [UIButton new];
         [button addTarget:self action:NSSelectorFromString(selectorNameArray[i]) forControlEvents:UIControlEventTouchUpInside];

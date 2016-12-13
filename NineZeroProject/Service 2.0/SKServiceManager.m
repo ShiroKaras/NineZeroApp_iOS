@@ -11,6 +11,7 @@
 @implementation SKServiceManager {
     SKLoginService      *_loginService;
     SKQuestionService   *_questionService;
+    SKProfileService    *_profileService;
 }
 
 + (instancetype)sharedInstance {
@@ -26,6 +27,7 @@
     if (self = [super init]) {
         _loginService       = [[SKLoginService alloc] init];
         _questionService    = [[SKQuestionService alloc] init];
+        _profileService     = [[SKProfileService alloc] init];
     }
     return self;
 }
@@ -38,6 +40,10 @@
 
 - (SKQuestionService *)questionService {
     return _questionService;
+}
+
+- (SKProfileService *)profileService {
+    return _profileService;
 }
 
 @end

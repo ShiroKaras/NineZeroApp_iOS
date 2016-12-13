@@ -19,17 +19,16 @@ return self; \
 }
 
 @implementation SKResponsePackage
-
 @end
 
 @implementation SKLoginUser
+@end
 
+@implementation SKUserInfo
 @end
 
 @implementation SKUserSetting
-
 @end
 
 @implementation SKReward
-
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "SKProfileService.h"
+#import "SKStorageManager.h"
 
 @implementation SKProfileService
 
@@ -18,7 +19,7 @@
     [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
     [mDict setValue:@"iOS" forKey:@"client"];
     // TODO
-    [mDict setValue:@"" forKey:@"user_id"];
+    [mDict setValue:[[SKStorageManager sharedInstance] getUserID]  forKey:@"user_id"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -27,7 +28,11 @@
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager profileBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         DLog(@"Response:%@",responseObject);
         SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
-        callback(YES, package);
+        if (package.result == 0) {
+            callback(YES, package);
+        } else {
+            DLog(@"%ld",(long)package.result);
+        }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(NO, nil);
         DLog(@"%@", error);
@@ -35,12 +40,13 @@
 }
 
 //获取个人信息
-- (void)getUserInfoDetailCallback:(SKResponseCallback)callback {
+- (void)getUserInfoDetailCallback:(SKUserInfoCallback)callback {
     NSDictionary *param = @{
-                            @"method"       :   @"detail"
+                            @"method"       :   @"getUserInfo"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        SKUserInfo *userInfo = [SKUserInfo objectWithKeyValues:[response keyValues][@"data"]];
+        callback(success, userInfo);
     }];
 }
 

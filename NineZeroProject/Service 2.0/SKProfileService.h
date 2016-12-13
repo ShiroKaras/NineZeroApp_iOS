@@ -10,12 +10,12 @@
 #import "SKNetworkDefine.h"
 #import "SKLogicHeader.h"
 
+typedef void (^SKUserInfoCallback) (BOOL success, SKUserInfo *response);
+
 @interface SKProfileService : NSObject
 
-- (void)profileBaseRequestWithParam:(NSDictionary*)dict callback:(SKResponseCallback)callback;
-
 //获取个人信息
-- (void)getUserInfoDetailCallback:(SKResponseCallback)callback;
+- (void)getUserInfoDetailCallback:(SKUserInfoCallback)callback;
 
 //获取礼券列表
 - (void)getUserTicketsCallbackCallback:(SKResponseCallback)callback;
