@@ -32,3 +32,16 @@ return self; \
 
 @implementation SKReward
 @end
+
+@implementation SKIndexInfo
+HTINIT(SKIndexInfo)
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"question_end_time" : @"question_info.end_time",
+                                     @"qid"               : @"question_info.qid",
+                                     @"answered_status"   : @"question_info.answered_status",
+                                     @"monday_end_time"   : @"Monday.end_time",
+                                     @"adv_pic"           : @"advertising.adv_pic"
+                                     };
+    return propertyMapper;
+}
+@end

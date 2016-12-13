@@ -33,12 +33,14 @@
     }];
 }
 
-- (void)getHomepageInfoCallBack:(SKResponseCallback)callback {
+- (void)getHomepageInfoCallBack:(SKIndexInfoCallback)callback {
     NSDictionary *param = @{
                             @"method"   :   @"homePage"
                             };
     [self commonBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        NSDictionary *dataDict = response.data;
+        SKIndexInfo *indexInfo = [SKIndexInfo objectWithKeyValues:dataDict];
+        callback(indexInfo);
     }];
 }
 

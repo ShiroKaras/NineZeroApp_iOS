@@ -10,12 +10,15 @@
 #import "SKNetworkDefine.h"
 #import "SKLogicHeader.h"
 
+@class SKIndexInfo;
+
 typedef void (^SKGetTokenCallback) (NSString *token);
+typedef void (^SKIndexInfoCallback) (SKIndexInfo *indexInfo);
 
 @interface SKCommonService : NSObject
 
 // 首页信息
-- (void)getHomepageInfoCallBack:(SKResponseCallback)callback;
+- (void)getHomepageInfoCallBack:(SKIndexInfoCallback)callback;
 
 // Qiniu Token
 - (void)getQiniuPublicTokenWithCompletion:(SKGetTokenCallback)callback;

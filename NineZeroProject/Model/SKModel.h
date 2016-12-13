@@ -47,3 +47,22 @@
 @interface SKReward : NSObject
 
 @end
+
+//首页
+@interface SKIndexInfo : NSObject
+@property (nonatomic, assign)   BOOL        isMonday;
+@property (nonatomic, assign)   BOOL        is_haved_difficult;
+@property (nonatomic, assign)   NSInteger   user_notice_count;
+    //question_info
+@property (nonatomic, assign)   time_t      question_end_time;
+@property (nonatomic, copy)     NSString    *qid;
+@property (nonatomic, assign)   BOOL        answered_status;
+    //Monday
+@property (nonatomic, assign)   time_t      monday_end_time;
+    //advertising
+@property (nonatomic, copy)     NSString    *adv_pic;
+@end
+
+
+
+
