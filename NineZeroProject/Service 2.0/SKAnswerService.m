@@ -57,6 +57,7 @@
     }];
 }
 
+//使用道具答题
 - (void)answerExpiredTextQuestionWithQuestionID:(NSString*)questionID answerPropsCount:(NSString*)answerPropsCount callback:(SKResponseCallback)callback {
     if ([answerPropsCount integerValue] == 0) return;
     
