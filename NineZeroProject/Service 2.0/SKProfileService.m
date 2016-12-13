@@ -7,7 +7,6 @@
 //
 
 #import "SKProfileService.h"
-#import "SKStorageManager.h"
 
 @implementation SKProfileService
 
@@ -18,7 +17,6 @@
     [mDict setValue:[NSString stringWithFormat:@"%lld",currentTime] forKey:@"time"];
     [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
     [mDict setValue:@"iOS" forKey:@"client"];
-    // TODO
     [mDict setValue:[[SKStorageManager sharedInstance] getUserID]  forKey:@"user_id"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];

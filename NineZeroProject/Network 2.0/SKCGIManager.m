@@ -34,4 +34,8 @@
     return [NSString stringWithFormat:@"%@/Answer/appIndex",APP_HOST];
 }
 
++ (NSString *)commonBaseCGIKey {
+    return [NSString stringWithFormat:@"%@/Common/appIndex",APP_HOST];
+}
+
 @end

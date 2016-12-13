@@ -9,8 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @class SKLoginUser;
+@class SKUserInfo;
 
 @interface SKStorageManager : NSObject
+
+@property (nonatomic, strong) SKUserInfo *userInfo;
+@property (nonatomic, strong) NSString *qiniuPublicToken;
 
 + (instancetype)sharedInstance;
 
@@ -23,5 +27,9 @@
 - (void)updateUserID:(NSString *)userID;
 - (NSString *)getUserID;
 - (void)clearUserID;
+
+// Qiniu
+- (void)setQiniuPublicToken:(NSString *)qiniuPublicToken;
+- (NSString *)qiniuPublicToken;
 
 @end

@@ -82,6 +82,7 @@
 		11B8AEF01DF1820B001A3E0F /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEEC1DF1820B001A3E0F /* NSString+Base64.m */; };
 		11BC2DFE1D93C98200C9E775 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFC1D93C98200C9E775 /* libTalkingData.a */; };
 		11BC2E001D93C9CF00C9E775 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */; };
+		11C3C1661DFFDD820045D78A /* SKCommonService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C3C1651DFFDD810045D78A /* SKCommonService.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
 		11CD0BBA1DF6A1210074E120 /* SKProfileMyTicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CD0BB91DF6A1210074E120 /* SKProfileMyTicketsViewController.m */; };
@@ -973,6 +974,8 @@
 		11BC2DFC1D93C98200C9E775 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
 		11BC2DFD1D93C98200C9E775 /* TalkingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingData.h; sourceTree = "<group>"; };
 		11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		11C3C1641DFFDD810045D78A /* SKCommonService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKCommonService.h; path = "NineZeroProject/Service 2.0/SKCommonService.h"; sourceTree = "<group>"; };
+		11C3C1651DFFDD810045D78A /* SKCommonService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKCommonService.m; path = "NineZeroProject/Service 2.0/SKCommonService.m"; sourceTree = "<group>"; };
 		11CA0C541CD24E4200C06333 /* easing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easing.c; sourceTree = "<group>"; };
 		11CA0C551CD24E4200C06333 /* easing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easing.h; sourceTree = "<group>"; };
 		11CA0C561CD24E4200C06333 /* YXEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXEasing.h; sourceTree = "<group>"; };
@@ -2085,6 +2088,8 @@
 				1153811A1DF9512C00B50DF2 /* SKMascotService.m */,
 				1153811C1DF956FE00B50DF2 /* SKAnswerService.h */,
 				1153811D1DF956FE00B50DF2 /* SKAnswerService.m */,
+				11C3C1641DFFDD810045D78A /* SKCommonService.h */,
+				11C3C1651DFFDD810045D78A /* SKCommonService.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -4670,6 +4675,7 @@
 				17F45AFB1C7E25E0004F2E32 /* HTProfileRewardController.m in Sources */,
 				11805B421DE84D1D00064607 /* SKTicketView.m in Sources */,
 				26973B021C005ED900160D25 /* HTNavigationController.m in Sources */,
+				11C3C1661DFFDD820045D78A /* SKCommonService.m in Sources */,
 				17A92CDB1CA809B100BE893D /* UIScrollView+MJExtension.m in Sources */,
 				17AA63571C4AB85A0047BADF /* HTMainViewController.m in Sources */,
 				17F45AFE1C7E2652004F2E32 /* HTProfileRewardCell.m in Sources */,

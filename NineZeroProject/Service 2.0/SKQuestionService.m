@@ -20,6 +20,7 @@
     [mDict setValue:[NSString stringWithFormat:@"%lld",currentTime] forKey:@"time"];
     [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
     [mDict setValue:@"iOS" forKey:@"client"];
+    [mDict setValue:[[SKStorageManager sharedInstance] getUserID]  forKey:@"user_id"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -41,9 +42,7 @@
 - (void)getAllQuestionListCallback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"   :   @"getList",
-                            @"area_id"  :   @"010",
-                            // TODO
-                            @"user_id"  :   @""
+                            @"area_id"  :   @"010"
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
@@ -55,9 +54,7 @@
 - (void)getDifficultQuestionListCallback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"   :   @"difficultProblem",
-                            @"area_id"  :   @"010",
-                            // TODO
-                            @"user_id"  :   @""
+                            @"area_id"  :   @"010"
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
@@ -69,8 +66,6 @@
     NSDictionary *param = @{
                             @"method"       :   @"detail",
                             @"area_id"      :   @"010",
-                            // TODO
-                            @"user_id"      :   @"",
                             @"question_id"  :   questionID
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
@@ -83,8 +78,6 @@
     NSDictionary *param = @{
                             @"method"       :   @"clueList",
                             @"area_id"      :   @"010",
-                            // TODO
-                            @"user_id"      :   @"",
                             @"question_id"  :   questionID
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
@@ -97,8 +90,6 @@
     NSDictionary *param = @{
                             @"method"       :   @"clueList",
                             @"area_id"      :   @"010",
-                            // TODO
-                            @"user_id"      :   @"",
                             @"question_id"  :   questionID
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {

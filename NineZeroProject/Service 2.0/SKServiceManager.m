@@ -12,6 +12,10 @@
     SKLoginService      *_loginService;
     SKQuestionService   *_questionService;
     SKProfileService    *_profileService;
+    SKPropService       *_propService;
+    SKMascotService     *_mascotService;
+    SKAnswerService     *_answerService;
+    SKCommonService     *_commonService;
 }
 
 + (instancetype)sharedInstance {
@@ -28,6 +32,10 @@
         _loginService       = [[SKLoginService alloc] init];
         _questionService    = [[SKQuestionService alloc] init];
         _profileService     = [[SKProfileService alloc] init];
+        _propService        = [[SKPropService alloc] init];
+        _mascotService      = [[SKMascotService alloc] init];
+        _answerService      = [[SKAnswerService alloc] init];
+        _commonService      = [[SKCommonService alloc] init];
     }
     return self;
 }
@@ -44,6 +52,22 @@
 
 - (SKProfileService *)profileService {
     return _profileService;
+}
+
+- (SKPropService *)propService {
+    return _propService;
+}
+
+- (SKMascotService *)mascotService {
+    return _mascotService;
+}
+
+- (SKAnswerService *)answerService {
+    return _answerService;
+}
+
+- (SKCommonService *)commonService {
+    return _commonService;
 }
 
 @end

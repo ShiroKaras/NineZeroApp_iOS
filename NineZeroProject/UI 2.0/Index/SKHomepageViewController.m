@@ -14,6 +14,7 @@
 #import "SKLoginRootViewController.h"
 #import "SKQuestionViewController.h"
 #import "SKProfileIndexViewController.h"
+#import "SKProfileSettingViewController.h"
 
 @interface SKHomepageViewController ()
 
@@ -24,11 +25,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    [self testLoadData];
+    [self loadData];
 }
 
-- (void)testLoadData {
-    
+- (void)loadData {
+    [SKServiceManager sharedInstance]
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -144,17 +145,6 @@
         make.top.equalTo(headerImageView.mas_bottom).offset(30);
     }];
     
-    //排行榜
-    UIButton *rankButton = [UIButton new];
-    [rankButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top"] forState:UIControlStateNormal];
-    [rankButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top_highlight"] forState:UIControlStateHighlighted];
-    [self.view addSubview:rankButton];
-    [rankButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(timeLimitLevelButton);
-        make.top.equalTo(timeLimitLevelButton.mas_bottom).offset(16);
-        make.centerX.equalTo(timeLimitLevelButton);
-    }];
-    
     //全部关卡
     UIButton *allLevelButton = [UIButton new];
     [allLevelButton addTarget:self action:@selector(allLevelQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -179,16 +169,27 @@
         make.left.equalTo(timeLimitLevelButton.mas_right).offset(25);
     }];
     
-    //公会
-    UIButton *guildButton = [UIButton new];
-    [guildButton addTarget:self action:@selector(testButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [guildButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_guild"] forState:UIControlStateNormal];
-    [guildButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_guild_highlight"] forState:UIControlStateHighlighted];
-    [self.view addSubview:guildButton];
-    [guildButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//    //公会
+//    UIButton *guildButton = [UIButton new];
+//    [guildButton addTarget:self action:@selector(testButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    [guildButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_guild"] forState:UIControlStateNormal];
+//    [guildButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_guild_highlight"] forState:UIControlStateHighlighted];
+//    [self.view addSubview:guildButton];
+//    [guildButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.size.equalTo(timeLimitLevelButton);
+//        make.centerY.equalTo(rankButton);
+//        make.right.equalTo(rankButton.mas_left).offset(-25);
+//    }];
+    
+    //排行榜
+    UIButton *rankButton = [UIButton new];
+    [rankButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top"] forState:UIControlStateNormal];
+    [rankButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:rankButton];
+    [rankButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.equalTo(timeLimitLevelButton);
-        make.centerY.equalTo(rankButton);
-        make.right.equalTo(rankButton.mas_left).offset(-25);
+        make.top.equalTo(allLevelButton.mas_bottom).offset(16);
+        make.centerX.equalTo(allLevelButton);
     }];
     
     //我
@@ -199,8 +200,20 @@
     [self.view addSubview:meButton];
     [meButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.equalTo(timeLimitLevelButton);
+        make.centerX.equalTo(timeLimitLevelButton);
         make.centerY.equalTo(rankButton);
-        make.left.equalTo(rankButton.mas_right).offset(25);
+    }];
+    
+    //设置
+    UIButton *settingButton = [UIButton new];
+    [settingButton addTarget:self action:@selector(settingButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [settingButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_setting"] forState:UIControlStateNormal];
+    [settingButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_setting_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:settingButton];
+    [settingButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(timeLimitLevelButton);
+        make.centerX.equalTo(mascotButton);
+        make.centerY.equalTo(rankButton);
     }];
     
     //倒计时
@@ -251,8 +264,8 @@
     [self presentViewController:rootController animated:YES completion:nil];
 }
 
-- (void)testButtonClick {
-    SKLoginRootViewController *controller = [[SKLoginRootViewController alloc] init];
+- (void)settingButtonClick:(UIButton*)sender {
+    SKProfileSettingViewController *controller = [[SKProfileSettingViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

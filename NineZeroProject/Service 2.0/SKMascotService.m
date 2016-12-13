@@ -18,7 +18,7 @@
     [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
     [mDict setValue:@"iOS" forKey:@"client"];
     // TODO
-    [mDict setValue:@"" forKey:@"user_id"];
+    [mDict setValue:[[SKStorageManager sharedInstance] getUserID] forKey:@"user_id"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];

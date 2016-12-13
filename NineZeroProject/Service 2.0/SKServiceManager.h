@@ -15,6 +15,7 @@
 #import "SKPropService.h"
 #import "SKMascotService.h"
 #import "SKAnswerService.h"
+#import "SKCommonService.h"
 
 @interface SKServiceManager : NSObject
 
@@ -26,7 +27,19 @@
 /** questionService, 负责题目相关业务 */
 - (SKQuestionService *)questionService;
 
-/** profileService, 负责题目相关业务 */
+/** profileService, 负责个人主页相关业务 */
 - (SKProfileService *)profileService;
+
+/** profileService, 负责道具相关业务 */
+- (SKPropService *)propService;
+
+/** profileService, 负责零仔相关业务 */
+- (SKMascotService *)mascotService;
+
+/** profileService, 负责答题相关业务 */
+- (SKAnswerService *)answerService;
+
+/** commonService, 负责公共部分相关业务 */
+- (SKCommonService *)commonService;
 
 @end

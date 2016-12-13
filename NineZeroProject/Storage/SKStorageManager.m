@@ -16,6 +16,9 @@
     YTKKeyValueStore *_storageService;
 }
 
+@synthesize userInfo = _userInfo;
+@synthesize qiniuPublicToken = _qiniuPublicToken;
+
 + (instancetype)sharedInstance {
     static dispatch_once_t onceToken;
     static SKStorageManager *manager;
@@ -64,6 +67,33 @@
 
 - (void)clearUserID {
     [_storageService deleteObjectById:kStorageUserIdKey fromTable:kStorageTableKey];
+}
+
+#pragma mark - User info
+
+- (void)setUserInfo:(SKUserInfo *)userInfo {
+    _userInfo = userInfo;
+    [_storageService putObject:[userInfo keyValues] withId:kStorageUserInfoKey intoTable:kStorageTableKey];
+}
+
+- (SKUserInfo *)userInfo {
+    if (_userInfo != nil) return _userInfo;
+    _userInfo = [SKUserInfo objectWithKeyValues:[_storageService getObjectById:kStorageUserInfoKey fromTable:kStorageTableKey]];
+    return _userInfo;
+}
+
+#pragma mark - Qiniu token
+
+- (void)setQiniuPublicToken:(NSString *)qiniuPublicToken {
+    _qiniuPublicToken = qiniuPublicToken;
+    [_storageService putString:qiniuPublicToken withId:kQiniuPublicTokenKey intoTable:kStorageTableKey];
+}
+
+- (NSString *)qiniuPublicToken {
+    if (!_qiniuPublicToken) {
+        _qiniuPublicToken = [_storageService getStringById:_qiniuPublicToken fromTable:kStorageTableKey];
+    }
+    return _qiniuPublicToken;
 }
 
 @end

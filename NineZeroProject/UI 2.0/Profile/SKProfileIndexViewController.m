@@ -107,19 +107,6 @@
     [self createBackView1];
     [self createBackView2];
     
-    //设置
-    UIButton *settingButton = [UIButton new];
-    [settingButton addTarget:self action:@selector(settingButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [settingButton setBackgroundImage:[UIImage imageNamed:@"btn_userptofiles_set"] forState:UIControlStateNormal];
-    [settingButton setBackgroundImage:[UIImage imageNamed:@"btn_userptofiles_set_highlight"] forState:UIControlStateHighlighted];
-    [self.view addSubview:settingButton];
-    [settingButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@40);
-        make.height.equalTo(@40);
-        make.top.equalTo(@12);
-        make.right.equalTo(weakself.view).offset(-4);
-    }];
-    
     //关闭
     UIButton *closeButton = [UIButton new];
     [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -328,11 +315,6 @@
 }
 
 #pragma mark - Actions
-
-- (void)settingButtonClick:(UIButton*)sender {
-    SKProfileSettingViewController *controller = [[SKProfileSettingViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
-}
 
 - (void)closeButtonClick:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
