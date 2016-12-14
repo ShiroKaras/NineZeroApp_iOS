@@ -136,13 +136,20 @@
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldTextDidChange:(NSNotification *)notification {
-    if (_phoneTextField.textField.text.length > 11) {
-        _phoneTextField.textField.text = [_phoneTextField.textField.text substringToIndex:11];
-    }
     if (_phoneTextField.textField.text.length == 11) {
+        //判断手机号是否被注册
+        [[[SKServiceManager sharedInstance] loginService] checkMobileRegisterStatus:_phoneTextField.textField.text callback:^(BOOL success, SKResponsePackage *response) {
+            DLog(@"%ld", response.result);
+            if (response.result == -2001) {
+                [self showTipsWithText:@"手机号码已被注册"];
+            }
+        }];
         [UIView animateWithDuration:0.3 animations:^{
             _usernameTextField.alpha = 1;
         }];
+    }
+    if (_phoneTextField.textField.text.length > 11) {
+        _phoneTextField.textField.text = [_phoneTextField.textField.text substringToIndex:11];
     }
     if (_usernameTextField.textField.text.length >= 2) {
         [UIView animateWithDuration:0.3 animations:^{
