@@ -77,6 +77,7 @@
     _phoneTextField = [[SKRegisterTextField alloc] init];
     _phoneTextField.ly_placeholder = @"手机号码";
     _phoneTextField.textField.keyboardType = UIKeyboardTypePhonePad;
+    [_phoneTextField.textField becomeFirstResponder];
     [self.view addSubview:_phoneTextField];
     [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ROUND_HEIGHT(106));
@@ -130,17 +131,24 @@
         self.loginUser = [SKLoginUser new];
         self.loginUser.user_mobile = _phoneTextField.textField.text;
         self.loginUser.user_password = _passwordTextField.textField.text;
-        [self.view endEditing:YES];
-        [[[SKServiceManager sharedInstance] loginService] loginWith:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
+        [[[SKServiceManager sharedInstance] loginService] checkMobileRegisterStatus:_phoneTextField.textField.text callback:^(BOOL success, SKResponsePackage *response) {
+            DLog(@"%ld", response.result);
             if (response.result == 0) {
-                //登录成功进入主页
-                SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
-                AppDelegateInstance.mainController = controller;
-                HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
-                AppDelegateInstance.window.rootViewController = navController;
-                [AppDelegateInstance.window makeKeyAndVisible];
-            } else if (response.result == -2004) {
-                [self showTipsWithText:@"请检查手机号或密码是否正确"];
+                [self showTipsWithText:@"手机号码未注册"];
+            } else {
+                [self.view endEditing:YES];
+                [[[SKServiceManager sharedInstance] loginService] loginWith:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
+                    if (response.result == 0) {
+                        //登录成功进入主页
+                        SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
+                        AppDelegateInstance.mainController = controller;
+                        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
+                        AppDelegateInstance.window.rootViewController = navController;
+                        [AppDelegateInstance.window makeKeyAndVisible];
+                    } else if (response.result == -2004) {
+                        [self showTipsWithText:@"请检查手机号或密码是否正确"];
+                    }
+                }];
             }
         }];
     }

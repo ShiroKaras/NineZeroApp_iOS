@@ -11,6 +11,7 @@
 
 #import "SKRegisterTextField.h"
 #import "SKVerifyViewController.h"
+#import "SKUserAgreementViewController.h"
 
 @interface SKRegisterViewController () <UITextFieldDelegate>
 
@@ -18,6 +19,7 @@
 @property (nonatomic, strong) SKRegisterTextField *usernameTextField;
 @property (nonatomic, strong) SKRegisterTextField *passwordTextField;
 @property (nonatomic, strong) UIButton *nextButton;
+@property (nonatomic, strong) UIButton *agreementButton;
 @property (nonatomic, assign) BOOL nextButtonIsShow;
 @property (nonatomic, assign) CGRect keyboardRect;
 
@@ -80,6 +82,7 @@
     _phoneTextField = [[SKRegisterTextField alloc] init];
     _phoneTextField.ly_placeholder = @"手机号码";
     _phoneTextField.textField.keyboardType = UIKeyboardTypePhonePad;
+    [_phoneTextField.textField becomeFirstResponder];
     [self.view addSubview:_phoneTextField];
     [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@84);
@@ -118,6 +121,14 @@
     _nextButton.alpha = 0.6;
     [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
     [self.view addSubview:_nextButton];
+    
+    _agreementButton = [UIButton new];
+    [_agreementButton addTarget:self action:@selector(agreementButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    _agreementButton.backgroundColor = [UIColor clearColor];
+    [_agreementButton setTitle:@"点击下一步表示你同意用户协议" forState:UIControlStateNormal];
+    _agreementButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
+    _agreementButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
+    [self.view addSubview:_agreementButton];
 }
 
 #pragma mark - Actions
@@ -150,9 +161,14 @@
     }
 }
 
+- (void)agreementButtonClick:(UIButton *)sender {
+    SKUserAgreementViewController *controller = [[SKUserAgreementViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 #pragma mark - UITextFieldDelegate
 
-- (void)textFieldTextDidChange:(NSNotification *)notification {
+- (void)textFieldTextDidChange:(UITextField *)textField {
     if (_phoneTextField.textField.text.length == 11) {
         //判断手机号是否被注册
         [[[SKServiceManager sharedInstance] loginService] checkMobileRegisterStatus:_phoneTextField.textField.text callback:^(BOOL success, SKResponsePackage *response) {
@@ -160,6 +176,8 @@
             if (response.result == 0) {
                 [UIView animateWithDuration:0.3 animations:^{
                     _usernameTextField.alpha = 1;
+                } completion:^(BOOL finished) {
+                //  [_usernameTextField.textField becomeFirstResponder];
                 }];
             } else if (response.result == -2001) {
                 [self showTipsWithText:@"手机号码已被注册"];
@@ -178,9 +196,11 @@
     if (_phoneTextField.textField.text.length==11 && _usernameTextField.textField.text.length>=2 && _passwordTextField.textField.text.length>=6) {
         self.nextButtonIsShow = YES;
         _nextButton.frame = CGRectMake(0, self.view.height - self.keyboardRect.size.height-50, self.view.width, 50);
+        _agreementButton.frame = CGRectMake(0, self.view.height - self.keyboardRect.size.height-100, self.view.width, 50);
     } else {
         self.nextButtonIsShow = NO;
         _nextButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
+        _agreementButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
     }
 }
 
@@ -192,16 +212,20 @@
     self.keyboardRect = keyboardRect;
     if (self.nextButtonIsShow) {
         _nextButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height-50, self.view.width, 50);
+        _agreementButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height-100, self.view.width, 50);
     } else {
         _nextButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height, self.view.width, 50);
+        _agreementButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height, self.view.width, 50);
     }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     if (self.nextButtonIsShow) {
         _nextButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
+        _agreementButton.frame = CGRectMake(0, self.view.height-100, self.view.width, 50);
     } else {
         _nextButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
+        _agreementButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
     }
 }
 

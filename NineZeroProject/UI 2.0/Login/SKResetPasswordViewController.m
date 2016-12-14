@@ -77,6 +77,8 @@
     
     _phoneTextField = [[SKRegisterTextField alloc] init];
     _phoneTextField.ly_placeholder = @"手机号码";
+    _phoneTextField.textField.keyboardType = UIKeyboardTypePhonePad;
+    [_phoneTextField.textField becomeFirstResponder];
     [self.view addSubview:_phoneTextField];
     [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ROUND_HEIGHT(106));
@@ -124,11 +126,18 @@
         self.loginUser.user_mobile = _phoneTextField.textField.text;
         self.loginUser.user_password = _passwordTextField.textField.text;
         
-        SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeResetPassword userLoginInfo:self.loginUser];
-        [self.navigationController pushViewController:controller animated:YES];
-        
-        [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:self.loginUser.user_mobile callback:^(BOOL success, SKResponsePackage *response) {
-            
+        [[[SKServiceManager sharedInstance] loginService] checkMobileRegisterStatus:_phoneTextField.textField.text callback:^(BOOL success, SKResponsePackage *response) {
+            DLog(@"%ld", response.result);
+            if (response.result == 0) {
+                [self showTipsWithText:@"手机号码未注册"];
+            } else {
+                SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeResetPassword userLoginInfo:self.loginUser];
+                [self.navigationController pushViewController:controller animated:YES];
+                
+                [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:self.loginUser.user_mobile callback:^(BOOL success, SKResponsePackage *response) {
+                    
+                }];
+            }
         }];
     }
 }
