@@ -11,7 +11,8 @@
 
 @interface SKAllQuestionViewController : UIViewController
 
-@property(nonatomic, strong) NSArray<HTQuestion*>* questionList;
+@property(nonatomic, strong) NSArray<SKQuestion*>* questionList_season1;
+@property(nonatomic, strong) NSArray<SKQuestion*>* questionList_season2;
 @property(nonatomic, assign) BOOL isMonday;
 
 @end

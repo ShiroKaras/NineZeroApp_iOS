@@ -9,12 +9,16 @@
 #import "SKAllQuestionViewController.h"
 #import "SKHelperView.h"
 
-#define PAGE_COUNT (ceil(self.questionList.count/12.))
+#define PAGE_COUNT_SEASON1 (ceil(self.questionList_season1.count/12.))
+#define PAGE_COUNT_SEASON2 (ceil(self.questionList_season2.count/12.))
 
 @interface SKAllQuestionViewController ()<UIScrollViewDelegate, SKHelperScrollViewDelegate>
 
-@property(nonatomic, strong) UIScrollView *mScrollView;
-@property(nonatomic, strong) UIPageControl *pageContrl;
+@property(nonatomic, strong) UIScrollView *mScrollView_season1;
+@property(nonatomic, strong) UIPageControl *mPageContrl_season1;
+@property(nonatomic, strong) UIScrollView *mScrollView_season2;
+@property(nonatomic, strong) UIPageControl *mPageContrl_season2;
+
 @property(nonatomic, strong) UIButton *helpButton;
 @property(nonatomic, strong) UIImageView *mascotImageView;
 @property(nonatomic, strong) UIButton *season1Button;
@@ -35,8 +39,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    //    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-    //[self.navigationController.navigationBar setHidden:NO];
 }
 
 - (void)viewDidLoad {
@@ -53,20 +55,25 @@
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - Load data
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
+        NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
+//        [self createSeason1UIWithData:mQuestionList_season1];
+        
+        NSMutableArray *mQuestionList_season2 = [questionList_season2 mutableCopy];
+        if (!_isMonday) {
+            [mQuestionList_season2 removeLastObject];
+        }
+        [self createSeason2UIWithData:mQuestionList_season2];
+    }];
+}
+
 #pragma mark - Create UI
 - (void)createUI {
     self.view.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
     
-    float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
-    _mScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
-    _mScrollView.delegate = self;
-    _mScrollView.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT, scrollViewHeight);
-    _mScrollView.pagingEnabled = YES;
-    _mScrollView.showsHorizontalScrollIndicator = NO;
-    _mScrollView.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:_mScrollView];
-    
-    __weak __typeof(self)weakSelf = self;
+    WS(weakSelf);
     UIButton *cancelButton = [UIButton new];
     [cancelButton setImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
     [cancelButton setImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
@@ -89,19 +96,6 @@
         make.height.equalTo(@40);
         make.top.equalTo(weakSelf.view).offset(12);
         make.right.equalTo(weakSelf.view).offset(-4);
-    }];
-    
-    _pageContrl = [[UIPageControl alloc] init];
-    _pageContrl.numberOfPages = PAGE_COUNT;
-    _pageContrl.pageIndicatorTintColor = [UIColor colorWithHex:0x004d40];
-    _pageContrl.currentPageIndicatorTintColor = COMMON_GREEN_COLOR;
-    _pageContrl.userInteractionEnabled = NO;
-    [self.view addSubview:_pageContrl];
-    [_pageContrl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakSelf.view);
-        make.top.equalTo(_mScrollView.mas_bottom).offset(28);
-        //make.bottom.equalTo(weakSelf.view).offset(-97-26);
-        make.height.equalTo(@(8));
     }];
     
     _mascotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_levelpage_season1"]];
@@ -132,22 +126,34 @@
     }];
 }
 
-- (void)loadData {
-    [[[HTServiceManager sharedInstance] questionService] getQuestionListWithPage:0 count:0 callback:^(BOOL success, NSArray<HTQuestion *> *questionList) {
-        NSMutableArray *mQuestionList = [questionList mutableCopy];
-        if (!_isMonday) {
-            [mQuestionList removeLastObject];
-        }
-        [self createUIWithData:mQuestionList];
-    }];
-}
-
-- (void)createUIWithData:(NSArray<HTQuestion*>*)questionList {
-    self.questionList = questionList;
-    _mScrollView.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT, (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4));
-    _pageContrl.numberOfPages = PAGE_COUNT;
+- (void)createSeason1UIWithData:(NSArray<SKQuestion*>*)questionList {
+    self.questionList_season1 = questionList;
     
-    for (UIView *view in self.mScrollView.subviews) {
+    float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+    _mScrollView_season1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    _mScrollView_season1.delegate = self;
+    _mScrollView_season1.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT_SEASON1, scrollViewHeight);
+    _mScrollView_season1.pagingEnabled = YES;
+    _mScrollView_season1.showsHorizontalScrollIndicator = NO;
+    _mScrollView_season1.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:_mScrollView_season1];
+    
+    _mPageContrl_season1 = [[UIPageControl alloc] init];
+    _mPageContrl_season1.numberOfPages = PAGE_COUNT_SEASON1;
+    _mPageContrl_season1.pageIndicatorTintColor = [UIColor colorWithHex:0x004d40];
+    _mPageContrl_season1.currentPageIndicatorTintColor = COMMON_GREEN_COLOR;
+    _mPageContrl_season1.userInteractionEnabled = NO;
+    [self.view addSubview:_mPageContrl_season1];
+    [_mPageContrl_season1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(_mScrollView_season1.mas_bottom).offset(28);
+        make.height.equalTo(@(8));
+    }];
+    
+    _mScrollView_season1.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT_SEASON1, (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4));
+    _mPageContrl_season1.numberOfPages = PAGE_COUNT_SEASON1;
+    
+    for (UIView *view in self.mScrollView_season1.subviews) {
         [view removeFromSuperview];
     }
     
@@ -161,7 +167,7 @@
         NSURL *coverURL = ([questionList[questionNumber].thumbnail_pic isEqualToString:@""]||questionList[questionNumber].thumbnail_pic==nil)?[NSURL URLWithString:questionList[questionNumber].question_video_cover]: [NSURL URLWithString:questionList[questionNumber].thumbnail_pic];
         [coverImageView sd_setImageWithURL:coverURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             int type;
-            if (questionList[questionNumber].is_answer || ![questionList[questionNumber].question_ar_location isEqualToString:@""])  type = 0;
+            if (questionList[questionNumber].is_answer || !(questionList[questionNumber].base_type == 2))  type = 0;
             else    type = 1;
             
             [[SDWebImageManager sharedManager] downloadImageWithURL:imageURL options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
@@ -210,7 +216,7 @@
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
         } else {
-            if (questionList[questionNumber].type == 0 ) {
+            if (questionList[questionNumber].base_type == 2) {
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
             } else {
@@ -228,32 +234,160 @@
         mQuestionNumberLabel.font = MOON_FONT_OF_SIZE(23);
         [itemView addSubview:mQuestionNumberLabel];
         
-        [_mScrollView addSubview:itemView];
+        [_mScrollView_season1 addSubview:itemView];
     }
 }
 
-- (void)updateUIWithData:(NSArray<HTQuestion*>*)questionList {
+- (void)createSeason2UIWithData:(NSArray<SKQuestion*>*)questionList {
+    self.questionList_season2 = questionList;
+    
+    float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+    _mScrollView_season2 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    _mScrollView_season2.delegate = self;
+    _mScrollView_season2.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT_SEASON2, scrollViewHeight);
+    _mScrollView_season2.pagingEnabled = YES;
+    _mScrollView_season2.showsHorizontalScrollIndicator = NO;
+    _mScrollView_season2.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:_mScrollView_season2];
+    
+    _mPageContrl_season2 = [[UIPageControl alloc] init];
+    _mPageContrl_season2.numberOfPages = PAGE_COUNT_SEASON2;
+    _mPageContrl_season2.pageIndicatorTintColor = [UIColor colorWithHex:0x004d40];
+    _mPageContrl_season2.currentPageIndicatorTintColor = COMMON_GREEN_COLOR;
+    _mPageContrl_season2.userInteractionEnabled = NO;
+    [self.view addSubview:_mPageContrl_season2];
+    [_mPageContrl_season2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(_mScrollView_season2.mas_bottom).offset(28);
+        make.height.equalTo(@(8));
+    }];
+    
+    _mScrollView_season2.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT_SEASON2, (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4));
+    _mPageContrl_season2.numberOfPages = PAGE_COUNT_SEASON2;
+    
+    for (UIView *view in self.mScrollView_season2.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    for (int questionNumber=0; questionNumber<questionList.count; questionNumber++) {
+        int pageNumber = floor(questionNumber/12);
+        int itemInPage = questionNumber-pageNumber*12;
+        int i = itemInPage%3;
+        int j = floor(itemInPage/3);
+        UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
+        NSURL *coverURL = ([questionList[questionNumber].thumbnail_pic isEqualToString:@""]||questionList[questionNumber].thumbnail_pic==nil)?[NSURL URLWithString:questionList[questionNumber].question_video_cover]: [NSURL URLWithString:questionList[questionNumber].thumbnail_pic];
+        if (coverURL == nil) {
+            coverImageView.image = [UIImage imageNamed:@"img_profile_photo_default"];
+        } else {
+            [coverImageView sd_setImageWithURL:coverURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                int type;
+                if (questionList[questionNumber].is_answer || !(questionList[questionNumber].base_type == 2))  type = 0;
+                else    type = 1;
+                
+                [[SDWebImageManager sharedManager] downloadImageWithURL:imageURL options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                    
+                    NSString* key = [[SDWebImageManager sharedManager] cacheKeyForURL:imageURL];
+                    BOOL result = [[SDImageCache sharedImageCache] diskImageExistsWithKey:key];
+                    NSString* imagePath = [[SDImageCache sharedImageCache] defaultCachePathForKey:key];
+                    NSData* newData = [NSData dataWithContentsOfFile:imagePath];
+                    if (!result || !newData) {
+                        BOOL imageIsPng = [[self typeForImageData:newData] isEqualToString:@"image/png"];
+                        NSData* imageData = nil;
+                        if (imageIsPng) {
+                            imageData = UIImagePNGRepresentation(image);
+                        }
+                        else {
+                            imageData = UIImageJPEGRepresentation(image, (CGFloat)1.0);
+                        }
+                        NSFileManager* _fileManager = [NSFileManager defaultManager];
+                        if (imageData) {
+                            [_fileManager removeItemAtPath:imagePath error:nil];
+                            [_fileManager createFileAtPath:imagePath contents:imageData attributes:nil];
+                        }
+                    }
+                    newData = [NSData dataWithContentsOfFile:imagePath];
+                    UIImage* grayImage = nil;
+                    if (type == 0) {
+                        grayImage = [UIImage imageWithData:newData];
+                    }else{
+                        UIImage* newImage = [UIImage imageWithData:newData];
+                                            grayImage = [self grayscale:newImage type:1];
+                    }
+                    coverImageView.image = grayImage;
+                }];
+            }];
+        }
+        coverImageView.layer.cornerRadius = itemView.width/2;
+        coverImageView.layer.masksToBounds = YES;
+        [itemView addSubview:coverImageView];
+        
+        //按钮
+        UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        mImageButton.tag = questionNumber;
+        [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
+        if (questionList[questionNumber].is_answer) {
+            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
+            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+        } else {
+            if (questionList[questionNumber].base_type == 2) {
+                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
+                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
+            } else {
+                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_uncompleted"] forState:UIControlStateNormal];
+                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_uncompleted_highlight"] forState:UIControlStateHighlighted];
+            }
+        }
+        [itemView addSubview:mImageButton];
+        
+        //关卡号
+        UILabel *mQuestionNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
+        mQuestionNumberLabel.textColor = [UIColor whiteColor];
+        mQuestionNumberLabel.text = [NSString stringWithFormat:@"%d",questionNumber+1];
+        mQuestionNumberLabel.textAlignment = NSTextAlignmentCenter;
+        mQuestionNumberLabel.font = MOON_FONT_OF_SIZE(23);
+        [itemView addSubview:mQuestionNumberLabel];
+        
+        [_mScrollView_season2 addSubview:itemView];
+    }
+}
+
+- (void)updateUIWithData:(NSArray<SKQuestion*>*)questionList {
     
 }
 
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    //得到图片移动相对原点的坐标
-    CGPoint point=scrollView.contentOffset;
-    //移动不能超过左边;
-    //    if(point.x<0){
-    //        point.x=0;
-    //        scrollView.contentOffset=point;
-    //    }
-    //移动不能超过右边
-    if(point.x>PAGE_COUNT*(SCREEN_WIDTH)){
-        point.x=(SCREEN_WIDTH)*PAGE_COUNT;
-        scrollView.contentOffset=point;
+    if (scrollView == _mScrollView_season1) {
+        //得到图片移动相对原点的坐标
+        CGPoint point=scrollView.contentOffset;
+        //移动不能超过左边;
+        //    if(point.x<0){
+        //        point.x=0;
+        //        scrollView.contentOffset=point;
+        //    }
+        //移动不能超过右边
+        if(point.x>PAGE_COUNT_SEASON1*(SCREEN_WIDTH)) {
+            point.x=(SCREEN_WIDTH)*PAGE_COUNT_SEASON1;
+            scrollView.contentOffset=point;
+        }
+        //根据图片坐标判断页数
+        NSInteger index=round(point.x/(SCREEN_WIDTH));
+        _mPageContrl_season1.currentPage=index;
+    } else if (scrollView == _mScrollView_season2) {
+        //得到图片移动相对原点的坐标
+        CGPoint point=scrollView.contentOffset;
+        //移动不能超过右边
+        if(point.x>PAGE_COUNT_SEASON2*(SCREEN_WIDTH)) {
+            point.x=(SCREEN_WIDTH)*PAGE_COUNT_SEASON2;
+            scrollView.contentOffset=point;
+        }
+        //根据图片坐标判断页数
+        NSInteger index=round(point.x/(SCREEN_WIDTH));
+        _mPageContrl_season2.currentPage=index;
     }
-    //根据图片坐标判断页数
-    NSInteger index=round(point.x/(SCREEN_WIDTH));
-    _pageContrl.currentPage=index;
 }
 
 #pragma mark - Actions

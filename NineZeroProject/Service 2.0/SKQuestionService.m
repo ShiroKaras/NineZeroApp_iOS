@@ -27,9 +27,7 @@
     NSDictionary *param = @{@"data" : jsonString};
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager questionBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"Response:%@",responseObject);
-        NSString *jsonString = [responseObject[@"data"] aes256_decrypt:AES_KEY];
-        //        DLog(@"Method:%@\n%@",dict[@"method"], [jsonString dictionaryWithJsonString]);
+//        DLog(@"Response:%@",responseObject);
         SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
         callback(YES, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -39,15 +37,24 @@
 }
 
 //全部关卡
-- (void)getAllQuestionListCallback:(SKResponseCallback)callback {
+- (void)getAllQuestionListCallback:(SKQuestionListCallback)callback {
     NSDictionary *param = @{
                             @"method"   :   @"getList",
                             @"area_id"  :   @"010"
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        NSMutableArray<SKQuestion *> *questions_season1 = [[NSMutableArray alloc] init];
+        NSMutableArray<SKQuestion *> *questions_season2 = [[NSMutableArray alloc] init];
+        for (int i = 0; i != [response.data[@"first_season"] count]; i++) {
+            SKQuestion *question = [SKQuestion objectWithKeyValues:[response.data[@"first_season"] objectAtIndex:i]];
+            [questions_season1 insertObject:question atIndex:0];
+        }
+        for (int i = 0; i != [response.data[@"second_season"] count]; i++) {
+            SKQuestion *question = [SKQuestion objectWithKeyValues:[response.data[@"second_season"] objectAtIndex:i]];
+            [questions_season2 insertObject:question atIndex:0];
+        }
+        callback (YES, questions_season1, questions_season2);
     }];
-
 }
 
 //极难题列表

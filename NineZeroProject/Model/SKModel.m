@@ -45,3 +45,6 @@ HTINIT(SKIndexInfo)
     return propertyMapper;
 }
 @end
+
+@implementation SKQuestion
+@end
