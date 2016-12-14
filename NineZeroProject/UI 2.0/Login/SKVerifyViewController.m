@@ -21,7 +21,9 @@
 
 @end
 
-@implementation SKVerifyViewController
+@implementation SKVerifyViewController {
+    NSInteger _secondsToCountDown;
+}
 
 - (instancetype)initWithType:(SKVerifyType)type userLoginInfo:(SKLoginUser *)loginUser
 {
@@ -119,7 +121,7 @@
     }
     
     UILabel *contentLabel = [UILabel new];
-    contentLabel.text = @"验证码短信马上就来\n28秒后可重新发送";
+    contentLabel.text = @"验证码短信马上就来";
     contentLabel.textColor = [UIColor whiteColor];
     contentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
     contentLabel.textAlignment = NSTextAlignmentCenter;
@@ -158,7 +160,7 @@
     _resendVerifyCodeButton = [UIButton new];
     [_resendVerifyCodeButton addTarget:self action:@selector(resendVerifyCodeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _resendVerifyCodeButton.backgroundColor = [UIColor clearColor];
-    [_resendVerifyCodeButton setTitle:@"接收短信出问题了？重新发送验证码" forState:UIControlStateNormal];
+    [_resendVerifyCodeButton setTitle:@"重新发送验证码（60s）" forState:UIControlStateNormal];
     _resendVerifyCodeButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
     _resendVerifyCodeButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
     [self.view addSubview:_resendVerifyCodeButton];
@@ -167,6 +169,9 @@
     _verifyCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:_verifyCodeTextField];
     [_verifyCodeTextField becomeFirstResponder];
+    
+    _secondsToCountDown = 60;
+    [self scheduleTimerCountDown];
 }
 
 #pragma mark - Actions
@@ -179,6 +184,9 @@
     [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:self.loginUser.user_mobile callback:^(BOOL success, SKResponsePackage *response) {
         
     }];
+    
+    _secondsToCountDown = 60;
+    [self scheduleTimerCountDown];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -202,13 +210,17 @@
         if (_type == SKVerifyTypeRegister) {
             //注册
             [[[SKServiceManager sharedInstance] loginService] registerWith:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
-                //登录成功进入主页
-                [self.view endEditing:YES];
-                SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
-                AppDelegateInstance.mainController = controller;
-                HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
-                AppDelegateInstance.window.rootViewController = navController;
-                [AppDelegateInstance.window makeKeyAndVisible];
+                if (response.result == 0) {
+                    //登录成功进入主页
+                    [self.view endEditing:YES];
+                    SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
+                    AppDelegateInstance.mainController = controller;
+                    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
+                    AppDelegateInstance.window.rootViewController = navController;
+                    [AppDelegateInstance.window makeKeyAndVisible];
+                } else if (response.result == -1003) {
+                    [self showTipsWithText:@"验证码错误"];
+                }
             }];
         } else if (_type == SKVerifyTypeResetPassword) {
             //找回密码
@@ -243,6 +255,26 @@
 
 - (void)keyboardDidHide:(NSNotification *)notification {
     
+}
+
+- (void)scheduleTimerCountDown {
+    [self performSelector:@selector(scheduleTimerCountDown) withObject:nil afterDelay:1.0];
+    _secondsToCountDown--;
+    if (_secondsToCountDown == 0) {
+        _resendVerifyCodeButton.alpha = 1.0;
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleTimerCountDown) object:nil];
+        [_resendVerifyCodeButton setTitle:@"重新发送验证码" forState:UIControlStateNormal];
+        [_resendVerifyCodeButton setTitle:@"重新发送验证码" forState:UIControlStateDisabled];
+        _resendVerifyCodeButton.enabled = YES;
+    } else {
+        _resendVerifyCodeButton.alpha = 0.7;
+        _resendVerifyCodeButton.enabled = NO;
+        [UIView setAnimationsEnabled:NO];
+        [_resendVerifyCodeButton setTitle:[NSString stringWithFormat:@"重新发送验证码（%ld）", (long)_secondsToCountDown] forState:UIControlStateNormal];
+        [_resendVerifyCodeButton setTitle:[NSString stringWithFormat:@"重新发送验证码（%ld）", (long)_secondsToCountDown] forState:UIControlStateDisabled];
+        [_resendVerifyCodeButton layoutIfNeeded];
+        [UIView setAnimationsEnabled:YES];
+    }
 }
 
 @end
