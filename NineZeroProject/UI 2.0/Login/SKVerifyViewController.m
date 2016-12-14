@@ -212,8 +212,15 @@
             }];
         } else if (_type == SKVerifyTypeResetPassword) {
             //找回密码
-            SKConfirmPasswordViewController *controller = [[SKConfirmPasswordViewController alloc] initWithUserLoginInfo:self.loginUser];
-            [self.navigationController pushViewController:controller animated:YES];
+            [[[SKServiceManager sharedInstance] loginService] resetPassword:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
+                //登录成功进入主页
+                [self.view endEditing:YES];
+                SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
+                AppDelegateInstance.mainController = controller;
+                HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
+                AppDelegateInstance.window.rootViewController = navController;
+                [AppDelegateInstance.window makeKeyAndVisible];
+            }];
         }
         
     } else {

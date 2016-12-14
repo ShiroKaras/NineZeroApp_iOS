@@ -97,6 +97,10 @@
                             @"vcode"        :   user.code
                             };
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSDictionary *dataDict = response.data;
+        SKLoginUser *loginUser = [SKLoginUser objectWithKeyValues:dataDict];
+        [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
+        [[SKStorageManager sharedInstance] updateLoginUser:loginUser];
         callback(success, response);
     }];
 }

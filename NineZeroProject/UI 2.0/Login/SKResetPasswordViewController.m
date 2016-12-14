@@ -15,6 +15,8 @@
 @interface SKResetPasswordViewController ()
 
 @property (nonatomic, strong) SKRegisterTextField *phoneTextField;
+@property (nonatomic, strong) SKRegisterTextField *passwordTextField;
+@property (nonatomic, strong) SKRegisterTextField *passwordConfirmTextField;
 @property (nonatomic, strong) UIButton *nextButton;
 
 @property (nonatomic, strong) SKLoginUser *loginUser;
@@ -60,7 +62,7 @@
     }];
     
     UILabel *titleLabel = [UILabel new];
-    titleLabel.text = @"忘记密码";
+    titleLabel.text = @"重置密码";
     titleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,7 +74,17 @@
     _phoneTextField.ly_placeholder = @"手机号码";
     [self.view addSubview:_phoneTextField];
     [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ROUND_HEIGHT(161));
+        make.top.equalTo(ROUND_HEIGHT(106));
+        make.centerX.equalTo(weakSelf.view);
+        make.width.equalTo(ROUND_WIDTH(252));
+        make.height.equalTo(ROUND_WIDTH(44));
+    }];
+    
+    _passwordTextField = [[SKRegisterTextField alloc] init];
+    _passwordTextField.ly_placeholder = @"新密码";
+    [self.view addSubview:_passwordTextField];
+    [_passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_phoneTextField.mas_bottom).offset(26);
         make.centerX.equalTo(weakSelf.view);
         make.width.equalTo(ROUND_WIDTH(252));
         make.height.equalTo(ROUND_WIDTH(44));
@@ -96,6 +108,7 @@
 - (void)nextButtonClick:(UIButton *)sender {
     self.loginUser = [SKLoginUser new];
     self.loginUser.user_mobile = _phoneTextField.textField.text;
+    self.loginUser.user_password = _passwordTextField.textField.text;
     
     SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeResetPassword userLoginInfo:self.loginUser];
     [self.navigationController pushViewController:controller animated:YES];
