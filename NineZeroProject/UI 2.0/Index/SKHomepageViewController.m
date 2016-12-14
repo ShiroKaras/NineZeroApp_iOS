@@ -17,6 +17,8 @@
 #import "SKProfileSettingViewController.h"
 
 @interface SKHomepageViewController ()
+
+@property (nonatomic, strong)   HTImageView *headerImageView;
 @property (nonatomic, strong)   UILabel   *timeCountDownLabel;
 
 @property (nonatomic, assign)   time_t  endTime;
@@ -34,6 +36,7 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] commonService] getHomepageInfoCallBack:^(SKIndexInfo *indexInfo) {
+        [_headerImageView sd_setImageWithURL:[NSURL URLWithString:indexInfo.index_gif]];
         _isMonday = indexInfo.isMonday;
         _endTime = _isMonday==true? indexInfo.monday_end_time : indexInfo.question_end_time;
         [self scheduleCountDownTimer];
@@ -80,17 +83,17 @@
     
     self.view.backgroundColor = [UIColor blackColor];
     
-    HTImageView *headerImageView = [[HTImageView alloc] init];
-    headerImageView.backgroundColor = [UIColor redColor];
+    _headerImageView = [[HTImageView alloc] init];
+    _headerImageView.backgroundColor = [UIColor redColor];
     //[headerImageView setAnimatedImageWithName:@"img_homepage_gif"];
-    headerImageView.layer.masksToBounds = YES;
-    headerImageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.view addSubview:headerImageView];
-    [headerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    _headerImageView.layer.masksToBounds = YES;
+    _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:_headerImageView];
+    [_headerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.view);
         make.left.equalTo(weakSelf.view);
         make.right.equalTo(weakSelf.view);
-        make.height.equalTo(weakSelf.view.mas_width);
+        make.height.equalTo(weakSelf.view.mas_width).offset(4);
     }];
     
     UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -114,7 +117,7 @@
         make.width.equalTo(ROUND_WIDTH(70));
         make.height.equalTo(ROUND_HEIGHT(93));
         make.centerX.equalTo(weakSelf.view);
-        make.top.equalTo(headerImageView.mas_bottom).offset(30);
+        make.top.equalTo(_headerImageView.mas_bottom).offset(30);
     }];
     
     //全部关卡

@@ -53,6 +53,7 @@
 @property (nonatomic, assign)   BOOL        isMonday;
 @property (nonatomic, assign)   BOOL        is_haved_difficult;
 @property (nonatomic, assign)   NSInteger   user_notice_count;
+@property (nonatomic, copy)     NSString    *index_gif;
     //question_info
 @property (nonatomic, assign)   time_t      question_end_time;
 @property (nonatomic, copy)     NSString    *qid;
