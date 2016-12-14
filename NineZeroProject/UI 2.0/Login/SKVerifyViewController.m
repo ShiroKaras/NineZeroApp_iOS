@@ -225,6 +225,11 @@
                     [AppDelegateInstance.window makeKeyAndVisible];
                 } else if (response.result == -1003) {
                     [self showTipsWithText:@"验证码错误"];
+                    self.verifyCodeTextField.text = @"";
+                    ((UILabel*)[self.view viewWithTag:100]).text = @"";
+                    ((UILabel*)[self.view viewWithTag:101]).text = @"";
+                    ((UILabel*)[self.view viewWithTag:102]).text = @"";
+                    ((UILabel*)[self.view viewWithTag:103]).text = @"";
                 }
             }];
         } else if (_type == SKVerifyTypeResetPassword) {
