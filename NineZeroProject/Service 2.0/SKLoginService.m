@@ -48,8 +48,10 @@
                             };
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         NSDictionary *dataDict = response.data;
-        [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
-        [[SKStorageManager sharedInstance] updateLoginUser:user];
+        if (response.result == 0) {
+            [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
+            [[SKStorageManager sharedInstance] updateLoginUser:user];
+        }
         callback(success, response);
     }];
 }
@@ -62,9 +64,11 @@
                             };
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         NSDictionary *dataDict = response.data;
-        SKLoginUser *loginUser = [SKLoginUser objectWithKeyValues:dataDict];
-        [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
-        [[SKStorageManager sharedInstance] updateLoginUser:loginUser];
+        if (response.result == 0) {
+//            SKLoginUser *loginUser = [SKLoginUser objectWithKeyValues:dataDict];
+            [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
+            [[SKStorageManager sharedInstance] updateLoginUser:user];
+        }
         callback(success, response);
     }];
 }
@@ -79,9 +83,11 @@
                             };
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         NSDictionary *dataDict = response.data;
-        SKLoginUser *loginUser = [SKLoginUser objectWithKeyValues:dataDict];
-        [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
-        [[SKStorageManager sharedInstance] updateLoginUser:loginUser];
+        if (response.result == 0) {
+            SKLoginUser *loginUser = [SKLoginUser objectWithKeyValues:dataDict];
+            [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
+            [[SKStorageManager sharedInstance] updateLoginUser:loginUser];
+        }
         callback(success, response);
     }];
 }
@@ -96,8 +102,10 @@
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         NSDictionary *dataDict = response.data;
         SKLoginUser *loginUser = [SKLoginUser objectWithKeyValues:dataDict];
-        [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
-        [[SKStorageManager sharedInstance] updateLoginUser:loginUser];
+        if (response.result == 0) {
+            [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
+            [[SKStorageManager sharedInstance] updateLoginUser:loginUser];            
+        }
         callback(success, response);
     }];
 }
