@@ -123,14 +123,26 @@
 
 - (void)nextButtonClick:(UIButton *)sender {
     self.loginUser = [SKLoginUser new];
-    self.loginUser.user_mobile  = _phoneTextField.textField.text;
-    self.loginUser.user_name    = _usernameTextField.textField.text;
-    self.loginUser.user_password = _passwordTextField.textField.text;
-    
-    SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeRegister userLoginInfo:self.loginUser];
-    [self.navigationController pushViewController:controller animated:YES];
-    
-    [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:self.loginUser.user_mobile callback:^(BOOL success, SKResponsePackage *response) { }];
+    if ([_phoneTextField.textField.text isEqualToString:@""]) {
+        [self showTipsWithText:@"请填写手机号码"];
+    } else if (_phoneTextField.textField.text.length < 11) {
+        [self showTipsWithText:@"请检查手机号码是否正确"];
+    } else if ([_usernameTextField.textField.text isEqualToString:@""]) {
+        [self showTipsWithText:@"请填写密码"];
+    } else if ([_passwordTextField.textField.text isEqualToString:@""]) {
+        [self showTipsWithText:@"密码不能为空"];
+    } else if (_passwordTextField.textField.text.length<6) {
+        [self showTipsWithText:@"请输入不低于6位密码"];
+    } else {
+        self.loginUser.user_mobile  = _phoneTextField.textField.text;
+        self.loginUser.user_name    = _usernameTextField.textField.text;
+        self.loginUser.user_password = _passwordTextField.textField.text;
+        
+        SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeRegister userLoginInfo:self.loginUser];
+        [self.navigationController pushViewController:controller animated:YES];
+        
+        [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:self.loginUser.user_mobile callback:^(BOOL success, SKResponsePackage *response) { }];
+    }
 }
 
 #pragma mark - UITextFieldDelegate
