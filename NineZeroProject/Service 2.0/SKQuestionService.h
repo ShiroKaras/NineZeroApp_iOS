@@ -12,7 +12,7 @@
 
 @class SKQuestion;
 
-typedef void (^SKQuestionListCallback) (BOOL success, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2);
+typedef void (^SKQuestionListCallback) (BOOL success,NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2);
 
 @interface SKQuestionService : NSObject
 

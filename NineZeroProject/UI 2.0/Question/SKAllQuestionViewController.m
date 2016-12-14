@@ -24,6 +24,8 @@
 @property(nonatomic, strong) UIButton *season1Button;
 @property(nonatomic, strong) UIButton *season2Button;
 
+@property(nonatomic, assign) NSInteger season;
+
 @end
 
 @implementation SKAllQuestionViewController{
@@ -39,12 +41,13 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self removeObserver:self forKeyPath:@"season"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self createUI];
+    [self addObserver:self forKeyPath:@"season" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     if (FIRST_LAUNCH_QUESTIONLIST) {
         [self helpButtonClick:nil];
         [UD setBool:YES forKey:@"firstLaunchQuestionList"];
@@ -57,15 +60,18 @@
 
 #pragma mark - Load data
 - (void)loadData {
-    [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
+    [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
         NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
-//        [self createSeason1UIWithData:mQuestionList_season1];
+        [self createSeason1UIWithData:mQuestionList_season1];
         
         NSMutableArray *mQuestionList_season2 = [questionList_season2 mutableCopy];
         if (!_isMonday) {
             [mQuestionList_season2 removeLastObject];
         }
         [self createSeason2UIWithData:mQuestionList_season2];
+        
+        if (answeredQuestion_season1 < 60)  self.season = 1;
+        else                                self.season = 2;
     }];
 }
 
@@ -165,44 +171,48 @@
         UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
         UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
         NSURL *coverURL = ([questionList[questionNumber].thumbnail_pic isEqualToString:@""]||questionList[questionNumber].thumbnail_pic==nil)?[NSURL URLWithString:questionList[questionNumber].question_video_cover]: [NSURL URLWithString:questionList[questionNumber].thumbnail_pic];
-        [coverImageView sd_setImageWithURL:coverURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            int type;
-            if (questionList[questionNumber].is_answer || !(questionList[questionNumber].base_type == 2))  type = 0;
-            else    type = 1;
-            
-            [[SDWebImageManager sharedManager] downloadImageWithURL:imageURL options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        if (coverURL == nil) {
+            coverImageView.image = [UIImage imageNamed:@"img_profile_photo_default"];
+        } else {
+            [coverImageView sd_setImageWithURL:coverURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                int type;
+                if (questionList[questionNumber].is_answer || !(questionList[questionNumber].base_type == 2))  type = 0;
+                else    type = 1;
                 
-                NSString* key = [[SDWebImageManager sharedManager] cacheKeyForURL:imageURL];
-                BOOL result = [[SDImageCache sharedImageCache] diskImageExistsWithKey:key];
-                NSString* imagePath = [[SDImageCache sharedImageCache] defaultCachePathForKey:key];
-                NSData* newData = [NSData dataWithContentsOfFile:imagePath];
-                if (!result || !newData) {
-                    BOOL imageIsPng = [[self typeForImageData:newData] isEqualToString:@"image/png"];
-                    NSData* imageData = nil;
-                    if (imageIsPng) {
-                        imageData = UIImagePNGRepresentation(image);
-                    }
-                    else {
-                        imageData = UIImageJPEGRepresentation(image, (CGFloat)1.0);
-                    }
-                    NSFileManager* _fileManager = [NSFileManager defaultManager];
-                    if (imageData) {
-                        [_fileManager removeItemAtPath:imagePath error:nil];
-                        [_fileManager createFileAtPath:imagePath contents:imageData attributes:nil];
-                    }
-                }
-                newData = [NSData dataWithContentsOfFile:imagePath];
-                UIImage* grayImage = nil;
-                if (type == 0) {
-                    grayImage = [UIImage imageWithData:newData];
-                }else{
-                    UIImage* newImage = [UIImage imageWithData:newData];
+                [[SDWebImageManager sharedManager] downloadImageWithURL:imageURL options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                     
-                    grayImage = [self grayscale:newImage type:1];
-                }
-                coverImageView.image = grayImage;
+                    NSString* key = [[SDWebImageManager sharedManager] cacheKeyForURL:imageURL];
+                    BOOL result = [[SDImageCache sharedImageCache] diskImageExistsWithKey:key];
+                    NSString* imagePath = [[SDImageCache sharedImageCache] defaultCachePathForKey:key];
+                    NSData* newData = [NSData dataWithContentsOfFile:imagePath];
+                    if (!result || !newData) {
+                        BOOL imageIsPng = [[self typeForImageData:newData] isEqualToString:@"image/png"];
+                        NSData* imageData = nil;
+                        if (imageIsPng) {
+                            imageData = UIImagePNGRepresentation(image);
+                        }
+                        else {
+                            imageData = UIImageJPEGRepresentation(image, (CGFloat)1.0);
+                        }
+                        NSFileManager* _fileManager = [NSFileManager defaultManager];
+                        if (imageData) {
+                            [_fileManager removeItemAtPath:imagePath error:nil];
+                            [_fileManager createFileAtPath:imagePath contents:imageData attributes:nil];
+                        }
+                    }
+                    newData = [NSData dataWithContentsOfFile:imagePath];
+                    UIImage* grayImage = nil;
+                    if (type == 0) {
+                        grayImage = [UIImage imageWithData:newData];
+                    }else{
+                        UIImage* newImage = [UIImage imageWithData:newData];
+                        
+                        grayImage = [self grayscale:newImage type:1];
+                    }
+                    coverImageView.image = grayImage;
+                }];
             }];
-        }];
+        }
         coverImageView.layer.cornerRadius = itemView.width/2;
         coverImageView.layer.masksToBounds = YES;
         [itemView addSubview:coverImageView];
@@ -420,12 +430,16 @@
     _mascotImageView.image = [UIImage imageNamed:@"img_levelpage_season1"];
     [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1_highlight"] forState:UIControlStateNormal];
     [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2"] forState:UIControlStateNormal];
+
+    self.season = 1;
 }
 
 - (void)season2ButtonClick:(UIButton *)sender {
     _mascotImageView.image = [UIImage imageNamed:@"img_levelpage_season2"];
     [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1"] forState:UIControlStateNormal];
     [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2_highlight"] forState:UIControlStateNormal];
+    
+    self.season = 2;
 }
 
 #pragma mark - SKHelperScrollViewDelegate
@@ -546,6 +560,24 @@
     return effectedImage;
 }
 
+#pragma mark - Notification
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"season"]) {
+        NSLog(@"%ld", self.season);
+        if (self.season == 1) {
+            _mScrollView_season1.hidden = NO;
+            _mPageContrl_season1.hidden = NO;
+            _mScrollView_season2.hidden = YES;
+            _mPageContrl_season2.hidden = YES;
+        } else if (self.season == 2) {
+            _mScrollView_season1.hidden = YES;
+            _mPageContrl_season1.hidden = YES;
+            _mScrollView_season2.hidden = NO;
+            _mPageContrl_season2.hidden = NO;
+        }
+    }
+}
 
 
 @end
