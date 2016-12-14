@@ -13,6 +13,9 @@
 
 @interface SKMascotIndexViewController () <UIScrollViewDelegate>
 
+@property (nonatomic, strong) UIView *iconBackView;
+@property (nonatomic, strong) UIView *diamondBackView;
+
 @property (nonatomic, strong) UIScrollView *mScrollView;
 @property (nonatomic, strong) UIButton *fightButton;        //战斗按钮
 @property (nonatomic, strong) UIButton *mascotdexButton;    //图鉴按钮
@@ -64,63 +67,9 @@
         make.left.equalTo(@4);
     }];
     
-    //右上角
-    UIView *iconBackView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-83.5, 14, 83.5, 30)];
-    iconBackView.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:iconBackView];
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:iconBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(15, 15)];
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = iconBackView.bounds;
-    maskLayer.path = maskPath.CGPath;
-    iconBackView.layer.mask = maskLayer;
+    [self createResourceInfoUI];
     
-    UIImageView *iconImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_gold"]];
-    [iconImageView sizeToFit];
-    [self.view addSubview:iconImageView];
-    [iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(iconBackView.mas_centerY);
-        make.right.equalTo(iconBackView.mas_right).offset(-8);
-    }];
-    
-    UILabel *iconCountLabel = [[UILabel alloc] init];
-    iconCountLabel.font = MOON_FONT_OF_SIZE(18);
-    iconCountLabel.textColor = [UIColor whiteColor];
-    iconCountLabel.text = @"9999";
-    [iconCountLabel sizeToFit];
-    [self.view addSubview:iconCountLabel];
-    [iconCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(iconBackView);
-        make.right.equalTo(iconImageView.mas_left).offset(-6);
-    }];
-    
-    UIView *diamondBackView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-83.5, 14+30+6, 83.5, 30)];
-    diamondBackView.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:diamondBackView];
-    UIBezierPath *maskPath2 = [UIBezierPath bezierPathWithRoundedRect:diamondBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(15, 15)];
-    CAShapeLayer *maskLayer2 = [[CAShapeLayer alloc] init];
-    maskLayer2.frame = diamondBackView.bounds;
-    maskLayer2.path = maskPath2.CGPath;
-    diamondBackView.layer.mask = maskLayer2;
-    
-    UIImageView *diamondImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_diamonds"]];
-    [diamondImageView sizeToFit];
-    [self.view addSubview:diamondImageView];
-    [diamondImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(diamondBackView.mas_centerY);
-        make.right.equalTo(diamondBackView.mas_right).offset(-8);
-    }];
-    
-    UILabel *diamondCountLabel = [[UILabel alloc] init];
-    diamondCountLabel.font = MOON_FONT_OF_SIZE(18);
-    diamondCountLabel.textColor = [UIColor whiteColor];
-    diamondCountLabel.text = @"9999";
-    [diamondCountLabel sizeToFit];
-    [self.view addSubview:diamondCountLabel];
-    [diamondCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(diamondBackView);
-        make.right.equalTo(diamondImageView.mas_left).offset(-6);
-    }];
-    
+    //按钮组
     _fightButton = [UIButton new];
     _fightButton.hidden = YES;
     [self.view addSubview:_fightButton];
@@ -153,6 +102,7 @@
     }];
     
     _infoButton = [UIButton new];
+    _infoButton.hidden = YES;
     [_infoButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_info"] forState:UIControlStateNormal];
     [_infoButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_info_highlight"] forState:UIControlStateHighlighted];
     [_infoButton sizeToFit];
@@ -160,6 +110,65 @@
     [_infoButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@12);
         make.right.equalTo(weakSelf.view.mas_right).offset(-4);
+    }];
+}
+
+- (void)createResourceInfoUI {
+    //右上角
+    _iconBackView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-83.5, 14, 83.5, 30)];
+    _iconBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    [self.view addSubview:_iconBackView];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_iconBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(15, 15)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _iconBackView.bounds;
+    maskLayer.path = maskPath.CGPath;
+    _iconBackView.layer.mask = maskLayer;
+    
+    UIImageView *iconImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_gold"]];
+    [iconImageView sizeToFit];
+    [_iconBackView addSubview:iconImageView];
+    [iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_iconBackView.mas_centerY);
+        make.right.equalTo(_iconBackView.mas_right).offset(-8);
+    }];
+    
+    UILabel *iconCountLabel = [[UILabel alloc] init];
+    iconCountLabel.font = MOON_FONT_OF_SIZE(18);
+    iconCountLabel.textColor = [UIColor whiteColor];
+    iconCountLabel.text = @"9999";
+    [iconCountLabel sizeToFit];
+    [_iconBackView addSubview:iconCountLabel];
+    [iconCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_iconBackView);
+        make.right.equalTo(iconImageView.mas_left).offset(-6);
+    }];
+    
+    _diamondBackView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-83.5, 14+30+6, 83.5, 30)];
+    _diamondBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    [self.view addSubview:_diamondBackView];
+    UIBezierPath *maskPath2 = [UIBezierPath bezierPathWithRoundedRect:_diamondBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(15, 15)];
+    CAShapeLayer *maskLayer2 = [[CAShapeLayer alloc] init];
+    maskLayer2.frame = _diamondBackView.bounds;
+    maskLayer2.path = maskPath2.CGPath;
+    _diamondBackView.layer.mask = maskLayer2;
+    
+    UIImageView *diamondImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_diamonds"]];
+    [diamondImageView sizeToFit];
+    [_diamondBackView addSubview:diamondImageView];
+    [diamondImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_diamondBackView.mas_centerY);
+        make.right.equalTo(_diamondBackView.mas_right).offset(-8);
+    }];
+    
+    UILabel *diamondCountLabel = [[UILabel alloc] init];
+    diamondCountLabel.font = MOON_FONT_OF_SIZE(18);
+    diamondCountLabel.textColor = [UIColor whiteColor];
+    diamondCountLabel.text = @"9999";
+    [diamondCountLabel sizeToFit];
+    [_diamondBackView addSubview:diamondCountLabel];
+    [diamondCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_diamondBackView);
+        make.right.equalTo(diamondImageView.mas_left).offset(-6);
     }];
 }
 
@@ -190,10 +199,16 @@
 
 - (void)updateButtonWithIndex:(NSInteger)index {
     if (index == SKMascotTypeDefault) {
+        _iconBackView.hidden = NO;
+        _diamondBackView.hidden = NO;
+        _infoButton.hidden = YES;
         _fightButton.hidden = YES;
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill"] forState:UIControlStateNormal];
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill_highlight"] forState:UIControlStateHighlighted];
     } else {
+        _iconBackView.hidden = YES;
+        _diamondBackView.hidden = YES;
+        _infoButton.hidden = NO;
         _fightButton.hidden = NO;
         [_fightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@fight", _mascotNameArray[index]]] forState:UIControlStateNormal];
         [_fightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@fight_highlight", _mascotNameArray[index]]] forState:UIControlStateHighlighted];
