@@ -111,21 +111,40 @@
 }
 
 - (void)nextButtonClick:(UIButton *)sender {
-    self.loginUser = [SKLoginUser new];
-    self.loginUser.user_mobile = _phoneTextField.textField.text;
-    self.loginUser.user_password = _passwordTextField.textField.text;
-    
-    SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeResetPassword userLoginInfo:self.loginUser];
-    [self.navigationController pushViewController:controller animated:YES];
-    
-    [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:self.loginUser.user_mobile callback:^(BOOL success, SKResponsePackage *response) {
+    if ([_phoneTextField.textField.text isEqualToString:@""]) {
+        [self showTipsWithText:@"请填写手机号码"];
+    } else if (_phoneTextField.textField.text.length < 11) {
+        [self showTipsWithText:@"请检查手机号码是否正确"];
+    } else if ([_passwordTextField.textField.text isEqualToString:@""]) {
+        [self showTipsWithText:@"请填写密码"];
+    } else if (_passwordTextField.textField.text.length<6) {
+        [self showTipsWithText:@"请输入不低于6位密码"];
+    } else {
+        self.loginUser = [SKLoginUser new];
+        self.loginUser.user_mobile = _phoneTextField.textField.text;
+        self.loginUser.user_password = _passwordTextField.textField.text;
         
-    }];
+        SKVerifyViewController *controller = [[SKVerifyViewController alloc] initWithType:SKVerifyTypeResetPassword userLoginInfo:self.loginUser];
+        [self.navigationController pushViewController:controller animated:YES];
+        
+        [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:self.loginUser.user_mobile callback:^(BOOL success, SKResponsePackage *response) {
+            
+        }];
+    }
 }
 
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldTextDidChange:(NSNotification *)notification {
+    if (_phoneTextField.textField.text.length == 11) {
+        //判断手机号是否被注册
+        [[[SKServiceManager sharedInstance] loginService] checkMobileRegisterStatus:_phoneTextField.textField.text callback:^(BOOL success, SKResponsePackage *response) {
+            DLog(@"%ld", response.result);
+            if (response.result == 0) {
+                [self showTipsWithText:@"手机号码未注册"];
+            }
+        }];
+    }
     if (_phoneTextField.textField.text.length > 11) {
         _phoneTextField.textField.text = [_phoneTextField.textField.text substringToIndex:11];
     }
