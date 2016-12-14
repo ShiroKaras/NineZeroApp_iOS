@@ -81,7 +81,6 @@
     }];
     
     _passwordTextField = [[SKRegisterTextField alloc] init];
-    _passwordTextField.alpha = 0;
     _passwordTextField.textField.secureTextEntry = YES;
     _passwordTextField.ly_placeholder = @"密码";
     [self.view addSubview:_passwordTextField];
@@ -140,11 +139,6 @@
 - (void)textFieldTextDidChange:(NSNotification *)notification {
     if (_phoneTextField.textField.text.length > 11) {
         _phoneTextField.textField.text = [_phoneTextField.textField.text substringToIndex:11];
-    }
-    if (_phoneTextField.textField.text.length == 11) {
-        [UIView animateWithDuration:0.3 animations:^{
-            _passwordTextField.alpha = 1;
-        }];
     }
 }
 
