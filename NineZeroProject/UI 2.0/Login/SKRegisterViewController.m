@@ -133,9 +133,9 @@
     } else if (_phoneTextField.textField.text.length < 11) {
         [self showTipsWithText:@"请检查手机号码是否正确"];
     } else if ([_usernameTextField.textField.text isEqualToString:@""]) {
-        [self showTipsWithText:@"请填写密码"];
+        [self showTipsWithText:@"请填写用户名"];
     } else if ([_passwordTextField.textField.text isEqualToString:@""]) {
-        [self showTipsWithText:@"密码不能为空"];
+        [self showTipsWithText:@"请填写密码"];
     } else if (_passwordTextField.textField.text.length<6) {
         [self showTipsWithText:@"请输入不低于6位密码"];
     } else {
