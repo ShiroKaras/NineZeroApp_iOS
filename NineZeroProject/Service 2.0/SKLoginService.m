@@ -137,8 +137,8 @@
 - (void)quitLogin {
     [[SKStorageManager sharedInstance] clearLoginUser];
     [[SKStorageManager sharedInstance] clearUserID];
-//    [[SKStorageManager sharedInstance] setUserInfo:[[SKUserInfo alloc] init]];
-//    [[SKStorageManager sharedInstance] setProfileInfo:[[SKProfileInfo alloc] init]];
+    [[SKStorageManager sharedInstance] setUserInfo:[[SKUserInfo alloc] init]];
+    [[SKStorageManager sharedInstance] setProfileInfo:[[SKProfileInfo alloc] init]];
 }
 
 

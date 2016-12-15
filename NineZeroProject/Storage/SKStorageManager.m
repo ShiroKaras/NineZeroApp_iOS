@@ -17,6 +17,7 @@
 }
 
 @synthesize userInfo = _userInfo;
+@synthesize profileInfo = _profileInfo;
 @synthesize qiniuPublicToken = _qiniuPublicToken;
 
 + (instancetype)sharedInstance {
@@ -80,6 +81,19 @@
     if (_userInfo != nil) return _userInfo;
     _userInfo = [SKUserInfo objectWithKeyValues:[_storageService getObjectById:kStorageUserInfoKey fromTable:kStorageTableKey]];
     return _userInfo;
+}
+
+#pragma mark - Profile info
+
+- (void)setProfileInfo:(SKProfileInfo *)profileInfo {
+    _profileInfo = profileInfo;
+    [_storageService putObject:[profileInfo keyValues] withId:kStorageProfileInfoKey intoTable:kStorageTableKey];
+}
+
+- (SKProfileInfo *)profileInfo {
+    if (_profileInfo != nil) return _profileInfo;
+    _profileInfo = [SKProfileInfo objectWithKeyValues:[_storageService getObjectById:kStorageProfileInfoKey fromTable:kStorageTableKey]];
+    return _profileInfo;
 }
 
 #pragma mark - Qiniu token

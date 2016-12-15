@@ -27,7 +27,17 @@
 @property (nonatomic, copy) NSString *third_id;             // 第三方平台ID
 @end
 
+//用户基本信息
 @interface SKUserInfo : NSObject
+@property (nonatomic, copy)     NSString    *user_id;
+@property (nonatomic, copy)     NSString    *user_name;
+@property (nonatomic, copy)     NSString    *user_avatar;
+@property (nonatomic, copy)     NSString    *gold;
+@property (nonatomic, assign)   NSInteger   rank;
+@end
+
+//用户个人页信息
+@interface SKProfileInfo : NSObject
 @property (nonatomic, copy) NSString *user_gold;                //金币数
 @property (nonatomic, copy) NSString *piece_num;                //玩意儿数
 @property (nonatomic, copy) NSString *ticket_num;               //礼券数

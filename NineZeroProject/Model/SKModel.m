@@ -27,6 +27,9 @@ return self; \
 @implementation SKUserInfo
 @end
 
+@implementation SKProfileInfo 
+@end
+
 @implementation SKUserSetting
 @end
 

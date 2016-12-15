@@ -38,13 +38,13 @@
 }
 
 //获取个人信息
-- (void)getUserInfoDetailCallback:(SKUserInfoCallback)callback {
+- (void)getUserInfoDetailCallback:(SKProfileInfoCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"getUserInfo"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        SKUserInfo *userInfo = [SKUserInfo objectWithKeyValues:[response keyValues][@"data"]];
-        callback(success, userInfo);
+        SKProfileInfo *profileInfo = [SKProfileInfo objectWithKeyValues:[response keyValues][@"data"]];
+        callback(success, profileInfo);
     }];
 }
 
@@ -79,12 +79,13 @@
 }
 
 //获取基本信息
-- (void)getUserBaseInfoCallback:(SKResponseCallback)callback {
+- (void)getUserBaseInfoCallback:(SKUserInfoCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"getBaseInfo"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        SKUserInfo *userInfo = [SKUserInfo objectWithKeyValues:[response keyValues][@"data"]];
+        callback(success, userInfo);
     }];
 }
 
@@ -135,4 +136,10 @@
     }];
 }
 
+//重新获取用户信息
+- (void)updateUserInfoFromServer {
+    [self getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response) {
+        [[SKStorageManager sharedInstance] setUserInfo:response];
+    }];
+}
 @end

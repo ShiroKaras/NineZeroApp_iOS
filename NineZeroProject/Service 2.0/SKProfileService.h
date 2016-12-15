@@ -10,12 +10,13 @@
 #import "SKNetworkDefine.h"
 #import "SKLogicHeader.h"
 
+typedef void (^SKProfileInfoCallback) (BOOL success, SKProfileInfo *response);
 typedef void (^SKUserInfoCallback) (BOOL success, SKUserInfo *response);
 
 @interface SKProfileService : NSObject
 
 //获取个人信息
-- (void)getUserInfoDetailCallback:(SKUserInfoCallback)callback;
+- (void)getUserInfoDetailCallback:(SKProfileInfoCallback)callback;
 
 //获取礼券列表
 - (void)getUserTicketsCallbackCallback:(SKResponseCallback)callback;
@@ -27,7 +28,7 @@ typedef void (^SKUserInfoCallback) (BOOL success, SKUserInfo *response);
 - (void)getUserNotificationCallback:(SKResponseCallback)callback;
 
 //获取基本信息
-- (void)getUserBaseInfoCallback:(SKResponseCallback)callback;
+- (void)getUserBaseInfoCallback:(SKUserInfoCallback)callback;
 
 //获取所有排名
 - (void)getAllRankListCallback:(SKResponseCallback)callback;
@@ -41,4 +42,6 @@ typedef void (^SKUserInfoCallback) (BOOL success, SKUserInfo *response);
 //用户反馈
 - (void)feedbackWithContent:(NSString *)content contact:(NSString *)contact completion:(SKResponseCallback)callback;
 
+//重新获取用户信息
+- (void)updateUserInfoFromServer;
 @end

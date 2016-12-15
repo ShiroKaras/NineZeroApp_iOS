@@ -12,6 +12,9 @@
 #import "SKRegisterViewController.h"
 #import "SKLoginViewController.h"
 
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
+
 @interface SKLoginRootViewController ()
 
 @end
@@ -64,6 +67,7 @@
     }];
     
     UIButton *loginButton_QQ = [UIButton new];
+    [loginButton_QQ addTarget:self action:@selector(loginButtonQQClicked:) forControlEvents:UIControlEventTouchUpInside];
     [loginButton_QQ setBackgroundImage:[UIImage imageNamed:@"btn_logins_QQ"] forState:UIControlStateNormal];
     [loginButton_QQ setBackgroundImage:[UIImage imageNamed:@"btn_logins_QQ_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:loginButton_QQ];
@@ -75,6 +79,7 @@
     }];
     
     UIButton *loginButton_Weixin = [UIButton new];
+    [loginButton_Weixin addTarget:self action:@selector(loginButtonWeixinClicked:) forControlEvents:UIControlEventTouchUpInside];
     [loginButton_Weixin setBackgroundImage:[UIImage imageNamed:@"btn_logins_Wechat"] forState:UIControlStateNormal];
     [loginButton_Weixin setBackgroundImage:[UIImage imageNamed:@"btn_logins_Wechat_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:loginButton_Weixin];
@@ -86,6 +91,7 @@
     }];
     
     UIButton *loginButton_Weibo = [UIButton new];
+    [loginButton_Weibo addTarget:self action:@selector(loginButtonWeiboClicked:) forControlEvents:UIControlEventTouchUpInside];
     [loginButton_Weibo setBackgroundImage:[UIImage imageNamed:@"btn_logins_Weibo"] forState:UIControlStateNormal];
     [loginButton_Weibo setBackgroundImage:[UIImage imageNamed:@"btn_logins_Weibo_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:loginButton_Weibo];
@@ -144,4 +150,106 @@
     [self presentViewController:root animated:YES completion:nil];
 }
 
+- (void)loginButtonWeixinClicked:(id)sender {
+    [TalkingData trackEvent:@"weixinregister"];
+    [ShareSDK getUserInfo:SSDKPlatformTypeWechat
+           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+     {
+         if (state == SSDKResponseStateSuccess)
+         {
+             
+             DLog(@"uid=%@",user.uid);
+             DLog(@"%@",user.credential);
+             DLog(@"token=%@",user.credential.token);
+             DLog(@"nickname=%@",user.nickname);
+             
+             [self loginWithUser:user];
+         }
+         
+         else
+         {
+             DLog(@"%@",error);
+         }
+         
+     }];
+}
+
+- (void)loginButtonQQClicked:(id)sender {
+    [TalkingData trackEvent:@"qqregister"];
+    [ShareSDK getUserInfo:SSDKPlatformTypeQQ
+           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+     {
+         if (state == SSDKResponseStateSuccess)
+         {
+             
+             DLog(@"uid=%@",user.uid);
+             DLog(@"credential=%@",user.credential);
+             DLog(@"token=%@",user.credential.token);
+             DLog(@"nickname=%@",user.nickname);
+             
+             [self loginWithUser:user];
+         }
+         
+         else
+         {
+             DLog(@"%@",error);
+         }
+         
+     }];
+}
+
+- (void)loginButtonWeiboClicked:(id)sender {
+    [TalkingData trackEvent:@"weiboregister"];
+    [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
+           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+     {
+         if (state == SSDKResponseStateSuccess)
+         {
+             
+             DLog(@"uid=%@",user.uid);
+             DLog(@"%@",user.credential);
+             DLog(@"token=%@",user.credential.token);
+             DLog(@"nickname=%@",user.nickname);
+             DLog(@"icon=%@",user.icon);
+             
+             [self loginWithUser:user];
+         }
+         else
+         {
+             DLog(@"%@",error);
+         }
+         
+     }];
+}
+
+-(void)loginWithUser:(SSDKUser*)user {
+    SKLoginUser *loginUser = [SKLoginUser new];
+    loginUser.user_area_id = AppDelegateInstance.cityCode;
+    loginUser.third_id = user.uid;
+    loginUser.user_name = user.nickname;
+    loginUser.user_avatar = user.icon;
+    [HTProgressHUD show];
+    
+    [[[SKServiceManager sharedInstance] loginService] loginWithThirdPlatform:loginUser callback:^(BOOL success, SKResponsePackage *response) {
+        [HTProgressHUD dismiss];
+        DLog(@"%@", response);
+        if (success) {
+            if (response.result == 0) {
+                SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
+                AppDelegateInstance.mainController = controller;
+                HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
+                AppDelegateInstance.window.rootViewController = navController;
+                [AppDelegateInstance.window makeKeyAndVisible];
+                [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+                //[[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
+            } else {
+                
+            }
+        } else {
+            [self showTipsWithText:@"网络连接错误"];
+        }
+    }];
+
+    
+}
 @end

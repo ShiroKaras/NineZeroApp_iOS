@@ -56,7 +56,7 @@
 }
 
 - (void)loadData {
-    [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKUserInfo *response) {
+    [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) {
         _rankLabel.text = response.rank;
         _coinLabel.text = response.user_gold;
         _diamondLabel.text = response.user_gemstone;
