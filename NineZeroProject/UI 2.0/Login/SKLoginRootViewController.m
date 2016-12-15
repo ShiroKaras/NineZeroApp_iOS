@@ -241,9 +241,8 @@
                 AppDelegateInstance.window.rootViewController = navController;
                 [AppDelegateInstance.window makeKeyAndVisible];
                 [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
-                //[[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
             } else {
-                
+                NSLog(@"%ld", response.result);
             }
         } else {
             [self showTipsWithText:@"网络连接错误"];

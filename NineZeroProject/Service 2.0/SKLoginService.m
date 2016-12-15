@@ -79,7 +79,7 @@
                             @"user_name"    :   user.user_name,
                             @"user_avatar"  :   user.user_avatar,
                             @"user_area_id" :   user.user_area_id,
-                            @"thid_id"      :   user.third_id
+                            @"third_id"      :   user.third_id
                             };
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         NSDictionary *dataDict = response.data;
