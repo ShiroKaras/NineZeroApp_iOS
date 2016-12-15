@@ -13,6 +13,7 @@
 @class SKQuestion;
 
 typedef void (^SKQuestionListCallback) (BOOL success,NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2);
+typedef void (^SKQuestionDetialCallback) (BOOL success, SKQuestion *question);
 
 @interface SKQuestionService : NSObject
 
@@ -25,7 +26,7 @@ typedef void (^SKQuestionListCallback) (BOOL success,NSInteger answeredQuestion_
 - (void)getDifficultQuestionListCallback:(SKResponseCallback)callback;
 
 //题目详情
-- (void)getQuestionDetailWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback;
+- (void)getQuestionDetailWithQuestionID:(NSString*)questionID callback:(SKQuestionDetialCallback)callback;
 
 //关卡线索列表
 - (void)getQuestionDetailCluesWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback;

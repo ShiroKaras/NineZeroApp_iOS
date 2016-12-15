@@ -24,6 +24,7 @@
 @property (nonatomic, assign)   time_t  endTime;
 @property (nonatomic, assign)   BOOL    isMonday;
 
+@property (nonatomic, strong)   SKIndexInfo *indexInfo;
 @end
 
 @implementation SKHomepageViewController
@@ -36,6 +37,7 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] commonService] getHomepageInfoCallBack:^(SKIndexInfo *indexInfo) {
+        _indexInfo = indexInfo;
         [_headerImageView sd_setImageWithURL:[NSURL URLWithString:indexInfo.index_gif]];
         _isMonday = indexInfo.isMonday;
         _endTime = _isMonday==true? indexInfo.monday_end_time : indexInfo.question_end_time;
@@ -85,7 +87,6 @@
     
     _headerImageView = [[HTImageView alloc] init];
     _headerImageView.backgroundColor = [UIColor redColor];
-    //[headerImageView setAnimatedImageWithName:@"img_homepage_gif"];
     _headerImageView.layer.masksToBounds = YES;
     _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:_headerImageView];
@@ -207,7 +208,7 @@
 #pragma mark - Actions
 
 - (void)timeLimitQuestionButtonClick:(UIButton *)sender {
-    SKQuestionViewController *controller = [[SKQuestionViewController alloc] init];
+    SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:self.indexInfo.qid];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

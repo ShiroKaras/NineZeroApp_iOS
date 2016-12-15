@@ -17,9 +17,14 @@
 
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) BOOL isAnswered;
+@property (nonatomic, assign) SKQuestionType type;
 
 @property (nonatomic, strong) UIView *dimmingView;
+@property (nonatomic, strong) UILabel *chapterNumberLabel;
+@property (nonatomic, strong) UILabel *chapterTitleLabel;
+@property (nonatomic, strong) UILabel *chapterSubTitleLabel;
 
+@property (nonatomic, strong) UIImageView *playBackView;
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIImageView *triangleImageView;
 
@@ -33,15 +38,25 @@
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
 
 @property (nonatomic, strong) SKReward *questionReward;
+@property (nonatomic, strong) SKQuestion *currentQuestion;
 @end
 
 @implementation SKQuestionViewController
+
+- (instancetype)initWithType:(SKQuestionType)type questionID:(NSString *)questionID {
+    if (self = [super init]) {
+        self.currentQuestion = [SKQuestion new];
+        _type = type;
+        self.currentQuestion.qid = questionID;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.season = 1;
     [self createUI];
-    
+    [self loadData];
     [self addObserver:self forKeyPath:@"currentIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"isAnswered" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 }
@@ -64,6 +79,20 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKQuestion *question) {
+        self.currentQuestion = question;
+        self.chapterNumberLabel.text = question.serial;
+        self.chapterTitleLabel.text = [[question.content componentsSeparatedByString:@"-"] objectAtIndex:0];
+        self.chapterSubTitleLabel.text = [[question.content componentsSeparatedByString:@"-"] lastObject];
+        [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
+    }];
+    if (_type == SKQuestionTypeTimeLimitLevel) {
+    } else if (_type == SKQuestionTypeHistoryLevel) {
+        
+    }
+}
+
 - (void)createUI {
     self.view.backgroundColor = [UIColor blackColor];
     __weak __typeof(self)weakSelf = self;
@@ -79,22 +108,18 @@
         make.right.equalTo(weakSelf.view.mas_right).offset(-4);
     }];
     
-//    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
-//    _dimmingView = [UIView new];
-//    _dimmingView.backgroundColor = [UIColor clearColor];
-    
-    UIImageView *playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
-    playBackView.layer.masksToBounds = YES;
-    playBackView.contentMode = UIViewContentModeScaleAspectFit;
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:playBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+    _playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
+    _playBackView.layer.masksToBounds = YES;
+    _playBackView.contentMode = UIViewContentModeScaleAspectFit;
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_playBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = playBackView.bounds;
+    maskLayer.frame = _playBackView.bounds;
     maskLayer.path = maskPath.CGPath;
-    playBackView.layer.mask = maskLayer;
-    [self.view addSubview:playBackView];
-    [self createVideoOnView:playBackView withFrame:CGRectMake(0, 0, playBackView.width, playBackView.height)];
+    _playBackView.layer.mask = maskLayer;
+    [self.view addSubview:_playBackView];
+    //[self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
     
-    _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, playBackView.bottom, playBackView.width, 72)];
+    _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, _playBackView.bottom, _playBackView.width, 72)];
     _contentView.backgroundColor = COMMON_SEPARATOR_COLOR;
     [self.view addSubview:_contentView];
     UIBezierPath *maskPath2 = [UIBezierPath bezierPathWithRoundedRect:_contentView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)];
@@ -108,40 +133,38 @@
     chapterImageView.left = 10;
     chapterImageView.top = 106-6-27;
     
-    UILabel *chapterNumberLabel = [UILabel new];
-    chapterNumberLabel.textColor = COMMON_PINK_COLOR;
-    chapterNumberLabel.text = @"01";
-    chapterNumberLabel.font = MOON_FONT_OF_SIZE(13);
-    [chapterNumberLabel sizeToFit];
-    chapterNumberLabel.center = chapterImageView.center;
-    [self.view addSubview:chapterNumberLabel];
+    _chapterNumberLabel = [UILabel new];
+    _chapterNumberLabel.textColor = COMMON_PINK_COLOR;
+    _chapterNumberLabel.text = @"01";
+    _chapterNumberLabel.font = MOON_FONT_OF_SIZE(13);
+    [_chapterNumberLabel sizeToFit];
+    _chapterNumberLabel.center = chapterImageView.center;
+    [self.view addSubview:_chapterNumberLabel];
     
-    UILabel *chapterTitleLabel = [UILabel new];
-    chapterTitleLabel.textColor = COMMON_PINK_COLOR;
-    chapterTitleLabel.text = @"#我是异类";
-    chapterTitleLabel.font = PINGFANG_FONT_OF_SIZE(14);
-    [self.view addSubview:chapterTitleLabel];
-    [chapterTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _chapterTitleLabel = [UILabel new];
+    _chapterTitleLabel.textColor = COMMON_PINK_COLOR;
+    _chapterTitleLabel.font = PINGFANG_FONT_OF_SIZE(14);
+    [self.view addSubview:_chapterTitleLabel];
+    [_chapterTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_contentView.mas_left).offset(12);
         make.top.equalTo(_contentView.mas_top).offset(13);
         make.right.equalTo(_contentView.mas_right).offset(-12);
     }];
     
-    UILabel *chapterSubTitleLabel = [UILabel new];
-    chapterSubTitleLabel.textColor = COMMON_GREEN_COLOR;
-    chapterSubTitleLabel.text = @"帮助零仔解除炸弹";
-    chapterSubTitleLabel.font = PINGFANG_FONT_OF_SIZE(15);
-    [self.view addSubview:chapterSubTitleLabel];
-    [chapterSubTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _chapterSubTitleLabel = [UILabel new];
+    _chapterSubTitleLabel.textColor = COMMON_GREEN_COLOR;
+    _chapterSubTitleLabel.font = PINGFANG_FONT_OF_SIZE(15);
+    [self.view addSubview:_chapterSubTitleLabel];
+    [_chapterSubTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_contentView.mas_left).offset(12);
-        make.top.equalTo(chapterTitleLabel.mas_bottom).offset(5);
+        make.top.equalTo(_chapterTitleLabel.mas_bottom).offset(5);
     }];
     
     UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_arrow"]];
     [self.view addSubview:arrowImageView];
     [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(chapterSubTitleLabel.mas_right).offset(6);
-        make.centerY.equalTo(chapterSubTitleLabel.mas_centerY);
+        make.left.equalTo(_chapterSubTitleLabel.mas_right).offset(6);
+        make.centerY.equalTo(_chapterSubTitleLabel.mas_centerY);
     }];
     
     _answerButton = [UIButton new];
@@ -186,13 +209,18 @@
                 }];
             }
         } else {
-            btn.hidden = NO;
-            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(ROUND_WIDTH(40));
-                make.height.equalTo(ROUND_WIDTH(40));
-                make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-(SCREEN_HEIGHT-106-SCREEN_WIDTH+20-72-12-ROUND_WIDTH_FLOAT(40))/2);
-                make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*1));
-            }];
+            //道具按钮
+            if (_type == SKQuestionTypeTimeLimitLevel) {
+                btn.hidden = YES;
+            } else if (_type ==  SKQuestionTypeHistoryLevel) {
+                btn.hidden = NO;
+                [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(ROUND_WIDTH(40));
+                    make.height.equalTo(ROUND_WIDTH(40));
+                    make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-(SCREEN_HEIGHT-106-SCREEN_WIDTH+20-72-12-ROUND_WIDTH_FLOAT(40))/2);
+                    make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*1));
+                }];
+            }
         }
     }
 }
@@ -203,14 +231,21 @@
     [_playerLayer removeFromSuperlayer];
     _playerLayer = nil;
     
-    NSURL *localUrl = [[NSBundle mainBundle] URLForResource:@"trailer_video" withExtension:@"mp4"];
-    AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
-    self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
-    self.player = [AVPlayer playerWithPlayerItem:_playerItem];
-    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-    _playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    _playerLayer.frame = frame;
-    [backView.layer addSublayer:_playerLayer];
+    NSURL *documentsDirectoryURL = [[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil] URLByAppendingPathComponent:self.currentQuestion.question_video];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[documentsDirectoryURL path]]) {
+        NSURL *localUrl = [NSURL fileURLWithPath:[documentsDirectoryURL path]];
+        //NSURL *localUrl = [[NSBundle mainBundle] URLForResource:@"trailer_video" withExtension:@"mp4"];
+        AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
+        self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
+        self.player = [AVPlayer playerWithPlayerItem:_playerItem];
+        self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+        _playerLayer.videoGravity = AVLayerVideoGravityResize;
+        _playerLayer.frame = frame;
+        [backView.layer insertSublayer:_playerLayer atIndex:0];
+    } else {
+        
+    }
+    
     
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_playButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
@@ -220,7 +255,6 @@
     _playButton.center = backView.center;
     _playButton.hidden = NO;
     [self.view addSubview:_playButton];
-//    _playButton.frame = CGRectMake(backView.width/2-_playButton.width/2, backView.height/2-_playButton.height/2, 70, 70);
 }
 
 #pragma mark - Tools View

@@ -24,10 +24,11 @@
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    DLog(@"Json ParamString: %@", jsonString);
     NSDictionary *param = @{@"data" : jsonString};
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager questionBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-//        DLog(@"Response:%@",responseObject);
+        DLog(@"Response:%@",responseObject);
         SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
         callback(YES, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -69,14 +70,15 @@
 }
 
 //题目详情
-- (void)getQuestionDetailWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback {
+- (void)getQuestionDetailWithQuestionID:(NSString*)questionID callback:(SKQuestionDetialCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"detail",
                             @"area_id"      :   @"010",
-                            @"question_id"  :   questionID
+                            @"qid"  :   questionID
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        SKQuestion *question = [SKQuestion objectWithKeyValues:[response.data keyValues]];
+        callback(success, question);
     }];
 }
 
@@ -85,7 +87,7 @@
     NSDictionary *param = @{
                             @"method"       :   @"clueList",
                             @"area_id"      :   @"010",
-                            @"question_id"  :   questionID
+                            @"qid"  :   questionID
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
@@ -97,7 +99,7 @@
     NSDictionary *param = @{
                             @"method"       :   @"clueList",
                             @"area_id"      :   @"010",
-                            @"question_id"  :   questionID
+                            @"qid"  :   questionID
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);

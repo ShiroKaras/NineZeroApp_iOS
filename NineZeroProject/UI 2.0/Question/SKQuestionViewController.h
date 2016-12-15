@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    SKQuestionTypeDefault,
+    SKQuestionTypeTimeLimitLevel,
+    SKQuestionTypeHistoryLevel,
+    SKQuestionTypeUnknown,
+} SKQuestionType;
+
 @interface SKQuestionViewController : UIViewController
 
 @property (nonatomic, assign) NSUInteger season;
+
+- (instancetype)initWithType:(SKQuestionType)type questionID:(NSString *)questionID;
 
 @end
