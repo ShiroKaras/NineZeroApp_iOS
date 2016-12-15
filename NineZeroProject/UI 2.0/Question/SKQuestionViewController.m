@@ -24,7 +24,7 @@
 @property (nonatomic, strong) UILabel *chapterTitleLabel;
 @property (nonatomic, strong) UILabel *chapterSubTitleLabel;
 
-@property (nonatomic, strong) UIImageView *playBackView;
+@property (nonatomic, strong) UIView *playBackView;
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIImageView *triangleImageView;
 
@@ -36,6 +36,9 @@
 @property (nonatomic, strong) AVPlayerItem *playerItem;
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
+@property (nonatomic, strong) UIView *progressView;
+@property (nonatomic, strong) UIView *progressBgView;
+@property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
 
 @property (nonatomic, strong) SKReward *questionReward;
 @property (nonatomic, strong) SKQuestion *currentQuestion;
@@ -85,6 +88,7 @@
         self.chapterNumberLabel.text = question.serial;
         self.chapterTitleLabel.text = [[question.content componentsSeparatedByString:@"-"] objectAtIndex:0];
         self.chapterSubTitleLabel.text = [[question.content componentsSeparatedByString:@"-"] lastObject];
+        NSLog(@"%@", question.question_video_url);
         [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
     }];
     if (_type == SKQuestionTypeTimeLimitLevel) {
@@ -108,7 +112,7 @@
         make.right.equalTo(weakSelf.view.mas_right).offset(-4);
     }];
     
-    _playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
+    _playBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
     _playBackView.layer.masksToBounds = YES;
     _playBackView.contentMode = UIViewContentModeScaleAspectFit;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_playBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
@@ -243,9 +247,48 @@
         _playerLayer.frame = frame;
         [backView.layer insertSublayer:_playerLayer atIndex:0];
     } else {
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+        NSURL *URL = [NSURL URLWithString:self.currentQuestion.question_video_url];
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
         
+        [_downloadTask cancel];
+        _downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+            NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+            return [documentsDirectoryURL URLByAppendingPathComponent:self.currentQuestion.question_video];
+        } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+            [self stop];
+            _playerItem = nil;
+            _player = nil;
+            [_playerLayer removeFromSuperlayer];
+            _playerLayer = nil;
+            if (filePath == nil) return;
+            NSURL *localUrl = [NSURL fileURLWithPath:[filePath path]];
+            AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
+            self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
+            self.player = [AVPlayer playerWithPlayerItem:_playerItem];
+            self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+            _playerLayer.videoGravity = AVLayerVideoGravityResize;
+            [backView.layer insertSublayer:_playerLayer atIndex:0];
+            [self.view setNeedsLayout];
+            //[self hideMoreButtons];
+        }];
+        [_downloadTask resume];
+        [manager setDownloadTaskDidWriteDataBlock:^(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+            CGFloat progress = ((CGFloat)totalBytesWritten / (CGFloat)totalBytesExpectedToWrite);
+            progress = MIN(1.0, progress);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //_progressView.width = progress * self.width;
+                if (progress == 1) {
+                    _progressBgView.hidden = YES;
+                } else {
+                    _progressBgView.hidden = NO;
+                }
+            });
+        }];
     }
     
+    //[_coverImageView sd_setImageWithURL:[NSURL URLWithString:_question.question_video_cover] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
     
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_playButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
