@@ -85,6 +85,7 @@
 @property (nonatomic, copy)     NSString    *description_pic;
 //@property (nonatomic, copy)     NSString    *description;
 @property (nonatomic, copy)     NSString    *question_video;
+@property (nonatomic, copy)     NSString    *question_video_url;
 @property (nonatomic, copy)     NSString    *question_answer;
 @property (nonatomic, copy)     NSString    *question_ar_loaction;
 @property (nonatomic, copy)     NSString    *question_ar_pet;
