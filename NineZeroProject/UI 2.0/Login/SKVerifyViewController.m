@@ -70,60 +70,25 @@
         make.left.equalTo(@4);
     }];
     
-    if (type == SKVerifyTypeRegister) {
-        UIImageView *stepImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_code"]];
-        [self.view addSubview:stepImageView];
-        [stepImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@26);
-            make.height.equalTo(@26);
-            make.top.equalTo(@19);
-            make.centerX.equalTo(weakSelf.view.mas_centerX).offset(11);
-        }];
-        
-        UIView *point = [UIView new];
-        point.backgroundColor = [UIColor whiteColor];
-        point.layer.cornerRadius = 6;
-        [self.view addSubview:point];
-        [point mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@12);
-            make.height.equalTo(@12);
-            make.right.equalTo(stepImageView.mas_left).offset(-10);
-            make.centerY.equalTo(stepImageView.mas_centerY);
-        }];
-    } else if (type == SKVerifyTypeResetPassword) {
-        UIImageView *stepImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_code"]];
-        [self.view addSubview:stepImageView];
-        [stepImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@26);
-            make.height.equalTo(@26);
-            make.top.equalTo(@19);
-            make.centerX.equalTo(weakSelf.view.mas_centerX);
-        }];
-        
-        UIView *point = [UIView new];
-        point.backgroundColor = [UIColor whiteColor];
-        point.layer.cornerRadius = 6;
-        [self.view addSubview:point];
-        [point mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@12);
-            make.height.equalTo(@12);
-            make.right.equalTo(stepImageView.mas_left).offset(-10);
-            make.centerY.equalTo(stepImageView.mas_centerY);
-        }];
-        
-        UIView *point1 = [UIView new];
-        point1.backgroundColor = [UIColor clearColor];
-        point1.layer.cornerRadius = 6;
-        point1.layer.borderWidth = 2;
-        point1.layer.borderColor = [UIColor whiteColor].CGColor;
-        [self.view addSubview:point1];
-        [point1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@12);
-            make.height.equalTo(@12);
-            make.left.equalTo(stepImageView.mas_right).offset(10);
-            make.centerY.equalTo(stepImageView.mas_centerY);
-        }];
-    }
+    UIImageView *stepImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_code"]];
+    [self.view addSubview:stepImageView];
+    [stepImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@26);
+        make.height.equalTo(@26);
+        make.top.equalTo(@19);
+        make.centerX.equalTo(weakSelf.view.mas_centerX).offset(11);
+    }];
+    
+    UIView *point = [UIView new];
+    point.backgroundColor = [UIColor whiteColor];
+    point.layer.cornerRadius = 6;
+    [self.view addSubview:point];
+    [point mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@12);
+        make.height.equalTo(@12);
+        make.right.equalTo(stepImageView.mas_left).offset(-10);
+        make.centerY.equalTo(stepImageView.mas_centerY);
+    }];
     
     UILabel *contentLabel = [UILabel new];
     contentLabel.text = @"验证码短信马上就来";
@@ -171,7 +136,7 @@
     [self.view addSubview:_resendVerifyCodeButton];
     
     _verifyCodeTextField = [[UITextField alloc] init];
-    _verifyCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
+    _verifyCodeTextField.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:_verifyCodeTextField];
     [_verifyCodeTextField becomeFirstResponder];
     
@@ -235,13 +200,19 @@
         } else if (_type == SKVerifyTypeResetPassword) {
             //找回密码
             [[[SKServiceManager sharedInstance] loginService] resetPassword:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
-                //登录成功进入主页
-                [self.view endEditing:YES];
-                SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
-                AppDelegateInstance.mainController = controller;
-                HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
-                AppDelegateInstance.window.rootViewController = navController;
-                [AppDelegateInstance.window makeKeyAndVisible];
+                if (response.result == 0) {
+                    //登录成功进入主页
+                    [self.view endEditing:YES];
+                    SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
+                    AppDelegateInstance.mainController = controller;
+                    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
+                    AppDelegateInstance.window.rootViewController = navController;
+                    [AppDelegateInstance.window makeKeyAndVisible];
+                } else if (response.result == -1003){
+                    [self showTipsWithText:@"验证码不正确"];
+                } else {
+                    NSLog(@"%ld", (long)response.result);
+                }
             }];
         }
         

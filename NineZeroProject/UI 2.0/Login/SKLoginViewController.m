@@ -136,10 +136,10 @@
             if (response.result == 0) {
                 [self showTipsWithText:@"手机号码未注册"];
             } else {
-                [self.view endEditing:YES];
                 [[[SKServiceManager sharedInstance] loginService] loginWith:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
                     if (response.result == 0) {
                         //登录成功进入主页
+                        [self.view endEditing:YES];
                         SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
                         AppDelegateInstance.mainController = controller;
                         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];

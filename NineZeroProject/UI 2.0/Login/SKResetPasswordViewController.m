@@ -88,6 +88,7 @@
     }];
     
     _passwordTextField = [[SKRegisterTextField alloc] init];
+    _passwordTextField.textField.secureTextEntry = YES;
     _passwordTextField.ly_placeholder = @"新密码";
     [self.view addSubview:_passwordTextField];
     [_passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
