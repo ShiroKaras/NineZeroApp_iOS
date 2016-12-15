@@ -25,4 +25,10 @@ typedef void (^SKIndexInfoCallback) (SKIndexInfo *indexInfo);
 
 // 获取文件完整地址
 
+/**
+ *  @brief 获取七牛下载链接
+ *  @param key      服务器给的key
+ */
+- (void)getQiniuDownloadURLsWithKeys:(NSArray<NSString *> *)keys callback:(SKResponseCallback)callback;
+
 @end

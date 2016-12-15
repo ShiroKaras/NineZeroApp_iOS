@@ -50,7 +50,7 @@
 - (void)usePropWithQuestionID:(NSString*)questionID seasonType:(NSString*)type callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"useProp",
-                            @"question_id"  :   questionID,
+                            @"qid"          :   questionID,
                             @"level_type"   :   type
                             };
     [self propBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {

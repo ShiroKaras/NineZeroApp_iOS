@@ -7,6 +7,7 @@
 //
 
 #import "SKQuestionService.h"
+#import "SKServiceManager.h"
 
 #import "NSString+AES256.h"
 #define AES_KEY @"a!dg#8ai@o43ht9s"
@@ -74,11 +75,20 @@
     NSDictionary *param = @{
                             @"method"       :   @"detail",
                             @"area_id"      :   @"010",
-                            @"qid"  :   questionID
+                            @"qid"          :   questionID
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         SKQuestion *question = [SKQuestion objectWithKeyValues:[response.data keyValues]];
-        callback(success, question);
+        NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
+        if (question.question_video) [downloadKeys addObject:question.question_video];
+        [[[SKServiceManager sharedInstance] commonService] getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, SKResponsePackage *response) {
+            if (success) {
+                if (question.question_video) question.question_video_url = response.data[question.question_video];
+                callback(success, question);
+            } else {
+                callback(false, question);
+            }
+        }];
     }];
 }
 
@@ -87,7 +97,7 @@
     NSDictionary *param = @{
                             @"method"       :   @"clueList",
                             @"area_id"      :   @"010",
-                            @"qid"  :   questionID
+                            @"qid"          :   questionID
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
@@ -99,7 +109,7 @@
     NSDictionary *param = @{
                             @"method"       :   @"clueList",
                             @"area_id"      :   @"010",
-                            @"qid"  :   questionID
+                            @"qid"          :   questionID
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);

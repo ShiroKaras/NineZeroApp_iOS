@@ -54,14 +54,29 @@
     }];
 }
 
-- (void)getDownloadURLWithURLArray:(NSArray*)urlArray callback:(SKResponseCallback)callback {
+- (void)getQiniuDownloadURLsWithKeys:(NSArray<NSString *> *)keys callback:(SKResponseCallback)callback {
+    if (keys.count == 0) return;
+    NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
+    [keys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (!dataDict[obj]) {
+            [dataDict setObject:obj forKey:obj];
+        }
+    }];
+    NSString *string = [self dictionaryToJson:dataDict];
     NSDictionary *param = @{
                             @"method"       :   @"getDownloadUrl",
-                            @"url_array"    :   urlArray
+                            @"url_array"    :   string
                             };
+    
     [self commonBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
     }];
+}
+
+- (NSString*)dictionaryToJson:(NSDictionary *)dic {
+    NSError *parseError = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
 @end
