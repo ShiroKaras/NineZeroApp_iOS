@@ -28,20 +28,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKJ-Ub-RJS">
-                    <rect key="frame" x="99" y="54.5" width="45" height="41"/>
+                    <rect key="frame" x="99" y="60" width="45" height="41"/>
                     <fontDescription key="fontDescription" name="Moon-Bold" family="Moon" pointSize="39"/>
                     <color key="textColor" red="1" green="0.48000616779999999" blue="0.93246299340000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_timer_1_deco" translatesAutoresizingMaskIntoConstraints="NO" id="Kqp-vR-gMS">
-                    <rect key="frame" x="105" y="75.5" width="38" height="10"/>
+                    <rect key="frame" x="105" y="81" width="38" height="10"/>
                 </imageView>
                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_stamp_gameover" translatesAutoresizingMaskIntoConstraints="NO" id="SQ4-oY-UhO">
                     <rect key="frame" x="58" y="75" width="86" height="43"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yoF-Ay-hlL">
-                    <rect key="frame" x="44.5" y="91.5" width="99.5" height="26.5"/>
-                    <fontDescription key="fontDescription" name="Moon-Bold" family="Moon" pointSize="25"/>
+                    <rect key="frame" x="64" y="97" width="80" height="21"/>
+                    <fontDescription key="fontDescription" name="Moon-Bold" family="Moon" pointSize="20"/>
                     <color key="textColor" red="0.14117647058823529" green="0.8666666666666667" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>

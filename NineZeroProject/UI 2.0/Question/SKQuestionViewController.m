@@ -123,20 +123,8 @@
     self.view.backgroundColor = [UIColor blackColor];
     __weak __typeof(self)weakSelf = self;
     
-    // 帮助按钮
-    UIButton *helpButton = [UIButton new];
-    [helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
-    [helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help_highlight"] forState:UIControlStateHighlighted];
-    [self.view addSubview:helpButton];
-    [helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@40);
-        make.height.equalTo(@40);
-        make.top.equalTo(@12);
-        make.right.equalTo(weakSelf.view.mas_right).offset(-4);
-    }];
-    
     // 主界面
-    _playBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
+    _playBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 106+16, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
     _playBackView.layer.masksToBounds = YES;
     _playBackView.contentMode = UIViewContentModeScaleAspectFit;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_playBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
@@ -178,7 +166,8 @@
     UIImageView *chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_chapter"]];
     [self.view addSubview:chapterImageView];
     chapterImageView.left = 10;
-    chapterImageView.top = 106-6-27;
+//    chapterImageView.top = 106-6-27+16;
+    chapterImageView.bottom = _playBackView.top -6;
     
     _chapterNumberLabel = [UILabel new];
     _chapterNumberLabel.textColor = COMMON_PINK_COLOR;
@@ -236,7 +225,19 @@
     
     _timeView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
     _timeView.right = SCREEN_WIDTH - 10;
-    _timeView.bottom = _playBackView.top -6;
+    _timeView.bottom = _playBackView.top -3;
+    
+    // 帮助按钮
+    UIButton *helpButton = [UIButton new];
+    [helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
+    [helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:helpButton];
+    [helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+        make.top.equalTo(@12);
+        make.right.equalTo(weakSelf.view.mas_right).offset(-4);
+    }];
     
     //底部按钮组
     NSArray *buttonsNameArray = @[@"puzzle", @"key", @"top", @"gift", @"tools"];
