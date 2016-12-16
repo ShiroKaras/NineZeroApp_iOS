@@ -121,8 +121,23 @@
     maskLayer.path = maskPath.CGPath;
     _playBackView.layer.mask = maskLayer;
     [self.view addSubview:_playBackView];
-    //[self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
     
+    // 进度条
+    _progressBgView = [[UIView alloc] init];
+    _progressBgView.backgroundColor = [UIColor colorWithHex:0x585858];
+    [_playBackView addSubview:_progressBgView];
+    [_progressBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(_playBackView.width, 3));
+        make.bottom.equalTo(_playBackView);
+        make.centerX.equalTo(_playBackView);
+    }];
+    
+    _progressView = [[UIView alloc] init];
+    _progressView.backgroundColor = COMMON_GREEN_COLOR;
+    [_progressBgView addSubview:_progressView];
+    _progressView.height = 3;
+    
+    // 题目标题
     _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, _playBackView.bottom, _playBackView.width, 72)];
     _contentView.backgroundColor = COMMON_SEPARATOR_COLOR;
     [self.view addSubview:_contentView];
@@ -245,6 +260,7 @@
         _playerLayer.videoGravity = AVLayerVideoGravityResize;
         _playerLayer.frame = frame;
         [backView.layer insertSublayer:_playerLayer atIndex:0];
+        _progressBgView.hidden = YES;
     } else {
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
@@ -277,7 +293,7 @@
             CGFloat progress = ((CGFloat)totalBytesWritten / (CGFloat)totalBytesExpectedToWrite);
             progress = MIN(1.0, progress);
             dispatch_async(dispatch_get_main_queue(), ^{
-                //_progressView.width = progress * self.width;
+                _progressView.width = progress * _playBackView.width;
                 if (progress == 1) {
                     _progressBgView.hidden = YES;
                 } else {
