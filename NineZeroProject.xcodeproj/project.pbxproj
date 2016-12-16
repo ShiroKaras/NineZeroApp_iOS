@@ -21,6 +21,7 @@
 		112167641CF0637B0048EA01 /* SKLaunchAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 112167631CF0637B0048EA01 /* SKLaunchAnimationViewController.m */; };
 		1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */; };
 		1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */; };
+		11293C3D1E03B7150064F1E5 /* SKComposeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11293C3C1E03B7150064F1E5 /* SKComposeView.m */; };
 		112D129C1DAF478700588D30 /* SKScanningRewardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 112D129B1DAF478700588D30 /* SKScanningRewardView.m */; };
 		1132B30B1DF506C100DA992F /* SKProfileIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1132B30A1DF506C100DA992F /* SKProfileIndexViewController.m */; };
 		1132B30E1DF5574900DA992F /* SKProfileSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1132B30D1DF5574900DA992F /* SKProfileSettingViewController.m */; };
@@ -861,6 +862,8 @@
 		112167691CF3358D0048EA01 /* SKUserAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKUserAgreementViewController.h; path = NineZeroProject/UI/Login/SKUserAgreementViewController.h; sourceTree = "<group>"; };
 		1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKUserAgreementViewController.m; path = NineZeroProject/UI/Login/SKUserAgreementViewController.m; sourceTree = "<group>"; };
 		1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
+		11293C3B1E03B7150064F1E5 /* SKComposeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKComposeView.h; path = "NineZeroProject/UI 2.0/Question/SKComposeView.h"; sourceTree = "<group>"; };
+		11293C3C1E03B7150064F1E5 /* SKComposeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKComposeView.m; path = "NineZeroProject/UI 2.0/Question/SKComposeView.m"; sourceTree = "<group>"; };
 		112D129A1DAF478700588D30 /* SKScanningRewardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKScanningRewardView.h; path = Index/SKScanningRewardView.h; sourceTree = "<group>"; };
 		112D129B1DAF478700588D30 /* SKScanningRewardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKScanningRewardView.m; path = Index/SKScanningRewardView.m; sourceTree = "<group>"; };
 		1132B3091DF506C100DA992F /* SKProfileIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKProfileIndexViewController.h; path = "NineZeroProject/UI 2.0/Profile/SKProfileIndexViewController.h"; sourceTree = "<group>"; };
@@ -1948,6 +1951,8 @@
 				1106FFD01DD5D60D0002E36C /* SKAllQuestionViewController.m */,
 				110A34A71DD07B4500207115 /* SKQuestionViewController.h */,
 				110A34A81DD07B4500207115 /* SKQuestionViewController.m */,
+				11293C3B1E03B7150064F1E5 /* SKComposeView.h */,
+				11293C3C1E03B7150064F1E5 /* SKComposeView.m */,
 			);
 			name = Question;
 			sourceTree = "<group>";
@@ -4710,6 +4715,7 @@
 				17F45AF41C7E1D7A004F2E32 /* HTProfileArticleCell.m in Sources */,
 				115381151DF9467B00B50DF2 /* SKPropService.m in Sources */,
 				11AD0C391DAA322C007951C5 /* ar.cc in Sources */,
+				11293C3D1E03B7150064F1E5 /* SKComposeView.m in Sources */,
 				17A92CD21CA809B100BE893D /* MJRefreshAutoStateFooter.m in Sources */,
 				1721D7221BEFBAD200498304 /* HTCGIManager.m in Sources */,
 				1106FFE71DD9AC570002E36C /* SKMascotView.m in Sources */,

@@ -10,10 +10,11 @@
 #import "HTUIHeader.h"
 
 #import "SKTicketView.h"
+#import "SKComposeView.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(200))/4
 
-@interface SKQuestionViewController ()
+@interface SKQuestionViewController () <SKComposeViewDelegate>
 
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) BOOL isAnswered;
@@ -40,6 +41,8 @@
 @property (nonatomic, strong) UIView *progressBgView;
 @property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
 
+@property (nonatomic, strong) SKComposeView *composeView;                     // 答题界面
+
 @property (nonatomic, strong) SKReward *questionReward;
 @property (nonatomic, strong) SKQuestion *currentQuestion;
 @end
@@ -62,6 +65,10 @@
     [self loadData];
     [self addObserver:self forKeyPath:@"currentIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"isAnswered" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -1327,8 +1334,48 @@
 
 - (void)answerButtonClick:(UIButton *)sender {
     self.isAnswered = YES;
-    self.answerButton.hidden = self.isAnswered;
-    [self showRewardViewWithReward:nil];
+    _composeView = [[SKComposeView alloc] initWithQustionID:self.currentQuestion.qid frame:CGRectMake(0, 0, self.view.width, self.view.height)];
+    _composeView.associatedQuestion = self.currentQuestion;
+    _composeView.delegate = self;
+    _composeView.alpha = 0.0;
+    [self.view addSubview:_composeView];
+    [_composeView becomeFirstResponder];
+    [UIView animateWithDuration:0.3 animations:^{
+        _composeView.alpha = 1.0;
+        [self.view addSubview:_composeView];
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+//    [self showRewardViewWithReward:nil];
+}
+
+#pragma mark - Keyboard
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    CGRect keyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height - keyboardRect.size.height);
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    [_composeView removeFromSuperview];
+    [_composeView endEditing:YES];
+}
+
+- (void)keyboardDidHide:(NSNotification *)notification {
+
+}
+
+#pragma mark - SKComposeView Delegate
+
+- (void)composeView:(SKComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
+    
+}
+
+- (void)didClickDimingViewInComposeView:(SKComposeView *)composeView {
+    [self.view endEditing:YES];
+    [composeView removeFromSuperview];
 }
 
 #pragma mark - Notification
@@ -1352,6 +1399,7 @@
         }
     } else if ([keyPath isEqualToString:@"isAnswered"]) {
         if (self.isAnswered == YES) {
+            self.answerButton.hidden = self.isAnswered;
             [self.view viewWithTag:201].hidden = NO;
             [self.view viewWithTag:202].hidden = NO;
             [self.view viewWithTag:203].hidden = NO;
