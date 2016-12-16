@@ -208,7 +208,7 @@
 #pragma mark - Actions
 
 - (void)timeLimitQuestionButtonClick:(UIButton *)sender {
-    SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:self.indexInfo.qid];
+    SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:self.indexInfo.qid endTime:_endTime];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

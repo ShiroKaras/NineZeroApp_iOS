@@ -11,6 +11,7 @@
 
 #import "SKTicketView.h"
 #import "SKComposeView.h"
+#import "SKCardTimeView.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(200))/4
 
@@ -31,6 +32,8 @@
 
 @property (nonatomic, strong) UIButton *answerButton;
 
+@property (nonatomic, strong) SKCardTimeView *timeView;
+
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIView *toolsView;
 
@@ -45,6 +48,7 @@
 
 @property (nonatomic, strong) SKReward *questionReward;
 @property (nonatomic, strong) SKQuestion *currentQuestion;
+@property (nonatomic, assign) time_t endTime;
 @end
 
 @implementation SKQuestionViewController
@@ -54,6 +58,16 @@
         self.currentQuestion = [SKQuestion new];
         _type = type;
         self.currentQuestion.qid = questionID;
+    }
+    return self;
+}
+
+- (instancetype)initWithType:(SKQuestionType)type questionID:(NSString *)questionID endTime:(time_t)endTime{
+    if (self = [super init]) {
+        self.currentQuestion = [SKQuestion new];
+        _type = type;
+        self.currentQuestion.qid = questionID;
+        _endTime = endTime;
     }
     return self;
 }
@@ -207,6 +221,17 @@
     _triangleImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_detailspage_triangle"]];
     [_triangleImageView sizeToFit];
     [self.view addSubview:_triangleImageView];
+    
+    // TimeView
+    _timeView = [[SKCardTimeView alloc] initWithFrame:CGRectZero];
+    [self.view addSubview:_timeView];
+    [_timeView setQuestion:self.currentQuestion endTime:_endTime];
+    
+    _timeView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
+    _timeView.right = SCREEN_WIDTH - 10;
+//    _timeView.bottom = ROUND_HEIGHT_FLOAT(96) - 7;
+    _timeView.bottom = _playBackView.top -6;
+    
     
     //底部按钮组
     NSArray *buttonsNameArray = @[@"puzzle", @"key", @"top", @"gift", @"tools"];
@@ -1344,7 +1369,7 @@
         _composeView.alpha = 1.0;
         [self.view addSubview:_composeView];
     } completion:^(BOOL finished) {
-        
+        [self stop];
     }];
     
 //    [self showRewardViewWithReward:nil];
@@ -1364,13 +1389,31 @@
 }
 
 - (void)keyboardDidHide:(NSNotification *)notification {
-
+    
 }
 
 #pragma mark - SKComposeView Delegate
 
 - (void)composeView:(SKComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
-    
+    if (_type == SKQuestionTypeTimeLimitLevel) {
+        [[[SKServiceManager sharedInstance] answerService] answerTimeLimitTextQuestionWithAnswerText:answer callback:^(BOOL success, SKResponsePackage *response) {
+            if (response.result == 0) {
+                //回答正确
+                
+            } else if (response.result == -3004) {
+                //回答错误
+            }
+        }];
+    } else if (_type == SKQuestionTypeHistoryLevel) {
+        [[[SKServiceManager sharedInstance] answerService] answerExpiredTextQuestionWithQuestionID:self.currentQuestion.qid answerText:answer callback:^(BOOL success, SKResponsePackage *response) {
+            if (response.result == 0) {
+                //回答正确
+                
+            } else if (response.result == -3004) {
+                //回答错误
+            }
+        }];
+    }
 }
 
 - (void)didClickDimingViewInComposeView:(SKComposeView *)composeView {

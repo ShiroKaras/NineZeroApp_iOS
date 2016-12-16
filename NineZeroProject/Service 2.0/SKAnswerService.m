@@ -17,11 +17,11 @@
     [mDict setValue:[NSString stringWithFormat:@"%lld",currentTime] forKey:@"time"];
     [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
     [mDict setValue:@"iOS" forKey:@"client"];
-    // TODO
     [mDict setValue:[[SKStorageManager sharedInstance] getUserID] forKey:@"user_id"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    DLog(@"Param:%@", jsonString);
     NSDictionary *param = @{@"data" : jsonString};
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager answerBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {

@@ -20,5 +20,6 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) NSUInteger season;
 
 - (instancetype)initWithType:(SKQuestionType)type questionID:(NSString *)questionID;
+- (instancetype)initWithType:(SKQuestionType)type questionID:(NSString *)questionID endTime:(time_t)endTime;
 
 @end

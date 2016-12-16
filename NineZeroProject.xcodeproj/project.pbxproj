@@ -41,7 +41,7 @@
 		117417F41D7FE3CC00B5458F /* SKHelperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417F31D7FE3CC00B5458F /* SKHelperView.m */; };
 		117417F71D86A1B200B5458F /* SKActivityNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417F61D86A1B100B5458F /* SKActivityNotificationView.m */; };
 		1174180E1D89396400B5458F /* HTCardCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417F91D89396400B5458F /* HTCardCollectionCell.m */; };
-		1174180F1D89396400B5458F /* HTCardTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417FB1D89396400B5458F /* HTCardTimeView.m */; };
+		1174180F1D89396400B5458F /* SKCardTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417FB1D89396400B5458F /* SKCardTimeView.m */; };
 		117418101D89396400B5458F /* HTCardTimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 117417FC1D89396400B5458F /* HTCardTimeView.xib */; };
 		117418111D89396400B5458F /* HTComposeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417FE1D89396400B5458F /* HTComposeView.m */; };
 		117418121D89396400B5458F /* HTDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117418001D89396400B5458F /* HTDescriptionView.m */; };
@@ -82,6 +82,8 @@
 		11B8AEF01DF1820B001A3E0F /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEEC1DF1820B001A3E0F /* NSString+Base64.m */; };
 		11BC2DFE1D93C98200C9E775 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFC1D93C98200C9E775 /* libTalkingData.a */; };
 		11BC2E001D93C9CF00C9E775 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */; };
+		11BF88651E03CFFE00347FA1 /* SKCardTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BF88641E03CFFE00347FA1 /* SKCardTimeView.m */; };
+		11BF88671E03D2C200347FA1 /* SKCardTimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11BF88661E03D2C200347FA1 /* SKCardTimeView.xib */; };
 		11C3C1661DFFDD820045D78A /* SKCommonService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C3C1651DFFDD810045D78A /* SKCommonService.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
@@ -904,7 +906,7 @@
 		117417F81D89396300B5458F /* HTCardCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTCardCollectionCell.h; path = NineZeroProject/UI/Question/HTCardCollectionCell.h; sourceTree = SOURCE_ROOT; };
 		117417F91D89396400B5458F /* HTCardCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTCardCollectionCell.m; path = NineZeroProject/UI/Question/HTCardCollectionCell.m; sourceTree = SOURCE_ROOT; };
 		117417FA1D89396400B5458F /* HTCardTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTCardTimeView.h; path = NineZeroProject/UI/Question/HTCardTimeView.h; sourceTree = SOURCE_ROOT; };
-		117417FB1D89396400B5458F /* HTCardTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTCardTimeView.m; path = NineZeroProject/UI/Question/HTCardTimeView.m; sourceTree = SOURCE_ROOT; };
+		117417FB1D89396400B5458F /* SKCardTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKCardTimeView.m; path = NineZeroProject/UI/Question/SKCardTimeView.m; sourceTree = SOURCE_ROOT; };
 		117417FC1D89396400B5458F /* HTCardTimeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HTCardTimeView.xib; path = NineZeroProject/UI/Question/HTCardTimeView.xib; sourceTree = SOURCE_ROOT; };
 		117417FD1D89396400B5458F /* HTComposeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTComposeView.h; path = NineZeroProject/UI/Question/HTComposeView.h; sourceTree = SOURCE_ROOT; };
 		117417FE1D89396400B5458F /* HTComposeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTComposeView.m; path = NineZeroProject/UI/Question/HTComposeView.m; sourceTree = SOURCE_ROOT; };
@@ -975,6 +977,9 @@
 		11BC2DFC1D93C98200C9E775 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
 		11BC2DFD1D93C98200C9E775 /* TalkingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingData.h; sourceTree = "<group>"; };
 		11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		11BF88631E03CFFE00347FA1 /* SKCardTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKCardTimeView.h; path = "NineZeroProject/UI 2.0/Question/SKCardTimeView.h"; sourceTree = "<group>"; };
+		11BF88641E03CFFE00347FA1 /* SKCardTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKCardTimeView.m; path = "NineZeroProject/UI 2.0/Question/SKCardTimeView.m"; sourceTree = "<group>"; };
+		11BF88661E03D2C200347FA1 /* SKCardTimeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SKCardTimeView.xib; path = "NineZeroProject/UI 2.0/Question/SKCardTimeView.xib"; sourceTree = "<group>"; };
 		11C3C1641DFFDD810045D78A /* SKCommonService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKCommonService.h; path = "NineZeroProject/Service 2.0/SKCommonService.h"; sourceTree = "<group>"; };
 		11C3C1651DFFDD810045D78A /* SKCommonService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKCommonService.m; path = "NineZeroProject/Service 2.0/SKCommonService.m"; sourceTree = "<group>"; };
 		11CA0C541CD24E4200C06333 /* easing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easing.c; sourceTree = "<group>"; };
@@ -1953,6 +1958,9 @@
 				110A34A81DD07B4500207115 /* SKQuestionViewController.m */,
 				11293C3B1E03B7150064F1E5 /* SKComposeView.h */,
 				11293C3C1E03B7150064F1E5 /* SKComposeView.m */,
+				11BF88631E03CFFE00347FA1 /* SKCardTimeView.h */,
+				11BF88641E03CFFE00347FA1 /* SKCardTimeView.m */,
+				11BF88661E03D2C200347FA1 /* SKCardTimeView.xib */,
 			);
 			name = Question;
 			sourceTree = "<group>";
@@ -3231,7 +3239,7 @@
 				117417F81D89396300B5458F /* HTCardCollectionCell.h */,
 				117417F91D89396400B5458F /* HTCardCollectionCell.m */,
 				117417FA1D89396400B5458F /* HTCardTimeView.h */,
-				117417FB1D89396400B5458F /* HTCardTimeView.m */,
+				117417FB1D89396400B5458F /* SKCardTimeView.m */,
 				117417FC1D89396400B5458F /* HTCardTimeView.xib */,
 				117417FD1D89396400B5458F /* HTComposeView.h */,
 				117417FE1D89396400B5458F /* HTComposeView.m */,
@@ -4385,6 +4393,7 @@
 				17461B621C71EF6600C847E8 /* img_mascot_2_animation_2_0006.png in Resources */,
 				17461C8E1C71EF6600C847E8 /* img_mascot_7_animation_2_0003.png in Resources */,
 				17461C921C71EF6600C847E8 /* img_mascot_7_animation_2_0007.png in Resources */,
+				11BF88671E03D2C200347FA1 /* SKCardTimeView.xib in Resources */,
 				11AD0C571DAA34A8007951C5 /* argame03.jpg in Resources */,
 				17461BB11C71EF6600C847E8 /* img_mascot_3_animation_2_0013.png in Resources */,
 				17461CFB1C7493DF00C847E8 /* img_ar_right_answer_gif_0001.png in Resources */,
@@ -4685,7 +4694,7 @@
 				176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */,
 				1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */,
 				17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */,
-				1174180F1D89396400B5458F /* HTCardTimeView.m in Sources */,
+				1174180F1D89396400B5458F /* SKCardTimeView.m in Sources */,
 				1153810B1DF7C51600B50DF2 /* SKFeedbackViewController.m in Sources */,
 				26DA7F251C01997A00337A56 /* HTForgetPasswordController.m in Sources */,
 				1153811E1DF956FE00B50DF2 /* SKAnswerService.m in Sources */,
@@ -4737,6 +4746,7 @@
 				17262CB71C5DF486000FDA1B /* HTMascotTipView.m in Sources */,
 				1787FD2B1C4A9E85006E55A6 /* INTULocationManager.m in Sources */,
 				17B429011C54D4A8008AFBA9 /* YYFrameImage.m in Sources */,
+				11BF88651E03CFFE00347FA1 /* SKCardTimeView.m in Sources */,
 				11CD0BBD1DF6AE9B0074E120 /* SKMyBadgesViewController.m in Sources */,
 				17262CB41C5DF1D7000FDA1B /* HTMascotHelper.m in Sources */,
 				110A34A91DD07B4500207115 /* SKQuestionViewController.m in Sources */,
