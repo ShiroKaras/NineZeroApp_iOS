@@ -238,7 +238,6 @@
     NSURL *documentsDirectoryURL = [[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil] URLByAppendingPathComponent:self.currentQuestion.question_video];
     if ([[NSFileManager defaultManager] fileExistsAtPath:[documentsDirectoryURL path]]) {
         NSURL *localUrl = [NSURL fileURLWithPath:[documentsDirectoryURL path]];
-        //NSURL *localUrl = [[NSBundle mainBundle] URLForResource:@"trailer_video" withExtension:@"mp4"];
         AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
         self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
         self.player = [AVPlayer playerWithPlayerItem:_playerItem];
@@ -269,9 +268,9 @@
             self.player = [AVPlayer playerWithPlayerItem:_playerItem];
             self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
             _playerLayer.videoGravity = AVLayerVideoGravityResize;
+            _playerLayer.frame = frame;
             [backView.layer insertSublayer:_playerLayer atIndex:0];
             [self.view setNeedsLayout];
-            //[self hideMoreButtons];
         }];
         [_downloadTask resume];
         [manager setDownloadTaskDidWriteDataBlock:^(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
@@ -1322,6 +1321,9 @@
     if ([keyPath isEqualToString:@"currentIndex"]) {
         NSLog(@"%ld", self.currentIndex);
         if (self.currentIndex < 5) {
+            if (self.currentIndex == 0) {
+                [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
+            }
             [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(_contentView.mas_bottom);
                 make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*self.currentIndex+ROUND_WIDTH_FLOAT(40)/2-9.5));

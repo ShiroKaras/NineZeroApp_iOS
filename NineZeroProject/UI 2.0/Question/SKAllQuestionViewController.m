@@ -10,7 +10,7 @@
 #import "SKHelperView.h"
 
 #define PAGE_COUNT_SEASON1 (ceil(self.questionList_season1.count/12.))
-#define PAGE_COUNT_SEASON2 (ceil(self.questionList_season2.count/12.))
+#define PAGE_COUNT_SEASON2 (ceil(90./12.))
 
 @interface SKAllQuestionViewController ()<UIScrollViewDelegate, SKHelperScrollViewDelegate>
 
@@ -48,10 +48,6 @@
     [super viewDidLoad];
     [self createUI];
     [self addObserver:self forKeyPath:@"season" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-    if (FIRST_LAUNCH_QUESTIONLIST) {
-        [self helpButtonClick:nil];
-        [UD setBool:YES forKey:@"firstLaunchQuestionList"];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,13 +61,15 @@
         [self createSeason1UIWithData:mQuestionList_season1];
         
         NSMutableArray *mQuestionList_season2 = [questionList_season2 mutableCopy];
-        if (!_isMonday) {
-            [mQuestionList_season2 removeLastObject];
-        }
         [self createSeason2UIWithData:mQuestionList_season2];
         
         if (answeredQuestion_season1 < 60)  self.season = 1;
         else                                self.season = 2;
+        
+        if (FIRST_LAUNCH_QUESTIONLIST) {
+            [self helpButtonClick:nil];
+            [UD setBool:YES forKey:@"firstLaunchQuestionList"];
+        }
     }];
 }
 
@@ -279,77 +277,96 @@
         [view removeFromSuperview];
     }
     
-    for (int questionNumber=0; questionNumber<questionList.count; questionNumber++) {
+    for (int questionNumber=0; questionNumber<90; questionNumber++) {
         int pageNumber = floor(questionNumber/12);
         int itemInPage = questionNumber-pageNumber*12;
         int i = itemInPage%3;
         int j = floor(itemInPage/3);
         UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
         UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
-        NSURL *coverURL = ([questionList[questionNumber].thumbnail_pic isEqualToString:@""]||questionList[questionNumber].thumbnail_pic==nil)?[NSURL URLWithString:questionList[questionNumber].question_video_cover]: [NSURL URLWithString:questionList[questionNumber].thumbnail_pic];
-        if (coverURL == nil) {
-            coverImageView.image = [UIImage imageNamed:@"img_profile_photo_default"];
-        } else {
-            [coverImageView sd_setImageWithURL:coverURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                int type;
-                if (questionList[questionNumber].is_answer || !(questionList[questionNumber].base_type == 2))  type = 0;
-                else    type = 1;
-                
-                [[SDWebImageManager sharedManager] downloadImageWithURL:imageURL options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                    
-                    NSString* key = [[SDWebImageManager sharedManager] cacheKeyForURL:imageURL];
-                    BOOL result = [[SDImageCache sharedImageCache] diskImageExistsWithKey:key];
-                    NSString* imagePath = [[SDImageCache sharedImageCache] defaultCachePathForKey:key];
-                    NSData* newData = [NSData dataWithContentsOfFile:imagePath];
-                    if (!result || !newData) {
-                        BOOL imageIsPng = [[self typeForImageData:newData] isEqualToString:@"image/png"];
-                        NSData* imageData = nil;
-                        if (imageIsPng) {
-                            imageData = UIImagePNGRepresentation(image);
-                        }
-                        else {
-                            imageData = UIImageJPEGRepresentation(image, (CGFloat)1.0);
-                        }
-                        NSFileManager* _fileManager = [NSFileManager defaultManager];
-                        if (imageData) {
-                            [_fileManager removeItemAtPath:imagePath error:nil];
-                            [_fileManager createFileAtPath:imagePath contents:imageData attributes:nil];
-                        }
-                    }
-                    newData = [NSData dataWithContentsOfFile:imagePath];
-                    UIImage* grayImage = nil;
-                    if (type == 0) {
-                        grayImage = [UIImage imageWithData:newData];
-                    }else{
-                        UIImage* newImage = [UIImage imageWithData:newData];
-                                            grayImage = [self grayscale:newImage type:1];
-                    }
-                    coverImageView.image = grayImage;
-                }];
-            }];
-        }
         coverImageView.layer.cornerRadius = itemView.width/2;
         coverImageView.layer.masksToBounds = YES;
         [itemView addSubview:coverImageView];
         
-        //按钮
-        UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        mImageButton.tag = questionNumber;
-        [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
-        if (questionList[questionNumber].is_answer) {
-            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
-            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
-        } else {
-            if (questionList[questionNumber].base_type == 2) {
-                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
-                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
+        if (questionNumber<questionList.count) {
+            NSURL *coverURL = ([questionList[questionNumber].thumbnail_pic isEqualToString:@""]||questionList[questionNumber].thumbnail_pic==nil)?[NSURL URLWithString:questionList[questionNumber].question_video_cover]: [NSURL URLWithString:questionList[questionNumber].thumbnail_pic];
+            if (coverURL == nil) {
+                coverImageView.image = [UIImage imageNamed:@"img_profile_photo_default"];
             } else {
-                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_uncompleted"] forState:UIControlStateNormal];
-                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_uncompleted_highlight"] forState:UIControlStateHighlighted];
+                [coverImageView sd_setImageWithURL:coverURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    int type;
+                    if (questionList[questionNumber].is_answer || !(questionList[questionNumber].base_type == 2))  type = 0;
+                    else    type = 1;
+                    
+                    [[SDWebImageManager sharedManager] downloadImageWithURL:imageURL options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                        
+                        NSString* key = [[SDWebImageManager sharedManager] cacheKeyForURL:imageURL];
+                        BOOL result = [[SDImageCache sharedImageCache] diskImageExistsWithKey:key];
+                        NSString* imagePath = [[SDImageCache sharedImageCache] defaultCachePathForKey:key];
+                        NSData* newData = [NSData dataWithContentsOfFile:imagePath];
+                        if (!result || !newData) {
+                            BOOL imageIsPng = [[self typeForImageData:newData] isEqualToString:@"image/png"];
+                            NSData* imageData = nil;
+                            if (imageIsPng) {
+                                imageData = UIImagePNGRepresentation(image);
+                            }
+                            else {
+                                imageData = UIImageJPEGRepresentation(image, (CGFloat)1.0);
+                            }
+                            NSFileManager* _fileManager = [NSFileManager defaultManager];
+                            if (imageData) {
+                                [_fileManager removeItemAtPath:imagePath error:nil];
+                                [_fileManager createFileAtPath:imagePath contents:imageData attributes:nil];
+                            }
+                        }
+                        newData = [NSData dataWithContentsOfFile:imagePath];
+                        UIImage* grayImage = nil;
+                        if (type == 0) {
+                            grayImage = [UIImage imageWithData:newData];
+                        }else{
+                            UIImage* newImage = [UIImage imageWithData:newData];
+                            grayImage = [self grayscale:newImage type:1];
+                        }
+                        coverImageView.image = grayImage;
+                    }];
+                }];
             }
+            
+            //按钮
+            UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            mImageButton.tag = questionNumber;
+            [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
+            if (questionList[questionNumber].is_answer) {
+                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
+                [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+            } else {
+                //是否是限时关卡
+                if (questionNumber == questionList.count-1 && !_isMonday) {
+                    [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_timer"] forState:UIControlStateNormal];
+                    [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_timer_highlight"] forState:UIControlStateHighlighted];
+                } else {
+                    if (questionList[questionNumber].base_type == 2) {
+                        [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
+                        [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
+                    } else {
+                        [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_uncompleted"] forState:UIControlStateNormal];
+                        [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_uncompleted_highlight"] forState:UIControlStateHighlighted];
+                    }
+                }
+            }
+            [itemView addSubview:mImageButton];
+            
+        } else {
+            //按钮
+            UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            mImageButton.tag = questionNumber;
+            [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
+            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_locked"] forState:UIControlStateNormal];
+            [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_locked_highlight"] forState:UIControlStateHighlighted];
+            [itemView addSubview:mImageButton];
         }
-        [itemView addSubview:mImageButton];
         
         //关卡号
         UILabel *mQuestionNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
