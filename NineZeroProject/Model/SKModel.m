@@ -50,4 +50,19 @@ HTINIT(SKIndexInfo)
 @end
 
 @implementation SKQuestion
+HTINIT(SKQuestion)
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"description_url" : @"description"
+                                     };
+    return propertyMapper;
+}
+@end
+
+@implementation SKMascotProp
+@end
+
+@implementation SKTicket
+@end
+
+@implementation SKBadge
 @end

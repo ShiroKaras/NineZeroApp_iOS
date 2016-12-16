@@ -84,6 +84,7 @@
 		11BC2E001D93C9CF00C9E775 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */; };
 		11BF88651E03CFFE00347FA1 /* SKCardTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BF88641E03CFFE00347FA1 /* SKCardTimeView.m */; };
 		11BF88671E03D2C200347FA1 /* SKCardTimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11BF88661E03D2C200347FA1 /* SKCardTimeView.xib */; };
+		11BF886A1E03DA6A00347FA1 /* SKDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BF88691E03DA6A00347FA1 /* SKDescriptionView.m */; };
 		11C3C1661DFFDD820045D78A /* SKCommonService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C3C1651DFFDD810045D78A /* SKCommonService.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
@@ -980,6 +981,8 @@
 		11BF88631E03CFFE00347FA1 /* SKCardTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKCardTimeView.h; path = "NineZeroProject/UI 2.0/Question/SKCardTimeView.h"; sourceTree = "<group>"; };
 		11BF88641E03CFFE00347FA1 /* SKCardTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKCardTimeView.m; path = "NineZeroProject/UI 2.0/Question/SKCardTimeView.m"; sourceTree = "<group>"; };
 		11BF88661E03D2C200347FA1 /* SKCardTimeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SKCardTimeView.xib; path = "NineZeroProject/UI 2.0/Question/SKCardTimeView.xib"; sourceTree = "<group>"; };
+		11BF88681E03DA6A00347FA1 /* SKDescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKDescriptionView.h; path = "NineZeroProject/UI 2.0/Question/SKDescriptionView.h"; sourceTree = "<group>"; };
+		11BF88691E03DA6A00347FA1 /* SKDescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKDescriptionView.m; path = "NineZeroProject/UI 2.0/Question/SKDescriptionView.m"; sourceTree = "<group>"; };
 		11C3C1641DFFDD810045D78A /* SKCommonService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKCommonService.h; path = "NineZeroProject/Service 2.0/SKCommonService.h"; sourceTree = "<group>"; };
 		11C3C1651DFFDD810045D78A /* SKCommonService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKCommonService.m; path = "NineZeroProject/Service 2.0/SKCommonService.m"; sourceTree = "<group>"; };
 		11CA0C541CD24E4200C06333 /* easing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easing.c; sourceTree = "<group>"; };
@@ -1961,6 +1964,8 @@
 				11BF88631E03CFFE00347FA1 /* SKCardTimeView.h */,
 				11BF88641E03CFFE00347FA1 /* SKCardTimeView.m */,
 				11BF88661E03D2C200347FA1 /* SKCardTimeView.xib */,
+				11BF88681E03DA6A00347FA1 /* SKDescriptionView.h */,
+				11BF88691E03DA6A00347FA1 /* SKDescriptionView.m */,
 			);
 			name = Question;
 			sourceTree = "<group>";
@@ -4754,6 +4759,7 @@
 				117418161D89396400B5458F /* HTShowDetailView.m in Sources */,
 				117417F41D7FE3CC00B5458F /* SKHelperView.m in Sources */,
 				17A92CCF1CA809B100BE893D /* MJRefreshHeader.m in Sources */,
+				11BF886A1E03DA6A00347FA1 /* SKDescriptionView.m in Sources */,
 				11B385E51CCBA5F8009B8D6F /* SKShareView.m in Sources */,
 				1787FD141C4A8884006E55A6 /* ARController.m in Sources */,
 				11CA0C581CD24E4200C06333 /* easing.c in Sources */,

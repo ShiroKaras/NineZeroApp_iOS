@@ -12,6 +12,7 @@
 #import "SKTicketView.h"
 #import "SKComposeView.h"
 #import "SKCardTimeView.h"
+#import "SKDescriptionView.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(200))/4
 
@@ -45,7 +46,7 @@
 @property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
 
 @property (nonatomic, strong) SKComposeView *composeView;                     // 答题界面
-
+@property (strong, nonatomic) SKDescriptionView *descriptionView;             // 详情页面
 @property (nonatomic, strong) SKReward *questionReward;
 @property (nonatomic, strong) SKQuestion *currentQuestion;
 @property (nonatomic, assign) time_t endTime;
@@ -122,6 +123,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     __weak __typeof(self)weakSelf = self;
     
+    // 帮助按钮
     UIButton *helpButton = [UIButton new];
     [helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
     [helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help_highlight"] forState:UIControlStateHighlighted];
@@ -133,6 +135,7 @@
         make.right.equalTo(weakSelf.view.mas_right).offset(-4);
     }];
     
+    // 主界面
     _playBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 106, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
     _playBackView.layer.masksToBounds = YES;
     _playBackView.contentMode = UIViewContentModeScaleAspectFit;
@@ -167,6 +170,10 @@
     maskLayer2.frame = _contentView.bounds;
     maskLayer2.path = maskPath2.CGPath;
     _contentView.layer.mask = maskLayer2;
+    
+    UITapGestureRecognizer *tap_content = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(contentViewClick)];
+    tap_content.numberOfTapsRequired = 1;
+    [_contentView addGestureRecognizer:tap_content];
     
     UIImageView *chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_chapter"]];
     [self.view addSubview:chapterImageView];
@@ -222,16 +229,14 @@
     [_triangleImageView sizeToFit];
     [self.view addSubview:_triangleImageView];
     
-    // TimeView
+    // 倒计时
     _timeView = [[SKCardTimeView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_timeView];
     [_timeView setQuestion:self.currentQuestion endTime:_endTime];
     
     _timeView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
     _timeView.right = SCREEN_WIDTH - 10;
-//    _timeView.bottom = ROUND_HEIGHT_FLOAT(96) - 7;
     _timeView.bottom = _playBackView.top -6;
-    
     
     //底部按钮组
     NSArray *buttonsNameArray = @[@"puzzle", @"key", @"top", @"gift", @"tools"];
@@ -255,7 +260,6 @@
                 btn.hidden = NO;
                 [_triangleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.top.equalTo(_contentView.mas_bottom);
-//                    make.left.equalTo(contentView.mas_left).offset(20);
                     make.centerX.equalTo(btn.mas_centerX);
                 }];
             }
@@ -1373,6 +1377,12 @@
     }];
     
 //    [self showRewardViewWithReward:nil];
+}
+
+- (void)contentViewClick {
+    _descriptionView = [[SKDescriptionView alloc] initWithURLString:self.currentQuestion.description_url andType:SKDescriptionTypeQuestion andImageUrl:self.currentQuestion.description_pic];
+    [self.view addSubview:_descriptionView];
+    [_descriptionView showAnimated];
 }
 
 #pragma mark - Keyboard

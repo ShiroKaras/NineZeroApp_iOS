@@ -83,7 +83,7 @@
 @property (nonatomic, copy)     NSString    *content;
 @property (nonatomic, copy)     NSString    *thumbnail_pic;
 @property (nonatomic, copy)     NSString    *description_pic;
-//@property (nonatomic, copy)     NSString    *description;
+@property (nonatomic, copy)     NSString    *description_url;
 @property (nonatomic, copy)     NSString    *question_video;
 @property (nonatomic, copy)     NSString    *question_video_url;
 @property (nonatomic, copy)     NSString    *question_answer;
@@ -101,6 +101,15 @@
 @property (nonatomic, assign)   NSInteger   clue_count;                 //用户线索条数
 @property (nonatomic, assign)   NSInteger   answer_count;               //用户答案条数
 @property (nonatomic, assign)   BOOL        *num;                       //答案道具数量
+@end
+
+@interface SKMascotProp : NSObject
+@end
+
+@interface SKTicket : NSObject
+@end
+
+@interface SKBadge : NSObject
 @end
 
 
