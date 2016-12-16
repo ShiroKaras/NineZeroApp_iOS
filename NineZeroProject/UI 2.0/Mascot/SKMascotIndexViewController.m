@@ -39,6 +39,7 @@
 }
 
 - (void)createUI {
+    self.view.backgroundColor = [UIColor blackColor];
     WS(weakSelf);
     
     _mScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -94,6 +95,7 @@
     _skillButton = [UIButton new];
     [_skillButton addTarget:self action:@selector(skillButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_skillButton];
+    [self updateButtonWithIndex:0];
     [_skillButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@40);
         make.height.equalTo(@60);
