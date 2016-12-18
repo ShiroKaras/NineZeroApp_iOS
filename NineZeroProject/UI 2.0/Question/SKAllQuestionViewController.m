@@ -8,6 +8,7 @@
 
 #import "SKAllQuestionViewController.h"
 #import "SKHelperView.h"
+#import "SKQuestionViewController.h"
 
 #define PAGE_COUNT_SEASON1 (ceil(self.questionList_season1.count/12.))
 #define PAGE_COUNT_SEASON2 (ceil(90./12.))
@@ -41,13 +42,16 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self removeObserver:self forKeyPath:@"season"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
     [self addObserver:self forKeyPath:@"season" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+}
+
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"season"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -217,7 +221,7 @@
         
         //按钮
         UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        mImageButton.tag = questionNumber;
+        mImageButton.tag = 100+questionNumber;
         [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
         if (questionList[questionNumber].is_answer) {
@@ -334,7 +338,7 @@
             
             //按钮
             UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            mImageButton.tag = questionNumber;
+            mImageButton.tag = 200+questionNumber;
             [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
             if (questionList[questionNumber].is_answer) {
@@ -424,7 +428,10 @@
 }
 
 - (void)questionSelectButtonClick:(UIButton *)sender {
-    
+    NSLog(@"%ld", sender.tag);
+    NSString *questionID = self.questionList_season1[sender.tag-_season*100].qid;
+    SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeHistoryLevel questionID:questionID];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)helpButtonClick:(UIButton *)sender {

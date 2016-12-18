@@ -107,6 +107,7 @@
 - (void)loadData {
     [[[SKServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKQuestion *question) {
         self.currentQuestion = question;
+        self.isAnswered = question.is_answer;
         self.chapterNumberLabel.text = question.serial;
         self.chapterTitleLabel.text = [[question.content componentsSeparatedByString:@"-"] objectAtIndex:0];
         self.chapterSubTitleLabel.text = [[question.content componentsSeparatedByString:@"-"] lastObject];
@@ -221,7 +222,6 @@
     // 倒计时
     _timeView = [[SKCardTimeView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_timeView];
-    [_timeView setQuestion:self.currentQuestion endTime:_endTime];
     
     _timeView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
     _timeView.right = SCREEN_WIDTH - 10;
@@ -1410,9 +1410,13 @@
         [[[SKServiceManager sharedInstance] answerService] answerTimeLimitTextQuestionWithAnswerText:answer callback:^(BOOL success, SKResponsePackage *response) {
             if (response.result == 0) {
                 //回答正确
+                self.currentQuestion.is_answer = YES;
+                [_composeView showAnswerCorrect:YES];
+                self.isAnswered = YES;
                 
             } else if (response.result == -3004) {
                 //回答错误
+                [_composeView showAnswerCorrect:NO];
             }
         }];
     } else if (_type == SKQuestionTypeHistoryLevel) {
@@ -1453,12 +1457,14 @@
         }
     } else if ([keyPath isEqualToString:@"isAnswered"]) {
         if (self.isAnswered == YES) {
+            [_timeView setQuestion:self.currentQuestion type:_type endTime:_endTime];
             self.answerButton.hidden = self.isAnswered;
             [self.view viewWithTag:201].hidden = NO;
             [self.view viewWithTag:202].hidden = NO;
             [self.view viewWithTag:203].hidden = NO;
             [self.view viewWithTag:204].hidden = YES;
         } else {
+            [_timeView setQuestion:self.currentQuestion type:_type endTime:_endTime];
             [self.view viewWithTag:201].hidden = YES;
             [self.view viewWithTag:202].hidden = YES;
             [self.view viewWithTag:203].hidden = YES;

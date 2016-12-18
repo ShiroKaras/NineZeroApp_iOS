@@ -214,7 +214,8 @@
 
 - (void)allLevelQuestionButtonClick:(UIButton*)sender {
     SKAllQuestionViewController *controller = [[SKAllQuestionViewController alloc] init];
-    [self presentViewController:controller animated:YES completion:nil];
+    HTNavigationController *rootController = [[HTNavigationController alloc] initWithRootViewController:controller];
+    [self presentViewController:rootController animated:YES completion:nil];
 }
 
 - (void)mascotButtonClick:(UIButton*)sender {

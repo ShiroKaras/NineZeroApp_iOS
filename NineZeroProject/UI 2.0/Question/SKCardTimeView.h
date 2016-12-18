@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SKQuestionViewController.h"
 
 @class SKQuestion;
 @interface SKCardTimeView : UIView
 
 @property (nonatomic, strong, readonly) SKQuestion *question;
 - (void)setQuestion:(SKQuestion *)question endTime:(time_t)endTime;
+- (void)setQuestion:(SKQuestion *)question type:(SKQuestionType)type endTime:(time_t)endTime;
 @end
