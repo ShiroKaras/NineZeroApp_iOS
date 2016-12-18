@@ -138,7 +138,8 @@
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray *rankList = [NSMutableArray array];
         for (int i=0; i<[response.data count]; i++) {
-            
+            SKUserInfo *userInfo = [SKUserInfo objectWithKeyValues:response.data[i]];
+            [rankList addObject:userInfo];
         }
         callback(success, rankList);
     }];
