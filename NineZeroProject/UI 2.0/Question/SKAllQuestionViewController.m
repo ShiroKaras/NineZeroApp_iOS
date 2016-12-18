@@ -37,6 +37,7 @@
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
+    [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -46,7 +47,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    [self loadData];
     [self addObserver:self forKeyPath:@"season" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 }
 
@@ -61,6 +61,12 @@
 #pragma mark - Load data
 - (void)loadData {
     [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
+        for (UIView *view in self.view.subviews) {
+            if ([view isKindOfClass:[UIScrollView class]] || [view isKindOfClass:[UIPageControl class]]) {
+                [view removeFromSuperview];
+            }
+        }
+        
         NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
         [self createSeason1UIWithData:mQuestionList_season1];
         
@@ -361,24 +367,24 @@
             }
             [itemView addSubview:mImageButton];
             
+            //关卡号
+            UILabel *mQuestionNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
+            mQuestionNumberLabel.textColor = [UIColor whiteColor];
+            mQuestionNumberLabel.text = [NSString stringWithFormat:@"%d",questionNumber+1];
+            mQuestionNumberLabel.textAlignment = NSTextAlignmentCenter;
+            mQuestionNumberLabel.font = MOON_FONT_OF_SIZE(23);
+            [itemView addSubview:mQuestionNumberLabel];
         } else {
             //按钮
             UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
             mImageButton.tag = questionNumber;
-            [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            [mImageButton addTarget:self action:@selector(lockedQuestionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_locked"] forState:UIControlStateNormal];
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_locked_highlight"] forState:UIControlStateHighlighted];
             [itemView addSubview:mImageButton];
         }
         
-        //关卡号
-        UILabel *mQuestionNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
-        mQuestionNumberLabel.textColor = [UIColor whiteColor];
-        mQuestionNumberLabel.text = [NSString stringWithFormat:@"%d",questionNumber+1];
-        mQuestionNumberLabel.textAlignment = NSTextAlignmentCenter;
-        mQuestionNumberLabel.font = MOON_FONT_OF_SIZE(23);
-        [itemView addSubview:mQuestionNumberLabel];
         
         [_mScrollView_season2 addSubview:itemView];
     }
@@ -427,6 +433,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+//点击活动关卡
 - (void)questionSelectButtonClick:(UIButton *)sender {
     NSLog(@"%ld", sender.tag);
     NSString *questionID;
@@ -437,6 +444,11 @@
     }
     SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeHistoryLevel questionID:questionID];
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+//点击锁定关卡
+- (void)lockedQuestionSelectButtonClick:(UIButton *)sender {
+    [self showTipsWithText:[NSString stringWithFormat:@"零仔在第%lu章等待援助", (unsigned long)[self.questionList_season2 count]]];
 }
 
 - (void)helpButtonClick:(UIButton *)sender {

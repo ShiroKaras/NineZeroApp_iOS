@@ -15,7 +15,7 @@
 #import "SKCardTimeView.h"
 #import "SKDescriptionView.h"
 
-#define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(200))/3
+#define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
 
 @interface SKQuestionViewController () <SKComposeViewDelegate>
 
