@@ -468,18 +468,10 @@
 }
 
 - (void)season1ButtonClick:(UIButton *)sender {
-    _mascotImageView.image = [UIImage imageNamed:@"img_levelpage_season1"];
-    [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1_highlight"] forState:UIControlStateNormal];
-    [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2"] forState:UIControlStateNormal];
-
     self.season = 1;
 }
 
 - (void)season2ButtonClick:(UIButton *)sender {
-    _mascotImageView.image = [UIImage imageNamed:@"img_levelpage_season2"];
-    [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1"] forState:UIControlStateNormal];
-    [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2_highlight"] forState:UIControlStateNormal];
-    
     self.season = 2;
 }
 
@@ -607,11 +599,19 @@
     if ([keyPath isEqualToString:@"season"]) {
         NSLog(@"%ld", self.season);
         if (self.season == 1) {
+            _mascotImageView.image = [UIImage imageNamed:@"img_levelpage_season1"];
+            [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1_highlight"] forState:UIControlStateNormal];
+            [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2"] forState:UIControlStateNormal];
+
             _mScrollView_season1.hidden = NO;
             _mPageContrl_season1.hidden = NO;
             _mScrollView_season2.hidden = YES;
             _mPageContrl_season2.hidden = YES;
         } else if (self.season == 2) {
+            _mascotImageView.image = [UIImage imageNamed:@"img_levelpage_season2"];
+            [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1"] forState:UIControlStateNormal];
+            [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2_highlight"] forState:UIControlStateNormal];
+            
             _mScrollView_season1.hidden = YES;
             _mPageContrl_season1.hidden = YES;
             _mScrollView_season2.hidden = NO;

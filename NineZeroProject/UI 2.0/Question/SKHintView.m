@@ -20,12 +20,13 @@
 #define HINT_BUTTON_3 202
 
 @interface SKHintView ()
-@property (nonatomic, assign) NSInteger season;
-@property (nonatomic, assign) NSInteger hintPropCount;
-@property (nonatomic, strong) UIButton *addButton;
-@property (nonatomic, strong) UILabel *propCountLabel;
-@property (nonatomic, strong) SKQuestion *question;
-@property (nonatomic, strong) SKHintList *hintList;
+@property (nonatomic, assign) NSInteger     season;
+@property (nonatomic, assign) NSInteger     hintPropCount;
+@property (nonatomic, strong) UIImageView   *iconImageView;     //标记
+@property (nonatomic, strong) UIButton      *addButton;
+@property (nonatomic, strong) UILabel       *propCountLabel;
+@property (nonatomic, strong) SKQuestion    *question;
+@property (nonatomic, strong) SKHintList    *hintList;
 @end
 
 @implementation SKHintView
@@ -68,10 +69,9 @@
             DLog(@"%ld", hintList.num);
             self.hintPropCount = self.hintList.num;
             if (self.hintPropCount==0) {
-                [_addButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_clue_add"] forState:UIControlStateNormal];
-                [_addButton addTarget:self action:@selector(addButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+                _iconImageView.image = [UIImage imageNamed:@"btn_detailspage_clue_add"];
             } else {
-                [_addButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_clue_season%lu",(unsigned long)_season]] forState:UIControlStateNormal];
+                _iconImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_clue_season%lu",(unsigned long)_season]];
             }
             _propCountLabel.text = [NSString stringWithFormat:@"%ld",(long)self.hintPropCount];
         }
@@ -107,26 +107,34 @@
     }];
     
     //线索数量
-    _addButton = [UIButton new];
+    _iconImageView = [UIImageView new];
     if (self.hintPropCount==0) {
-        [_addButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_clue_add"] forState:UIControlStateNormal];
-        [_addButton addTarget:self action:@selector(addButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        _iconImageView.image = [UIImage imageNamed:@"btn_detailspage_clue_add"];
     } else {
-        [_addButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_clue_season%lu",(unsigned long)_season]] forState:UIControlStateNormal];
+        _iconImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_clue_season%lu",(unsigned long)_season]];
     }
-    [rightCornerBackView addSubview:_addButton];
-    [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [rightCornerBackView addSubview:_iconImageView];
+    [_iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(25, 25));
         make.left.equalTo(rightCornerBackView).offset(2.5);
         make.centerY.equalTo(rightCornerBackView);
+    }];
+    
+    
+    _addButton = [UIButton new];
+    [_addButton addTarget:self action:@selector(addButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [rightCornerBackView addSubview:_addButton];
+    [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(rightCornerBackView);
+        make.center.equalTo(rightCornerBackView);
     }];
     
     UIImageView *textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_solution_text"]];
     [textImageView sizeToFit];
     [rightCornerBackView addSubview:textImageView];
     [textImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_addButton.mas_right).offset(6);
-        make.centerY.equalTo(_addButton);
+        make.left.equalTo(_iconImageView.mas_right).offset(6);
+        make.centerY.equalTo(_iconImageView);
     }];
     
     _propCountLabel = [UILabel new];

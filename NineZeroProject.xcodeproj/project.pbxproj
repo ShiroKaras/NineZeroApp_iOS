@@ -36,6 +36,7 @@
 		1153811E1DF956FE00B50DF2 /* SKAnswerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1153811D1DF956FE00B50DF2 /* SKAnswerService.m */; };
 		11644F4D1DDD97CB002E9FDE /* SKRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */; };
 		11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */; };
+		116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */; };
 		117417EA1D795AC300B5458F /* SKIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417E91D795AC300B5458F /* SKIndexViewController.m */; };
 		117417EE1D797F5C00B5458F /* SKQuestionPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417ED1D797F5C00B5458F /* SKQuestionPageViewController.m */; };
 		117417F41D7FE3CC00B5458F /* SKHelperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 117417F31D7FE3CC00B5458F /* SKHelperView.m */; };
@@ -897,6 +898,8 @@
 		11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRegisterViewController.m; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.m"; sourceTree = "<group>"; };
 		11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterTextField.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterTextField.h"; sourceTree = "<group>"; };
 		11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRegisterTextField.m; path = "NineZeroProject/UI 2.0/Login/SKRegisterTextField.m"; sourceTree = "<group>"; };
+		116B5E8F1E06E5B100E5BDAC /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
+		116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		117417E81D795AC300B5458F /* SKIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKIndexViewController.h; path = NineZeroProject/UI/Index/SKIndexViewController.h; sourceTree = SOURCE_ROOT; };
 		117417E91D795AC300B5458F /* SKIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKIndexViewController.m; path = NineZeroProject/UI/Index/SKIndexViewController.m; sourceTree = SOURCE_ROOT; };
 		117417EC1D797F5C00B5458F /* SKQuestionPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKQuestionPageViewController.h; path = Index/SKQuestionPageViewController.h; sourceTree = "<group>"; };
@@ -3236,6 +3239,8 @@
 				17116D041C9D366200530B7C /* HTPropChangedPopController.m */,
 				1744BFC81C9D52EB00708716 /* UIViewController+HTTips.h */,
 				1744BFC91C9D52EB00708716 /* UIViewController+HTTips.m */,
+				116B5E8F1E06E5B100E5BDAC /* UIImage+Extension.h */,
+				116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
@@ -4654,6 +4659,7 @@
 				17A92CD11CA809B100BE893D /* MJRefreshAutoNormalFooter.m in Sources */,
 				11A62AE71DED8B9E00C83F73 /* SKCGIManager.m in Sources */,
 				17D1F8D71C29D7BD0029E4AF /* HTTextField.m in Sources */,
+				116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */,
 				117418121D89396400B5458F /* HTDescriptionView.m in Sources */,
 				117418171D89396400B5458F /* SKAnswerDetailView.m in Sources */,
 				17F0F4761C93275C0050F0EB /* HTProfileBadgeController.m in Sources */,

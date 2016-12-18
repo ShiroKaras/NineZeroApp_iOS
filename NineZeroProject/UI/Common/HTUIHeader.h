@@ -39,6 +39,7 @@
 #import "SKImageHelper.h"
 #import "MJRefresh.h"
 #import "HTLoginButton.h"
+#import "UIImage+Extension.h"
 
 #import "UMMobClick/MobClick.h"
 #import "TalkingData.h"

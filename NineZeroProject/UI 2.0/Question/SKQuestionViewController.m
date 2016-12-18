@@ -14,6 +14,7 @@
 #import "SKComposeView.h"
 #import "SKCardTimeView.h"
 #import "SKDescriptionView.h"
+#import "SKMascotView.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
 
@@ -45,6 +46,7 @@
 @property (nonatomic, strong) UIView *progressView;
 @property (nonatomic, strong) UIView *progressBgView;
 @property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
+@property (nonatomic, strong) UIImageView *coverImageView;
 
 @property (nonatomic, strong) SKComposeView *composeView;                     // 答题界面
 @property (strong, nonatomic) SKDescriptionView *descriptionView;             // 详情页面
@@ -136,6 +138,11 @@
     maskLayer.path = maskPath.CGPath;
     _playBackView.layer.mask = maskLayer;
     [self.view addSubview:_playBackView];
+    
+    _coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
+    _coverImageView.layer.masksToBounds = YES;
+    _coverImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [_playBackView addSubview:_coverImageView];
     
     // 进度条
     _progressBgView = [[UIView alloc] init];
@@ -343,7 +350,7 @@
         }];
     }
     
-    //[_coverImageView sd_setImageWithURL:[NSURL URLWithString:_question.question_video_cover] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
+    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.question_video_cover] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
     
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_playButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
@@ -416,8 +423,6 @@
 }
 
 - (void)showAnswerPropAlertView {
-    int propCount = 0;
-
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
     _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
@@ -432,6 +437,8 @@
     [_dimmingView addSubview:alphaView];
     
     UIView *alertBackView = [UIView new];
+    alertBackView.layer.cornerRadius = 3;
+    alertBackView.layer.masksToBounds = YES;
     alertBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     [_dimmingView addSubview:alertBackView];
     [alertBackView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -468,7 +475,7 @@
     }];
     
     UILabel *propCountLabel = [UILabel new];
-    propCountLabel.text = [NSString stringWithFormat:@"%d",propCount];
+    propCountLabel.text = [NSString stringWithFormat:@"%ld",(long)self.currentQuestion.num];
     propCountLabel.textColor = [UIColor whiteColor];
     propCountLabel.font = MOON_FONT_OF_SIZE(18);
     [propCountLabel sizeToFit];
@@ -499,13 +506,21 @@
         make.bottom.equalTo(alertBackView).offset(-10);
     }];
  
-    if (propCount>0) {
+    if (self.currentQuestion.num>0) {
         //使用道具
         UIButton *usePropButton = [UIButton new];
-        [usePropButton addTarget:self action:@selector(usePropButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
         [usePropButton addTarget:self action:@selector(usePropButtonOnClick:) forControlEvents:UIControlEventTouchUpInside];
+        if (self.season == 2) {
+            [usePropButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateNormal];
+            [usePropButton setBackgroundImage:[UIImage imageWithColor:COMMON_PINK_COLOR] forState:UIControlStateHighlighted];
+        } else if (self.season == 1) {
+            [usePropButton setBackgroundImage:[UIImage imageWithColor:COMMON_PINK_COLOR] forState:UIControlStateNormal];
+            [usePropButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
+        }
+        [usePropButton addTarget:self action:@selector(usePropButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
         [usePropButton addTarget:self action:@selector(usePropButtonTouchExit:) forControlEvents:UIControlEventTouchDragExit];
         usePropButton.layer.cornerRadius = 3;
+        usePropButton.layer.masksToBounds = YES;
         usePropButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(14);
         [usePropButton setTitle:@"使用道具" forState:UIControlStateNormal];
         [usePropButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -521,10 +536,16 @@
     } else {
         //购买道具
         UIButton *purchPropButton = [UIButton new];
-        [purchPropButton addTarget:self action:@selector(purchasePropButtonOnClickPropButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
         [purchPropButton addTarget:self action:@selector(purchasePropButtonOnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [purchPropButton addTarget:self action:@selector(purchasePropButtonOnClickPropButtonTouchExit:) forControlEvents:UIControlEventTouchDragExit];
+        if (self.season == 1) {
+            [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateNormal];
+            [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_PINK_COLOR] forState:UIControlStateHighlighted];
+        } else if (self.season == 2) {
+            [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_PINK_COLOR] forState:UIControlStateNormal];
+            [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
+        }
         purchPropButton.layer.cornerRadius = 3;
+        purchPropButton.layer.masksToBounds = YES;
         purchPropButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(14);
         [purchPropButton setTitle:@"去购买" forState:UIControlStateNormal];
         [purchPropButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -593,6 +614,20 @@
     }
 }
 
+//购买道具
+- (void)purchasePropButtonOnClick:(UIButton*)sender {
+    SKMascotSkillView *purchaseView = [[SKMascotSkillView alloc] initWithFrame:self.view.bounds Type:SKMascotTypeDefault];
+    [self.view addSubview:purchaseView];
+}
+
+- (void)purchasePropButtonOnClickPropButtonTouchDown:(UIButton*)sender {
+    sender.backgroundColor = COMMON_GREEN_COLOR;
+}
+
+- (void)purchasePropButtonOnClickPropButtonTouchExit:(UIButton*)sender {
+    sender.backgroundColor = [UIColor colorWithHex:0xed203b];
+}
+
 //获取提示
 - (void)getHintButtonClick:(UIButton *)sender {
     UIView *alertViewBackView = [[UIView alloc] initWithFrame:self.view.bounds];
@@ -611,19 +646,6 @@
     } completion:^(BOOL finished) {
         [alertViewBackView removeFromSuperview];
     }];
-}
-
-//购买道具
-- (void)purchasePropButtonOnClick:(UIButton*)sender {
-    [self removeDimmingView];
-}
-
-- (void)purchasePropButtonOnClickPropButtonTouchDown:(UIButton*)sender {
-    sender.backgroundColor = COMMON_GREEN_COLOR;
-}
-
-- (void)purchasePropButtonOnClickPropButtonTouchExit:(UIButton*)sender {
-    sender.backgroundColor = [UIColor colorWithHex:0xed203b];
 }
 
 #pragma mark - Answer View
