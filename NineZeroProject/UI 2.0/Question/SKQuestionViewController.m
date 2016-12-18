@@ -108,13 +108,14 @@
     [[[SKServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKQuestion *question) {
         self.currentQuestion = question;
         self.isAnswered = question.is_answer;
-        self.chapterNumberLabel.text = question.serial;
+        self.chapterNumberLabel.text = [NSString stringWithFormat:@"%02lu", [question.serial integerValue]];
         self.chapterTitleLabel.text = [[question.content componentsSeparatedByString:@"-"] objectAtIndex:0];
         self.chapterSubTitleLabel.text = [[question.content componentsSeparatedByString:@"-"] lastObject];
         NSLog(@"%@", question.question_video_url);
         [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
     }];
     if (_type == SKQuestionTypeTimeLimitLevel) {
+        
     } else if (_type == SKQuestionTypeHistoryLevel) {
         
     }
@@ -172,7 +173,7 @@
     
     _chapterNumberLabel = [UILabel new];
     _chapterNumberLabel.textColor = COMMON_PINK_COLOR;
-    _chapterNumberLabel.text = @"01";
+    _chapterNumberLabel.text = @"00";
     _chapterNumberLabel.font = MOON_FONT_OF_SIZE(13);
     [_chapterNumberLabel sizeToFit];
     _chapterNumberLabel.center = chapterImageView.center;

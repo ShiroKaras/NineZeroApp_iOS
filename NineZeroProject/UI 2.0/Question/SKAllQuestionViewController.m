@@ -37,7 +37,6 @@
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
-    [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -47,6 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    [self loadData];
     [self addObserver:self forKeyPath:@"season" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 }
 
@@ -429,7 +429,12 @@
 
 - (void)questionSelectButtonClick:(UIButton *)sender {
     NSLog(@"%ld", sender.tag);
-    NSString *questionID = self.questionList_season1[sender.tag-_season*100].qid;
+    NSString *questionID;
+    if (self.season == 1) {
+        questionID = self.questionList_season1[sender.tag-100].qid;
+    } else if (self.season == 2){
+        questionID = self.questionList_season2[sender.tag-200].qid;
+    }
     SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeHistoryLevel questionID:questionID];
     [self.navigationController pushViewController:controller animated:YES];
 }
