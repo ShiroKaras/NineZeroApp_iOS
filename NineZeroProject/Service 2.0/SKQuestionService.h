@@ -11,10 +11,14 @@
 #import "SKLogicHeader.h"
 
 @class SKQuestion;
+@class SKAnswerDetail;
+@class SKUserInfo;
 
 typedef void (^SKQuestionListCallback) (BOOL success,NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2);
 typedef void (^SKQuestionDetialCallback) (BOOL success, SKQuestion *question);
 typedef void (^SKQuestionHintListCallback) (BOOL success, NSInteger result, SKHintList *hintList);
+typedef void (^SKQuestionAnswerDetialCallback) (BOOL success, SKAnswerDetail *questionAnswerDetail);
+typedef void (^SKQuestionTop10Callback) (BOOL success, NSArray<SKUserInfo*> *userRankList);
 
 @interface SKQuestionService : NSObject
 
@@ -34,5 +38,11 @@ typedef void (^SKQuestionHintListCallback) (BOOL success, NSInteger result, SKHi
 
 //购买线索
 - (void)purchaseQuestionClueWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback;
+
+//查看答案详情
+- (void)getQuestionAnswerDetailWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback;
+
+//前十名
+- (void)getQuestionTop10WithQuestionID:(NSString *)questionID callback:(SKQuestionTop10Callback)callback;
 
 @end

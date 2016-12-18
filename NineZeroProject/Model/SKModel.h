@@ -105,9 +105,24 @@
 
 @interface SKHintList : NSObject
 @property (nonatomic, assign)   NSInteger   num;        //线索数量
-@property (nonatomic, strong)   NSString    *hint_one;
-@property (nonatomic, strong)   NSString    *hint_two;
-@property (nonatomic, strong)   NSString    *hint_three;
+@property (nonatomic, copy)     NSString    *hint_one;
+@property (nonatomic, copy)     NSString    *hint_two;
+@property (nonatomic, copy)     NSString    *hint_three;
+@end
+
+@interface SKAnswerDetail : NSObject
+@property (nonatomic, copy)     NSString    *question_id;
+@property (nonatomic, copy)     NSString    *area_id;
+
+@property (nonatomic, copy)     NSString    *pet_id;
+@property (nonatomic, copy)     NSString    *qid;
+@property (nonatomic, copy)     NSString    *article_title;
+@property (nonatomic, copy)     NSString    *article_desc;
+@property (nonatomic, copy)     NSString    *article_subtitle;
+@property (nonatomic, copy)     NSString    *article_pic;
+@property (nonatomic, copy)     NSString    *article_pic_1;
+@property (nonatomic, copy)     NSString    *article_pic_2;
+@property (nonatomic, copy)     NSString    *article_video_url;
 @end
 
 @interface SKMascotProp : NSObject

@@ -117,4 +117,31 @@
     }];
 }
 
+//查看答案
+- (void)getQuestionAnswerDetailWithQuestionID:(NSString *)questionID callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"getAnswerDetail",
+                            @"area_id"      :   @"010",
+                            @"qid"          :   questionID
+                            };
+    [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
+- (void)getQuestionTop10WithQuestionID:(NSString *)questionID callback:(SKQuestionTop10Callback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"getTopAnsweredUserList",
+                            @"area_id"      :   @"010",
+                            @"qid"          :   questionID
+                            };
+    [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray *rankList = [NSMutableArray array];
+        for (int i=0; i<[response.data count]; i++) {
+            
+        }
+        callback(success, rankList);
+    }];
+}
+
 @end
