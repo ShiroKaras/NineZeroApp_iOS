@@ -10,6 +10,7 @@
 #import "HTUIHeader.h"
 
 #import "SKTicketView.h"
+#import "SKHintView.h"
 #import "SKComposeView.h"
 #import "SKCardTimeView.h"
 #import "SKDescriptionView.h"
@@ -287,6 +288,7 @@
     _player = nil;
     [_playerLayer removeFromSuperlayer];
     _playerLayer = nil;
+    [_playButton removeFromSuperview];
     
     NSURL *documentsDirectoryURL = [[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil] URLByAppendingPathComponent:self.currentQuestion.question_video];
     if ([[NSFileManager defaultManager] fileExistsAtPath:[documentsDirectoryURL path]]) {
@@ -355,6 +357,7 @@
 
 #pragma mark - Tools View
 
+//气泡：选择道具
 - (void)createToolsViewWithButton:(UIButton *)button {
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
     _dimmingView.backgroundColor = [UIColor clearColor];
@@ -408,84 +411,8 @@
 }
 
 - (void)createHintView {
-    int hintPropCount = 0;
-    
-    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
-    _dimmingView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_dimmingView];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
-    tap.numberOfTapsRequired = 1;
-    [_dimmingView addGestureRecognizer:tap];
-    
-    UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
-    alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
-    alphaView.alpha = 0.9;
-    [_dimmingView addSubview:alphaView];
-    
-    UIView *rightCornerBackView = [UIView new];
-    rightCornerBackView.layer.cornerRadius = 15;
-    rightCornerBackView.layer.masksToBounds = YES;
-    rightCornerBackView.backgroundColor = [UIColor blackColor];
-    [_dimmingView addSubview:rightCornerBackView];
-    [rightCornerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@(97+15));
-        make.height.equalTo(@30);
-        make.right.equalTo(_dimmingView).offset(15);
-        make.top.equalTo(@13);
-    }];
-    
-    UIButton *addButton = [UIButton new];
-    if (hintPropCount==0) {
-        [addButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_clue_add"] forState:UIControlStateNormal];
-    } else {
-        [addButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_clue_season%lu",(unsigned long)_season]] forState:UIControlStateNormal];
-    }
-    [rightCornerBackView addSubview:addButton];
-    [addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(25, 25));
-        make.left.equalTo(rightCornerBackView).offset(2.5);
-        make.centerY.equalTo(rightCornerBackView);
-    }];
-    
-    UIImageView *textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_solution_text"]];
-    [textImageView sizeToFit];
-    [rightCornerBackView addSubview:textImageView];
-    [textImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(addButton.mas_right).offset(6);
-        make.centerY.equalTo(addButton);
-    }];
-    
-    UILabel *propCountLabel = [UILabel new];
-    propCountLabel.text = [NSString stringWithFormat:@"%d",hintPropCount];
-    propCountLabel.textColor = [UIColor whiteColor];
-    propCountLabel.font = MOON_FONT_OF_SIZE(18);
-    [propCountLabel sizeToFit];
-    [rightCornerBackView addSubview:propCountLabel];
-    [propCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(textImageView.mas_right).offset(4);
-        make.centerY.equalTo(textImageView);
-    }];
-    
-    for (int i = 0; i<3; i++) {
-        UIImageView *hintBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_cluebg"]];
-        [_dimmingView addSubview:hintBackgroundView];
-        [hintBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@260);
-            make.height.equalTo(@75);
-            make.top.equalTo(@(ROUND_HEIGHT_FLOAT(132) + (75+ROUND_HEIGHT_FLOAT(70))*i));
-            make.centerX.equalTo(_dimmingView);
-        }];
-        
-        UIButton *hintButton = [UIButton new];
-        [hintButton addTarget:self action:@selector(getHintButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [hintButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_season%lu",(unsigned long)_season]] forState:UIControlStateNormal];
-        [_dimmingView addSubview:hintButton];
-        [hintButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.equalTo(hintBackgroundView);
-            make.center.equalTo(hintBackgroundView);
-        }];
-    }
+    SKHintView *hintView = [[SKHintView alloc] initWithFrame:self.view.bounds questionID:self.currentQuestion season:self.season];
+    [self.view addSubview:hintView];
 }
 
 - (void)showAnswerPropAlertView {
@@ -664,6 +591,26 @@
         default:
             break;
     }
+}
+
+//获取提示
+- (void)getHintButtonClick:(UIButton *)sender {
+    UIView *alertViewBackView = [[UIView alloc] initWithFrame:self.view.bounds];
+    alertViewBackView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:alertViewBackView];
+    
+    UIImageView *propmtImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
+    [propmtImageView sizeToFit];
+    [alertViewBackView addSubview:propmtImageView];
+    [propmtImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(alertViewBackView);
+    }];
+    
+    [UIView animateWithDuration:0.5 delay:3 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        alertViewBackView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [alertViewBackView removeFromSuperview];
+    }];
 }
 
 //购买道具
@@ -1339,25 +1286,6 @@
     [self createHintView];
 }
 
-- (void)getHintButtonClick:(UIButton *)sender {
-    UIView *alertViewBackView = [[UIView alloc] initWithFrame:self.view.bounds];
-    alertViewBackView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:alertViewBackView];
-    
-    UIImageView *propmtImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
-    [propmtImageView sizeToFit];
-    [alertViewBackView addSubview:propmtImageView];
-    [propmtImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(alertViewBackView);
-    }];
-    
-    [UIView animateWithDuration:0.5 delay:3 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        alertViewBackView.alpha = 0;
-    } completion:^(BOOL finished) {
-        [alertViewBackView removeFromSuperview];
-    }];
-}
-
 - (void)answerPropButtonClick:(UIButton *)sender {
     [self removeDimmingView];
     [self showAnswerPropAlertView];
@@ -1442,7 +1370,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"currentIndex"]) {
         NSLog(@"%ld", self.currentIndex);
-        if (self.currentIndex < 5) {
+        if (self.currentIndex < 4) {
             if (self.currentIndex == 0) {
                 [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
             }
@@ -1450,7 +1378,7 @@
                 make.top.equalTo(_contentView.mas_bottom);
                 make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*self.currentIndex+ROUND_WIDTH_FLOAT(40)/2-9.5));
             }];
-        } else if (self.currentIndex == 5) {
+        } else if (self.currentIndex == 4) {
             [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(_contentView.mas_bottom);
                 make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*1+ROUND_WIDTH_FLOAT(40)/2-9.5));

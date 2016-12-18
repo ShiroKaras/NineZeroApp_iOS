@@ -93,21 +93,22 @@
 }
 
 //关卡线索列表
-- (void)getQuestionDetailCluesWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback {
+- (void)getQuestionDetailCluesWithQuestionID:(NSString*)questionID callback:(SKQuestionHintListCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"clueList",
                             @"area_id"      :   @"010",
                             @"qid"          :   questionID
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        SKHintList *hintList = [SKHintList objectWithKeyValues:[response.data keyValues]];
+        callback(success, response.result, hintList);
     }];
 }
 
 //购买线索
 - (void)purchaseQuestionClueWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
-                            @"method"       :   @"clueList",
+                            @"method"       :   @"getClue",
                             @"area_id"      :   @"010",
                             @"qid"          :   questionID
                             };

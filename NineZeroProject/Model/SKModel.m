@@ -58,6 +58,9 @@ HTINIT(SKQuestion)
 }
 @end
 
+@implementation SKHintList
+@end
+
 @implementation SKMascotProp
 @end
 

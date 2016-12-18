@@ -85,6 +85,7 @@
 		11BF88651E03CFFE00347FA1 /* SKCardTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BF88641E03CFFE00347FA1 /* SKCardTimeView.m */; };
 		11BF88671E03D2C200347FA1 /* SKCardTimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11BF88661E03D2C200347FA1 /* SKCardTimeView.xib */; };
 		11BF886A1E03DA6A00347FA1 /* SKDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BF88691E03DA6A00347FA1 /* SKDescriptionView.m */; };
+		11BF886D1E06479800347FA1 /* SKHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BF886C1E06479800347FA1 /* SKHintView.m */; };
 		11C3C1661DFFDD820045D78A /* SKCommonService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C3C1651DFFDD810045D78A /* SKCommonService.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
@@ -983,6 +984,8 @@
 		11BF88661E03D2C200347FA1 /* SKCardTimeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SKCardTimeView.xib; path = "NineZeroProject/UI 2.0/Question/SKCardTimeView.xib"; sourceTree = "<group>"; };
 		11BF88681E03DA6A00347FA1 /* SKDescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKDescriptionView.h; path = "NineZeroProject/UI 2.0/Question/SKDescriptionView.h"; sourceTree = "<group>"; };
 		11BF88691E03DA6A00347FA1 /* SKDescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKDescriptionView.m; path = "NineZeroProject/UI 2.0/Question/SKDescriptionView.m"; sourceTree = "<group>"; };
+		11BF886B1E06479800347FA1 /* SKHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKHintView.h; path = "NineZeroProject/UI 2.0/Question/SKHintView.h"; sourceTree = "<group>"; };
+		11BF886C1E06479800347FA1 /* SKHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKHintView.m; path = "NineZeroProject/UI 2.0/Question/SKHintView.m"; sourceTree = "<group>"; };
 		11C3C1641DFFDD810045D78A /* SKCommonService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKCommonService.h; path = "NineZeroProject/Service 2.0/SKCommonService.h"; sourceTree = "<group>"; };
 		11C3C1651DFFDD810045D78A /* SKCommonService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKCommonService.m; path = "NineZeroProject/Service 2.0/SKCommonService.m"; sourceTree = "<group>"; };
 		11CA0C541CD24E4200C06333 /* easing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easing.c; sourceTree = "<group>"; };
@@ -1959,6 +1962,8 @@
 				1106FFD01DD5D60D0002E36C /* SKAllQuestionViewController.m */,
 				110A34A71DD07B4500207115 /* SKQuestionViewController.h */,
 				110A34A81DD07B4500207115 /* SKQuestionViewController.m */,
+				11BF886B1E06479800347FA1 /* SKHintView.h */,
+				11BF886C1E06479800347FA1 /* SKHintView.m */,
 				11293C3B1E03B7150064F1E5 /* SKComposeView.h */,
 				11293C3C1E03B7150064F1E5 /* SKComposeView.m */,
 				11BF88631E03CFFE00347FA1 /* SKCardTimeView.h */,
@@ -4645,6 +4650,7 @@
 				17F45AF81C7E2564004F2E32 /* HTRewardCard.m in Sources */,
 				17713D411C04D93A00DB8BB0 /* HTStorageManager.m in Sources */,
 				1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */,
+				11BF886D1E06479800347FA1 /* SKHintView.m in Sources */,
 				17A92CD11CA809B100BE893D /* MJRefreshAutoNormalFooter.m in Sources */,
 				11A62AE71DED8B9E00C83F73 /* SKCGIManager.m in Sources */,
 				17D1F8D71C29D7BD0029E4AF /* HTTextField.m in Sources */,

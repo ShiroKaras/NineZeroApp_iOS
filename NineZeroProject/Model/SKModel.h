@@ -103,6 +103,13 @@
 @property (nonatomic, assign)   BOOL        num;                       //答案道具数量
 @end
 
+@interface SKHintList : NSObject
+@property (nonatomic, assign)   NSInteger   num;        //线索数量
+@property (nonatomic, strong)   NSString    *hint_one;
+@property (nonatomic, strong)   NSString    *hint_two;
+@property (nonatomic, strong)   NSString    *hint_three;
+@end
+
 @interface SKMascotProp : NSObject
 @end
 

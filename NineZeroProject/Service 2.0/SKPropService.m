@@ -17,11 +17,11 @@
     [mDict setValue:[NSString stringWithFormat:@"%lld",currentTime] forKey:@"time"];
     [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
     [mDict setValue:@"iOS" forKey:@"client"];
-    // TODO
     [mDict setValue:[[SKStorageManager sharedInstance] getUserID] forKey:@"user_id"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    DLog(@"Param:%@", jsonString);
     NSDictionary *param = @{@"data" : jsonString};
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager propBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -35,14 +35,28 @@
 }
 
 //购买道具
-- (void)purchasePropWithPurchaseType:(NSString*)purchaseType propType:(NSString*)propType callback:(SKResponseCallback)callback {
+- (void)purchasePropWithPurchaseType:(NSString*)purchaseType propType:(NSString*)propType callback:(SKQuestionBuyPropCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"buyProp",
                             @"buy_type"     :   purchaseType,
                             @"prop_type"    :   propType
                             };
     [self propBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        NSString *responseString;
+        if (response.result == 0) {
+            if ([propType isEqualToString:@"1"]) {
+                responseString = @"获得线索道具";
+            } else if ([propType isEqualToString:@"2"]) {
+                responseString = @"获得答案道具";
+            }
+        } else if (response.result == -8001) {
+            responseString = @"金币数不够";
+        } else if (response.result == -8002) {
+            responseString = @"宝石数不够";
+        } else if (response.result == -8003) {
+            responseString = @"冷却时间不能购买";
+        }
+        callback(success, responseString);
     }];
 }
 

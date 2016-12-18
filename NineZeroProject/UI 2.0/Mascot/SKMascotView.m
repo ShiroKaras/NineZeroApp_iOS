@@ -89,6 +89,7 @@
     //第一季
     
     UIButton *hintS1Button = [UIButton new];
+    [hintS1Button addTarget:self action:@selector(hintS1ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [hintS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue"] forState:UIControlStateNormal];
     [hintS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue_highlight"] forState:UIControlStateHighlighted];
     [self addSubview:hintS1Button];
@@ -100,6 +101,7 @@
     }];
     
     UIButton *answerS1Button = [UIButton new];
+    [answerS1Button addTarget:self action:@selector(answerS1ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [answerS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution"] forState:UIControlStateNormal];
     [answerS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution_highlight"] forState:UIControlStateHighlighted];
     [self addSubview:answerS1Button];
@@ -165,6 +167,7 @@
     //第二季
     
     UIButton *hintS2Button = [UIButton new];
+    [hintS2Button addTarget:self action:@selector(hintS2ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [hintS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue"] forState:UIControlStateNormal];
     [hintS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue_highlight"] forState:UIControlStateHighlighted];
     [self addSubview:hintS2Button];
@@ -175,6 +178,7 @@
     }];
     
     UIButton *answerS2Button = [UIButton new];
+    [answerS2Button addTarget:self action:@selector(answerS2ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [answerS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution"] forState:UIControlStateNormal];
     [answerS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution_highlight"] forState:UIControlStateHighlighted];
     [self addSubview:answerS2Button];
@@ -286,6 +290,45 @@
 
 - (void)closeButtonClick:(UIButton *)sender {
     [self removeFromSuperview];
+}
+
+//第一季 线索
+- (void)hintS1ButtonClick:(UIButton *)sender {
+    [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"1" propType:@"1" callback:^(BOOL success, NSString *responseString) {
+        [[self viewController] showTipsWithText:responseString];
+    }];
+}
+
+//第一季 答案
+- (void)answerS1ButtonClick:(UIButton *)sender {
+    [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"1" propType:@"2" callback:^(BOOL success, NSString *responseString) {
+        [[self viewController] showTipsWithText:responseString];
+    }];
+}
+
+//第二季 线索
+- (void)hintS2ButtonClick:(UIButton *)sender {
+    [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"2" propType:@"1" callback:^(BOOL success, NSString *responseString) {
+        [[self viewController] showTipsWithText:responseString];
+    }];
+}
+
+//第二季 答案
+- (void)answerS2ButtonClick:(UIButton *)sender {
+    [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"2" propType:@"2" callback:^(BOOL success, NSString *responseString) {
+        [[self viewController] showTipsWithText:responseString];
+    }];
+}
+
+//获取view对应的控制器
+- (UIViewController*)viewController {
+    for (UIView* nextVC = [self superview]; nextVC; nextVC = nextVC.superview) {
+        UIResponder* nextResponder = [nextVC nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController*)nextResponder;
+        }
+    }
+    return nil;
 }
 
 @end

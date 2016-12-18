@@ -14,6 +14,7 @@
 
 typedef void (^SKQuestionListCallback) (BOOL success,NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2);
 typedef void (^SKQuestionDetialCallback) (BOOL success, SKQuestion *question);
+typedef void (^SKQuestionHintListCallback) (BOOL success, NSInteger result, SKHintList *hintList);
 
 @interface SKQuestionService : NSObject
 
@@ -29,7 +30,7 @@ typedef void (^SKQuestionDetialCallback) (BOOL success, SKQuestion *question);
 - (void)getQuestionDetailWithQuestionID:(NSString*)questionID callback:(SKQuestionDetialCallback)callback;
 
 //关卡线索列表
-- (void)getQuestionDetailCluesWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback;
+- (void)getQuestionDetailCluesWithQuestionID:(NSString*)questionID callback:(SKQuestionHintListCallback)callback;
 
 //购买线索
 - (void)purchaseQuestionClueWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback;
