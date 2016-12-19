@@ -778,7 +778,7 @@
     
     //Ticket
     if (isTicket) {
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.reward];
+        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.ticket];
         [rewardBaseInfoView addSubview:card];
         [card mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@280);
@@ -961,7 +961,7 @@
         
         [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
         
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.reward];
+        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.ticket];
         [rewardBaseInfoView addSubview:card];
         [card mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@280);
@@ -1010,6 +1010,7 @@
     [_dimmingView addSubview:bgImageView];
     
     UIImageView *mascotImageView = [UIImageView new];
+    [mascotImageView sd_setImageWithURL:[NSURL URLWithString:self.reward.pet.pet_gif]];
     [_dimmingView addSubview:mascotImageView];
     [mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(SCREEN_WIDTH-32);
@@ -1063,9 +1064,10 @@
     bgImageView.frame = _dimmingView.frame;
     [_dimmingView addSubview:bgImageView];
     
-    UIImageView *mascotImageView = [UIImageView new];
-    [_dimmingView addSubview:mascotImageView];
-    [mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIImageView *thingImageView = [UIImageView new];
+    [thingImageView sd_setImageWithURL:[NSURL URLWithString:self.reward.piece.piece_cover_pic]];
+    [_dimmingView addSubview:thingImageView];
+    [thingImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(SCREEN_WIDTH-32);
         make.height.mas_equalTo(SCREEN_WIDTH-32);
         make.top.equalTo(_dimmingView.mas_top).offset(94);
@@ -1076,7 +1078,7 @@
     [contentImageView sizeToFit];
     [_dimmingView addSubview:contentImageView];
     [contentImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(mascotImageView.mas_bottom).offset(14);
+        make.top.equalTo(thingImageView.mas_bottom).offset(14);
         make.centerX.equalTo(_dimmingView);
     }];
     
