@@ -111,7 +111,8 @@
 - (void)getRewardWithQuestionID:(NSString *)questionID rewardID:(NSString*)rewardID callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"checkReward",
-                            @"qid"          :   questionID
+                            @"qid"          :   questionID,
+                            @"reward_id"    :   rewardID
                             };
     [self answerBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);

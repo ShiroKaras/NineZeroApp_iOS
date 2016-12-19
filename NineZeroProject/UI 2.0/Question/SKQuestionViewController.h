@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class SKTicket;
+
 typedef enum : NSUInteger {
     SKQuestionTypeDefault,
     SKQuestionTypeTimeLimitLevel,

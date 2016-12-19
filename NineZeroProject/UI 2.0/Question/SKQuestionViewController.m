@@ -16,6 +16,7 @@
 #import "SKCardTimeView.h"
 #import "SKDescriptionView.h"
 #import "SKMascotView.h"
+#import "SKQuestionRewardView.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
 
@@ -54,6 +55,11 @@
 @property (nonatomic, strong) SKReward *questionReward;
 @property (nonatomic, strong) SKQuestion *currentQuestion;
 @property (nonatomic, assign) time_t endTime;
+
+//奖励
+@property (nonatomic, strong) NSDictionary  *rewardDict;
+@property (nonatomic, strong) SKReward      *reward;
+@property (nonatomic, strong) SKTicket      *ticket;
 @end
 
 @implementation SKQuestionViewController
@@ -117,7 +123,16 @@
         self.chapterSubTitleLabel.text = [[question.content componentsSeparatedByString:@"-"] lastObject];
         NSLog(@"%@", question.question_video_url);
         [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
+        
+        [[[SKServiceManager sharedInstance] answerService] getRewardWithQuestionID:self.currentQuestion.qid rewardID:self.currentQuestion.reward_id callback:^(BOOL success, SKResponsePackage *response) {
+            if (response.result == 0) {
+                self.rewardDict = response.data;
+                self.reward = [SKReward objectWithKeyValues:self.rewardDict];
+//                self.ticket = [SKTicket objectWithKeyValues:self.rewardDict[@"ticket"]];
+            }
+        }];
     }];
+    
     if (_type == SKQuestionTypeTimeLimitLevel) {
         
     } else if (_type == SKQuestionTypeHistoryLevel) {
@@ -726,7 +741,7 @@
 #pragma mark - Gift View
 
 - (void)createGiftViewWithButton:(UIButton*)button reward:(NSDictionary*)reward ticket:(NSDictionary*)ticket {
-    BOOL isTicket = YES;
+    BOOL isTicket = self.reward.ticket==nil?NO:YES;
     
     _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom)];
     _dimmingView.backgroundColor = [UIColor clearColor];
@@ -796,10 +811,14 @@
         make.top.equalTo(rewardBaseInfoView).offset(217-24);
     }];
     
+    //百分比
     UILabel *percentLabel = [UILabel new];
     percentLabel.font = MOON_FONT_OF_SIZE(32.5);
     percentLabel.textColor = COMMON_GREEN_COLOR;
-    percentLabel.text = @"99.9%";
+    percentLabel.text = [[NSString stringWithFormat:@"%.1lf", 100. - self.reward.rank/10.] stringByAppendingString:@"%"];
+    if (self.reward.rank >= 700) {
+        percentLabel.text = @"30%";
+    }
     [percentLabel sizeToFit];
     [rewardBaseInfoView addSubview:percentLabel];
     [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -819,7 +838,7 @@
     
     UILabel *iconCountLabel = [UILabel new];
     iconCountLabel.textColor = COMMON_RED_COLOR;
-    iconCountLabel.text = @"5";
+    iconCountLabel.text = self.reward.gold;
     iconCountLabel.font = MOON_FONT_OF_SIZE(19);
     [iconCountLabel sizeToFit];
     [rewardBaseInfoView addSubview:iconCountLabel];
@@ -849,7 +868,7 @@
     
     UILabel *expCountLabel = [UILabel new];
     expCountLabel.textColor = COMMON_RED_COLOR;
-    expCountLabel.text = @"5";
+    expCountLabel.text = self.reward.experience_value;
     expCountLabel.font = MOON_FONT_OF_SIZE(19);
     [expCountLabel sizeToFit];
     [rewardBaseInfoView addSubview:expCountLabel];
@@ -879,7 +898,7 @@
     
     UILabel *diamondCountLabel = [UILabel new];
     diamondCountLabel.textColor = COMMON_RED_COLOR;
-    diamondCountLabel.text = @"5";
+    diamondCountLabel.text = self.reward.gemstone;
     diamondCountLabel.font = MOON_FONT_OF_SIZE(19);
     [diamondCountLabel sizeToFit];
     [rewardBaseInfoView addSubview:diamondCountLabel];
@@ -899,10 +918,6 @@
 }
 
 - (void)showRewardViewWithReward:(SKReward*)reward {
-    BOOL isTicket = YES;
-    BOOL isMascot = YES;
-    BOOL isThing  = YES;
-    
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
     _dimmingView.backgroundColor = [UIColor blackColor];
     _dimmingView.alpha = 0;
@@ -930,7 +945,7 @@
         make.bottom.equalTo(_dimmingView).offset(-16);
     }];
     
-    if (isTicket) {
+    if ([[self.rewardDict allKeys] containsObject:@"ticket"]) {
         [rewardBaseInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@248);
             make.height.equalTo(@294);
@@ -959,13 +974,13 @@
         [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
     }
     
-    if (isMascot) {
+    if (self.reward.pet) {
         [_dimmingView removeGestureRecognizer:tap];
         UITapGestureRecognizer *tap_showMascot = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMascotViewWithReward:)];
         tap_showMascot.numberOfTapsRequired = 1;
         [_dimmingView addGestureRecognizer:tap_showMascot];
     } else {
-        if (isThing) {
+        if (self.reward.piece) {
             [_dimmingView removeGestureRecognizer:tap];
             UITapGestureRecognizer *tap_showThing = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showThingViewWithReward:)];
             tap_showThing.numberOfTapsRequired = 1;
@@ -975,8 +990,6 @@
 }
 
 - (void)createMascotRewardViewWithReward:(SKReward*)reward {
-    BOOL isThing  = YES;
-    
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_dimmingView];
     _dimmingView.backgroundColor = [UIColor blackColor];
@@ -1018,7 +1031,7 @@
         make.bottom.equalTo(_dimmingView).offset(-16);
     }];
     
-    if (isThing) {
+    if (self.reward.piece) {
         UITapGestureRecognizer *tap_showThing = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showThingViewWithReward:)];
         tap_showThing.numberOfTapsRequired = 1;
         [_dimmingView addGestureRecognizer:tap_showThing];
@@ -1177,8 +1190,6 @@
     } completion:^(BOOL finished) {
         [self stop];
     }];
-    
-//    [self showRewardViewWithReward:nil];
 }
 
 - (void)contentViewClick {
@@ -1214,6 +1225,11 @@
                 self.currentQuestion.is_answer = YES;
                 [_composeView showAnswerCorrect:YES];
                 self.isAnswered = YES;
+                
+                self.rewardDict = response.data;
+                self.reward = [SKReward objectWithKeyValues:self.rewardDict];
+                [self showRewardViewWithReward:nil];
+                
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
                     [_composeView removeFromSuperview];
@@ -1221,6 +1237,8 @@
             } else if (response.result == -3004) {
                 //回答错误
                 [_composeView showAnswerCorrect:NO];
+            } else if (response.result == -7007) {
+                
             }
         }];
     } else if (_type == SKQuestionTypeHistoryLevel) {
@@ -1230,6 +1248,11 @@
                 self.currentQuestion.is_answer = YES;
                 [_composeView showAnswerCorrect:YES];
                 self.isAnswered = YES;
+                
+                self.rewardDict = response.data;
+                self.reward = [SKReward objectWithKeyValues:self.rewardDict];
+                [self showRewardViewWithReward:nil];
+                
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
                     [_composeView removeFromSuperview];

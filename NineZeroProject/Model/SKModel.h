@@ -53,11 +53,6 @@
 @property (nonatomic, assign)   int         push_setting;   // 推送开关
 @end
 
-//用户奖励
-@interface SKReward : NSObject
-
-@end
-
 //首页
 @interface SKIndexInfo : NSObject
 @property (nonatomic, assign)   BOOL        isMonday;
@@ -111,7 +106,6 @@
 @end
 
 @interface SKAnswerDetail : NSObject
-@property (nonatomic, copy)     NSString    *question_id;
 @property (nonatomic, copy)     NSString    *area_id;
 
 @property (nonatomic, copy)     NSString    *pet_id;
@@ -129,6 +123,44 @@
 @end
 
 @interface SKTicket : NSObject
+@property (nonatomic, copy)     NSString    *ticket_id;
+@property (nonatomic, copy)     NSString    *user_id;
+@property (nonatomic, copy)     NSString    *sid;
+@property (nonatomic, copy)     NSString    *code;
+@property (nonatomic, copy)     NSString    *create_time;
+@property (nonatomic, copy)     NSString    *expire_time;
+@property (nonatomic, copy)     NSString    *used_time;
+@property (nonatomic, copy)     NSString    *used;
+@property (nonatomic, copy)     NSString    *title;
+@property (nonatomic, copy)     NSString    *pic;
+@property (nonatomic, copy)     NSString    *address;
+@property (nonatomic, copy)     NSString    *mobile;
+@property (nonatomic, copy)     NSString    *ticket_cover;
+@property (nonatomic, copy)     NSString    *remarks;           //描述
+@end
+
+@interface SKPet : NSObject
+@property (nonatomic, copy)     NSString    *fid;
+@property (nonatomic, copy)     NSString    *pet_gif;
+@end
+
+@interface SKPiece : NSObject
+@property (nonatomic, copy)     NSString    *piece_describe_pic;
+@property (nonatomic, copy)     NSString    *piece_cover_pic;
+@property (nonatomic, copy)     NSString    *piece_describtion;
+@property (nonatomic, copy)     NSString    *expire_time;
+@end
+
+//用户奖励
+@interface SKReward : NSObject
+@property (nonatomic, copy)     NSString    *reward_id;
+@property (nonatomic, copy)     NSString    *gold;
+@property (nonatomic, copy)     NSString    *experience_value;
+@property (nonatomic, copy)     NSString    *gemstone;
+@property (nonatomic, assign)   NSInteger   rank;
+@property (nonatomic, strong)   SKPet       *pet;
+@property (nonatomic, strong)   SKPiece     *piece;
+@property (nonatomic, strong)   SKTicket    *ticket;
 @end
 
 @interface SKBadge : NSObject

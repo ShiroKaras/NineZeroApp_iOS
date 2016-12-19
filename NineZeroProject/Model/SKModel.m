@@ -33,9 +33,6 @@ return self; \
 @implementation SKUserSetting
 @end
 
-@implementation SKReward
-@end
-
 @implementation SKIndexInfo
 HTINIT(SKIndexInfo)
 - (NSDictionary *)propertyMapper {
@@ -65,6 +62,9 @@ HTINIT(SKQuestion)
 @end
 
 @implementation SKMascotProp
+@end
+
+@implementation SKReward
 @end
 
 @implementation SKTicket
