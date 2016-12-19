@@ -43,6 +43,9 @@
 
 @interface SKMascotSkillView ()
 @property (nonatomic, strong) NSArray *mascotNameArray;
+@property (nonatomic, strong) UIView *iconBackView;
+@property (nonatomic, strong) UIView *diamondBackView;
+
 @end
 
 @implementation SKMascotSkillView
@@ -83,6 +86,65 @@
     } else {
         [self sinSkillViewWithType:mascotType];
     }
+}
+
+- (void)createResourceInfoUI {
+    //右上角
+    _iconBackView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-83.5, 14, 83.5, 30)];
+    _iconBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    [self addSubview:_iconBackView];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_iconBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(15, 15)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _iconBackView.bounds;
+    maskLayer.path = maskPath.CGPath;
+    _iconBackView.layer.mask = maskLayer;
+    
+    UIImageView *iconImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_gold"]];
+    [iconImageView sizeToFit];
+    [_iconBackView addSubview:iconImageView];
+    [iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_iconBackView.mas_centerY);
+        make.right.equalTo(_iconBackView.mas_right).offset(-8);
+    }];
+    
+    UILabel *iconCountLabel = [[UILabel alloc] init];
+    iconCountLabel.font = MOON_FONT_OF_SIZE(18);
+    iconCountLabel.textColor = [UIColor whiteColor];
+    iconCountLabel.text = @"9999";
+    [iconCountLabel sizeToFit];
+    [_iconBackView addSubview:iconCountLabel];
+    [iconCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_iconBackView);
+        make.right.equalTo(iconImageView.mas_left).offset(-6);
+    }];
+    
+    _diamondBackView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-83.5, 14+30+6, 83.5, 30)];
+    _diamondBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    [self addSubview:_diamondBackView];
+    UIBezierPath *maskPath2 = [UIBezierPath bezierPathWithRoundedRect:_diamondBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(15, 15)];
+    CAShapeLayer *maskLayer2 = [[CAShapeLayer alloc] init];
+    maskLayer2.frame = _diamondBackView.bounds;
+    maskLayer2.path = maskPath2.CGPath;
+    _diamondBackView.layer.mask = maskLayer2;
+    
+    UIImageView *diamondImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_diamonds"]];
+    [diamondImageView sizeToFit];
+    [_diamondBackView addSubview:diamondImageView];
+    [diamondImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_diamondBackView.mas_centerY);
+        make.right.equalTo(_diamondBackView.mas_right).offset(-8);
+    }];
+    
+    UILabel *diamondCountLabel = [[UILabel alloc] init];
+    diamondCountLabel.font = MOON_FONT_OF_SIZE(18);
+    diamondCountLabel.textColor = [UIColor whiteColor];
+    diamondCountLabel.text = @"9999";
+    [diamondCountLabel sizeToFit];
+    [_diamondBackView addSubview:diamondCountLabel];
+    [diamondCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_diamondBackView);
+        make.right.equalTo(diamondImageView.mas_left).offset(-6);
+    }];
 }
 
 - (void)defaultSkillView {
