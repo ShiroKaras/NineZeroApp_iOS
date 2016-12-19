@@ -64,10 +64,16 @@ HTINIT(SKQuestion)
 @implementation SKMascotProp
 @end
 
-@implementation SKReward
+@implementation SKTicket
 @end
 
-@implementation SKTicket
+@implementation SKPiece
+@end
+
+@implementation SKPet
+@end
+
+@implementation SKReward
 @end
 
 @implementation SKBadge

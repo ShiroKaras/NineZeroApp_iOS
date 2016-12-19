@@ -60,7 +60,6 @@
 //奖励
 @property (nonatomic, strong) NSDictionary  *rewardDict;
 @property (nonatomic, strong) SKReward      *reward;
-@property (nonatomic, strong) SKTicket      *ticket;
 @end
 
 @implementation SKQuestionViewController
@@ -130,6 +129,7 @@
             if (response.result == 0) {
                 self.rewardDict = response.data;
                 self.reward = [SKReward objectWithKeyValues:self.rewardDict];
+                NSLog(@"piece_cover_pic:%@",self.reward.piece.piece_cover_pic);
             }
         }];
     }];
@@ -788,7 +788,7 @@
     
     //Ticket
     if (isTicket) {
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.ticket];
+        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.reward.ticket];
         [rewardBaseInfoView addSubview:card];
         [card mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@280);
@@ -971,7 +971,7 @@
         
         [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
         
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.ticket];
+        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.reward.ticket];
         [rewardBaseInfoView addSubview:card];
         [card mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@280);
@@ -1020,6 +1020,7 @@
     [_dimmingView addSubview:bgImageView];
     
     UIImageView *mascotImageView = [UIImageView new];
+    mascotImageView.contentMode = UIViewContentModeScaleAspectFit;
     [mascotImageView sd_setImageWithURL:[NSURL URLWithString:self.reward.pet.pet_gif]];
     [_dimmingView addSubview:mascotImageView];
     [mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1076,6 +1077,7 @@
     
     UIImageView *thingImageView = [UIImageView new];
     [thingImageView sd_setImageWithURL:[NSURL URLWithString:self.reward.piece.piece_cover_pic]];
+    NSLog(@"piece_cover_pic:%@",self.reward.piece.piece_cover_pic);
     [_dimmingView addSubview:thingImageView];
     [thingImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(SCREEN_WIDTH-32);

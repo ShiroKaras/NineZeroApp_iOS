@@ -25,7 +25,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _mascotType = mascotType;
-        _mascotNameArray = @[@"lingzai", @"envy", @"gluttony", @"greed", @"pride", @"sloth", @"wrath", @"lust"];
+        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
         [self createUIWithType:mascotType];
     }
     return self;
@@ -47,6 +47,7 @@
 @property (nonatomic, strong) UILabel *diamondCountLabel;
 
 @property (nonatomic, strong) NSArray *mascotNameArray;
+@property (nonatomic, strong) NSArray *mascotSkillIntroArray;
 @property (nonatomic, strong) UIView *iconBackView;
 @property (nonatomic, strong) UIView *diamondBackView;
 
@@ -57,7 +58,15 @@
 - (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType {
     self = [super initWithFrame:frame];
     if (self) {
-        _mascotNameArray = @[@"lingzai", @"envy", @"gluttony", @"greed", @"pride", @"sloth", @"wrath", @"lust"];
+        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
+        _mascotSkillIntroArray = @[@"",
+                                   @"对零仔Sloth·S来说，这个世界上没有什么难题是魔法不能解决的，当你看到他用魔法向你甩来两个答案道具的时候，他已经睡着了",
+                                   @"想要像零仔Pride·W一样时刻闪耀在聚光灯下其实很简单，只要请求他给你的你的头像加一个blingbing的魔法边框就好啦（效果持续7天）",
+                                   @"零仔Wrath·C用他的炸弹手表替换当前限时关卡倒计时，如果你在48小时内闯关成功，将会获得双倍金币和宝石奖励，否则你将会被炸上天",
+                                   @"零仔Envy·A使用魔法帮你增加40点经验值，当别人向你投来羡慕嫉妒恨的眼神时，请务必装作毫不在意的说一句\"Who TM Cares\"",
+                                   @"零仔Lust·B是荷尔蒙的寻觅师，如果你收到了他的魔法礼券，跟着礼券的提示你将会找到他并得到精神上的欢愉",
+                                   @"如果没有美食，这个世界还会好么？如果你碰巧捡到了零仔Gluttony·T的魔法礼券，你就可以和他一起遛进高级餐厅大饱口福"
+                                   ];
         [self createUIWithType:mascotType];
         [self loadData];
     }
@@ -343,7 +352,7 @@
     }];
     
     UILabel *introduceLabel = [UILabel new];
-    introduceLabel.text = @"零仔Sloth·S实在是太懒了，所以他总是会使用魔法变出一个答案道具，快速过关，因为他要抓紧去睡觉啦";
+    introduceLabel.text = _mascotSkillIntroArray[mascotType];
     introduceLabel.textColor = [UIColor whiteColor];
     introduceLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:16];
     introduceLabel.numberOfLines = 0;
@@ -421,26 +430,24 @@
 - (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType {
     self = [super initWithFrame:frame];
     if (self) {
-        _mascotNameArray = @[@"lingzai", @"envy", @"gluttony", @"greed", @"pride", @"sloth", @"wrath", @"lust"];
+        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
         _mascotTitleDict = @{
-                             @"lingzai"     :   @"零仔\nLingZai·O",
-                             @"envy"        :   @"嫉妒\nEnvy·E",
-                             @"gluttony"    :   @"饕餮\nGluttony·G",
-                             @"greed"       :   @"贪婪\nGreed·R",
-                             @"pride"       :   @"嫉妒\nPride·P",
+                             @"lingzai"     :   @"零仔·〇",
+                             @"envy"        :   @"嫉妒\nEnvy·A",
+                             @"gluttony"    :   @"饕餮\nGluttony·T",
+                             @"pride"       :   @"嫉妒\nPride·W",
                              @"sloth"       :   @"懒惰\nSloth·S",
-                             @"wrath"       :   @"愤怒\nWrath·W",
-                             @"lust"        :   @"色欲\nLust·L"
+                             @"wrath"       :   @"愤怒\nWrath·C",
+                             @"lust"        :   @"色欲\nLust·B"
                              };
         _mascotContentDict = @{
-                               @"lingzai"     :   @"零仔\nLingZai·O零仔\nLingZai·O",
-                               @"envy"        :   @"嫉妒\nEnvy·E嫉妒\nEnvy·E",
-                               @"gluttony"    :   @"饕餮\nGluttony·G饕餮\nGluttony·G",
-                               @"greed"       :   @"贪婪\nGreed·R贪婪\nGreed·R",
-                               @"pride"       :   @"嫉妒\nPride·P嫉妒\nPride·P",
-                               @"sloth"       :   @"懒惰\nSloth·S懒惰\nSloth·S",
-                               @"wrath"       :   @"愤怒\nWrath·W愤怒\nWrath·W",
-                               @"lust"        :   @"色欲\nLust·L色欲\nLust·L"
+                               @"lingzai"     :   @"传说中的529D星球。〇纯洁如一张白纸，却孤独如一片深海。虽然这个世界与自己残存的记忆中的星球有太多类似的地方，但是它还是需要找到529D星球的一些线索，它希望知道自己的来处，希望了解关于529D星球的一切真相。",
+                               @"sloth"        :   @"一个嗜睡狂魔，只要有休息的机会它绝对会瞬间倒下睡觉，但是它有一个克星，没错就是那只小鸟。虽然Sloth·S不可避免的进入梦乡，但是小鸟却每次都在提醒Sloth·S向什么方向出发。最让Sloth·S接受不了的是：那只小鸟会逮住所有的机会叫醒它！然而似乎并没有什么卵用。",
+                               @"pride"    :   @"从出生开始就没见过自己的脚趾头，脑袋一直高昂着。别想让它主动联系你，它可有偶像包袱，别跟它说话，它好像也没搭理过谁，似乎只有一身的雍容华贵才可以表达它的品味为了保证随时聚焦在闪光灯下，Pride·W要保持最佳状态，不可以让任何人看到它不好的一面。",
+                               @"wrath"       :   @"炸弹做手表也是没谁了，而它只是在倒计时自己还有多久会气炸。Wrath·C气场强大，光是靠近你，不用背景音乐，你就能感受到周围阵阵杀气。它是一个偏执狂，可以把一件事情坚持做到底，认定的事情，谁也不可以改变，别惹它，不是开玩笑的。",
+                               @"gluttony"       :   @"如果没有美食，这个世界还会好么？Gluttony·T最喜欢说的一句话是“我还能再吃一口” 再吃一口，不是因为它想吃掉所有食物，而是为了尝遍天下所有美食，为了食物可以不惜一切代价。为了争夺到手的肥肉，不惜把自己的手吃掉。",
+                               @"lust"       :   @"一切撩人神技都有特别的技巧，从约炮短信的聊天气泡出生，它喜欢广交朋友，和任何人都很容易产生情趣话题；它天生拥有强大的读心术，与你对视几秒，就能知道你心中隐藏什么奇怪想法；它是荷尔蒙的寻觅师，知道精神深处何处安放。",
+                               @"envy"        :   @"找准角度，10分钟完成自拍！3个小时修图，要瘦！要白！要大气！要国际范！刚秀完自拍当然要po出本宝宝现在去的上流餐厅，看到了明星要合影，发朋友圈说“老朋友相见，我就喜欢这么平淡的生活”。你觉得Envy·A是玻璃心？你就是在嫉妒它，它要把你拉黑！"
                                };
         
         [self createUIWithType:mascotType];

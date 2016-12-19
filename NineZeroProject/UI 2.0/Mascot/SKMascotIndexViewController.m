@@ -46,16 +46,16 @@
     
     _mScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     _mScrollView.delegate = self;
-    _mScrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 8, SCREEN_HEIGHT);
+    _mScrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 7, SCREEN_HEIGHT);
     _mScrollView.pagingEnabled = YES;
     _mScrollView.showsHorizontalScrollIndicator = NO;
     _mScrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_mScrollView];
     
-    _typeArray = @[@(SKMascotTypeDefault), @(SKMascotTypeEnvy), @(SKMascotTypeGluttony), @(SKMascotTypeGreed), @(SKMascotTypePride), @(SKMascotTypeSloth), @(SKMascotTypeWrath), @(SKMascotTypeLust)];
-    _mascotNameArray = @[@"lingzai", @"envy", @"gluttony", @"greed", @"pride", @"sloth", @"wrath", @"lust"];
+    _typeArray = @[@(SKMascotTypeDefault), @(SKMascotTypeEnvy), @(SKMascotTypeGluttony), @(SKMascotTypePride), @(SKMascotTypeSloth), @(SKMascotTypeWrath), @(SKMascotTypeLust)];
+    _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
     
-    for (int i = 0; i<8; i++) {
+    for (int i = 0; i<7; i++) {
         SKMascotView *mascotView = [[SKMascotView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[i] integerValue]];
         [_mScrollView addSubview:mascotView];
     }
@@ -136,8 +136,8 @@
     //        scrollView.contentOffset=point;
     //    }
     //移动不能超过右边
-    if(point.x>8*(SCREEN_WIDTH)){
-        point.x=(SCREEN_WIDTH)*8;
+    if(point.x>7*(SCREEN_WIDTH)){
+        point.x=(SCREEN_WIDTH)*7;
         scrollView.contentOffset=point;
     }
     //根据图片坐标判断页数

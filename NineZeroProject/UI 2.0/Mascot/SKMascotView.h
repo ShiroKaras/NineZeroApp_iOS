@@ -12,11 +12,10 @@ typedef enum : NSUInteger {
     SKMascotTypeDefault     = 0,
     SKMascotTypeEnvy        = 1,
     SKMascotTypeGluttony    = 2,
-    SKMascotTypeGreed       = 3,
-    SKMascotTypePride       = 4,
-    SKMascotTypeSloth       = 5,
-    SKMascotTypeWrath       = 6,
-    SKMascotTypeLust        = 7
+    SKMascotTypePride       = 3,
+    SKMascotTypeSloth       = 4,
+    SKMascotTypeWrath       = 5,
+    SKMascotTypeLust        = 6
 } SKMascotType;
 
 @interface SKMascotView : UIView
