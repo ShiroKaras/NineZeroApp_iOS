@@ -234,6 +234,7 @@
 
 - (void)allLevelQuestionButtonClick:(UIButton*)sender {
     SKAllQuestionViewController *controller = [[SKAllQuestionViewController alloc] init];
+    controller.isMonday = self.isMonday;
     HTNavigationController *rootController = [[HTNavigationController alloc] initWithRootViewController:controller];
     [self presentViewController:rootController animated:YES completion:nil];
 }
