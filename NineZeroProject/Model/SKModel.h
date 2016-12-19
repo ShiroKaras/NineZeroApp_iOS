@@ -75,6 +75,8 @@
 @property (nonatomic, copy)     NSString    *serial;
 @property (nonatomic, copy)     NSString    *area_id;
 @property (nonatomic, copy)     NSString    *chapter;
+@property (nonatomic, copy)     NSString    *title_one;
+@property (nonatomic, copy)     NSString    *title_two;
 @property (nonatomic, copy)     NSString    *content;
 @property (nonatomic, copy)     NSString    *thumbnail_pic;
 @property (nonatomic, copy)     NSString    *description_pic;
