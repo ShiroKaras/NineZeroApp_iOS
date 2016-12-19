@@ -110,9 +110,13 @@
     
     //限时关卡
     UIButton *timeLimitLevelButton = [UIButton new];
-    [timeLimitLevelButton addTarget:self action:@selector(timeLimitQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"] forState:UIControlStateNormal];
-    [timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
+    if (_isMonday) {
+        [timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
+    } else {
+        [timeLimitLevelButton addTarget:self action:@selector(timeLimitQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"] forState:UIControlStateNormal];
+        [timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
+    }
     [self.view addSubview:timeLimitLevelButton];
     [timeLimitLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(ROUND_WIDTH(70));
