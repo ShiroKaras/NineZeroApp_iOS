@@ -107,4 +107,15 @@
     }];
 }
 
+//获取奖励
+- (void)getRewardWithQuestionID:(NSString *)questionID rewardID:(NSString*)rewardID callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"checkReward",
+                            @"qid"          :   questionID
+                            };
+    [self answerBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
 @end

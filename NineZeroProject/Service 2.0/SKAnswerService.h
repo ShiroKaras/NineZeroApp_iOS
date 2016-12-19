@@ -35,4 +35,7 @@
 //极难题答题接口
 - (void)answerDifficultQuestionWithQuestionID:(NSString*)questionID answerText:(NSString*)answerText callback:(SKResponseCallback)callback;
 
+//获取奖励
+- (void)getRewardWithQuestionID:(NSString *)questionID rewardID:(NSString*)rewardID callback:(SKResponseCallback)callback;
+
 @end

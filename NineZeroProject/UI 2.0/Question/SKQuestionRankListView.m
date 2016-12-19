@@ -20,9 +20,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.rankerList = rankerList;
-        for (SKUserInfo *info in rankerList) {
-            DLog(@"%@", info.user_name);
-        }
         [self createUIWithFrame:frame button:button];
     }
     return self;

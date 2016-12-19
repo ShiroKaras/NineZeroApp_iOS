@@ -54,6 +54,7 @@
 		117418181D89396400B5458F /* SKRankInQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1174180B1D89396400B5458F /* SKRankInQuestionTableViewCell.m */; };
 		117418191D89396400B5458F /* SKRankInQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1174180D1D89396400B5458F /* SKRankInQuestionViewController.m */; };
 		1178E1231E06FF57004BE2E7 /* SKQuestionRankListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1178E1221E06FF57004BE2E7 /* SKQuestionRankListView.m */; };
+		1178E1261E077E1D004BE2E7 /* SKQuestionRewardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1178E1251E077E1D004BE2E7 /* SKQuestionRewardView.m */; };
 		1179430E1DAFB774002F0DB9 /* SKARRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1179430D1DAFB774002F0DB9 /* SKARRewardController.m */; };
 		11805B421DE84D1D00064607 /* SKTicketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11805B411DE84D1D00064607 /* SKTicketView.m */; };
 		11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */; };
@@ -934,6 +935,8 @@
 		1175B4E71DEFD06D00302B67 /* SKLogicHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLogicHeader.h; sourceTree = "<group>"; };
 		1178E1211E06FF57004BE2E7 /* SKQuestionRankListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKQuestionRankListView.h; path = "NineZeroProject/UI 2.0/Question/SKQuestionRankListView.h"; sourceTree = "<group>"; };
 		1178E1221E06FF57004BE2E7 /* SKQuestionRankListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKQuestionRankListView.m; path = "NineZeroProject/UI 2.0/Question/SKQuestionRankListView.m"; sourceTree = "<group>"; };
+		1178E1241E077E1D004BE2E7 /* SKQuestionRewardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKQuestionRewardView.h; path = "NineZeroProject/UI 2.0/Question/SKQuestionRewardView.h"; sourceTree = "<group>"; };
+		1178E1251E077E1D004BE2E7 /* SKQuestionRewardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKQuestionRewardView.m; path = "NineZeroProject/UI 2.0/Question/SKQuestionRewardView.m"; sourceTree = "<group>"; };
 		1179430C1DAFB773002F0DB9 /* SKARRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKARRewardController.h; sourceTree = "<group>"; };
 		1179430D1DAFB774002F0DB9 /* SKARRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKARRewardController.m; sourceTree = "<group>"; };
 		11805B401DE84D1D00064607 /* SKTicketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKTicketView.h; path = "NineZeroProject/UI 2.0/Question/SKTicketView.h"; sourceTree = "<group>"; };
@@ -1972,6 +1975,8 @@
 				11BF886C1E06479800347FA1 /* SKHintView.m */,
 				1178E1211E06FF57004BE2E7 /* SKQuestionRankListView.h */,
 				1178E1221E06FF57004BE2E7 /* SKQuestionRankListView.m */,
+				1178E1241E077E1D004BE2E7 /* SKQuestionRewardView.h */,
+				1178E1251E077E1D004BE2E7 /* SKQuestionRewardView.m */,
 				11293C3B1E03B7150064F1E5 /* SKComposeView.h */,
 				11293C3C1E03B7150064F1E5 /* SKComposeView.m */,
 				11BF88631E03CFFE00347FA1 /* SKCardTimeView.h */,
@@ -4738,6 +4743,7 @@
 				17F0F4791C9331290050F0EB /* HTProfileBadgeCollectionCell.m in Sources */,
 				1787FD1C1C4A8884006E55A6 /* ARRadar.m in Sources */,
 				1174180E1D89396400B5458F /* HTCardCollectionCell.m in Sources */,
+				1178E1261E077E1D004BE2E7 /* SKQuestionRewardView.m in Sources */,
 				17A92CD01CA809B100BE893D /* MJRefreshAutoGifFooter.m in Sources */,
 				1132B30E1DF5574900DA992F /* SKProfileSettingViewController.m in Sources */,
 				17AE3B371C9884B10082390F /* NSDate+TimeAgo.m in Sources */,
