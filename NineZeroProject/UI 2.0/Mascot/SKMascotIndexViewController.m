@@ -104,6 +104,7 @@
     }];
     
     _infoButton = [UIButton new];
+    [_infoButton addTarget:self action:@selector(infoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_infoButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_info"] forState:UIControlStateNormal];
     [_infoButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_info_highlight"] forState:UIControlStateHighlighted];
     [_infoButton sizeToFit];
@@ -120,7 +121,8 @@
 }
 
 - (void)infoButtonClick:(UIButton *)sender {
-    
+    SKMascotInfoView *infoView = [[SKMascotInfoView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[_currentIndex] integerValue]];
+    [self.view addSubview:infoView];
 }
 
 #pragma mark - UIScrollViewDelegate

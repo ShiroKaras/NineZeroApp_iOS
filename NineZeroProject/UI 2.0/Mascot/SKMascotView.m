@@ -406,3 +406,115 @@
 }
 
 @end
+
+
+
+
+@interface SKMascotInfoView ()
+@property (nonatomic, strong) NSDictionary *mascotTitleDict;
+@property (nonatomic, strong) NSDictionary *mascotContentDict;
+@property (nonatomic, strong) NSArray *mascotNameArray;
+@end
+
+@implementation SKMascotInfoView
+
+- (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType {
+    self = [super initWithFrame:frame];
+    if (self) {
+        _mascotNameArray = @[@"lingzai", @"envy", @"gluttony", @"greed", @"pride", @"sloth", @"wrath", @"lust"];
+        _mascotTitleDict = @{
+                             @"lingzai"     :   @"零仔\nLingZai·O",
+                             @"envy"        :   @"嫉妒\nEnvy·E",
+                             @"gluttony"    :   @"饕餮\nGluttony·G",
+                             @"greed"       :   @"贪婪\nGreed·R",
+                             @"pride"       :   @"嫉妒\nPride·P",
+                             @"sloth"       :   @"懒惰\nSloth·S",
+                             @"wrath"       :   @"愤怒\nWrath·W",
+                             @"lust"        :   @"色欲\nLust·L"
+                             };
+        _mascotContentDict = @{
+                               @"lingzai"     :   @"零仔\nLingZai·O零仔\nLingZai·O",
+                               @"envy"        :   @"嫉妒\nEnvy·E嫉妒\nEnvy·E",
+                               @"gluttony"    :   @"饕餮\nGluttony·G饕餮\nGluttony·G",
+                               @"greed"       :   @"贪婪\nGreed·R贪婪\nGreed·R",
+                               @"pride"       :   @"嫉妒\nPride·P嫉妒\nPride·P",
+                               @"sloth"       :   @"懒惰\nSloth·S懒惰\nSloth·S",
+                               @"wrath"       :   @"愤怒\nWrath·W愤怒\nWrath·W",
+                               @"lust"        :   @"色欲\nLust·L色欲\nLust·L"
+                               };
+        
+        [self createUIWithType:mascotType];
+        [self loadData];
+    }
+    return self;
+}
+
+- (void)loadData {
+    
+}
+
+- (void)createUIWithType:(SKMascotType)type {
+    UIView *dimmingView = [UIView new];
+    dimmingView.backgroundColor = [UIColor blackColor];
+    dimmingView.alpha = 0.9;
+    [self addSubview:dimmingView];
+    [dimmingView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.bottom.equalTo(self);
+        make.right.equalTo(self);
+    }];
+    
+    UIButton *closeButton = [UIButton new];
+    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
+    [self addSubview:closeButton];
+    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@12);
+        make.left.equalTo(@4);
+    }];
+    
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = _mascotTitleDict[_mascotNameArray[type]];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = PINGFANG_FONT_OF_SIZE(24);
+    titleLabel.numberOfLines = 2;
+    [self addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@66);
+        make.centerX.equalTo(self);
+    }];
+    
+    
+    //间距
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 8;// 字体的行间距
+    
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName:PINGFANG_FONT_OF_SIZE(14),
+                                 NSParagraphStyleAttributeName:paragraphStyle,
+                                 NSForegroundColorAttributeName:[UIColor whiteColor]
+                                 };
+    
+    UITextView *textView = [UITextView new];
+    textView.backgroundColor = [UIColor clearColor];
+    textView.editable = NO;
+    [self addSubview:textView];
+    [textView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(titleLabel.mas_bottom).offset(20);
+        make.left.equalTo(@16);
+        make.right.equalTo(self.mas_right).offset(-16);
+        make.bottom.equalTo(self.mas_bottom).offset(-20);
+    }];
+    textView.attributedText = [[NSAttributedString alloc] initWithString:_mascotContentDict[_mascotNameArray[type]] attributes:attributes];
+}
+
+- (void)closeButtonClick:(UIButton *)sender {
+    [self removeFromSuperview];
+}
+
+@end
+
+

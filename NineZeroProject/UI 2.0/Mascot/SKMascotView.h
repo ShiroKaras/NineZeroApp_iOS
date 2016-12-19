@@ -31,3 +31,10 @@ typedef enum : NSUInteger {
 - (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType;
 
 @end
+
+
+@interface SKMascotInfoView : UIView
+
+- (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType;
+
+@end
