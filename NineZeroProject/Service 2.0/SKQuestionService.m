@@ -81,9 +81,11 @@
         SKQuestion *question = [SKQuestion objectWithKeyValues:[response.data keyValues]];
         NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
         if (question.question_video) [downloadKeys addObject:question.question_video];
+        if (question.question_video_cover) [downloadKeys addObject:question.question_video_cover];
         [[[SKServiceManager sharedInstance] commonService] getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, SKResponsePackage *response) {
             if (success) {
                 if (question.question_video) question.question_video_url = response.data[question.question_video];
+                if (question.question_video_cover) question.question_video_cover = response.data[question.question_video_cover];
                 callback(success, question);
             } else {
                 callback(false, question);

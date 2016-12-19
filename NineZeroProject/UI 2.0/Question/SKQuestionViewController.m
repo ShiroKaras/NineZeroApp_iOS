@@ -95,6 +95,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -311,8 +312,8 @@
     _player = nil;
     [_playerLayer removeFromSuperlayer];
     _playerLayer = nil;
-    [_playButton removeFromSuperview];
-    
+//    [_playButton removeFromSuperview];
+
     NSURL *documentsDirectoryURL = [[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil] URLByAppendingPathComponent:self.currentQuestion.question_video];
     if ([[NSFileManager defaultManager] fileExistsAtPath:[documentsDirectoryURL path]]) {
         NSURL *localUrl = [NSURL fileURLWithPath:[documentsDirectoryURL path]];
@@ -365,7 +366,7 @@
             });
         }];
     }
-    
+
     [_coverImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.question_video_cover] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
     
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -533,8 +534,6 @@
             [usePropButton setBackgroundImage:[UIImage imageWithColor:COMMON_PINK_COLOR] forState:UIControlStateNormal];
             [usePropButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
         }
-        [usePropButton addTarget:self action:@selector(usePropButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
-        [usePropButton addTarget:self action:@selector(usePropButtonTouchExit:) forControlEvents:UIControlEventTouchDragExit];
         usePropButton.layer.cornerRadius = 3;
         usePropButton.layer.masksToBounds = YES;
         usePropButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(14);
@@ -601,47 +600,58 @@
 
 //使用道具
 - (void)usePropButtonOnClick:(UIButton*)sender {
-    [self removeDimmingView];
-}
-
-- (void)usePropButtonTouchDown:(UIButton*)sender {
-    switch (_season) {
-        case 1:
-            sender.backgroundColor = COMMON_PINK_COLOR;
-            break;
-        case 2:
-            sender.backgroundColor = COMMON_GREEN_COLOR;
-            break;
-        default:
-            break;
+    for (UIView *view in _dimmingView.subviews) {
+        [view removeFromSuperview];
     }
-}
-
-- (void)usePropButtonTouchExit:(UIButton*)sender {
-    switch (_season) {
-        case 1:
-            sender.backgroundColor = COMMON_GREEN_COLOR;
-            break;
-        case 2:
-            sender.backgroundColor = COMMON_PINK_COLOR;
-            break;
-        default:
-            break;
-    }
+    
+    [[[SKServiceManager sharedInstance] answerService] answerExpiredTextQuestionWithQuestionID:self.currentQuestion.qid answerPropsCount:[NSString stringWithFormat:@"%ld",(long)self.currentQuestion.num] callback:^(BOOL success, SKResponsePackage *response) {
+        if (response.result == 0) {
+            //回答正确
+            [self.delegate answeredQuestionWithSerialNumber:self.currentQuestion.serial season:self.currentQuestion.level_type];
+            self.currentQuestion.is_answer = YES;
+            self.isAnswered = YES;
+            
+            self.rewardDict = response.data;
+            self.reward = [SKReward objectWithKeyValues:self.rewardDict];
+            
+            UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
+            alphaView.backgroundColor = [UIColor blackColor];
+            alphaView.alpha = 0.9;
+            [_dimmingView addSubview:alphaView];
+            
+            NSMutableArray<UIImage *> *animatedImages = [NSMutableArray arrayWithCapacity:21];
+            for (int i = 0; i != 21; i++) {
+                [animatedImages addObject:[UIImage imageNamed:[NSString stringWithFormat:@"right_answer_gif_%04d", i]]];
+            }
+            UIImageView *resultImageView = [UIImageView new];
+            [_dimmingView addSubview:resultImageView];
+            [resultImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@165);
+                make.height.equalTo(@165);
+                make.center.equalTo(_dimmingView);
+            }];
+            resultImageView.animationDuration = 1.05f;
+            resultImageView.animationRepeatCount = 1;
+            resultImageView.animationImages = animatedImages;
+            [resultImageView startAnimating];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self removeDimmingView];
+                [self showRewardViewWithReward:nil];
+            });
+        } else if (response.result == -3004) {
+            //回答错误
+            [_composeView showAnswerCorrect:NO];
+        } else if (response.result == -7007) {
+            
+        }
+    }];
 }
 
 //购买道具
 - (void)purchasePropButtonOnClick:(UIButton*)sender {
     SKMascotSkillView *purchaseView = [[SKMascotSkillView alloc] initWithFrame:self.view.bounds Type:SKMascotTypeDefault];
     [self.view addSubview:purchaseView];
-}
-
-- (void)purchasePropButtonOnClickPropButtonTouchDown:(UIButton*)sender {
-    sender.backgroundColor = COMMON_GREEN_COLOR;
-}
-
-- (void)purchasePropButtonOnClickPropButtonTouchExit:(UIButton*)sender {
-    sender.backgroundColor = [UIColor colorWithHex:0xed203b];
 }
 
 //获取提示
@@ -1111,6 +1121,7 @@
 #pragma mark - Video Actions
 - (void)stop {
     _playButton.hidden = NO;
+    _coverImageView.hidden = NO;
     [_player setRate:0];
     [_player seekToTime:CMTimeMake(0, 1)];
     [_player pause];
@@ -1123,6 +1134,7 @@
 
 - (void)play {
     _playButton.hidden = YES;
+    _coverImageView.hidden = YES;
     [_player play];
 }
 
@@ -1287,7 +1299,7 @@
         NSLog(@"%ld", self.currentIndex);
         if (self.currentIndex < 4) {
             if (self.currentIndex == 0) {
-                [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
+//                [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
             }
             [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(_contentView.mas_bottom);
@@ -1317,6 +1329,16 @@
     }
 }
 
-
+- (void)playItemDidPlayToEndTime:(NSNotification *)notification {
+    if ([notification.object isEqual:self.playerItem]) {
+        [self stop];
+        //显示分享界面
+//        [self showReplayAndShareButton];
+//        if (FIRST_TYPE_1 && !_question.isPassed) {
+//            [self showGuideviewWithType:SKHelperGuideViewType1];
+//            [UD setBool:YES forKey:@"firstLaunchType1"];
+//        }
+    }
+}
 
 @end

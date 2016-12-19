@@ -60,7 +60,7 @@
     }];
 }
 
-//使用道具
+//使用线索道具
 - (void)usePropWithQuestionID:(NSString*)questionID seasonType:(NSString*)type callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"useProp",
