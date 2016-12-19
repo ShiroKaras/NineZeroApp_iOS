@@ -19,6 +19,7 @@
 #import "SKQuestionRewardView.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
+#define TOP_PADDING 57
 
 @interface SKQuestionViewController () <SKComposeViewDelegate>
 
@@ -119,8 +120,8 @@
         self.currentQuestion = question;
         self.isAnswered = question.is_answer;
         self.chapterNumberLabel.text = [NSString stringWithFormat:@"%02lu", [question.serial integerValue]];
-        self.chapterTitleLabel.text = [[question.content componentsSeparatedByString:@"-"] objectAtIndex:0];
-        self.chapterSubTitleLabel.text = [[question.content componentsSeparatedByString:@"-"] lastObject];
+        self.chapterTitleLabel.text = question.title_one;
+        self.chapterSubTitleLabel.text = question.title_two;
         NSLog(@"%@", question.question_video_url);
         [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
         
@@ -128,7 +129,6 @@
             if (response.result == 0) {
                 self.rewardDict = response.data;
                 self.reward = [SKReward objectWithKeyValues:self.rewardDict];
-//                self.ticket = [SKTicket objectWithKeyValues:self.rewardDict[@"ticket"]];
             }
         }];
     }];
@@ -667,18 +667,21 @@
 #pragma mark - Answer View
 
 - (void)createAnswerViewWithButton:(UIButton*)button answer:(NSDictionary *)answer {
-    _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom)];
+    _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_PADDING, SCREEN_WIDTH, _contentView.bottom-TOP_PADDING)];
     _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
     
-    UIView *answerBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, _contentView.bottom-10)];
+    UIView *answerBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, _contentView.bottom-10-TOP_PADDING)];
     answerBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     answerBackView.layer.cornerRadius = 5;
     [_dimmingView addSubview:answerBackView];
     
     UIImageView *answerButtonImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_key_highlight"]];
     [_dimmingView addSubview:answerButtonImageView];
-    answerButtonImageView.frame = button.frame;
+    [answerButtonImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(button);
+        make.center.equalTo(button);
+    }];
     
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
     titleImageView.backgroundColor = [UIColor redColor];
@@ -728,7 +731,7 @@
 #pragma mark - Rank View
 
 - (void)createRankViewWithButton:(UIButton*)button {
-    _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom)];
+    _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_PADDING, SCREEN_WIDTH, _contentView.bottom-TOP_PADDING)];
     _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
     
@@ -743,19 +746,22 @@
 - (void)createGiftViewWithButton:(UIButton*)button reward:(NSDictionary*)reward ticket:(NSDictionary*)ticket {
     BOOL isTicket = self.reward.ticket==nil?NO:YES;
     
-    _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _contentView.bottom)];
+    _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_PADDING, SCREEN_WIDTH, _contentView.bottom-TOP_PADDING)];
     _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
     
     //rewardBackView
-    UIView *rewardBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, _contentView.bottom-10)];
+    UIView *rewardBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, _contentView.bottom-10-TOP_PADDING)];
     rewardBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     rewardBackView.layer.cornerRadius = 5;
     [_dimmingView addSubview:rewardBackView];
     
     UIImageView *giftImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_gift_highlight"]];
     [_dimmingView addSubview:giftImageView];
-    giftImageView.frame = button.frame;
+    [giftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(button);
+        make.center.equalTo(button);
+    }];
     
     UIView *rewardBaseInfoView = [UIView new];
     rewardBaseInfoView.backgroundColor = [UIColor clearColor];

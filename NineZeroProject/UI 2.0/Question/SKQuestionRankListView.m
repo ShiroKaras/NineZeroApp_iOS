@@ -26,14 +26,16 @@
 }
 
 - (void)createUIWithFrame:(CGRect)frame button:(UIButton*)button {
-    UIView *rankBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, self.bottom-10)];
+    UIView *rankBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, self.bottom-10-57)];
     rankBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     rankBackView.layer.cornerRadius = 5;
     [self addSubview:rankBackView];
     
     UIImageView *rankImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_top_highlight"]];
     [self addSubview:rankImageView];
-    rankImageView.frame = button.frame;
+    CGRect rect = button.frame;
+    rect.origin.y -= 57;
+    rankImageView.frame = rect;
     
     UIScrollView *rankScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, rankBackView.width, rankBackView.height)];
     float height;

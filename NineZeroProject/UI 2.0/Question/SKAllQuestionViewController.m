@@ -61,11 +61,6 @@
 #pragma mark - Load data
 - (void)loadData {
     [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
-//        for (UIView *view in self.view.subviews) {
-//            if ([view isKindOfClass:[UIScrollView class]] || [view isKindOfClass:[UIPageControl class]]) {
-//                [view removeFromSuperview];
-//            }
-//        }
         
         NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
         [self createSeason1UIWithData:mQuestionList_season1];
