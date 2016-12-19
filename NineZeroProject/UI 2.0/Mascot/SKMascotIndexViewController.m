@@ -112,7 +112,11 @@
 
 - (void)skillButtonClick:(UIButton*)sender {
     SKMascotSkillView *skillView = [[SKMascotSkillView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[_currentIndex] integerValue]];
-    [KEY_WINDOW addSubview:skillView];
+    [self.view addSubview:skillView];
+}
+
+- (void)infoButtonClick:(UIButton *)sender {
+    
 }
 
 #pragma mark - UIScrollViewDelegate

@@ -19,7 +19,8 @@
 @interface SKHomepageViewController ()
 
 @property (nonatomic, strong)   HTImageView *headerImageView;
-@property (nonatomic, strong)   UILabel   *timeCountDownLabel;
+@property (nonatomic, strong)   UILabel     *timeCountDownLabel;
+@property (nonatomic, strong)   UIButton    *timeLimitLevelButton;
 
 @property (nonatomic, assign)   time_t  endTime;
 @property (nonatomic, assign)   BOOL    isMonday;
@@ -42,6 +43,13 @@
         _isMonday = indexInfo.isMonday;
         _endTime = _isMonday==true? indexInfo.monday_end_time : indexInfo.question_end_time;
         [self scheduleCountDownTimer];
+        if (_isMonday) {
+            [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
+        } else {
+            [_timeLimitLevelButton addTarget:self action:@selector(timeLimitQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"] forState:UIControlStateNormal];
+            [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
+        }
     }];
 }
 
@@ -109,16 +117,10 @@
     }];
     
     //限时关卡
-    UIButton *timeLimitLevelButton = [UIButton new];
-    if (_isMonday) {
-        [timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
-    } else {
-        [timeLimitLevelButton addTarget:self action:@selector(timeLimitQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"] forState:UIControlStateNormal];
-        [timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
-    }
-    [self.view addSubview:timeLimitLevelButton];
-    [timeLimitLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    _timeLimitLevelButton = [UIButton new];
+    [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"] forState:UIControlStateNormal];
+    [self.view addSubview:_timeLimitLevelButton];
+    [_timeLimitLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(ROUND_WIDTH(70));
         make.height.equalTo(ROUND_HEIGHT(93));
         make.centerX.equalTo(weakSelf.view);
@@ -132,9 +134,9 @@
     [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional_level_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:allLevelButton];
     [allLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(timeLimitLevelButton);
-        make.centerY.equalTo(timeLimitLevelButton);
-        make.right.equalTo(timeLimitLevelButton.mas_left).offset(-25);
+        make.size.equalTo(_timeLimitLevelButton);
+        make.centerY.equalTo(_timeLimitLevelButton);
+        make.right.equalTo(_timeLimitLevelButton.mas_left).offset(-25);
     }];
     
     //零仔
@@ -144,9 +146,9 @@
     [mascotButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:mascotButton];
     [mascotButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(timeLimitLevelButton);
-        make.centerY.equalTo(timeLimitLevelButton);
-        make.left.equalTo(timeLimitLevelButton.mas_right).offset(25);
+        make.size.equalTo(_timeLimitLevelButton);
+        make.centerY.equalTo(_timeLimitLevelButton);
+        make.left.equalTo(_timeLimitLevelButton.mas_right).offset(25);
     }];
     
     //排行榜
@@ -155,7 +157,7 @@
     [rankButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:rankButton];
     [rankButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(timeLimitLevelButton);
+        make.size.equalTo(_timeLimitLevelButton);
         make.top.equalTo(allLevelButton.mas_bottom).offset(16);
         make.centerX.equalTo(allLevelButton);
     }];
@@ -167,8 +169,8 @@
     [meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:meButton];
     [meButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(timeLimitLevelButton);
-        make.centerX.equalTo(timeLimitLevelButton);
+        make.size.equalTo(_timeLimitLevelButton);
+        make.centerX.equalTo(_timeLimitLevelButton);
         make.centerY.equalTo(rankButton);
     }];
     
@@ -179,7 +181,7 @@
     [settingButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_setting_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:settingButton];
     [settingButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(timeLimitLevelButton);
+        make.size.equalTo(_timeLimitLevelButton);
         make.centerX.equalTo(mascotButton);
         make.centerY.equalTo(rankButton);
     }];
@@ -192,8 +194,8 @@
     [timeCountDownBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(ROUND_WIDTH(60));
         make.height.equalTo(ROUND_HEIGHT(25));
-        make.left.equalTo(timeLimitLevelButton.mas_left).offset(ROUND_WIDTH_FLOAT(35));
-        make.bottom.equalTo(timeLimitLevelButton.mas_bottom).offset(ROUND_HEIGHT_FLOAT(-82));
+        make.left.equalTo(_timeLimitLevelButton.mas_left).offset(ROUND_WIDTH_FLOAT(35));
+        make.bottom.equalTo(_timeLimitLevelButton.mas_bottom).offset(ROUND_HEIGHT_FLOAT(-82));
     }];
     
     _timeCountDownLabel = [UILabel new];
