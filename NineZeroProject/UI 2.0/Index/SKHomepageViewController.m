@@ -19,6 +19,7 @@
 @interface SKHomepageViewController ()
 
 @property (nonatomic, strong)   HTImageView *headerImageView;
+@property (nonatomic, strong)   UIView      *timeCountDownBackView;
 @property (nonatomic, strong)   UILabel     *timeCountDownLabel;
 @property (nonatomic, strong)   UIButton    *timeLimitLevelButton;
 
@@ -42,8 +43,10 @@
         [_headerImageView sd_setImageWithURL:[NSURL URLWithString:indexInfo.index_gif]];
         _isMonday = indexInfo.isMonday;
         _endTime = _isMonday==true? indexInfo.monday_end_time : indexInfo.question_end_time;
+        _timeCountDownBackView.alpha = 1-_isMonday;
         [self scheduleCountDownTimer];
         if (_isMonday) {
+            [_timeLimitLevelButton addTarget:self action:@selector(showRelaxDayTimeLabel:) forControlEvents:UIControlEventTouchUpInside];
             [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
         } else {
             [_timeLimitLevelButton addTarget:self action:@selector(timeLimitQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -187,11 +190,11 @@
     }];
     
     //倒计时
-    UIView *timeCountDownBackView = [UIView new];
-    timeCountDownBackView.layer.cornerRadius = 3;
-    timeCountDownBackView.backgroundColor = [UIColor colorWithHex:0xFF063E];
-    [self.view addSubview:timeCountDownBackView];
-    [timeCountDownBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+    _timeCountDownBackView = [UIView new];
+    _timeCountDownBackView.layer.cornerRadius = 3;
+    _timeCountDownBackView.backgroundColor = [UIColor colorWithHex:0xFF063E];
+    [self.view addSubview:_timeCountDownBackView];
+    [_timeCountDownBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(ROUND_WIDTH(60));
         make.height.equalTo(ROUND_HEIGHT(25));
         make.left.equalTo(_timeLimitLevelButton.mas_left).offset(ROUND_WIDTH_FLOAT(35));
@@ -203,15 +206,26 @@
     _timeCountDownLabel.textColor = [UIColor whiteColor];
     _timeCountDownLabel.textAlignment = NSTextAlignmentCenter;
     _timeCountDownLabel.text = @"12:00:00";
-    [self.view addSubview:_timeCountDownLabel];
+    [_timeCountDownBackView addSubview:_timeCountDownLabel];
     [_timeCountDownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(timeCountDownBackView);
-        make.center.equalTo(timeCountDownBackView);
+        make.size.equalTo(_timeCountDownBackView);
+        make.center.equalTo(_timeCountDownBackView);
     }];
     
 }
 
 #pragma mark - Actions
+- (void)showRelaxDayTimeLabel:(UIButton *)sender {
+    [UIView animateWithDuration:0.3 animations:^{
+        _timeCountDownBackView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            _timeCountDownBackView.alpha = 0;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }];
+}
 
 - (void)timeLimitQuestionButtonClick:(UIButton *)sender {
     SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:self.indexInfo.qid endTime:_endTime];
