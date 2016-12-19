@@ -17,9 +17,14 @@ typedef enum : NSUInteger {
     SKQuestionTypeUnknown,
 } SKQuestionType;
 
+@protocol SKQuestionViewControllerDelegate
+- (void)answeredQuestionWithSerialNumber:(NSString *)serial season:(NSInteger)season;
+@end
+
 @interface SKQuestionViewController : UIViewController
 
 @property (nonatomic, assign) NSUInteger season;
+@property (nonatomic, assign) id<SKQuestionViewControllerDelegate> delegate;
 
 - (instancetype)initWithType:(SKQuestionType)type questionID:(NSString *)questionID;
 - (instancetype)initWithType:(SKQuestionType)type questionID:(NSString *)questionID endTime:(time_t)endTime;

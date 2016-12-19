@@ -1222,6 +1222,7 @@
         [[[SKServiceManager sharedInstance] answerService] answerTimeLimitTextQuestionWithAnswerText:answer callback:^(BOOL success, SKResponsePackage *response) {
             if (response.result == 0) {
                 //回答正确
+                [self.delegate answeredQuestionWithSerialNumber:self.currentQuestion.serial season:self.currentQuestion.level_type];
                 self.currentQuestion.is_answer = YES;
                 [_composeView showAnswerCorrect:YES];
                 self.isAnswered = YES;
@@ -1245,6 +1246,7 @@
         [[[SKServiceManager sharedInstance] answerService] answerExpiredTextQuestionWithQuestionID:self.currentQuestion.qid answerText:answer callback:^(BOOL success, SKResponsePackage *response) {
             if (response.result == 0) {
                 //回答正确
+                [self.delegate answeredQuestionWithSerialNumber:self.currentQuestion.serial season:self.currentQuestion.level_type];
                 self.currentQuestion.is_answer = YES;
                 [_composeView showAnswerCorrect:YES];
                 self.isAnswered = YES;

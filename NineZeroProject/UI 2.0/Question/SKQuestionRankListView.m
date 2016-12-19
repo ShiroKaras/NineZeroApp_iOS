@@ -36,7 +36,12 @@
     rankImageView.frame = button.frame;
     
     UIScrollView *rankScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, rankBackView.width, rankBackView.height)];
-    float height = 21+ROUND_WIDTH_FLOAT(160)/160.*29.+22+ROUND_HEIGHT_FLOAT(114)+12+1+76*(self.rankerList.count-3)+20;
+    float height;
+    if (self.rankerList.count>3) {
+        height = 21+ROUND_WIDTH_FLOAT(160)/160.*29.+22+ROUND_HEIGHT_FLOAT(114)+12+1+76*(self.rankerList.count-3)+20;
+    } else {
+        height = 21+ROUND_WIDTH_FLOAT(160)/160.*29.+22+ROUND_HEIGHT_FLOAT(114)+12+1+20;
+    }
     rankScrollView.contentSize = CGSizeMake(rankBackView.width, height);
     [rankBackView addSubview:rankScrollView];
     
@@ -139,6 +144,9 @@
     }];
     
     // 4-10
+    if (self.rankerList.count<4) {
+        return;
+    }
     for (int i=0; i<self.rankerList.count-3; i++) {
         UIView *top410ViewCell = [UIView new];
         top410ViewCell.backgroundColor = [UIColor clearColor];

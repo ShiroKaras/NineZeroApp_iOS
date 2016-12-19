@@ -13,7 +13,7 @@
 #define PAGE_COUNT_SEASON1 (ceil(self.questionList_season1.count/12.))
 #define PAGE_COUNT_SEASON2 (ceil(90./12.))
 
-@interface SKAllQuestionViewController ()<UIScrollViewDelegate, SKHelperScrollViewDelegate>
+@interface SKAllQuestionViewController ()<UIScrollViewDelegate, SKHelperScrollViewDelegate, SKQuestionViewControllerDelegate>
 
 @property(nonatomic, strong) UIScrollView *mScrollView_season1;
 @property(nonatomic, strong) UIPageControl *mPageContrl_season1;
@@ -37,7 +37,6 @@
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
-    [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -47,6 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    [self loadData];
     [self addObserver:self forKeyPath:@"season" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 }
 
@@ -61,11 +61,11 @@
 #pragma mark - Load data
 - (void)loadData {
     [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
-        for (UIView *view in self.view.subviews) {
-            if ([view isKindOfClass:[UIScrollView class]] || [view isKindOfClass:[UIPageControl class]]) {
-                [view removeFromSuperview];
-            }
-        }
+//        for (UIView *view in self.view.subviews) {
+//            if ([view isKindOfClass:[UIScrollView class]] || [view isKindOfClass:[UIPageControl class]]) {
+//                [view removeFromSuperview];
+//            }
+//        }
         
         NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
         [self createSeason1UIWithData:mQuestionList_season1];
@@ -442,6 +442,7 @@
         questionID = self.questionList_season2[sender.tag-200].qid;
     }
     SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeHistoryLevel questionID:questionID];
+    controller.delegate = self;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -590,6 +591,20 @@
     CFRelease(data);
     
     return effectedImage;
+}
+
+#pragma mark - Delegate
+
+- (void)answeredQuestionWithSerialNumber:(NSString *)serial season:(NSInteger)season {
+    if (season == 1) {
+        self.questionList_season1[[serial integerValue]].is_answer = YES;
+        [((UIButton*)[self.view viewWithTag:100+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
+        [((UIButton*)[self.view viewWithTag:100+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+    } else if (season == 2) {
+        self.questionList_season2[[serial integerValue]].is_answer = YES;
+        [((UIButton*)[self.view viewWithTag:200+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
+        [((UIButton*)[self.view viewWithTag:200+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+    }
 }
 
 #pragma mark - Notification
