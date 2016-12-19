@@ -42,6 +42,10 @@
 
 
 @interface SKMascotSkillView ()
+
+@property (nonatomic, strong) UILabel *iconCountLabel;
+@property (nonatomic, strong) UILabel *diamondCountLabel;
+
 @property (nonatomic, strong) NSArray *mascotNameArray;
 @property (nonatomic, strong) UIView *iconBackView;
 @property (nonatomic, strong) UIView *diamondBackView;
@@ -55,8 +59,15 @@
     if (self) {
         _mascotNameArray = @[@"lingzai", @"envy", @"gluttony", @"greed", @"pride", @"sloth", @"wrath", @"lust"];
         [self createUIWithType:mascotType];
+        [self loadData];
     }
     return self;
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) {
+        
+    }];
 }
 
 - (void)createUIWithType:(SKMascotType)mascotType {
@@ -107,13 +118,13 @@
         make.right.equalTo(_iconBackView.mas_right).offset(-8);
     }];
     
-    UILabel *iconCountLabel = [[UILabel alloc] init];
-    iconCountLabel.font = MOON_FONT_OF_SIZE(18);
-    iconCountLabel.textColor = [UIColor whiteColor];
-    iconCountLabel.text = @"9999";
-    [iconCountLabel sizeToFit];
-    [_iconBackView addSubview:iconCountLabel];
-    [iconCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _iconCountLabel = [[UILabel alloc] init];
+    _iconCountLabel.font = MOON_FONT_OF_SIZE(18);
+    _iconCountLabel.textColor = [UIColor whiteColor];
+    _iconCountLabel.text = [SKStorageManager sharedInstance].profileInfo.user_gold;
+    [_iconCountLabel sizeToFit];
+    [_iconBackView addSubview:_iconCountLabel];
+    [_iconCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_iconBackView);
         make.right.equalTo(iconImageView.mas_left).offset(-6);
     }];
@@ -135,13 +146,13 @@
         make.right.equalTo(_diamondBackView.mas_right).offset(-8);
     }];
     
-    UILabel *diamondCountLabel = [[UILabel alloc] init];
-    diamondCountLabel.font = MOON_FONT_OF_SIZE(18);
-    diamondCountLabel.textColor = [UIColor whiteColor];
-    diamondCountLabel.text = @"9999";
-    [diamondCountLabel sizeToFit];
-    [_diamondBackView addSubview:diamondCountLabel];
-    [diamondCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _diamondCountLabel = [[UILabel alloc] init];
+    _diamondCountLabel.font = MOON_FONT_OF_SIZE(18);
+    _diamondCountLabel.textColor = [UIColor whiteColor];
+    _diamondCountLabel.text = [SKStorageManager sharedInstance].profileInfo.user_gemstone;
+    [_diamondCountLabel sizeToFit];
+    [_diamondBackView addSubview:_diamondCountLabel];
+    [_diamondCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_diamondBackView);
         make.right.equalTo(diamondImageView.mas_left).offset(-6);
     }];
@@ -149,6 +160,7 @@
 
 - (void)defaultSkillView {
     //第一季
+    [self createResourceInfoUI];
     
     UIButton *hintS1Button = [UIButton new];
     [hintS1Button addTarget:self action:@selector(hintS1ButtonClick:) forControlEvents:UIControlEventTouchUpInside];

@@ -29,10 +29,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
 }
 
 - (void)createUI {
@@ -99,7 +104,6 @@
     }];
     
     _infoButton = [UIButton new];
-    _infoButton.hidden = YES;
     [_infoButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_info"] forState:UIControlStateNormal];
     [_infoButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_info_highlight"] forState:UIControlStateHighlighted];
     [_infoButton sizeToFit];
@@ -141,12 +145,10 @@
 
 - (void)updateButtonWithIndex:(NSInteger)index {
     if (index == SKMascotTypeDefault) {
-        _infoButton.hidden = NO;
         _fightButton.hidden = YES;
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill"] forState:UIControlStateNormal];
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill_highlight"] forState:UIControlStateHighlighted];
     } else {
-        _infoButton.hidden = NO;
         _fightButton.hidden = NO;
         [_fightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@fight", _mascotNameArray[index]]] forState:UIControlStateNormal];
         [_fightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@fight_highlight", _mascotNameArray[index]]] forState:UIControlStateHighlighted];
