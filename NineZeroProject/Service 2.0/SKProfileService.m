@@ -44,6 +44,7 @@
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         SKProfileInfo *profileInfo = [SKProfileInfo objectWithKeyValues:[response keyValues][@"data"]];
+        [SKStorageManager sharedInstance].profileInfo = profileInfo;
         callback(success, profileInfo);
     }];
 }
@@ -85,6 +86,7 @@
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         SKUserInfo *userInfo = [SKUserInfo objectWithKeyValues:[response keyValues][@"data"]];
+        [SKStorageManager sharedInstance].userInfo = userInfo;
         callback(success, userInfo);
     }];
 }
