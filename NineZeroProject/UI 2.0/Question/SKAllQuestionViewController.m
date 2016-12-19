@@ -214,7 +214,6 @@
                         grayImage = [UIImage imageWithData:newData];
                     }else{
                         UIImage* newImage = [UIImage imageWithData:newData];
-                        
                         grayImage = [self grayscale:newImage type:1];
                     }
                     coverImageView.image = grayImage;
@@ -234,7 +233,7 @@
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
         } else {
-            if (questionList[questionNumber].base_type == 2) {
+            if (questionList[questionNumber].base_type == 1 || questionList[questionNumber].base_type == 2) {
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
             } else {
@@ -305,7 +304,7 @@
             } else {
                 [coverImageView sd_setImageWithURL:coverURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     int type;
-                    if (questionList[questionNumber].is_answer || !(questionList[questionNumber].base_type == 2))  type = 0;
+                    if (questionList[questionNumber].is_answer || questionList[questionNumber].base_type!=0)  type = 0;
                     else    type = 1;
                     
                     [[SDWebImageManager sharedManager] downloadImageWithURL:imageURL options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
@@ -356,7 +355,7 @@
                     [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_timer"] forState:UIControlStateNormal];
                     [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_timer_highlight"] forState:UIControlStateHighlighted];
                 } else {
-                    if (questionList[questionNumber].base_type == 2) {
+                    if (questionList[questionNumber].base_type == 1 || questionList[questionNumber].base_type == 2) {
                         [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
                         [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
                     } else {
