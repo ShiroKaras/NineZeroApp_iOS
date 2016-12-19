@@ -1235,11 +1235,10 @@
                 
                 self.rewardDict = response.data;
                 self.reward = [SKReward objectWithKeyValues:self.rewardDict];
-                [self showRewardViewWithReward:nil];
-                
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
                     [_composeView removeFromSuperview];
+                    [self showRewardViewWithReward:nil];
                 });
             } else if (response.result == -3004) {
                 //回答错误
@@ -1259,11 +1258,10 @@
                 
                 self.rewardDict = response.data;
                 self.reward = [SKReward objectWithKeyValues:self.rewardDict];
-                [self showRewardViewWithReward:nil];
-                
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
                     [_composeView removeFromSuperview];
+                    [self showRewardViewWithReward:nil];
                 });
             } else if (response.result == -3004) {
                 //回答错误
