@@ -778,7 +778,7 @@
     
     //Ticket
     if (isTicket) {
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero];
+        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.reward];
         [rewardBaseInfoView addSubview:card];
         [card mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@280);
@@ -961,7 +961,7 @@
         
         [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
         
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero];
+        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.reward];
         [rewardBaseInfoView addSubview:card];
         [card mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@280);

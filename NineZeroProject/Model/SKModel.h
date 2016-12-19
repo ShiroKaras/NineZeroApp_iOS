@@ -129,16 +129,23 @@
 @property (nonatomic, copy)     NSString    *user_id;
 @property (nonatomic, copy)     NSString    *sid;
 @property (nonatomic, copy)     NSString    *code;
-@property (nonatomic, copy)     NSString    *create_time;
-@property (nonatomic, copy)     NSString    *expire_time;
-@property (nonatomic, copy)     NSString    *used_time;
-@property (nonatomic, copy)     NSString    *used;
+@property (nonatomic, assign)   time_t      create_time;
+@property (nonatomic, assign)   time_t      expire_time;
+@property (nonatomic, assign)   time_t      used_time;
+@property (nonatomic, assign)   BOOL        used;
 @property (nonatomic, copy)     NSString    *title;
 @property (nonatomic, copy)     NSString    *pic;
 @property (nonatomic, copy)     NSString    *address;
 @property (nonatomic, copy)     NSString    *mobile;
 @property (nonatomic, copy)     NSString    *ticket_cover;
 @property (nonatomic, copy)     NSString    *remarks;           //描述
+@property (nonatomic, copy)     NSString    *type;
+
+@property (nonatomic, copy)     NSString    *item_id;
+@property (nonatomic, copy)     NSString    *item_name;
+@property (nonatomic, copy)     NSString    *item_type;
+@property (nonatomic, copy)     NSString    *item_num;
+@property (nonatomic, copy)     NSString    *extra_data;
 @end
 
 @interface SKPet : NSObject

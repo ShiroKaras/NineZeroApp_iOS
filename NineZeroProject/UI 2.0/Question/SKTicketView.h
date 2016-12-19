@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class SKTicket;
+
 @interface SKTicketView : UIView
+
+- (instancetype)initWithFrame:(CGRect)frame reward:(SKTicket*)reward;
 
 @end

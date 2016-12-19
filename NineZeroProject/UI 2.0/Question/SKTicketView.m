@@ -9,11 +9,16 @@
 #import "SKTicketView.h"
 #import "HTUIHeader.h"
 
+@interface SKTicketView ()
+@property (nonatomic, strong) SKTicket *ticket;
+@end
+
 @implementation SKTicketView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame reward:(SKTicket*)reward
 {
     if (self = [super initWithFrame:CGRectMake(0, 0, 280, 108)]) {
+        self.ticket = reward;
         [self createUI];
     }
     return self;
@@ -29,7 +34,7 @@
     [self addSubview:lineImageView];
     
     UILabel *ticketTitleLabel = [UILabel new];
-    ticketTitleLabel.text = @"把藏在城市里的零仔\n公仔带回家";
+    ticketTitleLabel.text = self.ticket.title;
     ticketTitleLabel.textColor = [UIColor whiteColor];
     ticketTitleLabel.font = PINGFANG_FONT_OF_SIZE(12);
     ticketTitleLabel.numberOfLines = 2;
@@ -41,8 +46,15 @@
         make.height.equalTo(@40);
     }];
     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"YYYY-MM-dd"];
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:self.ticket.expire_time];
+    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+    
     UILabel *timeLimitLabal = [UILabel new];
-    timeLimitLabal.text = @"有效期至2015-12-31";
+    timeLimitLabal.text = [NSString stringWithFormat:@"有效期至%@",confromTimespStr];
     timeLimitLabal.textColor = [UIColor whiteColor];
     timeLimitLabal.font = PINGFANG_FONT_OF_SIZE(10);
     [timeLimitLabal sizeToFit];
@@ -53,7 +65,7 @@
     }];
     
     UILabel *exchangeCodeLabel = [UILabel new];
-    exchangeCodeLabel.text = @"唯一兑换码 300765455";
+    exchangeCodeLabel.text = [NSString stringWithFormat:@"唯一兑换码 %@",self.ticket.code];
     exchangeCodeLabel.textColor = [UIColor whiteColor];
     exchangeCodeLabel.font = PINGFANG_FONT_OF_SIZE(10);
     [exchangeCodeLabel sizeToFit];
