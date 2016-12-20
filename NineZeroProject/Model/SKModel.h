@@ -154,9 +154,11 @@
 @end
 
 @interface SKPiece : NSObject
+@property (nonatomic, copy)     NSString    *piece_name;
 @property (nonatomic, copy)     NSString    *piece_describe_pic;
 @property (nonatomic, copy)     NSString    *piece_cover_pic;
 @property (nonatomic, copy)     NSString    *piece_describtion;
+@property (nonatomic, copy)     NSString    *time;
 @property (nonatomic, copy)     NSString    *expire_time;
 @end
 

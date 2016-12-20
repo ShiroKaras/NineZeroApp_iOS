@@ -13,6 +13,7 @@
 typedef void (^SKProfileInfoCallback) (BOOL success, SKProfileInfo *response);
 typedef void (^SKUserInfoCallback) (BOOL success, SKUserInfo *response);
 typedef void (^SKGetBadgesCallback) (BOOL success, NSInteger exp, NSArray<SKBadge *> *badges) ;
+typedef void (^SKGetPiecesCallback) (BOOL success, NSArray<SKPiece *> *pieces) ;
 
 @interface SKProfileService : NSObject
 
@@ -48,5 +49,8 @@ typedef void (^SKGetBadgesCallback) (BOOL success, NSInteger exp, NSArray<SKBadg
 
 //获取勋章
 - (void)getBadges:(SKGetBadgesCallback)callback;
+
+//获取碎片
+- (void)getPieces:(SKGetPiecesCallback)callback;
 
 @end

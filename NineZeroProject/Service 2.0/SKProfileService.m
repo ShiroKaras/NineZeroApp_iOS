@@ -152,7 +152,7 @@
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray *badgeArray = [NSMutableArray array];
-        if ([response.data count]>0) {
+        if ([response.data[@"list"] count]>0) {
             for (int i=0; i<[response.data[@"list"] count]; i++) {
                 SKBadge *badge = [SKBadge objectWithKeyValues:response.data[@"list"][i]];
                 [badgeArray addObject:badge];
@@ -162,4 +162,21 @@
     }];
 }
 
+//获取碎片
+- (void)getPieces:(SKGetPiecesCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"getPiece"
+                            };
+    [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray *pieceArray = [NSMutableArray array];
+        if ([response.data count]>0) {
+            for (int i=0; i<[response.data count]; i++) {
+                SKPiece *piece = [SKPiece objectWithKeyValues:response.data[i]];
+                [pieceArray addObject:piece];
+            }
+        }
+        callback(success, pieceArray);
+    }];
+
+}
 @end

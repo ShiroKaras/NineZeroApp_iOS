@@ -47,7 +47,8 @@
 @end
 
 @interface SKMyThingsViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UICollectionView  *collectionView;
+@property (nonatomic, strong) NSArray<SKPiece*> *pieceArray;
 @end
 
 @implementation SKMyThingsViewController
@@ -55,10 +56,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] profileService] getPieces:^(BOOL success, NSArray<SKPiece *> *pieces) {
+        self.pieceArray = pieces;
+        [self.collectionView reloadData];
+    }];
 }
 
 - (void)createUI {
@@ -88,6 +97,8 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SKThingsCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([SKThingsCell class]) forIndexPath:indexPath];
+    cell.thing_title.text = self.pieceArray[indexPath.row].piece_name;
+    [cell.thing_image sd_setImageWithURL:[NSURL URLWithString:self.pieceArray[indexPath.row].piece_cover_pic]];
     return cell;
 }
 
@@ -111,7 +122,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return self.pieceArray.count;
 }
 
 @end
