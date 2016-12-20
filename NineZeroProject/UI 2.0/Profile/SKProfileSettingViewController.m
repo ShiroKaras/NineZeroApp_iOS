@@ -8,6 +8,7 @@
 
 #import "SKProfileSettingViewController.h"
 #import "HTUIHeader.h"
+#import "UIViewController+ImagePicker.h"
 
 #import "SKLoginRootViewController.h"
 
@@ -16,20 +17,33 @@
 @property (nonatomic, strong) UIView        *backView1;
 @property (nonatomic, strong) UIView        *backView2;
 @property (nonatomic, strong) UIView        *backView3;
+@property (nonatomic, strong) UIImageView   *avatarImageView;
 @property (nonatomic, strong) UILabel       *usernameLabel;
 @property (nonatomic, strong) UITextField   *usernameTextField;
 @property (nonatomic, strong) UIView        *dimmingView;
+
 @end
 
-@implementation SKProfileSettingViewController
+@implementation SKProfileSettingViewController {
+    SKUserInfo *_userInfo;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] profileService] getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response) {
+        _userInfo = response;
+        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+        _usernameLabel.text = _userInfo.user_name;
+    }];
 }
 
 - (void)createUI {
@@ -105,10 +119,12 @@
         }];
         
         if (i==0) {
-            UIImageView *avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
-            avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
-            [view addSubview:avatarImageView];
-            [avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+            _avatarImageView.layer.cornerRadius = 20;
+            _avatarImageView.layer.masksToBounds = YES;
+            _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
+            [view addSubview:_avatarImageView];
+            [_avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(@40);
                 make.height.equalTo(@40);
                 make.centerY.equalTo(view);
@@ -154,7 +170,7 @@
         }];
         
         if (i==0) {
-            
+            [button addTarget:self action:@selector(presentSystemPhotoLibraryController) forControlEvents:UIControlEventTouchUpInside];
         } else if (i==1) {
             [button addTarget:self action:@selector(updateUsername:) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -373,4 +389,38 @@
         return YES;
 }
 
+#pragma mark - Image picker
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *imagePath = [path stringByAppendingPathComponent:@"avatar"];
+    [imageData writeToFile:imagePath atomically:YES];
+    
+    [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"处理中" animated:YES];
+    NSString *avatarKey = [NSString avatarName];
+    
+    [[[SKServiceManager sharedInstance] qiniuService] putData:imageData key:avatarKey token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
+        if (info.statusCode == 200) {
+            _userInfo.user_avatar = [NSString qiniuDownloadURLWithFileName:key];
+            [[[SKServiceManager sharedInstance] profileService] updateUserInfoWith:_userInfo withType:0 callback:^(BOOL success, SKResponsePackage *response) {
+                [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
+                if (success) {
+                    [_avatarImageView setImage:image];
+                } else {
+                    [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0];
+                }
+            }];
+        } else {
+            [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
+            [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0];
+        }
+    } option:nil];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
 @end

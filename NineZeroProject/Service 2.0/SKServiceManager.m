@@ -16,6 +16,7 @@
     SKMascotService     *_mascotService;
     SKAnswerService     *_answerService;
     SKCommonService     *_commonService;
+    QNUploadManager     *_qiniuService;
 }
 
 + (instancetype)sharedInstance {
@@ -36,6 +37,7 @@
         _mascotService      = [[SKMascotService alloc] init];
         _answerService      = [[SKAnswerService alloc] init];
         _commonService      = [[SKCommonService alloc] init];
+        _qiniuService = [[QNUploadManager alloc] init];
     }
     return self;
 }
@@ -70,4 +72,7 @@
     return _commonService;
 }
 
+- (QNUploadManager *)qiniuService {
+    return _qiniuService;
+}
 @end

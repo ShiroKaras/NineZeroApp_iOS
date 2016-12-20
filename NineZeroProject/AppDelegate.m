@@ -289,9 +289,7 @@
 #pragma mark - QiNiu
 
 - (void)registerQiniuService {
-    [[[HTServiceManager sharedInstance] loginService] getQiniuPrivateTokenWithCompletion:^(NSString *token) {
-    }];
-    [[[HTServiceManager sharedInstance] loginService] getQiniuPublicTokenWithCompletion:^(NSString *token) {
+    [[[SKServiceManager sharedInstance] commonService] getQiniuPublicTokenWithCompletion:^(NSString *token) {
     }];
 }
 

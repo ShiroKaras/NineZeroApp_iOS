@@ -30,9 +30,6 @@ return self; \
 @implementation SKProfileInfo 
 @end
 
-@implementation SKUserSetting
-@end
-
 @implementation SKIndexInfo
 HTINIT(SKIndexInfo)
 - (NSDictionary *)propertyMapper {

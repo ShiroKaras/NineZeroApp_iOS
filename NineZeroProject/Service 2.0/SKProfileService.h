@@ -36,11 +36,8 @@ typedef void (^SKGetTicketsCallback) (BOOL suceese, NSArray<SKTicket*> *tickets)
 //获取所有排名
 - (void)getAllRankListCallback:(SKResponseCallback)callback;
 
-//修改个人设置
-- (void)updateSettingWith:(SKUserSetting*)userSetting callback:(SKResponseCallback)callback;
-
-//修改个人信息
-- (void)updateUserInfoWith:(SKLoginUser*)userInfo callback:(SKResponseCallback)callback;
+//修改个人信息    0头像 1昵称
+- (void)updateUserInfoWith:(SKUserInfo*)userInfo withType:(int)type callback:(SKResponseCallback)callback;
 
 //用户反馈
 - (void)feedbackWithContent:(NSString *)content contact:(NSString *)contact completion:(SKResponseCallback)callback;

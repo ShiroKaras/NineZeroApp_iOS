@@ -34,6 +34,8 @@
 @property (nonatomic, copy)     NSString    *user_avatar;
 @property (nonatomic, copy)     NSString    *gold;
 @property (nonatomic, assign)   NSInteger   rank;
+
+@property (nonatomic, assign)   int         push_setting;   // 推送开关
 @end
 
 //用户个人页信息
@@ -44,13 +46,6 @@
 @property (nonatomic, copy) NSString *rank;                     //排名
 @property (nonatomic, copy) NSString *user_gemstone;            //宝石
 @property (nonatomic, copy) NSString *medal_num;                //勋章
-@end
-
-//用户设置
-@interface SKUserSetting : NSObject
-@property (nonatomic, copy)     NSString    *address;       // 收货地址
-@property (nonatomic, copy)     NSString    *mobile;        // 收货电话
-@property (nonatomic, assign)   int         push_setting;   // 推送开关
 @end
 
 //首页

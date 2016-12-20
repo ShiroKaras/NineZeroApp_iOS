@@ -108,26 +108,20 @@
     }];
 }
 
-//修改个人设置
-- (void)updateSettingWith:(SKUserSetting*)userSetting callback:(SKResponseCallback)callback {
-    NSDictionary *param = @{
-                            @"method"       :   @"updateSetting",
-                            @"address"      :   userSetting.address,
-                            @"mobile"       :   userSetting.mobile,
-                            @"push_setting" :   [NSString stringWithFormat:@"%d", userSetting.push_setting]
-                            };
-    [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
-    }];
-}
-
 //修改个人信息
-- (void)updateUserInfoWith:(SKLoginUser*)userInfo callback:(SKResponseCallback)callback {
-    NSDictionary *param = @{
-                            @"method"       :   @"updateName",
-                            @"user_name"    :   userInfo.user_name,
-                            @"user_avatar"  :   userInfo.user_avatar
-                            };
+- (void)updateUserInfoWith:(SKUserInfo*)userInfo withType:(int)type callback:(SKResponseCallback)callback {
+    NSDictionary *param;
+    if (type == 0) {
+        param = @{
+                    @"method"       :   @"updateName",
+                    @"user_avatar"  :   userInfo.user_avatar
+                };
+    } else if (type == 1) {
+        param = @{
+                    @"method"       :   @"updateName",
+                    @"user_name"    :   userInfo.user_name
+                };
+    }
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
     }];
