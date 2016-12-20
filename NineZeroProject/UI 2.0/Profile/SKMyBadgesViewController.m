@@ -11,7 +11,7 @@
 
 #import "SKDescriptionView.h"
 
-@interface SKBadgeCell: UITableViewCell
+@interface SKBadgeCell: UICollectionViewCell
 @property (nonatomic, strong) UIImageView *badgeLeft;
 @property (nonatomic, strong) UIImageView *badgeRight;
 
@@ -19,39 +19,31 @@
 
 @implementation SKBadgeCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.backgroundColor = [UIColor clearColor];
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
         self.backgroundColor = COMMON_SEPARATOR_COLOR;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        UIView *headBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 6)];
+        UIView *headBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 6)];
         headBar.backgroundColor = [UIColor colorWithHex:0x242424];
         [self.contentView addSubview:headBar];
         
-        UIView *footBar = [[UIView alloc] initWithFrame:CGRectMake(0, ROUND_HEIGHT_FLOAT(154)-4-25, SCREEN_WIDTH, 25)];
+        UIView *footBar = [[UIView alloc] initWithFrame:CGRectMake(0, ROUND_HEIGHT_FLOAT(154)-4-25, self.width, 25)];
         footBar.backgroundColor = [UIColor colorWithHex:0x242424];
         [self.contentView addSubview:footBar];
-        UIView *footBar2 = [[UIView alloc] initWithFrame:CGRectMake(0, ROUND_HEIGHT_FLOAT(154)-4, SCREEN_WIDTH, 4)];
+        UIView *footBar2 = [[UIView alloc] initWithFrame:CGRectMake(0, ROUND_HEIGHT_FLOAT(154)-4, self.width, 4)];
         footBar2.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
         [self.contentView addSubview:footBar2];
         
         _badgeLeft = [[UIImageView alloc] init];
+        _badgeLeft.contentMode = UIViewContentModeScaleAspectFill;
+        _badgeLeft.layer.masksToBounds = YES;
+        _badgeLeft.backgroundColor = [UIColor redColor];
         [self addSubview:_badgeLeft];
-        _badgeRight = [[UIImageView alloc] init];
-        [self addSubview:_badgeRight];
         [_badgeLeft mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(ROUND_WIDTH(120));
             make.height.mas_equalTo(ROUND_WIDTH_FLOAT(120)/120*90);
-            make.left.equalTo(ROUND_WIDTH(22));
-            make.bottom.equalTo(self.mas_bottom).offset(-14);
-        }];
-        [_badgeRight mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(_badgeLeft.mas_width);
-            make.height.equalTo(_badgeLeft.mas_height);
-            make.right.equalTo(self.mas_right).offset(ROUND_WIDTH_FLOAT(-22));
+//            make.left.equalTo(ROUND_WIDTH(22));
+            make.centerX.equalTo(self);
             make.bottom.equalTo(self.mas_bottom).offset(-14);
         }];
     }
@@ -62,8 +54,10 @@
 
 
 
-@interface SKMyBadgesViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface SKMyBadgesViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) UITableView       *tableView;
+@property (nonatomic, strong) UICollectionView  *collectionView;
+
 @property (nonatomic, strong) NSArray<SKBadge*> *badgeArray;
 @property (nonatomic, assign) NSInteger         exp;
 
@@ -106,7 +100,7 @@
             _expLabel.text = @"0";
         }
         
-        [self.tableView reloadData];
+        [self.collectionView reloadData];
     }];
 }
 
@@ -177,14 +171,15 @@
         make.top.equalTo(weakself.view);
         make.right.equalTo(weakself.view);
     }];
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 162, SCREEN_WIDTH, SCREEN_HEIGHT-162) style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    [self.tableView registerClass:[SKBadgeCell class] forCellReuseIdentifier:NSStringFromClass([SKBadgeCell class])];
-    [self.view addSubview:self.tableView];
+
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumInteritemSpacing = 0;
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 162, SCREEN_WIDTH, SCREEN_HEIGHT-162) collectionViewLayout:layout];
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    [_collectionView registerClass:[SKBadgeCell class] forCellWithReuseIdentifier:NSStringFromClass([SKBadgeCell class])];
+    [self.view addSubview:_collectionView];
 }
 
 - (NSInteger)badgeLevel {
@@ -200,34 +195,45 @@
     return badgeLevel;
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark - UICollectionView Delegate
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SKBadgeCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKBadgeCell class]) forIndexPath:indexPath];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SKBadgeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([SKBadgeCell class]) forIndexPath:indexPath];
     
-    [cell.badgeLeft sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2].medal_icon]];
-    [cell.badgeRight sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2+1].medal_icon]];
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return ROUND_HEIGHT_FLOAT(154);
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(SCREEN_WIDTH/2-5, ROUND_HEIGHT_FLOAT(154));
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0.f;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.badgeArray[indexPath.row].medal_description andType:SKDescriptionTypeQuestion andImageUrl:self.badgeArray[indexPath.row].medal_pic];
     [self.view addSubview:descriptionView];
     [descriptionView showAnimated];
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UICollectionView DataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (int)ceil(self.badgeArray.count/2.0);
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.self.badgeArray.count;
 }
 
 @end
