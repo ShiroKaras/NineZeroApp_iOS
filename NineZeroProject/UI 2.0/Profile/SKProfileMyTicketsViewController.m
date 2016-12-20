@@ -11,7 +11,8 @@
 #import "SKTicketView.h"
 
 @interface SKProfileMyTicketsViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UITableView           *tableView;
+@property (nonatomic, strong) NSArray<SKTicket*>    *ticketArray;
 @end
 
 @implementation SKProfileMyTicketsViewController
@@ -38,10 +39,19 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
     [self.view addSubview:self.tableView];
+    
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] profileService] getUserTicketsCallbackCallback:^(BOOL suceese, NSArray<SKTicket *> *tickets) {
+        self.ticketArray = tickets;
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -50,7 +60,7 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    SKTicketView *ticket = [[SKTicketView alloc] initWithFrame:CGRectZero];
+    SKTicketView *ticket = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.ticketArray[indexPath.row]];
     [cell addSubview:ticket];
     [ticket mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@280);
@@ -68,7 +78,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.ticketArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

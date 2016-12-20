@@ -26,6 +26,9 @@
 
 - (void)createUI {
     UIImageView *ticketBackgoundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_couponbg"]];
+    ticketBackgoundImageView.layer.masksToBounds =  YES;
+    ticketBackgoundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [ticketBackgoundImageView sd_setImageWithURL:[NSURL URLWithString:self.ticket.ticket_cover]];
     ticketBackgoundImageView.frame = self.frame;
     [self addSubview:ticketBackgoundImageView];
     

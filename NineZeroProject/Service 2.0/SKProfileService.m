@@ -50,12 +50,19 @@
 }
 
 //获取礼券列表
-- (void)getUserTicketsCallbackCallback:(SKResponseCallback)callback {
+- (void)getUserTicketsCallbackCallback:(SKGetTicketsCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"getUserTickets"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        NSMutableArray *ticketArray = [NSMutableArray array];
+        if ([response.data count]>0) {
+            for (int i=0; i<[response.data count]; i++) {
+                SKTicket *piece = [SKTicket objectWithKeyValues:response.data[i]];
+                [ticketArray addObject:piece];
+            }
+        }
+        callback(success, ticketArray);
     }];
 }
 
@@ -177,6 +184,5 @@
         }
         callback(success, pieceArray);
     }];
-
 }
 @end
