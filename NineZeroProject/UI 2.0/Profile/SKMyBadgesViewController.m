@@ -9,6 +9,8 @@
 #import "SKMyBadgesViewController.h"
 #import "HTUIHeader.h"
 
+#import "SKDescriptionView.h"
+
 @interface SKBadgeCell: UITableViewCell
 @property (nonatomic, strong) UIImageView *badgeLeft;
 @property (nonatomic, strong) UIImageView *badgeRight;
@@ -84,7 +86,7 @@
 - (void)loadData {
     [[[SKServiceManager sharedInstance] profileService] getBadges:^(BOOL success, NSInteger exp, NSArray<SKBadge *> *badges) {
         self.badgeArray = badges;
-        self.exp = 0;
+        self.exp = exp;
         
         NSMutableArray *badgeLevels = [NSMutableArray array];
         for (SKBadge *badge in badges) {
@@ -202,12 +204,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SKBadgeCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKBadgeCell class]) forIndexPath:indexPath];
     [cell.badgeLeft sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2].medal_icon]];
-//    [cell.badgeRight sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2+1].medal_icon]];
+    [cell.badgeRight sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2+1].medal_icon]];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return ROUND_HEIGHT_FLOAT(154);
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.badgeArray[indexPath.row].medal_description andType:SKDescriptionTypeQuestion andImageUrl:self.badgeArray[indexPath.row].medal_pic];
+    [self.view addSubview:descriptionView];
+    [descriptionView showAnimated];
 }
 
 #pragma mark - UITableViewDataSource
