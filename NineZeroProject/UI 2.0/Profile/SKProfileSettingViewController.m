@@ -356,9 +356,17 @@
 }
 
 - (void)completeUpdateUsername {
-    NSLog(@"%@",_usernameTextField.text);
-    _usernameLabel.text = _usernameTextField.text;
-    [_dimmingView removeFromSuperview];
+    [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"处理中" animated:YES];
+    _userInfo.user_name = _usernameTextField.text;
+    [[[SKServiceManager sharedInstance] profileService] updateUserInfoWith:_userInfo withType:1 callback:^(BOOL success, SKResponsePackage *response) {
+        [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
+        if (success) {
+            _usernameLabel.text = _usernameTextField.text;
+            [_dimmingView removeFromSuperview];
+        } else {
+            [MBProgressHUD bwm_showTitle:@"修改用户名失败" toView:KEY_WINDOW hideAfter:1.0];
+        }
+    }];
 }
 
 #pragma mark - Actions
