@@ -94,11 +94,12 @@
         }
         [UD setObject:[badgeLevels copy] forKey:kBadgeLevels];
         NSInteger badgeLevel = [self badgeLevel];
-        NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel] floatValue];
         if (badgeLevel == 0) {
+            NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel] floatValue];
             _expLabel.text = [NSString stringWithFormat:@"%ld", (targetLevel-self.exp)];
             [_progressView setProgress:((float)self.exp)/(targetLevel-self.exp)];
         } else if (badgeLevel>0) {
+            NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel] floatValue];
             _expLabel.text = [NSString stringWithFormat:@"%ld", (targetLevel-self.exp)];
             [_progressView setProgress:(self.exp-[[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel-1] floatValue])/(targetLevel-self.exp)];
         } else {
@@ -203,6 +204,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SKBadgeCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKBadgeCell class]) forIndexPath:indexPath];
+    
     [cell.badgeLeft sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2].medal_icon]];
     [cell.badgeRight sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2+1].medal_icon]];
     return cell;
