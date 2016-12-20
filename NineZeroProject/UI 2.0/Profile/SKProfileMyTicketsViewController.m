@@ -9,6 +9,7 @@
 #import "SKProfileMyTicketsViewController.h"
 #import "HTUIHeader.h"
 #import "SKTicketView.h"
+#import "SKDescriptionView.h"
 
 @interface SKProfileMyTicketsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView           *tableView;
@@ -73,6 +74,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 108+10;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.ticketArray[indexPath.row].address andType:SKDescriptionTypeQuestion andImageUrl:self.ticketArray[indexPath.row].pic];
+    [self.view addSubview:descriptionView];
+    [descriptionView showAnimated];
 }
 
 #pragma mark - UITableViewDataSource
