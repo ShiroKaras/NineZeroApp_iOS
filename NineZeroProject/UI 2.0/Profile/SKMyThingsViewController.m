@@ -9,6 +9,8 @@
 #import "SKMyThingsViewController.h"
 #import "HTUIHeader.h"
 
+#import "SKDescriptionView.h"
+
 @interface SKThingsCell : UICollectionViewCell
 @property (nonatomic, strong) UIImageView   *thing_image;
 @property (nonatomic, strong) UILabel       *thing_title;
@@ -49,6 +51,7 @@
 @interface SKMyThingsViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) UICollectionView  *collectionView;
 @property (nonatomic, strong) NSArray<SKPiece*> *pieceArray;
+@property (strong, nonatomic) SKDescriptionView *descriptionView;             // 详情页面
 @end
 
 @implementation SKMyThingsViewController
@@ -115,6 +118,11 @@
     return UIEdgeInsetsMake(10, 10, 10, 10);
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    _descriptionView = [[SKDescriptionView alloc] initWithURLString:self.pieceArray[indexPath.row].piece_describtion andType:SKDescriptionTypeQuestion andImageUrl:self.pieceArray[indexPath.row].piece_describe_pic];
+    [self.view addSubview:_descriptionView];
+    [_descriptionView showAnimated];
+}
 #pragma mark - UICollectionView DataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
