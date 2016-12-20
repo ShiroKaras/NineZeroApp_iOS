@@ -144,4 +144,22 @@
         [[SKStorageManager sharedInstance] setUserInfo:response];
     }];
 }
+
+//获取勋章
+- (void)getBadges:(SKGetBadgesCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"getMedal"
+                            };
+    [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray *badgeArray = [NSMutableArray array];
+        if ([response.data count]>0) {
+            for (int i=0; i<[response.data[@"list"] count]; i++) {
+                SKBadge *badge = [SKBadge objectWithKeyValues:response.data[@"list"][i]];
+                [badgeArray addObject:badge];
+            }
+        }
+        callback(success, [response.data[@"user_experience_value"] integerValue], badgeArray);
+    }];
+}
+
 @end

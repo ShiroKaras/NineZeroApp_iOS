@@ -173,6 +173,13 @@
 @end
 
 @interface SKBadge : NSObject
+@property (nonatomic, copy)     NSString    *medal_id;
+@property (nonatomic, copy)     NSString    *medal_name;
+@property (nonatomic, copy)     NSString    *medal_level;
+@property (nonatomic, copy)     NSString    *medal_icon;
+@property (nonatomic, copy)     NSString    *medal_pic;
+@property (nonatomic, copy)     NSString    *medal_description;
+@property (nonatomic, copy)     NSString    *level_type;
 @end
 
 

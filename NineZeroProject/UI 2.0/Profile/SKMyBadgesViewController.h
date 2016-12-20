@@ -11,3 +11,9 @@
 @interface SKMyBadgesViewController : UIViewController
 
 @end
+
+@interface SKProfileProgressView : UIView
+- (void)setProgress:(CGFloat)progress;
+- (void)setCoverColor:(UIColor *)coverColor;
+- (void)setBackColor:(UIColor *)backColor;
+@end

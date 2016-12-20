@@ -12,6 +12,7 @@
 @interface SKBadgeCell: UITableViewCell
 @property (nonatomic, strong) UIImageView *badgeLeft;
 @property (nonatomic, strong) UIImageView *badgeRight;
+
 @end
 
 @implementation SKBadgeCell
@@ -35,21 +36,19 @@
         footBar2.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
         [self.contentView addSubview:footBar2];
         
-        UIImageView *badgeLeft = [[UIImageView alloc] init];
-        badgeLeft.backgroundColor = [UIColor redColor];
-        [self addSubview:badgeLeft];
-        UIImageView *badgeRight = [[UIImageView alloc] init];
-        badgeRight.backgroundColor = [UIColor redColor];
-        [self addSubview:badgeRight];
-        [badgeLeft mas_makeConstraints:^(MASConstraintMaker *make) {
+        _badgeLeft = [[UIImageView alloc] init];
+        [self addSubview:_badgeLeft];
+        _badgeRight = [[UIImageView alloc] init];
+        [self addSubview:_badgeRight];
+        [_badgeLeft mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(ROUND_WIDTH(120));
             make.height.mas_equalTo(ROUND_WIDTH_FLOAT(120)/120*90);
             make.left.equalTo(ROUND_WIDTH(22));
             make.bottom.equalTo(self.mas_bottom).offset(-14);
         }];
-        [badgeRight mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(badgeLeft.mas_width);
-            make.height.equalTo(badgeLeft.mas_height);
+        [_badgeRight mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(_badgeLeft.mas_width);
+            make.height.equalTo(_badgeLeft.mas_height);
             make.right.equalTo(self.mas_right).offset(ROUND_WIDTH_FLOAT(-22));
             make.bottom.equalTo(self.mas_bottom).offset(-14);
         }];
@@ -62,7 +61,12 @@
 
 
 @interface SKMyBadgesViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UITableView       *tableView;
+@property (nonatomic, strong) NSArray<SKBadge*> *badgeArray;
+@property (nonatomic, assign) NSInteger         exp;
+
+@property (nonatomic, strong) UILabel *expLabel;
+@property (nonatomic, strong) SKProfileProgressView *progressView;
 @end
 
 @implementation SKMyBadgesViewController
@@ -70,10 +74,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] profileService] getBadges:^(BOOL success, NSInteger exp, NSArray<SKBadge *> *badges) {
+        self.badgeArray = badges;
+        self.exp = 0;
+        
+        NSMutableArray *badgeLevels = [NSMutableArray array];
+        for (SKBadge *badge in badges) {
+            [badgeLevels addObject:[NSNumber numberWithInteger:[badge.medal_level integerValue]]];
+        }
+        [UD setObject:[badgeLevels copy] forKey:kBadgeLevels];
+        NSInteger badgeLevel = [self badgeLevel];
+        NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel] floatValue];
+        if (badgeLevel == 0) {
+            _expLabel.text = [NSString stringWithFormat:@"%ld", (targetLevel-self.exp)];
+            [_progressView setProgress:((float)self.exp)/(targetLevel-self.exp)];
+        } else if (badgeLevel>0) {
+            _expLabel.text = [NSString stringWithFormat:@"%ld", (targetLevel-self.exp)];
+            [_progressView setProgress:(self.exp-[[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel-1] floatValue])/(targetLevel-self.exp)];
+        } else {
+            _expLabel.text = @"0";
+        }
+        
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)createUI {
@@ -96,27 +127,28 @@
     [expArrowImageView sizeToFit];
     [self.view addSubview:expArrowImageView];
     
-    UIView *progressBarView = [UIView new];
-    progressBarView.layer.cornerRadius = 8;
-    progressBarView.backgroundColor = [UIColor colorWithHex:0x1f1f1f];
-    [self.view addSubview:progressBarView];
+    _progressView = [[SKProfileProgressView alloc] initWithFrame:CGRectZero];
+    [_progressView setProgress:0];
+    [_progressView setBackColor:[UIColor colorWithHex:0x1f1f1f]];
+    [_progressView setCoverColor:[UIColor colorWithHex:0xfdd900]];
+    [self.view addSubview:_progressView];
     
-    UILabel *expLabel = [UILabel new];
-    expLabel.text = @"190";
-    expLabel.textColor = [UIColor colorWithHex:0xffed41];
-    expLabel.font = MOON_FONT_OF_SIZE(12);
-    [expLabel sizeToFit];
-    [self.view addSubview:expLabel];
+    _expLabel = [UILabel new];
+    _expLabel.text = @"0";
+    _expLabel.textColor = [UIColor colorWithHex:0xffed41];
+    _expLabel.font = MOON_FONT_OF_SIZE(12);
+    [_expLabel sizeToFit];
+    [self.view addSubview:_expLabel];
     
     [myBadgeTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(progressBarView);
+        make.centerX.equalTo(_progressView);
         make.bottom.equalTo(nextBadgeImageView.mas_top).offset(-11);
         make.top.equalTo(@68);
     }];
     
     [nextBadgeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(progressBarView).offset(10);
-        make.bottom.equalTo(progressBarView.mas_top).offset(-9);
+        make.left.equalTo(_progressView).offset(10);
+        make.bottom.equalTo(_progressView.mas_top).offset(-9);
     }];
 
     [expArrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -124,12 +156,12 @@
         make.left.equalTo(nextBadgeImageView.mas_right).offset(2);
     }];
     
-    [expLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_expLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(nextBadgeImageView);
         make.left.equalTo(expArrowImageView.mas_right).offset(5);
     }];
     
-    [progressBarView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_progressView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@30);
         make.width.equalTo(@166);
         make.height.equalTo(@16);
@@ -152,11 +184,25 @@
     [self.view addSubview:self.tableView];
 }
 
+- (NSInteger)badgeLevel {
+    __block NSInteger badgeLevel = -1;
+    DLog(@"%@", (NSArray*)[UD objectForKey:kBadgeLevels]);
+    [[UD objectForKey:kBadgeLevels] enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSLog(@"Exp:%ld Target%ld", (long)self.exp, (long)[obj integerValue]);
+        if (self.exp  < [obj integerValue]) {
+            badgeLevel = idx;
+            *stop = YES;
+        }
+    }];
+    return badgeLevel;
+}
+
 #pragma mark - UITableViewDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SKBadgeCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKBadgeCell class]) forIndexPath:indexPath];
-    
+    [cell.badgeLeft sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2].medal_icon]];
+//    [cell.badgeRight sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2+1].medal_icon]];
     return cell;
 }
 
@@ -167,7 +213,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return (int)ceil(self.badgeArray.count/2.0);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -175,3 +221,51 @@
 }
 
 @end
+
+
+
+@interface SKProfileProgressView ()
+@property (nonatomic, strong) UIView *backView;
+@property (nonatomic, strong) UIView *coverView;
+@property (nonatomic, assign) CGFloat progress;
+@property (nonatomic, strong) UIColor *coverColor;
+@end
+
+@implementation SKProfileProgressView
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        _backView = [[UIView alloc] init];
+        _backView.backgroundColor = [UIColor colorWithHex:0x232323];
+        [self addSubview:_backView];
+        
+        _coverView = [[UIView alloc] init];
+        [self addSubview:_coverView];
+    }
+    return self;
+}
+
+- (void)setProgress:(CGFloat)progress {
+    _progress = progress;
+    [self setNeedsLayout];
+}
+
+- (void)setCoverColor:(UIColor *)coverColor {
+    _coverColor = coverColor;
+    _coverView.backgroundColor = coverColor;
+}
+
+- (void)setBackColor:(UIColor *)backColor {
+    _backView.backgroundColor = backColor;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _backView.layer.cornerRadius = 8.0f;
+    _coverView.layer.cornerRadius = 8.0f;
+    _backView.frame = CGRectMake(0, 0, self.width, self.height);
+    _coverView.frame = CGRectMake(0, 0, self.width * MAX(0 ,MIN(_progress, 1)), self.height);
+}
+
+@end
+
+
