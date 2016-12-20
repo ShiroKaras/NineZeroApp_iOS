@@ -11,6 +11,8 @@
 
 #import "SKMascotView.h"
 
+#define MASCOT_VIEW_DEFAULT 100
+
 @interface SKMascotIndexViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *mScrollView;
@@ -22,6 +24,8 @@
 @property (nonatomic, strong) NSArray *typeArray;
 @property (nonatomic, strong) NSArray *mascotNameArray;
 @property (nonatomic, assign) NSInteger currentIndex;
+
+@property (nonatomic, strong) NSArray<SKPet*>   *mascotArray;
 @end
 
 @implementation SKMascotIndexViewController
@@ -37,7 +41,11 @@
 }
 
 - (void)loadData {
+    //更新个人主页信息
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
+    [[[SKServiceManager sharedInstance] mascotService] getMascotsCallback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
+        self.mascotArray = mascotArray;
+    }];
 }
 
 - (void)createUI {
@@ -52,11 +60,12 @@
     _mScrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_mScrollView];
     
-    _typeArray = @[@(SKMascotTypeDefault), @(SKMascotTypeEnvy), @(SKMascotTypeGluttony), @(SKMascotTypePride), @(SKMascotTypeSloth), @(SKMascotTypeWrath), @(SKMascotTypeLust)];
+    _typeArray = @[@(SKMascotTypeDefault), @(SKMascotTypeSloth), @(SKMascotTypePride), @(SKMascotTypeWrath), @(SKMascotTypeGluttony), @(SKMascotTypeLust), @(SKMascotTypeEnvy)];
     _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
     
     for (int i = 0; i<7; i++) {
         SKMascotView *mascotView = [[SKMascotView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[i] integerValue]];
+        mascotView.tag = 100+i;
         [_mScrollView addSubview:mascotView];
     }
     
@@ -116,7 +125,7 @@
 }
 
 - (void)skillButtonClick:(UIButton*)sender {
-    SKMascotSkillView *skillView = [[SKMascotSkillView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[_currentIndex] integerValue]];
+    SKMascotSkillView *skillView = [[SKMascotSkillView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[_currentIndex] integerValue] isHad:self.mascotArray[_currentIndex].user_haved];
     [self.view addSubview:skillView];
 }
 
@@ -147,6 +156,7 @@
 
 - (void)updateButtonWithIndex:(NSInteger)index {
     if (index == SKMascotTypeDefault) {
+        [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) show];
         _fightButton.hidden = YES;
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill"] forState:UIControlStateNormal];
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill_highlight"] forState:UIControlStateHighlighted];
@@ -156,6 +166,9 @@
         [_fightButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@fight_highlight", _mascotNameArray[index]]] forState:UIControlStateHighlighted];
         [_skillButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@skill", _mascotNameArray[index]]] forState:UIControlStateNormal];
         [_skillButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@skill_highlight", _mascotNameArray[index]]] forState:UIControlStateHighlighted];
+        if (self.mascotArray[index].user_haved) {
+            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) show];
+        }
     }
 }
 

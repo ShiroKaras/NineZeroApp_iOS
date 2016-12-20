@@ -33,8 +33,16 @@
 
 - (void)createUIWithType:(SKMascotType)type {
     UIImageView *mBackImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    mBackImageView.backgroundColor = [UIColor blackColor];
+    mBackImageView.backgroundColor = [UIColor clearColor];
     [self addSubview:mBackImageView];
+}
+
+- (void)show {
+    self.backgroundColor = COMMON_GREEN_COLOR;
+}
+
+- (void)hide {
+    self.backgroundColor = COMMON_PINK_COLOR;
 }
 
 @end
@@ -42,23 +50,43 @@
 
 
 @interface SKMascotSkillView ()
+@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) BOOL      isHad;
 
 @property (nonatomic, strong) UILabel *iconCountLabel;
 @property (nonatomic, strong) UILabel *diamondCountLabel;
 
 @property (nonatomic, strong) NSArray *mascotNameArray;
+@property (nonatomic, strong) NSDictionary *mascotNameDict;
 @property (nonatomic, strong) NSArray *mascotSkillIntroArray;
+@property (nonatomic, strong) NSArray<SKPet*> *familyMascotArray;
 @property (nonatomic, strong) UIView *iconBackView;
 @property (nonatomic, strong) UIView *diamondBackView;
 
+@property (nonatomic, strong) UILabel   *familyMascot_1_Label;
+@property (nonatomic, strong) UILabel   *familyMascot_2_Label;
+@property (nonatomic, strong) UILabel   *familyMascot_3_Label;
+@property (nonatomic, strong) UILabel   *familyMascot_4_Label;
+@property (nonatomic, strong) UIButton  *exchangeButton;
 @end
 
 @implementation SKMascotSkillView
 
-- (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType {
+- (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType isHad:(BOOL)isHad{
     self = [super initWithFrame:frame];
     if (self) {
+        self.isHad = isHad;
+        self.type = mascotType;
         _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
+        _mascotNameDict = @{
+                             @"lingzai"     :   @"零仔·〇",
+                             @"envy"        :   @"Envy·A",
+                             @"gluttony"    :   @"Gluttony·T",
+                             @"pride"       :   @"Pride·W",
+                             @"sloth"       :   @"Sloth·S",
+                             @"wrath"       :   @"Wrath·C",
+                             @"lust"        :   @"Lust·B"
+                             };
         _mascotSkillIntroArray = @[@"",
                                    @"对零仔Sloth·S来说，这个世界上没有什么难题是魔法不能解决的，当你看到他用魔法向你甩来两个答案道具的时候，他已经睡着了",
                                    @"想要像零仔Pride·W一样时刻闪耀在聚光灯下其实很简单，只要请求他给你的你的头像加一个blingbing的魔法边框就好啦（效果持续7天）",
@@ -74,8 +102,26 @@
 }
 
 - (void)loadData {
-    [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) {
-        
+    //更新金币宝石数量
+    [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
+    
+    //道具数量
+    [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:[NSString stringWithFormat:@"%ld",(long)_type] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
+        self.familyMascotArray = mascotArray;
+        _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld",self.familyMascotArray[0].pet_num];
+        _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld",self.familyMascotArray[1].pet_num];
+        _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld",self.familyMascotArray[2].pet_num];
+        _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld",self.familyMascotArray[3].pet_num];
+        if (self.familyMascotArray[0].pet_num>0&&
+            self.familyMascotArray[1].pet_num>0&&
+            self.familyMascotArray[2].pet_num>0&&
+            self.familyMascotArray[3].pet_num) {
+            [_exchangeButton addTarget:self action:@selector(exchangeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed", _mascotNameArray[_type]]] forState:UIControlStateNormal];
+            [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed_highlight", _mascotNameArray[_type]]] forState:UIControlStateHighlighted];
+        } else {
+            [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound", _mascotNameArray[_type]]] forState:UIControlStateNormal];
+        }
     }];
 }
 
@@ -334,9 +380,9 @@
         make.top.equalTo(ROUND_HEIGHT(69));
     }];
     
-    UIButton *exchangeButton = [UIButton new];
-    [self addSubview:exchangeButton];
-    [exchangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    _exchangeButton = [UIButton new];
+    [self addSubview:_exchangeButton];
+    [_exchangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(ROUND_WIDTH(136));
         make.height.equalTo(ROUND_WIDTH(136));
         make.center.equalTo(compoundImageView);
@@ -352,9 +398,13 @@
     }];
     
     UILabel *introduceLabel = [UILabel new];
-    introduceLabel.text = _mascotSkillIntroArray[mascotType];
+    if (self.isHad) {
+        introduceLabel.text = _mascotSkillIntroArray[mascotType];
+    } else {
+        introduceLabel.text = [NSString stringWithFormat:@"收集到%@后激活魔法阵", self.mascotNameDict[_mascotNameArray[_type]]];
+    }
     introduceLabel.textColor = [UIColor whiteColor];
-    introduceLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:16];
+    introduceLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
     introduceLabel.numberOfLines = 0;
     introduceLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:introduceLabel];
@@ -365,10 +415,67 @@
         make.centerX.equalTo(summonImageView.mas_centerX);
     }];
     
+    //数字背景圆
+    UIView *c1 = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(151), ROUND_HEIGHT_FLOAT(48), ROUND_WIDTH_FLOAT(21), ROUND_WIDTH_FLOAT(21))];
+    c1.backgroundColor = [UIColor whiteColor];
+    c1.layer.cornerRadius = ROUND_WIDTH_FLOAT(21)/2;
+    [compoundImageView addSubview:c1];
+    
+    UIView *c2 = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(48.5), ROUND_HEIGHT_FLOAT(150.5), ROUND_WIDTH_FLOAT(21), ROUND_WIDTH_FLOAT(21))];
+    c2.backgroundColor = [UIColor whiteColor];
+    c2.layer.cornerRadius = ROUND_WIDTH_FLOAT(21)/2;
+    [compoundImageView addSubview:c2];
+    
+    UIView *c3 = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(151), ROUND_HEIGHT_FLOAT(253), ROUND_WIDTH_FLOAT(21), ROUND_WIDTH_FLOAT(21))];
+    c3.backgroundColor = [UIColor whiteColor];
+    c3.layer.cornerRadius = ROUND_WIDTH_FLOAT(21)/2;
+    [compoundImageView addSubview:c3];
+    
+    UIView *c4 = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(253), ROUND_HEIGHT_FLOAT(150.5), ROUND_WIDTH_FLOAT(21), ROUND_WIDTH_FLOAT(21))];
+    c4.backgroundColor = [UIColor whiteColor];
+    c4.layer.cornerRadius = ROUND_WIDTH_FLOAT(21)/2;
+    [compoundImageView addSubview:c4];
+    
+    //数字
+    _familyMascot_1_Label = [UILabel new];
+    _familyMascot_1_Label.text = @"00";
+    _familyMascot_1_Label.textColor = COMMON_GREEN_COLOR;
+    _familyMascot_1_Label.font = MOON_FONT_OF_SIZE(14);
+    [c1 addSubview:_familyMascot_1_Label];
+    [_familyMascot_1_Label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(c1);
+    }];
+    
+    _familyMascot_2_Label = [UILabel new];
+    _familyMascot_2_Label.text = @"00";
+    _familyMascot_2_Label.textColor = COMMON_GREEN_COLOR;
+    _familyMascot_2_Label.font = MOON_FONT_OF_SIZE(14);
+    [c2 addSubview:_familyMascot_2_Label];
+    [_familyMascot_2_Label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(c2);
+    }];
+    
+    _familyMascot_3_Label = [UILabel new];
+    _familyMascot_3_Label.text = @"00";
+    _familyMascot_3_Label.textColor = COMMON_GREEN_COLOR;
+    _familyMascot_3_Label.font = MOON_FONT_OF_SIZE(14);
+    [c3 addSubview:_familyMascot_3_Label];
+    [_familyMascot_3_Label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(c3);
+    }];
+    
+    _familyMascot_4_Label = [UILabel new];
+    _familyMascot_4_Label.text = @"00";
+    _familyMascot_4_Label.textColor = COMMON_GREEN_COLOR;
+    _familyMascot_4_Label.font = MOON_FONT_OF_SIZE(14);
+    [c4 addSubview:_familyMascot_4_Label];
+    [_familyMascot_4_Label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(c4);
+    }];
+    
     compoundImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_skillpage_%@compound", _mascotNameArray[mascotType]]];
-    [exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed", _mascotNameArray[mascotType]]] forState:UIControlStateNormal];
-    [exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed_highlight", _mascotNameArray[mascotType]]] forState:UIControlStateHighlighted];
     summonImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_skillpage_%@", _mascotNameArray[mascotType]]];
+    [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound", _mascotNameArray[mascotType]]] forState:UIControlStateNormal];
 }
 
 - (void)closeButtonClick:(UIButton *)sender {
@@ -412,6 +519,20 @@
         }
     }
     return nil;
+}
+
+- (void)exchangeButtonClick:(UIButton*)sender {
+    _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_1_Label.text integerValue]-1];
+    _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_2_Label.text integerValue]-1];
+    _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_3_Label.text integerValue]-1];
+    _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_4_Label.text integerValue]-1];
+    [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:[NSString stringWithFormat:@"%ld", _type] callback:^(BOOL success, SKResponsePackage *response) {
+        if (response.result == 0) {
+            NSLog(@"技能施放成功");
+        } else if (response.result == -7009){
+            NSLog(@"技能施放失败:%ld", response.result);
+        }
+    }];
 }
 
 @end

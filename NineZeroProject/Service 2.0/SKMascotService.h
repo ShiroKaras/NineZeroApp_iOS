@@ -10,16 +10,18 @@
 #import "SKNetworkDefine.h"
 #import "SKLogicHeader.h"
 
+typedef void (^SKMascotListCallback) (BOOL success, NSArray<SKPet*> *mascotArray);
+
 @interface SKMascotService : NSObject
 
 //获取所有用户原始零仔
-- (void)getMascotsCallback:(SKResponseCallback)callback;
+- (void)getMascotsCallback:(SKMascotListCallback)callback;
 
 //获取所有家族零仔
 - (void)getFamilyMascotCallback:(SKResponseCallback)callback;
 
 //获取零仔详情
-- (void)getMascotDetailWithMascotID:(NSString*)mascotID callback:(SKResponseCallback)callback;
+- (void)getMascotDetailWithMascotID:(NSString*)mascotID callback:(SKMascotListCallback)callback;
 
 //使用零仔技能
 - (void)useMascotSkillWithMascotID:(NSString*)mascotID callback:(SKResponseCallback)callback;

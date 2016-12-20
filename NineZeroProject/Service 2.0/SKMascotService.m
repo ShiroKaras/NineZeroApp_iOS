@@ -17,11 +17,11 @@
     [mDict setValue:[NSString stringWithFormat:@"%lld",currentTime] forKey:@"time"];
     [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
     [mDict setValue:@"iOS" forKey:@"client"];
-    // TODO
     [mDict setValue:[[SKStorageManager sharedInstance] getUserID] forKey:@"user_id"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    DLog(@"Param:%@", jsonString);
     NSDictionary *param = @{@"data" : jsonString};
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager mascotBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -35,12 +35,17 @@
 }
 
 //获取所有用户原始零仔
-- (void)getMascotsCallback:(SKResponseCallback)callback {
+- (void)getMascotsCallback:(SKMascotListCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"getPets"
                             };
     [self mascotBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        NSMutableArray *mascotArray = [NSMutableArray array];
+        for (int i=0; i<[response.data count]; i++) {
+            SKPet *mascot = [SKPet objectWithKeyValues:response.data[i]];
+            [mascotArray addObject:mascot];
+        }
+        callback(success, mascotArray);
     }];
 }
 
@@ -55,13 +60,22 @@
 }
 
 //获取零仔详情
-- (void)getMascotDetailWithMascotID:(NSString*)mascotID callback:(SKResponseCallback)callback {
+- (void)getMascotDetailWithMascotID:(NSString*)mascotID callback:(SKMascotListCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"getPetDetail",
                             @"pet_id"       :   mascotID
                             };
     [self mascotBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        if ([response.data count]>0) {
+            NSMutableArray *mascotArray = [NSMutableArray array];
+            for (int i=0; i<[response.data count]; i++) {
+                SKPet *mascot = [SKPet objectWithKeyValues:response.data[i]];
+                [mascotArray addObject:mascot];
+            }
+            callback(success, mascotArray);
+        } else {
+            callback(success, nil);
+        }
     }];
 }
 

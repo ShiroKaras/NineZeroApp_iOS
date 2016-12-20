@@ -146,6 +146,14 @@
 @interface SKPet : NSObject
 @property (nonatomic, copy)     NSString    *fid;
 @property (nonatomic, copy)     NSString    *pet_gif;
+
+@property (nonatomic, assign)   NSInteger   pet_id;
+@property (nonatomic, copy)     NSString    *pet_desc;
+@property (nonatomic, copy)     NSString    *pet_name;
+@property (nonatomic, assign)   BOOL        user_haved;
+
+@property (nonatomic, assign)   NSInteger   pet_num;
+@property (nonatomic, assign)   NSInteger   pet_pic;
 @end
 
 @interface SKPiece : NSObject

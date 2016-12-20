@@ -257,7 +257,7 @@
 }
 
 - (void)addButtonClick:(UIButton *)sender {
-    SKMascotSkillView *purchaseView = [[SKMascotSkillView alloc] initWithFrame:self.frame Type:SKMascotTypeDefault];
+    SKMascotSkillView *purchaseView = [[SKMascotSkillView alloc] initWithFrame:self.frame Type:SKMascotTypeDefault isHad:YES];
     [self addSubview:purchaseView];
 }
 

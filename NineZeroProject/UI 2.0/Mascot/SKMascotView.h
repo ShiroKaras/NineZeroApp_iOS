@@ -10,24 +10,25 @@
 
 typedef enum : NSUInteger {
     SKMascotTypeDefault     = 0,
-    SKMascotTypeEnvy        = 1,
-    SKMascotTypeGluttony    = 2,
-    SKMascotTypePride       = 3,
-    SKMascotTypeSloth       = 4,
-    SKMascotTypeWrath       = 5,
-    SKMascotTypeLust        = 6
+    SKMascotTypeSloth       = 1,
+    SKMascotTypePride       = 2,
+    SKMascotTypeWrath       = 3,
+    SKMascotTypeGluttony    = 4,
+    SKMascotTypeLust        = 5,
+    SKMascotTypeEnvy        = 6
 } SKMascotType;
 
 @interface SKMascotView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType;
-
+- (void)show;
+- (void)hide;
 @end
 
 
 @interface SKMascotSkillView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType;
+- (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType isHad:(BOOL)isHad;
 
 @end
 

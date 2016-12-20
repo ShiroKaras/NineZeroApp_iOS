@@ -651,7 +651,7 @@
 //购买道具
 - (void)purchasePropButtonOnClick:(UIButton*)sender {
     [_dimmingView removeFromSuperview];
-    SKMascotSkillView *purchaseView = [[SKMascotSkillView alloc] initWithFrame:self.view.bounds Type:SKMascotTypeDefault];
+    SKMascotSkillView *purchaseView = [[SKMascotSkillView alloc] initWithFrame:self.view.bounds Type:SKMascotTypeDefault isHad:YES];
     [self.view addSubview:purchaseView];
 }
 
