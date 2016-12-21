@@ -105,6 +105,9 @@
     //更新金币宝石数量
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
     
+    if (self.type == SKMascotTypeDefault) {
+        return;
+    }
     //道具数量
     [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:[NSString stringWithFormat:@"%ld",(long)_type+1] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
         self.familyMascotArray = mascotArray;
