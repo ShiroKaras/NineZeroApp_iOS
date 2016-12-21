@@ -12,8 +12,10 @@
 #import "SKDescriptionView.h"
 
 @interface SKBadgeCell: UITableViewCell
-@property (nonatomic, strong) UIImageView *badgeLeft;
-@property (nonatomic, strong) UIImageView *badgeRight;
+@property (nonatomic, strong) SKBadge     *badgeLeft;
+@property (nonatomic, strong) SKBadge     *badgeRight;
+@property (nonatomic, strong) UIImageView *badgeLeftImageView;
+@property (nonatomic, strong) UIImageView *badgeRightImageView;
 
 @end
 
@@ -38,24 +40,64 @@
         footBar2.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
         [self.contentView addSubview:footBar2];
         
-        _badgeLeft = [[UIImageView alloc] init];
-        [self addSubview:_badgeLeft];
-        _badgeRight = [[UIImageView alloc] init];
-        [self addSubview:_badgeRight];
-        [_badgeLeft mas_makeConstraints:^(MASConstraintMaker *make) {
+        _badgeLeftImageView = [[UIImageView alloc] init];
+        [self addSubview:_badgeLeftImageView];
+        _badgeRightImageView = [[UIImageView alloc] init];
+        [self addSubview:_badgeRightImageView];
+        
+        [_badgeLeftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(ROUND_WIDTH(120));
             make.height.mas_equalTo(ROUND_WIDTH_FLOAT(120)/120*90);
             make.left.equalTo(ROUND_WIDTH(22));
             make.bottom.equalTo(self.mas_bottom).offset(-14);
         }];
-        [_badgeRight mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(_badgeLeft.mas_width);
-            make.height.equalTo(_badgeLeft.mas_height);
+        [_badgeRightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(_badgeLeftImageView.mas_width);
+            make.height.equalTo(_badgeLeftImageView.mas_height);
             make.right.equalTo(self.mas_right).offset(ROUND_WIDTH_FLOAT(-22));
             make.bottom.equalTo(self.mas_bottom).offset(-14);
         }];
+        
+        UIButton *leftbutton = [UIButton new];
+        [leftbutton addTarget:self action:@selector(leftImageClick) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:leftbutton];
+        [leftbutton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.equalTo(_badgeLeftImageView);
+            make.center.equalTo(_badgeLeftImageView);
+        }];
+        
+        UIButton *rightbutton = [UIButton new];
+        [rightbutton addTarget:self action:@selector(rightImageClick) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:rightbutton];
+        [rightbutton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.equalTo(_badgeRightImageView);
+            make.center.equalTo(_badgeRightImageView);
+        }];
+
     }
     return self;
+}
+
+- (void)leftImageClick {
+    SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.badgeLeft.medal_description andType:SKDescriptionTypeQuestion andImageUrl:self.badgeLeft.medal_pic];
+    [[self viewController].view addSubview:descriptionView];
+    [descriptionView showAnimated];
+}
+
+- (void)rightImageClick {
+    SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.badgeRight.medal_description andType:SKDescriptionTypeQuestion andImageUrl:self.badgeRight.medal_pic];
+    [[self viewController].view addSubview:descriptionView];
+    [descriptionView showAnimated];
+}
+
+- (UIViewController*)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder* nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UINavigationController class]]) {
+            return (UIViewController*)nextResponder;
+        }
+    }
+    return nil;
 }
 
 @end
@@ -181,6 +223,7 @@
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 162, SCREEN_WIDTH, SCREEN_HEIGHT-162) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.allowsSelection = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView registerClass:[SKBadgeCell class] forCellReuseIdentifier:NSStringFromClass([SKBadgeCell class])];
@@ -204,20 +247,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SKBadgeCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKBadgeCell class]) forIndexPath:indexPath];
+    cell.badgeLeft = self.badgeArray[indexPath.row*2];
+    if (self.badgeArray.count-1>=indexPath.row*2+1) {
+        cell.badgeRight = self.badgeArray[indexPath.row*2+1];
+    }
     
-    [cell.badgeLeft sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2].medal_icon]];
-    [cell.badgeRight sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2+1].medal_icon]];
+    [cell.badgeLeftImageView sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2].medal_icon]];
+    [cell.badgeRightImageView sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2+1].medal_icon]];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return ROUND_HEIGHT_FLOAT(154);
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.badgeArray[indexPath.row].medal_description andType:SKDescriptionTypeQuestion andImageUrl:self.badgeArray[indexPath.row].medal_pic];
-    [self.view addSubview:descriptionView];
-    [descriptionView showAnimated];
 }
 
 #pragma mark - UITableViewDataSource
