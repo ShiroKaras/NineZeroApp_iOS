@@ -314,9 +314,10 @@
     _playerLayer = nil;
 //    [_playButton removeFromSuperview];
 
-    NSURL *documentsDirectoryURL = [[[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil] URLByAppendingPathComponent:self.currentQuestion.question_video];
+    NSURL *documentsDirectoryURL = [[[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil] URLByAppendingPathComponent:self.currentQuestion.question_video];
     if ([[NSFileManager defaultManager] fileExistsAtPath:[documentsDirectoryURL path]]) {
         NSURL *localUrl = [NSURL fileURLWithPath:[documentsDirectoryURL path]];
+        NSLog(@"VideoPath:%@", localUrl);
         AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
         self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
         self.player = [AVPlayer playerWithPlayerItem:_playerItem];
@@ -333,7 +334,7 @@
         
         [_downloadTask cancel];
         _downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-            NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+            NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
             return [documentsDirectoryURL URLByAppendingPathComponent:self.currentQuestion.question_video];
         } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
             [self stop];

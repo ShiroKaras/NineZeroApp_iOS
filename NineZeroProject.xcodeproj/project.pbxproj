@@ -27,6 +27,7 @@
 		1132B30E1DF5574900DA992F /* SKProfileSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1132B30D1DF5574900DA992F /* SKProfileSettingViewController.m */; };
 		1133DD751E0A4A8F0029511B /* SKRankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1133DD741E0A4A8F0029511B /* SKRankView.m */; };
 		1133DD781E0A4BB30029511B /* SKRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1133DD771E0A4BB30029511B /* SKRankViewController.m */; };
+		1133DD7B1E0A65190029511B /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1133DD7A1E0A65190029511B /* FileService.m */; };
 		1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */; };
 		1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */; };
 		113D74B21DB4B66C00E513B7 /* SKShareRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113D74B11DB4B66C00E513B7 /* SKShareRewardController.m */; };
@@ -883,6 +884,8 @@
 		1133DD741E0A4A8F0029511B /* SKRankView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRankView.m; path = "NineZeroProject/UI 2.0/Rank/SKRankView.m"; sourceTree = "<group>"; };
 		1133DD761E0A4BB30029511B /* SKRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRankViewController.h; path = "NineZeroProject/UI 2.0/Rank/SKRankViewController.h"; sourceTree = "<group>"; };
 		1133DD771E0A4BB30029511B /* SKRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRankViewController.m; path = "NineZeroProject/UI 2.0/Rank/SKRankViewController.m"; sourceTree = "<group>"; };
+		1133DD791E0A65190029511B /* FileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileService.h; sourceTree = "<group>"; };
+		1133DD7A1E0A65190029511B /* FileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileService.m; sourceTree = "<group>"; };
 		1139CB9E1DACD4EB004FF6B0 /* NSString+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+AES256.h"; path = "AES256/NSString+AES256.h"; sourceTree = "<group>"; };
 		1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+AES256.m"; path = "AES256/NSString+AES256.m"; sourceTree = "<group>"; };
 		1139CBA11DACD5DC004FF6B0 /* NSData+Encryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Encryption.h"; path = "AES256/NSData+Encryption.h"; sourceTree = "<group>"; };
@@ -3269,6 +3272,8 @@
 				1744BFC91C9D52EB00708716 /* UIViewController+HTTips.m */,
 				116B5E8F1E06E5B100E5BDAC /* UIImage+Extension.h */,
 				116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */,
+				1133DD791E0A65190029511B /* FileService.h */,
+				1133DD7A1E0A65190029511B /* FileService.m */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
@@ -4801,6 +4806,7 @@
 				110A34A91DD07B4500207115 /* SKQuestionViewController.m in Sources */,
 				1179430E1DAFB774002F0DB9 /* SKARRewardController.m in Sources */,
 				117418161D89396400B5458F /* HTShowDetailView.m in Sources */,
+				1133DD7B1E0A65190029511B /* FileService.m in Sources */,
 				117417F41D7FE3CC00B5458F /* SKHelperView.m in Sources */,
 				17A92CCF1CA809B100BE893D /* MJRefreshHeader.m in Sources */,
 				11BF886A1E03DA6A00347FA1 /* SKDescriptionView.m in Sources */,

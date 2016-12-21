@@ -8,8 +8,9 @@
 
 #import "SKProfileSettingViewController.h"
 #import "HTUIHeader.h"
-#import "UIViewController+ImagePicker.h"
+#import "FileService.h"
 
+#import "UIViewController+ImagePicker.h"
 #import "SKLoginRootViewController.h"
 
 @interface SKProfileSettingViewController () <UITextFieldDelegate>
@@ -21,11 +22,13 @@
 @property (nonatomic, strong) UILabel       *usernameLabel;
 @property (nonatomic, strong) UITextField   *usernameTextField;
 @property (nonatomic, strong) UIView        *dimmingView;
+@property (nonatomic, strong) UILabel       *cacheLabel;
 
 @end
 
 @implementation SKProfileSettingViewController {
     SKUserInfo *_userInfo;
+    float         cacheSize;
 }
 
 - (void)viewDidLoad {
@@ -219,12 +222,32 @@
                 make.right.equalTo(view).offset(-20);
             }];
         } else if (i == 1) {
-            UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_userptofiles_nextpage"]];
-            [arrowImageView sizeToFit];
-            [view addSubview:arrowImageView];
-            [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_userptofiles_nextpage"]];
+//            [arrowImageView sizeToFit];
+//            [view addSubview:arrowImageView];
+//            [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.centerY.equalTo(view);
+//                make.right.equalTo(view).offset(-20);
+//            }];
+            
+            _cacheLabel = [UILabel new];
+            NSString *cacheFilePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
+            [self listFileAtPath:cacheFilePath];
+            _cacheLabel.text = [NSString stringWithFormat:@"%.1fMB", cacheSize];
+            _cacheLabel.textColor = [UIColor whiteColor];
+            _cacheLabel.font = PINGFANG_FONT_OF_SIZE(16);
+            [view addSubview:_cacheLabel];
+            [_cacheLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(view);
                 make.right.equalTo(view).offset(-20);
+            }];
+            
+            UIButton *clearCacheButton = [UIButton new];
+            [clearCacheButton addTarget:self action:@selector(clearCache) forControlEvents:UIControlEventTouchUpInside];
+            [view addSubview:clearCacheButton];
+            [clearCacheButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(view);
+                make.center.equalTo(view);
             }];
         }
         
@@ -369,7 +392,31 @@
     }];
 }
 
+
+- (void)listFileAtPath:(NSString *)path {
+    cacheSize = 0;
+    NSArray *contentOfFolder = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
+    for (NSString *aPath in contentOfFolder) {
+        NSString * fullPath = [path stringByAppendingPathComponent:aPath];
+        //        NSLog(@"%@", fullPath);
+        //        NSLog(@"%lf", [FileService fileSizeAtPath:fullPath]);
+        cacheSize += [FileService fileSizeAtPath:fullPath];
+        NSLog(@"%.1lf", cacheSize);
+        BOOL isDir;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDir] && isDir) {
+            [self listFileAtPath:fullPath];
+        }
+    }
+}
+
 #pragma mark - Actions
+
+- (void)clearCache {
+    NSString *cacheFilePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
+    [FileService clearCache:cacheFilePath];
+    [self listFileAtPath:cacheFilePath];
+    _cacheLabel.text = [NSString stringWithFormat:@"%.1fMB", cacheSize];
+}
 
 - (void)quitButtonClick:(UIButton *)sender {
     [[[SKServiceManager sharedInstance] loginService] quitLogin];
