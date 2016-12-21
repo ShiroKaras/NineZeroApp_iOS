@@ -67,7 +67,6 @@
 }
 
 - (void)createUI {
-    WS(weakself);
     self.view.backgroundColor = [UIColor blackColor];
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -76,6 +75,10 @@
     [self.view addSubview:_scrollView];
     
     _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    _avatarImageView.layer.cornerRadius = 43;
+    _avatarImageView.layer.masksToBounds = YES;
+    _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
     [_scrollView addSubview:_avatarImageView];
     [_avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(86, 86));
@@ -92,7 +95,7 @@
     }];
     
     _usernameLabel = [UILabel new];
-    _usernameLabel.text = [[SKStorageManager sharedInstance] getLoginUser].user_name;
+    _usernameLabel.text = [SKStorageManager sharedInstance].userInfo.user_name;
     _usernameLabel.textColor = COMMON_GREEN_COLOR;
     _usernameLabel.font = PINGFANG_FONT_OF_SIZE(14);
     _usernameLabel.textAlignment = NSTextAlignmentCenter;

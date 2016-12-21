@@ -123,7 +123,12 @@
                 };
     }
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        if (response.result == 0) {
+            [self getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response2) { }];
+            callback(success, response);
+        } else {
+            callback(success, nil);
+        }
     }];
 }
 

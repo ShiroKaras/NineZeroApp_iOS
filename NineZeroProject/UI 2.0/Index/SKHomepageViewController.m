@@ -54,6 +54,9 @@
             [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
         }
     }];
+    
+    //更新用户信息
+    [[[SKServiceManager sharedInstance] profileService] getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response) { }];
 }
 
 - (void)scheduleCountDownTimer {
