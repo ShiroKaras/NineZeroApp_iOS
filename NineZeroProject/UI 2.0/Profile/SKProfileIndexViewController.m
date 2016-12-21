@@ -15,6 +15,7 @@
 #import "SKMyBadgesViewController.h"
 #import "SKMyThingsViewController.h"
 #import "SKFeedbackViewController.h"
+#import "SKRankViewController.h"
 
 #define PROFILE_TICKET  100
 #define PROFILE_BADGE   101
@@ -164,6 +165,14 @@
     [_rankLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(rankView);
         make.bottom.equalTo(rankView).offset(-12);
+    }];
+    
+    UIButton *rankButton = [UIButton new];
+    [rankButton addTarget:self action:@selector(rankButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [rankView addSubview:rankButton];
+    [rankButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(rankView);
+        make.center.equalTo(rankView);
     }];
     
     //1.2
@@ -343,4 +352,8 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+- (void)rankButtonClick:(UIButton *)sender {
+    SKRankViewController *controller = [[SKRankViewController alloc] init];
+    [self presentViewController:controller animated:YES completion:nil];
+}
 @end

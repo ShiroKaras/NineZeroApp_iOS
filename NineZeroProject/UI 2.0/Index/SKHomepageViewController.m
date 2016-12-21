@@ -16,6 +16,7 @@
 #import "SKProfileIndexViewController.h"
 #import "SKProfileSettingViewController.h"
 #import "HTProfileRankController.h"
+#import "SKRankViewController.h"
 
 @interface SKHomepageViewController ()
 
@@ -58,6 +59,7 @@
     
     //更新用户信息
     [[[SKServiceManager sharedInstance] profileService] getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response) { }];
+    [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
 }
 
 - (void)scheduleCountDownTimer {
@@ -250,7 +252,7 @@
 }
 
 - (void)rankButtonClick:(UIButton *)sender {
-    HTProfileRankController *controller = [[HTProfileRankController alloc] init];
+    SKRankViewController *controller = [[SKRankViewController alloc] init];
     [self presentViewController:controller animated:YES completion:nil];
 }
 

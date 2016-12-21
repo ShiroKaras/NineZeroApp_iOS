@@ -34,6 +34,9 @@ typedef void (^SKGetRankerListCallbakc) (BOOL success, NSArray<SKRanker*> *ranke
 //获取基本信息
 - (void)getUserBaseInfoCallback:(SKUserInfoCallback)callback;
 
+//获取第一季排名
+- (void)getSeason1RankListCallback:(SKGetRankerListCallbakc)callback;
+
 //获取第二季排名
 - (void)getSeason2RankListCallback:(SKGetRankerListCallbakc)callback;
 

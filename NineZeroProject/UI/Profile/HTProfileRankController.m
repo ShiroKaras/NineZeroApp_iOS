@@ -7,7 +7,6 @@
 //
 
 #import "HTProfileRankController.h"
-#import "HTProfileRankCell.h"
 #import "HTUIHeader.h"
 
 #define REGISTER_CLASS(clazz)  [self.tableView registerClass:[clazz class] forCellReuseIdentifier:NSStringFromClass([clazz class])];

@@ -25,6 +25,8 @@
 		112D129C1DAF478700588D30 /* SKScanningRewardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 112D129B1DAF478700588D30 /* SKScanningRewardView.m */; };
 		1132B30B1DF506C100DA992F /* SKProfileIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1132B30A1DF506C100DA992F /* SKProfileIndexViewController.m */; };
 		1132B30E1DF5574900DA992F /* SKProfileSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1132B30D1DF5574900DA992F /* SKProfileSettingViewController.m */; };
+		1133DD751E0A4A8F0029511B /* SKRankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1133DD741E0A4A8F0029511B /* SKRankView.m */; };
+		1133DD781E0A4BB30029511B /* SKRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1133DD771E0A4BB30029511B /* SKRankViewController.m */; };
 		1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */; };
 		1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */; };
 		113D74B21DB4B66C00E513B7 /* SKShareRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113D74B11DB4B66C00E513B7 /* SKShareRewardController.m */; };
@@ -877,6 +879,10 @@
 		1132B30A1DF506C100DA992F /* SKProfileIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKProfileIndexViewController.m; path = "NineZeroProject/UI 2.0/Profile/SKProfileIndexViewController.m"; sourceTree = "<group>"; };
 		1132B30C1DF5574900DA992F /* SKProfileSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKProfileSettingViewController.h; path = "NineZeroProject/UI 2.0/Profile/SKProfileSettingViewController.h"; sourceTree = "<group>"; };
 		1132B30D1DF5574900DA992F /* SKProfileSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKProfileSettingViewController.m; path = "NineZeroProject/UI 2.0/Profile/SKProfileSettingViewController.m"; sourceTree = "<group>"; };
+		1133DD731E0A4A8F0029511B /* SKRankView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRankView.h; path = "NineZeroProject/UI 2.0/Rank/SKRankView.h"; sourceTree = "<group>"; };
+		1133DD741E0A4A8F0029511B /* SKRankView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRankView.m; path = "NineZeroProject/UI 2.0/Rank/SKRankView.m"; sourceTree = "<group>"; };
+		1133DD761E0A4BB30029511B /* SKRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRankViewController.h; path = "NineZeroProject/UI 2.0/Rank/SKRankViewController.h"; sourceTree = "<group>"; };
+		1133DD771E0A4BB30029511B /* SKRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRankViewController.m; path = "NineZeroProject/UI 2.0/Rank/SKRankViewController.m"; sourceTree = "<group>"; };
 		1139CB9E1DACD4EB004FF6B0 /* NSString+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+AES256.h"; path = "AES256/NSString+AES256.h"; sourceTree = "<group>"; };
 		1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+AES256.m"; path = "AES256/NSString+AES256.m"; sourceTree = "<group>"; };
 		1139CBA11DACD5DC004FF6B0 /* NSData+Encryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Encryption.h"; path = "AES256/NSData+Encryption.h"; sourceTree = "<group>"; };
@@ -2072,6 +2078,10 @@
 		1133DD721E0A2AA90029511B /* Rank */ = {
 			isa = PBXGroup;
 			children = (
+				1133DD731E0A4A8F0029511B /* SKRankView.h */,
+				1133DD741E0A4A8F0029511B /* SKRankView.m */,
+				1133DD761E0A4BB30029511B /* SKRankViewController.h */,
+				1133DD771E0A4BB30029511B /* SKRankViewController.m */,
 				17BE47351C86039F00797E8E /* HTProfileRankController.h */,
 				17BE47361C86039F00797E8E /* HTProfileRankController.m */,
 				17BE47381C8603D300797E8E /* HTProfileRankCell.h */,
@@ -4739,6 +4749,7 @@
 				17B429021C54D4A8008AFBA9 /* YYImage.m in Sources */,
 				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,
 				117417F71D86A1B200B5458F /* SKActivityNotificationView.m in Sources */,
+				1133DD781E0A4BB30029511B /* SKRankViewController.m in Sources */,
 				17F45AEA1C7E1A41004F2E32 /* HTProfileArticlesController.m in Sources */,
 				17F39B691C820D7500D8A565 /* HTProfileRootController.m in Sources */,
 				17A92CCB1CA809B100BE893D /* MJRefreshAutoFooter.m in Sources */,
@@ -4756,6 +4767,7 @@
 				1132B30E1DF5574900DA992F /* SKProfileSettingViewController.m in Sources */,
 				17AE3B371C9884B10082390F /* NSDate+TimeAgo.m in Sources */,
 				26973B221C006A6900160D25 /* HTLoginController.m in Sources */,
+				1133DD751E0A4A8F0029511B /* SKRankView.m in Sources */,
 				17967AB51C174ED500571924 /* HTQuestionService.m in Sources */,
 				17F45AF41C7E1D7A004F2E32 /* HTProfileArticleCell.m in Sources */,
 				115381151DF9467B00B50DF2 /* SKPropService.m in Sources */,

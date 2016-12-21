@@ -62,7 +62,6 @@
 @property (nonatomic, strong) UIImageView *avatar;
 @property (nonatomic, strong) UILabel *nickName;
 @property (nonatomic, strong) UIImageView *coinImageView;
-@property (nonatomic, strong) HTProfileProgressView *progressView;
 @property (nonatomic, strong) UILabel *coinLabel;
 @property (nonatomic, strong) UIView *separator;
 
@@ -231,12 +230,21 @@
     NSString *displayName = (ranker.area_name.length != 0) ? [NSString stringWithFormat:@"%@", ranker.user_name] : ranker.user_name;
     _nickName.text = displayName;
     [_nickName sizeToFit];
-    _coinLabel.text = [NSString stringWithFormat:@"%ld", (unsigned long)ranker.gold];
+
     _coinLabel.textColor = [self colorWithCoin:[ranker.gold integerValue]];
-    [_coinLabel sizeToFit];
 }
 
-- (void)setTopThreeRankers:(NSArray<HTRanker *> *)topThreeRankers {
+- (void)setRanker:(SKRanker *)ranker withType:(SKRankViewType)type {
+    if (type == SKRankViewTypeSeason1) {
+        _coinLabel.text = ranker.gold;
+    } else if (type == SKRankViewTypeSeason2) {
+        _coinLabel.text = ranker.user_experience_value;
+    }
+    [_coinLabel sizeToFit];
+    self.ranker = ranker;
+}
+
+- (void)setTopThreeRankers:(NSArray<SKRanker *> *)topThreeRankers {
     _topBackView.hidden = NO;
     
     [_ranker_1_Avatar sd_setImageWithURL:[NSURL URLWithString:topThreeRankers[0].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
@@ -249,13 +257,25 @@
     [_ranker_1_NameLabel sizeToFit];
     [_ranker_2_NameLabel sizeToFit];
     [_ranker_3_NameLabel sizeToFit];
-    
-    _ranker_1_CoinLabel.text = [NSString stringWithFormat:@"%lu",topThreeRankers[0].gold];
-    _ranker_2_CoinLabel.text = [NSString stringWithFormat:@"%lu",topThreeRankers[1].gold];
-    _ranker_3_CoinLabel.text = [NSString stringWithFormat:@"%lu",topThreeRankers[2].gold];
+}
+
+- (void)setTopThreeRankers:(NSArray<SKRanker *> *)topThreeRankers withType:(SKRankViewType)type {
+    if (type == SKRankViewTypeSeason1) {
+        _topBackImageView.image = [UIImage imageNamed:@"img_rankpage_top_season1"];
+        _ranker_1_CoinLabel.text = topThreeRankers[0].gold;
+        _ranker_2_CoinLabel.text = topThreeRankers[1].gold;
+        _ranker_3_CoinLabel.text = topThreeRankers[2].gold;
+    } else if (type == SKRankViewTypeSeason2) {
+        _topBackImageView.image =  [UIImage imageNamed:@"img_rankpage_top_season2"];
+        _ranker_1_CoinLabel.text = topThreeRankers[0].user_experience_value;
+        _ranker_2_CoinLabel.text = topThreeRankers[1].user_experience_value;
+        _ranker_3_CoinLabel.text = topThreeRankers[2].user_experience_value;
+    }
     [_ranker_1_CoinLabel sizeToFit];
     [_ranker_2_CoinLabel sizeToFit];
     [_ranker_3_CoinLabel sizeToFit];
+    
+    self.topThreeRankers = topThreeRankers;
 }
 
 - (void)showWithMe:(BOOL)me {

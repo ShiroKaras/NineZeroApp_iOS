@@ -98,7 +98,24 @@
     }];
 }
 
-//获取所有排名
+//获取第一季排名
+- (void)getSeason1RankListCallback:(SKGetRankerListCallbakc)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"getOneRank"
+                            };
+    [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray *rankerArray = [NSMutableArray array];
+        if ([response.data count]>0) {
+            for (int i=0; i<[response.data count]; i++) {
+                SKRanker *ranker = [SKRanker objectWithKeyValues:response.data[i]];
+                [rankerArray addObject:ranker];
+            }
+            callback(success, rankerArray);
+        }
+    }];
+}
+
+//获取第二季排名
 - (void)getSeason2RankListCallback:(SKGetRankerListCallbakc)callback {
     NSDictionary *param = @{
                             @"method"       :   @"getAllRank"

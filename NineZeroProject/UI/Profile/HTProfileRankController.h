@@ -7,11 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum : NSUInteger {
-    SKRankViewTypeSeason1   =0,
-    SKRankViewTypeSeason2   =1
-} SKRankViewType;
+#import "HTProfileRankCell.h"
 
 @interface HTProfileRankController : UIViewController
 

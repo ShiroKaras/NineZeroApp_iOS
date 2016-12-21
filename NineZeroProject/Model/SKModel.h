@@ -41,6 +41,7 @@
 //用户个人页信息
 @interface SKProfileInfo : NSObject
 @property (nonatomic, copy) NSString *user_gold;                //金币数
+@property (nonatomic, copy) NSString    *user_experience_value; //经验值
 @property (nonatomic, copy) NSString *piece_num;                //玩意儿数
 @property (nonatomic, copy) NSString *ticket_num;               //礼券数
 @property (nonatomic, copy) NSString *rank;                     //排名
@@ -193,7 +194,8 @@
 @property (nonatomic, copy)     NSString    *user_avatar;
 @property (nonatomic, copy)     NSString    *gold;
 @property (nonatomic, assign)   NSUInteger  rank;
-@property (nonatomic, copy)     NSString    *experience;
+@property (nonatomic, copy)     NSString    *user_experience_value;
 @property (nonatomic, copy)     NSString    *area_name;
+@property (nonatomic, copy)     NSString    *user_gold_head;
 @end
 
