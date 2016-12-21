@@ -106,12 +106,12 @@
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
     
     //道具数量
-    [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:[NSString stringWithFormat:@"%ld",(long)_type] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
+    [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:[NSString stringWithFormat:@"%ld",(long)_type+1] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
         self.familyMascotArray = mascotArray;
-        _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld",self.familyMascotArray[0].pet_num];
-        _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld",self.familyMascotArray[1].pet_num];
-        _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld",self.familyMascotArray[2].pet_num];
-        _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld",self.familyMascotArray[3].pet_num];
+        _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[0].pet_num];
+        _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[1].pet_num];
+        _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[2].pet_num];
+        _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[3].pet_num];
         if (self.familyMascotArray[0].pet_num>0&&
             self.familyMascotArray[1].pet_num>0&&
             self.familyMascotArray[2].pet_num>0&&
@@ -526,11 +526,11 @@
     _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_2_Label.text integerValue]-1];
     _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_3_Label.text integerValue]-1];
     _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_4_Label.text integerValue]-1];
-    [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:[NSString stringWithFormat:@"%ld", _type] callback:^(BOOL success, SKResponsePackage *response) {
+    [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:[NSString stringWithFormat:@"%ld", (long)_type+1] callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
             NSLog(@"技能施放成功");
         } else if (response.result == -7009){
-            NSLog(@"技能施放失败:%ld", response.result);
+            NSLog(@"技能施放失败:%ld", (long)response.result);
         }
     }];
 }
