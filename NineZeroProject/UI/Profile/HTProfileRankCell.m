@@ -132,7 +132,7 @@
         _topBackView.backgroundColor = [UIColor blackColor];
         [self.contentView addSubview:_topBackView];
         
-        _topBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rankpage_top"]];
+        _topBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rankpage_top_season2"]];
         _topBackImageView.layer.masksToBounds = YES;
         _topBackImageView.contentMode = UIViewContentModeScaleAspectFit;
         [_topBackView addSubview:_topBackImageView];
@@ -218,7 +218,7 @@
     return self;
 }
 
-- (void)setRanker:(HTRanker *)ranker {
+- (void)setRanker:(SKRanker *)ranker {
     _topBackView.hidden = YES;
     _ranker = ranker;
 
@@ -232,7 +232,7 @@
     _nickName.text = displayName;
     [_nickName sizeToFit];
     _coinLabel.text = [NSString stringWithFormat:@"%ld", (unsigned long)ranker.gold];
-    _coinLabel.textColor = [self colorWithCoin:ranker.gold];
+    _coinLabel.textColor = [self colorWithCoin:[ranker.gold integerValue]];
     [_coinLabel sizeToFit];
 }
 

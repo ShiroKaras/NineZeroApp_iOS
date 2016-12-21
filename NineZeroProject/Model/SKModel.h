@@ -187,4 +187,13 @@
 @property (nonatomic, copy)     NSString    *level_type;
 @end
 
+@interface SKRanker : NSObject
+@property (nonatomic, copy)     NSString    *user_id;
+@property (nonatomic, copy)     NSString    *user_name;
+@property (nonatomic, copy)     NSString    *user_avatar;
+@property (nonatomic, copy)     NSString    *gold;
+@property (nonatomic, assign)   NSUInteger  rank;
+@property (nonatomic, copy)     NSString    *experience;
+@property (nonatomic, copy)     NSString    *area_name;
+@end
 

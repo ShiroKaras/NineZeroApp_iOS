@@ -99,12 +99,19 @@
 }
 
 //获取所有排名
-- (void)getAllRankListCallback:(SKResponseCallback)callback {
+- (void)getSeason2RankListCallback:(SKGetRankerListCallbakc)callback {
     NSDictionary *param = @{
                             @"method"       :   @"getAllRank"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        NSMutableArray *rankerArray = [NSMutableArray array];
+        if ([response.data count]>0) {
+            for (int i=0; i<[response.data count]; i++) {
+                SKRanker *ranker = [SKRanker objectWithKeyValues:response.data[i]];
+                [rankerArray addObject:ranker];
+            }
+            callback(success, rankerArray);
+        }
     }];
 }
 

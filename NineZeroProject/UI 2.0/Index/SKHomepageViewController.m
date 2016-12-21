@@ -15,6 +15,7 @@
 #import "SKQuestionViewController.h"
 #import "SKProfileIndexViewController.h"
 #import "SKProfileSettingViewController.h"
+#import "HTProfileRankController.h"
 
 @interface SKHomepageViewController ()
 
@@ -159,6 +160,7 @@
     
     //排行榜
     UIButton *rankButton = [UIButton new];
+    [rankButton addTarget:self action:@selector(rankButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [rankButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top"] forState:UIControlStateNormal];
     [rankButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:rankButton];
@@ -244,6 +246,11 @@
 
 - (void)mascotButtonClick:(UIButton*)sender {
     SKMascotIndexViewController *controller = [[SKMascotIndexViewController alloc] init];
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)rankButtonClick:(UIButton *)sender {
+    HTProfileRankController *controller = [[HTProfileRankController alloc] init];
     [self presentViewController:controller animated:YES completion:nil];
 }
 

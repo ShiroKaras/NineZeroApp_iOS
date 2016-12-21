@@ -75,3 +75,6 @@ HTINIT(SKQuestion)
 
 @implementation SKBadge
 @end
+
+@implementation SKRanker
+@end

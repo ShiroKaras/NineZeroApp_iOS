@@ -14,11 +14,11 @@
 - (void)setBackColor:(UIColor *)backColor;
 @end
 
-@class HTRanker;
+@class SKRanker;
 @interface HTProfileRankCell : UITableViewCell
 
-@property (nonatomic, strong) HTRanker *ranker;
-@property (nonatomic, strong) NSArray<HTRanker*>* topThreeRankers;
+@property (nonatomic, strong) SKRanker *ranker;
+@property (nonatomic, strong) NSArray<SKRanker*>* topThreeRankers;
 
 - (void)showWithMe:(BOOL)me;
 

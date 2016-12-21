@@ -15,6 +15,7 @@ typedef void (^SKUserInfoCallback) (BOOL success, SKUserInfo *response);
 typedef void (^SKGetBadgesCallback) (BOOL success, NSInteger exp, NSArray<SKBadge *> *badges) ;
 typedef void (^SKGetPiecesCallback) (BOOL success, NSArray<SKPiece *> *pieces) ;
 typedef void (^SKGetTicketsCallback) (BOOL suceese, NSArray<SKTicket*> *tickets);
+typedef void (^SKGetRankerListCallbakc) (BOOL success, NSArray<SKRanker*> *rankerList);
 
 @interface SKProfileService : NSObject
 
@@ -33,8 +34,8 @@ typedef void (^SKGetTicketsCallback) (BOOL suceese, NSArray<SKTicket*> *tickets)
 //获取基本信息
 - (void)getUserBaseInfoCallback:(SKUserInfoCallback)callback;
 
-//获取所有排名
-- (void)getAllRankListCallback:(SKResponseCallback)callback;
+//获取第二季排名
+- (void)getSeason2RankListCallback:(SKGetRankerListCallbakc)callback;
 
 //修改个人信息    0头像 1昵称
 - (void)updateUserInfoWith:(SKUserInfo*)userInfo withType:(int)type callback:(SKResponseCallback)callback;

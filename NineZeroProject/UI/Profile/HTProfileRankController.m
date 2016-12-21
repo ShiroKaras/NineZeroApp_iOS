@@ -13,13 +13,22 @@
 #define REGISTER_CLASS(clazz)  [self.tableView registerClass:[clazz class] forCellReuseIdentifier:NSStringFromClass([clazz class])];
 
 @interface HTProfileRankController () <UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong) NSArray<HTRanker *> *rankerList;
-@property (nonatomic, strong) HTRanker *myRank;
-@property (nonatomic, strong) HTBlankView *blankView;
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign)   SKRankViewType  type;
+@property (nonatomic, strong)   NSArray<SKRanker *> *rankerList;
+@property (nonatomic, strong)   SKRanker *myRank;
+@property (nonatomic, strong)   HTBlankView *blankView;
+@property (nonatomic, strong)   UITableView *tableView;
 @end
 
 @implementation HTProfileRankController
+
+- (instancetype)initWithSeason:(SKRankViewType)type {
+    self = [super init];
+    if (self) {
+        self.type = type;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,38 +41,37 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
-//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-//    headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
-//    UILabel *titleLabel = [UILabel new];
-//    titleLabel.text = @"排行榜";
-//    titleLabel.textColor = [UIColor whiteColor];
-//    titleLabel.font = [UIFont systemFontOfSize:17];
-//    [titleLabel sizeToFit];
-//    titleLabel.center = headerView.center;
-//    [headerView addSubview:titleLabel];
-//    [self.view addSubview:headerView];
+    UIButton *closeButton = [UIButton new];
+    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:closeButton];
+    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@12);
+        make.left.equalTo(@4);
+    }];
     
-//    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5)];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     
     REGISTER_CLASS(HTProfileRankCell);
 
     self.rankerList = [NSArray array];
-    _myRank = [[HTRanker alloc] init];
+    _myRank = [[SKRanker alloc] init];
     [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] profileService] getRankList:^(BOOL success, NSArray<HTRanker *> *ranker) {
+    
+    [[[SKServiceManager sharedInstance] profileService] getSeason2RankListCallback:^(BOOL success, NSArray<SKRanker *> *rankerList) {
         if (success) {
-            _rankerList = ranker;
-            [[[HTServiceManager sharedInstance] profileService] getMyRank:^(BOOL success, HTRanker *ranker) {
-                [HTProgressHUD dismiss];
-                if (success) {
-                    _myRank = ranker;
-                    [self.tableView reloadData];
-                }
-            }];
+            _rankerList = rankerList;
+            _myRank.rank = [SKStorageManager sharedInstance].userInfo.rank;
+            _myRank.user_avatar = [SKStorageManager sharedInstance].userInfo.user_avatar;
+            _myRank.user_name = [SKStorageManager sharedInstance].userInfo.user_name;
+            _myRank.gold = [SKStorageManager sharedInstance].userInfo.gold;
+            [self.tableView reloadData];
+            [HTProgressHUD dismiss];
         } else {
             [HTProgressHUD dismiss];
         }
+
     }];
     
     if (NO_NETWORK) {
@@ -105,7 +113,7 @@
     HTProfileRankCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileRankCell class])   forIndexPath:indexPath];
 
     if (indexPath.row == 0) {
-        NSArray<HTRanker*>* topRankers = [NSArray arrayWithObjects:_rankerList[0], _rankerList[1], _rankerList[2], nil];
+        NSArray<SKRanker*>* topRankers = [NSArray arrayWithObjects:_rankerList[0], _rankerList[1], _rankerList[2], nil];
         [cell setTopThreeRankers:topRankers];
         return cell;
     } else if (indexPath.row == 1) {
@@ -113,7 +121,7 @@
         [cell showWithMe:YES];
         return cell;
     } else {
-        HTRanker *ranker = _rankerList[indexPath.row +1];
+        SKRanker *ranker = _rankerList[indexPath.row +1];
         [cell setRanker:ranker];
         [cell showWithMe:NO];
         return cell;
@@ -126,6 +134,12 @@
     } else {
         return 74;
     }
+}
+
+#pragma mark - Actions
+
+- (void)closeButtonClick:(UIButton *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
