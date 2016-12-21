@@ -60,6 +60,7 @@
 @property (nonatomic, strong) UIImageView *orderImageView;
 @property (nonatomic, strong) UILabel *orderLabel;
 @property (nonatomic, strong) UIImageView *avatar;
+@property (nonatomic, strong) UIImageView *goldFrame;
 @property (nonatomic, strong) UILabel *nickName;
 @property (nonatomic, strong) UIImageView *coinImageView;
 @property (nonatomic, strong) UILabel *coinLabel;
@@ -74,6 +75,9 @@
 @property (nonatomic, strong) UIImageView *ranker_1_Avatar;
 @property (nonatomic, strong) UIImageView *ranker_2_Avatar;
 @property (nonatomic, strong) UIImageView *ranker_3_Avatar;
+@property (nonatomic, strong) UIImageView *ranker_1_GoldFrame;
+@property (nonatomic, strong) UIImageView *ranker_2_GoldFrame;
+@property (nonatomic, strong) UIImageView *ranker_3_GoldFrame;
 @property (nonatomic, strong) UILabel   *ranker_1_NameLabel;
 @property (nonatomic, strong) UILabel   *ranker_2_NameLabel;
 @property (nonatomic, strong) UILabel   *ranker_3_NameLabel;
@@ -108,6 +112,9 @@
         
         _avatar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
         [self.contentView addSubview:_avatar];
+        
+        _goldFrame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_headframe"]];
+        [self.contentView addSubview:_goldFrame];
         
         _nickName = [[UILabel alloc] init];
         _nickName.textColor = [UIColor whiteColor];
@@ -148,6 +155,16 @@
         _ranker_3_Avatar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
         _ranker_3_Avatar.contentMode = UIViewContentModeScaleAspectFit;
         [_topBackView addSubview:_ranker_3_Avatar];
+        
+        //头像框
+        _ranker_1_GoldFrame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_headframe_top1"]];
+        [_topBackView addSubview:_ranker_1_GoldFrame];
+        
+        _ranker_2_GoldFrame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_headframe_top23"]];
+        [_topBackView addSubview:_ranker_2_GoldFrame];
+        
+        _ranker_3_GoldFrame = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_headframe_top23"]];
+        [_topBackView addSubview:_ranker_3_GoldFrame];
         
         //勋章
         _ranker_1_Image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rankpage_top1"]];
@@ -227,6 +244,7 @@
     [_orderLabel sizeToFit];
 
     [_avatar sd_setImageWithURL:[NSURL URLWithString:ranker.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    _goldFrame.hidden = !ranker.user_gold_head;
     NSString *displayName = (ranker.area_name.length != 0) ? [NSString stringWithFormat:@"%@", ranker.user_name] : ranker.user_name;
     _nickName.text = displayName;
     [_nickName sizeToFit];
@@ -250,7 +268,9 @@
     [_ranker_1_Avatar sd_setImageWithURL:[NSURL URLWithString:topThreeRankers[0].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
     [_ranker_2_Avatar sd_setImageWithURL:[NSURL URLWithString:topThreeRankers[1].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
     [_ranker_3_Avatar sd_setImageWithURL:[NSURL URLWithString:topThreeRankers[2].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
-    
+    _ranker_1_GoldFrame.hidden = !topThreeRankers[0].user_gold_head;
+    _ranker_2_GoldFrame.hidden = !topThreeRankers[1].user_gold_head;
+    _ranker_3_GoldFrame.hidden = !topThreeRankers[2].user_gold_head;
     _ranker_1_NameLabel.text = topThreeRankers[0].user_name;
     _ranker_2_NameLabel.text = topThreeRankers[1].user_name;
     _ranker_3_NameLabel.text = topThreeRankers[2].user_name;
@@ -291,9 +311,13 @@
     _orderImageView.left = PADDING;
     _orderImageView.centerY = self.height / 2;
     _orderLabel.frame = CGRectMake(PADDING+20, self.height / 2 - 10, 39, 20);
-    _avatar.frame = CGRectMake(PADDING +67, self.height / 2 - 28, 56, 56);
+    _avatar.frame = CGRectMake(PADDING +67, self.height / 2 - 24, 48, 48);
     _avatar.layer.cornerRadius = 28;
     _avatar.layer.masksToBounds = YES;
+    _goldFrame.width = 48;
+    _goldFrame.height = 60;
+    _goldFrame.centerX = _avatar.centerX;
+    _goldFrame.bottom = _avatar.bottom;
     _nickName.frame = CGRectMake(_avatar.right + 16, 18, 190, 15);
     _coinImageView.left = _avatar.right + 16;
     _coinImageView.top = _nickName.bottom +8;
@@ -334,6 +358,21 @@
     _ranker_3_Avatar.layer.cornerRadius = 56*ScaleToScreen/2;
     _ranker_3_Avatar.layer.masksToBounds = YES;
 
+    _ranker_1_GoldFrame.width = _ranker_1_Avatar.width;
+    _ranker_1_GoldFrame.height = 95*ScaleToScreen;
+    _ranker_1_GoldFrame.centerX = _ranker_1_Avatar.centerX;
+    _ranker_1_GoldFrame.bottom = _ranker_1_Avatar.bottom;
+    
+    _ranker_2_GoldFrame.width = _ranker_2_Avatar.width;
+    _ranker_2_GoldFrame.height = 74*ScaleToScreen;
+    _ranker_2_GoldFrame.centerX = _ranker_2_Avatar.centerX;
+    _ranker_2_GoldFrame.bottom = _ranker_2_Avatar.bottom;
+    
+    _ranker_3_GoldFrame.width = _ranker_3_Avatar.width;
+    _ranker_3_GoldFrame.height = 74*ScaleToScreen;
+    _ranker_3_GoldFrame.centerX = _ranker_3_Avatar.centerX;
+    _ranker_3_GoldFrame.bottom = _ranker_3_Avatar.bottom;
+    
     _ranker_1_Image.right = _ranker_1_Avatar.right;
     _ranker_1_Image.top = _ranker_1_Avatar.bottom - 21;
     

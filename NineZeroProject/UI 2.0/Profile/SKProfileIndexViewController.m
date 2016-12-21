@@ -24,6 +24,7 @@
 @interface SKProfileIndexViewController ()
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, strong) UIImageView *avatarGoldFrameImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;
 @property (nonatomic, strong) UILabel *rankLabel;
 @property (nonatomic, strong) UILabel *coinLabel;
@@ -61,6 +62,7 @@
         _rankLabel.text = response.rank;
         _coinLabel.text = response.user_gold;
         _diamondLabel.text = response.user_gemstone;
+        _avatarGoldFrameImageView.hidden = !response.user_gold_head;
         ((UILabel*)[self.view viewWithTag:PROFILE_TICKET]).text = response.ticket_num;
         ((UILabel*)[self.view viewWithTag:PROFILE_BADGE]).text = response.medal_num;
         ((UILabel*)[self.view viewWithTag:PROFILE_THING]).text = response.piece_num;
@@ -85,6 +87,15 @@
         make.size.mas_equalTo(CGSizeMake(86, 86));
         make.top.equalTo(@40);
         make.centerX.equalTo(_scrollView);
+    }];
+    
+    _avatarGoldFrameImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userprofiles_headframe"]];
+    _avatarGoldFrameImageView.hidden = YES;
+    [_scrollView addSubview:_avatarGoldFrameImageView];
+    [_avatarGoldFrameImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(86, 115));
+        make.centerX.equalTo(_avatarImageView);
+        make.bottom.equalTo(_avatarImageView);
     }];
     
     UIImageView *avatarWaveImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default_big_deco"]];
