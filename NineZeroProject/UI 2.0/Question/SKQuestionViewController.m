@@ -60,6 +60,8 @@
 //奖励
 @property (nonatomic, strong) NSDictionary  *rewardDict;
 @property (nonatomic, strong) SKReward      *reward;
+
+@property (nonatomic, assign) NSInteger clickCount;
 @end
 
 @implementation SKQuestionViewController
@@ -86,6 +88,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.season = 1;
+    self.clickCount = 0;
     [self createUI];
     [self loadData];
     [self addObserver:self forKeyPath:@"currentIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
@@ -1261,6 +1264,10 @@
             } else if (response.result == -3004) {
                 //回答错误
                 [_composeView showAnswerCorrect:NO];
+                if (_clickCount >= 2) {
+                    [_composeView showAnswerTips:self.currentQuestion.hint];
+                }
+                _clickCount++;
             } else if (response.result == -7007) {
                 
             }
