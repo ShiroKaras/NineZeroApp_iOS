@@ -85,8 +85,10 @@
     
     UIButton *quitButton = [UIButton new];
     [quitButton addTarget:self action:@selector(quitButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    quitButton.backgroundColor = [UIColor colorWithHex:0xed203b];
+    [quitButton setBackgroundImage:[UIImage imageWithColor:COMMON_RED_COLOR] forState:UIControlStateNormal];
+    [quitButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
     quitButton.layer.cornerRadius = 5;
+    quitButton.layer.masksToBounds = YES;
     [quitButton setTitle:@"退出登录" forState:UIControlStateNormal];
     [quitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_scrollView addSubview:quitButton];
@@ -309,8 +311,8 @@
         
         UILabel *titleLabel = [UILabel new];
         titleLabel.textColor = [UIColor whiteColor];
-        if (i == 0)     titleLabel.text = @"关于";
-        else if (i == 1)     titleLabel.text = @"什么是九零";
+        if (i == 0)     titleLabel.text = @"什么是九零";
+        else if (i == 1)     titleLabel.text = @"关于";
         titleLabel.font = PINGFANG_FONT_OF_SIZE(16);
         [view addSubview:titleLabel];
         [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -318,7 +320,7 @@
             make.centerY.equalTo(view);
         }];
         
-        if (i==0) {
+        if (i==1) {
             UILabel *infoLabel = [UILabel new];
             infoLabel.text =  [NSString stringWithFormat:@"V%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
             infoLabel.textColor = [UIColor whiteColor];

@@ -199,11 +199,12 @@
 }
 
 - (void)createUIWithType:(SKMascotType)mascotType {
-    UIView *dimmingView = [UIView new];
-    dimmingView.backgroundColor = [UIColor blackColor];
-    dimmingView.alpha = 0.9;
-    [self addSubview:dimmingView];
-    [dimmingView mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIView *alphaView = [UIView new];
+    alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    alphaView.alpha = 0.9;
+    [self addSubview:alphaView];
+
+    [alphaView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.equalTo(self);
         make.bottom.equalTo(self);
@@ -229,6 +230,7 @@
 
 - (void)createResourceInfoUI {
     //右上角
+    
     _iconBackView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-83.5, 14, 83.5, 30)];
     _iconBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     [self addSubview:_iconBackView];

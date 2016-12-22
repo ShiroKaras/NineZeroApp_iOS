@@ -157,33 +157,50 @@
     
     self.view.backgroundColor = [UIColor blackColor];
     
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.allowsSelection = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    [self.tableView registerClass:[SKBadgeCell class] forCellReuseIdentifier:NSStringFromClass([SKBadgeCell class])];
+    [self.view addSubview:self.tableView];
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 162)];
+    headerView.backgroundColor = [UIColor blackColor];
+    self.tableView.tableHeaderView = headerView;
+    
     UILabel *myBadgeTitleLabel = [UILabel new];
     myBadgeTitleLabel.text = @"我的勋章";
     myBadgeTitleLabel.textColor = [UIColor whiteColor];
     myBadgeTitleLabel.font = PINGFANG_FONT_OF_SIZE(20);
     [myBadgeTitleLabel sizeToFit];
-    [self.view addSubview:myBadgeTitleLabel];
+    [headerView addSubview:myBadgeTitleLabel];
     
     UIImageView *nextBadgeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userptofiles_exptext"]];
     [nextBadgeImageView sizeToFit];
-    [self.view addSubview:nextBadgeImageView];
+    [headerView addSubview:nextBadgeImageView];
     
     UIImageView *expArrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userptofiles_exp"]];
     [expArrowImageView sizeToFit];
-    [self.view addSubview:expArrowImageView];
+    [headerView addSubview:expArrowImageView];
+    
+    UIImageView *badgeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mymedal_medal"]];
+    [badgeImageView sizeToFit];
+    [headerView addSubview:badgeImageView];
     
     _progressView = [[SKProfileProgressView alloc] initWithFrame:CGRectZero];
     [_progressView setProgress:0];
     [_progressView setBackColor:[UIColor colorWithHex:0x1f1f1f]];
     [_progressView setCoverColor:[UIColor colorWithHex:0xfdd900]];
-    [self.view addSubview:_progressView];
+    [headerView addSubview:_progressView];
     
     _expLabel = [UILabel new];
     _expLabel.text = @"0";
     _expLabel.textColor = [UIColor colorWithHex:0xffed41];
     _expLabel.font = MOON_FONT_OF_SIZE(12);
     [_expLabel sizeToFit];
-    [self.view addSubview:_expLabel];
+    [headerView addSubview:_expLabel];
     
     [myBadgeTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(_progressView);
@@ -212,22 +229,10 @@
         make.height.equalTo(@16);
     }];
     
-    UIImageView *badgeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mymedal_medal"]];
-    [badgeImageView sizeToFit];
-    [self.view addSubview:badgeImageView];
     [badgeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakself.view);
-        make.right.equalTo(weakself.view);
+        make.top.equalTo(headerView);
+        make.right.equalTo(headerView);
     }];
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 162, SCREEN_WIDTH, SCREEN_HEIGHT-162) style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.allowsSelection = NO;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    [self.tableView registerClass:[SKBadgeCell class] forCellReuseIdentifier:NSStringFromClass([SKBadgeCell class])];
-    [self.view addSubview:self.tableView];
 }
 
 - (NSInteger)badgeLevel {

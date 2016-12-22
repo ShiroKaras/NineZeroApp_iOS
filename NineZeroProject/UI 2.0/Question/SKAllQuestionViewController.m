@@ -157,7 +157,7 @@
     [self.view addSubview:_mPageContrl_season1];
     [_mPageContrl_season1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(_mScrollView_season1.mas_bottom).offset(28);
+        make.top.equalTo(_mScrollView_season1.mas_bottom).offset(2);
         make.height.equalTo(@(8));
     }];
     
@@ -272,7 +272,7 @@
     [self.view addSubview:_mPageContrl_season2];
     [_mPageContrl_season2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(_mScrollView_season2.mas_bottom).offset(28);
+        make.top.equalTo(_mScrollView_season2.mas_bottom).offset(2);
         make.height.equalTo(@(8));
     }];
     
@@ -477,7 +477,7 @@
 #pragma mark - SKHelperScrollViewDelegate
 
 - (void)didClickCompleteButton {
-    [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateNormal];
+    [_helpButton setImage:[UIImage imageNamed:@"btn_levelpage_help_highlight"] forState:UIControlStateNormal];
     [UIView animateWithDuration:0.075 animations:^{
         _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 1.1, 1.1);
     } completion:^(BOOL finished) {
@@ -490,7 +490,7 @@
                 [UIView animateWithDuration:0.075 animations:^{
                     _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 0.9, 0.9);
                 } completion:^(BOOL finished) {
-                    [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+                    [_helpButton setImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
                 }];
             }];
         }];

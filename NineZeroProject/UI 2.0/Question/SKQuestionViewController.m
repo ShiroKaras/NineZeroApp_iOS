@@ -134,7 +134,7 @@
     [[[SKServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKQuestion *question) {
         self.currentQuestion = question;
         self.isAnswered = question.is_answer;
-        self.chapterNumberLabel.text = [NSString stringWithFormat:@"%02lu", [question.serial integerValue]];
+        self.chapterNumberLabel.text = [NSString stringWithFormat:@"%02lu", (long)[question.serial integerValue]];
         self.chapterTitleLabel.text = question.title_one;
         self.chapterSubTitleLabel.text = question.title_two;
         NSLog(@"%@", question.question_video_url);
@@ -266,7 +266,7 @@
     
     _timeView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
     _timeView.right = SCREEN_WIDTH - 10;
-    _timeView.bottom = _playBackView.top -3;
+    _timeView.bottom = _playBackView.top -6;
     
     // 帮助按钮
     _helpButton = [UIButton new];
@@ -295,7 +295,7 @@
             [btn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(ROUND_WIDTH(40));
                 make.height.equalTo(ROUND_WIDTH(40));
-                make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-(SCREEN_HEIGHT-106-SCREEN_WIDTH+20-72-12-ROUND_WIDTH_FLOAT(40))/2);
+                make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-(SCREEN_HEIGHT-106-SCREEN_WIDTH-16+20-72-12-ROUND_WIDTH_FLOAT(40))/2);
                 make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*i));
             }];
             if (i==0) {
@@ -314,10 +314,10 @@
                 [btn mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.width.equalTo(ROUND_WIDTH(40));
                     make.height.equalTo(ROUND_WIDTH(40));
-                    make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-(SCREEN_HEIGHT-106-SCREEN_WIDTH+20-72-12-ROUND_WIDTH_FLOAT(40))/2);
+                    make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-(SCREEN_HEIGHT-106-SCREEN_WIDTH-16+20-72-12-ROUND_WIDTH_FLOAT(40))/2);
                     make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*1));
                 }];
-            }
+            } 
         }
     }
 }
@@ -492,7 +492,8 @@
         make.top.equalTo(alertBackView).offset(17);
     }];
     
-    UIImageView *iconImageview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_solution_season1"]];
+    
+    UIImageView *iconImageview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_popup_solution_season%lu",(unsigned long)self.season]]];
     [iconImageview sizeToFit];
     [alertBackView addSubview:iconImageview];
     [iconImageview mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -958,11 +959,16 @@
 
 - (void)showRewardViewWithReward:(SKReward*)reward {
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
-    _dimmingView.backgroundColor = [UIColor blackColor];
-    _dimmingView.alpha = 0;
+    _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
+    
+    UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
+    alphaView.backgroundColor = [UIColor blackColor];
+    alphaView.alpha = 0;
+    [_dimmingView addSubview:alphaView];
+    
     [UIView animateWithDuration:0.3 animations:^{
-        _dimmingView.alpha = 0.9;
+        alphaView.alpha = 0.9;
     }];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
@@ -1030,11 +1036,16 @@
 
 - (void)createMascotRewardViewWithReward:(SKReward*)reward {
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
-    _dimmingView.backgroundColor = [UIColor blackColor];
-    _dimmingView.alpha = 0;
+    
+    UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
+    alphaView.backgroundColor = [UIColor blackColor];
+    alphaView.alpha = 0;
+    [_dimmingView addSubview:alphaView];
+    
     [UIView animateWithDuration:0.3 animations:^{
-        _dimmingView.alpha = 0.9;
+        alphaView.alpha = 0.9;
     }];
     
     UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_giftbg"]];
@@ -1084,13 +1095,17 @@
 }
 
 - (void)createThingRewardViewWithReward:(SKReward*)reward {
-    _dimmingView = [UIView new];
+    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
-    _dimmingView.backgroundColor = [UIColor blackColor];
-    _dimmingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    _dimmingView.alpha = 0;
+    
+    UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
+    alphaView.backgroundColor = [UIColor blackColor];
+    alphaView.alpha = 0;
+    [_dimmingView addSubview:alphaView];
+    
     [UIView animateWithDuration:0.3 animations:^{
-        _dimmingView.alpha = 0.9;
+        alphaView.alpha = 0.9;
     }];
     
     UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_giftbg"]];
@@ -1272,7 +1287,7 @@
 #pragma mark - SKHelperScrollViewDelegate
 
 - (void)didClickCompleteButton {
-    [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateNormal];
+    [_helpButton setImage:[UIImage imageNamed:@"btn_levelpage_help_highlight"] forState:UIControlStateNormal];
     [UIView animateWithDuration:0.075 animations:^{
         _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 1.1, 1.1);
     } completion:^(BOOL finished) {
@@ -1285,7 +1300,7 @@
                 [UIView animateWithDuration:0.075 animations:^{
                     _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 0.9, 0.9);
                 } completion:^(BOOL finished) {
-                    [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+                    [_helpButton setImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
                 }];
             }];
         }];
@@ -1326,6 +1341,7 @@
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
                     [_composeView removeFromSuperview];
+                    [self removeDimmingView];
                     [self showRewardViewWithReward:nil];
                 });
             } else if (response.result == -3004) {
@@ -1353,6 +1369,7 @@
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
                     [_composeView removeFromSuperview];
+                    [self removeDimmingView];
                     [self showRewardViewWithReward:nil];
                 });
             } else if (response.result == -3004) {

@@ -47,6 +47,12 @@
     rankScrollView.contentSize = CGSizeMake(rankBackView.width, height);
     [rankBackView addSubview:rankScrollView];
     
+    UIImageView *dimmingImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_success_shading_down"]];
+    dimmingImageView.width = rankBackView.width;
+    dimmingImageView.height = dimmingImageView.width/300*84;
+    dimmingImageView.bottom = rankBackView.bottom;
+    [rankBackView addSubview:dimmingImageView];
+    
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_chapter_leaderboard"]];
     [rankScrollView addSubview:titleImageView];
     [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
