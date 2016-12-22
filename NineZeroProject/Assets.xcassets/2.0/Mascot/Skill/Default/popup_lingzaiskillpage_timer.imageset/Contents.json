@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "popup_lingzaiskillpage_timer@2x.png",
+      "filename" : "popup_lingzaiskillpage_timer.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "popup_lingzaiskillpage_timer.png",
+      "filename" : "popup_lingzaiskillpage_timer@2x.png",
       "scale" : "2x"
     },
     {

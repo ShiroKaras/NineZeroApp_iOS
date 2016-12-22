@@ -62,7 +62,7 @@
         } else {
             success = NO;
         }
-        callback(success, responseString);
+        callback(success, responseString, 0);
     }];
 }
 

@@ -12,7 +12,7 @@
 
 @interface SKPropService : NSObject
 
-typedef void (^SKQuestionBuyPropCallback) (BOOL success, NSString *responseString);
+typedef void (^SKQuestionBuyPropCallback) (BOOL success, NSString *responseString, NSInteger coolTime);
 
 //购买道具
 - (void)purchasePropWithPurchaseType:(NSString*)purchaseType propType:(NSString*)propType callback:(SKQuestionBuyPropCallback)callback;
