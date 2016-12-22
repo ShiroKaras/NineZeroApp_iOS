@@ -25,7 +25,7 @@
 @property (nonatomic, strong)   UILabel     *timeCountDownLabel;
 @property (nonatomic, strong)   UIButton    *timeLimitLevelButton;
 
-@property (nonatomic, assign)   time_t  endTime;
+@property (nonatomic, assign)   uint64_t  endTime;
 @property (nonatomic, assign)   BOOL    isMonday;
 
 @property (nonatomic, strong)   SKIndexInfo *indexInfo;
@@ -65,7 +65,7 @@
 - (void)scheduleCountDownTimer {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
     [self performSelector:@selector(scheduleCountDownTimer) withObject:nil afterDelay:1.0];
-    time_t delta = _endTime - time(NULL);
+    time_t delta = (time_t)_endTime - time(NULL);
     time_t oneHour = 3600;
     time_t hour = delta / oneHour;
     time_t minute = (delta % oneHour) / 60;

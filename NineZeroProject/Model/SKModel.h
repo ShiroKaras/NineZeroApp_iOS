@@ -56,13 +56,13 @@
 @property (nonatomic, assign)   BOOL        is_haved_difficult;
 @property (nonatomic, assign)   NSInteger   user_notice_count;
 @property (nonatomic, copy)     NSString    *index_gif;
-    //question_info
-@property (nonatomic, assign)   time_t      question_end_time;
+//    //question_info
+@property (nonatomic, assign)   uint64_t      question_end_time;
 @property (nonatomic, copy)     NSString    *qid;
 @property (nonatomic, assign)   BOOL        answered_status;
-    //Monday
-@property (nonatomic, assign)   time_t      monday_end_time;
-    //advertising
+//    //Monday
+@property (nonatomic, assign)   uint64_t      monday_end_time;
+//    //advertising
 @property (nonatomic, copy)     NSString    *adv_pic;
 @end
 
@@ -126,9 +126,9 @@
 @property (nonatomic, copy)     NSString    *user_id;
 @property (nonatomic, copy)     NSString    *sid;
 @property (nonatomic, copy)     NSString    *code;
-@property (nonatomic, assign)   time_t      create_time;
-@property (nonatomic, assign)   time_t      expire_time;
-@property (nonatomic, assign)   time_t      used_time;
+@property (nonatomic, assign)   uint64_t      create_time;
+@property (nonatomic, assign)   uint64_t      expire_time;
+@property (nonatomic, assign)   uint64_t      used_time;
 @property (nonatomic, assign)   BOOL        used;
 @property (nonatomic, copy)     NSString    *title;
 @property (nonatomic, copy)     NSString    *pic;
@@ -201,8 +201,8 @@
 @end
 
 @interface SKDefaultMascotSkill : NSObject;
-@property (nonatomic, assign)   time_t      clue_cooling_time;
-@property (nonatomic, assign)   time_t      answer_cooling_time;
+@property (nonatomic, assign)   uint64_t      clue_cooling_time;
+@property (nonatomic, assign)   uint64_t      answer_cooling_time;
 @property (nonatomic, copy)     NSString    *clue_used_gold;
 @property (nonatomic, copy)     NSString    *answer_used_gold;
 @property (nonatomic, copy)     NSString    *clue_used_gemstone;
