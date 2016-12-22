@@ -148,6 +148,8 @@
 }
 
 - (void)loadData {
+    [TalkingData trackPageBegin:@"lingskill"];
+    
     //更新金币宝石数量
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
     
@@ -632,6 +634,7 @@
 
 - (void)closeButtonClick:(UIButton *)sender {
     [self removeFromSuperview];
+    [TalkingData trackPageEnd:@"lingskill"];
     [_timerS1Hint invalidate];
     _timerS1Hint = nil;
     [_timerS1Answer invalidate];
@@ -876,7 +879,7 @@
 }
 
 - (void)loadData {
-    
+    [TalkingData trackPageBegin:@"lingdescription"];
 }
 
 - (void)createUIWithType:(SKMascotType)type {
@@ -939,6 +942,7 @@
 
 - (void)closeButtonClick:(UIButton *)sender {
     [self removeFromSuperview];
+    [TalkingData trackPageEnd:@"lingdescription"];
 }
 
 @end

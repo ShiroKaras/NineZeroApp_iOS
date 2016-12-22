@@ -37,6 +37,16 @@
     [self loadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [TalkingData trackPageBegin:@"settingpage"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [TalkingData trackPageEnd:@"settingpage"];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -222,14 +232,6 @@
                 make.right.equalTo(view).offset(-20);
             }];
         } else if (i == 1) {
-//            UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_userptofiles_nextpage"]];
-//            [arrowImageView sizeToFit];
-//            [view addSubview:arrowImageView];
-//            [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//                make.centerY.equalTo(view);
-//                make.right.equalTo(view).offset(-20);
-//            }];
-            
             _cacheLabel = [UILabel new];
             NSString *cacheFilePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
             [self listFileAtPath:cacheFilePath];

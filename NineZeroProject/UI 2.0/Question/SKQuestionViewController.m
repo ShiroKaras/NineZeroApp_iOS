@@ -102,6 +102,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if (self.type == SKQuestionTypeTimeLimitLevel) {
+        [TalkingData trackPageBegin:@"timelimitpage"];
+    } else if (self.type == SKQuestionTypeHistoryLevel) {
+        [TalkingData trackPageBegin:@"historylevelpage"];
+    }
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     if (self.navigationController) {
         self.navigationController.navigationBarHidden = YES;
@@ -110,6 +115,11 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    if (self.type == SKQuestionTypeTimeLimitLevel) {
+        [TalkingData trackPageEnd:@"timelimitpage"];
+    } else if (self.type == SKQuestionTypeHistoryLevel) {
+        [TalkingData trackPageEnd:@"historylevelpage"];
+    }
     [self removeObserver:self forKeyPath:@"currentIndex"];
     [self removeObserver:self forKeyPath:@"isAnswered"];
 }

@@ -2085,10 +2085,10 @@
 				1133DD741E0A4A8F0029511B /* SKRankView.m */,
 				1133DD761E0A4BB30029511B /* SKRankViewController.h */,
 				1133DD771E0A4BB30029511B /* SKRankViewController.m */,
-				17BE47351C86039F00797E8E /* HTProfileRankController.h */,
-				17BE47361C86039F00797E8E /* HTProfileRankController.m */,
 				17BE47381C8603D300797E8E /* HTProfileRankCell.h */,
 				17BE47391C8603D300797E8E /* HTProfileRankCell.m */,
+				17BE47351C86039F00797E8E /* HTProfileRankController.h */,
+				17BE47361C86039F00797E8E /* HTProfileRankController.m */,
 			);
 			name = Rank;
 			sourceTree = "<group>";
