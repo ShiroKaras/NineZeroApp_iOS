@@ -8,17 +8,10 @@
 
 #import "AppDelegate.h"
 #import "JPUSHService.h"
-#import "HTLoginRootController.h"
-#import "HTServiceManager.h"
 #import "HTNavigationController.h"
 #import <Qiniu/QiniuSDK.h>
 #import "HTLogicHeader.h"
 #import "HTUIHeader.h"
-#import "HTRelaxController.h"
-#import "INTULocationManager.h"
-#import "HTMainViewController.h"
-#import "SKIndexViewController.h"
-#import "HTArticleController.h"
 #import "SKLaunchAnimationViewController.h"
 #import "SKLoginRootViewController.h"
 
@@ -90,10 +83,7 @@
 }
 
 - (void)debugHotKey:(UIKeyCommand *)keyCommand {
-    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
-    UIViewController *vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    while (vc.presentedViewController) vc = vc.presentedViewController;
-    [vc presentViewController:relaxController animated:YES completion:nil];
+    //如果出现Bug跳转View
 }
 #endif
 
@@ -159,13 +149,6 @@
 - (void)handleAPNsDict:(NSDictionary *)dict {
     NSString *method = dict[@"method"];
     NSDictionary *dataDict = dict[@"data"];
-    if ([method isEqual:@1]) {
-        [[[HTServiceManager sharedInstance] profileService] getArticle:[dataDict[@"article_id"] integerValue] completion:^(BOOL success, HTArticle *articles) {
-            HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
-            [self.mainController presentViewController:articleViewController animated:YES completion:nil];
-            [TalkingData trackEvent:@"toarticle" label:@"push"];
-        }];
-    }
 }
 
 - (void)createWindowAndVisibleWithOptions:(NSDictionary*)launchOptions {
@@ -255,6 +238,7 @@
     // App ID: 在 App Analytics 创建应用后，进入数据报表页中，在“系统设置”-“编辑应用”页面里查看App ID。
     // 渠道 ID: 是渠道标识符，可通过不同渠道单独追踪数据。
     [TalkingData sessionStarted:@"EB304F0B34B5B775BD23554F6456B3C4" withChannelId:@"iOS"];
+    [TalkingData setVersionWithCode:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] name:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]];
 }
 
 #pragma mark - Location
@@ -388,7 +372,7 @@
     [JPUSHService setupWithOption:launchOptions appKey:@"a55e70211d78ad951ecca453" channel:@"90" apsForProduction:true];
     [JPUSHService resetBadge];
     if ([[HTStorageManager sharedInstance] getUserID]) {
-        [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
+        [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[SKStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
     }
 }
 
