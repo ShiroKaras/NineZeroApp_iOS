@@ -16,6 +16,7 @@
 #import "SKMyThingsViewController.h"
 #import "SKFeedbackViewController.h"
 #import "SKRankViewController.h"
+#import "HTWebController.h"
 
 #define PROFILE_TICKET  100
 #define PROFILE_BADGE   101
@@ -219,6 +220,14 @@
         make.bottom.equalTo(coinView).offset(-12);
     }];
     
+    UIButton *coinButton = [UIButton new];
+    [coinButton addTarget:self action:@selector(coinButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_backView1 addSubview:coinButton];
+    [coinButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(coinView);
+        make.center.equalTo(coinView);
+    }];
+    
     //1.3
     UIView *diamondView = [UIView new];
     [_backView1 addSubview:diamondView];
@@ -248,6 +257,14 @@
     [_diamondLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(diamondView);
         make.bottom.equalTo(diamondView).offset(-12);
+    }];
+    
+    UIButton *diamondButton = [UIButton new];
+    [diamondButton addTarget:self action:@selector(diamondButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_backView1 addSubview:diamondButton];
+    [diamondButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(diamondView);
+        make.center.equalTo(diamondView);
     }];
 }
 
@@ -371,4 +388,17 @@
     SKRankViewController *controller = [[SKRankViewController alloc] init];
     [self presentViewController:controller animated:YES completion:nil];
 }
+
+- (void)coinButtonClick:(UIButton*)sender {
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"http://112.74.133.183:8086/index.php?d=home&c=coin&m=diamondIndex&user_id=%@",[[SKStorageManager sharedInstance] getUserID]]];
+    controller.titleString = @"金币";
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)diamondButtonClick:(UIButton*)sender {
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"http://112.74.133.183:8086/index.php?d=home&c=coin&m=coinIndex&user_id=%@",[[SKStorageManager sharedInstance] getUserID]]];
+    controller.titleString = @"宝石";
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 @end

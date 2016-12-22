@@ -12,6 +12,7 @@
 
 #import "UIViewController+ImagePicker.h"
 #import "SKLoginRootViewController.h"
+#import "HTWebController.h"
 
 @interface SKProfileSettingViewController () <UITextFieldDelegate>
 @property (nonatomic, strong) UIScrollView  *scrollView;
@@ -320,7 +321,7 @@
             make.centerY.equalTo(view);
         }];
         
-        if (i==1) {
+        if (i == 1) {
             UILabel *infoLabel = [UILabel new];
             infoLabel.text =  [NSString stringWithFormat:@"V%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
             infoLabel.textColor = [UIColor whiteColor];
@@ -330,6 +331,19 @@
                 make.right.equalTo(arrowImageView.mas_left).offset(-5);
                 make.centerY.equalTo(view);
             }];
+        }
+        
+        UIButton *button = [UIButton new];
+        [view addSubview:button];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(view);
+            make.center.equalTo(view);
+        }];
+        
+        if (i==0) {
+            [button addTarget:self action:@selector(whatIsNineZero:) forControlEvents:UIControlEventTouchUpInside];
+        } else if (i==1) {
+        
         }
     }
 }
@@ -428,6 +442,12 @@
     SKLoginRootViewController *rootController = [[SKLoginRootViewController alloc] init];
     HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
     [[[UIApplication sharedApplication] delegate] window].rootViewController = navController;
+}
+
+- (void)whatIsNineZero:(UIButton*)sender {
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:@"http://112.74.133.183:8086/index.php?d=home&c=coin&m=about"];
+    controller.titleString = @"什么是九零";
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - UITextFieldDelegate
