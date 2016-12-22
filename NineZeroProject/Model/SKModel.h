@@ -200,3 +200,20 @@
 @property (nonatomic, assign)   BOOL        user_gold_head;             //是否有头像边框
 @end
 
+@interface SKDefaultMascotSkill : NSObject;
+@property (nonatomic, assign)   time_t      clue_cooling_time;
+@property (nonatomic, assign)   time_t      answer_cooling_time;
+@property (nonatomic, copy)     NSString    *clue_used_gold;
+@property (nonatomic, copy)     NSString    *answer_used_gold;
+@property (nonatomic, copy)     NSString    *clue_used_gemstone;
+@property (nonatomic, copy)     NSString    *answer_used_gemstone;
+@end
+
+@interface SKDefaultMascotDetail : NSObject
+@property (nonatomic, copy)     NSString    *user_total_gold;
+@property (nonatomic, copy)     NSString    *user_gemstone;
+@property (nonatomic, strong)   SKDefaultMascotSkill    *first_season;
+@property (nonatomic, strong)   SKDefaultMascotSkill    *second_season;
+@end
+
+

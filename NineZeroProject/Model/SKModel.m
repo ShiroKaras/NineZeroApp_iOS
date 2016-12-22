@@ -78,3 +78,9 @@ HTINIT(SKQuestion)
 
 @implementation SKRanker
 @end
+
+@implementation SKDefaultMascotSkill
+@end
+
+@implementation SKDefaultMascotDetail
+@end

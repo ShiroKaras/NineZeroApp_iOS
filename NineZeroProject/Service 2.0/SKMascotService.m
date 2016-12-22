@@ -59,6 +59,18 @@
     }];
 }
 
+//获取默认零仔详情
+- (void)getDefaultMascotDetailCallback:(SKDefaultMascotCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"getPetDetail",
+                            @"pet_id"       :   @"1"
+                            };
+    [self mascotBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        SKDefaultMascotDetail *d = [SKDefaultMascotDetail objectWithKeyValues:response.data];
+        callback(success, d);
+    }];
+}
+
 //获取零仔详情
 - (void)getMascotDetailWithMascotID:(NSString*)mascotID callback:(SKMascotListCallback)callback {
     NSDictionary *param = @{

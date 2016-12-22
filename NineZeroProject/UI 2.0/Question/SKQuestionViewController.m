@@ -741,6 +741,9 @@
     //TODO 答案页
     UITextView *textView = [UITextView new];
     
+    [[[SKServiceManager sharedInstance] questionService] getQuestionAnswerDetailWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKResponsePackage *response) {
+        
+    }];
 }
 
 #pragma mark - Rank View

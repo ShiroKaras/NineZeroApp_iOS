@@ -49,12 +49,18 @@
             } else if ([propType isEqualToString:@"2"]) {
                 responseString = @"获得答案道具";
             }
+            success = YES;
         } else if (response.result == -8001) {
             responseString = @"金币数不够";
+            success = NO;
         } else if (response.result == -8002) {
             responseString = @"宝石数不够";
+            success = NO;
         } else if (response.result == -8003) {
             responseString = @"冷却时间不能购买";
+            success = NO;
+        } else {
+            success = NO;
         }
         callback(success, responseString);
     }];

@@ -53,6 +53,8 @@
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) BOOL      isHad;
 
+@property (nonatomic, strong) UIView *iconBackView;
+@property (nonatomic, strong) UIView *diamondBackView;
 @property (nonatomic, strong) UILabel *iconCountLabel;
 @property (nonatomic, strong) UILabel *diamondCountLabel;
 
@@ -60,8 +62,36 @@
 @property (nonatomic, strong) NSDictionary *mascotNameDict;
 @property (nonatomic, strong) NSArray *mascotSkillIntroArray;
 @property (nonatomic, strong) NSArray<SKPet*> *familyMascotArray;
-@property (nonatomic, strong) UIView *iconBackView;
-@property (nonatomic, strong) UIView *diamondBackView;
+@property (nonatomic, strong) SKDefaultMascotDetail *defaultMascotDetail;
+
+@property (nonatomic, strong) UIButton  *hintS1Button;
+@property (nonatomic, strong) UIButton  *hintS2Button;
+@property (nonatomic, strong) UIButton  *answerS1Button;
+@property (nonatomic, strong) UIButton  *answerS2Button;
+@property (nonatomic, strong) UILabel   *label_2icon_season1;
+@property (nonatomic, strong) UILabel   *label_100icon_season1;
+@property (nonatomic, strong) UILabel   *label_2icon_season2;
+@property (nonatomic, strong) UILabel   *label_100icon_season2;
+
+@property (nonatomic, strong) UIImageView *flagView_season1_1;
+@property (nonatomic, strong) UIImageView *flagView_season1_2;
+@property (nonatomic, strong) UIImageView *flagView_season2_1;
+@property (nonatomic, strong) UIImageView *flagView_season2_2;
+@property (nonatomic, strong) UIImageView *timeDownBackImageView;
+@property (nonatomic, strong) UIImageView *timeDownBackImageView1;
+@property (nonatomic, strong) UIImageView *timeDownBackImageView2;
+@property (nonatomic, strong) UIImageView *timeDownBackImageView3;
+@property (nonatomic, strong) UIImageView *timeDownBackImageView4;
+
+@property (nonatomic, strong) NSTimer   *timerS1Hint;
+@property (nonatomic, strong) NSTimer   *timerS1Answer;
+@property (nonatomic, strong) NSTimer   *timerS2Hint;
+@property (nonatomic, strong) NSTimer   *timerS2Answer;
+
+@property (nonatomic, assign) NSInteger timeDownS1Hint;
+@property (nonatomic, assign) NSInteger timeDownS1Answer;
+@property (nonatomic, assign) NSInteger timeDownS2Hint;
+@property (nonatomic, assign) NSInteger timeDownS2Answer;
 
 @property (nonatomic, strong) UILabel   *familyMascot_1_Label;
 @property (nonatomic, strong) UILabel   *familyMascot_2_Label;
@@ -106,26 +136,60 @@
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
     
     if (self.type == SKMascotTypeDefault) {
-        return;
+        [[[SKServiceManager sharedInstance] mascotService] getDefaultMascotDetailCallback:^(BOOL success, SKDefaultMascotDetail *defaultMascot) {
+            self.defaultMascotDetail = defaultMascot;
+            _iconCountLabel.text = self.defaultMascotDetail.user_total_gold;
+            _diamondCountLabel.text = self.defaultMascotDetail.user_gemstone;
+            _label_2icon_season1.text = self.defaultMascotDetail.first_season.clue_used_gold;
+            _label_100icon_season1.text = self.defaultMascotDetail.first_season.answer_used_gold;
+            _label_2icon_season2.text = self.defaultMascotDetail.second_season.clue_used_gemstone;
+            _label_100icon_season2.text = self.defaultMascotDetail.second_season.answer_used_gemstone;
+            if (self.defaultMascotDetail.first_season.clue_cooling_time) {
+                [_hintS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue_cd"] forState:UIControlStateNormal];
+                _hintS1Button.userInteractionEnabled = NO;
+                _flagView_season1_1.hidden = YES;
+                _timerS1Hint = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeS1Hint) userInfo:nil repeats:YES];
+            }
+            if (self.defaultMascotDetail.first_season.answer_cooling_time) {
+                [_answerS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution_cd"] forState:UIControlStateNormal];
+                _answerS1Button.userInteractionEnabled = NO;
+                _flagView_season1_2.hidden = YES;
+                _timerS1Answer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeS1Answer) userInfo:nil repeats:YES];
+            }
+            if (self.defaultMascotDetail.second_season.clue_cooling_time) {
+                [_hintS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue_cd2"] forState:UIControlStateNormal];
+                _hintS2Button.userInteractionEnabled = NO;
+                _flagView_season2_1.hidden = YES;
+                _timerS2Hint = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeS2Hint) userInfo:nil repeats:YES];
+            }
+            if (self.defaultMascotDetail.second_season.answer_cooling_time) {
+                [_answerS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution_cd2"] forState:UIControlStateNormal];
+                _answerS2Button.userInteractionEnabled = NO;
+                _flagView_season2_2.hidden = YES;
+                _timerS2Answer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeS2Answer) userInfo:nil repeats:YES];
+            }
+        }];
     }
-    //道具数量
-    [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:[NSString stringWithFormat:@"%ld",(long)_type+1] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
-        self.familyMascotArray = mascotArray;
-        _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[0].pet_num];
-        _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[1].pet_num];
-        _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[2].pet_num];
-        _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[3].pet_num];
-        if (self.familyMascotArray[0].pet_num>0&&
-            self.familyMascotArray[1].pet_num>0&&
-            self.familyMascotArray[2].pet_num>0&&
-            self.familyMascotArray[3].pet_num) {
-            [_exchangeButton addTarget:self action:@selector(exchangeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed", _mascotNameArray[_type]]] forState:UIControlStateNormal];
-            [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed_highlight", _mascotNameArray[_type]]] forState:UIControlStateHighlighted];
-        } else {
-            [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound", _mascotNameArray[_type]]] forState:UIControlStateNormal];
-        }
-    }];
+    else {
+        //道具数量
+        [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:[NSString stringWithFormat:@"%ld",(long)_type+1] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
+            self.familyMascotArray = mascotArray;
+            _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[0].pet_num];
+            _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[1].pet_num];
+            _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[2].pet_num];
+            _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[3].pet_num];
+            if (self.familyMascotArray[0].pet_num>0&&
+                self.familyMascotArray[1].pet_num>0&&
+                self.familyMascotArray[2].pet_num>0&&
+                self.familyMascotArray[3].pet_num) {
+                [_exchangeButton addTarget:self action:@selector(exchangeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+                [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed", _mascotNameArray[_type]]] forState:UIControlStateNormal];
+                [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed_highlight", _mascotNameArray[_type]]] forState:UIControlStateHighlighted];
+            } else {
+                [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound", _mascotNameArray[_type]]] forState:UIControlStateNormal];
+            }
+        }];
+    }
 }
 
 - (void)createUIWithType:(SKMascotType)mascotType {
@@ -220,156 +284,165 @@
     //第一季
     [self createResourceInfoUI];
     
-    UIButton *hintS1Button = [UIButton new];
-    [hintS1Button addTarget:self action:@selector(hintS1ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [hintS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue"] forState:UIControlStateNormal];
-    [hintS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue_highlight"] forState:UIControlStateHighlighted];
-    [self addSubview:hintS1Button];
-    [hintS1Button mas_makeConstraints:^(MASConstraintMaker *make) {
+    _timeDownBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"popup_lingzaiskillpage_timer"]];
+    _timeDownBackImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    _hintS1Button = [UIButton new];
+    [_hintS1Button addTarget:self action:@selector(hintS1ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_hintS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue"] forState:UIControlStateNormal];
+    [_hintS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue_highlight"] forState:UIControlStateHighlighted];
+    [self addSubview:_hintS1Button];
+    [_hintS1Button mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(ROUND_WIDTH(70));
         make.height.equalTo(ROUND_HEIGHT(95));
         make.top.equalTo(ROUND_HEIGHT(143));
         make.left.equalTo(ROUND_WIDTH(59));
     }];
     
-    UIButton *answerS1Button = [UIButton new];
-    [answerS1Button addTarget:self action:@selector(answerS1ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [answerS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution"] forState:UIControlStateNormal];
-    [answerS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution_highlight"] forState:UIControlStateHighlighted];
-    [self addSubview:answerS1Button];
-    [answerS1Button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(hintS1Button);
-        make.centerY.equalTo(hintS1Button.mas_centerY);
-        make.left.equalTo(hintS1Button.mas_right).offset(ROUND_WIDTH_FLOAT(62));
+    _answerS1Button = [UIButton new];
+    [_answerS1Button addTarget:self action:@selector(answerS1ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_answerS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution"] forState:UIControlStateNormal];
+    [_answerS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution_highlight"] forState:UIControlStateHighlighted];
+    [self addSubview:_answerS1Button];
+    [_answerS1Button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(_hintS1Button);
+        make.centerY.equalTo(_hintS1Button.mas_centerY);
+        make.left.equalTo(_hintS1Button.mas_right).offset(ROUND_WIDTH_FLOAT(62));
     }];
     
-    UILabel *label_2icon_season1 = [UILabel new];
-    label_2icon_season1.text = @"2";
-    label_2icon_season1.textColor = [UIColor whiteColor];
-    label_2icon_season1.font = MOON_FONT_OF_SIZE(18);
-    [label_2icon_season1 sizeToFit];
-    [self addSubview:label_2icon_season1];
-    [label_2icon_season1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(hintS1Button.mas_bottom).offset(6);
-        make.centerX.equalTo(hintS1Button.mas_centerX).offset(12);
+    _label_2icon_season1 = [UILabel new];
+    _label_2icon_season1.text = @"2";
+    _label_2icon_season1.textColor = [UIColor whiteColor];
+    _label_2icon_season1.font = MOON_FONT_OF_SIZE(18);
+    [_label_2icon_season1 sizeToFit];
+    [self addSubview:_label_2icon_season1];
+    [_label_2icon_season1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_hintS1Button.mas_bottom).offset(6);
+        make.centerX.equalTo(_hintS1Button.mas_centerX).offset(12);
     }];
     
     UIImageView *imageView_icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_gold"]];
     [self addSubview:imageView_icon];
     [imageView_icon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(label_2icon_season1);
-        make.right.equalTo(label_2icon_season1.mas_left).offset(-4);
+        make.centerY.equalTo(_label_2icon_season1);
+        make.right.equalTo(_label_2icon_season1.mas_left).offset(-4);
     }];
     
-    UILabel *label_200icon_season1 = [UILabel new];
-    label_200icon_season1.text = @"200";
-    label_200icon_season1.textColor = [UIColor whiteColor];
-    label_200icon_season1.font = MOON_FONT_OF_SIZE(18);
-    [label_200icon_season1 sizeToFit];
-    [self addSubview:label_200icon_season1];
-    [label_200icon_season1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(answerS1Button.mas_bottom).offset(6);
-        make.centerX.equalTo(answerS1Button.mas_centerX).offset(12);
+    _label_100icon_season1 = [UILabel new];
+    _label_100icon_season1.text = @"100";
+    _label_100icon_season1.textColor = [UIColor whiteColor];
+    _label_100icon_season1.font = MOON_FONT_OF_SIZE(18);
+    [_label_100icon_season1 sizeToFit];
+    [self addSubview:_label_100icon_season1];
+    [_label_100icon_season1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_answerS1Button.mas_bottom).offset(6);
+        make.centerX.equalTo(_answerS1Button.mas_centerX).offset(12);
     }];
     
     UIImageView *imageView_icon_2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_gold"]];
     [self addSubview:imageView_icon_2];
     [imageView_icon_2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(label_200icon_season1);
-        make.right.equalTo(label_200icon_season1.mas_left).offset(-4);
+        make.centerY.equalTo(_label_100icon_season1);
+        make.right.equalTo(_label_100icon_season1.mas_left).offset(-4);
     }];
     
-    UIImageView *flagView_season1_1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_season1"]];
-    [self addSubview:flagView_season1_1];
-    [flagView_season1_1 mas_makeConstraints:^(MASConstraintMaker *make) {
+    _flagView_season1_1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_season1"]];
+    [self addSubview:_flagView_season1_1];
+    [_flagView_season1_1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(ROUND_WIDTH(44));
         make.height.equalTo(ROUND_WIDTH(19));
-        make.left.equalTo(hintS1Button.mas_left).offset(ROUND_WIDTH_FLOAT(40));
-        make.bottom.equalTo(hintS1Button.mas_bottom).offset(ROUND_HEIGHT_FLOAT(-82));
+        make.left.equalTo(_hintS1Button.mas_left).offset(ROUND_WIDTH_FLOAT(40));
+        make.bottom.equalTo(_hintS1Button.mas_bottom).offset(ROUND_HEIGHT_FLOAT(-82));
     }];
     
-    UIImageView *flagView_season1_2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_season1"]];
-    [self addSubview:flagView_season1_2];
-    [flagView_season1_2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(flagView_season1_1);
-        make.left.equalTo(answerS1Button).offset(ROUND_WIDTH_FLOAT(40));
-        make.bottom.equalTo(answerS1Button).offset(ROUND_HEIGHT_FLOAT(-82));
+    _flagView_season1_2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_season1"]];
+    [self addSubview:_flagView_season1_2];
+    [_flagView_season1_2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(_flagView_season1_1);
+        make.left.equalTo(_answerS1Button).offset(ROUND_WIDTH_FLOAT(40));
+        make.bottom.equalTo(_answerS1Button).offset(ROUND_HEIGHT_FLOAT(-82));
+    }];
+    
+    _timeDownBackImageView1 = [_timeDownBackImageView copy];
+    [self addSubview:_timeDownBackImageView1];
+    [_timeDownBackImageView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(ROUND_WIDTH(44));
     }];
     
     //第二季
     
-    UIButton *hintS2Button = [UIButton new];
-    [hintS2Button addTarget:self action:@selector(hintS2ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [hintS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue"] forState:UIControlStateNormal];
-    [hintS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue_highlight"] forState:UIControlStateHighlighted];
-    [self addSubview:hintS2Button];
-    [hintS2Button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(hintS1Button);
+    _hintS2Button = [UIButton new];
+    [_hintS2Button addTarget:self action:@selector(hintS2ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_hintS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue_highlight"] forState:UIControlStateNormal];
+    [_hintS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue"] forState:UIControlStateHighlighted];
+    [self addSubview:_hintS2Button];
+    [_hintS2Button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(_hintS1Button);
         make.top.equalTo(imageView_icon.mas_bottom).offset(46);
-        make.centerX.equalTo(hintS1Button.mas_centerX);
+        make.centerX.equalTo(_hintS1Button.mas_centerX);
     }];
     
-    UIButton *answerS2Button = [UIButton new];
-    [answerS2Button addTarget:self action:@selector(answerS2ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [answerS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution"] forState:UIControlStateNormal];
-    [answerS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution_highlight"] forState:UIControlStateHighlighted];
-    [self addSubview:answerS2Button];
-    [answerS2Button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(hintS1Button);
-        make.centerX.equalTo(answerS1Button);
-        make.centerY.equalTo(hintS2Button);
+    _answerS2Button = [UIButton new];
+    [_answerS2Button addTarget:self action:@selector(answerS2ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_answerS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution_highlight"] forState:UIControlStateNormal];
+    [_answerS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution"] forState:UIControlStateHighlighted];
+    [self addSubview:_answerS2Button];
+    [_answerS2Button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(_hintS1Button);
+        make.centerX.equalTo(_answerS1Button);
+        make.centerY.equalTo(_hintS2Button);
     }];
     
-    UILabel *label_2icon_season2 = [UILabel new];
-    label_2icon_season2.text = @"2";
-    label_2icon_season2.textColor = [UIColor whiteColor];
-    label_2icon_season2.font = MOON_FONT_OF_SIZE(18);
-    [label_2icon_season2 sizeToFit];
-    [self addSubview:label_2icon_season2];
-    [label_2icon_season2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(hintS2Button.mas_bottom).offset(6);
-        make.centerX.equalTo(hintS2Button.mas_centerX).offset(12);
+    _label_2icon_season2 = [UILabel new];
+    _label_2icon_season2.text = @"1";
+    _label_2icon_season2.textColor = [UIColor whiteColor];
+    _label_2icon_season2.font = MOON_FONT_OF_SIZE(18);
+    [_label_2icon_season2 sizeToFit];
+    [self addSubview:_label_2icon_season2];
+    [_label_2icon_season2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_hintS2Button.mas_bottom).offset(6);
+        make.centerX.equalTo(_hintS2Button.mas_centerX).offset(12);
     }];
     
     UIImageView *imageView_diamond = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_diamonds"]];
     [self addSubview:imageView_diamond];
     [imageView_diamond mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(label_2icon_season2);
-        make.right.equalTo(label_2icon_season2.mas_left).offset(-4);
+        make.centerY.equalTo(_label_2icon_season2);
+        make.right.equalTo(_label_2icon_season2.mas_left).offset(-4);
     }];
     
-    UILabel *label_200icon_season2 = [UILabel new];
-    label_200icon_season2.text = @"200";
-    label_200icon_season2.textColor = [UIColor whiteColor];
-    label_200icon_season2.font = MOON_FONT_OF_SIZE(18);
-    [label_200icon_season2 sizeToFit];
-    [self addSubview:label_200icon_season2];
-    [label_200icon_season2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(answerS2Button.mas_bottom).offset(6);
-        make.centerX.equalTo(answerS2Button.mas_centerX).offset(12);
+    _label_100icon_season2 = [UILabel new];
+    _label_100icon_season2.text = @"5";
+    _label_100icon_season2.textColor = [UIColor whiteColor];
+    _label_100icon_season2.font = MOON_FONT_OF_SIZE(18);
+    [_label_100icon_season2 sizeToFit];
+    [self addSubview:_label_100icon_season2];
+    [_label_100icon_season2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_answerS2Button.mas_bottom).offset(6);
+        make.centerX.equalTo(_answerS2Button.mas_centerX).offset(12);
     }];
     
     UIImageView *imageView_diamond_2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_diamonds"]];
     [self addSubview:imageView_diamond_2];
     [imageView_diamond_2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(label_200icon_season2);
-        make.right.equalTo(label_200icon_season2.mas_left).offset(-4);
+        make.centerY.equalTo(_label_100icon_season2);
+        make.right.equalTo(_label_100icon_season2.mas_left).offset(-4);
     }];
     
-    UIImageView *flagView_season2_1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_season2"]];
-    [self addSubview:flagView_season2_1];
-    [flagView_season2_1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(flagView_season1_1);
-        make.left.equalTo(hintS2Button).offset(ROUND_WIDTH_FLOAT(40));
-        make.bottom.equalTo(hintS2Button).offset(ROUND_HEIGHT_FLOAT(-82));
+    _flagView_season2_1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_season2"]];
+    [self addSubview:_flagView_season2_1];
+    [_flagView_season2_1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(_flagView_season1_1);
+        make.left.equalTo(_hintS2Button).offset(ROUND_WIDTH_FLOAT(40));
+        make.bottom.equalTo(_hintS2Button).offset(ROUND_HEIGHT_FLOAT(-82));
     }];
     
-    UIImageView *flagView_season2_2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_season2"]];
-    [self addSubview:flagView_season2_2];
-    [flagView_season2_2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(flagView_season1_1);
-        make.left.equalTo(answerS2Button).offset(ROUND_WIDTH_FLOAT(40));
-        make.bottom.equalTo(answerS2Button).offset(ROUND_HEIGHT_FLOAT(-82));
+    _flagView_season2_2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_season2"]];
+    [self addSubview:_flagView_season2_2];
+    [_flagView_season2_2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(_flagView_season1_1);
+        make.left.equalTo(_answerS2Button).offset(ROUND_WIDTH_FLOAT(40));
+        make.bottom.equalTo(_answerS2Button).offset(ROUND_HEIGHT_FLOAT(-82));
     }];
 }
 
@@ -483,12 +556,26 @@
 
 - (void)closeButtonClick:(UIButton *)sender {
     [self removeFromSuperview];
+    [_timerS1Hint invalidate];
+    _timerS1Hint = nil;
+    [_timerS1Answer invalidate];
+    _timerS1Answer = nil;
+    [_timerS2Hint invalidate];
+    _timerS2Hint = nil;
+    [_timerS2Answer invalidate];
+    _timerS2Answer = nil;
 }
 
 //第一季 线索
 - (void)hintS1ButtonClick:(UIButton *)sender {
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"1" propType:@"1" callback:^(BOOL success, NSString *responseString) {
         [[self viewController] showTipsWithText:responseString];
+        if (success) {
+            _iconCountLabel.text = [NSString stringWithFormat:@"%ld", [_iconCountLabel.text integerValue]-[self.defaultMascotDetail.first_season.clue_used_gold integerValue]];
+            [_hintS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue_cd"] forState:UIControlStateNormal];
+            _hintS1Button.userInteractionEnabled = NO;
+            _flagView_season1_1.hidden = YES;
+        }
     }];
 }
 
@@ -496,6 +583,12 @@
 - (void)answerS1ButtonClick:(UIButton *)sender {
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"1" propType:@"2" callback:^(BOOL success, NSString *responseString) {
         [[self viewController] showTipsWithText:responseString];
+        if (success) {
+            _iconCountLabel.text = [NSString stringWithFormat:@"%ld", [_iconCountLabel.text integerValue]-[self.defaultMascotDetail.first_season.answer_used_gold integerValue]];
+            [_answerS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution_cd"] forState:UIControlStateNormal];
+            _answerS1Button.userInteractionEnabled = NO;
+            _flagView_season1_2.hidden = YES;
+        }
     }];
 }
 
@@ -503,14 +596,104 @@
 - (void)hintS2ButtonClick:(UIButton *)sender {
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"2" propType:@"1" callback:^(BOOL success, NSString *responseString) {
         [[self viewController] showTipsWithText:responseString];
+        if (success) {
+            _diamondCountLabel.text = [NSString stringWithFormat:@"%ld", [_diamondCountLabel.text integerValue]-[self.defaultMascotDetail.second_season.clue_used_gemstone integerValue]];
+            [_hintS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue_cd2"] forState:UIControlStateNormal];
+            _hintS2Button.userInteractionEnabled = NO;
+            _flagView_season2_1.hidden = YES;
+        }
     }];
 }
 
 //第二季 答案
 - (void)answerS2ButtonClick:(UIButton *)sender {
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"2" propType:@"2" callback:^(BOOL success, NSString *responseString) {
-        [[self viewController] showTipsWithText:responseString];
+        _diamondCountLabel.text = [NSString stringWithFormat:@"%ld", [_diamondCountLabel.text integerValue]-[self.defaultMascotDetail.second_season.answer_used_gemstone integerValue]];
+        if (success) {
+            [[self viewController] showTipsWithText:responseString];
+            [_answerS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution_cd2"] forState:UIControlStateNormal];
+            _answerS2Button.userInteractionEnabled = NO;
+            _flagView_season2_2.hidden = YES;
+        }
     }];
+}
+
+//倒计时
+- (void)timeS1Hint {
+    time_t delta = self.defaultMascotDetail.first_season.clue_cooling_time;
+    time_t oneHour = 3600;
+    time_t hour = delta / oneHour;
+    time_t minute = (delta % oneHour) / 60;
+    time_t second = delta - hour * oneHour - minute * 60;
+    self.defaultMascotDetail.first_season.clue_cooling_time--;
+    if (delta > 0) {
+        NSLog(@"%@", [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second]);
+    } else {
+        // 过去时间
+        _flagView_season1_1.hidden = NO;
+    }
+}
+
+- (void)timeS1Answer {
+    time_t delta = self.defaultMascotDetail.first_season.answer_cooling_time;
+    time_t oneHour = 3600;
+    time_t hour = delta / oneHour;
+    time_t minute = (delta % oneHour) / 60;
+    time_t second = delta - hour * oneHour - minute * 60;
+    self.defaultMascotDetail.first_season.clue_cooling_time--;
+    if (delta > 0) {
+        NSLog(@"%@", [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second]);
+    } else {
+        // 过去时间
+        _flagView_season1_2.hidden = NO;
+    }
+}
+
+- (void)timeS2Hint {
+    time_t delta = self.defaultMascotDetail.second_season.clue_cooling_time;
+    time_t oneHour = 3600;
+    time_t hour = delta / oneHour;
+    time_t minute = (delta % oneHour) / 60;
+    time_t second = delta - hour * oneHour - minute * 60;
+    self.defaultMascotDetail.first_season.clue_cooling_time--;
+    if (delta > 0) {
+        NSLog(@"%@", [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second]);
+    } else {
+        // 过去时间
+        _flagView_season2_1.hidden = YES;
+    }
+}
+
+- (void)timeS2Answer {
+    time_t delta = self.defaultMascotDetail.second_season.answer_cooling_time;
+    time_t oneHour = 3600;
+    time_t hour = delta / oneHour;
+    time_t minute = (delta % oneHour) / 60;
+    time_t second = delta - hour * oneHour - minute * 60;
+    self.defaultMascotDetail.first_season.clue_cooling_time--;
+    if (delta > 0) {
+        NSLog(@"%@", [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second]);
+    } else {
+        // 过去时间
+        _flagView_season2_2.hidden = YES;
+    }
+}
+
+- (void)timeFireMethod {
+    
+    
+//    self.secondsCoundDown --;
+//    //更新按钮倒计时时间
+//    self.time = [NSMutableString stringWithFormat:@"(%lds)Resend validation messages",(long)self.secondsCoundDown];
+//    [self.resentButton setTitle:self.time forState:UIControlStateDisabled];
+//    if (self.secondsCoundDown == 0) {
+//        [self.countDownTimer invalidate];
+//        self.countDownTimer = nil;
+//        //设置按钮可点击
+//        [self.resentButton setEnabled:YES];
+//        [self.resentButton setTitle:@"Resend validation messages" forState:UIControlStateDisabled];
+//    }
+//    NSLog(@"%ld",(long)self.secondsCoundDown);
 }
 
 //获取view对应的控制器

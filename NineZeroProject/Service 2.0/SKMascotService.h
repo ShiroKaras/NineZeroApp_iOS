@@ -11,6 +11,7 @@
 #import "SKLogicHeader.h"
 
 typedef void (^SKMascotListCallback) (BOOL success, NSArray<SKPet*> *mascotArray);
+typedef void (^SKDefaultMascotCallback) (BOOL success, SKDefaultMascotDetail *defaultMascot);
 
 @interface SKMascotService : NSObject
 
@@ -20,7 +21,10 @@ typedef void (^SKMascotListCallback) (BOOL success, NSArray<SKPet*> *mascotArray
 //获取所有家族零仔
 - (void)getFamilyMascotCallback:(SKResponseCallback)callback;
 
-//获取零仔详情
+//获取默认零仔详情
+- (void)getDefaultMascotDetailCallback:(SKDefaultMascotCallback)callback;
+
+//获取其他零仔详情
 - (void)getMascotDetailWithMascotID:(NSString*)mascotID callback:(SKMascotListCallback)callback;
 
 //使用零仔技能
