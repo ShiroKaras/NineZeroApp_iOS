@@ -414,6 +414,7 @@
 #pragma mark - Actions
 
 - (void)clearCache {
+    [TalkingData trackEvent:@"clearcache"];
     NSString *cacheFilePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
     [FileService clearCache:cacheFilePath];
     [self listFileAtPath:cacheFilePath];

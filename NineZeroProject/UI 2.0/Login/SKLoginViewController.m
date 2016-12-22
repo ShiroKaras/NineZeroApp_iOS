@@ -160,6 +160,7 @@
 }
 
 - (void)resetPasswordButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"weixinregister"];
     SKResetPasswordViewController *controller = [[SKResetPasswordViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }

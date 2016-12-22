@@ -139,19 +139,21 @@
 #pragma mark - Actions
 
 - (void)registerButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"register"];
     SKRegisterViewController *controller = [[SKRegisterViewController alloc] init];
     UINavigationController *root = [[UINavigationController alloc] initWithRootViewController:controller];
     [self presentViewController:root animated:YES completion:nil];
 }
 
 - (void)loginButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"login"];
     SKLoginViewController *controller = [[SKLoginViewController alloc] init];
     UINavigationController *root = [[UINavigationController alloc] initWithRootViewController:controller];
     [self presentViewController:root animated:YES completion:nil];
 }
 
 - (void)loginButtonWeixinClicked:(id)sender {
-    [TalkingData trackEvent:@"weixinregister"];
+    [TalkingData trackEvent:@"fogetpassword"];
     [ShareSDK getUserInfo:SSDKPlatformTypeWechat
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
      {

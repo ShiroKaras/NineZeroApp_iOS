@@ -236,11 +236,13 @@
 }
 
 - (void)timeLimitQuestionButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"timelimit"];
     SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:self.indexInfo.qid endTime:_endTime];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)allLevelQuestionButtonClick:(UIButton*)sender {
+    [TalkingData trackEvent:@"alllevels"];
     SKAllQuestionViewController *controller = [[SKAllQuestionViewController alloc] init];
     controller.isMonday = self.isMonday;
     HTNavigationController *rootController = [[HTNavigationController alloc] initWithRootViewController:controller];
@@ -248,22 +250,26 @@
 }
 
 - (void)mascotButtonClick:(UIButton*)sender {
+    [TalkingData trackEvent:@"lingzai"];
     SKMascotIndexViewController *controller = [[SKMascotIndexViewController alloc] init];
     [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)rankButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"rankinglist"];
     SKRankViewController *controller = [[SKRankViewController alloc] init];
     [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)meButtonClick:(UIButton*)sender {
+    [TalkingData trackEvent:@"myhomepage"];
     SKProfileIndexViewController *controller = [[SKProfileIndexViewController alloc] init];
     HTNavigationController *rootController = [[HTNavigationController alloc] initWithRootViewController:controller];
     [self presentViewController:rootController animated:YES completion:nil];
 }
 
 - (void)settingButtonClick:(UIButton*)sender {
+    [TalkingData trackEvent:@"setting"];
     SKProfileSettingViewController *controller = [[SKProfileSettingViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }

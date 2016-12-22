@@ -465,10 +465,12 @@
 }
 
 - (void)season1ButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"seasonone"];
     self.season = 1;
 }
 
 - (void)season2ButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"seasontwo"];
     self.season = 2;
 }
 

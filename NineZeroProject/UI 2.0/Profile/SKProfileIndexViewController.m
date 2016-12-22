@@ -346,11 +346,13 @@
 }
 
 - (void)myTicketsClick {
+    [TalkingData trackEvent:@"gift"];
     SKProfileMyTicketsViewController *controller = [[SKProfileMyTicketsViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)myBadgesClick {
+    [TalkingData trackEvent:@"badge"];
     SKMyBadgesViewController *controller = [[SKMyBadgesViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }

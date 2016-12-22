@@ -90,9 +90,11 @@
     [UIView commitAnimations];
     
     if (self.type == SKRankViewTypeSeason2) {
+        [TalkingData trackEvent:@"lastseason"];
         self.type = SKRankViewTypeSeason1;
         [sender setBackgroundImage:[UIImage imageNamed:@"btn_rank_season2"] forState:UIControlStateNormal];
     } else if (self.type == SKRankViewTypeSeason1) {
+        [TalkingData trackEvent:@"theseason"];
         self.type = SKRankViewTypeSeason2;
         [sender setBackgroundImage:[UIImage imageNamed:@"btn_rank_season1"] forState:UIControlStateNormal];
     }

@@ -17,20 +17,22 @@
 #import "SKDescriptionView.h"
 #import "SKMascotView.h"
 #import "SKQuestionRewardView.h"
+#import "SKHelperView.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
 #define TOP_PADDING 57
 
-@interface SKQuestionViewController () <SKComposeViewDelegate>
+@interface SKQuestionViewController () <SKComposeViewDelegate, SKHelperScrollViewDelegate>
 
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) BOOL isAnswered;
 @property (nonatomic, assign) SKQuestionType type;
 
-@property (nonatomic, strong) UIView *dimmingView;
-@property (nonatomic, strong) UILabel *chapterNumberLabel;
-@property (nonatomic, strong) UILabel *chapterTitleLabel;
-@property (nonatomic, strong) UILabel *chapterSubTitleLabel;
+@property (nonatomic, strong) UIButton  *helpButton;
+@property (nonatomic, strong) UIView    *dimmingView;
+@property (nonatomic, strong) UILabel   *chapterNumberLabel;
+@property (nonatomic, strong) UILabel   *chapterTitleLabel;
+@property (nonatomic, strong) UILabel   *chapterSubTitleLabel;
 
 @property (nonatomic, strong) UIView *playBackView;
 @property (nonatomic, strong) UIButton *playButton;
@@ -267,11 +269,11 @@
     _timeView.bottom = _playBackView.top -3;
     
     // 帮助按钮
-    UIButton *helpButton = [UIButton new];
-    [helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
-    [helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help_highlight"] forState:UIControlStateHighlighted];
-    [self.view addSubview:helpButton];
-    [helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    _helpButton = [UIButton new];
+    [_helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
+    [_helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:_helpButton];
+    [_helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@40);
         make.height.equalTo(@40);
         make.top.equalTo(@12);
@@ -454,6 +456,7 @@
 }
 
 - (void)showAnswerPropAlertView {
+    [TalkingData trackEvent:@"props"];
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
     _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
@@ -612,8 +615,9 @@
     sender.layer.borderColor = [UIColor whiteColor].CGColor;
 }
 
-//使用道具
+//使用答案道具
 - (void)usePropButtonOnClick:(UIButton*)sender {
+    [TalkingData trackEvent:@"answerprops"];
     for (UIView *view in _dimmingView.subviews) {
         [view removeFromSuperview];
     }
@@ -671,6 +675,7 @@
 
 //获取提示
 - (void)getHintButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"cueprops"];
     UIView *alertViewBackView = [[UIView alloc] initWithFrame:self.view.bounds];
     alertViewBackView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:alertViewBackView];
@@ -1153,12 +1158,14 @@
 }
 
 - (void)play {
+    [TalkingData trackEvent:@"play"];
     _playButton.hidden = YES;
     _coverImageView.hidden = YES;
     [_player play];
 }
 
 - (void)replay {
+    [TalkingData trackEvent:@"replay"];
     [_player seekToTime:CMTimeMake(0, 1)];
     [self play];
 }
@@ -1218,6 +1225,7 @@
 }
 
 - (void)answerButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"answer"];
     _composeView = [[SKComposeView alloc] initWithQustionID:self.currentQuestion.qid frame:CGRectMake(0, 0, self.view.width, self.view.height)];
     _composeView.associatedQuestion = self.currentQuestion;
     _composeView.delegate = self;
@@ -1233,9 +1241,55 @@
 }
 
 - (void)contentViewClick {
+    [TalkingData trackEvent:@"chapterstory"];
     _descriptionView = [[SKDescriptionView alloc] initWithURLString:self.currentQuestion.description_url andType:SKDescriptionTypeQuestion andImageUrl:self.currentQuestion.description_pic];
     [self.view addSubview:_descriptionView];
     [_descriptionView showAnimated];
+}
+
+- (void)helpButtonClicked:(UIButton *)sender {
+    [TalkingData trackEvent:@"noviceguide"];
+    [self pause];
+    SKHelperScrollView *helpView;
+    if (self.currentQuestion.base_type == 2 || self.currentQuestion.base_type == 1) {
+        helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
+    } else if (self.currentQuestion.base_type == 0){
+        helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeTimeLimitQuestion];
+    }
+    helpView.delegate = self;
+    helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
+    helpView.dimmingView.alpha = 0;
+    [self.view addSubview:helpView];
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        helpView.dimmingView.alpha = 0.9;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+#pragma mark - SKHelperScrollViewDelegate
+
+- (void)didClickCompleteButton {
+    [_helpButton setImage:[UIImage imageNamed:@"btn_help_highlight"] forState:UIControlStateNormal];
+    [UIView animateWithDuration:0.075 animations:^{
+        _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 1.1, 1.1);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.075 animations:^{
+            _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 0.9, 0.9);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.075 animations:^{
+                _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 1.1, 1.1);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.075 animations:^{
+                    _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 0.9, 0.9);
+                } completion:^(BOOL finished) {
+                    [_helpButton setImage:[UIImage imageNamed:@"btn_help"] forState:UIControlStateNormal];
+                }];
+            }];
+        }];
+    }];
 }
 
 #pragma mark - Keyboard
@@ -1334,6 +1388,12 @@
                 make.top.equalTo(_contentView.mas_bottom);
                 make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*1+ROUND_WIDTH_FLOAT(40)/2-9.5));
             }];
+        }
+        
+        if (self.currentIndex == 1) {
+            [TalkingData trackEvent:@"exanswer"];
+        } else if (self.currentIndex == 3) {
+            [TalkingData trackEvent:@"exgift"];
         }
     } else if ([keyPath isEqualToString:@"isAnswered"]) {
         if (self.isAnswered == YES) {
