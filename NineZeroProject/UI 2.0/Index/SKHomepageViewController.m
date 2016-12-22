@@ -143,8 +143,8 @@
     //全部关卡
     UIButton *allLevelButton = [UIButton new];
     [allLevelButton addTarget:self action:@selector(allLevelQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional_level"] forState:UIControlStateNormal];
-    [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional_level_highlight"] forState:UIControlStateHighlighted];
+    [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional"] forState:UIControlStateNormal];
+    [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:allLevelButton];
     [allLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.equalTo(_timeLimitLevelButton);
