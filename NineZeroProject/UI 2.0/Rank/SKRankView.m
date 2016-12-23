@@ -95,31 +95,55 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (_rankerList.count == 0) return 0;
+    if (_rankerList.count == 0) return 1;
     if (_rankerList.count > 100) {
-        return 99;
+        if (self.type == SKRankViewTypeSeason1)
+            return 98;
+        else if (self.type == SKRankViewTypeSeason2)
+            return 99;
+        else
+            return 0;
     } else {
-        return _rankerList.count - 1;
+        if (self.type == SKRankViewTypeSeason1)
+            return _rankerList.count - 2;
+        else if (self.type == SKRankViewTypeSeason2)
+            return _rankerList.count - 1;
+        else
+            return 0;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HTProfileRankCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileRankCell class])   forIndexPath:indexPath];
-    
-    if (indexPath.row == 0) {
-        NSArray<SKRanker*>* topRankers = [NSArray arrayWithObjects:_rankerList[0], _rankerList[1], _rankerList[2], nil];
-        [cell setTopThreeRankers:topRankers withType:self.type];
-        return cell;
-    } else if (indexPath.row == 1) {
-        [cell setRanker:_myRank withType:self.type];
-        [cell showWithMe:YES];
-        return cell;
-    } else {
-        SKRanker *ranker = _rankerList[indexPath.row +1];
-        [cell setRanker:ranker withType:self.type];
-        [cell showWithMe:NO];
-        return cell;
-    }
+    if (self.type == SKRankViewTypeSeason1) {
+        HTProfileRankCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileRankCell class])   forIndexPath:indexPath];
+        if (indexPath.row == 0) {
+            NSArray<SKRanker*>* topRankers = [NSArray arrayWithObjects:_rankerList[0], _rankerList[1], _rankerList[2], nil];
+            [cell setTopThreeRankers:topRankers withType:self.type];
+            return cell;
+        }else {
+            SKRanker *ranker = _rankerList[indexPath.row +2];
+            [cell setRanker:ranker withType:self.type];
+            [cell showWithMe:NO];
+            return cell;
+        }
+    } else if (self.type == SKRankViewTypeSeason2) {
+        HTProfileRankCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileRankCell class])   forIndexPath:indexPath];
+        if (indexPath.row == 0) {
+            NSArray<SKRanker*>* topRankers = [NSArray arrayWithObjects:_rankerList[0], _rankerList[1], _rankerList[2], nil];
+            [cell setTopThreeRankers:topRankers withType:self.type];
+            return cell;
+        } else if (indexPath.row == 1) {
+            [cell setRanker:_myRank withType:self.type];
+            [cell showWithMe:YES];
+            return cell;
+        } else {
+            SKRanker *ranker = _rankerList[indexPath.row +1];
+            [cell setRanker:ranker withType:self.type];
+            [cell showWithMe:NO];
+            return cell;
+        }
+    } else
+        return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
