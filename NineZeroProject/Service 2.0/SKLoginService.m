@@ -10,9 +10,6 @@
 #import "SKStorageManager.h"
 #import "SKModel.h"
 
-#import "NSString+AES256.h"
-#define AES_KEY @"a!dg#8ai@o43ht9s"
-
 @implementation SKLoginService
 
 - (void)loginBaseRequestWithParam:(NSDictionary*)dict callback:(SKResponseCallback)callback {
@@ -26,15 +23,17 @@
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     DLog(@"Json ParamString: %@", jsonString);
-    NSDictionary *param = @{@"data" : jsonString};
+    
+    NSDictionary *param = @{@"data" : [NSString encryptUseDES:jsonString key:nil]};
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager loginBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"Response:%@",responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        NSString *desString = [NSString decryptUseDES:responseObject[@"data"] key:nil];
+        DLog(@"Response:%@",desString);
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:desString];
         callback(YES, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        callback(NO, nil);
         DLog(@"%@", error);
+        callback(NO, nil);
     }];
 }
 

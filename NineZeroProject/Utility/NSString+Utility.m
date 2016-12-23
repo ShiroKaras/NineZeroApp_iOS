@@ -17,6 +17,9 @@
 #import "SKServiceManager.h"
 #import "SKStorageManager.h"
 
+#import "NSString+DES.h"
+#define KEY @"keCzt$IAs"
+
 @implementation NSString (Utility)
 
 + (NSString *)md5HexDigest:(NSString *)input {
@@ -75,7 +78,14 @@
     return [[NSString stringWithFormat:@"%01$@%02$@%02$@%02$@", loginUser.user_password, loginUser.user_mobile] sha256];
 }
 
-//HmacSHA1加密；
+#pragma mark - 参数加密
+
+- (NSString *)encParamWithJsonString:(NSString *)jsonString {
+    NSString *desString = [NSString encryptUseDES:jsonString key:KEY];
+    return desString;
+}
+
+#pragma mark - HmacSHA1加密；
 + (NSString *)hmacSha1:(NSString *)key data:(NSString *)data
 {
     const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];

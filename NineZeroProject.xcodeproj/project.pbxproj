@@ -112,6 +112,7 @@
 		11F2185E1CBB951300D2ED44 /* ShareSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11F218511CBB951300D2ED44 /* ShareSDK.bundle */; };
 		11F2185F1CBB951300D2ED44 /* ShareSDKConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218521CBB951300D2ED44 /* ShareSDKConnector.framework */; };
 		11F218611CBB986E00D2ED44 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218601CBB986E00D2ED44 /* ImageIO.framework */; };
+		11F706371E0CD802004332C2 /* NSString+DES.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F706361E0CD802004332C2 /* NSString+DES.m */; };
 		11FF643D1DDD5C3500768080 /* SKLoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FF643C1DDD5C3500768080 /* SKLoginRootViewController.m */; };
 		1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706CB4A1BFA542E00E59255 /* NSString+Utility.m */; };
 		17116D051C9D366200530B7C /* HTPropChangedPopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17116D041C9D366200530B7C /* HTPropChangedPopController.m */; };
@@ -1044,6 +1045,8 @@
 		11F218511CBB951300D2ED44 /* ShareSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDK.bundle; sourceTree = "<group>"; };
 		11F218521CBB951300D2ED44 /* ShareSDKConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConnector.framework; sourceTree = "<group>"; };
 		11F218601CBB986E00D2ED44 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		11F706351E0CD802004332C2 /* NSString+DES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DES.h"; sourceTree = "<group>"; };
+		11F706361E0CD802004332C2 /* NSString+DES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DES.m"; sourceTree = "<group>"; };
 		11FF643B1DDD5C3500768080 /* SKLoginRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKLoginRootViewController.h; path = "NineZeroProject/UI 2.0/Login/SKLoginRootViewController.h"; sourceTree = "<group>"; };
 		11FF643C1DDD5C3500768080 /* SKLoginRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKLoginRootViewController.m; path = "NineZeroProject/UI 2.0/Login/SKLoginRootViewController.m"; sourceTree = "<group>"; };
 		1706CB491BFA542E00E59255 /* NSString+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utility.h"; sourceTree = "<group>"; };
@@ -2375,6 +2378,15 @@
 			path = Required;
 			sourceTree = "<group>";
 		};
+		11F706341E0CD802004332C2 /* DES */ = {
+			isa = PBXGroup;
+			children = (
+				11F706351E0CD802004332C2 /* NSString+DES.h */,
+				11F706361E0CD802004332C2 /* NSString+DES.m */,
+			);
+			path = DES;
+			sourceTree = "<group>";
+		};
 		11FF643A1DDD5BF500768080 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -3245,6 +3257,7 @@
 		174C53351BE7A55400893C22 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				11F706341E0CD802004332C2 /* DES */,
 				17B8F7441C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.h */,
 				17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */,
 				174C53361BE7A57000893C22 /* CommonUI.h */,
@@ -4742,6 +4755,7 @@
 				17A92CCD1CA809B100BE893D /* MJRefreshComponent.m in Sources */,
 				17BE47371C86039F00797E8E /* HTProfileRankController.m in Sources */,
 				176C8FC71C00E88B00BEC4AB /* UIViewController+ImagePicker.m in Sources */,
+				11F706371E0CD802004332C2 /* NSString+DES.m in Sources */,
 				1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */,
 				17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */,
 				1174180F1D89396400B5458F /* SKCardTimeView.m in Sources */,

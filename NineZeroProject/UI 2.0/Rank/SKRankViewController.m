@@ -18,6 +18,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
+    
     SKRankView *view2 = [[SKRankView alloc] initWithFrame:self.view.bounds type:SKRankViewTypeSeason1];
     view2.tag = 100;
     [self.view addSubview:view2];

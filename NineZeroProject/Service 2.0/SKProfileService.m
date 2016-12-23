@@ -21,19 +21,21 @@
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSDictionary *param = @{@"data" : jsonString};
+    
+    NSDictionary *param = @{@"data" : [NSString encryptUseDES:jsonString key:nil]};
     
     [[AFHTTPRequestOperationManager manager] POST:[SKCGIManager profileBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"Response:%@",responseObject);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        NSString *desString = [NSString decryptUseDES:responseObject[@"data"] key:nil];
+        DLog(@"Response:%@",desString);
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:desString];
         if (package.result == 0) {
             callback(YES, package);
         } else {
             DLog(@"%ld",(long)package.result);
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        callback(NO, nil);
         DLog(@"%@", error);
+        callback(NO, nil);
     }];
 }
 

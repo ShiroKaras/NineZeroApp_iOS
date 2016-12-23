@@ -10,6 +10,7 @@
 #define SKNetworkDefine_h
 
 #import "SKModel.h"
+#import "NSString+DES.h"
 
 // 公用
 typedef void (^HTHTTPErrorCallback) (NSString *errorMessage);
