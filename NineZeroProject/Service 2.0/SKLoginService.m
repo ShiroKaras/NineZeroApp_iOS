@@ -39,6 +39,8 @@
 }
 
 - (void)registerWith:(SKLoginUser *)user callback:(SKResponseCallback)callback {
+    user.user_password = [NSString confusedPasswordWithLoginUser:user];
+    
     NSDictionary *param = @{
                             @"method"       :   @"register",
                             @"user_name"    :   user.user_name,

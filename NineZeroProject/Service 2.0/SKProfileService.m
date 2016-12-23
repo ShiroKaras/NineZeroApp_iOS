@@ -77,12 +77,19 @@
 }
 
 //获取个人通知列表
-- (void)getUserNotificationCallback:(SKResponseCallback)callback {
+- (void)getUserNotificationCallback:(SKGetNotificationsCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"getNotice"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        NSMutableArray *notificationArray = [NSMutableArray array];
+        if ([response.data count]>0) {
+            for (int i=0; i<[response.data count]; i++) {
+                SKNotification *notification = [SKNotification objectWithKeyValues:response.data[i]];
+                [notificationArray addObject:notification];
+            }
+        }
+        callback(success, notificationArray);
     }];
 }
 
