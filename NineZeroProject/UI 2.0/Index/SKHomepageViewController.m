@@ -17,6 +17,7 @@
 #import "SKProfileSettingViewController.h"
 #import "HTProfileRankController.h"
 #import "SKRankViewController.h"
+#import "HTNotificationController.h"
 
 @interface SKHomepageViewController ()
 
@@ -116,6 +117,7 @@
     }];
 
     UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [notificationButton addTarget:self action:@selector(notificationButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     notificationButton.backgroundColor = COMMON_SEPARATOR_COLOR;
     notificationButton.layer.cornerRadius = 15;
     [notificationButton setImage:[UIImage imageNamed:@"btn_homepage_news"] forState:UIControlStateNormal];
@@ -274,6 +276,11 @@
 - (void)settingButtonClick:(UIButton*)sender {
     [TalkingData trackEvent:@"setting"];
     SKProfileSettingViewController *controller = [[SKProfileSettingViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)notificationButtonClick:(UIButton*)sender {
+    HTNotificationController *controller = [[HTNotificationController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

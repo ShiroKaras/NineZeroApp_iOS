@@ -11,7 +11,7 @@
 #import "HTNotificationCell.h"
 
 @interface HTNotificationController () <UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, strong) NSArray<HTNotification *> *notices;
+@property (nonatomic, strong) NSArray<SKNotification *> *notices;
 @property (nonatomic, strong) HTBlankView *blankView;
 @property (nonatomic, strong) UITableView *tableView;
 @end
@@ -43,7 +43,7 @@
     [self.tableView registerClass:[HTNotificationCell class] forCellReuseIdentifier:NSStringFromClass([HTNotificationCell class])];
     self.notices = [NSArray array];
     [HTProgressHUD show];
-    [[[HTServiceManager sharedInstance] profileService] getNotifications:^(BOOL success, NSArray<HTNotification *> *notifications) {
+    [[[SKServiceManager sharedInstance] profileService] getUserNotificationCallback:^(BOOL success, NSArray<SKNotification *> *notifications) {
         [HTProgressHUD dismiss];
         if (success) {
             _notices = notifications;
@@ -56,7 +56,6 @@
             }
         }
     }];
-    
     
     if (NO_NETWORK) {
         self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];

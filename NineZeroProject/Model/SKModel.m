@@ -84,3 +84,6 @@ HTINIT(SKQuestion)
 
 @implementation SKDefaultMascotDetail
 @end
+
+@implementation SKNotification
+@end

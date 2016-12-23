@@ -55,7 +55,7 @@ static CGFloat kLineSpace = 7;
     return self;
 }
 
-- (void)setNotification:(HTNotification *)notification {
+- (void)setNotification:(SKNotification *)notification {
     _nameLabel.text = @"零仔〇";
     _nameLabel.textColor = [HTMascotHelper colorWithMascotIndex:1];
     [_nameLabel sizeToFit];
