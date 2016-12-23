@@ -23,7 +23,7 @@
     
 //    NSData* cipherData = [cipherText base64DecodedData];
     NSData* cipherData = [NSData base64DataFromString:cipherText];
-    unsigned char buffer[1024];
+    unsigned char buffer[1024*512];
     memset(buffer, 0, sizeof(char));
     size_t numBytesDecrypted = 0;
     

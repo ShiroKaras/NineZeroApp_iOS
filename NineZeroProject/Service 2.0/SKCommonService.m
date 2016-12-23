@@ -35,6 +35,22 @@
     return securityPolicy;
 }
 
+//- (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
+//    if (jsonString == nil) {
+//        return nil;
+//    }
+//    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+//    NSError *err;
+//    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+//                                                        options:NSJSONReadingMutableContainers
+//                                                          error:&err];
+//    if(err) {
+//        NSLog(@"json解析失败：%@",err);
+//        return nil;
+//    }
+//    return dic;
+//}
+
 - (void)commonBaseRequestWithParam:(NSDictionary *)dict callback:(SKResponseCallback)callback {
     // Create manager
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -56,8 +72,9 @@
     
     [manager POST:[SKCGIManager commonBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSString *desString = [NSString decryptUseDES:responseObject[@"data"] key:nil];
-        DLog(@"Response:%@",desString);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:desString];
+        NSDictionary *desDict = [desString dictionaryWithJsonString];
+        DLog(@"Response:%@",desDict);
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:desDict];
         callback(YES, package);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         DLog(@"%@", error);
