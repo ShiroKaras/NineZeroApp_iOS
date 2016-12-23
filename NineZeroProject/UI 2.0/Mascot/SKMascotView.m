@@ -687,8 +687,9 @@
 //第二季 答案
 - (void)answerS2ButtonClick:(UIButton *)sender {
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"2" propType:@"2" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
-        _diamondCountLabel.text = [NSString stringWithFormat:@"%ld", [_diamondCountLabel.text integerValue]-[self.defaultMascotDetail.second_season.answer_used_gemstone integerValue]];
+        [[self viewController] showTipsWithText:responseString];
         if (success) {
+            _diamondCountLabel.text = [NSString stringWithFormat:@"%ld", [_diamondCountLabel.text integerValue]-[self.defaultMascotDetail.second_season.answer_used_gemstone integerValue]];
             [[self viewController] showTipsWithText:responseString];
             self.answerS2_islock = YES;
         }
