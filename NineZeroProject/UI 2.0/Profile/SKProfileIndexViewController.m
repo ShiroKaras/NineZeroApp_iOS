@@ -390,13 +390,13 @@
 }
 
 - (void)coinButtonClick:(UIButton*)sender {
-    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"http://112.74.133.183:8086/index.php?d=home&c=coin&m=diamondIndex&user_id=%@",[[SKStorageManager sharedInstance] getUserID]]];
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"http://112.74.133.183:8086/index.php?d=home&c=coin&m=coinIndex&user_id=%@",[[SKStorageManager sharedInstance] getUserID]]];
     controller.titleString = @"金币";
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)diamondButtonClick:(UIButton*)sender {
-    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"http://112.74.133.183:8086/index.php?d=home&c=coin&m=coinIndex&user_id=%@",[[SKStorageManager sharedInstance] getUserID]]];
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"http://112.74.133.183:8086/index.php?d=home&c=coin&m=diamondIndex&user_id=%@",[[SKStorageManager sharedInstance] getUserID]]];
     controller.titleString = @"宝石";
     [self.navigationController pushViewController:controller animated:YES];
 }
