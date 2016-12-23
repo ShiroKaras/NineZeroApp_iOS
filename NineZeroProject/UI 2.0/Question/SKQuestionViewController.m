@@ -140,6 +140,24 @@
         NSLog(@"%@", question.question_video_url);
         [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
         
+        if (self.type == SKQuestionTypeTimeLimitLevel) {
+            if (self.currentQuestion.base_type == 0) {
+                [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil"] forState:UIControlStateNormal];
+                [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil_highlight"] forState:UIControlStateHighlighted];
+            } else {
+                [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam"] forState:UIControlStateNormal];
+                [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam_highlight"] forState:UIControlStateHighlighted];
+            }
+        } else if (self.type == SKQuestionTypeHistoryLevel) {
+            if (self.currentQuestion.base_type == 0) {
+                [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil"] forState:UIControlStateNormal];
+                [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil_highlight"] forState:UIControlStateHighlighted];
+            } else {
+                [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked"] forState:UIControlStateNormal];
+                [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked_highlight"] forState:UIControlStateHighlighted];
+            }
+        }
+        
         [[[SKServiceManager sharedInstance] answerService] getRewardWithQuestionID:self.currentQuestion.qid rewardID:self.currentQuestion.reward_id callback:^(BOOL success, SKResponsePackage *response) {
             if (response.result == 0) {
                 self.rewardDict = response.data;
@@ -1240,18 +1258,41 @@
 
 - (void)answerButtonClick:(UIButton *)sender {
     [TalkingData trackEvent:@"answer"];
-    _composeView = [[SKComposeView alloc] initWithQustionID:self.currentQuestion.qid frame:CGRectMake(0, 0, self.view.width, self.view.height)];
-    _composeView.associatedQuestion = self.currentQuestion;
-    _composeView.delegate = self;
-    _composeView.alpha = 0.0;
-    [self.view addSubview:_composeView];
-    [_composeView becomeFirstResponder];
-    [UIView animateWithDuration:0.3 animations:^{
-        _composeView.alpha = 1.0;
+    if (self.currentQuestion.base_type == 0) {
+        _composeView = [[SKComposeView alloc] initWithQustionID:self.currentQuestion.qid frame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        _composeView.associatedQuestion = self.currentQuestion;
+        _composeView.delegate = self;
+        _composeView.alpha = 0.0;
         [self.view addSubview:_composeView];
-    } completion:^(BOOL finished) {
-        [self stop];
-    }];
+        [_composeView becomeFirstResponder];
+        [UIView animateWithDuration:0.3 animations:^{
+            _composeView.alpha = 1.0;
+            [self.view addSubview:_composeView];
+        } completion:^(BOOL finished) {
+            [self stop];
+        }];
+    } else {
+        if (self.type == SKQuestionTypeHistoryLevel) {
+            //往期关卡-线下题（地标已毁坏）
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prompt_Invalid Invalid"]];
+            [imageView sizeToFit];
+            imageView.right = _answerButton.right +33;
+            imageView.bottom = _answerButton.top -5;
+            imageView.alpha = 0;
+            [self.view addSubview:imageView];
+            [UIView animateWithDuration:0.5 animations:^{
+                imageView.alpha = 1;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    imageView.alpha = 0;
+                } completion:^(BOOL finished) {
+                    [imageView removeFromSuperview];
+                }];
+            }];
+        } else if (self.type == SKQuestionTypeTimeLimitLevel){
+            //限时关卡-线下题目
+        }
+    }
 }
 
 - (void)contentViewClick {
@@ -1425,7 +1466,6 @@
             [self.view viewWithTag:202].hidden = YES;
             [self.view viewWithTag:203].hidden = YES;
             [self.view viewWithTag:204].hidden = self.currentQuestion.base_type;
-
         }
     }
 }

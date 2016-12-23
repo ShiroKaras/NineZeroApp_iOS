@@ -36,28 +36,6 @@
     [super awakeFromNib];
     self.backgroundColor = [UIColor clearColor];
 }
-- (void)setQuestion:(SKQuestion *)question endTime:(time_t)endTime{
-    _question = question;
-    _endTime = endTime;
-    if (question.is_answer == NO) {
-        [self scheduleCountDownTimer];
-    } else {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
-        _decoImageView.hidden = YES;
-        _mainTimeLabel.hidden = YES;
-        _detailTimeLabel.hidden = YES;
-        _resultImageView.hidden = NO;
-        _resultImageView.contentMode = UIViewContentModeScaleAspectFit;
-        if (question.is_answer) {
-            [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
-        } else {
-            [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_gameover"]];
-        }
-    }
-    
-
-    
-}
 
 - (void)setQuestion:(SKQuestion *)question type:(SKQuestionType)type endTime:(time_t)endTime {
     _question = question;
