@@ -113,6 +113,8 @@
 		11F2185F1CBB951300D2ED44 /* ShareSDKConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218521CBB951300D2ED44 /* ShareSDKConnector.framework */; };
 		11F218611CBB986E00D2ED44 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218601CBB986E00D2ED44 /* ImageIO.framework */; };
 		11F706371E0CD802004332C2 /* NSString+DES.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F706361E0CD802004332C2 /* NSString+DES.m */; };
+		11F7063A1E0D2424004332C2 /* CustomSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F706391E0D2424004332C2 /* CustomSecurityPolicy.m */; };
+		11F7063C1E0D2495004332C2 /* 90appbundle.cer in Resources */ = {isa = PBXBuildFile; fileRef = 11F7063B1E0D2495004332C2 /* 90appbundle.cer */; };
 		11FF643D1DDD5C3500768080 /* SKLoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FF643C1DDD5C3500768080 /* SKLoginRootViewController.m */; };
 		1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706CB4A1BFA542E00E59255 /* NSString+Utility.m */; };
 		17116D051C9D366200530B7C /* HTPropChangedPopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17116D041C9D366200530B7C /* HTPropChangedPopController.m */; };
@@ -1047,6 +1049,9 @@
 		11F218601CBB986E00D2ED44 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		11F706351E0CD802004332C2 /* NSString+DES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DES.h"; sourceTree = "<group>"; };
 		11F706361E0CD802004332C2 /* NSString+DES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DES.m"; sourceTree = "<group>"; };
+		11F706381E0D2424004332C2 /* CustomSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSecurityPolicy.h; sourceTree = "<group>"; };
+		11F706391E0D2424004332C2 /* CustomSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSecurityPolicy.m; sourceTree = "<group>"; };
+		11F7063B1E0D2495004332C2 /* 90appbundle.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = 90appbundle.cer; path = ../../../Downloads/90appbundle.cer; sourceTree = "<group>"; };
 		11FF643B1DDD5C3500768080 /* SKLoginRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKLoginRootViewController.h; path = "NineZeroProject/UI 2.0/Login/SKLoginRootViewController.h"; sourceTree = "<group>"; };
 		11FF643C1DDD5C3500768080 /* SKLoginRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKLoginRootViewController.m; path = "NineZeroProject/UI 2.0/Login/SKLoginRootViewController.m"; sourceTree = "<group>"; };
 		1706CB491BFA542E00E59255 /* NSString+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utility.h"; sourceTree = "<group>"; };
@@ -3289,6 +3294,8 @@
 				116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */,
 				1133DD791E0A65190029511B /* FileService.h */,
 				1133DD7A1E0A65190029511B /* FileService.m */,
+				11F706381E0D2424004332C2 /* CustomSecurityPolicy.h */,
+				11F706391E0D2424004332C2 /* CustomSecurityPolicy.m */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
@@ -3378,6 +3385,7 @@
 		1777D3681BE798F400AC0203 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				11F7063B1E0D2495004332C2 /* 90appbundle.cer */,
 				11838DD11D953728001A24A3 /* NineZeroProject.entitlements */,
 				1777D3691BE798F400AC0203 /* main.m */,
 			);
@@ -4352,6 +4360,7 @@
 				11AD0C4E1DAA3490007951C5 /* targets2.json in Resources */,
 				17A247A71C623B9900359CCF /* right_answer_gif_0000.png in Resources */,
 				17461CAC1C71EF6600C847E8 /* img_mascot_7_animation_2_0033.png in Resources */,
+				11F7063C1E0D2495004332C2 /* 90appbundle.cer in Resources */,
 				11F2185E1CBB951300D2ED44 /* ShareSDK.bundle in Resources */,
 				17461CD61C71EF6600C847E8 /* img_mascot_7_animation_4_0011.png in Resources */,
 				17461C0A1C71EF6600C847E8 /* img_mascot_5_animation_2_0019.png in Resources */,
@@ -4800,6 +4809,7 @@
 				117418131D89396400B5458F /* HTPreviewCardController.m in Sources */,
 				1178E1231E06FF57004BE2E7 /* SKQuestionRankListView.m in Sources */,
 				17F0F47C1C95D1510050F0EB /* HTProfileService.m in Sources */,
+				11F7063A1E0D2424004332C2 /* CustomSecurityPolicy.m in Sources */,
 				11B8AEEE1DF1820B001A3E0F /* NSData+Base64.m in Sources */,
 				11023BEB1DE3E66800B6493F /* SKResetPasswordViewController.m in Sources */,
 				17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */,

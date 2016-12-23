@@ -11,6 +11,7 @@
 
 #import "SKModel.h"
 #import "NSString+DES.h"
+#import "CustomSecurityPolicy.h"
 
 // 公用
 typedef void (^HTHTTPErrorCallback) (NSString *errorMessage);
