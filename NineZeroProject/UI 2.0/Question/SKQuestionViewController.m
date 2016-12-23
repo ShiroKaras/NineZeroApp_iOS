@@ -144,7 +144,6 @@
             if (response.result == 0) {
                 self.rewardDict = response.data;
                 self.reward = [SKReward objectWithKeyValues:self.rewardDict];
-                NSLog(@"piece_cover_pic:%@",self.reward.piece.piece_cover_pic);
             }
         }];
     }];
@@ -1425,7 +1424,8 @@
             [self.view viewWithTag:201].hidden = YES;
             [self.view viewWithTag:202].hidden = YES;
             [self.view viewWithTag:203].hidden = YES;
-            [self.view viewWithTag:204].hidden = NO;
+            [self.view viewWithTag:204].hidden = self.currentQuestion.base_type;
+
         }
     }
 }
