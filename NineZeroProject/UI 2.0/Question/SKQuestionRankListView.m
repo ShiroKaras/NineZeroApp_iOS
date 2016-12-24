@@ -29,6 +29,7 @@
     UIView *rankBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, self.bottom-10-57)];
     rankBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     rankBackView.layer.cornerRadius = 5;
+    rankBackView.layer.masksToBounds = YES;
     [self addSubview:rankBackView];
     
     UIImageView *rankImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_top_highlight"]];
@@ -178,6 +179,8 @@
         }];
         
         UIImageView *avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+        avatarImageView.layer.cornerRadius = 28;
+        avatarImageView.layer.masksToBounds = YES;
         [avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.rankerList[i+3].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
         [top410ViewCell addSubview:avatarImageView];
         [avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
