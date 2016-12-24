@@ -657,6 +657,7 @@
         [[self viewController] showTipsWithText:responseString];
         if (success) {
             _iconCountLabel.text = [NSString stringWithFormat:@"%ld", [_iconCountLabel.text integerValue]-[self.defaultMascotDetail.first_season.clue_used_gold integerValue]];
+            _timeDownBackLabel1.text = [self timeToString:coolTime];
             self.hintS1_islock = YES;
         }
     }];
@@ -668,6 +669,7 @@
         [[self viewController] showTipsWithText:responseString];
         if (success) {
             _iconCountLabel.text = [NSString stringWithFormat:@"%ld", [_iconCountLabel.text integerValue]-[self.defaultMascotDetail.first_season.answer_used_gold integerValue]];
+            _timeDownBackLabel2.text = [self timeToString:coolTime];
             self.answerS1_islock = YES;
         }
     }];
@@ -679,6 +681,7 @@
         [[self viewController] showTipsWithText:responseString];
         if (success) {
             _diamondCountLabel.text = [NSString stringWithFormat:@"%ld", [_diamondCountLabel.text integerValue]-[self.defaultMascotDetail.second_season.clue_used_gemstone integerValue]];
+            _timeDownBackLabel3.text = [self timeToString:coolTime];
             self.hintS2_islock = YES;
         }
     }];
@@ -690,10 +693,18 @@
         [[self viewController] showTipsWithText:responseString];
         if (success) {
             _diamondCountLabel.text = [NSString stringWithFormat:@"%ld", [_diamondCountLabel.text integerValue]-[self.defaultMascotDetail.second_season.answer_used_gemstone integerValue]];
-            [[self viewController] showTipsWithText:responseString];
+            _timeDownBackLabel4.text = [self timeToString:coolTime];
             self.answerS2_islock = YES;
         }
     }];
+}
+
+- (NSString *)timeToString:(NSInteger)time {
+    time_t oneHour = 3600;
+    time_t hour = time / oneHour;
+    time_t minute = (time % oneHour) / 60;
+    time_t second = time - hour * oneHour - minute * 60;
+    return [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
 }
 
 //倒计时
