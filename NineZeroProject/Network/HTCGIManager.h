@@ -99,6 +99,26 @@
 + (NSString *)getQuestionDetailCGIKey;
 
 /**
+ *  @brief 分享题目
+ */
++ (NSString *)shareQuestionCGIKey;
+
+/**
+ *  @brief 前十名
+ */
++ (NSString *)getRankListCGIKey;
+
+/**
+ *  @brief 随机参加者
+ */
++ (NSString *)getUsersRandomListCGIKey;
+
+/**
+ *  @brief 获取答案详情
+ */
++ (NSString *)getAnswerDetailCGIKey;
+
+/**
  *  @brief 获取额外的提示
  */
 + (NSString *)getExtraHintCGIKey;
@@ -140,6 +160,12 @@
  *  "answer" : "testtest"
  */
 + (NSString *)verifyAnswerCGIKey;
+/**
+ *  @brief 验证往期题目回答答案
+ *  "question_id" : "2015120423201902904"
+ *  "answer" : "testtest"
+ */
++ (NSString *)verifyOldAnswerCGIKey;
 /**
  *  @brief 验证ar位置
  *  "location" : ""x":100 ,"y": 100"
@@ -243,6 +269,16 @@
 + (NSString *)collectArticleCGIKey;
 
 /**
+ *  @brief 分享文章
+ */
++ (NSString *)shareArticleCGIKey;
+
+/**
+ *  @brief 标记已读
+ */
++ (NSString *)readArticleCGIKey;
+
+/**
  *  @brief 获取勋章
  *  "user_id"
  */
@@ -268,5 +304,30 @@
  *  @brief 获取前100名的排名列表
  */
 + (NSString *)getAllRanksCGIKey;
+
+/**
+ *  @brief 获取版本号
+ */
++ (NSString *)getVersionCGIKey;
+
+/**
+ *  @brief 获取弹屏信息
+ */
++ (NSString *)getAdvertisingCGIKey;
+
+/**
+ *  @brief 获取弹屏信息
+ */
++ (NSString *)getScanningCGIKey;
+
+/**
+ *  @brief 获取弹屏信息
+ */
++ (NSString *)getRewardDetailCGIKey;
+
+/**
+ *  @brief 获取弹屏信息
+ */
++ (NSString *)answerScanningARCGIKey;
 
 @end

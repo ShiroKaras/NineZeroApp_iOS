@@ -22,16 +22,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"输入密码";
+    [self.view bringSubviewToFront:[self.view viewWithTag:1000]];
+    [self setTipsOffsetY:60];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"Cpassword"];
+    [TalkingData trackPageBegin:@"cpassword"];
+//    [MobClick beginLogPageView:@"Cpassword"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"Cpassword"];
+    [TalkingData trackPageEnd:@"cpassword"];
+//    [MobClick endLogPageView:@"Cpassword"];
 }
 
 - (instancetype)initWithLoginUser:(HTLoginUser *)loginUser {

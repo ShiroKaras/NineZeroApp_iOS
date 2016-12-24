@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTProfileRankCell.h"
 
-@interface HTProfileRankController : UITableViewController
+@interface HTProfileRankController : UIViewController
 
 @end

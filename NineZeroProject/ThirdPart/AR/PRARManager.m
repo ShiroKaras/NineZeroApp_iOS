@@ -152,7 +152,7 @@
         return;
     }
     
-    NSLog(@"Starting AR with %lu places", (unsigned long)arData.count);
+    //NSLog(@"Starting AR with %lu places", (unsigned long)arData.count);
     
     [self.arController.locationMath startTrackingWithLocation:location
                                                    andSize:frameSize];

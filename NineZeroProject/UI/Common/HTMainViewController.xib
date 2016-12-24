@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -10,6 +10,7 @@
                 <outlet property="mainButton" destination="hti-Qr-UOh" id="JTK-G9-rzD"/>
                 <outlet property="mascotButton" destination="bAT-My-vWH" id="6r6-BO-C3f"/>
                 <outlet property="meButton" destination="Pau-QK-VhJ" id="u1p-8T-KI9"/>
+                <outlet property="unreadArticleFlagImageView" destination="vwf-tP-OSd" id="M5T-5G-EP8"/>
                 <outlet property="view" destination="cUR-0h-UZZ" id="8Od-UM-1cF"/>
             </connections>
         </placeholder>
@@ -32,13 +33,20 @@
                         <action selector="didClickMeButton:" destination="-1" eventType="touchUpInside" id="jld-bV-ETo"/>
                     </connections>
                 </button>
-                <button opaque="NO" alpha="0.30000001192092896" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAT-My-vWH">
-                    <rect key="frame" x="242" y="625" width="59" height="32"/>
+                <button opaque="NO" alpha="0.30000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAT-My-vWH">
+                    <rect key="frame" x="242" y="624" width="59" height="32"/>
                     <state key="normal" image="tab_mascot"/>
                     <connections>
                         <action selector="didClickMascotButton:" destination="-1" eventType="touchUpInside" id="dRl-mb-eCv"/>
                     </connections>
                 </button>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_profile_notification_number" translatesAutoresizingMaskIntoConstraints="NO" id="vwf-tP-OSd" userLabel="notificationFlagImage">
+                    <rect key="frame" x="291" y="621" width="10" height="10"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="10" id="aej-9I-szE"/>
+                        <constraint firstAttribute="height" constant="10" id="jI4-GC-KjB"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
@@ -46,6 +54,8 @@
                 <constraint firstAttribute="bottom" secondItem="bAT-My-vWH" secondAttribute="bottom" constant="11" id="OGf-WE-VRY"/>
                 <constraint firstAttribute="trailing" secondItem="Pau-QK-VhJ" secondAttribute="trailing" constant="14" id="Rkg-1K-8Ei"/>
                 <constraint firstItem="Pau-QK-VhJ" firstAttribute="leading" secondItem="bAT-My-vWH" secondAttribute="trailing" constant="30" id="al2-0v-EZe"/>
+                <constraint firstItem="bAT-My-vWH" firstAttribute="top" secondItem="vwf-tP-OSd" secondAttribute="bottom" constant="-7" id="av5-4C-oXF"/>
+                <constraint firstItem="vwf-tP-OSd" firstAttribute="leading" secondItem="bAT-My-vWH" secondAttribute="trailing" constant="-10" id="oqh-QU-3jI"/>
                 <constraint firstAttribute="bottom" secondItem="Pau-QK-VhJ" secondAttribute="bottom" constant="11" id="sId-fy-kSf"/>
                 <constraint firstItem="hti-Qr-UOh" firstAttribute="leading" secondItem="cUR-0h-UZZ" secondAttribute="leading" constant="11" id="wEc-IT-5QK"/>
             </constraints>
@@ -54,6 +64,7 @@
         </view>
     </objects>
     <resources>
+        <image name="btn_profile_notification_number" width="14" height="14"/>
         <image name="tab_home" width="59" height="32"/>
         <image name="tab_mascot" width="59" height="32"/>
         <image name="tab_me" width="30" height="32"/>

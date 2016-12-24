@@ -65,6 +65,22 @@
     return [NSString stringWithFormat:@"%@Question/detail", NETWORK_HOST];
 }
 
++ (NSString *)shareQuestionCGIKey {
+    return [NSString stringWithFormat:@"%@Share/shareQuestion", NETWORK_HOST];
+}
+
++ (NSString *)getAnswerDetailCGIKey {
+    return [NSString stringWithFormat:@"%@Question/getAnswerDetail", NETWORK_HOST];
+}
+
++ (NSString *)getRankListCGIKey {
+    return [NSString stringWithFormat:@"%@Question/getTopAnsweredUserList", NETWORK_HOST];
+}
+
++ (NSString *)getUsersRandomListCGIKey {
+    return [NSString stringWithFormat:@"%@Question/getAnsweredRandUserList", NETWORK_HOST];
+}
+
 + (NSString *)getExtraHintCGIKey {
     return [NSString stringWithFormat:@"%@Question/getRestHint", NETWORK_HOST];
 }
@@ -95,6 +111,10 @@
 
 + (NSString *)verifyAnswerCGIKey {
     return [NSString stringWithFormat:@"%@Answer/answerText", NETWORK_HOST];
+}
+
++ (NSString *)verifyOldAnswerCGIKey {
+    return [NSString stringWithFormat:@"%@Answer/answerOldText", NETWORK_HOST];
 }
 
 + (NSString *)verifyLocationCGIKey {
@@ -137,6 +157,10 @@
     return [NSString stringWithFormat:@"%@Article/getMyArticles", NETWORK_HOST];
 }
 
++ (NSString *)readArticleCGIKey {
+    return [NSString stringWithFormat:@"%@Article/readArticle", NETWORK_HOST];
+}
+
 + (NSString *)getUserNoticesCGIKey {
     return [NSString stringWithFormat:@"%@User/getNotice", NETWORK_HOST];
 }
@@ -165,4 +189,27 @@
     return [NSString stringWithFormat:@"%@Article/collectArticle", NETWORK_HOST];
 }
 
++ (NSString *)shareArticleCGIKey {
+    return [NSString stringWithFormat:@"%@Share/shareArticle", NETWORK_HOST];
+}
+
++ (NSString *)getVersionCGIKey {
+    return [NSString stringWithFormat:@"%@Common/latestClientVersion", NETWORK_HOST];
+}
+
++ (NSString *)getAdvertisingCGIKey {
+    return [NSString stringWithFormat:@"%@Advertise/getAdvertising", NETWORK_HOST];
+}
+
++ (NSString *)getScanningCGIKey {
+    return [NSString stringWithFormat:@"%@Scanning/getScanning", NETWORK_HOST];
+}
+
++ (NSString *)getRewardDetailCGIKey {
+    return [NSString stringWithFormat:@"%@Scanning/getDifRewardDetail", NETWORK_HOST];
+}
+
++ (NSString *)answerScanningARCGIKey {
+    return [NSString stringWithFormat:@"%@Answer/answerScanningAR", NETWORK_HOST];
+}
 @end

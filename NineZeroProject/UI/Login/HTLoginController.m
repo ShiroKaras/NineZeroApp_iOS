@@ -13,6 +13,7 @@
 #import "HTUIHeader.h"
 #import "NSString+Utility.h"
 #import "HTMainViewController.h"
+#import "SKIndexViewController.h"
 
 @interface HTLoginController ()
 
@@ -28,6 +29,8 @@
     [super viewDidLoad];
     self.title = @"登录";
     self.userNameTextField.delegate = self;
+    [self setTipsOffsetY:60];
+    [self.view bringSubviewToFront:[self.view viewWithTag:1000]];
 //#ifdef DEBUG
 //    HTLoginUser *user = [[[HTServiceManager sharedInstance] loginService] loginUser];
 //    self.userNameTextField.text = user.user_mobile;
@@ -38,18 +41,21 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"loginpage"];
+    [TalkingData trackPageBegin:@"loginpage"];
+//    [MobClick beginLogPageView:@"loginpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"loginpage"];
+    [TalkingData trackPageEnd:@"loginpage"];
+//    [MobClick endLogPageView:@"loginpage"];
 }
 
 #pragma mark - Action
 
 - (IBAction)didClickLoginButton:(UIButton *)sender {
-    [MobClick event:@"login"];
+    //[MobClick event:@"login"];
+    [TalkingData trackEvent:@"login"];
     HTLoginUser *loginUser = [[HTLoginUser alloc] init];
     loginUser.user_mobile = self.userNameTextField.text;
     loginUser.user_password = self.passwordTextField.text;
@@ -61,8 +67,12 @@
         [HTProgressHUD dismiss];
         if (success) {
             if (response.resultCode == 0) {
-                HTMainViewController *controller = [[HTMainViewController alloc] init];
-                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+                SKIndexViewController *controller = [[SKIndexViewController alloc] init];
+//                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+                AppDelegateInstance.mainController = controller;
+                HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
+                AppDelegateInstance.window.rootViewController = navController;
+                [AppDelegateInstance.window makeKeyAndVisible];
                 [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
             } else {
                 [self showTipsWithText:response.resultMsg];
@@ -74,7 +84,8 @@
 }
 
 - (IBAction)didClickForgetPassword:(UIButton *)sender {
-    [MobClick event:@"forgetpassword"];
+    //[MobClick event:@"forgetpassword"];
+    [TalkingData trackEvent:@"fogetpassword"];
     HTForgetPasswordController *forgetPwdController = [[HTForgetPasswordController alloc] init];
     [self.navigationController pushViewController:forgetPwdController animated:YES];
 }

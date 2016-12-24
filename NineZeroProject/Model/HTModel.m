@@ -93,14 +93,42 @@ HTINIT(HTArticle)
 }
 @end
 
+@implementation HTAnswerDetail
+HTINIT(HTAnswerDetail)
+//- (instancetype)init {
+//    if (self = [super init]) {
+//        [HTAnswerDetail setupObjectClassInArray:^NSDictionary *{
+//            return @{@"answer_list" : @"HTArticle"};
+//        }];
+//    }
+//    return self;
+//}
+
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{@"headerImageURL" : @"answer_detail.article_pic_1",
+                                     @"backgroundImageURL" : @"answer_detail.article_pic",
+                                     @"contentText" : @"answer_detail.article_desc"
+                                     };
+    return propertyMapper;
+}
+
+@end
+
 @implementation HTMascot
 HTINIT(HTMascot)
+//+ (NSDictionary *)objectClassInArray{
+//    return @{
+//             @"articles" : @"HTArticle",
+//             };
+//}
+
 - (NSDictionary *)propertyMapper {
     NSDictionary *propertyMapper = @{@"mascotID" : @"pet_id",
                                      @"getTime" : @"time",
                                      @"mascotName" : @"pet_name",
                                      @"mascotPic" : @"pet_pic",
-                                     @"mascotDescription" : @"pet_desc"};
+                                     @"mascotDescription" : @"pet_desc",
+                                     @"articles" : @"articles"};
     return propertyMapper;
 }
 @end
@@ -155,4 +183,7 @@ HTINIT(HTMascot)
 @end
 
 @implementation HTBadge
+@end
+
+@implementation HTScanning
 @end

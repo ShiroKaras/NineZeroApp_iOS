@@ -37,13 +37,13 @@
         for (int j = 0; j != articleCount; j++) {
             HTArticle *article = [[HTArticle alloc] init];
             article.mascotID = i + 1;
-            article.hasRead = NO;
+            article.is_read = NO;
             article.articleURL = @"www.baidu.com";
             article.articleTitle = @"这里是文章标题这是是文章";
             [articles addObject:article];
         }
         mascot.article_list = articles;
-        mascot.articles = 8;
+        mascot.articlesCount = 8;
         [mascots addObject:mascot];
     }
     return mascots;
@@ -59,13 +59,13 @@
     for (int j = 0; j != articleCount; j++) {
         HTArticle *article = [[HTArticle alloc] init];
         article.mascotID = 1;
-        article.hasRead = NO;
+        article.is_read = NO;
         article.articleURL = @"www.baidu.com";
         article.articleTitle = @"这里是文章标题这是是文章";
         [articles addObject:article];
     }
     mascot.article_list = articles;
-    mascot.articles = articleCount;
+    mascot.articlesCount = articleCount;
     return mascot;
 }
 

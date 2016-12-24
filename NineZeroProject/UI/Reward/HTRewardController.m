@@ -25,7 +25,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 @interface HTRewardController ()
 @property (nonatomic, strong) UIScrollView  *scrollView;
-@property (nonatomic, strong) UIButton      *sureButton;
+@property (nonatomic, strong) HTLoginButton *sureButton;
 @property (nonatomic, strong) UIView        *topBackView;           //布局用View
 @property (nonatomic, strong) UIImageView   *prefixOverImageView;
 @property (nonatomic, strong) UIImageView   *suffixOverImageView;
@@ -38,6 +38,8 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 @property (nonatomic, strong) UIImageView   *andImageView;
 @property (nonatomic, strong) UIImageView   *andImageView2;
 @property (nonatomic, strong) UIImageView   *getImageView;
+@property (nonatomic, strong) UIImageView   *happyMascotImageView;
+@property (nonatomic, strong) HTBlankView   *blankView;
 
 @property (nonatomic, strong) HTTicketCard *card;          // 奖品卡片
 @property (nonatomic, strong) UIImageView *imageView;
@@ -45,7 +47,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 @property (nonatomic, strong) HTMascot *mascot;
 @property (nonatomic, strong) HTMascotProp *prop;
-@property (nonatomic, strong) HTTicket *ticket;;
+@property (nonatomic, strong) HTTicket *ticket;
 @property (nonatomic, assign) NSUInteger goldNumber;
 @property (nonatomic, assign) NSUInteger rankNumber;
 
@@ -68,16 +70,24 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     [super viewDidLoad];
 
     _scrollView = [[UIScrollView alloc] init];
-    _scrollView.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.85];
+    _scrollView.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.9];
     _scrollView.delaysContentTouches = NO;
     [self.view addSubview:_scrollView];
     
-    _sureButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _sureButton = [HTLoginButton buttonWithType:UIButtonTypeCustom];
     [_sureButton setTitle:@"完成" forState:UIControlStateNormal];
     _sureButton.titleLabel.font = [UIFont systemFontOfSize:18];
-    _sureButton.backgroundColor = COMMON_GREEN_COLOR;
+    _sureButton.enabled = YES;
     [_sureButton addTarget:self action:@selector(onClickSureButton) forControlEvents:UIControlEventTouchUpInside];
+
     [self.view addSubview:_sureButton];
+    
+    if (NO_NETWORK) {
+        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:self.blankView];
+        self.blankView.top = ROUND_HEIGHT_FLOAT(217);
+    }
 }
 
 - (void)reloadView {
@@ -90,6 +100,10 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    if (self.navigationController) {
+        self.navigationController.navigationBarHidden = YES;
+    }
     [HTProgressHUD show];
     [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID questionID:_qid completion:^(BOOL success, HTResponsePackage *rsp) {
         [HTProgressHUD dismiss];
@@ -103,6 +117,15 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//    if (self.navigationController) {
+//        self.navigationController.navigationBarHidden = NO;
+//    }
 }
 
 - (void)createTopViewWith:(HTResponsePackage*)rsp {
@@ -152,6 +175,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
         if (type==NZRewardTypeGold) {
             //TODO 居中-只获取到金币的情况
             _topBackView.center = _scrollView.center;
+            _happyMascotImageView.hidden = NO;
         }
     }
     
@@ -177,8 +201,10 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     [_topBackView addSubview:_prefixGetImageView];
     _suffixGetImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_4"]];
     [_topBackView addSubview:_suffixGetImageView];
-    
-    
+    _happyMascotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_happy_mascot"]];
+    _happyMascotImageView.hidden = YES;
+    [_happyMascotImageView sizeToFit];
+    [_topBackView addSubview:_happyMascotImageView];
     
     _percentLabel = [[UILabel alloc] init];
     _percentLabel.font = MOON_FONT_OF_SIZE(32.5);
@@ -248,6 +274,9 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     _suffixOverImageView3.top = _prefixOverImageView.bottom + 10;
     _suffixOverImageView3.left = _prefixOverImageView.left + 82;
     
+    _happyMascotImageView.left = _prefixOverImageView.right + 7;
+    _happyMascotImageView.bottom = _percentLabel.top - 10;
+    
     // "你获得了 x 金币"
     _prefixGetImageView.left = ROUND_WIDTH_FLOAT(54);
     _prefixGetImageView.top = _prefixOverImageView.bottom + 60;
@@ -285,5 +314,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
     
     _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, MAX(SCREEN_HEIGHT - 50, maxOffsetY + 100));
 }
+
+
 
 @end

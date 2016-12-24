@@ -12,6 +12,7 @@
 
 @interface HTMascotArticleCell ()
 @property (nonatomic, strong) UIImageView *cover;
+@property (nonatomic, strong) UIImageView *cover_locked;
 @property (nonatomic, strong) TTTAttributedLabel *title;
 @property (nonatomic, strong) UILabel *number;
 @property (nonatomic, strong) UIImageView *tipIcon;
@@ -22,9 +23,13 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+        
         _cover = [[UIImageView alloc] init];
         [self.contentView addSubview:_cover];
+        
+        _cover_locked = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_locked"]];
+        _cover_locked.hidden = NO;
+        [self.contentView addSubview:_cover_locked];
         
         _title = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         _title.font = [UIFont systemFontOfSize:15];
@@ -51,15 +56,25 @@
     else _number.textColor = [HTMascotHelper colorWithMascotIndex:article.mascotID];
     NSArray *mascotNameArray = @[@"停赛日文章", @"零仔〇", @"零仔Sloth·S", @"零仔Pride·W", @"零仔Wrath·C", @"零仔Envy·I", @"零仔Lust·B", @"零仔Gluttony·T", @"零仔Greed·F"];
     _number.text = [NSString stringWithFormat:@"/ %@",mascotNameArray[article.mascotID]];
-    _tipIcon.hidden = article.hasRead;
+    _tipIcon.hidden = article.is_read;
     [_cover sd_setImageWithURL:[NSURL URLWithString:article.article_pic_1] placeholderImage:[UIImage imageNamed:@"img_mascot_article_list_cover_default"]];
     _cover.layer.masksToBounds = YES;
     _cover.contentMode = UIViewContentModeScaleAspectFill;
+    _cover_locked.alpha = article.is_locked;
+    _cover_locked.layer.masksToBounds = YES;
+    _cover_locked.contentMode = UIViewContentModeScaleAspectFill;
     [self setNeedsUpdateConstraints];
 }
 
 - (void)updateConstraints {
     [_cover mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@12);
+        make.top.equalTo(@7.5);
+        make.width.equalTo(@130);
+        make.height.equalTo(@95);
+    }];
+    
+    [_cover_locked mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@12);
         make.top.equalTo(@7.5);
         make.width.equalTo(@130);

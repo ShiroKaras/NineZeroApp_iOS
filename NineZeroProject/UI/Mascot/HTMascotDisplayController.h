@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class HTMascot;
+
 @interface HTMascotDisplayController : UIViewController
+@property (nonatomic, strong) NSMutableArray<HTMascot *> *mascots;
 // 重置状态
 - (void)reloadDisplayMascotsWithIndex:(NSUInteger)index;
 - (void)reloadAllData;

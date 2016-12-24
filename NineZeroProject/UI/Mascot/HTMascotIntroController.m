@@ -39,6 +39,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) HTBlankView *blankView;
 @property (nonatomic, strong) UIView *blankCoverView;
 @property (nonatomic, assign) CGFloat headerViewHeight;
+@property (nonatomic, strong) UIView *promptView;
+@property (nonatomic, strong) UILabel *promptLabel;
 
 @end
 
@@ -134,7 +136,42 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self.statusBarCoverView = [[UIView alloc] init];
     self.statusBarCoverView.backgroundColor = [HTMascotHelper colorWithMascotIndex:_mascot.mascotID];
     self.statusBarCoverView.alpha = 0;
-    [self.view addSubview:self.statusBarCoverView];
+//    [self.view addSubview:self.statusBarCoverView];
+    
+    UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
+    [promptImageView sizeToFit];
+    
+    _promptView = [UIView new];
+    _promptView.size = promptImageView.size;
+    _promptView.center = self.view.center;
+    _promptView.alpha = 0;
+    [self.view addSubview:_promptView];
+    
+    promptImageView.frame = CGRectMake(0, 0, _promptView.width, _promptView.height);
+    [_promptView addSubview:promptImageView];
+    
+    _promptLabel = [UILabel new];
+    _promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
+    _promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    _promptLabel.textAlignment = NSTextAlignmentCenter;
+    [_promptView addSubview:_promptLabel];
+    _promptLabel.frame = CGRectMake(8.5, _promptView.height-13.5-13, _promptView.width-17, 57);
+}
+
+- (void)loadMoreData {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView.mj_footer endRefreshing];
+    });
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    if (self.navigationController) {
+        self.navigationController.navigationBarHidden = YES;
+    }
+    //[MobClick beginLogPageView:@"mascotintropage"];
+    [TalkingData trackPageBegin:@"lingdetailpage"];
     
     void (^netWorkErrorHandler)() = ^() {
         _mascot.article_list = nil;
@@ -167,6 +204,18 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             [HTProgressHUD dismiss];
             if (success && mascot.article_list.count != 0) {
                 _mascot.article_list = mascot.article_list;
+                
+                MJRefreshAutoGifFooter *footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+                NSMutableArray<UIImage *> *refreshingImages = [NSMutableArray array];
+                for (int i = 0; i != 3; i++) {
+                    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"list_view_loader_grey_%d", (i + 1)]];
+                    [refreshingImages addObject:image];
+                }
+                [footer setImages:refreshingImages duration:1.0 forState:MJRefreshStateRefreshing];
+                footer.refreshingTitleHidden = YES;
+                self.tableView.mj_footer = footer;
+                footer.height = 0;
+                
                 [self.tableView reloadData];
             } else if (_mascot.article_list.count == 0) {
                 noContentHandler();
@@ -177,17 +226,15 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [MobClick beginLogPageView:@"mascotintropage"];
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
-    [MobClick endLogPageView:@"mascotintropage"];
+    [super viewWillDisappear:animated];
+    //[MobClick endLogPageView:@"mascotintropage"];
+    [TalkingData trackPageEnd:@"lingdetailpage"];
 }
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    self.backButton.origin = CGPointMake(11, 34);
+    self.backButton.origin = CGPointMake(10, 10);
     self.shareButton.top = self.backButton.top;
     self.shareButton.right = SCREEN_WIDTH - 11;
     self.cancelButton.origin = self.shareButton.origin;
@@ -256,8 +303,24 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row >= 2) {
-        HTArticleController *articleController = [[HTArticleController alloc] initWithArticle:self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1]];
-        [self presentViewController:articleController animated:YES completion:nil];
+        _promptView.alpha = 0;
+        if (self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1].is_locked) {
+            _promptLabel.text = [NSString stringWithFormat:@"闯过第%@章后，解锁本篇研究报告", self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1].qid];
+            [_promptLabel sizeToFit];
+            [UIView animateWithDuration:0.3 animations:^{
+                _promptView.alpha =1;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.3 delay:2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    _promptView.alpha = 0;
+                } completion:^(BOOL finished) {
+                    
+                }];
+            }];
+        } else {
+            [TalkingData trackEvent:@"toarticle" label:@"lingdetail"];
+            HTArticleController *articleController = [[HTArticleController alloc] initWithArticle:self.mascot.article_list[self.mascot.article_list.count - (indexPath.row -2) -1]];
+            [self presentViewController:articleController animated:YES completion:nil];
+        }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

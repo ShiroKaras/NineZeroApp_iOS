@@ -86,7 +86,9 @@
 @interface HTProfileBadgeController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 //@property (nonatomic, strong) HTBadgeHeaderView *headerView;
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) HTBlankView *blankView;
 @property (nonatomic, strong) NSArray<HTBadge *> *badges;
+//@property (nonatomic, strong) NSMutableArray<NSNumber*> *badgeLevels;
 @property (nonatomic, strong) HTProfileInfo *profileInfo;
 @end
 
@@ -104,10 +106,22 @@
     layout.headerReferenceSize = CGSizeMake(self.view.width, 160);
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:_collectionView];
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = @"我的勋章";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont systemFontOfSize:17];
+    [titleLabel sizeToFit];
+    titleLabel.center = headerView.center;
+    [headerView addSubview:titleLabel];
+    [self.view addSubview:headerView];
     
     [_collectionView registerClass:[HTProfileBadgeCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass([HTProfileBadgeCollectionCell class])];
     [_collectionView registerClass:[HTBadgeHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader  withReuseIdentifier:NSStringFromClass([HTBadgeHeaderView class])];
@@ -117,23 +131,34 @@
         [HTProgressHUD dismiss];
         if (success) {
             self.badges = badges;
-            
             [_collectionView reloadData];
         }
     }];
+    
+    if (NO_NETWORK) {
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, self.view.width, self.view.height-60)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:self.blankView];
+        self.blankView.top = ROUND_HEIGHT_FLOAT(217);
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"badgepage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"badgepage"];
 }
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    _collectionView.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+    _collectionView.frame = CGRectMake(0, 60, self.view.width, self.view.height-60);
 }
 
 #pragma mark - UICollectionView
@@ -156,7 +181,7 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     HTBadgeHeaderView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind  withReuseIdentifier:NSStringFromClass([HTBadgeHeaderView class]) forIndexPath:indexPath];
     NSInteger badgeLevel = [self badgeLevel];
-    NSInteger targetLevel = [[[self badgeLevels] objectAtIndex:badgeLevel] integerValue];
+    NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel] longValue];
     view.numberLabel.text = [NSString stringWithFormat:@"%ld", (NSInteger)badgeLevel+1];
     if ([self.profileInfo.gold integerValue] < 1200) {
         view.coinNumberLabel.text = [NSString stringWithFormat:@"%ld", (long)(targetLevel - [self.profileInfo.gold integerValue])];
@@ -167,7 +192,7 @@
         CGFloat progress = 1 - (targetLevel - [self.profileInfo.gold integerValue]) / targetLevel;
         [view.progressView setProgress:progress];
     } else {
-        CGFloat progress = 1 - (targetLevel - [self.profileInfo.gold integerValue]) / (targetLevel - [[[self badgeLevels] objectAtIndex:badgeLevel - 1] floatValue]);
+        CGFloat progress = 1 - (targetLevel - [self.profileInfo.gold integerValue]) / (targetLevel - [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel-1] floatValue]);
         [view.progressView setProgress:progress];
     }
     return view;
@@ -175,17 +200,13 @@
 
 - (NSInteger)badgeLevel {
     __block NSInteger badgeLevel = 0;
-    [[self badgeLevels] enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [[UD objectForKey:kBadgeLevels] enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([_profileInfo.gold integerValue] < [obj integerValue]) {
             badgeLevel = idx;
             *stop = YES;
         }
     }];
     return badgeLevel;
-}
-
-- (NSArray<NSNumber *> *)badgeLevels {
-    return @[@20, @50, @100, @150, @250, @500, @800, @1000, @1200];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

@@ -23,6 +23,7 @@ CGFloat alphaLight = 1.0;
 @property (weak, nonatomic) IBOutlet UIButton *mainButton;
 @property (weak, nonatomic) IBOutlet UIButton *mascotButton;
 @property (weak, nonatomic) IBOutlet UIButton *meButton;
+@property (weak, nonatomic) IBOutlet UIImageView *unreadArticleFlagImageView;
 
 @end
 
@@ -78,6 +79,7 @@ CGFloat alphaLight = 1.0;
 }
 
 - (void)showBottomButton:(BOOL)show {
+    _unreadArticleFlagImageView.hidden = !show;
     _mainButton.hidden = !show;
     _mascotButton.hidden = !show;
     _meButton.hidden = !show;
@@ -97,6 +99,22 @@ CGFloat alphaLight = 1.0;
     [_mascotController reloadAllData];
 }
 
+- (void)showFlag:(NSInteger)unreadCount {
+    if (unreadCount>0) {
+        [self showUnreadArticleFlag];
+    }else {
+        [self removeUnreadArticleFlag];
+    }
+}
+
+- (void)showUnreadArticleFlag {
+    self.unreadArticleFlagImageView.alpha = 1;
+}
+
+- (void)removeUnreadArticleFlag {
+    self.unreadArticleFlagImageView.alpha = 0;
+}
+
 #pragma mark - Action
 
 - (IBAction)didClickMainButton:(id)sender {
@@ -109,6 +127,7 @@ CGFloat alphaLight = 1.0;
 }
 
 - (IBAction)didClickMascotButton:(id)sender {
+    [self removeUnreadArticleFlag];
     [self showBackToToday:NO];
     if ([_currentViewController isKindOfClass:[HTMascotDisplayController class]]) return;
     [self changedToViewController:_mascotController];

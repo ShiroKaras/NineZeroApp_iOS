@@ -3,12 +3,11 @@
 //  NineZeroProject
 //
 //  Created by SinLemon on 16/5/21.
-//  Copyright © 2016年 ronhu. All rights reserved.
+//  Copyright © 2016年 ShiroKaras. All rights reserved.
 //
 
 #import "SKLaunchAnimationViewController.h"
 #import "HTLoginRootController.h"
-#import <AVFoundation/AVFoundation.h>
 #import "HTUIHeader.h"
 
 @interface SKLaunchAnimationViewController ()
@@ -37,11 +36,13 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [super viewWillDisappear:animated];
+//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)didReceiveMemoryWarning {

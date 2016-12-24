@@ -80,7 +80,7 @@
         
         // 5. 提示
         [_tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_dimmingView).offset(20);
+            make.top.equalTo(_dimmingView).offset(0);
             make.width.equalTo(_dimmingView);
             make.height.equalTo(@30);
         }];
@@ -183,8 +183,9 @@ typedef enum : NSUInteger {
 
 static NSInteger const kChangeNameViewTag = 12345;
 
-@interface HTProfileSettingController () <HTProfileSettingPushCellDelegate, HTProfileSettingChangeNameViewDelegate>
-
+@interface HTProfileSettingController ()
+<UITableViewDataSource, UITableViewDelegate, HTProfileSettingPushCellDelegate, HTProfileSettingChangeNameViewDelegate, HTProfileSettingQuitCellDelegate>
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation HTProfileSettingController {
@@ -201,8 +202,28 @@ static NSInteger const kChangeNameViewTag = 12345;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = COMMON_BG_COLOR;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
+    self.tableView.bounces = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = @"设置";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont systemFontOfSize:17];
+    [titleLabel sizeToFit];
+    titleLabel.center = headerView.center;
+    [headerView addSubview:titleLabel];
+    [self.view addSubview:headerView];
+    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     
     self.navigationItem.title = @"设置";
@@ -217,11 +238,21 @@ static NSInteger const kChangeNameViewTag = 12345;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [MobClick beginLogPageView:@"settingpage"];
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+//    CGRect rect = self.navigationController.navigationBar.frame;
+//    self.navigationController.navigationBar.frame = CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, 64);
+    //[MobClick beginLogPageView:@"settingpage"];
+    [TalkingData trackPageBegin:@"settingpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [MobClick endLogPageView:@"settingpage"];
+    [super viewWillDisappear:animated];
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO];
+//    CGRect rect = self.navigationController.navigationBar.frame;
+//    self.navigationController.navigationBar.frame = CGRectMake (rect.origin.x, rect.origin.y, rect.size.width, 44);
+    //[MobClick endLogPageView:@"settingpage"];
+    [TalkingData trackPageEnd:@"settingpage"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -255,12 +286,13 @@ static NSInteger const kChangeNameViewTag = 12345;
     } else if (type == HTProfileSettingTypeAbout) {
         HTProfileSettingTextCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingTextCell class]) forIndexPath:indexPath];
         [cell showAccessoryArrow:NO];
-        [cell setDetailTitleText:@"v1.0"];
+        [cell setDetailTitleText:[NSString stringWithFormat:@"v%@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]];
         [cell setTitleColor:[UIColor whiteColor]];
         [cell setTitleText:[self titleWithIndexPath:indexPath]];
         return cell;
     } else if (type == HTProfileSettingTypeQuitLogin) {
         HTProfileSettingQuitLoginCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingQuitLoginCell class]) forIndexPath:indexPath];
+        cell.delegate = self;
         return cell;
     } else if (type == HTProfileSettingTypeClearCache) {
         HTProfileSettingTextCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HTProfileSettingTextCell class]) forIndexPath:indexPath];
@@ -298,8 +330,9 @@ static NSInteger const kChangeNameViewTag = 12345;
     } else if (type == HTProfileSettingTypeAvatar) {
         [self presentSystemPhotoLibraryController];
     } else if (type == HTProfileSettingTypeQuitLogin) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
-        [alertView show];
+        //TODO 修改
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+//        [alertView show];
     } else if (type == HTProfileSettingTypeName) {
         HTProfileSettingChangeNameView *changeView = [[HTProfileSettingChangeNameView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         [changeView setUserInfo:_userInfo];
@@ -311,7 +344,7 @@ static NSInteger const kChangeNameViewTag = 12345;
         [MBProgressHUD bwm_showTitle:@"清除成功" toView:KEY_WINDOW hideAfter:1.0];
     } else if (type ==HTProfileSettingTypeExplain){
         HTWebController *webController = [[HTWebController alloc] initWithURLString:@"http://admin.90app.tv/Home/User/about"];
-        webController.title = @"什么是九零";
+        webController.titleString = @"什么是九零";
         [self.navigationController pushViewController:webController animated:YES];
     }
 }
@@ -387,6 +420,13 @@ static NSInteger const kChangeNameViewTag = 12345;
     _userInfo.settingType = HTUpdateUserInfoTypePushSetting;
     [[[HTServiceManager sharedInstance] profileService] updateUserInfo:_userInfo completion:^(BOOL success, HTResponsePackage *response) {
     }];
+}
+
+#pragma mark - HTProfileSettingQuitCell Delegate 
+
+- (void)onClickQuitSettingButton {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    [alertView show];
 }
 
 #pragma mark - HTProfileSettingChangeNameView Delegate

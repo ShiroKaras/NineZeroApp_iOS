@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HTProfileRewardController : UITableViewController
+@interface HTProfileRewardController : UIViewController
 
 @end

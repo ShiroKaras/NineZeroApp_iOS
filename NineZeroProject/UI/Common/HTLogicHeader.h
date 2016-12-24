@@ -9,23 +9,22 @@
 #ifndef HTLogicHeader_h
 #define HTLogicHeader_h
 
-#import <MJExtension.h>
-
 #import "HTModel.h"
 #import "SKModel.h"
 
 #import "HTCGIManager.h"
 #import "SKCGIManager.h"
 
-#import "HTNetworkDefine.h"
-#import "SKNetworkDefine.h"
-
+#import "HTLog.h"
 #import "HTStorageManager.h"
 #import "SKStorageManager.h"
 
-#import "HTLog.h"
+#import "HTNetworkDefine.h"
+#import "SKNetworkDefine.h"
+
 #import "NSString+Utility.h"
 
 #import <AFNetworking.h>
+#import <MJExtension.h>
 
 #endif /* HTLogicHeader_h */

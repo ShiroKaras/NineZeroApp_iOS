@@ -8,6 +8,7 @@
 
 #import "HTProfileSettingCell.h"
 #import "HTUIHeader.h"
+#import "HTLoginRootController.h"
 
 @interface HTProfileSettingCell ()
 @property (nonatomic, strong) UIView *separator;
@@ -24,7 +25,7 @@
         self.backgroundColor = COMMON_BG_COLOR;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         _separator = [[UIView alloc] init];
-        _separator.backgroundColor = [UIColor colorWithHex:0x1a1a1a];
+        _separator.backgroundColor = COMMON_TITLE_BG_COLOR;
         [self.contentView addSubview:_separator];
         
         _titleLabel = [[UILabel alloc] init];
@@ -189,22 +190,21 @@ typedef NS_ENUM(NSUInteger, WWKSwitchBoolValue) {
 }
 @end
 
-@interface HTProfileSettingQuitLoginCell ()
+@interface HTProfileSettingQuitLoginCell () <UIAlertViewDelegate>
 @property (nonatomic, strong) UILabel *quitLabel;
 @end
 @implementation HTProfileSettingQuitLoginCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = COMMON_GREEN_COLOR;
-    
-        _quitLabel = [[UILabel alloc] init];
-        _quitLabel.font = [UIFont systemFontOfSize:18];
-        _quitLabel.textColor = [UIColor whiteColor];
-        _quitLabel.textAlignment = NSTextAlignmentCenter;
-        _quitLabel.text = @"退出登录";
-        [_quitLabel sizeToFit];
-        [self.contentView addSubview:_quitLabel];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        HTLoginButton *quitButton = [HTLoginButton buttonWithType:UIButtonTypeCustom];
+        [quitButton setTitle:@"退出登录" forState:UIControlStateNormal];
+        quitButton.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);
+        quitButton.enabled = YES;
+        [quitButton addTarget:self action:@selector(quitButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:quitButton];
     }
     return self;
 }
@@ -214,5 +214,11 @@ typedef NS_ENUM(NSUInteger, WWKSwitchBoolValue) {
     _quitLabel.centerX = self.width / 2;
     _quitLabel.centerY = self.height / 2;
 }
+
+- (void)quitButtonClick {
+    [self.delegate onClickQuitSettingButton];
+}
+
+
 @end
 

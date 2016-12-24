@@ -21,8 +21,12 @@
 #define IPHONE6_PLUS_SCREEN_WIDTH  414
 #define IPHONE6_SCREEN_WIDTH       375
 #define IPHONE5_SCREEN_WIDTH       320
+#define IPHONE4_SCREEN_HEIGHT      480
 
 #define UIColorMake(r, g, b) [[UIColor alloc] initWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
+
+//Masonry
+#define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 
 // 布局换算比例
 #define ROUND_WIDTH(w) @((w / 320.0) * SCREEN_WIDTH)
@@ -34,11 +38,16 @@
 //#define ARTICLE_URL_STRING @"http://101.201.39.169:8001/views/article.html"
 //#define ANSWER_URL_STRING @"http://101.201.39.169:8001/views/answer.html"
 
-#define COMMON_BG_COLOR UIColorMake(14, 14, 14)
 #define MOON_FONT_OF_SIZE(s)        [UIFont fontWithName:@"Moon-Bold" size:s]
+#define PINGFANG_FONT_OF_SIZE(s)    [UIFont fontWithName:@"PingFangSC-Regular" size:s]
+
+#define COMMON_BG_COLOR UIColorMake(14, 14, 14)
+#define COMMON_TITLE_BG_COLOR       [UIColor colorWithHex:0x1A1A1A]
 #define COMMON_GREEN_COLOR          [UIColor colorWithHex:0x24ddb2]
 #define COMMON_PINK_COLOR           [UIColor colorWithHex:0xd40e88]
 #define COMMON_SEPARATOR_COLOR      [UIColor colorWithHex:0x1f1f1f]
+#define COMMON_RED_COLOR      [UIColor colorWithHex:0xed203b]
+
 #define KEYWINDS_ROOT_CONTROLLER    [[[[UIApplication sharedApplication] delegate] window] rootViewController]
 #define KEY_WINDOW                  [[[UIApplication sharedApplication] delegate] window]
 #define APPLICATION_DELEGATE        [[UIApplication sharedApplication] delegate]
@@ -54,5 +63,20 @@
 })
 
 #define UD [NSUserDefaults standardUserDefaults]
+
+#define FIRST_LAUNCH [UD boolForKey:@"firstLaunch"]
+
+#define FIRST_TYPE_1 ![UD boolForKey:@"firstLaunchType1"]
+#define FIRST_TYPE_2 ![UD boolForKey:@"firstLaunchType2"]
+#define FIRST_TYPE_3 ![UD boolForKey:@"firstLaunchType3"]
+
+#define FIRST_LAUNCH_AR ![UD boolForKey:@"firstLaunchTypeAR"]
+#define FIRST_LAUNCH_QUESTIONLIST ![UD boolForKey:@"firstLaunchQuestionList"]
+#define FIRST_LAUNCH_QUESTIONVIEW ![UD boolForKey:@"firstLaunchQuestionView"]
+#define FIRST_LAUNCH_MASCOTVIEW   ![UD boolForKey:@"firstLaunchMascotView"]
+
+#define kQuestionHintArray @"kkQuestionHintArrayFixed"
+
+#define kBadgeLevels @"kBadgeLevels"
 
 #endif /* CommonDefine_h */

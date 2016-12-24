@@ -8,23 +8,21 @@
 
 #import "AppDelegate.h"
 #import "JPUSHService.h"
-#import "HTLoginRootController.h"
-#import "HTServiceManager.h"
 #import "HTNavigationController.h"
 #import <Qiniu/QiniuSDK.h>
 #import "HTLogicHeader.h"
 #import "HTUIHeader.h"
-#import "HTRelaxController.h"
-#import "INTULocationManager.h"
-#import "HTMainViewController.h"
-#import "HTArticleController.h"
 #import "SKLaunchAnimationViewController.h"
+#import "SKLoginRootViewController.h"
 
 #import <JSPatch/JSPatch.h>
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
 #import "UMMobClick/MobClick.h"
+
+#import "TalkingData.h"
+#import <JSPatchPlatform/JSPatch.h>
 
 //腾讯开放平台（对应QQ和QQ空间）SDK头文件
 #import <TencentOpenAPI/TencentOAuth.h>
@@ -41,12 +39,14 @@
 
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 @property (nonatomic, strong) SKLaunchAnimationViewController *launchViewController;
+@property (nonatomic, strong) NSString *trackViewURL;
 @end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _cityCode = @"010";
+    _active = true;
     
     if (![UD boolForKey:@"everLaunched"]) {
         [UD setBool:YES forKey:@"firstLaunch"];
@@ -63,6 +63,8 @@
     [self registerShareSDK];
     [self registerUmeng];
     [self registerUserAgent];
+    [self registerTalkingData];
+    [self registerJSPatch];
     
     [NSThread sleepForTimeInterval:2];
     [self createWindowAndVisibleWithOptions:launchOptions];
@@ -83,12 +85,14 @@
 }
 
 - (void)debugHotKey:(UIKeyCommand *)keyCommand {
-    HTRelaxController *relaxController = [[HTRelaxController alloc] init];
-    UIViewController *vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    while (vc.presentedViewController) vc = vc.presentedViewController;
-    [vc presentViewController:relaxController animated:YES completion:nil];
+    //如果出现Bug跳转View
 }
 #endif
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    (void)application;
+    _active = false;
+}
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     __block UIBackgroundTaskIdentifier backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
@@ -101,11 +105,13 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     DLog(@"applicationWillEnterForeground");
+    [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     DLog(@"applicationDidBecomeActive");
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    _active = true;
     [JPUSHService resetBadge];
 }
 
@@ -128,6 +134,10 @@
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
+- (void)applicationWillTerminate:(UIApplication *)application {
+    _active = false;
+}
+
 //- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
 //
 //}
@@ -141,21 +151,16 @@
 - (void)handleAPNsDict:(NSDictionary *)dict {
     NSString *method = dict[@"method"];
     NSDictionary *dataDict = dict[@"data"];
-    if ([method isEqual:@1]) {
-        [[[HTServiceManager sharedInstance] profileService] getArticle:[dataDict[@"article_id"] integerValue] completion:^(BOOL success, HTArticle *articles) {
-            HTArticleController *articleViewController = [[HTArticleController alloc] initWithArticle:articles];
-            [self.mainController presentViewController:articleViewController animated:YES completion:nil];
-        }];
-    }
 }
 
 - (void)createWindowAndVisibleWithOptions:(NSDictionary*)launchOptions {
-    if ([[[HTServiceManager sharedInstance] loginService] loginUser] != nil) {
+    if ([[[SKServiceManager sharedInstance] loginService] loginUser] != nil) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        _mainController = [[HTMainViewController alloc] init];
-        self.window.rootViewController = _mainController;
+        _mainController = [[SKHomepageViewController alloc] init];
+        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:_mainController];
+        self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         // 用户通过点击图标启动程序 还是  点击通知启动程序
         // 获取启动时收到的APN
         NSDictionary* remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -164,7 +169,7 @@
         }
     } else {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        HTLoginRootController *rootController = [[HTLoginRootController alloc] init];
+        SKLoginRootViewController *rootController = [[SKLoginRootViewController alloc] init];
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
@@ -178,11 +183,11 @@
                     weakSelf.launchViewController.view.alpha = 0;
                 } completion:^(BOOL finished) {
                     weakSelf.launchViewController = nil;
-                    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+                    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
                 }];
             };
         }else {
-            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         }
         
         [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
@@ -194,6 +199,32 @@
             [self handleAPNsDict:remoteNotification];
         }
     }
+    
+//    [[[HTServiceManager sharedInstance] profileService] getVersion:^(NSDictionary *posts, NSError *error) {
+//        NSArray* infoArray = [posts objectForKey:@"results"];
+//        if (infoArray.count>0) {
+//            NSDictionary* releaseInfo =[infoArray objectAtIndex:0];
+//            NSString* appStoreVersion = [releaseInfo objectForKey:@"version"];
+//            NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+//            NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
+//            if (![appStoreVersion isEqualToString:currentVersion])
+//            {
+//                _trackViewURL = [[NSString alloc] initWithString:[releaseInfo objectForKey:@"trackViewUrl"]];
+//                NSString *msg =[releaseInfo objectForKey:@"releaseNotes"];
+//                UIAlertView* alertview =[[UIAlertView alloc] initWithTitle:@"版本升级" message:[NSString stringWithFormat:@"%@%@%@", @"新版本特性:",msg, @"\n是否升级？"] delegate:self cancelButtonTitle:@"稍后升级" otherButtonTitles:@"马上升级", nil];
+//                [alertview show];
+//            }
+//        }
+//    }];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1)
+    {
+        UIApplication *application = [UIApplication sharedApplication];
+        [application openURL:[NSURL URLWithString:_trackViewURL]];
+    }
 }
 
 - (void)registerUserAgent {
@@ -203,6 +234,13 @@
     NSString *newUagent = [NSString stringWithFormat:@"%@ 90app529D",secretAgent];
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:newUagent forKey:@"UserAgent"];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+}
+
+- (void)registerTalkingData {
+    // App ID: 在 App Analytics 创建应用后，进入数据报表页中，在“系统设置”-“编辑应用”页面里查看App ID。
+    // 渠道 ID: 是渠道标识符，可通过不同渠道单独追踪数据。
+    [TalkingData sessionStarted:@"EB304F0B34B5B775BD23554F6456B3C4" withChannelId:@"iOS"];
+    [TalkingData setVersionWithCode:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] name:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]];
 }
 
 #pragma mark - Location
@@ -237,9 +275,7 @@
 #pragma mark - QiNiu
 
 - (void)registerQiniuService {
-    [[[HTServiceManager sharedInstance] loginService] getQiniuPrivateTokenWithCompletion:^(NSString *token) {
-    }];
-    [[[HTServiceManager sharedInstance] loginService] getQiniuPublicTokenWithCompletion:^(NSString *token) {
+    [[[SKServiceManager sharedInstance] commonService] getQiniuPublicTokenWithCompletion:^(NSString *token) {
     }];
 }
 
@@ -308,8 +344,8 @@
                                        appSecret:@"9b878253531427e0216f4c456a6216bc"];
                  break;
              case SSDKPlatformTypeQQ:
-                 [appInfo SSDKSetupQQByAppId:@"1105336032"
-                                      appKey:@"JBvAhpWdPjMxhGJt"
+                 [appInfo SSDKSetupQQByAppId:@"1105267679"
+                                      appKey:@"kQ0GorXbIWGY7LMk"
                                     authType:SSDKAuthTypeBoth];
                  break;
              default:
@@ -338,7 +374,7 @@
     [JPUSHService setupWithOption:launchOptions appKey:@"a55e70211d78ad951ecca453" channel:@"90" apsForProduction:true];
     [JPUSHService resetBadge];
     if ([[HTStorageManager sharedInstance] getUserID]) {
-        [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[HTStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
+        [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[SKStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
     }
 }
 

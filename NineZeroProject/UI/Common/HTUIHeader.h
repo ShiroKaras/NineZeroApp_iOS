@@ -11,6 +11,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 #import <Masonry.h>
 #import <MBProgressHUD+BWMExtension.h>
 #import "UIButton+EnlargeTouchArea.h"
@@ -22,6 +23,7 @@
 #import "HTNavigationController.h"
 #import "HTCommonViewController.h"
 #import "HTServiceManager.h"
+#import "SKServiceManager.h"
 #import "NSString+Utility.h"
 #import "HTImageView.h"
 #import "HTMascotHelper.h"
@@ -35,7 +37,11 @@
 #import "easing.h"
 #import "YXEasing.h"
 #import "SKImageHelper.h"
+#import "MJRefresh.h"
+#import "HTLoginButton.h"
+#import "UIImage+Extension.h"
 
 #import "UMMobClick/MobClick.h"
+#import "TalkingData.h"
 
 #endif /* HTUIHeader_h */

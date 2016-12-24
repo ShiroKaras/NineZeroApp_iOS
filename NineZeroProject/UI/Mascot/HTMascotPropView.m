@@ -145,7 +145,7 @@
 }
 
 - (void)onClickPropItem {
-    [MobClick event:@"toy"];
+    //[MobClick event:@"toy"];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     HTDescriptionView *descView = [[HTDescriptionView alloc] initWithURLString:nil andType:HTDescriptionTypeProp];
     [descView setProp:_prop];

@@ -39,5 +39,9 @@
 @interface HTProfileSettingBlankCell : HTProfileSettingCell
 @end
 
+@protocol HTProfileSettingQuitCellDelegate <NSObject>
+- (void)onClickQuitSettingButton;
+@end
 @interface HTProfileSettingQuitLoginCell : UITableViewCell
+@property (nonatomic, weak) id<HTProfileSettingQuitCellDelegate> delegate;
 @end

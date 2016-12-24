@@ -14,6 +14,7 @@
 #import "HTLoginController.h"
 #import "NSString+Utility.h"
 #import "HTMainViewController.h"
+#import "SKIndexViewController.h"
 #import "HTWebController.h"
 #import "SKUserAgreementViewController.h"
 
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet HTLoginButton *sendAgainButton;
 @property (weak, nonatomic) IBOutlet UIButton *avatarButton;
 @property (weak, nonatomic) IBOutlet UIButton *userAgreementButton;
+//@property (weak, nonatomic) IBOutlet HTLoginButton *nextButton;
 
 @end
 
@@ -43,6 +45,9 @@
     [super viewDidLoad];
     self.title = @"注册";
     
+    [self setTipsOffsetY:60];
+    [self.view bringSubviewToFront:[self.view viewWithTag:1000]];
+    
     _avatarButton.layer.cornerRadius = _avatarButton.width / 2;
     _avatarButton.layer.masksToBounds = YES;
     
@@ -51,12 +56,15 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"registerpage"];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [TalkingData trackPageBegin:@"registerpage"];
+//    [MobClick beginLogPageView:@"registerpage"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"registerpage"];
+    [TalkingData trackPageEnd:@"registerpage"];
+//    [MobClick endLogPageView:@"registerpage"];
 }
 
 #pragma mark - Subclass
@@ -80,9 +88,10 @@
 }
 
 - (IBAction)nextButtonClicked:(UIButton *)sender {
+    _nextButton.backgroundColor = COMMON_GREEN_COLOR;
     [self.view endEditing:YES];
     _loginUser.code = self.verifyTextField.text;
-    _loginUser.user_name = self.nickTextField.text;
+    _loginUser.user_name = [self.nickTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     // 登录前混淆加密
     _loginUser.user_password = [NSString confusedPasswordWithLoginUser:_loginUser];
     // TODO:这些值不能临时填
@@ -96,8 +105,12 @@
         [HTProgressHUD dismiss];
         if (success) {
             if (response.resultCode == 0) {
-                HTMainViewController *controller = [[HTMainViewController alloc] init];
-                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+                SKIndexViewController *controller = [[SKIndexViewController alloc] init];
+//                [UIApplication sharedApplication].keyWindow.rootViewController = controller;
+                AppDelegateInstance.mainController = controller;
+                HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
+                AppDelegateInstance.window.rootViewController = navController;
+                [AppDelegateInstance.window makeKeyAndVisible];
                 [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
             } else {
                 [self showTipsWithText:response.resultMsg];

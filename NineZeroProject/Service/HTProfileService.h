@@ -85,6 +85,10 @@ typedef NS_ENUM(NSUInteger, HTUpdateUserInfoType) {
  */
 - (void)getCollectArticlesWithPage:(NSUInteger)page count:(NSUInteger)count callback:(HTGetArticlesCallback)callback;
 /**
+ *  @brief 文章标记为已读
+ */
+- (void)readArticleWithArticleID:(NSUInteger)articleID completion:(HTResponseCallback)callback;
+/**
  *  @brief 获取勋章
  */
 - (void)getBadges:(HTGetBadgesCallback)callback;
@@ -100,4 +104,17 @@ typedef NS_ENUM(NSUInteger, HTUpdateUserInfoType) {
  *  @brief 收藏文章
  */
 - (void)collectArticleWithArticleID:(NSUInteger)articleID completion:(HTResponseCallback)callback;
+/**
+ *  @brief 分享文章
+ */
+- (void)shareArticleWithArticleID:(NSUInteger)articleID completion:(HTResponseCallback)callback;
+#pragma mark - 最新版本号
+/**
+ *  @brief 最新版本号
+ */
+- (void)getVersion:(void (^)(NSDictionary *posts, NSError *error))callback;
+/**
+ *  @brief 弹屏通知
+ */
+- (void)getActivityNotification:(HTResponseCallback)callback;
 @end

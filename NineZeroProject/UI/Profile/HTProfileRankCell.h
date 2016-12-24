@@ -8,17 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    SKRankViewTypeSeason1   =0,
+    SKRankViewTypeSeason2   =1
+} SKRankViewType;
+
 @interface HTProfileProgressView : UIView
 - (void)setProgress:(CGFloat)progress;
 - (void)setCoverColor:(UIColor *)coverColor;
 - (void)setBackColor:(UIColor *)backColor;
 @end
 
-@class HTRanker;
+@class SKRanker;
 @interface HTProfileRankCell : UITableViewCell
 
-@property (nonatomic, strong) HTRanker *ranker;
+@property (nonatomic, strong) SKRanker *ranker;
+@property (nonatomic, strong) NSArray<SKRanker*>* topThreeRankers;
 
 - (void)showWithMe:(BOOL)me;
-
+- (void)setTopThreeRankers:(NSArray<SKRanker *> *)topThreeRankers withType:(SKRankViewType)type;
+- (void)setRanker:(SKRanker *)ranker withType:(SKRankViewType)type;
 @end

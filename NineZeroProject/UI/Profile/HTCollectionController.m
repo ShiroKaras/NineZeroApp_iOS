@@ -10,23 +10,40 @@
 #import "HTUIHeader.h"
 #import "HTMascotArticleCell.h"
 #import "MJRefresh.h"
-#import "HTProfileArticlesController.h"
 #import "HTArticleController.h"
 
-@interface HTCollectionController ()
+@interface HTCollectionController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray<HTArticle *> *articles;
 @property (nonatomic, strong) HTBlankView *blankView;
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation HTCollectionController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"收藏文章";
+    self.view.backgroundColor = COMMON_BG_COLOR;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = @"收藏的文章";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont systemFontOfSize:17];
+    [titleLabel sizeToFit];
+    titleLabel.center = headerView.center;
+    [headerView addSubview:titleLabel];
+    [self.view addSubview:headerView];
+    
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
+    
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     
     [self.tableView registerClass:[HTMascotArticleCell class] forCellReuseIdentifier:NSStringFromClass([HTMascotArticleCell class])];
 }
@@ -40,9 +57,6 @@
         [HTProgressHUD dismiss];
         if (success) {
             _articles = articles;
-            UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5.5)];
-            headerView.backgroundColor = [UIColor whiteColor];
-            self.tableView.tableHeaderView = headerView;
             MJRefreshAutoGifFooter *footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
             NSMutableArray<UIImage *> *refreshingImages = [NSMutableArray array];
             for (int i = 0; i != 3; i++) {
@@ -55,29 +69,30 @@
             footer.height = 0;
             [self.tableView reloadData];
             if (_articles.count == 0) {
-                UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+                UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, self.view.width, self.view.height-60)];
                 converView.backgroundColor = COMMON_BG_COLOR;
                 [self.view addSubview:converView];
                 self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
                 [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
                 [self.view addSubview:self.blankView];
-                self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+                self.blankView.top = ROUND_HEIGHT_FLOAT(217);
             }
         }
     }];
     
     if (NO_NETWORK) {
-        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, self.view.width, self.view.height-60)];
         converView.backgroundColor = COMMON_BG_COLOR;
         [self.view addSubview:converView];
         self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
         [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
         [self.view addSubview:self.blankView];
-        self.blankView.top = ROUND_HEIGHT_FLOAT(157);
+        self.blankView.top = ROUND_HEIGHT_FLOAT(217);
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"Cessaypage"];
 }
 
@@ -97,6 +112,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [TalkingData trackEvent:@"toarticle" label:@"collection"];
     HTArticle *article = _articles[indexPath.row];
     HTArticleController *controller = [[HTArticleController alloc] initWithArticle:article];
     [self presentViewController:controller animated:YES completion:nil];

@@ -9,21 +9,28 @@
 #import "HTMascotService.h"
 #import "HTLogicHeader.h"
 
-@implementation HTMascotService
+@implementation HTMascotService {
+    NSMutableArray<HTMascot*> *_mascotsArray;
+}
+
+- (NSArray<HTMascot *> *)mascotsArray {
+    return _mascotsArray;
+}
 
 - (void)getUserMascots:(HTGetMascotsCallback)callback {
     DLog(@"userid = %@", [[HTStorageManager sharedInstance] getUserID]);
     if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getMascotsCGIKey] parameters:@{ @"user_id" : [[HTStorageManager sharedInstance] getUserID] } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
+        //DLog(@"%@",responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             NSMutableArray<HTMascot *> *mascots = [[NSMutableArray alloc] init];
+            _mascotsArray = mascots;
             for (int i = 0; i != [responseObject[@"data"] count]; i++) {
-                HTMascot *mascot = [HTMascot mj_objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
+                HTMascot *mascot = [HTMascot objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]];
                 //获取未读文章数
-                mascot.unread_articles = mascot.articles - [[HTStorageManager sharedInstance] getMascotInfoWithIndex:mascot.mascotID].articles;
+                mascot.unread_articles = mascot.articlesCount - [[HTStorageManager sharedInstance] getMascotInfoWithIndex:mascot.mascotID].articlesCount;
                 [mascots addObject:mascot];
             }
             callback(true, mascots);
@@ -43,18 +50,18 @@
                                @"pet_id"  : @(mascotID)};
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getMascotInfoCGIKey] parameters:dataDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
+        //DLog(@"%@",responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0 && responseObject[@"data"] && responseObject[@"data"][@"articles"]) {
-            HTMascot *mascot = [HTMascot mj_objectWithKeyValues:responseObject[@"data"][@"detail"]];
+            HTMascot *mascot = [HTMascot objectWithKeyValues:responseObject[@"data"][@"detail"]];
             NSMutableArray<HTArticle *> *articleList = [NSMutableArray array];
             for (NSDictionary *articleDict in responseObject[@"data"][@"articles"]) {
-                HTArticle *article = [HTArticle mj_objectWithKeyValues:articleDict];
+                HTArticle *article = [HTArticle objectWithKeyValues:articleDict];
                 [articleList addObject:article];
             }
             mascot.article_list = articleList;
             //存储已读文章数
-            mascot.articles = mascot.article_list.count;
+            mascot.articlesCount = mascot.article_list.count;
             [[HTStorageManager sharedInstance] setMascotInfo:mascot withIndex:mascotID];
             callback(true, mascot);
         } else {
@@ -68,12 +75,12 @@
 - (void)getUserProps:(HTGetPropsCallback)callback {
     if ([[HTStorageManager sharedInstance] getUserID] == nil) return;
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getMascotPropsCGIKey] parameters:@{ @"user_id" : [[HTStorageManager sharedInstance] getUserID] } success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
+        //DLog(@"%@",responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         if (rsp.resultCode == 0) {
             NSMutableArray<HTMascotProp *> *props = [[NSMutableArray alloc] init];
             for (int i = 0; i != [responseObject[@"data"] count]; i++) {
-                [props addObject:[HTMascotProp mj_objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]]];
+                [props addObject:[HTMascotProp objectWithKeyValues:[responseObject[@"data"] objectAtIndex:i]]];
             }
             callback(true, props);
         } else {
@@ -91,8 +98,8 @@
                                @"prop_id" : @(prop.prop_id)};
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager exchangePropCGIKey] parameters:paraDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
+        //DLog(@"%@",responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);
@@ -105,8 +112,8 @@
                                @"qid" : @(qid)};
     
     [[AFHTTPRequestOperationManager manager] POST:[HTCGIManager getRewardCGIKey] parameters:paraDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        DLog(@"%@",responseObject);
-        HTResponsePackage *rsp = [HTResponsePackage mj_objectWithKeyValues:responseObject];
+        //DLog(@"%@",responseObject);
+        HTResponsePackage *rsp = [HTResponsePackage objectWithKeyValues:responseObject];
         callback(true, rsp);
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         callback(false, nil);

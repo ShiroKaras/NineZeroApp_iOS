@@ -30,7 +30,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *collectionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rewardLabel;
 @property (weak, nonatomic) IBOutlet UIView *recordBackView;
-@property (weak, nonatomic) IBOutlet UIImageView *notificationFlagImageView;
 
 @property (nonatomic, strong) UICollectionView *recordView;
 @property (nonatomic, strong) HTProfileInfo *profileInfo;
@@ -63,8 +62,6 @@
     _avatar.layer.masksToBounds = YES;
     _avatar.userInteractionEnabled = NO;
     
-    _notificationFlagImageView.hidden = YES;
-    
     self.navigationController.navigationBar.hidden = YES;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -83,9 +80,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"homepage"];
+    //[MobClick beginLogPageView:@"homepage"];
+    [TalkingData trackPageBegin:@"personalpage"];
     self.navigationController.navigationBar.hidden = YES;
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
         _profileInfo.answer_list = nil;
         _recordView.hidden = YES;
@@ -113,10 +111,6 @@
                         [self.view bringSubviewToFront:self.blankView];
                     }
                 }
-                if([_profileInfo.notice integerValue]+1 - [UD integerForKey:@"notificationsHasReadKey"]>0)
-                    self.notificationFlagImageView.hidden = NO;
-                else
-                    self.notificationFlagImageView.hidden = YES;
                 [self reloadData];
             }
         }];
@@ -133,8 +127,10 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.hidden = NO;
-    [MobClick endLogPageView:@"homepage"];
+//    self.navigationController.navigationBar.hidden = NO;
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO];
+    //[MobClick endLogPageView:@"homepage"];
+    [TalkingData trackPageEnd:@"personalpage"];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -145,7 +141,7 @@
 
 - (void)reloadData {
     _coinLabel.text = _profileInfo.gold;
-    _rankLabel.text = _profileInfo.rank;
+    _rankLabel.text = [_profileInfo.rank integerValue]>999?@"1000+":_profileInfo.rank;
     _rewardLabel.text = _profileInfo.ticket;
     _metaLabel.text = _profileInfo.medal;
     _collectionLabel.text = _profileInfo.article;
@@ -155,11 +151,12 @@
 }
 
 - (IBAction)didClickBackButton:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)didClickNotification:(UIButton *)sender {
-    [MobClick event:@"push"];
+    //[MobClick event:@"push"];
     HTNotificationController *controller = [[HTNotificationController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
@@ -170,33 +167,38 @@
 }
 
 - (IBAction)didClickCoin:(UIButton *)sender {
-    [MobClick event:@"goldcoin"];
+    //[MobClick event:@"goldcoin"];
+    [TalkingData trackEvent:@"goldcoin"];
     HTWebController *webController = [[HTWebController alloc] init];
     [webController setUrlString:[NSString stringWithFormat:@"http://admin.90app.tv/index.php?s=/Home/user/coin/id/%@", [[HTStorageManager sharedInstance] getUserID]]];
-    webController.title = @"金币";
+    webController.titleString = @"金币";
     [self.navigationController pushViewController:webController animated:YES];
 }
 
 - (IBAction)didClickRank:(UIButton *)sender {
-    [MobClick event:@"rankinglist"];
+    //[MobClick event:@"rankinglist"];
+    [TalkingData trackEvent:@"rankinglist"];
     HTProfileRankController *rankController = [[HTProfileRankController alloc] init];
     [self.navigationController pushViewController:rankController animated:YES];
 }
 
 - (IBAction)didClickMedal:(UIButton *)sender {
-    [MobClick event:@"badge"];
+    //[MobClick event:@"badge"];
+    [TalkingData trackEvent:@"badge"];
     HTProfileBadgeController *badgeController = [[HTProfileBadgeController alloc] init];
     [self.navigationController pushViewController:badgeController animated:YES];
 }
 
 - (IBAction)didClickCollectionArticle:(UIButton *)sender {
-    [MobClick event:@"Cessay"];
+    //[MobClick event:@"Cessay"];
+    [TalkingData trackEvent:@"cessay"];
     HTCollectionController *collectionController = [[HTCollectionController alloc] init];
     [self.navigationController pushViewController:collectionController animated:YES];
 }
 
 - (IBAction)didClickReward:(UIButton *)sender {
-    [MobClick event:@"gift"];
+    //[MobClick event:@"gift"];
+    [TalkingData trackEvent:@"gift"];
     HTProfileRewardController *rewardController = [[HTProfileRewardController alloc] init];
     [self.navigationController pushViewController:rewardController animated:YES];
 }
@@ -263,7 +265,7 @@
     [_snapView setQuestion:question questionInfo:questionInfo];
     
     _animatedFromFrame = [cell convertRect:cell.coverImageView.frame toView:self.view];
-    _animatedToFrame = CGRectMake(30, ROUND_HEIGHT_FLOAT(96), SCREEN_WIDTH - 47, SCREEN_WIDTH - 47);
+    _animatedToFrame = CGRectMake(17, ROUND_HEIGHT_FLOAT(96), SCREEN_WIDTH - 34, SCREEN_WIDTH - 34);
     _snapView.frame = _animatedFromFrame;
     [self.view addSubview:_snapView];
     CGFloat duration = 0.5;
@@ -277,9 +279,10 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((duration - 0.2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         NSArray<HTQuestion *>* questionArray = @[question];
         HTPreviewCardController *cardController = [[HTPreviewCardController alloc] initWithType:HTPreviewCardTypeIndexRecord andQuestList:questionArray];
+        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:cardController];
         cardController.delegate = self;
         cardController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:cardController animated:YES completion:^{
+        [self presentViewController:navController animated:YES completion:^{
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             
             [_snapView removeFromSuperview];

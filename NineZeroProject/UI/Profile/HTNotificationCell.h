@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class HTNotification;
+@class SKNotification;
 @interface HTNotificationCell : UITableViewCell
-- (void)setNotification:(HTNotification *)notification;
+- (void)setNotification:(SKNotification *)notification;
 + (CGFloat)calculateCellHeightWithText:(NSString *)text;
 @end
