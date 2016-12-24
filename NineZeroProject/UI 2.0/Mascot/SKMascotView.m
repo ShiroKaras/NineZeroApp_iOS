@@ -25,7 +25,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _mascotType = mascotType;
-        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
+        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"envy", @"lust", @"gluttony"];
         [self createUIWithType:mascotType];
     }
     return self;
@@ -117,7 +117,7 @@
     if (self) {
         self.isHad = isHad;
         self.type = mascotType;
-        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
+        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"envy", @"lust", @"gluttony"];
         _mascotNameDict = @{
                              @"lingzai"     :   @"零仔·〇",
                              @"envy"        :   @"Envy·A",
@@ -780,15 +780,13 @@
 }
 
 - (void)exchangeButtonClick:(UIButton*)sender {
-    _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_1_Label.text integerValue]-1];
-    _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_2_Label.text integerValue]-1];
-    _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_3_Label.text integerValue]-1];
-    _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_4_Label.text integerValue]-1];
     [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:[NSString stringWithFormat:@"%ld", (long)_type+1] callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
             NSLog(@"技能施放成功");
-        } else if (response.result == -7009){
-            NSLog(@"技能施放失败:%ld", (long)response.result);
+        } else if (response.result == -7009) {
+            [[self viewController] showTipsWithText:@"已有生效的魔法"];
+        } else if (response.result == - 7010) {
+            [[self viewController] showTipsWithText:@"施放魔法失败"];
         }
     }];
 }
@@ -865,7 +863,7 @@
 - (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType {
     self = [super initWithFrame:frame];
     if (self) {
-        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
+        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"envy", @"lust", @"gluttony"];
         _mascotTitleDict = @{
                              @"lingzai"     :   @"零仔·〇",
                              @"envy"        :   @"Envy·A",

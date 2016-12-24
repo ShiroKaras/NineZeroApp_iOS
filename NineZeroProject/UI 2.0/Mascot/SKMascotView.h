@@ -13,9 +13,9 @@ typedef enum : NSUInteger {
     SKMascotTypeSloth       = 1,
     SKMascotTypePride       = 2,
     SKMascotTypeWrath       = 3,
-    SKMascotTypeGluttony    = 4,
+    SKMascotTypeEnvy        = 4,
     SKMascotTypeLust        = 5,
-    SKMascotTypeEnvy        = 6
+    SKMascotTypeGluttony    = 6
 } SKMascotType;
 
 @interface SKMascotView : UIView
