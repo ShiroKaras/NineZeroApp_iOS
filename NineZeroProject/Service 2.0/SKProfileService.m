@@ -53,10 +53,10 @@
     NSDictionary *param = @{@"data" : [NSString encryptUseDES:jsonString key:nil]};
     
     [manager POST:[SKCGIManager profileBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        NSString *desString = [NSString decryptUseDES:responseObject[@"data"] key:nil];
-        NSDictionary *desDict = [desString dictionaryWithJsonString];
-        DLog(@"Response:%@",desDict);
-        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:desDict];
+//        NSString *desString = [NSString decryptUseDES:responseObject[@"data"] key:nil];
+//        NSDictionary *desDict = [desString dictionaryWithJsonString];
+        DLog(@"Response:%@",responseObject);
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
         if (package.result == 0) {
             callback(YES, package);
         } else {
