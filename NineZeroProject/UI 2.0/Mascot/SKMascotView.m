@@ -869,12 +869,12 @@
         _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
         _mascotTitleDict = @{
                              @"lingzai"     :   @"零仔·〇",
-                             @"envy"        :   @"嫉妒\nEnvy·A",
-                             @"gluttony"    :   @"饕餮\nGluttony·T",
-                             @"pride"       :   @"嫉妒\nPride·W",
-                             @"sloth"       :   @"懒惰\nSloth·S",
-                             @"wrath"       :   @"愤怒\nWrath·C",
-                             @"lust"        :   @"色欲\nLust·B"
+                             @"envy"        :   @"Envy·A",
+                             @"gluttony"    :   @"Gluttony·T",
+                             @"pride"       :   @"Pride·W",
+                             @"sloth"       :   @"Sloth·S",
+                             @"wrath"       :   @"Wrath·C",
+                             @"lust"        :   @"Lust·B"
                              };
         _mascotContentDict = @{
                                @"lingzai"     :   @"传说中的529D星球。〇纯洁如一张白纸，却孤独如一片深海。虽然这个世界与自己残存的记忆中的星球有太多类似的地方，但是它还是需要找到529D星球的一些线索，它希望知道自己的来处，希望了解关于529D星球的一切真相。",
