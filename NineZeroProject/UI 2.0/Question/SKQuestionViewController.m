@@ -8,6 +8,9 @@
 
 #import "SKQuestionViewController.h"
 #import "HTUIHeader.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+#import <CommonCrypto/CommonDigest.h>
 
 #import "SKTicketView.h"
 #import "SKHintView.h"
@@ -21,6 +24,18 @@
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
 #define TOP_PADDING 57
+
+#define SHARE_URL(u,v) [NSString stringWithFormat:@"http://admin.90app.tv/index.php?s=/Home/user/detail.html&area_id=%@&id=%@", (u), [self md5:(v)]]
+
+typedef NS_ENUM(NSInteger, HTButtonType) {
+    HTButtonTypeShare = 0,
+    HTButtonTypeCancel,
+    HTButtonTypeWechat,
+    HTButtonTypeMoment,
+    HTButtonTypeWeibo,
+    HTButtonTypeQQ,
+    HTButtonTypeReplay
+};
 
 @interface SKQuestionViewController () <SKComposeViewDelegate, SKHelperScrollViewDelegate>
 
@@ -64,6 +79,14 @@
 @property (nonatomic, strong) SKReward      *reward;
 
 @property (nonatomic, assign) NSInteger clickCount;
+
+//分享
+@property (nonatomic, strong) UIView *shareView;
+@property (nonatomic, strong) UIButton *cancelButton;
+@property (nonatomic, strong) UIButton *momentButton;
+@property (nonatomic, strong) UIButton *wechatButton;
+@property (nonatomic, strong) UIButton *qqButton;
+@property (nonatomic, strong) UIButton *weiboButton;
 @end
 
 @implementation SKQuestionViewController
@@ -122,6 +145,16 @@
     } else if (self.type == SKQuestionTypeHistoryLevel) {
         [TalkingData trackPageEnd:@"historylevelpage"];
     }
+    
+    [self stop];
+    if (_dimmingView) {
+        [self removeDimmingView];
+    }
+    if (_shareView) {
+        [_shareView removeFromSuperview];
+    }
+    _shareView = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self removeObserver:self forKeyPath:@"currentIndex"];
     [self removeObserver:self forKeyPath:@"isAnswered"];
 }
@@ -410,6 +443,8 @@
     _playButton.center = backView.center;
     _playButton.hidden = NO;
     [self.view addSubview:_playButton];
+    
+    
 }
 
 #pragma mark - Tools View
@@ -1202,6 +1237,18 @@
     [self play];
 }
 
+- (void)showReplayAndShareButton {
+//    _pauseImageView.hidden = YES;
+    [_playerItem seekToTime:kCMTimeZero];
+    [_player setRate:0];
+    [_player seekToTime:CMTimeMake(0, 1)];
+    [_player pause];
+    _coverImageView.hidden = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+//        _replayBackView.alpha = 1.;
+    }];
+}
+
 #pragma mark - Button Click
 
 - (void)bottomButtonsClick:(UIButton *)sender {
@@ -1427,6 +1474,279 @@
     [composeView removeFromSuperview];
 }
 
+//分享
+- (void)onClickShareButton:sender {
+    [self showShareView];
+}
+
+- (void)showShareView {
+    if (_shareView == nil) {
+        [self createShareView];
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        _shareView.alpha = 0.8;
+    }];
+}
+
+- (void)hideShareView {
+    [UIView animateWithDuration:0.3 animations:^{
+        _shareView.alpha = 0;
+    }];
+}
+
+- (void)createShareView {
+    _shareView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.view addSubview:_shareView];
+    _shareView.backgroundColor = [UIColor blackColor];
+    _shareView.alpha = 0;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideShareView)];
+    [_shareView addGestureRecognizer:tap];
+    
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_chap_video_share_title"]];
+    [_shareView addSubview:titleImageView];
+    
+    self.wechatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.wechatButton setImage:[UIImage imageNamed:@"ico_chap_video_share_wechat"] forState:UIControlStateNormal];
+    [self.wechatButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    [self.wechatButton sizeToFit];
+    self.wechatButton.tag = HTButtonTypeWechat;
+    self.wechatButton.alpha = 1;
+    [_shareView addSubview:self.wechatButton];
+    
+    self.momentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.momentButton setImage:[UIImage imageNamed:@"ico_chap_video_share_moments"] forState:UIControlStateNormal];
+    [self.momentButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    [self.momentButton sizeToFit];
+    self.momentButton.tag = HTButtonTypeMoment;
+    self.momentButton.alpha = 1;
+    [_shareView addSubview:self.momentButton];
+    
+    self.weiboButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.weiboButton setImage:[UIImage imageNamed:@"ico_chap_video_share_weibo"] forState:UIControlStateNormal];
+    [self.weiboButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    [self.weiboButton sizeToFit];
+    self.weiboButton.tag = HTButtonTypeWeibo;
+    self.weiboButton.alpha = 1;
+    [_shareView addSubview:self.weiboButton];
+    
+    self.qqButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.qqButton setImage:[UIImage imageNamed:@"ico_chap_video_share_qq"] forState:UIControlStateNormal];
+    [self.qqButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    [self.qqButton sizeToFit];
+    self.qqButton.tag = HTButtonTypeQQ;
+    self.qqButton.alpha = 1;
+    [_shareView addSubview:self.qqButton];
+    
+    __weak UIView *weakShareView = _shareView;
+    
+    float padding = (SCREEN_WIDTH-self.wechatButton.width*4)/5;
+    //    float iconWidth = self.wechatButton.width;
+    
+    [self.wechatButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakShareView.mas_left).mas_offset(padding);
+        make.centerY.equalTo(weakShareView);
+    }];
+    
+    [self.momentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_wechatButton.mas_right).mas_offset(padding);
+        make.centerY.equalTo(weakShareView);
+    }];
+    
+    [self.weiboButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_momentButton.mas_right).mas_offset(padding);
+        make.centerY.equalTo(weakShareView);
+    }];
+    
+    [self.qqButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_weiboButton.mas_right).mas_offset(padding);
+        make.centerY.equalTo(weakShareView);
+    }];
+    
+    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(_wechatButton.mas_top).mas_offset(-36);
+        make.centerX.equalTo(weakShareView);
+    }];
+}
+
+- (void)sharedQuestion {
+    
+}
+
+- (void)shareWithThirdPlatform:(UIButton*)sender {
+    //[MobClick event:@"share"];
+    [TalkingData trackEvent:@"share"];
+    HTButtonType type = (HTButtonType)sender.tag;
+    switch (type) {
+        case HTButtonTypeWechat: {
+            //            UIImage *oImage = [SKImageHelper getImageFromURL:_question.question_video_cover];
+            //            UIImage *finImage = [SKImageHelper compressImage:oImage toMaxFileSize:32];
+            NSArray* imageArray = @[self.currentQuestion.question_video_cover];
+            if (imageArray) {
+                
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, self.currentQuestion.qid)]
+                                                  title:[NSString stringWithFormat:@"第%@章",self.currentQuestion.serial]
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    DLog(@"State -> %lu", (unsigned long)state);
+                    switch (state) {
+                        case SSDKResponseStateSuccess:
+                        {
+                            [self hideShareView];
+                            [self sharedQuestion];
+                            break;
+                        }
+                        case SSDKResponseStateFail:
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                            message:[NSString stringWithFormat:@"%@",error]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles:nil, nil];
+                            [alert show];
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }];
+            }
+            break;
+        }
+        case HTButtonTypeMoment: {
+            //            UIImage *oImage = [SKImageHelper getImageFromURL:_question.question_video_cover];
+            //            UIImage *finImage = [SKImageHelper compressImage:oImage toMaxFileSize:32];
+            NSArray* imageArray = @[self.currentQuestion.question_video_cover];
+            if (imageArray) {
+                
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:self.currentQuestion.content
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, self.currentQuestion.qid)]
+                                                  title:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    switch (state) {
+                        case SSDKResponseStateSuccess:
+                        {
+                            [self hideShareView];
+                            [self sharedQuestion];
+                            break;
+                        }
+                        case SSDKResponseStateFail:
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                            message:[NSString stringWithFormat:@"%@",error]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles:nil, nil];
+                            [alert show];
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }];
+            }
+            break;
+        }
+        case HTButtonTypeWeibo: {
+            NSArray* imageArray = @[self.currentQuestion.question_video_cover];
+            if (imageArray) {
+                
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验 %@ 来自@九零APP", SHARE_URL(AppDelegateInstance.cityCode, self.currentQuestion.qid)]
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, self.currentQuestion.qid)]
+                                                  title:self.currentQuestion.chapter
+                                                   type:SSDKContentTypeImage];
+                [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    switch (state) {
+                        case SSDKResponseStateSuccess:
+                        {
+                            [self hideShareView];
+                            [self sharedQuestion];
+                            break;
+                        }
+                        case SSDKResponseStateFail:
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                            message:[NSString stringWithFormat:@"%@",error]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles:nil, nil];
+                            [alert show];
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }];
+            }
+            break;
+        }
+        case HTButtonTypeQQ: {
+            NSArray* imageArray = @[self.currentQuestion.question_video_cover];
+            if (imageArray) {
+                
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, self.currentQuestion.qid)]
+                                                  title:[NSString stringWithFormat:@"第%@章",self.currentQuestion.serial]
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeQQFriend parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                    switch (state) {
+                        case SSDKResponseStateSuccess:
+                        {
+                            [self hideShareView];
+                            [self sharedQuestion];
+                            break;
+                        }
+                        case SSDKResponseStateFail:
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                            message:[NSString stringWithFormat:@"%@",error]
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"OK"
+                                                                  otherButtonTitles:nil, nil];
+                            [alert show];
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }];
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+#pragma mark - ToolMethod
+
+- (NSString *) md5:(NSString *)str
+{
+    const char *cStr = [str UTF8String];
+    unsigned char result[16];
+    CC_MD5( cStr, (CC_LONG)strlen(cStr), result );
+    return [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
+}
+
 #pragma mark - Notification
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
@@ -1474,8 +1794,8 @@
     if ([notification.object isEqual:self.playerItem]) {
         [self stop];
         //显示分享界面
-//        [self showReplayAndShareButton];
-//        if (FIRST_TYPE_1 && !_question.isPassed) {
+        [self showReplayAndShareButton];
+//        if (FIRST_TYPE_1 && !self.currentQuestion.isPassed) {
 //            [self showGuideviewWithType:SKHelperGuideViewType1];
 //            [UD setBool:YES forKey:@"firstLaunchType1"];
 //        }
