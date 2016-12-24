@@ -11,11 +11,9 @@
 
 #import "SKModel.h"
 
-#import "HTCGIManager.h"
 #import "SKCGIManager.h"
 
 #import "HTLog.h"
-#import "HTStorageManager.h"
 #import "SKStorageManager.h"
 
 #import "SKNetworkDefine.h"

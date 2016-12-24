@@ -104,7 +104,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     DLog(@"applicationWillEnterForeground");
-    [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
+    [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -189,8 +189,8 @@
             [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         }
         
-        [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
-        [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
+        [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+        
         // 用户通过点击图标启动程序 还是  点击通知启动程序
         // 获取启动时收到的APN
         NSDictionary* remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -372,7 +372,7 @@
 //    [JPUSHService setupWithOption:launchOptions];
     [JPUSHService setupWithOption:launchOptions appKey:@"a55e70211d78ad951ecca453" channel:@"90" apsForProduction:true];
     [JPUSHService resetBadge];
-    if ([[HTStorageManager sharedInstance] getUserID]) {
+    if ([[SKStorageManager sharedInstance] getUserID]) {
         [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[SKStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
     }
 }

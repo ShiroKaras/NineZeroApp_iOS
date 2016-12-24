@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HTMainViewController.h"
-#import "SKIndexViewController.h"
+
 #import "SKHomepageViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

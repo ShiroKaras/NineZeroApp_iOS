@@ -8,10 +8,7 @@
 
 #import "HTNavigationController.h"
 #import "CommonUI.h"
-#import "SKQuestionPageViewController.h"
-#import "HTPreviewCardController.h"
-#import "HTMascotDisplayController.h"
-#import "HTArticleController.h"
+#import "HTUIHeader.h"
 
 @implementation HTNavigationController
 
@@ -57,14 +54,7 @@
         button.left += 4;
         [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
 //        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-        if ([viewController isKindOfClass:[SKQuestionPageViewController class]] ||
-            [viewController isKindOfClass:[HTPreviewCardController class]] ||
-            [viewController isKindOfClass:[HTMascotDisplayController class]] ||
-            [viewController isKindOfClass:[HTArticleController class]]) {
-            
-        } else {
-            [viewController.view addSubview:button];
-        }
+        [viewController.view addSubview:button];
     }
 }
 

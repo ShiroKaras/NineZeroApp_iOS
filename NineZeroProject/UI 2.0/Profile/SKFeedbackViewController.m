@@ -133,8 +133,8 @@
     self.submitButton.enabled = NO;
     [self.view endEditing:YES];
     [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"反馈中"];
-    [[[HTServiceManager sharedInstance] profileService] feedbackWithContent:self.textView.text mobile:self.textField.text completion:^(BOOL success, HTResponsePackage *response) {
-        if (success && response.resultCode == 0) {
+    [[[SKServiceManager sharedInstance] profileService] feedbackWithContent:self.textView.text contact:self.textField.text completion:^(BOOL success, SKResponsePackage *response) {
+        if (success && response.result == 0) {
             [self.navigationController popViewControllerAnimated:YES];
             [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
             [MBProgressHUD bwm_showTitle:@"感谢反馈" toView:KEY_WINDOW hideAfter:1.0];
