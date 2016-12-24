@@ -84,17 +84,16 @@
             callback(success, responseString, [response.data[@"rang_time"] integerValue]);
         } else if (response.result == -8001) {
             responseString = @"金币数不够";
-            success = NO;
+            callback(NO, responseString, 0);
         } else if (response.result == -8002) {
             responseString = @"宝石数不够";
-            success = NO;
+            callback(NO, responseString, 0);
         } else if (response.result == -8003) {
             responseString = @"冷却时间不能购买";
-            success = NO;
+            callback(NO, responseString, 0);
         } else {
-            success = NO;
+            callback(NO, responseString, 0);
         }
-        callback(success, responseString, 0);
     }];
 }
 
