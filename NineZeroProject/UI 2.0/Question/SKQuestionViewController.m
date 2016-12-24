@@ -26,7 +26,7 @@
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
 #define TOP_PADDING 57
 
-#define SHARE_URL(u,v) [NSString stringWithFormat:@"http://admin.90app.tv/index.php?s=/Home/user/detail.html&area_id=%@&id=%@", (u), [self md5:(v)]]
+#define SHARE_URL(u,v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
 
 typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeShare = 0,

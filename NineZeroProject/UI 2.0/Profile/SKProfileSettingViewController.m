@@ -445,7 +445,7 @@
 }
 
 - (void)whatIsNineZero:(UIButton*)sender {
-    HTWebController *controller = [[HTWebController alloc] initWithURLString:@"http://112.74.133.183:8086/index.php?d=home&c=coin&m=about"];
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:@"https://admin.90app.tv/index.php?s=/Home/user/about2.html"];
     controller.titleString = @"什么是九零";
     [self.navigationController pushViewController:controller animated:YES];
 }
