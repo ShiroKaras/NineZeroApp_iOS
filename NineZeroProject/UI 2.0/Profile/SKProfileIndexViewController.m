@@ -125,16 +125,16 @@
     [self createBackView1];
     [self createBackView2];
     
-    //关闭
-    UIButton *closeButton = [UIButton new];
-    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-    [self.view addSubview:closeButton];
-    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@12);
-        make.left.equalTo(@4);
-    }];
+//    //关闭
+//    UIButton *closeButton = [UIButton new];
+//    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
+//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
+//    [self.view addSubview:closeButton];
+//    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(@12);
+//        make.left.equalTo(@4);
+//    }];
 }
 
 - (void)createBackView1 {
@@ -358,9 +358,9 @@
 
 #pragma mark - Actions
 
-- (void)closeButtonClick:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+//- (void)closeButtonClick:(UIButton *)sender {
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 
 - (void)myTicketsClick {
     [TalkingData trackEvent:@"gift"];

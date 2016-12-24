@@ -79,15 +79,15 @@
         [_mScrollView addSubview:mascotView];
     }
     
-    UIButton *closeButton = [UIButton new];
-    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-    [self.view addSubview:closeButton];
-    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@12);
-        make.left.equalTo(@4);
-    }];
+//    UIButton *closeButton = [UIButton new];
+//    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
+//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
+//    [self.view addSubview:closeButton];
+//    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(@12);
+//        make.left.equalTo(@4);
+//    }];
     
     //按钮组
     _fightButton = [UIButton new];
@@ -184,7 +184,8 @@
 
 #pragma mark - Actions
 
-- (void)closeButtonClick:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+//- (void)closeButtonClick:(UIButton *)sender {
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
+
 @end

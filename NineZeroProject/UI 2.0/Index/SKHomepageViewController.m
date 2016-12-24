@@ -250,27 +250,25 @@
     [TalkingData trackEvent:@"alllevels"];
     SKAllQuestionViewController *controller = [[SKAllQuestionViewController alloc] init];
     controller.isMonday = self.isMonday;
-    HTNavigationController *rootController = [[HTNavigationController alloc] initWithRootViewController:controller];
-    [self presentViewController:rootController animated:YES completion:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)mascotButtonClick:(UIButton*)sender {
     [TalkingData trackEvent:@"lingzai"];
     SKMascotIndexViewController *controller = [[SKMascotIndexViewController alloc] init];
-    [self presentViewController:controller animated:YES completion:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)rankButtonClick:(UIButton *)sender {
     [TalkingData trackEvent:@"rankinglist"];
     SKRankViewController *controller = [[SKRankViewController alloc] init];
-    [self presentViewController:controller animated:YES completion:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)meButtonClick:(UIButton*)sender {
     [TalkingData trackEvent:@"myhomepage"];
     SKProfileIndexViewController *controller = [[SKProfileIndexViewController alloc] init];
-    HTNavigationController *rootController = [[HTNavigationController alloc] initWithRootViewController:controller];
-    [self presentViewController:rootController animated:YES completion:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)settingButtonClick:(UIButton*)sender {

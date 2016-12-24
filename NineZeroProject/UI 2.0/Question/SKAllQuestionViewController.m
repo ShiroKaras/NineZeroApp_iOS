@@ -85,17 +85,17 @@
     self.view.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
     
     WS(weakSelf);
-    UIButton *cancelButton = [UIButton new];
-    [cancelButton setImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-    [cancelButton setImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-    [cancelButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:cancelButton];
-    [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@(40));
-        make.height.equalTo(@(40));
-        make.top.equalTo(weakSelf.view).offset(12);
-        make.left.equalTo(weakSelf.view).offset(4);
-    }];
+//    UIButton *closeButton = [UIButton new];
+//    [closeButton setImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
+//    [closeButton setImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
+//    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:closeButton];
+//    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(@(40));
+//        make.height.equalTo(@(40));
+//        make.top.equalTo(weakSelf.view).offset(12);
+//        make.left.equalTo(weakSelf.view).offset(4);
+//    }];
     
     _helpButton = [UIButton new];
     [_helpButton setImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
@@ -425,9 +425,9 @@
 
 #pragma mark - Actions
 
-- (void)cancelButtonClick:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+//- (void)closeButtonClick:(UIButton *)sender {
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 
 //点击活动关卡
 - (void)questionSelectButtonClick:(UIButton *)sender {
