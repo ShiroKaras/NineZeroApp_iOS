@@ -320,7 +320,7 @@
 
 - (void)completeButtonClick:(UIButton *)sender {
     [UIView animateWithDuration:0.3 animations:^{
-        _scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
+        _scrollView.frame = CGRectMake(SCREEN_WIDTH, -(SCREEN_HEIGHT-356)/2, 0, 0);
         _dimmingView.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];

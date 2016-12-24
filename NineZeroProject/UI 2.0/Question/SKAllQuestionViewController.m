@@ -452,7 +452,7 @@
     [TalkingData trackEvent:@"backgroundtips"];
     SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeQuestion];
     helpView.delegate = self;
-    helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
+    helpView.scrollView.frame = CGRectMake(SCREEN_WIDTH, -(SCREEN_HEIGHT-356)/2, 0, 0);
     helpView.dimmingView.alpha = 0;
     [self.view addSubview:helpView];
     

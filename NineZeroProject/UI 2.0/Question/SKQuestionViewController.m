@@ -320,6 +320,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     // 帮助按钮
     _helpButton = [UIButton new];
+    [_helpButton addTarget:self action:@selector(helpButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [_helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
     [_helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:_helpButton];
@@ -1359,7 +1360,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeTimeLimitQuestion];
     }
     helpView.delegate = self;
-    helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT-356)/2, 0, 0);
+    helpView.scrollView.frame = CGRectMake(SCREEN_WIDTH, -(SCREEN_HEIGHT-356)/2, 0, 0);
     helpView.dimmingView.alpha = 0;
     [self.view addSubview:helpView];
     
