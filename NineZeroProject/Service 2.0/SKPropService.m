@@ -80,8 +80,7 @@
             } else if ([propType isEqualToString:@"2"]) {
                 responseString = @"获得答案道具";
             }
-            success = YES;
-            callback(success, responseString, [response.data[@"rang_time"] integerValue]);
+            callback(YES, responseString, [response.data[@"rang_time"] integerValue]);
         } else if (response.result == -7009) {
             responseString = @"魔法已生效";
             callback(NO, responseString, 0);
