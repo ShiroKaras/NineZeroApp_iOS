@@ -87,6 +87,7 @@
 }
 
 - (void)loginWith:(SKLoginUser *)user callback:(SKResponseCallback)callback {
+    user.user_password = [NSString confusedPasswordWithLoginUser:user];
     NSDictionary *param = @{
                             @"method"       :   @"login",
                             @"user_password":   user.user_password,
@@ -123,6 +124,7 @@
 }
 
 - (void)resetPassword:(SKLoginUser *)user callback:(SKResponseCallback)callback {
+    user.user_password = [NSString confusedPasswordWithLoginUser:user];
     NSDictionary *param = @{
                             @"method"       :   @"reset",
                             @"user_password":   user.user_password,
