@@ -376,6 +376,7 @@
     [_usernameTextField setValue:COMMON_GREEN_COLOR forKeyPath:@"_placeholderLabel.textColor"];
     _usernameTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 60)];
     _usernameTextField.leftViewMode = UITextFieldViewModeAlways;
+    [_usernameTextField becomeFirstResponder];
     [updateUsernameBackView addSubview:_usernameTextField];
     
     UIButton *completeButton = [UIButton new];
@@ -401,7 +402,7 @@
     _userInfo.user_name = _usernameTextField.text;
     [[[SKServiceManager sharedInstance] profileService] updateUserInfoWith:_userInfo withType:1 callback:^(BOOL success, SKResponsePackage *response) {
         [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
-        if (success) {
+        if (success && response.result == 0) {
             _usernameLabel.text = _usernameTextField.text;
             [_dimmingView removeFromSuperview];
         } else {

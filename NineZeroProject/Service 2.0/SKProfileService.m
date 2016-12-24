@@ -60,6 +60,7 @@
         if (package.result == 0) {
             callback(YES, package);
         } else {
+            callback(YES, package);
             DLog(@"%ld",(long)package.result);
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -189,7 +190,7 @@
             [self getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response2) { }];
             callback(success, response);
         } else {
-            callback(success, nil);
+            callback(success, response);
         }
     }];
 }
