@@ -118,7 +118,7 @@
         if ([response.data count]>0) {
             for (int i=0; i<[response.data count]; i++) {
                 SKNotification *notification = [SKNotification objectWithKeyValues:response.data[i]];
-                [notificationArray addObject:notification];
+                [notificationArray insertObject:notification atIndex:0];
             }
         }
         callback(success, notificationArray);
