@@ -119,7 +119,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    _descriptionView = [[SKDescriptionView alloc] initWithURLString:self.pieceArray[indexPath.row].piece_describtion andType:SKDescriptionTypeQuestion andImageUrl:self.pieceArray[indexPath.row].piece_describe_pic];
+    _descriptionView = [[SKDescriptionView alloc] initWithURLString:self.pieceArray[indexPath.row].piece_describtion andType:SKDescriptionTypeProp andImageUrl:self.pieceArray[indexPath.row].piece_describe_pic];
     [self.view addSubview:_descriptionView];
     [_descriptionView showAnimated];
 }

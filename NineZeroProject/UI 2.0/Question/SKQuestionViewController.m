@@ -826,7 +826,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
     
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
-    titleImageView.backgroundColor = [UIColor redColor];
+    titleImageView.backgroundColor = [UIColor clearColor];
     [_dimmingView addSubview:titleImageView];
     [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(answerBackView);

@@ -165,7 +165,7 @@
         UIImage *coverImage = (type == SKDescriptionTypeProp) ? [UIImage imageNamed:@"props_cover"] : [UIImage imageNamed:@"img_profile_archive_cover_default"];
         _imageView = [[UIImageView alloc] initWithImage:coverImage];
         _imageView.layer.masksToBounds = YES;
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.backgroundColor = COMMON_SEPARATOR_COLOR;
         [_converView addSubview:_imageView];
         
@@ -185,7 +185,7 @@
         
         if (type == SKDescriptionTypeReward) {
             _rewardDescriptionView = [[SKTicketDescriptionView alloc] initWithFrame:CGRectZero];
-            [_rewardDescriptionView setReward:[SKTicket new]];
+            [_rewardDescriptionView setReward:[[SKTicket alloc] init]];
             [_converView addSubview:_rewardDescriptionView];
         } else {
             _webView = [[UIWebView alloc] init];
@@ -288,8 +288,8 @@
         _webView.frame = CGRectMake(_imageView.left, imageHeight, width, webViewHeight);
         _webView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     } else if (_type == SKDescriptionTypeReward) {
-//        self.rewardDescriptionView.frame = CGRectMake(_imageView.left, 0, width, webViewHeight + imageHeight);
-//        _rewardDescriptionView.contentInset = UIEdgeInsetsMake(imageHeight, 0, 0, 0);
+        self.rewardDescriptionView.frame = CGRectMake(_imageView.left, 0, width, webViewHeight + imageHeight);
+        _rewardDescriptionView.contentInset = UIEdgeInsetsMake(imageHeight, 0, 0, 0);
     } else {
         _webView.frame = CGRectMake(_imageView.left, 0, width, webViewHeight + imageHeight);
         _webView.scrollView.contentInset = UIEdgeInsetsMake(imageHeight, 0, 0, 0);

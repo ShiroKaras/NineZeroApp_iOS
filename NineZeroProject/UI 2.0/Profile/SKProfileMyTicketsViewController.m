@@ -77,7 +77,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.ticketArray[indexPath.row].address andType:SKDescriptionTypeQuestion andImageUrl:self.ticketArray[indexPath.row].pic];
+    SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.ticketArray[indexPath.row].address andType:SKDescriptionTypeReward andImageUrl:self.ticketArray[indexPath.row].pic];
+    [descriptionView setReward:self.ticketArray[indexPath.row]];
     [self.view addSubview:descriptionView];
     [descriptionView showAnimated];
 }

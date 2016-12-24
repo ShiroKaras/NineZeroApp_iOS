@@ -79,13 +79,13 @@
 }
 
 - (void)leftImageClick {
-    SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.badgeLeft.medal_description andType:SKDescriptionTypeQuestion andImageUrl:self.badgeLeft.medal_pic];
+    SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.badgeLeft.medal_description andType:SKDescriptionTypeBadge andImageUrl:self.badgeLeft.medal_pic];
     [[self viewController].view addSubview:descriptionView];
     [descriptionView showAnimated];
 }
 
 - (void)rightImageClick {
-    SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.badgeRight.medal_description andType:SKDescriptionTypeQuestion andImageUrl:self.badgeRight.medal_pic];
+    SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.badgeRight.medal_description andType:SKDescriptionTypeBadge andImageUrl:self.badgeRight.medal_pic];
     [[self viewController].view addSubview:descriptionView];
     [descriptionView showAnimated];
 }
