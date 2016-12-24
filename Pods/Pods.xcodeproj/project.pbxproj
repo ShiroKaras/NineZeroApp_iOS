@@ -16,7 +16,6 @@
 		087374F728AAF39D51C88CEAA730DC01 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = E477CB0267435FD8CB16DA0741DF047E /* NSData+ImageContentType.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		0A74ADA26B9622E9F445FEE98B49E1E2 /* SDWebImageOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 482CDA1C1346CB9A11F3AD3AFDF3EFFC /* SDWebImageOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0AA680D6E2F16F9659E998CEAE74F297 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D65172C525493492A4C27BE4577FB583 /* AFHTTPSessionManager.m */; };
-		0AFABD28B2E5C3292603A36599055EA7 /* MJDictionaryCache.h in Headers */ = {isa = PBXBuildFile; fileRef = EA8A2C6095A5072DDC62D86ECACF7C15 /* MJDictionaryCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BC8027D3AD9AF72E1E1A32524D063D2 /* QNResolverDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A1F036A088A372568B50AC3A72AD00F6 /* QNResolverDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0C2B33BE64F0CF1C6ED2B2200953568E /* MJExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 7093885E1672CF9CA26D5ED734EF5B2E /* MJExtensionConst.m */; };
 		0CF4CC9CF38913CCABAF60CDBFBD4767 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D6128B8F0DC7058835E8A85D6DC2DC /* UIButton+WebCache.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -165,7 +164,6 @@
 		89800B6058417BF2DB3DB275FC4040D3 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B286BAE67D192ACC7AE3CE03266065 /* AFURLConnectionOperation.m */; };
 		8B3054194DB822CBE3A78CD44085C692 /* QNAsyncRun.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A4EFF11065E57BC1A8211CFC040AE1 /* QNAsyncRun.m */; };
 		8B4EA21DB16F7BB96F2FBB7DBF80C181 /* QNDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 07128C41B5AB073C1F75025F5D3E3C9C /* QNDomain.m */; };
-		8B6B4FB5A92E1EEDAFC98E6DD1E81CA7 /* MJDictionaryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB0192C605EF2E84CBC5BFA849AACC1 /* MJDictionaryCache.m */; };
 		8C35C4B8AC2A106B6047378491956816 /* QNDns.m in Sources */ = {isa = PBXBuildFile; fileRef = A7D67AE51D169D841408551AD51DDA6E /* QNDns.m */; };
 		91EC9FB25CB36B4BDF9272C332722B9C /* QNFileRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = BA3DA1534C48A8BD86FA3C3CDF41C74A /* QNFileRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9205037BA8C22574B33FC96C5EA829A3 /* Masonry.h in Headers */ = {isa = PBXBuildFile; fileRef = 6926451A58536EF545F247A4F8832EA5 /* Masonry.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -548,7 +546,6 @@
 		3B580346E40E289F9192108F92BD84B0 /* SDImageCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageCache.m; path = SDWebImage/SDImageCache.m; sourceTree = "<group>"; };
 		3C1DC89C123A10ECEF41FD3E540DFA71 /* QNResolver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNResolver.m; path = HappyDNS/Local/QNResolver.m; sourceTree = "<group>"; };
 		3CFDE7EF078CF043A598FE633784553E /* QNRecorderDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNRecorderDelegate.h; path = QiniuSDK/Recorder/QNRecorderDelegate.h; sourceTree = "<group>"; };
-		3DB0192C605EF2E84CBC5BFA849AACC1 /* MJDictionaryCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJDictionaryCache.m; path = MJExtension/MJDictionaryCache.m; sourceTree = "<group>"; };
 		3DE2ED61356B57E3E28DD97B1EBDC1AF /* Pods-NineZeroProjectUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NineZeroProjectUITests-frameworks.sh"; sourceTree = "<group>"; };
 		3E68978B25EDB9090EE96B1EC8390218 /* QNHttpDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNHttpDelegate.h; path = QiniuSDK/Http/QNHttpDelegate.h; sourceTree = "<group>"; };
 		413B7F5278FE580E732891F9E25844D3 /* UIActivityIndicatorView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIActivityIndicatorView+AFNetworking.m"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.m"; sourceTree = "<group>"; };
@@ -799,7 +796,6 @@
 		E938007F4C4A0A820FC6A5DE4BB48A2F /* MBProgressHUD+BWMExtension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD+BWMExtension.m"; path = "Example/MBProgressHUD+BWMExtension/MBProgressHUD+BWMExtension.m"; sourceTree = "<group>"; };
 		E9540718501F01141A31B0BBE8F72FF8 /* QNDes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QNDes.h; path = HappyDNS/Util/QNDes.h; sourceTree = "<group>"; };
 		EA5540786D20D5810A835216978C1EFB /* NSObject+MJCoding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+MJCoding.h"; path = "MJExtension/NSObject+MJCoding.h"; sourceTree = "<group>"; };
-		EA8A2C6095A5072DDC62D86ECACF7C15 /* MJDictionaryCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJDictionaryCache.h; path = MJExtension/MJDictionaryCache.h; sourceTree = "<group>"; };
 		EAC3F0260C5BD10022C8A72497F6CAD1 /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
 		EAF16BA36F0C0196276663CB008A3ED4 /* QNUrlSafeBase64.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QNUrlSafeBase64.m; path = QiniuSDK/Common/QNUrlSafeBase64.m; sourceTree = "<group>"; };
 		EB95532314E0B6EC94D2C7B5E4F4FBDE /* MAAnnotationView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MAAnnotationView.h; path = MAMapKit.framework/Headers/MAAnnotationView.h; sourceTree = "<group>"; };
@@ -1278,8 +1274,6 @@
 		4FDBFD1F81D5311C51D751C87A94A8A3 /* MJExtension */ = {
 			isa = PBXGroup;
 			children = (
-				EA8A2C6095A5072DDC62D86ECACF7C15 /* MJDictionaryCache.h */,
-				3DB0192C605EF2E84CBC5BFA849AACC1 /* MJDictionaryCache.m */,
 				DC140B1232A050862278F1B78C4CECB0 /* MJExtension.h */,
 				304271D544F52B05B07E7A363494EA1E /* MJExtensionConst.h */,
 				7093885E1672CF9CA26D5ED734EF5B2E /* MJExtensionConst.m */,
@@ -1990,7 +1984,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AFABD28B2E5C3292603A36599055EA7 /* MJDictionaryCache.h in Headers */,
 				DBC399A4B8E6521B2A885EA52612BFB0 /* MJExtension.h in Headers */,
 				2EDB111B41EBA9F2B002DAD15CB26687 /* MJExtensionConst.h in Headers */,
 				DAD5C4333A7FA2DECFF4BEA4F17FEC6B /* MJFoundation.h in Headers */,
@@ -2554,7 +2547,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B6B4FB5A92E1EEDAFC98E6DD1E81CA7 /* MJDictionaryCache.m in Sources */,
 				C3E942A24436AFAE47C0F265F0CA369A /* MJExtension-dummy.m in Sources */,
 				0C2B33BE64F0CF1C6ED2B2200953568E /* MJExtensionConst.m in Sources */,
 				BFE1D87E9D4D58C95CEAF1737F70C956 /* MJFoundation.m in Sources */,

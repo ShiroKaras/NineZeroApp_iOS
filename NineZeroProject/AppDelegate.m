@@ -15,7 +15,6 @@
 #import "SKLaunchAnimationViewController.h"
 #import "SKLoginRootViewController.h"
 
-#import <JSPatch/JSPatch.h>
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
