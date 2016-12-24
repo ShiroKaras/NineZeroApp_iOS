@@ -1009,6 +1009,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     //经验值行
     UIImageView *rewardImageView_exp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_exp"]];
+    rewardImageView_exp.hidden = ![self.reward.experience_value boolValue];
     [rewardBaseInfoView addSubview:rewardImageView_exp];
     [rewardImageView_exp mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@18);
@@ -1018,6 +1019,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
     
     UILabel *expCountLabel = [UILabel new];
+    expCountLabel.hidden = ![self.reward.experience_value boolValue];
     expCountLabel.textColor = COMMON_RED_COLOR;
     expCountLabel.text = self.reward.experience_value;
     expCountLabel.font = MOON_FONT_OF_SIZE(19);
@@ -1029,6 +1031,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
     
     UIImageView *rewardImageView_txt_exp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_exptext"]];
+    rewardImageView_txt_exp.hidden = ![self.reward.experience_value boolValue];
     [rewardBaseInfoView addSubview:rewardImageView_txt_exp];
     [rewardImageView_txt_exp mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@56);
@@ -1039,6 +1042,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     //宝石行
     UIImageView *rewardImageView_diamond = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_monds"]];
+    rewardImageView_diamond.hidden = ![self.reward.gemstone boolValue];
     [rewardBaseInfoView addSubview:rewardImageView_diamond];
     [rewardImageView_diamond mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@18);
@@ -1048,6 +1052,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
     
     UILabel *diamondCountLabel = [UILabel new];
+    diamondCountLabel.hidden = ![self.reward.gemstone boolValue];
     diamondCountLabel.textColor = COMMON_RED_COLOR;
     diamondCountLabel.text = self.reward.gemstone;
     diamondCountLabel.font = MOON_FONT_OF_SIZE(19);
@@ -1059,6 +1064,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
     
     UIImageView *rewardImageView_txt_diamond = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_mondstext"]];
+    rewardImageView_txt_diamond.hidden = ![self.reward.gemstone boolValue];
     [rewardBaseInfoView addSubview:rewardImageView_txt_diamond];
     [rewardImageView_txt_diamond mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@38);
