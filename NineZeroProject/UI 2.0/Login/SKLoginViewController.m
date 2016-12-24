@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UIButton *nextButton;
 @property (nonatomic, strong) UIButton *resetPasswordButton;
 @property (nonatomic, strong) SKLoginUser *loginUser;
+@property (nonatomic, strong) UIView *blackView;
 @end
 
 @implementation SKLoginViewController
@@ -38,6 +39,7 @@
     [TalkingData trackPageBegin:@"loginpage"];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
+    _blackView.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -55,6 +57,9 @@
 
 - (void)createUI {
     self.view.backgroundColor = COMMON_RED_COLOR;
+    _blackView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _blackView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:_blackView];
     
     __weak __typeof(self)weakSelf = self;
     
@@ -144,6 +149,8 @@
                 [[[SKServiceManager sharedInstance] loginService] loginWith:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
                     if (response.result == 0) {
                         //登录成功进入主页
+                        _blackView.hidden = NO;
+                        [self.view bringSubviewToFront:_blackView];
                         [self.view endEditing:YES];
                         SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
                         AppDelegateInstance.mainController = controller;

@@ -18,7 +18,7 @@
 @property (nonatomic, assign) SKVerifyType type;
 
 @property (nonatomic, strong) SKLoginUser *loginUser;
-
+@property (nonatomic, strong) UIView *blackView;
 @end
 
 @implementation SKVerifyViewController {
@@ -44,6 +44,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    _blackView.hidden = YES;
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 }
@@ -58,6 +63,10 @@
 
 - (void)createUIWithType:(SKVerifyType)type {
     self.view.backgroundColor = COMMON_PINK_COLOR;
+    
+    _blackView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _blackView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:_blackView];
     
     __weak __typeof(self)weakSelf = self;
     
@@ -205,6 +214,8 @@
             [[[SKServiceManager sharedInstance] loginService] resetPassword:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
                 if (response.result == 0) {
                     //登录成功进入主页
+                    _blackView.hidden = NO;
+                    [_blackView bringSubviewToFront:_blackView];
                     [self.view endEditing:YES];
                     SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
                     AppDelegateInstance.mainController = controller;
