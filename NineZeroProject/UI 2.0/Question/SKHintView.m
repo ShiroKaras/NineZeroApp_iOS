@@ -233,12 +233,12 @@
     } else {
         if ([self.hintList.hint_one isEqualToString:@""]) {
             if (sender.tag == HINT_BUTTON_2 || sender.tag == HINT_BUTTON_3) {
-                [self showAlertViewWithText:@"请先解锁上一条线索"];
+                [self showAlertViewWithText:@"请先解锁前面的线索"];
                 return;
             }
         } else if ([self.hintList.hint_two isEqualToString:@""]) {
             if (sender.tag == HINT_BUTTON_3) {
-                [self showAlertViewWithText:@"请先解锁上一条线索"];
+                [self showAlertViewWithText:@"请先解锁前面的线索"];
                 return;
             }
         }
