@@ -386,7 +386,7 @@
 
 - (void)rankButtonClick:(UIButton *)sender {
     SKRankViewController *controller = [[SKRankViewController alloc] init];
-    [self presentViewController:controller animated:YES completion:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)coinButtonClick:(UIButton*)sender {
