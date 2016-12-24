@@ -261,6 +261,7 @@
         _coinLabel.text = ranker.gold;
     } else if (type == SKRankViewTypeSeason2) {
         _coinLabel.text = ranker.user_experience_value;
+        _coinImageView.image = [UIImage imageNamed:@"img_reward_exp"];
     }
     [_coinLabel sizeToFit];
     self.ranker = ranker;
@@ -306,6 +307,8 @@
     _backView.backgroundColor = (me) ? COMMON_GREEN_COLOR : [UIColor colorWithHex:0x1F1F1F];
     _orderLabel.textColor = (me) ? [UIColor whiteColor] : COMMON_PINK_COLOR;
     _coinLabel.textColor = (me) ? [UIColor whiteColor] : [UIColor colorWithHex:0xED203B];
+    _goldFrame.hidden = (me) ? ![[SKStorageManager sharedInstance] profileInfo].user_gold_head : NO;
+    
 }
 
 - (void)layoutSubviews {
@@ -316,7 +319,7 @@
     _orderImageView.centerY = self.height / 2;
     _orderLabel.frame = CGRectMake(PADDING+20, self.height / 2 - 10, 39, 20);
     _avatar.frame = CGRectMake(PADDING +67, self.height / 2 - 24, 48, 48);
-    _avatar.layer.cornerRadius = 28;
+    _avatar.layer.cornerRadius = 24;
     _avatar.layer.masksToBounds = YES;
     _goldFrame.width = 48;
     _goldFrame.height = 60;
