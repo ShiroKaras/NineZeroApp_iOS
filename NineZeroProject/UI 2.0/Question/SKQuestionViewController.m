@@ -11,6 +11,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import <CommonCrypto/CommonDigest.h>
+#import "SharkfoodMuteSwitchDetector.h"
 
 #import "SKTicketView.h"
 #import "SKHintView.h"
@@ -51,6 +52,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 @property (nonatomic, strong) UIView *playBackView;
 @property (nonatomic, strong) UIButton *playButton;
+@property (nonatomic, strong) UIImageView *soundImageView;
+@property (nonatomic, strong) UIImageView *pauseImageView;
 @property (nonatomic, strong) UIImageView *triangleImageView;
 
 @property (nonatomic, strong) UIButton *answerButton;
@@ -225,6 +228,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _playBackView.layer.mask = maskLayer;
     [self.view addSubview:_playBackView];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickPlayBackView)];
+    [_playBackView addGestureRecognizer:tap];
+    
     _coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
     _coverImageView.layer.masksToBounds = YES;
     _coverImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -260,7 +266,15 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _replayButton.frame = CGRectMake(_replayBackView.width /2 -35 -70, _replayBackView.height / 2 -35, 70, 70);
     _shareButton.frame = CGRectMake(_replayBackView.width / 2 +35, _replayBackView.height / 2 -35, 70, 70);
     
-
+    // 2.3 暂停按钮，静音按钮
+    _soundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_mute"]];
+    _soundImageView.alpha = 0.32;
+    if(SCREEN_WIDTH != IPHONE6_PLUS_SCREEN_WIDTH) {
+        [_playBackView addSubview:_soundImageView];
+    }
+    _pauseImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_pause"]];
+    _pauseImageView.alpha = 0.32;
+    [_playBackView addSubview:_pauseImageView];
     
     // 进度条
     _progressBgView = [[UIView alloc] init];
@@ -276,6 +290,14 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _progressView.backgroundColor = COMMON_GREEN_COLOR;
     [_progressBgView addSubview:_progressView];
     _progressView.height = 3;
+    
+    _soundImageView.right = _playBackView.width - 13;
+    _soundImageView.top = 5;
+    _pauseImageView.right = _playBackView.width - 8;
+    _pauseImageView.bottom = _playBackView.height - 8;
+    
+    _pauseImageView.hidden = YES;
+    self.soundImageView.hidden = ![[SharkfoodMuteSwitchDetector shared] isMute];
     
     // 题目标题
     _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, _playBackView.bottom, _playBackView.width, 72)];
@@ -1251,6 +1273,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)stop {
     _playButton.hidden = NO;
     _coverImageView.hidden = NO;
+    _pauseImageView.hidden = YES;
     _replayBackView.alpha = 0;
     [_player setRate:0];
     [_player seekToTime:CMTimeMake(0, 1)];
@@ -1259,11 +1282,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)pause {
     _playButton.hidden = YES;
+    _pauseImageView.hidden = NO;
     [_player pause];
 }
 
 - (void)play {
     [TalkingData trackEvent:@"play"];
+    _pauseImageView.hidden = YES;
     _playButton.hidden = YES;
     _coverImageView.hidden = YES;
     [_player play];
@@ -1276,7 +1301,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)showReplayAndShareButton {
-    //    _pauseImageView.hidden = YES;
+    _pauseImageView.hidden = YES;
     [_playerItem seekToTime:kCMTimeZero];
     [_player setRate:0];
     [_player seekToTime:CMTimeMake(0, 1)];
@@ -1286,6 +1311,18 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [UIView animateWithDuration:0.3 animations:^{
         _replayBackView.alpha = 1.;
     }];
+}
+
+- (void)onClickPlayBackView {
+    if ((self.player.rate != 0) && (self.player.error == nil)) {
+        [self pause];
+    } else {
+        [self play];
+    }
+}
+
+- (void)setSoundHidden:(BOOL)soundHidden {
+    self.soundImageView.hidden = soundHidden;
 }
 
 #pragma mark - Button Click
