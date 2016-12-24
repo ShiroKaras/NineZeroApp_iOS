@@ -81,6 +81,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, assign) NSInteger clickCount;
 
 //分享
+@property (nonatomic, strong) UIView *replayBackView;
+@property (nonatomic, strong) UIButton *replayButton;
+@property (nonatomic, strong) UIButton *shareButton;
+
 @property (nonatomic, strong) UIView *shareView;
 @property (nonatomic, strong) UIButton *cancelButton;
 @property (nonatomic, strong) UIButton *momentButton;
@@ -226,6 +230,38 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _coverImageView.contentMode = UIViewContentModeScaleAspectFill;
     [_playBackView addSubview:_coverImageView];
     
+    // 2.5 蒙层
+    _replayBackView = [[UIView alloc] init];
+    _replayBackView.alpha = 0;
+    _replayBackView.backgroundColor = [UIColor clearColor];
+    UITapGestureRecognizer *noTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
+    [_replayBackView addGestureRecognizer:noTap];
+    [_playBackView addSubview:_replayBackView];
+    
+    // 2.5.1 重播按钮
+    _replayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay"] forState:UIControlStateNormal];
+    [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay_highlight"] forState:UIControlStateHighlighted];
+    [_replayButton addTarget:self action:@selector(onClickReplayButton) forControlEvents:UIControlEventTouchUpInside];
+    _replayButton.tag = HTButtonTypeReplay;
+    [_replayButton sizeToFit];
+    [_replayBackView addSubview:_replayButton];
+    
+    // 2.5.2 分享按钮
+    _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_shareButton setImage:[UIImage imageNamed:@"btn_home_share"] forState:UIControlStateNormal];
+    [_shareButton setImage:[UIImage imageNamed:@"btn_home_share_highlight"] forState:UIControlStateHighlighted];
+    [_shareButton addTarget:self action:@selector(onClickShareButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_shareButton sizeToFit];
+    [_replayBackView addSubview:_shareButton];
+    
+    _replayBackView.frame = CGRectMake(0, 0, _playBackView.width, _playBackView.height);
+    _playButton.frame = CGRectMake(_playBackView.width / 2 - 35, _playBackView.height / 2 - 35, 70, 70);
+    _replayButton.frame = CGRectMake(_replayBackView.width /2 -35 -70, _replayBackView.height / 2 -35, 70, 70);
+    _shareButton.frame = CGRectMake(_replayBackView.width / 2 +35, _replayBackView.height / 2 -35, 70, 70);
+    
+
+    
     // 进度条
     _progressBgView = [[UIView alloc] init];
     _progressBgView.backgroundColor = [UIColor colorWithHex:0x585858];
@@ -258,7 +294,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     UIImageView *chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_chapter"]];
     [self.view addSubview:chapterImageView];
     chapterImageView.left = 10;
-//    chapterImageView.top = 106-6-27+16;
+    //    chapterImageView.top = 106-6-27+16;
     chapterImageView.bottom = _playBackView.top -6;
     
     _chapterNumberLabel = [UILabel new];
@@ -368,7 +404,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-(SCREEN_HEIGHT-106-SCREEN_WIDTH-16+20-72-12-ROUND_WIDTH_FLOAT(40))/2);
                     make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*1));
                 }];
-            } 
+            }
         }
     }
 }
@@ -378,8 +414,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _player = nil;
     [_playerLayer removeFromSuperlayer];
     _playerLayer = nil;
-//    [_playButton removeFromSuperview];
-
+    //    [_playButton removeFromSuperview];
+    
     NSURL *documentsDirectoryURL = [[[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil] URLByAppendingPathComponent:self.currentQuestion.question_video];
     if ([[NSFileManager defaultManager] fileExistsAtPath:[documentsDirectoryURL path]]) {
         NSURL *localUrl = [NSURL fileURLWithPath:[documentsDirectoryURL path]];
@@ -433,7 +469,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             });
         }];
     }
-
+    
     [_coverImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.question_video_cover] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
     
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -593,7 +629,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.left.equalTo(alertBackView).offset(10);
         make.bottom.equalTo(alertBackView).offset(-10);
     }];
- 
+    
     if (self.currentQuestion.num>0) {
         //使用道具
         UIButton *usePropButton = [UIButton new];
@@ -1215,6 +1251,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)stop {
     _playButton.hidden = NO;
     _coverImageView.hidden = NO;
+    _replayBackView.alpha = 0;
     [_player setRate:0];
     [_player seekToTime:CMTimeMake(0, 1)];
     [_player pause];
@@ -1239,14 +1276,15 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)showReplayAndShareButton {
-//    _pauseImageView.hidden = YES;
+    //    _pauseImageView.hidden = YES;
     [_playerItem seekToTime:kCMTimeZero];
     [_player setRate:0];
     [_player seekToTime:CMTimeMake(0, 1)];
     [_player pause];
     _coverImageView.hidden = NO;
+    [self.view bringSubviewToFront:_replayBackView];
     [UIView animateWithDuration:0.3 animations:^{
-//        _replayBackView.alpha = 1.;
+        _replayBackView.alpha = 1.;
     }];
 }
 
@@ -1341,6 +1379,15 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             //限时关卡-线下题目
         }
     }
+}
+
+- (void)onClickReplayButton {
+    //[MobClick event:@"replay"];
+    [TalkingData trackEvent:@"replay"];
+    [UIView animateWithDuration:0.3 animations:^{
+        _replayBackView.alpha = 0.;
+    }];
+    [self play];
 }
 
 - (void)contentViewClick {
@@ -1475,7 +1522,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [composeView removeFromSuperview];
 }
 
-//分享
+#pragma mark - 分享
+
 - (void)onClickShareButton:sender {
     [self showShareView];
 }
@@ -1755,7 +1803,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         NSLog(@"%ld", self.currentIndex);
         if (self.currentIndex < 4) {
             if (self.currentIndex == 0) {
-//                [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
+                //                [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
             }
             [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(_contentView.mas_bottom);
@@ -1793,13 +1841,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)playItemDidPlayToEndTime:(NSNotification *)notification {
     if ([notification.object isEqual:self.playerItem]) {
-        [self stop];
+//        [self stop];
         //显示分享界面
         [self showReplayAndShareButton];
-//        if (FIRST_TYPE_1 && !self.currentQuestion.isPassed) {
-//            [self showGuideviewWithType:SKHelperGuideViewType1];
-//            [UD setBool:YES forKey:@"firstLaunchType1"];
-//        }
+        //        if (FIRST_TYPE_1 && !self.currentQuestion.isPassed) {
+        //            [self showGuideviewWithType:SKHelperGuideViewType1];
+        //            [UD setBool:YES forKey:@"firstLaunchType1"];
+        //        }
     }
 }
 
