@@ -64,11 +64,11 @@
     splitLine.backgroundColor = [UIColor colorWithHex:0x2d2d2d];
     [backView addSubview:splitLine];
     
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, backView.width, 144)];
+    _textView = [[UITextView alloc] initWithFrame:CGRectMake(8, 4, backView.width-16, 144-4)];
     _textView.backgroundColor = [UIColor clearColor];
     _textView.textColor = [UIColor whiteColor];
     _textView.font = PINGFANG_FONT_OF_SIZE(16);
-    _textView.contentInset = UIEdgeInsetsMake(0, 12, 12, 0);
+    _textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [backView addSubview:_textView];
     
     _placeholderLabel = [UILabel new];
@@ -98,8 +98,10 @@
     }];
     
     _submitButton = [UIButton new];
-    _submitButton.backgroundColor = COMMON_GREEN_COLOR;
     _submitButton.layer.cornerRadius = 5;
+    _submitButton.layer.masksToBounds = YES;
+    [_submitButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateNormal];
+    [_submitButton setBackgroundImage:[UIImage imageWithColor:COMMON_RED_COLOR] forState:UIControlStateHighlighted];
     [_submitButton setTitle:@"提交" forState:UIControlStateNormal];
     [_submitButton addTarget:self action:@selector(onClickSubmit:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_submitButton];
