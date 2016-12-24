@@ -14,5 +14,6 @@
 @property(nonatomic, strong) NSArray<SKQuestion*>* questionList_season1;
 @property(nonatomic, strong) NSArray<SKQuestion*>* questionList_season2;
 @property(nonatomic, assign) BOOL isMonday;
+@property(nonatomic, strong) SKIndexInfo *indexInfo;
 
 @end

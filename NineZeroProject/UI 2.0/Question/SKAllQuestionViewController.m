@@ -438,9 +438,16 @@
     } else if (self.season == 2){
         questionID = self.questionList_season2[sender.tag-200].qid;
     }
-    SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeHistoryLevel questionID:questionID];
-    controller.delegate = self;
-    [self.navigationController pushViewController:controller animated:YES];
+    
+    if (questionID == [self.questionList_season2 lastObject].qid) {
+        SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:questionID endTime:self.indexInfo.question_end_time];
+        controller.delegate = self;
+        [self.navigationController pushViewController:controller animated:YES];
+    } else {
+        SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeHistoryLevel questionID:questionID];
+        controller.delegate = self;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 //点击锁定关卡

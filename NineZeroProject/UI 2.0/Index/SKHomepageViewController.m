@@ -249,6 +249,7 @@
 - (void)allLevelQuestionButtonClick:(UIButton*)sender {
     [TalkingData trackEvent:@"alllevels"];
     SKAllQuestionViewController *controller = [[SKAllQuestionViewController alloc] init];
+    controller.indexInfo = self.indexInfo;
     controller.isMonday = self.isMonday;
     [self.navigationController pushViewController:controller animated:YES];
 }
