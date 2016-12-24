@@ -95,7 +95,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (_rankerList.count == 0) return 1;
+    if (_rankerList.count == 0) return 0;
     if (_rankerList.count > 100) {
         if (self.type == SKRankViewTypeSeason1)
             return 98;
@@ -107,7 +107,7 @@
         if (self.type == SKRankViewTypeSeason1)
             return _rankerList.count - 2;
         else if (self.type == SKRankViewTypeSeason2)
-            return _rankerList.count - 1;
+            return _rankerList.count - 2;
         else
             return 0;
     }

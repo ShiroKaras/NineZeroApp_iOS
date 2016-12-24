@@ -98,6 +98,10 @@
         self.contentView.backgroundColor = [UIColor blackColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        for (UIView *view in [self.contentView subviews]) {
+            [view removeFromSuperview];
+        }
+        
         _backView = [[UIView alloc] init];
         _backView.backgroundColor = [UIColor colorWithHex:0x1F1F1F];
         [self.contentView addSubview:_backView];
