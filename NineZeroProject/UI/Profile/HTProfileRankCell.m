@@ -261,7 +261,7 @@
         _coinLabel.text = ranker.gold;
     } else if (type == SKRankViewTypeSeason2) {
         _coinLabel.text = ranker.user_experience_value;
-        _coinImageView.image = [UIImage imageNamed:@"img_reward_exp"];
+        _coinImageView.image = [UIImage imageNamed:@"img_rank_expicon"];
     }
     [_coinLabel sizeToFit];
     self.ranker = ranker;
@@ -295,6 +295,9 @@
         _ranker_1_CoinLabel.text = topThreeRankers[0].user_experience_value;
         _ranker_2_CoinLabel.text = topThreeRankers[1].user_experience_value;
         _ranker_3_CoinLabel.text = topThreeRankers[2].user_experience_value;
+        _ranker_1_CoinImage.image = [UIImage imageNamed:@"img_rank_expicon"];
+        _ranker_2_CoinImage.image = [UIImage imageNamed:@"img_rank_expicon"];
+        _ranker_3_CoinImage.image = [UIImage imageNamed:@"img_rank_expicon"];
     }
     [_ranker_1_CoinLabel sizeToFit];
     [_ranker_2_CoinLabel sizeToFit];
