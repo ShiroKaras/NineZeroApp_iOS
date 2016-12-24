@@ -716,7 +716,6 @@
     time_t second = delta - hour * oneHour - minute * 60;
     self.defaultMascotDetail.first_season.clue_cooling_time--;
     if (delta > 0) {
-        NSLog(@"%@", [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second]);
         _timeDownBackLabel1.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
     } else {
         // 过去时间
