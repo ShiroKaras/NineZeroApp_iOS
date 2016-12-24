@@ -82,6 +82,9 @@
             }
             success = YES;
             callback(success, responseString, [response.data[@"rang_time"] integerValue]);
+        } else if (response.result == -7009) {
+            responseString = @"魔法已生效";
+            callback(NO, responseString, 0);
         } else if (response.result == -8001) {
             responseString = @"金币数不够";
             callback(NO, responseString, 0);
