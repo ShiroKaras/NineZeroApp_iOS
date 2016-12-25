@@ -131,9 +131,9 @@
                                    @"对零仔Sloth·S来说，这个世界上没有什么难题是魔法不能解决的，当你看到他用魔法向你甩来两个答案道具的时候，他已经睡着了",
                                    @"想要像零仔Pride·W一样时刻闪耀在聚光灯下其实很简单，只要请求他给你的你的头像加一个blingbing的魔法边框就好啦（效果持续7天）",
                                    @"零仔Wrath·C用他的炸弹手表替换当前限时关卡倒计时，如果你在48小时内闯关成功，将会获得双倍金币和宝石奖励，否则你将会被炸上天",
-                                   @"如果没有美食，这个世界还会好么？如果你碰巧捡到了零仔Gluttony·T的魔法礼券，你就可以和他一起遛进高级餐厅大饱口福",
+                                   @"零仔Envy·A使用魔法帮你增加40点经验值，当别人向你投来羡慕嫉妒恨的眼神时，请务必装作毫不在意的说一句\"Who TM Cares\"",
                                    @"零仔Lust·B是荷尔蒙的寻觅师，如果你收到了他的魔法礼券，跟着礼券的提示你将会找到他并得到精神上的欢愉",
-                                   @"零仔Envy·A使用魔法帮你增加40点经验值，当别人向你投来羡慕嫉妒恨的眼神时，请务必装作毫不在意的说一句\"Who TM Cares\""
+                                   @"如果没有美食，这个世界还会好么？如果你碰巧捡到了零仔Gluttony·T的魔法礼券，你就可以和他一起遛进高级餐厅大饱口福"
                                    ];
         
         [self addObserver:self forKeyPath:@"hintS1_islock" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
@@ -808,6 +808,8 @@
             _hintS1Button.userInteractionEnabled = YES;
             _flagView_season1_1.hidden = NO;
             _timeDownBackImageView1.hidden = YES;
+            [_timerS1Hint invalidate];
+            _timerS1Hint = nil;
         }
     } else if ([keyPath isEqualToString:@"answerS1_islock"]) {
         if (self.answerS1_islock) {
@@ -821,6 +823,8 @@
             _answerS1Button.userInteractionEnabled = YES;
             _flagView_season1_2.hidden = NO;
             _timeDownBackImageView2.hidden = YES;
+            [_timerS1Answer invalidate];
+            _timerS1Answer = nil;
         }
     } else if ([keyPath isEqualToString:@"hintS2_islock"]) {
         if (self.hintS2_islock) {
@@ -834,6 +838,8 @@
             _hintS2Button.userInteractionEnabled = YES;
             _flagView_season2_1.hidden = NO;
             _timeDownBackImageView3.hidden = YES;
+            [_timerS2Hint invalidate];
+            _timerS2Hint = nil;
         }
     } else if ([keyPath isEqualToString:@"answerS2_islock"]) {
         if (self.answerS2_islock) {
@@ -847,6 +853,8 @@
             _answerS2Button.userInteractionEnabled = YES;
             _flagView_season2_2.hidden = NO;
             _timeDownBackImageView4.hidden = YES;
+            [_timerS2Answer invalidate];
+            _timerS2Answer = nil;
         }
     }
 }

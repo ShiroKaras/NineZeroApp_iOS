@@ -21,6 +21,7 @@ typedef void (^SKQuestionAnswerDetialCallback) (BOOL success, SKAnswerDetail *qu
 typedef void (^SKQuestionTop10Callback) (BOOL success, NSArray<SKUserInfo*> *userRankList);
 
 @interface SKQuestionService : NSObject
+@property (nonatomic, strong) NSArray<SKQuestion*> *questionList;
 
 - (void)questionBaseRequestWithParam:(NSDictionary*)dict callback:(SKResponseCallback)callback;
 

@@ -47,7 +47,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     BOOL startFlag;
 }
 
-- (instancetype)initWithQuestion:(HTQuestion *)question {
+- (instancetype)initWithQuestion:(SKQuestion *)question {
     if (self = [super init]) {
         _question = question;
         startFlag = false;
@@ -262,7 +262,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     CLLocationDistance currentDistance = -1;
     CLLocationCoordinate2D currentPoint = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
     
-    for (NSDictionary *dict in _question.question_location) {
+    for (NSDictionary *dict in _question.question_ar_loaction) {
         double lat = [dict[@"lat"] doubleValue];
         double lng = [dict[@"lng"] doubleValue];
         
@@ -314,17 +314,17 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)onCaptureMascotSuccessful {
-    [self.delegate didClickBackButtonInARCaptureController:self];
+- (void)onCaptureMascotSuccessfulWithReward:(SKReward *)reward {
+    [self.delegate didClickBackButtonInARCaptureController:self reward:reward];
 }
 
 - (void)onClickMascot {
-    CGPoint currentLocation = CGPointMake(_currentLocation.coordinate.longitude, _currentLocation.coordinate.latitude);
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [[[HTServiceManager sharedInstance] questionService] verifyQuestion:_question.questionID withLocation:currentLocation callback:^(BOOL success, HTResponsePackage *response) {
+    
+    [[[SKServiceManager sharedInstance] answerService] answerLBSQuestionWithLocation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        if (success && response.resultCode == 0) {
-            self.rewardID = [response.data[@"reward_id"] integerValue];
+        if (success && response.result == 0) {
+            self.rewardID = response.data[@"reward_id"];
             // 6.捕获成功
             self.successBackgroundView = [[UIView alloc] init];
             self.successBackgroundView.backgroundColor = [UIColor colorWithHex:0x1f1f1f alpha:0.8];
@@ -360,14 +360,14 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
             
             [self.mascotImageView removeFromSuperview];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.1 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self onCaptureMascotSuccessful];
+                [self onCaptureMascotSuccessfulWithReward:[SKReward objectWithKeyValues:response.data[@"reward"]]];
             });
         } else {
-           if (response.resultMsg) {
-                [self showTipsWithText:response.resultMsg];
-           } else {
-                [self showTipsWithText:response.resultMsg];
-           }
+            if (response.result) {
+                [self showTipsWithText:@"异常"];
+            } else {
+                [self showTipsWithText:@"异常%d"];
+            }
         }
     }];
 }

@@ -22,6 +22,7 @@
 #import "SKMascotView.h"
 #import "SKQuestionRewardView.h"
 #import "SKHelperView.h"
+#import "HTARCaptureController.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
 #define TOP_PADDING 57
@@ -38,7 +39,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeReplay
 };
 
-@interface SKQuestionViewController () <SKComposeViewDelegate, SKHelperScrollViewDelegate>
+@interface SKQuestionViewController () <SKComposeViewDelegate, SKHelperScrollViewDelegate, HTARCaptureControllerDelegate>
 
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) BOOL isAnswered;
@@ -1107,7 +1108,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.bottom.equalTo(_dimmingView).offset(-16);
     }];
     
-    if ([[self.rewardDict allKeys] containsObject:@"ticket"]) {
+    if (self.reward.ticket != nil) {
         [rewardBaseInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@248);
             make.height.equalTo(@294);
@@ -1420,6 +1421,21 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             }];
         } else if (self.type == SKQuestionTypeTimeLimitLevel){
             //限时关卡-线下题目
+            if (self.currentQuestion.base_type == 1) {
+                //扫图
+            } else if (self.currentQuestion.base_type == 2) {
+                //LBS
+                AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+                if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied)
+                {
+                    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+                    [alertView show];
+                }else {
+                    HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] initWithQuestion:self.currentQuestion];
+                    arCaptureController.delegate = self;
+                    [self presentViewController:arCaptureController animated:YES completion:nil];
+                }
+            }
         }
     }
 }
@@ -1459,6 +1475,27 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         helpView.dimmingView.alpha = 0.9;
     } completion:^(BOOL finished) {
         
+    }];
+}
+
+#pragma mark - HTARCaptureController Delegate
+
+- (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward *)reward{
+    [controller dismissViewControllerAnimated:NO completion:^{
+        [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+        [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
+            self.currentQuestion = [questionList_season2 lastObject];
+            self.currentQuestion.is_answer = YES;
+            [_composeView showAnswerCorrect:YES];
+            self.isAnswered = YES;
+            self.reward = reward;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [_composeView endEditing:YES];
+                [_composeView removeFromSuperview];
+                [self removeDimmingView];
+                [self showRewardViewWithReward:nil];
+            });
+        }];
     }];
 }
 

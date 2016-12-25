@@ -44,6 +44,13 @@
 		1160FB461E0E927F00606F16 /* HTProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB3D1E0E927F00606F16 /* HTProgressHUD.m */; };
 		1160FB491E0E94F700606F16 /* SKHelperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB481E0E94F700606F16 /* SKHelperView.m */; };
 		1160FB4C1E0E95B900606F16 /* HTMascotHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB4A1E0E95B900606F16 /* HTMascotHelper.m */; };
+		1160FB591E0FC1AE00606F16 /* ar.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB521E0FC1AE00606F16 /* ar.cc */; };
+		1160FB5A1E0FC1AE00606F16 /* OpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB551E0FC1AE00606F16 /* OpenGLView.mm */; };
+		1160FB5B1E0FC1AE00606F16 /* HTARCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB581E0FC1AE00606F16 /* HTARCaptureController.m */; };
+		1160FB6E1E0FC4F600606F16 /* SKARRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB671E0FC4F600606F16 /* SKARRewardController.m */; };
+		1160FB6F1E0FC4F600606F16 /* SKScanningResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB691E0FC4F600606F16 /* SKScanningResultView.m */; };
+		1160FB701E0FC4F600606F16 /* SKScanningRewardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB6B1E0FC4F600606F16 /* SKScanningRewardView.m */; };
+		1160FB711E0FC4F600606F16 /* SKSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB6D1E0FC4F600606F16 /* SKSwipeViewController.m */; };
 		11644F4D1DDD97CB002E9FDE /* SKRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */; };
 		11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */; };
 		116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */; };
@@ -839,6 +846,20 @@
 		1160FB481E0E94F700606F16 /* SKHelperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKHelperView.m; path = NineZeroProject/UI/Index/SKHelperView.m; sourceTree = "<group>"; };
 		1160FB4A1E0E95B900606F16 /* HTMascotHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMascotHelper.m; path = NineZeroProject/Utility/HTMascotHelper.m; sourceTree = "<group>"; };
 		1160FB4B1E0E95B900606F16 /* HTMascotHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMascotHelper.h; path = NineZeroProject/Utility/HTMascotHelper.h; sourceTree = "<group>"; };
+		1160FB521E0FC1AE00606F16 /* ar.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ar.cc; sourceTree = "<group>"; };
+		1160FB531E0FC1AE00606F16 /* ar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ar.hpp; sourceTree = "<group>"; };
+		1160FB541E0FC1AE00606F16 /* OpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLView.h; sourceTree = "<group>"; };
+		1160FB551E0FC1AE00606F16 /* OpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLView.mm; sourceTree = "<group>"; };
+		1160FB571E0FC1AE00606F16 /* HTARCaptureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTARCaptureController.h; sourceTree = "<group>"; };
+		1160FB581E0FC1AE00606F16 /* HTARCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTARCaptureController.m; sourceTree = "<group>"; };
+		1160FB661E0FC4F600606F16 /* SKARRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKARRewardController.h; path = "NineZeroProject/UI 2.0/LBS&AR/SKARRewardController.h"; sourceTree = "<group>"; };
+		1160FB671E0FC4F600606F16 /* SKARRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKARRewardController.m; path = "NineZeroProject/UI 2.0/LBS&AR/SKARRewardController.m"; sourceTree = "<group>"; };
+		1160FB681E0FC4F600606F16 /* SKScanningResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKScanningResultView.h; path = "NineZeroProject/UI 2.0/LBS&AR/SKScanningResultView.h"; sourceTree = "<group>"; };
+		1160FB691E0FC4F600606F16 /* SKScanningResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKScanningResultView.m; path = "NineZeroProject/UI 2.0/LBS&AR/SKScanningResultView.m"; sourceTree = "<group>"; };
+		1160FB6A1E0FC4F600606F16 /* SKScanningRewardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKScanningRewardView.h; path = "NineZeroProject/UI 2.0/LBS&AR/SKScanningRewardView.h"; sourceTree = "<group>"; };
+		1160FB6B1E0FC4F600606F16 /* SKScanningRewardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKScanningRewardView.m; path = "NineZeroProject/UI 2.0/LBS&AR/SKScanningRewardView.m"; sourceTree = "<group>"; };
+		1160FB6C1E0FC4F600606F16 /* SKSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKSwipeViewController.h; path = "NineZeroProject/UI 2.0/LBS&AR/SKSwipeViewController.h"; sourceTree = "<group>"; };
+		1160FB6D1E0FC4F600606F16 /* SKSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKSwipeViewController.m; path = "NineZeroProject/UI 2.0/LBS&AR/SKSwipeViewController.m"; sourceTree = "<group>"; };
 		11644F4B1DDD97CB002E9FDE /* SKRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterViewController.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.h"; sourceTree = "<group>"; };
 		11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRegisterViewController.m; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.m"; sourceTree = "<group>"; };
 		11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterTextField.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterTextField.h"; sourceTree = "<group>"; };
@@ -1731,6 +1752,7 @@
 		110A34A51DD07ACE00207115 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1160FB501E0FC17500606F16 /* LBS&AR */,
 				1160FB2D1E0E922200606F16 /* Common */,
 				1132B2C61DF5058800DA992F /* Profile */,
 				11FF643A1DDD5BF500768080 /* Login */,
@@ -1886,6 +1908,53 @@
 				1160FB331E0E927F00606F16 /* UIViewController+ImagePicker.m */,
 			);
 			name = Common;
+			sourceTree = "<group>";
+		};
+		1160FB501E0FC17500606F16 /* LBS&AR */ = {
+			isa = PBXGroup;
+			children = (
+				1160FB5C1E0FC45E00606F16 /* Scan */,
+				1160FB561E0FC1AE00606F16 /* AR */,
+			);
+			name = "LBS&AR";
+			sourceTree = "<group>";
+		};
+		1160FB511E0FC1AE00606F16 /* EasyAR */ = {
+			isa = PBXGroup;
+			children = (
+				1160FB521E0FC1AE00606F16 /* ar.cc */,
+				1160FB531E0FC1AE00606F16 /* ar.hpp */,
+				1160FB541E0FC1AE00606F16 /* OpenGLView.h */,
+				1160FB551E0FC1AE00606F16 /* OpenGLView.mm */,
+			);
+			name = EasyAR;
+			path = NineZeroProject/UI/EasyAR;
+			sourceTree = "<group>";
+		};
+		1160FB561E0FC1AE00606F16 /* AR */ = {
+			isa = PBXGroup;
+			children = (
+				1160FB571E0FC1AE00606F16 /* HTARCaptureController.h */,
+				1160FB581E0FC1AE00606F16 /* HTARCaptureController.m */,
+			);
+			name = AR;
+			path = NineZeroProject/UI/AR;
+			sourceTree = "<group>";
+		};
+		1160FB5C1E0FC45E00606F16 /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				1160FB661E0FC4F600606F16 /* SKARRewardController.h */,
+				1160FB671E0FC4F600606F16 /* SKARRewardController.m */,
+				1160FB681E0FC4F600606F16 /* SKScanningResultView.h */,
+				1160FB691E0FC4F600606F16 /* SKScanningResultView.m */,
+				1160FB6A1E0FC4F600606F16 /* SKScanningRewardView.h */,
+				1160FB6B1E0FC4F600606F16 /* SKScanningRewardView.m */,
+				1160FB6C1E0FC4F600606F16 /* SKSwipeViewController.h */,
+				1160FB6D1E0FC4F600606F16 /* SKSwipeViewController.m */,
+				1160FB511E0FC1AE00606F16 /* EasyAR */,
+			);
+			name = Scan;
 			sourceTree = "<group>";
 		};
 		11961CD91D2D2B3400A00AF9 /* ImageEffects */ = {
@@ -4176,16 +4245,19 @@
 				116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */,
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
 				1160FB491E0E94F700606F16 /* SKHelperView.m in Sources */,
+				1160FB5B1E0FC1AE00606F16 /* HTARCaptureController.m in Sources */,
 				1160FB461E0E927F00606F16 /* HTProgressHUD.m in Sources */,
 				17BE473A1C8603D300797E8E /* HTProfileRankCell.m in Sources */,
 				17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */,
 				1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */,
+				1160FB701E0FC4F600606F16 /* SKScanningRewardView.m in Sources */,
 				1787FD151C4A8884006E55A6 /* ARObject.m in Sources */,
 				17A92CCC1CA809B100BE893D /* MJRefreshBackFooter.m in Sources */,
 				17B429001C54D4A8008AFBA9 /* YYAnimatedImageView.m in Sources */,
 				11B8AEF01DF1820B001A3E0F /* NSString+Base64.m in Sources */,
 				17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */,
 				1160FB421E0E927F00606F16 /* UIViewController+ImagePicker.m in Sources */,
+				1160FB5A1E0FC1AE00606F16 /* OpenGLView.mm in Sources */,
 				1787FD1F1C4A8884006E55A6 /* PRARManager.m in Sources */,
 				1787FD2C1C4A9E85006E55A6 /* INTULocationRequest.m in Sources */,
 				17A92CD51CA809B100BE893D /* MJRefreshBackStateFooter.m in Sources */,
@@ -4194,6 +4266,7 @@
 				1744BFCA1C9D52EB00708716 /* UIViewController+HTTips.m in Sources */,
 				1106FFE41DD992250002E36C /* SKMascotIndexViewController.m in Sources */,
 				11B8AEEF1DF1820B001A3E0F /* NSData+CommonCrypto.m in Sources */,
+				1160FB6F1E0FC4F600606F16 /* SKScanningResultView.m in Sources */,
 				17A92CD31CA809B100BE893D /* MJRefreshBackGifFooter.m in Sources */,
 				11FF643D1DDD5C3500768080 /* SKLoginRootViewController.m in Sources */,
 				17A92CD61CA809B100BE893D /* MJRefreshGifHeader.m in Sources */,
@@ -4235,6 +4308,7 @@
 				17A92CCE1CA809B100BE893D /* MJRefreshFooter.m in Sources */,
 				17B429041C54D4A8008AFBA9 /* YYSpriteSheetImage.m in Sources */,
 				17A92CD71CA809B100BE893D /* MJRefreshNormalHeader.m in Sources */,
+				1160FB591E0FC1AE00606F16 /* ar.cc in Sources */,
 				1787FD2B1C4A9E85006E55A6 /* INTULocationManager.m in Sources */,
 				1160FB3F1E0E927F00606F16 /* HTLoginButton.m in Sources */,
 				17B429011C54D4A8008AFBA9 /* YYFrameImage.m in Sources */,
@@ -4258,6 +4332,7 @@
 				1160FB411E0E927F00606F16 /* SKShareView.m in Sources */,
 				1132B30B1DF506C100DA992F /* SKProfileIndexViewController.m in Sources */,
 				11023BEE1DE3FC3100B6493F /* SKConfirmPasswordViewController.m in Sources */,
+				1160FB711E0FC4F600606F16 /* SKSwipeViewController.m in Sources */,
 				11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */,
 				17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */,
 				175F82D11CB4124D00AC2664 /* HTWebController.m in Sources */,
@@ -4281,6 +4356,7 @@
 				11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */,
 				17FA11361C835BE000FA9102 /* HTNotificationController.m in Sources */,
 				1160FB431E0E927F00606F16 /* HTCommonViewController.m in Sources */,
+				1160FB6E1E0FC4F600606F16 /* SKARRewardController.m in Sources */,
 				11A62AE21DED7FA600C83F73 /* SKQuestionService.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,
 				1153811B1DF9512C00B50DF2 /* SKMascotService.m in Sources */,
