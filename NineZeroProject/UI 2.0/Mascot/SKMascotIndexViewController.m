@@ -69,9 +69,8 @@
     _mScrollView.showsHorizontalScrollIndicator = NO;
     _mScrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_mScrollView];
-    
-    _typeArray = @[@(SKMascotTypeDefault), @(SKMascotTypeSloth), @(SKMascotTypePride), @(SKMascotTypeWrath),@(SKMascotTypeEnvy), @(SKMascotTypeLust), @(SKMascotTypeGluttony)];
-    _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"envy", @"lust", @"gluttony"];
+    _typeArray = @[@(SKMascotTypeDefault), @(SKMascotTypeSloth), @(SKMascotTypePride), @(SKMascotTypeWrath),@(SKMascotTypeGluttony), @(SKMascotTypeLust), @(SKMascotTypeEnvy)];
+    _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"lust", @"gluttony", @"envy"];
     
     for (int i = 0; i<7; i++) {
         SKMascotView *mascotView = [[SKMascotView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[i] integerValue]];

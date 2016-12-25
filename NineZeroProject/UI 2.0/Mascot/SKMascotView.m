@@ -25,7 +25,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         _mascotType = mascotType;
-        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"envy", @"lust", @"gluttony"];
+        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"lust", @"gluttony", @"envy"];
         [self createUIWithType:mascotType];
     }
     return self;
@@ -62,6 +62,7 @@
 @property (nonatomic, strong) NSDictionary *mascotNameDict;
 @property (nonatomic, strong) NSArray *mascotSkillIntroArray;
 @property (nonatomic, strong) NSArray<SKPet*> *familyMascotArray;
+@property (nonatomic, strong) NSArray   *mascotIdArray;
 @property (nonatomic, strong) SKDefaultMascotDetail *defaultMascotDetail;
 
 @property (nonatomic, strong) UIButton  *hintS1Button;
@@ -117,7 +118,7 @@
     if (self) {
         self.isHad = isHad;
         self.type = mascotType;
-        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"envy", @"lust", @"gluttony"];
+        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"lust", @"gluttony", @"envy"];
         _mascotNameDict = @{
                              @"lingzai"     :   @"零仔·〇",
                              @"envy"        :   @"Envy·A",
@@ -131,10 +132,11 @@
                                    @"对零仔Sloth·S来说，这个世界上没有什么难题是魔法不能解决的，当你看到他用魔法向你甩来两个答案道具的时候，他已经睡着了",
                                    @"想要像零仔Pride·W一样时刻闪耀在聚光灯下其实很简单，只要请求他给你的你的头像加一个blingbing的魔法边框就好啦（效果持续7天）",
                                    @"零仔Wrath·C用他的炸弹手表替换当前限时关卡倒计时，如果你在48小时内闯关成功，将会获得双倍金币和宝石奖励，否则你将会被炸上天",
-                                   @"零仔Envy·A使用魔法帮你增加40点经验值，当别人向你投来羡慕嫉妒恨的眼神时，请务必装作毫不在意的说一句\"Who TM Cares\"",
                                    @"零仔Lust·B是荷尔蒙的寻觅师，如果你收到了他的魔法礼券，跟着礼券的提示你将会找到他并得到精神上的欢愉",
-                                   @"如果没有美食，这个世界还会好么？如果你碰巧捡到了零仔Gluttony·T的魔法礼券，你就可以和他一起遛进高级餐厅大饱口福"
+                                   @"如果没有美食，这个世界还会好么？如果你碰巧捡到了零仔Gluttony·T的魔法礼券，你就可以和他一起遛进高级餐厅大饱口福",
+                                   @"零仔Envy·A使用魔法帮你增加40点经验值，当别人向你投来羡慕嫉妒恨的眼神时，请务必装作毫不在意的说一句\"Who TM Cares\""
                                    ];
+        _mascotIdArray = @[@"1", @"2", @"3", @"4", @"7", @"6", @"5"];
         
         [self addObserver:self forKeyPath:@"hintS1_islock" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
         [self addObserver:self forKeyPath:@"answerS1_islock" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
@@ -178,7 +180,7 @@
     }
     else {
         //道具数量
-        [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:[NSString stringWithFormat:@"%ld",(long)_type+1] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
+        [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:self.mascotIdArray[_type] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
             self.familyMascotArray = mascotArray;
             _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[0].pet_num];
             _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[1].pet_num];
@@ -784,7 +786,7 @@
 }
 
 - (void)exchangeButtonClick:(UIButton*)sender {
-    [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:[NSString stringWithFormat:@"%ld", (long)_type+1] callback:^(BOOL success, SKResponsePackage *response) {
+    [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:self.mascotIdArray[_type] callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
             NSLog(@"技能施放成功");
         } else if (response.result == -7009) {
@@ -875,7 +877,7 @@
 - (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType {
     self = [super initWithFrame:frame];
     if (self) {
-        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"envy", @"lust", @"gluttony"];
+        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"lust", @"gluttony", @"envy"];
         _mascotTitleDict = @{
                              @"lingzai"     :   @"零仔·〇",
                              @"envy"        :   @"Envy·A",
