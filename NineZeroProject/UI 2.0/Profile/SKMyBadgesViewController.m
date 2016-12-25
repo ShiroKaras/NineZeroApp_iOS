@@ -108,6 +108,7 @@
 @property (nonatomic, strong) UITableView       *tableView;
 @property (nonatomic, strong) NSArray<SKBadge*> *badgeArray;
 @property (nonatomic, assign) NSInteger         exp;
+@property (nonatomic, assign) NSInteger         badgeLevel;
 
 @property (nonatomic, strong) UILabel *expLabel;
 @property (nonatomic, strong) SKProfileProgressView *progressView;
@@ -135,15 +136,15 @@
             [badgeLevels addObject:[NSNumber numberWithInteger:[badge.medal_level integerValue]]];
         }
         [UD setObject:[badgeLevels copy] forKey:kBadgeLevels];
-        NSInteger badgeLevel = [self badgeLevel];
-        if (badgeLevel == 0) {
-            NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel] floatValue];
+        _badgeLevel = [self badgeLevel];
+        if (_badgeLevel == 0) {
+            NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:_badgeLevel] floatValue];
             _expLabel.text = [NSString stringWithFormat:@"%ld", (targetLevel-self.exp)];
             [_progressView setProgress:((float)self.exp)/(targetLevel-self.exp)];
-        } else if (badgeLevel>0) {
-            NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel] floatValue];
+        } else if (_badgeLevel>0) {
+            NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:_badgeLevel] floatValue];
             _expLabel.text = [NSString stringWithFormat:@"%ld", (targetLevel-self.exp)];
-            [_progressView setProgress:(self.exp-[[[UD objectForKey:kBadgeLevels] objectAtIndex:badgeLevel-1] floatValue])/(targetLevel-self.exp)];
+            [_progressView setProgress:(self.exp-[[[UD objectForKey:kBadgeLevels] objectAtIndex:_badgeLevel-1] floatValue])/(targetLevel-self.exp)];
         } else {
             _expLabel.text = @"0";
         }
@@ -259,6 +260,12 @@
     
     [cell.badgeLeftImageView sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2].medal_icon]];
     [cell.badgeRightImageView sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2+1].medal_icon]];
+    if (_badgeLevel<indexPath.row*2+1) {
+        cell.badgeLeftImageView.alpha = 0.4;
+    }
+    if (_badgeLevel<indexPath.row*2+2) {
+        cell.badgeRightImageView.alpha = 0.4;
+    }
     return cell;
 }
 
