@@ -75,9 +75,12 @@
                             @"method"       :   @"getUserInfo"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        SKProfileInfo *profileInfo = [SKProfileInfo objectWithKeyValues:[response keyValues][@"data"]];
-        [SKStorageManager sharedInstance].profileInfo = profileInfo;
-        callback(success, profileInfo);
+        if (success) {
+            SKProfileInfo *profileInfo = [SKProfileInfo objectWithKeyValues:[response keyValues][@"data"]];
+            [SKStorageManager sharedInstance].profileInfo = profileInfo;
+            callback(success, profileInfo);
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -87,14 +90,17 @@
                             @"method"       :   @"getUserTickets"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *ticketArray = [NSMutableArray array];
-        if ([response.data count]>0) {
-            for (int i=0; i<[response.data count]; i++) {
-                SKTicket *piece = [SKTicket objectWithKeyValues:response.data[i]];
-                [ticketArray addObject:piece];
+        if (success) {
+            NSMutableArray *ticketArray = [NSMutableArray array];
+            if ([response.data count]>0) {
+                for (int i=0; i<[response.data count]; i++) {
+                    SKTicket *piece = [SKTicket objectWithKeyValues:response.data[i]];
+                    [ticketArray addObject:piece];
+                }
             }
-        }
-        callback(success, ticketArray);
+            callback(success, ticketArray);
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -114,14 +120,17 @@
                             @"method"       :   @"getNotice"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *notificationArray = [NSMutableArray array];
-        if ([response.data count]>0) {
-            for (int i=0; i<[response.data count]; i++) {
-                SKNotification *notification = [SKNotification objectWithKeyValues:response.data[i]];
-                [notificationArray insertObject:notification atIndex:0];
+        if (success) {
+            NSMutableArray *notificationArray = [NSMutableArray array];
+            if ([response.data count]>0) {
+                for (int i=0; i<[response.data count]; i++) {
+                    SKNotification *notification = [SKNotification objectWithKeyValues:response.data[i]];
+                    [notificationArray insertObject:notification atIndex:0];
+                }
             }
-        }
-        callback(success, notificationArray);
+            callback(success, notificationArray);
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -131,9 +140,12 @@
                             @"method"       :   @"getBaseInfo"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        SKUserInfo *userInfo = [SKUserInfo objectWithKeyValues:[response keyValues][@"data"]];
-        [SKStorageManager sharedInstance].userInfo = userInfo;
-        callback(success, userInfo);
+        if (success) {
+            SKUserInfo *userInfo = [SKUserInfo objectWithKeyValues:[response keyValues][@"data"]];
+            [SKStorageManager sharedInstance].userInfo = userInfo;
+            callback(success, userInfo);
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -143,14 +155,17 @@
                             @"method"       :   @"getOneRank"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *rankerArray = [NSMutableArray array];
-        if ([response.data count]>0) {
-            for (int i=0; i<[response.data count]; i++) {
-                SKRanker *ranker = [SKRanker objectWithKeyValues:response.data[i]];
-                [rankerArray addObject:ranker];
+        if (success) {
+            NSMutableArray *rankerArray = [NSMutableArray array];
+            if ([response.data count]>0) {
+                for (int i=0; i<[response.data count]; i++) {
+                    SKRanker *ranker = [SKRanker objectWithKeyValues:response.data[i]];
+                    [rankerArray addObject:ranker];
+                }
+                callback(success, rankerArray);
             }
-            callback(success, rankerArray);
-        }
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -160,14 +175,17 @@
                             @"method"       :   @"getAllRank"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *rankerArray = [NSMutableArray array];
-        if ([response.data count]>0) {
-            for (int i=0; i<[response.data count]; i++) {
-                SKRanker *ranker = [SKRanker objectWithKeyValues:response.data[i]];
-                [rankerArray addObject:ranker];
+        if (success) {
+            NSMutableArray *rankerArray = [NSMutableArray array];
+            if ([response.data count]>0) {
+                for (int i=0; i<[response.data count]; i++) {
+                    SKRanker *ranker = [SKRanker objectWithKeyValues:response.data[i]];
+                    [rankerArray addObject:ranker];
+                }
+                callback(success, rankerArray);
             }
-            callback(success, rankerArray);
-        }
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -186,12 +204,15 @@
                 };
     }
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        if (response.result == 0) {
-            [self getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response2) { }];
-            callback(success, response);
-        } else {
-            callback(success, response);
-        }
+        if (success) {
+            if (response.result == 0) {
+                [self getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response2) { }];
+                callback(success, response);
+            } else {
+                callback(success, response);
+            }
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -220,14 +241,17 @@
                             @"method"       :   @"getMedal"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *badgeArray = [NSMutableArray array];
-        if ([response.data[@"list"] count]>0) {
-            for (int i=0; i<[response.data[@"list"] count]; i++) {
-                SKBadge *badge = [SKBadge objectWithKeyValues:response.data[@"list"][i]];
-                [badgeArray addObject:badge];
+        if (success) {
+            NSMutableArray *badgeArray = [NSMutableArray array];
+            if ([response.data[@"list"] count]>0) {
+                for (int i=0; i<[response.data[@"list"] count]; i++) {
+                    SKBadge *badge = [SKBadge objectWithKeyValues:response.data[@"list"][i]];
+                    [badgeArray addObject:badge];
+                }
             }
-        }
-        callback(success, [response.data[@"user_experience_value"] integerValue], badgeArray);
+            callback(success, [response.data[@"user_experience_value"] integerValue], badgeArray);
+        } else
+            callback(success, 0, nil);
     }];
 }
 
@@ -237,14 +261,17 @@
                             @"method"       :   @"getPiece"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *pieceArray = [NSMutableArray array];
-        if ([response.data count]>0) {
-            for (int i=0; i<[response.data count]; i++) {
-                SKPiece *piece = [SKPiece objectWithKeyValues:response.data[i]];
-                [pieceArray addObject:piece];
+        if (success) {
+            NSMutableArray *pieceArray = [NSMutableArray array];
+            if ([response.data count]>0) {
+                for (int i=0; i<[response.data count]; i++) {
+                    SKPiece *piece = [SKPiece objectWithKeyValues:response.data[i]];
+                    [pieceArray addObject:piece];
+                }
             }
-        }
-        callback(success, pieceArray);
+            callback(success, pieceArray);
+        } else
+            callback(success, nil);
     }];
 }
 @end

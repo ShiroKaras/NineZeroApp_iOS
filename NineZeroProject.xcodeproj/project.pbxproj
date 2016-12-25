@@ -739,7 +739,6 @@
 		17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B428FD1C54D4A8008AFBA9 /* YYImageCoder.m */; };
 		17B429041C54D4A8008AFBA9 /* YYSpriteSheetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B428FF1C54D4A8008AFBA9 /* YYSpriteSheetImage.m */; };
 		17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */; };
-		17BE47371C86039F00797E8E /* HTProfileRankController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BE47361C86039F00797E8E /* HTProfileRankController.m */; };
 		17BE473A1C8603D300797E8E /* HTProfileRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BE47391C8603D300797E8E /* HTProfileRankCell.m */; };
 		17C648BD1CA2DBDD00D89278 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17C648BC1CA2DBDD00D89278 /* PushConfig.plist */; };
 		17D1F8811C29ADC40029E4AF /* right_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */; };
@@ -1656,8 +1655,6 @@
 		17B428FF1C54D4A8008AFBA9 /* YYSpriteSheetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSpriteSheetImage.m; sourceTree = "<group>"; };
 		17B8F7441C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
 		17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
-		17BE47351C86039F00797E8E /* HTProfileRankController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTProfileRankController.h; path = NineZeroProject/UI/Profile/HTProfileRankController.h; sourceTree = "<group>"; };
-		17BE47361C86039F00797E8E /* HTProfileRankController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTProfileRankController.m; path = NineZeroProject/UI/Profile/HTProfileRankController.m; sourceTree = "<group>"; };
 		17BE47381C8603D300797E8E /* HTProfileRankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTProfileRankCell.h; path = NineZeroProject/UI/Profile/HTProfileRankCell.h; sourceTree = "<group>"; };
 		17BE47391C8603D300797E8E /* HTProfileRankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTProfileRankCell.m; path = NineZeroProject/UI/Profile/HTProfileRankCell.m; sourceTree = "<group>"; };
 		17C648BC1CA2DBDD00D89278 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
@@ -1864,8 +1861,6 @@
 				1133DD771E0A4BB30029511B /* SKRankViewController.m */,
 				17BE47381C8603D300797E8E /* HTProfileRankCell.h */,
 				17BE47391C8603D300797E8E /* HTProfileRankCell.m */,
-				17BE47351C86039F00797E8E /* HTProfileRankController.h */,
-				17BE47361C86039F00797E8E /* HTProfileRankController.m */,
 			);
 			name = Rank;
 			sourceTree = "<group>";
@@ -4276,7 +4271,6 @@
 				11C3C1661DFFDD820045D78A /* SKCommonService.m in Sources */,
 				17A92CDB1CA809B100BE893D /* UIScrollView+MJExtension.m in Sources */,
 				17A92CCD1CA809B100BE893D /* MJRefreshComponent.m in Sources */,
-				17BE47371C86039F00797E8E /* HTProfileRankController.m in Sources */,
 				11F706371E0CD802004332C2 /* NSString+DES.m in Sources */,
 				1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */,
 				17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */,

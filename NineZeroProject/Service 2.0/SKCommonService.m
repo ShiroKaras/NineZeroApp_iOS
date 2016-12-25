@@ -87,9 +87,12 @@
                             @"method"   :   @"homePage"
                             };
     [self commonBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSDictionary *dataDict = response.data;
-        SKIndexInfo *indexInfo = [SKIndexInfo objectWithKeyValues:dataDict];
-        callback(indexInfo);
+        if (success) {
+            NSDictionary *dataDict = response.data;
+            SKIndexInfo *indexInfo = [SKIndexInfo objectWithKeyValues:dataDict];
+            callback(success, indexInfo);
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -98,8 +101,12 @@
                             @"method"   :   @"getQiniuPublicToken"
                             };
     [self commonBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(response.data);
-        [[SKStorageManager sharedInstance] setQiniuPublicToken:response.data];
+        if (success) {
+            callback(success, response.data);
+            [[SKStorageManager sharedInstance] setQiniuPublicToken:response.data];
+        } else {
+            callback(success, nil);
+        }
     }];
 }
 

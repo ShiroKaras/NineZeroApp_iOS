@@ -15,7 +15,6 @@
 #import "SKQuestionViewController.h"
 #import "SKProfileIndexViewController.h"
 #import "SKProfileSettingViewController.h"
-#import "HTProfileRankController.h"
 #import "SKRankViewController.h"
 #import "HTNotificationController.h"
 
@@ -40,20 +39,30 @@
 }
 
 - (void)loadData {
-    [[[SKServiceManager sharedInstance] commonService] getHomepageInfoCallBack:^(SKIndexInfo *indexInfo) {
-        _indexInfo = indexInfo;
-        [_headerImageView sd_setImageWithURL:[NSURL URLWithString:indexInfo.index_gif]];
-        _isMonday = indexInfo.isMonday;
-        _endTime = _isMonday==true? indexInfo.monday_end_time : indexInfo.question_end_time;
-        _timeCountDownBackView.alpha = 1-_isMonday;
-        [self scheduleCountDownTimer];
-        if (_isMonday) {
-            [_timeLimitLevelButton addTarget:self action:@selector(showRelaxDayTimeLabel:) forControlEvents:UIControlEventTouchUpInside];
-            [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
+    [[[SKServiceManager sharedInstance] commonService] getHomepageInfoCallBack:^(BOOL success, SKIndexInfo *indexInfo) {
+        if (success) {
+            _indexInfo = indexInfo;
+            [_headerImageView sd_setImageWithURL:[NSURL URLWithString:indexInfo.index_gif]];
+            _isMonday = indexInfo.isMonday;
+            _endTime = _isMonday==true? indexInfo.monday_end_time : indexInfo.question_end_time;
+            _timeCountDownBackView.alpha = 1-_isMonday;
+            [self scheduleCountDownTimer];
+            if (_isMonday) {
+                [_timeLimitLevelButton addTarget:self action:@selector(showRelaxDayTimeLabel:) forControlEvents:UIControlEventTouchUpInside];
+                [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
+            } else {
+                [_timeLimitLevelButton addTarget:self action:@selector(timeLimitQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+                [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"] forState:UIControlStateNormal];
+                [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
+            }
         } else {
-            [_timeLimitLevelButton addTarget:self action:@selector(timeLimitQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"] forState:UIControlStateNormal];
-            [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
+            UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+            converView.backgroundColor = COMMON_BG_COLOR;
+            [self.view addSubview:converView];
+            HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+            [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+            [self.view addSubview:blankView];
+            blankView.top = ROUND_HEIGHT_FLOAT(217);
         }
     }];
     
@@ -225,6 +234,15 @@
         make.center.equalTo(_timeCountDownBackView);
     }];
     
+//    if (NO_NETWORK) {
+//        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+//        converView.backgroundColor = COMMON_BG_COLOR;
+//        [self.view addSubview:converView];
+//        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+//        [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+//        [self.view addSubview:blankView];
+//        blankView.top = ROUND_HEIGHT_FLOAT(217);
+//    }
 }
 
 #pragma mark - Actions

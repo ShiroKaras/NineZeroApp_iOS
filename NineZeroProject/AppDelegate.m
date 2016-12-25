@@ -257,7 +257,7 @@
 #pragma mark - QiNiu
 
 - (void)registerQiniuService {
-    [[[SKServiceManager sharedInstance] commonService] getQiniuPublicTokenWithCompletion:^(NSString *token) {
+    [[[SKServiceManager sharedInstance] commonService] getQiniuPublicTokenWithCompletion:^(BOOL success, NSString *token) {
     }];
 }
 

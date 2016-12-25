@@ -77,15 +77,6 @@
             }
         }];
     }
-    if (NO_NETWORK) {
-        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, self.width, self.height-60)];
-        converView.backgroundColor = COMMON_BG_COLOR;
-        [self addSubview:converView];
-        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
-        [self addSubview:self.blankView];
-        self.blankView.top = ROUND_HEIGHT_FLOAT(217);
-    }
 }
 
 #pragma mark - Table view data source
