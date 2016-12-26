@@ -114,14 +114,15 @@
             return cell;
         } else if (indexPath.row == _rankerList.count-3) {
             SKRanker *ranker = _rankerList[indexPath.row +2];
-            [cell setRanker:ranker withType:self.type];
             [cell showWithMe:NO];
+            [cell setRanker:ranker withType:self.type];
             cell.separator.hidden = YES;
             return cell;
         } else {
             SKRanker *ranker = _rankerList[indexPath.row +2];
-            [cell setRanker:ranker withType:self.type];
             [cell showWithMe:NO];
+            [cell setRanker:ranker withType:self.type];
+            cell.separator.hidden = NO;
             return cell;
         }
     } else if (self.type == SKRankViewTypeSeason2) {
@@ -137,14 +138,14 @@
             return cell;
         } else if (indexPath.row == _rankerList.count-3) {
             SKRanker *ranker = _rankerList[indexPath.row +1];
-            [cell setRanker:ranker withType:self.type];
             [cell showWithMe:NO];
+            [cell setRanker:ranker withType:self.type];
             cell.separator.hidden = YES;
             return cell;
         } else {
             SKRanker *ranker = _rankerList[indexPath.row +1];
-            [cell setRanker:ranker withType:self.type];
             [cell showWithMe:NO];
+            [cell setRanker:ranker withType:self.type];
             cell.separator.hidden = NO;
             return cell;
         }

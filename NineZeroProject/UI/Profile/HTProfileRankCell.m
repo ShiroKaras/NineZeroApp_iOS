@@ -250,7 +250,7 @@
     _nickName.text = displayName;
     [_nickName sizeToFit];
 
-    _coinLabel.textColor = [self colorWithCoin:[ranker.gold integerValue]];
+    _coinLabel.textColor = COMMON_RED_COLOR;
 }
 
 - (void)setRanker:(SKRanker *)ranker withType:(SKRankViewType)type {
@@ -306,9 +306,8 @@
 - (void)showWithMe:(BOOL)me {
     _backView.backgroundColor = (me) ? COMMON_GREEN_COLOR : [UIColor colorWithHex:0x1F1F1F];
     _orderLabel.textColor = (me) ? [UIColor whiteColor] : COMMON_PINK_COLOR;
-    _coinLabel.textColor = (me) ? [UIColor whiteColor] : [UIColor colorWithHex:0xED203B];
+    _coinLabel.textColor = (me) ? [UIColor whiteColor] : COMMON_RED_COLOR;
     _goldFrame.hidden = (me) ? ![[SKStorageManager sharedInstance] profileInfo].user_gold_head : NO;
-    
 }
 
 - (void)showCorner:(BOOL)show {
