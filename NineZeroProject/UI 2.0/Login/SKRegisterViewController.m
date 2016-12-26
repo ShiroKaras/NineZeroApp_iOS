@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UIButton *agreementButton;
 @property (nonatomic, assign) BOOL nextButtonIsShow;
 @property (nonatomic, assign) CGRect keyboardRect;
+@property (nonatomic, assign) BOOL mobileIsRegistered;
 
 @property (nonatomic, strong) SKLoginUser *loginUser;
 
@@ -154,6 +155,8 @@
         [self showTipsWithText:@"请填写密码"];
     } else if (_passwordTextField.textField.text.length<6) {
         [self showTipsWithText:@"请输入不低于6位密码"];
+    } else if (_mobileIsRegistered == YES) {
+        [self showTipsWithText:@"手机号码已注册"];
     } else {
         self.loginUser.user_mobile  = _phoneTextField.textField.text;
         self.loginUser.user_name    = _usernameTextField.textField.text;
@@ -177,14 +180,15 @@
     if (_phoneTextField.textField.text.length == 11) {
         //判断手机号是否被注册
         [[[SKServiceManager sharedInstance] loginService] checkMobileRegisterStatus:_phoneTextField.textField.text callback:^(BOOL success, SKResponsePackage *response) {
-            DLog(@"%ld", response.result);
             if (response.result == 0) {
+                _mobileIsRegistered = NO;
                 [UIView animateWithDuration:0.3 animations:^{
                     _usernameTextField.alpha = 1;
                 } completion:^(BOOL finished) {
                 //  [_usernameTextField.textField becomeFirstResponder];
                 }];
             } else if (response.result == -2001) {
+                _mobileIsRegistered = YES;
                 [self showTipsWithText:@"手机号码已被注册"];
             }
         }];
