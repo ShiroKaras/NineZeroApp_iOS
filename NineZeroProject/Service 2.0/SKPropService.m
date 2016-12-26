@@ -80,8 +80,8 @@
             } else if ([propType isEqualToString:@"2"]) {
                 responseString = @"获得答案道具";
             }
-            success = YES;
-            callback(success, responseString, [response.data[@"rang_time"] integerValue]);
+            NSInteger coolTime = [response.data[@"rang_time"] integerValue];
+            callback(YES, responseString, coolTime);
         } else if (response.result == -8001) {
             responseString = @"金币数不够";
             success = NO;

@@ -32,6 +32,7 @@
 }
 
 - (void)createUIWithType:(SKMascotType)type {
+    self.backgroundColor = [UIColor blackColor];
     UIImageView *mBackImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     mBackImageView.backgroundColor = [UIColor clearColor];
     [self addSubview:mBackImageView];
@@ -192,6 +193,7 @@
                 [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed", _mascotNameArray[_type]]] forState:UIControlStateNormal];
                 [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed_highlight", _mascotNameArray[_type]]] forState:UIControlStateHighlighted];
             } else {
+                _exchangeButton.adjustsImageWhenHighlighted = NO;
                 [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound", _mascotNameArray[_type]]] forState:UIControlStateNormal];
             }
         }];
@@ -378,7 +380,7 @@
     }];
     
     _timeDownBackLabel1 = [UILabel new];
-    _timeDownBackLabel1.text = @"00:00:00";
+    _timeDownBackLabel1.text = @"00:00";
     _timeDownBackLabel1.textColor = [UIColor whiteColor];
     _timeDownBackLabel1.font = MOON_FONT_OF_SIZE(12);
     [_timeDownBackImageView1 addSubview:_timeDownBackLabel1];
@@ -397,7 +399,7 @@
     }];
     
     _timeDownBackLabel2 = [UILabel new];
-    _timeDownBackLabel2.text = @"00:00:00";
+    _timeDownBackLabel2.text = @"00:00";
     _timeDownBackLabel2.textColor = [UIColor whiteColor];
     _timeDownBackLabel2.font = MOON_FONT_OF_SIZE(12);
     [_timeDownBackImageView2 addSubview:_timeDownBackLabel2];
@@ -492,7 +494,7 @@
     }];
     
     _timeDownBackLabel3 = [UILabel new];
-    _timeDownBackLabel3.text = @"00:00:00";
+    _timeDownBackLabel3.text = @"00:00";
     _timeDownBackLabel3.textColor = [UIColor whiteColor];
     _timeDownBackLabel3.font = MOON_FONT_OF_SIZE(12);
     [_timeDownBackImageView3 addSubview:_timeDownBackLabel3];
@@ -511,7 +513,7 @@
     }];
     
     _timeDownBackLabel4 = [UILabel new];
-    _timeDownBackLabel4.text = @"00:00:00";
+    _timeDownBackLabel4.text = @"00:00";
     _timeDownBackLabel4.textColor = [UIColor whiteColor];
     _timeDownBackLabel4.font = MOON_FONT_OF_SIZE(12);
     [_timeDownBackImageView4 addSubview:_timeDownBackLabel4];
@@ -656,9 +658,12 @@
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"1" propType:@"1" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
         [[self viewController] showTipsWithText:responseString];
         if (success) {
-            _iconCountLabel.text = [NSString stringWithFormat:@"%ld", [_iconCountLabel.text integerValue]-[self.defaultMascotDetail.first_season.clue_used_gold integerValue]];
+            NSLog(@"%ld", coolTime);
+//            self.defaultMascotDetail.first_season.clue_cooling_time = coolTime;
+//            _iconCountLabel.text = [NSString stringWithFormat:@"%ld", [_iconCountLabel.text integerValue]-[self.defaultMascotDetail.first_season.clue_used_gold integerValue]];
+//            self.hintS1_islock = YES;
             _timeDownBackLabel1.text = [self timeToString:coolTime];
-            self.hintS1_islock = YES;
+            [self loadData];
         }
     }];
 }
@@ -668,9 +673,11 @@
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"1" propType:@"2" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
         [[self viewController] showTipsWithText:responseString];
         if (success) {
-            _iconCountLabel.text = [NSString stringWithFormat:@"%ld", [_iconCountLabel.text integerValue]-[self.defaultMascotDetail.first_season.answer_used_gold integerValue]];
+//            self.defaultMascotDetail.first_season.answer_cooling_time = coolTime;
+//            _iconCountLabel.text = [NSString stringWithFormat:@"%ld", [_iconCountLabel.text integerValue]-[self.defaultMascotDetail.first_season.answer_used_gold integerValue]];
+//            self.answerS1_islock = YES;
             _timeDownBackLabel2.text = [self timeToString:coolTime];
-            self.answerS1_islock = YES;
+            [self loadData];
         }
     }];
 }
@@ -680,9 +687,11 @@
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"2" propType:@"1" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
         [[self viewController] showTipsWithText:responseString];
         if (success) {
-            _diamondCountLabel.text = [NSString stringWithFormat:@"%ld", [_diamondCountLabel.text integerValue]-[self.defaultMascotDetail.second_season.clue_used_gemstone integerValue]];
+//            self.defaultMascotDetail.second_season.clue_cooling_time = coolTime;
+//            _diamondCountLabel.text = [NSString stringWithFormat:@"%ld", [_diamondCountLabel.text integerValue]-[self.defaultMascotDetail.second_season.clue_used_gemstone integerValue]];
+//            self.hintS2_islock = YES;
             _timeDownBackLabel3.text = [self timeToString:coolTime];
-            self.hintS2_islock = YES;
+            [self loadData];
         }
     }];
 }
@@ -692,9 +701,11 @@
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"2" propType:@"2" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
         [[self viewController] showTipsWithText:responseString];
         if (success) {
-            _diamondCountLabel.text = [NSString stringWithFormat:@"%ld", [_diamondCountLabel.text integerValue]-[self.defaultMascotDetail.second_season.answer_used_gemstone integerValue]];
+//            self.defaultMascotDetail.second_season.answer_cooling_time = coolTime;
+//            _diamondCountLabel.text = [NSString stringWithFormat:@"%ld", [_diamondCountLabel.text integerValue]-[self.defaultMascotDetail.second_season.answer_used_gemstone integerValue]];
+//            self.answerS2_islock = YES;
             _timeDownBackLabel4.text = [self timeToString:coolTime];
-            self.answerS2_islock = YES;
+            [self loadData];
         }
     }];
 }
@@ -704,7 +715,7 @@
     time_t hour = time / oneHour;
     time_t minute = (time % oneHour) / 60;
     time_t second = time - hour * oneHour - minute * 60;
-    return [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+    return [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
 }
 
 //倒计时
@@ -715,9 +726,9 @@
     time_t minute = (delta % oneHour) / 60;
     time_t second = delta - hour * oneHour - minute * 60;
     self.defaultMascotDetail.first_season.clue_cooling_time--;
+    NSLog(@"%ld", self.defaultMascotDetail.first_season.clue_cooling_time);
     if (delta > 0) {
-        NSLog(@"%@", [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second]);
-        _timeDownBackLabel1.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        _timeDownBackLabel1.text = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
     } else {
         // 过去时间
         self.hintS1_islock = NO;
@@ -730,9 +741,9 @@
     time_t hour = delta / oneHour;
     time_t minute = (delta % oneHour) / 60;
     time_t second = delta - hour * oneHour - minute * 60;
-    self.defaultMascotDetail.first_season.clue_cooling_time--;
+    self.defaultMascotDetail.first_season.answer_cooling_time--;
     if (delta > 0) {
-        _timeDownBackLabel2.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        _timeDownBackLabel2.text = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
     } else {
         // 过去时间
         self.answerS2_islock = NO;
@@ -745,9 +756,9 @@
     time_t hour = delta / oneHour;
     time_t minute = (delta % oneHour) / 60;
     time_t second = delta - hour * oneHour - minute * 60;
-    self.defaultMascotDetail.first_season.clue_cooling_time--;
+    self.defaultMascotDetail.second_season.clue_cooling_time--;
     if (delta > 0) {
-        _timeDownBackLabel3.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        _timeDownBackLabel3.text = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
     } else {
         // 过去时间
         self.hintS2_islock = NO;
@@ -760,9 +771,9 @@
     time_t hour = delta / oneHour;
     time_t minute = (delta % oneHour) / 60;
     time_t second = delta - hour * oneHour - minute * 60;
-    self.defaultMascotDetail.first_season.clue_cooling_time--;
+    self.defaultMascotDetail.second_season.answer_cooling_time--;
     if (delta > 0) {
-        _timeDownBackLabel4.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        _timeDownBackLabel4.text = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
     } else {
         // 过去时间
         self.answerS2_islock = NO;
@@ -801,6 +812,8 @@
             _hintS1Button.userInteractionEnabled = NO;
             _flagView_season1_1.hidden = YES;
             _timeDownBackImageView1.hidden = NO;
+            [_timerS1Hint invalidate];
+            _timerS1Hint = nil;
             _timerS1Hint = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeS1Hint) userInfo:nil repeats:YES];
         } else {
             [_hintS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue"] forState:UIControlStateNormal];
@@ -814,6 +827,8 @@
             _answerS1Button.userInteractionEnabled = NO;
             _flagView_season1_2.hidden = YES;
             _timeDownBackImageView2.hidden = NO;
+            [_timerS1Answer invalidate];
+            _timerS1Answer = nil;
             _timerS1Answer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeS1Answer) userInfo:nil repeats:YES];
         } else {
             [_answerS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution"] forState:UIControlStateNormal];
@@ -827,6 +842,8 @@
             _hintS2Button.userInteractionEnabled = NO;
             _flagView_season2_1.hidden = YES;
             _timeDownBackImageView3.hidden = NO;
+            [_timerS2Hint invalidate];
+            _timerS2Hint = nil;
             _timerS2Hint = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeS2Hint) userInfo:nil repeats:YES];
         } else {
             [_hintS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue_highlight"] forState:UIControlStateNormal];
@@ -840,6 +857,8 @@
             _answerS2Button.userInteractionEnabled = NO;
             _flagView_season2_2.hidden = YES;
             _timeDownBackImageView4.hidden = NO;
+            [_timerS2Answer invalidate];
+            _timerS2Answer = nil;
             _timerS2Answer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeS2Answer) userInfo:nil repeats:YES];
         } else {
             [_answerS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution_highlight"] forState:UIControlStateNormal];
