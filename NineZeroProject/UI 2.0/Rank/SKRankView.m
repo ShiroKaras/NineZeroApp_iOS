@@ -111,7 +111,13 @@
             NSArray<SKRanker*>* topRankers = [NSArray arrayWithObjects:_rankerList[0], _rankerList[1], _rankerList[2], nil];
             [cell setTopThreeRankers:topRankers withType:self.type];
             return cell;
-        }else {
+        } else if (indexPath.row == _rankerList.count-3) {
+            SKRanker *ranker = _rankerList[indexPath.row +2];
+            [cell setRanker:ranker withType:self.type];
+            [cell showWithMe:NO];
+            cell.separator.hidden = YES;
+            return cell;
+        } else {
             SKRanker *ranker = _rankerList[indexPath.row +2];
             [cell setRanker:ranker withType:self.type];
             [cell showWithMe:NO];
@@ -122,26 +128,22 @@
         if (indexPath.row == 0) {
             NSArray<SKRanker*>* topRankers = [NSArray arrayWithObjects:_rankerList[0], _rankerList[1], _rankerList[2], nil];
             [cell setTopThreeRankers:topRankers withType:self.type];
-            [cell showCorner:NO];
             return cell;
         } else if (indexPath.row == 1) {
             [cell setRanker:_myRank withType:self.type];
             [cell showWithMe:YES];
-            [cell showCorner:NO];
             cell.separator.hidden = NO;
             return cell;
         } else if (indexPath.row == _rankerList.count-3) {
             SKRanker *ranker = _rankerList[indexPath.row +1];
             [cell setRanker:ranker withType:self.type];
             [cell showWithMe:NO];
-            [cell showCorner:YES];
             cell.separator.hidden = YES;
             return cell;
         } else {
             SKRanker *ranker = _rankerList[indexPath.row +1];
             [cell setRanker:ranker withType:self.type];
             [cell showWithMe:NO];
-            [cell showCorner:NO];
             cell.separator.hidden = NO;
             return cell;
         }
