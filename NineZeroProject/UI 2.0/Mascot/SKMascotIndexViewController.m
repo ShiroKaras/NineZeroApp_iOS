@@ -10,6 +10,7 @@
 #import "HTUIHeader.h"
 
 #import "SKMascotView.h"
+#import "SKMascotAlbumView.h"
 
 #define MASCOT_VIEW_DEFAULT 100
 
@@ -100,6 +101,7 @@
     }];
     
     _mascotdexButton = [UIButton new];
+    [_mascotdexButton addTarget:self action:@selector(mascotdexButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_mascotdexButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_albums"] forState:UIControlStateNormal];
     [_mascotdexButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_albums_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:_mascotdexButton];
@@ -151,6 +153,11 @@
 - (void)infoButtonClick:(UIButton *)sender {
     SKMascotInfoView *infoView = [[SKMascotInfoView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[_currentIndex] integerValue]];
     [self.view addSubview:infoView];
+}
+
+- (void)mascotdexButtonClick:(UIButton*)sender {
+    SKMascotAlbumView *mascotAlbumView = [[SKMascotAlbumView alloc] initWithFrame:self.view.bounds withMascotArray:self.mascotArray];
+    [self.view addSubview:mascotAlbumView];
 }
 
 #pragma mark - UIScrollViewDelegate
