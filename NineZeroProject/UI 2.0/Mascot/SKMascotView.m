@@ -25,13 +25,14 @@
     self = [super initWithFrame:frame];
     if (self) {
         _mascotType = mascotType;
-        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"lust", @"gluttony", @"envy"];
+        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
         [self createUIWithType:mascotType];
     }
     return self;
 }
 
 - (void)createUIWithType:(SKMascotType)type {
+    self.backgroundColor = [UIColor blackColor];
     UIImageView *mBackImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     mBackImageView.backgroundColor = [UIColor clearColor];
     [self addSubview:mBackImageView];
@@ -62,7 +63,6 @@
 @property (nonatomic, strong) NSDictionary *mascotNameDict;
 @property (nonatomic, strong) NSArray *mascotSkillIntroArray;
 @property (nonatomic, strong) NSArray<SKPet*> *familyMascotArray;
-@property (nonatomic, strong) NSArray   *mascotIdArray;
 @property (nonatomic, strong) SKDefaultMascotDetail *defaultMascotDetail;
 
 @property (nonatomic, strong) UIButton  *hintS1Button;
@@ -118,7 +118,7 @@
     if (self) {
         self.isHad = isHad;
         self.type = mascotType;
-        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"lust", @"gluttony", @"envy"];
+        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
         _mascotNameDict = @{
                              @"lingzai"     :   @"零仔·〇",
                              @"envy"        :   @"Envy·A",
@@ -132,11 +132,10 @@
                                    @"对零仔Sloth·S来说，这个世界上没有什么难题是魔法不能解决的，当你看到他用魔法向你甩来两个答案道具的时候，他已经睡着了",
                                    @"想要像零仔Pride·W一样时刻闪耀在聚光灯下其实很简单，只要请求他给你的你的头像加一个blingbing的魔法边框就好啦（效果持续7天）",
                                    @"零仔Wrath·C用他的炸弹手表替换当前限时关卡倒计时，如果你在48小时内闯关成功，将会获得双倍金币和宝石奖励，否则你将会被炸上天",
-                                   @"零仔Lust·B是荷尔蒙的寻觅师，如果你收到了他的魔法礼券，跟着礼券的提示你将会找到他并得到精神上的欢愉",
                                    @"如果没有美食，这个世界还会好么？如果你碰巧捡到了零仔Gluttony·T的魔法礼券，你就可以和他一起遛进高级餐厅大饱口福",
+                                   @"零仔Lust·B是荷尔蒙的寻觅师，如果你收到了他的魔法礼券，跟着礼券的提示你将会找到他并得到精神上的欢愉",
                                    @"零仔Envy·A使用魔法帮你增加40点经验值，当别人向你投来羡慕嫉妒恨的眼神时，请务必装作毫不在意的说一句\"Who TM Cares\""
                                    ];
-        _mascotIdArray = @[@"1", @"2", @"3", @"4", @"7", @"6", @"5"];
         
         [self addObserver:self forKeyPath:@"hintS1_islock" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
         [self addObserver:self forKeyPath:@"answerS1_islock" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
@@ -180,7 +179,7 @@
     }
     else {
         //道具数量
-        [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:self.mascotIdArray[_type] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
+        [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:[NSString stringWithFormat:@"%ld",(long)_type+1] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
             self.familyMascotArray = mascotArray;
             _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[0].pet_num];
             _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[1].pet_num];
@@ -194,6 +193,7 @@
                 [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed", _mascotNameArray[_type]]] forState:UIControlStateNormal];
                 [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed_highlight", _mascotNameArray[_type]]] forState:UIControlStateHighlighted];
             } else {
+                _exchangeButton.adjustsImageWhenHighlighted = NO;
                 [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound", _mascotNameArray[_type]]] forState:UIControlStateNormal];
             }
         }];
@@ -380,7 +380,7 @@
     }];
     
     _timeDownBackLabel1 = [UILabel new];
-    _timeDownBackLabel1.text = @"00:00:00";
+    _timeDownBackLabel1.text = @"00:00";
     _timeDownBackLabel1.textColor = [UIColor whiteColor];
     _timeDownBackLabel1.font = MOON_FONT_OF_SIZE(12);
     [_timeDownBackImageView1 addSubview:_timeDownBackLabel1];
@@ -399,7 +399,7 @@
     }];
     
     _timeDownBackLabel2 = [UILabel new];
-    _timeDownBackLabel2.text = @"00:00:00";
+    _timeDownBackLabel2.text = @"00:00";
     _timeDownBackLabel2.textColor = [UIColor whiteColor];
     _timeDownBackLabel2.font = MOON_FONT_OF_SIZE(12);
     [_timeDownBackImageView2 addSubview:_timeDownBackLabel2];
@@ -494,7 +494,7 @@
     }];
     
     _timeDownBackLabel3 = [UILabel new];
-    _timeDownBackLabel3.text = @"00:00:00";
+    _timeDownBackLabel3.text = @"00:00";
     _timeDownBackLabel3.textColor = [UIColor whiteColor];
     _timeDownBackLabel3.font = MOON_FONT_OF_SIZE(12);
     [_timeDownBackImageView3 addSubview:_timeDownBackLabel3];
@@ -513,7 +513,7 @@
     }];
     
     _timeDownBackLabel4 = [UILabel new];
-    _timeDownBackLabel4.text = @"00:00:00";
+    _timeDownBackLabel4.text = @"00:00";
     _timeDownBackLabel4.textColor = [UIColor whiteColor];
     _timeDownBackLabel4.font = MOON_FONT_OF_SIZE(12);
     [_timeDownBackImageView4 addSubview:_timeDownBackLabel4];
@@ -658,9 +658,11 @@
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"1" propType:@"1" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
         [[self viewController] showTipsWithText:responseString];
         if (success) {
+            NSLog(@"%ld", coolTime);
+//            self.defaultMascotDetail.first_season.clue_cooling_time = coolTime;
 //            _iconCountLabel.text = [NSString stringWithFormat:@"%ld", [_iconCountLabel.text integerValue]-[self.defaultMascotDetail.first_season.clue_used_gold integerValue]];
-//            _timeDownBackLabel1.text = [self timeToString:coolTime];
 //            self.hintS1_islock = YES;
+            _timeDownBackLabel1.text = [self timeToString:coolTime];
             [self loadData];
         }
     }];
@@ -671,9 +673,10 @@
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"1" propType:@"2" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
         [[self viewController] showTipsWithText:responseString];
         if (success) {
+//            self.defaultMascotDetail.first_season.answer_cooling_time = coolTime;
 //            _iconCountLabel.text = [NSString stringWithFormat:@"%ld", [_iconCountLabel.text integerValue]-[self.defaultMascotDetail.first_season.answer_used_gold integerValue]];
-//            _timeDownBackLabel2.text = [self timeToString:coolTime];
 //            self.answerS1_islock = YES;
+            _timeDownBackLabel2.text = [self timeToString:coolTime];
             [self loadData];
         }
     }];
@@ -684,9 +687,10 @@
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"2" propType:@"1" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
         [[self viewController] showTipsWithText:responseString];
         if (success) {
+//            self.defaultMascotDetail.second_season.clue_cooling_time = coolTime;
 //            _diamondCountLabel.text = [NSString stringWithFormat:@"%ld", [_diamondCountLabel.text integerValue]-[self.defaultMascotDetail.second_season.clue_used_gemstone integerValue]];
-//            _timeDownBackLabel3.text = [self timeToString:coolTime];
 //            self.hintS2_islock = YES;
+            _timeDownBackLabel3.text = [self timeToString:coolTime];
             [self loadData];
         }
     }];
@@ -697,9 +701,10 @@
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"2" propType:@"2" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
         [[self viewController] showTipsWithText:responseString];
         if (success) {
+//            self.defaultMascotDetail.second_season.answer_cooling_time = coolTime;
 //            _diamondCountLabel.text = [NSString stringWithFormat:@"%ld", [_diamondCountLabel.text integerValue]-[self.defaultMascotDetail.second_season.answer_used_gemstone integerValue]];
-//            _timeDownBackLabel4.text = [self timeToString:coolTime];
 //            self.answerS2_islock = YES;
+            _timeDownBackLabel4.text = [self timeToString:coolTime];
             [self loadData];
         }
     }];
@@ -710,7 +715,7 @@
     time_t hour = time / oneHour;
     time_t minute = (time % oneHour) / 60;
     time_t second = time - hour * oneHour - minute * 60;
-    return [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+    return [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
 }
 
 //倒计时
@@ -721,8 +726,9 @@
     time_t minute = (delta % oneHour) / 60;
     time_t second = delta - hour * oneHour - minute * 60;
     self.defaultMascotDetail.first_season.clue_cooling_time--;
+    NSLog(@"%ld", self.defaultMascotDetail.first_season.clue_cooling_time);
     if (delta > 0) {
-        _timeDownBackLabel1.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        _timeDownBackLabel1.text = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
     } else {
         // 过去时间
         self.hintS1_islock = NO;
@@ -735,9 +741,9 @@
     time_t hour = delta / oneHour;
     time_t minute = (delta % oneHour) / 60;
     time_t second = delta - hour * oneHour - minute * 60;
-    self.defaultMascotDetail.first_season.clue_cooling_time--;
+    self.defaultMascotDetail.first_season.answer_cooling_time--;
     if (delta > 0) {
-        _timeDownBackLabel2.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        _timeDownBackLabel2.text = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
     } else {
         // 过去时间
         self.answerS2_islock = NO;
@@ -750,9 +756,9 @@
     time_t hour = delta / oneHour;
     time_t minute = (delta % oneHour) / 60;
     time_t second = delta - hour * oneHour - minute * 60;
-    self.defaultMascotDetail.first_season.clue_cooling_time--;
+    self.defaultMascotDetail.second_season.clue_cooling_time--;
     if (delta > 0) {
-        _timeDownBackLabel3.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        _timeDownBackLabel3.text = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
     } else {
         // 过去时间
         self.hintS2_islock = NO;
@@ -765,9 +771,9 @@
     time_t hour = delta / oneHour;
     time_t minute = (delta % oneHour) / 60;
     time_t second = delta - hour * oneHour - minute * 60;
-    self.defaultMascotDetail.first_season.clue_cooling_time--;
+    self.defaultMascotDetail.second_season.answer_cooling_time--;
     if (delta > 0) {
-        _timeDownBackLabel4.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+        _timeDownBackLabel4.text = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
     } else {
         // 过去时间
         self.answerS2_islock = NO;
@@ -786,13 +792,15 @@
 }
 
 - (void)exchangeButtonClick:(UIButton*)sender {
-    [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:self.mascotIdArray[_type] callback:^(BOOL success, SKResponsePackage *response) {
+    _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_1_Label.text integerValue]-1];
+    _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_2_Label.text integerValue]-1];
+    _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_3_Label.text integerValue]-1];
+    _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_4_Label.text integerValue]-1];
+    [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:[NSString stringWithFormat:@"%ld", (long)_type+1] callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
             NSLog(@"技能施放成功");
-        } else if (response.result == -7009) {
-            [[self viewController] showTipsWithText:@"已有生效的魔法"];
-        } else if (response.result == - 7010) {
-            [[self viewController] showTipsWithText:@"施放魔法失败"];
+        } else if (response.result == -7009){
+            NSLog(@"技能施放失败:%ld", (long)response.result);
         }
     }];
 }
@@ -804,14 +812,14 @@
             _hintS1Button.userInteractionEnabled = NO;
             _flagView_season1_1.hidden = YES;
             _timeDownBackImageView1.hidden = NO;
+            [_timerS1Hint invalidate];
+            _timerS1Hint = nil;
             _timerS1Hint = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeS1Hint) userInfo:nil repeats:YES];
         } else {
             [_hintS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue"] forState:UIControlStateNormal];
             _hintS1Button.userInteractionEnabled = YES;
             _flagView_season1_1.hidden = NO;
             _timeDownBackImageView1.hidden = YES;
-            [_timerS1Hint invalidate];
-            _timerS1Hint = nil;
         }
     } else if ([keyPath isEqualToString:@"answerS1_islock"]) {
         if (self.answerS1_islock) {
@@ -819,14 +827,14 @@
             _answerS1Button.userInteractionEnabled = NO;
             _flagView_season1_2.hidden = YES;
             _timeDownBackImageView2.hidden = NO;
+            [_timerS1Answer invalidate];
+            _timerS1Answer = nil;
             _timerS1Answer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeS1Answer) userInfo:nil repeats:YES];
         } else {
             [_answerS1Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution"] forState:UIControlStateNormal];
             _answerS1Button.userInteractionEnabled = YES;
             _flagView_season1_2.hidden = NO;
             _timeDownBackImageView2.hidden = YES;
-            [_timerS1Answer invalidate];
-            _timerS1Answer = nil;
         }
     } else if ([keyPath isEqualToString:@"hintS2_islock"]) {
         if (self.hintS2_islock) {
@@ -834,14 +842,14 @@
             _hintS2Button.userInteractionEnabled = NO;
             _flagView_season2_1.hidden = YES;
             _timeDownBackImageView3.hidden = NO;
+            [_timerS2Hint invalidate];
+            _timerS2Hint = nil;
             _timerS2Hint = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeS2Hint) userInfo:nil repeats:YES];
         } else {
             [_hintS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_clue_highlight"] forState:UIControlStateNormal];
             _hintS2Button.userInteractionEnabled = YES;
             _flagView_season2_1.hidden = NO;
             _timeDownBackImageView3.hidden = YES;
-            [_timerS2Hint invalidate];
-            _timerS2Hint = nil;
         }
     } else if ([keyPath isEqualToString:@"answerS2_islock"]) {
         if (self.answerS2_islock) {
@@ -849,14 +857,14 @@
             _answerS2Button.userInteractionEnabled = NO;
             _flagView_season2_2.hidden = YES;
             _timeDownBackImageView4.hidden = NO;
+            [_timerS2Answer invalidate];
+            _timerS2Answer = nil;
             _timerS2Answer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeS2Answer) userInfo:nil repeats:YES];
         } else {
             [_answerS2Button setBackgroundImage:[UIImage imageNamed:@"btn_lingzaiskillpage_solution_highlight"] forState:UIControlStateNormal];
             _answerS2Button.userInteractionEnabled = YES;
             _flagView_season2_2.hidden = NO;
             _timeDownBackImageView4.hidden = YES;
-            [_timerS2Answer invalidate];
-            _timerS2Answer = nil;
         }
     }
 }
@@ -877,15 +885,15 @@
 - (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType {
     self = [super initWithFrame:frame];
     if (self) {
-        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"lust", @"gluttony", @"envy"];
+        _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
         _mascotTitleDict = @{
                              @"lingzai"     :   @"零仔·〇",
-                             @"envy"        :   @"Envy·A",
-                             @"gluttony"    :   @"Gluttony·T",
-                             @"pride"       :   @"Pride·W",
-                             @"sloth"       :   @"Sloth·S",
-                             @"wrath"       :   @"Wrath·C",
-                             @"lust"        :   @"Lust·B"
+                             @"envy"        :   @"嫉妒\nEnvy·A",
+                             @"gluttony"    :   @"饕餮\nGluttony·T",
+                             @"pride"       :   @"嫉妒\nPride·W",
+                             @"sloth"       :   @"懒惰\nSloth·S",
+                             @"wrath"       :   @"愤怒\nWrath·C",
+                             @"lust"        :   @"色欲\nLust·B"
                              };
         _mascotContentDict = @{
                                @"lingzai"     :   @"传说中的529D星球。〇纯洁如一张白纸，却孤独如一片深海。虽然这个世界与自己残存的记忆中的星球有太多类似的地方，但是它还是需要找到529D星球的一些线索，它希望知道自己的来处，希望了解关于529D星球的一切真相。",

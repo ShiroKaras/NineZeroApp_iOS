@@ -39,7 +39,9 @@
 }
 
 - (void)loadData {
+    [HTProgressHUD show];
     [[[SKServiceManager sharedInstance] commonService] getHomepageInfoCallBack:^(BOOL success, SKIndexInfo *indexInfo) {
+        [HTProgressHUD dismiss];
         if (success) {
             _indexInfo = indexInfo;
             [_headerImageView sd_setImageWithURL:[NSURL URLWithString:indexInfo.index_gif]];

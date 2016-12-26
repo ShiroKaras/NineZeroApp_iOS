@@ -201,8 +201,8 @@
 @end
 
 @interface SKDefaultMascotSkill : NSObject;
-@property (nonatomic, assign)   uint64_t      clue_cooling_time;
-@property (nonatomic, assign)   uint64_t      answer_cooling_time;
+@property (nonatomic, assign)   NSInteger   clue_cooling_time;
+@property (nonatomic, assign)   NSInteger   answer_cooling_time;
 @property (nonatomic, copy)     NSString    *clue_used_gold;
 @property (nonatomic, copy)     NSString    *answer_used_gold;
 @property (nonatomic, copy)     NSString    *clue_used_gemstone;
