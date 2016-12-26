@@ -800,9 +800,9 @@
     _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_4_Label.text integerValue]-1];
     [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:_mascotIdArray[_type] callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
-            NSLog(@"技能施放成功");
+            [[self viewController] showTipsWithText:@"技能施放成功"];
         } else if (response.result == -7009){
-            NSLog(@"技能施放失败:%ld", (long)response.result);
+            [[self viewController] showTipsWithText:@"已经有生效的魔法"];
         }
     }];
 }
