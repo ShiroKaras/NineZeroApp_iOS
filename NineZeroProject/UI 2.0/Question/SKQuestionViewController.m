@@ -692,13 +692,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         //购买道具
         UIButton *purchPropButton = [UIButton new];
         [purchPropButton addTarget:self action:@selector(purchasePropButtonOnClick:) forControlEvents:UIControlEventTouchUpInside];
-        if (self.season == 1) {
-            [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateNormal];
-            [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_PINK_COLOR] forState:UIControlStateHighlighted];
-        } else if (self.season == 2) {
-            [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_PINK_COLOR] forState:UIControlStateNormal];
-            [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
-        }
+        [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_PINK_COLOR] forState:UIControlStateNormal];
+        [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
         purchPropButton.layer.cornerRadius = 3;
         purchPropButton.layer.masksToBounds = YES;
         purchPropButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(14);
