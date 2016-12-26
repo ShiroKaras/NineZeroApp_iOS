@@ -62,6 +62,7 @@
 @property (nonatomic, strong) NSArray *mascotNameArray;
 @property (nonatomic, strong) NSDictionary *mascotNameDict;
 @property (nonatomic, strong) NSArray *mascotSkillIntroArray;
+@property (nonatomic, strong) NSArray *mascotIdArray;
 @property (nonatomic, strong) NSArray<SKPet*> *familyMascotArray;
 @property (nonatomic, strong) SKDefaultMascotDetail *defaultMascotDetail;
 
@@ -137,6 +138,7 @@
                                    @"零仔Envy·A使用魔法帮你增加40点经验值，当别人向你投来羡慕嫉妒恨的眼神时，请务必装作毫不在意的说一句\"Who TM Cares\""
                                    ];
         
+        _mascotIdArray = @[@"1", @"2", @"3", @"4", @"7", @"6", @"5"];
         [self addObserver:self forKeyPath:@"hintS1_islock" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
         [self addObserver:self forKeyPath:@"answerS1_islock" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
         [self addObserver:self forKeyPath:@"hintS2_islock" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
@@ -179,7 +181,7 @@
     }
     else {
         //道具数量
-        [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:[NSString stringWithFormat:@"%ld",(long)_type+1] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
+        [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:_mascotIdArray[_type] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
             self.familyMascotArray = mascotArray;
             _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[0].pet_num];
             _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[1].pet_num];
@@ -796,7 +798,7 @@
     _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_2_Label.text integerValue]-1];
     _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_3_Label.text integerValue]-1];
     _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_4_Label.text integerValue]-1];
-    [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:[NSString stringWithFormat:@"%ld", (long)_type+1] callback:^(BOOL success, SKResponsePackage *response) {
+    [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:_mascotIdArray[_type] callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
             NSLog(@"技能施放成功");
         } else if (response.result == -7009){
