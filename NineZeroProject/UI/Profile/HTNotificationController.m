@@ -30,7 +30,7 @@
     self.tableView.backgroundColor = [UIColor blackColor];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-    headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
+    headerView.backgroundColor = [UIColor clearColor];
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"消息通知";
     titleLabel.textColor = [UIColor whiteColor];
