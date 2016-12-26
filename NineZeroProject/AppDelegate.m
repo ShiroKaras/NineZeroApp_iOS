@@ -153,7 +153,9 @@
 }
 
 - (void)createWindowAndVisibleWithOptions:(NSDictionary*)launchOptions {
-    if ([[SKStorageManager sharedInstance] getUserID] != nil) {
+    NSString *userID = [[SKStorageManager sharedInstance] getUserID];
+    NSLog(@"%@",userID);
+    if (userID != nil) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _mainController = [[SKHomepageViewController alloc] init];
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:_mainController];

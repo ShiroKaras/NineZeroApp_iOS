@@ -140,7 +140,7 @@
                             @"method"       :   @"getBaseInfo"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        if (success) {
+        if (success && response.result == 0) {
             SKUserInfo *userInfo = [SKUserInfo objectWithKeyValues:[response keyValues][@"data"]];
             [SKStorageManager sharedInstance].userInfo = userInfo;
             callback(success, userInfo);
@@ -231,7 +231,9 @@
 //重新获取用户信息
 - (void)updateUserInfoFromServer {
     [self getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response) {
-        [[SKStorageManager sharedInstance] setUserInfo:response];
+        if (success && response != nil) {
+            [[SKStorageManager sharedInstance] setUserInfo:response];
+        }
     }];
 }
 
