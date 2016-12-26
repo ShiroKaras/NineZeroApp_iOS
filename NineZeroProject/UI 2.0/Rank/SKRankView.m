@@ -42,7 +42,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addSubview:self.tableView];
     
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 16)];
     
     REGISTER_CLASS(HTProfileRankCell);
     
@@ -122,17 +122,30 @@
         if (indexPath.row == 0) {
             NSArray<SKRanker*>* topRankers = [NSArray arrayWithObjects:_rankerList[0], _rankerList[1], _rankerList[2], nil];
             [cell setTopThreeRankers:topRankers withType:self.type];
+            [cell showCorner:NO];
             return cell;
         } else if (indexPath.row == 1) {
             [cell setRanker:_myRank withType:self.type];
             [cell showWithMe:YES];
+            [cell showCorner:NO];
+            cell.separator.hidden = NO;
+            return cell;
+        } else if (indexPath.row == _rankerList.count-3) {
+            SKRanker *ranker = _rankerList[indexPath.row +1];
+            [cell setRanker:ranker withType:self.type];
+            [cell showWithMe:NO];
+            [cell showCorner:YES];
+            cell.separator.hidden = YES;
             return cell;
         } else {
             SKRanker *ranker = _rankerList[indexPath.row +1];
             [cell setRanker:ranker withType:self.type];
             [cell showWithMe:NO];
+            [cell showCorner:NO];
+            cell.separator.hidden = NO;
             return cell;
         }
+        
     } else
         return nil;
 }

@@ -64,9 +64,6 @@
 @property (nonatomic, strong) UILabel *nickName;
 @property (nonatomic, strong) UIImageView *coinImageView;
 @property (nonatomic, strong) UILabel *coinLabel;
-@property (nonatomic, strong) UIView *separator;
-
-@property (nonatomic, strong) UIView *backView;
 
 //TOP
 @property (nonatomic, strong) UIView *topBackView;
@@ -312,6 +309,22 @@
     _coinLabel.textColor = (me) ? [UIColor whiteColor] : [UIColor colorWithHex:0xED203B];
     _goldFrame.hidden = (me) ? ![[SKStorageManager sharedInstance] profileInfo].user_gold_head : NO;
     
+}
+
+- (void)showCorner:(BOOL)show {
+    if (show) {
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_backView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = _backView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        _backView.layer.mask = maskLayer;
+    } else {
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_backView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(0, 0)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = _backView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        _backView.layer.mask = maskLayer;
+    }
 }
 
 - (void)layoutSubviews {
