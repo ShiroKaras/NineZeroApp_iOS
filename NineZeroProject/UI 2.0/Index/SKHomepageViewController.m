@@ -24,6 +24,8 @@
 @property (nonatomic, strong)   UIView      *timeCountDownBackView;
 @property (nonatomic, strong)   UILabel     *timeCountDownLabel;
 @property (nonatomic, strong)   UIButton    *timeLimitLevelButton;
+@property (nonatomic, strong)   UIImageView *timeCountDownBackView_isMonday;
+@property (nonatomic, strong)   UILabel     *timeCountDownLabel_isMonday;
 
 @property (nonatomic, assign)   uint64_t  endTime;
 @property (nonatomic, assign)   BOOL    isMonday;
@@ -47,7 +49,7 @@
             [_headerImageView sd_setImageWithURL:[NSURL URLWithString:indexInfo.index_gif]];
             _isMonday = indexInfo.isMonday;
             _endTime = _isMonday==true? indexInfo.monday_end_time : indexInfo.question_end_time;
-            _timeCountDownBackView.alpha = 1-_isMonday;
+            _timeCountDownBackView_isMonday.alpha = 1-_isMonday;
             [self scheduleCountDownTimer];
             if (_isMonday) {
                 [_timeLimitLevelButton addTarget:self action:@selector(showRelaxDayTimeLabel:) forControlEvents:UIControlEventTouchUpInside];
@@ -84,7 +86,7 @@
     
     if (delta > 0) {
         if (_isMonday) {
-            _timeCountDownLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
+            _timeCountDownLabel_isMonday.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
         } else
             _timeCountDownLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
     } else {
@@ -213,51 +215,77 @@
         make.centerY.equalTo(rankButton);
     }];
     
-    //倒计时
-    _timeCountDownBackView = [UIView new];
-    _timeCountDownBackView.layer.cornerRadius = 3;
-    _timeCountDownBackView.backgroundColor = [UIColor colorWithHex:0xFF063E];
-    [self.view addSubview:_timeCountDownBackView];
-    [_timeCountDownBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(ROUND_WIDTH(60));
-        make.height.equalTo(ROUND_HEIGHT(25));
-        make.left.equalTo(_timeLimitLevelButton.mas_left).offset(ROUND_WIDTH_FLOAT(35));
-        make.bottom.equalTo(_timeLimitLevelButton.mas_bottom).offset(ROUND_HEIGHT_FLOAT(-82));
+//    //倒计时
+//    _timeCountDownBackView = [UIView new];
+//    _timeCountDownBackView.layer.cornerRadius = 3;
+//    _timeCountDownBackView.backgroundColor = [UIColor colorWithHex:0xFF063E];
+//    [self.view addSubview:_timeCountDownBackView];
+//    [_timeCountDownBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(ROUND_WIDTH(60));
+//        make.height.equalTo(ROUND_HEIGHT(25));
+//        make.left.equalTo(_timeLimitLevelButton.mas_left).offset(ROUND_WIDTH_FLOAT(35));
+//        make.bottom.equalTo(_timeLimitLevelButton.mas_bottom).offset(ROUND_HEIGHT_FLOAT(-82));
+//    }];
+//    
+//    _timeCountDownLabel = [UILabel new];
+//    _timeCountDownLabel.font = MOON_FONT_OF_SIZE(14);
+//    _timeCountDownLabel.textColor = [UIColor whiteColor];
+//    _timeCountDownLabel.textAlignment = NSTextAlignmentCenter;
+//    _timeCountDownLabel.text = @"00:00:00";
+//    [_timeCountDownBackView addSubview:_timeCountDownLabel];
+//    [_timeCountDownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.size.equalTo(_timeCountDownBackView);
+//        make.center.equalTo(_timeCountDownBackView);
+//    }];
+    
+    _timeCountDownBackView_isMonday = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"popup_homepage_timer"]];
+    [self.view addSubview:_timeCountDownBackView_isMonday];
+    [_timeCountDownBackView_isMonday mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(56), ROUND_WIDTH_FLOAT(56)/2));
+        make.left.equalTo(_timeLimitLevelButton);
+        make.bottom.equalTo(_timeLimitLevelButton).offset(ROUND_HEIGHT_FLOAT(-89));
     }];
     
-    _timeCountDownLabel = [UILabel new];
-    _timeCountDownLabel.font = MOON_FONT_OF_SIZE(14);
-    _timeCountDownLabel.textColor = [UIColor whiteColor];
-    _timeCountDownLabel.textAlignment = NSTextAlignmentCenter;
-    _timeCountDownLabel.text = @"12:00:00";
-    [_timeCountDownBackView addSubview:_timeCountDownLabel];
-    [_timeCountDownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.equalTo(_timeCountDownBackView);
-        make.center.equalTo(_timeCountDownBackView);
+    //休息日倒计时
+    _timeCountDownLabel_isMonday = [UILabel new];
+    _timeCountDownLabel_isMonday.font = MOON_FONT_OF_SIZE(12);
+    _timeCountDownLabel_isMonday.textColor = [UIColor whiteColor];
+    _timeCountDownLabel_isMonday.textAlignment = NSTextAlignmentCenter;
+    _timeCountDownLabel_isMonday.text = @"00:00:00";
+    [_timeCountDownBackView_isMonday addSubview:_timeCountDownLabel_isMonday];
+    [_timeCountDownLabel_isMonday mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(_timeCountDownBackView_isMonday);
+        make.height.equalTo(@18);
+        make.bottom.equalTo(_timeCountDownBackView_isMonday).offset(-3.5);
+        make.centerX.equalTo(_timeCountDownBackView_isMonday);
     }];
-    
-//    if (NO_NETWORK) {
-//        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-//        converView.backgroundColor = COMMON_BG_COLOR;
-//        [self.view addSubview:converView];
-//        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-//        [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
-//        [self.view addSubview:blankView];
-//        blankView.top = ROUND_HEIGHT_FLOAT(217);
-//    }
 }
 
 #pragma mark - Actions
 - (void)showRelaxDayTimeLabel:(UIButton *)sender {
-    [UIView animateWithDuration:0.3 animations:^{
-        _timeCountDownBackView.alpha = 1;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.3 delay:2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            _timeCountDownBackView.alpha = 0;
+    if (_isMonday) {
+        [UIView animateWithDuration:0.3 animations:^{
+            _timeCountDownBackView_isMonday.alpha = 1;
         } completion:^(BOOL finished) {
-            
+            [UIView animateWithDuration:0.3 delay:2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                _timeCountDownBackView_isMonday.alpha = 0;
+            } completion:^(BOOL finished) {
+                
+            }];
         }];
-    }];
+
+    }
+//    else {
+//        [UIView animateWithDuration:0.3 animations:^{
+//            _timeCountDownBackView.alpha = 1;
+//        } completion:^(BOOL finished) {
+//            [UIView animateWithDuration:0.3 delay:2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//                _timeCountDownBackView.alpha = 0;
+//            } completion:^(BOOL finished) {
+//                
+//            }];
+//        }];
+//    }
 }
 
 - (void)timeLimitQuestionButtonClick:(UIButton *)sender {
