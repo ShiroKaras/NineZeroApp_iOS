@@ -411,16 +411,12 @@
     }];
 }
 
-
 - (void)listFileAtPath:(NSString *)path {
     cacheSize = 0;
     NSArray *contentOfFolder = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
     for (NSString *aPath in contentOfFolder) {
         NSString * fullPath = [path stringByAppendingPathComponent:aPath];
-        //        NSLog(@"%@", fullPath);
-        //        NSLog(@"%lf", [FileService fileSizeAtPath:fullPath]);
         cacheSize += [FileService fileSizeAtPath:fullPath];
-        NSLog(@"%.1lf", cacheSize);
         BOOL isDir;
         if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDir] && isDir) {
             [self listFileAtPath:fullPath];
