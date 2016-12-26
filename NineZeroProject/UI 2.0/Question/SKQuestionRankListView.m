@@ -75,6 +75,8 @@
     
     // top1
     UIImageView *avatarImageView_top1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    avatarImageView_top1.layer.masksToBounds = YES;
+    avatarImageView_top1.layer.cornerRadius = 36;
     [top13View addSubview:avatarImageView_top1];
     [avatarImageView_top1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@72);
@@ -84,8 +86,10 @@
     }];
     
     UILabel *nameLabel_top1 = [UILabel new];
-    if (self.rankerList.count>0)
+    if (self.rankerList.count>0) {
         nameLabel_top1.text = self.rankerList[0].user_name;
+        [avatarImageView_top1 sd_setImageWithURL:[NSURL URLWithString:self.rankerList[0].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    }
     nameLabel_top1.textAlignment = NSTextAlignmentCenter;
     nameLabel_top1.textColor = [UIColor whiteColor];
     nameLabel_top1.font = PINGFANG_FONT_OF_SIZE(14);
@@ -98,6 +102,8 @@
     
     // top2
     UIImageView *avatarImageView_top2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    avatarImageView_top2.layer.masksToBounds = YES;
+    avatarImageView_top2.layer.cornerRadius = 28;
     [top13View addSubview:avatarImageView_top2];
     [avatarImageView_top2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@56);
@@ -107,8 +113,10 @@
     }];
     
     UILabel *nameLabel_top2 = [UILabel new];
-    if (self.rankerList.count>1)
+    if (self.rankerList.count>1) {
         nameLabel_top2.text = self.rankerList[1].user_name;
+        [avatarImageView_top2 sd_setImageWithURL:[NSURL URLWithString:self.rankerList[1].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    }
     nameLabel_top2.textAlignment = NSTextAlignmentCenter;
     nameLabel_top2.textColor = [UIColor whiteColor];
     nameLabel_top2.font = PINGFANG_FONT_OF_SIZE(14);
@@ -121,6 +129,8 @@
     
     // top3
     UIImageView *avatarImageView_top3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    avatarImageView_top3.layer.masksToBounds = YES;
+    avatarImageView_top3.layer.cornerRadius = 28;
     [top13View addSubview:avatarImageView_top3];
     [avatarImageView_top3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@56);
@@ -130,8 +140,10 @@
     }];
     
     UILabel *nameLabel_top3 = [UILabel new];
-    if (self.rankerList.count>2)
+    if (self.rankerList.count>2) {
         nameLabel_top3.text = self.rankerList[2].user_name;
+        [avatarImageView_top3 sd_setImageWithURL:[NSURL URLWithString:self.rankerList[2].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    }
     nameLabel_top3.textAlignment = NSTextAlignmentCenter;
     nameLabel_top3.textColor = [UIColor whiteColor];
     nameLabel_top3.font = PINGFANG_FONT_OF_SIZE(14);
