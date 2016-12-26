@@ -17,6 +17,8 @@
 @property (nonatomic, strong) UIImageView *badgeLeftImageView;
 @property (nonatomic, strong) UIImageView *badgeRightImageView;
 
+@property (nonatomic, strong) UIButton    *leftbutton;
+@property (nonatomic, strong) UIButton    *rightbutton;
 @end
 
 @implementation SKBadgeCell
@@ -58,18 +60,18 @@
             make.bottom.equalTo(self.mas_bottom).offset(-14);
         }];
         
-        UIButton *leftbutton = [UIButton new];
-        [leftbutton addTarget:self action:@selector(leftImageClick) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:leftbutton];
-        [leftbutton mas_makeConstraints:^(MASConstraintMaker *make) {
+        _leftbutton = [UIButton new];
+        [_leftbutton addTarget:self action:@selector(leftImageClick) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_leftbutton];
+        [_leftbutton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.equalTo(_badgeLeftImageView);
             make.center.equalTo(_badgeLeftImageView);
         }];
         
-        UIButton *rightbutton = [UIButton new];
-        [rightbutton addTarget:self action:@selector(rightImageClick) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:rightbutton];
-        [rightbutton mas_makeConstraints:^(MASConstraintMaker *make) {
+        _rightbutton = [UIButton new];
+        [_rightbutton addTarget:self action:@selector(rightImageClick) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_rightbutton];
+        [_rightbutton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.equalTo(_badgeRightImageView);
             make.center.equalTo(_badgeRightImageView);
         }];
@@ -272,9 +274,11 @@
     [cell.badgeRightImageView sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2+1].medal_icon]];
     if (_badgeLevel<indexPath.row*2+1) {
         cell.badgeLeftImageView.alpha = 0.4;
+        cell.leftbutton.enabled = NO;
     }
     if (_badgeLevel<indexPath.row*2+2) {
         cell.badgeRightImageView.alpha = 0.4;
+        cell.rightbutton.enabled = NO;
     }
     return cell;
 }

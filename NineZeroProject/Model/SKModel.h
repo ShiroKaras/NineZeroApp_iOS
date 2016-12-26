@@ -187,6 +187,7 @@
 @property (nonatomic, copy)     NSString    *medal_pic;
 @property (nonatomic, copy)     NSString    *medal_description;
 @property (nonatomic, copy)     NSString    *level_type;
+@property (nonatomic, assign)   BOOL        isHad;
 @end
 
 @interface SKRanker : NSObject
