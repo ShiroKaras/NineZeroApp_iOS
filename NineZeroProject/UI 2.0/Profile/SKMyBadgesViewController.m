@@ -133,21 +133,23 @@
         self.exp = exp;
         
         NSMutableArray *badgeLevels = [NSMutableArray array];
+        [badgeLevels addObject:@(-1)];
         for (SKBadge *badge in badges) {
             [badgeLevels addObject:[NSNumber numberWithInteger:[badge.medal_level integerValue]]];
         }
         [UD setObject:[badgeLevels copy] forKey:kBadgeLevels];
         _badgeLevel = [self badgeLevel];
-        if (_badgeLevel == 0) {
+        if (_badgeLevel == 1) {
             NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:_badgeLevel] floatValue];
             _expLabel.text = [NSString stringWithFormat:@"%ld", (targetLevel-self.exp)];
-            [_progressView setProgress:((float)self.exp)/(targetLevel-self.exp)];
-        } else if (_badgeLevel>0) {
+            [_progressView setProgress:((float)self.exp)/targetLevel];
+        } else if (_badgeLevel>1) {
             NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:_badgeLevel] floatValue];
             _expLabel.text = [NSString stringWithFormat:@"%ld", (targetLevel-self.exp)];
-            [_progressView setProgress:(self.exp-[[[UD objectForKey:kBadgeLevels] objectAtIndex:_badgeLevel-1] floatValue])/(targetLevel-self.exp)];
+            [_progressView setProgress:(self.exp-[[[UD objectForKey:kBadgeLevels] objectAtIndex:_badgeLevel-1] floatValue])/(targetLevel-[[[UD objectForKey:kBadgeLevels] objectAtIndex:_badgeLevel-1] floatValue])];
         } else {
             _expLabel.text = @"0";
+            [_progressView setProgress:1.0];
         }
         
         [self.tableView reloadData];
@@ -155,8 +157,6 @@
 }
 
 - (void)createUI {
-    WS(weakself);
-    
     self.view.backgroundColor = [UIColor blackColor];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
@@ -253,7 +253,7 @@
     DLog(@"%@", (NSArray*)[UD objectForKey:kBadgeLevels]);
     [[UD objectForKey:kBadgeLevels] enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSLog(@"Exp:%ld Target%ld", (long)self.exp, (long)[obj integerValue]);
-        if (self.exp  < [obj integerValue]) {
+        if (self.exp < [obj integerValue]) {
             badgeLevel = idx;
             *stop = YES;
         }
@@ -272,13 +272,16 @@
     
     [cell.badgeLeftImageView sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2].medal_icon]];
     [cell.badgeRightImageView sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2+1].medal_icon]];
-    if (_badgeLevel<indexPath.row*2+1) {
-        cell.badgeLeftImageView.alpha = 0.4;
-        cell.leftbutton.enabled = NO;
-    }
-    if (_badgeLevel<indexPath.row*2+2) {
-        cell.badgeRightImageView.alpha = 0.4;
-        cell.rightbutton.enabled = NO;
+    
+    if (_badgeLevel>0) {
+        if (_badgeLevel-1<indexPath.row*2+1) {
+            cell.badgeLeftImageView.alpha = 0.4;
+            cell.leftbutton.enabled = NO;
+        }
+        if (_badgeLevel-1<indexPath.row*2+2) {
+            cell.badgeRightImageView.alpha = 0.4;
+            cell.rightbutton.enabled = NO;
+        }
     }
     return cell;
 }
