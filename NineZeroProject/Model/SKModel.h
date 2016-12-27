@@ -81,7 +81,7 @@
 @property (nonatomic, copy)     NSString    *question_video;
 @property (nonatomic, copy)     NSString    *question_video_url;
 @property (nonatomic, copy)     NSString    *question_answer;
-@property (nonatomic, copy)     NSString    *question_ar_loaction;
+@property (nonatomic, copy)     NSArray     *question_location;
 @property (nonatomic, copy)     NSString    *question_ar_pet;
 @property (nonatomic, copy)     NSString    *reward_id;
 @property (nonatomic, copy)     NSString    *hint;
@@ -89,7 +89,7 @@
 @property (nonatomic, copy)     NSString    *hint_2;
 @property (nonatomic, copy)     NSString    *question_video_cover;
 @property (nonatomic, copy)     NSString    *checkpoint_pic;
-@property (nonatomic, assign)   NSInteger   base_type;                  //0:文字类型  1:扫图片  2:LBS
+@property (nonatomic, assign)   NSInteger   base_type;                  //0:文字类型  1:LBS  2:扫图片
 @property (nonatomic, assign)   NSInteger   level_type;                 //0:极难题  1:第一季  2:第二季
 @property (nonatomic, assign)   BOOL        is_answer;
 @property (nonatomic, assign)   NSInteger   clue_count;                 //用户线索条数

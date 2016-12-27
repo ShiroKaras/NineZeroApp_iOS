@@ -162,9 +162,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [_shareView removeFromSuperview];
     }
     _shareView = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)dealloc {
     [self removeObserver:self forKeyPath:@"currentIndex"];
     [self removeObserver:self forKeyPath:@"isAnswered"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -1427,8 +1430,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         } else if (self.type == SKQuestionTypeTimeLimitLevel){
             //限时关卡-线下题目
             if (self.currentQuestion.base_type == 1) {
-                //扫图
-            } else if (self.currentQuestion.base_type == 2) {
                 //LBS
                 AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
                 if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied)
@@ -1440,6 +1441,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     arCaptureController.delegate = self;
                     [self presentViewController:arCaptureController animated:YES completion:nil];
                 }
+            } else if (self.currentQuestion.base_type == 2) {
+                //扫图片
             }
         }
     }

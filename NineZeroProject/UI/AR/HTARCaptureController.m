@@ -37,6 +37,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) UIButton *helpButton;
 @property (nonatomic, strong) SKHelperGuideView *guideView;
 @property (nonatomic, strong) SKHelperScrollView *helpView;
+
+@property (nonatomic, strong) NSArray *locationPointArray;
 @end
 
 @implementation HTARCaptureController {
@@ -51,22 +53,29 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     if (self = [super init]) {
         _question = question;
         startFlag = false;
-//        if (_question.question_ar_location.length != 0) {
-//            NSDictionary *locationDict = [_question.question_ar_location dictionaryWithJsonString];
+        self.locationPointArray = question.question_location;
+        if (_question.question_location.count > 0) {
+            for (NSDictionary *locationDict in _question.question_location) {
+                double lat = [[NSString stringWithFormat:@"%@", locationDict[@"lat"]] doubleValue];
+                double lng = [[NSString stringWithFormat:@"%@", locationDict[@"lng"]] doubleValue];
+                DLog(@"lat=>%f \n lng=>%f", lat, lng);
+//                _testMascotPoint = CLLocationCoordinate2DMake(lat, lng);
+            }
+//            NSDictionary *locationDict = [_question.question_location dictionaryWithJsonString];
 //            if (locationDict && locationDict[@"lng"] && locationDict[@"lat"]) {
 //                double lat = [[NSString stringWithFormat:@"%@", locationDict[@"lat"]] doubleValue];
 //                double lng = [[NSString stringWithFormat:@"%@", locationDict[@"lng"]] doubleValue];
 //                DLog(@"lat=>%f \n lng=>%f", lat, lng);
-//                _testMascotPoint = CLLocationCoordinate2DMake(lat, lng);
+//
 //            }
-//        }
+        }
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor blackColor];
     [self registerLocation];
 
     _needShowDebugLocation = NO;
@@ -262,7 +271,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     CLLocationDistance currentDistance = -1;
     CLLocationCoordinate2D currentPoint = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
     
-    for (NSDictionary *dict in _question.question_ar_loaction) {
+    for (NSDictionary *dict in _question.question_location) {
         double lat = [dict[@"lat"] doubleValue];
         double lng = [dict[@"lng"] doubleValue];
         
