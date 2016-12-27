@@ -192,7 +192,7 @@
         } else {
             [coverImageView sd_setImageWithURL:coverURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 int type;
-                if (questionList[questionNumber].is_answer || !(questionList[questionNumber].base_type == 2))  type = 0;
+                if (questionList[questionNumber].is_answer || !(questionList[questionNumber].base_type == 0))  type = 0;
                 else    type = 1;
                 
                 [[SDWebImageManager sharedManager] downloadImageWithURL:imageURL options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
