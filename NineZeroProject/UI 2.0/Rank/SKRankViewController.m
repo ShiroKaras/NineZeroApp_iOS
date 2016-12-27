@@ -35,7 +35,7 @@
     [changeSeasonButton setBackgroundImage:[UIImage imageNamed:@"btn_rank_season1"] forState:UIControlStateNormal];
     [self.view addSubview:changeSeasonButton];
     [changeSeasonButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(40), ROUND_HEIGHT_FLOAT(50)));
+        make.size.mas_equalTo(CGSizeMake(60, 66));
         make.top.equalTo(@12);
         make.right.equalTo(@(-16));
     }];
