@@ -344,8 +344,7 @@
         if (i==0) {
             [button addTarget:self action:@selector(whatIsNineZero:) forControlEvents:UIControlEventTouchUpInside];
         } else if (i==1) {
-            HTAboutController *aboutController = [[HTAboutController alloc] init];
-            [self.navigationController pushViewController:aboutController animated:YES];
+            [button addTarget:self action:@selector(aboutNineZero:) forControlEvents:UIControlEventTouchUpInside];
         }
     }
 }
@@ -449,6 +448,10 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+- (void)aboutNineZero:(UIButton*)sender {
+    HTAboutController *aboutController = [[HTAboutController alloc] init];
+    [self.navigationController pushViewController:aboutController animated:YES];
+}
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
