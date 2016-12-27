@@ -9,11 +9,16 @@
 #import "SKMascotAlbumView.h"
 #import "HTUIHeader.h"
 
+@interface SKMascotAlbumView ()
+@property (nonatomic, strong) NSArray *mascotIndexArray;
+@end
+
 @implementation SKMascotAlbumView
 
 - (instancetype)initWithFrame:(CGRect)frame withMascotArray:(NSArray<SKPet*>*)mascotArray {
     self = [super initWithFrame:frame];
     if (self) {
+        _mascotArray = mascotArray;
         [self createUI];
     }
     return self;
@@ -36,7 +41,7 @@
     }];
 
     UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(320), ROUND_HEIGHT_FLOAT(413))];
-    backView.backgroundColor = [UIColor lightGrayColor];
+    backView.backgroundColor = [UIColor clearColor];
     backView.center = self.center;
     [self addSubview:backView];
     
@@ -49,6 +54,13 @@
         make.width.equalTo(ROUND_WIDTH(392));
         make.height.equalTo(ROUND_WIDTH(369.5));
     }];
+    UIImageView *mascot_greed_completed = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_greed_completed"]];
+    [mascot_greed_completed sizeToFit];
+    [backView addSubview:mascot_greed_completed];
+    [mascot_greed_completed mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(mascot_greed);
+        make.center.equalTo(mascot_greed);
+    }];
     
     UIImageView *mascot_lust = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_lust"]];
     [mascot_lust sizeToFit];
@@ -58,6 +70,13 @@
         make.top.equalTo(ROUND_HEIGHT(66));
         make.width.equalTo(ROUND_WIDTH(147));
         make.height.equalTo(ROUND_WIDTH(60.5));
+    }];
+    UIImageView *mascot_lust_completed = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_lust_completed"]];
+    [mascot_lust_completed sizeToFit];
+    [backView addSubview:mascot_lust_completed];
+    [mascot_lust_completed mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(mascot_lust);
+        make.center.equalTo(mascot_lust);
     }];
     
     UIImageView *mascot_pride = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_pride"]];
@@ -69,6 +88,13 @@
         make.width.equalTo(ROUND_WIDTH(103.5));
         make.height.equalTo(ROUND_WIDTH(223.5));
     }];
+    UIImageView *mascot_pride_completed = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_pride_completed"]];
+    [mascot_pride_completed sizeToFit];
+    [backView addSubview:mascot_pride_completed];
+    [mascot_pride_completed mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(mascot_pride);
+        make.center.equalTo(mascot_pride);
+    }];
     
     UIImageView *mascot_wrath = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_wrath"]];
     [mascot_wrath sizeToFit];
@@ -78,6 +104,13 @@
         make.bottom.equalTo(ROUND_HEIGHT(-43));
         make.width.equalTo(ROUND_WIDTH(160));
         make.height.equalTo(ROUND_WIDTH(128));
+    }];
+    UIImageView *mascot_wrath_completed = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_wrath_completed"]];
+    [mascot_wrath_completed sizeToFit];
+    [backView addSubview:mascot_wrath_completed];
+    [mascot_wrath_completed mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(mascot_wrath);
+        make.center.equalTo(mascot_wrath);
     }];
     
     UIImageView *mascot_gluttony = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_gluttony"]];
@@ -89,6 +122,13 @@
         make.width.equalTo(ROUND_WIDTH(126.5));
         make.height.equalTo(ROUND_WIDTH(142.5));
     }];
+    UIImageView *mascot_gluttony_completed = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_gluttony_completed"]];
+    [mascot_gluttony_completed sizeToFit];
+    [backView addSubview:mascot_gluttony_completed];
+    [mascot_gluttony_completed mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(mascot_gluttony);
+        make.center.equalTo(mascot_gluttony);
+    }];
     
     UIImageView *mascot_sloth = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_sloth"]];
     [mascot_sloth sizeToFit];
@@ -98,6 +138,13 @@
         make.bottom.equalTo(ROUND_HEIGHT(-18.5));
         make.width.equalTo(ROUND_WIDTH(133));
         make.height.equalTo(ROUND_WIDTH(83.5));
+    }];
+    UIImageView *mascot_sloth_completed = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_sloth_completed"]];
+    [mascot_sloth_completed sizeToFit];
+    [backView addSubview:mascot_sloth_completed];
+    [mascot_sloth_completed mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(mascot_sloth);
+        make.center.equalTo(mascot_sloth);
     }];
     
     UIImageView *mascot_lingzai = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_lingzai"]];
@@ -109,6 +156,13 @@
         make.width.equalTo(ROUND_WIDTH(59));
         make.height.equalTo(ROUND_WIDTH(84.5));
     }];
+    UIImageView *mascot_lingzai_completed = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_lingzai_completed"]];
+    [mascot_lingzai_completed sizeToFit];
+    [backView addSubview:mascot_lingzai_completed];
+    [mascot_lingzai_completed mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(mascot_lingzai);
+        make.center.equalTo(mascot_lingzai);
+    }];
     
     UIImageView *mascot_envy = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_envy"]];
     [mascot_envy sizeToFit];
@@ -119,6 +173,22 @@
         make.width.equalTo(ROUND_WIDTH(56));
         make.height.equalTo(ROUND_WIDTH(70));
     }];
+    UIImageView *mascot_envy_completed = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_albums_envy_completed"]];
+    [mascot_envy_completed sizeToFit];
+    [backView addSubview:mascot_envy_completed];
+    [mascot_envy_completed mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(mascot_envy);
+        make.center.equalTo(mascot_envy);
+    }];
+    
+    mascot_greed_completed.hidden = YES;
+    mascot_lingzai_completed.hidden     = !self.mascotArray[0].user_haved;
+    mascot_sloth_completed.hidden       = !self.mascotArray[1].user_haved;
+    mascot_pride_completed.hidden       = !self.mascotArray[2].user_haved;
+    mascot_wrath_completed.hidden       = !self.mascotArray[3].user_haved;
+    mascot_gluttony_completed.hidden    = !self.mascotArray[4].user_haved;
+    mascot_lust_completed.hidden        = !self.mascotArray[5].user_haved;
+    mascot_envy_completed.hidden        = !self.mascotArray[6].user_haved;
 }
 
 - (void)closeButtonClick:(UIButton*)sender {

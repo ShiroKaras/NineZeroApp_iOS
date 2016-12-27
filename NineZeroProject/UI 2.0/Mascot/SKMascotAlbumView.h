@@ -11,6 +11,7 @@
 @class SKPet;
 
 @interface SKMascotAlbumView : UIView
+@property (nonatomic, strong) NSArray<SKPet*> *mascotArray;
 
 - (instancetype)initWithFrame:(CGRect)frame withMascotArray:(NSArray<SKPet*>*)mascotArray;
 
