@@ -1296,7 +1296,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.centerX.equalTo(_dimmingView);
     }];
     
-    UIImageView *contentImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_gifttext"]];
+    UIImageView *contentImageView = [[UIImageView alloc] init];
+    if ([self.reward.pet.fid integerValue]==0) {
+        contentImageView.image = [UIImage imageNamed:@"img_popup_gifttext"];
+    } else {
+        contentImageView.image = [UIImage imageNamed:@"img_popup_gifttext3"];
+    }
     [contentImageView sizeToFit];
     [_dimmingView addSubview:contentImageView];
     [contentImageView mas_makeConstraints:^(MASConstraintMaker *make) {
