@@ -16,6 +16,7 @@ target 'NineZeroProject' do
   pod 'UIImage+animatedGif', '~> 0.1.0'
   pod 'TTTAttributedLabel'
   pod 'YLGIFImage'
+  pod 'SSZipArchive'
   pod 'AMapLocation'  #定位SDK
   pod 'AMap3DMap'  #3D地图SDK
   #pod 'AMap2DMap' #2D地图SDK (2D和3D不能同时使⽤用)

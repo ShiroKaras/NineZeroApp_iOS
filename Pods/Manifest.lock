@@ -48,6 +48,7 @@ PODS:
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
+  - SSZipArchive (1.6.2)
   - TTTAttributedLabel (1.13.4)
   - UIImage+animatedGif (0.1.0)
   - YLGIFImage (0.11)
@@ -68,6 +69,7 @@ DEPENDENCIES:
   - MBProgressHUD+BWMExtension (~> 1.0.0)
   - Qiniu (~> 7.0)
   - SDWebImage (~> 3.7.3)
+  - SSZipArchive
   - TTTAttributedLabel
   - UIImage+animatedGif (~> 0.1.0)
   - YLGIFImage
@@ -90,12 +92,13 @@ SPEC CHECKSUMS:
   MBProgressHUD+BWMExtension: dd1dff033c1802edf7cb613c5643db5f090575bd
   Qiniu: 1fb5191b3bc1edb65b2da3d905b8281e15bd1d5c
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  SSZipArchive: 428eb1ac8d37dd133404d30f422b23958c1f9acc
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   UIImage+animatedGif: 21cff7203edfb45ca0dd035505a4988cc0156356
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
   YTKNetwork: 3f163c181ce5f03d52cf88f39d6757f46894280c
 
-PODFILE CHECKSUM: 810774da840e7e7a123b32da39fb7401a705bd90
+PODFILE CHECKSUM: a675a1b030603d104ea9974ce292feafa902e193
 
 COCOAPODS: 1.1.1
