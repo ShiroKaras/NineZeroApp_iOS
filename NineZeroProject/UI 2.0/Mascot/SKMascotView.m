@@ -383,7 +383,7 @@
     }];
     
     _timeDownBackLabel1 = [UILabel new];
-    _timeDownBackLabel1.text = @"00:00";
+    _timeDownBackLabel1.text = @"09:59";
     _timeDownBackLabel1.textColor = [UIColor whiteColor];
     _timeDownBackLabel1.font = MOON_FONT_OF_SIZE(12);
     [_timeDownBackImageView1 addSubview:_timeDownBackLabel1];
@@ -402,7 +402,7 @@
     }];
     
     _timeDownBackLabel2 = [UILabel new];
-    _timeDownBackLabel2.text = @"00:00";
+    _timeDownBackLabel2.text = @"59:59";
     _timeDownBackLabel2.textColor = [UIColor whiteColor];
     _timeDownBackLabel2.font = MOON_FONT_OF_SIZE(12);
     [_timeDownBackImageView2 addSubview:_timeDownBackLabel2];
@@ -497,7 +497,7 @@
     }];
     
     _timeDownBackLabel3 = [UILabel new];
-    _timeDownBackLabel3.text = @"00:00";
+    _timeDownBackLabel3.text = @"09:59";
     _timeDownBackLabel3.textColor = [UIColor whiteColor];
     _timeDownBackLabel3.font = MOON_FONT_OF_SIZE(12);
     [_timeDownBackImageView3 addSubview:_timeDownBackLabel3];
@@ -516,7 +516,7 @@
     }];
     
     _timeDownBackLabel4 = [UILabel new];
-    _timeDownBackLabel4.text = @"00:00";
+    _timeDownBackLabel4.text = @"59:59";
     _timeDownBackLabel4.textColor = [UIColor whiteColor];
     _timeDownBackLabel4.font = MOON_FONT_OF_SIZE(12);
     [_timeDownBackImageView4 addSubview:_timeDownBackLabel4];
@@ -658,7 +658,9 @@
 
 //第一季 线索
 - (void)hintS1ButtonClick:(UIButton *)sender {
+    [HTProgressHUD show];
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"1" propType:@"1" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
+        [HTProgressHUD dismiss];
         [[self viewController] showTipsWithText:responseString];
         if (success) {
             NSLog(@"%ld", coolTime);
@@ -673,7 +675,9 @@
 
 //第一季 答案
 - (void)answerS1ButtonClick:(UIButton *)sender {
+    [HTProgressHUD show];
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"1" propType:@"2" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
+        [HTProgressHUD dismiss];
         [[self viewController] showTipsWithText:responseString];
         if (success) {
 //            self.defaultMascotDetail.first_season.answer_cooling_time = coolTime;
@@ -687,7 +691,9 @@
 
 //第二季 线索
 - (void)hintS2ButtonClick:(UIButton *)sender {
+    [HTProgressHUD show];
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"2" propType:@"1" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
+        [HTProgressHUD dismiss];
         [[self viewController] showTipsWithText:responseString];
         if (success) {
 //            self.defaultMascotDetail.second_season.clue_cooling_time = coolTime;
@@ -701,7 +707,9 @@
 
 //第二季 答案
 - (void)answerS2ButtonClick:(UIButton *)sender {
+    [HTProgressHUD show];
     [[[SKServiceManager sharedInstance] propService] purchasePropWithPurchaseType:@"2" propType:@"2" callback:^(BOOL success, NSString *responseString, NSInteger coolTime) {
+        [HTProgressHUD dismiss];
         [[self viewController] showTipsWithText:responseString];
         if (success) {
 //            self.defaultMascotDetail.second_season.answer_cooling_time = coolTime;
