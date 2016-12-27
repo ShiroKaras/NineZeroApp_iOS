@@ -21,6 +21,6 @@
 #import "NSString+Utility.h"
 
 #import <AFNetworking.h>
-#import <MJExtension.h>
+#import "MJExtension.h"
 
 #endif /* SKLogicHeader_h */

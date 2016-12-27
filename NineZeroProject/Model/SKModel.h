@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MJExtension/MJExtension.h>
+#import "MJExtension.h"
 
 // 基本返回包
 @interface SKResponsePackage : NSObject
