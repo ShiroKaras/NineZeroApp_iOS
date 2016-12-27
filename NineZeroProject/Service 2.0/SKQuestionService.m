@@ -112,11 +112,13 @@
         if (question.question_video) [downloadKeys addObject:question.question_video];
         if (question.question_video_cover) [downloadKeys addObject:question.question_video_cover];
         if (question.description_pic) [downloadKeys addObject:question.description_pic];
+        if (question.question_ar_pet) [downloadKeys addObject:question.question_ar_pet];
         [[[SKServiceManager sharedInstance] commonService] getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, SKResponsePackage *response) {
             if (success) {
                 if (question.question_video) question.question_video_url = response.data[question.question_video];
                 if (question.question_video_cover) question.question_video_cover = response.data[question.question_video_cover];
                 if (question.description_pic) question.description_pic = response.data[question.description_pic];
+                if (question.question_ar_pet) question.question_ar_pet_url = response.data[question.question_ar_pet];
                 callback(success, question);
             } else {
                 callback(false, question);

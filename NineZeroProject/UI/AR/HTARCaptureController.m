@@ -19,6 +19,7 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <MAMapKit/MAMapKit.h>
+#import <ZipArchive.h>
 
 NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
 NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
@@ -61,13 +62,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
                 DLog(@"lat=>%f \n lng=>%f", lat, lng);
 //                _testMascotPoint = CLLocationCoordinate2DMake(lat, lng);
             }
-//            NSDictionary *locationDict = [_question.question_location dictionaryWithJsonString];
-//            if (locationDict && locationDict[@"lng"] && locationDict[@"lat"]) {
-//                double lat = [[NSString stringWithFormat:@"%@", locationDict[@"lat"]] doubleValue];
-//                double lng = [[NSString stringWithFormat:@"%@", locationDict[@"lng"]] doubleValue];
-//                DLog(@"lat=>%f \n lng=>%f", lat, lng);
-//
-//            }
         }
     }
     return self;
@@ -122,16 +116,35 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.tipImageView addSubview:self.tipLabel];
     [self showtipImageView];
     
+    NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
+    NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:self.question.question_ar_pet];
+    NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
+    
+    NSFileManager *myFileManager=[NSFileManager defaultManager];
+    NSDirectoryEnumerator *myDirectoryEnumerator;
+    myDirectoryEnumerator=[myFileManager enumeratorAtPath:unzipFilesPath];
+    //列举目录内容，可以遍历子目录
+    DLog(@"用enumeratorAtPath:显示目录的内容：");
+    NSString *unzipFileName;
+    
+    NSMutableArray<UIImage *> *images = [NSMutableArray array];
+    while((unzipFileName=[myDirectoryEnumerator nextObject])!=nil) {
+        DLog(@"%@",[unzipFilesPath stringByAppendingPathComponent:unzipFileName]);
+        NSData * data = [NSData dataWithContentsOfFile:[unzipFilesPath stringByAppendingPathComponent:unzipFileName]];
+        UIImage *image = [UIImage imageWithData:data];
+        [images addObject:image];
+    }
     self.mascotImageView = [[UIImageView alloc] init];
     self.mascotImageView.layer.masksToBounds = YES;
-    UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:_question.question_ar_pet]];
-    self.mascotImageView.image = gifImage;
-    [self.mascotImageView startAnimating];
     self.mascotImageView.hidden = YES;
     self.mascotImageView.userInteractionEnabled = YES;
     [self.view addSubview:self.mascotImageView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
     [self.mascotImageView addGestureRecognizer:tap];
+    self.mascotImageView.animationImages = images;
+    self.mascotImageView.animationDuration = 0.1 * images.count;
+    self.mascotImageView.animationRepeatCount = 0;
+    [self.mascotImageView startAnimating];
     
     if (FIRST_LAUNCH_AR) {
         SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
@@ -257,7 +270,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         if (error){
             DLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
         }
-        DLog(@"location:%@", location);
+//        DLog(@"location:%@", location);
         _testMascotPoint = [self getCurrentLocationWith:location];
         
         self.locationManager = [[AMapLocationManager alloc] init];
@@ -280,8 +293,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         MAMapPoint point2 = MAMapPointForCoordinate(CLLocationCoordinate2DMake(location.coordinate.latitude,location.coordinate.longitude));
         //2.计算距离
         CLLocationDistance distance = MAMetersBetweenMapPoints(point1,point2);
-        DLog(@"\nlat:%lf\nlng:%lf",lat , lng);
-        DLog(@"\n%lf", distance);
+//        DLog(@"\nlat:%lf\nlng:%lf",lat , lng);
+//        DLog(@"\n%lf", distance);
         
         if (currentDistance < 0 || distance < currentDistance) {
             currentDistance = distance;

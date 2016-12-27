@@ -12,6 +12,7 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "SharkfoodMuteSwitchDetector.h"
+#import <ZipArchive.h>
 
 #import "SKTicketView.h"
 #import "SKHintView.h"
@@ -208,12 +209,50 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 self.reward = [SKReward objectWithKeyValues:self.rewardDict];
             }
         }];
+        
+        [self loadMascot];
     }];
     
     if (_type == SKQuestionTypeTimeLimitLevel) {
         
     } else if (_type == SKQuestionTypeHistoryLevel) {
         
+    }
+}
+
+- (void)loadMascot {
+    NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
+    NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:self.currentQuestion.question_ar_pet];
+    NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.currentQuestion.question_ar_pet stringByDeletingPathExtension]]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:zipFilePath]) {
+        NSURL *localUrl = [NSURL fileURLWithPath:zipFilePath];
+        NSLog(@"ZipFilePath:%@", localUrl);
+        
+        [SSZipArchive unzipFileAtPath:zipFilePath toDestination:unzipFilesPath overwrite:YES password:nil progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
+            
+        } completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nonnull error) {
+            
+        }];
+    } else {
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+        NSURL *URL = [NSURL URLWithString:self.currentQuestion.question_ar_pet_url];
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        
+        [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+            NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
+            NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:self.currentQuestion.question_ar_pet];
+            return [NSURL fileURLWithPath:zipFilePath];
+        } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+            if (filePath == nil) return;
+            NSURL *localUrl = [NSURL fileURLWithPath:[filePath path]];
+            NSLog(@"DownZipFilePath:%@", localUrl);
+            [SSZipArchive unzipFileAtPath:[filePath path] toDestination:unzipFilesPath overwrite:YES password:nil progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
+                
+            } completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nonnull error) {
+                
+            }];
+        }];
     }
 }
 

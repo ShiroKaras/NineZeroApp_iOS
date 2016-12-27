@@ -83,6 +83,7 @@
 @property (nonatomic, copy)     NSString    *question_answer;
 @property (nonatomic, copy)     NSArray     *question_location;
 @property (nonatomic, copy)     NSString    *question_ar_pet;
+@property (nonatomic, copy)     NSString    *question_ar_pet_url;
 @property (nonatomic, copy)     NSString    *reward_id;
 @property (nonatomic, copy)     NSString    *hint;
 @property (nonatomic, copy)     NSString    *hint_1;
