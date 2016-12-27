@@ -350,11 +350,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.top.equalTo(_chapterTitleLabel.mas_bottom).offset(5);
     }];
     
-    UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_arrow"]];
+    UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_detail"]];
     [self.view addSubview:arrowImageView];
     [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_chapterSubTitleLabel.mas_right).offset(6);
-        make.centerY.equalTo(_chapterSubTitleLabel.mas_centerY);
+        make.left.equalTo(_chapterTitleLabel.mas_right).offset(4);
+        make.centerY.equalTo(_chapterTitleLabel.mas_centerY);
     }];
     
     _answerButton = [UIButton new];
