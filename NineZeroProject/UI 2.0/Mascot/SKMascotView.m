@@ -154,8 +154,9 @@
     [TalkingData trackPageBegin:@"lingskill"];
     
     //更新金币宝石数量
+    [HTProgressHUD show];
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
-    
+    [HTProgressHUD dismiss];
     if (self.type == SKMascotTypeDefault) {
         [[[SKServiceManager sharedInstance] mascotService] getDefaultMascotDetailCallback:^(BOOL success, SKDefaultMascotDetail *defaultMascot) {
             self.defaultMascotDetail = defaultMascot;
