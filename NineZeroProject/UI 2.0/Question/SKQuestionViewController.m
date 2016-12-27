@@ -13,6 +13,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "SharkfoodMuteSwitchDetector.h"
 #import <ZipArchive.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 #import "SKTicketView.h"
 #import "SKHintView.h"
@@ -77,6 +78,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (strong, nonatomic) SKDescriptionView *descriptionView;             // 详情页面
 @property (nonatomic, strong) SKReward *questionReward;
 @property (nonatomic, strong) SKQuestion *currentQuestion;
+@property (nonatomic, strong) SKAnswerDetail *answerDetail;
 @property (nonatomic, assign) time_t endTime;
 
 //奖励
@@ -208,6 +210,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 self.rewardDict = response.data;
                 self.reward = [SKReward objectWithKeyValues:self.rewardDict];
             }
+        }];
+        
+        [[[SKServiceManager sharedInstance] questionService] getQuestionAnswerDetailWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKAnswerDetail *answerDetail) {
+            self.answerDetail = answerDetail;
         }];
         
         [self loadMascot];
@@ -857,6 +863,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - Answer View
 
 - (void)createAnswerViewWithButton:(UIButton*)button answer:(NSDictionary *)answer {
+    float titleCoverHeight = 108.;
+    
     _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, TOP_PADDING, SCREEN_WIDTH, _contentView.bottom-TOP_PADDING)];
     _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
@@ -864,6 +872,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     UIView *answerBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, _contentView.bottom-10-TOP_PADDING)];
     answerBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     answerBackView.layer.cornerRadius = 5;
+    answerBackView.layer.masksToBounds = YES;
     [_dimmingView addSubview:answerBackView];
     
     UIImageView *answerButtonImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_key_highlight"]];
@@ -873,52 +882,110 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.center.equalTo(button);
     }];
     
-    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
-    titleImageView.backgroundColor = [UIColor clearColor];
-    [_dimmingView addSubview:titleImageView];
-    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(answerBackView);
-        make.right.equalTo(answerBackView);
-        make.top.equalTo(answerBackView);
-        make.height.equalTo(ROUND_HEIGHT(108));
-    }];
-    
-    //视频
-    UIImageView *playBackView = [[UIImageView alloc] initWithFrame:CGRectMake(10, ROUND_HEIGHT_FLOAT(108)+12, answerBackView.width-20, ROUND_HEIGHT_FLOAT(157.6))];
-    playBackView.layer.masksToBounds = YES;
-    playBackView.contentMode = UIViewContentModeScaleAspectFit;
-    [answerBackView addSubview:playBackView];
-    
-    _playerItem = nil;
-    _player = nil;
-    [_playerLayer removeFromSuperlayer];
-    _playerLayer = nil;
-    
-    NSURL *localUrl = [[NSBundle mainBundle] URLForResource:@"trailer_video" withExtension:@"mp4"];
-    AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
-    self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
-    self.player = [AVPlayer playerWithPlayerItem:_playerItem];
-    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-    _playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    _playerLayer.frame = CGRectMake(0, 0, playBackView.width, playBackView.height);
-    [playBackView.layer addSublayer:_playerLayer];
-    
-    _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_playButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
-    [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_play"] forState:UIControlStateNormal];
-    [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_play_highlight" ] forState:UIControlStateHighlighted];
-    [_playButton sizeToFit];
-    _playButton.center = playBackView.center;
-    _playButton.hidden = NO;
-    [answerBackView addSubview:_playButton];
-    
-    //文本
-    //TODO 答案页
-    UITextView *textView = [UITextView new];
-    
-    [[[SKServiceManager sharedInstance] questionService] getQuestionAnswerDetailWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKResponsePackage *response) {
+    if (self.answerDetail.article_Illustration_type == 0) {
+        //文本
+        UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 21, SCREEN_WIDTH-40, answerBackView.height-42)];
+        [answerBackView addSubview:textView];
+        self.answerDetail.article_desc = [self.answerDetail.article_desc stringByAppendingString:@"\n\n"];
+        textView.text = self.answerDetail.article_desc;
+        textView.backgroundColor = [UIColor clearColor];
+        textView.editable = NO;
+        textView.showsVerticalScrollIndicator = NO;
+        textView.textAlignment = NSTextAlignmentCenter;
+        textView.font = PINGFANG_FONT_OF_SIZE(14);
+        textView.textColor = [UIColor whiteColor];
+        textView.contentOffset = CGPointMake(0, 0);
+        CGRect textFrame =[[textView layoutManager] usedRectForTextContainer:[textView textContainer]];
+        textView.contentSize = textFrame.size;
+    } else if (self.answerDetail.article_Illustration_type == 1) {
+        //视频
+        UIImageView *playBackView = [UIImageView new];
+        [playBackView sd_setImageWithURL:[NSURL URLWithString:self.answerDetail.article_Illustration_cover_url]];
+        playBackView.layer.masksToBounds = YES;
+        playBackView.contentMode = UIViewContentModeScaleAspectFit;
+        [answerBackView addSubview:playBackView];
+        [playBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(answerBackView);
+            make.right.equalTo(answerBackView);
+            make.top.equalTo(answerBackView);
+            make.height.equalTo(ROUND_HEIGHT(titleCoverHeight));
+        }];
         
-    }];
+        _playerItem = nil;
+        _player = nil;
+        [_playerLayer removeFromSuperlayer];
+        _playerLayer = nil;
+        
+        _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_playButton addTarget:self action:@selector(playTitleVideo) forControlEvents:UIControlEventTouchUpInside];
+        [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_play"] forState:UIControlStateNormal];
+        [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_play_highlight" ] forState:UIControlStateHighlighted];
+        [_playButton sizeToFit];
+        _playButton.center = playBackView.center;
+        _playButton.hidden = NO;
+        [answerBackView addSubview:_playButton];
+        
+        //文本
+        UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 21+ROUND_HEIGHT_FLOAT(titleCoverHeight)+16, SCREEN_WIDTH-40, answerBackView.height-ROUND_HEIGHT_FLOAT(titleCoverHeight)-16-42)];
+        [answerBackView addSubview:textView];
+        self.answerDetail.article_desc = [self.answerDetail.article_desc stringByAppendingString:@"\n\n"];
+        textView.text = self.answerDetail.article_desc;
+        textView.backgroundColor = [UIColor clearColor];
+        textView.editable = NO;
+        textView.showsVerticalScrollIndicator = NO;
+        textView.textAlignment = NSTextAlignmentCenter;
+        textView.font = PINGFANG_FONT_OF_SIZE(14);
+        textView.textColor = [UIColor whiteColor];
+        textView.contentOffset = CGPointMake(0, 0);
+        CGRect textFrame =[[textView layoutManager] usedRectForTextContainer:[textView textContainer]];
+        textView.contentSize = textFrame.size;
+    } else if (self.answerDetail.article_Illustration_type == 2) {
+        //图片
+        UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+        titleImageView.backgroundColor = [UIColor clearColor];
+        [_dimmingView addSubview:titleImageView];
+        [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(answerBackView);
+            make.right.equalTo(answerBackView);
+            make.top.equalTo(answerBackView);
+            make.height.equalTo(ROUND_HEIGHT(titleCoverHeight));
+        }];
+        
+        //文本
+        UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 21+ROUND_HEIGHT_FLOAT(titleCoverHeight)+16, SCREEN_WIDTH-40, answerBackView.height-ROUND_HEIGHT_FLOAT(titleCoverHeight)-16-42)];
+        [answerBackView addSubview:textView];
+        self.answerDetail.article_desc = [self.answerDetail.article_desc stringByAppendingString:@"\n\n"];
+        textView.text = self.answerDetail.article_desc;
+        textView.backgroundColor = [UIColor clearColor];
+        textView.editable = NO;
+        textView.showsVerticalScrollIndicator = NO;
+        textView.textAlignment = NSTextAlignmentCenter;
+        textView.font = PINGFANG_FONT_OF_SIZE(14);
+        textView.textColor = [UIColor whiteColor];
+        textView.contentOffset = CGPointMake(0, 0);
+        CGRect textFrame =[[textView layoutManager] usedRectForTextContainer:[textView textContainer]];
+        textView.contentSize = textFrame.size;
+    } else {
+        
+    }
+}
+
+- (void)playTitleVideo {
+    NSURL *videoURL = [NSURL URLWithString:self.answerDetail.article_video_url];
+    MPMoviePlayerViewController *moviePlayerController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+    moviePlayerController.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+    moviePlayerController.moviePlayer.shouldAutoplay = YES;
+    //moviePlayerController.moviePlayer.controlStyle = MPMovieControlStyleNone;
+    [moviePlayerController.moviePlayer prepareToPlay];
+    [moviePlayerController.moviePlayer play];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(movieFinishedCallback:) name: MPMoviePlayerPlaybackDidFinishNotification object: moviePlayerController];
+    [self presentViewController:moviePlayerController animated:YES completion:nil];
+}
+
+-(void)movieFinishedCallback:(NSNotification*)notify {
+    MPMoviePlayerController* theMovie = [notify  object];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:theMovie];
+    [theMovie.view removeFromSuperview];
 }
 
 #pragma mark - Rank View

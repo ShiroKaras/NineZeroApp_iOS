@@ -112,11 +112,17 @@
 @property (nonatomic, copy)     NSString    *qid;
 @property (nonatomic, copy)     NSString    *article_title;
 @property (nonatomic, copy)     NSString    *article_desc;
-@property (nonatomic, copy)     NSString    *article_subtitle;
+//@property (nonatomic, copy)     NSString    *article_subtitle;
 @property (nonatomic, copy)     NSString    *article_pic;
 @property (nonatomic, copy)     NSString    *article_pic_1;
-@property (nonatomic, copy)     NSString    *article_pic_2;
 @property (nonatomic, copy)     NSString    *article_video_url;
+
+@property (nonatomic, copy)     NSString    *article_Illustration;          //头图或视频
+@property (nonatomic, copy)     NSString    *article_Illustration_url;
+@property (nonatomic, copy)     NSString    *article_Illustration_cover;    //头视频封面
+@property (nonatomic, copy)     NSString    *article_Illustration_cover_url;
+@property (nonatomic, assign)   NSInteger   article_Illustration_type;      // 0:无  1:视频  2:图片
+
 @end
 
 @interface SKMascotProp : NSObject
@@ -127,9 +133,9 @@
 @property (nonatomic, copy)     NSString    *user_id;
 @property (nonatomic, copy)     NSString    *sid;
 @property (nonatomic, copy)     NSString    *code;
-@property (nonatomic, assign)   uint64_t      create_time;
-@property (nonatomic, assign)   uint64_t      expire_time;
-@property (nonatomic, assign)   uint64_t      used_time;
+@property (nonatomic, assign)   uint64_t    create_time;
+@property (nonatomic, assign)   uint64_t    expire_time;
+@property (nonatomic, assign)   uint64_t    used_time;
 @property (nonatomic, assign)   BOOL        used;
 @property (nonatomic, copy)     NSString    *title;
 @property (nonatomic, copy)     NSString    *pic;

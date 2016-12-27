@@ -19,6 +19,7 @@ typedef void (^SKQuestionDetialCallback) (BOOL success, SKQuestion *question);
 typedef void (^SKQuestionHintListCallback) (BOOL success, NSInteger result, SKHintList *hintList);
 typedef void (^SKQuestionAnswerDetialCallback) (BOOL success, SKAnswerDetail *questionAnswerDetail);
 typedef void (^SKQuestionTop10Callback) (BOOL success, NSArray<SKUserInfo*> *userRankList);
+typedef void (^SKQuestionAnswerDetail) (BOOL success, SKAnswerDetail *answerDetail);
 
 @interface SKQuestionService : NSObject
 @property (nonatomic, strong) NSArray<SKQuestion*> *questionList;
@@ -41,7 +42,7 @@ typedef void (^SKQuestionTop10Callback) (BOOL success, NSArray<SKUserInfo*> *use
 - (void)purchaseQuestionClueWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback;
 
 //查看答案详情
-- (void)getQuestionAnswerDetailWithQuestionID:(NSString*)questionID callback:(SKResponseCallback)callback;
+- (void)getQuestionAnswerDetailWithQuestionID:(NSString*)questionID callback:(SKQuestionAnswerDetail)callback;
 
 //前十名
 - (void)getQuestionTop10WithQuestionID:(NSString *)questionID callback:(SKQuestionTop10Callback)callback;
