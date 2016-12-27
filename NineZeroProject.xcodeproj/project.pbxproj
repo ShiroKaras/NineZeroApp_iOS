@@ -98,6 +98,8 @@
 		11C764751E120E5300D86F40 /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C764681E120E5300D86F40 /* NSObject+MJKeyValue.m */; };
 		11C764761E120E5300D86F40 /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C7646A1E120E5300D86F40 /* NSObject+MJProperty.m */; };
 		11C764771E120E5300D86F40 /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C7646C1E120E5300D86F40 /* NSString+MJExtension.m */; };
+		11C7647E1E12946F00D86F40 /* HTAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C7647C1E12946F00D86F40 /* HTAboutController.m */; };
+		11C7647F1E12946F00D86F40 /* HTAboutController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11C7647D1E12946F00D86F40 /* HTAboutController.xib */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
 		11CD0BBA1DF6A1210074E120 /* SKProfileMyTicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CD0BB91DF6A1210074E120 /* SKProfileMyTicketsViewController.m */; };
@@ -956,6 +958,9 @@
 		11C7646A1E120E5300D86F40 /* NSObject+MJProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJProperty.m"; sourceTree = "<group>"; };
 		11C7646B1E120E5300D86F40 /* NSString+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MJExtension.h"; sourceTree = "<group>"; };
 		11C7646C1E120E5300D86F40 /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
+		11C7647B1E12946F00D86F40 /* HTAboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTAboutController.h; path = "NineZeroProject/UI 2.0/Profile/HTAboutController.h"; sourceTree = "<group>"; };
+		11C7647C1E12946F00D86F40 /* HTAboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTAboutController.m; path = "NineZeroProject/UI 2.0/Profile/HTAboutController.m"; sourceTree = "<group>"; };
+		11C7647D1E12946F00D86F40 /* HTAboutController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HTAboutController.xib; path = "NineZeroProject/UI 2.0/Profile/HTAboutController.xib"; sourceTree = "<group>"; };
 		11CA0C541CD24E4200C06333 /* easing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = easing.c; sourceTree = "<group>"; };
 		11CA0C551CD24E4200C06333 /* easing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easing.h; sourceTree = "<group>"; };
 		11CA0C561CD24E4200C06333 /* YXEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXEasing.h; sourceTree = "<group>"; };
@@ -1886,6 +1891,9 @@
 				1153810A1DF7C51600B50DF2 /* SKFeedbackViewController.m */,
 				175F82CF1CB4124D00AC2664 /* HTWebController.h */,
 				175F82D01CB4124D00AC2664 /* HTWebController.m */,
+				11C7647B1E12946F00D86F40 /* HTAboutController.h */,
+				11C7647C1E12946F00D86F40 /* HTAboutController.m */,
+				11C7647D1E12946F00D86F40 /* HTAboutController.xib */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -3761,6 +3769,7 @@
 				17461CC81C71EF6600C847E8 /* img_mascot_7_animation_3_0026.png in Resources */,
 				17461C021C71EF6600C847E8 /* img_mascot_5_animation_2_0011.png in Resources */,
 				17461BB91C71EF6600C847E8 /* img_mascot_3_animation_3_0004.png in Resources */,
+				11C7647F1E12946F00D86F40 /* HTAboutController.xib in Resources */,
 				1787FD181C4A8884006E55A6 /* ar_overlay.png in Resources */,
 				17461C701C71EF6600C847E8 /* img_mascot_6_animation_4_0003.png in Resources */,
 				17461C2D1C71EF6600C847E8 /* img_mascot_5_animation_4_0012.png in Resources */,
@@ -4345,6 +4354,7 @@
 				17A92CCD1CA809B100BE893D /* MJRefreshComponent.m in Sources */,
 				11F706371E0CD802004332C2 /* NSString+DES.m in Sources */,
 				1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */,
+				11C7647E1E12946F00D86F40 /* HTAboutController.m in Sources */,
 				17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */,
 				1153810B1DF7C51600B50DF2 /* SKFeedbackViewController.m in Sources */,
 				1153811E1DF956FE00B50DF2 /* SKAnswerService.m in Sources */,

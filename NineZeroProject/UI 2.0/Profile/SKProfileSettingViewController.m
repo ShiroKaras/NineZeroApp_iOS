@@ -13,6 +13,7 @@
 #import "UIViewController+ImagePicker.h"
 #import "SKLoginRootViewController.h"
 #import "HTWebController.h"
+#import "HTAboutController.h"
 
 @interface SKProfileSettingViewController () <UITextFieldDelegate>
 @property (nonatomic, strong) UIScrollView  *scrollView;
@@ -343,7 +344,8 @@
         if (i==0) {
             [button addTarget:self action:@selector(whatIsNineZero:) forControlEvents:UIControlEventTouchUpInside];
         } else if (i==1) {
-        
+            HTAboutController *aboutController = [[HTAboutController alloc] init];
+            [self.navigationController pushViewController:aboutController animated:YES];
         }
     }
 }
