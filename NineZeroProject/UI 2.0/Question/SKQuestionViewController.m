@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeReplay
 };
 
-@interface SKQuestionViewController () <SKComposeViewDelegate, SKHelperScrollViewDelegate, HTARCaptureControllerDelegate>
+@interface SKQuestionViewController () <SKComposeViewDelegate, SKHelperScrollViewDelegate, HTARCaptureControllerDelegate, SKMascotSkillDelegate>
 
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) BOOL isAnswered;
@@ -211,10 +211,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 self.reward = [SKReward objectWithKeyValues:self.rewardDict];
             }
         }];
-        
-//        [[[SKServiceManager sharedInstance] questionService] getQuestionAnswerDetailWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKAnswerDetail *answerDetail) {
-//            self.answerDetail = answerDetail;
-//        }];
         
         [self loadMascot];
     }];
@@ -838,6 +834,14 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_dimmingView removeFromSuperview];
     SKMascotSkillView *purchaseView = [[SKMascotSkillView alloc] initWithFrame:self.view.bounds Type:SKMascotTypeDefault isHad:YES];
     [self.view addSubview:purchaseView];
+}
+
+#pragma mark - MascotSkillViewDelegate
+
+- (void)didClickCloseButtonMascotSkillView:(SKMascotSkillView *)view {
+    [[[SKServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKQuestion *question) {
+        self.currentQuestion = question;
+    }];
 }
 
 #pragma mark - Answer View

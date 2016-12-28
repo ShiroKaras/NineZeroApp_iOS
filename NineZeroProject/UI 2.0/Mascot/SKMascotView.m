@@ -674,11 +674,10 @@
     }];
 }
 
-- (void)hideTips {
-    
-}
-
 - (void)closeButtonClick:(UIButton *)sender {
+    if ([_delegate respondsToSelector:@selector(didClickCloseButtonMascotSkillView:)]) { // 如果协议响应了didClickCloseButtonMascotSkillView:方法
+        [_delegate didClickCloseButtonMascotSkillView:self]; // 通知执行协议方法
+    }
     [self removeFromSuperview];
     [TalkingData trackPageEnd:@"lingskill"];
     [_timerS1Hint invalidate];
@@ -693,6 +692,7 @@
     [self removeObserver:self forKeyPath:@"hintS2_islock"];
     [self removeObserver:self forKeyPath:@"answerS1_islock"];
     [self removeObserver:self forKeyPath:@"answerS2_islock"];
+    
 }
 
 //第一季 线索

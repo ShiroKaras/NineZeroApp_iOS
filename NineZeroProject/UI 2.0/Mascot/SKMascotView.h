@@ -26,11 +26,19 @@ typedef enum : NSUInteger {
 @end
 
 
-@interface SKMascotSkillView : UIView
 
+@class SKMascotSkillView;
+@protocol SKMascotSkillDelegate <NSObject>
+- (void)didClickCloseButtonMascotSkillView:(SKMascotSkillView *)view;
+@end
+
+@interface SKMascotSkillView : UIView
+@property (nonatomic, weak) id<SKMascotSkillDelegate> delegate;
 - (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType isHad:(BOOL)isHad;
 
 @end
+
+
 
 
 @interface SKMascotInfoView : UIView
