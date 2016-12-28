@@ -566,12 +566,12 @@
     }
     introduceLabel.textColor = [UIColor whiteColor];
     introduceLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
-    introduceLabel.numberOfLines = 0;
+    introduceLabel.numberOfLines = 4;
     introduceLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:introduceLabel];
     [introduceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(ROUND_WIDTH(280));
-        make.height.equalTo(ROUND_HEIGHT(75));
+        make.height.equalTo(ROUND_HEIGHT(100));
         make.top.equalTo(summonImageView.mas_bottom).offset(20);
         make.centerX.equalTo(summonImageView.mas_centerX);
     }];
