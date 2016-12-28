@@ -1697,18 +1697,42 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
 }
 
-- (void)sharedQuestion {
+- (void)showSharePromptView {
+    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _dimmingView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_dimmingView];
     
+    UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
+    alphaView.backgroundColor = [UIColor blackColor];
+    alphaView.alpha = 0;
+    [_dimmingView addSubview:alphaView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
+    tap.numberOfTapsRequired = 1;
+    [_dimmingView addGestureRecognizer:tap];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        alphaView.alpha = 0.9;
+    }];
+    
+    UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_share"]];
+    promptImageView.center = _dimmingView.center;
+    [_dimmingView addSubview:promptImageView];
+}
+
+- (void)sharedQuestion {
+    [[[SKServiceManager sharedInstance] questionService] shareQuestionWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKResponsePackage *response) {
+        if (response.result == 0) {
+            [self showSharePromptView];
+        }
+    }];
 }
 
 - (void)shareWithThirdPlatform:(UIButton*)sender {
-    //[MobClick event:@"share"];
     [TalkingData trackEvent:@"share"];
     HTButtonType type = (HTButtonType)sender.tag;
     switch (type) {
         case HTButtonTypeWechat: {
-            //            UIImage *oImage = [SKImageHelper getImageFromURL:_question.question_video_cover];
-            //            UIImage *finImage = [SKImageHelper compressImage:oImage toMaxFileSize:32];
             NSArray* imageArray = @[self.currentQuestion.question_video_cover];
             if (imageArray) {
                 

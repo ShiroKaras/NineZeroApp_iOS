@@ -194,4 +194,40 @@
     }];
 }
 
+- (void)shareQuestionWithQuestionID:(NSString *)questionID callback:(SKResponseCallback)callback {
+    NSDictionary *dict = @{
+                           @"method"       :   @"shareQuestion",
+                           @"qid"          :   questionID
+                           };
+    
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager setSecurityPolicy:[self customSecurityPolicy]];
+    
+    NSTimeInterval time=[[NSDate date] timeIntervalSince1970];// (NSTimeInterval) time = 1427189152.313643
+    long long int currentTime=(long long int)time;      //NSTimeInterval返回的是double类型
+    NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+    [mDict setValue:[NSString stringWithFormat:@"%lld",currentTime] forKey:@"time"];
+    [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
+    [mDict setValue:@"iOS" forKey:@"client"];
+    [mDict setValue:[[SKStorageManager sharedInstance] getUserID]  forKey:@"user_id"];
+    
+    NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    DLog(@"Json ParamString: %@", jsonString);
+    
+    NSDictionary *param = @{@"data" : [NSString encryptUseDES:jsonString key:nil]};
+    
+    [manager POST:[SKCGIManager shareBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        //        NSString *desString = [NSString decryptUseDES:responseObject[@"data"] key:nil];
+        //        NSDictionary *desDict = [desString dictionaryWithJsonString];
+        DLog(@"Response:%@",responseObject);
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        callback(YES, package);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        DLog(@"%@", error);
+        callback(NO, nil);
+    }];
+}
+
 @end

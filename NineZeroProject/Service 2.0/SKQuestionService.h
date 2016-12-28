@@ -47,4 +47,7 @@ typedef void (^SKQuestionAnswerDetail) (BOOL success, SKAnswerDetail *answerDeta
 //前十名
 - (void)getQuestionTop10WithQuestionID:(NSString *)questionID callback:(SKQuestionTop10Callback)callback;
 
+//分享题目
+- (void)shareQuestionWithQuestionID:(NSString *)questionID callback:(SKResponseCallback)callback;
+
 @end
