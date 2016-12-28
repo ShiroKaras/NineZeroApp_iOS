@@ -19,7 +19,6 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <MAMapKit/MAMapKit.h>
-#import <ZipArchive.h>
 
 NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
 NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
@@ -382,7 +381,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
             
             [self.mascotImageView removeFromSuperview];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.1 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self onCaptureMascotSuccessfulWithReward:[SKReward objectWithKeyValues:response.data[@"reward"]]];
+                [self onCaptureMascotSuccessfulWithReward:[SKReward objectWithKeyValues:[response.data keyValues]]];
             });
         } else {
             if (response.result) {

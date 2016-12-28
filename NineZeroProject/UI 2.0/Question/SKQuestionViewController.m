@@ -245,7 +245,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         NSURL *URL = [NSURL URLWithString:self.currentQuestion.question_ar_pet_url];
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];
         
-        [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
             NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
             NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:self.currentQuestion.question_ar_pet];
             return [NSURL fileURLWithPath:zipFilePath];
@@ -259,6 +259,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
             }];
         }];
+        [downloadTask resume];
     }
 }
 
@@ -379,11 +380,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _chapterTitleLabel = [UILabel new];
     _chapterTitleLabel.textColor = COMMON_PINK_COLOR;
     _chapterTitleLabel.font = PINGFANG_FONT_OF_SIZE(14);
+    [_chapterTitleLabel sizeToFit];
     [self.view addSubview:_chapterTitleLabel];
     [_chapterTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_contentView.mas_left).offset(12);
         make.top.equalTo(_contentView.mas_top).offset(13);
-        make.right.equalTo(_contentView.mas_right).offset(-12);
     }];
     
     _chapterSubTitleLabel = [UILabel new];
