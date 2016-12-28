@@ -37,7 +37,7 @@
     [headerView addSubview:titleLabel];
     [self.view addSubview:headerView];
 
-     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 60, self.view.bounds.size.width, self.view.bounds.size.height-60)];
+     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 60, self.view.bounds.size.width-20, self.view.bounds.size.height-60)];
     _webView.scrollView.delaysContentTouches = NO;
     _webView.opaque = NO;
     _webView.backgroundColor = [UIColor clearColor];
@@ -66,7 +66,7 @@
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    _webView.frame = CGRectMake(0, 60, self.view.bounds.size.width, self.view.bounds.size.height-60);
+    _webView.frame = CGRectMake(10, 60, self.view.bounds.size.width-20, self.view.bounds.size.height-60);
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
