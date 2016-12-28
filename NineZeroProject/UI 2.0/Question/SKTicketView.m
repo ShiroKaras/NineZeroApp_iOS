@@ -28,9 +28,20 @@
     UIImageView *ticketBackgoundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_couponbg"]];
     ticketBackgoundImageView.layer.masksToBounds =  YES;
     ticketBackgoundImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [ticketBackgoundImageView sd_setImageWithURL:[NSURL URLWithString:self.ticket.ticket_cover]];
     ticketBackgoundImageView.frame = self.frame;
     [self addSubview:ticketBackgoundImageView];
+    
+    UIImageView *ticketImageView = [[UIImageView alloc] init];
+    ticketImageView.layer.masksToBounds = YES;
+    ticketImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [ticketImageView sd_setImageWithURL:[NSURL URLWithString:self.ticket.ticket_cover]];
+    [self addSubview:ticketImageView];
+    [ticketImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(ticketBackgoundImageView);
+        make.centerX.equalTo(ticketBackgoundImageView);
+        make.width.equalTo(ticketBackgoundImageView);
+        make.height.equalTo(@96);
+    }];
     
     UIImageView *lineImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_couponline"]];
     lineImageView.frame = self.frame;
