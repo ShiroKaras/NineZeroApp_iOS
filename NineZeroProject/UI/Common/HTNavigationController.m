@@ -47,6 +47,7 @@
     
     if (viewController.navigationItem.leftBarButtonItem== nil && [self.viewControllers count] > 1) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.tag = 9001;
         [button setImage:[UIImage imageNamed:@"btn_detailspage_return"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"btn_detailspage_return_highlight"] forState:UIControlStateHighlighted];
         [button sizeToFit];

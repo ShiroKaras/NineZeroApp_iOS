@@ -10,7 +10,7 @@
 #import "HTUIHeader.h"
 #import "SKRankView.h"
 
-@interface SKRankViewController ()
+@interface SKRankViewController () <UIScrollViewDelegate>
 @property (nonatomic, assign) SKRankViewType type;
 @end
 
@@ -30,7 +30,14 @@
     
     self.type = SKRankViewTypeSeason2;
     
+    UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_shading"]];
+    backImageView.tag = 202;
+    backImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 64);
+    backImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:backImageView];
+    
     UIButton *changeSeasonButton = [UIButton new];
+    changeSeasonButton.tag = 201;
     [changeSeasonButton addTarget:self action:@selector(flip:) forControlEvents:UIControlEventTouchUpInside];
     [changeSeasonButton setBackgroundImage:[UIImage imageNamed:@"btn_rank_season1"] forState:UIControlStateNormal];
     [self.view addSubview:changeSeasonButton];

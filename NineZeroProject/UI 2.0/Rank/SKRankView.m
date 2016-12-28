@@ -19,7 +19,9 @@
 @property (nonatomic, strong)   UITableView *tableView;
 @end
 
-@implementation SKRankView
+@implementation SKRankView {
+    float lastOffsetY;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame type:(SKRankViewType)type
 {
@@ -27,7 +29,6 @@
     if (self) {
         self.type = type;
         [self createUI];
-        
     }
     return self;
 }
@@ -160,6 +161,59 @@
     } else {
         return 74;
     }
+}
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    //隐藏
+    [[self viewController].view viewWithTag:9001].alpha = 0;
+    [[self viewController].view viewWithTag:201].alpha = 0;
+    [[self viewController].view viewWithTag:202].alpha = 0;
+    
+    if (scrollView.contentOffset.y <= 64) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [[self viewController].view viewWithTag:9001].alpha = 1;
+            [[self viewController].view viewWithTag:201].alpha = 1;
+            [[self viewController].view viewWithTag:202].alpha = 1;
+        } completion:^(BOOL finished) {
+            
+        }];
+    } else {
+        if (lastOffsetY >= scrollView.contentOffset.y) {
+            [UIView animateWithDuration:0.3 animations:^{
+                //显示
+                [[self viewController].view viewWithTag:9001].alpha = 1;
+                [[self viewController].view viewWithTag:201].alpha = 1;
+                [[self viewController].view viewWithTag:202].alpha = 1;
+            } completion:^(BOOL finished) {
+                
+            }];
+        } else {
+            [UIView animateWithDuration:0.3 animations:^{
+                //隐藏
+                [[self viewController].view viewWithTag:9001].alpha = 0;
+                [[self viewController].view viewWithTag:201].alpha = 0;
+                [[self viewController].view viewWithTag:202].alpha = 0;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }
+    }
+    lastOffsetY = scrollView.contentOffset.y;
+}
+
+#pragma mark - Action
+
+//获取View所在的Viewcontroller方法
+- (UIViewController *)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
 }
 
 @end
