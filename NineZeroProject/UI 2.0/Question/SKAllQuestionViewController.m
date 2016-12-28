@@ -463,7 +463,41 @@
 
 //点击锁定关卡
 - (void)lockedQuestionSelectButtonClick:(UIButton *)sender {
-    [self showTipsWithText:[NSString stringWithFormat:@"零仔在第%lu章等待援助", (unsigned long)[self.questionList_season2 count]]];
+    [self showPromptWithText:[NSString stringWithFormat:@"零仔在第%lu章等待援助", (unsigned long)[self.questionList_season2 count]]];
+}
+
+- (void)showPromptWithText:(NSString*)text {
+    UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
+    [promptImageView sizeToFit];
+    
+    UIView *promptView = [UIView new];
+    promptView.size = promptImageView.size;
+    promptView.center = self.view.center;
+    promptView.alpha = 0;
+    [self.view addSubview:promptView];
+    
+    promptImageView.frame = CGRectMake(0, 0, promptView.width, promptView.height);
+    [promptView addSubview:promptImageView];
+    
+    UILabel *promptLabel = [UILabel new];
+    promptLabel.text = text;
+    promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
+    promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    promptLabel.textAlignment = NSTextAlignmentCenter;
+    [promptLabel sizeToFit];
+    [promptView addSubview:promptLabel];
+    promptLabel.frame = CGRectMake(8.5, 11, promptView.width-17, 57);
+    
+    promptView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        promptView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            promptView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [promptView removeFromSuperview];
+        }];
+    }];
 }
 
 - (void)helpButtonClick:(UIButton *)sender {
