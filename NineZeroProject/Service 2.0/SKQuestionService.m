@@ -84,7 +84,7 @@
             [questions_season2 insertObject:question atIndex:0];
         }
         _questionList = questions_season2;
-        callback (YES, (long)response.data[@"first_season_answered"], (long)response.data[@"second_season_answered"], questions_season1, questions_season2);
+        callback (YES, [response.data[@"first_season_answered"] integerValue], [response.data[@"second_season_answered"] integerValue], questions_season1, questions_season2);
     }];
 }
 
