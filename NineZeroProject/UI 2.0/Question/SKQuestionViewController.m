@@ -840,27 +840,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [self.view addSubview:purchaseView];
 }
 
-//获取提示
-- (void)getHintButtonClick:(UIButton *)sender {
-    [TalkingData trackEvent:@"cueprops"];
-    UIView *alertViewBackView = [[UIView alloc] initWithFrame:self.view.bounds];
-    alertViewBackView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:alertViewBackView];
-    
-    UIImageView *propmtImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
-    [propmtImageView sizeToFit];
-    [alertViewBackView addSubview:propmtImageView];
-    [propmtImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(alertViewBackView);
-    }];
-    
-    [UIView animateWithDuration:0.5 delay:3 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        alertViewBackView.alpha = 0;
-    } completion:^(BOOL finished) {
-        [alertViewBackView removeFromSuperview];
-    }];
-}
-
 #pragma mark - Answer View
 
 - (void)createAnswerViewWithButton:(UIButton*)button answer:(NSDictionary *)answer {
