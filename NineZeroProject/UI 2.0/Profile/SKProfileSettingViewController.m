@@ -406,6 +406,8 @@
         if (success && response.result == 0) {
             _usernameLabel.text = _usernameTextField.text;
             [_dimmingView removeFromSuperview];
+            
+            [self showPromptWithText:@"已修改"];
         } else {
             [MBProgressHUD bwm_showTitle:@"修改用户名失败" toView:KEY_WINDOW hideAfter:1.0];
         }
@@ -433,6 +435,8 @@
     [FileService clearCache:cacheFilePath];
     [self listFileAtPath:cacheFilePath];
     _cacheLabel.text = [NSString stringWithFormat:@"%.1fMB", cacheSize];
+    
+    [self showPromptWithText:@"已清理"];
 }
 
 - (void)quitButtonClick:(UIButton *)sender {
@@ -471,6 +475,40 @@
         return YES;
 }
 
+- (void)showPromptWithText:(NSString*)text {
+    UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_prompt"]];
+    [promptImageView sizeToFit];
+    
+    UIView *promptView = [UIView new];
+    promptView.size = promptImageView.size;
+    promptView.center = self.view.center;
+    promptView.alpha = 0;
+    [self.view addSubview:promptView];
+    
+    promptImageView.frame = CGRectMake(0, 0, promptView.width, promptView.height);
+    [promptView addSubview:promptImageView];
+    
+    UILabel *promptLabel = [UILabel new];
+    promptLabel.text = text;
+    promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
+    promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    promptLabel.textAlignment = NSTextAlignmentCenter;
+    [promptLabel sizeToFit];
+    [promptView addSubview:promptLabel];
+    promptLabel.frame = CGRectMake(8.5, 11, promptView.width-17, 57);
+    
+    promptView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        promptView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            promptView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [promptView removeFromSuperview];
+        }];
+    }];
+}
+
 #pragma mark - Image picker
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -491,6 +529,7 @@
                 [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
                 if (success) {
                     [_avatarImageView setImage:image];
+                    [self showPromptWithText:@"已修改"];
                 } else {
                     [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0];
                 }
