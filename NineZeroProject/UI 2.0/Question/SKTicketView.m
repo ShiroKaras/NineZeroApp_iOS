@@ -17,34 +17,30 @@
 
 - (instancetype)initWithFrame:(CGRect)frame reward:(SKTicket*)reward
 {
-    if (self = [super initWithFrame:CGRectMake(0, 0, 280, 108)]) {
+//    if (self = [super initWithFrame:CGRectMake(0, 0, 280, 108)]) {
+    if (self = [super initWithFrame:frame]) {
         self.ticket = reward;
-        [self createUI];
+        [self createUIWithFrame:frame];
     }
     return self;
 }
 
-- (void)createUI {
+- (void)createUIWithFrame:(CGRect)frame {
     UIImageView *ticketBackgoundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_couponbg"]];
     ticketBackgoundImageView.layer.masksToBounds =  YES;
     ticketBackgoundImageView.contentMode = UIViewContentModeScaleAspectFill;
     ticketBackgoundImageView.frame = self.frame;
     [self addSubview:ticketBackgoundImageView];
     
-    UIImageView *ticketImageView = [[UIImageView alloc] init];
+    UIImageView *ticketImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 6, self.width, self.height-12)];
     ticketImageView.layer.masksToBounds = YES;
     ticketImageView.contentMode = UIViewContentModeScaleAspectFill;
     [ticketImageView sd_setImageWithURL:[NSURL URLWithString:self.ticket.ticket_cover]];
     [self addSubview:ticketImageView];
-    [ticketImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(ticketBackgoundImageView);
-        make.centerX.equalTo(ticketBackgoundImageView);
-        make.width.equalTo(ticketBackgoundImageView);
-        make.height.equalTo(@96);
-    }];
     
     UIImageView *lineImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_couponline"]];
     lineImageView.frame = self.frame;
+    lineImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:lineImageView];
     
     UILabel *ticketTitleLabel = [UILabel new];
@@ -58,6 +54,17 @@
         make.left.equalTo(@12);
         make.width.equalTo(@163);
         make.height.equalTo(@40);
+    }];
+    
+    UILabel *exchangeCodeLabel = [UILabel new];
+    exchangeCodeLabel.text = [NSString stringWithFormat:@"唯一兑换码 %@",self.ticket.code];
+    exchangeCodeLabel.textColor = [UIColor whiteColor];
+    exchangeCodeLabel.font = PINGFANG_FONT_OF_SIZE(10);
+    [exchangeCodeLabel sizeToFit];
+    [self addSubview:exchangeCodeLabel];
+    [exchangeCodeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.mas_bottom).offset(-14);
+        make.left.equalTo(ticketTitleLabel);
     }];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -74,20 +81,11 @@
     [timeLimitLabal sizeToFit];
     [self addSubview:timeLimitLabal];
     [timeLimitLabal mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ticketTitleLabel.mas_bottom).offset(8);
+        make.bottom.equalTo(exchangeCodeLabel.mas_top).offset(-4);
         make.left.equalTo(ticketTitleLabel);
     }];
     
-    UILabel *exchangeCodeLabel = [UILabel new];
-    exchangeCodeLabel.text = [NSString stringWithFormat:@"唯一兑换码 %@",self.ticket.code];
-    exchangeCodeLabel.textColor = [UIColor whiteColor];
-    exchangeCodeLabel.font = PINGFANG_FONT_OF_SIZE(10);
-    [exchangeCodeLabel sizeToFit];
-    [self addSubview:exchangeCodeLabel];
-    [exchangeCodeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(timeLimitLabal.mas_bottom).offset(4);
-        make.left.equalTo(timeLimitLabal);
-    }];
+    
 }
 
 @end

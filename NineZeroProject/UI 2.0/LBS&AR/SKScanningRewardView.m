@@ -109,7 +109,7 @@
 }
 
 - (void)createTicketView {
-    _card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:_ticket];
+    _card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:_ticket];
     [_scrollView addSubview:_card];
 }
 

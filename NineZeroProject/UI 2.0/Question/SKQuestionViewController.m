@@ -935,7 +935,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     //Ticket
     if (isTicket) {
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.reward.ticket];
+        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
         [rewardBaseInfoView addSubview:card];
         [card mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@280);
@@ -1129,7 +1129,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         
         [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
         
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.reward.ticket];
+        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
         [rewardBaseInfoView addSubview:card];
         [card mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@280);

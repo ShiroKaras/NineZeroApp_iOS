@@ -70,11 +70,15 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    SKTicketView *ticket = [[SKTicketView alloc] initWithFrame:CGRectZero reward:self.ticketArray[indexPath.row]];
-    [cell addSubview:ticket];
+    for (UIView *view in cell.contentView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    SKTicketView *ticket = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(280), ROUND_WIDTH_FLOAT(108)) reward:self.ticketArray[indexPath.row]];
+    [cell.contentView addSubview:ticket];
     [ticket mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@280);
-        make.height.equalTo(@108);
+        make.width.equalTo(ROUND_WIDTH(280));
+        make.height.equalTo(ROUND_WIDTH(108));
         make.top.equalTo(cell);
         make.centerX.equalTo(cell);
     }];
@@ -82,7 +86,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 108+10;
+    return ROUND_WIDTH_FLOAT(108)+10;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -53,7 +53,7 @@
     
     //Ticket
     if ([[self.rewardDict allKeys] containsObject:@"ticket"]) {
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero];
+        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108)];
         [rewardBaseInfoView addSubview:card];
         [card mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@280);
