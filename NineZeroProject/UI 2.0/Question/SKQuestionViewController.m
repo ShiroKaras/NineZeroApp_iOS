@@ -389,7 +389,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     _chapterSubTitleLabel = [UILabel new];
     _chapterSubTitleLabel.textColor = COMMON_GREEN_COLOR;
-    _chapterSubTitleLabel.font = PINGFANG_FONT_OF_SIZE(15);
+    _chapterSubTitleLabel.font = PINGFANG_FONT_OF_SIZE(14);
     [self.view addSubview:_chapterSubTitleLabel];
     [_chapterSubTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_contentView.mas_left).offset(12);
