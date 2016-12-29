@@ -27,6 +27,8 @@
 @property (nonatomic, assign) NSInteger currentIndex;
 
 @property (nonatomic, strong) NSArray<SKPet*>   *mascotArray;
+
+@property (nonatomic, strong) UIView *guideView;
 @end
 
 @implementation SKMascotIndexViewController
@@ -143,6 +145,44 @@
         [self.view addSubview:blankView];
         blankView.top = ROUND_HEIGHT_FLOAT(217);
     }
+    
+    if (FIRST_LAUNCH_MASCOTVIEW) {
+        EVER_LAUNCHED_MASCOTVIEW
+        
+        _guideView = [[UIView alloc] initWithFrame:self.view.bounds];
+        _guideView.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:_guideView];
+        
+        UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
+        alphaView.backgroundColor = [UIColor blackColor];
+        alphaView.alpha = 0.9;
+        [_guideView addSubview:alphaView];
+        
+        UIImageView *guideImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_guide"]];
+        guideImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [_guideView addSubview:guideImageView];
+        guideImageView.width = ROUND_HEIGHT_FLOAT(200);
+        guideImageView.height = ROUND_HEIGHT_FLOAT(568);
+        guideImageView.right = self.view.right;
+        guideImageView.top = 0;
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeGuideView)];
+        tap.numberOfTapsRequired = 1;
+        [_guideView addGestureRecognizer:tap];
+        
+        UILabel *label = [UILabel new];
+        label.text = @"点击任意区域关闭";
+        label.textColor = [UIColor colorWithHex:0xa2a2a2];
+        label.font = PINGFANG_FONT_OF_SIZE(12);
+        [label sizeToFit];
+        [_guideView addSubview:label];
+        label.centerX = _guideView.centerX;
+        label.bottom = _guideView.bottom -16;
+    }
+}
+
+- (void)removeGuideView {
+    [_guideView removeFromSuperview];
 }
 
 - (void)skillButtonClick:(UIButton*)sender {

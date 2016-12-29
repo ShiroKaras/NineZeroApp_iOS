@@ -676,6 +676,42 @@
     }];
 }
 
+- (void)showSinMascotPromptWithText:(NSString*)text {
+    [[self viewWithTag:301] removeFromSuperview];
+    UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_skillpage_prompt"]];
+    [promptImageView sizeToFit];
+    
+    UIView *promptView = [UIView new];
+    promptView.tag = 301;
+    promptView.size = promptImageView.size;
+    promptView.center = self.center;
+    promptView.alpha = 0;
+    [self addSubview:promptView];
+    
+    promptImageView.frame = CGRectMake(0, 0, promptView.width, promptView.height);
+    [promptView addSubview:promptImageView];
+    
+    UILabel *promptLabel = [UILabel new];
+    promptLabel.text = text;
+    promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
+    promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    promptLabel.textAlignment = NSTextAlignmentCenter;
+    [promptLabel sizeToFit];
+    [promptView addSubview:promptLabel];
+    promptLabel.frame = CGRectMake(8.5, 11, promptView.width-17, 57);
+    
+    promptView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        promptView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:1.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            promptView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [promptView removeFromSuperview];
+        }];
+    }];
+}
+
 - (void)closeButtonClick:(UIButton *)sender {
     if ([_delegate respondsToSelector:@selector(didClickCloseButtonMascotSkillView:)]) { // 如果协议响应了didClickCloseButtonMascotSkillView:方法
         [_delegate didClickCloseButtonMascotSkillView:self]; // 通知执行协议方法
@@ -847,13 +883,13 @@
 - (void)exchangeButtonClick:(UIButton*)sender {
     [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:_mascotIdArray[_type] callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
-            [[self viewController] showTipsWithText:@"技能施放成功"];
+            [self showSinMascotPromptWithText:@"技能施放成功"];
             _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_1_Label.text integerValue]-1];
             _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_2_Label.text integerValue]-1];
             _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_3_Label.text integerValue]-1];
             _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_4_Label.text integerValue]-1];
         } else if (response.result == -7009){
-            [[self viewController] showTipsWithText:@"已经有生效的魔法"];
+            [self showSinMascotPromptWithText:@"已经有生效的魔法"];
         }
     }];
 }
