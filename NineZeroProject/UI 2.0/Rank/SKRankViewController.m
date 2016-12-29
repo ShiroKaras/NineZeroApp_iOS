@@ -43,7 +43,7 @@
     [self.view addSubview:changeSeasonButton];
     [changeSeasonButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(60, 66));
-        make.top.equalTo(@12);
+        make.top.equalTo(@0);
         make.right.equalTo(@(-16));
     }];
     
