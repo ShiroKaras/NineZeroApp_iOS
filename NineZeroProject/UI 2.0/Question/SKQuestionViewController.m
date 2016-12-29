@@ -27,7 +27,7 @@
 #import "SKAnswerDetailView.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
-#define TOP_PADDING 57
+#define TOP_PADDING ROUND_HEIGHT_FLOAT(57)
 
 #define SHARE_URL(u,v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
 
@@ -78,6 +78,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (strong, nonatomic) SKDescriptionView *descriptionView;             // 详情页面
 @property (nonatomic, strong) SKReward *questionReward;
 @property (nonatomic, strong) SKQuestion *currentQuestion;
+@property (nonatomic, strong) NSArray<SKUserInfo *> *top10Array;
 //@property (nonatomic, strong) SKAnswerDetail *answerDetail;
 @property (nonatomic, assign) time_t endTime;
 
@@ -210,6 +211,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 self.rewardDict = response.data;
                 self.reward = [SKReward objectWithKeyValues:self.rewardDict];
             }
+        }];
+        
+        [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
+            self.top10Array = userRankList;
         }];
         
         [self loadMascot];
@@ -875,10 +880,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
     
-    [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
-        SKQuestionRankListView *rankView = [[SKQuestionRankListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, _contentView.bottom-10) rankerList:userRankList withButton:button];
-        [_dimmingView addSubview:rankView];
-    }];
+    SKQuestionRankListView *rankView = [[SKQuestionRankListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, _contentView.bottom-10) rankerList:self.top10Array withButton:button];
+    [_dimmingView addSubview:rankView];
 }
 
 #pragma mark - Gift View
@@ -1482,6 +1485,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward *)reward{
     [controller dismissViewControllerAnimated:NO completion:^{
         [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+        [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
+            self.top10Array = userRankList;
+        }];
         [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
             self.currentQuestion = [questionList_season2 lastObject];
             self.currentQuestion.is_answer = YES;
@@ -1552,6 +1558,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 self.rewardDict = response.data;
                 self.reward = [SKReward objectWithKeyValues:self.rewardDict];
+                [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
+                    self.top10Array = userRankList;
+                }];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
                     [_composeView removeFromSuperview];
@@ -1580,6 +1589,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 
                 self.rewardDict = response.data;
                 self.reward = [SKReward objectWithKeyValues:self.rewardDict];
+                [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
+                    self.top10Array = userRankList;
+                }];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [_composeView endEditing:YES];
                     [_composeView removeFromSuperview];
