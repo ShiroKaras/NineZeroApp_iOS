@@ -641,7 +641,7 @@
 }
 
 - (void)showPromptWithText:(NSString*)text {
-    [[self.view viewWithTag:300] removeFromSuperview];
+    [[self viewWithTag:300] removeFromSuperview];
     UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_prompt"]];
     [promptImageView sizeToFit];
     
