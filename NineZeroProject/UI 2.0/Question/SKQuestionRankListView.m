@@ -9,6 +9,8 @@
 #import "SKQuestionRankListView.h"
 #import "HTUIHeader.h"
 
+#define TOP_PADDING ROUND_HEIGHT_FLOAT(57)
+
 @interface SKQuestionRankListView ()
 @property (nonatomic, strong) NSArray<SKUserInfo*>* rankerList;
 @end
@@ -26,7 +28,7 @@
 }
 
 - (void)createUIWithFrame:(CGRect)frame button:(UIButton*)button {
-    UIView *rankBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, self.bottom-10-57)];
+    UIView *rankBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, self.bottom-10-TOP_PADDING)];
     rankBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     rankBackView.layer.cornerRadius = 5;
     rankBackView.layer.masksToBounds = YES;
@@ -35,7 +37,7 @@
     UIImageView *rankImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_top_highlight"]];
     [self addSubview:rankImageView];
     CGRect rect = button.frame;
-    rect.origin.y -= 57;
+    rect.origin.y -= TOP_PADDING;
     rankImageView.frame = rect;
     
     UIScrollView *rankScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, rankBackView.width, rankBackView.height)];

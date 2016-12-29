@@ -27,7 +27,7 @@
 #import "SKAnswerDetailView.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
-#define TOP_PADDING 57
+#define TOP_PADDING ROUND_HEIGHT_FLOAT(57)
 
 #define SHARE_URL(u,v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
 
@@ -271,7 +271,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     __weak __typeof(self)weakSelf = self;
     
     // 主界面
-    _playBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 106+16, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
+    _playBackView = [[UIView alloc] initWithFrame:CGRectMake(10, ROUND_HEIGHT_FLOAT(122), SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
     _playBackView.layer.masksToBounds = YES;
     _playBackView.contentMode = UIViewContentModeScaleAspectFit;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_playBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
@@ -368,14 +368,21 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     UIImageView *chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_chapter"]];
     [self.view addSubview:chapterImageView];
+    chapterImageView.width = ROUND_WIDTH_FLOAT(75);
+    chapterImageView.height = ROUND_WIDTH_FLOAT(27);
     chapterImageView.left = 10;
-    //    chapterImageView.top = 106-6-27+16;
     chapterImageView.bottom = _playBackView.top -6;
     
     _chapterNumberLabel = [UILabel new];
     _chapterNumberLabel.textColor = COMMON_PINK_COLOR;
     _chapterNumberLabel.text = @"00";
-    _chapterNumberLabel.font = MOON_FONT_OF_SIZE(13);
+    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+        _chapterNumberLabel.font = MOON_FONT_OF_SIZE(13);
+    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+        _chapterNumberLabel.font = MOON_FONT_OF_SIZE(16);
+    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+        _chapterNumberLabel.font = MOON_FONT_OF_SIZE(20);
+    }
     [_chapterNumberLabel sizeToFit];
     _chapterNumberLabel.center = chapterImageView.center;
     [self.view addSubview:_chapterNumberLabel];
@@ -425,7 +432,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _timeView = [[SKCardTimeView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_timeView];
     
-    _timeView.size = CGSizeMake(150, ROUND_HEIGHT_FLOAT(96));
+    _timeView.size = CGSizeMake(ROUND_WIDTH_FLOAT(150), ROUND_HEIGHT_FLOAT(96));
     _timeView.right = SCREEN_WIDTH - 10;
     _timeView.bottom = _playBackView.top -6;
     
@@ -457,7 +464,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             [btn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(ROUND_WIDTH(40));
                 make.height.equalTo(ROUND_WIDTH(40));
-                make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-(SCREEN_HEIGHT-106-SCREEN_WIDTH-16+20-72-12-ROUND_WIDTH_FLOAT(40))/2);
+                make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-(SCREEN_HEIGHT-ROUND_HEIGHT_FLOAT(122)-SCREEN_WIDTH+20-72-12-ROUND_WIDTH_FLOAT(40))/2);
                 make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*i));
             }];
             if (i==0) {
@@ -476,7 +483,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [btn mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.width.equalTo(ROUND_WIDTH(40));
                     make.height.equalTo(ROUND_WIDTH(40));
-                    make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-(SCREEN_HEIGHT-106-SCREEN_WIDTH-16+20-72-12-ROUND_WIDTH_FLOAT(40))/2);
+                    make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-(SCREEN_HEIGHT-ROUND_HEIGHT_FLOAT(122)-SCREEN_WIDTH+20-72-12-ROUND_WIDTH_FLOAT(40))/2);
                     make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*1));
                 }];
             }
@@ -803,7 +810,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             self.reward = [SKReward objectWithKeyValues:self.rewardDict];
             
             UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
-            alphaView.backgroundColor = [UIColor blackColor];
+            alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
             alphaView.alpha = 0.9;
             [_dimmingView addSubview:alphaView];
             
