@@ -1231,7 +1231,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_dimmingView addSubview:bgImageView];
     
     UIImageView *thingImageView = [UIImageView new];
-    [thingImageView sd_setImageWithURL:[NSURL URLWithString:self.reward.piece.piece_cover_pic]];
+    [thingImageView sd_setImageWithURL:[NSURL URLWithString:self.reward.piece.piece_describe_pic]];
     NSLog(@"piece_cover_pic:%@",self.reward.piece.piece_cover_pic);
     [_dimmingView addSubview:thingImageView];
     [thingImageView mas_makeConstraints:^(MASConstraintMaker *make) {
