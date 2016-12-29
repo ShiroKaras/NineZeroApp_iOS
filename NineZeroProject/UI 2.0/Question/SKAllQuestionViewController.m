@@ -648,11 +648,11 @@
 
 - (void)answeredQuestionWithSerialNumber:(NSString *)serial season:(NSInteger)season {
     if (season == 1) {
-        self.questionList_season1[[serial integerValue]].is_answer = YES;
+        self.questionList_season1[[serial integerValue]-1].is_answer = YES;
         [((UIButton*)[self.view viewWithTag:100+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
         [((UIButton*)[self.view viewWithTag:100+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
     } else if (season == 2) {
-        self.questionList_season2[[serial integerValue]].is_answer = YES;
+        self.questionList_season2[[serial integerValue]-1].is_answer = YES;
         [((UIButton*)[self.view viewWithTag:200+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
         [((UIButton*)[self.view viewWithTag:200+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
     }
