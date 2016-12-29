@@ -182,7 +182,7 @@
         }];
         
         UILabel *orderLabel = [UILabel new];
-        orderLabel.textColor = COMMON_RED_COLOR;
+        orderLabel.textColor = COMMON_PINK_COLOR;
         orderLabel.text = [NSString stringWithFormat:@"%d", i+4];
         orderLabel.font = MOON_FONT_OF_SIZE(18);
         [orderLabel sizeToFit];

@@ -55,18 +55,32 @@
             if ([self.hintList.hint_one isEqualToString:@""]) {
 
             } else if ([self.hintList.hint_two isEqualToString:@""]) {
-                [self viewWithTag:HINT_BUTTON_1].hidden = YES;
+                [UIView animateWithDuration:0.3 animations:^{
+                    [self viewWithTag:HINT_BUTTON_1].alpha = 0;
+                } completion:^(BOOL finished) {
+                    [self viewWithTag:HINT_BUTTON_1].hidden = 1;
+                }];
             } else if ([self.hintList.hint_three isEqualToString:@""]) {
-                [self viewWithTag:HINT_BUTTON_1].hidden = YES;
-                [self viewWithTag:HINT_BUTTON_2].hidden = YES;
+                [UIView animateWithDuration:0.3 animations:^{
+                    [self viewWithTag:HINT_BUTTON_1].alpha = 0;
+                    [self viewWithTag:HINT_BUTTON_2].alpha = 0;
+                } completion:^(BOOL finished) {
+                    [self viewWithTag:HINT_BUTTON_1].hidden = YES;
+                    [self viewWithTag:HINT_BUTTON_2].hidden = YES;
+                }];
             } else {
-                [self viewWithTag:HINT_BUTTON_1].hidden = YES;
-                [self viewWithTag:HINT_BUTTON_2].hidden = YES;
-                [self viewWithTag:HINT_BUTTON_3].hidden = YES;
+                [UIView animateWithDuration:0.3 animations:^{
+                    [self viewWithTag:HINT_BUTTON_1].alpha = 0;
+                    [self viewWithTag:HINT_BUTTON_2].alpha = 0;
+                    [self viewWithTag:HINT_BUTTON_3].alpha = 0;
+                } completion:^(BOOL finished) {
+                    [self viewWithTag:HINT_BUTTON_1].hidden = YES;
+                    [self viewWithTag:HINT_BUTTON_2].hidden = YES;
+                    [self viewWithTag:HINT_BUTTON_3].hidden = YES;
+                }];
             }
             
             //更新道具数量
-            DLog(@"%ld", hintList.num);
             self.hintPropCount = self.hintList.num;
             if (self.hintPropCount==0) {
                 _iconImageView.image = [UIImage imageNamed:@"btn_detailspage_clue_add"];
@@ -223,7 +237,12 @@
 
 //关闭
 - (void)closeButtonClick:(UIButton *)sender {
-    [self removeFromSuperview];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha = 0;
+    } completion:^(BOOL finished) {
+        
+        [self removeFromSuperview];
+    }];
 }
 
 //获取提示
@@ -246,6 +265,7 @@
         [[[SKServiceManager sharedInstance] questionService] purchaseQuestionClueWithQuestionID:self.question.qid callback:^(BOOL success, SKResponsePackage *response) {
             if (response.result == 0) {
                 [[self viewController] showTipsWithText:@"获得新的线索"];
+                [self showNumberLabelWithButton:sender];
             } else if (response.result == -3007) {
                 [[self viewController] showTipsWithText:@"已经获得所有线索"];
             } else if (response.result == -3008) {
@@ -254,6 +274,27 @@
             [self loadData];
         }];
     }
+}
+
+- (void)showNumberLabelWithButton:(UIButton *)sender {
+    UILabel *numberLabel = [UILabel new];
+    numberLabel.text = @"-1";
+    if (self.season == 1) {
+        numberLabel.textColor = COMMON_GREEN_COLOR;
+    } else if (self.season == 2)
+        numberLabel.textColor = COMMON_PINK_COLOR;
+    numberLabel.font = MOON_FONT_OF_SIZE(24);
+    [numberLabel sizeToFit];
+    [self addSubview:numberLabel];
+    numberLabel.centerX = sender.centerX;
+    numberLabel.centerY = sender.centerY;
+    
+    [UIView animateWithDuration:1 animations:^{
+        numberLabel.centerY -= 100;
+        numberLabel.alpha = 0;
+    } completion:^(BOOL finished) {
+        [numberLabel removeFromSuperview];
+    }];
 }
 
 - (void)addButtonClick:(UIButton *)sender {
