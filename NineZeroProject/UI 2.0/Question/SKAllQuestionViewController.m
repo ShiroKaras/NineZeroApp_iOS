@@ -385,6 +385,7 @@
             //按钮
             UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
             mImageButton.tag = questionNumber;
+            mImageButton.adjustsImageWhenHighlighted = NO;
             [mImageButton addTarget:self action:@selector(lockedQuestionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_locked"] forState:UIControlStateNormal];
@@ -467,10 +468,12 @@
 }
 
 - (void)showPromptWithText:(NSString*)text {
+    [[self.view viewWithTag:300] removeFromSuperview];
     UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
     [promptImageView sizeToFit];
     
     UIView *promptView = [UIView new];
+    promptView.tag = 300;
     promptView.size = promptImageView.size;
     promptView.center = self.view.center;
     promptView.alpha = 0;
@@ -492,7 +495,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         promptView.alpha = 1;
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.3 delay:1.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
             promptView.alpha = 0;
         } completion:^(BOOL finished) {
             [promptView removeFromSuperview];

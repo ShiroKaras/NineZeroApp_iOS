@@ -26,6 +26,8 @@
 @property (nonatomic, strong) UIView        *dimmingView;
 @property (nonatomic, strong) UILabel       *cacheLabel;
 
+@property (nonatomic, strong) UISwitch      *notificationSwitch;
+
 @end
 
 @implementation SKProfileSettingViewController {
@@ -58,6 +60,26 @@
         _userInfo = response;
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
         _usernameLabel.text = _userInfo.user_name;
+        
+        if ([[UIDevice currentDevice].systemVersion floatValue]>=8.0f) {
+            UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
+            if (UIUserNotificationTypeNone == setting.types) {
+                NSLog(@"推送关闭");
+                [_notificationSwitch setOn:NO];
+            } else {
+                NSLog(@"推送打开");
+                [_notificationSwitch setOn:YES];
+            }
+        } else {
+            UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+            if(UIRemoteNotificationTypeNone == type){
+                NSLog(@"推送关闭");
+                [_notificationSwitch setOn:NO];
+            }else{
+                NSLog(@"推送打开");
+                [_notificationSwitch setOn:YES];
+            }
+        }
     }];
 }
 
@@ -228,10 +250,11 @@
         }];
         
         if (i == 0) {
-            UISwitch *notificationSwitch = [UISwitch new];
-            notificationSwitch.onTintColor = COMMON_GREEN_COLOR;
-            [view addSubview:notificationSwitch];
-            [notificationSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
+            _notificationSwitch = [UISwitch new];
+            [_notificationSwitch addTarget:self action:@selector(notificationSwitchClick:) forControlEvents:UIControlEventTouchUpInside];
+            _notificationSwitch.onTintColor = COMMON_GREEN_COLOR;
+            [view addSubview:_notificationSwitch];
+            [_notificationSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(view);
                 make.right.equalTo(view).offset(-20);
             }];
@@ -394,6 +417,12 @@
     }];
 }
 
+- (void)notificationSwitchClick:(UISwitch *)sender {
+    [[[SKServiceManager sharedInstance] profileService] updateNotificationSwitch:sender.isOn callback:^(BOOL success, SKResponsePackage *response) {
+        
+    }];
+}
+
 - (void)cancelUpdateUsername {
     [_dimmingView removeFromSuperview];
 }
@@ -476,10 +505,12 @@
 }
 
 - (void)showPromptWithText:(NSString*)text {
+    [[self.view viewWithTag:300] removeFromSuperview];
     UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_prompt"]];
     [promptImageView sizeToFit];
     
     UIView *promptView = [UIView new];
+    promptView.tag = 300;
     promptView.size = promptImageView.size;
     promptView.center = self.view.center;
     promptView.alpha = 0;
@@ -501,7 +532,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         promptView.alpha = 1;
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.3 delay:1.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
             promptView.alpha = 0;
         } completion:^(BOOL finished) {
             [promptView removeFromSuperview];
