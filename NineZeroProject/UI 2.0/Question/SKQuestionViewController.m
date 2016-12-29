@@ -27,7 +27,7 @@
 #import "SKAnswerDetailView.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
-#define TOP_PADDING ROUND_HEIGHT_FLOAT(57)
+#define TOP_PADDING 57
 
 #define SHARE_URL(u,v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
 
@@ -179,7 +179,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)loadData {
+    [HTProgressHUD show];
     [[[SKServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKQuestion *question) {
+        [HTProgressHUD dismiss];
         self.currentQuestion = question;
         self.isAnswered = question.is_answer;
         self.chapterNumberLabel.text = [NSString stringWithFormat:@"%02lu", (long)[question.serial integerValue]];

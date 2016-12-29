@@ -229,7 +229,7 @@
 //获取提示
 - (void)getHintButtonClick:(UIButton *)sender {
     if (self.hintPropCount == 0) {
-        [self showAlertViewWithText:@"线索道具已用完"];
+        [self showAlertViewWithText:@"线索道具不足，点击右上角补充"];
     } else {
         if ([self.hintList.hint_one isEqualToString:@""]) {
             if (sender.tag == HINT_BUTTON_2 || sender.tag == HINT_BUTTON_3) {
