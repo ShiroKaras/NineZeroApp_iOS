@@ -41,6 +41,9 @@ typedef void (^SKGetNotificationsCallback) (BOOL success, NSArray<SKNotification
 //获取第二季排名
 - (void)getSeason2RankListCallback:(SKGetRankerListCallbakc)callback;
 
+//推送开关
+- (void)updateNotificationSwitch:(BOOL)isOn callback:(SKResponseCallback)callback;
+
 //修改个人信息    0头像 1昵称
 - (void)updateUserInfoWith:(SKUserInfo*)userInfo withType:(int)type callback:(SKResponseCallback)callback;
 

@@ -189,6 +189,20 @@
     }];
 }
 
+//修改设置
+- (void)updateNotificationSwitch:(BOOL)isOn callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method"         :   @"updateSetting",
+                            @"push_setting"   :   [NSString stringWithFormat:@"%ld", (long)isOn]
+                            };
+    [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        if (success) {
+            callback(success, response);
+        } else
+            callback(NO, nil);
+    }];
+}
+
 //修改个人信息
 - (void)updateUserInfoWith:(SKUserInfo*)userInfo withType:(int)type callback:(SKResponseCallback)callback {
     NSDictionary *param;
@@ -219,7 +233,7 @@
 //用户反馈
 - (void)feedbackWithContent:(NSString *)content contact:(NSString *)contact completion:(SKResponseCallback)callback {
     NSDictionary *param = @{
-                            @"method"       :   @"updateSetting",
+                            @"method"       :   @"feedback",
                             @"content"      :   content,
                             @"contact"      :   contact
                             };
