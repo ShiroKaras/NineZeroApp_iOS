@@ -54,7 +54,9 @@
 @property (strong, nonatomic) SKDescriptionView *descriptionView;             // 详情页面
 @end
 
-@implementation SKMyThingsViewController
+@implementation SKMyThingsViewController {
+    float lastOffsetY;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -75,7 +77,18 @@
 - (void)createUI {
     self.view.backgroundColor = [UIColor blackColor];
     
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    [layout setHeaderReferenceSize:CGSizeMake(320, 64)];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) collectionViewLayout:layout];
+    _collectionView.bounces = NO;
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    [_collectionView registerClass:[SKThingsCell class] forCellWithReuseIdentifier:NSStringFromClass([SKThingsCell class])];
+    [self.view addSubview:_collectionView];
+    
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    headerView.tag = 200;
     headerView.backgroundColor = [UIColor clearColor];
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"已收集的玩意儿";
@@ -85,14 +98,6 @@
     titleLabel.center = headerView.center;
     [headerView addSubview:titleLabel];
     [self.view addSubview:headerView];
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64) collectionViewLayout:layout];
-    _collectionView.delegate = self;
-    _collectionView.dataSource = self;
-    [_collectionView registerClass:[SKThingsCell class] forCellWithReuseIdentifier:NSStringFromClass([SKThingsCell class])];
-    [self.view addSubview:_collectionView];
     
     if (NO_NETWORK) {
         UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
@@ -141,6 +146,44 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.pieceArray.count;
+}
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    //隐藏
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view viewWithTag:9001].alpha = 0;
+        [self.view viewWithTag:200].alpha = 0;
+    }];
+    
+    if (scrollView.contentOffset.y <= 64) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view viewWithTag:9001].alpha = 1;
+            [self.view viewWithTag:200].alpha = 1;
+        } completion:^(BOOL finished) {
+            
+        }];
+    } else {
+        if (lastOffsetY >= scrollView.contentOffset.y) {
+            [UIView animateWithDuration:0.3 animations:^{
+                //显示
+                [self.view viewWithTag:9001].alpha = 1;
+                [self.view viewWithTag:200].alpha = 1;
+            } completion:^(BOOL finished) {
+                
+            }];
+        } else {
+            [UIView animateWithDuration:0.3 animations:^{
+                //隐藏
+                [self.view viewWithTag:9001].alpha = 0;
+                [self.view viewWithTag:200].alpha = 0;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }
+    }
+    lastOffsetY = scrollView.contentOffset.y;
 }
 
 @end

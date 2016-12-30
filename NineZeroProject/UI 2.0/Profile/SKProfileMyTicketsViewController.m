@@ -16,14 +16,34 @@
 @property (nonatomic, strong) NSArray<SKTicket*>    *ticketArray;
 @end
 
-@implementation SKProfileMyTicketsViewController
+@implementation SKProfileMyTicketsViewController {
+    float lastOffsetY;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
+    self.tableView.bounces = NO;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
+    [self.view addSubview:self.tableView];
+    
+    UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    tableViewHeaderView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableHeaderView = tableViewHeaderView;
+    
+    UIView *tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 16)];
+    tableViewFooterView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = tableViewFooterView;
+    
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
-    headerView.backgroundColor = [UIColor clearColor];
+    headerView.tag = 200;
+    headerView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"我的礼券";
     titleLabel.textColor = [UIColor whiteColor];
@@ -32,14 +52,6 @@
     titleLabel.center = headerView.center;
     [headerView addSubview:titleLabel];
     [self.view addSubview:headerView];
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64) style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
-    [self.view addSubview:self.tableView];
     
     if (NO_NETWORK) {
         UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
@@ -105,5 +117,44 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    //隐藏
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view viewWithTag:9001].alpha = 0;
+        [self.view viewWithTag:200].alpha = 0;
+    }];
+    
+    if (scrollView.contentOffset.y <= 64) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view viewWithTag:9001].alpha = 1;
+            [self.view viewWithTag:200].alpha = 1;
+        } completion:^(BOOL finished) {
+            
+        }];
+    } else {
+        if (lastOffsetY >= scrollView.contentOffset.y) {
+            [UIView animateWithDuration:0.3 animations:^{
+                //显示
+                [self.view viewWithTag:9001].alpha = 1;
+                [self.view viewWithTag:200].alpha = 1;
+            } completion:^(BOOL finished) {
+                
+            }];
+        } else {
+            [UIView animateWithDuration:0.3 animations:^{
+                //隐藏
+                [self.view viewWithTag:9001].alpha = 0;
+                [self.view viewWithTag:200].alpha = 0;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }
+    }
+    lastOffsetY = scrollView.contentOffset.y;
+}
+
 
 @end

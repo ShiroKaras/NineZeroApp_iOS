@@ -13,7 +13,9 @@
 @property (nonatomic, strong) UIWebView *webView;
 @end
 
-@implementation HTWebController
+@implementation HTWebController {
+    float lastOffsetY;
+}
 
 - (instancetype)initWithURLString:(NSString *)urlString {
     if (self = [super init]) {
@@ -25,8 +27,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+
+     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 64, self.view.bounds.size.width-20, self.view.bounds.size.height-64)];
+    _webView.scrollView.delaysContentTouches = NO;
+    _webView.opaque = NO;
+    _webView.backgroundColor = [UIColor clearColor];
+    _webView.scrollView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    _webView.scrollView.showsVerticalScrollIndicator = NO;
+    _webView.allowsInlineMediaPlayback = YES;
+    _webView.delegate = self;
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_urlString]]];
+    _webView.mediaPlaybackRequiresUserAction = NO;
+    [self.view addSubview:_webView];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = self.titleString;
@@ -36,17 +50,7 @@
     titleLabel.center = headerView.center;
     [headerView addSubview:titleLabel];
     [self.view addSubview:headerView];
-
-     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 60, self.view.bounds.size.width-20, self.view.bounds.size.height-60)];
-    _webView.scrollView.delaysContentTouches = NO;
-    _webView.opaque = NO;
-    _webView.backgroundColor = [UIColor clearColor];
-    _webView.scrollView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
-    _webView.allowsInlineMediaPlayback = YES;
-    _webView.delegate = self;
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_urlString]]];
-    _webView.mediaPlaybackRequiresUserAction = NO;
-    [self.view addSubview:_webView];
+    
     [HTProgressHUD show];
 }
 
@@ -66,7 +70,7 @@
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    _webView.frame = CGRectMake(10, 60, self.view.bounds.size.width-20, self.view.bounds.size.height-60);
+    _webView.frame = CGRectMake(10, 64, self.view.bounds.size.width-20, self.view.bounds.size.height-64);
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -76,7 +80,7 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [HTProgressHUD dismiss];
 //    [self showTipsWithText:@"加载失败" offset:64];
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, self.view.bounds.size.width, self.view.bounds.size.height-60)];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-64)];
     backView.backgroundColor = [UIColor blackColor];
     [self.view  addSubview:backView];
     

@@ -32,7 +32,7 @@
     self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.bounces = NO;
     
-    UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     tableViewHeaderView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = tableViewHeaderView;
     
@@ -40,7 +40,7 @@
     tableViewFooterView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = tableViewFooterView;
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     headerView.tag = 200;
     headerView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
     UILabel *titleLabel = [UILabel new];
