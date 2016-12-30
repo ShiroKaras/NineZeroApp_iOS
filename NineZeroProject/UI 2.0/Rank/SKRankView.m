@@ -175,7 +175,7 @@
         [UIView animateWithDuration:0.3 animations:^{
             [[self viewController].view viewWithTag:9001].alpha = 1;
             [[self viewController].view viewWithTag:201].alpha = 1;
-            [[self viewController].view viewWithTag:202].alpha = 1;
+            [[self viewController].view viewWithTag:202].alpha = 0;
         } completion:^(BOOL finished) {
             
         }];

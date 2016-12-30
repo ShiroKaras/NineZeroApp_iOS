@@ -86,10 +86,10 @@
     [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view cache:YES];
     
     //这里时查找视图里的子视图（这种情况查找，可能时因为父视图里面不只两个视图）
-    NSInteger fist= [[self.view subviews] indexOfObject:[self.view viewWithTag:100]];
-    NSInteger seconde= [[self.view subviews] indexOfObject:[self.view viewWithTag:101]];
+    NSInteger first= [[self.view subviews] indexOfObject:[self.view viewWithTag:100]];
+    NSInteger second= [[self.view subviews] indexOfObject:[self.view viewWithTag:101]];
     
-    [self.view exchangeSubviewAtIndex:fist withSubviewAtIndex:seconde];
+    [self.view exchangeSubviewAtIndex:first withSubviewAtIndex:second];
     
     //当父视图里面只有两个视图的时候，可以直接使用下面这段.
     
