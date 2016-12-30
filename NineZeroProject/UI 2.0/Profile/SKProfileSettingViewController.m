@@ -60,26 +60,7 @@
         _userInfo = response;
         [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
         _usernameLabel.text = _userInfo.user_name;
-        
-        if ([[UIDevice currentDevice].systemVersion floatValue]>=8.0f) {
-            UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
-            if (UIUserNotificationTypeNone == setting.types) {
-                NSLog(@"推送关闭");
-                [_notificationSwitch setOn:NO];
-            } else {
-                NSLog(@"推送打开");
-                [_notificationSwitch setOn:YES];
-            }
-        } else {
-            UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-            if(UIRemoteNotificationTypeNone == type){
-                NSLog(@"推送关闭");
-                [_notificationSwitch setOn:NO];
-            }else{
-                NSLog(@"推送打开");
-                [_notificationSwitch setOn:YES];
-            }
-        }
+        [_notificationSwitch setOn:_userInfo.push_setting];
     }];
 }
 

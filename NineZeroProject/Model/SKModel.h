@@ -35,7 +35,7 @@
 @property (nonatomic, copy)     NSString    *gold;
 @property (nonatomic, assign)   NSInteger   rank;
 
-@property (nonatomic, assign)   int         push_setting;   // 推送开关
+@property (nonatomic, assign)   BOOL        push_setting;   // 推送开关
 @end
 
 //用户个人页信息
