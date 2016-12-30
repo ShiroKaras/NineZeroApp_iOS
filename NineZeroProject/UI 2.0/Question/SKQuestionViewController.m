@@ -124,7 +124,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.season = 1;
     self.clickCount = 0;
     [self createUI];
     [self loadData];
@@ -1522,7 +1521,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             [_composeView showAnswerCorrect:YES];
             self.isAnswered = YES;
             self.reward = reward;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [_composeView endEditing:YES];
                 [_composeView removeFromSuperview];
                 [self removeDimmingView];

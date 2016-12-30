@@ -64,7 +64,6 @@
 - (void)loadData {
     [HTProgressHUD show];
     [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
-        [HTProgressHUD dismiss];
         NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
         [self createSeason1UIWithData:mQuestionList_season1];
         
@@ -78,6 +77,7 @@
             [self helpButtonClick:nil];
             [UD setBool:YES forKey:@"firstLaunchQuestionList"];
         }
+        [HTProgressHUD dismiss];
     }];
 }
 
@@ -453,10 +453,12 @@
     
     if (questionID == [self.questionList_season2 lastObject].qid) {
         SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:questionID endTime:self.indexInfo.question_end_time];
+        self.season = self.season;
         controller.delegate = self;
         [self.navigationController pushViewController:controller animated:YES];
     } else {
         SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeHistoryLevel questionID:questionID];
+        controller.season = self.season;
         controller.delegate = self;
         [self.navigationController pushViewController:controller animated:YES];
     }
