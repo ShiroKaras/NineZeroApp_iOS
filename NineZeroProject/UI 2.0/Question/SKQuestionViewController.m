@@ -929,14 +929,23 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     //Ticket
     if (isTicket) {
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
+        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 362, 140) reward:self.reward.ticket];
         [rewardBaseInfoView addSubview:card];
-        [card mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@280);
-            make.height.equalTo(@108);
-            make.centerX.equalTo(rewardBaseInfoView);
-            make.bottom.equalTo(rewardBackView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
+        if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+            [card mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@(362));
+                make.height.equalTo(@(140));
+                make.centerX.equalTo(rewardBaseInfoView);
+                make.bottom.equalTo(rewardBackView.mas_bottom).offset(-15);
+            }];
+        } else {
+            [card mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@280);
+                make.height.equalTo(@108);
+                make.centerX.equalTo(rewardBaseInfoView);
+                make.bottom.equalTo(rewardBackView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
         }];
+        }
     }
 }
 
@@ -1123,14 +1132,25 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         
         [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
         
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
-        [rewardBaseInfoView addSubview:card];
-        [card mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@280);
-            make.height.equalTo(@108);
-            make.centerX.equalTo(rewardBaseInfoView);
-            make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
-        }];
+        if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+            SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 362, 140) reward:self.reward.ticket];
+            [rewardBaseInfoView addSubview:card];
+            [card mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@362);
+                make.height.equalTo(@140);
+                make.centerX.equalTo(rewardBaseInfoView);
+                make.bottom.equalTo(_dimmingView).offset(-62);
+            }];
+        } else {
+            SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
+            [rewardBaseInfoView addSubview:card];
+            [card mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@280);
+                make.height.equalTo(@108);
+                make.centerX.equalTo(rewardBaseInfoView);
+                make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
+            }];
+        }
     } else {
         [rewardBaseInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@248);
