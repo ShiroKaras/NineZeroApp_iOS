@@ -125,6 +125,26 @@
     [self createBackView1];
     [self createBackView2];
     
+    if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+        UIImageView *bottomImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userprofiles_banner_iPhone6"]];
+        [self.view addSubview:bottomImageView];
+        [bottomImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(self.view.mas_width);
+            make.height.equalTo(@150);
+            make.centerX.equalTo(self.view);
+            make.bottom.equalTo(self.view);
+        }];
+    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+        UIImageView *bottomImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userprofiles_banner_iPhone6P"]];
+        [self.view addSubview:bottomImageView];
+        [bottomImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(self.view.mas_width);
+            make.height.equalTo(@233);
+            make.centerX.equalTo(self.view);
+            make.bottom.equalTo(self.view);
+        }];
+    }
+    
     if (NO_NETWORK) {
         UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
         converView.backgroundColor = COMMON_BG_COLOR;
