@@ -84,6 +84,7 @@
             _contentImageView.hidden = YES;
             _contentView.top = _headerImageView.bottom +16;
         } else if (answerDetail.article_Illustration_type == 1) {
+            _playButton.hidden = NO;
             [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_cover_url]];
         } else if (answerDetail.article_Illustration_type == 2) {
             [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_url]];
@@ -119,6 +120,7 @@
     [_backScrollView addSubview:_contentImageView];
     
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _playButton.hidden = YES;
     [_playButton addTarget:self action:@selector(playVideo) forControlEvents:UIControlEventTouchUpInside];
     [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_play"] forState:UIControlStateNormal];
     [_playButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_play_highlight" ] forState:UIControlStateHighlighted];
