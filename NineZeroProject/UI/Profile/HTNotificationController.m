@@ -16,21 +16,33 @@
 @property (nonatomic, strong) UITableView *tableView;
 @end
 
-@implementation HTNotificationController
+@implementation HTNotificationController {
+    float lastOffsetY;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.bounces = NO;
+    
+    UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    tableViewHeaderView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableHeaderView = tableViewHeaderView;
+    
+    UIView *tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 16)];
+    tableViewFooterView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = tableViewFooterView;
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-    headerView.backgroundColor = [UIColor clearColor];
+    headerView.tag = 200;
+    headerView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"消息通知";
     titleLabel.textColor = [UIColor whiteColor];
@@ -96,6 +108,44 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [HTNotificationCell calculateCellHeightWithText:_notices[indexPath.row].content];
+}
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    //隐藏
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view viewWithTag:9001].alpha = 0;
+        [self.view viewWithTag:200].alpha = 0;
+    }];
+    
+    if (scrollView.contentOffset.y <= 64) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view viewWithTag:9001].alpha = 1;
+            [self.view viewWithTag:200].alpha = 1;
+        } completion:^(BOOL finished) {
+            
+        }];
+    } else {
+        if (lastOffsetY >= scrollView.contentOffset.y) {
+            [UIView animateWithDuration:0.3 animations:^{
+                //显示
+                [self.view viewWithTag:9001].alpha = 1;
+                [self.view viewWithTag:200].alpha = 1;
+            } completion:^(BOOL finished) {
+                
+            }];
+        } else {
+            [UIView animateWithDuration:0.3 animations:^{
+                //隐藏
+                [self.view viewWithTag:9001].alpha = 0;
+                [self.view viewWithTag:200].alpha = 0;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }
+    }
+    lastOffsetY = scrollView.contentOffset.y;
 }
 
 @end
