@@ -1511,22 +1511,20 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward *)reward{
     [controller dismissViewControllerAnimated:NO completion:^{
+        [_composeView showAnswerCorrect:YES];
+        self.isAnswered = YES;
+        self.reward = reward;
+        [_composeView endEditing:YES];
+        [_composeView removeFromSuperview];
+        [self removeDimmingView];
+        [self showRewardViewWithReward:nil];
+        
         [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
         [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
             self.top10Array = userRankList;
         }];
         [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
             self.currentQuestion = [questionList_season2 lastObject];
-            self.currentQuestion.is_answer = YES;
-            [_composeView showAnswerCorrect:YES];
-            self.isAnswered = YES;
-            self.reward = reward;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [_composeView endEditing:YES];
-                [_composeView removeFromSuperview];
-                [self removeDimmingView];
-                [self showRewardViewWithReward:nil];
-            });
         }];
     }];
 }
