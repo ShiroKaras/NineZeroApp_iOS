@@ -32,6 +32,7 @@
     
     UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_shading"]];
     backImageView.tag = 202;
+    backImageView.alpha = 0;
     backImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 64);
     backImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:backImageView];
