@@ -1414,22 +1414,41 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         }];
     } else {
         if (self.type == SKQuestionTypeHistoryLevel) {
-            //往期关卡-线下题（地标已毁坏）
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prompt_Invalid Invalid"]];
-            [imageView sizeToFit];
-            imageView.right = _answerButton.right +33;
-            imageView.bottom = _answerButton.top -5;
-            imageView.alpha = 0;
-            [self.view addSubview:imageView];
-            [UIView animateWithDuration:0.5 animations:^{
-                imageView.alpha = 1;
-            } completion:^(BOOL finished) {
-                [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                    imageView.alpha = 0;
+            if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH || SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+                //往期关卡-线下题（地标已毁坏）
+                UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prompt_Invalid Invalid-1"]];
+                [imageView sizeToFit];
+                imageView.right = self.view.right-10;
+                imageView.bottom = _answerButton.top -5;
+                imageView.alpha = 0;
+                [self.view addSubview:imageView];
+                [UIView animateWithDuration:0.5 animations:^{
+                    imageView.alpha = 1;
                 } completion:^(BOOL finished) {
-                    [imageView removeFromSuperview];
+                    [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        imageView.alpha = 0;
+                    } completion:^(BOOL finished) {
+                        [imageView removeFromSuperview];
+                    }];
                 }];
-            }];
+            } else {
+                //往期关卡-线下题（地标已毁坏）
+                UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prompt_Invalid Invalid"]];
+                [imageView sizeToFit];
+                imageView.right = _answerButton.right +33;
+                imageView.bottom = _answerButton.top -5;
+                imageView.alpha = 0;
+                [self.view addSubview:imageView];
+                [UIView animateWithDuration:0.5 animations:^{
+                    imageView.alpha = 1;
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        imageView.alpha = 0;
+                    } completion:^(BOOL finished) {
+                        [imageView removeFromSuperview];
+                    }];
+                }];
+            }
         } else if (self.type == SKQuestionTypeTimeLimitLevel){
             //限时关卡-线下题目
             if (self.currentQuestion.base_type == 1) {
