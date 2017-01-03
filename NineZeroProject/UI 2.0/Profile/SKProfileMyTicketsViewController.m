@@ -33,7 +33,7 @@
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
     [self.view addSubview:self.tableView];
     
-    UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64+8)];
     tableViewHeaderView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = tableViewHeaderView;
     
@@ -43,7 +43,7 @@
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     headerView.tag = 200;
-    headerView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    headerView.backgroundColor = COMMON_SEPARATOR_COLOR;
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"我的礼券";
     titleLabel.textColor = [UIColor whiteColor];

@@ -79,7 +79,7 @@
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    [layout setHeaderReferenceSize:CGSizeMake(320, 64)];
+    [layout setHeaderReferenceSize:CGSizeMake(320, 64+8)];
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) collectionViewLayout:layout];
     _collectionView.bounces = NO;
     _collectionView.delegate = self;
@@ -89,7 +89,7 @@
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     headerView.tag = 200;
-    headerView.backgroundColor = [UIColor clearColor];
+    headerView.backgroundColor = COMMON_SEPARATOR_COLOR;
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"已收集的玩意儿";
     titleLabel.textColor = [UIColor whiteColor];

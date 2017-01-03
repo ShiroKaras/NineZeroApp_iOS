@@ -44,7 +44,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
-    headerView.backgroundColor = [UIColor clearColor];
+    headerView.backgroundColor = COMMON_SEPARATOR_COLOR;
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"帮助我们进步";
     titleLabel.textColor = [UIColor whiteColor];
@@ -54,7 +54,7 @@
     [headerView addSubview:titleLabel];
     [self.view addSubview:headerView];
     
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(10, 64, SCREEN_WIDTH-20, 205)];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(10, 64+8, SCREEN_WIDTH-20, 205)];
     backView.backgroundColor = COMMON_SEPARATOR_COLOR;
     backView.layer.cornerRadius = 5;
     backView.layer.masksToBounds = YES;
