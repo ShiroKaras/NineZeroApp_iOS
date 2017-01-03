@@ -121,16 +121,12 @@
 #pragma mark - UIScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    //隐藏
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.view viewWithTag:9001].alpha = 0;
-        [self.view viewWithTag:200].alpha = 0;
-    }];
-    
     if (scrollView.contentOffset.y <= 64) {
         [UIView animateWithDuration:0.3 animations:^{
             [self.view viewWithTag:9001].alpha = 1;
             [self.view viewWithTag:200].alpha = 1;
+            [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
+            [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
         } completion:^(BOOL finished) {
             
         }];
@@ -140,6 +136,8 @@
                 //显示
                 [self.view viewWithTag:9001].alpha = 1;
                 [self.view viewWithTag:200].alpha = 1;
+                [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
+                [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
             } completion:^(BOOL finished) {
                 
             }];
@@ -148,6 +146,8 @@
                 //隐藏
                 [self.view viewWithTag:9001].alpha = 0;
                 [self.view viewWithTag:200].alpha = 0;
+                [self.view viewWithTag:9001].bottom = 0;
+                [self.view viewWithTag:200].bottom = 0;
             } completion:^(BOOL finished) {
                 
             }];

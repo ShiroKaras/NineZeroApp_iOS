@@ -166,16 +166,14 @@
 #pragma mark - UIScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    //隐藏
-    [[self viewController].view viewWithTag:9001].alpha = 0;
-    [[self viewController].view viewWithTag:201].alpha = 0;
-    [[self viewController].view viewWithTag:202].alpha = 0;
-    
     if (scrollView.contentOffset.y <= 64) {
         [UIView animateWithDuration:0.3 animations:^{
             [[self viewController].view viewWithTag:9001].alpha = 1;
             [[self viewController].view viewWithTag:201].alpha = 1;
             [[self viewController].view viewWithTag:202].alpha = 0;
+            [[self viewController].view viewWithTag:9001].bottom = [[self viewController].view viewWithTag:9001].height+12;
+            [[self viewController].view viewWithTag:201].bottom = [[self viewController].view viewWithTag:201].height;
+            [[self viewController].view viewWithTag:202].bottom = [[self viewController].view viewWithTag:201].height;
         } completion:^(BOOL finished) {
             
         }];
@@ -186,6 +184,9 @@
                 [[self viewController].view viewWithTag:9001].alpha = 1;
                 [[self viewController].view viewWithTag:201].alpha = 1;
                 [[self viewController].view viewWithTag:202].alpha = 1;
+                [[self viewController].view viewWithTag:9001].bottom = [[self viewController].view viewWithTag:9001].height+12;
+                [[self viewController].view viewWithTag:201].bottom = [[self viewController].view viewWithTag:201].height;
+                [[self viewController].view viewWithTag:202].bottom = [[self viewController].view viewWithTag:201].height;
             } completion:^(BOOL finished) {
                 
             }];
@@ -195,6 +196,9 @@
                 [[self viewController].view viewWithTag:9001].alpha = 0;
                 [[self viewController].view viewWithTag:201].alpha = 0;
                 [[self viewController].view viewWithTag:202].alpha = 0;
+                [[self viewController].view viewWithTag:9001].bottom = 0;
+                [[self viewController].view viewWithTag:201].bottom = 0;
+                [[self viewController].view viewWithTag:202].bottom = 0;
             } completion:^(BOOL finished) {
                 
             }];
