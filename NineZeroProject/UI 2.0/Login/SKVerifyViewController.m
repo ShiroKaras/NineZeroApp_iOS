@@ -9,8 +9,6 @@
 #import "SKVerifyViewController.h"
 #import "HTUIHeader.h"
 
-#import "SKConfirmPasswordViewController.h"
-
 @interface SKVerifyViewController ()
 
 @property (nonatomic, strong) UITextField *verifyCodeTextField;
@@ -194,6 +192,9 @@
             [[[SKServiceManager sharedInstance] loginService] registerWith:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
                 if (response.result == 0) {
                     //登录成功进入主页
+                    _type = SKVerifyTypeUnknow;
+                    _blackView.hidden = NO;
+                    [self.view bringSubviewToFront:_blackView];
                     [self.view endEditing:YES];
                     SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
                     AppDelegateInstance.mainController = controller;
@@ -214,8 +215,9 @@
             [[[SKServiceManager sharedInstance] loginService] resetPassword:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
                 if (response.result == 0) {
                     //登录成功进入主页
+                    _type = SKVerifyTypeUnknow;
                     _blackView.hidden = NO;
-                    [_blackView bringSubviewToFront:_blackView];
+                    [self.view bringSubviewToFront:_blackView];
                     [self.view endEditing:YES];
                     SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
                     AppDelegateInstance.mainController = controller;
