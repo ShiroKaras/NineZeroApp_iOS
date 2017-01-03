@@ -469,7 +469,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (i==0) {
                 btn.hidden = NO;
                 [_triangleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(_contentView.mas_bottom);
+                    make.top.equalTo(_contentView.mas_bottom).offset(-1);
                     make.centerX.equalTo(btn.mas_centerX);
                 }];
             }
@@ -1966,12 +1966,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 //                [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
             }
             [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(_contentView.mas_bottom);
+                make.top.equalTo(_contentView.mas_bottom).offset(-1);
                 make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*self.currentIndex+ROUND_WIDTH_FLOAT(40)/2-9.5));
             }];
         } else if (self.currentIndex == 4) {
             [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(_contentView.mas_bottom);
+                make.top.equalTo(_contentView.mas_bottom).offset(-1);
                 make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*1+ROUND_WIDTH_FLOAT(40)/2-9.5));
             }];
         }
