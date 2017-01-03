@@ -19,7 +19,7 @@
 #define HINT_BUTTON_2 201
 #define HINT_BUTTON_3 202
 
-@interface SKHintView ()
+@interface SKHintView () <SKMascotSkillDelegate>
 @property (nonatomic, assign) NSInteger     season;
 @property (nonatomic, assign) NSInteger     hintPropCount;
 @property (nonatomic, strong) UIImageView   *iconImageView;     //标记
@@ -305,7 +305,14 @@
 
 - (void)addButtonClick:(UIButton *)sender {
     SKMascotSkillView *purchaseView = [[SKMascotSkillView alloc] initWithFrame:self.frame Type:SKMascotTypeDefault isHad:YES];
+    purchaseView.delegate = self;
     [self addSubview:purchaseView];
+}
+
+#pragma mark - SKMascotSkillDelegate
+
+- (void)didClickCloseButtonMascotSkillView:(SKMascotSkillView *)view {
+    [self loadData];
 }
 
 //获取view对应的控制器

@@ -846,6 +846,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)purchasePropButtonOnClick:(UIButton*)sender {
     [_dimmingView removeFromSuperview];
     SKMascotSkillView *purchaseView = [[SKMascotSkillView alloc] initWithFrame:self.view.bounds Type:SKMascotTypeDefault isHad:YES];
+    purchaseView.delegate = self;
     [self.view addSubview:purchaseView];
 }
 

@@ -809,12 +809,9 @@
 //倒计时
 - (void)timeS1Hint {
     time_t delta = self.defaultMascotDetail.first_season.clue_cooling_time;
-    time_t oneHour = 3600;
-    time_t hour = delta / oneHour;
-    time_t minute = (delta % oneHour) / 60;
-    time_t second = delta - hour * oneHour - minute * 60;
+    time_t minute = delta / 60;
+    time_t second = delta - minute * 60;
     self.defaultMascotDetail.first_season.clue_cooling_time--;
-    NSLog(@"%ld", self.defaultMascotDetail.first_season.clue_cooling_time);
     if (delta > 0) {
         _timeDownBackLabel1.text = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
     } else {
@@ -825,10 +822,8 @@
 
 - (void)timeS1Answer {
     time_t delta = self.defaultMascotDetail.first_season.answer_cooling_time;
-    time_t oneHour = 3600;
-    time_t hour = delta / oneHour;
-    time_t minute = (delta % oneHour) / 60;
-    time_t second = delta - hour * oneHour - minute * 60;
+    time_t minute = delta / 60;
+    time_t second = delta - minute * 60;
     self.defaultMascotDetail.first_season.answer_cooling_time--;
     if (delta > 0) {
         _timeDownBackLabel2.text = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
@@ -840,10 +835,8 @@
 
 - (void)timeS2Hint {
     time_t delta = self.defaultMascotDetail.second_season.clue_cooling_time;
-    time_t oneHour = 3600;
-    time_t hour = delta / oneHour;
-    time_t minute = (delta % oneHour) / 60;
-    time_t second = delta - hour * oneHour - minute * 60;
+    time_t minute = delta / 60;
+    time_t second = delta - minute * 60;
     self.defaultMascotDetail.second_season.clue_cooling_time--;
     if (delta > 0) {
         _timeDownBackLabel3.text = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
@@ -855,10 +848,8 @@
 
 - (void)timeS2Answer {
     time_t delta = self.defaultMascotDetail.second_season.answer_cooling_time;
-    time_t oneHour = 3600;
-    time_t hour = delta / oneHour;
-    time_t minute = (delta % oneHour) / 60;
-    time_t second = delta - hour * oneHour - minute * 60;
+    time_t minute = delta / 60;
+    time_t second = delta  - minute * 60;
     self.defaultMascotDetail.second_season.answer_cooling_time--;
     if (delta > 0) {
         _timeDownBackLabel4.text = [NSString stringWithFormat:@"%02ld:%02ld", minute, second];

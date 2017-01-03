@@ -218,6 +218,7 @@
     
     //倒计时
     _timeCountDownBackView = [UIView new];
+    _timeCountDownBackView.alpha = 0;
     _timeCountDownBackView.layer.cornerRadius = 3;
     _timeCountDownBackView.backgroundColor = [UIColor colorWithHex:0xFF063E];
     [self.view addSubview:_timeCountDownBackView];
@@ -239,7 +240,10 @@
         make.center.equalTo(_timeCountDownBackView);
     }];
     
+    
+    //休息日倒计时
     _timeCountDownBackView_isMonday = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"popup_homepage_timer"]];
+    _timeCountDownBackView_isMonday.alpha = 0;
     [self.view addSubview:_timeCountDownBackView_isMonday];
     [_timeCountDownBackView_isMonday mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(56), ROUND_WIDTH_FLOAT(56)/2));
@@ -247,7 +251,6 @@
         make.bottom.equalTo(_timeLimitLevelButton).offset(ROUND_HEIGHT_FLOAT(-89));
     }];
     
-    //休息日倒计时
     _timeCountDownLabel_isMonday = [UILabel new];
     _timeCountDownLabel_isMonday.font = MOON_FONT_OF_SIZE(12);
     _timeCountDownLabel_isMonday.textColor = [UIColor whiteColor];
