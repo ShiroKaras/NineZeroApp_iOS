@@ -32,16 +32,12 @@
     ticketBackgoundImageView.frame = self.frame;
     [self addSubview:ticketBackgoundImageView];
     
-    UIImageView *ticketImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 6, self.width, self.height-12)];
+    UIImageView *ticketImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
     ticketImageView.layer.masksToBounds = YES;
+    ticketImageView.layer.cornerRadius =5;
     ticketImageView.contentMode = UIViewContentModeScaleAspectFill;
     [ticketImageView sd_setImageWithURL:[NSURL URLWithString:self.ticket.ticket_cover]];
     [self addSubview:ticketImageView];
-    
-    UIImageView *lineImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_couponline"]];
-    lineImageView.frame = self.frame;
-    lineImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self addSubview:lineImageView];
     
     UILabel *ticketTitleLabel = [UILabel new];
     ticketTitleLabel.text = self.ticket.title;
