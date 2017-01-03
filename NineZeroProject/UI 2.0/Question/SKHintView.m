@@ -204,34 +204,39 @@
     }
 }
 
-- (void)showAlertViewWithText:(NSString *)text {
-    UIView *alertViewBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    alertViewBackView.backgroundColor = [UIColor clearColor];
-    [self addSubview:alertViewBackView];
+- (void)showPromptWithText:(NSString *)text {
+    [[self viewWithTag:300] removeFromSuperview];
+    UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
+    [promptImageView sizeToFit];
     
-    UIImageView *propmtImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
-    [propmtImageView sizeToFit];
-    [alertViewBackView addSubview:propmtImageView];
-    [propmtImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(alertViewBackView);
-    }];
+    UIView *promptView = [UIView new];
+    promptView.tag = 300;
+    promptView.size = promptImageView.size;
+    promptView.center = self.center;
+    promptView.alpha = 0;
+    [self addSubview:promptView];
     
-    UILabel *_promptLabel = [UILabel new];
-    _promptLabel.text = text;
-    _promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
-    _promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
-    _promptLabel.textAlignment = NSTextAlignmentCenter;
-    [_promptLabel sizeToFit];
-    [propmtImageView addSubview:_promptLabel];
-    [_promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(propmtImageView);
-        make.centerY.equalTo(propmtImageView).offset(10);
-    }];
+    promptImageView.frame = CGRectMake(0, 0, promptView.width, promptView.height);
+    [promptView addSubview:promptImageView];
     
-    [UIView animateWithDuration:0.5 delay:3 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        alertViewBackView.alpha = 0;
+    UILabel *promptLabel = [UILabel new];
+    promptLabel.text = text;
+    promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
+    promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    promptLabel.textAlignment = NSTextAlignmentCenter;
+    [promptLabel sizeToFit];
+    [promptView addSubview:promptLabel];
+    promptLabel.frame = CGRectMake(8.5, 11, promptView.width-17, 57);
+    
+    promptView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        promptView.alpha = 1;
     } completion:^(BOOL finished) {
-        [alertViewBackView removeFromSuperview];
+        [UIView animateWithDuration:0.3 delay:1.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            promptView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [promptView removeFromSuperview];
+        }];
     }];
 }
 
@@ -248,28 +253,29 @@
 //获取提示
 - (void)getHintButtonClick:(UIButton *)sender {
     if (self.hintPropCount == 0) {
-        [self showAlertViewWithText:@"线索道具不足，点击右上角补充"];
+        [self showPromptWithText:@"线索道具不足，点击右上角补充"];
     } else {
         if ([self.hintList.hint_one isEqualToString:@""]) {
             if (sender.tag == HINT_BUTTON_2 || sender.tag == HINT_BUTTON_3) {
-                [self showAlertViewWithText:@"请先解锁前面的线索"];
+                [self showPromptWithText:@"请先解锁前面的线索"];
                 return;
             }
         } else if ([self.hintList.hint_two isEqualToString:@""]) {
             if (sender.tag == HINT_BUTTON_3) {
-                [self showAlertViewWithText:@"请先解锁前面的线索"];
+                [self showPromptWithText:@"请先解锁前面的线索"];
                 return;
             }
         }
         
         [[[SKServiceManager sharedInstance] questionService] purchaseQuestionClueWithQuestionID:self.question.qid callback:^(BOOL success, SKResponsePackage *response) {
-            if (response.result == 0) {
-                [[self viewController] showTipsWithText:@"获得新的线索"];
+            if (response.result == 0)
+            {
+                [self showPromptWithText:@"获得新的线索"];
                 [self showNumberLabelWithButton:sender];
             } else if (response.result == -3007) {
-                [[self viewController] showTipsWithText:@"已经获得所有线索"];
+                [self showPromptWithText:@"已经获得所有线索"];
             } else if (response.result == -3008) {
-                [[self viewController] showTipsWithText:@"线索道具不足"];
+                [self showPromptWithText:@"线索道具不足"];
             }
             [self loadData];
         }];
