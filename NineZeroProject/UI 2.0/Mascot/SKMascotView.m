@@ -976,13 +976,13 @@
     if (self) {
         _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
         _mascotTitleDict = @{
-                             @"lingzai"     :   @"零仔·〇",
-                             @"envy"        :   @"嫉妒\nEnvy·A",
-                             @"gluttony"    :   @"饕餮\nGluttony·T",
-                             @"pride"       :   @"嫉妒\nPride·W",
-                             @"sloth"       :   @"懒惰\nSloth·S",
-                             @"wrath"       :   @"愤怒\nWrath·C",
-                             @"lust"        :   @"色欲\nLust·B"
+                             @"lingzai"     :   @"img_info_lingzai",
+                             @"envy"        :   @"img_info_envy",
+                             @"gluttony"    :   @"img_info_gluttony",
+                             @"pride"       :   @"img_info_pride",
+                             @"sloth"       :   @"img_info_sloth",
+                             @"wrath"       :   @"img_info_wrath",
+                             @"lust"        :   @"img_info_lust"
                              };
         _mascotContentDict = @{
                                @"lingzai"     :   @"传说中的529D星球。〇纯洁如一张白纸，却孤独如一片深海。虽然这个世界与自己残存的记忆中的星球有太多类似的地方，但是它还是需要找到529D星球的一些线索，它希望知道自己的来处，希望了解关于529D星球的一切真相。",
@@ -1026,25 +1026,21 @@
         make.left.equalTo(@4);
     }];
     
-    UILabel *titleLabel = [UILabel new];
-    titleLabel.text = _mascotTitleDict[_mascotNameArray[type]];
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = PINGFANG_FONT_OF_SIZE(24);
-    titleLabel.numberOfLines = 2;
-    [self addSubview:titleLabel];
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@66);
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:_mascotTitleDict[_mascotNameArray[type]]]];
+    [self addSubview:titleImageView];
+    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(ROUND_WIDTH(150));
+        make.height.equalTo(ROUND_WIDTH(56.5));
         make.centerX.equalTo(self);
+        make.top.equalTo(@64);
     }];
-    
     
     //间距
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = 8;// 字体的行间距
     
     NSDictionary *attributes = @{
-                                 NSFontAttributeName:PINGFANG_FONT_OF_SIZE(14),
+                                 NSFontAttributeName:PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(14)),
                                  NSParagraphStyleAttributeName:paragraphStyle,
                                  NSForegroundColorAttributeName:[UIColor whiteColor]
                                  };
@@ -1054,7 +1050,7 @@
     textView.editable = NO;
     [self addSubview:textView];
     [textView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(titleLabel.mas_bottom).offset(20);
+        make.top.equalTo(titleImageView.mas_bottom).offset(27);
         make.left.equalTo(@16);
         make.right.equalTo(self.mas_right).offset(-16);
         make.bottom.equalTo(self.mas_bottom).offset(-20);
