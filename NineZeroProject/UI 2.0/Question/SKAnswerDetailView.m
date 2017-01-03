@@ -117,6 +117,7 @@
     
     _contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, _headerImageView.bottom+12, self.width-20, (self.width-20)/280*157.5)];
     _contentImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _contentImageView.layer.masksToBounds = YES;
     [_backScrollView addSubview:_contentImageView];
     
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
