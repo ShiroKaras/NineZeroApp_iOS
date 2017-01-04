@@ -69,8 +69,18 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] profileService] getPieces:^(BOOL success, NSArray<SKPiece *> *pieces) {
-        self.pieceArray = pieces;
-        [self.collectionView reloadData];
+        if (pieces.count == 0) {
+            UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+            converView.backgroundColor = COMMON_BG_COLOR;
+            [self.view addSubview:converView];
+            HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+            [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+            [self.view addSubview:blankView];
+            blankView.top = ROUND_HEIGHT_FLOAT(217);
+        } else {
+            self.pieceArray = pieces;
+            [self.collectionView reloadData];
+        }
     }];
 }
 

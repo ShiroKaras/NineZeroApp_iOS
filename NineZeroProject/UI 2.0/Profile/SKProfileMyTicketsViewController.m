@@ -71,8 +71,18 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] profileService] getUserTicketsCallbackCallback:^(BOOL suceese, NSArray<SKTicket *> *tickets) {
-        self.ticketArray = tickets;
-        [self.tableView reloadData];
+        if (tickets.count == 0) {
+            UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 72, self.view.width, self.view.height-72)];
+            converView.backgroundColor = COMMON_BG_COLOR;
+            [self.view addSubview:converView];
+            HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+            [blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
+            [self.view addSubview:blankView];
+            blankView.top = ROUND_HEIGHT_FLOAT(217);
+        } else {
+            self.ticketArray = tickets;
+            [self.tableView reloadData];
+        }
     }];
 }
 

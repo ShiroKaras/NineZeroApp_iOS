@@ -12,7 +12,7 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "SharkfoodMuteSwitchDetector.h"
-#import <ZipArchive.h>
+#import <SSZipArchive/ZipArchive.h>
 
 #import "SKTicketView.h"
 #import "SKHintView.h"
