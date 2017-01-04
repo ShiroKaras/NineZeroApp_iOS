@@ -8,6 +8,7 @@
 
 #import "SKMascotView.h"
 #import "HTUIHeader.h"
+#import "YYImage.h"
 
 @interface SKMascotView ()
 @property (nonatomic, strong) UIButton *fightButton;        //战斗按钮
@@ -15,7 +16,7 @@
 @property (nonatomic, strong) UIButton *skillButton;        //技能按钮
 @property (nonatomic, strong) UIButton *infoButton;         //信息按钮
 
-@property (nonatomic, strong) UIImageView *mBlankImageView;
+@property (nonatomic, strong) YYAnimatedImageView *mBlankImageView;
 
 @property (nonatomic, strong) NSArray *mascotNameArray;
 @property (nonatomic, assign) SKMascotType mascotType;
@@ -35,9 +36,14 @@
 
 - (void)createUIWithType:(SKMascotType)type {
     self.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
-    _mBlankImageView= [[UIImageView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-SCREEN_WIDTH-150, SCREEN_WIDTH, SCREEN_WIDTH)];
+
+    _mBlankImageView= [[YYAnimatedImageView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-SCREEN_WIDTH-150, SCREEN_WIDTH, SCREEN_WIDTH)];
     _mBlankImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_lingzaipage_%@__blank", _mascotNameArray[_mascotType]]];
+    _mBlankImageView.userInteractionEnabled = YES;
     [self addSubview:_mBlankImageView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot:)];
+    [_mBlankImageView addGestureRecognizer:tap];
 }
 
 - (void)hide {
@@ -50,6 +56,10 @@
 
 - (void)showRandom {
 //    _mBlankImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_lingzaipage_%@__blank", _mascotNameArray[_mascotType]]];
+}
+
+- (void)onClickMascot:(UITapGestureRecognizer*)sender {
+    
 }
 
 @end
