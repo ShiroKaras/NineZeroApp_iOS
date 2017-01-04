@@ -85,7 +85,7 @@
             _contentView.top = _headerImageView.bottom +16;
         } else if (answerDetail.article_Illustration_type == 1) {
             _playButton.hidden = NO;
-            [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_cover_url]];
+            [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_cover]];
         } else if (answerDetail.article_Illustration_type == 2) {
             [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_url]];
         }
@@ -113,6 +113,7 @@
     
     _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(7, 11+40+5, self.frame.size.width-14, (self.frame.size.width-14)/307*72)];
     _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _headerImageView.layer.masksToBounds = YES;
     [_backScrollView addSubview:_headerImageView];
     
     _contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, _headerImageView.bottom+12, self.width-20, (self.width-20)/280*157.5)];

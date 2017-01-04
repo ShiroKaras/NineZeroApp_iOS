@@ -163,11 +163,9 @@
         SKAnswerDetail *answerDetail = [SKAnswerDetail objectWithKeyValues:[response.data keyValues]];
         NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
         if (answerDetail.article_Illustration) [downloadKeys addObject:answerDetail.article_Illustration];
-        if (answerDetail.article_Illustration_cover) [downloadKeys addObject:answerDetail.article_Illustration_cover];
         [[[SKServiceManager sharedInstance] commonService] getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, SKResponsePackage *response) {
             if (success) {
                 if (answerDetail.article_Illustration) answerDetail.article_Illustration_url = response.data[answerDetail.article_Illustration];
-                if (answerDetail.article_Illustration_cover) answerDetail.article_Illustration_cover_url = response.data[answerDetail.article_Illustration_cover];
                 callback(success, answerDetail);
             } else {
                 callback(false, answerDetail);
