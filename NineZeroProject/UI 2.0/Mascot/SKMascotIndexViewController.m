@@ -11,6 +11,7 @@
 
 #import "SKMascotView.h"
 #import "SKMascotAlbumView.h"
+#import "SKMascotFightViewController.h"
 
 #define MASCOT_VIEW_DEFAULT 100
 
@@ -81,18 +82,9 @@
         [_mScrollView addSubview:mascotView];
     }
     
-//    UIButton *closeButton = [UIButton new];
-//    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-//    [self.view addSubview:closeButton];
-//    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(@12);
-//        make.left.equalTo(@4);
-//    }];
-    
     //按钮组
     _fightButton = [UIButton new];
+    [_fightButton addTarget:self action:@selector(fightButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _fightButton.hidden = YES;
     [self.view addSubview:_fightButton];
     [_fightButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -198,6 +190,11 @@
 - (void)mascotdexButtonClick:(UIButton*)sender {
     SKMascotAlbumView *mascotAlbumView = [[SKMascotAlbumView alloc] initWithFrame:self.view.bounds withMascotArray:self.mascotArray];
     [self.view addSubview:mascotAlbumView];
+}
+
+- (void)fightButtonClick:(UIButton *)sender {
+    SKMascotFightViewController *controller = [[SKMascotFightViewController alloc] init];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 #pragma mark - UIScrollViewDelegate

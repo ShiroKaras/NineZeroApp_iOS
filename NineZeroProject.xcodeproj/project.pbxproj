@@ -18,6 +18,8 @@
 		112167611CEF565A0048EA01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1121675F1CEF565A0048EA01 /* LaunchScreen.storyboard */; };
 		112167641CF0637B0048EA01 /* SKLaunchAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 112167631CF0637B0048EA01 /* SKLaunchAnimationViewController.m */; };
 		1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */; };
+		112532A21E1C9D5C00FB4425 /* SKMascotFightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 112532A11E1C9D5C00FB4425 /* SKMascotFightViewController.m */; };
+		112532A51E1CA29C00FB4425 /* SKMascotFightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 112532A41E1CA29C00FB4425 /* SKMascotFightManager.m */; };
 		1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */; };
 		11293C3D1E03B7150064F1E5 /* SKComposeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11293C3C1E03B7150064F1E5 /* SKComposeView.m */; };
 		1132B30B1DF506C100DA992F /* SKProfileIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1132B30A1DF506C100DA992F /* SKProfileIndexViewController.m */; };
@@ -805,6 +807,10 @@
 		112167631CF0637B0048EA01 /* SKLaunchAnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLaunchAnimationViewController.m; sourceTree = "<group>"; };
 		112167691CF3358D0048EA01 /* SKUserAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKUserAgreementViewController.h; path = NineZeroProject/UI/Login/SKUserAgreementViewController.h; sourceTree = "<group>"; };
 		1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKUserAgreementViewController.m; path = NineZeroProject/UI/Login/SKUserAgreementViewController.m; sourceTree = "<group>"; };
+		112532A01E1C9D5C00FB4425 /* SKMascotFightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMascotFightViewController.h; path = "NineZeroProject/UI 2.0/Mascot/SKMascotFightViewController.h"; sourceTree = "<group>"; };
+		112532A11E1C9D5C00FB4425 /* SKMascotFightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMascotFightViewController.m; path = "NineZeroProject/UI 2.0/Mascot/SKMascotFightViewController.m"; sourceTree = "<group>"; };
+		112532A31E1CA29C00FB4425 /* SKMascotFightManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMascotFightManager.h; path = "NineZeroProject/UI 2.0/Mascot/SKMascotFightManager.h"; sourceTree = "<group>"; };
+		112532A41E1CA29C00FB4425 /* SKMascotFightManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMascotFightManager.m; path = "NineZeroProject/UI 2.0/Mascot/SKMascotFightManager.m"; sourceTree = "<group>"; };
 		1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		11293C3B1E03B7150064F1E5 /* SKComposeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKComposeView.h; path = "NineZeroProject/UI 2.0/Question/SKComposeView.h"; sourceTree = "<group>"; };
 		11293C3C1E03B7150064F1E5 /* SKComposeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKComposeView.m; path = "NineZeroProject/UI 2.0/Question/SKComposeView.m"; sourceTree = "<group>"; };
@@ -1785,6 +1791,10 @@
 				1106FFE61DD9AC570002E36C /* SKMascotView.m */,
 				11C764531E1144B500D86F40 /* SKMascotAlbumView.h */,
 				11C764541E1144B500D86F40 /* SKMascotAlbumView.m */,
+				112532A01E1C9D5C00FB4425 /* SKMascotFightViewController.h */,
+				112532A11E1C9D5C00FB4425 /* SKMascotFightViewController.m */,
+				112532A31E1CA29C00FB4425 /* SKMascotFightManager.h */,
+				112532A41E1CA29C00FB4425 /* SKMascotFightManager.m */,
 			);
 			name = Mascot;
 			sourceTree = "<group>";
@@ -4363,6 +4373,7 @@
 				1133DD781E0A4BB30029511B /* SKRankViewController.m in Sources */,
 				17A92CCB1CA809B100BE893D /* MJRefreshAutoFooter.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
+				112532A21E1C9D5C00FB4425 /* SKMascotFightViewController.m in Sources */,
 				17F37A761C255420006759D1 /* HUD+Utility.m in Sources */,
 				11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */,
 				1787FD1C1C4A8884006E55A6 /* ARRadar.m in Sources */,
@@ -4409,6 +4420,7 @@
 				17A92CD41CA809B100BE893D /* MJRefreshBackNormalFooter.m in Sources */,
 				11C764731E120E5300D86F40 /* NSObject+MJClass.m in Sources */,
 				17A92CD81CA809B100BE893D /* MJRefreshStateHeader.m in Sources */,
+				112532A51E1CA29C00FB4425 /* SKMascotFightManager.m in Sources */,
 				1160FB411E0E927F00606F16 /* SKShareView.m in Sources */,
 				1132B30B1DF506C100DA992F /* SKProfileIndexViewController.m in Sources */,
 				1160FB711E0FC4F600606F16 /* SKSwipeViewController.m in Sources */,
