@@ -1770,7 +1770,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_dimmingView addGestureRecognizer:tap];
     
     [UIView animateWithDuration:0.3 animations:^{
-        alphaView.alpha = 0.9;
+        alphaView.alpha = 0.6;
     }];
     
     UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_share"]];
