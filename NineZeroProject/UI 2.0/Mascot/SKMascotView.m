@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UIButton *skillButton;        //技能按钮
 @property (nonatomic, strong) UIButton *infoButton;         //信息按钮
 
+@property (nonatomic, strong) UIImageView *mBlankImageView;
+
 @property (nonatomic, strong) NSArray *mascotNameArray;
 @property (nonatomic, assign) SKMascotType mascotType;
 @end
@@ -32,18 +34,22 @@
 }
 
 - (void)createUIWithType:(SKMascotType)type {
-    self.backgroundColor = [UIColor blackColor];
-    UIImageView *mBackImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    mBackImageView.backgroundColor = [UIColor clearColor];
-    [self addSubview:mBackImageView];
-}
-
-- (void)show {
-    self.backgroundColor = COMMON_GREEN_COLOR;
+    self.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    _mBlankImageView= [[UIImageView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-SCREEN_WIDTH-150, SCREEN_WIDTH, SCREEN_WIDTH)];
+    _mBlankImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_lingzaipage_%@__blank", _mascotNameArray[_mascotType]]];
+    [self addSubview:_mBlankImageView];
 }
 
 - (void)hide {
     self.backgroundColor = COMMON_PINK_COLOR;
+}
+
+- (void)showDefault {
+    _mBlankImageView.backgroundColor = COMMON_GREEN_COLOR;
+}
+
+- (void)showRandom {
+//    _mBlankImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_lingzaipage_%@__blank", _mascotNameArray[_mascotType]]];
 }
 
 @end

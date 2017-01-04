@@ -70,6 +70,7 @@
     _mScrollView.delegate = self;
     _mScrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 7, SCREEN_HEIGHT);
     _mScrollView.pagingEnabled = YES;
+    _mScrollView.bounces = NO;
     _mScrollView.showsHorizontalScrollIndicator = NO;
     _mScrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_mScrollView];
@@ -219,7 +220,7 @@
 
 - (void)updateButtonWithIndex:(NSInteger)index {
     if (index == SKMascotTypeDefault) {
-        [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) show];
+        [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) showRandom];
         _fightButton.hidden = YES;
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill"] forState:UIControlStateNormal];
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill_highlight"] forState:UIControlStateHighlighted];
@@ -230,7 +231,12 @@
         [_skillButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@skill", _mascotNameArray[index]]] forState:UIControlStateNormal];
         [_skillButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@skill_highlight", _mascotNameArray[index]]] forState:UIControlStateHighlighted];
         if (self.mascotArray[index].user_haved) {
-            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) show];
+            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) showRandom];
+            _fightButton.alpha = 1;
+            _fightButton.enabled = YES;
+        } else {
+            _fightButton.alpha = 0.4;
+            _fightButton.enabled = NO;
         }
     }
 }

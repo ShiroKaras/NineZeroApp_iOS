@@ -21,8 +21,9 @@ typedef enum : NSUInteger {
 @interface SKMascotView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType;
-- (void)show;
 - (void)hide;
+- (void)showDefault;
+- (void)showRandom;
 @end
 
 
