@@ -51,7 +51,7 @@
 }
 
 - (void)showDefault {
-    _mBlankImageView.backgroundColor = COMMON_GREEN_COLOR;
+    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_1", _mascotNameArray[_mascotType]]];
 }
 
 - (void)showRandom {
@@ -59,7 +59,7 @@
 }
 
 - (void)onClickMascot:(UITapGestureRecognizer*)sender {
-    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%3+1]];
+    [self showRandom];
 }
 
 @end

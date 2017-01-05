@@ -220,7 +220,7 @@
 
 - (void)updateButtonWithIndex:(NSInteger)index {
     if (index == SKMascotTypeDefault) {
-        [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) showRandom];
+        [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) showDefault];
         _fightButton.hidden = YES;
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill"] forState:UIControlStateNormal];
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill_highlight"] forState:UIControlStateHighlighted];
@@ -231,7 +231,7 @@
         [_skillButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@skill", _mascotNameArray[index]]] forState:UIControlStateNormal];
         [_skillButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@skill_highlight", _mascotNameArray[index]]] forState:UIControlStateHighlighted];
         if (self.mascotArray[index].user_haved) {
-            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) showRandom];
+            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) showDefault];
             _fightButton.alpha = 1;
             _fightButton.enabled = YES;
         } else {
