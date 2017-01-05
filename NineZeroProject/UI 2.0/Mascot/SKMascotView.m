@@ -55,7 +55,7 @@
 }
 
 - (void)showRandom {
-    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%3+1]];
+    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%2+2]];
 }
 
 - (void)onClickMascot:(UITapGestureRecognizer*)sender {
