@@ -16,7 +16,7 @@
 @property (nonatomic, strong) UIButton *skillButton;        //技能按钮
 @property (nonatomic, strong) UIButton *infoButton;         //信息按钮
 
-@property (nonatomic, strong) YYAnimatedImageView *mBlankImageView;
+@property (nonatomic, strong) HTImageView *mBlankImageView;
 
 @property (nonatomic, strong) NSArray *mascotNameArray;
 @property (nonatomic, assign) SKMascotType mascotType;
@@ -37,7 +37,7 @@
 - (void)createUIWithType:(SKMascotType)type {
     self.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
 
-    _mBlankImageView= [[YYAnimatedImageView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-SCREEN_WIDTH-150, SCREEN_WIDTH, SCREEN_WIDTH)];
+    _mBlankImageView= [[HTImageView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-SCREEN_WIDTH-150, SCREEN_WIDTH, SCREEN_WIDTH)];
     _mBlankImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_lingzaipage_%@__blank", _mascotNameArray[_mascotType]]];
     _mBlankImageView.userInteractionEnabled = YES;
     [self addSubview:_mBlankImageView];
@@ -55,11 +55,11 @@
 }
 
 - (void)showRandom {
-//    _mBlankImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_lingzaipage_%@__blank", _mascotNameArray[_mascotType]]];
+    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%3+1]];
 }
 
 - (void)onClickMascot:(UITapGestureRecognizer*)sender {
-    
+    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%3+1]];
 }
 
 @end
