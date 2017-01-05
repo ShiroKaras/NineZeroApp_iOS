@@ -18,7 +18,7 @@ typedef void (^SKQuestionListCallback) (BOOL success,NSInteger answeredQuestion_
 typedef void (^SKQuestionDetialCallback) (BOOL success, SKQuestion *question);
 typedef void (^SKQuestionHintListCallback) (BOOL success, NSInteger result, SKHintList *hintList);
 typedef void (^SKQuestionAnswerDetialCallback) (BOOL success, SKAnswerDetail *questionAnswerDetail);
-typedef void (^SKQuestionTop10Callback) (BOOL success, NSArray<SKUserInfo*> *userRankList);
+typedef void (^SKQuestionUserListCallback) (BOOL success, NSArray<SKUserInfo*> *userRankList);
 typedef void (^SKQuestionAnswerDetail) (BOOL success, SKAnswerDetail *answerDetail);
 
 @interface SKQuestionService : NSObject
@@ -47,8 +47,11 @@ typedef void (^SKQuestionAnswerDetail) (BOOL success, SKAnswerDetail *answerDeta
 //查看答案详情
 - (void)getQuestionAnswerDetailWithQuestionID:(NSString*)questionID callback:(SKQuestionAnswerDetail)callback;
 
+//获取随机参加者
+- (void)getRandomUserListWithQuestionID:(NSString *)questionID callback:(SKQuestionUserListCallback)callback;
+
 //前十名
-- (void)getQuestionTop10WithQuestionID:(NSString *)questionID callback:(SKQuestionTop10Callback)callback;
+- (void)getQuestionTop10WithQuestionID:(NSString *)questionID callback:(SKQuestionUserListCallback)callback;
 
 //分享题目
 - (void)shareQuestionWithQuestionID:(NSString *)questionID callback:(SKResponseCallback)callback;

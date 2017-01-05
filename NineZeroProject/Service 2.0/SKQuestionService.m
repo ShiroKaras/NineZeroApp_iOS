@@ -179,7 +179,24 @@
     }];
 }
 
-- (void)getQuestionTop10WithQuestionID:(NSString *)questionID callback:(SKQuestionTop10Callback)callback {
+- (void)getRandomUserListWithQuestionID:(NSString *)questionID callback:(SKQuestionUserListCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"getAnsweredRandUserList",
+                            @"area_id"      :   @"010",
+                            @"qid"          :   questionID
+                            };
+    [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray *rankList = [NSMutableArray array];
+        for (int i=0; i<[response.data count]; i++) {
+            SKUserInfo *userInfo = [SKUserInfo objectWithKeyValues:response.data[i]];
+            [rankList addObject:userInfo];
+        }
+        callback(success, rankList);
+    }];
+
+}
+
+- (void)getQuestionTop10WithQuestionID:(NSString *)questionID callback:(SKQuestionUserListCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"getTopAnsweredUserList",
                             @"area_id"      :   @"010",
