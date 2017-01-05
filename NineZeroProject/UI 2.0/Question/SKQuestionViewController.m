@@ -725,10 +725,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         //使用道具
         UIButton *usePropButton = [UIButton new];
         [usePropButton addTarget:self action:@selector(usePropButtonOnClick:) forControlEvents:UIControlEventTouchUpInside];
-        if (self.season == 2) {
+        if (self.season == 1) {
             [usePropButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateNormal];
             [usePropButton setBackgroundImage:[UIImage imageWithColor:COMMON_PINK_COLOR] forState:UIControlStateHighlighted];
-        } else if (self.season == 1) {
+        } else if (self.season == 2) {
             [usePropButton setBackgroundImage:[UIImage imageWithColor:COMMON_PINK_COLOR] forState:UIControlStateNormal];
             [usePropButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
         }
@@ -738,8 +738,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [usePropButton setTitle:@"使用道具" forState:UIControlStateNormal];
         [usePropButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [usePropButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        if (_season == 1)       usePropButton.backgroundColor = COMMON_GREEN_COLOR;
-        else if (_season == 2)  usePropButton.backgroundColor = COMMON_PINK_COLOR;
         [alertBackView addSubview:usePropButton];
         [usePropButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(120, 42));
@@ -750,7 +748,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         //购买道具
         UIButton *purchPropButton = [UIButton new];
         [purchPropButton addTarget:self action:@selector(purchasePropButtonOnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_PINK_COLOR] forState:UIControlStateNormal];
+        [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_RED_COLOR] forState:UIControlStateNormal];
         [purchPropButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
         purchPropButton.layer.cornerRadius = 3;
         purchPropButton.layer.masksToBounds = YES;
