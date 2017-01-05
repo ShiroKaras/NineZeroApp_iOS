@@ -913,6 +913,27 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.center.equalTo(button);
     }];
     
+    //Ticket
+    SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 362, 140) reward:self.reward.ticket];
+    if (isTicket) {
+        [rewardBackView addSubview:card];
+        if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+            [card mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@(362));
+                make.height.equalTo(@(140));
+                make.centerX.equalTo(rewardBackView);
+                make.bottom.equalTo(rewardBackView.mas_bottom).offset(-15);
+            }];
+        } else {
+            [card mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@280);
+                make.height.equalTo(@108);
+                make.centerX.equalTo(rewardBackView);
+                make.bottom.equalTo(rewardBackView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
+        }];
+        }
+    }
+    
     UIView *rewardBaseInfoView = [UIView new];
     rewardBaseInfoView.backgroundColor = [UIColor clearColor];
     [rewardBackView addSubview:rewardBaseInfoView];
@@ -920,32 +941,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.width.equalTo(@248);
         make.height.equalTo(@294);
         make.centerX.equalTo(rewardBackView);
-        if (isTicket)   make.top.equalTo(@16);
-        else            make.top.equalTo(@86);
+        if (isTicket)   make.top.equalTo(@((rewardBackView.height-card.height-294)/2));
+        else            make.top.equalTo(@((rewardBackView.height-294)/2));
     }];
     
     [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
-    
-    //Ticket
-    if (isTicket) {
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 362, 140) reward:self.reward.ticket];
-        [rewardBaseInfoView addSubview:card];
-        if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-            [card mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(@(362));
-                make.height.equalTo(@(140));
-                make.centerX.equalTo(rewardBaseInfoView);
-                make.bottom.equalTo(rewardBackView.mas_bottom).offset(-15);
-            }];
-        } else {
-            [card mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.width.equalTo(@280);
-                make.height.equalTo(@108);
-                make.centerX.equalTo(rewardBaseInfoView);
-                make.bottom.equalTo(rewardBackView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
-        }];
-        }
-    }
 }
 
 - (void)createRewardBaseInfoWithBaseInfoView:(UIView*)rewardBaseInfoView {
