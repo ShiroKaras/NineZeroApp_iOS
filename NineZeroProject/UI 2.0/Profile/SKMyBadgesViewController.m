@@ -49,7 +49,7 @@
         
         [_badgeLeftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(ROUND_WIDTH(120));
-            make.height.mas_equalTo(ROUND_WIDTH_FLOAT(120)/120*90);
+            make.height.mas_equalTo(ROUND_WIDTH_FLOAT(120)/120*99);
             make.left.equalTo(ROUND_WIDTH(22));
             make.bottom.equalTo(self.mas_bottom).offset(-14);
         }];

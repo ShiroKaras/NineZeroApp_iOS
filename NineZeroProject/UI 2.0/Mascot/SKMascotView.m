@@ -693,12 +693,12 @@
 }
 
 - (void)showSinMascotPromptWithText:(NSString*)text {
-    [[self viewWithTag:301] removeFromSuperview];
+    [[self viewWithTag:300] removeFromSuperview];
     UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_skillpage_prompt"]];
     [promptImageView sizeToFit];
     
     UIView *promptView = [UIView new];
-    promptView.tag = 301;
+    promptView.tag = 300;
     promptView.size = promptImageView.size;
     promptView.center = self.center;
     promptView.alpha = 0;
@@ -714,7 +714,9 @@
     promptLabel.textAlignment = NSTextAlignmentCenter;
     [promptLabel sizeToFit];
     [promptView addSubview:promptLabel];
-    promptLabel.frame = CGRectMake(8.5, 11, promptView.width-17, 57);
+    promptLabel.width = promptView.width-17;
+    promptLabel.left = 8.5;
+    promptLabel.bottom = promptView.height - 12;
     
     promptView.alpha = 0;
     [UIView animateWithDuration:0.3 animations:^{
@@ -888,13 +890,13 @@
 - (void)exchangeButtonClick:(UIButton*)sender {
     [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:_mascotIdArray[_type] callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
-            [self showSinMascotPromptWithText:@"技能施放成功"];
+            [self showSinMascotPromptWithText:@"魔法已生效"];
             _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_1_Label.text integerValue]-1];
             _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_2_Label.text integerValue]-1];
             _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_3_Label.text integerValue]-1];
             _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_4_Label.text integerValue]-1];
         } else if (response.result == -7009){
-            [self showSinMascotPromptWithText:@"已经有生效的魔法"];
+            [self showSinMascotPromptWithText:@"已有生效的魔法"];
         }
     }];
 }

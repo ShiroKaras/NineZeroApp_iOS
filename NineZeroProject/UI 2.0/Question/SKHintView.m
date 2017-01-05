@@ -104,7 +104,7 @@
     rightCornerBackView.backgroundColor = [UIColor blackColor];
     [self addSubview:rightCornerBackView];
     [rightCornerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@(97+15));
+        make.width.equalTo(@(97+25));
         make.height.equalTo(@30);
         make.right.equalTo(self).offset(15);
         make.top.equalTo(@13);
