@@ -48,8 +48,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    [self loadData];
     [self addObserver:self forKeyPath:@"season" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+    [self loadData];
 }
 
 - (void)dealloc {
@@ -62,23 +62,20 @@
 
 #pragma mark - Load data
 - (void)loadData {
-    [HTProgressHUD show];
-    [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
-        NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
-        [self createSeason1UIWithData:mQuestionList_season1];
-        
-        NSMutableArray *mQuestionList_season2 = [questionList_season2 mutableCopy];
-        [self createSeason2UIWithData:mQuestionList_season2];
-        
-        if (answeredQuestion_season1 < 60)  self.season = 1;
-        else                                self.season = 2;
-        
-        if (FIRST_LAUNCH_QUESTIONLIST) {
-            [self helpButtonClick:nil];
-            [UD setBool:YES forKey:@"firstLaunchQuestionList"];
-        }
-        [HTProgressHUD dismiss];
-    }];
+    [self createSeason1UIWithData:[[SKServiceManager sharedInstance] questionService].questionList_season1];
+    [self createSeason2UIWithData:[[SKServiceManager sharedInstance] questionService].questionList_season2];
+    if ([[SKServiceManager sharedInstance] questionService].answeredQuestion_season1 < 60)
+        self.season = 1;
+    else
+        self.season = 2;
+    
+    if (FIRST_LAUNCH_QUESTIONLIST) {
+        [self helpButtonClick:nil];
+        [UD setBool:YES forKey:@"firstLaunchQuestionList"];
+    }
+//    [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
+//        
+//    }];
 }
 
 #pragma mark - Create UI

@@ -83,7 +83,10 @@
             SKQuestion *question = [SKQuestion objectWithKeyValues:[response.data[@"second_season"] objectAtIndex:i]];
             [questions_season2 insertObject:question atIndex:0];
         }
-        _questionList = questions_season2;
+        _answeredQuestion_season1 = [response.data[@"first_season_answered"] integerValue];
+        _answeredQuestion_season2 = [response.data[@"second_season_answered"] integerValue];
+        _questionList_season1 = questions_season1;
+        _questionList_season2 = questions_season2;
         callback (YES, [response.data[@"first_season_answered"] integerValue], [response.data[@"second_season_answered"] integerValue], questions_season1, questions_season2);
     }];
 }

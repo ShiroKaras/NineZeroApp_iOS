@@ -22,7 +22,10 @@ typedef void (^SKQuestionTop10Callback) (BOOL success, NSArray<SKUserInfo*> *use
 typedef void (^SKQuestionAnswerDetail) (BOOL success, SKAnswerDetail *answerDetail);
 
 @interface SKQuestionService : NSObject
-@property (nonatomic, strong) NSArray<SKQuestion*> *questionList;
+@property (nonatomic, assign) NSInteger answeredQuestion_season1;
+@property (nonatomic, assign) NSInteger answeredQuestion_season2;
+@property (nonatomic, strong) NSArray<SKQuestion*> *questionList_season1;
+@property (nonatomic, strong) NSArray<SKQuestion*> *questionList_season2;
 
 - (void)questionBaseRequestWithParam:(NSDictionary*)dict callback:(SKResponseCallback)callback;
 
