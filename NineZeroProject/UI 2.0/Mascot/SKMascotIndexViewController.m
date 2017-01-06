@@ -194,7 +194,7 @@
 }
 
 - (void)fightButtonClick:(UIButton *)sender {
-    SKMascotFightViewController *controller = [[SKMascotFightViewController alloc] init];
+    SKMascotFightViewController *controller = [[SKMascotFightViewController alloc] initWithMascot:self.mascotArray[_currentIndex]];
     [self presentViewController:controller animated:YES completion:nil];
 }
 

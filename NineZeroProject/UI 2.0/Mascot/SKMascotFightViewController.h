@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "SKMascotView.h"
 
-@interface SKMascotFightViewController : UIViewController {
+@class SKPet;
 
-}
+@interface SKMascotFightViewController : UIViewController
+- (instancetype)initWithMascot:(SKPet *)mascot;
 @end

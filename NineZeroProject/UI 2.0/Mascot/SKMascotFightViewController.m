@@ -12,14 +12,29 @@
 #import "SKMascotFightManager.h"
 
 @interface SKMascotFightViewController () <SKMascotFightManagerDelegate>
+@property (nonatomic, strong) SKPet *mascot;
 @property (nonatomic, strong) SKMascotFightManager *fightManager;
+
+@property (nonatomic, strong) UIImageView *monsterImageView;
+@property (nonatomic, strong) UIImageView *fightImageView;
+
 @end
 
 @implementation SKMascotFightViewController
 
+- (instancetype)initWithMascot:(SKPet *)mascot {
+    self = [super init];
+    if (self) {
+        _mascot = mascot;
+        DLog(@"MascotName:%@", mascot.pet_name);
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    WS(weakSelf);
     
     self.fightManager = [[SKMascotFightManager alloc] initWithSize:self.view.size];
     self.fightManager.delegate = self;
@@ -35,11 +50,59 @@
         make.top.equalTo(@12);
         make.left.equalTo(@4);
     }];
-
+    
+    _fightImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_00000", _mascot.pet_name]]];
+    _fightImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:_fightImageView];
+    [_fightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(SCREEN_WIDTH/360*640);
+        make.centerX.equalTo(weakSelf.view);
+        make.bottom.equalTo(weakSelf.view);
+    }];
+    
+    [[[SKServiceManager sharedInstance] mascotService] getRandomStringWithMascotID:[NSString stringWithFormat:@"%ld", _mascot.pet_id] callback:^(BOOL success, SKResponsePackage *response) {
+        if (response.result == 0) {
+            //出现怪物
+            [self createMonster];
+        } else {
+            //未出现
+            
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)createMonster {
+    WS(weakSelf);
+    NSArray *imageFramesCount = @{
+                                  @"sloth"      :   @174,
+                                  @"gluttony"   :   @60,
+                                  @"envy"       :   @115,
+                                  @"lust"       :   @87,
+                                  @"pride"      :   @45,
+                                  @"warth"      :   @45
+                                  };
+    
+    NSMutableArray<UIImage *> *images = [NSMutableArray array];
+    for (int i = 0; i <20; i++) {
+        NSLog(@"%@",[NSString stringWithFormat:@"littlemonster_000%02d", i]);
+        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"littlemonster_000%02d", i]];
+        [images addObject:animatedImage];
+    }
+    self.monsterImageView = [[HTImageView alloc] init];
+    [self.view addSubview:self.monsterImageView];
+    self.monsterImageView.animationImages = images;
+    self.monsterImageView.animationDuration = 0.033 * images.count;
+    self.monsterImageView.animationRepeatCount = 0;
+    [self.monsterImageView startAnimating];
+    [self.monsterImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(200, 200));
+        make.center.equalTo(weakSelf.view);
+    }];
 }
 
 #pragma mark - Actions
