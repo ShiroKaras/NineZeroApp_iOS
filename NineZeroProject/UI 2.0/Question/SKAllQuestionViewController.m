@@ -15,15 +15,16 @@
 
 @interface SKAllQuestionViewController ()<UIScrollViewDelegate, SKHelperScrollViewDelegate, SKQuestionViewControllerDelegate>
 
-@property(nonatomic, strong) UIScrollView *mScrollView_season1;
-@property(nonatomic, strong) UIPageControl *mPageContrl_season1;
-@property(nonatomic, strong) UIScrollView *mScrollView_season2;
-@property(nonatomic, strong) UIPageControl *mPageContrl_season2;
+@property(nonatomic, strong) UIScrollView   *mScrollView_season1;
+@property(nonatomic, strong) UIPageControl  *mPageContrl_season1;
+@property(nonatomic, strong) UIScrollView   *mScrollView_season2;
+@property(nonatomic, strong) UIPageControl  *mPageContrl_season2;
+@property(nonatomic, strong) UIView         *tempView;
 
-@property(nonatomic, strong) UIButton *helpButton;
-@property(nonatomic, strong) UIImageView *mascotImageView;
-@property(nonatomic, strong) UIButton *season1Button;
-@property(nonatomic, strong) UIButton *season2Button;
+@property(nonatomic, strong) UIButton       *helpButton;
+@property(nonatomic, strong) UIImageView    *mascotImageView;
+@property(nonatomic, strong) UIButton       *season1Button;
+@property(nonatomic, strong) UIButton       *season2Button;
 
 @property(nonatomic, assign) NSInteger season;
 
@@ -62,20 +63,26 @@
 
 #pragma mark - Load data
 - (void)loadData {
-    [self createSeason1UIWithData:[[SKServiceManager sharedInstance] questionService].questionList_season1];
-    [self createSeason2UIWithData:[[SKServiceManager sharedInstance] questionService].questionList_season2];
-    if ([[SKServiceManager sharedInstance] questionService].answeredQuestion_season1 < 60)
-        self.season = 1;
-    else
-        self.season = 2;
-    
-    if (FIRST_LAUNCH_QUESTIONLIST) {
-        [self helpButtonClick:nil];
-        [UD setBool:YES forKey:@"firstLaunchQuestionList"];
-    }
-//    [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
-//        
-//    }];
+    [HTProgressHUD show];
+    [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
+        NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
+        [self createSeason1UIWithData:mQuestionList_season1];
+        
+        NSMutableArray *mQuestionList_season2 = [questionList_season2 mutableCopy];
+        [self createSeason2UIWithData:mQuestionList_season2];
+        
+        if (answeredQuestion_season1 < 60)  self.season = 1;
+        else                                self.season = 2;
+        
+        if (FIRST_LAUNCH_QUESTIONLIST) {
+            [self helpButtonClick:nil];
+            [UD setBool:YES forKey:@"firstLaunchQuestionList"];
+        }
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [HTProgressHUD dismiss];
+        });
+    }];
 }
 
 #pragma mark - Create UI
@@ -83,17 +90,6 @@
     self.view.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
     
     WS(weakSelf);
-//    UIButton *closeButton = [UIButton new];
-//    [closeButton setImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-//    [closeButton setImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-//    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:closeButton];
-//    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.equalTo(@(40));
-//        make.height.equalTo(@(40));
-//        make.top.equalTo(weakSelf.view).offset(12);
-//        make.left.equalTo(weakSelf.view).offset(4);
-//    }];
     
     _helpButton = [UIButton new];
     [_helpButton setImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
@@ -133,6 +129,8 @@
         make.right.equalTo(_mascotImageView);
         make.bottom.equalTo(_mascotImageView.mas_top);
     }];
+
+    [self createTempView];
     
     if (NO_NETWORK) {
         UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
@@ -145,11 +143,45 @@
     }
 }
 
+- (void)createTempView {
+    float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+    _tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    [self.view addSubview:_tempView];
+    
+    for (int questionNumber=0; questionNumber<12; questionNumber++) {
+        int pageNumber = floor(questionNumber/12);
+        int itemInPage = questionNumber-pageNumber*12;
+        int i = itemInPage%3;
+        int j = floor(itemInPage/3);
+        UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
+        coverImageView.image = [UIImage imageNamed:@"img_profile_photo_default"];
+        coverImageView.layer.cornerRadius = itemView.width/2;
+        coverImageView.layer.masksToBounds = YES;
+        [itemView addSubview:coverImageView];
+        
+        UIImageView *mImageButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_levelpage_uncompleted"]];
+        mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
+        [itemView addSubview:mImageButton];
+        
+        //关卡号
+        UILabel *mQuestionNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
+        mQuestionNumberLabel.textColor = [UIColor whiteColor];
+        mQuestionNumberLabel.text = [NSString stringWithFormat:@"%d",questionNumber+1];
+        mQuestionNumberLabel.textAlignment = NSTextAlignmentCenter;
+        mQuestionNumberLabel.font = MOON_FONT_OF_SIZE(23);
+        [itemView addSubview:mQuestionNumberLabel];
+        
+        [_tempView addSubview:itemView];
+    }
+}
+
 - (void)createSeason1UIWithData:(NSArray<SKQuestion*>*)questionList {
     self.questionList_season1 = questionList;
     
     float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
     _mScrollView_season1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    _mScrollView_season1.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
     _mScrollView_season1.delegate = self;
     _mScrollView_season1.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT_SEASON1, scrollViewHeight);
     _mScrollView_season1.pagingEnabled = YES;
@@ -265,6 +297,7 @@
     
     float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
     _mScrollView_season2 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    _mScrollView_season2.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
     _mScrollView_season2.delegate = self;
     _mScrollView_season2.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT_SEASON2, scrollViewHeight);
     _mScrollView_season2.pagingEnabled = YES;
