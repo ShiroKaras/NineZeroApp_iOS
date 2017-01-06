@@ -83,6 +83,7 @@
 @property (nonatomic, strong) NSArray<SKPet*> *familyMascotArray;
 @property (nonatomic, strong) SKDefaultMascotDetail *defaultMascotDetail;
 
+//默认零仔技能页
 @property (nonatomic, strong) UIButton  *hintS1Button;
 @property (nonatomic, strong) UIButton  *hintS2Button;
 @property (nonatomic, strong) UIButton  *answerS1Button;
@@ -121,6 +122,12 @@
 @property (nonatomic, assign) BOOL      answerS1_islock;
 @property (nonatomic, assign) BOOL      hintS2_islock;
 @property (nonatomic, assign) BOOL      answerS2_islock;
+
+//其他零仔技能页
+@property (nonatomic, strong) UIImageView *familyMascot_1_ImageView;
+@property (nonatomic, strong) UIImageView *familyMascot_2_ImageView;
+@property (nonatomic, strong) UIImageView *familyMascot_3_ImageView;
+@property (nonatomic, strong) UIImageView *familyMascot_4_ImageView;
 
 @property (nonatomic, strong) UILabel   *familyMascot_1_Label;
 @property (nonatomic, strong) UILabel   *familyMascot_2_Label;
@@ -201,6 +208,12 @@
         //道具数量
         [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:_mascotIdArray[_type] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
             self.familyMascotArray = mascotArray;
+            
+            _familyMascot_1_ImageView.alpha = self.familyMascotArray[0].pet_num>0?1:0.4;
+            _familyMascot_2_ImageView.alpha = self.familyMascotArray[1].pet_num>0?1:0.4;
+            _familyMascot_3_ImageView.alpha = self.familyMascotArray[2].pet_num>0?1:0.4;
+            _familyMascot_4_ImageView.alpha = self.familyMascotArray[3].pet_num>0?1:0.4;
+            
             _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[0].pet_num];
             _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[1].pet_num];
             _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[2].pet_num];
@@ -549,6 +562,7 @@
 }
 
 - (void)sinSkillViewWithType:(SKMascotType)mascotType {
+    //召唤阵
     UIImageView *compoundImageView = [UIImageView new];
     [self addSubview:compoundImageView];
     [compoundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -558,6 +572,44 @@
         make.top.equalTo(ROUND_HEIGHT(69));
     }];
     
+    //4个道具
+    _familyMascot_1_ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_%@_prop1", _mascotNameArray[mascotType]]]];
+    _familyMascot_1_ImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [compoundImageView addSubview:_familyMascot_1_ImageView];
+    [_familyMascot_1_ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(85), ROUND_WIDTH_FLOAT(85)));
+        make.centerX.equalTo(compoundImageView);
+        make.top.equalTo(compoundImageView).offset(ROUND_WIDTH_FLOAT(-7));
+    }];
+    
+    _familyMascot_2_ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_%@_prop2", _mascotNameArray[mascotType]]]];
+    _familyMascot_2_ImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [compoundImageView addSubview:_familyMascot_2_ImageView];
+    [_familyMascot_2_ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(85), ROUND_WIDTH_FLOAT(85)));
+        make.centerY.equalTo(compoundImageView);
+        make.left.equalTo(compoundImageView).offset(ROUND_WIDTH_FLOAT(-7));
+    }];
+    
+    _familyMascot_3_ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_%@_prop3", _mascotNameArray[mascotType]]]];
+    _familyMascot_3_ImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [compoundImageView addSubview:_familyMascot_3_ImageView];
+    [_familyMascot_3_ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(85), ROUND_WIDTH_FLOAT(85)));
+        make.centerX.equalTo(compoundImageView);
+        make.bottom.equalTo(compoundImageView).offset(ROUND_WIDTH_FLOAT(7));
+    }];
+    
+    _familyMascot_4_ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_%@_prop4", _mascotNameArray[mascotType]]]];
+    _familyMascot_4_ImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [compoundImageView addSubview:_familyMascot_4_ImageView];
+    [_familyMascot_4_ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(85), ROUND_WIDTH_FLOAT(85)));
+        make.centerY.equalTo(compoundImageView);
+        make.right.equalTo(compoundImageView).offset(ROUND_WIDTH_FLOAT(7));
+    }];
+    
+    //兑换按钮
     _exchangeButton = [UIButton new];
     [self addSubview:_exchangeButton];
     [_exchangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
