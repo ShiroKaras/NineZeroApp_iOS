@@ -26,6 +26,7 @@
 }
 
 - (void)createUIWithFrame:(CGRect)frame {
+    
     UIImageView *ticketBackgoundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_couponbg"]];
     ticketBackgoundImageView.layer.masksToBounds =  YES;
     ticketBackgoundImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -44,6 +45,9 @@
     ticketTitleLabel.textColor = [UIColor whiteColor];
     ticketTitleLabel.font = PINGFANG_FONT_OF_SIZE(12);
     ticketTitleLabel.numberOfLines = 2;
+    ticketTitleLabel.layer.shadowOffset = CGSizeMake(1, 1);
+    ticketTitleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    ticketTitleLabel.layer.shadowOpacity = 1;
     [self addSubview:ticketTitleLabel];
     [ticketTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@13);
@@ -57,6 +61,9 @@
     exchangeCodeLabel.textColor = [UIColor whiteColor];
     exchangeCodeLabel.font = PINGFANG_FONT_OF_SIZE(10);
     [exchangeCodeLabel sizeToFit];
+    exchangeCodeLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    exchangeCodeLabel.layer.shadowOffset = CGSizeMake(1, 1);
+    exchangeCodeLabel.layer.shadowOpacity = 1;
     [self addSubview:exchangeCodeLabel];
     [exchangeCodeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom).offset(-14);
@@ -75,6 +82,9 @@
     timeLimitLabal.textColor = [UIColor whiteColor];
     timeLimitLabal.font = PINGFANG_FONT_OF_SIZE(10);
     [timeLimitLabal sizeToFit];
+    timeLimitLabal.layer.shadowOffset = CGSizeMake(1, 1);
+    timeLimitLabal.layer.shadowColor = [UIColor blackColor].CGColor;
+    timeLimitLabal.layer.shadowOpacity = 1;
     [self addSubview:timeLimitLabal];
     [timeLimitLabal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(exchangeCodeLabel.mas_top).offset(-4);
