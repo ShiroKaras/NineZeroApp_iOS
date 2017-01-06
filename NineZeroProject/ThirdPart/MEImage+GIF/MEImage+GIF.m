@@ -15,13 +15,13 @@
 + (NSArray*)startImageAtPercent:(float)percent withGIF:(NSData*)imageData{
     percent = percent>0? percent:0;
     percent = percent>1? percent/100.0:percent;
-    NSArray *imagesArray = [self sd_animatedGIFWithData:imageData];
+    NSArray *imagesArray = [self animatedGIFWithData:imageData];
     int index = [imagesArray count]*percent;
     return [self startImageAtIndex:index with:imagesArray];
 }
 
 + (NSArray*)startImageAtIndex:(unsigned)index withGIF:(NSData*)imageData{
-    NSArray *imagesArray = [self sd_animatedGIFWithData:imageData];
+    NSArray *imagesArray = [self animatedGIFWithData:imageData];
     return [self startImageAtIndex:index with:imagesArray];
 }
 
@@ -55,7 +55,7 @@
     layer.beginTime = timeSincePause;
 }
 
-+ (NSArray *)sd_animatedGIFWithData:(NSData *)data {
++ (NSArray *)animatedGIFWithData:(NSData *)data {
     if (!data) {
         return nil;
     }
@@ -77,7 +77,7 @@
         for (size_t i = 0; i < count; i++) {
             CGImageRef image = CGImageSourceCreateImageAtIndex(source, i, NULL);
             
-            duration += [self sd_frameDurationAtIndex:i source:source];
+            duration += [self frameDurationAtIndex:i source:source];
             
             //            [images addObject:[UIImage imageWithCGImage:image scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp]];
             [images addObject:[UIImage imageWithCGImage:image]];
@@ -101,7 +101,7 @@
     return [NSArray arrayWithArray:images];
 }
 
-+(float)sd_frameDurationAtIndex:(NSUInteger)index source:(CGImageSourceRef)source {
++(float)frameDurationAtIndex:(NSUInteger)index source:(CGImageSourceRef)source {
     float frameDuration = 0.1f;
     CFDictionaryRef cfFrameProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil);
     NSDictionary *frameProperties = (__bridge NSDictionary *)cfFrameProperties;

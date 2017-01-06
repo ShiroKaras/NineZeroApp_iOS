@@ -13,6 +13,7 @@
 - (void)setAnimatedImageWithName:(NSString *)name {
     NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"gif"];
     FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]]];
+    _frameCount = image.frameCount;
     image.loopCount = 1;
     self.animatedImage = image;
 }

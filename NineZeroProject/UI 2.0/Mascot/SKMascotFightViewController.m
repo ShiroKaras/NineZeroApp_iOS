@@ -78,23 +78,16 @@
 
 - (void)createMonster {
     WS(weakSelf);
-    NSArray *imageFramesCount = @{
-                                  @"sloth"      :   @174,
-                                  @"gluttony"   :   @60,
-                                  @"envy"       :   @115,
-                                  @"lust"       :   @87,
-                                  @"pride"      :   @45,
-                                  @"warth"      :   @45
-                                  };
-    
     NSMutableArray<UIImage *> *images = [NSMutableArray array];
     for (int i = 0; i <20; i++) {
-        NSLog(@"%@",[NSString stringWithFormat:@"littlemonster_000%02d", i]);
         UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"littlemonster_000%02d", i]];
         [images addObject:animatedImage];
     }
     self.monsterImageView = [[HTImageView alloc] init];
+    self.monsterImageView.userInteractionEnabled = YES;
     [self.view addSubview:self.monsterImageView];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMonster:)];
+    [self.monsterImageView addGestureRecognizer:tap];
     self.monsterImageView.animationImages = images;
     self.monsterImageView.animationDuration = 0.033 * images.count;
     self.monsterImageView.animationRepeatCount = 0;
@@ -109,6 +102,31 @@
 
 - (void)closeButtonClick:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)onClickMonster:(UITapGestureRecognizer *)sender {
+    NSDictionary *imageFramesCount = @{
+                                       @"sloth"      :   @174,
+                                       @"gluttony"   :   @60,
+                                       @"envy"       :   @115,
+                                       @"lust"       :   @87,
+                                       @"pride"      :   @45,
+                                       @"warth"      :   @45
+                                       };
+    
+    NSMutableArray<UIImage *> *images = [NSMutableArray array];
+    for (int i = 0; i <[imageFramesCount[_mascot.pet_name] intValue]; i++) {
+        NSLog(@"%@",[NSString stringWithFormat:@"%@_00%03d", _mascot.pet_name,i]);
+        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_00%03d", _mascot.pet_name,i]];
+        [images addObject:animatedImage];
+    }
+    
+    self.fightImageView.animationImages = images;
+    self.fightImageView.animationDuration = 0.033 * images.count;
+    self.fightImageView.animationRepeatCount = 1;
+    [self.fightImageView startAnimating];
+    
+    
 }
 
 #pragma mark - SKMascotFightManagerDelegate
