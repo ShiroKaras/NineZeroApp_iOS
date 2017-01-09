@@ -235,6 +235,7 @@
             _fightButton.alpha = 1;
             _fightButton.enabled = YES;
         } else {
+            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) hide];
             _fightButton.alpha = 0.4;
             _fightButton.enabled = NO;
         }
