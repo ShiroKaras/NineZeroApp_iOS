@@ -930,7 +930,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 make.height.equalTo(@108);
                 make.centerX.equalTo(rewardBackView);
                 make.bottom.equalTo(rewardBackView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
-        }];
+            }];
         }
     }
     
@@ -1668,7 +1668,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [self createShareView];
     }
     [UIView animateWithDuration:0.3 animations:^{
-        _shareView.alpha = 0.8;
+        _shareView.alpha = 0.9;
     }];
 }
 
