@@ -20,6 +20,9 @@
 @property (nonatomic, strong) SKRegisterTextField *passwordTextField;
 @property (nonatomic, strong) UIButton *nextButton;
 @property (nonatomic, strong) UIButton *agreementButton;
+@property (nonatomic, strong) UIView *agreementView;
+@property (nonatomic, strong) UILabel *agreementLabel_1;
+@property (nonatomic, strong) UILabel *agreementLabel_2;
 @property (nonatomic, assign) BOOL nextButtonIsShow;
 @property (nonatomic, assign) CGRect keyboardRect;
 @property (nonatomic, assign) BOOL mobileIsRegistered;
@@ -128,10 +131,32 @@
     [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
     [self.view addSubview:_nextButton];
     
+    _agreementView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height-50, self.view.width, 50)];
+    _agreementView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_agreementView];
+    
+    float padding = 30;
+    _agreementLabel_1 = [UILabel new];
+    _agreementLabel_1.text = @"点击下一步表示你同意";
+    _agreementLabel_1.textColor = [UIColor whiteColor];
+    _agreementLabel_1.font = [UIFont fontWithName:@"Helvetica" size:12];
+    _agreementLabel_1.textAlignment = NSTextAlignmentRight;
+    _agreementLabel_1.frame = CGRectMake(0, 0, self.view.width/2+padding, 50);
+    [_agreementView addSubview:_agreementLabel_1];
+    
+    _agreementLabel_2 = [UILabel new];
+    _agreementLabel_2.text = @"《用户协议》";
+    _agreementLabel_2.textColor = [UIColor whiteColor];
+    _agreementLabel_2.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+    _agreementLabel_2.textAlignment = NSTextAlignmentLeft;
+    _agreementLabel_2.frame = CGRectMake(self.view.width/2+padding, 0, self.view.width/2-padding, 50);
+    [_agreementView addSubview:_agreementLabel_2];
+    
     _agreementButton = [UIButton new];
     [_agreementButton addTarget:self action:@selector(agreementButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _agreementButton.backgroundColor = [UIColor clearColor];
-    [_agreementButton setTitle:@"点击下一步表示你同意用户协议" forState:UIControlStateNormal];
+//    [_agreementButton setTitle:@"点击下一步表示你同意《用户协议》" forState:UIControlStateNormal];
+    
     _agreementButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
     _agreementButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
     [self.view addSubview:_agreementButton];
@@ -206,10 +231,12 @@
         self.nextButtonIsShow = YES;
         _nextButton.frame = CGRectMake(0, self.view.height - self.keyboardRect.size.height-50, self.view.width, 50);
         _agreementButton.frame = CGRectMake(0, self.view.height - self.keyboardRect.size.height-100, self.view.width, 50);
+        _agreementView.frame = _agreementButton.frame;
     } else {
         self.nextButtonIsShow = NO;
         _nextButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
         _agreementButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
+        _agreementView.frame = _agreementButton.frame;
     }
 }
 
@@ -222,9 +249,11 @@
     if (self.nextButtonIsShow) {
         _nextButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height-50, self.view.width, 50);
         _agreementButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height-100, self.view.width, 50);
+        _agreementView.frame = _agreementButton.frame;
     } else {
         _nextButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height, self.view.width, 50);
         _agreementButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height, self.view.width, 50);
+        _agreementView.frame = _agreementButton.frame;
     }
 }
 
@@ -232,9 +261,11 @@
     if (self.nextButtonIsShow) {
         _nextButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
         _agreementButton.frame = CGRectMake(0, self.view.height-100, self.view.width, 50);
+        _agreementView.frame = _agreementButton.frame;
     } else {
         _nextButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
         _agreementButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
+        _agreementView.frame = _agreementButton.frame;
     }
 }
 
