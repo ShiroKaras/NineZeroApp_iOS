@@ -22,7 +22,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = COMMON_SEPARATOR_COLOR;
+        self.backgroundColor = COMMON_BG_COLOR;
         self.layer.cornerRadius = 5;
         self.layer.masksToBounds = YES;
         
@@ -70,11 +70,11 @@
 - (void)loadData {
     [[[SKServiceManager sharedInstance] profileService] getPieces:^(BOOL success, NSArray<SKPiece *> *pieces) {
         if (pieces.count == 0) {
-            UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-            converView.backgroundColor = COMMON_BG_COLOR;
+            UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64)];
+            converView.backgroundColor = [UIColor clearColor];
             [self.view addSubview:converView];
-            HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-            [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+            HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+            [blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
             [self.view addSubview:blankView];
             blankView.top = ROUND_HEIGHT_FLOAT(217);
         } else {
@@ -85,11 +85,11 @@
 }
 
 - (void)createUI {
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = COMMON_BG_COLOR;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    [layout setHeaderReferenceSize:CGSizeMake(320, 64+8)];
+    [layout setHeaderReferenceSize:CGSizeMake(320, 64)];
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) collectionViewLayout:layout];
     _collectionView.bounces = NO;
     _collectionView.delegate = self;
@@ -97,9 +97,16 @@
     [_collectionView registerClass:[SKThingsCell class] forCellWithReuseIdentifier:NSStringFromClass([SKThingsCell class])];
     [self.view addSubview:_collectionView];
     
+    UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_shading"]];
+    backImageView.tag = 202;
+    backImageView.alpha = 0;
+    backImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 64);
+    backImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:backImageView];
+    
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     headerView.tag = 200;
-    headerView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    headerView.backgroundColor = [UIColor clearColor];
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"已收集的玩意儿";
     titleLabel.textColor = [UIColor whiteColor];
@@ -165,8 +172,10 @@
         [UIView animateWithDuration:0.3 animations:^{
             [self.view viewWithTag:9001].alpha = 1;
             [self.view viewWithTag:200].alpha = 1;
+            [self.view viewWithTag:202].alpha = 0;
             [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
             [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
+            [self.view viewWithTag:202].bottom = [self.view viewWithTag:200].height;
         } completion:^(BOOL finished) {
             
         }];
@@ -176,8 +185,10 @@
                 //显示
                 [self.view viewWithTag:9001].alpha = 1;
                 [self.view viewWithTag:200].alpha = 1;
+                [self.view viewWithTag:202].alpha = 1;
                 [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
                 [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
+                [self.view viewWithTag:202].bottom = [self.view viewWithTag:200].height;
             } completion:^(BOOL finished) {
                 
             }];
@@ -186,8 +197,10 @@
                 //隐藏
                 [self.view viewWithTag:9001].alpha = 0;
                 [self.view viewWithTag:200].alpha = 0;
+                [self.view viewWithTag:202].alpha = 0;
                 [self.view viewWithTag:9001].bottom = 0;
                 [self.view viewWithTag:200].bottom = 0;
+                [self.view viewWithTag:202].bottom = 0;
             } completion:^(BOOL finished) {
                 
             }];

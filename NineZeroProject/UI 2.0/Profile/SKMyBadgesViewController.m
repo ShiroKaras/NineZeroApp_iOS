@@ -41,7 +41,7 @@
         footBar.backgroundColor = [UIColor colorWithHex:0x242424];
         [self.contentView addSubview:footBar];
         UIView *footBar2 = [[UIView alloc] initWithFrame:CGRectMake(0, ROUND_HEIGHT_FLOAT(154)-4, SCREEN_WIDTH, 4)];
-        footBar2.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+        footBar2.backgroundColor = COMMON_BG_COLOR;
         [self.contentView addSubview:footBar2];
         
         _badgeLeftShadowImageView = [[UIImageView alloc] init];
@@ -295,32 +295,6 @@
     
     [cell.badgeLeftImageView sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2].medal_icon] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if (_badgeLevel>0 && _badgeLevel-1<indexPath.row*2+1) {
-//            NSString* key = [[SDWebImageManager sharedManager] cacheKeyForURL:imageURL];
-//            BOOL result = [[SDImageCache sharedImageCache] diskImageExistsWithKey:key];
-//            NSString* imagePath = [[SDImageCache sharedImageCache] defaultCachePathForKey:key];
-//            NSData* newData = [NSData dataWithContentsOfFile:imagePath];
-//            if (!result || !newData) {
-//                BOOL imageIsPng = [[self typeForImageData:newData] isEqualToString:@"image/png"];
-//                NSData* imageData = nil;
-//                if (imageIsPng) {
-//                    imageData = UIImagePNGRepresentation(image);
-//                }
-//                else {
-//                    imageData = UIImageJPEGRepresentation(image, (CGFloat)1.0);
-//                }
-//                NSFileManager* _fileManager = [NSFileManager defaultManager];
-//                if (imageData) {
-//                    [_fileManager removeItemAtPath:imagePath error:nil];
-//                    [_fileManager createFileAtPath:imagePath contents:imageData attributes:nil];
-//                }
-//            }
-//            newData = [NSData dataWithContentsOfFile:imagePath];
-//            UIImage* grayImage = nil;
-//            
-//            UIImage* newImage = [UIImage imageWithData:newData];
-//            grayImage = [self grayscale:newImage type:1];
-//            
-//            cell.badgeLeftImageView.image = grayImage;
             cell.badgeLeftImageView.alpha = 0.4;
             cell.leftbutton.enabled = NO;
         }
@@ -328,32 +302,6 @@
     
     [cell.badgeRightImageView sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2+1].medal_icon] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if (_badgeLevel>0 && _badgeLevel-1<indexPath.row*2+2) {
-//            NSString* key = [[SDWebImageManager sharedManager] cacheKeyForURL:imageURL];
-//            BOOL result = [[SDImageCache sharedImageCache] diskImageExistsWithKey:key];
-//            NSString* imagePath = [[SDImageCache sharedImageCache] defaultCachePathForKey:key];
-//            NSData* newData = [NSData dataWithContentsOfFile:imagePath];
-//            if (!result || !newData) {
-//                BOOL imageIsPng = [[self typeForImageData:newData] isEqualToString:@"image/png"];
-//                NSData* imageData = nil;
-//                if (imageIsPng) {
-//                    imageData = UIImagePNGRepresentation(image);
-//                }
-//                else {
-//                    imageData = UIImageJPEGRepresentation(image, (CGFloat)1.0);
-//                }
-//                NSFileManager* _fileManager = [NSFileManager defaultManager];
-//                if (imageData) {
-//                    [_fileManager removeItemAtPath:imagePath error:nil];
-//                    [_fileManager createFileAtPath:imagePath contents:imageData attributes:nil];
-//                }
-//            }
-//            newData = [NSData dataWithContentsOfFile:imagePath];
-//            UIImage* grayImage = nil;
-//            
-//            UIImage* newImage = [UIImage imageWithData:newData];
-//            grayImage = [self grayscale:newImage type:1];
-//            
-//            cell.badgeRightImageView.image = grayImage;
             cell.badgeRightImageView.alpha = 0.4;
             cell.rightbutton.enabled = NO;
         }

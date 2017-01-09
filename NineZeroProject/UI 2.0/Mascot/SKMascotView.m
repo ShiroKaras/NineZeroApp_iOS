@@ -35,7 +35,7 @@
 }
 
 - (void)createUIWithType:(SKMascotType)type {
-    self.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    self.backgroundColor = COMMON_BG_COLOR;
 
     _mBlankImageView= [[HTImageView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-SCREEN_WIDTH-150, SCREEN_WIDTH, SCREEN_WIDTH)];
     _mBlankImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_lingzaipage_%@__blank", _mascotNameArray[_mascotType]]];
@@ -321,7 +321,7 @@
 
 - (void)createUIWithType:(SKMascotType)mascotType {
     UIView *alphaView = [UIView new];
-    alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    alphaView.backgroundColor = COMMON_BG_COLOR;
     alphaView.alpha = 0.9;
     [self addSubview:alphaView];
 

@@ -41,7 +41,8 @@
 #define MOON_FONT_OF_SIZE(s)        [UIFont fontWithName:@"Moon-Bold" size:s]
 #define PINGFANG_FONT_OF_SIZE(s)    [UIFont fontWithName:@"PingFangSC-Regular" size:s]
 
-#define COMMON_BG_COLOR UIColorMake(14, 14, 14)
+//#define COMMON_BG_COLOR UIColorMake(14, 14, 14)
+#define COMMON_BG_COLOR             [UIColor colorWithHex:0x0E0E0E]
 #define COMMON_TITLE_BG_COLOR       [UIColor colorWithHex:0x1A1A1A]
 #define COMMON_GREEN_COLOR          [UIColor colorWithHex:0x24ddb2]
 #define COMMON_PINK_COLOR           [UIColor colorWithHex:0xd40e88]

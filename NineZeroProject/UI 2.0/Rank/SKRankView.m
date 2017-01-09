@@ -173,7 +173,7 @@
             [[self viewController].view viewWithTag:202].alpha = 0;
             [[self viewController].view viewWithTag:9001].bottom = [[self viewController].view viewWithTag:9001].height+12;
             [[self viewController].view viewWithTag:201].bottom = [[self viewController].view viewWithTag:201].height;
-            [[self viewController].view viewWithTag:202].bottom = [[self viewController].view viewWithTag:201].height;
+            [[self viewController].view viewWithTag:202].bottom = [[self viewController].view viewWithTag:202].height;
         } completion:^(BOOL finished) {
             
         }];
@@ -186,7 +186,7 @@
                 [[self viewController].view viewWithTag:202].alpha = 1;
                 [[self viewController].view viewWithTag:9001].bottom = [[self viewController].view viewWithTag:9001].height+12;
                 [[self viewController].view viewWithTag:201].bottom = [[self viewController].view viewWithTag:201].height;
-                [[self viewController].view viewWithTag:202].bottom = [[self viewController].view viewWithTag:201].height;
+                [[self viewController].view viewWithTag:202].bottom = [[self viewController].view viewWithTag:202].height;
             } completion:^(BOOL finished) {
                 
             }];

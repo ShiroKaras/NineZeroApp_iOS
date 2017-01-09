@@ -44,7 +44,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
-    headerView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    headerView.backgroundColor = [UIColor clearColor];
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"帮助我们进步";
     titleLabel.textColor = [UIColor whiteColor];

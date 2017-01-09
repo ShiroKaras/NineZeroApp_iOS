@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    self.view.backgroundColor = COMMON_BG_COLOR;
 
      _webView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 64, self.view.bounds.size.width-20, self.view.bounds.size.height-64)];
     _webView.scrollView.delaysContentTouches = NO;

@@ -584,7 +584,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [self.view addSubview:_dimmingView];
     
     UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
-    alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    alphaView.backgroundColor = COMMON_BG_COLOR;
     alphaView.alpha = 0.6;
     [_dimmingView addSubview:alphaView];
     
@@ -646,7 +646,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_dimmingView addGestureRecognizer:tap];
     
     UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
-    alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    alphaView.backgroundColor = COMMON_BG_COLOR;
     alphaView.alpha = 0.9;
     [_dimmingView addSubview:alphaView];
     
@@ -807,7 +807,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             self.reward = [SKReward objectWithKeyValues:self.rewardDict];
             
             UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
-            alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+            alphaView.backgroundColor = COMMON_BG_COLOR;
             alphaView.alpha = 0.9;
             [_dimmingView addSubview:alphaView];
             
@@ -997,7 +997,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [rewardImageView_txt_3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@100);
         make.height.equalTo(@19);
-        make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(10);
+        make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(15);
         make.left.equalTo(rewardBaseInfoView);
     }];
     
@@ -1028,7 +1028,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [rewardImageView_exp mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@18);
         make.height.equalTo(@18);
-        make.top.equalTo(rewardImageView_txt_3.mas_bottom).offset(6);
+        make.top.equalTo(rewardImageView_txt_3.mas_bottom).offset(9);
         make.right.equalTo(rewardImageView_txt_3);
     }];
     
@@ -1061,7 +1061,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [rewardImageView_diamond mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@18);
         make.height.equalTo(@18);
-        make.top.equalTo(rewardImageView_exp.mas_bottom).offset(6);
+        make.top.equalTo(rewardImageView_exp.mas_bottom).offset(9);
         make.right.equalTo(rewardImageView_exp);
     }];
     

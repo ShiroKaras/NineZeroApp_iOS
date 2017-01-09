@@ -40,7 +40,8 @@ static const CGFloat lineWidth = 1;
         [self addSubview:_placeholderLabel];
         
         _lineView = [[UIView alloc]initWithFrame:CGRectZero];
-        _lineView.backgroundColor = [UIColor lightGrayColor];
+//        _lineView.backgroundColor = [UIColor lightGrayColor];
+        _lineView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_lineView];
         
         _lineLayer = [CALayer layer];

@@ -37,7 +37,7 @@
 }
 
 - (void)createUI {
-    self.view.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
+    self.view.backgroundColor = COMMON_BG_COLOR;
     
     __weak __typeof(self)weakSelf = self;
     

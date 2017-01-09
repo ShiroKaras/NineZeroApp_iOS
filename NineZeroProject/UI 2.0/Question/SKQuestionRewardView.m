@@ -118,7 +118,7 @@
     [rewardImageView_txt_3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@100);
         make.height.equalTo(@19);
-        make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(10);
+        make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(15);
         make.left.equalTo(rewardBaseInfoView);
     }];
     
@@ -148,7 +148,7 @@
     [rewardImageView_exp mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@18);
         make.height.equalTo(@18);
-        make.top.equalTo(rewardImageView_txt_3.mas_bottom).offset(6);
+        make.top.equalTo(rewardImageView_txt_3.mas_bottom).offset(9);
         make.right.equalTo(rewardImageView_txt_3);
     }];
     
@@ -178,7 +178,7 @@
     [rewardImageView_diamond mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@18);
         make.height.equalTo(@18);
-        make.top.equalTo(rewardImageView_exp.mas_bottom).offset(6);
+        make.top.equalTo(rewardImageView_exp.mas_bottom).offset(9);
         make.right.equalTo(rewardImageView_exp);
     }];
     

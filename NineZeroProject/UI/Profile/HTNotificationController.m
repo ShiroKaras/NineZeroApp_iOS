@@ -40,9 +40,16 @@
     tableViewFooterView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = tableViewFooterView;
     
+    UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_shading"]];
+    backImageView.tag = 202;
+    backImageView.alpha = 0;
+    backImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 64);
+    backImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:backImageView];
+
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     headerView.tag = 200;
-    headerView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    headerView.backgroundColor = [UIColor clearColor];
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"消息通知";
     titleLabel.textColor = [UIColor whiteColor];
@@ -117,8 +124,10 @@
         [UIView animateWithDuration:0.3 animations:^{
             [self.view viewWithTag:9001].alpha = 1;
             [self.view viewWithTag:200].alpha = 1;
+            [self.view viewWithTag:202].alpha = 0;
             [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
             [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
+            [self.view viewWithTag:202].bottom = [self.view viewWithTag:202].height;
         } completion:^(BOOL finished) {
             
         }];
@@ -128,8 +137,10 @@
                 //显示
                 [self.view viewWithTag:9001].alpha = 1;
                 [self.view viewWithTag:200].alpha = 1;
+                [self.view viewWithTag:202].alpha = 1;
                 [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
                 [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
+                [self.view viewWithTag:202].bottom = [self.view viewWithTag:202].height;
             } completion:^(BOOL finished) {
                 
             }];
@@ -138,8 +149,10 @@
                 //隐藏
                 [self.view viewWithTag:9001].alpha = 0;
                 [self.view viewWithTag:200].alpha = 0;
+                [self.view viewWithTag:202].alpha = 0;
                 [self.view viewWithTag:9001].bottom = 0;
                 [self.view viewWithTag:200].bottom = 0;
+                [self.view viewWithTag:202].bottom = 0;
             } completion:^(BOOL finished) {
                 
             }];

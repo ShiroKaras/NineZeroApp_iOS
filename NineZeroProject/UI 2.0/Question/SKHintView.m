@@ -94,7 +94,7 @@
 
 - (void)createUIWithFrame:(CGRect)frame {
     UIView *alphaView = [[UIView alloc] initWithFrame:frame];
-    alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    alphaView.backgroundColor = COMMON_BG_COLOR;
     alphaView.alpha = 0.9;
     [self addSubview:alphaView];
     

@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = COMMON_BG_COLOR;
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
     self.tableView.bounces = NO;
@@ -33,7 +33,7 @@
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
     [self.view addSubview:self.tableView];
     
-    UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64+8)];
+    UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     tableViewHeaderView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = tableViewHeaderView;
     
@@ -41,9 +41,16 @@
     tableViewFooterView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = tableViewFooterView;
     
+    UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_shading"]];
+    backImageView.tag = 202;
+    backImageView.alpha = 0;
+    backImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 64);
+    backImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:backImageView];
+    
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     headerView.tag = 200;
-    headerView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    headerView.backgroundColor = [UIColor clearColor];
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"我的礼券";
     titleLabel.textColor = [UIColor whiteColor];
@@ -72,8 +79,8 @@
 - (void)loadData {
     [[[SKServiceManager sharedInstance] profileService] getUserTicketsCallbackCallback:^(BOOL suceese, NSArray<SKTicket *> *tickets) {
         if (tickets.count == 0) {
-            UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 72, self.view.width, self.view.height-72)];
-            converView.backgroundColor = COMMON_BG_COLOR;
+            UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64)];
+            converView.backgroundColor = [UIColor clearColor];
             [self.view addSubview:converView];
             HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
             [blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
@@ -135,8 +142,10 @@
         [UIView animateWithDuration:0.3 animations:^{
             [self.view viewWithTag:9001].alpha = 1;
             [self.view viewWithTag:200].alpha = 1;
+            [self.view viewWithTag:202].alpha = 0;
             [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
             [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
+            [self.view viewWithTag:202].bottom = [self.view viewWithTag:202].height;
         } completion:^(BOOL finished) {
             
         }];
@@ -146,8 +155,10 @@
                 //显示
                 [self.view viewWithTag:9001].alpha = 1;
                 [self.view viewWithTag:200].alpha = 1;
+                [self.view viewWithTag:202].alpha = 1;
                 [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
                 [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
+                [self.view viewWithTag:202].bottom = [self.view viewWithTag:202].height;
             } completion:^(BOOL finished) {
                 
             }];
@@ -156,8 +167,10 @@
                 //隐藏
                 [self.view viewWithTag:9001].alpha = 0;
                 [self.view viewWithTag:200].alpha = 0;
+                [self.view viewWithTag:202].alpha = 0;
                 [self.view viewWithTag:9001].bottom = 0;
                 [self.view viewWithTag:200].bottom = 0;
+                [self.view viewWithTag:202].bottom = 0;
             } completion:^(BOOL finished) {
                 
             }];

@@ -87,7 +87,7 @@
 
 #pragma mark - Create UI
 - (void)createUI {
-    self.view.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
+    self.view.backgroundColor = COMMON_BG_COLOR;
     
     WS(weakSelf);
     
@@ -181,7 +181,7 @@
     
     float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
     _mScrollView_season1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
-    _mScrollView_season1.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
+    _mScrollView_season1.backgroundColor = COMMON_BG_COLOR;
     _mScrollView_season1.delegate = self;
     _mScrollView_season1.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT_SEASON1, scrollViewHeight);
     _mScrollView_season1.pagingEnabled = YES;
@@ -297,7 +297,7 @@
     
     float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
     _mScrollView_season2 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
-    _mScrollView_season2.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
+    _mScrollView_season2.backgroundColor = COMMON_BG_COLOR;
     _mScrollView_season2.delegate = self;
     _mScrollView_season2.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT_SEASON2, scrollViewHeight);
     _mScrollView_season2.pagingEnabled = YES;
