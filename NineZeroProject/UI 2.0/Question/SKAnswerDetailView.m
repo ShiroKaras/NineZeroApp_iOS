@@ -93,7 +93,11 @@
         CGFloat scrollViewHeight = 0.0f;
         for (UIView* view in _backScrollView.subviews)
             scrollViewHeight += view.frame.size.height;
-        [_backScrollView setContentSize:(CGSizeMake(self.frame.size.width, scrollViewHeight+52.5+56+21))];
+        if (answerDetail.article_Illustration_type != 0) {
+            [_backScrollView setContentSize:(CGSizeMake(self.frame.size.width, scrollViewHeight))];
+        } else {
+            [_backScrollView setContentSize:(CGSizeMake(self.frame.size.width, scrollViewHeight-(self.width-20)/280*157.5))];
+        }
     }];
 }
 
@@ -107,14 +111,18 @@
     _backScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
     _backScrollView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
     _backScrollView.showsVerticalScrollIndicator = NO;
+    _backScrollView.bounces = NO;
     _backScrollView.alwaysBounceVertical = YES;
     _backScrollView.delegate = self;
     [self addSubview:_backScrollView];
     
-    _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(7, 10, self.frame.size.width-14, (self.frame.size.width-14)/307*72)];
+    _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(7, (self.frame.size.width-14)/307*72-(self.frame.size.width-14)/640*218 +30, self.frame.size.width-14, (self.frame.size.width-14)/640*218)];
     _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
     _headerImageView.layer.masksToBounds = YES;
     [_backScrollView addSubview:_headerImageView];
+    
+    UIView *hideView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, _headerImageView.width, 10)];
+    [_headerImageView addSubview:hideView];
     
     _contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, _headerImageView.bottom+12, self.width-20, (self.width-20)/280*157.5)];
     _contentImageView.contentMode = UIViewContentModeScaleAspectFill;
