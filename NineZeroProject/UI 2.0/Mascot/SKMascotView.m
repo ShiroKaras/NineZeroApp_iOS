@@ -751,11 +751,19 @@
         make.centerX.equalTo(compoundImageView);
     }];
     
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 13;// 字体的行间距
+    
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName:PINGFANG_FONT_OF_SIZE(14),
+                                 NSParagraphStyleAttributeName:paragraphStyle,
+                                 NSForegroundColorAttributeName:[UIColor whiteColor]
+                                 };
     UILabel *introduceLabel = [UILabel new];
     if (self.isHad) {
-        introduceLabel.text = _mascotSkillIntroArray[mascotType];
+        introduceLabel.attributedText = [[NSAttributedString alloc] initWithString:_mascotSkillIntroArray[mascotType] attributes:attributes];
     } else {
-        introduceLabel.text = [NSString stringWithFormat:@"收集到%@后激活魔法阵", self.mascotNameDict[_mascotNameArray[_type]]];
+        introduceLabel.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"收集到%@后激活魔法阵", self.mascotNameDict[_mascotNameArray[_type]]] attributes:attributes];
     }
     introduceLabel.textColor = [UIColor whiteColor];
     introduceLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
@@ -1229,7 +1237,7 @@
     
     //间距
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineSpacing = 8;// 字体的行间距
+    paragraphStyle.lineSpacing = 13;// 字体的行间距
     
     NSDictionary *attributes = @{
                                  NSFontAttributeName:PINGFANG_FONT_OF_SIZE(14),
