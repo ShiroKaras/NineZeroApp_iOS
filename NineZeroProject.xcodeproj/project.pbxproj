@@ -75,6 +75,28 @@
 		1160FB6F1E0FC4F600606F16 /* SKScanningResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB691E0FC4F600606F16 /* SKScanningResultView.m */; };
 		1160FB701E0FC4F600606F16 /* SKScanningRewardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB6B1E0FC4F600606F16 /* SKScanningRewardView.m */; };
 		1160FB711E0FC4F600606F16 /* SKSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB6D1E0FC4F600606F16 /* SKSwipeViewController.m */; };
+		1163E33F1E23ADB4002DBF4B /* right_answer_gif0000.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E3291E23ADB4002DBF4B /* right_answer_gif0000.png */; };
+		1163E3401E23ADB4002DBF4B /* right_answer_gif0001.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E32A1E23ADB4002DBF4B /* right_answer_gif0001.png */; };
+		1163E3411E23ADB4002DBF4B /* right_answer_gif0002.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E32B1E23ADB4002DBF4B /* right_answer_gif0002.png */; };
+		1163E3421E23ADB4002DBF4B /* right_answer_gif0003.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E32C1E23ADB4002DBF4B /* right_answer_gif0003.png */; };
+		1163E3431E23ADB4002DBF4B /* right_answer_gif0004.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E32D1E23ADB4002DBF4B /* right_answer_gif0004.png */; };
+		1163E3441E23ADB4002DBF4B /* right_answer_gif0005.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E32E1E23ADB4002DBF4B /* right_answer_gif0005.png */; };
+		1163E3451E23ADB4002DBF4B /* right_answer_gif0006.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E32F1E23ADB4002DBF4B /* right_answer_gif0006.png */; };
+		1163E3461E23ADB4002DBF4B /* right_answer_gif0007.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E3301E23ADB4002DBF4B /* right_answer_gif0007.png */; };
+		1163E3471E23ADB4002DBF4B /* right_answer_gif0008.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E3311E23ADB4002DBF4B /* right_answer_gif0008.png */; };
+		1163E3481E23ADB4002DBF4B /* right_answer_gif0009.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E3321E23ADB4002DBF4B /* right_answer_gif0009.png */; };
+		1163E3491E23ADB4002DBF4B /* right_answer_gif0010.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E3331E23ADB4002DBF4B /* right_answer_gif0010.png */; };
+		1163E34A1E23ADB4002DBF4B /* right_answer_gif0011.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E3341E23ADB4002DBF4B /* right_answer_gif0011.png */; };
+		1163E34B1E23ADB4002DBF4B /* right_answer_gif0012.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E3351E23ADB4002DBF4B /* right_answer_gif0012.png */; };
+		1163E34C1E23ADB4002DBF4B /* right_answer_gif0013.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E3361E23ADB4002DBF4B /* right_answer_gif0013.png */; };
+		1163E34D1E23ADB5002DBF4B /* right_answer_gif0014.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E3371E23ADB4002DBF4B /* right_answer_gif0014.png */; };
+		1163E34E1E23ADB5002DBF4B /* right_answer_gif0015.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E3381E23ADB4002DBF4B /* right_answer_gif0015.png */; };
+		1163E34F1E23ADB5002DBF4B /* right_answer_gif0016.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E3391E23ADB4002DBF4B /* right_answer_gif0016.png */; };
+		1163E3501E23ADB5002DBF4B /* right_answer_gif0017.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E33A1E23ADB4002DBF4B /* right_answer_gif0017.png */; };
+		1163E3511E23ADB5002DBF4B /* right_answer_gif0018.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E33B1E23ADB4002DBF4B /* right_answer_gif0018.png */; };
+		1163E3521E23ADB5002DBF4B /* right_answer_gif0019.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E33C1E23ADB4002DBF4B /* right_answer_gif0019.png */; };
+		1163E3531E23ADB5002DBF4B /* right_answer_gif0020.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E33D1E23ADB4002DBF4B /* right_answer_gif0020.png */; };
+		1163E3541E23ADB5002DBF4B /* right_answer_gif0021.png in Resources */ = {isa = PBXBuildFile; fileRef = 1163E33E1E23ADB4002DBF4B /* right_answer_gif0021.png */; };
 		11644F4D1DDD97CB002E9FDE /* SKRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */; };
 		11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */; };
 		116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */; };
@@ -1914,6 +1936,28 @@
 		1160FB6B1E0FC4F600606F16 /* SKScanningRewardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKScanningRewardView.m; path = "NineZeroProject/UI 2.0/LBS&AR/SKScanningRewardView.m"; sourceTree = "<group>"; };
 		1160FB6C1E0FC4F600606F16 /* SKSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKSwipeViewController.h; path = "NineZeroProject/UI 2.0/LBS&AR/SKSwipeViewController.h"; sourceTree = "<group>"; };
 		1160FB6D1E0FC4F600606F16 /* SKSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKSwipeViewController.m; path = "NineZeroProject/UI 2.0/LBS&AR/SKSwipeViewController.m"; sourceTree = "<group>"; };
+		1163E3291E23ADB4002DBF4B /* right_answer_gif0000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0000.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0000.png"; sourceTree = "<group>"; };
+		1163E32A1E23ADB4002DBF4B /* right_answer_gif0001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0001.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0001.png"; sourceTree = "<group>"; };
+		1163E32B1E23ADB4002DBF4B /* right_answer_gif0002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0002.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0002.png"; sourceTree = "<group>"; };
+		1163E32C1E23ADB4002DBF4B /* right_answer_gif0003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0003.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0003.png"; sourceTree = "<group>"; };
+		1163E32D1E23ADB4002DBF4B /* right_answer_gif0004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0004.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0004.png"; sourceTree = "<group>"; };
+		1163E32E1E23ADB4002DBF4B /* right_answer_gif0005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0005.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0005.png"; sourceTree = "<group>"; };
+		1163E32F1E23ADB4002DBF4B /* right_answer_gif0006.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0006.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0006.png"; sourceTree = "<group>"; };
+		1163E3301E23ADB4002DBF4B /* right_answer_gif0007.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0007.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0007.png"; sourceTree = "<group>"; };
+		1163E3311E23ADB4002DBF4B /* right_answer_gif0008.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0008.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0008.png"; sourceTree = "<group>"; };
+		1163E3321E23ADB4002DBF4B /* right_answer_gif0009.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0009.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0009.png"; sourceTree = "<group>"; };
+		1163E3331E23ADB4002DBF4B /* right_answer_gif0010.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0010.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0010.png"; sourceTree = "<group>"; };
+		1163E3341E23ADB4002DBF4B /* right_answer_gif0011.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0011.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0011.png"; sourceTree = "<group>"; };
+		1163E3351E23ADB4002DBF4B /* right_answer_gif0012.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0012.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0012.png"; sourceTree = "<group>"; };
+		1163E3361E23ADB4002DBF4B /* right_answer_gif0013.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0013.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0013.png"; sourceTree = "<group>"; };
+		1163E3371E23ADB4002DBF4B /* right_answer_gif0014.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0014.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0014.png"; sourceTree = "<group>"; };
+		1163E3381E23ADB4002DBF4B /* right_answer_gif0015.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0015.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0015.png"; sourceTree = "<group>"; };
+		1163E3391E23ADB4002DBF4B /* right_answer_gif0016.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0016.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0016.png"; sourceTree = "<group>"; };
+		1163E33A1E23ADB4002DBF4B /* right_answer_gif0017.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0017.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0017.png"; sourceTree = "<group>"; };
+		1163E33B1E23ADB4002DBF4B /* right_answer_gif0018.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0018.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0018.png"; sourceTree = "<group>"; };
+		1163E33C1E23ADB4002DBF4B /* right_answer_gif0019.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0019.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0019.png"; sourceTree = "<group>"; };
+		1163E33D1E23ADB4002DBF4B /* right_answer_gif0020.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0020.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0020.png"; sourceTree = "<group>"; };
+		1163E33E1E23ADB4002DBF4B /* right_answer_gif0021.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right_answer_gif0021.png; path = "../../../Downloads/iOS/战斗胜利动画序列帧/right_answer_gif0021.png"; sourceTree = "<group>"; };
 		11644F4B1DDD97CB002E9FDE /* SKRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterViewController.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.h"; sourceTree = "<group>"; };
 		11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRegisterViewController.m; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.m"; sourceTree = "<group>"; };
 		11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterTextField.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterTextField.h"; sourceTree = "<group>"; };
@@ -3872,6 +3916,7 @@
 			isa = PBXGroup;
 			children = (
 				1114AE031CE48DD800CCF92C /* Assets.xcassets */,
+				1163E3281E23AD64002DBF4B /* fight_success */,
 				17A247911C623B9900359CCF /* right_answer_gif */,
 				17A2476A1C623B9300359CCF /* raw_wrong_answer_gif */,
 				17461CE71C7493DF00C847E8 /* img_ar_right_answer_gif */,
@@ -4075,6 +4120,35 @@
 				1160FB511E0FC1AE00606F16 /* EasyAR */,
 			);
 			name = Scan;
+			sourceTree = "<group>";
+		};
+		1163E3281E23AD64002DBF4B /* fight_success */ = {
+			isa = PBXGroup;
+			children = (
+				1163E3291E23ADB4002DBF4B /* right_answer_gif0000.png */,
+				1163E32A1E23ADB4002DBF4B /* right_answer_gif0001.png */,
+				1163E32B1E23ADB4002DBF4B /* right_answer_gif0002.png */,
+				1163E32C1E23ADB4002DBF4B /* right_answer_gif0003.png */,
+				1163E32D1E23ADB4002DBF4B /* right_answer_gif0004.png */,
+				1163E32E1E23ADB4002DBF4B /* right_answer_gif0005.png */,
+				1163E32F1E23ADB4002DBF4B /* right_answer_gif0006.png */,
+				1163E3301E23ADB4002DBF4B /* right_answer_gif0007.png */,
+				1163E3311E23ADB4002DBF4B /* right_answer_gif0008.png */,
+				1163E3321E23ADB4002DBF4B /* right_answer_gif0009.png */,
+				1163E3331E23ADB4002DBF4B /* right_answer_gif0010.png */,
+				1163E3341E23ADB4002DBF4B /* right_answer_gif0011.png */,
+				1163E3351E23ADB4002DBF4B /* right_answer_gif0012.png */,
+				1163E3361E23ADB4002DBF4B /* right_answer_gif0013.png */,
+				1163E3371E23ADB4002DBF4B /* right_answer_gif0014.png */,
+				1163E3381E23ADB4002DBF4B /* right_answer_gif0015.png */,
+				1163E3391E23ADB4002DBF4B /* right_answer_gif0016.png */,
+				1163E33A1E23ADB4002DBF4B /* right_answer_gif0017.png */,
+				1163E33B1E23ADB4002DBF4B /* right_answer_gif0018.png */,
+				1163E33C1E23ADB4002DBF4B /* right_answer_gif0019.png */,
+				1163E33D1E23ADB4002DBF4B /* right_answer_gif0020.png */,
+				1163E33E1E23ADB4002DBF4B /* right_answer_gif0021.png */,
+			);
+			name = fight_success;
 			sourceTree = "<group>";
 		};
 		11961CD91D2D2B3400A00AF9 /* ImageEffects */ = {
@@ -6695,6 +6769,7 @@
 				119796DF1E1FA95400EDA8A5 /* sloth_03_00023.jpg in Resources */,
 				113FA6BC1E1E1DC5001DFFC5 /* lust_3.gif in Resources */,
 				1197974B1E1FA95400EDA8A5 /* wrath_03_00040.jpg in Resources */,
+				1163E3491E23ADB4002DBF4B /* right_answer_gif0010.png in Resources */,
 				119793DF1E1FA95000EDA8A5 /* lingzai_02_00009.jpg in Resources */,
 				119796FE1E1FA95400EDA8A5 /* wrath_01_00020.jpg in Resources */,
 				119792E21E1FA95000EDA8A5 /* gluttony_02_00039.jpg in Resources */,
@@ -6704,6 +6779,7 @@
 				119792941E1FA95000EDA8A5 /* gluttony_01_00061.jpg in Resources */,
 				119794A71E1FA95100EDA8A5 /* lust_01_00043.jpg in Resources */,
 				119791C21E1FA94F00EDA8A5 /* envy_01_00070.jpg in Resources */,
+				1163E3481E23ADB4002DBF4B /* right_answer_gif0009.png in Resources */,
 				119794351E1FA95100EDA8A5 /* lingzai_03_00001.jpg in Resources */,
 				119795E21E1FA95300EDA8A5 /* pride_02_00039.jpg in Resources */,
 				119796BF1E1FA95400EDA8A5 /* sloth_02_00072.jpg in Resources */,
@@ -6817,6 +6893,7 @@
 				119794EF1E1FA95100EDA8A5 /* lust_02_00039.jpg in Resources */,
 				119796D11E1FA95400EDA8A5 /* sloth_03_00009.jpg in Resources */,
 				1197969A1E1FA95400EDA8A5 /* sloth_02_00035.jpg in Resources */,
+				1163E3541E23ADB5002DBF4B /* right_answer_gif0021.png in Resources */,
 				119794A91E1FA95100EDA8A5 /* lust_01_00045.jpg in Resources */,
 				119791FB1E1FA94F00EDA8A5 /* envy_02_00047.jpg in Resources */,
 				119792511E1FA94F00EDA8A5 /* envy_03_00079.jpg in Resources */,
@@ -6950,6 +7027,7 @@
 				17A247811C623B9300359CCF /* raw_wrong_answer_gif_0003.png in Resources */,
 				1197927B1E1FA94F00EDA8A5 /* gluttony_01_00036.jpg in Resources */,
 				119795731E1FA95200EDA8A5 /* lust_03_00086.jpg in Resources */,
+				1163E33F1E23ADB4002DBF4B /* right_answer_gif0000.png in Resources */,
 				119796721E1FA95300EDA8A5 /* sloth_01_00063.jpg in Resources */,
 				119792D61E1FA95000EDA8A5 /* gluttony_02_00027.jpg in Resources */,
 				119793FA1E1FA95100EDA8A5 /* lingzai_02_00036.jpg in Resources */,
@@ -6968,6 +7046,7 @@
 				119791FF1E1FA94F00EDA8A5 /* envy_02_00051.jpg in Resources */,
 				119793371E1FA95000EDA8A5 /* gluttony_03_00029.jpg in Resources */,
 				1197948D1E1FA95100EDA8A5 /* lust_01_00017.jpg in Resources */,
+				1163E3421E23ADB4002DBF4B /* right_answer_gif0003.png in Resources */,
 				119795DD1E1FA95300EDA8A5 /* pride_02_00034.jpg in Resources */,
 				1197950A1E1FA95100EDA8A5 /* lust_02_00066.jpg in Resources */,
 				17A247A91C623B9900359CCF /* right_answer_gif_0002.png in Resources */,
@@ -7006,6 +7085,7 @@
 				119793861E1FA95000EDA8A5 /* lingzai_01_00018.jpg in Resources */,
 				119791B71E1FA94F00EDA8A5 /* envy_01_00059.jpg in Resources */,
 				119792091E1FA94F00EDA8A5 /* envy_03_00007.jpg in Resources */,
+				1163E3501E23ADB5002DBF4B /* right_answer_gif0017.png in Resources */,
 				119793981E1FA95000EDA8A5 /* lingzai_01_00036.jpg in Resources */,
 				1197922C1E1FA94F00EDA8A5 /* envy_03_00042.jpg in Resources */,
 				1197921F1E1FA94F00EDA8A5 /* envy_03_00029.jpg in Resources */,
@@ -7044,6 +7124,7 @@
 				119795851E1FA95200EDA8A5 /* pride_1_00008.jpg in Resources */,
 				119791B61E1FA94F00EDA8A5 /* envy_01_00058.jpg in Resources */,
 				119796171E1FA95300EDA8A5 /* pride_03_00031.jpg in Resources */,
+				1163E3471E23ADB4002DBF4B /* right_answer_gif0008.png in Resources */,
 				119796151E1FA95300EDA8A5 /* pride_03_00029.jpg in Resources */,
 				119795BD1E1FA95200EDA8A5 /* pride_02_00002.jpg in Resources */,
 				119791F01E1FA94F00EDA8A5 /* envy_02_00036.jpg in Resources */,
@@ -7096,6 +7177,7 @@
 				119795BA1E1FA95200EDA8A5 /* pride_1_00061.jpg in Resources */,
 				1197934A1E1FA95000EDA8A5 /* gluttony_03_00048.jpg in Resources */,
 				1197934C1E1FA95000EDA8A5 /* gluttony_03_00050.jpg in Resources */,
+				1163E34F1E23ADB5002DBF4B /* right_answer_gif0016.png in Resources */,
 				119791D81E1FA94F00EDA8A5 /* envy_02_00012.jpg in Resources */,
 				119794261E1FA95100EDA8A5 /* lingzai_02_00080.jpg in Resources */,
 				1197945C1E1FA95100EDA8A5 /* lingzai_03_00040.jpg in Resources */,
@@ -7164,6 +7246,7 @@
 				119796BB1E1FA95400EDA8A5 /* sloth_02_00068.jpg in Resources */,
 				1197936C1E1FA95000EDA8A5 /* gluttony_03_00082.jpg in Resources */,
 				119793E41E1FA95000EDA8A5 /* lingzai_02_00014.jpg in Resources */,
+				1163E3431E23ADB4002DBF4B /* right_answer_gif0004.png in Resources */,
 				119792811E1FA94F00EDA8A5 /* gluttony_01_00042.jpg in Resources */,
 				119794E71E1FA95100EDA8A5 /* lust_02_00031.jpg in Resources */,
 				119794631E1FA95100EDA8A5 /* lingzai_03_00047.jpg in Resources */,
@@ -7178,6 +7261,7 @@
 				119796541E1FA95300EDA8A5 /* sloth_01_00033.jpg in Resources */,
 				119792FB1E1FA95000EDA8A5 /* gluttony_02_00064.jpg in Resources */,
 				119796261E1FA95300EDA8A5 /* pride_03_00046.jpg in Resources */,
+				1163E3461E23ADB4002DBF4B /* right_answer_gif0007.png in Resources */,
 				119795351E1FA95200EDA8A5 /* lust_03_00024.jpg in Resources */,
 				119796AD1E1FA95400EDA8A5 /* sloth_02_00054.jpg in Resources */,
 				113FA6BD1E1E1DC5001DFFC5 /* pride_1.gif in Resources */,
@@ -7333,6 +7417,7 @@
 				119795AB1E1FA95200EDA8A5 /* pride_1_00046.jpg in Resources */,
 				119791CB1E1FA94F00EDA8A5 /* envy_01_00079.jpg in Resources */,
 				119795A01E1FA95200EDA8A5 /* pride_1_00035.jpg in Resources */,
+				1163E3401E23ADB4002DBF4B /* right_answer_gif0001.png in Resources */,
 				119792691E1FA94F00EDA8A5 /* gluttony_01_00018.jpg in Resources */,
 				1197923B1E1FA94F00EDA8A5 /* envy_03_00057.jpg in Resources */,
 				119796A01E1FA95400EDA8A5 /* sloth_02_00041.jpg in Resources */,
@@ -7488,6 +7573,7 @@
 				119795F81E1FA95300EDA8A5 /* pride_03_00000.jpg in Resources */,
 				119792401E1FA94F00EDA8A5 /* envy_03_00062.jpg in Resources */,
 				119796B11E1FA95400EDA8A5 /* sloth_02_00058.jpg in Resources */,
+				1163E34A1E23ADB4002DBF4B /* right_answer_gif0011.png in Resources */,
 				1197933B1E1FA95000EDA8A5 /* gluttony_03_00033.jpg in Resources */,
 				1197964B1E1FA95300EDA8A5 /* sloth_01_00024.jpg in Resources */,
 				119796121E1FA95300EDA8A5 /* pride_03_00026.jpg in Resources */,
@@ -7512,6 +7598,7 @@
 				1197943E1E1FA95100EDA8A5 /* lingzai_03_00010.jpg in Resources */,
 				1197930D1E1FA95000EDA8A5 /* gluttony_02_00082.jpg in Resources */,
 				1197934D1E1FA95000EDA8A5 /* gluttony_03_00051.jpg in Resources */,
+				1163E34B1E23ADB4002DBF4B /* right_answer_gif0012.png in Resources */,
 				119795461E1FA95200EDA8A5 /* lust_03_00041.jpg in Resources */,
 				119796141E1FA95300EDA8A5 /* pride_03_00028.jpg in Resources */,
 				1197934F1E1FA95000EDA8A5 /* gluttony_03_00053.jpg in Resources */,
@@ -7608,6 +7695,7 @@
 				119795A31E1FA95200EDA8A5 /* pride_1_00038.jpg in Resources */,
 				119792B21E1FA95000EDA8A5 /* gluttony_01_00091.jpg in Resources */,
 				119797311E1FA95400EDA8A5 /* wrath_03_00014.jpg in Resources */,
+				1163E3451E23ADB4002DBF4B /* right_answer_gif0006.png in Resources */,
 				119796A61E1FA95400EDA8A5 /* sloth_02_00047.jpg in Resources */,
 				119796461E1FA95300EDA8A5 /* sloth_01_00019.jpg in Resources */,
 				119791871E1FA94F00EDA8A5 /* envy_01_00011.jpg in Resources */,
@@ -7680,6 +7768,7 @@
 				119793CC1E1FA95000EDA8A5 /* lingzai_01_00088.jpg in Resources */,
 				119792E61E1FA95000EDA8A5 /* gluttony_02_00043.jpg in Resources */,
 				119793771E1FA95000EDA8A5 /* lingzai_01_00003.jpg in Resources */,
+				1163E34D1E23ADB5002DBF4B /* right_answer_gif0014.png in Resources */,
 				119791E71E1FA94F00EDA8A5 /* envy_02_00027.jpg in Resources */,
 				119792EE1E1FA95000EDA8A5 /* gluttony_02_00051.jpg in Resources */,
 				1197973F1E1FA95400EDA8A5 /* wrath_03_00028.jpg in Resources */,
@@ -7692,6 +7781,7 @@
 				1197922E1E1FA94F00EDA8A5 /* envy_03_00044.jpg in Resources */,
 				119796D01E1FA95400EDA8A5 /* sloth_03_00008.jpg in Resources */,
 				1197919B1E1FA94F00EDA8A5 /* envy_01_00031.jpg in Resources */,
+				1163E3411E23ADB4002DBF4B /* right_answer_gif0002.png in Resources */,
 				1197961B1E1FA95300EDA8A5 /* pride_03_00035.jpg in Resources */,
 				119794281E1FA95100EDA8A5 /* lingzai_02_00082.jpg in Resources */,
 				1197971D1E1FA95400EDA8A5 /* wrath_02_00017.jpg in Resources */,
@@ -8010,6 +8100,7 @@
 				119792DB1E1FA95000EDA8A5 /* gluttony_02_00032.jpg in Resources */,
 				119791811E1FA94F00EDA8A5 /* envy_01_00005.jpg in Resources */,
 				119792CE1E1FA95000EDA8A5 /* gluttony_02_00019.jpg in Resources */,
+				1163E3511E23ADB5002DBF4B /* right_answer_gif0018.png in Resources */,
 				119792721E1FA94F00EDA8A5 /* gluttony_01_00027.jpg in Resources */,
 				1197944E1E1FA95100EDA8A5 /* lingzai_03_00026.jpg in Resources */,
 				119793BB1E1FA95000EDA8A5 /* lingzai_01_00071.jpg in Resources */,
@@ -8085,6 +8176,7 @@
 				119793A81E1FA95000EDA8A5 /* lingzai_01_00052.jpg in Resources */,
 				119791A51E1FA94F00EDA8A5 /* envy_01_00041.jpg in Resources */,
 				119792E91E1FA95000EDA8A5 /* gluttony_02_00046.jpg in Resources */,
+				1163E3521E23ADB5002DBF4B /* right_answer_gif0019.png in Resources */,
 				119797371E1FA95400EDA8A5 /* wrath_03_00020.jpg in Resources */,
 				1197960F1E1FA95300EDA8A5 /* pride_03_00023.jpg in Resources */,
 				17461CFF1C7493DF00C847E8 /* img_ar_right_answer_gif_0005.png in Resources */,
@@ -8100,6 +8192,7 @@
 				119796641E1FA95300EDA8A5 /* sloth_01_00049.jpg in Resources */,
 				1197943C1E1FA95100EDA8A5 /* lingzai_03_00008.jpg in Resources */,
 				1197933F1E1FA95000EDA8A5 /* gluttony_03_00037.jpg in Resources */,
+				1163E3441E23ADB4002DBF4B /* right_answer_gif0005.png in Resources */,
 				1787FD171C4A8884006E55A6 /* ar_icon.png in Resources */,
 				119793761E1FA95000EDA8A5 /* lingzai_01_00002.jpg in Resources */,
 				119791FC1E1FA94F00EDA8A5 /* envy_02_00048.jpg in Resources */,
@@ -8162,6 +8255,7 @@
 				119792A51E1FA95000EDA8A5 /* gluttony_01_00078.jpg in Resources */,
 				119797201E1FA95400EDA8A5 /* wrath_02_00020.jpg in Resources */,
 				1197950D1E1FA95100EDA8A5 /* lust_02_00069.jpg in Resources */,
+				1163E3531E23ADB5002DBF4B /* right_answer_gif0020.png in Resources */,
 				1197927A1E1FA94F00EDA8A5 /* gluttony_01_00035.jpg in Resources */,
 				119794A21E1FA95100EDA8A5 /* lust_01_00038.jpg in Resources */,
 				119792211E1FA94F00EDA8A5 /* envy_03_00031.jpg in Resources */,
@@ -8221,7 +8315,9 @@
 				119794701E1FA95100EDA8A5 /* lingzai_03_00060.jpg in Resources */,
 				113FA6BE1E1E1DC5001DFFC5 /* pride_2.gif in Resources */,
 				119795E51E1FA95300EDA8A5 /* pride_02_00042.jpg in Resources */,
+				1163E34E1E23ADB5002DBF4B /* right_answer_gif0015.png in Resources */,
 				1197952B1E1FA95200EDA8A5 /* lust_03_00014.jpg in Resources */,
+				1163E34C1E23ADB4002DBF4B /* right_answer_gif0013.png in Resources */,
 				119793551E1FA95000EDA8A5 /* gluttony_03_00059.jpg in Resources */,
 				119794FC1E1FA95100EDA8A5 /* lust_02_00052.jpg in Resources */,
 				119794B81E1FA95100EDA8A5 /* lust_01_00060.jpg in Resources */,

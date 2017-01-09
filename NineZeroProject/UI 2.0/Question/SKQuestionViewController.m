@@ -1001,13 +1001,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.left.equalTo(rewardBaseInfoView);
     }];
     
-    UILabel *iconCountLabel = [UILabel new];
-    iconCountLabel.textColor = COMMON_RED_COLOR;
-    iconCountLabel.text = self.reward.gold;
-    iconCountLabel.font = MOON_FONT_OF_SIZE(19);
-    [iconCountLabel sizeToFit];
-    [rewardBaseInfoView addSubview:iconCountLabel];
-    [iconCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UILabel *coinCountLabel = [UILabel new];
+    coinCountLabel.textColor = COMMON_RED_COLOR;
+    coinCountLabel.text = self.reward.gold;
+    coinCountLabel.font = MOON_FONT_OF_SIZE(19);
+    [coinCountLabel sizeToFit];
+    [rewardBaseInfoView addSubview:coinCountLabel];
+    [coinCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(rewardImageView_txt_3.mas_right).offset(6);
         make.centerY.equalTo(rewardImageView_txt_3);
     }];
@@ -1017,8 +1017,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [rewardImageView_txt_gold mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@37);
         make.height.equalTo(@19);
-        make.left.equalTo(iconCountLabel.mas_right).offset(6);
-        make.centerY.equalTo(iconCountLabel);
+        make.left.equalTo(coinCountLabel.mas_right).offset(6);
+        make.centerY.equalTo(coinCountLabel);
     }];
     
     //经验值行
