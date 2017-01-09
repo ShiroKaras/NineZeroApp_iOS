@@ -37,6 +37,7 @@ static const CGFloat lineWidth = 1;
         _placeholderLabel = [[UILabel alloc]initWithFrame:CGRectZero];
         _placeholderLabel.font = [UIFont systemFontOfSize:18.f];
         _placeholderLabel.textColor = [UIColor whiteColor];
+        _placeholderLabel.alpha = 0.6;
         [self addSubview:_placeholderLabel];
         
         _lineView = [[UIView alloc]initWithFrame:CGRectZero];
