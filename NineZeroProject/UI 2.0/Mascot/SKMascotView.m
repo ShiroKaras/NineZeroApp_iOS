@@ -1177,13 +1177,13 @@
                              @"lust"        :   @"img_info_lust"
                              };
         _mascotContentDict = @{
-                               @"lingzai"     :   @"传说中的529D星球。〇纯洁如一张白纸，却孤独如一片深海。虽然这个世界与自己残存的记忆中的星球有太多类似的地方，但是它还是需要找到529D星球的一些线索，它希望知道自己的来处，希望了解关于529D星球的一切真相。",
-                               @"sloth"        :   @"一个嗜睡狂魔，只要有休息的机会它绝对会瞬间倒下睡觉，但是它有一个克星，没错就是那只小鸟。虽然Sloth·S不可避免的进入梦乡，但是小鸟却每次都在提醒Sloth·S向什么方向出发。最让Sloth·S接受不了的是：那只小鸟会逮住所有的机会叫醒它！然而似乎并没有什么卵用。",
-                               @"pride"    :   @"从出生开始就没见过自己的脚趾头，脑袋一直高昂着。别想让它主动联系你，它可有偶像包袱，别跟它说话，它好像也没搭理过谁，似乎只有一身的雍容华贵才可以表达它的品味为了保证随时聚焦在闪光灯下，Pride·W要保持最佳状态，不可以让任何人看到它不好的一面。",
-                               @"wrath"       :   @"炸弹做手表也是没谁了，而它只是在倒计时自己还有多久会气炸。Wrath·C气场强大，光是靠近你，不用背景音乐，你就能感受到周围阵阵杀气。它是一个偏执狂，可以把一件事情坚持做到底，认定的事情，谁也不可以改变，别惹它，不是开玩笑的。",
-                               @"gluttony"       :   @"如果没有美食，这个世界还会好么？Gluttony·T最喜欢说的一句话是“我还能再吃一口” 再吃一口，不是因为它想吃掉所有食物，而是为了尝遍天下所有美食，为了食物可以不惜一切代价。为了争夺到手的肥肉，不惜把自己的手吃掉。",
-                               @"lust"       :   @"一切撩人神技都有特别的技巧，从约炮短信的聊天气泡出生，它喜欢广交朋友，和任何人都很容易产生情趣话题；它天生拥有强大的读心术，与你对视几秒，就能知道你心中隐藏什么奇怪想法；它是荷尔蒙的寻觅师，知道精神深处何处安放。",
-                               @"envy"        :   @"找准角度，10分钟完成自拍！3个小时修图，要瘦！要白！要大气！要国际范！刚秀完自拍当然要po出本宝宝现在去的上流餐厅，看到了明星要合影，发朋友圈说“老朋友相见，我就喜欢这么平淡的生活”。你觉得Envy·A是玻璃心？你就是在嫉妒它，它要把你拉黑！"
+                               @"lingzai"     :   @"传说中的529D星球\n〇纯洁如一张白纸\n却孤独如一片深海\n虽然这个世界与自己残存的记忆中的星球\n有太多类似的地方\n但是它还是需要找到529D星球的一些线索\n它希望知道自己的来处\n希望了解关于529D星球的一切真相",
+                               @"sloth"        :   @"一个嗜睡狂魔\n只要有休息的机会它绝对会瞬间倒下睡觉\n但是它有一个克星\n没错就是那只小鸟\n虽然Sloth·S不可避免的进入梦乡\n但是小鸟却每次都在提醒Sloth·S向什么方向出发\n最让Sloth·S接受不了的是\n那只小鸟会逮住所有的机会叫醒它！\n然而似乎并没有什么卵用",
+                               @"pride"    :   @"从出生开始就没见过自己的脚趾头\n脑袋一直高昂着\n别想让它主动联系你\n它可有偶像包袱\n别跟它说话\n它好像也没搭理过谁\n似乎只有一身的雍容华贵才可以表达它的品味为了保证随时聚焦在闪光灯下\nPride·W要保持最佳状态\n不可以让任何人看到它不好的一面",
+                               @"wrath"       :   @"炸弹做手表也是没谁了\n而它只是在倒计时自己还有多久会气炸\nWrath·C气场强大\n光是靠近你\n不用背景音乐\n你就能感受到周围阵阵杀气\n它是一个偏执狂\n可以把一件事情坚持做到底\n认定的事情\n谁也不可以改变\n别惹它\n不是开玩笑的\n",
+                               @"gluttony"       :   @"如果没有美食\n这个世界还会好么？\nGluttony·T最喜欢说的一句话是\n“我还能再吃一口” \n再吃一口，不是因为它想吃掉所有食物\n而是为了尝遍天下所有美食\n为了食物可以不惜一切代价\n为了争夺到手的肥肉\n不惜把自己的手吃掉",
+                               @"lust"       :   @"一切撩人神技都有特别的技巧\n从约炮短信的聊天气泡出生\n它喜欢广交朋友\n和任何人都很容易产生情趣话题\n它天生拥有强大的读心术\n与你对视几秒\n就能知道你心中隐藏什么奇怪想法\n它是荷尔蒙的寻觅师\n知道精神深处何处安放",
+                               @"envy"        :   @"找准角度\n10分钟完成自拍！\n3个小时修图\n要瘦！要白！要大气！\n要国际范！\n刚秀完自拍当然要po出本宝宝现在去的上流餐厅\n看到了明星要合影\n发朋友圈说\n“老朋友相见，我就喜欢这么平淡的生活”\n你觉得Envy·A是玻璃心？\n你就是在嫉妒它\n它要把你拉黑！"
                                };
         
         [self createUIWithType:mascotType];
@@ -1232,13 +1232,17 @@
     paragraphStyle.lineSpacing = 8;// 字体的行间距
     
     NSDictionary *attributes = @{
-                                 NSFontAttributeName:PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(14)),
+                                 NSFontAttributeName:PINGFANG_FONT_OF_SIZE(14),
                                  NSParagraphStyleAttributeName:paragraphStyle,
                                  NSForegroundColorAttributeName:[UIColor whiteColor]
                                  };
     
     UITextView *textView = [UITextView new];
+    textView.attributedText = [[NSAttributedString alloc] initWithString:_mascotContentDict[_mascotNameArray[type]] attributes:attributes];
+    textView.textAlignment = NSTextAlignmentCenter;
     textView.backgroundColor = [UIColor clearColor];
+//    textView.numberOfLines = 0;
+    [textView sizeToFit];
     textView.editable = NO;
     [self addSubview:textView];
     [textView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1247,7 +1251,6 @@
         make.right.equalTo(self.mas_right).offset(-16);
         make.bottom.equalTo(self.mas_bottom).offset(-20);
     }];
-    textView.attributedText = [[NSAttributedString alloc] initWithString:_mascotContentDict[_mascotNameArray[type]] attributes:attributes];
 }
 
 - (void)closeButtonClick:(UIButton *)sender {
