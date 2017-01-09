@@ -152,6 +152,7 @@
                         _blackView.hidden = NO;
                         [self.view bringSubviewToFront:_blackView];
                         [self.view endEditing:YES];
+                        [[NSNotificationCenter defaultCenter] removeObserver:self];
                         SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
                         AppDelegateInstance.mainController = controller;
                         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
