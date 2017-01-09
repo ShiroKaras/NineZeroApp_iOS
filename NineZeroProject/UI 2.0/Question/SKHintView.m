@@ -53,7 +53,41 @@
             ((UILabel*)[self viewWithTag:HINT_LABEL_3]).text = hintList.hint_three;
             
             if ([self.hintList.hint_one isEqualToString:@""]) {
+                
+            } else if ([self.hintList.hint_two isEqualToString:@""]) {
+                [self viewWithTag:HINT_BUTTON_1].hidden = 1;
+            } else if ([self.hintList.hint_three isEqualToString:@""]) {
+                [self viewWithTag:HINT_BUTTON_1].hidden = YES;
+                [self viewWithTag:HINT_BUTTON_2].hidden = YES;
+            } else {
+                [self viewWithTag:HINT_BUTTON_1].hidden = YES;
+                [self viewWithTag:HINT_BUTTON_2].hidden = YES;
+                [self viewWithTag:HINT_BUTTON_3].hidden = YES;
+            }
+            
+            //更新道具数量
+            self.hintPropCount = self.hintList.num;
+            if (self.hintPropCount==0) {
+                _iconImageView.image = [UIImage imageNamed:@"btn_detailspage_clue_add"];
+            } else {
+                _iconImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_clue_season%lu",(unsigned long)_season]];
+            }
+            _propCountLabel.text = [NSString stringWithFormat:@"%ld",(long)self.hintPropCount];
+        }
+    }];
+}
 
+- (void)refreshData {
+    [[[SKServiceManager sharedInstance] questionService] getQuestionDetailCluesWithQuestionID:self.question.qid callback:^(BOOL success, NSInteger result, SKHintList *hintList) {
+        if (result==0) {
+            self.hintList = hintList;
+            
+            ((UILabel*)[self viewWithTag:HINT_LABEL_1]).text = hintList.hint_one;
+            ((UILabel*)[self viewWithTag:HINT_LABEL_2]).text = hintList.hint_two;
+            ((UILabel*)[self viewWithTag:HINT_LABEL_3]).text = hintList.hint_three;
+            
+            if ([self.hintList.hint_one isEqualToString:@""]) {
+                
             } else if ([self.hintList.hint_two isEqualToString:@""]) {
                 [UIView animateWithDuration:0.3 animations:^{
                     [self viewWithTag:HINT_BUTTON_1].alpha = 0;
@@ -79,7 +113,7 @@
                     [self viewWithTag:HINT_BUTTON_3].hidden = YES;
                 }];
             }
-            
+
             //更新道具数量
             self.hintPropCount = self.hintList.num;
             if (self.hintPropCount==0) {
@@ -270,14 +304,13 @@
         [[[SKServiceManager sharedInstance] questionService] purchaseQuestionClueWithQuestionID:self.question.qid callback:^(BOOL success, SKResponsePackage *response) {
             if (response.result == 0)
             {
-                [self showPromptWithText:@"获得新的线索"];
                 [self showNumberLabelWithButton:sender];
             } else if (response.result == -3007) {
                 [self showPromptWithText:@"已经获得所有线索"];
             } else if (response.result == -3008) {
                 [self showPromptWithText:@"线索道具不足"];
             }
-            [self loadData];
+            [self refreshData];
         }];
     }
 }
