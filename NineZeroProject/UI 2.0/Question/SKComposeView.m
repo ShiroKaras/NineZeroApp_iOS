@@ -212,6 +212,7 @@
 
 - (void)showAnswerCorrect:(BOOL)correct {
     _resultImageView.hidden = NO;
+    _participatorView.hidden = YES;
     if (correct == NO) {
         [UIView animateWithDuration:0.95 animations:^{ } completion:^(BOOL finished) {
             
