@@ -71,7 +71,7 @@
             [self createMonster];
         } else {
             //未出现
-            
+            [self showPromptWithText:nil];
         }
     }];
 }
@@ -164,7 +164,7 @@
                     }
                 });
             } else {
-                [self showPromptWithText:nil];
+                
             }
         }];
     });
