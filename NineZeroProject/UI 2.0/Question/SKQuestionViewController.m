@@ -997,7 +997,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [rewardImageView_txt_3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@100);
         make.height.equalTo(@19);
-        make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(15);
+        make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(20);
         make.left.equalTo(rewardBaseInfoView);
     }];
     
