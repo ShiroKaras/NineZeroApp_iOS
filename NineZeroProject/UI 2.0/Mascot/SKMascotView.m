@@ -791,9 +791,18 @@
     [compoundImageView addSubview:c4];
     
     //数字
+    NSArray *labelColorArray = @[COMMON_RED_COLOR,
+                                 [UIColor colorWithHex:0x24DDB2],
+                                 [UIColor colorWithHex:0xD40E88],
+                                 [UIColor colorWithHex:0xA96128],
+                                 [UIColor colorWithHex:0x6774C6],
+                                 [UIColor colorWithHex:0xFFBD00],
+                                 [UIColor colorWithHex:0xFDD900],
+                                 ];
+    
     _familyMascot_1_Label = [UILabel new];
     _familyMascot_1_Label.text = @"00";
-    _familyMascot_1_Label.textColor = COMMON_GREEN_COLOR;
+    _familyMascot_1_Label.textColor = labelColorArray[_type];
     _familyMascot_1_Label.font = MOON_FONT_OF_SIZE(14);
     [c1 addSubview:_familyMascot_1_Label];
     [_familyMascot_1_Label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -802,7 +811,7 @@
     
     _familyMascot_2_Label = [UILabel new];
     _familyMascot_2_Label.text = @"00";
-    _familyMascot_2_Label.textColor = COMMON_GREEN_COLOR;
+    _familyMascot_2_Label.textColor = labelColorArray[_type];
     _familyMascot_2_Label.font = MOON_FONT_OF_SIZE(14);
     [c2 addSubview:_familyMascot_2_Label];
     [_familyMascot_2_Label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -811,7 +820,7 @@
     
     _familyMascot_3_Label = [UILabel new];
     _familyMascot_3_Label.text = @"00";
-    _familyMascot_3_Label.textColor = COMMON_GREEN_COLOR;
+    _familyMascot_3_Label.textColor = labelColorArray[_type];
     _familyMascot_3_Label.font = MOON_FONT_OF_SIZE(14);
     [c3 addSubview:_familyMascot_3_Label];
     [_familyMascot_3_Label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -820,7 +829,7 @@
     
     _familyMascot_4_Label = [UILabel new];
     _familyMascot_4_Label.text = @"00";
-    _familyMascot_4_Label.textColor = COMMON_GREEN_COLOR;
+    _familyMascot_4_Label.textColor = labelColorArray[_type];
     _familyMascot_4_Label.font = MOON_FONT_OF_SIZE(14);
     [c4 addSubview:_familyMascot_4_Label];
     [_familyMascot_4_Label mas_makeConstraints:^(MASConstraintMaker *make) {

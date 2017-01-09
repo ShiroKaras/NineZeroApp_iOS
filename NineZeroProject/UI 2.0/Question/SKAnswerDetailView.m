@@ -111,7 +111,7 @@
     _backScrollView.delegate = self;
     [self addSubview:_backScrollView];
     
-    _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(7, 11+40+5, self.frame.size.width-14, (self.frame.size.width-14)/307*72)];
+    _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(7, 10, self.frame.size.width-14, (self.frame.size.width-14)/307*72)];
     _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
     _headerImageView.layer.masksToBounds = YES;
     [_backScrollView addSubview:_headerImageView];

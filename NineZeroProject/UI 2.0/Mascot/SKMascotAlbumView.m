@@ -27,7 +27,7 @@
 - (void)createUI {
     UIView *alphaView = [[UIView alloc] initWithFrame:self.frame];
     alphaView.backgroundColor = [UIColor blackColor];
-    alphaView.alpha = 0.9;
+    alphaView.alpha = 1;
     [self addSubview:alphaView];
     
     UIButton *closeButton = [UIButton new];
