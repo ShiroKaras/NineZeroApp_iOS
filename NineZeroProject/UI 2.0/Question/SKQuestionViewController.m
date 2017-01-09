@@ -878,6 +878,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     SKAnswerDetailView *answerDetailView = [[SKAnswerDetailView alloc] initWithFrame:CGRectMake(0, 0, answerBackView.width, answerBackView.height) questionID:self.currentQuestion.qid];
     [answerBackView addSubview:answerDetailView];
+    
+    UIImageView *dimmingImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_success_shading_down"]];
+    dimmingImageView.width = answerBackView.width;
+    dimmingImageView.height = dimmingImageView.width/300*84;
+    dimmingImageView.bottom = answerBackView.bottom;
+    [answerBackView addSubview:dimmingImageView];
 }
 
 #pragma mark - Rank View
