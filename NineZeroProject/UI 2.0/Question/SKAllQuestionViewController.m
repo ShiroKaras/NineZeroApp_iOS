@@ -50,7 +50,6 @@
     [super viewDidLoad];
     [self createUI];
     [self addObserver:self forKeyPath:@"season" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-    [self loadData];
 }
 
 - (void)dealloc {
@@ -140,6 +139,8 @@
         [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
         [self.view addSubview:blankView];
         blankView.top = ROUND_HEIGHT_FLOAT(217);
+    } else {
+        [self loadData];
     }
 }
 
