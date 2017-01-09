@@ -40,6 +40,19 @@
     [ticketImageView sd_setImageWithURL:[NSURL URLWithString:self.ticket.ticket_cover]];
     [self addSubview:ticketImageView];
     
+    UILabel *ticketTitleLabel_shadow = [UILabel new];
+    ticketTitleLabel_shadow.text = self.ticket.title;
+    ticketTitleLabel_shadow.textColor = [UIColor blackColor];
+    ticketTitleLabel_shadow.font = PINGFANG_FONT_OF_SIZE(12);
+    ticketTitleLabel_shadow.numberOfLines = 2;
+    [self addSubview:ticketTitleLabel_shadow];
+    [ticketTitleLabel_shadow mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@14);
+        make.left.equalTo(@13);
+        make.width.equalTo(@163);
+        make.height.equalTo(@40);
+    }];
+    
     UILabel *ticketTitleLabel = [UILabel new];
     ticketTitleLabel.text = self.ticket.title;
     ticketTitleLabel.textColor = [UIColor whiteColor];
@@ -53,17 +66,15 @@
         make.height.equalTo(@40);
     }];
     
-    UILabel *ticketTitleLabel_shadow = [UILabel new];
-    ticketTitleLabel_shadow.text = self.ticket.title;
-    ticketTitleLabel_shadow.textColor = [UIColor whiteColor];
-    ticketTitleLabel_shadow.font = PINGFANG_FONT_OF_SIZE(12);
-    ticketTitleLabel_shadow.numberOfLines = 2;
-    [self addSubview:ticketTitleLabel_shadow];
-    [ticketTitleLabel_shadow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@14);
-        make.left.equalTo(@13);
-        make.width.equalTo(@163);
-        make.height.equalTo(@40);
+    UILabel *exchangeCodeLabel_shadow = [UILabel new];
+    exchangeCodeLabel_shadow.text = [NSString stringWithFormat:@"唯一兑换码 %@",self.ticket.code];
+    exchangeCodeLabel_shadow.textColor = [UIColor blackColor];
+    exchangeCodeLabel_shadow.font = PINGFANG_FONT_OF_SIZE(10);
+    [exchangeCodeLabel_shadow sizeToFit];
+    [self addSubview:exchangeCodeLabel_shadow];
+    [exchangeCodeLabel_shadow mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.mas_bottom).offset(-13);
+        make.left.equalTo(ticketTitleLabel).offset(1);
     }];
     
     UILabel *exchangeCodeLabel = [UILabel new];
@@ -77,23 +88,23 @@
         make.left.equalTo(ticketTitleLabel);
     }];
     
-    UILabel *exchangeCodeLabel_shadow = [UILabel new];
-    exchangeCodeLabel_shadow.text = [NSString stringWithFormat:@"唯一兑换码 %@",self.ticket.code];
-    exchangeCodeLabel_shadow.textColor = [UIColor whiteColor];
-    exchangeCodeLabel_shadow.font = PINGFANG_FONT_OF_SIZE(10);
-    [exchangeCodeLabel_shadow sizeToFit];
-    [self addSubview:exchangeCodeLabel_shadow];
-    [exchangeCodeLabel_shadow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(exchangeCodeLabel).offset(1);
-        make.left.equalTo(exchangeCodeLabel).offset(1);
-    }];
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
     [formatter setDateFormat:@"YYYY-MM-dd"];
     NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:self.ticket.expire_time];
     NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+    
+    UILabel *timeLimitLabal_shadow = [UILabel new];
+    timeLimitLabal_shadow.text = [NSString stringWithFormat:@"有效期至%@",confromTimespStr];
+    timeLimitLabal_shadow.textColor = [UIColor blackColor];
+    timeLimitLabal_shadow.font = PINGFANG_FONT_OF_SIZE(10);
+    [timeLimitLabal_shadow sizeToFit];
+    [self addSubview:timeLimitLabal_shadow];
+    [timeLimitLabal_shadow mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(exchangeCodeLabel.mas_top).offset(-3);
+        make.left.equalTo(ticketTitleLabel).offset(1);
+    }];
     
     UILabel *timeLimitLabal = [UILabel new];
     timeLimitLabal.text = [NSString stringWithFormat:@"有效期至%@",confromTimespStr];
@@ -104,17 +115,6 @@
     [timeLimitLabal mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(exchangeCodeLabel.mas_top).offset(-4);
         make.left.equalTo(ticketTitleLabel);
-    }];
-    
-    UILabel *timeLimitLabal_shadow = [UILabel new];
-    timeLimitLabal_shadow.text = [NSString stringWithFormat:@"有效期至%@",confromTimespStr];
-    timeLimitLabal_shadow.textColor = [UIColor whiteColor];
-    timeLimitLabal_shadow.font = PINGFANG_FONT_OF_SIZE(10);
-    [timeLimitLabal_shadow sizeToFit];
-    [self addSubview:timeLimitLabal_shadow];
-    [timeLimitLabal_shadow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(timeLimitLabal).offset(1);
-        make.left.equalTo(timeLimitLabal).offset(1);
     }];
 }
 
