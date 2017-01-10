@@ -135,13 +135,13 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         [images addObject:image];
     }
     
-    self.mascotImageView = [[UIImageView alloc] init];
+    self.mascotImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
     self.mascotImageView.animationImages = images;
     self.mascotImageView.animationDuration = 0.1 * images.count;
     self.mascotImageView.animationRepeatCount = 0;
     [self.mascotImageView startAnimating];
     
-    self.mascotMotionView = [[MotionEffectView alloc] initWithFrame:CGRectMake(-self.view.frame.size.width, -(self.view.frame.size.height/2), 300, 300)];
+    self.mascotMotionView = [[MotionEffectView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
     self.mascotMotionView.center = self.view.center;
     self.mascotMotionView.delegate = self;
     [self.mascotMotionView setImage:self.mascotImageView];
@@ -489,6 +489,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         self.tipLabel.text = [NSString stringWithFormat:@"%.1f", distance];
     }
     self.mascotMotionView.hidden = !needShowMascot;
+    [self.view bringSubviewToFront:self.backButton];
 //    self.mascotImageView.hidden = !needShowMascot;
     
     [[self.view viewWithTag:AR_VIEW_TAG] setFrame:arViewFrame];

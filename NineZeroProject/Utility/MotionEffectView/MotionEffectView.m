@@ -8,6 +8,7 @@
 
 #import "MotionEffectView.h"
 #import <CoreMotion/CoreMotion.h>
+#import "HTUIHeader.h"
 
 #define kDEGREESTORADIANS(__ANGLE__) ((__ANGLE__) * (M_PI / 180)) // PI / 180
 
@@ -72,11 +73,14 @@
 
 - (void)setImage:(UIImageView *)imageView {
 	_imageView = imageView;
-	_imageView.frame = self.frame;
+    _imageView.userInteractionEnabled = YES;
+//	_imageView.center = self.center;
+    _imageView.centerX = SCREEN_WIDTH/2;
+    _imageView.top = 100;
 	[self addSubview:_imageView];
 	
 	_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapImageView)];
-	[self addGestureRecognizer:_tapGestureRecognizer];
+	[_imageView addGestureRecognizer:_tapGestureRecognizer];
 }
 
 - (void)updateMotion {
