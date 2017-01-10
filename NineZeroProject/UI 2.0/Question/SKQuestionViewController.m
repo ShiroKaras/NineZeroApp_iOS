@@ -266,7 +266,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     __weak __typeof(self)weakSelf = self;
     
     // 主界面
-    _playBackView = [[UIView alloc] initWithFrame:CGRectMake(10, ROUND_HEIGHT_FLOAT(122), SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
+    if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+        _playBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 138, SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
+    } else {
+        _playBackView = [[UIView alloc] initWithFrame:CGRectMake(10, ROUND_HEIGHT_FLOAT(122), SCREEN_WIDTH-20, SCREEN_WIDTH-20)];
+    }
     _playBackView.layer.masksToBounds = YES;
     _playBackView.contentMode = UIViewContentModeScaleAspectFit;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_playBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
@@ -348,7 +352,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self.soundImageView.hidden = ![[SharkfoodMuteSwitchDetector shared] isMute];
     
     // 题目标题
-    _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, _playBackView.bottom, _playBackView.width, 72)];
+    if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+        _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, _playBackView.bottom, _playBackView.width, 92)];
+    } else {
+        _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, _playBackView.bottom, _playBackView.width, 72)];
+    }
     _contentView.backgroundColor = COMMON_SEPARATOR_COLOR;
     [self.view addSubview:_contentView];
     UIBezierPath *maskPath2 = [UIBezierPath bezierPathWithRoundedRect:_contentView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)];
@@ -363,21 +371,15 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     UIImageView *chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_chapter"]];
     [self.view addSubview:chapterImageView];
-    chapterImageView.width = ROUND_WIDTH_FLOAT(75);
-    chapterImageView.height = ROUND_WIDTH_FLOAT(27);
+    chapterImageView.width = 75;
+    chapterImageView.height = 27;
     chapterImageView.left = 10;
     chapterImageView.bottom = _playBackView.top -6;
     
     _chapterNumberLabel = [UILabel new];
     _chapterNumberLabel.textColor = COMMON_PINK_COLOR;
     _chapterNumberLabel.text = @"00";
-    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-        _chapterNumberLabel.font = MOON_FONT_OF_SIZE(13);
-    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-        _chapterNumberLabel.font = MOON_FONT_OF_SIZE(16);
-    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        _chapterNumberLabel.font = MOON_FONT_OF_SIZE(20);
-    }
+    _chapterNumberLabel.font = MOON_FONT_OF_SIZE(14);
     [_chapterNumberLabel sizeToFit];
     _chapterNumberLabel.center = chapterImageView.center;
     [self.view addSubview:_chapterNumberLabel];
@@ -387,20 +389,33 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _chapterTitleLabel.font = PINGFANG_FONT_OF_SIZE(14);
     [_chapterTitleLabel sizeToFit];
     [self.view addSubview:_chapterTitleLabel];
-    [_chapterTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_contentView.mas_left).offset(12);
-        make.top.equalTo(_contentView.mas_top).offset(13);
-    }];
+    if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+        [_chapterTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_contentView.mas_left).offset(12);
+            make.top.equalTo(_contentView.mas_top).offset(22);
+        }];
+    } else {
+        [_chapterTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_contentView.mas_left).offset(12);
+            make.top.equalTo(_contentView.mas_top).offset(13);
+        }];
+    }
     
     _chapterSubTitleLabel = [UILabel new];
     _chapterSubTitleLabel.textColor = COMMON_GREEN_COLOR;
     _chapterSubTitleLabel.font = PINGFANG_FONT_OF_SIZE(14);
     [self.view addSubview:_chapterSubTitleLabel];
-    [_chapterSubTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_contentView.mas_left).offset(12);
-        make.top.equalTo(_chapterTitleLabel.mas_bottom).offset(5);
-    }];
-    
+    if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+        [_chapterSubTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_contentView.mas_left).offset(12);
+            make.top.equalTo(_chapterTitleLabel.mas_bottom).offset(12);
+        }];
+    } else {
+        [_chapterSubTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_contentView.mas_left).offset(12);
+            make.top.equalTo(_chapterTitleLabel.mas_bottom).offset(5);
+        }];
+    }
     UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_detail"]];
     [self.view addSubview:arrowImageView];
     [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1451,41 +1466,22 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         }];
     } else {
         if (self.type == SKQuestionTypeHistoryLevel) {
-            if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH || SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-                //往期关卡-线下题（地标已毁坏）
-                UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prompt_Invalid Invalid-1"]];
-                [imageView sizeToFit];
-                imageView.right = self.view.right-10;
-                imageView.bottom = _answerButton.top -5;
-                imageView.alpha = 0;
-                [self.view addSubview:imageView];
-                [UIView animateWithDuration:0.5 animations:^{
-                    imageView.alpha = 1;
+            //往期关卡-线下题（地标已毁坏）
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prompt_Invalid"]];
+            [imageView sizeToFit];
+            imageView.right = self.view.right-10;
+            imageView.bottom = _answerButton.top -5;
+            imageView.alpha = 0;
+            [self.view addSubview:imageView];
+            [UIView animateWithDuration:0.5 animations:^{
+                imageView.alpha = 1;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    imageView.alpha = 0;
                 } completion:^(BOOL finished) {
-                    [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        imageView.alpha = 0;
-                    } completion:^(BOOL finished) {
-                        [imageView removeFromSuperview];
-                    }];
+                    [imageView removeFromSuperview];
                 }];
-            } else {
-                //往期关卡-线下题（地标已毁坏）
-                UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prompt_Invalid Invalid"]];
-                [imageView sizeToFit];
-                imageView.right = _answerButton.right +33;
-                imageView.bottom = _answerButton.top -5;
-                imageView.alpha = 0;
-                [self.view addSubview:imageView];
-                [UIView animateWithDuration:0.5 animations:^{
-                    imageView.alpha = 1;
-                } completion:^(BOOL finished) {
-                    [UIView animateWithDuration:0.5 delay:5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                        imageView.alpha = 0;
-                    } completion:^(BOOL finished) {
-                        [imageView removeFromSuperview];
-                    }];
-                }];
-            }
+            }];
         } else if (self.type == SKQuestionTypeTimeLimitLevel){
             //限时关卡-线下题目
             if (self.currentQuestion.base_type == 1) {

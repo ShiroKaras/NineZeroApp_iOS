@@ -46,7 +46,7 @@
         [HTProgressHUD dismiss];
         if (success) {
             _indexInfo = indexInfo;
-            [_headerImageView sd_setImageWithURL:[NSURL URLWithString:indexInfo.index_gif]];
+            [_headerImageView sd_setImageWithURL:[NSURL URLWithString:indexInfo.index_gif] placeholderImage:[UIImage imageNamed:@"img_homepage_default"]];
             _isMonday = indexInfo.isMonday;
             _endTime = _isMonday==true? indexInfo.monday_end_time : indexInfo.question_end_time;
             _timeCountDownBackView_isMonday.alpha = 0;

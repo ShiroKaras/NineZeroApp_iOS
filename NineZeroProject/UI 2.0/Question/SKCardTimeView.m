@@ -51,11 +51,11 @@
             _resultImageView.hidden = NO;
             _resultImageView.contentMode = UIViewContentModeScaleAspectFit;
             if (question.is_answer) {
-                if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-                    [_resultImageView setImage:[UIImage imageNamed:@"img_detailspage_success_6p"]];
-                } else {
+//                if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+//                    [_resultImageView setImage:[UIImage imageNamed:@"img_detailspage_success_6p"]];
+//                } else {
                     [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
-                }
+//                }
             } else {
                 [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_gameover"]];
             }
@@ -65,12 +65,13 @@
         _mainTimeLabel.hidden = YES;
         _detailTimeLabel.hidden = YES;
         _resultImageView.hidden = NO;
+        _resultImageView.contentMode = UIViewContentModeScaleAspectFit;
         if (question.is_answer) {
-            if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-                [_resultImageView setImage:[UIImage imageNamed:@"img_detailspage_success_6p"]];
-            } else {
+//            if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+//                [_resultImageView setImage:[UIImage imageNamed:@"img_detailspage_success_6p"]];
+//            } else {
                 [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
-            }
+//            }
         } else {
             if (question.base_type == 1 || _question.base_type == 2) {
                 [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_AR"]];
