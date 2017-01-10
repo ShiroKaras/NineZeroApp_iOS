@@ -318,7 +318,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _soundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_mute"]];
     _soundImageView.alpha = 0.32;
     if(SCREEN_WIDTH != IPHONE6_PLUS_SCREEN_WIDTH) {
-        [_playBackView addSubview:_soundImageView];
+//        [_playBackView addSubview:_soundImageView];
     }
     _pauseImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_pause"]];
     _pauseImageView.alpha = 0.32;
