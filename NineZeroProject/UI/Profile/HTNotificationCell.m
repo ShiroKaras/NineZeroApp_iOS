@@ -98,7 +98,7 @@ static CGFloat kLineSpace = 7;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    _contentLabel.top = 24;
+    _contentLabel.top = 24-12;
     _contentLabel.left = 24;
 //    _contentLabel.right = self.right -24;
     _separator.bottom = _contentLabel.bottom+12;
