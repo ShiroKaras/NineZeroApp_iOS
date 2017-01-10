@@ -186,7 +186,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         self.chapterNumberLabel.text = [NSString stringWithFormat:@"%02lu", (long)[question.serial integerValue]];
         self.chapterTitleLabel.text = question.title_one;
         self.chapterSubTitleLabel.text = question.title_two;
-        NSLog(@"%@", question.question_video_url);
         [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
         
         if (self.type == SKQuestionTypeTimeLimitLevel) {
@@ -234,8 +233,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.currentQuestion.question_ar_pet stringByDeletingPathExtension]]];
     if ([[NSFileManager defaultManager] fileExistsAtPath:zipFilePath]) {
         NSURL *localUrl = [NSURL fileURLWithPath:zipFilePath];
-        NSLog(@"ZipFilePath:%@", localUrl);
-        
         [SSZipArchive unzipFileAtPath:zipFilePath toDestination:unzipFilesPath overwrite:YES password:nil progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
             
         } completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nonnull error) {
@@ -254,7 +251,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
             if (filePath == nil) return;
             NSURL *localUrl = [NSURL fileURLWithPath:[filePath path]];
-            NSLog(@"DownZipFilePath:%@", localUrl);
             [SSZipArchive unzipFileAtPath:[filePath path] toDestination:unzipFilesPath overwrite:YES password:nil progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
                 
             } completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nonnull error) {
@@ -510,7 +506,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     NSURL *documentsDirectoryURL = [[[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil] URLByAppendingPathComponent:self.currentQuestion.question_video];
     if ([[NSFileManager defaultManager] fileExistsAtPath:[documentsDirectoryURL path]]) {
         NSURL *localUrl = [NSURL fileURLWithPath:[documentsDirectoryURL path]];
-        NSLog(@"VideoPath:%@", localUrl);
         AVAsset *movieAsset = [AVURLAsset URLAssetWithURL:localUrl options:nil];
         self.playerItem = [AVPlayerItem playerItemWithAsset:movieAsset];
         self.player = [AVPlayer playerWithPlayerItem:_playerItem];
@@ -924,10 +919,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
     
     //Ticket
-    SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 362, 140) reward:self.reward.ticket];
+    SKTicketView *card;
     if (isTicket) {
-        [rewardBackView addSubview:card];
         if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+            card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 362, 140) reward:self.reward.ticket];
+            [rewardBackView addSubview:card];
             [card mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(@(362));
                 make.height.equalTo(@(140));
@@ -935,6 +931,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 make.bottom.equalTo(rewardBackView.mas_bottom).offset(-15);
             }];
         } else {
+            card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
+            [rewardBackView addSubview:card];
             [card mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(@280);
                 make.height.equalTo(@108);
@@ -1007,7 +1005,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [rewardImageView_txt_3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@100);
         make.height.equalTo(@19);
-        make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(20);
+        if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+            make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(20);
+        } else {
+            make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(10);
+        }
         make.left.equalTo(rewardBaseInfoView);
     }];
     
@@ -1038,7 +1040,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [rewardImageView_exp mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@18);
         make.height.equalTo(@18);
-        make.top.equalTo(rewardImageView_txt_3.mas_bottom).offset(9);
+        if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+            make.top.equalTo(rewardImageView_txt_3.mas_bottom).offset(9);
+        } else {
+            make.top.equalTo(rewardImageView_txt_3.mas_bottom).offset(6);
+        }
         make.right.equalTo(rewardImageView_txt_3);
     }];
     
@@ -1071,7 +1077,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [rewardImageView_diamond mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@18);
         make.height.equalTo(@18);
-        make.top.equalTo(rewardImageView_exp.mas_bottom).offset(9);
+        if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+            make.top.equalTo(rewardImageView_exp.mas_bottom).offset(9);
+        } else {
+            make.top.equalTo(rewardImageView_exp.mas_bottom).offset(6);
+        }
         make.right.equalTo(rewardImageView_exp);
     }];
     
@@ -1272,7 +1282,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     UIImageView *thingImageView = [UIImageView new];
     [thingImageView sd_setImageWithURL:[NSURL URLWithString:self.reward.piece.piece_describe_pic]];
-    NSLog(@"piece_cover_pic:%@",self.reward.piece.piece_cover_pic);
     [_dimmingView addSubview:thingImageView];
     [thingImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(SCREEN_WIDTH-32);
@@ -1969,7 +1978,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"currentIndex"]) {
-        NSLog(@"%ld", self.currentIndex);
         if (self.currentIndex < 4) {
             if (self.currentIndex == 0) {
                 //                [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
