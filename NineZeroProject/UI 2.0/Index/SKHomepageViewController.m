@@ -61,15 +61,6 @@
                 [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
             }
         }
-//        else {
-//            UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-//            converView.backgroundColor = COMMON_BG_COLOR;
-//            [self.view addSubview:converView];
-//            HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-//            [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
-//            [self.view addSubview:blankView];
-//            blankView.top = ROUND_HEIGHT_FLOAT(217);
-//        }
     }];
     
     [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
@@ -250,9 +241,9 @@
     _timeCountDownBackView_isMonday.alpha = 0;
     [self.view addSubview:_timeCountDownBackView_isMonday];
     [_timeCountDownBackView_isMonday mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(56), ROUND_WIDTH_FLOAT(56)/2));
+        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(67), ROUND_WIDTH_FLOAT(37)));
         make.left.equalTo(_timeLimitLevelButton);
-        make.bottom.equalTo(_timeLimitLevelButton).offset(ROUND_HEIGHT_FLOAT(-89));
+        make.bottom.equalTo(_timeLimitLevelButton).offset(ROUND_HEIGHT_FLOAT(-84.5));
     }];
     
     _timeCountDownLabel_isMonday = [UILabel new];
@@ -264,14 +255,14 @@
     [_timeCountDownLabel_isMonday mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(_timeCountDownBackView_isMonday);
         make.height.equalTo(@18);
-        make.bottom.equalTo(_timeCountDownBackView_isMonday).offset(-3.5);
+        make.bottom.equalTo(_timeCountDownBackView_isMonday).offset(-8);
         make.centerX.equalTo(_timeCountDownBackView_isMonday);
     }];
 }
 
 #pragma mark - Actions
 - (void)showRelaxDayTimeLabel:(UIButton *)sender {
-    if (_isMonday) {
+    if (!_isMonday) {
         [UIView animateWithDuration:0.3 animations:^{
             _timeCountDownBackView_isMonday.alpha = 1;
         } completion:^(BOOL finished) {
