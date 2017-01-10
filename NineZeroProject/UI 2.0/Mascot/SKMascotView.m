@@ -289,15 +289,39 @@
         [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:_mascotIdArray[_type] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
             self.familyMascotArray = mascotArray;
             
-            _familyMascot_1_ImageView.alpha = self.familyMascotArray[0].pet_num>0?1:0.4;
-            _familyMascot_2_ImageView.alpha = self.familyMascotArray[1].pet_num>0?1:0.4;
-            _familyMascot_3_ImageView.alpha = self.familyMascotArray[2].pet_num>0?1:0.4;
-            _familyMascot_4_ImageView.alpha = self.familyMascotArray[3].pet_num>0?1:0.4;
+            _familyMascot_1_ImageView.hidden = NO;
+            _familyMascot_2_ImageView.hidden = NO;
+            _familyMascot_3_ImageView.hidden = NO;
+            _familyMascot_4_ImageView.hidden = NO;
             
-            _familyMascot_1_ImageView.image = self.familyMascotArray[0].pet_num>0?[UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[0].pet_name]]:[UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[0].pet_name]];
-            _familyMascot_2_ImageView.image = self.familyMascotArray[1].pet_num>0?[UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[1].pet_name]]:[UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[1].pet_name]];;
-            _familyMascot_3_ImageView.image = self.familyMascotArray[2].pet_num>0?[UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[2].pet_name]]:[UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[2].pet_name]];;
-            _familyMascot_4_ImageView.image = self.familyMascotArray[3].pet_num>0?[UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[3].pet_name]]:[UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[3].pet_name]];;
+            if(self.familyMascotArray[0].pet_num>0) {
+                _familyMascot_1_ImageView.alpha = 1;
+                _familyMascot_1_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[0].pet_name]];
+            } else {
+                _familyMascot_1_ImageView.alpha = 0.4;
+                _familyMascot_1_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[0].pet_name]];
+            }
+            if(self.familyMascotArray[1].pet_num>0) {
+                _familyMascot_2_ImageView.alpha = 1;
+                _familyMascot_2_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[1].pet_name]];
+            } else {
+                _familyMascot_2_ImageView.alpha = 0.4;
+                _familyMascot_2_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[1].pet_name]];
+            }
+            if(self.familyMascotArray[2].pet_num>0) {
+                _familyMascot_3_ImageView.alpha = 1;
+                _familyMascot_3_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[2].pet_name]];
+            } else {
+                _familyMascot_3_ImageView.alpha = 0.4;
+                _familyMascot_3_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[2].pet_name]];
+            }
+            if(self.familyMascotArray[3].pet_num>0) {
+                _familyMascot_4_ImageView.alpha = 1;
+                _familyMascot_4_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[3].pet_name]];
+            } else {
+                _familyMascot_4_ImageView.alpha = 0.4;
+                _familyMascot_4_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[3].pet_name]];
+            }
             
             _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[0].pet_num];
             _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[1].pet_num];
@@ -699,6 +723,7 @@
     //4个道具
     _familyMascot_1_ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_%@_prop1", _mascotNameArray[mascotType]]]];
     _familyMascot_1_ImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _familyMascot_1_ImageView.hidden = YES;
     [compoundImageView addSubview:_familyMascot_1_ImageView];
     [_familyMascot_1_ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(85), ROUND_WIDTH_FLOAT(85)));
@@ -708,6 +733,7 @@
     
     _familyMascot_2_ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_%@_prop2", _mascotNameArray[mascotType]]]];
     _familyMascot_2_ImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _familyMascot_2_ImageView.hidden = YES;
     [compoundImageView addSubview:_familyMascot_2_ImageView];
     [_familyMascot_2_ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(85), ROUND_WIDTH_FLOAT(85)));
@@ -717,6 +743,7 @@
     
     _familyMascot_3_ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_%@_prop3", _mascotNameArray[mascotType]]]];
     _familyMascot_3_ImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _familyMascot_3_ImageView.hidden = YES;
     [compoundImageView addSubview:_familyMascot_3_ImageView];
     [_familyMascot_3_ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(85), ROUND_WIDTH_FLOAT(85)));
@@ -726,6 +753,7 @@
     
     _familyMascot_4_ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_%@_prop4", _mascotNameArray[mascotType]]]];
     _familyMascot_4_ImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _familyMascot_4_ImageView.hidden = YES;
     [compoundImageView addSubview:_familyMascot_4_ImageView];
     [_familyMascot_4_ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(85), ROUND_WIDTH_FLOAT(85)));
@@ -1185,10 +1213,10 @@
                              @"lust"        :   @"img_info_lust"
                              };
         _mascotContentDict = @{
-                               @"lingzai"     :   @"传说中的529D星球\n〇纯洁如一张白纸\n却孤独如一片深海\n虽然这个世界与自己残存的记忆中的星球\n有太多类似的地方\n但是它还是需要找到529D星球的一些线索\n它希望知道自己的来处\n希望了解关于529D星球的一切真相",
+                               @"lingzai"     :   @"从世界尽头归来\n也从新世界开始\n传说中的529D星球\n〇纯洁如一张白纸\n却孤独如一片深海\n虽然这个世界与自己残存的记忆中的星球\n有太多类似的地方\n但是它还是需要找到529D星球的一些线索\n它希望知道自己的来处\n希望了解关于529D星球的一切真相",
                                @"sloth"        :   @"一个嗜睡狂魔\n只要有休息的机会它绝对会瞬间倒下睡觉\n但是它有一个克星\n没错就是那只小鸟\n虽然Sloth·S不可避免的进入梦乡\n但是小鸟却每次都在提醒Sloth·S向什么方向出发\n最让Sloth·S接受不了的是\n那只小鸟会逮住所有的机会叫醒它！\n然而似乎并没有什么卵用",
                                @"pride"    :   @"从出生开始就没见过自己的脚趾头\n脑袋一直高昂着\n别想让它主动联系你\n它可有偶像包袱\n别跟它说话\n它好像也没搭理过谁\n似乎只有一身的雍容华贵才可以表达它的品味为了保证随时聚焦在闪光灯下\nPride·W要保持最佳状态\n不可以让任何人看到它不好的一面",
-                               @"wrath"       :   @"炸弹做手表也是没谁了\n而它只是在倒计时自己还有多久会气炸\nWrath·C气场强大\n光是靠近你\n不用背景音乐\n你就能感受到周围阵阵杀气\n它是一个偏执狂\n可以把一件事情坚持做到底\n认定的事情\n谁也不可以改变\n别惹它\n不是开玩笑的\n",
+                               @"wrath"       :   @"炸弹做手表也是没谁了\n而它只是在倒计时自己还有多久会气炸\nWrath·C气场强大\n光是靠近你\n不用背景音乐\n你就能感受到周围阵阵杀气\n它是一个偏执狂\n可以把一件事情坚持做到底\n认定的事情\n谁也不可以改变\n别惹它\n不是开玩笑的",
                                @"gluttony"       :   @"如果没有美食\n这个世界还会好么？\nGluttony·T最喜欢说的一句话是\n“我还能再吃一口” \n再吃一口，不是因为它想吃掉所有食物\n而是为了尝遍天下所有美食\n为了食物可以不惜一切代价\n为了争夺到手的肥肉\n不惜把自己的手吃掉",
                                @"lust"       :   @"一切撩人神技都有特别的技巧\n从约炮短信的聊天气泡出生\n它喜欢广交朋友\n和任何人都很容易产生情趣话题\n它天生拥有强大的读心术\n与你对视几秒\n就能知道你心中隐藏什么奇怪想法\n它是荷尔蒙的寻觅师\n知道精神深处何处安放",
                                @"envy"        :   @"找准角度\n10分钟完成自拍！\n3个小时修图\n要瘦！要白！要大气！\n要国际范！\n刚秀完自拍当然要po出本宝宝现在去的上流餐厅\n看到了明星要合影\n发朋友圈说\n“老朋友相见，我就喜欢这么平淡的生活”\n你觉得Envy·A是玻璃心？\n你就是在嫉妒它\n它要把你拉黑！"
@@ -1253,6 +1281,7 @@
     [textView sizeToFit];
     textView.editable = NO;
     [self addSubview:textView];
+    [textView setContentOffset:CGPointZero animated:NO];
     [textView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(titleImageView.mas_bottom).offset(27);
         make.left.equalTo(@16);

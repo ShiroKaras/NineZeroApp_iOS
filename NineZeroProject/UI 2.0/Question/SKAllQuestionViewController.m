@@ -48,6 +48,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [HTProgressHUD show];
     [self createUI];
     [self addObserver:self forKeyPath:@"season" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 }
@@ -62,7 +63,6 @@
 
 #pragma mark - Load data
 - (void)loadData {
-    [HTProgressHUD show];
     [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
         NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
         [self createSeason1UIWithData:mQuestionList_season1];
@@ -482,7 +482,7 @@
         questionID = self.questionList_season2[sender.tag-200].qid;
     }
     
-    if (questionID == [self.questionList_season2 lastObject].qid) {
+    if (questionID == [self.questionList_season2 lastObject].qid && self.isMonday == NO) {
         SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:questionID endTime:self.indexInfo.question_end_time];
         self.season = self.season;
         controller.delegate = self;
@@ -497,7 +497,7 @@
 
 //点击锁定关卡
 - (void)lockedQuestionSelectButtonClick:(UIButton *)sender {
-    [self showPromptWithText:[NSString stringWithFormat:@"零仔在第%lu章等待援助", (unsigned long)[self.questionList_season2 count]]];
+    [self showPromptWithText:@"关卡即将开启，敬请期待"];
 }
 
 - (void)showPromptWithText:(NSString*)text {

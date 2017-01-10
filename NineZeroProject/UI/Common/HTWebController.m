@@ -41,7 +41,7 @@
     [self.view addSubview:_webView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
-    headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
+    headerView.backgroundColor = [UIColor clearColor];
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = self.titleString;
     titleLabel.textColor = [UIColor whiteColor];

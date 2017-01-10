@@ -662,7 +662,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
     
     UILabel *titleLabel = [UILabel new];
-    titleLabel.text = @"确定要使用答案道具通过本关吗？";
+    if (self.currentQuestion.num==0) {
+        titleLabel.text = [NSString stringWithFormat:@"第%ld季答案道具已耗尽，请购买补充",(unsigned long)self.season];
+    } else {
+        titleLabel.text = @"确定要使用答案道具通过本关吗？";
+    }
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = PINGFANG_FONT_OF_SIZE(14);
     [titleLabel sizeToFit];

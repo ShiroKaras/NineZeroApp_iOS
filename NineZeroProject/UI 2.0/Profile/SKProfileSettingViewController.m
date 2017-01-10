@@ -38,7 +38,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    [self loadData];
+    if (!NO_NETWORK) {
+        [self loadData];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -153,7 +155,7 @@
         } else if (i==1) {
             _usernameLabel = [UILabel new];
             _usernameLabel.textColor = [UIColor whiteColor];
-            _usernameLabel.text = @"用户昵称";
+            _usernameLabel.text = [[SKStorageManager sharedInstance] getLoginUser].user_name;
             _usernameLabel.font = PINGFANG_FONT_OF_SIZE(16);
             [_usernameLabel sizeToFit];
             [view addSubview:_usernameLabel];
