@@ -29,6 +29,7 @@
 		1133DD7B1E0A65190029511B /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1133DD7A1E0A65190029511B /* FileService.m */; };
 		1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */; };
 		1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */; };
+		113C421B1E2482DB003E393F /* MotionEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 113C421A1E2482DB003E393F /* MotionEffectView.m */; };
 		113FA6961E1E1BD7001DFFC5 /* MEImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 113FA6951E1E1BD7001DFFC5 /* MEImage+GIF.m */; };
 		113FA6991E1E1BFE001DFFC5 /* HTMascotItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 113FA6981E1E1BFE001DFFC5 /* HTMascotItem.m */; };
 		113FA6B11E1E1DC5001DFFC5 /* lingzai_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 113FA69C1E1E1DC5001DFFC5 /* lingzai_1.gif */; };
@@ -1862,6 +1863,8 @@
 		1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+AES256.m"; path = "AES256/NSString+AES256.m"; sourceTree = "<group>"; };
 		1139CBA11DACD5DC004FF6B0 /* NSData+Encryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Encryption.h"; path = "AES256/NSData+Encryption.h"; sourceTree = "<group>"; };
 		1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Encryption.m"; path = "AES256/NSData+Encryption.m"; sourceTree = "<group>"; };
+		113C42191E2482DB003E393F /* MotionEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionEffectView.h; sourceTree = "<group>"; };
+		113C421A1E2482DB003E393F /* MotionEffectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionEffectView.m; sourceTree = "<group>"; };
 		113FA6941E1E1BD7001DFFC5 /* MEImage+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MEImage+GIF.h"; sourceTree = "<group>"; };
 		113FA6951E1E1BD7001DFFC5 /* MEImage+GIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MEImage+GIF.m"; sourceTree = "<group>"; };
 		113FA6971E1E1BFE001DFFC5 /* HTMascotItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMascotItem.h; path = "NineZeroProject/UI 2.0/Mascot/HTMascotItem.h"; sourceTree = "<group>"; };
@@ -4006,6 +4009,15 @@
 				1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */,
 			);
 			name = AES256;
+			sourceTree = "<group>";
+		};
+		113C42181E2482DB003E393F /* MotionEffectView */ = {
+			isa = PBXGroup;
+			children = (
+				113C42191E2482DB003E393F /* MotionEffectView.h */,
+				113C421A1E2482DB003E393F /* MotionEffectView.m */,
+			);
+			path = MotionEffectView;
 			sourceTree = "<group>";
 		};
 		113FA6931E1E1BD7001DFFC5 /* MEImage+GIF */ = {
@@ -6173,6 +6185,7 @@
 		174C53351BE7A55400893C22 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				113C42181E2482DB003E393F /* MotionEffectView */,
 				11F706341E0CD802004332C2 /* DES */,
 				17B8F7441C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.h */,
 				17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */,
@@ -8631,6 +8644,7 @@
 				1160FB4C1E0E95B900606F16 /* HTMascotHelper.m in Sources */,
 				17FA11391C835C6500FA9102 /* HTNotificationCell.m in Sources */,
 				11FAE3421E13860200525858 /* SKAnswerDetailView.m in Sources */,
+				113C421B1E2482DB003E393F /* MotionEffectView.m in Sources */,
 				11CD0BBA1DF6A1210074E120 /* SKProfileMyTicketsViewController.m in Sources */,
 				11A62ADC1DED7EF900C83F73 /* SKServiceManager.m in Sources */,
 				11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PRARManager.h"
+#import "MotionEffectView.h"
 
 @class SKQuestion;
 @class SKReward;
