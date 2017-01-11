@@ -952,7 +952,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 make.width.equalTo(@280);
                 make.height.equalTo(@108);
                 make.centerX.equalTo(rewardBackView);
-                make.bottom.equalTo(rewardBackView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
+                make.bottom.equalTo(rewardBackView.mas_bottom).offset(-10);
             }];
         }
     }
@@ -964,8 +964,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.width.equalTo(@248);
         make.height.equalTo(@294);
         make.centerX.equalTo(rewardBackView);
-        if (isTicket)   make.top.equalTo(@((rewardBackView.height-card.height-294)/2));
-        else            make.top.equalTo(@((rewardBackView.height-294)/2));
+        if (IPHONE5_SCREEN_WIDTH ==SCREEN_WIDTH) {
+            if (isTicket)   make.top.equalTo(@((rewardBackView.height-card.height-294)/2));
+            else            make.top.equalTo(@((rewardBackView.height-294)/2));
+        } else {
+            if (isTicket)   make.top.equalTo(@((rewardBackView.height-card.height-294-20)/2));
+            else            make.top.equalTo(@((rewardBackView.height-294)/2));
+        }
     }];
     
     [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
