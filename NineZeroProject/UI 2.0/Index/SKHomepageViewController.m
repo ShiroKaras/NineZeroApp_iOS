@@ -114,7 +114,7 @@
     
     self.view.backgroundColor = [UIColor blackColor];
     
-    _headerImageView = [[HTImageView alloc] init];
+    _headerImageView = [[HTImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_default"]];
     _headerImageView.layer.masksToBounds = YES;
     _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:_headerImageView];
