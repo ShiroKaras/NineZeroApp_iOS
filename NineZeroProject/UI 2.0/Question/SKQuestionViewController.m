@@ -1302,6 +1302,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_giftbg"]];
     bgImageView.contentMode = UIViewContentModeScaleAspectFill;
     bgImageView.frame = _dimmingView.frame;
+    bgImageView.top = _dimmingView.top-30;
     [_dimmingView addSubview:bgImageView];
     
     UIImageView *thingImageView = [UIImageView new];
