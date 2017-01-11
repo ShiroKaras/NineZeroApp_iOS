@@ -31,7 +31,7 @@
 #import "SKAnswerDetailView.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
-#define TOP_PADDING ROUND_HEIGHT_FLOAT(57)
+#define TOP_PADDING ROUND_HEIGHT_FLOAT(53)
 
 #define SHARE_URL(u,v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
 
@@ -396,7 +396,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
         [_chapterTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(_contentView.mas_left).offset(12);
-            make.top.equalTo(_contentView.mas_top).offset(22);
+            make.top.equalTo(_contentView.mas_top).offset(20);
         }];
     } else {
         [_chapterTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
