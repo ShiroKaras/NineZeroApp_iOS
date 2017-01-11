@@ -65,6 +65,10 @@
 
 #define UD [NSUserDefaults standardUserDefaults]
 
+#define HAVE_NEW_MASCOT [UD boolForKey:@"newMascot"]
+#define RESET_NEW_MASCOT [UD setBool:NO forKey:@"newMascot"];
+#define GET_NEW_MASCOT [UD setBool:YES forKey:@"newMascot"];
+
 #define FIRST_LAUNCH [UD boolForKey:@"firstLaunch"]
 
 #define FIRST_TYPE_1 ![UD boolForKey:@"firstLaunchType1"]

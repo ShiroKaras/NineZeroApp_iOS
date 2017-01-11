@@ -22,6 +22,8 @@
 @property (nonatomic, strong) UIButton *mascotdexButton;    //图鉴按钮
 @property (nonatomic, strong) UIButton *skillButton;        //技能按钮
 @property (nonatomic, strong) UIButton *infoButton;         //信息按钮
+@property (nonatomic, strong) UIView *redFlag_album;        //图鉴标记
+@property (nonatomic, strong) UIView *redFlag_skill;        //技能标记
 
 @property (nonatomic, strong) NSArray *typeArray;
 @property (nonatomic, strong) NSArray *mascotNameArray;
@@ -60,6 +62,9 @@
     [[[SKServiceManager sharedInstance] mascotService] getMascotsCallback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
         self.mascotArray = mascotArray;
     }];
+    
+    _redFlag_album.hidden = !HAVE_NEW_MASCOT;
+    RESET_NEW_MASCOT;
 }
 
 - (void)createUI {
@@ -127,6 +132,28 @@
     [_infoButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@12);
         make.right.equalTo(weakSelf.view.mas_right).offset(-4);
+    }];
+    
+    _redFlag_album = [UIView new];
+    _redFlag_album.backgroundColor = COMMON_RED_COLOR;
+    _redFlag_album.layer.cornerRadius = 6;
+    _redFlag_album.hidden = YES;
+    [self.view addSubview:_redFlag_album];
+    [_redFlag_album mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(12, 12));
+        make.top.equalTo(_mascotdexButton);
+        make.right.equalTo(_mascotdexButton);
+    }];
+    
+    _redFlag_skill = [UIView new];
+    _redFlag_skill.backgroundColor = COMMON_RED_COLOR;
+    _redFlag_skill.layer.cornerRadius = 6;
+    _redFlag_skill.hidden = YES;
+    [self.view addSubview:_redFlag_skill];
+    [_redFlag_skill mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(12, 12));
+        make.top.equalTo(_skillButton);
+        make.right.equalTo(_skillButton);
     }];
     
     if (NO_NETWORK) {

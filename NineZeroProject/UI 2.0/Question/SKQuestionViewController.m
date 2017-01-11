@@ -1253,6 +1253,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     UIImageView *contentImageView = [[UIImageView alloc] init];
     if ([self.reward.pet.fid integerValue]==0) {
         contentImageView.image = [UIImage imageNamed:@"img_popup_gifttext"];
+        GET_NEW_MASCOT;
     } else {
         contentImageView.image = [UIImage imageNamed:@"img_popup_gifttext3"];
     }
