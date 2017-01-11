@@ -955,8 +955,6 @@
     if ([_delegate respondsToSelector:@selector(didClickCloseButtonMascotSkillView:)]) { // 如果协议响应了didClickCloseButtonMascotSkillView:方法
         [_delegate didClickCloseButtonMascotSkillView:self]; // 通知执行协议方法
     }
-    [self removeFromSuperview];
-    [TalkingData trackPageEnd:@"lingskill"];
     [_timerS1Hint invalidate];
     _timerS1Hint = nil;
     [_timerS1Answer invalidate];
@@ -970,6 +968,12 @@
     [self removeObserver:self forKeyPath:@"answerS1_islock"];
     [self removeObserver:self forKeyPath:@"answerS2_islock"];
     
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+        [TalkingData trackPageEnd:@"lingskill"];
+    }];
 }
 
 //第一季 线索
@@ -1291,8 +1295,12 @@
 }
 
 - (void)closeButtonClick:(UIButton *)sender {
-    [self removeFromSuperview];
-    [TalkingData trackPageEnd:@"lingdescription"];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+        [TalkingData trackPageEnd:@"lingdescription"];
+    }];
 }
 
 @end
