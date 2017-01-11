@@ -10,6 +10,10 @@
 #import "HTUIHeader.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import "WeiboSDK.h"
+#import "WXApi.h"
+
 #import <CommonCrypto/CommonDigest.h>
 #import "SharkfoodMuteSwitchDetector.h"
 #import <SSZipArchive/ZipArchive.h>
@@ -1809,6 +1813,15 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonType type = (HTButtonType)sender.tag;
     switch (type) {
         case HTButtonTypeWechat: {
+            if (![WXApi isWXAppInstalled]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:@"未安装客户端"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            
             NSArray* imageArray = @[self.currentQuestion.question_video_cover];
             if (imageArray) {
                 
@@ -1846,8 +1859,15 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeMoment: {
-            //            UIImage *oImage = [SKImageHelper getImageFromURL:_question.question_video_cover];
-            //            UIImage *finImage = [SKImageHelper compressImage:oImage toMaxFileSize:32];
+            if (![WXApi isWXAppInstalled]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:@"未安装客户端"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            
             NSArray* imageArray = @[self.currentQuestion.question_video_cover];
             if (imageArray) {
                 
@@ -1884,6 +1904,15 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeWeibo: {
+            if (![WeiboSDK isWeiboAppInstalled]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:@"未安装客户端"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            
             NSArray* imageArray = @[self.currentQuestion.question_video_cover];
             if (imageArray) {
                 
@@ -1920,6 +1949,15 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             break;
         }
         case HTButtonTypeQQ: {
+            if (![QQApiInterface isQQInstalled]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:@"未安装客户端"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            
             NSArray* imageArray = @[self.currentQuestion.question_video_cover];
             if (imageArray) {
                 
