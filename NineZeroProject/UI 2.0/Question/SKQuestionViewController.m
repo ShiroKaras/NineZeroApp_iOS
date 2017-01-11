@@ -647,6 +647,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)createHintView {
     SKHintView *hintView = [[SKHintView alloc] initWithFrame:self.view.bounds questionID:self.currentQuestion season:self.season];
     [self.view addSubview:hintView];
+    hintView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        hintView.alpha = 1;
+    }];
 }
 
 - (void)showAnswerPropAlertView {
@@ -862,8 +866,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)purchasePropButtonOnClick:(UIButton*)sender {
     [_dimmingView removeFromSuperview];
     SKMascotSkillView *purchaseView = [[SKMascotSkillView alloc] initWithFrame:self.view.bounds Type:SKMascotTypeDefault isHad:YES];
+    purchaseView.alpha = 0;
     purchaseView.delegate = self;
     [self.view addSubview:purchaseView];
+    [UIView animateWithDuration:0.3 animations:^{
+        purchaseView.alpha = 1;
+    }];
 }
 
 #pragma mark - MascotSkillViewDelegate

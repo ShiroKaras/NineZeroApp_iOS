@@ -339,7 +339,11 @@
 - (void)addButtonClick:(UIButton *)sender {
     SKMascotSkillView *purchaseView = [[SKMascotSkillView alloc] initWithFrame:self.frame Type:SKMascotTypeDefault isHad:YES];
     purchaseView.delegate = self;
+    purchaseView.alpha = 0;
     [self addSubview:purchaseView];
+    [UIView animateWithDuration:0.3 animations:^{
+        purchaseView.alpha = 1;
+    }];
 }
 
 #pragma mark - SKMascotSkillDelegate

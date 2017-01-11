@@ -39,12 +39,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [TalkingData trackPageBegin:@"lingzaipage"];
+    [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

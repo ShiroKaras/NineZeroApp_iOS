@@ -483,7 +483,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         self.tipLabel.text = kTipTapMascotToCapture;
         self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
         needShowMascot = YES;
-        _radarImageView.hidden = YES;
+//        _radarImageView.hidden = NO;
     }
     if (_needShowDebugLocation) {
         self.tipLabel.text = [NSString stringWithFormat:@"%.1f", distance];
