@@ -100,6 +100,7 @@
     _submitButton = [UIButton new];
     _submitButton.layer.cornerRadius = 5;
     _submitButton.layer.masksToBounds = YES;
+    _submitButton.enabled = [self isSubmitButtonValid];
     [_submitButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateNormal];
     [_submitButton setBackgroundImage:[UIImage imageWithColor:COMMON_RED_COLOR] forState:UIControlStateHighlighted];
     [_submitButton setTitle:@"提交" forState:UIControlStateNormal];
