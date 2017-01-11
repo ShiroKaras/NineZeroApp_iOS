@@ -206,7 +206,7 @@
 }
 
 - (void)skillButtonClick:(UIButton*)sender {
-    NSDictionary *tempDict = [UD objectForKey:kMascots_Dict];
+    NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithDictionary:[UD objectForKey:kMascots_Dict]];
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:tempDict[[[SKStorageManager sharedInstance] getUserID]]];
     [tempArray replaceObjectAtIndex:_currentIndex withObject:[NSNumber numberWithInteger:[self.mascotArray[_currentIndex].pet_family_num integerValue]]];
     [tempDict setValue:tempArray forKey:[[SKStorageManager sharedInstance] getUserID]];
@@ -214,17 +214,30 @@
     _redFlag_skill.hidden = YES;
     
     SKMascotSkillView *skillView = [[SKMascotSkillView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[_currentIndex] integerValue] isHad:self.mascotArray[_currentIndex].user_haved];
+    skillView.alpha = 0;
     [self.view addSubview:skillView];
+    [UIView animateWithDuration:0.3 animations:^{
+        skillView.alpha = 1;
+    }];
 }
 
 - (void)infoButtonClick:(UIButton *)sender {
     SKMascotInfoView *infoView = [[SKMascotInfoView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[_currentIndex] integerValue]];
+    infoView.alpha = 0;
     [self.view addSubview:infoView];
+    [UIView animateWithDuration:0.3 animations:^{
+        infoView.alpha = 1;
+    }];
 }
 
 - (void)mascotdexButtonClick:(UIButton*)sender {
+    _redFlag_album.hidden = YES;
     SKMascotAlbumView *mascotAlbumView = [[SKMascotAlbumView alloc] initWithFrame:self.view.bounds withMascotArray:self.mascotArray];
+    mascotAlbumView.alpha = 0;
     [self.view addSubview:mascotAlbumView];
+    [UIView animateWithDuration:0.3 animations:^{
+        mascotAlbumView.alpha = 1;
+    }];
 }
 
 - (void)fightButtonClick:(UIButton *)sender {
@@ -234,7 +247,7 @@
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     //得到图片移动相对原点的坐标
     CGPoint point=scrollView.contentOffset;
     //移动不能超过左边;
