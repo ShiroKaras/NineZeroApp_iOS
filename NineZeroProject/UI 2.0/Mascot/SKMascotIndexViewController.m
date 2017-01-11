@@ -206,6 +206,10 @@
 }
 
 - (void)skillButtonClick:(UIButton*)sender {
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[UD objectForKey:kMascots_Array]];
+    [tempArray replaceObjectAtIndex:_currentIndex withObject:[NSNumber numberWithInteger:[self.mascotArray[_currentIndex].pet_family_num integerValue]]];
+    [UD setObject:[NSArray arrayWithArray:tempArray] forKey:kMascots_Array];
+    
     SKMascotSkillView *skillView = [[SKMascotSkillView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[_currentIndex] integerValue] isHad:self.mascotArray[_currentIndex].user_haved];
     [self.view addSubview:skillView];
 }
@@ -227,7 +231,7 @@
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     //得到图片移动相对原点的坐标
     CGPoint point=scrollView.contentOffset;
     //移动不能超过左边;
@@ -266,6 +270,9 @@
             _fightButton.alpha = 0.4;
             _fightButton.enabled = NO;
         }
+        
+        //判断是否有新的道具
+        _redFlag_skill.hidden = [self.mascotArray[index].pet_family_num integerValue] > [[UD objectForKey:kMascots_Array][index] integerValue]? NO:YES;
     }
 }
 

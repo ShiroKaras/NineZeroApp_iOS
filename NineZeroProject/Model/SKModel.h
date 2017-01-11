@@ -159,6 +159,7 @@
 @property (nonatomic, assign)   NSInteger   pet_id;
 @property (nonatomic, copy)     NSString    *pet_desc;
 @property (nonatomic, copy)     NSString    *pet_name;
+@property (nonatomic, copy)     NSString    *pet_family_num;
 @property (nonatomic, assign)   BOOL        user_haved;
 
 @property (nonatomic, assign)   NSInteger   pet_num;

@@ -47,11 +47,13 @@
     _cityCode = @"010";
     _active = true;
     
-    if (![UD boolForKey:@"everLaunched"]) {
+    if(![UD boolForKey:@"firstLaunch"]){
         [UD setBool:YES forKey:@"firstLaunch"];
-    }
-    else{
-        [UD setBool:NO forKey:@"firstLaunch"];
+        //第一次启动
+        NSArray *mascotArray = @[@0,@0,@0,@0,@0,@0,@0];
+        [UD setObject:mascotArray forKey:kMascots_Array];
+    }else{
+        //不是第一次启动了  
     }
     
     [self registerJPushWithLaunchOptions:launchOptions];
