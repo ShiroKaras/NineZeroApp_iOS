@@ -47,8 +47,8 @@
     _cityCode = @"010";
     _active = true;
     
-    if(![UD boolForKey:@"firstLaunch"]){
-        [UD setBool:YES forKey:@"firstLaunch"];
+    if(![UD boolForKey:@"firstLaunch2"]){
+        [UD setBool:YES forKey:@"firstLaunch2"];
         //第一次启动
         NSArray *mascotArray = @[@0,@0,@0,@0,@0,@0,@0];
         [UD setObject:mascotArray forKey:kMascots_Array];

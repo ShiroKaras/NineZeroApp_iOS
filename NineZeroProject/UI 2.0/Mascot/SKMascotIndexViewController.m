@@ -253,6 +253,7 @@
     if (index == SKMascotTypeDefault) {
         [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) showDefault];
         _fightButton.hidden = YES;
+        _redFlag_skill.hidden = YES;
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill"] forState:UIControlStateNormal];
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill_highlight"] forState:UIControlStateHighlighted];
     } else {
