@@ -209,6 +209,7 @@
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[UD objectForKey:kMascots_Array]];
     [tempArray replaceObjectAtIndex:_currentIndex withObject:[NSNumber numberWithInteger:[self.mascotArray[_currentIndex].pet_family_num integerValue]]];
     [UD setObject:[NSArray arrayWithArray:tempArray] forKey:kMascots_Array];
+    _redFlag_skill.hidden = YES;
     
     SKMascotSkillView *skillView = [[SKMascotSkillView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[_currentIndex] integerValue] isHad:self.mascotArray[_currentIndex].user_haved];
     [self.view addSubview:skillView];
