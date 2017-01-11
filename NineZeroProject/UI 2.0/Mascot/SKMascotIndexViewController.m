@@ -206,9 +206,11 @@
 }
 
 - (void)skillButtonClick:(UIButton*)sender {
-    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[UD objectForKey:kMascots_Array]];
+    NSDictionary *tempDict = [UD objectForKey:kMascots_Dict];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:tempDict[[[SKStorageManager sharedInstance] getUserID]]];
     [tempArray replaceObjectAtIndex:_currentIndex withObject:[NSNumber numberWithInteger:[self.mascotArray[_currentIndex].pet_family_num integerValue]]];
-    [UD setObject:[NSArray arrayWithArray:tempArray] forKey:kMascots_Array];
+    [tempDict setValue:tempArray forKey:[[SKStorageManager sharedInstance] getUserID]];
+    [UD setObject:tempDict forKey:kMascots_Dict];
     _redFlag_skill.hidden = YES;
     
     SKMascotSkillView *skillView = [[SKMascotSkillView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[_currentIndex] integerValue] isHad:self.mascotArray[_currentIndex].user_haved];
@@ -274,7 +276,7 @@
         }
         
         //判断是否有新的道具
-        _redFlag_skill.hidden = [self.mascotArray[index].pet_family_num integerValue] > [[UD objectForKey:kMascots_Array][index] integerValue]? NO:YES;
+        _redFlag_skill.hidden = [self.mascotArray[index].pet_family_num integerValue] > [[UD objectForKey:kMascots_Dict][[[SKStorageManager sharedInstance] getUserID]][index] integerValue]? NO:YES;
     }
 }
 

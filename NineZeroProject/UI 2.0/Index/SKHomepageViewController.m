@@ -69,6 +69,15 @@
     //更新用户信息
     [[[SKServiceManager sharedInstance] profileService] getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response) { }];
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
+    
+    if(![UD boolForKey:@"firstLaunch2"]){
+        [UD setBool:YES forKey:@"firstLaunch2"];
+        //第一次启动
+        NSArray *mascotArray = @[@0,@0,@0,@0,@0,@0,@0];
+        [UD setObject:@{[[SKStorageManager sharedInstance] getUserID] :mascotArray} forKey:kMascots_Dict];
+    }else{
+        //不是第一次启动了
+    }
 }
 
 - (void)scheduleCountDownTimer {
