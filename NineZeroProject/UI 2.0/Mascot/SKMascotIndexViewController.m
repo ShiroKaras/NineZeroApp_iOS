@@ -38,6 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self addObserver:self forKeyPath:@"currentIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     [self createUI];
 }
 
@@ -52,6 +53,10 @@
     [TalkingData trackPageEnd:@"lingzaipage"];
 }
 
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"currentIndex"];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -62,6 +67,13 @@
     [[[SKServiceManager sharedInstance] mascotService] getMascotsCallback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
         self.mascotArray = mascotArray;
         [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) showDefault];
+        for (int i=1; i<7; i++) {
+            if (self.mascotArray[i].user_haved) {
+                [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) showDefault];
+            } else {
+                [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) hide];
+            }
+        }
     }];
     
     _redFlag_album.hidden = !HAVE_NEW_MASCOT;
@@ -209,12 +221,12 @@
 - (void)skillButtonClick:(UIButton*)sender {
     NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithDictionary:[UD objectForKey:kMascots_Dict]];
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:tempDict[[[SKStorageManager sharedInstance] getUserID]]];
-    [tempArray replaceObjectAtIndex:_currentIndex withObject:[NSNumber numberWithInteger:[self.mascotArray[_currentIndex].pet_family_num integerValue]]];
+    [tempArray replaceObjectAtIndex:self.currentIndex withObject:[NSNumber numberWithInteger:[self.mascotArray[self.currentIndex].pet_family_num integerValue]]];
     [tempDict setValue:tempArray forKey:[[SKStorageManager sharedInstance] getUserID]];
     [UD setObject:tempDict forKey:kMascots_Dict];
     _redFlag_skill.hidden = YES;
     
-    SKMascotSkillView *skillView = [[SKMascotSkillView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[_currentIndex] integerValue] isHad:self.mascotArray[_currentIndex].user_haved];
+    SKMascotSkillView *skillView = [[SKMascotSkillView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[self.currentIndex] integerValue] isHad:self.mascotArray[self.currentIndex].user_haved];
     skillView.alpha = 0;
     [self.view addSubview:skillView];
     [UIView animateWithDuration:0.3 animations:^{
@@ -223,7 +235,7 @@
 }
 
 - (void)infoButtonClick:(UIButton *)sender {
-    SKMascotInfoView *infoView = [[SKMascotInfoView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[_currentIndex] integerValue]];
+    SKMascotInfoView *infoView = [[SKMascotInfoView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) Type:[_typeArray[self.currentIndex] integerValue]];
     infoView.alpha = 0;
     [self.view addSubview:infoView];
     [UIView animateWithDuration:0.3 animations:^{
@@ -242,7 +254,7 @@
 }
 
 - (void)fightButtonClick:(UIButton *)sender {
-    SKMascotFightViewController *controller = [[SKMascotFightViewController alloc] initWithMascot:self.mascotArray[_currentIndex]];
+    SKMascotFightViewController *controller = [[SKMascotFightViewController alloc] initWithMascot:self.mascotArray[self.currentIndex]];
     [self presentViewController:controller animated:YES completion:nil];
 }
 
@@ -262,12 +274,12 @@
         scrollView.contentOffset=point;
     }
     //根据图片坐标判断页数
-    _currentIndex = round(point.x/(SCREEN_WIDTH));
-    [self updateButtonWithIndex:_currentIndex];
+    self.currentIndex = round(point.x/(SCREEN_WIDTH));
+    [self updateButtonWithIndex:self.currentIndex];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self updateMascotImageWithIndex:_currentIndex];
+    [self updateMascotImageWithIndex:self.currentIndex];
 }
 
 - (void)updateButtonWithIndex:(NSInteger)index {
@@ -286,7 +298,6 @@
             _fightButton.alpha = 1;
             _fightButton.enabled = YES;
         } else {
-            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) hide];
             _fightButton.alpha = 0.4;
             _fightButton.enabled = NO;
         }
@@ -298,19 +309,21 @@
 
 - (void)updateMascotImageWithIndex:(NSInteger)index {
     if (index == SKMascotTypeDefault) {
-        [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) showDefault];
+        [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) show];
     } else {
         if (self.mascotArray[index].user_haved) {
-            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) showDefault];
+            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) show];
         } else {
             [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) hide];
         }
     }
 }
-#pragma mark - Actions
 
-//- (void)closeButtonClick:(UIButton *)sender {
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
+#pragma mark - Notification
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"currentIndex"]) {
+        
+    }
+}
 @end

@@ -46,6 +46,10 @@
     [_mBlankImageView addGestureRecognizer:tap];
 }
 
+- (void)show {
+    _mBlankImageView.userInteractionEnabled = YES;
+}
+
 - (void)hide {
     _mBlankImageView.userInteractionEnabled = NO;
 }
