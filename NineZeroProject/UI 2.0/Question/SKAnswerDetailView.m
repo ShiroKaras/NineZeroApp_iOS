@@ -79,9 +79,9 @@
             _contentView.top = _headerImageView.bottom +16;
         } else if (answerDetail.article_Illustration_type == 1) {
             _playButton.hidden = NO;
-            [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_cover]];
+            [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_cover] placeholderImage:[UIImage imageNamed:@"img_detailpage_default"]];
         } else if (answerDetail.article_Illustration_type == 2) {
-            [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_url]];
+            [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_url] placeholderImage:[UIImage imageNamed:@"img_detailpage_default"]];
         }
         
         CGFloat scrollViewHeight = 0.0f;
@@ -114,6 +114,7 @@
     [_headerImageView addSubview:hideView];
     
     _contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, _headerImageView.bottom+12, self.width-20, (self.width-20)/280*157.5)];
+    _contentImageView.image = [UIImage imageNamed:@"img_detailpage_default"];
     _contentImageView.contentMode = UIViewContentModeScaleAspectFill;
     _contentImageView.layer.masksToBounds = YES;
     [_backScrollView addSubview:_contentImageView];
