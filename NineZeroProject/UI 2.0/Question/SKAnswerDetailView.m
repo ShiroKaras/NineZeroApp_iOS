@@ -79,8 +79,14 @@
             _contentView.top = _headerImageView.bottom +16;
         } else if (answerDetail.article_Illustration_type == 1) {
             _playButton.hidden = NO;
+            _contentImageView.hidden = NO;
+            _contentImageView.height = (self.width-20)/280*157.5;
+            _contentView.top = _contentImageView.bottom+16;
             [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_cover] placeholderImage:[UIImage imageNamed:@"img_detailpage_default"]];
         } else if (answerDetail.article_Illustration_type == 2) {
+            _contentImageView.hidden = NO;
+            _contentImageView.height = (self.width-20)/280*157.5;
+            _contentView.top = _contentImageView.bottom+16;
             [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_url] placeholderImage:[UIImage imageNamed:@"img_detailpage_default "]];
         }
         
@@ -113,7 +119,7 @@
     UIView *hideView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, _headerImageView.width, 10)];
     [_headerImageView addSubview:hideView];
     
-    _contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, _headerImageView.bottom+12, self.width-20, (self.width-20)/280*157.5)];
+    _contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, _headerImageView.bottom+12, self.width-20, 0)];
     _contentImageView.image = [UIImage imageNamed:@"img_detailpage_default"];
     _contentImageView.contentMode = UIViewContentModeScaleAspectFill;
     _contentImageView.layer.masksToBounds = YES;

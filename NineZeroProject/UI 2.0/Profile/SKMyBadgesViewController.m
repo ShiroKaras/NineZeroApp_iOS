@@ -179,7 +179,7 @@
 - (void)createUI {
     self.view.backgroundColor = [UIColor blackColor];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 162, SCREEN_WIDTH, SCREEN_HEIGHT-162) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.allowsSelection = NO;
@@ -190,7 +190,7 @@
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 162)];
     headerView.backgroundColor = [UIColor blackColor];
-    self.tableView.tableHeaderView = headerView;
+    [self.view addSubview:headerView];
     
     UILabel *myBadgeTitleLabel = [UILabel new];
     myBadgeTitleLabel.text = @"我的勋章";

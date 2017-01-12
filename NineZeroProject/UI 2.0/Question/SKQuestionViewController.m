@@ -80,6 +80,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 @property (nonatomic, strong) SKComposeView *composeView;                     // 答题界面
 @property (strong, nonatomic) SKDescriptionView *descriptionView;             // 详情页面
+@property (strong, nonatomic) SKAnswerDetailView *answerDetailView;
 @property (nonatomic, strong) SKReward *questionReward;
 @property (nonatomic, strong) SKQuestion *currentQuestion;
 @property (nonatomic, strong) NSArray<SKUserInfo *> *top10Array;
@@ -904,8 +905,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.center.equalTo(button);
     }];
     
-    SKAnswerDetailView *answerDetailView = [[SKAnswerDetailView alloc] initWithFrame:CGRectMake(0, 0, answerBackView.width, answerBackView.height) questionID:self.currentQuestion.qid];
-    [answerBackView addSubview:answerDetailView];
+    if (self.answerDetailView == nil) {
+        self.answerDetailView = [[SKAnswerDetailView alloc] initWithFrame:CGRectMake(0, 0, answerBackView.width, answerBackView.height) questionID:self.currentQuestion.qid];
+    }
+    [answerBackView addSubview:self.answerDetailView];
     
     UIImageView *dimmingImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_success_shading_down"]];
     dimmingImageView.width = answerBackView.width;
