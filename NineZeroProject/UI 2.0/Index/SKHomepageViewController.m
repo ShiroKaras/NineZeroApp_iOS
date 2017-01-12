@@ -145,13 +145,13 @@
     notificationButton.layer.cornerRadius = 15;
     [notificationButton setImage:[UIImage imageNamed:@"btn_homepage_news"] forState:UIControlStateNormal];
     [notificationButton setImage:[UIImage imageNamed:@"btn_homepage_news_highlight"] forState:UIControlStateHighlighted];
-    [notificationButton setImageEdgeInsets:UIEdgeInsetsMake(0, 12, 0, 0)];
+    [notificationButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 12)];
     [self.view addSubview:notificationButton];
     [notificationButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@55);
         make.height.equalTo(@30);
-        make.top.equalTo(weakSelf.view.mas_top).offset(14);
-        make.left.equalTo(weakSelf.view.mas_left).offset(-15);
+        make.top.equalTo(weakSelf.view).offset(14);
+        make.right.equalTo(weakSelf.view).offset(15);
     }];
     
     //限时关卡

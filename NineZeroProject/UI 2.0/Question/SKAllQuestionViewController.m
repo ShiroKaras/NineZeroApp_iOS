@@ -268,10 +268,16 @@
         mImageButton.tag = 100+questionNumber;
         [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
+        mImageButton.titleLabel.font = MOON_FONT_OF_SIZE(23);
+        [mImageButton setTitle:[NSString stringWithFormat:@"%d",questionNumber+1] forState:UIControlStateNormal];
+        [mImageButton setTitleColor:[UIColor colorWithHex:0x00DFB4] forState:UIControlStateHighlighted];
         if (questionList[questionNumber].is_answer) {
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+            
+            [mImageButton setTitleColor:COMMON_PINK_COLOR forState:UIControlStateNormal];
         } else {
+            [mImageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             if (questionList[questionNumber].base_type == 1 || questionList[questionNumber].base_type == 2) {
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
@@ -281,14 +287,6 @@
             }
         }
         [itemView addSubview:mImageButton];
-        
-        //关卡号
-        UILabel *mQuestionNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
-        mQuestionNumberLabel.textColor = [UIColor whiteColor];
-        mQuestionNumberLabel.text = [NSString stringWithFormat:@"%d",questionNumber+1];
-        mQuestionNumberLabel.textAlignment = NSTextAlignmentCenter;
-        mQuestionNumberLabel.font = MOON_FONT_OF_SIZE(23);
-        [itemView addSubview:mQuestionNumberLabel];
         
         [_mScrollView_season1 addSubview:itemView];
     }

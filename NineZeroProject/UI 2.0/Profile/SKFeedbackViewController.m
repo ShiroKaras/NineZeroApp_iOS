@@ -100,7 +100,8 @@
     _submitButton = [UIButton new];
     _submitButton.layer.cornerRadius = 5;
     _submitButton.layer.masksToBounds = YES;
-    _submitButton.enabled = [self isSubmitButtonValid];
+    self.submitButton.enabled = [self isSubmitButtonValid];
+    self.submitButton.titleLabel.alpha = [self isSubmitButtonValid]?1:0.6;
     [_submitButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateNormal];
     [_submitButton setBackgroundImage:[UIImage imageWithColor:COMMON_RED_COLOR] forState:UIControlStateHighlighted];
     [_submitButton setTitle:@"提交" forState:UIControlStateNormal];
@@ -126,11 +127,13 @@
 
 - (void)textFieldTextDidChanged:(NSNotification *)notication {
     self.submitButton.enabled = [self isSubmitButtonValid];
+    self.submitButton.titleLabel.alpha = [self isSubmitButtonValid]?1:0.6;
 }
 
 - (void)textViewTextDidChanged:(NSNotification *)notification {
     self.placeholderLabel.hidden = (self.textView.text.length != 0);
     self.submitButton.enabled = [self isSubmitButtonValid];
+    self.submitButton.titleLabel.alpha = [self isSubmitButtonValid]?1:0.6;
 }
 
 - (BOOL)isSubmitButtonValid {
@@ -142,6 +145,7 @@
 
 - (void)onClickSubmit:(UIButton *)sender {
     self.submitButton.enabled = NO;
+    self.submitButton.titleLabel.alpha = [self isSubmitButtonValid]?1:0.6;
     [self.view endEditing:YES];
     [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"反馈中"];
     [[[SKServiceManager sharedInstance] profileService] feedbackWithContent:self.textView.text contact:self.textField.text completion:^(BOOL success, SKResponsePackage *response) {
