@@ -1544,6 +1544,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)contentViewClick {
     [TalkingData trackEvent:@"chapterstory"];
+    [self pause];
     _descriptionView = [[SKDescriptionView alloc] initWithURLString:self.currentQuestion.description_url andType:SKDescriptionTypeQuestion andImageUrl:self.currentQuestion.description_pic];
     [self.view addSubview:_descriptionView];
     [_descriptionView showAnimated];
