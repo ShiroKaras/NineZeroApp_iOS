@@ -129,6 +129,7 @@
     [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xCA0E27]] forState:UIControlStateNormal];
     [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xFF546B]] forState:UIControlStateHighlighted];
     [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
+    _nextButton.adjustsImageWhenHighlighted = NO;
     [self.view addSubview:_nextButton];
     
     _agreementView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height-50, self.view.width, 50)];

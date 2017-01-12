@@ -113,12 +113,14 @@
     [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xCA0E27]] forState:UIControlStateNormal];
     [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xFF546B]] forState:UIControlStateHighlighted];
     [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
+    _nextButton.adjustsImageWhenHighlighted = NO;
     [self.view addSubview:_nextButton];
     
     _resetPasswordButton = [UIButton new];
     [_resetPasswordButton addTarget:self action:@selector(resetPasswordButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _resetPasswordButton.backgroundColor = [UIColor clearColor];
     [_resetPasswordButton setTitle:@"忘记密码了？" forState:UIControlStateNormal];
+    [_resetPasswordButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateHighlighted];
     _resetPasswordButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
     _resetPasswordButton.frame = CGRectMake(0, self.view.height-100, self.view.width, 50);
     [self.view addSubview:_resetPasswordButton];

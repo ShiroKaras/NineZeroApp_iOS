@@ -121,6 +121,7 @@
     UIButton *registerButton = [UIButton new];
     [registerButton addTarget:self action:@selector(registerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
+    [registerButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateHighlighted];
     [bottomView2 addSubview:registerButton];
     [registerButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bottomView2);
@@ -132,6 +133,7 @@
     UIButton *loginButton = [UIButton new];
     [loginButton addTarget:self action:@selector(loginButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    [loginButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateHighlighted];
     [bottomView2 addSubview:loginButton];
     [loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(bottomView2);
