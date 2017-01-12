@@ -90,7 +90,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) NSDictionary  *rewardDict;
 @property (nonatomic, strong) SKReward      *reward;
 
-@property (nonatomic, assign) NSInteger clickCount;
+@property (nonatomic, assign) NSInteger wrongAnswerCount;
 
 //分享
 @property (nonatomic, strong) UIView *replayBackView;
@@ -128,7 +128,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.clickCount = 0;
+    self.wrongAnswerCount = 0;
     [self createUI];
     [self addObserver:self forKeyPath:@"currentIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"isAnswered" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
@@ -1142,6 +1142,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
 }
 
+#pragma mark - 获取奖励
+
 - (void)showRewardViewWithReward:(SKReward*)reward {
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
     _dimmingView.backgroundColor = [UIColor clearColor];
@@ -1176,33 +1178,40 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
     
     if (self.reward.ticket != nil) {
-        [rewardBaseInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@248);
-            make.height.equalTo(@294);
-            make.centerX.equalTo(_dimmingView);
-            make.top.equalTo(@54);
-        }];
-        
-        [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
-        
         if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
             SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 362, 140) reward:self.reward.ticket];
-            [rewardBaseInfoView addSubview:card];
+            [_dimmingView addSubview:card];
             [card mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(@362);
                 make.height.equalTo(@140);
                 make.centerX.equalTo(rewardBaseInfoView);
                 make.bottom.equalTo(_dimmingView).offset(-62);
             }];
+            
+            [rewardBaseInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@248);
+                make.height.equalTo(@294);
+                make.centerX.equalTo(_dimmingView);
+                make.top.equalTo(@((_dimmingView.height-card.height-294-62)/2));
+            }];
+            [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
         } else {
             SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
-            [rewardBaseInfoView addSubview:card];
+            [_dimmingView addSubview:card];
             [card mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.width.equalTo(@280);
                 make.height.equalTo(@108);
                 make.centerX.equalTo(rewardBaseInfoView);
                 make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(_dimmingView.height-320-108)/2);
             }];
+            
+            [rewardBaseInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@248);
+                make.height.equalTo(@294);
+                make.centerX.equalTo(_dimmingView);
+                make.top.equalTo(@((_dimmingView.height-card.height-294-62)/2));
+            }];
+            [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
         }
     } else {
         [rewardBaseInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1562,6 +1571,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
 }
 
+- (void)showGuideviewWithType:(SKHelperGuideViewType)type {
+    SKHelperGuideView *guideView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:type];
+    [KEY_WINDOW addSubview:guideView];
+    [KEY_WINDOW bringSubviewToFront:guideView];
+}
+
 #pragma mark - HTARCaptureController Delegate
 
 - (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward *)reward{
@@ -1621,10 +1636,14 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)keyboardDidHide:(NSNotification *)notification {
-    
+    //显示GuideView
+    if (FIRST_TYPE_3 && _wrongAnswerCount>2) {
+        [self showGuideviewWithType:SKHelperGuideViewType3];
+        [UD setBool:YES forKey:@"firstLaunchType3"];
+    }
 }
 
-#pragma mark - SKComposeView Delegate
+#pragma mark - SKComposeView Delegate 答题
 
 - (void)composeView:(SKComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
     if (_type == SKQuestionTypeTimeLimitLevel) {
@@ -1650,10 +1669,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             } else if (response.result == -3004) {
                 //回答错误
                 [_composeView showAnswerCorrect:NO];
-                if (_clickCount >= 2) {
+                if (_wrongAnswerCount >= 2) {
                     [_composeView showAnswerTips:self.currentQuestion.hint];
                 }
-                _clickCount++;
+                _wrongAnswerCount++;
             } else if (response.result == -7007) {
                 
             }
@@ -2072,10 +2091,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 //        [self stop];
         //显示分享界面
         [self showReplayAndShareButton];
-        //        if (FIRST_TYPE_1 && !self.currentQuestion.isPassed) {
-        //            [self showGuideviewWithType:SKHelperGuideViewType1];
-        //            [UD setBool:YES forKey:@"firstLaunchType1"];
-        //        }
+        if (FIRST_TYPE_1 && !self.currentQuestion.is_answer) {
+            [self showGuideviewWithType:SKHelperGuideViewType1];
+            [UD setBool:YES forKey:@"firstLaunchType1"];
+        }
     }
 }
 

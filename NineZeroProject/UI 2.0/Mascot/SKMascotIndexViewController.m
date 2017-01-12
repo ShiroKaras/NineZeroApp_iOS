@@ -63,6 +63,7 @@
 
 - (void)loadData {
     //更新个人主页信息
+    [HTProgressHUD show];
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
     [[[SKServiceManager sharedInstance] mascotService] getMascotsCallback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
         self.mascotArray = mascotArray;
@@ -74,6 +75,7 @@
                 [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) hide];
             }
         }
+        [HTProgressHUD dismiss];
     }];
     
     _redFlag_album.hidden = !HAVE_NEW_MASCOT;

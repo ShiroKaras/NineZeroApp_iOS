@@ -99,7 +99,7 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     _backScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
-    _backScrollView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    _backScrollView.backgroundColor = COMMON_SEPARATOR_COLOR;
     _backScrollView.bounces = NO;
     _backScrollView.alwaysBounceVertical = YES;
     _backScrollView.delegate = self;

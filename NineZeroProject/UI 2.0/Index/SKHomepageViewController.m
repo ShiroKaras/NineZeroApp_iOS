@@ -126,7 +126,7 @@
 - (void)createUI {
     __weak __typeof(self)weakSelf = self;
     
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = COMMON_BG_COLOR;
     
     _headerImageView = [[HTImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_default"]];
     _headerImageView.layer.masksToBounds = YES;
