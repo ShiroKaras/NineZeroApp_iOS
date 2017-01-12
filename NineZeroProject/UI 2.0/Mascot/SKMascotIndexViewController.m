@@ -61,6 +61,7 @@
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
     [[[SKServiceManager sharedInstance] mascotService] getMascotsCallback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
         self.mascotArray = mascotArray;
+        [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) showDefault];
     }];
     
     _redFlag_album.hidden = !HAVE_NEW_MASCOT;
@@ -265,9 +266,12 @@
     [self updateButtonWithIndex:_currentIndex];
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self updateMascotImageWithIndex:_currentIndex];
+}
+
 - (void)updateButtonWithIndex:(NSInteger)index {
     if (index == SKMascotTypeDefault) {
-        [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) showDefault];
         _fightButton.hidden = YES;
         _redFlag_skill.hidden = YES;
         [_skillButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_lingzaiskill"] forState:UIControlStateNormal];
@@ -279,7 +283,6 @@
         [_skillButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@skill", _mascotNameArray[index]]] forState:UIControlStateNormal];
         [_skillButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_lingzaipage_%@skill_highlight", _mascotNameArray[index]]] forState:UIControlStateHighlighted];
         if (self.mascotArray[index].user_haved) {
-            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) showDefault];
             _fightButton.alpha = 1;
             _fightButton.enabled = YES;
         } else {
@@ -293,6 +296,17 @@
     }
 }
 
+- (void)updateMascotImageWithIndex:(NSInteger)index {
+    if (index == SKMascotTypeDefault) {
+        [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) showDefault];
+    } else {
+        if (self.mascotArray[index].user_haved) {
+            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) showDefault];
+        } else {
+            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) hide];
+        }
+    }
+}
 #pragma mark - Actions
 
 //- (void)closeButtonClick:(UIButton *)sender {

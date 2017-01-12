@@ -53,86 +53,87 @@
 - (void)showDefault {
     _mBlankImageView.userInteractionEnabled = YES;
 //    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_1", _mascotNameArray[_mascotType]]];
-    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@_1", _mascotNameArray[_mascotType]] ofType:@"gif"];
-    [_mBlankImageView sd_setImageWithURL:[NSURL fileURLWithPath:path]];
-//    NSDictionary *dict = @{
-//                           @"lingzai_01"    :   @98,
-//                           @"lingzai_02"    :   @94,
-//                           @"lingzai_03"    :   @72,
-//                           @"envy_01"       :   @80,
-//                           @"envy_02"       :   @54,
-//                           @"envy_03"       :   @85,
-//                           @"gluttony_01"   :   @100,
-//                           @"gluttony_02"   :   @95,
-//                           @"gluttony_03"   :   @90,
-//                           @"lust_01"       :   @76,
-//                           @"lust_02"       :   @85,
-//                           @"lust_03"       :   @96,
-//                           @"pride_01"      :   @62,
-//                           @"pride_02"      :   @61,
-//                           @"pride_03"      :   @59,
-//                           @"sloth_01"      :   @68,
-//                           @"sloth_02"      :   @81,
-//                           @"sloth_03"      :   @34,
-//                           @"wrath_01"      :   @34,
-//                           @"wrath_02"      :   @23,
-//                           @"wrath_03"      :   @41
-//                           };
-//    
-//    NSMutableArray<UIImage *> *images = [NSMutableArray array];
-//    NSString *mascotgif = [NSString stringWithFormat:@"%@_01", _mascotNameArray[_mascotType]];
-//    for (int i = 0; i <[dict[mascotgif] intValue]; i++) {
-//        NSLog(@"%@", [NSString stringWithFormat:@"%@_00%03d", mascotgif, i]);
-//        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_00%03d.jpg", mascotgif, i]];
-//        [images addObject:animatedImage];
-//    }
-//    
-//    _mBlankImageView.animationImages = images;
-//    _mBlankImageView.animationDuration = 0.033 * images.count;
-//    _mBlankImageView.animationRepeatCount = 0;
-//    [_mBlankImageView startAnimating];
+//    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@_1", _mascotNameArray[_mascotType]] ofType:@"gif"];
+//    [_mBlankImageView sd_setImageWithURL:[NSURL fileURLWithPath:path]];
+    
+    NSDictionary *dict = @{
+                           @"lingzai_01"    :   @98,
+                           @"lingzai_02"    :   @94,
+                           @"lingzai_03"    :   @72,
+                           @"envy_01"       :   @80,
+                           @"envy_02"       :   @54,
+                           @"envy_03"       :   @85,
+                           @"gluttony_01"   :   @100,
+                           @"gluttony_02"   :   @95,
+                           @"gluttony_03"   :   @90,
+                           @"lust_01"       :   @76,
+                           @"lust_02"       :   @85,
+                           @"lust_03"       :   @96,
+                           @"pride_01"      :   @62,
+                           @"pride_02"      :   @61,
+                           @"pride_03"      :   @59,
+                           @"sloth_01"      :   @68,
+                           @"sloth_02"      :   @81,
+                           @"sloth_03"      :   @34,
+                           @"wrath_01"      :   @34,
+                           @"wrath_02"      :   @23,
+                           @"wrath_03"      :   @41
+                           };
+    
+    NSMutableArray<UIImage *> *images = [NSMutableArray array];
+    NSString *mascotgif = [NSString stringWithFormat:@"%@_01", _mascotNameArray[_mascotType]];
+    for (int i = 0; i <[dict[mascotgif] intValue]; i++) {
+        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_00%03d.jpg", mascotgif, i]];
+        [images addObject:animatedImage];
+    }
+    
+    _mBlankImageView.animationImages = images;
+    _mBlankImageView.animationDuration = 0.033 * images.count;
+    _mBlankImageView.animationRepeatCount = 0;
+    [_mBlankImageView startAnimating];
 }
 
 - (void)showRandom {
     _mBlankImageView.userInteractionEnabled = YES;
 //    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%2+2]];
-    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%2+2] ofType:@"gif"];
-    [_mBlankImageView sd_setImageWithURL:[NSURL fileURLWithPath:path]];
-//    NSDictionary *dict = @{
-//                           @"lingzai_01"    :   @98,
-//                           @"lingzai_02"    :   @94,
-//                           @"lingzai_03"    :   @72,
-//                           @"envy_01"       :   @80,
-//                           @"envy_02"       :   @54,
-//                           @"envy_03"       :   @85,
-//                           @"gluttony_01"   :   @100,
-//                           @"gluttony_02"   :   @95,
-//                           @"gluttony_03"   :   @90,
-//                           @"lust_01"       :   @76,
-//                           @"lust_02"       :   @85,
-//                           @"lust_03"       :   @96,
-//                           @"pride_01"      :   @62,
-//                           @"pride_02"      :   @61,
-//                           @"pride_03"      :   @59,
-//                           @"sloth_01"      :   @68,
-//                           @"sloth_02"      :   @81,
-//                           @"sloth_03"      :   @34,
-//                           @"wrath_01"      :   @34,
-//                           @"wrath_02"      :   @23,
-//                           @"wrath_03"      :   @41
-//                           };
-//    
-//    NSMutableArray<UIImage *> *images = [NSMutableArray array];
-//    NSString *mascotgif = [NSString stringWithFormat:@"%@_%02ld", _mascotNameArray[_mascotType], random()%2+2];
-//    for (int i = 0; i <[dict[mascotgif] intValue]; i++) {
-//        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_00%03d.jpg", mascotgif, i]];
-//        [images addObject:animatedImage];
-//    }
-//    
-//    _mBlankImageView.animationImages = images;
-//    _mBlankImageView.animationDuration = 0.033 * [dict[mascotgif] intValue];
-//    _mBlankImageView.animationRepeatCount = 0;
-//    [_mBlankImageView startAnimating];
+//    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%2+2] ofType:@"gif"];
+//    [_mBlankImageView sd_setImageWithURL:[NSURL fileURLWithPath:path]];
+    
+    NSDictionary *dict = @{
+                           @"lingzai_01"    :   @98,
+                           @"lingzai_02"    :   @94,
+                           @"lingzai_03"    :   @72,
+                           @"envy_01"       :   @80,
+                           @"envy_02"       :   @54,
+                           @"envy_03"       :   @85,
+                           @"gluttony_01"   :   @100,
+                           @"gluttony_02"   :   @95,
+                           @"gluttony_03"   :   @90,
+                           @"lust_01"       :   @76,
+                           @"lust_02"       :   @85,
+                           @"lust_03"       :   @96,
+                           @"pride_01"      :   @62,
+                           @"pride_02"      :   @61,
+                           @"pride_03"      :   @59,
+                           @"sloth_01"      :   @68,
+                           @"sloth_02"      :   @81,
+                           @"sloth_03"      :   @34,
+                           @"wrath_01"      :   @34,
+                           @"wrath_02"      :   @23,
+                           @"wrath_03"      :   @41
+                           };
+    
+    NSMutableArray<UIImage *> *images = [NSMutableArray array];
+    NSString *mascotgif = [NSString stringWithFormat:@"%@_%02ld", _mascotNameArray[_mascotType], random()%2+2];
+    for (int i = 0; i <[dict[mascotgif] intValue]; i++) {
+        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_00%03d.jpg", mascotgif, i]];
+        [images addObject:animatedImage];
+    }
+    
+    _mBlankImageView.animationImages = images;
+    _mBlankImageView.animationDuration = 0.067 * [dict[mascotgif] intValue];
+    _mBlankImageView.animationRepeatCount = 0;
+    [_mBlankImageView startAnimating];
 }
 
 - (void)onClickMascot:(UITapGestureRecognizer*)sender {
