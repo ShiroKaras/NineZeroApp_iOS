@@ -142,13 +142,12 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.mascotImageView startAnimating];
     
     self.mascotMotionView = [[MotionEffectView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    self.mascotMotionView.hidden = YES;
+    self.mascotMotionView.imageView.hidden = YES;
     self.mascotMotionView.center = self.view.center;
     self.mascotMotionView.delegate = self;
-    [self.mascotMotionView setImage:self.mascotImageView];
     [self.view addSubview:self.mascotMotionView];
-    [self.mascotMotionView enableMotionEffect];
-    
-    self.mascotMotionView.hidden = YES;
+    [self.mascotMotionView setImage:self.mascotImageView];
     
     if (FIRST_LAUNCH_AR) {
         SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
@@ -450,14 +449,13 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.view bringSubviewToFront:self.helpButton];
     [self.view bringSubviewToFront:self.helpView];
     dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.view bringSubviewToFront:self.mascotImageView];
         [self.view bringSubviewToFront:self.mascotMotionView];
         [self.view bringSubviewToFront:self.captureSuccessImageView];
     });
 }
 
 - (void)prarUpdateFrame:(CGRect)arViewFrame {
-    BOOL needShowMascot = YES;
+    BOOL needShowMascot = NO;
     // x坐标匹配
     if (fabs(arViewFrame.origin.x) >= SCREEN_WIDTH && fabs(arViewFrame.origin.x - arViewFrame.size.width) >= SCREEN_WIDTH) {
         needShowMascot = NO;
@@ -479,12 +477,13 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         self.tipLabel.text = kTipTapMascotToCapture;
         self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
         needShowMascot = YES;
-//        _radarImageView.hidden = NO;
+        [self.mascotMotionView enableMotionEffect];
     }
     if (_needShowDebugLocation) {
         self.tipLabel.text = [NSString stringWithFormat:@"%.1f", distance];
     }
     self.mascotMotionView.hidden = !needShowMascot;
+    self.mascotMotionView.imageView.hidden = !needShowMascot;
     [self.view bringSubviewToFront:self.backButton];
 //    self.mascotImageView.hidden = !needShowMascot;
     
