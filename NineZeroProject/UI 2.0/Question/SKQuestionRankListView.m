@@ -9,7 +9,7 @@
 #import "SKQuestionRankListView.h"
 #import "HTUIHeader.h"
 
-#define TOP_PADDING ROUND_HEIGHT_FLOAT(57)
+#define TOP_PADDING ROUND_HEIGHT_FLOAT(53)
 
 @interface SKQuestionRankListView ()
 @property (nonatomic, strong) NSArray<SKUserInfo*>* rankerList;

@@ -22,7 +22,6 @@
 @property (nonatomic, strong) NSString *quesitonID;
 @property (nonatomic, strong) SKAnswerDetail *answerDetail;
 
-@property (nonatomic, strong) UIImageView *backImageView;
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) UIScrollView *backScrollView;
 @property (nonatomic, strong) UIButton *cancelButton;           //关闭按钮
@@ -57,7 +56,6 @@
 
 - (void)loadDataWithQuestionID:(NSString *)questionID {
     _contentView.alpha = 0;
-    _backImageView.alpha = 0;
     
     [[[SKServiceManager sharedInstance] questionService] getQuestionAnswerDetailWithQuestionID:_quesitonID callback:^(BOOL success, SKAnswerDetail *answerDetail) {
         self.answerDetail = answerDetail;
@@ -65,16 +63,12 @@
         [_contentView sizeToFit];
         _contentView.centerX = self.centerX;
         
-        [_backImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_pic] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            [_backImageView setImage:[image applyLightEffect]];
-            [self hideHUD];
-            [UIView animateWithDuration:0.5 animations:^{
-                _contentView.alpha = 1.0;
-                _backImageView.alpha = 1.0;
-                _headerImageView.alpha = 1.0;
-            } completion:^(BOOL finished) {
-                
-            }];
+        [HTProgressHUD dismiss];
+        [UIView animateWithDuration:0.5 animations:^{
+            _contentView.alpha = 1.0;
+            _headerImageView.alpha = 1.0;
+        } completion:^(BOOL finished) {
+            
         }];
         
         [_headerImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_pic_1] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -104,13 +98,8 @@
 - (void)createUI {
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
-    _backImageView = [[UIImageView alloc] initWithFrame:self.frame];
-    _backImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self addSubview:_backImageView];
-    
     _backScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
-    _backScrollView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
-    _backScrollView.showsVerticalScrollIndicator = NO;
+    _backScrollView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
     _backScrollView.bounces = NO;
     _backScrollView.alwaysBounceVertical = YES;
     _backScrollView.delegate = self;
@@ -162,7 +151,7 @@
     _HUDImageView.animationRepeatCount = 0;
     [_HUDView addSubview:_HUDImageView];
     
-    [self showHUD];
+    [HTProgressHUD show];
 }
 
 - (void)showHUD {
