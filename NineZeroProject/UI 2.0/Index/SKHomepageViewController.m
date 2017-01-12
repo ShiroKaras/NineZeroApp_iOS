@@ -77,6 +77,11 @@
         [UD setObject:@{[[SKStorageManager sharedInstance] getUserID] :mascotArray} forKey:kMascots_Dict];
     }else{
         //不是第一次启动了
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[UD objectForKey:kMascots_Dict]];
+        if (![[dict allKeys] containsObject:[[SKStorageManager sharedInstance] getUserID]]) {
+            NSArray *mascotArray = @[@0,@0,@0,@0,@0,@0,@0];
+            [UD setObject:@{[[SKStorageManager sharedInstance] getUserID] :mascotArray} forKey:kMascots_Dict];
+        }
     }
 }
 
