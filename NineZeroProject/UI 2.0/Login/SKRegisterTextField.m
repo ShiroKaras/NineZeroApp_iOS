@@ -41,7 +41,6 @@ static const CGFloat lineWidth = 1;
         [self addSubview:_placeholderLabel];
         
         _lineView = [[UIView alloc]initWithFrame:CGRectZero];
-//        _lineView.backgroundColor = [UIColor lightGrayColor];
         _lineView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_lineView];
         
@@ -107,7 +106,7 @@ static const CGFloat lineWidth = 1;
         moveY += _placeholderLabel.frame.size.height/2 + heightSpaceing;
         moveX += padding;
         _placeholderLabel.center = CGPointMake(moveX, moveY);
-        _placeholderLabel.alpha = 1;
+        _placeholderLabel.alpha = 0.6;
         _moved = NO;
         _lineLayer.bounds = CGRectMake(0, 0, 0, lineWidth);
     }];

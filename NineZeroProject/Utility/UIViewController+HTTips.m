@@ -15,7 +15,6 @@
     if (text.length == 0) text = @"操作失败";
     UIView *tipsBackView = [[UIView alloc] init];
     tipsBackView.backgroundColor = COMMON_PINK_COLOR;
-//    tipsBackView.hidden = YES;
     [KEY_WINDOW addSubview:tipsBackView];
     
     UILabel *tipsLabel = [[UILabel alloc] init];
@@ -31,7 +30,7 @@
             make.top.equalTo(KEY_WINDOW).offset(0);
         }
         make.width.equalTo(KEY_WINDOW);
-        make.height.equalTo(@30);
+        make.height.equalTo(@42);
     }];
     
     [tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -60,7 +59,6 @@
     if (text.length == 0) text = @"操作失败";
     UIView *tipsBackView = [[UIView alloc] init];
     tipsBackView.backgroundColor = COMMON_PINK_COLOR;
-    //    tipsBackView.hidden = YES;
     [KEY_WINDOW addSubview:tipsBackView];
     
     UILabel *tipsLabel = [[UILabel alloc] init];
@@ -74,7 +72,7 @@
     [tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(KEY_WINDOW).offset(offset);
         make.width.equalTo(KEY_WINDOW);
-        make.height.equalTo(@30);
+        make.height.equalTo(@42);
     }];
     
     [tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {

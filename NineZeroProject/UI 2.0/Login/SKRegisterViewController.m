@@ -155,7 +155,6 @@
     _agreementButton = [UIButton new];
     [_agreementButton addTarget:self action:@selector(agreementButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _agreementButton.backgroundColor = [UIColor clearColor];
-//    [_agreementButton setTitle:@"点击下一步表示你同意《用户协议》" forState:UIControlStateNormal];
     
     _agreementButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
     _agreementButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
