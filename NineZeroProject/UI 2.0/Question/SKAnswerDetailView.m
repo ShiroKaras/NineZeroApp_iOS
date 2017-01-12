@@ -81,7 +81,7 @@
             _playButton.hidden = NO;
             [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_cover] placeholderImage:[UIImage imageNamed:@"img_detailpage_default"]];
         } else if (answerDetail.article_Illustration_type == 2) {
-            [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_url] placeholderImage:[UIImage imageNamed:@"img_detailpage_default"]];
+            [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_url] placeholderImage:[UIImage imageNamed:@"img_detailpage_default "]];
         }
         
         CGFloat scrollViewHeight = 0.0f;

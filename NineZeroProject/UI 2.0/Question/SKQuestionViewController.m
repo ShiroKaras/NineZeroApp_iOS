@@ -1637,9 +1637,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)keyboardDidHide:(NSNotification *)notification {
     //显示GuideView
-    if (FIRST_TYPE_3 && _wrongAnswerCount>2) {
-        [self showGuideviewWithType:SKHelperGuideViewType3];
-        [UD setBool:YES forKey:@"firstLaunchType3"];
+    if (FIRST_COACHMARK_TYPE_2 && _wrongAnswerCount>2) {
+        [self showGuideviewWithType:SKHelperGuideViewType2];
+        [UD setBool:YES forKey:@"firstLaunchTypeThreeWrongAnswer"];
     }
 }
 
@@ -2091,9 +2091,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 //        [self stop];
         //显示分享界面
         [self showReplayAndShareButton];
-        if (FIRST_TYPE_1 && !self.currentQuestion.is_answer) {
+        if (FIRST_COACHMARK_TYPE_1 && !self.currentQuestion.is_answer) {
             [self showGuideviewWithType:SKHelperGuideViewType1];
-            [UD setBool:YES forKey:@"firstLaunchType1"];
+            [UD setBool:YES forKey:@"firstLaunchTypePlayToEnd"];
         }
     }
 }

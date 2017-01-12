@@ -57,7 +57,6 @@ typedef enum : NSUInteger {
 typedef enum : NSUInteger {
     SKHelperGuideViewType1,
     SKHelperGuideViewType2,
-    SKHelperGuideViewType3
 } SKHelperGuideViewType;
 
 @interface SKHelperGuideView : UIView

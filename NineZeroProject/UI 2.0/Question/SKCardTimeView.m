@@ -97,9 +97,9 @@
     
     //TODO: 更改TimeView
     if (delta > 0) {
-        if (delta < oneHour * 36 && FIRST_TYPE_2) {
+        if (delta < oneHour * 36) {
 //            [self showGuideviewWithType:SKHelperGuideViewType2];
-            [UD setBool:YES forKey:@"firstLaunchType2"];
+//            [UD setBool:YES forKey:@"firstLaunchType2"];
         }
         // 小于1小时
         _mainTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", hour, minute];

@@ -73,9 +73,9 @@
 
 #define FIRST_LAUNCH [UD boolForKey:@"firstLaunch"]
 
-#define FIRST_TYPE_1 ![UD boolForKey:@"firstLaunchType1"]
-#define FIRST_TYPE_2 ![UD boolForKey:@"firstLaunchType2"]
-#define FIRST_TYPE_3 ![UD boolForKey:@"firstLaunchType3"]
+#define FIRST_COACHMARK_TYPE_1 ![UD boolForKey:@"firstLaunchTypePlayToEnd"]
+#define FIRST_COACHMARK_TYPE_2 ![UD boolForKey:@"firstLaunchTypeThreeWrongAnswer"]
+//#define FIRST_TYPE_3 ![UD boolForKey:@"firstLaunchType3"]
 
 #define FIRST_LAUNCH_AR             ![UD boolForKey:@"firstLaunchTypeAR"]
 #define FIRST_LAUNCH_QUESTIONLIST   ![UD boolForKey:@"firstLaunchQuestionList"]
