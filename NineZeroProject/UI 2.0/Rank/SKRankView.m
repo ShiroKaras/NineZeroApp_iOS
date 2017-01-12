@@ -44,8 +44,6 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addSubview:self.tableView];
     
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 16)];
-    
     REGISTER_CLASS(HTProfileRankCell);
     
     self.rankerList = [NSArray array];
