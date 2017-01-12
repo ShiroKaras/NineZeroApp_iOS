@@ -52,8 +52,9 @@
 
 - (void)showDefault {
     _mBlankImageView.userInteractionEnabled = YES;
-    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_1", _mascotNameArray[_mascotType]]];
-    
+//    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_1", _mascotNameArray[_mascotType]]];
+    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@_1", _mascotNameArray[_mascotType]] ofType:@"gif"];
+    [_mBlankImageView sd_setImageWithURL:[NSURL fileURLWithPath:path]];
 //    NSDictionary *dict = @{
 //                           @"lingzai_01"    :   @98,
 //                           @"lingzai_02"    :   @94,
@@ -94,8 +95,9 @@
 
 - (void)showRandom {
     _mBlankImageView.userInteractionEnabled = YES;
-    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%2+2]];
-    
+//    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%2+2]];
+    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%2+2] ofType:@"gif"];
+    [_mBlankImageView sd_setImageWithURL:[NSURL fileURLWithPath:path]];
 //    NSDictionary *dict = @{
 //                           @"lingzai_01"    :   @98,
 //                           @"lingzai_02"    :   @94,

@@ -1637,27 +1637,28 @@
 		11F7063A1E0D2424004332C2 /* CustomSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F706391E0D2424004332C2 /* CustomSecurityPolicy.m */; };
 		11F7063C1E0D2495004332C2 /* 90appbundle.cer in Resources */ = {isa = PBXBuildFile; fileRef = 11F7063B1E0D2495004332C2 /* 90appbundle.cer */; };
 		11F990121E265BE700112E13 /* LOGO-640.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990111E265BE700112E13 /* LOGO-640.gif */; };
-		11F990281E265DB700112E13 /* envy_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990131E265DB700112E13 /* envy_1.gif */; };
-		11F990291E265DB700112E13 /* envy_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990141E265DB700112E13 /* envy_2.gif */; };
-		11F9902A1E265DB700112E13 /* envy_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990151E265DB700112E13 /* envy_3.gif */; };
-		11F9902B1E265DB700112E13 /* gluttony_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990161E265DB700112E13 /* gluttony_1.gif */; };
-		11F9902C1E265DB700112E13 /* gluttony_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990171E265DB700112E13 /* gluttony_2.gif */; };
-		11F9902D1E265DB700112E13 /* gluttony_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990181E265DB700112E13 /* gluttony_3.gif */; };
-		11F9902E1E265DB700112E13 /* lingzai_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990191E265DB700112E13 /* lingzai_1.gif */; };
-		11F9902F1E265DB700112E13 /* lingzai_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9901A1E265DB700112E13 /* lingzai_2.gif */; };
-		11F990301E265DB700112E13 /* lingzai_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9901B1E265DB700112E13 /* lingzai_3.gif */; };
-		11F990311E265DB700112E13 /* lust_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9901C1E265DB700112E13 /* lust_1.gif */; };
-		11F990321E265DB700112E13 /* lust_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9901D1E265DB700112E13 /* lust_2.gif */; };
-		11F990331E265DB700112E13 /* lust_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9901E1E265DB700112E13 /* lust_3.gif */; };
-		11F990341E265DB700112E13 /* pride_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9901F1E265DB700112E13 /* pride_1.gif */; };
-		11F990351E265DB700112E13 /* pride_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990201E265DB700112E13 /* pride_2.gif */; };
-		11F990361E265DB700112E13 /* pride_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990211E265DB700112E13 /* pride_3.gif */; };
-		11F990371E265DB700112E13 /* sloth_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990221E265DB700112E13 /* sloth_1.gif */; };
-		11F990381E265DB700112E13 /* sloth_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990231E265DB700112E13 /* sloth_2.gif */; };
-		11F990391E265DB700112E13 /* sloth_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990241E265DB700112E13 /* sloth_3.gif */; };
-		11F9903A1E265DB700112E13 /* wrath_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990251E265DB700112E13 /* wrath_1.gif */; };
-		11F9903B1E265DB700112E13 /* wrath_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990261E265DB700112E13 /* wrath_2.gif */; };
-		11F9903C1E265DB700112E13 /* wrath_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990271E265DB700112E13 /* wrath_3.gif */; };
+		11F9903E1E27273500112E13 /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9903D1E27273500112E13 /* 1.gif */; };
+		11F990541E27312A00112E13 /* envy_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9903F1E27312A00112E13 /* envy_1.gif */; };
+		11F990551E27312A00112E13 /* envy_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990401E27312A00112E13 /* envy_2.gif */; };
+		11F990561E27312A00112E13 /* envy_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990411E27312A00112E13 /* envy_3.gif */; };
+		11F990571E27312A00112E13 /* gluttony_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990421E27312A00112E13 /* gluttony_1.gif */; };
+		11F990581E27312A00112E13 /* gluttony_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990431E27312A00112E13 /* gluttony_2.gif */; };
+		11F990591E27312A00112E13 /* gluttony_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990441E27312A00112E13 /* gluttony_3.gif */; };
+		11F9905A1E27312A00112E13 /* lingzai_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990451E27312A00112E13 /* lingzai_1.gif */; };
+		11F9905B1E27312A00112E13 /* lingzai_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990461E27312A00112E13 /* lingzai_2.gif */; };
+		11F9905C1E27312A00112E13 /* lingzai_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990471E27312A00112E13 /* lingzai_3.gif */; };
+		11F9905D1E27312A00112E13 /* lust_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990481E27312A00112E13 /* lust_1.gif */; };
+		11F9905E1E27312A00112E13 /* lust_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990491E27312A00112E13 /* lust_2.gif */; };
+		11F9905F1E27312A00112E13 /* lust_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9904A1E27312A00112E13 /* lust_3.gif */; };
+		11F990601E27312A00112E13 /* pride_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9904B1E27312A00112E13 /* pride_1.gif */; };
+		11F990611E27312A00112E13 /* pride_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9904C1E27312A00112E13 /* pride_2.gif */; };
+		11F990621E27312A00112E13 /* pride_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9904D1E27312A00112E13 /* pride_3.gif */; };
+		11F990631E27312A00112E13 /* sloth_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9904E1E27312A00112E13 /* sloth_1.gif */; };
+		11F990641E27312A00112E13 /* sloth_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F9904F1E27312A00112E13 /* sloth_2.gif */; };
+		11F990651E27312A00112E13 /* sloth_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990501E27312A00112E13 /* sloth_3.gif */; };
+		11F990661E27312A00112E13 /* wrath_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990511E27312A00112E13 /* wrath_1.gif */; };
+		11F990671E27312A00112E13 /* wrath_2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990521E27312A00112E13 /* wrath_2.gif */; };
+		11F990681E27312A00112E13 /* wrath_3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 11F990531E27312A00112E13 /* wrath_3.gif */; };
 		11FAE3421E13860200525858 /* SKAnswerDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FAE3411E13860200525858 /* SKAnswerDetailView.m */; };
 		11FF643D1DDD5C3500768080 /* SKLoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FF643C1DDD5C3500768080 /* SKLoginRootViewController.m */; };
 		1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1706CB4A1BFA542E00E59255 /* NSString+Utility.m */; };
@@ -3561,27 +3562,28 @@
 		11F706391E0D2424004332C2 /* CustomSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSecurityPolicy.m; sourceTree = "<group>"; };
 		11F7063B1E0D2495004332C2 /* 90appbundle.cer */ = {isa = PBXFileReference; lastKnownFileType = file; name = 90appbundle.cer; path = ../../../Downloads/90appbundle.cer; sourceTree = "<group>"; };
 		11F990111E265BE700112E13 /* LOGO-640.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "LOGO-640.gif"; path = "../../../Downloads/iOS/LOGO-640.gif"; sourceTree = "<group>"; };
-		11F990131E265DB700112E13 /* envy_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = envy_1.gif; path = "../../../../../Downloads/iOS/缩帧的gif/envy_1.gif"; sourceTree = "<group>"; };
-		11F990141E265DB700112E13 /* envy_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = envy_2.gif; path = "../../../../../Downloads/iOS/缩帧的gif/envy_2.gif"; sourceTree = "<group>"; };
-		11F990151E265DB700112E13 /* envy_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = envy_3.gif; path = "../../../../../Downloads/iOS/缩帧的gif/envy_3.gif"; sourceTree = "<group>"; };
-		11F990161E265DB700112E13 /* gluttony_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = gluttony_1.gif; path = "../../../../../Downloads/iOS/缩帧的gif/gluttony_1.gif"; sourceTree = "<group>"; };
-		11F990171E265DB700112E13 /* gluttony_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = gluttony_2.gif; path = "../../../../../Downloads/iOS/缩帧的gif/gluttony_2.gif"; sourceTree = "<group>"; };
-		11F990181E265DB700112E13 /* gluttony_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = gluttony_3.gif; path = "../../../../../Downloads/iOS/缩帧的gif/gluttony_3.gif"; sourceTree = "<group>"; };
-		11F990191E265DB700112E13 /* lingzai_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = lingzai_1.gif; path = "../../../../../Downloads/iOS/缩帧的gif/lingzai_1.gif"; sourceTree = "<group>"; };
-		11F9901A1E265DB700112E13 /* lingzai_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = lingzai_2.gif; path = "../../../../../Downloads/iOS/缩帧的gif/lingzai_2.gif"; sourceTree = "<group>"; };
-		11F9901B1E265DB700112E13 /* lingzai_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = lingzai_3.gif; path = "../../../../../Downloads/iOS/缩帧的gif/lingzai_3.gif"; sourceTree = "<group>"; };
-		11F9901C1E265DB700112E13 /* lust_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = lust_1.gif; path = "../../../../../Downloads/iOS/缩帧的gif/lust_1.gif"; sourceTree = "<group>"; };
-		11F9901D1E265DB700112E13 /* lust_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = lust_2.gif; path = "../../../../../Downloads/iOS/缩帧的gif/lust_2.gif"; sourceTree = "<group>"; };
-		11F9901E1E265DB700112E13 /* lust_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = lust_3.gif; path = "../../../../../Downloads/iOS/缩帧的gif/lust_3.gif"; sourceTree = "<group>"; };
-		11F9901F1E265DB700112E13 /* pride_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = pride_1.gif; path = "../../../../../Downloads/iOS/缩帧的gif/pride_1.gif"; sourceTree = "<group>"; };
-		11F990201E265DB700112E13 /* pride_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = pride_2.gif; path = "../../../../../Downloads/iOS/缩帧的gif/pride_2.gif"; sourceTree = "<group>"; };
-		11F990211E265DB700112E13 /* pride_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = pride_3.gif; path = "../../../../../Downloads/iOS/缩帧的gif/pride_3.gif"; sourceTree = "<group>"; };
-		11F990221E265DB700112E13 /* sloth_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = sloth_1.gif; path = "../../../../../Downloads/iOS/缩帧的gif/sloth_1.gif"; sourceTree = "<group>"; };
-		11F990231E265DB700112E13 /* sloth_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = sloth_2.gif; path = "../../../../../Downloads/iOS/缩帧的gif/sloth_2.gif"; sourceTree = "<group>"; };
-		11F990241E265DB700112E13 /* sloth_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = sloth_3.gif; path = "../../../../../Downloads/iOS/缩帧的gif/sloth_3.gif"; sourceTree = "<group>"; };
-		11F990251E265DB700112E13 /* wrath_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = wrath_1.gif; path = "../../../../../Downloads/iOS/缩帧的gif/wrath_1.gif"; sourceTree = "<group>"; };
-		11F990261E265DB700112E13 /* wrath_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = wrath_2.gif; path = "../../../../../Downloads/iOS/缩帧的gif/wrath_2.gif"; sourceTree = "<group>"; };
-		11F990271E265DB700112E13 /* wrath_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = wrath_3.gif; path = "../../../../../Downloads/iOS/缩帧的gif/wrath_3.gif"; sourceTree = "<group>"; };
+		11F9903D1E27273500112E13 /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = 1.gif; path = ../../../Downloads/1.gif; sourceTree = "<group>"; };
+		11F9903F1E27312A00112E13 /* envy_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = envy_1.gif; sourceTree = "<group>"; };
+		11F990401E27312A00112E13 /* envy_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = envy_2.gif; sourceTree = "<group>"; };
+		11F990411E27312A00112E13 /* envy_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = envy_3.gif; sourceTree = "<group>"; };
+		11F990421E27312A00112E13 /* gluttony_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gluttony_1.gif; sourceTree = "<group>"; };
+		11F990431E27312A00112E13 /* gluttony_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gluttony_2.gif; sourceTree = "<group>"; };
+		11F990441E27312A00112E13 /* gluttony_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gluttony_3.gif; sourceTree = "<group>"; };
+		11F990451E27312A00112E13 /* lingzai_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lingzai_1.gif; sourceTree = "<group>"; };
+		11F990461E27312A00112E13 /* lingzai_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lingzai_2.gif; sourceTree = "<group>"; };
+		11F990471E27312A00112E13 /* lingzai_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lingzai_3.gif; sourceTree = "<group>"; };
+		11F990481E27312A00112E13 /* lust_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lust_1.gif; sourceTree = "<group>"; };
+		11F990491E27312A00112E13 /* lust_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lust_2.gif; sourceTree = "<group>"; };
+		11F9904A1E27312A00112E13 /* lust_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lust_3.gif; sourceTree = "<group>"; };
+		11F9904B1E27312A00112E13 /* pride_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pride_1.gif; sourceTree = "<group>"; };
+		11F9904C1E27312A00112E13 /* pride_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pride_2.gif; sourceTree = "<group>"; };
+		11F9904D1E27312A00112E13 /* pride_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pride_3.gif; sourceTree = "<group>"; };
+		11F9904E1E27312A00112E13 /* sloth_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sloth_1.gif; sourceTree = "<group>"; };
+		11F9904F1E27312A00112E13 /* sloth_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sloth_2.gif; sourceTree = "<group>"; };
+		11F990501E27312A00112E13 /* sloth_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sloth_3.gif; sourceTree = "<group>"; };
+		11F990511E27312A00112E13 /* wrath_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wrath_1.gif; sourceTree = "<group>"; };
+		11F990521E27312A00112E13 /* wrath_2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wrath_2.gif; sourceTree = "<group>"; };
+		11F990531E27312A00112E13 /* wrath_3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wrath_3.gif; sourceTree = "<group>"; };
 		11FAE3401E13860200525858 /* SKAnswerDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKAnswerDetailView.h; path = "NineZeroProject/UI 2.0/Question/SKAnswerDetailView.h"; sourceTree = "<group>"; };
 		11FAE3411E13860200525858 /* SKAnswerDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKAnswerDetailView.m; path = "NineZeroProject/UI 2.0/Question/SKAnswerDetailView.m"; sourceTree = "<group>"; };
 		11FF643B1DDD5C3500768080 /* SKLoginRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKLoginRootViewController.h; path = "NineZeroProject/UI 2.0/Login/SKLoginRootViewController.h"; sourceTree = "<group>"; };
@@ -3920,6 +3922,7 @@
 		110F9D7F1CD880E20097EB8A /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				11F9903D1E27273500112E13 /* 1.gif */,
 				11F990111E265BE700112E13 /* LOGO-640.gif */,
 				1114AE031CE48DD800CCF92C /* Assets.xcassets */,
 				1163E3281E23AD64002DBF4B /* fight_success */,
@@ -4035,27 +4038,27 @@
 		113FA69B1E1E1DC5001DFFC5 /* MascotGif */ = {
 			isa = PBXGroup;
 			children = (
-				11F990131E265DB700112E13 /* envy_1.gif */,
-				11F990141E265DB700112E13 /* envy_2.gif */,
-				11F990151E265DB700112E13 /* envy_3.gif */,
-				11F990161E265DB700112E13 /* gluttony_1.gif */,
-				11F990171E265DB700112E13 /* gluttony_2.gif */,
-				11F990181E265DB700112E13 /* gluttony_3.gif */,
-				11F990191E265DB700112E13 /* lingzai_1.gif */,
-				11F9901A1E265DB700112E13 /* lingzai_2.gif */,
-				11F9901B1E265DB700112E13 /* lingzai_3.gif */,
-				11F9901C1E265DB700112E13 /* lust_1.gif */,
-				11F9901D1E265DB700112E13 /* lust_2.gif */,
-				11F9901E1E265DB700112E13 /* lust_3.gif */,
-				11F9901F1E265DB700112E13 /* pride_1.gif */,
-				11F990201E265DB700112E13 /* pride_2.gif */,
-				11F990211E265DB700112E13 /* pride_3.gif */,
-				11F990221E265DB700112E13 /* sloth_1.gif */,
-				11F990231E265DB700112E13 /* sloth_2.gif */,
-				11F990241E265DB700112E13 /* sloth_3.gif */,
-				11F990251E265DB700112E13 /* wrath_1.gif */,
-				11F990261E265DB700112E13 /* wrath_2.gif */,
-				11F990271E265DB700112E13 /* wrath_3.gif */,
+				11F9903F1E27312A00112E13 /* envy_1.gif */,
+				11F990401E27312A00112E13 /* envy_2.gif */,
+				11F990411E27312A00112E13 /* envy_3.gif */,
+				11F990421E27312A00112E13 /* gluttony_1.gif */,
+				11F990431E27312A00112E13 /* gluttony_2.gif */,
+				11F990441E27312A00112E13 /* gluttony_3.gif */,
+				11F990451E27312A00112E13 /* lingzai_1.gif */,
+				11F990461E27312A00112E13 /* lingzai_2.gif */,
+				11F990471E27312A00112E13 /* lingzai_3.gif */,
+				11F990481E27312A00112E13 /* lust_1.gif */,
+				11F990491E27312A00112E13 /* lust_2.gif */,
+				11F9904A1E27312A00112E13 /* lust_3.gif */,
+				11F9904B1E27312A00112E13 /* pride_1.gif */,
+				11F9904C1E27312A00112E13 /* pride_2.gif */,
+				11F9904D1E27312A00112E13 /* pride_3.gif */,
+				11F9904E1E27312A00112E13 /* sloth_1.gif */,
+				11F9904F1E27312A00112E13 /* sloth_2.gif */,
+				11F990501E27312A00112E13 /* sloth_3.gif */,
+				11F990511E27312A00112E13 /* wrath_1.gif */,
+				11F990521E27312A00112E13 /* wrath_2.gif */,
+				11F990531E27312A00112E13 /* wrath_3.gif */,
 			);
 			name = MascotGif;
 			path = Images/MascotGif;
@@ -6759,6 +6762,7 @@
 				119794411E1FA95100EDA8A5 /* lingzai_03_00013.jpg in Resources */,
 				1197961C1E1FA95300EDA8A5 /* pride_03_00036.jpg in Resources */,
 				1197931B1E1FA95000EDA8A5 /* gluttony_03_00001.jpg in Resources */,
+				11F990611E27312A00112E13 /* pride_2.gif in Resources */,
 				119793991E1FA95000EDA8A5 /* lingzai_01_00037.jpg in Resources */,
 				119795171E1FA95100EDA8A5 /* lust_02_00079.jpg in Resources */,
 				119795F61E1FA95300EDA8A5 /* pride_02_00059.jpg in Resources */,
@@ -6769,11 +6773,9 @@
 				119793481E1FA95000EDA8A5 /* gluttony_03_00046.jpg in Resources */,
 				119793111E1FA95000EDA8A5 /* gluttony_02_00086.jpg in Resources */,
 				1197929F1E1FA95000EDA8A5 /* gluttony_01_00072.jpg in Resources */,
-				11F9903B1E265DB700112E13 /* wrath_2.gif in Resources */,
 				119794611E1FA95100EDA8A5 /* lingzai_03_00045.jpg in Resources */,
 				119794861E1FA95100EDA8A5 /* lust_01_00010.jpg in Resources */,
 				119797151E1FA95400EDA8A5 /* wrath_02_00009.jpg in Resources */,
-				11F9902C1E265DB700112E13 /* gluttony_2.gif in Resources */,
 				119795C71E1FA95200EDA8A5 /* pride_02_00012.jpg in Resources */,
 				119795E81E1FA95300EDA8A5 /* pride_02_00045.jpg in Resources */,
 				119795641E1FA95200EDA8A5 /* lust_03_00071.jpg in Resources */,
@@ -6901,7 +6903,6 @@
 				119795551E1FA95200EDA8A5 /* lust_03_00056.jpg in Resources */,
 				119792861E1FA94F00EDA8A5 /* gluttony_01_00047.jpg in Resources */,
 				1197924F1E1FA94F00EDA8A5 /* envy_03_00077.jpg in Resources */,
-				11F9903A1E265DB700112E13 /* wrath_1.gif in Resources */,
 				119794FE1E1FA95100EDA8A5 /* lust_02_00054.jpg in Resources */,
 				119794941E1FA95100EDA8A5 /* lust_01_00024.jpg in Resources */,
 				119792AC1E1FA95000EDA8A5 /* gluttony_01_00085.jpg in Resources */,
@@ -6974,19 +6975,20 @@
 				119792B41E1FA95000EDA8A5 /* gluttony_01_00093.jpg in Resources */,
 				119793061E1FA95000EDA8A5 /* gluttony_02_00075.jpg in Resources */,
 				119793CB1E1FA95000EDA8A5 /* lingzai_01_00087.jpg in Resources */,
+				11F990581E27312A00112E13 /* gluttony_2.gif in Resources */,
 				119795691E1FA95200EDA8A5 /* lust_03_00076.jpg in Resources */,
 				1197965A1E1FA95300EDA8A5 /* sloth_01_00039.jpg in Resources */,
 				119797421E1FA95400EDA8A5 /* wrath_03_00031.jpg in Resources */,
 				119794381E1FA95100EDA8A5 /* lingzai_03_00004.jpg in Resources */,
 				119796511E1FA95300EDA8A5 /* sloth_01_00030.jpg in Resources */,
 				119796F41E1FA95400EDA8A5 /* wrath_01_00010.jpg in Resources */,
-				11F990391E265DB700112E13 /* sloth_3.gif in Resources */,
 				17A247B61C623B9900359CCF /* right_answer_gif_0015.png in Resources */,
 				119797471E1FA95400EDA8A5 /* wrath_03_00036.jpg in Resources */,
 				1197968B1E1FA95300EDA8A5 /* sloth_02_00020.jpg in Resources */,
 				119793681E1FA95000EDA8A5 /* gluttony_03_00078.jpg in Resources */,
 				119793D21E1FA95000EDA8A5 /* lingzai_01_00094.jpg in Resources */,
 				119791CD1E1FA94F00EDA8A5 /* envy_02_00001.jpg in Resources */,
+				11F9905E1E27312A00112E13 /* lust_2.gif in Resources */,
 				119794E01E1FA95100EDA8A5 /* lust_02_00024.jpg in Resources */,
 				119794C31E1FA95100EDA8A5 /* lust_01_00071.jpg in Resources */,
 				119792C21E1FA95000EDA8A5 /* gluttony_02_00007.jpg in Resources */,
@@ -7038,6 +7040,7 @@
 				119792581E1FA94F00EDA8A5 /* gluttony_01_00001.jpg in Resources */,
 				1197925F1E1FA94F00EDA8A5 /* gluttony_01_00008.jpg in Resources */,
 				119794091E1FA95100EDA8A5 /* lingzai_02_00051.jpg in Resources */,
+				11F990561E27312A00112E13 /* envy_3.gif in Resources */,
 				119795F21E1FA95300EDA8A5 /* pride_02_00055.jpg in Resources */,
 				1197958F1E1FA95200EDA8A5 /* pride_1_00018.jpg in Resources */,
 				119793421E1FA95000EDA8A5 /* gluttony_03_00040.jpg in Resources */,
@@ -7059,6 +7062,7 @@
 				119791DF1E1FA94F00EDA8A5 /* envy_02_00019.jpg in Resources */,
 				119792A31E1FA95000EDA8A5 /* gluttony_01_00076.jpg in Resources */,
 				119796981E1FA95400EDA8A5 /* sloth_02_00033.jpg in Resources */,
+				11F9905D1E27312A00112E13 /* lust_1.gif in Resources */,
 				1197946B1E1FA95100EDA8A5 /* lingzai_03_00055.jpg in Resources */,
 				1197964D1E1FA95300EDA8A5 /* sloth_01_00026.jpg in Resources */,
 				119791FF1E1FA94F00EDA8A5 /* envy_02_00051.jpg in Resources */,
@@ -7083,7 +7087,6 @@
 				1197939F1E1FA95000EDA8A5 /* lingzai_01_00043.jpg in Resources */,
 				119793AA1E1FA95000EDA8A5 /* lingzai_01_00054.jpg in Resources */,
 				1197941C1E1FA95100EDA8A5 /* lingzai_02_00070.jpg in Resources */,
-				11F990361E265DB700112E13 /* pride_3.gif in Resources */,
 				119794DA1E1FA95100EDA8A5 /* lust_02_00018.jpg in Resources */,
 				1197931C1E1FA95000EDA8A5 /* gluttony_03_00002.jpg in Resources */,
 				1197933C1E1FA95000EDA8A5 /* gluttony_03_00034.jpg in Resources */,
@@ -7098,6 +7101,7 @@
 				119794D71E1FA95100EDA8A5 /* lust_02_00015.jpg in Resources */,
 				119794581E1FA95100EDA8A5 /* lingzai_03_00036.jpg in Resources */,
 				119792341E1FA94F00EDA8A5 /* envy_03_00050.jpg in Resources */,
+				11F990681E27312A00112E13 /* wrath_3.gif in Resources */,
 				1197950B1E1FA95100EDA8A5 /* lust_02_00067.jpg in Resources */,
 				119792601E1FA94F00EDA8A5 /* gluttony_01_00009.jpg in Resources */,
 				119795151E1FA95100EDA8A5 /* lust_02_00077.jpg in Resources */,
@@ -7107,7 +7111,6 @@
 				1163E3501E23ADB5002DBF4B /* right_answer_gif0017.png in Resources */,
 				119793981E1FA95000EDA8A5 /* lingzai_01_00036.jpg in Resources */,
 				1197922C1E1FA94F00EDA8A5 /* envy_03_00042.jpg in Resources */,
-				11F990311E265DB700112E13 /* lust_1.gif in Resources */,
 				1197921F1E1FA94F00EDA8A5 /* envy_03_00029.jpg in Resources */,
 				119792F31E1FA95000EDA8A5 /* gluttony_02_00056.jpg in Resources */,
 				1197970A1E1FA95400EDA8A5 /* wrath_01_00032.jpg in Resources */,
@@ -7156,7 +7159,6 @@
 				119792BD1E1FA95000EDA8A5 /* gluttony_02_00002.jpg in Resources */,
 				119794A41E1FA95100EDA8A5 /* lust_01_00040.jpg in Resources */,
 				119796411E1FA95300EDA8A5 /* sloth_01_00014.jpg in Resources */,
-				11F990301E265DB700112E13 /* lingzai_3.gif in Resources */,
 				119795071E1FA95100EDA8A5 /* lust_02_00063.jpg in Resources */,
 				119796E31E1FA95400EDA8A5 /* sloth_03_00027.jpg in Resources */,
 				119794131E1FA95100EDA8A5 /* lingzai_02_00061.jpg in Resources */,
@@ -7185,6 +7187,7 @@
 				119797321E1FA95400EDA8A5 /* wrath_03_00015.jpg in Resources */,
 				17461D061C7493DF00C847E8 /* img_ar_right_answer_gif_0012.png in Resources */,
 				119793CD1E1FA95000EDA8A5 /* lingzai_01_00089.jpg in Resources */,
+				11F990541E27312A00112E13 /* envy_1.gif in Resources */,
 				119796CE1E1FA95400EDA8A5 /* sloth_03_00006.jpg in Resources */,
 				119794471E1FA95100EDA8A5 /* lingzai_03_00019.jpg in Resources */,
 				119792CB1E1FA95000EDA8A5 /* gluttony_02_00016.jpg in Resources */,
@@ -7333,6 +7336,7 @@
 				119791D21E1FA94F00EDA8A5 /* envy_02_00006.jpg in Resources */,
 				119797491E1FA95400EDA8A5 /* wrath_03_00038.jpg in Resources */,
 				1197939C1E1FA95000EDA8A5 /* lingzai_01_00040.jpg in Resources */,
+				11F990631E27312A00112E13 /* sloth_1.gif in Resources */,
 				119791961E1FA94F00EDA8A5 /* envy_01_00026.jpg in Resources */,
 				119792EF1E1FA95000EDA8A5 /* gluttony_02_00052.jpg in Resources */,
 				119791B31E1FA94F00EDA8A5 /* envy_01_00055.jpg in Resources */,
@@ -7429,10 +7433,10 @@
 				119796F01E1FA95400EDA8A5 /* wrath_01_00006.jpg in Resources */,
 				1197962D1E1FA95300EDA8A5 /* pride_03_00053.jpg in Resources */,
 				119797001E1FA95400EDA8A5 /* wrath_01_00022.jpg in Resources */,
-				11F9902D1E265DB700112E13 /* gluttony_3.gif in Resources */,
 				119795AB1E1FA95200EDA8A5 /* pride_1_00046.jpg in Resources */,
 				119791CB1E1FA94F00EDA8A5 /* envy_01_00079.jpg in Resources */,
 				119795A01E1FA95200EDA8A5 /* pride_1_00035.jpg in Resources */,
+				11F990601E27312A00112E13 /* pride_1.gif in Resources */,
 				1163E3401E23ADB4002DBF4B /* right_answer_gif0001.png in Resources */,
 				119792691E1FA94F00EDA8A5 /* gluttony_01_00018.jpg in Resources */,
 				1197923B1E1FA94F00EDA8A5 /* envy_03_00057.jpg in Resources */,
@@ -7460,7 +7464,6 @@
 				119796B91E1FA95400EDA8A5 /* sloth_02_00066.jpg in Resources */,
 				119792911E1FA94F00EDA8A5 /* gluttony_01_00058.jpg in Resources */,
 				1197956E1E1FA95200EDA8A5 /* lust_03_00081.jpg in Resources */,
-				11F990341E265DB700112E13 /* pride_1.gif in Resources */,
 				1197953D1E1FA95200EDA8A5 /* lust_03_00032.jpg in Resources */,
 				1197924B1E1FA94F00EDA8A5 /* envy_03_00073.jpg in Resources */,
 				119797431E1FA95400EDA8A5 /* wrath_03_00032.jpg in Resources */,
@@ -7619,10 +7622,10 @@
 				119794B71E1FA95100EDA8A5 /* lust_01_00059.jpg in Resources */,
 				119792111E1FA94F00EDA8A5 /* envy_03_00015.jpg in Resources */,
 				119791881E1FA94F00EDA8A5 /* envy_01_00012.jpg in Resources */,
+				11F9905C1E27312A00112E13 /* lingzai_3.gif in Resources */,
 				119793231E1FA95000EDA8A5 /* gluttony_03_00009.jpg in Resources */,
 				1197955F1E1FA95200EDA8A5 /* lust_03_00066.jpg in Resources */,
 				1197958C1E1FA95200EDA8A5 /* pride_1_00015.jpg in Resources */,
-				11F990381E265DB700112E13 /* sloth_2.gif in Resources */,
 				119797351E1FA95400EDA8A5 /* wrath_03_00018.jpg in Resources */,
 				119793FE1E1FA95100EDA8A5 /* lingzai_02_00040.jpg in Resources */,
 				119794A11E1FA95100EDA8A5 /* lust_01_00037.jpg in Resources */,
@@ -7634,6 +7637,7 @@
 				17A247BB1C623B9900359CCF /* right_answer_gif_0020.png in Resources */,
 				17A247B31C623B9900359CCF /* right_answer_gif_0012.png in Resources */,
 				119793D61E1FA95000EDA8A5 /* lingzai_02_00000.jpg in Resources */,
+				11F990671E27312A00112E13 /* wrath_2.gif in Resources */,
 				119792F81E1FA95000EDA8A5 /* gluttony_02_00061.jpg in Resources */,
 				119795371E1FA95200EDA8A5 /* lust_03_00026.jpg in Resources */,
 				119794A81E1FA95100EDA8A5 /* lust_01_00044.jpg in Resources */,
@@ -7661,10 +7665,8 @@
 				17461D021C7493DF00C847E8 /* img_ar_right_answer_gif_0008.png in Resources */,
 				119791A11E1FA94F00EDA8A5 /* envy_01_00037.jpg in Resources */,
 				119791A31E1FA94F00EDA8A5 /* envy_01_00039.jpg in Resources */,
-				11F990281E265DB700112E13 /* envy_1.gif in Resources */,
 				1197955A1E1FA95200EDA8A5 /* lust_03_00061.jpg in Resources */,
 				119792701E1FA94F00EDA8A5 /* gluttony_01_00025.jpg in Resources */,
-				11F990351E265DB700112E13 /* pride_2.gif in Resources */,
 				119796051E1FA95300EDA8A5 /* pride_03_00013.jpg in Resources */,
 				11AD0C551DAA34A8007951C5 /* argame01.jpg in Resources */,
 				119795661E1FA95200EDA8A5 /* lust_03_00073.jpg in Resources */,
@@ -7679,9 +7681,9 @@
 				1197965E1E1FA95300EDA8A5 /* sloth_01_00043.jpg in Resources */,
 				119791CF1E1FA94F00EDA8A5 /* envy_02_00003.jpg in Resources */,
 				119792331E1FA94F00EDA8A5 /* envy_03_00049.jpg in Resources */,
-				11F9902B1E265DB700112E13 /* gluttony_1.gif in Resources */,
 				119796E11E1FA95400EDA8A5 /* sloth_03_00025.jpg in Resources */,
 				119791F71E1FA94F00EDA8A5 /* envy_02_00043.jpg in Resources */,
+				11F990651E27312A00112E13 /* sloth_3.gif in Resources */,
 				1197953F1E1FA95200EDA8A5 /* lust_03_00034.jpg in Resources */,
 				119794201E1FA95100EDA8A5 /* lingzai_02_00074.jpg in Resources */,
 				119793BD1E1FA95000EDA8A5 /* lingzai_01_00073.jpg in Resources */,
@@ -7744,6 +7746,7 @@
 				1197952E1E1FA95200EDA8A5 /* lust_03_00017.jpg in Resources */,
 				119792201E1FA94F00EDA8A5 /* envy_03_00030.jpg in Resources */,
 				119793901E1FA95000EDA8A5 /* lingzai_01_00028.jpg in Resources */,
+				11F9905A1E27312A00112E13 /* lingzai_1.gif in Resources */,
 				119792061E1FA94F00EDA8A5 /* envy_03_00004.jpg in Resources */,
 				119794DC1E1FA95100EDA8A5 /* lust_02_00020.jpg in Resources */,
 				1197923F1E1FA94F00EDA8A5 /* envy_03_00061.jpg in Resources */,
@@ -7835,6 +7838,7 @@
 				119796D71E1FA95400EDA8A5 /* sloth_03_00015.jpg in Resources */,
 				119795B81E1FA95200EDA8A5 /* pride_1_00059.jpg in Resources */,
 				1197947E1E1FA95100EDA8A5 /* lust_01_00002.jpg in Resources */,
+				11F990621E27312A00112E13 /* pride_3.gif in Resources */,
 				1197962E1E1FA95300EDA8A5 /* pride_03_00054.jpg in Resources */,
 				119796601E1FA95300EDA8A5 /* sloth_01_00045.jpg in Resources */,
 				119792BF1E1FA95000EDA8A5 /* gluttony_02_00004.jpg in Resources */,
@@ -7850,7 +7854,6 @@
 				1197920D1E1FA94F00EDA8A5 /* envy_03_00011.jpg in Resources */,
 				1197917D1E1FA94F00EDA8A5 /* envy_01_00001.jpg in Resources */,
 				1197941B1E1FA95100EDA8A5 /* lingzai_02_00069.jpg in Resources */,
-				11F990371E265DB700112E13 /* sloth_1.gif in Resources */,
 				119792BB1E1FA95000EDA8A5 /* gluttony_02_00000.jpg in Resources */,
 				119793F11E1FA95000EDA8A5 /* lingzai_02_00027.jpg in Resources */,
 				119792971E1FA95000EDA8A5 /* gluttony_01_00064.jpg in Resources */,
@@ -7899,6 +7902,7 @@
 				119797021E1FA95400EDA8A5 /* wrath_01_00024.jpg in Resources */,
 				119792F51E1FA95000EDA8A5 /* gluttony_02_00058.jpg in Resources */,
 				119793D01E1FA95000EDA8A5 /* lingzai_01_00092.jpg in Resources */,
+				11F990571E27312A00112E13 /* gluttony_1.gif in Resources */,
 				119795CC1E1FA95200EDA8A5 /* pride_02_00017.jpg in Resources */,
 				119794CD1E1FA95100EDA8A5 /* lust_02_00005.jpg in Resources */,
 				119793E81E1FA95000EDA8A5 /* lingzai_02_00018.jpg in Resources */,
@@ -7936,6 +7940,8 @@
 				1197918A1E1FA94F00EDA8A5 /* envy_01_00014.jpg in Resources */,
 				119797381E1FA95400EDA8A5 /* wrath_03_00021.jpg in Resources */,
 				119791B41E1FA94F00EDA8A5 /* envy_01_00056.jpg in Resources */,
+				11F990641E27312A00112E13 /* sloth_2.gif in Resources */,
+				11F990661E27312A00112E13 /* wrath_1.gif in Resources */,
 				119794101E1FA95100EDA8A5 /* lingzai_02_00058.jpg in Resources */,
 				11AD0C4E1DAA3490007951C5 /* targets2.json in Resources */,
 				119792221E1FA94F00EDA8A5 /* envy_03_00032.jpg in Resources */,
@@ -7945,12 +7951,12 @@
 				1197940A1E1FA95100EDA8A5 /* lingzai_02_00052.jpg in Resources */,
 				119791941E1FA94F00EDA8A5 /* envy_01_00024.jpg in Resources */,
 				1197952D1E1FA95200EDA8A5 /* lust_03_00016.jpg in Resources */,
+				11F990551E27312A00112E13 /* envy_2.gif in Resources */,
 				119791DB1E1FA94F00EDA8A5 /* envy_02_00015.jpg in Resources */,
 				17A247A71C623B9900359CCF /* right_answer_gif_0000.png in Resources */,
 				1197951B1E1FA95200EDA8A5 /* lust_02_00083.jpg in Resources */,
 				119794421E1FA95100EDA8A5 /* lingzai_03_00014.jpg in Resources */,
 				119795C51E1FA95200EDA8A5 /* pride_02_00010.jpg in Resources */,
-				11F9902A1E265DB700112E13 /* envy_3.gif in Resources */,
 				119796C01E1FA95400EDA8A5 /* sloth_02_00073.jpg in Resources */,
 				119792491E1FA94F00EDA8A5 /* envy_03_00071.jpg in Resources */,
 				119791BA1E1FA94F00EDA8A5 /* envy_01_00062.jpg in Resources */,
@@ -7970,6 +7976,7 @@
 				119791B01E1FA94F00EDA8A5 /* envy_01_00052.jpg in Resources */,
 				119796071E1FA95300EDA8A5 /* pride_03_00015.jpg in Resources */,
 				1197955B1E1FA95200EDA8A5 /* lust_03_00062.jpg in Resources */,
+				11F9905B1E27312A00112E13 /* lingzai_2.gif in Resources */,
 				1197949A1E1FA95100EDA8A5 /* lust_01_00030.jpg in Resources */,
 				119794601E1FA95100EDA8A5 /* lingzai_03_00044.jpg in Resources */,
 				1197948A1E1FA95100EDA8A5 /* lust_01_00014.jpg in Resources */,
@@ -7997,7 +8004,6 @@
 				1197964A1E1FA95300EDA8A5 /* sloth_01_00023.jpg in Resources */,
 				1197966B1E1FA95300EDA8A5 /* sloth_01_00056.jpg in Resources */,
 				1197971E1E1FA95400EDA8A5 /* wrath_02_00018.jpg in Resources */,
-				11F9902E1E265DB700112E13 /* lingzai_1.gif in Resources */,
 				119795971E1FA95200EDA8A5 /* pride_1_00026.jpg in Resources */,
 				119795C81E1FA95200EDA8A5 /* pride_02_00013.jpg in Resources */,
 				119792D01E1FA95000EDA8A5 /* gluttony_02_00021.jpg in Resources */,
@@ -8122,7 +8128,6 @@
 				17A2478A1C623B9300359CCF /* raw_wrong_answer_gif_0012.png in Resources */,
 				1197955E1E1FA95200EDA8A5 /* lust_03_00065.jpg in Resources */,
 				119792141E1FA94F00EDA8A5 /* envy_03_00018.jpg in Resources */,
-				11F9902F1E265DB700112E13 /* lingzai_2.gif in Resources */,
 				119795FE1E1FA95300EDA8A5 /* pride_03_00006.jpg in Resources */,
 				119794E61E1FA95100EDA8A5 /* lust_02_00030.jpg in Resources */,
 				119794721E1FA95100EDA8A5 /* lingzai_03_00062.jpg in Resources */,
@@ -8173,6 +8178,7 @@
 				119794121E1FA95100EDA8A5 /* lingzai_02_00060.jpg in Resources */,
 				119794E21E1FA95100EDA8A5 /* lust_02_00026.jpg in Resources */,
 				1197922B1E1FA94F00EDA8A5 /* envy_03_00041.jpg in Resources */,
+				11F9903E1E27273500112E13 /* 1.gif in Resources */,
 				119796F31E1FA95400EDA8A5 /* wrath_01_00009.jpg in Resources */,
 				119796EC1E1FA95400EDA8A5 /* wrath_01_00002.jpg in Resources */,
 				119795F91E1FA95300EDA8A5 /* pride_03_00001.jpg in Resources */,
@@ -8184,15 +8190,14 @@
 				119796A31E1FA95400EDA8A5 /* sloth_02_00044.jpg in Resources */,
 				119796EB1E1FA95400EDA8A5 /* wrath_01_00001.jpg in Resources */,
 				1197954F1E1FA95200EDA8A5 /* lust_03_00050.jpg in Resources */,
+				11F990591E27312A00112E13 /* gluttony_3.gif in Resources */,
 				119793A51E1FA95000EDA8A5 /* lingzai_01_00049.jpg in Resources */,
 				119795451E1FA95200EDA8A5 /* lust_03_00040.jpg in Resources */,
 				1197955C1E1FA95200EDA8A5 /* lust_03_00063.jpg in Resources */,
 				119794D31E1FA95100EDA8A5 /* lust_02_00011.jpg in Resources */,
 				119793A81E1FA95000EDA8A5 /* lingzai_01_00052.jpg in Resources */,
 				119791A51E1FA94F00EDA8A5 /* envy_01_00041.jpg in Resources */,
-				11F990321E265DB700112E13 /* lust_2.gif in Resources */,
 				119792E91E1FA95000EDA8A5 /* gluttony_02_00046.jpg in Resources */,
-				11F9903C1E265DB700112E13 /* wrath_3.gif in Resources */,
 				1163E3521E23ADB5002DBF4B /* right_answer_gif0019.png in Resources */,
 				119797371E1FA95400EDA8A5 /* wrath_03_00020.jpg in Resources */,
 				1197960F1E1FA95300EDA8A5 /* pride_03_00023.jpg in Resources */,
@@ -8231,7 +8236,6 @@
 				119791E01E1FA94F00EDA8A5 /* envy_02_00020.jpg in Resources */,
 				119794531E1FA95100EDA8A5 /* lingzai_03_00031.jpg in Resources */,
 				1197920B1E1FA94F00EDA8A5 /* envy_03_00009.jpg in Resources */,
-				11F990291E265DB700112E13 /* envy_2.gif in Resources */,
 				119792C31E1FA95000EDA8A5 /* gluttony_02_00008.jpg in Resources */,
 				1197945A1E1FA95100EDA8A5 /* lingzai_03_00038.jpg in Resources */,
 				17461D031C7493DF00C847E8 /* img_ar_right_answer_gif_0009.png in Resources */,
@@ -8255,6 +8259,7 @@
 				119793AD1E1FA95000EDA8A5 /* lingzai_01_00057.jpg in Resources */,
 				119795D51E1FA95200EDA8A5 /* pride_02_00026.jpg in Resources */,
 				119793171E1FA95000EDA8A5 /* gluttony_02_00092.jpg in Resources */,
+				11F9905F1E27312A00112E13 /* lust_3.gif in Resources */,
 				119796911E1FA95300EDA8A5 /* sloth_02_00026.jpg in Resources */,
 				1197932E1E1FA95000EDA8A5 /* gluttony_03_00020.jpg in Resources */,
 				1197964F1E1FA95300EDA8A5 /* sloth_01_00028.jpg in Resources */,
@@ -8314,7 +8319,6 @@
 				119797141E1FA95400EDA8A5 /* wrath_02_00008.jpg in Resources */,
 				1197947C1E1FA95100EDA8A5 /* lust_01_00000.jpg in Resources */,
 				119796EF1E1FA95400EDA8A5 /* wrath_01_00005.jpg in Resources */,
-				11F990331E265DB700112E13 /* lust_3.gif in Resources */,
 				119794811E1FA95100EDA8A5 /* lust_01_00005.jpg in Resources */,
 				119794841E1FA95100EDA8A5 /* lust_01_00008.jpg in Resources */,
 				119793941E1FA95000EDA8A5 /* lingzai_01_00032.jpg in Resources */,
