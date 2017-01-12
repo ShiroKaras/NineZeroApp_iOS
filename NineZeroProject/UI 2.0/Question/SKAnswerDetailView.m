@@ -63,7 +63,7 @@
         [_contentView sizeToFit];
         _contentView.centerX = self.centerX;
         
-        [HTProgressHUD dismiss];
+        [self hideHUD];
         [UIView animateWithDuration:0.5 animations:^{
             _contentView.alpha = 1.0;
             _headerImageView.alpha = 1.0;
@@ -151,7 +151,7 @@
     _HUDImageView.animationRepeatCount = 0;
     [_HUDView addSubview:_HUDImageView];
     
-    [HTProgressHUD show];
+    [self showHUD];
 }
 
 - (void)showHUD {

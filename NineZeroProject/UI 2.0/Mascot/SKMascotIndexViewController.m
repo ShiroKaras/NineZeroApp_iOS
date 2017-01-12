@@ -32,6 +32,9 @@
 @property (nonatomic, strong) NSArray<SKPet*>   *mascotArray;
 
 @property (nonatomic, strong) UIView *guideView;
+
+@property (nonatomic, strong) UIView *HUDView;
+@property (nonatomic, strong) UIImageView *HUDImageView;
 @end
 
 @implementation SKMascotIndexViewController
@@ -63,7 +66,6 @@
 
 - (void)loadData {
     //更新个人主页信息
-    [HTProgressHUD show];
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
     [[[SKServiceManager sharedInstance] mascotService] getMascotsCallback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
         self.mascotArray = mascotArray;
@@ -75,7 +77,7 @@
                 [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) hide];
             }
         }
-        [HTProgressHUD dismiss];
+        [self hideHUD];
     }];
     
     _redFlag_album.hidden = !HAVE_NEW_MASCOT;
@@ -214,6 +216,37 @@
         label.centerX = _guideView.centerX;
         label.bottom = _guideView.bottom -16;
     }
+    
+    _HUDView = [[UIView alloc] initWithFrame:self.view.frame];
+    _HUDView.backgroundColor = [UIColor blackColor];
+    NSInteger count = 40;
+    NSMutableArray *images = [NSMutableArray array];
+    CGFloat length = 156;
+    _HUDImageView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - length / 2, SCREEN_HEIGHT / 2 - length / 2, length, length)];
+    _HUDImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"loader_png_0000"]];
+    for (int i = 0; i != count; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"loader_png_00%02d", i]];
+        [images addObject:image];
+    }
+    _HUDImageView.animationImages = images;
+    _HUDImageView.animationDuration = 2.0;
+    _HUDImageView.animationRepeatCount = 0;
+    [_HUDView addSubview:_HUDImageView];
+    
+    [self showHUD];
+}
+
+- (void)showHUD {
+    [AppDelegateInstance.window addSubview:_HUDView];
+    _HUDView.alpha = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        _HUDView.alpha = 1;
+        [_HUDImageView startAnimating];
+    }];
+}
+
+- (void)hideHUD {
+    [_HUDView removeFromSuperview];
 }
 
 - (void)removeGuideView {

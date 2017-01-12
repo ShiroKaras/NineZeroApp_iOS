@@ -28,6 +28,8 @@
 
 @property(nonatomic, assign) NSInteger season;
 
+@property (nonatomic, strong) UIView *HUDView;
+@property (nonatomic, strong) UIImageView *HUDImageView;
 @end
 
 @implementation SKAllQuestionViewController{
@@ -48,7 +50,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [HTProgressHUD show];
     [self createUI];
     [self addObserver:self forKeyPath:@"season" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 }
@@ -78,9 +79,10 @@
             [UD setBool:YES forKey:@"firstLaunchQuestionList"];
         }
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [HTProgressHUD dismiss];
-        });
+        [self hideHUD];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [HTProgressHUD dismiss];
+//        });
     }];
 }
 
@@ -130,6 +132,25 @@
     }];
 
     [self createTempView];
+    
+    _HUDView = [[UIView alloc] initWithFrame:self.view.frame];
+    _HUDView.backgroundColor = [UIColor blackColor];
+    NSInteger count = 40;
+    NSMutableArray *images = [NSMutableArray array];
+    CGFloat length = 156;
+    _HUDImageView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - length / 2, SCREEN_HEIGHT / 2 - length / 2, length, length)];
+    _HUDImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"loader_png_0000"]];
+    for (int i = 0; i != count; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"loader_png_00%02d", i]];
+        [images addObject:image];
+    }
+    _HUDImageView.animationImages = images;
+    _HUDImageView.animationDuration = 2.0;
+    _HUDImageView.animationRepeatCount = 0;
+    [_HUDView addSubview:_HUDImageView];
+    
+    [self showHUD];
+
     
     if (NO_NETWORK) {
         UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
@@ -559,6 +580,19 @@
 - (void)season2ButtonClick:(UIButton *)sender {
     [TalkingData trackEvent:@"seasontwo"];
     self.season = 2;
+}
+
+- (void)showHUD {
+    [AppDelegateInstance.window addSubview:_HUDView];
+    _HUDView.alpha = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        _HUDView.alpha = 1;
+        [_HUDImageView startAnimating];
+    }];
+}
+
+- (void)hideHUD {
+    [_HUDView removeFromSuperview];
 }
 
 #pragma mark - SKHelperScrollViewDelegate
