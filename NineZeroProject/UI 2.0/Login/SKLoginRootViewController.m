@@ -41,9 +41,15 @@
     
     __weak __typeof(self)weakSelf = self;
     
-    UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
-    backImageView.frame = self.view.frame;
+    HTImageView *backImageView = [[HTImageView alloc] init];
+    [backImageView setAnimatedImageWithName:@"LOGO-640" withLoopCount:0];
     [self.view addSubview:backImageView];
+    [backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo((SCREEN_HEIGHT-49-54)/930*640);
+        make.height.mas_equalTo(SCREEN_HEIGHT-49-54);
+        make.top.equalTo(weakSelf.view);
+        make.centerX.equalTo(weakSelf.view);
+    }];
     
     UIView *bottomView1 = [UIView new];
     bottomView1.backgroundColor = COMMON_RED_COLOR;

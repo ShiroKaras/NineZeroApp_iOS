@@ -135,13 +135,13 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         [images addObject:image];
     }
     
-    self.mascotImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    self.mascotImageView = [[UIImageView alloc] init];
     self.mascotImageView.animationImages = images;
     self.mascotImageView.animationDuration = 0.1 * images.count;
     self.mascotImageView.animationRepeatCount = 0;
     [self.mascotImageView startAnimating];
     
-    self.mascotMotionView = [[MotionEffectView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+    self.mascotMotionView = [[MotionEffectView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
     self.mascotMotionView.center = self.view.center;
     self.mascotMotionView.delegate = self;
     [self.mascotMotionView setImage:self.mascotImageView];
@@ -149,13 +149,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.mascotMotionView enableMotionEffect];
     
     self.mascotMotionView.hidden = YES;
-    
-//    self.mascotImageView.layer.masksToBounds = YES;
-//    self.mascotImageView.hidden = YES;
-//    self.mascotImageView.userInteractionEnabled = YES;
-//    [self.view addSubview:self.mascotImageView];
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
-//    [self.mascotImageView addGestureRecognizer:tap];
     
     if (FIRST_LAUNCH_AR) {
         SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
@@ -350,6 +343,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)onClickBack {
+    [self.mascotMotionView disableMotionEffect];
+    [self.mascotMotionView removeFromSuperview];
+    self.mascotMotionView = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

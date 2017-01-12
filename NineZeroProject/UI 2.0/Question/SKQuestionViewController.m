@@ -130,7 +130,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [super viewDidLoad];
     self.clickCount = 0;
     [self createUI];
-    [self loadData];
     [self addObserver:self forKeyPath:@"currentIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"isAnswered" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     
@@ -505,6 +504,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }
     
     if (NO_NETWORK) {
+        [HTProgressHUD dismiss];
         UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
         converView.backgroundColor = COMMON_BG_COLOR;
         [self.view addSubview:converView];
@@ -512,6 +512,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
         [self.view addSubview:blankView];
         blankView.top = ROUND_HEIGHT_FLOAT(217);
+    } else {
+        [self loadData];
     }
 }
 
