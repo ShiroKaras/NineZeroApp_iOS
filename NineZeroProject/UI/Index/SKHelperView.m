@@ -358,6 +358,9 @@
     _view1 = [[UIView alloc] initWithFrame:self.frame];
     UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:_view1.frame];
     [_view1 addSubview:imageView1];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+    [_view1 addGestureRecognizer:tap];
+    
     if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
         imageView1.image = [UIImage imageNamed:@"coach_mark_list_1_640"];
     } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
@@ -370,6 +373,9 @@
     _view2 = [[UIView alloc] initWithFrame:self.frame];
     UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:_view2.frame];
     [_view2 addSubview:imageView2];
+    UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+    [_view2 addGestureRecognizer:tap2];
+    
     if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
         imageView2.image = [UIImage imageNamed:@"coach_mark_list_2_640"];
     } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {

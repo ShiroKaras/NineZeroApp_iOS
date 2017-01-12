@@ -162,7 +162,7 @@
     [_tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(0);
         make.width.equalTo(self);
-        make.height.equalTo(@30);
+        make.height.equalTo(@42);
     }];
     
     [_tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
