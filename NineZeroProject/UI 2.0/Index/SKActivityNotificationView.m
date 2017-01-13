@@ -51,6 +51,7 @@
     _contentImageView.frame = CGRectMake(20, 56, SCREEN_WIDTH-40, (SCREEN_WIDTH-40)*1.5);
     
     _adButton.frame = _contentImageView.frame;
+    [_adButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     _handImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_pop_hand"]];
     [_handImageView sizeToFit];
