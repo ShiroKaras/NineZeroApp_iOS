@@ -81,17 +81,32 @@
             _playButton.hidden = NO;
             _contentImageView.hidden = NO;
             _contentImageView.height = (self.width-20)/280*157.5;
-            _contentImageView.image = [UIImage imageNamed:@"img_detailpage_default"];
-            _contentImageView.contentMode = UIViewContentModeScaleAspectFill;
             _contentView.top = _contentImageView.bottom+16;
-            [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_cover] placeholderImage:[UIImage imageNamed:@"img_detailpage_default"]];
+            
+            UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailpage_default"]];
+            backImageView.contentMode = UIViewContentModeScaleAspectFill;
+            backImageView.frame = _contentImageView.frame;
+            [_backScrollView addSubview:backImageView];
+            
+            [_backScrollView bringSubviewToFront:_contentImageView];
+            [_backScrollView bringSubviewToFront:_playButton];
+            [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_cover] placeholderImage:[UIImage imageNamed:@"img_detailpage_default"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                [backImageView removeFromSuperview];
+            }];
         } else if (answerDetail.article_Illustration_type == 2) {
             _contentImageView.hidden = NO;
             _contentImageView.height = (self.width-20)/280*157.5;
-            _contentImageView.image = [UIImage imageNamed:@"img_detailpage_default"];
-            _contentImageView.contentMode = UIViewContentModeScaleAspectFill;
             _contentView.top = _contentImageView.bottom+16;
-            [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_url] placeholderImage:[UIImage imageNamed:@"img_detailpage_default "]];
+            
+            UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailpage_default"]];
+            backImageView.contentMode = UIViewContentModeScaleAspectFill;
+            backImageView.frame = _contentImageView.frame;
+            [_backScrollView addSubview:backImageView];
+            
+            [_backScrollView bringSubviewToFront:_contentImageView];
+            [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_url] placeholderImage:[UIImage imageNamed:@"img_detailpage_default "] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                [backImageView removeFromSuperview];
+            }];
         }
         
         CGFloat scrollViewHeight = 0.0f;
