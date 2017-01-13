@@ -160,7 +160,7 @@
         [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
         [self.view addSubview:blankView];
         blankView.top = ROUND_HEIGHT_FLOAT(217);
-        [HTProgressHUD dismiss];
+        [self hideHUD];
     } else {
         [self loadData];
     }

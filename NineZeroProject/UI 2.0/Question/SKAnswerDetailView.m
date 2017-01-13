@@ -81,11 +81,15 @@
             _playButton.hidden = NO;
             _contentImageView.hidden = NO;
             _contentImageView.height = (self.width-20)/280*157.5;
+            _contentImageView.image = [UIImage imageNamed:@"img_detailpage_default"];
+            _contentImageView.contentMode = UIViewContentModeScaleAspectFill;
             _contentView.top = _contentImageView.bottom+16;
             [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_cover] placeholderImage:[UIImage imageNamed:@"img_detailpage_default"]];
         } else if (answerDetail.article_Illustration_type == 2) {
             _contentImageView.hidden = NO;
             _contentImageView.height = (self.width-20)/280*157.5;
+            _contentImageView.image = [UIImage imageNamed:@"img_detailpage_default"];
+            _contentImageView.contentMode = UIViewContentModeScaleAspectFill;
             _contentView.top = _contentImageView.bottom+16;
             [_contentImageView sd_setImageWithURL:[NSURL URLWithString:answerDetail.article_Illustration_url] placeholderImage:[UIImage imageNamed:@"img_detailpage_default "]];
         }
