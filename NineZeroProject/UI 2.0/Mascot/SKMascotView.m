@@ -99,10 +99,6 @@
 
 - (void)showRandom {
     _mBlankImageView.userInteractionEnabled = YES;
-//    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%2+2]];
-//    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%2+2] ofType:@"gif"];
-//    [_mBlankImageView sd_setImageWithURL:[NSURL fileURLWithPath:path]];
-    
     NSDictionary *dict = @{
                            @"lingzai_01"    :   @98,
                            @"lingzai_02"    :   @94,
@@ -138,6 +134,20 @@
     _mBlankImageView.animationDuration = 0.067 * [dict[mascotgif] intValue];
     _mBlankImageView.animationRepeatCount = 0;
     [_mBlankImageView startAnimating];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.067 * [dict[mascotgif] intValue]) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSMutableArray<UIImage *> *mimages = [NSMutableArray array];
+        NSString *mMascotgif = [NSString stringWithFormat:@"%@_01", _mascotNameArray[_mascotType]];
+        for (int i = 0; i <[dict[mMascotgif] intValue]; i++) {
+            UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_00%03d.jpg", mMascotgif, i]];
+            [mimages addObject:animatedImage];
+        }
+        
+        _mBlankImageView.animationImages = mimages;
+        _mBlankImageView.animationDuration = 0.033 * mimages.count;
+        _mBlankImageView.animationRepeatCount = 0;
+        [_mBlankImageView startAnimating];
+    });
 }
 
 - (void)onClickMascot:(UITapGestureRecognizer*)sender {
