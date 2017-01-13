@@ -1062,12 +1062,11 @@
     [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:_mascotIdArray[_type] callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
             [self showSinMascotPromptWithText:@"魔法已生效"];
-            self.familyMascotArray[0].pet_num--;
-            self.familyMascotArray[1].pet_num--;
-            self.familyMascotArray[2].pet_num--;
-            self.familyMascotArray[3].pet_num--;
-            
-            [self updateButtons];
+            _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld", (long)[_familyMascot_1_Label.text integerValue]-1];
+            _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld", (long)[_familyMascot_2_Label.text integerValue]-1];
+            _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld", (long)[_familyMascot_3_Label.text integerValue]-1];
+            _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld", (long)[_familyMascot_4_Label.text integerValue]-1];
+            [self loadData];
         } else if (response.result == -7009){
             [self showSinMascotPromptWithText:@"已有生效的魔法"];
         }
