@@ -48,7 +48,7 @@
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"帮助我们进步";
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = PINGFANG_FONT_OF_SIZE(20);
+    titleLabel.font = [UIFont systemFontOfSize:17];
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
     [headerView addSubview:titleLabel];
