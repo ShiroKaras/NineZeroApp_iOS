@@ -1223,8 +1223,8 @@
                              @"lust"        :   @"img_info_lust"
                              };
         _mascotContentDict = @{
-                               @"lingzai"     :   @"从世界尽头归来\n也从新世界开始\n〇来自传说中的529D星球\n〇纯洁如一张白纸\n却孤独如一片深海\n虽然这个世界与自己残存的记忆中的星球\n有太多类似的地方\n但是\n它还是需要找到\n529D星球的一些线索\n它希望知道\n自己的来处\n希望了解\n关于529D星球的一切真相",
-                               @"sloth"        :   @"一个嗜睡狂魔\n只要有休息的机会\n它绝对会瞬间倒下睡觉\n但是它有一个克星\n没错\n就是那只小鸟\n虽然Sloth·S不可避免的进入梦乡\n但是小鸟却每次都在提醒Sloth·S\n向什么方向出发\n最让Sloth·S接受不了的是\n那只小鸟会逮住所有的机会叫醒它\n然而似乎\n并没有什么卵用",
+                               @"lingzai"     :   @"从世界尽头归来\n也从新世界开始\n〇来自传说中的529D星球\n〇纯洁如一张白纸\n却孤独如一片深海\n虽然这个世界\n与自己残存的记忆中的星球\n有太多类似的地方\n但是\n它还是需要找到\n529D星球的一些线索\n它希望知道\n自己的来处\n希望了解\n关于529D星球的一切真相",
+                               @"sloth"        :   @"一个嗜睡狂魔\n只要有休息的机会\n它绝对会瞬间倒下睡觉\n但是它有一个克星\n没错\n就是那只小鸟\n虽然Sloth·S不可避免的进入梦乡\n但是小鸟却每次都在提醒Sloth·S\n向什么方向出发\n最让Sloth·S接受不了的是\n那只小鸟\n会逮住所有的机会叫醒它\n然而似乎\n并没有什么卵用",
                                @"pride"    :   @"从出生开始\n就没见过自己的脚趾头\n脑袋一直高昂着\n别想让它主动联系你\n它可有偶像包袱\n别跟它说话\n它好像也没搭理过谁\n似乎只有一身的雍容华贵\n才可以表达它的品味\n为了保证随时聚焦在闪光灯下\nPride·W要保持最佳状态\n不可以让任何人\n看到它不好的一面",
                                @"wrath"       :   @"炸弹做手表也是没谁了\n而它只是在倒计时自己\n还有多久会气炸\nWrath·C气场强大\n光是靠近你\n不用背景音乐\n你就能感受到周围阵阵杀气\n它是一个偏执狂\n可以把一件事情坚持做到底\n认定的事情\n谁也不可以改变\n别惹它\n不是开玩笑的",
                                @"gluttony"       :   @"如果没有美食\n这个世界还会好么？\nGluttony·T最喜欢说的一句话是\n“我还能再吃一口”\n再吃一口\n不是因为它想吃掉所有食物\n而是为了尝遍天下所有美食\n为了食物\n可以不惜一切代价\n为了争夺到手的肥肉\n不惜把自己的手吃掉",
@@ -1244,7 +1244,7 @@
 
 - (void)createUIWithType:(SKMascotType)type {
     UIView *dimmingView = [UIView new];
-    dimmingView.backgroundColor = [UIColor blackColor];
+    dimmingView.backgroundColor = COMMON_BG_COLOR;
     dimmingView.alpha = 0.9;
     [self addSubview:dimmingView];
     [dimmingView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1254,22 +1254,15 @@
         make.right.equalTo(self);
     }];
     
-    UIButton *closeButton = [UIButton new];
-    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-    [self addSubview:closeButton];
-    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@12);
-        make.left.equalTo(@4);
-    }];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.frame];
+    [self addSubview:scrollView];
     
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:_mascotTitleDict[_mascotNameArray[type]]]];
-    [self addSubview:titleImageView];
+    [scrollView addSubview:titleImageView];
     [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(ROUND_WIDTH(150));
         make.height.equalTo(ROUND_WIDTH(56.5));
-        make.centerX.equalTo(self);
+        make.centerX.equalTo(scrollView);
         make.top.equalTo(@64);
     }];
     
@@ -1283,20 +1276,36 @@
                                  NSForegroundColorAttributeName:[UIColor whiteColor]
                                  };
     
-    UITextView *textView = [UITextView new];
+    UILabel *textView = [UILabel new];
     textView.attributedText = [[NSAttributedString alloc] initWithString:_mascotContentDict[_mascotNameArray[type]] attributes:attributes];
     textView.textAlignment = NSTextAlignmentCenter;
     textView.backgroundColor = [UIColor clearColor];
-//    textView.numberOfLines = 0;
+    textView.numberOfLines = 0;
     [textView sizeToFit];
-    textView.editable = NO;
-    [self addSubview:textView];
-    [textView setContentOffset:CGPointZero animated:NO];
+//    textView.editable = NO;
+    [scrollView addSubview:textView];
+//    [textView setContentOffset:CGPointZero animated:NO];
     [textView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(titleImageView.mas_bottom).offset(27);
-        make.left.equalTo(@16);
-        make.right.equalTo(self.mas_right).offset(-16);
-        make.bottom.equalTo(self.mas_bottom).offset(-20);
+        make.centerX.equalTo(scrollView);
+    }];
+    
+    scrollView.contentSize = CGSizeMake(self.width, 64+ROUND_HEIGHT_FLOAT(56.5)+27+textView.height+16);
+    if (64+ROUND_HEIGHT_FLOAT(56.5)+27+textView.height+16>SCREEN_HEIGHT) {
+        UIImageView *dimmingImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_success_shading_down"]];
+        dimmingImageView.width = SCREEN_WIDTH;
+        dimmingImageView.bottom = self.bottom;
+        [self addSubview:dimmingImageView];
+    }
+    
+    UIButton *closeButton = [UIButton new];
+    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
+    [self addSubview:closeButton];
+    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@12);
+        make.left.equalTo(@4);
     }];
 }
 
