@@ -73,7 +73,7 @@
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"设置";
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = PINGFANG_FONT_OF_SIZE(20);
+    titleLabel.font = PINGFANG_FONT_OF_SIZE(17);
     [titleLabel sizeToFit];
     [self.view addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -40,7 +40,7 @@
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"用户协议";
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = [UIFont systemFontOfSize:17];
+    titleLabel.font = PINGFANG_FONT_OF_SIZE(17);
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
     [headerView addSubview:titleLabel];

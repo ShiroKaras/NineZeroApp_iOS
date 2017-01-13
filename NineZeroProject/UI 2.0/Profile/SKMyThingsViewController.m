@@ -110,7 +110,7 @@
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"已收集的玩意儿";
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = [UIFont systemFontOfSize:17];
+    titleLabel.font = PINGFANG_FONT_OF_SIZE(17);
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
     [headerView addSubview:titleLabel];
