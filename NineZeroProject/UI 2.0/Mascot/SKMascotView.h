@@ -25,6 +25,7 @@ typedef enum : NSUInteger {
 - (void)hide;
 - (void)showDefault;
 - (void)showRandom;
+- (void)showDefaultImage;
 @end
 
 

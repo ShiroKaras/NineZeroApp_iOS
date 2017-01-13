@@ -8,7 +8,6 @@
 
 #import "SKMascotView.h"
 #import "HTUIHeader.h"
-#import "MEImage+GIF.h"
 
 @interface SKMascotView ()
 @property (nonatomic, strong) UIButton *fightButton;        //战斗按钮
@@ -16,7 +15,7 @@
 @property (nonatomic, strong) UIButton *skillButton;        //技能按钮
 @property (nonatomic, strong) UIButton *infoButton;         //信息按钮
 
-@property (nonatomic, strong) HTImageView *mBlankImageView;
+@property (nonatomic, strong) YLImageView *mBlankImageView;
 
 @property (nonatomic, strong) NSArray *mascotNameArray;
 @property (nonatomic, assign) SKMascotType mascotType;
@@ -37,7 +36,7 @@
 - (void)createUIWithType:(SKMascotType)type {
     self.backgroundColor = COMMON_BG_COLOR;
 
-    _mBlankImageView= [[HTImageView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-SCREEN_WIDTH-150, SCREEN_WIDTH, SCREEN_WIDTH)];
+    _mBlankImageView= [[YLImageView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-SCREEN_WIDTH-150, SCREEN_WIDTH, SCREEN_WIDTH)];
     _mBlankImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_lingzaipage_%@__blank", _mascotNameArray[_mascotType]]];
     _mBlankImageView.userInteractionEnabled = YES;
     [self addSubview:_mBlankImageView];
@@ -56,98 +55,17 @@
 
 - (void)showDefault {
     _mBlankImageView.userInteractionEnabled = YES;
-//    [_mBlankImageView setAnimatedImageWithName:[NSString stringWithFormat:@"%@_1", _mascotNameArray[_mascotType]]];
-//    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@_1", _mascotNameArray[_mascotType]] ofType:@"gif"];
-//    [_mBlankImageView sd_setImageWithURL:[NSURL fileURLWithPath:path]];
-    
-    NSDictionary *dict = @{
-                           @"lingzai_01"    :   @98,
-                           @"lingzai_02"    :   @94,
-                           @"lingzai_03"    :   @72,
-                           @"envy_01"       :   @80,
-                           @"envy_02"       :   @54,
-                           @"envy_03"       :   @85,
-                           @"gluttony_01"   :   @100,
-                           @"gluttony_02"   :   @95,
-                           @"gluttony_03"   :   @90,
-                           @"lust_01"       :   @76,
-                           @"lust_02"       :   @85,
-                           @"lust_03"       :   @96,
-                           @"pride_01"      :   @62,
-                           @"pride_02"      :   @61,
-                           @"pride_03"      :   @59,
-                           @"sloth_01"      :   @68,
-                           @"sloth_02"      :   @81,
-                           @"sloth_03"      :   @34,
-                           @"wrath_01"      :   @34,
-                           @"wrath_02"      :   @23,
-                           @"wrath_03"      :   @41
-                           };
-    
-    NSMutableArray<UIImage *> *images = [NSMutableArray array];
-    NSString *mascotgif = [NSString stringWithFormat:@"%@_01", _mascotNameArray[_mascotType]];
-    for (int i = 0; i <[dict[mascotgif] intValue]; i++) {
-        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_00%03d.jpg", mascotgif, i]];
-        [images addObject:animatedImage];
-    }
-    
-    _mBlankImageView.animationImages = images;
-    _mBlankImageView.animationDuration = 0.033 * images.count;
-    _mBlankImageView.animationRepeatCount = 0;
-    [_mBlankImageView startAnimating];
+    _mBlankImageView.image = [YLGIFImage imageNamed:[NSString stringWithFormat:@"%@_1.gif", _mascotNameArray[_mascotType]]];
 }
 
 - (void)showRandom {
     _mBlankImageView.userInteractionEnabled = YES;
-    NSDictionary *dict = @{
-                           @"lingzai_01"    :   @98,
-                           @"lingzai_02"    :   @94,
-                           @"lingzai_03"    :   @72,
-                           @"envy_01"       :   @80,
-                           @"envy_02"       :   @54,
-                           @"envy_03"       :   @85,
-                           @"gluttony_01"   :   @100,
-                           @"gluttony_02"   :   @95,
-                           @"gluttony_03"   :   @90,
-                           @"lust_01"       :   @76,
-                           @"lust_02"       :   @85,
-                           @"lust_03"       :   @96,
-                           @"pride_01"      :   @62,
-                           @"pride_02"      :   @61,
-                           @"pride_03"      :   @59,
-                           @"sloth_01"      :   @68,
-                           @"sloth_02"      :   @81,
-                           @"sloth_03"      :   @34,
-                           @"wrath_01"      :   @34,
-                           @"wrath_02"      :   @23,
-                           @"wrath_03"      :   @41
-                           };
-    
-    NSMutableArray<UIImage *> *images = [NSMutableArray array];
-    NSString *mascotgif = [NSString stringWithFormat:@"%@_%02ld", _mascotNameArray[_mascotType], random()%2+2];
-    for (int i = 0; i <[dict[mascotgif] intValue]; i++) {
-        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_00%03d.jpg", mascotgif, i]];
-        [images addObject:animatedImage];
-    }
-    
-    _mBlankImageView.animationImages = images;
-    _mBlankImageView.animationDuration = 0.067 * [dict[mascotgif] intValue];
-    _mBlankImageView.animationRepeatCount = 0;
-    [_mBlankImageView startAnimating];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.067 * [dict[mascotgif] intValue]) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSMutableArray<UIImage *> *mimages = [NSMutableArray array];
-        NSString *mMascotgif = [NSString stringWithFormat:@"%@_01", _mascotNameArray[_mascotType]];
-        for (int i = 0; i <[dict[mMascotgif] intValue]; i++) {
-            UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_00%03d.jpg", mMascotgif, i]];
-            [mimages addObject:animatedImage];
-        }
-        
-        _mBlankImageView.animationImages = mimages;
-        _mBlankImageView.animationDuration = 0.033 * mimages.count;
-        _mBlankImageView.animationRepeatCount = 0;
-        [_mBlankImageView startAnimating];
-    });
+    _mBlankImageView.image = [YLGIFImage imageNamed:[NSString stringWithFormat:@"%@_%ld.gif", _mascotNameArray[_mascotType], random()%2+2]];
+}
+
+- (void)showDefaultImage {
+    NSString *mascotName = [NSString stringWithFormat:@"%@_01_00000.jpg", _mascotNameArray[_mascotType]];
+    _mBlankImageView.image = [YLGIFImage imageNamed:mascotName];
 }
 
 - (void)onClickMascot:(UITapGestureRecognizer*)sender {
@@ -799,11 +717,20 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = 12;// 字体的行间距
     
-    NSDictionary *attributes = @{
-                                 NSFontAttributeName:PINGFANG_FONT_OF_SIZE(14),
-                                 NSParagraphStyleAttributeName:paragraphStyle,
-                                 NSForegroundColorAttributeName:[UIColor whiteColor]
-                                 };
+    NSDictionary *attributes;
+    if (IPHONE5_SCREEN_WIDTH == SCREEN_WIDTH) {
+        attributes = @{
+                       NSFontAttributeName:PINGFANG_FONT_OF_SIZE(12),
+                       NSParagraphStyleAttributeName:paragraphStyle,
+                       NSForegroundColorAttributeName:[UIColor whiteColor]
+                       };
+    } else {
+        attributes = @{
+                       NSFontAttributeName:PINGFANG_FONT_OF_SIZE(14),
+                       NSParagraphStyleAttributeName:paragraphStyle,
+                       NSForegroundColorAttributeName:[UIColor whiteColor]
+                       };
+    }
     UILabel *introduceLabel = [UILabel new];
     if (self.isHad) {
         introduceLabel.attributedText = [[NSAttributedString alloc] initWithString:_mascotSkillIntroArray[mascotType] attributes:attributes];

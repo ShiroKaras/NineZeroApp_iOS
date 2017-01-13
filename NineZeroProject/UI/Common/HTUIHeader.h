@@ -38,6 +38,8 @@
 #import "MJRefresh.h"
 #import "HTLoginButton.h"
 #import "UIImage+Extension.h"
+#import <YLGIFImage/YLGIFImage.h>
+#import <YLGIFImage/YLImageView.h>
 
 #import "UMMobClick/MobClick.h"
 #import "TalkingData.h"

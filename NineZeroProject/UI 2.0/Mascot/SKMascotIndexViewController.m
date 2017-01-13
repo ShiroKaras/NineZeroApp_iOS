@@ -28,6 +28,7 @@
 @property (nonatomic, strong) NSArray *typeArray;
 @property (nonatomic, strong) NSArray *mascotNameArray;
 @property (nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic, strong) NSArray *animationImages;     //序列帧
 
 @property (nonatomic, strong) NSArray<SKPet*>   *mascotArray;
 
@@ -48,7 +49,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [TalkingData trackPageBegin:@"lingzaipage"];
-    [self loadData];
+    for (int i=1; i<7; i++) {
+        if (self.mascotArray[i].user_haved) {
+            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) showDefaultImage];
+        } else {
+            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) hide];
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -72,7 +79,7 @@
         [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) showDefault];
         for (int i=1; i<7; i++) {
             if (self.mascotArray[i].user_haved) {
-                [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) showDefault];
+                [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) showDefaultImage];
             } else {
                 [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) hide];
             }
@@ -173,16 +180,6 @@
         make.right.equalTo(_skillButton);
     }];
     
-    if (NO_NETWORK) {
-        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-        converView.backgroundColor = COMMON_BG_COLOR;
-        [self.view addSubview:converView];
-        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-        [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
-        [self.view addSubview:blankView];
-        blankView.top = ROUND_HEIGHT_FLOAT(217);
-    }
-    
     if (FIRST_LAUNCH_MASCOTVIEW) {
         EVER_LAUNCHED_MASCOTVIEW
         
@@ -234,6 +231,19 @@
     [_HUDView addSubview:_HUDImageView];
     
     [self showHUD];
+    
+    if (NO_NETWORK) {
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:blankView];
+        blankView.top = ROUND_HEIGHT_FLOAT(217);
+        [self hideHUD];
+    } else {
+        [self loadData];
+    }
 }
 
 - (void)showHUD {
@@ -289,8 +299,15 @@
 }
 
 - (void)fightButtonClick:(UIButton *)sender {
-    SKMascotFightViewController *controller = [[SKMascotFightViewController alloc] initWithMascot:self.mascotArray[self.currentIndex]];
-    [self presentViewController:controller animated:YES completion:nil];
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied)
+    {
+        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+        [alertView show];
+    }else {
+        SKMascotFightViewController *controller = [[SKMascotFightViewController alloc] initWithMascot:self.mascotArray[self.currentIndex]];
+        [self presentViewController:controller animated:YES completion:nil];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -343,13 +360,19 @@
 }
 
 - (void)updateMascotImageWithIndex:(NSInteger)index {
-    if (index == SKMascotTypeDefault) {
+    if (self.currentIndex == SKMascotTypeDefault) {
         [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) show];
     } else {
-        if (self.mascotArray[index].user_haved) {
-            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) show];
+        if (self.mascotArray[self.currentIndex].user_haved) {
+            for (int i=0; i<7; i++) {
+                if (i==self.currentIndex) {
+                    [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) showDefault];
+                } else {
+                    [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) showDefaultImage];
+                }
+            }
         } else {
-            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+index]) hide];
+            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+self.currentIndex]) hide];
         }
     }
 }
@@ -357,8 +380,6 @@
 #pragma mark - Notification
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"currentIndex"]) {
-        
-    }
+    
 }
 @end
