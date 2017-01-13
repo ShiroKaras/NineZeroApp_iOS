@@ -129,7 +129,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.wrongAnswerCount = 0;
+    self.wrongAnswerCount = [[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1][self.currentQuestion.qid] integerValue];
     [self createUI];
     [self addObserver:self forKeyPath:@"currentIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"isAnswered" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
@@ -1641,13 +1641,19 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)keyboardDidHide:(NSNotification *)notification {
     //显示GuideView
-    if (FIRST_COACHMARK_TYPE_2 && _wrongAnswerCount>2) {
+    if (FIRST_COACHMARK_TYPE_2 && [[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1][self.currentQuestion.qid] integerValue]>2) {
         [self showGuideviewWithType:SKHelperGuideViewType2];
         [UD setBool:YES forKey:@"firstLaunchTypeThreeWrongAnswer"];
     }
 }
 
 #pragma mark - SKComposeView Delegate 答题
+
+- (void)updateHintCount:(NSInteger)count {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1]];
+    [dict setObject:@(count) forKey:self.currentQuestion.qid];
+    [UD setObject:dict forKey:kQuestionWrongAnswerCountSeason1];
+}
 
 - (void)composeView:(SKComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
     if (_type == SKQuestionTypeTimeLimitLevel) {
@@ -1673,10 +1679,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             } else if (response.result == -3004) {
                 //回答错误
                 [_composeView showAnswerCorrect:NO];
-                if (_wrongAnswerCount >= 2) {
+                _wrongAnswerCount++;
+                [self updateHintCount:_wrongAnswerCount];
+                if ([[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1][self.currentQuestion.qid] integerValue] > 2) {
                     [_composeView showAnswerTips:self.currentQuestion.hint];
                 }
-                _wrongAnswerCount++;
             } else if (response.result == -7007) {
                 
             }
@@ -1704,6 +1711,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             } else if (response.result == -3004) {
                 //回答错误
                 [_composeView showAnswerCorrect:NO];
+                _wrongAnswerCount++;
+                [self updateHintCount:_wrongAnswerCount];
+                if ([[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1][self.currentQuestion.qid] integerValue] > 2) {
+                    [_composeView showAnswerTips:self.currentQuestion.hint];
+                }
             } else if (response.result == -7007) {
                 
             }

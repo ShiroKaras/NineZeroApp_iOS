@@ -86,6 +86,33 @@
     }];
     
     [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
+        
+        if ([UD dictionaryForKey:kQuestionWrongAnswerCountSeason1]==nil || [[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1] allKeys].count == 0) {
+            NSMutableDictionary *hintDict = [NSMutableDictionary dictionary];
+            for (SKQuestion *question in questionList_season1) {
+                [hintDict setObject:@0 forKey:question.qid];
+            }
+            for (SKQuestion *question in questionList_season2) {
+                [hintDict setObject:@0 forKey:question.qid];
+            }
+            
+            [UD setObject:hintDict forKey:kQuestionWrongAnswerCountSeason1];
+            DLog(@"%@", hintDict);
+        } else {
+            NSMutableDictionary *hintDict = [NSMutableDictionary dictionaryWithDictionary:[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1]];
+            for (SKQuestion *question in questionList_season1) {
+                if (![[hintDict allKeys] containsObject:question.qid]) {
+                    [hintDict setObject:@0 forKey:question.qid];
+                }
+            }
+            for (SKQuestion *question in questionList_season2) {
+                if (![[hintDict allKeys] containsObject:question.qid]) {
+                    [hintDict setObject:@0 forKey:question.qid];
+                }
+            }
+            [UD setObject:hintDict forKey:kQuestionWrongAnswerCountSeason1];
+            DLog(@"%@", hintDict);
+        }
     }];
     
     //更新用户信息
@@ -327,7 +354,7 @@
 
 - (void)timeLimitQuestionButtonClick:(UIButton *)sender {
     [TalkingData trackEvent:@"timelimit"];
-    SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:self.indexInfo.qid endTime:_endTime];
+    SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:self.indexInfo.qid endTime:(time_t)_endTime];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
