@@ -17,6 +17,7 @@
 #import "SKProfileSettingViewController.h"
 #import "SKRankViewController.h"
 #import "HTNotificationController.h"
+#import "SKActivityNotificationView.h"
 
 @interface SKHomepageViewController ()
 
@@ -26,6 +27,8 @@
 @property (nonatomic, strong)   UIButton    *timeLimitLevelButton;
 @property (nonatomic, strong)   UIImageView *timeCountDownBackView_isMonday;
 @property (nonatomic, strong)   UILabel     *timeCountDownLabel_isMonday;
+
+@property (nonatomic, strong)   SKActivityNotificationView  *activityNotificationView;  //活动通知
 
 @property (nonatomic, assign)   uint64_t  endTime;
 @property (nonatomic, assign)   BOOL    isMonday;
@@ -38,6 +41,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [TalkingData trackPageBegin:@"homepage"];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [self.navigationController.navigationBar setHidden:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [self loadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [TalkingData trackPageEnd:@"homepage"];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 
 - (void)loadData {
@@ -60,6 +81,7 @@
                 [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"] forState:UIControlStateNormal];
                 [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
             }
+            [self judgementDate];
         }
     }];
     
@@ -85,6 +107,22 @@
     }
 }
 
+- (void)judgementDate {
+    NSDate  *senddate=[NSDate date];
+    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"YYYYMMdd"];
+    NSString *locationString=[dateformatter stringFromDate:senddate];
+    if (![locationString isEqualToString:[UD objectForKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION]]) {
+        _activityNotificationView.hidden = NO;
+        [_activityNotificationView show];
+        [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:self.indexInfo.adv_pic] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        }];
+    } else {
+        _activityNotificationView.hidden = YES;
+    }
+    [UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
+}
+
 - (void)scheduleCountDownTimer {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
     [self performSelector:@selector(scheduleCountDownTimer) withObject:nil afterDelay:1.0];
@@ -103,24 +141,6 @@
         // 过去时间
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [TalkingData trackPageBegin:@"homepage"];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-    [self.navigationController.navigationBar setHidden:YES];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    [self loadData];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [TalkingData trackPageEnd:@"homepage"];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 - (void)createUI {
@@ -272,6 +292,13 @@
         make.bottom.equalTo(_timeCountDownBackView_isMonday).offset(-8);
         make.centerX.equalTo(_timeCountDownBackView_isMonday);
     }];
+    
+    //活动通知
+    _activityNotificationView = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    _activityNotificationView.hidden = YES;
+    [self.view addSubview:_activityNotificationView];
+    
+    [_activityNotificationView.adButton addTarget:self action:@selector(timeLimitQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - Actions

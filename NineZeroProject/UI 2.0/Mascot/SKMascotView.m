@@ -223,58 +223,61 @@
         //道具数量
         [[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:_mascotIdArray[_type] callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
             self.familyMascotArray = mascotArray;
-            
-            _familyMascot_1_ImageView.hidden = NO;
-            _familyMascot_2_ImageView.hidden = NO;
-            _familyMascot_3_ImageView.hidden = NO;
-            _familyMascot_4_ImageView.hidden = NO;
-            
-            if(self.familyMascotArray[0].pet_num>0) {
-                _familyMascot_1_ImageView.alpha = 1;
-                _familyMascot_1_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[0].pet_name]];
-            } else {
-                _familyMascot_1_ImageView.alpha = 0.4;
-                _familyMascot_1_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[0].pet_name]];
-            }
-            if(self.familyMascotArray[1].pet_num>0) {
-                _familyMascot_2_ImageView.alpha = 1;
-                _familyMascot_2_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[1].pet_name]];
-            } else {
-                _familyMascot_2_ImageView.alpha = 0.4;
-                _familyMascot_2_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[1].pet_name]];
-            }
-            if(self.familyMascotArray[2].pet_num>0) {
-                _familyMascot_3_ImageView.alpha = 1;
-                _familyMascot_3_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[2].pet_name]];
-            } else {
-                _familyMascot_3_ImageView.alpha = 0.4;
-                _familyMascot_3_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[2].pet_name]];
-            }
-            if(self.familyMascotArray[3].pet_num>0) {
-                _familyMascot_4_ImageView.alpha = 1;
-                _familyMascot_4_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[3].pet_name]];
-            } else {
-                _familyMascot_4_ImageView.alpha = 0.4;
-                _familyMascot_4_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[3].pet_name]];
-            }
-            
-            _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[0].pet_num];
-            _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[1].pet_num];
-            _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[2].pet_num];
-            _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[3].pet_num];
-            if (self.familyMascotArray[0].pet_num>0&&
-                self.familyMascotArray[1].pet_num>0&&
-                self.familyMascotArray[2].pet_num>0&&
-                self.familyMascotArray[3].pet_num &&
-                self.isHad) {
-                [_exchangeButton addTarget:self action:@selector(exchangeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-                [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed", _mascotNameArray[_type]]] forState:UIControlStateNormal];
-                [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed_highlight", _mascotNameArray[_type]]] forState:UIControlStateHighlighted];
-            } else {
-                _exchangeButton.adjustsImageWhenHighlighted = NO;
-                [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound", _mascotNameArray[_type]]] forState:UIControlStateNormal];
-            }
+            [self updateButtons];
         }];
+    }
+}
+
+- (void)updateButtons {
+    _familyMascot_1_ImageView.hidden = NO;
+    _familyMascot_2_ImageView.hidden = NO;
+    _familyMascot_3_ImageView.hidden = NO;
+    _familyMascot_4_ImageView.hidden = NO;
+    
+    if(self.familyMascotArray[0].pet_num>0) {
+        _familyMascot_1_ImageView.alpha = 1;
+        _familyMascot_1_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[0].pet_name]];
+    } else {
+        _familyMascot_1_ImageView.alpha = 0.4;
+        _familyMascot_1_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[0].pet_name]];
+    }
+    if(self.familyMascotArray[1].pet_num>0) {
+        _familyMascot_2_ImageView.alpha = 1;
+        _familyMascot_2_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[1].pet_name]];
+    } else {
+        _familyMascot_2_ImageView.alpha = 0.4;
+        _familyMascot_2_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[1].pet_name]];
+    }
+    if(self.familyMascotArray[2].pet_num>0) {
+        _familyMascot_3_ImageView.alpha = 1;
+        _familyMascot_3_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[2].pet_name]];
+    } else {
+        _familyMascot_3_ImageView.alpha = 0.4;
+        _familyMascot_3_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[2].pet_name]];
+    }
+    if(self.familyMascotArray[3].pet_num>0) {
+        _familyMascot_4_ImageView.alpha = 1;
+        _familyMascot_4_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@", self.familyMascotArray[3].pet_name]];
+    } else {
+        _familyMascot_4_ImageView.alpha = 0.4;
+        _familyMascot_4_ImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_%@_gray", self.familyMascotArray[3].pet_name]];
+    }
+    
+    _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[0].pet_num];
+    _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[1].pet_num];
+    _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[2].pet_num];
+    _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld",(long)self.familyMascotArray[3].pet_num];
+    if (self.familyMascotArray[0].pet_num>0&&
+        self.familyMascotArray[1].pet_num>0&&
+        self.familyMascotArray[2].pet_num>0&&
+        self.familyMascotArray[3].pet_num &&
+        self.isHad) {
+        [_exchangeButton addTarget:self action:@selector(exchangeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed", _mascotNameArray[_type]]] forState:UIControlStateNormal];
+        [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound_completed_highlight", _mascotNameArray[_type]]] forState:UIControlStateHighlighted];
+    } else {
+        _exchangeButton.adjustsImageWhenHighlighted = NO;
+        [_exchangeButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_skillpage_%@compound", _mascotNameArray[_type]]] forState:UIControlStateNormal];
     }
 }
 
@@ -1059,10 +1062,12 @@
     [[[SKServiceManager sharedInstance] mascotService] useMascotSkillWithMascotID:_mascotIdArray[_type] callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
             [self showSinMascotPromptWithText:@"魔法已生效"];
-            _familyMascot_1_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_1_Label.text integerValue]-1];
-            _familyMascot_2_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_2_Label.text integerValue]-1];
-            _familyMascot_3_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_3_Label.text integerValue]-1];
-            _familyMascot_4_Label.text = [NSString stringWithFormat:@"%ld", [_familyMascot_4_Label.text integerValue]-1];
+            self.familyMascotArray[0].pet_num--;
+            self.familyMascotArray[1].pet_num--;
+            self.familyMascotArray[2].pet_num--;
+            self.familyMascotArray[3].pet_num--;
+            
+            [self updateButtons];
         } else if (response.result == -7009){
             [self showSinMascotPromptWithText:@"已有生效的魔法"];
         }

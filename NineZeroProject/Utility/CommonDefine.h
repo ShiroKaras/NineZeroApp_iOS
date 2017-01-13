@@ -87,4 +87,6 @@
 
 #define kBadgeLevels @"kBadgeLevels"
 
+#define EVERYDAY_FIRST_ACTIVITY_NOTIFICATION @"EVERYDAY_FIRST_ACTIVITY_NOTIFICATION"
+
 #endif /* CommonDefine_h */
