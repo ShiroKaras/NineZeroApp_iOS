@@ -27,6 +27,7 @@
 @property (nonatomic, strong)   UIButton    *timeLimitLevelButton;
 @property (nonatomic, strong)   UIImageView *timeCountDownBackView_isMonday;
 @property (nonatomic, strong)   UILabel     *timeCountDownLabel_isMonday;
+@property (nonatomic, strong)   UIView      *notificationRedFlag;
 
 @property (nonatomic, strong)   SKActivityNotificationView  *activityNotificationView;  //活动通知
 
@@ -81,7 +82,9 @@
                 [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"] forState:UIControlStateNormal];
                 [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
             }
+            
             [self judgementDate];
+            [self judgeNotificationRedFlag];
         }
     }];
     
@@ -150,6 +153,15 @@
     [UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
 }
 
+- (void)judgeNotificationRedFlag {
+    if ([UD valueForKey:NOTIFICATION_COUNT] == nil) {
+        [UD setValue:@(self.indexInfo.user_notice_count) forKey:NOTIFICATION_COUNT];
+        self.notificationRedFlag.hidden = self.indexInfo.user_notice_count>0?NO:YES;
+    } else {
+        self.notificationRedFlag.hidden = self.indexInfo.user_notice_count>[[UD valueForKey:NOTIFICATION_COUNT] integerValue]?NO:YES;
+    }
+}
+
 - (void)scheduleCountDownTimer {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
     [self performSelector:@selector(scheduleCountDownTimer) withObject:nil afterDelay:1.0];
@@ -199,6 +211,17 @@
         make.height.equalTo(@30);
         make.top.equalTo(weakSelf.view).offset(14);
         make.right.equalTo(weakSelf.view).offset(15);
+    }];
+    
+    self.notificationRedFlag = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+    self.notificationRedFlag.layer.cornerRadius = 4;
+    self.notificationRedFlag.backgroundColor = COMMON_RED_COLOR;
+    self.notificationRedFlag.hidden = YES;
+    [self.view addSubview:self.notificationRedFlag];
+    [self.notificationRedFlag mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(8, 8));
+        make.left.equalTo(notificationButton).offset(24);
+        make.top.equalTo(notificationButton).offset(5);
     }];
     
     //限时关卡
@@ -391,6 +414,7 @@
 }
 
 - (void)notificationButtonClick:(UIButton*)sender {
+    [UD setValue:@(self.indexInfo.user_notice_count) forKey:NOTIFICATION_COUNT];
     HTNotificationController *controller = [[HTNotificationController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
