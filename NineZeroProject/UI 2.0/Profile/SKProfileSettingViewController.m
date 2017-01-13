@@ -452,10 +452,8 @@
 }
 
 - (void)quitButtonClick:(UIButton *)sender {
-    [[[SKServiceManager sharedInstance] loginService] quitLogin];
-    SKLoginRootViewController *rootController = [[SKLoginRootViewController alloc] init];
-    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
-    [[[UIApplication sharedApplication] delegate] window].rootViewController = navController;
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    [alertView show];
 }
 
 - (void)whatIsNineZero:(UIButton*)sender {
@@ -468,6 +466,18 @@
     HTAboutController *aboutController = [[HTAboutController alloc] init];
     [self.navigationController pushViewController:aboutController animated:YES];
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        
+    }else{
+        [[[SKServiceManager sharedInstance] loginService] quitLogin];
+        SKLoginRootViewController *rootController = [[SKLoginRootViewController alloc] init];
+        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
+        [[[UIApplication sharedApplication] delegate] window].rootViewController = navController;
+    }
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
