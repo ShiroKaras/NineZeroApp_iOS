@@ -363,16 +363,16 @@
     if (self.currentIndex == SKMascotTypeDefault) {
         [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) show];
     } else {
-        if (self.mascotArray[self.currentIndex].user_haved) {
-            for (int i=0; i<7; i++) {
+        for (int i=0; i<7; i++) {
+            if (self.mascotArray[i].user_haved) {
                 if (i==self.currentIndex) {
                     [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) showDefault];
                 } else {
                     [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) showDefaultImage];
                 }
+            } else {
+                [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+self.currentIndex]) hide];
             }
-        } else {
-            [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+self.currentIndex]) hide];
         }
     }
 }
