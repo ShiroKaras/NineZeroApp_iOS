@@ -194,6 +194,17 @@
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_AR_win"]];
     [_dimmingView addSubview:titleImageView];
     
+    UILabel *bottomLabel = [UILabel new];
+    bottomLabel.text = @"点击任意区域关闭";
+    bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+    bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+    [bottomLabel sizeToFit];
+    [_dimmingView addSubview:bottomLabel];
+    [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_dimmingView);
+        make.bottom.equalTo(_dimmingView).offset(-16);
+    }];
+    
     //奖励 - 金币、宝石、经验值
     UIImageView *textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_AR_text"]];
     [_dimmingView addSubview:textImageView];

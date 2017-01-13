@@ -42,6 +42,7 @@
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.bounces = NO;
     [self addSubview:self.tableView];
     
     REGISTER_CLASS(HTProfileRankCell);
