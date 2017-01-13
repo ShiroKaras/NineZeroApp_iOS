@@ -10,6 +10,9 @@
 		11023BE51DDEF89C00B6493F /* SKVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11023BE41DDEF89C00B6493F /* SKVerifyViewController.m */; };
 		11023BE81DE3E12F00B6493F /* SKLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11023BE71DE3E12F00B6493F /* SKLoginViewController.m */; };
 		11023BEB1DE3E66800B6493F /* SKResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11023BEA1DE3E66800B6493F /* SKResetPasswordViewController.m */; };
+		1106D88F1E28F0A5000035D7 /* HTNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106D8891E28F0A5000035D7 /* HTNotificationCell.m */; };
+		1106D8901E28F0A5000035D7 /* HTNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106D88B1E28F0A5000035D7 /* HTNotificationController.m */; };
+		1106D8911E28F0A5000035D7 /* SKActivityNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106D88E1E28F0A5000035D7 /* SKActivityNotificationView.m */; };
 		1106FFD11DD5D60D0002E36C /* SKAllQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFD01DD5D60D0002E36C /* SKAllQuestionViewController.m */; };
 		1106FFE41DD992250002E36C /* SKMascotIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFE31DD992250002E36C /* SKMascotIndexViewController.m */; };
 		1106FFE71DD9AC570002E36C /* SKMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFE61DD9AC570002E36C /* SKMascotView.m */; };
@@ -1895,8 +1898,6 @@
 		17D1F8811C29ADC40029E4AF /* right_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */; };
 		17D1F8831C29ADCD0029E4AF /* wrong_answer_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 17D1F8821C29ADCD0029E4AF /* wrong_answer_gif.gif */; };
 		17F37A761C255420006759D1 /* HUD+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A751C255420006759D1 /* HUD+Utility.m */; };
-		17FA11361C835BE000FA9102 /* HTNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FA11351C835BE000FA9102 /* HTNotificationController.m */; };
-		17FA11391C835C6500FA9102 /* HTNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 17FA11381C835C6500FA9102 /* HTNotificationCell.m */; };
 		26BD341E1C12DF3300472E46 /* moonbold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26BD341D1C12DF3300472E46 /* moonbold.ttf */; };
 		46DFF67061A677087C2A3582 /* libPods-NineZeroProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31D85F643AC1606DB0E05679 /* libPods-NineZeroProject.a */; };
 		C1A76BB8BA08C99F581EEC18 /* libPods-NineZeroProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C7F57F4FFAD09A4E319A9C7 /* libPods-NineZeroProjectTests.a */; };
@@ -1928,6 +1929,12 @@
 		11023BE71DE3E12F00B6493F /* SKLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKLoginViewController.m; path = "NineZeroProject/UI 2.0/Login/SKLoginViewController.m"; sourceTree = "<group>"; };
 		11023BE91DE3E66800B6493F /* SKResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKResetPasswordViewController.h; path = "NineZeroProject/UI 2.0/Login/SKResetPasswordViewController.h"; sourceTree = "<group>"; };
 		11023BEA1DE3E66800B6493F /* SKResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKResetPasswordViewController.m; path = "NineZeroProject/UI 2.0/Login/SKResetPasswordViewController.m"; sourceTree = "<group>"; };
+		1106D8891E28F0A5000035D7 /* HTNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTNotificationCell.m; path = "NineZeroProject/UI 2.0/Index/HTNotificationCell.m"; sourceTree = "<group>"; };
+		1106D88A1E28F0A5000035D7 /* HTNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTNotificationController.h; path = "NineZeroProject/UI 2.0/Index/HTNotificationController.h"; sourceTree = "<group>"; };
+		1106D88B1E28F0A5000035D7 /* HTNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTNotificationController.m; path = "NineZeroProject/UI 2.0/Index/HTNotificationController.m"; sourceTree = "<group>"; };
+		1106D88D1E28F0A5000035D7 /* SKActivityNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKActivityNotificationView.h; path = "NineZeroProject/UI 2.0/Index/SKActivityNotificationView.h"; sourceTree = "<group>"; };
+		1106D88E1E28F0A5000035D7 /* SKActivityNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKActivityNotificationView.m; path = "NineZeroProject/UI 2.0/Index/SKActivityNotificationView.m"; sourceTree = "<group>"; };
+		1106D8921E28F106000035D7 /* HTNotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTNotificationCell.h; path = "NineZeroProject/UI 2.0/Index/HTNotificationCell.h"; sourceTree = "<group>"; };
 		1106FFCF1DD5D60D0002E36C /* SKAllQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKAllQuestionViewController.h; path = "NineZeroProject/UI 2.0/Question/SKAllQuestionViewController.h"; sourceTree = "<group>"; };
 		1106FFD01DD5D60D0002E36C /* SKAllQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKAllQuestionViewController.m; path = "NineZeroProject/UI 2.0/Question/SKAllQuestionViewController.m"; sourceTree = "<group>"; };
 		1106FFE21DD992250002E36C /* SKMascotIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMascotIndexViewController.h; path = "NineZeroProject/UI 2.0/Mascot/SKMascotIndexViewController.h"; sourceTree = "<group>"; };
@@ -3983,10 +3990,6 @@
 		17E67A811C28661300375442 /* CommonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonDefine.h; sourceTree = "<group>"; };
 		17F37A741C255420006759D1 /* HUD+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HUD+Utility.h"; sourceTree = "<group>"; };
 		17F37A751C255420006759D1 /* HUD+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HUD+Utility.m"; sourceTree = "<group>"; };
-		17FA11341C835BE000FA9102 /* HTNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTNotificationController.h; path = NineZeroProject/UI/Profile/HTNotificationController.h; sourceTree = "<group>"; };
-		17FA11351C835BE000FA9102 /* HTNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTNotificationController.m; path = NineZeroProject/UI/Profile/HTNotificationController.m; sourceTree = "<group>"; };
-		17FA11371C835C6500FA9102 /* HTNotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTNotificationCell.h; path = NineZeroProject/UI/Profile/HTNotificationCell.h; sourceTree = "<group>"; };
-		17FA11381C835C6500FA9102 /* HTNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTNotificationCell.m; path = NineZeroProject/UI/Profile/HTNotificationCell.m; sourceTree = "<group>"; };
 		24EFFC0F93A91F84CF64E254 /* Pods-NineZeroProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProject/Pods-NineZeroProject.debug.xcconfig"; sourceTree = "<group>"; };
 		26BD341D1C12DF3300472E46 /* moonbold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = moonbold.ttf; sourceTree = "<group>"; };
 		31D85F643AC1606DB0E05679 /* libPods-NineZeroProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -6299,10 +6302,12 @@
 			children = (
 				11E3C0911DD5B2FB00550286 /* SKHomepageViewController.h */,
 				11E3C0921DD5B2FB00550286 /* SKHomepageViewController.m */,
-				17FA11341C835BE000FA9102 /* HTNotificationController.h */,
-				17FA11351C835BE000FA9102 /* HTNotificationController.m */,
-				17FA11371C835C6500FA9102 /* HTNotificationCell.h */,
-				17FA11381C835C6500FA9102 /* HTNotificationCell.m */,
+				1106D88A1E28F0A5000035D7 /* HTNotificationController.h */,
+				1106D88B1E28F0A5000035D7 /* HTNotificationController.m */,
+				1106D8921E28F106000035D7 /* HTNotificationCell.h */,
+				1106D8891E28F0A5000035D7 /* HTNotificationCell.m */,
+				1106D88D1E28F0A5000035D7 /* SKActivityNotificationView.h */,
+				1106D88E1E28F0A5000035D7 /* SKActivityNotificationView.m */,
 			);
 			name = Index;
 			sourceTree = "<group>";
@@ -8911,6 +8916,7 @@
 				113FA6991E1E1BFE001DFFC5 /* HTMascotItem.m in Sources */,
 				11BF886D1E06479800347FA1 /* SKHintView.m in Sources */,
 				17A92CD11CA809B100BE893D /* MJRefreshAutoNormalFooter.m in Sources */,
+				1106D8911E28F0A5000035D7 /* SKActivityNotificationView.m in Sources */,
 				11A62AE71DED8B9E00C83F73 /* SKCGIManager.m in Sources */,
 				116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */,
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
@@ -9009,6 +9015,7 @@
 				11C764731E120E5300D86F40 /* NSObject+MJClass.m in Sources */,
 				17A92CD81CA809B100BE893D /* MJRefreshStateHeader.m in Sources */,
 				112532A51E1CA29C00FB4425 /* SKMascotFightManager.m in Sources */,
+				1106D8901E28F0A5000035D7 /* HTNotificationController.m in Sources */,
 				1160FB411E0E927F00606F16 /* SKShareView.m in Sources */,
 				1132B30B1DF506C100DA992F /* SKProfileIndexViewController.m in Sources */,
 				1160FB711E0FC4F600606F16 /* SKSwipeViewController.m in Sources */,
@@ -9030,13 +9037,11 @@
 				17262CDA1C5E02A4000FDA1B /* HTImageView.m in Sources */,
 				176B756E1C7620500069DE89 /* SharkfoodMuteSwitchDetector.m in Sources */,
 				1160FB4C1E0E95B900606F16 /* HTMascotHelper.m in Sources */,
-				17FA11391C835C6500FA9102 /* HTNotificationCell.m in Sources */,
 				11FAE3421E13860200525858 /* SKAnswerDetailView.m in Sources */,
 				113C421B1E2482DB003E393F /* MotionEffectView.m in Sources */,
 				11CD0BBA1DF6A1210074E120 /* SKProfileMyTicketsViewController.m in Sources */,
 				11A62ADC1DED7EF900C83F73 /* SKServiceManager.m in Sources */,
 				11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */,
-				17FA11361C835BE000FA9102 /* HTNotificationController.m in Sources */,
 				1160FB431E0E927F00606F16 /* HTCommonViewController.m in Sources */,
 				1160FB6E1E0FC4F600606F16 /* SKARRewardController.m in Sources */,
 				11A62AE21DED7FA600C83F73 /* SKQuestionService.m in Sources */,
@@ -9045,6 +9050,7 @@
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,
 				1153811B1DF9512C00B50DF2 /* SKMascotService.m in Sources */,
 				11C7646F1E120E5300D86F40 /* MJFoundation.m in Sources */,
+				1106D88F1E28F0A5000035D7 /* HTNotificationCell.m in Sources */,
 				1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
