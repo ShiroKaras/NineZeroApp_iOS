@@ -60,7 +60,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
                 double lat = [[NSString stringWithFormat:@"%@", locationDict[@"lat"]] doubleValue];
                 double lng = [[NSString stringWithFormat:@"%@", locationDict[@"lng"]] doubleValue];
                 DLog(@"lat=>%f \n lng=>%f", lat, lng);
-//                _testMascotPoint = CLLocationCoordinate2DMake(lat, lng);
             }
         }
     }
@@ -124,12 +123,10 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     NSDirectoryEnumerator *myDirectoryEnumerator;
     myDirectoryEnumerator=[myFileManager enumeratorAtPath:unzipFilesPath];
     //列举目录内容，可以遍历子目录
-    DLog(@"用enumeratorAtPath:显示目录的内容：");
     NSString *unzipFileName;
     
     NSMutableArray<UIImage *> *images = [NSMutableArray array];
     while((unzipFileName=[myDirectoryEnumerator nextObject])!=nil) {
-        DLog(@"%@",[unzipFilesPath stringByAppendingPathComponent:unzipFileName]);
         NSData * data = [NSData dataWithContentsOfFile:[unzipFilesPath stringByAppendingPathComponent:unzipFileName]];
         UIImage *image = [UIImage imageWithData:data];
         [images addObject:image];
@@ -273,7 +270,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         if (error){
             DLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
         }
-//        DLog(@"location:%@", location);
         _testMascotPoint = [self getCurrentLocationWith:location];
         
         self.locationManager = [[AMapLocationManager alloc] init];
@@ -296,8 +292,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         MAMapPoint point2 = MAMapPointForCoordinate(CLLocationCoordinate2DMake(location.coordinate.latitude,location.coordinate.longitude));
         //2.计算距离
         CLLocationDistance distance = MAMetersBetweenMapPoints(point1,point2);
-//        DLog(@"\nlat:%lf\nlng:%lf",lat , lng);
-//        DLog(@"\n%lf", distance);
         
         if (currentDistance < 0 || distance < currentDistance) {
             currentDistance = distance;
