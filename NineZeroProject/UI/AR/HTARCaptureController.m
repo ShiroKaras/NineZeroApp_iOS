@@ -380,7 +380,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
             
             [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self.view);
-                make.top.equalTo(@161);
+                make.centerY.equalTo(self.view).offset(-30);
                 make.width.equalTo(@173);
                 make.height.equalTo(@173);
             }];

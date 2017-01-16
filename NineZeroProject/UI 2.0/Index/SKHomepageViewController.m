@@ -82,9 +82,10 @@
                 [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"] forState:UIControlStateNormal];
                 [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
             }
-            
-            [self judgementDate];
-            [self judgeNotificationRedFlag];
+            if (![_indexInfo.adv_pic isEqualToString:@""]) {
+                [self judgementDate];
+                [self judgeNotificationRedFlag];                
+            }
         }
     }];
     
@@ -100,7 +101,6 @@
             }
             
             [UD setObject:hintDict forKey:kQuestionWrongAnswerCountSeason1];
-            DLog(@"%@", hintDict);
         } else {
             NSMutableDictionary *hintDict = [NSMutableDictionary dictionaryWithDictionary:[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1]];
             for (SKQuestion *question in questionList_season1) {
@@ -114,7 +114,6 @@
                 }
             }
             [UD setObject:hintDict forKey:kQuestionWrongAnswerCountSeason1];
-            DLog(@"%@", hintDict);
         }
     }];
     
@@ -351,7 +350,7 @@
 
 #pragma mark - Actions
 - (void)showRelaxDayTimeLabel:(UIButton *)sender {
-    if (!_isMonday) {
+    if (_isMonday) {
         [UIView animateWithDuration:0.3 animations:^{
             _timeCountDownBackView_isMonday.alpha = 1;
         } completion:^(BOOL finished) {

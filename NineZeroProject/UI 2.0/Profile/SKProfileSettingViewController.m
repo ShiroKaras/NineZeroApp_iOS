@@ -443,6 +443,8 @@
 
 - (void)clearCache {
     [TalkingData trackEvent:@"clearcache"];
+    [[SDImageCache sharedImageCache] clearDisk];
+    [[SDImageCache sharedImageCache] clearMemory];//可有可无
     NSString *cacheFilePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
     [FileService clearCache:cacheFilePath];
     [self listFileAtPath:cacheFilePath];

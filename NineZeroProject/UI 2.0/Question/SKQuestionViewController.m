@@ -588,8 +588,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _playButton.center = backView.center;
     _playButton.hidden = NO;
     [self.view addSubview:_playButton];
-    
-    
 }
 
 #pragma mark - Tools View
@@ -1547,7 +1545,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)contentViewClick {
     [TalkingData trackEvent:@"chapterstory"];
-    [self pause];
+    if (self.player.currentTime.value>0) {
+        [self pause];
+    }
     _descriptionView = [[SKDescriptionView alloc] initWithURLString:self.currentQuestion.description_url andType:SKDescriptionTypeQuestion andImageUrl:self.currentQuestion.description_pic];
     [self.view addSubview:_descriptionView];
     [_descriptionView showAnimated];
@@ -1713,9 +1713,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [_composeView showAnswerCorrect:NO];
                 _wrongAnswerCount++;
                 [self updateHintCount:_wrongAnswerCount];
-                if ([[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1][self.currentQuestion.qid] integerValue] > 2) {
-                    [_composeView showAnswerTips:self.currentQuestion.hint];
-                }
             } else if (response.result == -7007) {
                 
             }

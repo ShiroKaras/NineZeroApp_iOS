@@ -157,6 +157,7 @@
 #pragma mark - Actions
 
 - (void)closeButtonClick:(UIButton *)sender {
+    [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
