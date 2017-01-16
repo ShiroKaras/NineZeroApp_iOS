@@ -1927,8 +1927,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles:nil, nil];
                 [alert show];
+                return;
             }
-            
             NSArray* imageArray = @[self.currentQuestion.question_video_cover];
             if (imageArray) {
                 
@@ -1973,6 +1973,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles:nil, nil];
                 [alert show];
+                return;
             }
             
             NSArray* imageArray = @[self.currentQuestion.question_video_cover];
@@ -2018,6 +2019,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles:nil, nil];
                 [alert show];
+                return;
             }
             
             NSArray* imageArray = @[self.currentQuestion.question_video_cover];
@@ -2063,6 +2065,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles:nil, nil];
                 [alert show];
+                return;
             }
             
             NSArray* imageArray = @[self.currentQuestion.question_video_cover];
