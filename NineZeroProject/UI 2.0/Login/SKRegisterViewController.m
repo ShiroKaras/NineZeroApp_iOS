@@ -227,6 +227,10 @@
             _passwordTextField.alpha = 1;
         }];
     }
+    if (_usernameTextField.textField.text.length>10) {
+        [self showTipsWithText:@"用户名不得超过10个字符"];
+        _usernameTextField.textField.text = [_usernameTextField.textField.text substringToIndex:10];
+    }
     
     if (_phoneTextField.textField.text.length==11 && _usernameTextField.textField.text.length>=2 && _passwordTextField.textField.text.length>=6) {
         self.nextButtonIsShow = YES;

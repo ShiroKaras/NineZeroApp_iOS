@@ -36,10 +36,6 @@
     tableViewHeaderView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = tableViewHeaderView;
     
-    UIView *tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 16)];
-    tableViewFooterView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableFooterView = tableViewFooterView;
-    
     UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_shading"]];
     backImageView.tag = 202;
     backImageView.alpha = 0;

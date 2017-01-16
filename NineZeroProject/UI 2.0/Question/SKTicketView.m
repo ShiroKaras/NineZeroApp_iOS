@@ -27,11 +27,11 @@
 
 - (void)createUIWithFrame:(CGRect)frame {
     
-    UIImageView *ticketBackgoundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_couponbg"]];
-    ticketBackgoundImageView.layer.masksToBounds =  YES;
-    ticketBackgoundImageView.contentMode = UIViewContentModeScaleAspectFill;
-    ticketBackgoundImageView.frame = self.frame;
-    [self addSubview:ticketBackgoundImageView];
+//    UIImageView *ticketBackgoundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_couponbg"]];
+//    ticketBackgoundImageView.layer.masksToBounds =  YES;
+//    ticketBackgoundImageView.contentMode = UIViewContentModeScaleAspectFill;
+//    ticketBackgoundImageView.frame = self.frame;
+//    [self addSubview:ticketBackgoundImageView];
     
     UIImageView *ticketImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
     ticketImageView.layer.masksToBounds = YES;

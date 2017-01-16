@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
     [self createUI];
     if (!NO_NETWORK) {
         [self loadData];
@@ -51,6 +52,10 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [TalkingData trackPageEnd:@"settingpage"];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -482,21 +487,16 @@
 
 #pragma mark - UITextFieldDelegate
 
+- (void)textFieldTextDidChange:(UITextField *)textField {
+    if (_usernameTextField.text.length>10) {
+        [self showTipsWithText:@"用户名不得超过10个字符"];
+        _usernameTextField.text = [_usernameTextField.text substringToIndex:10];
+    }
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self completeUpdateUsername];
     return YES;
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField == _usernameTextField) {
-        if(range.length + range.location > textField.text.length)
-        {
-            return NO;
-        }
-        NSUInteger newLength = [textField.text length] + [string length] - range.length;
-        return newLength <= 10;
-    }else
-        return YES;
 }
 
 - (void)showPromptWithText:(NSString*)text {

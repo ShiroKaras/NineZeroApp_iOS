@@ -120,6 +120,13 @@
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         if (success) {
             NSMutableArray *notificationArray = [NSMutableArray array];
+            SKNotification *firstNotification = [SKNotification objectWithKeyValues:
+                                                 @{
+                                                   @"time": @"0",
+                                                   @"content": @"欢迎加入“九零”，你已经被零仔锁定，现在，你可以通过这里帮助九零发现更大的世界！"
+                                                   }];
+            [notificationArray addObject:firstNotification];
+            
             if ([response.data count]>0) {
                 for (int i=0; i<[response.data count]; i++) {
                     SKNotification *notification = [SKNotification objectWithKeyValues:response.data[i]];

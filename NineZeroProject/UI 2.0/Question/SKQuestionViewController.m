@@ -185,6 +185,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [HTProgressHUD show];
     [[[SKServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKQuestion *question) {
         [HTProgressHUD dismiss];
+        _timeView.hidden = NO;
+        _answerButton.hidden = NO;
+        
         self.currentQuestion = question;
         self.isAnswered = question.is_answer;
         self.chapterNumberLabel.text = [NSString stringWithFormat:@"%02lu", (long)[question.serial integerValue]];
@@ -288,6 +291,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_playBackView addGestureRecognizer:tap];
     
     _coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
+    _coverImageView.image = [UIImage imageNamed:@"img_chap_video_cover_default"];
     _coverImageView.layer.masksToBounds = YES;
     _coverImageView.contentMode = UIViewContentModeScaleAspectFill;
     [_playBackView addSubview:_coverImageView];
@@ -428,6 +432,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
     
     _answerButton = [UIButton new];
+    _answerButton.hidden = YES;
     [_answerButton addTarget:self action:@selector(answerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil"] forState:UIControlStateNormal];
     [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil_highlight"] forState:UIControlStateHighlighted];
@@ -444,6 +449,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     // 倒计时
     _timeView = [[SKCardTimeView alloc] initWithFrame:CGRectZero];
+    _timeView.hidden = YES;
     [self.view addSubview:_timeView];
     
     _timeView.size = CGSizeMake(ROUND_WIDTH_FLOAT(150), ROUND_HEIGHT_FLOAT(96));
@@ -1001,52 +1007,109 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.right.equalTo(rewardBaseInfoView.mas_right);
     }];
     
+    //rank小于10，数字
+    UIImageView *rewardImageView_txt_top10_1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_1-10_txt_1"]];
+    UIImageView *rewardImageView_txt_top10_2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_1-10_txt_2"]];
+    UIImageView *rewardImageView_txt_top10_3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_1-10_txt_3"]];
+    
+    //rank大于10，百分比
     UIImageView *rewardImageView_txt_1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_1"]];
-    [rewardBaseInfoView addSubview:rewardImageView_txt_1];
-    [rewardImageView_txt_1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@105);
-        make.height.equalTo(@60);
-        make.top.equalTo(rewardBaseInfoView).offset(121);
-        make.left.equalTo(rewardBaseInfoView);
-    }];
-    
     UIImageView *rewardImageView_txt_2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_2"]];
-    [rewardBaseInfoView addSubview:rewardImageView_txt_2];
-    [rewardImageView_txt_2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@111);
-        make.height.equalTo(@24);
-        make.left.equalTo(rewardBaseInfoView).offset(106);
-        make.top.equalTo(rewardBaseInfoView).offset(217-24);
-    }];
-    
-    //百分比
-    UILabel *percentLabel = [UILabel new];
-    percentLabel.font = MOON_FONT_OF_SIZE(32.5);
-    percentLabel.textColor = COMMON_GREEN_COLOR;
-    percentLabel.text = [[NSString stringWithFormat:@"%.1lf", 100. - self.reward.rank/10.] stringByAppendingString:@"%"];
-    if (self.reward.rank >= 700) {
-        percentLabel.text = @"30%";
-    }
-    [percentLabel sizeToFit];
-    [rewardBaseInfoView addSubview:percentLabel];
-    [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(rewardImageView_txt_1.mas_right).offset(4);
-        make.top.equalTo(rewardImageView_mascot.mas_bottom).offset(8);
-    }];
     
     //金币行
     UIImageView *rewardImageView_txt_3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_3"]];
     [rewardBaseInfoView addSubview:rewardImageView_txt_3];
-    [rewardImageView_txt_3 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@100);
-        make.height.equalTo(@19);
-        if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
-            make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(20);
-        } else {
-            make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(10);
+    
+    if (self.reward.rank<10) {
+        [rewardBaseInfoView addSubview:rewardImageView_txt_top10_1];
+        [rewardBaseInfoView addSubview:rewardImageView_txt_top10_2];
+        [rewardBaseInfoView addSubview:rewardImageView_txt_top10_3];
+        
+        [rewardImageView_txt_top10_1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(105, 60));
+            make.top.equalTo(rewardBaseInfoView).offset(120);
+            make.left.equalTo(rewardBaseInfoView);
+        }];
+        
+        UILabel *rankLabel = [UILabel new];
+        rankLabel.font = MOON_FONT_OF_SIZE(32.5);
+        rankLabel.textColor = COMMON_GREEN_COLOR;
+        rankLabel.text = [NSString stringWithFormat:@"%ld", self.reward.rank];
+        [rankLabel sizeToFit];
+        [rewardBaseInfoView addSubview:rankLabel];
+        [rankLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(rewardImageView_txt_top10_1.mas_right).offset(4);
+            make.bottom.equalTo(rewardImageView_txt_top10_1);
+        }];
+        
+        [rewardImageView_txt_top10_2 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(24, 24));
+            make.left.equalTo(rankLabel.mas_right).offset(4);
+            make.bottom.equalTo(rankLabel);
+        }];
+        
+        [rewardImageView_txt_top10_3 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(138, 24));
+            make.top.equalTo(rewardBaseInfoView).offset(217-24);
+            make.right.equalTo(rewardBaseInfoView).offset(-27);
+        }];
+        
+        [rewardImageView_txt_3 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@100);
+            make.height.equalTo(@19);
+            if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+                make.top.equalTo(rewardImageView_txt_top10_3.mas_bottom).offset(20);
+            } else {
+                make.top.equalTo(rewardImageView_txt_top10_3.mas_bottom).offset(10);
+            }
+            make.left.equalTo(rewardBaseInfoView);
+        }];
+    } else {
+        [rewardBaseInfoView addSubview:rewardImageView_txt_1];
+        [rewardBaseInfoView addSubview:rewardImageView_txt_2];
+        
+        [rewardImageView_txt_1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@105);
+            make.height.equalTo(@60);
+            make.top.equalTo(rewardBaseInfoView).offset(121);
+            make.left.equalTo(rewardBaseInfoView);
+        }];
+        
+        [rewardImageView_txt_2 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@111);
+            make.height.equalTo(@24);
+            make.left.equalTo(rewardBaseInfoView).offset(106);
+            make.top.equalTo(rewardBaseInfoView).offset(217-24);
+        }];
+        
+        //百分比
+        UILabel *percentLabel = [UILabel new];
+        percentLabel.font = MOON_FONT_OF_SIZE(32.5);
+        percentLabel.textColor = COMMON_GREEN_COLOR;
+        percentLabel.text = [[NSString stringWithFormat:@"%.1lf", 100. - self.reward.rank/10.] stringByAppendingString:@"%"];
+        if (self.reward.rank >= 700) {
+            percentLabel.text = @"30%";
         }
-        make.left.equalTo(rewardBaseInfoView);
-    }];
+        [percentLabel sizeToFit];
+        [rewardBaseInfoView addSubview:percentLabel];
+        [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(rewardImageView_txt_1.mas_right).offset(4);
+            make.top.equalTo(rewardImageView_mascot.mas_bottom).offset(8);
+        }];
+        
+        [rewardImageView_txt_3 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@100);
+            make.height.equalTo(@19);
+            if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+                make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(20);
+            } else {
+                make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(10);
+            }
+            make.left.equalTo(rewardBaseInfoView);
+        }];
+    }
+    
+    
     
     UILabel *coinCountLabel = [UILabel new];
     coinCountLabel.textColor = COMMON_RED_COLOR;

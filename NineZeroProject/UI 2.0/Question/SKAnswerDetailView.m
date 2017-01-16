@@ -163,6 +163,12 @@
     _contentView.textAlignment = NSTextAlignmentCenter;
     [_backScrollView addSubview:_contentView];
     
+    UIImageView *dimmingImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_success_shading_down"]];
+    dimmingImageView.width = self.width;
+    dimmingImageView.height = dimmingImageView.width/300*84;
+    dimmingImageView.bottom = self.bottom;
+    [self addSubview:dimmingImageView];
+    
     _HUDView = [[UIView alloc] initWithFrame:self.frame];
     _HUDView.backgroundColor = [UIColor blackColor];
     NSInteger count = 40;

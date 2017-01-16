@@ -340,7 +340,8 @@
     _goldFrame.height = 60;
     _goldFrame.centerX = _avatar.centerX;
     _goldFrame.bottom = _avatar.bottom;
-    _nickName.frame = CGRectMake(_avatar.right + 16, 18, 190, 15);
+//    _nickName.frame = CGRectMake(_avatar.right + 16, 18, 190, 15);
+    _nickName.frame = CGRectMake(_avatar.right + 16, 18, SCREEN_WIDTH-PADDING*2-_avatar.right-16-20, 15);
     _coinImageView.left = _avatar.right + 16;
     _coinImageView.top = _nickName.bottom +8;
     _coinLabel.left = _coinImageView.right + 6;

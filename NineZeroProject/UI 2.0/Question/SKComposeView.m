@@ -155,7 +155,7 @@
     
     // 4. 结果
     [_resultImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self).centerOffset(CGPointMake(0, -20));
+        make.center.equalTo(self).centerOffset(CGPointMake(0,0));
     }];
     
     // 5. 提示
