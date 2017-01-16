@@ -42,7 +42,7 @@
     __weak __typeof(self)weakSelf = self;
     
     NSMutableArray<UIImage *> *images = [NSMutableArray array];
-    for (int i = 0; i<100; i++) {
+    for (int i = 0; i<174; i++) {
         UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"logo_640_%04d.png", i]];
         [images addObject:animatedImage];
     }
