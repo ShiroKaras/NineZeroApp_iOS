@@ -23,7 +23,7 @@
 NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
 NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
-@interface HTARCaptureController () <PRARManagerDelegate,AMapLocationManagerDelegate,MotionEffectViewDelegate>
+@interface HTARCaptureController () <PRARManagerDelegate,AMapLocationManagerDelegate,MotionEffectViewDelegate,HTAlertViewDelegate>
 @property (nonatomic, strong) PRARManager *prARManager;
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIImageView *radarImageView;
@@ -174,6 +174,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         }
     }else {
         HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+        alertView.delegate = self;
         [alertView show];
     }
 }
@@ -192,6 +193,10 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)dealloc {
 
+}
+
+- (void)didClickOKButton {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)showtipImageView {
