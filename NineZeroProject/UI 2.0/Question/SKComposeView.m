@@ -124,11 +124,11 @@
     // 1.1 参与者
     [_participatorView mas_makeConstraints:^(MASConstraintMaker *make) {
         if (SCREEN_WIDTH <= IPHONE5_SCREEN_WIDTH) {
-            make.top.equalTo(_dimmingView).offset(42);
+            make.top.equalTo(_dimmingView).offset(43);
         } else if (SCREEN_WIDTH >= IPHONE6_PLUS_SCREEN_WIDTH) {
-            make.top.equalTo(_dimmingView).offset(74);
+            make.top.equalTo(_dimmingView).offset(100);
         } else {
-            make.top.equalTo(_dimmingView).offset(62);
+            make.top.equalTo(_dimmingView).offset(71);
         }
         make.left.equalTo(_dimmingView);
         make.right.equalTo(_dimmingView);
