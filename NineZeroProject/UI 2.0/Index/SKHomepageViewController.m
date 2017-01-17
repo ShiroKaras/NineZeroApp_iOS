@@ -338,7 +338,7 @@
     [_timeCountDownLabel_isMonday mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(_timeCountDownBackView_isMonday);
         make.height.equalTo(@18);
-        make.bottom.equalTo(_timeCountDownBackView_isMonday).offset(-8);
+        make.bottom.equalTo(_timeCountDownBackView_isMonday).offset(-6);
         make.centerX.equalTo(_timeCountDownBackView_isMonday);
     }];
     
