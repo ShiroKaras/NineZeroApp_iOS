@@ -60,25 +60,18 @@
 
 - (void)showRandom {
     NSDictionary *dict = @{
-//                           @"lingzai_1"    :   @98,
                            @"lingzai_2"    :   @3.53,
                            @"lingzai_3"    :   @2.87,
-//                           @"envy_1"       :   @80,
                            @"envy_2"       :   @2,
                            @"envy_3"       :   @3.2,
-//                           @"gluttony_1"   :   @100,
                            @"gluttony_2"   :   @3.53,
                            @"gluttony_3"   :   @3.8,
-//                           @"lust_1"       :   @76,
                            @"lust_2"       :   @3.2,
                            @"lust_3"       :   @3.6,
-//                           @"pride_1"      :   @62,
                            @"pride_2"      :   @2.2,
                            @"pride_3"      :   @2.2,
-//                           @"sloth_1"      :   @68,
                            @"sloth_2"      :   @3,
                            @"sloth_3"      :   @3.07,
-//                           @"wrath_1"      :   @34,
                            @"wrath_2"      :   @0.87,
                            @"wrath_3"      :   @1.53
                            };
