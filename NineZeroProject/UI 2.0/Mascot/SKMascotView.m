@@ -21,12 +21,15 @@
 @property (nonatomic, assign) SKMascotType mascotType;
 @end
 
-@implementation SKMascotView
+@implementation SKMascotView {
+    int animatedGuard;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame Type:(SKMascotType)mascotType {
     self = [super initWithFrame:frame];
     if (self) {
         _mascotType = mascotType;
+        animatedGuard = 0;
         _mascotNameArray = @[@"lingzai", @"sloth", @"pride", @"wrath", @"gluttony", @"lust", @"envy"];
         [self createUIWithType:mascotType];
     }
@@ -54,6 +57,7 @@
 }
 
 - (void)showDefault {
+    animatedGuard++;
     _mBlankImageView.userInteractionEnabled = YES;
     _mBlankImageView.image = [YLGIFImage imageNamed:[NSString stringWithFormat:@"%@_1.gif", _mascotNameArray[_mascotType]]];
 }
@@ -75,15 +79,17 @@
                            @"wrath_2"      :   @0.87,
                            @"wrath_3"      :   @1.53
                            };
+    animatedGuard++;
     
     _mBlankImageView.userInteractionEnabled = YES;
     NSString *gifName = [NSString stringWithFormat:@"%@_%ld", _mascotNameArray[_mascotType], random()%2+2];
     
+    NSInteger tempAnimatedGuard = animatedGuard;
     _mBlankImageView.image = [YLGIFImage imageNamed:[gifName stringByAppendingString:@".gif"]];
-    
-    NSLog(@"%lf",[dict[gifName] floatValue]*0.033);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)([dict[gifName] floatValue] *NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self showDefault];
+        if (tempAnimatedGuard == animatedGuard) {
+            [self showDefault];
+        }
     });
 }
 
