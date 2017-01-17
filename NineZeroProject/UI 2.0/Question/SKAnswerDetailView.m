@@ -112,7 +112,7 @@
         CGFloat scrollViewHeight = 0.0f;
         for (UIView* view in _backScrollView.subviews)
             scrollViewHeight += view.frame.size.height;
-        if (answerDetail.article_Illustration_type != 0) {
+        if (answerDetail.article_Illustration_type == 0) {
             [_backScrollView setContentSize:(CGSizeMake(self.frame.size.width, scrollViewHeight))];
         } else {
             [_backScrollView setContentSize:(CGSizeMake(self.frame.size.width, scrollViewHeight-(self.width-20)/280*157.5))];
