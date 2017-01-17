@@ -204,7 +204,7 @@
                     AppDelegateInstance.window.rootViewController = navController;
                     [AppDelegateInstance.window makeKeyAndVisible];
                 } else if (response.result == -1003) {
-                    [self showTipsWithText:@"验证码错误"];
+                    [self showTipsWithText:@"验证码错误" color:COMMON_RED_COLOR];
                     self.verifyCodeTextField.text = @"";
                     ((UILabel*)[self.view viewWithTag:100]).text = @"";
                     ((UILabel*)[self.view viewWithTag:101]).text = @"";
@@ -228,7 +228,7 @@
                     AppDelegateInstance.window.rootViewController = navController;
                     [AppDelegateInstance.window makeKeyAndVisible];
                 } else if (response.result == -1003){
-                    [self showTipsWithText:@"验证码错误"];
+                    [self showTipsWithText:@"验证码错误" color:COMMON_RED_COLOR];
                     self.verifyCodeTextField.text = @"";
                     ((UILabel*)[self.view viewWithTag:100]).text = @"";
                     ((UILabel*)[self.view viewWithTag:101]).text = @"";

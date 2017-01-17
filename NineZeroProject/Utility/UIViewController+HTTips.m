@@ -11,10 +11,16 @@
 #import "UIViewController+HTTips.h"
 
 @implementation UIViewController (HTTips)
+
+
 - (void)showTipsWithText:(NSString *)text {
+    [self showTipsWithText:text color:COMMON_PINK_COLOR];
+}
+
+- (void)showTipsWithText:(NSString *)text color:(UIColor*)color{
     if (text.length == 0) text = @"操作失败";
     UIView *tipsBackView = [[UIView alloc] init];
-    tipsBackView.backgroundColor = COMMON_PINK_COLOR;
+    tipsBackView.backgroundColor = color;
     [KEY_WINDOW addSubview:tipsBackView];
     
     UILabel *tipsLabel = [[UILabel alloc] init];
