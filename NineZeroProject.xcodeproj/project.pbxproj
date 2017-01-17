@@ -18,180 +18,6 @@
 		1106FFE71DD9AC570002E36C /* SKMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106FFE61DD9AC570002E36C /* SKMascotView.m */; };
 		110A34A91DD07B4500207115 /* SKQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 110A34A81DD07B4500207115 /* SKQuestionViewController.m */; };
 		1114AE041CE48DD800CCF92C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1114AE031CE48DD800CCF92C /* Assets.xcassets */; };
-		111AC9BD1E2D1AD7007DE137 /* logo_640_0000.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC90F1E2D1AD7007DE137 /* logo_640_0000.png */; };
-		111AC9BE1E2D1AD7007DE137 /* logo_640_0001.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9101E2D1AD7007DE137 /* logo_640_0001.png */; };
-		111AC9BF1E2D1AD7007DE137 /* logo_640_0002.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9111E2D1AD7007DE137 /* logo_640_0002.png */; };
-		111AC9C01E2D1AD7007DE137 /* logo_640_0003.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9121E2D1AD7007DE137 /* logo_640_0003.png */; };
-		111AC9C11E2D1AD7007DE137 /* logo_640_0004.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9131E2D1AD7007DE137 /* logo_640_0004.png */; };
-		111AC9C21E2D1AD7007DE137 /* logo_640_0005.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9141E2D1AD7007DE137 /* logo_640_0005.png */; };
-		111AC9C31E2D1AD7007DE137 /* logo_640_0006.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9151E2D1AD7007DE137 /* logo_640_0006.png */; };
-		111AC9C41E2D1AD7007DE137 /* logo_640_0007.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9161E2D1AD7007DE137 /* logo_640_0007.png */; };
-		111AC9C51E2D1AD7007DE137 /* logo_640_0008.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9171E2D1AD7007DE137 /* logo_640_0008.png */; };
-		111AC9C61E2D1AD7007DE137 /* logo_640_0009.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9181E2D1AD7007DE137 /* logo_640_0009.png */; };
-		111AC9C71E2D1AD7007DE137 /* logo_640_0010.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9191E2D1AD7007DE137 /* logo_640_0010.png */; };
-		111AC9C81E2D1AD7007DE137 /* logo_640_0011.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC91A1E2D1AD7007DE137 /* logo_640_0011.png */; };
-		111AC9C91E2D1AD7007DE137 /* logo_640_0012.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC91B1E2D1AD7007DE137 /* logo_640_0012.png */; };
-		111AC9CA1E2D1AD7007DE137 /* logo_640_0013.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC91C1E2D1AD7007DE137 /* logo_640_0013.png */; };
-		111AC9CB1E2D1AD7007DE137 /* logo_640_0014.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC91D1E2D1AD7007DE137 /* logo_640_0014.png */; };
-		111AC9CC1E2D1AD7007DE137 /* logo_640_0015.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC91E1E2D1AD7007DE137 /* logo_640_0015.png */; };
-		111AC9CD1E2D1AD7007DE137 /* logo_640_0016.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC91F1E2D1AD7007DE137 /* logo_640_0016.png */; };
-		111AC9CE1E2D1AD7007DE137 /* logo_640_0017.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9201E2D1AD7007DE137 /* logo_640_0017.png */; };
-		111AC9CF1E2D1AD7007DE137 /* logo_640_0018.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9211E2D1AD7007DE137 /* logo_640_0018.png */; };
-		111AC9D01E2D1AD7007DE137 /* logo_640_0019.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9221E2D1AD7007DE137 /* logo_640_0019.png */; };
-		111AC9D11E2D1AD7007DE137 /* logo_640_0020.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9231E2D1AD7007DE137 /* logo_640_0020.png */; };
-		111AC9D21E2D1AD7007DE137 /* logo_640_0021.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9241E2D1AD7007DE137 /* logo_640_0021.png */; };
-		111AC9D31E2D1AD7007DE137 /* logo_640_0022.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9251E2D1AD7007DE137 /* logo_640_0022.png */; };
-		111AC9D41E2D1AD7007DE137 /* logo_640_0023.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9261E2D1AD7007DE137 /* logo_640_0023.png */; };
-		111AC9D51E2D1AD7007DE137 /* logo_640_0024.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9271E2D1AD7007DE137 /* logo_640_0024.png */; };
-		111AC9D61E2D1AD7007DE137 /* logo_640_0025.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9281E2D1AD7007DE137 /* logo_640_0025.png */; };
-		111AC9D71E2D1AD7007DE137 /* logo_640_0026.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9291E2D1AD7007DE137 /* logo_640_0026.png */; };
-		111AC9D81E2D1AD7007DE137 /* logo_640_0027.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC92A1E2D1AD7007DE137 /* logo_640_0027.png */; };
-		111AC9D91E2D1AD7007DE137 /* logo_640_0028.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC92B1E2D1AD7007DE137 /* logo_640_0028.png */; };
-		111AC9DA1E2D1AD7007DE137 /* logo_640_0029.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC92C1E2D1AD7007DE137 /* logo_640_0029.png */; };
-		111AC9DB1E2D1AD7007DE137 /* logo_640_0030.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC92D1E2D1AD7007DE137 /* logo_640_0030.png */; };
-		111AC9DC1E2D1AD7007DE137 /* logo_640_0031.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC92E1E2D1AD7007DE137 /* logo_640_0031.png */; };
-		111AC9DD1E2D1AD7007DE137 /* logo_640_0032.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC92F1E2D1AD7007DE137 /* logo_640_0032.png */; };
-		111AC9DE1E2D1AD7007DE137 /* logo_640_0033.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9301E2D1AD7007DE137 /* logo_640_0033.png */; };
-		111AC9DF1E2D1AD7007DE137 /* logo_640_0034.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9311E2D1AD7007DE137 /* logo_640_0034.png */; };
-		111AC9E01E2D1AD7007DE137 /* logo_640_0035.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9321E2D1AD7007DE137 /* logo_640_0035.png */; };
-		111AC9E11E2D1AD7007DE137 /* logo_640_0036.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9331E2D1AD7007DE137 /* logo_640_0036.png */; };
-		111AC9E21E2D1AD7007DE137 /* logo_640_0037.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9341E2D1AD7007DE137 /* logo_640_0037.png */; };
-		111AC9E31E2D1AD8007DE137 /* logo_640_0038.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9351E2D1AD7007DE137 /* logo_640_0038.png */; };
-		111AC9E41E2D1AD8007DE137 /* logo_640_0039.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9361E2D1AD7007DE137 /* logo_640_0039.png */; };
-		111AC9E51E2D1AD8007DE137 /* logo_640_0040.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9371E2D1AD7007DE137 /* logo_640_0040.png */; };
-		111AC9E61E2D1AD8007DE137 /* logo_640_0041.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9381E2D1AD7007DE137 /* logo_640_0041.png */; };
-		111AC9E71E2D1AD8007DE137 /* logo_640_0042.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9391E2D1AD7007DE137 /* logo_640_0042.png */; };
-		111AC9E81E2D1AD8007DE137 /* logo_640_0043.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC93A1E2D1AD7007DE137 /* logo_640_0043.png */; };
-		111AC9E91E2D1AD8007DE137 /* logo_640_0044.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC93B1E2D1AD7007DE137 /* logo_640_0044.png */; };
-		111AC9EA1E2D1AD8007DE137 /* logo_640_0045.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC93C1E2D1AD7007DE137 /* logo_640_0045.png */; };
-		111AC9EB1E2D1AD8007DE137 /* logo_640_0046.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC93D1E2D1AD7007DE137 /* logo_640_0046.png */; };
-		111AC9EC1E2D1AD8007DE137 /* logo_640_0047.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC93E1E2D1AD7007DE137 /* logo_640_0047.png */; };
-		111AC9ED1E2D1AD8007DE137 /* logo_640_0048.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC93F1E2D1AD7007DE137 /* logo_640_0048.png */; };
-		111AC9EE1E2D1AD8007DE137 /* logo_640_0049.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9401E2D1AD7007DE137 /* logo_640_0049.png */; };
-		111AC9EF1E2D1AD8007DE137 /* logo_640_0050.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9411E2D1AD7007DE137 /* logo_640_0050.png */; };
-		111AC9F01E2D1AD8007DE137 /* logo_640_0051.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9421E2D1AD7007DE137 /* logo_640_0051.png */; };
-		111AC9F11E2D1AD8007DE137 /* logo_640_0052.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9431E2D1AD7007DE137 /* logo_640_0052.png */; };
-		111AC9F21E2D1AD8007DE137 /* logo_640_0053.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9441E2D1AD7007DE137 /* logo_640_0053.png */; };
-		111AC9F31E2D1AD8007DE137 /* logo_640_0054.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9451E2D1AD7007DE137 /* logo_640_0054.png */; };
-		111AC9F41E2D1AD8007DE137 /* logo_640_0055.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9461E2D1AD7007DE137 /* logo_640_0055.png */; };
-		111AC9F51E2D1AD8007DE137 /* logo_640_0056.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9471E2D1AD7007DE137 /* logo_640_0056.png */; };
-		111AC9F61E2D1AD8007DE137 /* logo_640_0057.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9481E2D1AD7007DE137 /* logo_640_0057.png */; };
-		111AC9F71E2D1AD8007DE137 /* logo_640_0058.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9491E2D1AD7007DE137 /* logo_640_0058.png */; };
-		111AC9F81E2D1AD8007DE137 /* logo_640_0059.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC94A1E2D1AD7007DE137 /* logo_640_0059.png */; };
-		111AC9F91E2D1AD8007DE137 /* logo_640_0060.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC94B1E2D1AD7007DE137 /* logo_640_0060.png */; };
-		111AC9FA1E2D1AD8007DE137 /* logo_640_0061.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC94C1E2D1AD7007DE137 /* logo_640_0061.png */; };
-		111AC9FB1E2D1AD8007DE137 /* logo_640_0062.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC94D1E2D1AD7007DE137 /* logo_640_0062.png */; };
-		111AC9FC1E2D1AD8007DE137 /* logo_640_0063.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC94E1E2D1AD7007DE137 /* logo_640_0063.png */; };
-		111AC9FD1E2D1AD8007DE137 /* logo_640_0064.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC94F1E2D1AD7007DE137 /* logo_640_0064.png */; };
-		111AC9FE1E2D1AD8007DE137 /* logo_640_0065.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9501E2D1AD7007DE137 /* logo_640_0065.png */; };
-		111AC9FF1E2D1AD8007DE137 /* logo_640_0066.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9511E2D1AD7007DE137 /* logo_640_0066.png */; };
-		111ACA001E2D1AD8007DE137 /* logo_640_0067.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9521E2D1AD7007DE137 /* logo_640_0067.png */; };
-		111ACA011E2D1AD8007DE137 /* logo_640_0068.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9531E2D1AD7007DE137 /* logo_640_0068.png */; };
-		111ACA021E2D1AD8007DE137 /* logo_640_0069.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9541E2D1AD7007DE137 /* logo_640_0069.png */; };
-		111ACA031E2D1AD8007DE137 /* logo_640_0070.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9551E2D1AD7007DE137 /* logo_640_0070.png */; };
-		111ACA041E2D1AD8007DE137 /* logo_640_0071.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9561E2D1AD7007DE137 /* logo_640_0071.png */; };
-		111ACA051E2D1AD8007DE137 /* logo_640_0072.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9571E2D1AD7007DE137 /* logo_640_0072.png */; };
-		111ACA061E2D1AD8007DE137 /* logo_640_0073.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9581E2D1AD7007DE137 /* logo_640_0073.png */; };
-		111ACA071E2D1AD8007DE137 /* logo_640_0074.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9591E2D1AD7007DE137 /* logo_640_0074.png */; };
-		111ACA081E2D1AD8007DE137 /* logo_640_0075.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC95A1E2D1AD7007DE137 /* logo_640_0075.png */; };
-		111ACA091E2D1AD8007DE137 /* logo_640_0076.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC95B1E2D1AD7007DE137 /* logo_640_0076.png */; };
-		111ACA0A1E2D1AD8007DE137 /* logo_640_0077.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC95C1E2D1AD7007DE137 /* logo_640_0077.png */; };
-		111ACA0B1E2D1AD8007DE137 /* logo_640_0078.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC95D1E2D1AD7007DE137 /* logo_640_0078.png */; };
-		111ACA0C1E2D1AD8007DE137 /* logo_640_0079.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC95E1E2D1AD7007DE137 /* logo_640_0079.png */; };
-		111ACA0D1E2D1AD8007DE137 /* logo_640_0080.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC95F1E2D1AD7007DE137 /* logo_640_0080.png */; };
-		111ACA0E1E2D1AD8007DE137 /* logo_640_0081.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9601E2D1AD7007DE137 /* logo_640_0081.png */; };
-		111ACA0F1E2D1AD8007DE137 /* logo_640_0082.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9611E2D1AD7007DE137 /* logo_640_0082.png */; };
-		111ACA101E2D1AD8007DE137 /* logo_640_0083.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9621E2D1AD7007DE137 /* logo_640_0083.png */; };
-		111ACA111E2D1AD8007DE137 /* logo_640_0084.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9631E2D1AD7007DE137 /* logo_640_0084.png */; };
-		111ACA121E2D1AD8007DE137 /* logo_640_0085.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9641E2D1AD7007DE137 /* logo_640_0085.png */; };
-		111ACA131E2D1AD8007DE137 /* logo_640_0086.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9651E2D1AD7007DE137 /* logo_640_0086.png */; };
-		111ACA141E2D1AD8007DE137 /* logo_640_0087.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9661E2D1AD7007DE137 /* logo_640_0087.png */; };
-		111ACA151E2D1AD8007DE137 /* logo_640_0088.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9671E2D1AD7007DE137 /* logo_640_0088.png */; };
-		111ACA161E2D1AD8007DE137 /* logo_640_0089.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9681E2D1AD7007DE137 /* logo_640_0089.png */; };
-		111ACA171E2D1AD8007DE137 /* logo_640_0090.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9691E2D1AD7007DE137 /* logo_640_0090.png */; };
-		111ACA181E2D1AD8007DE137 /* logo_640_0091.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC96A1E2D1AD7007DE137 /* logo_640_0091.png */; };
-		111ACA191E2D1AD8007DE137 /* logo_640_0092.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC96B1E2D1AD7007DE137 /* logo_640_0092.png */; };
-		111ACA1A1E2D1AD8007DE137 /* logo_640_0093.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC96C1E2D1AD7007DE137 /* logo_640_0093.png */; };
-		111ACA1B1E2D1AD8007DE137 /* logo_640_0094.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC96D1E2D1AD7007DE137 /* logo_640_0094.png */; };
-		111ACA1C1E2D1AD8007DE137 /* logo_640_0095.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC96E1E2D1AD7007DE137 /* logo_640_0095.png */; };
-		111ACA1D1E2D1AD8007DE137 /* logo_640_0096.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC96F1E2D1AD7007DE137 /* logo_640_0096.png */; };
-		111ACA1E1E2D1AD8007DE137 /* logo_640_0097.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9701E2D1AD7007DE137 /* logo_640_0097.png */; };
-		111ACA1F1E2D1AD8007DE137 /* logo_640_0098.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9711E2D1AD7007DE137 /* logo_640_0098.png */; };
-		111ACA201E2D1AD8007DE137 /* logo_640_0099.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9721E2D1AD7007DE137 /* logo_640_0099.png */; };
-		111ACA211E2D1AD8007DE137 /* logo_640_0100.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9731E2D1AD7007DE137 /* logo_640_0100.png */; };
-		111ACA221E2D1AD8007DE137 /* logo_640_0101.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9741E2D1AD7007DE137 /* logo_640_0101.png */; };
-		111ACA231E2D1AD8007DE137 /* logo_640_0102.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9751E2D1AD7007DE137 /* logo_640_0102.png */; };
-		111ACA241E2D1AD8007DE137 /* logo_640_0103.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9761E2D1AD7007DE137 /* logo_640_0103.png */; };
-		111ACA251E2D1AD8007DE137 /* logo_640_0104.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9771E2D1AD7007DE137 /* logo_640_0104.png */; };
-		111ACA261E2D1AD8007DE137 /* logo_640_0105.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9781E2D1AD7007DE137 /* logo_640_0105.png */; };
-		111ACA271E2D1AD8007DE137 /* logo_640_0106.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9791E2D1AD7007DE137 /* logo_640_0106.png */; };
-		111ACA281E2D1AD8007DE137 /* logo_640_0107.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC97A1E2D1AD7007DE137 /* logo_640_0107.png */; };
-		111ACA291E2D1AD8007DE137 /* logo_640_0108.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC97B1E2D1AD7007DE137 /* logo_640_0108.png */; };
-		111ACA2A1E2D1AD8007DE137 /* logo_640_0109.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC97C1E2D1AD7007DE137 /* logo_640_0109.png */; };
-		111ACA2B1E2D1AD8007DE137 /* logo_640_0110.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC97D1E2D1AD7007DE137 /* logo_640_0110.png */; };
-		111ACA2C1E2D1AD8007DE137 /* logo_640_0111.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC97E1E2D1AD7007DE137 /* logo_640_0111.png */; };
-		111ACA2D1E2D1AD8007DE137 /* logo_640_0112.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC97F1E2D1AD7007DE137 /* logo_640_0112.png */; };
-		111ACA2E1E2D1AD8007DE137 /* logo_640_0113.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9801E2D1AD7007DE137 /* logo_640_0113.png */; };
-		111ACA2F1E2D1AD8007DE137 /* logo_640_0114.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9811E2D1AD7007DE137 /* logo_640_0114.png */; };
-		111ACA301E2D1AD8007DE137 /* logo_640_0115.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9821E2D1AD7007DE137 /* logo_640_0115.png */; };
-		111ACA311E2D1AD8007DE137 /* logo_640_0116.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9831E2D1AD7007DE137 /* logo_640_0116.png */; };
-		111ACA321E2D1AD8007DE137 /* logo_640_0117.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9841E2D1AD7007DE137 /* logo_640_0117.png */; };
-		111ACA331E2D1AD8007DE137 /* logo_640_0118.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9851E2D1AD7007DE137 /* logo_640_0118.png */; };
-		111ACA341E2D1AD8007DE137 /* logo_640_0119.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9861E2D1AD7007DE137 /* logo_640_0119.png */; };
-		111ACA351E2D1AD8007DE137 /* logo_640_0120.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9871E2D1AD7007DE137 /* logo_640_0120.png */; };
-		111ACA361E2D1AD8007DE137 /* logo_640_0121.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9881E2D1AD7007DE137 /* logo_640_0121.png */; };
-		111ACA371E2D1AD8007DE137 /* logo_640_0122.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9891E2D1AD7007DE137 /* logo_640_0122.png */; };
-		111ACA381E2D1AD8007DE137 /* logo_640_0123.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC98A1E2D1AD7007DE137 /* logo_640_0123.png */; };
-		111ACA391E2D1AD8007DE137 /* logo_640_0124.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC98B1E2D1AD7007DE137 /* logo_640_0124.png */; };
-		111ACA3A1E2D1AD8007DE137 /* logo_640_0125.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC98C1E2D1AD7007DE137 /* logo_640_0125.png */; };
-		111ACA3B1E2D1AD8007DE137 /* logo_640_0126.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC98D1E2D1AD7007DE137 /* logo_640_0126.png */; };
-		111ACA3C1E2D1AD8007DE137 /* logo_640_0127.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC98E1E2D1AD7007DE137 /* logo_640_0127.png */; };
-		111ACA3D1E2D1AD8007DE137 /* logo_640_0128.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC98F1E2D1AD7007DE137 /* logo_640_0128.png */; };
-		111ACA3E1E2D1AD8007DE137 /* logo_640_0129.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9901E2D1AD7007DE137 /* logo_640_0129.png */; };
-		111ACA3F1E2D1AD8007DE137 /* logo_640_0130.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9911E2D1AD7007DE137 /* logo_640_0130.png */; };
-		111ACA401E2D1AD8007DE137 /* logo_640_0131.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9921E2D1AD7007DE137 /* logo_640_0131.png */; };
-		111ACA411E2D1AD8007DE137 /* logo_640_0132.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9931E2D1AD7007DE137 /* logo_640_0132.png */; };
-		111ACA421E2D1AD8007DE137 /* logo_640_0133.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9941E2D1AD7007DE137 /* logo_640_0133.png */; };
-		111ACA431E2D1AD8007DE137 /* logo_640_0134.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9951E2D1AD7007DE137 /* logo_640_0134.png */; };
-		111ACA441E2D1AD8007DE137 /* logo_640_0135.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9961E2D1AD7007DE137 /* logo_640_0135.png */; };
-		111ACA451E2D1AD8007DE137 /* logo_640_0136.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9971E2D1AD7007DE137 /* logo_640_0136.png */; };
-		111ACA461E2D1AD8007DE137 /* logo_640_0137.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9981E2D1AD7007DE137 /* logo_640_0137.png */; };
-		111ACA471E2D1AD8007DE137 /* logo_640_0138.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9991E2D1AD7007DE137 /* logo_640_0138.png */; };
-		111ACA481E2D1AD8007DE137 /* logo_640_0139.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC99A1E2D1AD7007DE137 /* logo_640_0139.png */; };
-		111ACA491E2D1AD8007DE137 /* logo_640_0140.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC99B1E2D1AD7007DE137 /* logo_640_0140.png */; };
-		111ACA4A1E2D1AD8007DE137 /* logo_640_0141.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC99C1E2D1AD7007DE137 /* logo_640_0141.png */; };
-		111ACA4B1E2D1AD8007DE137 /* logo_640_0142.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC99D1E2D1AD7007DE137 /* logo_640_0142.png */; };
-		111ACA4C1E2D1AD8007DE137 /* logo_640_0143.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC99E1E2D1AD7007DE137 /* logo_640_0143.png */; };
-		111ACA4D1E2D1AD8007DE137 /* logo_640_0144.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC99F1E2D1AD7007DE137 /* logo_640_0144.png */; };
-		111ACA4E1E2D1AD8007DE137 /* logo_640_0145.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9A01E2D1AD7007DE137 /* logo_640_0145.png */; };
-		111ACA4F1E2D1AD8007DE137 /* logo_640_0146.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9A11E2D1AD7007DE137 /* logo_640_0146.png */; };
-		111ACA501E2D1AD8007DE137 /* logo_640_0147.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9A21E2D1AD7007DE137 /* logo_640_0147.png */; };
-		111ACA511E2D1AD8007DE137 /* logo_640_0148.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9A31E2D1AD7007DE137 /* logo_640_0148.png */; };
-		111ACA521E2D1AD8007DE137 /* logo_640_0149.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9A41E2D1AD7007DE137 /* logo_640_0149.png */; };
-		111ACA531E2D1AD8007DE137 /* logo_640_0150.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9A51E2D1AD7007DE137 /* logo_640_0150.png */; };
-		111ACA541E2D1AD8007DE137 /* logo_640_0151.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9A61E2D1AD7007DE137 /* logo_640_0151.png */; };
-		111ACA551E2D1AD8007DE137 /* logo_640_0152.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9A71E2D1AD7007DE137 /* logo_640_0152.png */; };
-		111ACA561E2D1AD8007DE137 /* logo_640_0153.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9A81E2D1AD7007DE137 /* logo_640_0153.png */; };
-		111ACA571E2D1AD8007DE137 /* logo_640_0154.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9A91E2D1AD7007DE137 /* logo_640_0154.png */; };
-		111ACA581E2D1AD8007DE137 /* logo_640_0155.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9AA1E2D1AD7007DE137 /* logo_640_0155.png */; };
-		111ACA591E2D1AD8007DE137 /* logo_640_0156.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9AB1E2D1AD7007DE137 /* logo_640_0156.png */; };
-		111ACA5A1E2D1AD8007DE137 /* logo_640_0157.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9AC1E2D1AD7007DE137 /* logo_640_0157.png */; };
-		111ACA5B1E2D1AD8007DE137 /* logo_640_0158.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9AD1E2D1AD7007DE137 /* logo_640_0158.png */; };
-		111ACA5C1E2D1AD8007DE137 /* logo_640_0159.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9AE1E2D1AD7007DE137 /* logo_640_0159.png */; };
-		111ACA5D1E2D1AD8007DE137 /* logo_640_0160.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9AF1E2D1AD7007DE137 /* logo_640_0160.png */; };
-		111ACA5E1E2D1AD8007DE137 /* logo_640_0161.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9B01E2D1AD7007DE137 /* logo_640_0161.png */; };
-		111ACA5F1E2D1AD8007DE137 /* logo_640_0162.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9B11E2D1AD7007DE137 /* logo_640_0162.png */; };
-		111ACA601E2D1AD8007DE137 /* logo_640_0163.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9B21E2D1AD7007DE137 /* logo_640_0163.png */; };
-		111ACA611E2D1AD8007DE137 /* logo_640_0164.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9B31E2D1AD7007DE137 /* logo_640_0164.png */; };
-		111ACA621E2D1AD8007DE137 /* logo_640_0165.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9B41E2D1AD7007DE137 /* logo_640_0165.png */; };
-		111ACA631E2D1AD8007DE137 /* logo_640_0166.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9B51E2D1AD7007DE137 /* logo_640_0166.png */; };
-		111ACA641E2D1AD8007DE137 /* logo_640_0167.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9B61E2D1AD7007DE137 /* logo_640_0167.png */; };
-		111ACA651E2D1AD8007DE137 /* logo_640_0168.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9B71E2D1AD7007DE137 /* logo_640_0168.png */; };
-		111ACA661E2D1AD8007DE137 /* logo_640_0169.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9B81E2D1AD7007DE137 /* logo_640_0169.png */; };
-		111ACA671E2D1AD8007DE137 /* logo_640_0170.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9B91E2D1AD7007DE137 /* logo_640_0170.png */; };
-		111ACA681E2D1AD8007DE137 /* logo_640_0171.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9BA1E2D1AD7007DE137 /* logo_640_0171.png */; };
-		111ACA691E2D1AD8007DE137 /* logo_640_0172.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9BB1E2D1AD7007DE137 /* logo_640_0172.png */; };
-		111ACA6A1E2D1AD8007DE137 /* logo_640_0173.png in Resources */ = {isa = PBXBuildFile; fileRef = 111AC9BC1E2D1AD7007DE137 /* logo_640_0173.png */; };
 		111ACA6C1E2DCF4E007DE137 /* 90appbundle.cer in Resources */ = {isa = PBXBuildFile; fileRef = 111ACA6B1E2DCF4E007DE137 /* 90appbundle.cer */; };
 		111ACA841E2DCF83007DE137 /* right_answer_gif0000.png in Resources */ = {isa = PBXBuildFile; fileRef = 111ACA6E1E2DCF83007DE137 /* right_answer_gif0000.png */; };
 		111ACA851E2DCF83007DE137 /* right_answer_gif0001.png in Resources */ = {isa = PBXBuildFile; fileRef = 111ACA6F1E2DCF83007DE137 /* right_answer_gif0001.png */; };
@@ -215,6 +41,7 @@
 		111ACA971E2DCF83007DE137 /* right_answer_gif0019.png in Resources */ = {isa = PBXBuildFile; fileRef = 111ACA811E2DCF83007DE137 /* right_answer_gif0019.png */; };
 		111ACA981E2DCF83007DE137 /* right_answer_gif0020.png in Resources */ = {isa = PBXBuildFile; fileRef = 111ACA821E2DCF83007DE137 /* right_answer_gif0020.png */; };
 		111ACA991E2DCF83007DE137 /* right_answer_gif0021.png in Resources */ = {isa = PBXBuildFile; fileRef = 111ACA831E2DCF83007DE137 /* right_answer_gif0021.png */; };
+		111ACA9B1E2E06FB007DE137 /* LOGO-640.gif in Resources */ = {isa = PBXBuildFile; fileRef = 111ACA9A1E2E06FB007DE137 /* LOGO-640.gif */; };
 		112167611CEF565A0048EA01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1121675F1CEF565A0048EA01 /* LaunchScreen.storyboard */; };
 		112167641CF0637B0048EA01 /* SKLaunchAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 112167631CF0637B0048EA01 /* SKLaunchAnimationViewController.m */; };
 		1121676C1CF3358E0048EA01 /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1121676A1CF3358D0048EA01 /* SKUserAgreementViewController.m */; };
@@ -2018,180 +1845,6 @@
 		110A34A71DD07B4500207115 /* SKQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKQuestionViewController.h; path = "NineZeroProject/UI 2.0/Question/SKQuestionViewController.h"; sourceTree = "<group>"; };
 		110A34A81DD07B4500207115 /* SKQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKQuestionViewController.m; path = "NineZeroProject/UI 2.0/Question/SKQuestionViewController.m"; sourceTree = "<group>"; };
 		1114AE031CE48DD800CCF92C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		111AC90F1E2D1AD7007DE137 /* logo_640_0000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0000.png; sourceTree = "<group>"; };
-		111AC9101E2D1AD7007DE137 /* logo_640_0001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0001.png; sourceTree = "<group>"; };
-		111AC9111E2D1AD7007DE137 /* logo_640_0002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0002.png; sourceTree = "<group>"; };
-		111AC9121E2D1AD7007DE137 /* logo_640_0003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0003.png; sourceTree = "<group>"; };
-		111AC9131E2D1AD7007DE137 /* logo_640_0004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0004.png; sourceTree = "<group>"; };
-		111AC9141E2D1AD7007DE137 /* logo_640_0005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0005.png; sourceTree = "<group>"; };
-		111AC9151E2D1AD7007DE137 /* logo_640_0006.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0006.png; sourceTree = "<group>"; };
-		111AC9161E2D1AD7007DE137 /* logo_640_0007.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0007.png; sourceTree = "<group>"; };
-		111AC9171E2D1AD7007DE137 /* logo_640_0008.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0008.png; sourceTree = "<group>"; };
-		111AC9181E2D1AD7007DE137 /* logo_640_0009.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0009.png; sourceTree = "<group>"; };
-		111AC9191E2D1AD7007DE137 /* logo_640_0010.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0010.png; sourceTree = "<group>"; };
-		111AC91A1E2D1AD7007DE137 /* logo_640_0011.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0011.png; sourceTree = "<group>"; };
-		111AC91B1E2D1AD7007DE137 /* logo_640_0012.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0012.png; sourceTree = "<group>"; };
-		111AC91C1E2D1AD7007DE137 /* logo_640_0013.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0013.png; sourceTree = "<group>"; };
-		111AC91D1E2D1AD7007DE137 /* logo_640_0014.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0014.png; sourceTree = "<group>"; };
-		111AC91E1E2D1AD7007DE137 /* logo_640_0015.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0015.png; sourceTree = "<group>"; };
-		111AC91F1E2D1AD7007DE137 /* logo_640_0016.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0016.png; sourceTree = "<group>"; };
-		111AC9201E2D1AD7007DE137 /* logo_640_0017.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0017.png; sourceTree = "<group>"; };
-		111AC9211E2D1AD7007DE137 /* logo_640_0018.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0018.png; sourceTree = "<group>"; };
-		111AC9221E2D1AD7007DE137 /* logo_640_0019.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0019.png; sourceTree = "<group>"; };
-		111AC9231E2D1AD7007DE137 /* logo_640_0020.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0020.png; sourceTree = "<group>"; };
-		111AC9241E2D1AD7007DE137 /* logo_640_0021.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0021.png; sourceTree = "<group>"; };
-		111AC9251E2D1AD7007DE137 /* logo_640_0022.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0022.png; sourceTree = "<group>"; };
-		111AC9261E2D1AD7007DE137 /* logo_640_0023.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0023.png; sourceTree = "<group>"; };
-		111AC9271E2D1AD7007DE137 /* logo_640_0024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0024.png; sourceTree = "<group>"; };
-		111AC9281E2D1AD7007DE137 /* logo_640_0025.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0025.png; sourceTree = "<group>"; };
-		111AC9291E2D1AD7007DE137 /* logo_640_0026.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0026.png; sourceTree = "<group>"; };
-		111AC92A1E2D1AD7007DE137 /* logo_640_0027.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0027.png; sourceTree = "<group>"; };
-		111AC92B1E2D1AD7007DE137 /* logo_640_0028.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0028.png; sourceTree = "<group>"; };
-		111AC92C1E2D1AD7007DE137 /* logo_640_0029.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0029.png; sourceTree = "<group>"; };
-		111AC92D1E2D1AD7007DE137 /* logo_640_0030.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0030.png; sourceTree = "<group>"; };
-		111AC92E1E2D1AD7007DE137 /* logo_640_0031.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0031.png; sourceTree = "<group>"; };
-		111AC92F1E2D1AD7007DE137 /* logo_640_0032.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0032.png; sourceTree = "<group>"; };
-		111AC9301E2D1AD7007DE137 /* logo_640_0033.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0033.png; sourceTree = "<group>"; };
-		111AC9311E2D1AD7007DE137 /* logo_640_0034.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0034.png; sourceTree = "<group>"; };
-		111AC9321E2D1AD7007DE137 /* logo_640_0035.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0035.png; sourceTree = "<group>"; };
-		111AC9331E2D1AD7007DE137 /* logo_640_0036.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0036.png; sourceTree = "<group>"; };
-		111AC9341E2D1AD7007DE137 /* logo_640_0037.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0037.png; sourceTree = "<group>"; };
-		111AC9351E2D1AD7007DE137 /* logo_640_0038.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0038.png; sourceTree = "<group>"; };
-		111AC9361E2D1AD7007DE137 /* logo_640_0039.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0039.png; sourceTree = "<group>"; };
-		111AC9371E2D1AD7007DE137 /* logo_640_0040.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0040.png; sourceTree = "<group>"; };
-		111AC9381E2D1AD7007DE137 /* logo_640_0041.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0041.png; sourceTree = "<group>"; };
-		111AC9391E2D1AD7007DE137 /* logo_640_0042.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0042.png; sourceTree = "<group>"; };
-		111AC93A1E2D1AD7007DE137 /* logo_640_0043.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0043.png; sourceTree = "<group>"; };
-		111AC93B1E2D1AD7007DE137 /* logo_640_0044.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0044.png; sourceTree = "<group>"; };
-		111AC93C1E2D1AD7007DE137 /* logo_640_0045.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0045.png; sourceTree = "<group>"; };
-		111AC93D1E2D1AD7007DE137 /* logo_640_0046.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0046.png; sourceTree = "<group>"; };
-		111AC93E1E2D1AD7007DE137 /* logo_640_0047.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0047.png; sourceTree = "<group>"; };
-		111AC93F1E2D1AD7007DE137 /* logo_640_0048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0048.png; sourceTree = "<group>"; };
-		111AC9401E2D1AD7007DE137 /* logo_640_0049.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0049.png; sourceTree = "<group>"; };
-		111AC9411E2D1AD7007DE137 /* logo_640_0050.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0050.png; sourceTree = "<group>"; };
-		111AC9421E2D1AD7007DE137 /* logo_640_0051.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0051.png; sourceTree = "<group>"; };
-		111AC9431E2D1AD7007DE137 /* logo_640_0052.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0052.png; sourceTree = "<group>"; };
-		111AC9441E2D1AD7007DE137 /* logo_640_0053.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0053.png; sourceTree = "<group>"; };
-		111AC9451E2D1AD7007DE137 /* logo_640_0054.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0054.png; sourceTree = "<group>"; };
-		111AC9461E2D1AD7007DE137 /* logo_640_0055.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0055.png; sourceTree = "<group>"; };
-		111AC9471E2D1AD7007DE137 /* logo_640_0056.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0056.png; sourceTree = "<group>"; };
-		111AC9481E2D1AD7007DE137 /* logo_640_0057.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0057.png; sourceTree = "<group>"; };
-		111AC9491E2D1AD7007DE137 /* logo_640_0058.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0058.png; sourceTree = "<group>"; };
-		111AC94A1E2D1AD7007DE137 /* logo_640_0059.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0059.png; sourceTree = "<group>"; };
-		111AC94B1E2D1AD7007DE137 /* logo_640_0060.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0060.png; sourceTree = "<group>"; };
-		111AC94C1E2D1AD7007DE137 /* logo_640_0061.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0061.png; sourceTree = "<group>"; };
-		111AC94D1E2D1AD7007DE137 /* logo_640_0062.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0062.png; sourceTree = "<group>"; };
-		111AC94E1E2D1AD7007DE137 /* logo_640_0063.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0063.png; sourceTree = "<group>"; };
-		111AC94F1E2D1AD7007DE137 /* logo_640_0064.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0064.png; sourceTree = "<group>"; };
-		111AC9501E2D1AD7007DE137 /* logo_640_0065.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0065.png; sourceTree = "<group>"; };
-		111AC9511E2D1AD7007DE137 /* logo_640_0066.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0066.png; sourceTree = "<group>"; };
-		111AC9521E2D1AD7007DE137 /* logo_640_0067.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0067.png; sourceTree = "<group>"; };
-		111AC9531E2D1AD7007DE137 /* logo_640_0068.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0068.png; sourceTree = "<group>"; };
-		111AC9541E2D1AD7007DE137 /* logo_640_0069.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0069.png; sourceTree = "<group>"; };
-		111AC9551E2D1AD7007DE137 /* logo_640_0070.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0070.png; sourceTree = "<group>"; };
-		111AC9561E2D1AD7007DE137 /* logo_640_0071.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0071.png; sourceTree = "<group>"; };
-		111AC9571E2D1AD7007DE137 /* logo_640_0072.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0072.png; sourceTree = "<group>"; };
-		111AC9581E2D1AD7007DE137 /* logo_640_0073.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0073.png; sourceTree = "<group>"; };
-		111AC9591E2D1AD7007DE137 /* logo_640_0074.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0074.png; sourceTree = "<group>"; };
-		111AC95A1E2D1AD7007DE137 /* logo_640_0075.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0075.png; sourceTree = "<group>"; };
-		111AC95B1E2D1AD7007DE137 /* logo_640_0076.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0076.png; sourceTree = "<group>"; };
-		111AC95C1E2D1AD7007DE137 /* logo_640_0077.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0077.png; sourceTree = "<group>"; };
-		111AC95D1E2D1AD7007DE137 /* logo_640_0078.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0078.png; sourceTree = "<group>"; };
-		111AC95E1E2D1AD7007DE137 /* logo_640_0079.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0079.png; sourceTree = "<group>"; };
-		111AC95F1E2D1AD7007DE137 /* logo_640_0080.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0080.png; sourceTree = "<group>"; };
-		111AC9601E2D1AD7007DE137 /* logo_640_0081.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0081.png; sourceTree = "<group>"; };
-		111AC9611E2D1AD7007DE137 /* logo_640_0082.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0082.png; sourceTree = "<group>"; };
-		111AC9621E2D1AD7007DE137 /* logo_640_0083.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0083.png; sourceTree = "<group>"; };
-		111AC9631E2D1AD7007DE137 /* logo_640_0084.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0084.png; sourceTree = "<group>"; };
-		111AC9641E2D1AD7007DE137 /* logo_640_0085.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0085.png; sourceTree = "<group>"; };
-		111AC9651E2D1AD7007DE137 /* logo_640_0086.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0086.png; sourceTree = "<group>"; };
-		111AC9661E2D1AD7007DE137 /* logo_640_0087.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0087.png; sourceTree = "<group>"; };
-		111AC9671E2D1AD7007DE137 /* logo_640_0088.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0088.png; sourceTree = "<group>"; };
-		111AC9681E2D1AD7007DE137 /* logo_640_0089.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0089.png; sourceTree = "<group>"; };
-		111AC9691E2D1AD7007DE137 /* logo_640_0090.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0090.png; sourceTree = "<group>"; };
-		111AC96A1E2D1AD7007DE137 /* logo_640_0091.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0091.png; sourceTree = "<group>"; };
-		111AC96B1E2D1AD7007DE137 /* logo_640_0092.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0092.png; sourceTree = "<group>"; };
-		111AC96C1E2D1AD7007DE137 /* logo_640_0093.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0093.png; sourceTree = "<group>"; };
-		111AC96D1E2D1AD7007DE137 /* logo_640_0094.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0094.png; sourceTree = "<group>"; };
-		111AC96E1E2D1AD7007DE137 /* logo_640_0095.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0095.png; sourceTree = "<group>"; };
-		111AC96F1E2D1AD7007DE137 /* logo_640_0096.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0096.png; sourceTree = "<group>"; };
-		111AC9701E2D1AD7007DE137 /* logo_640_0097.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0097.png; sourceTree = "<group>"; };
-		111AC9711E2D1AD7007DE137 /* logo_640_0098.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0098.png; sourceTree = "<group>"; };
-		111AC9721E2D1AD7007DE137 /* logo_640_0099.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0099.png; sourceTree = "<group>"; };
-		111AC9731E2D1AD7007DE137 /* logo_640_0100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0100.png; sourceTree = "<group>"; };
-		111AC9741E2D1AD7007DE137 /* logo_640_0101.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0101.png; sourceTree = "<group>"; };
-		111AC9751E2D1AD7007DE137 /* logo_640_0102.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0102.png; sourceTree = "<group>"; };
-		111AC9761E2D1AD7007DE137 /* logo_640_0103.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0103.png; sourceTree = "<group>"; };
-		111AC9771E2D1AD7007DE137 /* logo_640_0104.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0104.png; sourceTree = "<group>"; };
-		111AC9781E2D1AD7007DE137 /* logo_640_0105.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0105.png; sourceTree = "<group>"; };
-		111AC9791E2D1AD7007DE137 /* logo_640_0106.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0106.png; sourceTree = "<group>"; };
-		111AC97A1E2D1AD7007DE137 /* logo_640_0107.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0107.png; sourceTree = "<group>"; };
-		111AC97B1E2D1AD7007DE137 /* logo_640_0108.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0108.png; sourceTree = "<group>"; };
-		111AC97C1E2D1AD7007DE137 /* logo_640_0109.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0109.png; sourceTree = "<group>"; };
-		111AC97D1E2D1AD7007DE137 /* logo_640_0110.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0110.png; sourceTree = "<group>"; };
-		111AC97E1E2D1AD7007DE137 /* logo_640_0111.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0111.png; sourceTree = "<group>"; };
-		111AC97F1E2D1AD7007DE137 /* logo_640_0112.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0112.png; sourceTree = "<group>"; };
-		111AC9801E2D1AD7007DE137 /* logo_640_0113.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0113.png; sourceTree = "<group>"; };
-		111AC9811E2D1AD7007DE137 /* logo_640_0114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0114.png; sourceTree = "<group>"; };
-		111AC9821E2D1AD7007DE137 /* logo_640_0115.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0115.png; sourceTree = "<group>"; };
-		111AC9831E2D1AD7007DE137 /* logo_640_0116.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0116.png; sourceTree = "<group>"; };
-		111AC9841E2D1AD7007DE137 /* logo_640_0117.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0117.png; sourceTree = "<group>"; };
-		111AC9851E2D1AD7007DE137 /* logo_640_0118.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0118.png; sourceTree = "<group>"; };
-		111AC9861E2D1AD7007DE137 /* logo_640_0119.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0119.png; sourceTree = "<group>"; };
-		111AC9871E2D1AD7007DE137 /* logo_640_0120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0120.png; sourceTree = "<group>"; };
-		111AC9881E2D1AD7007DE137 /* logo_640_0121.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0121.png; sourceTree = "<group>"; };
-		111AC9891E2D1AD7007DE137 /* logo_640_0122.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0122.png; sourceTree = "<group>"; };
-		111AC98A1E2D1AD7007DE137 /* logo_640_0123.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0123.png; sourceTree = "<group>"; };
-		111AC98B1E2D1AD7007DE137 /* logo_640_0124.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0124.png; sourceTree = "<group>"; };
-		111AC98C1E2D1AD7007DE137 /* logo_640_0125.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0125.png; sourceTree = "<group>"; };
-		111AC98D1E2D1AD7007DE137 /* logo_640_0126.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0126.png; sourceTree = "<group>"; };
-		111AC98E1E2D1AD7007DE137 /* logo_640_0127.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0127.png; sourceTree = "<group>"; };
-		111AC98F1E2D1AD7007DE137 /* logo_640_0128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0128.png; sourceTree = "<group>"; };
-		111AC9901E2D1AD7007DE137 /* logo_640_0129.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0129.png; sourceTree = "<group>"; };
-		111AC9911E2D1AD7007DE137 /* logo_640_0130.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0130.png; sourceTree = "<group>"; };
-		111AC9921E2D1AD7007DE137 /* logo_640_0131.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0131.png; sourceTree = "<group>"; };
-		111AC9931E2D1AD7007DE137 /* logo_640_0132.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0132.png; sourceTree = "<group>"; };
-		111AC9941E2D1AD7007DE137 /* logo_640_0133.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0133.png; sourceTree = "<group>"; };
-		111AC9951E2D1AD7007DE137 /* logo_640_0134.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0134.png; sourceTree = "<group>"; };
-		111AC9961E2D1AD7007DE137 /* logo_640_0135.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0135.png; sourceTree = "<group>"; };
-		111AC9971E2D1AD7007DE137 /* logo_640_0136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0136.png; sourceTree = "<group>"; };
-		111AC9981E2D1AD7007DE137 /* logo_640_0137.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0137.png; sourceTree = "<group>"; };
-		111AC9991E2D1AD7007DE137 /* logo_640_0138.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0138.png; sourceTree = "<group>"; };
-		111AC99A1E2D1AD7007DE137 /* logo_640_0139.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0139.png; sourceTree = "<group>"; };
-		111AC99B1E2D1AD7007DE137 /* logo_640_0140.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0140.png; sourceTree = "<group>"; };
-		111AC99C1E2D1AD7007DE137 /* logo_640_0141.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0141.png; sourceTree = "<group>"; };
-		111AC99D1E2D1AD7007DE137 /* logo_640_0142.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0142.png; sourceTree = "<group>"; };
-		111AC99E1E2D1AD7007DE137 /* logo_640_0143.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0143.png; sourceTree = "<group>"; };
-		111AC99F1E2D1AD7007DE137 /* logo_640_0144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0144.png; sourceTree = "<group>"; };
-		111AC9A01E2D1AD7007DE137 /* logo_640_0145.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0145.png; sourceTree = "<group>"; };
-		111AC9A11E2D1AD7007DE137 /* logo_640_0146.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0146.png; sourceTree = "<group>"; };
-		111AC9A21E2D1AD7007DE137 /* logo_640_0147.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0147.png; sourceTree = "<group>"; };
-		111AC9A31E2D1AD7007DE137 /* logo_640_0148.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0148.png; sourceTree = "<group>"; };
-		111AC9A41E2D1AD7007DE137 /* logo_640_0149.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0149.png; sourceTree = "<group>"; };
-		111AC9A51E2D1AD7007DE137 /* logo_640_0150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0150.png; sourceTree = "<group>"; };
-		111AC9A61E2D1AD7007DE137 /* logo_640_0151.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0151.png; sourceTree = "<group>"; };
-		111AC9A71E2D1AD7007DE137 /* logo_640_0152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0152.png; sourceTree = "<group>"; };
-		111AC9A81E2D1AD7007DE137 /* logo_640_0153.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0153.png; sourceTree = "<group>"; };
-		111AC9A91E2D1AD7007DE137 /* logo_640_0154.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0154.png; sourceTree = "<group>"; };
-		111AC9AA1E2D1AD7007DE137 /* logo_640_0155.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0155.png; sourceTree = "<group>"; };
-		111AC9AB1E2D1AD7007DE137 /* logo_640_0156.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0156.png; sourceTree = "<group>"; };
-		111AC9AC1E2D1AD7007DE137 /* logo_640_0157.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0157.png; sourceTree = "<group>"; };
-		111AC9AD1E2D1AD7007DE137 /* logo_640_0158.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0158.png; sourceTree = "<group>"; };
-		111AC9AE1E2D1AD7007DE137 /* logo_640_0159.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0159.png; sourceTree = "<group>"; };
-		111AC9AF1E2D1AD7007DE137 /* logo_640_0160.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0160.png; sourceTree = "<group>"; };
-		111AC9B01E2D1AD7007DE137 /* logo_640_0161.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0161.png; sourceTree = "<group>"; };
-		111AC9B11E2D1AD7007DE137 /* logo_640_0162.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0162.png; sourceTree = "<group>"; };
-		111AC9B21E2D1AD7007DE137 /* logo_640_0163.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0163.png; sourceTree = "<group>"; };
-		111AC9B31E2D1AD7007DE137 /* logo_640_0164.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0164.png; sourceTree = "<group>"; };
-		111AC9B41E2D1AD7007DE137 /* logo_640_0165.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0165.png; sourceTree = "<group>"; };
-		111AC9B51E2D1AD7007DE137 /* logo_640_0166.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0166.png; sourceTree = "<group>"; };
-		111AC9B61E2D1AD7007DE137 /* logo_640_0167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0167.png; sourceTree = "<group>"; };
-		111AC9B71E2D1AD7007DE137 /* logo_640_0168.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0168.png; sourceTree = "<group>"; };
-		111AC9B81E2D1AD7007DE137 /* logo_640_0169.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0169.png; sourceTree = "<group>"; };
-		111AC9B91E2D1AD7007DE137 /* logo_640_0170.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0170.png; sourceTree = "<group>"; };
-		111AC9BA1E2D1AD7007DE137 /* logo_640_0171.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0171.png; sourceTree = "<group>"; };
-		111AC9BB1E2D1AD7007DE137 /* logo_640_0172.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0172.png; sourceTree = "<group>"; };
-		111AC9BC1E2D1AD7007DE137 /* logo_640_0173.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_640_0173.png; sourceTree = "<group>"; };
 		111ACA6B1E2DCF4E007DE137 /* 90appbundle.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = 90appbundle.cer; sourceTree = "<group>"; };
 		111ACA6E1E2DCF83007DE137 /* right_answer_gif0000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_answer_gif0000.png; sourceTree = "<group>"; };
 		111ACA6F1E2DCF83007DE137 /* right_answer_gif0001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_answer_gif0001.png; sourceTree = "<group>"; };
@@ -2215,6 +1868,7 @@
 		111ACA811E2DCF83007DE137 /* right_answer_gif0019.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_answer_gif0019.png; sourceTree = "<group>"; };
 		111ACA821E2DCF83007DE137 /* right_answer_gif0020.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_answer_gif0020.png; sourceTree = "<group>"; };
 		111ACA831E2DCF83007DE137 /* right_answer_gif0021.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_answer_gif0021.png; sourceTree = "<group>"; };
+		111ACA9A1E2E06FB007DE137 /* LOGO-640.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "LOGO-640.gif"; sourceTree = "<group>"; };
 		112167601CEF565A0048EA01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		112167621CF0637B0048EA01 /* SKLaunchAnimationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLaunchAnimationViewController.h; sourceTree = "<group>"; };
 		112167631CF0637B0048EA01 /* SKLaunchAnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLaunchAnimationViewController.m; sourceTree = "<group>"; };
@@ -4269,6 +3923,7 @@
 		110F9D7F1CD880E20097EB8A /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				111ACA9A1E2E06FB007DE137 /* LOGO-640.gif */,
 				1114AE031CE48DD800CCF92C /* Assets.xcassets */,
 				111ACA6D1E2DCF83007DE137 /* FightSuccess */,
 				17A247911C623B9900359CCF /* right_answer_gif */,
@@ -4276,7 +3931,6 @@
 				17461CE71C7493DF00C847E8 /* img_ar_right_answer_gif */,
 				119C5CB71E2769D1001B4CFD /* MascotAnimationFrame */,
 				113FA69B1E1E1DC5001DFFC5 /* MascotGif */,
-				111AC90E1E2D1AD7007DE137 /* logo_640 */,
 				17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */,
 				17D1F8821C29ADCD0029E4AF /* wrong_answer_gif.gif */,
 			);
@@ -4295,188 +3949,6 @@
 				26BD341D1C12DF3300472E46 /* moonbold.ttf */,
 			);
 			name = Resource;
-			sourceTree = "<group>";
-		};
-		111AC90E1E2D1AD7007DE137 /* logo_640 */ = {
-			isa = PBXGroup;
-			children = (
-				111AC90F1E2D1AD7007DE137 /* logo_640_0000.png */,
-				111AC9101E2D1AD7007DE137 /* logo_640_0001.png */,
-				111AC9111E2D1AD7007DE137 /* logo_640_0002.png */,
-				111AC9121E2D1AD7007DE137 /* logo_640_0003.png */,
-				111AC9131E2D1AD7007DE137 /* logo_640_0004.png */,
-				111AC9141E2D1AD7007DE137 /* logo_640_0005.png */,
-				111AC9151E2D1AD7007DE137 /* logo_640_0006.png */,
-				111AC9161E2D1AD7007DE137 /* logo_640_0007.png */,
-				111AC9171E2D1AD7007DE137 /* logo_640_0008.png */,
-				111AC9181E2D1AD7007DE137 /* logo_640_0009.png */,
-				111AC9191E2D1AD7007DE137 /* logo_640_0010.png */,
-				111AC91A1E2D1AD7007DE137 /* logo_640_0011.png */,
-				111AC91B1E2D1AD7007DE137 /* logo_640_0012.png */,
-				111AC91C1E2D1AD7007DE137 /* logo_640_0013.png */,
-				111AC91D1E2D1AD7007DE137 /* logo_640_0014.png */,
-				111AC91E1E2D1AD7007DE137 /* logo_640_0015.png */,
-				111AC91F1E2D1AD7007DE137 /* logo_640_0016.png */,
-				111AC9201E2D1AD7007DE137 /* logo_640_0017.png */,
-				111AC9211E2D1AD7007DE137 /* logo_640_0018.png */,
-				111AC9221E2D1AD7007DE137 /* logo_640_0019.png */,
-				111AC9231E2D1AD7007DE137 /* logo_640_0020.png */,
-				111AC9241E2D1AD7007DE137 /* logo_640_0021.png */,
-				111AC9251E2D1AD7007DE137 /* logo_640_0022.png */,
-				111AC9261E2D1AD7007DE137 /* logo_640_0023.png */,
-				111AC9271E2D1AD7007DE137 /* logo_640_0024.png */,
-				111AC9281E2D1AD7007DE137 /* logo_640_0025.png */,
-				111AC9291E2D1AD7007DE137 /* logo_640_0026.png */,
-				111AC92A1E2D1AD7007DE137 /* logo_640_0027.png */,
-				111AC92B1E2D1AD7007DE137 /* logo_640_0028.png */,
-				111AC92C1E2D1AD7007DE137 /* logo_640_0029.png */,
-				111AC92D1E2D1AD7007DE137 /* logo_640_0030.png */,
-				111AC92E1E2D1AD7007DE137 /* logo_640_0031.png */,
-				111AC92F1E2D1AD7007DE137 /* logo_640_0032.png */,
-				111AC9301E2D1AD7007DE137 /* logo_640_0033.png */,
-				111AC9311E2D1AD7007DE137 /* logo_640_0034.png */,
-				111AC9321E2D1AD7007DE137 /* logo_640_0035.png */,
-				111AC9331E2D1AD7007DE137 /* logo_640_0036.png */,
-				111AC9341E2D1AD7007DE137 /* logo_640_0037.png */,
-				111AC9351E2D1AD7007DE137 /* logo_640_0038.png */,
-				111AC9361E2D1AD7007DE137 /* logo_640_0039.png */,
-				111AC9371E2D1AD7007DE137 /* logo_640_0040.png */,
-				111AC9381E2D1AD7007DE137 /* logo_640_0041.png */,
-				111AC9391E2D1AD7007DE137 /* logo_640_0042.png */,
-				111AC93A1E2D1AD7007DE137 /* logo_640_0043.png */,
-				111AC93B1E2D1AD7007DE137 /* logo_640_0044.png */,
-				111AC93C1E2D1AD7007DE137 /* logo_640_0045.png */,
-				111AC93D1E2D1AD7007DE137 /* logo_640_0046.png */,
-				111AC93E1E2D1AD7007DE137 /* logo_640_0047.png */,
-				111AC93F1E2D1AD7007DE137 /* logo_640_0048.png */,
-				111AC9401E2D1AD7007DE137 /* logo_640_0049.png */,
-				111AC9411E2D1AD7007DE137 /* logo_640_0050.png */,
-				111AC9421E2D1AD7007DE137 /* logo_640_0051.png */,
-				111AC9431E2D1AD7007DE137 /* logo_640_0052.png */,
-				111AC9441E2D1AD7007DE137 /* logo_640_0053.png */,
-				111AC9451E2D1AD7007DE137 /* logo_640_0054.png */,
-				111AC9461E2D1AD7007DE137 /* logo_640_0055.png */,
-				111AC9471E2D1AD7007DE137 /* logo_640_0056.png */,
-				111AC9481E2D1AD7007DE137 /* logo_640_0057.png */,
-				111AC9491E2D1AD7007DE137 /* logo_640_0058.png */,
-				111AC94A1E2D1AD7007DE137 /* logo_640_0059.png */,
-				111AC94B1E2D1AD7007DE137 /* logo_640_0060.png */,
-				111AC94C1E2D1AD7007DE137 /* logo_640_0061.png */,
-				111AC94D1E2D1AD7007DE137 /* logo_640_0062.png */,
-				111AC94E1E2D1AD7007DE137 /* logo_640_0063.png */,
-				111AC94F1E2D1AD7007DE137 /* logo_640_0064.png */,
-				111AC9501E2D1AD7007DE137 /* logo_640_0065.png */,
-				111AC9511E2D1AD7007DE137 /* logo_640_0066.png */,
-				111AC9521E2D1AD7007DE137 /* logo_640_0067.png */,
-				111AC9531E2D1AD7007DE137 /* logo_640_0068.png */,
-				111AC9541E2D1AD7007DE137 /* logo_640_0069.png */,
-				111AC9551E2D1AD7007DE137 /* logo_640_0070.png */,
-				111AC9561E2D1AD7007DE137 /* logo_640_0071.png */,
-				111AC9571E2D1AD7007DE137 /* logo_640_0072.png */,
-				111AC9581E2D1AD7007DE137 /* logo_640_0073.png */,
-				111AC9591E2D1AD7007DE137 /* logo_640_0074.png */,
-				111AC95A1E2D1AD7007DE137 /* logo_640_0075.png */,
-				111AC95B1E2D1AD7007DE137 /* logo_640_0076.png */,
-				111AC95C1E2D1AD7007DE137 /* logo_640_0077.png */,
-				111AC95D1E2D1AD7007DE137 /* logo_640_0078.png */,
-				111AC95E1E2D1AD7007DE137 /* logo_640_0079.png */,
-				111AC95F1E2D1AD7007DE137 /* logo_640_0080.png */,
-				111AC9601E2D1AD7007DE137 /* logo_640_0081.png */,
-				111AC9611E2D1AD7007DE137 /* logo_640_0082.png */,
-				111AC9621E2D1AD7007DE137 /* logo_640_0083.png */,
-				111AC9631E2D1AD7007DE137 /* logo_640_0084.png */,
-				111AC9641E2D1AD7007DE137 /* logo_640_0085.png */,
-				111AC9651E2D1AD7007DE137 /* logo_640_0086.png */,
-				111AC9661E2D1AD7007DE137 /* logo_640_0087.png */,
-				111AC9671E2D1AD7007DE137 /* logo_640_0088.png */,
-				111AC9681E2D1AD7007DE137 /* logo_640_0089.png */,
-				111AC9691E2D1AD7007DE137 /* logo_640_0090.png */,
-				111AC96A1E2D1AD7007DE137 /* logo_640_0091.png */,
-				111AC96B1E2D1AD7007DE137 /* logo_640_0092.png */,
-				111AC96C1E2D1AD7007DE137 /* logo_640_0093.png */,
-				111AC96D1E2D1AD7007DE137 /* logo_640_0094.png */,
-				111AC96E1E2D1AD7007DE137 /* logo_640_0095.png */,
-				111AC96F1E2D1AD7007DE137 /* logo_640_0096.png */,
-				111AC9701E2D1AD7007DE137 /* logo_640_0097.png */,
-				111AC9711E2D1AD7007DE137 /* logo_640_0098.png */,
-				111AC9721E2D1AD7007DE137 /* logo_640_0099.png */,
-				111AC9731E2D1AD7007DE137 /* logo_640_0100.png */,
-				111AC9741E2D1AD7007DE137 /* logo_640_0101.png */,
-				111AC9751E2D1AD7007DE137 /* logo_640_0102.png */,
-				111AC9761E2D1AD7007DE137 /* logo_640_0103.png */,
-				111AC9771E2D1AD7007DE137 /* logo_640_0104.png */,
-				111AC9781E2D1AD7007DE137 /* logo_640_0105.png */,
-				111AC9791E2D1AD7007DE137 /* logo_640_0106.png */,
-				111AC97A1E2D1AD7007DE137 /* logo_640_0107.png */,
-				111AC97B1E2D1AD7007DE137 /* logo_640_0108.png */,
-				111AC97C1E2D1AD7007DE137 /* logo_640_0109.png */,
-				111AC97D1E2D1AD7007DE137 /* logo_640_0110.png */,
-				111AC97E1E2D1AD7007DE137 /* logo_640_0111.png */,
-				111AC97F1E2D1AD7007DE137 /* logo_640_0112.png */,
-				111AC9801E2D1AD7007DE137 /* logo_640_0113.png */,
-				111AC9811E2D1AD7007DE137 /* logo_640_0114.png */,
-				111AC9821E2D1AD7007DE137 /* logo_640_0115.png */,
-				111AC9831E2D1AD7007DE137 /* logo_640_0116.png */,
-				111AC9841E2D1AD7007DE137 /* logo_640_0117.png */,
-				111AC9851E2D1AD7007DE137 /* logo_640_0118.png */,
-				111AC9861E2D1AD7007DE137 /* logo_640_0119.png */,
-				111AC9871E2D1AD7007DE137 /* logo_640_0120.png */,
-				111AC9881E2D1AD7007DE137 /* logo_640_0121.png */,
-				111AC9891E2D1AD7007DE137 /* logo_640_0122.png */,
-				111AC98A1E2D1AD7007DE137 /* logo_640_0123.png */,
-				111AC98B1E2D1AD7007DE137 /* logo_640_0124.png */,
-				111AC98C1E2D1AD7007DE137 /* logo_640_0125.png */,
-				111AC98D1E2D1AD7007DE137 /* logo_640_0126.png */,
-				111AC98E1E2D1AD7007DE137 /* logo_640_0127.png */,
-				111AC98F1E2D1AD7007DE137 /* logo_640_0128.png */,
-				111AC9901E2D1AD7007DE137 /* logo_640_0129.png */,
-				111AC9911E2D1AD7007DE137 /* logo_640_0130.png */,
-				111AC9921E2D1AD7007DE137 /* logo_640_0131.png */,
-				111AC9931E2D1AD7007DE137 /* logo_640_0132.png */,
-				111AC9941E2D1AD7007DE137 /* logo_640_0133.png */,
-				111AC9951E2D1AD7007DE137 /* logo_640_0134.png */,
-				111AC9961E2D1AD7007DE137 /* logo_640_0135.png */,
-				111AC9971E2D1AD7007DE137 /* logo_640_0136.png */,
-				111AC9981E2D1AD7007DE137 /* logo_640_0137.png */,
-				111AC9991E2D1AD7007DE137 /* logo_640_0138.png */,
-				111AC99A1E2D1AD7007DE137 /* logo_640_0139.png */,
-				111AC99B1E2D1AD7007DE137 /* logo_640_0140.png */,
-				111AC99C1E2D1AD7007DE137 /* logo_640_0141.png */,
-				111AC99D1E2D1AD7007DE137 /* logo_640_0142.png */,
-				111AC99E1E2D1AD7007DE137 /* logo_640_0143.png */,
-				111AC99F1E2D1AD7007DE137 /* logo_640_0144.png */,
-				111AC9A01E2D1AD7007DE137 /* logo_640_0145.png */,
-				111AC9A11E2D1AD7007DE137 /* logo_640_0146.png */,
-				111AC9A21E2D1AD7007DE137 /* logo_640_0147.png */,
-				111AC9A31E2D1AD7007DE137 /* logo_640_0148.png */,
-				111AC9A41E2D1AD7007DE137 /* logo_640_0149.png */,
-				111AC9A51E2D1AD7007DE137 /* logo_640_0150.png */,
-				111AC9A61E2D1AD7007DE137 /* logo_640_0151.png */,
-				111AC9A71E2D1AD7007DE137 /* logo_640_0152.png */,
-				111AC9A81E2D1AD7007DE137 /* logo_640_0153.png */,
-				111AC9A91E2D1AD7007DE137 /* logo_640_0154.png */,
-				111AC9AA1E2D1AD7007DE137 /* logo_640_0155.png */,
-				111AC9AB1E2D1AD7007DE137 /* logo_640_0156.png */,
-				111AC9AC1E2D1AD7007DE137 /* logo_640_0157.png */,
-				111AC9AD1E2D1AD7007DE137 /* logo_640_0158.png */,
-				111AC9AE1E2D1AD7007DE137 /* logo_640_0159.png */,
-				111AC9AF1E2D1AD7007DE137 /* logo_640_0160.png */,
-				111AC9B01E2D1AD7007DE137 /* logo_640_0161.png */,
-				111AC9B11E2D1AD7007DE137 /* logo_640_0162.png */,
-				111AC9B21E2D1AD7007DE137 /* logo_640_0163.png */,
-				111AC9B31E2D1AD7007DE137 /* logo_640_0164.png */,
-				111AC9B41E2D1AD7007DE137 /* logo_640_0165.png */,
-				111AC9B51E2D1AD7007DE137 /* logo_640_0166.png */,
-				111AC9B61E2D1AD7007DE137 /* logo_640_0167.png */,
-				111AC9B71E2D1AD7007DE137 /* logo_640_0168.png */,
-				111AC9B81E2D1AD7007DE137 /* logo_640_0169.png */,
-				111AC9B91E2D1AD7007DE137 /* logo_640_0170.png */,
-				111AC9BA1E2D1AD7007DE137 /* logo_640_0171.png */,
-				111AC9BB1E2D1AD7007DE137 /* logo_640_0172.png */,
-				111AC9BC1E2D1AD7007DE137 /* logo_640_0173.png */,
-			);
-			name = logo_640;
-			path = Images/logo_640;
 			sourceTree = "<group>";
 		};
 		111ACA6D1E2DCF83007DE137 /* FightSuccess */ = {
@@ -7258,7 +6730,6 @@
 				119C635D1E2769D3001B4CFD /* envy_03_00058.jpg in Resources */,
 				119C64F31E2769D4001B4CFD /* lingzai_01_00094.jpg in Resources */,
 				119C66431E2769D5001B4CFD /* lust_03_00005.jpg in Resources */,
-				111ACA481E2D1AD8007DE137 /* logo_640_0139.png in Resources */,
 				119C665D1E2769D5001B4CFD /* lust_03_00031.jpg in Resources */,
 				119C66411E2769D5001B4CFD /* lust_03_00003.jpg in Resources */,
 				119C67AB1E2769D6001B4CFD /* sloth_02_00019.jpg in Resources */,
@@ -7268,7 +6739,6 @@
 				119C65FE1E2769D5001B4CFD /* lust_02_00021.jpg in Resources */,
 				119C66E41E2769D5001B4CFD /* pride_02_00008.jpg in Resources */,
 				119C63EC1E2769D3001B4CFD /* gluttony_02_00016.jpg in Resources */,
-				111ACA0F1E2D1AD8007DE137 /* logo_640_0082.png in Resources */,
 				119C62B81E2769D3001B4CFD /* envy_01_00027.jpg in Resources */,
 				119C67081E2769D6001B4CFD /* pride_02_00044.jpg in Resources */,
 				119C685F1E2769D7001B4CFD /* wrath_03_00027.jpg in Resources */,
@@ -7278,10 +6748,8 @@
 				119C670D1E2769D6001B4CFD /* pride_02_00049.jpg in Resources */,
 				119C67C51E2769D6001B4CFD /* sloth_02_00045.jpg in Resources */,
 				119C659C1E2769D4001B4CFD /* lingzai_03_00071.jpg in Resources */,
-				111ACA471E2D1AD8007DE137 /* logo_640_0138.png in Resources */,
 				119C63C11E2769D3001B4CFD /* gluttony_01_00073.jpg in Resources */,
 				119C64C11E2769D4001B4CFD /* lingzai_01_00044.jpg in Resources */,
-				111ACA1E1E2D1AD8007DE137 /* logo_640_0097.png in Resources */,
 				119C68581E2769D7001B4CFD /* wrath_03_00020.jpg in Resources */,
 				119C66851E2769D5001B4CFD /* lust_03_00071.jpg in Resources */,
 				119C67171E2769D6001B4CFD /* pride_02_00059.jpg in Resources */,
@@ -7295,7 +6763,6 @@
 				119C66491E2769D5001B4CFD /* lust_03_00011.jpg in Resources */,
 				119C67681E2769D6001B4CFD /* sloth_01_00020.jpg in Resources */,
 				119C67771E2769D6001B4CFD /* sloth_01_00035.jpg in Resources */,
-				111ACA4A1E2D1AD8007DE137 /* logo_640_0141.png in Resources */,
 				119C686A1E2769D7001B4CFD /* wrath_03_00038.jpg in Resources */,
 				119C681F1E2769D7001B4CFD /* wrath_01_00020.jpg in Resources */,
 				119C68331E2769D7001B4CFD /* wrath_02_00006.jpg in Resources */,
@@ -7313,14 +6780,11 @@
 				119C63331E2769D3001B4CFD /* envy_03_00016.jpg in Resources */,
 				119C652D1E2769D4001B4CFD /* lingzai_02_00054.jpg in Resources */,
 				119C67C41E2769D6001B4CFD /* sloth_02_00044.jpg in Resources */,
-				111ACA5E1E2D1AD8007DE137 /* logo_640_0161.png in Resources */,
 				119C65471E2769D4001B4CFD /* lingzai_02_00080.jpg in Resources */,
-				111AC9E51E2D1AD8007DE137 /* logo_640_0040.png in Resources */,
 				11B44EC41D8FF30D00CD2BAC /* trailer_video.mp4 in Resources */,
 				119C64061E2769D3001B4CFD /* gluttony_02_00042.jpg in Resources */,
 				119C67A51E2769D6001B4CFD /* sloth_02_00013.jpg in Resources */,
 				119C65E71E2769D5001B4CFD /* lust_01_00074.jpg in Resources */,
-				111AC9CE1E2D1AD7007DE137 /* logo_640_0017.png in Resources */,
 				119C661B1E2769D5001B4CFD /* lust_02_00050.jpg in Resources */,
 				119C63101E2769D3001B4CFD /* envy_02_00035.jpg in Resources */,
 				119C650B1E2769D4001B4CFD /* lingzai_02_00020.jpg in Resources */,
@@ -7333,14 +6797,10 @@
 				119C64981E2769D4001B4CFD /* lingzai_01_00003.jpg in Resources */,
 				119C67A91E2769D6001B4CFD /* sloth_02_00017.jpg in Resources */,
 				119C66D01E2769D5001B4CFD /* pride_01_00050.jpg in Resources */,
-				111AC9D91E2D1AD7007DE137 /* logo_640_0028.png in Resources */,
 				119C62AE1E2769D3001B4CFD /* envy_01_00017.jpg in Resources */,
-				111ACA111E2D1AD8007DE137 /* logo_640_0084.png in Resources */,
-				111ACA671E2D1AD8007DE137 /* logo_640_0170.png in Resources */,
 				119C668C1E2769D5001B4CFD /* lust_03_00078.jpg in Resources */,
 				119C62BF1E2769D3001B4CFD /* envy_01_00034.jpg in Resources */,
 				119C67011E2769D6001B4CFD /* pride_02_00037.jpg in Resources */,
-				111ACA271E2D1AD8007DE137 /* logo_640_0106.png in Resources */,
 				119C67DC1E2769D6001B4CFD /* sloth_02_00068.jpg in Resources */,
 				119C64BE1E2769D4001B4CFD /* lingzai_01_00041.jpg in Resources */,
 				119C636D1E2769D3001B4CFD /* envy_03_00074.jpg in Resources */,
@@ -7349,7 +6809,6 @@
 				119C63131E2769D3001B4CFD /* envy_02_00038.jpg in Resources */,
 				119C63371E2769D3001B4CFD /* envy_03_00020.jpg in Resources */,
 				119C65BF1E2769D5001B4CFD /* lust_01_00034.jpg in Resources */,
-				111AC9FC1E2D1AD8007DE137 /* logo_640_0063.png in Resources */,
 				119C63BA1E2769D3001B4CFD /* gluttony_01_00066.jpg in Resources */,
 				119C679A1E2769D6001B4CFD /* sloth_02_00002.jpg in Resources */,
 				119C65B91E2769D5001B4CFD /* lust_01_00028.jpg in Resources */,
@@ -7375,7 +6834,6 @@
 				119C62F81E2769D3001B4CFD /* envy_02_00011.jpg in Resources */,
 				119C64421E2769D3001B4CFD /* gluttony_03_00007.jpg in Resources */,
 				119C64771E2769D4001B4CFD /* gluttony_03_00060.jpg in Resources */,
-				111ACA581E2D1AD8007DE137 /* logo_640_0155.png in Resources */,
 				11F2185A1CBB951300D2ED44 /* WeiboSDK.bundle in Resources */,
 				119C63C61E2769D3001B4CFD /* gluttony_01_00078.jpg in Resources */,
 				119C63CE1E2769D3001B4CFD /* gluttony_01_00086.jpg in Resources */,
@@ -7390,7 +6848,6 @@
 				119C67F91E2769D6001B4CFD /* sloth_03_00016.jpg in Resources */,
 				119C67A01E2769D6001B4CFD /* sloth_02_00008.jpg in Resources */,
 				17A92CD91CA809B100BE893D /* MJRefresh.bundle in Resources */,
-				111AC9C91E2D1AD7007DE137 /* logo_640_0012.png in Resources */,
 				119C65EF1E2769D5001B4CFD /* lust_02_00006.jpg in Resources */,
 				119C64F81E2769D4001B4CFD /* lingzai_02_00001.jpg in Resources */,
 				119C66FC1E2769D6001B4CFD /* pride_02_00032.jpg in Resources */,
@@ -7408,11 +6865,9 @@
 				119C66981E2769D5001B4CFD /* lust_03_00090.jpg in Resources */,
 				17A247851C623B9300359CCF /* raw_wrong_answer_gif_0007.png in Resources */,
 				119C63A21E2769D3001B4CFD /* gluttony_01_00042.jpg in Resources */,
-				111ACA221E2D1AD8007DE137 /* logo_640_0101.png in Resources */,
 				17A247B71C623B9900359CCF /* right_answer_gif_0016.png in Resources */,
 				119C640E1E2769D3001B4CFD /* gluttony_02_00050.jpg in Resources */,
 				119C64CD1E2769D4001B4CFD /* lingzai_01_00056.jpg in Resources */,
-				111ACA041E2D1AD8007DE137 /* logo_640_0071.png in Resources */,
 				119C65F41E2769D5001B4CFD /* lust_02_00011.jpg in Resources */,
 				17D1F8811C29ADC40029E4AF /* right_answer_gif.gif in Resources */,
 				119C68081E2769D6001B4CFD /* sloth_03_00031.jpg in Resources */,
@@ -7426,7 +6881,6 @@
 				119C65FA1E2769D5001B4CFD /* lust_02_00017.jpg in Resources */,
 				119C645C1E2769D4001B4CFD /* gluttony_03_00033.jpg in Resources */,
 				119C63AD1E2769D3001B4CFD /* gluttony_01_00053.jpg in Resources */,
-				111ACA291E2D1AD8007DE137 /* logo_640_0108.png in Resources */,
 				119C653C1E2769D4001B4CFD /* lingzai_02_00069.jpg in Resources */,
 				119C64B81E2769D4001B4CFD /* lingzai_01_00035.jpg in Resources */,
 				119C68511E2769D7001B4CFD /* wrath_03_00013.jpg in Resources */,
@@ -7440,7 +6894,6 @@
 				119C645E1E2769D4001B4CFD /* gluttony_03_00035.jpg in Resources */,
 				119C66151E2769D5001B4CFD /* lust_02_00044.jpg in Resources */,
 				119C63581E2769D3001B4CFD /* envy_03_00053.jpg in Resources */,
-				111AC9F21E2D1AD8007DE137 /* logo_640_0053.png in Resources */,
 				119C67DA1E2769D6001B4CFD /* sloth_02_00066.jpg in Resources */,
 				119C633A1E2769D3001B4CFD /* envy_03_00023.jpg in Resources */,
 				119C63DE1E2769D3001B4CFD /* gluttony_02_00002.jpg in Resources */,
@@ -7449,9 +6902,7 @@
 				119C63971E2769D3001B4CFD /* gluttony_01_00031.jpg in Resources */,
 				119C67F21E2769D6001B4CFD /* sloth_03_00009.jpg in Resources */,
 				112167611CEF565A0048EA01 /* LaunchScreen.storyboard in Resources */,
-				111ACA5F1E2D1AD8007DE137 /* logo_640_0162.png in Resources */,
 				119C65AB1E2769D4001B4CFD /* lust_01_00014.jpg in Resources */,
-				111AC9D11E2D1AD7007DE137 /* logo_640_0020.png in Resources */,
 				119C65B51E2769D5001B4CFD /* lust_01_00024.jpg in Resources */,
 				119C66001E2769D5001B4CFD /* lust_02_00023.jpg in Resources */,
 				119C63951E2769D3001B4CFD /* gluttony_01_00029.jpg in Resources */,
@@ -7464,7 +6915,6 @@
 				119C663C1E2769D5001B4CFD /* lust_02_00083.jpg in Resources */,
 				119C63E71E2769D3001B4CFD /* gluttony_02_00011.jpg in Resources */,
 				119C668E1E2769D5001B4CFD /* lust_03_00080.jpg in Resources */,
-				111ACA4E1E2D1AD8007DE137 /* logo_640_0145.png in Resources */,
 				119C64F51E2769D4001B4CFD /* lingzai_01_00096.jpg in Resources */,
 				119C62FA1E2769D3001B4CFD /* envy_02_00013.jpg in Resources */,
 				119C653B1E2769D4001B4CFD /* lingzai_02_00068.jpg in Resources */,
@@ -7478,7 +6928,6 @@
 				119C663E1E2769D5001B4CFD /* lust_03_00000.jpg in Resources */,
 				119C63B41E2769D3001B4CFD /* gluttony_01_00060.jpg in Resources */,
 				119C632D1E2769D3001B4CFD /* envy_03_00010.jpg in Resources */,
-				111ACA491E2D1AD8007DE137 /* logo_640_0140.png in Resources */,
 				119C67591E2769D6001B4CFD /* sloth_01_00005.jpg in Resources */,
 				119C67AA1E2769D6001B4CFD /* sloth_02_00018.jpg in Resources */,
 				119C65821E2769D4001B4CFD /* lingzai_03_00045.jpg in Resources */,
@@ -7487,12 +6936,10 @@
 				119C679F1E2769D6001B4CFD /* sloth_02_00007.jpg in Resources */,
 				17461CFE1C7493DF00C847E8 /* img_ar_right_answer_gif_0004.png in Resources */,
 				119C662D1E2769D5001B4CFD /* lust_02_00068.jpg in Resources */,
-				111AC9EB1E2D1AD8007DE137 /* logo_640_0046.png in Resources */,
 				119C63431E2769D3001B4CFD /* envy_03_00032.jpg in Resources */,
 				119C631E1E2769D3001B4CFD /* envy_02_00049.jpg in Resources */,
 				119C674D1E2769D6001B4CFD /* pride_03_00052.jpg in Resources */,
 				119C64BA1E2769D4001B4CFD /* lingzai_01_00037.jpg in Resources */,
-				111AC9E61E2D1AD8007DE137 /* logo_640_0041.png in Resources */,
 				119C658A1E2769D4001B4CFD /* lingzai_03_00053.jpg in Resources */,
 				119C68161E2769D7001B4CFD /* wrath_01_00011.jpg in Resources */,
 				119C66561E2769D5001B4CFD /* lust_03_00024.jpg in Resources */,
@@ -7503,7 +6950,6 @@
 				119C62FC1E2769D3001B4CFD /* envy_02_00015.jpg in Resources */,
 				119C67981E2769D6001B4CFD /* sloth_02_00000.jpg in Resources */,
 				119C674A1E2769D6001B4CFD /* pride_03_00049.jpg in Resources */,
-				111ACA4D1E2D1AD8007DE137 /* logo_640_0144.png in Resources */,
 				111ACA8A1E2DCF83007DE137 /* right_answer_gif0006.png in Resources */,
 				119C64411E2769D3001B4CFD /* gluttony_03_00006.jpg in Resources */,
 				17A247881C623B9300359CCF /* raw_wrong_answer_gif_0010.png in Resources */,
@@ -7522,20 +6968,16 @@
 				17A247B61C623B9900359CCF /* right_answer_gif_0015.png in Resources */,
 				119C62C81E2769D3001B4CFD /* envy_01_00043.jpg in Resources */,
 				119C64E91E2769D4001B4CFD /* lingzai_01_00084.jpg in Resources */,
-				111AC9C51E2D1AD7007DE137 /* logo_640_0008.png in Resources */,
 				119C65401E2769D4001B4CFD /* lingzai_02_00073.jpg in Resources */,
 				119C67471E2769D6001B4CFD /* pride_03_00046.jpg in Resources */,
-				111ACA661E2D1AD8007DE137 /* logo_640_0169.png in Resources */,
 				119C634B1E2769D3001B4CFD /* envy_03_00040.jpg in Resources */,
 				119C67E71E2769D6001B4CFD /* sloth_02_00079.jpg in Resources */,
 				119C68221E2769D7001B4CFD /* wrath_01_00023.jpg in Resources */,
 				119C62CB1E2769D3001B4CFD /* envy_01_00046.jpg in Resources */,
 				119C676B1E2769D6001B4CFD /* sloth_01_00023.jpg in Resources */,
-				111ACA6A1E2D1AD8007DE137 /* logo_640_0173.png in Resources */,
 				119C658D1E2769D4001B4CFD /* lingzai_03_00056.jpg in Resources */,
 				119C68501E2769D7001B4CFD /* wrath_03_00012.jpg in Resources */,
 				119C643E1E2769D3001B4CFD /* gluttony_03_00003.jpg in Resources */,
-				111ACA201E2D1AD8007DE137 /* logo_640_0099.png in Resources */,
 				119C66CE1E2769D5001B4CFD /* pride_01_00048.jpg in Resources */,
 				119C64D41E2769D4001B4CFD /* lingzai_01_00063.jpg in Resources */,
 				119C64281E2769D3001B4CFD /* gluttony_02_00076.jpg in Resources */,
@@ -7550,8 +6992,6 @@
 				119C65971E2769D4001B4CFD /* lingzai_03_00066.jpg in Resources */,
 				119C64B51E2769D4001B4CFD /* lingzai_01_00032.jpg in Resources */,
 				119C63F61E2769D3001B4CFD /* gluttony_02_00026.jpg in Resources */,
-				111ACA071E2D1AD8007DE137 /* logo_640_0074.png in Resources */,
-				111AC9BD1E2D1AD7007DE137 /* logo_640_0000.png in Resources */,
 				119C67001E2769D6001B4CFD /* pride_02_00036.jpg in Resources */,
 				119C680C1E2769D7001B4CFD /* wrath_01_00001.jpg in Resources */,
 				119C65031E2769D4001B4CFD /* lingzai_02_00012.jpg in Resources */,
@@ -7567,20 +7007,16 @@
 				119C654C1E2769D4001B4CFD /* lingzai_02_00085.jpg in Resources */,
 				119C658E1E2769D4001B4CFD /* lingzai_03_00057.jpg in Resources */,
 				119C63991E2769D3001B4CFD /* gluttony_01_00033.jpg in Resources */,
-				111ACA081E2D1AD8007DE137 /* logo_640_0075.png in Resources */,
 				119C634F1E2769D3001B4CFD /* envy_03_00044.jpg in Resources */,
 				119C68541E2769D7001B4CFD /* wrath_03_00016.jpg in Resources */,
 				119C65981E2769D4001B4CFD /* lingzai_03_00067.jpg in Resources */,
-				111AC9EA1E2D1AD8007DE137 /* logo_640_0045.png in Resources */,
 				119C64561E2769D4001B4CFD /* gluttony_03_00027.jpg in Resources */,
 				119C62AC1E2769D2001B4CFD /* envy_01_00015.jpg in Resources */,
 				119C67811E2769D6001B4CFD /* sloth_01_00045.jpg in Resources */,
-				111ACA401E2D1AD8007DE137 /* logo_640_0131.png in Resources */,
 				119C64F91E2769D4001B4CFD /* lingzai_02_00002.jpg in Resources */,
 				119C65431E2769D4001B4CFD /* lingzai_02_00076.jpg in Resources */,
 				119C64EE1E2769D4001B4CFD /* lingzai_01_00089.jpg in Resources */,
 				119C62B71E2769D3001B4CFD /* envy_01_00026.jpg in Resources */,
-				111AC9E31E2D1AD8007DE137 /* logo_640_0038.png in Resources */,
 				119C65CD1E2769D5001B4CFD /* lust_01_00048.jpg in Resources */,
 				119C67F11E2769D6001B4CFD /* sloth_03_00008.jpg in Resources */,
 				119C66B11E2769D5001B4CFD /* pride_01_00019.jpg in Resources */,
@@ -7600,11 +7036,9 @@
 				119C63851E2769D3001B4CFD /* gluttony_01_00013.jpg in Resources */,
 				17461D0A1C7493DF00C847E8 /* img_ar_right_answer_gif_0016.png in Resources */,
 				17A247831C623B9300359CCF /* raw_wrong_answer_gif_0005.png in Resources */,
-				111AC9E41E2D1AD8007DE137 /* logo_640_0039.png in Resources */,
 				119C64A81E2769D4001B4CFD /* lingzai_01_00019.jpg in Resources */,
 				119C65451E2769D4001B4CFD /* lingzai_02_00078.jpg in Resources */,
 				119C63771E2769D3001B4CFD /* envy_03_00084.jpg in Resources */,
-				111AC9FE1E2D1AD8007DE137 /* logo_640_0065.png in Resources */,
 				119C67941E2769D6001B4CFD /* sloth_01_00064.jpg in Resources */,
 				119C65051E2769D4001B4CFD /* lingzai_02_00014.jpg in Resources */,
 				119C67EE1E2769D6001B4CFD /* sloth_03_00005.jpg in Resources */,
@@ -7614,7 +7048,6 @@
 				119C64F21E2769D4001B4CFD /* lingzai_01_00093.jpg in Resources */,
 				119C631C1E2769D3001B4CFD /* envy_02_00047.jpg in Resources */,
 				119C677C1E2769D6001B4CFD /* sloth_01_00040.jpg in Resources */,
-				111ACA651E2D1AD8007DE137 /* logo_640_0168.png in Resources */,
 				119C62EC1E2769D3001B4CFD /* envy_01_00079.jpg in Resources */,
 				119C62A21E2769D2001B4CFD /* envy_01_00005.jpg in Resources */,
 				119C68071E2769D6001B4CFD /* sloth_03_00030.jpg in Resources */,
@@ -7653,14 +7086,11 @@
 				119C67071E2769D6001B4CFD /* pride_02_00043.jpg in Resources */,
 				119C65B11E2769D5001B4CFD /* lust_01_00020.jpg in Resources */,
 				119C65501E2769D4001B4CFD /* lingzai_02_00089.jpg in Resources */,
-				111ACA321E2D1AD8007DE137 /* logo_640_0117.png in Resources */,
 				119C64431E2769D3001B4CFD /* gluttony_03_00008.jpg in Resources */,
 				119C639A1E2769D3001B4CFD /* gluttony_01_00034.jpg in Resources */,
 				119C63481E2769D3001B4CFD /* envy_03_00037.jpg in Resources */,
 				11F9905D1E27312A00112E13 /* lust_1.gif in Resources */,
 				119C64E31E2769D4001B4CFD /* lingzai_01_00078.jpg in Resources */,
-				111ACA521E2D1AD8007DE137 /* logo_640_0149.png in Resources */,
-				111ACA341E2D1AD8007DE137 /* logo_640_0119.png in Resources */,
 				119C65FC1E2769D5001B4CFD /* lust_02_00019.jpg in Resources */,
 				119C67C91E2769D6001B4CFD /* sloth_02_00049.jpg in Resources */,
 				119C62E11E2769D3001B4CFD /* envy_01_00068.jpg in Resources */,
@@ -7674,23 +7104,19 @@
 				119C63C91E2769D3001B4CFD /* gluttony_01_00081.jpg in Resources */,
 				119C67A11E2769D6001B4CFD /* sloth_02_00009.jpg in Resources */,
 				119C637F1E2769D3001B4CFD /* gluttony_01_00007.jpg in Resources */,
-				111ACA021E2D1AD8007DE137 /* logo_640_0069.png in Resources */,
 				119C675F1E2769D6001B4CFD /* sloth_01_00011.jpg in Resources */,
 				119C62E71E2769D3001B4CFD /* envy_01_00074.jpg in Resources */,
 				119C644F1E2769D3001B4CFD /* gluttony_03_00020.jpg in Resources */,
-				111AC9CF1E2D1AD7007DE137 /* logo_640_0018.png in Resources */,
 				119C68091E2769D6001B4CFD /* sloth_03_00032.jpg in Resources */,
 				119C67E91E2769D6001B4CFD /* sloth_03_00000.jpg in Resources */,
 				119C643F1E2769D3001B4CFD /* gluttony_03_00004.jpg in Resources */,
 				119C663D1E2769D5001B4CFD /* lust_02_00084.jpg in Resources */,
 				119C67C21E2769D6001B4CFD /* sloth_02_00042.jpg in Resources */,
 				119C63DD1E2769D3001B4CFD /* gluttony_02_00001.jpg in Resources */,
-				111ACA691E2D1AD8007DE137 /* logo_640_0172.png in Resources */,
 				119C67611E2769D6001B4CFD /* sloth_01_00013.jpg in Resources */,
 				119C669B1E2769D5001B4CFD /* lust_03_00093.jpg in Resources */,
 				119C65411E2769D4001B4CFD /* lingzai_02_00074.jpg in Resources */,
 				119C67651E2769D6001B4CFD /* sloth_01_00017.jpg in Resources */,
-				111ACA441E2D1AD8007DE137 /* logo_640_0135.png in Resources */,
 				119C62D01E2769D3001B4CFD /* envy_01_00051.jpg in Resources */,
 				119C63311E2769D3001B4CFD /* envy_03_00014.jpg in Resources */,
 				119C66D71E2769D5001B4CFD /* pride_01_00057.jpg in Resources */,
@@ -7698,7 +7124,6 @@
 				17A247A91C623B9900359CCF /* right_answer_gif_0002.png in Resources */,
 				119C63C31E2769D3001B4CFD /* gluttony_01_00075.jpg in Resources */,
 				119C650C1E2769D4001B4CFD /* lingzai_02_00021.jpg in Resources */,
-				111ACA541E2D1AD8007DE137 /* logo_640_0151.png in Resources */,
 				119C64BC1E2769D4001B4CFD /* lingzai_01_00039.jpg in Resources */,
 				119C64B71E2769D4001B4CFD /* lingzai_01_00034.jpg in Resources */,
 				119C67C31E2769D6001B4CFD /* sloth_02_00043.jpg in Resources */,
@@ -7712,7 +7137,6 @@
 				119C63111E2769D3001B4CFD /* envy_02_00036.jpg in Resources */,
 				119C65EC1E2769D5001B4CFD /* lust_02_00003.jpg in Resources */,
 				119C650A1E2769D4001B4CFD /* lingzai_02_00019.jpg in Resources */,
-				111AC9CB1E2D1AD7007DE137 /* logo_640_0014.png in Resources */,
 				17A247B11C623B9900359CCF /* right_answer_gif_0010.png in Resources */,
 				119C62D31E2769D3001B4CFD /* envy_01_00054.jpg in Resources */,
 				119C636C1E2769D3001B4CFD /* envy_03_00073.jpg in Resources */,
@@ -7721,7 +7145,6 @@
 				119C65C71E2769D5001B4CFD /* lust_01_00042.jpg in Resources */,
 				119C630C1E2769D3001B4CFD /* envy_02_00031.jpg in Resources */,
 				119C66F01E2769D6001B4CFD /* pride_02_00020.jpg in Resources */,
-				111AC9DE1E2D1AD7007DE137 /* logo_640_0033.png in Resources */,
 				119C64701E2769D4001B4CFD /* gluttony_03_00053.jpg in Resources */,
 				11F990681E27312A00112E13 /* wrath_3.gif in Resources */,
 				119C67DE1E2769D6001B4CFD /* sloth_02_00070.jpg in Resources */,
@@ -7730,19 +7153,16 @@
 				119C661A1E2769D5001B4CFD /* lust_02_00049.jpg in Resources */,
 				119C68041E2769D6001B4CFD /* sloth_03_00027.jpg in Resources */,
 				119C67BA1E2769D6001B4CFD /* sloth_02_00034.jpg in Resources */,
-				111ACA191E2D1AD8007DE137 /* logo_640_0092.png in Resources */,
 				119C65E21E2769D5001B4CFD /* lust_01_00069.jpg in Resources */,
 				119C64BD1E2769D4001B4CFD /* lingzai_01_00040.jpg in Resources */,
 				119C68651E2769D7001B4CFD /* wrath_03_00033.jpg in Resources */,
 				119C63411E2769D3001B4CFD /* envy_03_00030.jpg in Resources */,
 				119C65601E2769D4001B4CFD /* lingzai_03_00011.jpg in Resources */,
 				119C63B91E2769D3001B4CFD /* gluttony_01_00065.jpg in Resources */,
-				111AC9E01E2D1AD7007DE137 /* logo_640_0035.png in Resources */,
 				119C662B1E2769D5001B4CFD /* lust_02_00066.jpg in Resources */,
 				119C62F51E2769D3001B4CFD /* envy_02_00008.jpg in Resources */,
 				119C66C51E2769D5001B4CFD /* pride_01_00039.jpg in Resources */,
 				119C68431E2769D7001B4CFD /* wrath_02_00022.jpg in Resources */,
-				111ACA151E2D1AD8007DE137 /* logo_640_0088.png in Resources */,
 				119C680A1E2769D6001B4CFD /* sloth_03_00033.jpg in Resources */,
 				119C68621E2769D7001B4CFD /* wrath_03_00030.jpg in Resources */,
 				119C63191E2769D3001B4CFD /* envy_02_00044.jpg in Resources */,
@@ -7756,7 +7176,6 @@
 				119C65781E2769D4001B4CFD /* lingzai_03_00035.jpg in Resources */,
 				119C63DF1E2769D3001B4CFD /* gluttony_02_00003.jpg in Resources */,
 				119C65FB1E2769D5001B4CFD /* lust_02_00018.jpg in Resources */,
-				111AC9F91E2D1AD8007DE137 /* logo_640_0060.png in Resources */,
 				119C65DA1E2769D5001B4CFD /* lust_01_00061.jpg in Resources */,
 				119C66A91E2769D5001B4CFD /* pride_01_00011.jpg in Resources */,
 				119C65DB1E2769D5001B4CFD /* lust_01_00062.jpg in Resources */,
@@ -7767,15 +7186,12 @@
 				119C66011E2769D5001B4CFD /* lust_02_00024.jpg in Resources */,
 				119C67331E2769D6001B4CFD /* pride_03_00026.jpg in Resources */,
 				119C63691E2769D3001B4CFD /* envy_03_00070.jpg in Resources */,
-				111ACA551E2D1AD8007DE137 /* logo_640_0152.png in Resources */,
 				119C65C01E2769D5001B4CFD /* lust_01_00035.jpg in Resources */,
-				111ACA231E2D1AD8007DE137 /* logo_640_0102.png in Resources */,
 				119C66811E2769D5001B4CFD /* lust_03_00067.jpg in Resources */,
 				119C68151E2769D7001B4CFD /* wrath_01_00010.jpg in Resources */,
 				119C67761E2769D6001B4CFD /* sloth_01_00034.jpg in Resources */,
 				119C67441E2769D6001B4CFD /* pride_03_00043.jpg in Resources */,
 				119C68251E2769D7001B4CFD /* wrath_01_00026.jpg in Resources */,
-				111ACA1C1E2D1AD8007DE137 /* logo_640_0095.png in Resources */,
 				119C63BD1E2769D3001B4CFD /* gluttony_01_00069.jpg in Resources */,
 				119C660E1E2769D5001B4CFD /* lust_02_00037.jpg in Resources */,
 				119C664C1E2769D5001B4CFD /* lust_03_00014.jpg in Resources */,
@@ -7791,19 +7207,15 @@
 				119C63FE1E2769D3001B4CFD /* gluttony_02_00034.jpg in Resources */,
 				119C63281E2769D3001B4CFD /* envy_03_00005.jpg in Resources */,
 				119C62BE1E2769D3001B4CFD /* envy_01_00033.jpg in Resources */,
-				111ACA4B1E2D1AD8007DE137 /* logo_640_0142.png in Resources */,
 				119C66071E2769D5001B4CFD /* lust_02_00030.jpg in Resources */,
 				119C66A51E2769D5001B4CFD /* pride_01_00007.jpg in Resources */,
 				119C66CC1E2769D5001B4CFD /* pride_01_00046.jpg in Resources */,
-				111ACA2F1E2D1AD8007DE137 /* logo_640_0114.png in Resources */,
 				119C64401E2769D3001B4CFD /* gluttony_03_00005.jpg in Resources */,
 				119C64D51E2769D4001B4CFD /* lingzai_01_00064.jpg in Resources */,
 				119C67501E2769D6001B4CFD /* pride_03_00055.jpg in Resources */,
-				111AC9DA1E2D1AD7007DE137 /* logo_640_0029.png in Resources */,
 				119C652B1E2769D4001B4CFD /* lingzai_02_00052.jpg in Resources */,
 				119C65F91E2769D5001B4CFD /* lust_02_00016.jpg in Resources */,
 				119C67711E2769D6001B4CFD /* sloth_01_00029.jpg in Resources */,
-				111ACA2E1E2D1AD8007DE137 /* logo_640_0113.png in Resources */,
 				17A247B51C623B9900359CCF /* right_answer_gif_0014.png in Resources */,
 				119C669E1E2769D5001B4CFD /* pride_01_00000.jpg in Resources */,
 				119C664E1E2769D5001B4CFD /* lust_03_00016.jpg in Resources */,
@@ -7813,7 +7225,6 @@
 				119C62B31E2769D3001B4CFD /* envy_01_00022.jpg in Resources */,
 				119C64F41E2769D4001B4CFD /* lingzai_01_00095.jpg in Resources */,
 				119C65001E2769D4001B4CFD /* lingzai_02_00009.jpg in Resources */,
-				111AC9EC1E2D1AD8007DE137 /* logo_640_0047.png in Resources */,
 				119C63211E2769D3001B4CFD /* envy_02_00052.jpg in Resources */,
 				119C68691E2769D7001B4CFD /* wrath_03_00037.jpg in Resources */,
 				119C63511E2769D3001B4CFD /* envy_03_00046.jpg in Resources */,
@@ -7832,12 +7243,10 @@
 				119C68671E2769D7001B4CFD /* wrath_03_00035.jpg in Resources */,
 				119C67121E2769D6001B4CFD /* pride_02_00054.jpg in Resources */,
 				119C65C91E2769D5001B4CFD /* lust_01_00044.jpg in Resources */,
-				111AC9FD1E2D1AD8007DE137 /* logo_640_0064.png in Resources */,
 				119C66501E2769D5001B4CFD /* lust_03_00018.jpg in Resources */,
 				119C68551E2769D7001B4CFD /* wrath_03_00017.jpg in Resources */,
 				119C66CA1E2769D5001B4CFD /* pride_01_00044.jpg in Resources */,
 				119C669A1E2769D5001B4CFD /* lust_03_00092.jpg in Resources */,
-				111ACA131E2D1AD8007DE137 /* logo_640_0086.png in Resources */,
 				119C66C61E2769D5001B4CFD /* pride_01_00040.jpg in Resources */,
 				119C63621E2769D3001B4CFD /* envy_03_00063.jpg in Resources */,
 				119C667C1E2769D5001B4CFD /* lust_03_00062.jpg in Resources */,
@@ -7852,18 +7261,15 @@
 				119C62FF1E2769D3001B4CFD /* envy_02_00018.jpg in Resources */,
 				119C66A01E2769D5001B4CFD /* pride_01_00002.jpg in Resources */,
 				119C673C1E2769D6001B4CFD /* pride_03_00035.jpg in Resources */,
-				111ACA0E1E2D1AD8007DE137 /* logo_640_0081.png in Resources */,
 				119C66471E2769D5001B4CFD /* lust_03_00009.jpg in Resources */,
 				119C667D1E2769D5001B4CFD /* lust_03_00063.jpg in Resources */,
 				119C63EE1E2769D3001B4CFD /* gluttony_02_00018.jpg in Resources */,
 				119C63651E2769D3001B4CFD /* envy_03_00066.jpg in Resources */,
 				119C63221E2769D3001B4CFD /* envy_02_00053.jpg in Resources */,
 				17A2478D1C623B9300359CCF /* raw_wrong_answer_gif_0015.png in Resources */,
-				111AC9C81E2D1AD7007DE137 /* logo_640_0011.png in Resources */,
 				119C66831E2769D5001B4CFD /* lust_03_00069.jpg in Resources */,
 				119C64AC1E2769D4001B4CFD /* lingzai_01_00023.jpg in Resources */,
 				119C67C61E2769D6001B4CFD /* sloth_02_00046.jpg in Resources */,
-				111AC9F61E2D1AD8007DE137 /* logo_640_0057.png in Resources */,
 				119C64641E2769D4001B4CFD /* gluttony_03_00041.jpg in Resources */,
 				17461D061C7493DF00C847E8 /* img_ar_right_answer_gif_0012.png in Resources */,
 				119C63081E2769D3001B4CFD /* envy_02_00027.jpg in Resources */,
@@ -7872,7 +7278,6 @@
 				119C67431E2769D6001B4CFD /* pride_03_00042.jpg in Resources */,
 				119C64ED1E2769D4001B4CFD /* lingzai_01_00088.jpg in Resources */,
 				119C67021E2769D6001B4CFD /* pride_02_00038.jpg in Resources */,
-				111AC9C71E2D1AD7007DE137 /* logo_640_0010.png in Resources */,
 				119C63E11E2769D3001B4CFD /* gluttony_02_00005.jpg in Resources */,
 				119C653E1E2769D4001B4CFD /* lingzai_02_00071.jpg in Resources */,
 				119C640D1E2769D3001B4CFD /* gluttony_02_00049.jpg in Resources */,
@@ -7886,7 +7291,6 @@
 				119C65671E2769D4001B4CFD /* lingzai_03_00018.jpg in Resources */,
 				119C66231E2769D5001B4CFD /* lust_02_00058.jpg in Resources */,
 				119C657A1E2769D4001B4CFD /* lingzai_03_00037.jpg in Resources */,
-				111ACA5C1E2D1AD8007DE137 /* logo_640_0159.png in Resources */,
 				111ACA881E2DCF83007DE137 /* right_answer_gif0004.png in Resources */,
 				119C64E11E2769D4001B4CFD /* lingzai_01_00076.jpg in Resources */,
 				119C62C01E2769D3001B4CFD /* envy_01_00035.jpg in Resources */,
@@ -7895,11 +7299,9 @@
 				119C67821E2769D6001B4CFD /* sloth_01_00046.jpg in Resources */,
 				119C62D41E2769D3001B4CFD /* envy_01_00055.jpg in Resources */,
 				119C67961E2769D6001B4CFD /* sloth_01_00066.jpg in Resources */,
-				111ACA681E2D1AD8007DE137 /* logo_640_0171.png in Resources */,
 				119C654D1E2769D4001B4CFD /* lingzai_02_00086.jpg in Resources */,
 				119C684C1E2769D7001B4CFD /* wrath_03_00008.jpg in Resources */,
 				119C67601E2769D6001B4CFD /* sloth_01_00012.jpg in Resources */,
-				111ACA011E2D1AD8007DE137 /* logo_640_0068.png in Resources */,
 				119C64891E2769D4001B4CFD /* gluttony_03_00078.jpg in Resources */,
 				119C64371E2769D3001B4CFD /* gluttony_02_00091.jpg in Resources */,
 				119C651A1E2769D4001B4CFD /* lingzai_02_00035.jpg in Resources */,
@@ -7907,7 +7309,6 @@
 				17461CFD1C7493DF00C847E8 /* img_ar_right_answer_gif_0003.png in Resources */,
 				119C64B21E2769D4001B4CFD /* lingzai_01_00029.jpg in Resources */,
 				119C673D1E2769D6001B4CFD /* pride_03_00036.jpg in Resources */,
-				111ACA0A1E2D1AD8007DE137 /* logo_640_0077.png in Resources */,
 				119C658C1E2769D4001B4CFD /* lingzai_03_00055.jpg in Resources */,
 				119C66A81E2769D5001B4CFD /* pride_01_00010.jpg in Resources */,
 				17461D041C7493DF00C847E8 /* img_ar_right_answer_gif_0010.png in Resources */,
@@ -7930,14 +7331,12 @@
 				119C67451E2769D6001B4CFD /* pride_03_00044.jpg in Resources */,
 				119C664F1E2769D5001B4CFD /* lust_03_00017.jpg in Resources */,
 				119C65961E2769D4001B4CFD /* lingzai_03_00065.jpg in Resources */,
-				111ACA3D1E2D1AD8007DE137 /* logo_640_0128.png in Resources */,
 				119C67991E2769D6001B4CFD /* sloth_02_00001.jpg in Resources */,
 				119C65CF1E2769D5001B4CFD /* lust_01_00050.jpg in Resources */,
 				119C63D11E2769D3001B4CFD /* gluttony_01_00089.jpg in Resources */,
 				119C62E51E2769D3001B4CFD /* envy_01_00072.jpg in Resources */,
 				119C68491E2769D7001B4CFD /* wrath_03_00005.jpg in Resources */,
 				17461D001C7493DF00C847E8 /* img_ar_right_answer_gif_0006.png in Resources */,
-				111ACA391E2D1AD8007DE137 /* logo_640_0124.png in Resources */,
 				119C66E11E2769D5001B4CFD /* pride_02_00005.jpg in Resources */,
 				119C64D91E2769D4001B4CFD /* lingzai_01_00068.jpg in Resources */,
 				119C66651E2769D5001B4CFD /* lust_03_00039.jpg in Resources */,
@@ -7946,7 +7345,6 @@
 				119C68361E2769D7001B4CFD /* wrath_02_00009.jpg in Resources */,
 				119C67E51E2769D6001B4CFD /* sloth_02_00077.jpg in Resources */,
 				119C64441E2769D3001B4CFD /* gluttony_03_00009.jpg in Resources */,
-				111AC9FA1E2D1AD8007DE137 /* logo_640_0061.png in Resources */,
 				119C66781E2769D5001B4CFD /* lust_03_00058.jpg in Resources */,
 				119C663A1E2769D5001B4CFD /* lust_02_00081.jpg in Resources */,
 				119C631D1E2769D3001B4CFD /* envy_02_00048.jpg in Resources */,
@@ -7958,7 +7356,6 @@
 				119C64E81E2769D4001B4CFD /* lingzai_01_00083.jpg in Resources */,
 				119C67511E2769D6001B4CFD /* pride_03_00056.jpg in Resources */,
 				119C63D21E2769D3001B4CFD /* gluttony_01_00090.jpg in Resources */,
-				111ACA351E2D1AD8007DE137 /* logo_640_0120.png in Resources */,
 				119C62C71E2769D3001B4CFD /* envy_01_00042.jpg in Resources */,
 				119C68001E2769D6001B4CFD /* sloth_03_00023.jpg in Resources */,
 				119C64A71E2769D4001B4CFD /* lingzai_01_00018.jpg in Resources */,
@@ -7977,7 +7374,6 @@
 				119C67801E2769D6001B4CFD /* sloth_01_00044.jpg in Resources */,
 				119C67CC1E2769D6001B4CFD /* sloth_02_00052.jpg in Resources */,
 				119C671D1E2769D6001B4CFD /* pride_03_00004.jpg in Resources */,
-				111ACA5A1E2D1AD8007DE137 /* logo_640_0157.png in Resources */,
 				119C65F01E2769D5001B4CFD /* lust_02_00007.jpg in Resources */,
 				119C66BE1E2769D5001B4CFD /* pride_01_00032.jpg in Resources */,
 				119C64EF1E2769D4001B4CFD /* lingzai_01_00090.jpg in Resources */,
@@ -7992,8 +7388,6 @@
 				119C62CE1E2769D3001B4CFD /* envy_01_00049.jpg in Resources */,
 				119C63B71E2769D3001B4CFD /* gluttony_01_00063.jpg in Resources */,
 				119C65D41E2769D5001B4CFD /* lust_01_00055.jpg in Resources */,
-				111ACA0B1E2D1AD8007DE137 /* logo_640_0078.png in Resources */,
-				111ACA031E2D1AD8007DE137 /* logo_640_0070.png in Resources */,
 				119C63761E2769D3001B4CFD /* envy_03_00083.jpg in Resources */,
 				119C67D21E2769D6001B4CFD /* sloth_02_00058.jpg in Resources */,
 				119C68451E2769D7001B4CFD /* wrath_03_00001.jpg in Resources */,
@@ -8001,11 +7395,9 @@
 				119C62B91E2769D3001B4CFD /* envy_01_00028.jpg in Resources */,
 				119C63831E2769D3001B4CFD /* gluttony_01_00011.jpg in Resources */,
 				119C66F21E2769D6001B4CFD /* pride_02_00022.jpg in Resources */,
-				111ACA061E2D1AD8007DE137 /* logo_640_0073.png in Resources */,
 				119C634C1E2769D3001B4CFD /* envy_03_00041.jpg in Resources */,
 				119C63A01E2769D3001B4CFD /* gluttony_01_00040.jpg in Resources */,
 				119C67951E2769D6001B4CFD /* sloth_01_00065.jpg in Resources */,
-				111AC9DD1E2D1AD7007DE137 /* logo_640_0032.png in Resources */,
 				119C62B61E2769D3001B4CFD /* envy_01_00025.jpg in Resources */,
 				17A247871C623B9300359CCF /* raw_wrong_answer_gif_0009.png in Resources */,
 				119C674C1E2769D6001B4CFD /* pride_03_00051.jpg in Resources */,
@@ -8016,7 +7408,6 @@
 				119C66941E2769D5001B4CFD /* lust_03_00086.jpg in Resources */,
 				17461D081C7493DF00C847E8 /* img_ar_right_answer_gif_0014.png in Resources */,
 				111ACA981E2DCF83007DE137 /* right_answer_gif0020.png in Resources */,
-				111ACA4F1E2D1AD8007DE137 /* logo_640_0146.png in Resources */,
 				119C66481E2769D5001B4CFD /* lust_03_00010.jpg in Resources */,
 				119C66F61E2769D6001B4CFD /* pride_02_00026.jpg in Resources */,
 				119C652F1E2769D4001B4CFD /* lingzai_02_00056.jpg in Resources */,
@@ -8028,7 +7419,6 @@
 				119C677A1E2769D6001B4CFD /* sloth_01_00038.jpg in Resources */,
 				119C64E41E2769D4001B4CFD /* lingzai_01_00079.jpg in Resources */,
 				119C64691E2769D4001B4CFD /* gluttony_03_00046.jpg in Resources */,
-				111AC9F01E2D1AD8007DE137 /* logo_640_0051.png in Resources */,
 				119C65941E2769D4001B4CFD /* lingzai_03_00063.jpg in Resources */,
 				119C67101E2769D6001B4CFD /* pride_02_00052.jpg in Resources */,
 				119C65861E2769D4001B4CFD /* lingzai_03_00049.jpg in Resources */,
@@ -8053,7 +7443,6 @@
 				119C63C81E2769D3001B4CFD /* gluttony_01_00080.jpg in Resources */,
 				119C64051E2769D3001B4CFD /* gluttony_02_00041.jpg in Resources */,
 				119C65CC1E2769D5001B4CFD /* lust_01_00047.jpg in Resources */,
-				111AC9D81E2D1AD7007DE137 /* logo_640_0027.png in Resources */,
 				119C63E41E2769D3001B4CFD /* gluttony_02_00008.jpg in Resources */,
 				119C66F81E2769D6001B4CFD /* pride_02_00028.jpg in Resources */,
 				119C68531E2769D7001B4CFD /* wrath_03_00015.jpg in Resources */,
@@ -8063,9 +7452,7 @@
 				119C67901E2769D6001B4CFD /* sloth_01_00060.jpg in Resources */,
 				119C656F1E2769D4001B4CFD /* lingzai_03_00026.jpg in Resources */,
 				119C65AD1E2769D4001B4CFD /* lust_01_00016.jpg in Resources */,
-				111ACA5D1E2D1AD8007DE137 /* logo_640_0160.png in Resources */,
 				119C64731E2769D4001B4CFD /* gluttony_03_00056.jpg in Resources */,
-				111ACA171E2D1AD8007DE137 /* logo_640_0090.png in Resources */,
 				119C632E1E2769D3001B4CFD /* envy_03_00011.jpg in Resources */,
 				119C67ED1E2769D6001B4CFD /* sloth_03_00004.jpg in Resources */,
 				119C66C01E2769D5001B4CFD /* pride_01_00034.jpg in Resources */,
@@ -8085,7 +7472,6 @@
 				119C63501E2769D3001B4CFD /* envy_03_00045.jpg in Resources */,
 				119C63751E2769D3001B4CFD /* envy_03_00082.jpg in Resources */,
 				119C674B1E2769D6001B4CFD /* pride_03_00050.jpg in Resources */,
-				111AC9EE1E2D1AD8007DE137 /* logo_640_0049.png in Resources */,
 				119C67DF1E2769D6001B4CFD /* sloth_02_00071.jpg in Resources */,
 				119C65481E2769D4001B4CFD /* lingzai_02_00081.jpg in Resources */,
 				119C62C21E2769D3001B4CFD /* envy_01_00037.jpg in Resources */,
@@ -8094,7 +7480,6 @@
 				119C66311E2769D5001B4CFD /* lust_02_00072.jpg in Resources */,
 				119C661F1E2769D5001B4CFD /* lust_02_00054.jpg in Resources */,
 				119C64651E2769D4001B4CFD /* gluttony_03_00042.jpg in Resources */,
-				111ACA3E1E2D1AD8007DE137 /* logo_640_0129.png in Resources */,
 				119C64081E2769D3001B4CFD /* gluttony_02_00044.jpg in Resources */,
 				119C64351E2769D3001B4CFD /* gluttony_02_00089.jpg in Resources */,
 				119C67F41E2769D6001B4CFD /* sloth_03_00011.jpg in Resources */,
@@ -8119,7 +7504,6 @@
 				119C65241E2769D4001B4CFD /* lingzai_02_00045.jpg in Resources */,
 				119C62CF1E2769D3001B4CFD /* envy_01_00050.jpg in Resources */,
 				119C62AD1E2769D3001B4CFD /* envy_01_00016.jpg in Resources */,
-				111ACA1F1E2D1AD8007DE137 /* logo_640_0098.png in Resources */,
 				119C64DD1E2769D4001B4CFD /* lingzai_01_00072.jpg in Resources */,
 				119C66271E2769D5001B4CFD /* lust_02_00062.jpg in Resources */,
 				119C649F1E2769D4001B4CFD /* lingzai_01_00010.jpg in Resources */,
@@ -8129,7 +7513,6 @@
 				119C642A1E2769D3001B4CFD /* gluttony_02_00078.jpg in Resources */,
 				119C656D1E2769D4001B4CFD /* lingzai_03_00024.jpg in Resources */,
 				119C63DB1E2769D3001B4CFD /* gluttony_01_00099.jpg in Resources */,
-				111AC9CA1E2D1AD7007DE137 /* logo_640_0013.png in Resources */,
 				119C67CD1E2769D6001B4CFD /* sloth_02_00053.jpg in Resources */,
 				119C63B51E2769D3001B4CFD /* gluttony_01_00061.jpg in Resources */,
 				17A247B91C623B9900359CCF /* right_answer_gif_0018.png in Resources */,
@@ -8154,7 +7537,6 @@
 				119C660A1E2769D5001B4CFD /* lust_02_00033.jpg in Resources */,
 				119C67031E2769D6001B4CFD /* pride_02_00039.jpg in Resources */,
 				119C63D91E2769D3001B4CFD /* gluttony_01_00097.jpg in Resources */,
-				111ACA381E2D1AD8007DE137 /* logo_640_0123.png in Resources */,
 				119C65CB1E2769D5001B4CFD /* lust_01_00046.jpg in Resources */,
 				119C63121E2769D3001B4CFD /* envy_02_00037.jpg in Resources */,
 				119C68301E2769D7001B4CFD /* wrath_02_00003.jpg in Resources */,
@@ -8169,10 +7551,8 @@
 				119C648F1E2769D4001B4CFD /* gluttony_03_00084.jpg in Resources */,
 				119C643A1E2769D3001B4CFD /* gluttony_02_00094.jpg in Resources */,
 				119C669D1E2769D5001B4CFD /* lust_03_00095.jpg in Resources */,
-				111ACA2D1E2D1AD8007DE137 /* logo_640_0112.png in Resources */,
 				119C644B1E2769D3001B4CFD /* gluttony_03_00016.jpg in Resources */,
 				119C64E61E2769D4001B4CFD /* lingzai_01_00081.jpg in Resources */,
-				111AC9E71E2D1AD8007DE137 /* logo_640_0042.png in Resources */,
 				119C643B1E2769D3001B4CFD /* gluttony_03_00000.jpg in Resources */,
 				119C683D1E2769D7001B4CFD /* wrath_02_00016.jpg in Resources */,
 				119C68321E2769D7001B4CFD /* wrath_02_00005.jpg in Resources */,
@@ -8209,7 +7589,6 @@
 				119C62A51E2769D2001B4CFD /* envy_01_00008.jpg in Resources */,
 				119C633E1E2769D3001B4CFD /* envy_03_00027.jpg in Resources */,
 				119C66951E2769D5001B4CFD /* lust_03_00087.jpg in Resources */,
-				111ACA091E2D1AD8007DE137 /* logo_640_0076.png in Resources */,
 				119C680D1E2769D7001B4CFD /* wrath_01_00002.jpg in Resources */,
 				119C63381E2769D3001B4CFD /* envy_03_00021.jpg in Resources */,
 				119C64311E2769D3001B4CFD /* gluttony_02_00085.jpg in Resources */,
@@ -8219,12 +7598,9 @@
 				119C65791E2769D4001B4CFD /* lingzai_03_00036.jpg in Resources */,
 				119C65F31E2769D5001B4CFD /* lust_02_00010.jpg in Resources */,
 				119C67111E2769D6001B4CFD /* pride_02_00053.jpg in Resources */,
-				111AC9D71E2D1AD7007DE137 /* logo_640_0026.png in Resources */,
 				119C632A1E2769D3001B4CFD /* envy_03_00007.jpg in Resources */,
 				119C66E01E2769D5001B4CFD /* pride_02_00004.jpg in Resources */,
 				119C67AD1E2769D6001B4CFD /* sloth_02_00021.jpg in Resources */,
-				111AC9C21E2D1AD7007DE137 /* logo_640_0005.png in Resources */,
-				111AC9C11E2D1AD7007DE137 /* logo_640_0004.png in Resources */,
 				119C67C81E2769D6001B4CFD /* sloth_02_00048.jpg in Resources */,
 				119C681E1E2769D7001B4CFD /* wrath_01_00019.jpg in Resources */,
 				119C642E1E2769D3001B4CFD /* gluttony_02_00082.jpg in Resources */,
@@ -8268,13 +7644,12 @@
 				119C63301E2769D3001B4CFD /* envy_03_00013.jpg in Resources */,
 				119C66E71E2769D5001B4CFD /* pride_02_00011.jpg in Resources */,
 				119C67A41E2769D6001B4CFD /* sloth_02_00012.jpg in Resources */,
+				111ACA9B1E2E06FB007DE137 /* LOGO-640.gif in Resources */,
 				119C651B1E2769D4001B4CFD /* lingzai_02_00036.jpg in Resources */,
 				17A247841C623B9300359CCF /* raw_wrong_answer_gif_0006.png in Resources */,
 				119C66CD1E2769D5001B4CFD /* pride_01_00047.jpg in Resources */,
 				119C66681E2769D5001B4CFD /* lust_03_00042.jpg in Resources */,
-				111AC9C31E2D1AD7007DE137 /* logo_640_0006.png in Resources */,
 				119C64861E2769D4001B4CFD /* gluttony_03_00075.jpg in Resources */,
-				111ACA561E2D1AD8007DE137 /* logo_640_0153.png in Resources */,
 				119C63CC1E2769D3001B4CFD /* gluttony_01_00084.jpg in Resources */,
 				119C67731E2769D6001B4CFD /* sloth_01_00031.jpg in Resources */,
 				119C66371E2769D5001B4CFD /* lust_02_00078.jpg in Resources */,
@@ -8294,7 +7669,6 @@
 				119C681D1E2769D7001B4CFD /* wrath_01_00018.jpg in Resources */,
 				119C680F1E2769D7001B4CFD /* wrath_01_00004.jpg in Resources */,
 				119C646F1E2769D4001B4CFD /* gluttony_03_00052.jpg in Resources */,
-				111ACA311E2D1AD8007DE137 /* logo_640_0116.png in Resources */,
 				119C64271E2769D3001B4CFD /* gluttony_02_00075.jpg in Resources */,
 				119C63ED1E2769D3001B4CFD /* gluttony_02_00017.jpg in Resources */,
 				119C671F1E2769D6001B4CFD /* pride_03_00006.jpg in Resources */,
@@ -8302,7 +7676,6 @@
 				119C63021E2769D3001B4CFD /* envy_02_00021.jpg in Resources */,
 				119C675E1E2769D6001B4CFD /* sloth_01_00010.jpg in Resources */,
 				119C66531E2769D5001B4CFD /* lust_03_00021.jpg in Resources */,
-				111ACA051E2D1AD8007DE137 /* logo_640_0072.png in Resources */,
 				119C66351E2769D5001B4CFD /* lust_02_00076.jpg in Resources */,
 				119C674F1E2769D6001B4CFD /* pride_03_00054.jpg in Resources */,
 				119C67AC1E2769D6001B4CFD /* sloth_02_00020.jpg in Resources */,
@@ -8311,7 +7684,6 @@
 				119C66511E2769D5001B4CFD /* lust_03_00019.jpg in Resources */,
 				119C660C1E2769D5001B4CFD /* lust_02_00035.jpg in Resources */,
 				119C63351E2769D3001B4CFD /* envy_03_00018.jpg in Resources */,
-				111AC9DB1E2D1AD7007DE137 /* logo_640_0030.png in Resources */,
 				119C66201E2769D5001B4CFD /* lust_02_00055.jpg in Resources */,
 				119C67B61E2769D6001B4CFD /* sloth_02_00030.jpg in Resources */,
 				119C64241E2769D3001B4CFD /* gluttony_02_00072.jpg in Resources */,
@@ -8325,7 +7697,6 @@
 				119C64AB1E2769D4001B4CFD /* lingzai_01_00022.jpg in Resources */,
 				119C64A21E2769D4001B4CFD /* lingzai_01_00013.jpg in Resources */,
 				119C63451E2769D3001B4CFD /* envy_03_00034.jpg in Resources */,
-				111ACA2C1E2D1AD8007DE137 /* logo_640_0111.png in Resources */,
 				119C645D1E2769D4001B4CFD /* gluttony_03_00034.jpg in Resources */,
 				119C66061E2769D5001B4CFD /* lust_02_00029.jpg in Resources */,
 				119C64201E2769D3001B4CFD /* gluttony_02_00068.jpg in Resources */,
@@ -8339,7 +7710,6 @@
 				119C65441E2769D4001B4CFD /* lingzai_02_00077.jpg in Resources */,
 				119C682B1E2769D7001B4CFD /* wrath_01_00032.jpg in Resources */,
 				119C63601E2769D3001B4CFD /* envy_03_00061.jpg in Resources */,
-				111AC9C41E2D1AD7007DE137 /* logo_640_0007.png in Resources */,
 				119C65131E2769D4001B4CFD /* lingzai_02_00028.jpg in Resources */,
 				119C64C71E2769D4001B4CFD /* lingzai_01_00050.jpg in Resources */,
 				119C637B1E2769D3001B4CFD /* gluttony_01_00003.jpg in Resources */,
@@ -8354,7 +7724,6 @@
 				119C632B1E2769D3001B4CFD /* envy_03_00008.jpg in Resources */,
 				119C68641E2769D7001B4CFD /* wrath_03_00032.jpg in Resources */,
 				119C66551E2769D5001B4CFD /* lust_03_00023.jpg in Resources */,
-				111AC9F11E2D1AD8007DE137 /* logo_640_0052.png in Resources */,
 				119C67911E2769D6001B4CFD /* sloth_01_00061.jpg in Resources */,
 				119C661D1E2769D5001B4CFD /* lust_02_00052.jpg in Resources */,
 				119C66961E2769D5001B4CFD /* lust_03_00088.jpg in Resources */,
@@ -8362,7 +7731,6 @@
 				119C62EF1E2769D3001B4CFD /* envy_02_00002.jpg in Resources */,
 				119C65BB1E2769D5001B4CFD /* lust_01_00030.jpg in Resources */,
 				119C642F1E2769D3001B4CFD /* gluttony_02_00083.jpg in Resources */,
-				111AC9D51E2D1AD7007DE137 /* logo_640_0024.png in Resources */,
 				119C67781E2769D6001B4CFD /* sloth_01_00036.jpg in Resources */,
 				119C64091E2769D3001B4CFD /* gluttony_02_00045.jpg in Resources */,
 				119C62F91E2769D3001B4CFD /* envy_02_00012.jpg in Resources */,
@@ -8383,7 +7751,6 @@
 				119C669F1E2769D5001B4CFD /* pride_01_00001.jpg in Resources */,
 				119C64961E2769D4001B4CFD /* lingzai_01_00001.jpg in Resources */,
 				119C66F41E2769D6001B4CFD /* pride_02_00024.jpg in Resources */,
-				111AC9CD1E2D1AD7007DE137 /* logo_640_0016.png in Resources */,
 				119C63B61E2769D3001B4CFD /* gluttony_01_00062.jpg in Resources */,
 				119C63891E2769D3001B4CFD /* gluttony_01_00017.jpg in Resources */,
 				119C64381E2769D3001B4CFD /* gluttony_02_00092.jpg in Resources */,
@@ -8402,11 +7769,9 @@
 				119C64781E2769D4001B4CFD /* gluttony_03_00061.jpg in Resources */,
 				119C671A1E2769D6001B4CFD /* pride_03_00001.jpg in Resources */,
 				119C63521E2769D3001B4CFD /* envy_03_00047.jpg in Resources */,
-				111ACA1A1E2D1AD8007DE137 /* logo_640_0093.png in Resources */,
 				119C67921E2769D6001B4CFD /* sloth_01_00062.jpg in Resources */,
 				119C68561E2769D7001B4CFD /* wrath_03_00018.jpg in Resources */,
 				119C67A31E2769D6001B4CFD /* sloth_02_00011.jpg in Resources */,
-				111ACA571E2D1AD8007DE137 /* logo_640_0154.png in Resources */,
 				119C62F61E2769D3001B4CFD /* envy_02_00009.jpg in Resources */,
 				119C64FC1E2769D4001B4CFD /* lingzai_02_00005.jpg in Resources */,
 				119C62D11E2769D3001B4CFD /* envy_01_00052.jpg in Resources */,
@@ -8427,7 +7792,6 @@
 				119C67241E2769D6001B4CFD /* pride_03_00011.jpg in Resources */,
 				119C68051E2769D6001B4CFD /* sloth_03_00028.jpg in Resources */,
 				119C660B1E2769D5001B4CFD /* lust_02_00034.jpg in Resources */,
-				111ACA531E2D1AD8007DE137 /* logo_640_0150.png in Resources */,
 				119C65E11E2769D5001B4CFD /* lust_01_00068.jpg in Resources */,
 				119C653A1E2769D4001B4CFD /* lingzai_02_00067.jpg in Resources */,
 				119C65D11E2769D5001B4CFD /* lust_01_00052.jpg in Resources */,
@@ -8439,7 +7803,6 @@
 				119C65801E2769D4001B4CFD /* lingzai_03_00043.jpg in Resources */,
 				119C638D1E2769D3001B4CFD /* gluttony_01_00021.jpg in Resources */,
 				119C62FB1E2769D3001B4CFD /* envy_02_00014.jpg in Resources */,
-				111ACA641E2D1AD8007DE137 /* logo_640_0167.png in Resources */,
 				119C67A81E2769D6001B4CFD /* sloth_02_00016.jpg in Resources */,
 				119C62F41E2769D3001B4CFD /* envy_02_00007.jpg in Resources */,
 				119C683F1E2769D7001B4CFD /* wrath_02_00018.jpg in Resources */,
@@ -8453,7 +7816,6 @@
 				119C64A11E2769D4001B4CFD /* lingzai_01_00012.jpg in Resources */,
 				119C64511E2769D3001B4CFD /* gluttony_03_00022.jpg in Resources */,
 				119C684E1E2769D7001B4CFD /* wrath_03_00010.jpg in Resources */,
-				111ACA411E2D1AD8007DE137 /* logo_640_0132.png in Resources */,
 				119C68201E2769D7001B4CFD /* wrath_01_00021.jpg in Resources */,
 				119C63931E2769D3001B4CFD /* gluttony_01_00027.jpg in Resources */,
 				119C66D41E2769D5001B4CFD /* pride_01_00054.jpg in Resources */,
@@ -8467,22 +7829,17 @@
 				119C67D71E2769D6001B4CFD /* sloth_02_00063.jpg in Resources */,
 				119C63141E2769D3001B4CFD /* envy_02_00039.jpg in Resources */,
 				119C64B91E2769D4001B4CFD /* lingzai_01_00036.jpg in Resources */,
-				111ACA1D1E2D1AD8007DE137 /* logo_640_0096.png in Resources */,
 				11AD0C551DAA34A8007951C5 /* argame01.jpg in Resources */,
 				119C65C51E2769D5001B4CFD /* lust_01_00040.jpg in Resources */,
 				119C677F1E2769D6001B4CFD /* sloth_01_00043.jpg in Resources */,
 				119C66BD1E2769D5001B4CFD /* pride_01_00031.jpg in Resources */,
-				111ACA371E2D1AD8007DE137 /* logo_640_0122.png in Resources */,
 				119C636B1E2769D3001B4CFD /* envy_03_00072.jpg in Resources */,
 				119C67E61E2769D6001B4CFD /* sloth_02_00078.jpg in Resources */,
-				111AC9BF1E2D1AD7007DE137 /* logo_640_0002.png in Resources */,
 				119C67B21E2769D6001B4CFD /* sloth_02_00026.jpg in Resources */,
-				111ACA631E2D1AD8007DE137 /* logo_640_0166.png in Resources */,
 				119C65161E2769D4001B4CFD /* lingzai_02_00031.jpg in Resources */,
 				119C62B21E2769D3001B4CFD /* envy_01_00021.jpg in Resources */,
 				111ACA931E2DCF83007DE137 /* right_answer_gif0015.png in Resources */,
 				119C65901E2769D4001B4CFD /* lingzai_03_00059.jpg in Resources */,
-				111ACA421E2D1AD8007DE137 /* logo_640_0133.png in Resources */,
 				119C629F1E2769D2001B4CFD /* envy_01_00002.jpg in Resources */,
 				119C64C31E2769D4001B4CFD /* lingzai_01_00046.jpg in Resources */,
 				119C62A71E2769D2001B4CFD /* envy_01_00010.jpg in Resources */,
@@ -8492,23 +7849,18 @@
 				119C66771E2769D5001B4CFD /* lust_03_00057.jpg in Resources */,
 				119C64231E2769D3001B4CFD /* gluttony_02_00071.jpg in Resources */,
 				119C62DD1E2769D3001B4CFD /* envy_01_00064.jpg in Resources */,
-				111ACA0D1E2D1AD8007DE137 /* logo_640_0080.png in Resources */,
 				119C63841E2769D3001B4CFD /* gluttony_01_00012.jpg in Resources */,
 				111ACA971E2DCF83007DE137 /* right_answer_gif0019.png in Resources */,
 				11F990651E27312A00112E13 /* sloth_3.gif in Resources */,
 				111ACA861E2DCF83007DE137 /* right_answer_gif0002.png in Resources */,
 				119C639D1E2769D3001B4CFD /* gluttony_01_00037.jpg in Resources */,
-				111AC9F51E2D1AD8007DE137 /* logo_640_0056.png in Resources */,
 				119C67BD1E2769D6001B4CFD /* sloth_02_00037.jpg in Resources */,
 				11F218581CBB951300D2ED44 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				111ACA901E2DCF83007DE137 /* right_answer_gif0012.png in Resources */,
 				119C65261E2769D4001B4CFD /* lingzai_02_00047.jpg in Resources */,
 				119C651D1E2769D4001B4CFD /* lingzai_02_00038.jpg in Resources */,
 				119C675B1E2769D6001B4CFD /* sloth_01_00007.jpg in Resources */,
-				111ACA511E2D1AD8007DE137 /* logo_640_0148.png in Resources */,
 				119C646B1E2769D4001B4CFD /* gluttony_03_00048.jpg in Resources */,
-				111AC9F31E2D1AD8007DE137 /* logo_640_0054.png in Resources */,
-				111AC9E21E2D1AD7007DE137 /* logo_640_0037.png in Resources */,
 				119C66191E2769D5001B4CFD /* lust_02_00048.jpg in Resources */,
 				119C665C1E2769D5001B4CFD /* lust_03_00030.jpg in Resources */,
 				119C62D71E2769D3001B4CFD /* envy_01_00058.jpg in Resources */,
@@ -8518,7 +7870,6 @@
 				119C66871E2769D5001B4CFD /* lust_03_00073.jpg in Resources */,
 				119C65AF1E2769D4001B4CFD /* lust_01_00018.jpg in Resources */,
 				119C66251E2769D5001B4CFD /* lust_02_00060.jpg in Resources */,
-				111ACA161E2D1AD8007DE137 /* logo_640_0089.png in Resources */,
 				119C668A1E2769D5001B4CFD /* lust_03_00076.jpg in Resources */,
 				119C638F1E2769D3001B4CFD /* gluttony_01_00023.jpg in Resources */,
 				119C63031E2769D3001B4CFD /* envy_02_00022.jpg in Resources */,
@@ -8533,7 +7884,6 @@
 				119C67641E2769D6001B4CFD /* sloth_01_00016.jpg in Resources */,
 				119C66131E2769D5001B4CFD /* lust_02_00042.jpg in Resources */,
 				119C64591E2769D4001B4CFD /* gluttony_03_00030.jpg in Resources */,
-				111ACA101E2D1AD8007DE137 /* logo_640_0083.png in Resources */,
 				119C62E41E2769D3001B4CFD /* envy_01_00071.jpg in Resources */,
 				119C66451E2769D5001B4CFD /* lust_03_00007.jpg in Resources */,
 				119C63C41E2769D3001B4CFD /* gluttony_01_00076.jpg in Resources */,
@@ -8543,16 +7893,11 @@
 				119C680B1E2769D6001B4CFD /* wrath_01_00000.jpg in Resources */,
 				119C668D1E2769D5001B4CFD /* lust_03_00079.jpg in Resources */,
 				119C67DB1E2769D6001B4CFD /* sloth_02_00067.jpg in Resources */,
-				111ACA461E2D1AD8007DE137 /* logo_640_0137.png in Resources */,
-				111ACA181E2D1AD8007DE137 /* logo_640_0091.png in Resources */,
 				119C65621E2769D4001B4CFD /* lingzai_03_00013.jpg in Resources */,
 				119C63F21E2769D3001B4CFD /* gluttony_02_00022.jpg in Resources */,
-				111AC9FB1E2D1AD8007DE137 /* logo_640_0062.png in Resources */,
 				119C65DE1E2769D5001B4CFD /* lust_01_00065.jpg in Resources */,
 				119C654A1E2769D4001B4CFD /* lingzai_02_00083.jpg in Resources */,
 				119C62C11E2769D3001B4CFD /* envy_01_00036.jpg in Resources */,
-				111AC9E81E2D1AD8007DE137 /* logo_640_0043.png in Resources */,
-				111AC9F41E2D1AD8007DE137 /* logo_640_0055.png in Resources */,
 				119C63B81E2769D3001B4CFD /* gluttony_01_00064.jpg in Resources */,
 				119C63DA1E2769D3001B4CFD /* gluttony_01_00098.jpg in Resources */,
 				119C644D1E2769D3001B4CFD /* gluttony_03_00018.jpg in Resources */,
@@ -8586,7 +7931,6 @@
 				119C68141E2769D7001B4CFD /* wrath_01_00009.jpg in Resources */,
 				119C65B71E2769D5001B4CFD /* lust_01_00026.jpg in Resources */,
 				119C63091E2769D3001B4CFD /* envy_02_00028.jpg in Resources */,
-				111ACA611E2D1AD8007DE137 /* logo_640_0164.png in Resources */,
 				119C64C41E2769D4001B4CFD /* lingzai_01_00047.jpg in Resources */,
 				119C676A1E2769D6001B4CFD /* sloth_01_00022.jpg in Resources */,
 				119C660D1E2769D5001B4CFD /* lust_02_00036.jpg in Resources */,
@@ -8605,7 +7949,6 @@
 				11F990621E27312A00112E13 /* pride_3.gif in Resources */,
 				119C661C1E2769D5001B4CFD /* lust_02_00051.jpg in Resources */,
 				119C654B1E2769D4001B4CFD /* lingzai_02_00084.jpg in Resources */,
-				111AC9D61E2D1AD7007DE137 /* logo_640_0025.png in Resources */,
 				119C676F1E2769D6001B4CFD /* sloth_01_00027.jpg in Resources */,
 				119C641A1E2769D3001B4CFD /* gluttony_02_00062.jpg in Resources */,
 				119C67FD1E2769D6001B4CFD /* sloth_03_00020.jpg in Resources */,
@@ -8619,7 +7962,6 @@
 				119C659A1E2769D4001B4CFD /* lingzai_03_00069.jpg in Resources */,
 				119C62DF1E2769D3001B4CFD /* envy_01_00066.jpg in Resources */,
 				119C63B31E2769D3001B4CFD /* gluttony_01_00059.jpg in Resources */,
-				111AC9DF1E2D1AD7007DE137 /* logo_640_0034.png in Resources */,
 				119C63941E2769D3001B4CFD /* gluttony_01_00028.jpg in Resources */,
 				119C63C51E2769D3001B4CFD /* gluttony_01_00077.jpg in Resources */,
 				119C62AB1E2769D2001B4CFD /* envy_01_00014.jpg in Resources */,
@@ -8644,7 +7986,6 @@
 				119C68181E2769D7001B4CFD /* wrath_01_00013.jpg in Resources */,
 				119C645B1E2769D4001B4CFD /* gluttony_03_00032.jpg in Resources */,
 				119C68121E2769D7001B4CFD /* wrath_01_00007.jpg in Resources */,
-				111AC9C61E2D1AD7007DE137 /* logo_640_0009.png in Resources */,
 				119C63F41E2769D3001B4CFD /* gluttony_02_00024.jpg in Resources */,
 				119C67FC1E2769D6001B4CFD /* sloth_03_00019.jpg in Resources */,
 				119C63871E2769D3001B4CFD /* gluttony_01_00015.jpg in Resources */,
@@ -8661,14 +8002,12 @@
 				119C62F71E2769D3001B4CFD /* envy_02_00010.jpg in Resources */,
 				119C65D81E2769D5001B4CFD /* lust_01_00059.jpg in Resources */,
 				119C635A1E2769D3001B4CFD /* envy_03_00055.jpg in Resources */,
-				111AC9E91E2D1AD8007DE137 /* logo_640_0044.png in Resources */,
 				119C68411E2769D7001B4CFD /* wrath_02_00020.jpg in Resources */,
 				119C65191E2769D4001B4CFD /* lingzai_02_00034.jpg in Resources */,
 				119C65011E2769D4001B4CFD /* lingzai_02_00010.jpg in Resources */,
 				119C66F91E2769D6001B4CFD /* pride_02_00029.jpg in Resources */,
 				119C66DA1E2769D5001B4CFD /* pride_01_00060.jpg in Resources */,
 				119C631A1E2769D3001B4CFD /* envy_02_00045.jpg in Resources */,
-				111ACA431E2D1AD8007DE137 /* logo_640_0134.png in Resources */,
 				119C63E31E2769D3001B4CFD /* gluttony_02_00007.jpg in Resources */,
 				119C65071E2769D4001B4CFD /* lingzai_02_00016.jpg in Resources */,
 				119C66A71E2769D5001B4CFD /* pride_01_00009.jpg in Resources */,
@@ -8679,13 +8018,11 @@
 				119C62E21E2769D3001B4CFD /* envy_01_00069.jpg in Resources */,
 				119C67B41E2769D6001B4CFD /* sloth_02_00028.jpg in Resources */,
 				119C67381E2769D6001B4CFD /* pride_03_00031.jpg in Resources */,
-				111ACA501E2D1AD8007DE137 /* logo_640_0147.png in Resources */,
 				119C65A51E2769D4001B4CFD /* lust_01_00008.jpg in Resources */,
 				119C67C01E2769D6001B4CFD /* sloth_02_00040.jpg in Resources */,
 				119C66051E2769D5001B4CFD /* lust_02_00028.jpg in Resources */,
 				119C66B31E2769D5001B4CFD /* pride_01_00021.jpg in Resources */,
 				119C67D81E2769D6001B4CFD /* sloth_02_00064.jpg in Resources */,
-				111ACA2A1E2D1AD8007DE137 /* logo_640_0109.png in Resources */,
 				119C63811E2769D3001B4CFD /* gluttony_01_00009.jpg in Resources */,
 				119C672C1E2769D6001B4CFD /* pride_03_00019.jpg in Resources */,
 				119C64D81E2769D4001B4CFD /* lingzai_01_00067.jpg in Resources */,
@@ -8694,14 +8031,10 @@
 				119C65F81E2769D5001B4CFD /* lust_02_00015.jpg in Resources */,
 				119C66EC1E2769D5001B4CFD /* pride_02_00016.jpg in Resources */,
 				119C647C1E2769D4001B4CFD /* gluttony_03_00065.jpg in Resources */,
-				111ACA451E2D1AD8007DE137 /* logo_640_0136.png in Resources */,
-				111ACA281E2D1AD8007DE137 /* logo_640_0107.png in Resources */,
 				119C63571E2769D3001B4CFD /* envy_03_00052.jpg in Resources */,
 				119C62EB1E2769D3001B4CFD /* envy_01_00078.jpg in Resources */,
 				119C66631E2769D5001B4CFD /* lust_03_00037.jpg in Resources */,
-				111AC9ED1E2D1AD8007DE137 /* logo_640_0048.png in Resources */,
 				119C64DB1E2769D4001B4CFD /* lingzai_01_00070.jpg in Resources */,
-				111AC9CC1E2D1AD7007DE137 /* logo_640_0015.png in Resources */,
 				119C66B81E2769D5001B4CFD /* pride_01_00026.jpg in Resources */,
 				119C65741E2769D4001B4CFD /* lingzai_03_00031.jpg in Resources */,
 				1787FD191C4A8884006E55A6 /* ar_overlay@2x.png in Resources */,
@@ -8718,12 +8051,10 @@
 				119C68521E2769D7001B4CFD /* wrath_03_00014.jpg in Resources */,
 				119C63D71E2769D3001B4CFD /* gluttony_01_00095.jpg in Resources */,
 				119C63171E2769D3001B4CFD /* envy_02_00042.jpg in Resources */,
-				111ACA3F1E2D1AD8007DE137 /* logo_640_0130.png in Resources */,
 				119C66AE1E2769D5001B4CFD /* pride_01_00016.jpg in Resources */,
 				11F990641E27312A00112E13 /* sloth_2.gif in Resources */,
 				119C67EB1E2769D6001B4CFD /* sloth_03_00002.jpg in Resources */,
 				119C656A1E2769D4001B4CFD /* lingzai_03_00021.jpg in Resources */,
-				111AC9D21E2D1AD7007DE137 /* logo_640_0021.png in Resources */,
 				119C63461E2769D3001B4CFD /* envy_03_00035.jpg in Resources */,
 				119C64461E2769D3001B4CFD /* gluttony_03_00011.jpg in Resources */,
 				11F990661E27312A00112E13 /* wrath_1.gif in Resources */,
@@ -8736,18 +8067,15 @@
 				119C66FE1E2769D6001B4CFD /* pride_02_00034.jpg in Resources */,
 				119C62BB1E2769D3001B4CFD /* envy_01_00030.jpg in Resources */,
 				119C62D81E2769D3001B4CFD /* envy_01_00059.jpg in Resources */,
-				111ACA361E2D1AD8007DE137 /* logo_640_0121.png in Resources */,
 				119C66461E2769D5001B4CFD /* lust_03_00008.jpg in Resources */,
 				119C66891E2769D5001B4CFD /* lust_03_00075.jpg in Resources */,
 				119C64CB1E2769D4001B4CFD /* lingzai_01_00054.jpg in Resources */,
 				119C67261E2769D6001B4CFD /* pride_03_00013.jpg in Resources */,
 				119C64211E2769D3001B4CFD /* gluttony_02_00069.jpg in Resources */,
 				119C64181E2769D3001B4CFD /* gluttony_02_00060.jpg in Resources */,
-				111AC9DC1E2D1AD7007DE137 /* logo_640_0031.png in Resources */,
 				11AD0C4E1DAA3490007951C5 /* targets2.json in Resources */,
 				119C648A1E2769D4001B4CFD /* gluttony_03_00079.jpg in Resources */,
 				119C67531E2769D6001B4CFD /* pride_03_00058.jpg in Resources */,
-				111ACA621E2D1AD8007DE137 /* logo_640_0165.png in Resources */,
 				119C659B1E2769D4001B4CFD /* lingzai_03_00070.jpg in Resources */,
 				119C670E1E2769D6001B4CFD /* pride_02_00050.jpg in Resources */,
 				119C64031E2769D3001B4CFD /* gluttony_02_00039.jpg in Resources */,
@@ -8775,7 +8103,6 @@
 				119C664D1E2769D5001B4CFD /* lust_03_00015.jpg in Resources */,
 				119C65551E2769D4001B4CFD /* lingzai_03_00000.jpg in Resources */,
 				119C655A1E2769D4001B4CFD /* lingzai_03_00005.jpg in Resources */,
-				111AC9F81E2D1AD8007DE137 /* logo_640_0059.png in Resources */,
 				119C64021E2769D3001B4CFD /* gluttony_02_00038.jpg in Resources */,
 				111ACA951E2DCF83007DE137 /* right_answer_gif0017.png in Resources */,
 				119C66691E2769D5001B4CFD /* lust_03_00043.jpg in Resources */,
@@ -8789,7 +8116,6 @@
 				119C64FA1E2769D4001B4CFD /* lingzai_02_00003.jpg in Resources */,
 				11AD0C4D1DAA3490007951C5 /* targets.json in Resources */,
 				119C65D31E2769D5001B4CFD /* lust_01_00054.jpg in Resources */,
-				111ACA4C1E2D1AD8007DE137 /* logo_640_0143.png in Resources */,
 				119C67041E2769D6001B4CFD /* pride_02_00040.jpg in Resources */,
 				119C66AD1E2769D5001B4CFD /* pride_01_00015.jpg in Resources */,
 				119C64541E2769D3001B4CFD /* gluttony_03_00025.jpg in Resources */,
@@ -8798,10 +8124,8 @@
 				119C655D1E2769D4001B4CFD /* lingzai_03_00008.jpg in Resources */,
 				119C65831E2769D4001B4CFD /* lingzai_03_00046.jpg in Resources */,
 				119C64001E2769D3001B4CFD /* gluttony_02_00036.jpg in Resources */,
-				111ACA001E2D1AD8007DE137 /* logo_640_0067.png in Resources */,
 				119C63041E2769D3001B4CFD /* envy_02_00023.jpg in Resources */,
 				119C65761E2769D4001B4CFD /* lingzai_03_00033.jpg in Resources */,
-				111ACA241E2D1AD8007DE137 /* logo_640_0103.png in Resources */,
 				119C66BA1E2769D5001B4CFD /* pride_01_00028.jpg in Resources */,
 				119C64831E2769D4001B4CFD /* gluttony_03_00072.jpg in Resources */,
 				119C673B1E2769D6001B4CFD /* pride_03_00034.jpg in Resources */,
@@ -8829,8 +8153,6 @@
 				119C63671E2769D3001B4CFD /* envy_03_00068.jpg in Resources */,
 				119C68441E2769D7001B4CFD /* wrath_03_00000.jpg in Resources */,
 				119C651F1E2769D4001B4CFD /* lingzai_02_00040.jpg in Resources */,
-				111AC9D01E2D1AD7007DE137 /* logo_640_0019.png in Resources */,
-				111ACA3B1E2D1AD8007DE137 /* logo_640_0126.png in Resources */,
 				119C65AE1E2769D4001B4CFD /* lust_01_00017.jpg in Resources */,
 				119C64EA1E2769D4001B4CFD /* lingzai_01_00085.jpg in Resources */,
 				119C651E1E2769D4001B4CFD /* lingzai_02_00039.jpg in Resources */,
@@ -8841,10 +8163,8 @@
 				119C64DC1E2769D4001B4CFD /* lingzai_01_00071.jpg in Resources */,
 				119C66541E2769D5001B4CFD /* lust_03_00022.jpg in Resources */,
 				119C638B1E2769D3001B4CFD /* gluttony_01_00019.jpg in Resources */,
-				111ACA121E2D1AD8007DE137 /* logo_640_0085.png in Resources */,
 				119C62C51E2769D3001B4CFD /* envy_01_00040.jpg in Resources */,
 				119C637D1E2769D3001B4CFD /* gluttony_01_00005.jpg in Resources */,
-				111AC9D41E2D1AD7007DE137 /* logo_640_0023.png in Resources */,
 				119C64D11E2769D4001B4CFD /* lingzai_01_00060.jpg in Resources */,
 				119C676D1E2769D6001B4CFD /* sloth_01_00025.jpg in Resources */,
 				119C66161E2769D5001B4CFD /* lust_02_00045.jpg in Resources */,
@@ -8864,7 +8184,6 @@
 				119C65C31E2769D5001B4CFD /* lust_01_00038.jpg in Resources */,
 				119C64221E2769D3001B4CFD /* gluttony_02_00070.jpg in Resources */,
 				119C67361E2769D6001B4CFD /* pride_03_00029.jpg in Resources */,
-				111AC9E11E2D1AD7007DE137 /* logo_640_0036.png in Resources */,
 				119C681C1E2769D7001B4CFD /* wrath_01_00017.jpg in Resources */,
 				119C66C31E2769D5001B4CFD /* pride_01_00037.jpg in Resources */,
 				119C678D1E2769D6001B4CFD /* sloth_01_00057.jpg in Resources */,
@@ -8874,12 +8193,9 @@
 				119C65891E2769D4001B4CFD /* lingzai_03_00052.jpg in Resources */,
 				119C63901E2769D3001B4CFD /* gluttony_01_00024.jpg in Resources */,
 				119C63BC1E2769D3001B4CFD /* gluttony_01_00068.jpg in Resources */,
-				111ACA591E2D1AD8007DE137 /* logo_640_0156.png in Resources */,
 				119C67691E2769D6001B4CFD /* sloth_01_00021.jpg in Resources */,
 				119C652A1E2769D4001B4CFD /* lingzai_02_00051.jpg in Resources */,
-				111ACA251E2D1AD8007DE137 /* logo_640_0104.png in Resources */,
 				119C66331E2769D5001B4CFD /* lust_02_00074.jpg in Resources */,
-				111AC9EF1E2D1AD8007DE137 /* logo_640_0050.png in Resources */,
 				119C66261E2769D5001B4CFD /* lust_02_00061.jpg in Resources */,
 				119C62A81E2769D2001B4CFD /* envy_01_00011.jpg in Resources */,
 				119C64EC1E2769D4001B4CFD /* lingzai_01_00087.jpg in Resources */,
@@ -8888,7 +8204,6 @@
 				119C63181E2769D3001B4CFD /* envy_02_00043.jpg in Resources */,
 				119C68461E2769D7001B4CFD /* wrath_03_00002.jpg in Resources */,
 				119C65291E2769D4001B4CFD /* lingzai_02_00050.jpg in Resources */,
-				111AC9F71E2D1AD8007DE137 /* logo_640_0058.png in Resources */,
 				119C68391E2769D7001B4CFD /* wrath_02_00012.jpg in Resources */,
 				119C63AB1E2769D3001B4CFD /* gluttony_01_00051.jpg in Resources */,
 				119C62C41E2769D3001B4CFD /* envy_01_00039.jpg in Resources */,
@@ -8910,7 +8225,6 @@
 				119C66901E2769D5001B4CFD /* lust_03_00082.jpg in Resources */,
 				119C662E1E2769D5001B4CFD /* lust_02_00069.jpg in Resources */,
 				119C64321E2769D3001B4CFD /* gluttony_02_00086.jpg in Resources */,
-				111ACA211E2D1AD8007DE137 /* logo_640_0100.png in Resources */,
 				119C686B1E2769D7001B4CFD /* wrath_03_00039.jpg in Resources */,
 				119C650F1E2769D4001B4CFD /* lingzai_02_00024.jpg in Resources */,
 				119C66931E2769D5001B4CFD /* lust_03_00085.jpg in Resources */,
@@ -8926,10 +8240,8 @@
 				119C66D61E2769D5001B4CFD /* pride_01_00056.jpg in Resources */,
 				119C672F1E2769D6001B4CFD /* pride_03_00022.jpg in Resources */,
 				119C68681E2769D7001B4CFD /* wrath_03_00036.jpg in Resources */,
-				111ACA0C1E2D1AD8007DE137 /* logo_640_0079.png in Resources */,
 				119C66DF1E2769D5001B4CFD /* pride_02_00003.jpg in Resources */,
 				119C64AF1E2769D4001B4CFD /* lingzai_01_00026.jpg in Resources */,
-				111ACA141E2D1AD8007DE137 /* logo_640_0087.png in Resources */,
 				119C68341E2769D7001B4CFD /* wrath_02_00007.jpg in Resources */,
 				119C65D01E2769D5001B4CFD /* lust_01_00051.jpg in Resources */,
 				119C650D1E2769D4001B4CFD /* lingzai_02_00022.jpg in Resources */,
@@ -8938,9 +8250,6 @@
 				119C636A1E2769D3001B4CFD /* envy_03_00071.jpg in Resources */,
 				119C64811E2769D4001B4CFD /* gluttony_03_00070.jpg in Resources */,
 				119C63921E2769D3001B4CFD /* gluttony_01_00026.jpg in Resources */,
-				111AC9C01E2D1AD7007DE137 /* logo_640_0003.png in Resources */,
-				111ACA1B1E2D1AD8007DE137 /* logo_640_0094.png in Resources */,
-				111ACA331E2D1AD8007DE137 /* logo_640_0118.png in Resources */,
 				119C67B81E2769D6001B4CFD /* sloth_02_00032.jpg in Resources */,
 				119C68601E2769D7001B4CFD /* wrath_03_00028.jpg in Resources */,
 				119C66E61E2769D5001B4CFD /* pride_02_00010.jpg in Resources */,
@@ -8957,7 +8266,6 @@
 				119C66ED1E2769D5001B4CFD /* pride_02_00017.jpg in Resources */,
 				119C67201E2769D6001B4CFD /* pride_03_00007.jpg in Resources */,
 				119C68571E2769D7001B4CFD /* wrath_03_00019.jpg in Resources */,
-				111AC9BE1E2D1AD7007DE137 /* logo_640_0001.png in Resources */,
 				119C63AC1E2769D3001B4CFD /* gluttony_01_00052.jpg in Resources */,
 				119C68401E2769D7001B4CFD /* wrath_02_00019.jpg in Resources */,
 				119C66291E2769D5001B4CFD /* lust_02_00064.jpg in Resources */,
@@ -8980,9 +8288,7 @@
 				119C67BB1E2769D6001B4CFD /* sloth_02_00035.jpg in Resources */,
 				119C65C41E2769D5001B4CFD /* lust_01_00039.jpg in Resources */,
 				119C676C1E2769D6001B4CFD /* sloth_01_00024.jpg in Resources */,
-				111ACA301E2D1AD8007DE137 /* logo_640_0115.png in Resources */,
 				119C67861E2769D6001B4CFD /* sloth_01_00050.jpg in Resources */,
-				111ACA3C1E2D1AD8007DE137 /* logo_640_0127.png in Resources */,
 				119C62A61E2769D2001B4CFD /* envy_01_00009.jpg in Resources */,
 				119C68471E2769D7001B4CFD /* wrath_03_00003.jpg in Resources */,
 				119C67CB1E2769D6001B4CFD /* sloth_02_00051.jpg in Resources */,
@@ -8993,10 +8299,8 @@
 				11F9905F1E27312A00112E13 /* lust_3.gif in Resources */,
 				119C64191E2769D3001B4CFD /* gluttony_02_00061.jpg in Resources */,
 				119C67311E2769D6001B4CFD /* pride_03_00024.jpg in Resources */,
-				111AC9D31E2D1AD7007DE137 /* logo_640_0022.png in Resources */,
 				119C63361E2769D3001B4CFD /* envy_03_00019.jpg in Resources */,
 				119C64AA1E2769D4001B4CFD /* lingzai_01_00021.jpg in Resources */,
-				111ACA261E2D1AD8007DE137 /* logo_640_0105.png in Resources */,
 				119C63AE1E2769D3001B4CFD /* gluttony_01_00054.jpg in Resources */,
 				17461CFA1C7493DF00C847E8 /* img_ar_right_answer_gif_0000.png in Resources */,
 				119C641E1E2769D3001B4CFD /* gluttony_02_00066.jpg in Resources */,
@@ -9005,7 +8309,6 @@
 				119C65771E2769D4001B4CFD /* lingzai_03_00034.jpg in Resources */,
 				119C63F91E2769D3001B4CFD /* gluttony_02_00029.jpg in Resources */,
 				119C63781E2769D3001B4CFD /* gluttony_01_00000.jpg in Resources */,
-				111ACA601E2D1AD8007DE137 /* logo_640_0163.png in Resources */,
 				119C666D1E2769D5001B4CFD /* lust_03_00047.jpg in Resources */,
 				119C64CC1E2769D4001B4CFD /* lingzai_01_00055.jpg in Resources */,
 				119C66A31E2769D5001B4CFD /* pride_01_00005.jpg in Resources */,
@@ -9013,7 +8316,6 @@
 				119C65091E2769D4001B4CFD /* lingzai_02_00018.jpg in Resources */,
 				17A2478C1C623B9300359CCF /* raw_wrong_answer_gif_0014.png in Resources */,
 				119C63A91E2769D3001B4CFD /* gluttony_01_00049.jpg in Resources */,
-				111ACA2B1E2D1AD8007DE137 /* logo_640_0110.png in Resources */,
 				119C68061E2769D6001B4CFD /* sloth_03_00029.jpg in Resources */,
 				119C68131E2769D7001B4CFD /* wrath_01_00008.jpg in Resources */,
 				17A247901C623B9300359CCF /* raw_wrong_answer_gif_0018.png in Resources */,
@@ -9022,8 +8324,6 @@
 				119C66F11E2769D6001B4CFD /* pride_02_00021.jpg in Resources */,
 				119C664A1E2769D5001B4CFD /* lust_03_00012.jpg in Resources */,
 				119C646D1E2769D4001B4CFD /* gluttony_03_00050.jpg in Resources */,
-				111ACA5B1E2D1AD8007DE137 /* logo_640_0158.png in Resources */,
-				111AC9FF1E2D1AD8007DE137 /* logo_640_0066.png in Resources */,
 				119C68031E2769D6001B4CFD /* sloth_03_00026.jpg in Resources */,
 				119C63681E2769D3001B4CFD /* envy_03_00069.jpg in Resources */,
 				119C63271E2769D3001B4CFD /* envy_03_00004.jpg in Resources */,
@@ -9036,7 +8336,6 @@
 				119C66521E2769D5001B4CFD /* lust_03_00020.jpg in Resources */,
 				119C64711E2769D4001B4CFD /* gluttony_03_00054.jpg in Resources */,
 				119C65A31E2769D4001B4CFD /* lust_01_00006.jpg in Resources */,
-				111ACA3A1E2D1AD8007DE137 /* logo_640_0125.png in Resources */,
 				119C62CA1E2769D3001B4CFD /* envy_01_00045.jpg in Resources */,
 				119C64C01E2769D4001B4CFD /* lingzai_01_00043.jpg in Resources */,
 				119C648D1E2769D4001B4CFD /* gluttony_03_00082.jpg in Resources */,

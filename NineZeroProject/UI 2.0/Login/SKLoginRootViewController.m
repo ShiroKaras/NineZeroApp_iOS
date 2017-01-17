@@ -41,16 +41,9 @@
     
     __weak __typeof(self)weakSelf = self;
     
-    NSMutableArray<UIImage *> *images = [NSMutableArray array];
-    for (int i = 0; i<174; i++) {
-        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"logo_640_%04d.png", i]];
-        [images addObject:animatedImage];
-    }
-    UIImageView *backImageView = [[UIImageView alloc] init];
-    backImageView.animationImages = images;
-    backImageView.animationDuration = 0.033 * images.count;
-    backImageView.animationRepeatCount = 0;
-    [backImageView startAnimating];
+    //LOGO-640
+    YLImageView *backImageView = [[YLImageView alloc] init];
+    backImageView.image = [YLGIFImage imageNamed:@"LOGO-640.gif"];
     [self.view addSubview:backImageView];
     [backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo((SCREEN_HEIGHT-49-54)/930*640);
