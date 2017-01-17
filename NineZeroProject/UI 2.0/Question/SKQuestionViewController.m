@@ -1039,13 +1039,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [rewardBaseInfoView addSubview:rankLabel];
         [rankLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(rewardImageView_txt_top10_1.mas_right).offset(4);
-            make.bottom.equalTo(rewardImageView_txt_top10_1);
+            make.top.equalTo(rewardImageView_mascot.mas_bottom).offset(8);
         }];
         
         [rewardImageView_txt_top10_2 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(24, 24));
             make.left.equalTo(rankLabel.mas_right).offset(4);
-            make.bottom.equalTo(rankLabel);
+            make.bottom.equalTo(rewardImageView_txt_top10_1);
         }];
         
         [rewardImageView_txt_top10_3 mas_makeConstraints:^(MASConstraintMaker *make) {
