@@ -238,6 +238,7 @@
         int j = floor(itemInPage/3);
         UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
         UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
+        coverImageView.tag = 300+questionNumber;
         NSURL *coverURL = ([questionList[questionNumber].thumbnail_pic isEqualToString:@""]||questionList[questionNumber].thumbnail_pic==nil)?[NSURL URLWithString:questionList[questionNumber].question_video_cover]: [NSURL URLWithString:questionList[questionNumber].thumbnail_pic];
         if (coverURL == nil) {
             coverImageView.image = [UIImage imageNamed:@"img_profile_photo_default"];
@@ -352,6 +353,7 @@
         int j = floor(itemInPage/3);
         UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
         UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
+        coverImageView.tag = 400+questionNumber;
         coverImageView.layer.cornerRadius = itemView.width/2;
         coverImageView.layer.masksToBounds = YES;
         [itemView addSubview:coverImageView];
@@ -720,10 +722,14 @@
         self.questionList_season1[[serial integerValue]-1].is_answer = YES;
         [((UIButton*)[self.view viewWithTag:100+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
         [((UIButton*)[self.view viewWithTag:100+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+        NSURL *coverURL = ([self.questionList_season1[[serial integerValue]-1].thumbnail_pic isEqualToString:@""]||self.questionList_season1[[serial integerValue]-1].thumbnail_pic==nil)?[NSURL URLWithString:self.questionList_season1[[serial integerValue]-1].question_video_cover]: [NSURL URLWithString:self.questionList_season1[[serial integerValue]-1].thumbnail_pic];
+        [((UIImageView*)[self.view viewWithTag:300+[serial integerValue]-1]) sd_setImageWithURL:coverURL];
     } else if (season == 2) {
         self.questionList_season2[[serial integerValue]-1].is_answer = YES;
         [((UIButton*)[self.view viewWithTag:200+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
         [((UIButton*)[self.view viewWithTag:200+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+        NSURL *coverURL = ([self.questionList_season2[[serial integerValue]-1].thumbnail_pic isEqualToString:@""]||self.questionList_season2[[serial integerValue]-1].thumbnail_pic==nil)?[NSURL URLWithString:self.questionList_season2[[serial integerValue]-1].question_video_cover]: [NSURL URLWithString:self.questionList_season2[[serial integerValue]-1].thumbnail_pic];
+        [((UIImageView*)[self.view viewWithTag:400+[serial integerValue]-1]) sd_setImageWithURL:coverURL];
     }
 }
 
