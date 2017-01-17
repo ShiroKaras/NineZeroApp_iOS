@@ -64,20 +64,20 @@
 
 - (void)showRandom {
     NSDictionary *dict = @{
-                           @"lingzai_2"    :   @3.53,
-                           @"lingzai_3"    :   @2.87,
+                           @"lingzai_2"    :   @3.533,
+                           @"lingzai_3"    :   @2.866,
                            @"envy_2"       :   @2,
                            @"envy_3"       :   @3.2,
-                           @"gluttony_2"   :   @3.53,
+                           @"gluttony_2"   :   @3.533,
                            @"gluttony_3"   :   @3.8,
                            @"lust_2"       :   @3.2,
                            @"lust_3"       :   @3.6,
                            @"pride_2"      :   @2.2,
                            @"pride_3"      :   @2.2,
                            @"sloth_2"      :   @3,
-                           @"sloth_3"      :   @3.07,
-                           @"wrath_2"      :   @0.87,
-                           @"wrath_3"      :   @1.53
+                           @"sloth_3"      :   @3.066,
+                           @"wrath_2"      :   @0.866,
+                           @"wrath_3"      :   @1.533
                            };
     animatedGuard++;
     
@@ -94,6 +94,7 @@
 }
 
 - (void)showDefaultImage {
+    _mBlankImageView.userInteractionEnabled = YES;
     NSString *mascotName = [NSString stringWithFormat:@"%@_01_00000.jpg", _mascotNameArray[_mascotType]];
     _mBlankImageView.image = [YLGIFImage imageNamed:mascotName];
 }
@@ -218,6 +219,13 @@
     }
     return self;
 }
+//
+//- (void)dealloc {
+//    [self removeObserver:self forKeyPath:@"hintS1_islock"];
+//    [self removeObserver:self forKeyPath:@"hintS2_islock"];
+//    [self removeObserver:self forKeyPath:@"answerS1_islock"];
+//    [self removeObserver:self forKeyPath:@"answerS2_islock"];
+//}
 
 - (void)loadData {
     [TalkingData trackPageBegin:@"lingskill"];

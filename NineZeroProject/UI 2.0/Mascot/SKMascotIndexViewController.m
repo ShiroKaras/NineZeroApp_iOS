@@ -361,7 +361,7 @@
 
 - (void)updateMascotImageWithIndex:(NSInteger)index {
     if (self.currentIndex == SKMascotTypeDefault) {
-        [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) show];
+        [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT]) showDefault];
     } else {
         for (int i=0; i<7; i++) {
             if (self.mascotArray[i].user_haved) {
@@ -371,7 +371,7 @@
                     [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+i]) showDefaultImage];
                 }
             } else {
-                [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+self.currentIndex]) hide];
+//                [((SKMascotView*)[self.view viewWithTag:MASCOT_VIEW_DEFAULT+self.currentIndex]) hide];
             }
         }
     }
