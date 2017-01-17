@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *mainTimeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *detailTimeLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *decoImageView;
+//@property (strong, nonatomic) IBOutlet UIImageView *decoImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *resultImageView;
 //@property (nonatomic, strong) SKHelperGuideView *guideView;
 @property (nonatomic, assign) time_t endTime;
@@ -45,9 +45,9 @@
             [self scheduleCountDownTimer];
         } else {
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
-            _decoImageView.hidden = YES;
-            _mainTimeLabel.hidden = YES;
+//            _decoImageView.hidden = YES;
             _detailTimeLabel.hidden = YES;
+            _mainTimeLabel.hidden = YES;
             _resultImageView.hidden = NO;
             _resultImageView.contentMode = UIViewContentModeScaleAspectFit;
             if (question.is_answer) {
@@ -61,7 +61,7 @@
             }
         }
     } else if (type == SKQuestionTypeHistoryLevel) {
-        _decoImageView.hidden = YES;
+//        _decoImageView.hidden = YES;
         _mainTimeLabel.hidden = YES;
         _detailTimeLabel.hidden = YES;
         _resultImageView.hidden = NO;
@@ -90,9 +90,9 @@
     time_t hour = delta / oneHour;
     time_t minute = (delta % oneHour) / 60;
     time_t second = delta - hour * oneHour - minute * 60;
-    _decoImageView.hidden = NO;
+//    _decoImageView.hidden = NO;
     _mainTimeLabel.hidden = NO;
-    _detailTimeLabel.hidden = YES;
+    _detailTimeLabel.hidden = NO;
     _resultImageView.hidden = YES;
     
     //TODO: 更改TimeView
@@ -104,7 +104,7 @@
         // 小于1小时
         _mainTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", hour, minute];
         _mainTimeLabel.textColor = COMMON_PINK_COLOR;
-        _decoImageView.hidden = YES;
+//        _decoImageView.hidden = YES;
         _detailTimeLabel.hidden = NO;
         _detailTimeLabel.text = [NSString stringWithFormat:@"%02ld", second];
         _detailTimeLabel.textColor = COMMON_PINK_COLOR;
