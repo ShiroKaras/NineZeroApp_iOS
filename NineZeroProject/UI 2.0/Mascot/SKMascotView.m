@@ -60,27 +60,27 @@
 
 - (void)showRandom {
     NSDictionary *dict = @{
-                           @"lingzai_1"    :   @98,
-                           @"lingzai_2"    :   @94,
-                           @"lingzai_3"    :   @72,
-                           @"envy_1"       :   @80,
-                           @"envy_2"       :   @54,
-                           @"envy_3"       :   @85,
-                           @"gluttony_1"   :   @100,
-                           @"gluttony_2"   :   @95,
-                           @"gluttony_3"   :   @90,
-                           @"lust_1"       :   @76,
-                           @"lust_2"       :   @85,
-                           @"lust_3"       :   @96,
-                           @"pride_1"      :   @62,
-                           @"pride_2"      :   @61,
-                           @"pride_3"      :   @59,
-                           @"sloth_1"      :   @68,
-                           @"sloth_2"      :   @81,
-                           @"sloth_3"      :   @34,
-                           @"wrath_1"      :   @34,
-                           @"wrath_2"      :   @23,
-                           @"wrath_3"      :   @41
+//                           @"lingzai_1"    :   @98,
+                           @"lingzai_2"    :   @3.53,
+                           @"lingzai_3"    :   @2.87,
+//                           @"envy_1"       :   @80,
+                           @"envy_2"       :   @2,
+                           @"envy_3"       :   @3.2,
+//                           @"gluttony_1"   :   @100,
+                           @"gluttony_2"   :   @3.53,
+                           @"gluttony_3"   :   @3.8,
+//                           @"lust_1"       :   @76,
+                           @"lust_2"       :   @3.2,
+                           @"lust_3"       :   @3.6,
+//                           @"pride_1"      :   @62,
+                           @"pride_2"      :   @2.2,
+                           @"pride_3"      :   @2.2,
+//                           @"sloth_1"      :   @68,
+                           @"sloth_2"      :   @3,
+                           @"sloth_3"      :   @3.07,
+//                           @"wrath_1"      :   @34,
+                           @"wrath_2"      :   @0.87,
+                           @"wrath_3"      :   @1.53
                            };
     
     _mBlankImageView.userInteractionEnabled = YES;
@@ -89,7 +89,7 @@
     _mBlankImageView.image = [YLGIFImage imageNamed:[gifName stringByAppendingString:@".gif"]];
     
     NSLog(@"%lf",[dict[gifName] floatValue]*0.033);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)([dict[gifName] floatValue]*0.033 *NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (float)([dict[gifName] floatValue] *NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self showDefault];
     });
 }
