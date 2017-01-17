@@ -244,7 +244,7 @@
     [promptImageView sizeToFit];
     
     UIView *promptView = [UIView new];
-    promptView.tag = 300;
+    promptView.tag = 9002;
     promptView.size = promptImageView.size;
     promptView.center = self.center;
     promptView.alpha = 0;
