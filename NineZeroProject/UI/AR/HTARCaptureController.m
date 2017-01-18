@@ -164,17 +164,16 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self buildConstrains];
     
     //判断GPS是否开启
+    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+    alertView.delegate = self;
     if ([CLLocationManager locationServicesEnabled]) {
         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways
             || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
             
         }else {
-            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
             [alertView show];
         }
     }else {
-        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-        alertView.delegate = self;
         [alertView show];
     }
 }
