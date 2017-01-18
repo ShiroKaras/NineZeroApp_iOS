@@ -56,7 +56,6 @@
     [self registerUmeng];
     [self registerUserAgent];
     [self registerTalkingData];
-    [self registerJSPatch];
     
     [NSThread sleepForTimeInterval:2];
     [self createWindowAndVisibleWithOptions:launchOptions];

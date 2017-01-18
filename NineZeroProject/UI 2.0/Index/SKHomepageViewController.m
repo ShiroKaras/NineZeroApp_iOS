@@ -9,6 +9,8 @@
 #import "SKHomepageViewController.h"
 #import "HTUIHeader.h"
 
+#import "JPUSHService.h"
+
 #import "SKAllQuestionViewController.h"
 #import "SKMascotIndexViewController.h"
 #import "SKLoginRootViewController.h"
@@ -120,6 +122,11 @@
     //更新用户信息
     [[[SKServiceManager sharedInstance] profileService] getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response) { }];
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) { }];
+    
+    //注册通知
+    if ([[SKStorageManager sharedInstance] getUserID]) {
+        [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[SKStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
+    }
     
     if(![UD boolForKey:@"firstLaunch2"]){
         [UD setBool:YES forKey:@"firstLaunch2"];
