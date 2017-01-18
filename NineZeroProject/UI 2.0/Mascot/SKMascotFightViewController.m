@@ -64,16 +64,18 @@
         make.bottom.equalTo(weakSelf.view);
     }];
     
-    [[[SKServiceManager sharedInstance] mascotService] getRandomStringWithMascotID:[NSString stringWithFormat:@"%ld", _mascot.pet_id] callback:^(BOOL success, SKResponsePackage *response) {
-        if (response.result == 0) {
-            //出现怪物
-            self.randomString = response.data[@"randomString"];
-            [self createMonster];
-        } else {
-            //未出现
-            [self showPromptWithText:nil];
-        }
-    }];
+    if (!NO_NETWORK) {
+        [[[SKServiceManager sharedInstance] mascotService] getRandomStringWithMascotID:[NSString stringWithFormat:@"%ld", _mascot.pet_id] callback:^(BOOL success, SKResponsePackage *response) {
+            if (response.result == 0) {
+                //出现怪物
+                self.randomString = response.data[@"randomString"];
+                [self createMonster];
+            } else {
+                //未出现
+                [self showPromptWithText:nil];
+            }
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
