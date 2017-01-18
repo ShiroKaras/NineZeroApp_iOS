@@ -85,7 +85,12 @@
                 [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer_highlight"] forState:UIControlStateHighlighted];
             }
             if (![_indexInfo.adv_pic isEqualToString:@""]) {
-                [self judgementDate];
+                if ([self isNewDay] || ![self isSamePic]) {
+                    _activityNotificationView.hidden = NO;
+                    [_activityNotificationView show];
+                    [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:self.indexInfo.adv_pic] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    }];
+                }
             }
             [self judgeNotificationRedFlag];
         }
@@ -143,20 +148,27 @@
     }
 }
 
-- (void)judgementDate {
+- (BOOL)isNewDay {
     NSDate  *senddate=[NSDate date];
     NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
     [dateformatter setDateFormat:@"YYYYMMdd"];
     NSString *locationString=[dateformatter stringFromDate:senddate];
     if (![locationString isEqualToString:[UD objectForKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION]]) {
-        _activityNotificationView.hidden = NO;
-        [_activityNotificationView show];
-        [_activityNotificationView.contentImageView sd_setImageWithURL:[NSURL URLWithString:self.indexInfo.adv_pic] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        }];
+        [UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
+        return YES;
     } else {
-        _activityNotificationView.hidden = YES;
+        [UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
+        return NO;
     }
-    [UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
+}
+
+- (BOOL)isSamePic {
+    if ([self.indexInfo.adv_pic isEqualToString:[UD stringForKey:ACTIVITY_NOTIFICATION_PIC_NAME]]) {
+        return YES;
+    } else {
+        [UD setObject:self.indexInfo.adv_pic forKey:ACTIVITY_NOTIFICATION_PIC_NAME];
+        return NO;
+    }
 }
 
 - (void)judgeNotificationRedFlag {

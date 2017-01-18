@@ -82,11 +82,12 @@
         _backView.bottom = 0;
         _dimmingView.alpha = 0;
     } completion:^(BOOL finished) {
-        [self removeFromSuperview];
+        self.bottom = 0;
     }];
 }
 
 - (void)show {
+    self.bottom = SCREEN_HEIGHT;
     _backView.bottom = 0;
     [UIView animateWithDuration:0.6 animations:^{
         _backView.bottom = SCREEN_HEIGHT;
