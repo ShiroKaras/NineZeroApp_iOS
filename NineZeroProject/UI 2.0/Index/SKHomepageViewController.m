@@ -84,8 +84,8 @@
             }
             if (![_indexInfo.adv_pic isEqualToString:@""]) {
                 [self judgementDate];
-                [self judgeNotificationRedFlag];                
             }
+            [self judgeNotificationRedFlag];
         }
     }];
     
