@@ -523,7 +523,7 @@
 }
 
 - (void)showPromptWithText:(NSString*)text {
-    [[self.view viewWithTag:300] removeFromSuperview];
+    [[self.view viewWithTag:9002] removeFromSuperview];
     UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_levelpage_prompt"]];
     [promptImageView sizeToFit];
     

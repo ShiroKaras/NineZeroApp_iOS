@@ -862,7 +862,7 @@
 }
 
 - (void)showPromptWithText:(NSString*)text {
-    [[self viewWithTag:300] removeFromSuperview];
+    [[self viewWithTag:9002] removeFromSuperview];
     UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_prompt"]];
     [promptImageView sizeToFit];
     
@@ -898,7 +898,7 @@
 }
 
 - (void)showSinMascotPromptWithText:(NSString*)text {
-    [[self viewWithTag:300] removeFromSuperview];
+    [[self viewWithTag:9002] removeFromSuperview];
     UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_skillpage_prompt"]];
     [promptImageView sizeToFit];
     
