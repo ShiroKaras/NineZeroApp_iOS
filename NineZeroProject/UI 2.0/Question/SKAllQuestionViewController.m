@@ -404,12 +404,16 @@
             
             //按钮
             UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            mImageButton.tag = 200+questionNumber;
+            mImageButton.tag = 100+questionNumber;
             [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
+            mImageButton.titleLabel.font = MOON_FONT_OF_SIZE(23);
+            [mImageButton setTitle:[NSString stringWithFormat:@"%d",questionNumber+1] forState:UIControlStateNormal];
+            [mImageButton setTitleColor:[UIColor colorWithHex:0x00DFB4] forState:UIControlStateHighlighted];
             if (questionList[questionNumber].is_answer) {
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+                [mImageButton setTitleColor:COMMON_PINK_COLOR forState:UIControlStateNormal];
             } else {
                 //是否是限时关卡
                 if (questionNumber == questionList.count-1 && !_isMonday) {
@@ -426,14 +430,6 @@
                 }
             }
             [itemView addSubview:mImageButton];
-            
-            //关卡号
-            UILabel *mQuestionNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
-            mQuestionNumberLabel.textColor = [UIColor whiteColor];
-            mQuestionNumberLabel.text = [NSString stringWithFormat:@"%d",questionNumber+1];
-            mQuestionNumberLabel.textAlignment = NSTextAlignmentCenter;
-            mQuestionNumberLabel.font = MOON_FONT_OF_SIZE(23);
-            [itemView addSubview:mQuestionNumberLabel];
         } else {
             //按钮
             UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -722,12 +718,14 @@
         self.questionList_season1[[serial integerValue]-1].is_answer = YES;
         [((UIButton*)[self.view viewWithTag:100+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
         [((UIButton*)[self.view viewWithTag:100+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+        [((UIButton*)[self.view viewWithTag:100+[serial integerValue]-1]) setTitleColor:COMMON_PINK_COLOR forState:UIControlStateNormal];
         NSURL *coverURL = ([self.questionList_season1[[serial integerValue]-1].thumbnail_pic isEqualToString:@""]||self.questionList_season1[[serial integerValue]-1].thumbnail_pic==nil)?[NSURL URLWithString:self.questionList_season1[[serial integerValue]-1].question_video_cover]: [NSURL URLWithString:self.questionList_season1[[serial integerValue]-1].thumbnail_pic];
         [((UIImageView*)[self.view viewWithTag:300+[serial integerValue]-1]) sd_setImageWithURL:coverURL];
     } else if (season == 2) {
         self.questionList_season2[[serial integerValue]-1].is_answer = YES;
         [((UIButton*)[self.view viewWithTag:200+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
         [((UIButton*)[self.view viewWithTag:200+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+        [((UIButton*)[self.view viewWithTag:200+[serial integerValue]-1]) setTitleColor:COMMON_PINK_COLOR forState:UIControlStateNormal];
         NSURL *coverURL = ([self.questionList_season2[[serial integerValue]-1].thumbnail_pic isEqualToString:@""]||self.questionList_season2[[serial integerValue]-1].thumbnail_pic==nil)?[NSURL URLWithString:self.questionList_season2[[serial integerValue]-1].question_video_cover]: [NSURL URLWithString:self.questionList_season2[[serial integerValue]-1].thumbnail_pic];
         [((UIImageView*)[self.view viewWithTag:400+[serial integerValue]-1]) sd_setImageWithURL:coverURL];
     }
