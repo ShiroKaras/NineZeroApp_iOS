@@ -160,8 +160,8 @@
                 [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.centerX.equalTo(self.view);
                     make.centerY.equalTo(self.view);
-                    make.width.equalTo(@165);
-                    make.height.equalTo(@165);
+                    make.width.equalTo(@173);
+                    make.height.equalTo(@173);
                 }];
                 
                 [fightSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
