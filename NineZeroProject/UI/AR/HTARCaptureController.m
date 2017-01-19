@@ -23,14 +23,14 @@
 NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
 NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
-@interface HTARCaptureController () <PRARManagerDelegate,AMapLocationManagerDelegate,MotionEffectViewDelegate,HTAlertViewDelegate>
+@interface HTARCaptureController () <PRARManagerDelegate,AMapLocationManagerDelegate,HTAlertViewDelegate>
 @property (nonatomic, strong) PRARManager *prARManager;
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIImageView *radarImageView;
 @property (nonatomic, strong) UIImageView *tipImageView;
 @property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UIImageView *mascotImageView;
-@property (nonatomic, strong) MotionEffectView *mascotMotionView;
+//@property (nonatomic, strong) MotionEffectView *mascotMotionView;
 @property (nonatomic, strong) HTImageView *captureSuccessImageView;
 @property (nonatomic, strong) UIView *successBackgroundView;
 @property (nonatomic, strong) AMapLocationManager *locationManager;
@@ -131,20 +131,26 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         UIImage *image = [UIImage imageWithData:data];
         [images addObject:image];
     }
-    
     self.mascotImageView = [[UIImageView alloc] init];
+    self.mascotImageView.layer.masksToBounds = YES;
+    self.mascotImageView.hidden = YES;
+    self.mascotImageView.userInteractionEnabled = YES;
+    [self.view addSubview:self.mascotImageView];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
+    [self.mascotImageView addGestureRecognizer:tap];
     self.mascotImageView.animationImages = images;
     self.mascotImageView.animationDuration = 0.1 * images.count;
     self.mascotImageView.animationRepeatCount = 0;
     [self.mascotImageView startAnimating];
+
     
-    self.mascotMotionView = [[MotionEffectView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
-    self.mascotMotionView.hidden = YES;
-    self.mascotMotionView.imageView.hidden = YES;
-    self.mascotMotionView.center = self.view.center;
-    self.mascotMotionView.delegate = self;
-    [self.view addSubview:self.mascotMotionView];
-    [self.mascotMotionView setImage:self.mascotImageView];
+//    self.mascotMotionView = [[MotionEffectView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+//    self.mascotMotionView.hidden = YES;
+//    self.mascotMotionView.imageView.hidden = YES;
+//    self.mascotMotionView.center = self.view.center;
+//    self.mascotMotionView.delegate = self;
+//    [self.view addSubview:self.mascotMotionView];
+//    [self.mascotMotionView setImage:self.mascotImageView];
     
     if (FIRST_LAUNCH_AR) {
         SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
@@ -234,12 +240,12 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         make.bottom.equalTo(self.tipImageView.mas_bottom).offset(-27);
     }];
     
-//    [self.mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(@130);
-//        make.centerX.equalTo(self.view);
-//        make.width.equalTo(@265);
-//        make.height.equalTo(@265);
-//    }];
+    [self.mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.view);
+        make.centerX.equalTo(self.view);
+        make.width.equalTo(self.view);
+        make.height.equalTo(self.view.mas_width);
+    }];
     
     [self.helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@10);
@@ -306,11 +312,11 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     return currentPoint;
 }
 
-#pragma MotionEffectViewDelegate
-
-- (void)didTapMotionEffectView:(MotionEffectView *)view {
-    [self onClickMascot];
-}
+//#pragma MotionEffectViewDelegate
+//
+//- (void)didTapMotionEffectView:(MotionEffectView *)view {
+//    [self onClickMascot];
+//}
 
 #pragma mark - AMapDelegate
 
@@ -340,9 +346,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)onClickBack {
-    [self.mascotMotionView disableMotionEffect];
-    [self.mascotMotionView removeFromSuperview];
-    self.mascotMotionView = nil;
+//    [self.mascotMotionView disableMotionEffect];
+//    [self.mascotMotionView removeFromSuperview];
+//    self.mascotMotionView = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -390,8 +396,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
                 make.height.equalTo(@165);
             }];
             
-//            [self.mascotImageView removeFromSuperview];
-            [self.mascotMotionView removeFromSuperview];
+            [self.mascotImageView removeFromSuperview];
+//            [self.mascotMotionView removeFromSuperview];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.1 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self onCaptureMascotSuccessfulWithReward:[SKReward objectWithKeyValues:[response.data keyValues]]];
             });
@@ -447,7 +453,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.view bringSubviewToFront:self.helpButton];
     [self.view bringSubviewToFront:self.helpView];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.view bringSubviewToFront:self.mascotMotionView];
+//        [self.view bringSubviewToFront:self.mascotMotionView];
+        [self.view bringSubviewToFront:self.mascotImageView];
         [self.view bringSubviewToFront:self.captureSuccessImageView];
     });
 }
@@ -475,15 +482,14 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         self.tipLabel.text = kTipTapMascotToCapture;
         self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
         needShowMascot = YES;
-        [self.mascotMotionView enableMotionEffect];
+//        [self.mascotMotionView enableMotionEffect];
     }
     if (_needShowDebugLocation) {
         self.tipLabel.text = [NSString stringWithFormat:@"%.1f", distance];
     }
-    self.mascotMotionView.hidden = !needShowMascot;
-    self.mascotMotionView.imageView.hidden = !needShowMascot;
-    [self.view bringSubviewToFront:self.backButton];
-//    self.mascotImageView.hidden = !needShowMascot;
+//    self.mascotMotionView.hidden = !needShowMascot;
+//    self.mascotMotionView.imageView.hidden = !needShowMascot;
+    self.mascotImageView.hidden = !needShowMascot;
     
     [[self.view viewWithTag:AR_VIEW_TAG] setFrame:arViewFrame];
 }
