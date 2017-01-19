@@ -174,7 +174,7 @@
     NSInteger count = 40;
     NSMutableArray *images = [NSMutableArray array];
     CGFloat length = 156;
-    _HUDImageView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - length / 2, SCREEN_HEIGHT / 2 - length / 2, length, length)];
+    _HUDImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.width / 2 - length / 2, self.height / 2 - length / 2, length, length)];
     for (int i = 0; i != count; i++) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"loader_png_00%02d", i]];
         [images addObject:image];
@@ -188,7 +188,7 @@
 }
 
 - (void)showHUD {
-    [AppDelegateInstance.window addSubview:_HUDView];
+    [self addSubview:_HUDView];
     _HUDView.alpha = 0;
     [UIView animateWithDuration:0.5 animations:^{
         _HUDView.alpha = 1;
