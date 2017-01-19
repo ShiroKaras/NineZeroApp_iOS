@@ -377,7 +377,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
             }
             self.captureSuccessImageView = [[HTImageView alloc] init];
             self.captureSuccessImageView.animationImages = images;
-            self.captureSuccessImageView.animationDuration = 0.1 * 18;
+            self.captureSuccessImageView.animationDuration = 0.05 * 18;
             self.captureSuccessImageView.animationRepeatCount = 1;
             [self.successBackgroundView addSubview:self.captureSuccessImageView];
             [self.captureSuccessImageView startAnimating];

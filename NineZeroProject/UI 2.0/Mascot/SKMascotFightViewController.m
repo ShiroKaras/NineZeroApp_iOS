@@ -153,7 +153,7 @@
                     make.height.equalTo(@165);
                 }];
                 fightSuccessImageView.animationImages = images;
-                fightSuccessImageView.animationDuration = 0.1*22;
+                fightSuccessImageView.animationDuration = 0.05*22;
                 fightSuccessImageView.animationRepeatCount = 1;
                 [fightSuccessImageView startAnimating];
                 
