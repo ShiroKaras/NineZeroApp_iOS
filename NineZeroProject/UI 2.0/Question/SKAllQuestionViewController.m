@@ -404,7 +404,7 @@
             
             //按钮
             UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            mImageButton.tag = 100+questionNumber;
+            mImageButton.tag = 200+questionNumber;
             [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
             mImageButton.titleLabel.font = MOON_FONT_OF_SIZE(23);
@@ -492,7 +492,7 @@
 
 //点击活动关卡
 - (void)questionSelectButtonClick:(UIButton *)sender {
-    NSLog(@"%ld", sender.tag);
+    NSLog(@"%ld", sender.tag-100);
     NSString *questionID;
     if (self.season == 1) {
         questionID = self.questionList_season1[sender.tag-100].qid;
