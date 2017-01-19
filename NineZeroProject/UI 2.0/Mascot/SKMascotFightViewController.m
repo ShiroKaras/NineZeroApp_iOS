@@ -145,14 +145,6 @@
                 self.successBackgroundView.layer.cornerRadius = 5.0f;
                 [self.view addSubview:self.successBackgroundView];
                 [self.view bringSubviewToFront:self.successBackgroundView];
-                
-                [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(self.view);
-                    make.top.equalTo(@161);
-                    make.width.equalTo(@165);
-                    make.height.equalTo(@165);
-                }];
-                
                 NSMutableArray<UIImage *> *images = [NSMutableArray array];
                 for (int i = 0; i <22; i++) {
                     UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"right_answer_gif%04d",i]];
@@ -160,18 +152,27 @@
                 }
                 UIImageView *fightSuccessImageView = [[UIImageView alloc] init];
                 [self.successBackgroundView addSubview:fightSuccessImageView];
+                fightSuccessImageView.animationImages = images;
+                fightSuccessImageView.animationDuration = 0.05*22;
+                fightSuccessImageView.animationRepeatCount = 1;
+                [fightSuccessImageView startAnimating];
+                
+                [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self.view);
+                    make.centerY.equalTo(self.view);
+                    make.width.equalTo(@165);
+                    make.height.equalTo(@165);
+                }];
+                
                 [fightSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(@4);
                     make.top.equalTo(@4);
                     make.width.equalTo(@165);
                     make.height.equalTo(@165);
                 }];
-                fightSuccessImageView.animationImages = images;
-                fightSuccessImageView.animationDuration = 0.05*22;
-                fightSuccessImageView.animationRepeatCount = 1;
-                [fightSuccessImageView startAnimating];
                 
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * 22 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.successBackgroundView removeFromSuperview];
                     _reward = [SKReward objectWithKeyValues:response.data];
                     if (_reward.gold != nil || _reward.experience_value !=nil || _reward.gemstone!=nil) {
                         [self createBaseRewardViewWithReward:_reward];
