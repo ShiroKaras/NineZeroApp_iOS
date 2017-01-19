@@ -398,7 +398,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
             
             [self.mascotImageView removeFromSuperview];
 //            [self.mascotMotionView removeFromSuperview];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.1 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self onCaptureMascotSuccessfulWithReward:[SKReward objectWithKeyValues:[response.data keyValues]]];
             });
         } else {
