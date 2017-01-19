@@ -157,7 +157,7 @@
                 fightSuccessImageView.animationRepeatCount = 1;
                 [fightSuccessImageView startAnimating];
                 
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * 22 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * 22 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     _reward = [SKReward objectWithKeyValues:response.data];
                     if (_reward.gold != nil || _reward.experience_value !=nil || _reward.gemstone!=nil) {
                         [self createBaseRewardViewWithReward:_reward];
