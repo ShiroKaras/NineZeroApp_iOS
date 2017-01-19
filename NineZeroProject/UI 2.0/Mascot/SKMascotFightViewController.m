@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIImageView *fightImageView;
 
 @property (nonatomic, strong) UIView    *dimmingView;
+@property (nonatomic, strong) UIView *successBackgroundView;
 @property (nonatomic, strong) NSString  *randomString;
 @end
 
@@ -139,16 +140,29 @@
         [[[SKServiceManager sharedInstance] mascotService] mascotBattleWithMascotID:[NSString stringWithFormat:@"%ld", _mascot.pet_id] randomString:self.randomString callback:^(BOOL success, SKResponsePackage *response) {
             if (response.result == 0) {
                 //战斗胜利序列帧
+                self.successBackgroundView = [[UIView alloc] init];
+                self.successBackgroundView.backgroundColor = [UIColor colorWithHex:0x1f1f1f alpha:0.8];
+                self.successBackgroundView.layer.cornerRadius = 5.0f;
+                [self.view addSubview:self.successBackgroundView];
+                [self.view bringSubviewToFront:self.successBackgroundView];
+                
+                [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self.view);
+                    make.top.equalTo(@161);
+                    make.width.equalTo(@165);
+                    make.height.equalTo(@165);
+                }];
+                
                 NSMutableArray<UIImage *> *images = [NSMutableArray array];
                 for (int i = 0; i <22; i++) {
                     UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"right_answer_gif%04d",i]];
                     [images addObject:animatedImage];
                 }
                 UIImageView *fightSuccessImageView = [[UIImageView alloc] init];
-                [self.view addSubview:fightSuccessImageView];
+                [self.successBackgroundView addSubview:fightSuccessImageView];
                 [fightSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(self.view);
-                    make.top.equalTo(@161);
+                    make.left.equalTo(@4);
+                    make.top.equalTo(@4);
                     make.width.equalTo(@165);
                     make.height.equalTo(@165);
                 }];
