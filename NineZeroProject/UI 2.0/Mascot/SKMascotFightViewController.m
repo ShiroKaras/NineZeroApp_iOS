@@ -348,6 +348,7 @@
         UITapGestureRecognizer *tap_showMascot = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMascotViewWithReward:)];
         tap_showMascot.numberOfTapsRequired = 1;
         [_dimmingView addGestureRecognizer:tap_showMascot];
+        GET_NEW_MASCOT;
     }
 }
 
@@ -451,7 +452,11 @@
 - (void)removeDimmingView {
     [_dimmingView removeFromSuperview];
     _dimmingView = nil;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([_delegate respondsToSelector:@selector(didDismissMascotFightViewController:)]) {
+        [_delegate didDismissMascotFightViewController:self];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)showMascotViewWithReward:(SKReward*)reward {

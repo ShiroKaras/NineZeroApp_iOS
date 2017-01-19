@@ -15,7 +15,7 @@
 
 #define MASCOT_VIEW_DEFAULT 100
 
-@interface SKMascotIndexViewController () <UIScrollViewDelegate>
+@interface SKMascotIndexViewController () <UIScrollViewDelegate, SKMascotFightViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *mScrollView;
 @property (nonatomic, strong) UIButton *fightButton;        //战斗按钮
@@ -306,8 +306,17 @@
         [alertView show];
     }else {
         SKMascotFightViewController *controller = [[SKMascotFightViewController alloc] initWithMascot:self.mascotArray[self.currentIndex]];
+        controller.delegate = self;
         [self presentViewController:controller animated:YES completion:nil];
     }
+}
+
+#pragma mark - SKMascotFightViewDelegate
+
+- (void)didDismissMascotFightViewController:(SKMascotFightViewController *)controller {
+    [controller dismissViewControllerAnimated:YES completion:^{
+        [self loadData];
+    }];
 }
 
 #pragma mark - UIScrollViewDelegate
