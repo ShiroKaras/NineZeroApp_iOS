@@ -162,11 +162,12 @@
         _converView.backgroundColor = COMMON_SEPARATOR_COLOR;
         [_backView addSubview:_converView];
         
+        
         UIImage *coverImage = (type == SKDescriptionTypeProp) ? [UIImage imageNamed:@"props_cover"] : [UIImage imageNamed:@"img_profile_archive_cover_default"];
         _imageView = [[UIImageView alloc] initWithImage:coverImage];
         _imageView.layer.masksToBounds = YES;
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
-        _imageView.backgroundColor = COMMON_SEPARATOR_COLOR;
+        _imageView.backgroundColor = [UIColor blackColor];
         [_converView addSubview:_imageView];
         
         _exchangeButton = [UIButton buttonWithType:UIButtonTypeCustom];
