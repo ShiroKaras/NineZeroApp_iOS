@@ -966,7 +966,16 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 make.centerX.equalTo(rewardBackView);
                 make.bottom.equalTo(rewardBackView.mas_bottom).offset(-15);
             }];
-        } else {
+        } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+            card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 335, 130) reward:self.reward.ticket];
+            [rewardBackView addSubview:card];
+            [card mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@335);
+                make.height.equalTo(@130);
+                make.centerX.equalTo(rewardBackView);
+                make.bottom.equalTo(rewardBackView.mas_bottom).offset(-10);
+            }];
+        } else if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
             card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
             [rewardBackView addSubview:card];
             [card mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -985,13 +994,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.width.equalTo(@248);
         make.height.equalTo(@294);
         make.centerX.equalTo(rewardBackView);
-        if (IPHONE5_SCREEN_WIDTH ==SCREEN_WIDTH) {
-            if (isTicket)   make.top.equalTo(@((rewardBackView.height-card.height-294)/2));
-            else            make.top.equalTo(@((rewardBackView.height-294)/2));
-        } else {
-            if (isTicket)   make.top.equalTo(@((rewardBackView.height-card.height-294-20)/2));
-            else            make.top.equalTo(@((rewardBackView.height-294)/2));
-        }
+        if (isTicket)   make.top.equalTo(@((rewardBackView.height-card.height-294-20)/2));
+        else            make.top.equalTo(@((rewardBackView.height-294)/2));
     }];
     
     [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
