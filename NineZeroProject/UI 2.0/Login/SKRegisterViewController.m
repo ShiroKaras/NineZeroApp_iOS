@@ -200,7 +200,7 @@
     [_phoneTextField.textField becomeFirstResponder];
     [self.view addSubview:_phoneTextField];
     [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@84);
+        make.top.equalTo(@64);
         make.centerX.equalTo(weakSelf.view);
         make.width.equalTo(ROUND_WIDTH(252));
         make.height.equalTo(ROUND_WIDTH(44));
@@ -241,10 +241,11 @@
     _agreementButton4s = [UIButton new];
     _agreementButton4s.hidden = YES;
     [_agreementButton4s addTarget:self action:@selector(agreementButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_agreementButton4s setTitle:@"《用户协议》" forState:UIControlStateNormal];
+    [_agreementButton4s setTitle:@"用户协议" forState:UIControlStateNormal];
     _agreementButton4s.backgroundColor = [UIColor clearColor];
     _agreementButton4s.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
-    _agreementButton4s.frame = CGRectMake(self.view.width-16-60, 21, 60, 44);
+    _agreementButton4s.frame = CGRectMake(self.view.width-16-60, 21, 60, 30);
+    _agreementButton4s.centerY = titleLabel.centerY;
     [self.view addSubview:_agreementButton4s];
 }
 

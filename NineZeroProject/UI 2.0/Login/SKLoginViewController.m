@@ -196,10 +196,11 @@
     _resetPasswordButton4s = [UIButton new];
     [_resetPasswordButton4s addTarget:self action:@selector(resetPasswordButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _resetPasswordButton4s.backgroundColor = [UIColor clearColor];
-    [_resetPasswordButton4s setTitle:@"忘记密码了？" forState:UIControlStateNormal];
+    [_resetPasswordButton4s setTitle:@"忘记密码" forState:UIControlStateNormal];
     [_resetPasswordButton4s setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateHighlighted];
     _resetPasswordButton4s.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
-    _resetPasswordButton4s.frame = CGRectMake(self.view.width-16-60, 21, 60, 44);
+    _resetPasswordButton4s.frame = CGRectMake(self.view.width-16-60, 21, 60, 30);
+    _resetPasswordButton4s.centerY = titleLabel.centerY;
     [self.view addSubview:_resetPasswordButton4s];
 }
 

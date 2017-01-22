@@ -31,6 +31,7 @@
 #import "SKAnswerDetailView.h"
 
 #define PADDING (SCREEN_WIDTH-48-ROUND_WIDTH_FLOAT(160))/3
+#define PADDING_4S (SCREEN_WIDTH-70-ROUND_WIDTH_FLOAT(160))/3
 #define TOP_PADDING ROUND_HEIGHT_FLOAT(53)
 
 #define SHARE_URL(u,v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
@@ -366,9 +367,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     // 题目标题
     if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
-        _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, _playBackView.bottom, _playBackView.width, 92)];
+        _contentView = [[UIView alloc] initWithFrame:CGRectMake(_playBackView.left, _playBackView.bottom, _playBackView.width, 92)];
     } else {
-        _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, _playBackView.bottom, _playBackView.width, 72)];
+        _contentView = [[UIView alloc] initWithFrame:CGRectMake(_playBackView.left, _playBackView.bottom, _playBackView.width, 72)];
     }
     _contentView.backgroundColor = COMMON_SEPARATOR_COLOR;
     [self.view addSubview:_contentView];
@@ -535,7 +536,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     __weak __typeof(self)weakSelf = self;
     
     // 主界面
-    _playBackView = [[UIView alloc] initWithFrame:CGRectMake(35,106, SCREEN_WIDTH-70, SCREEN_WIDTH-70)];
+    _playBackView = [[UIView alloc] initWithFrame:CGRectMake(35 ,106, SCREEN_WIDTH-70, SCREEN_WIDTH-70)];
     _playBackView.layer.masksToBounds = YES;
     _playBackView.contentMode = UIViewContentModeScaleAspectFit;
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_playBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
@@ -618,7 +619,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self.soundImageView.hidden = ![[SharkfoodMuteSwitchDetector shared] isMute];
     
     // 题目标题
-    _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, _playBackView.bottom, _playBackView.width, 72)];
+    _contentView = [[UIView alloc] initWithFrame:CGRectMake(_playBackView.left , _playBackView.bottom, _playBackView.width, 72)];
     _contentView.backgroundColor = COMMON_SEPARATOR_COLOR;
     [self.view addSubview:_contentView];
     UIBezierPath *maskPath2 = [UIBezierPath bezierPathWithRoundedRect:_contentView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)];
@@ -733,7 +734,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 make.width.equalTo(ROUND_WIDTH(40));
                 make.height.equalTo(ROUND_WIDTH(40));
                 make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-7);
-                make.left.equalTo(@(49+(ROUND_WIDTH_FLOAT(40)+PADDING)*i));
+                make.left.equalTo(@(49+(ROUND_WIDTH_FLOAT(40)+PADDING_4S)*i));
             }];
             if (i==0) {
                 btn.hidden = NO;
@@ -752,7 +753,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                     make.width.equalTo(ROUND_WIDTH(40));
                     make.height.equalTo(ROUND_WIDTH(40));
                     make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-7);
-                    make.left.equalTo(@(49+(ROUND_WIDTH_FLOAT(40)+PADDING)*1));
+                    make.left.equalTo(@(49+(ROUND_WIDTH_FLOAT(40)+PADDING_4S)*1));
                 }];
             }
         }
@@ -2400,7 +2401,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             } else {
                 [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.equalTo(_contentView.mas_bottom).offset(-1);
-                    make.left.equalTo(@(49+(ROUND_WIDTH_FLOAT(40)+PADDING)*self.currentIndex+ROUND_WIDTH_FLOAT(40)/2-9.5));
+                    make.left.equalTo(@(49+(ROUND_WIDTH_FLOAT(40)+PADDING_4S)*self.currentIndex+ROUND_WIDTH_FLOAT(40)/2-9.5));
                 }];
             }
         } else if (self.currentIndex == 4) {
@@ -2413,7 +2414,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             } else {
                 [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.equalTo(_contentView.mas_bottom).offset(-1);
-                    make.left.equalTo(@(49+(ROUND_WIDTH_FLOAT(40)+PADDING)*1+ROUND_WIDTH_FLOAT(40)/2-9.5));
+                    make.left.equalTo(@(49+(ROUND_WIDTH_FLOAT(40)+PADDING_4S)*1+ROUND_WIDTH_FLOAT(40)/2-9.5));
                 }];
             }
         }
