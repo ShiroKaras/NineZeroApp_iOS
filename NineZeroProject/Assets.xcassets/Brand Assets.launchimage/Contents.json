@@ -3,13 +3,14 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
+      "filename" : "launch_screen iPhone4s@1x.png",
       "extent" : "full-screen",
       "scale" : "1x"
     },
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
-      "filename" : "launch_screen iPhone4s.png",
+      "filename" : "launch_screen iPhone4s@2x.png",
       "extent" : "full-screen",
       "scale" : "2x"
     },

@@ -1178,7 +1178,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _dimmingView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_dimmingView];
     
-    SKQuestionRankListView *rankView = [[SKQuestionRankListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, _contentView.bottom-10) rankerList:self.top10Array withButton:button];
+    SKQuestionRankListView *rankView = [[SKQuestionRankListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, _contentView.bottom) rankerList:self.top10Array withButton:button];
     [_dimmingView addSubview:rankView];
 }
 

@@ -189,10 +189,8 @@
     titleLabel.text = @"开始吧！";
     titleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:titleLabel];
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakSelf.view);
-        make.top.equalTo(@22);
-    }];
+    titleLabel.centerX = self.view.centerX;
+    titleLabel.top = 22;
     
     _phoneTextField = [[SKRegisterTextField alloc] init];
     _phoneTextField.ly_placeholder = @"手机号码";
