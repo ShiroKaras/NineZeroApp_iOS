@@ -20,6 +20,7 @@
 @property (nonatomic, strong) SKRegisterTextField *passwordTextField;
 @property (nonatomic, strong) UIButton *nextButton;
 @property (nonatomic, strong) UIButton *agreementButton;
+@property (nonatomic, strong) UIButton *agreementButton4s;
 @property (nonatomic, strong) UIView *agreementView;
 @property (nonatomic, strong) UILabel *agreementLabel_1;
 @property (nonatomic, strong) UILabel *agreementLabel_2;
@@ -35,7 +36,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self createUI];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        [self createUI];
+    } else {
+        [self createUIiPhone4];
+    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -162,6 +168,86 @@
     [self.view addSubview:_agreementButton];
 }
 
+- (void)createUIiPhone4 {
+    self.view.backgroundColor = COMMON_RED_COLOR;
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    UIButton *closeButton = [UIButton new];
+    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:closeButton];
+    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+        make.top.equalTo(@12);
+        make.left.equalTo(@4);
+    }];
+    
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = @"开始吧！";
+    titleLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(weakSelf.view);
+        make.top.equalTo(@22);
+    }];
+    
+    _phoneTextField = [[SKRegisterTextField alloc] init];
+    _phoneTextField.ly_placeholder = @"手机号码";
+    _phoneTextField.textField.keyboardType = UIKeyboardTypePhonePad;
+    [_phoneTextField.textField becomeFirstResponder];
+    [self.view addSubview:_phoneTextField];
+    [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@84);
+        make.centerX.equalTo(weakSelf.view);
+        make.width.equalTo(ROUND_WIDTH(252));
+        make.height.equalTo(ROUND_WIDTH(44));
+    }];
+    
+    _usernameTextField = [[SKRegisterTextField alloc] init];
+    _usernameTextField.alpha = 0;
+    _usernameTextField.ly_placeholder = @"用户名";
+    [self.view addSubview:_usernameTextField];
+    [_usernameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_phoneTextField.mas_bottom).offset(10);
+        make.centerX.equalTo(weakSelf.view);
+        make.width.equalTo(ROUND_WIDTH(252));
+        make.height.equalTo(ROUND_WIDTH(44));
+    }];
+    
+    _passwordTextField = [[SKRegisterTextField alloc] init];
+    _passwordTextField.alpha = 0;
+    _passwordTextField.textField.secureTextEntry = YES;
+    _passwordTextField.ly_placeholder = @"密码";
+    [self.view addSubview:_passwordTextField];
+    [_passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_usernameTextField.mas_bottom).offset(10);
+        make.centerX.equalTo(weakSelf.view);
+        make.width.equalTo(ROUND_WIDTH(252));
+        make.height.equalTo(ROUND_WIDTH(44));
+    }];
+    
+    _nextButton = [UIButton new];
+    [_nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    _nextButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
+    [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xCA0E27]] forState:UIControlStateNormal];
+    [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xFF546B]] forState:UIControlStateHighlighted];
+    [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
+    _nextButton.adjustsImageWhenHighlighted = NO;
+    [self.view addSubview:_nextButton];
+    
+    _agreementButton4s = [UIButton new];
+    _agreementButton4s.hidden = YES;
+    [_agreementButton4s addTarget:self action:@selector(agreementButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_agreementButton4s setTitle:@"《用户协议》" forState:UIControlStateNormal];
+    _agreementButton4s.backgroundColor = [UIColor clearColor];
+    _agreementButton4s.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
+    _agreementButton4s.frame = CGRectMake(self.view.width-16-60, 21, 60, 44);
+    [self.view addSubview:_agreementButton4s];
+}
+
 #pragma mark - Actions
 
 - (void)closeButtonClick:(UIButton *)sender {
@@ -237,11 +323,13 @@
         _nextButton.frame = CGRectMake(0, self.view.height - self.keyboardRect.size.height-50, self.view.width, 50);
         _agreementButton.frame = CGRectMake(0, self.view.height - self.keyboardRect.size.height-100, self.view.width, 50);
         _agreementView.frame = _agreementButton.frame;
+        _agreementButton4s.hidden = NO;
     } else {
         self.nextButtonIsShow = NO;
         _nextButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
         _agreementButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
         _agreementView.frame = _agreementButton.frame;
+        _agreementButton4s.hidden = YES;
     }
 }
 
@@ -255,10 +343,12 @@
         _nextButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height-50, self.view.width, 50);
         _agreementButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height-100, self.view.width, 50);
         _agreementView.frame = _agreementButton.frame;
+        _agreementButton4s.hidden = NO;
     } else {
         _nextButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height, self.view.width, 50);
         _agreementButton.frame = CGRectMake(0, self.view.height - keyboardRect.size.height, self.view.width, 50);
         _agreementView.frame = _agreementButton.frame;
+        _agreementButton4s.hidden = YES;
     }
 }
 
@@ -267,10 +357,12 @@
         _nextButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
         _agreementButton.frame = CGRectMake(0, self.view.height-100, self.view.width, 50);
         _agreementView.frame = _agreementButton.frame;
+        _agreementButton4s.hidden = NO;
     } else {
         _nextButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
         _agreementButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
         _agreementView.frame = _agreementButton.frame;
+        _agreementButton4s.hidden = YES;
     }
 }
 

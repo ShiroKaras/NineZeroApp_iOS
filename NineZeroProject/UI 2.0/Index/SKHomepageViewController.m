@@ -43,7 +43,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self createUI];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        [self createUI];
+    } else {
+        [self createUIiPhone4];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -286,6 +291,173 @@
     [rankButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.equalTo(_timeLimitLevelButton);
         make.top.equalTo(allLevelButton.mas_bottom).offset(16);
+        make.centerX.equalTo(allLevelButton);
+    }];
+    
+    //我
+    UIButton *meButton = [UIButton new];
+    [meButton addTarget:self action:@selector(meButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me"] forState:UIControlStateNormal];
+    [meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:meButton];
+    [meButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(_timeLimitLevelButton);
+        make.centerX.equalTo(_timeLimitLevelButton);
+        make.centerY.equalTo(rankButton);
+    }];
+    
+    //设置
+    UIButton *settingButton = [UIButton new];
+    [settingButton addTarget:self action:@selector(settingButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [settingButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_setting"] forState:UIControlStateNormal];
+    [settingButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_setting_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:settingButton];
+    [settingButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(_timeLimitLevelButton);
+        make.centerX.equalTo(mascotButton);
+        make.centerY.equalTo(rankButton);
+    }];
+    
+    //倒计时
+    _timeCountDownBackView = [UIView new];
+    _timeCountDownBackView.alpha = 0;
+    _timeCountDownBackView.layer.cornerRadius = 3;
+    _timeCountDownBackView.backgroundColor = [UIColor colorWithHex:0xFF063E];
+    [self.view addSubview:_timeCountDownBackView];
+    [_timeCountDownBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(ROUND_WIDTH(60));
+        make.height.equalTo(ROUND_HEIGHT(25));
+        make.left.equalTo(_timeLimitLevelButton.mas_left).offset(ROUND_WIDTH_FLOAT(35));
+        make.bottom.equalTo(_timeLimitLevelButton.mas_bottom).offset(ROUND_HEIGHT_FLOAT(-82));
+    }];
+    
+    _timeCountDownLabel = [UILabel new];
+    _timeCountDownLabel.font = MOON_FONT_OF_SIZE(14);
+    _timeCountDownLabel.textColor = [UIColor whiteColor];
+    _timeCountDownLabel.textAlignment = NSTextAlignmentCenter;
+    _timeCountDownLabel.text = @"00:00:00";
+    [_timeCountDownBackView addSubview:_timeCountDownLabel];
+    [_timeCountDownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(_timeCountDownBackView);
+        make.center.equalTo(_timeCountDownBackView);
+    }];
+    
+    
+    //休息日倒计时
+    _timeCountDownBackView_isMonday = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"popup_homepage_timer"]];
+    _timeCountDownBackView_isMonday.alpha = 0;
+    [self.view addSubview:_timeCountDownBackView_isMonday];
+    [_timeCountDownBackView_isMonday mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(67), ROUND_WIDTH_FLOAT(37)));
+        make.left.equalTo(_timeLimitLevelButton);
+        make.bottom.equalTo(_timeLimitLevelButton).offset(ROUND_HEIGHT_FLOAT(-84.5));
+    }];
+    
+    _timeCountDownLabel_isMonday = [UILabel new];
+    _timeCountDownLabel_isMonday.font = MOON_FONT_OF_SIZE(12);
+    _timeCountDownLabel_isMonday.textColor = [UIColor whiteColor];
+    _timeCountDownLabel_isMonday.textAlignment = NSTextAlignmentCenter;
+    _timeCountDownLabel_isMonday.text = @"00:00:00";
+    [_timeCountDownBackView_isMonday addSubview:_timeCountDownLabel_isMonday];
+    [_timeCountDownLabel_isMonday mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(_timeCountDownBackView_isMonday);
+        make.height.equalTo(@18);
+        make.bottom.equalTo(_timeCountDownBackView_isMonday).offset(-6);
+        make.centerX.equalTo(_timeCountDownBackView_isMonday);
+    }];
+    
+    //活动通知
+    _activityNotificationView = [[SKActivityNotificationView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    _activityNotificationView.hidden = YES;
+    [self.view addSubview:_activityNotificationView];
+}
+
+- (void)createUIiPhone4 {
+    __weak __typeof(self)weakSelf = self;
+    
+    self.view.backgroundColor = COMMON_BG_COLOR;
+    
+    _headerImageView = [[HTImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_default"]];
+    _headerImageView.layer.masksToBounds = YES;
+    _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:_headerImageView];
+    [_headerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.view).offset(-40);
+        make.left.equalTo(weakSelf.view);
+        make.right.equalTo(weakSelf.view);
+        make.height.equalTo(weakSelf.view.mas_width).offset(4);
+    }];
+    
+    UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [notificationButton addTarget:self action:@selector(notificationButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    notificationButton.backgroundColor = COMMON_SEPARATOR_COLOR;
+    notificationButton.layer.cornerRadius = 15;
+    [notificationButton setImage:[UIImage imageNamed:@"btn_homepage_news"] forState:UIControlStateNormal];
+    [notificationButton setImage:[UIImage imageNamed:@"btn_homepage_news_highlight"] forState:UIControlStateHighlighted];
+    [notificationButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 12)];
+    [self.view addSubview:notificationButton];
+    [notificationButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@55);
+        make.height.equalTo(@30);
+        make.top.equalTo(weakSelf.view).offset(14);
+        make.right.equalTo(weakSelf.view).offset(15);
+    }];
+    
+    self.notificationRedFlag = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+    self.notificationRedFlag.layer.cornerRadius = 4;
+    self.notificationRedFlag.backgroundColor = COMMON_RED_COLOR;
+    self.notificationRedFlag.hidden = YES;
+    [self.view addSubview:self.notificationRedFlag];
+    [self.notificationRedFlag mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(8, 8));
+        make.left.equalTo(notificationButton).offset(24);
+        make.top.equalTo(notificationButton).offset(5);
+    }];
+    
+    //限时关卡
+    _timeLimitLevelButton = [UIButton new];
+    [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"] forState:UIControlStateNormal];
+    [self.view addSubview:_timeLimitLevelButton];
+    [_timeLimitLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(ROUND_WIDTH(70));
+        make.height.equalTo(ROUND_HEIGHT(93));
+        make.centerX.equalTo(weakSelf.view);
+        make.top.equalTo(_headerImageView.mas_bottom).offset(30);
+    }];
+    
+    //全部关卡
+    UIButton *allLevelButton = [UIButton new];
+    [allLevelButton addTarget:self action:@selector(allLevelQuestionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional"] forState:UIControlStateNormal];
+    [allLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:allLevelButton];
+    [allLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(_timeLimitLevelButton);
+        make.centerY.equalTo(_timeLimitLevelButton);
+        make.right.equalTo(_timeLimitLevelButton.mas_left).offset(-25);
+    }];
+    
+    //零仔
+    UIButton *mascotButton = [UIButton new];
+    [mascotButton addTarget:self action:@selector(mascotButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [mascotButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai"] forState:UIControlStateNormal];
+    [mascotButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:mascotButton];
+    [mascotButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(_timeLimitLevelButton);
+        make.centerY.equalTo(_timeLimitLevelButton);
+        make.left.equalTo(_timeLimitLevelButton.mas_right).offset(25);
+    }];
+    
+    //排行榜
+    UIButton *rankButton = [UIButton new];
+    [rankButton addTarget:self action:@selector(rankButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [rankButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top"] forState:UIControlStateNormal];
+    [rankButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:rankButton];
+    [rankButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.equalTo(_timeLimitLevelButton);
+        make.top.equalTo(allLevelButton.mas_bottom).offset(6);
         make.centerX.equalTo(allLevelButton);
     }];
     

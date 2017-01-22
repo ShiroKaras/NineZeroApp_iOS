@@ -80,9 +80,6 @@
         }
         
         [self hideHUD];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [HTProgressHUD dismiss];
-//        });
     }];
 }
 
@@ -106,30 +103,57 @@
     
     _mascotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_levelpage_season1"]];
     [self.view addSubview:_mascotImageView];
-    [_mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakSelf.view);
-        make.bottom.equalTo(weakSelf.view);
-    }];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        [_mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(weakSelf.view);
+            make.bottom.equalTo(weakSelf.view);
+        }];
+    } else {
+        [_mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(100, 37));
+            make.centerX.equalTo(weakSelf.view);
+            make.bottom.equalTo(weakSelf.view);
+        }];
+    }
     
     _season1Button = [UIButton new];
     [_season1Button addTarget:self action:@selector(season1ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1_highlight"] forState:UIControlStateNormal];
     [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:_season1Button];
-    [_season1Button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_mascotImageView);
-        make.bottom.equalTo(_mascotImageView.mas_top);
-    }];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        [_season1Button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_mascotImageView);
+            make.bottom.equalTo(_mascotImageView.mas_top);
+        }];
+    } else {
+        [_season1Button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(50, 17));
+            make.left.equalTo(_mascotImageView);
+            make.bottom.equalTo(_mascotImageView.mas_top);
+        }];
+    }
     
     _season2Button = [UIButton new];
     [_season2Button addTarget:self action:@selector(season2ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2"] forState:UIControlStateNormal];
     [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:_season2Button];
-    [_season2Button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(_mascotImageView);
-        make.bottom.equalTo(_mascotImageView.mas_top);
-    }];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        [_season2Button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(_mascotImageView);
+            make.bottom.equalTo(_mascotImageView.mas_top);
+        }];
+    } else {
+        [_season2Button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(50, 17));
+            make.right.equalTo(_mascotImageView);
+            make.bottom.equalTo(_mascotImageView.mas_top);
+        }];
+    }
 
     [self createTempView];
     
@@ -167,8 +191,14 @@
 }
 
 - (void)createTempView {
-    float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
-    _tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+        _tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    } else {
+        float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(16)*4);
+        _tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, scrollViewHeight)];
+    }
     [self.view addSubview:_tempView];
     
     for (int questionNumber=0; questionNumber<12; questionNumber++) {
@@ -176,7 +206,13 @@
         int itemInPage = questionNumber-pageNumber*12;
         int i = itemInPage%3;
         int j = floor(itemInPage/3);
-        UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        UIView *itemView;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+            SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+            itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        } else {
+            itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(80)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        }
         UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
         coverImageView.image = [UIImage imageNamed:@"img_profile_photo_default"];
         coverImageView.layer.cornerRadius = itemView.width/2;
@@ -201,9 +237,15 @@
 
 - (void)createSeason1UIWithData:(NSArray<SKQuestion*>*)questionList {
     self.questionList_season1 = questionList;
-    
-    float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
-    _mScrollView_season1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    float scrollViewHeight;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+        _mScrollView_season1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    } else {
+        scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+        _mScrollView_season1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, scrollViewHeight)];
+    }
     _mScrollView_season1.backgroundColor = COMMON_BG_COLOR;
     _mScrollView_season1.delegate = self;
     _mScrollView_season1.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT_SEASON1, scrollViewHeight);
@@ -236,7 +278,13 @@
         int itemInPage = questionNumber-pageNumber*12;
         int i = itemInPage%3;
         int j = floor(itemInPage/3);
-        UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        UIView *itemView;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+            SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+            itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        } else {
+            itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(80)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        }
         UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
         coverImageView.tag = 300+questionNumber;
         NSURL *coverURL = ([questionList[questionNumber].thumbnail_pic isEqualToString:@""]||questionList[questionNumber].thumbnail_pic==nil)?[NSURL URLWithString:questionList[questionNumber].question_video_cover]: [NSURL URLWithString:questionList[questionNumber].thumbnail_pic];
@@ -316,9 +364,15 @@
 
 - (void)createSeason2UIWithData:(NSArray<SKQuestion*>*)questionList {
     self.questionList_season2 = questionList;
-    
-    float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
-    _mScrollView_season2 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    float scrollViewHeight;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+        _mScrollView_season2 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    } else {
+        scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+        _mScrollView_season2 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, scrollViewHeight)];
+    }
     _mScrollView_season2.backgroundColor = COMMON_BG_COLOR;
     _mScrollView_season2.delegate = self;
     _mScrollView_season2.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT_SEASON2, scrollViewHeight);
@@ -351,7 +405,13 @@
         int itemInPage = questionNumber-pageNumber*12;
         int i = itemInPage%3;
         int j = floor(itemInPage/3);
-        UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        UIView *itemView;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+            SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+            itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        } else {
+            itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(80)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        }
         UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
         coverImageView.tag = 400+questionNumber;
         coverImageView.layer.cornerRadius = itemView.width/2;
@@ -445,10 +505,6 @@
         
         [_mScrollView_season2 addSubview:itemView];
     }
-}
-
-- (void)updateUIWithData:(NSArray<SKQuestion*>*)questionList {
-    
 }
 
 #pragma mark - UIScrollViewDelegate

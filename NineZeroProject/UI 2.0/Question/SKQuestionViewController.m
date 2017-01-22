@@ -130,7 +130,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.wrongAnswerCount = [[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1][self.currentQuestion.qid] integerValue];
-    [self createUI];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        [self createUI];
+    } else {
+        [self createUIiPhone4];
+    }
     [self addObserver:self forKeyPath:@"currentIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"isAnswered" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     
@@ -524,6 +529,250 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }
 }
 
+//iPhone4S
+- (void)createUIiPhone4 {
+    self.view.backgroundColor = [UIColor blackColor];
+    __weak __typeof(self)weakSelf = self;
+    
+    // 主界面
+    _playBackView = [[UIView alloc] initWithFrame:CGRectMake(35,106, SCREEN_WIDTH-70, SCREEN_WIDTH-70)];
+    _playBackView.layer.masksToBounds = YES;
+    _playBackView.contentMode = UIViewContentModeScaleAspectFit;
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_playBackView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _playBackView.bounds;
+    maskLayer.path = maskPath.CGPath;
+    _playBackView.layer.mask = maskLayer;
+    [self.view addSubview:_playBackView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickPlayBackView)];
+    [_playBackView addGestureRecognizer:tap];
+    
+    _coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
+    _coverImageView.image = [UIImage imageNamed:@"img_chap_video_cover_default"];
+    _coverImageView.layer.masksToBounds = YES;
+    _coverImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [_playBackView addSubview:_coverImageView];
+    
+    // 2.5 蒙层
+    _replayBackView = [[UIView alloc] init];
+    _replayBackView.alpha = 0;
+    _replayBackView.backgroundColor = [UIColor clearColor];
+    UITapGestureRecognizer *noTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
+    [_replayBackView addGestureRecognizer:noTap];
+    [_playBackView addSubview:_replayBackView];
+    
+    // 2.5.1 重播按钮
+    _replayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay"] forState:UIControlStateNormal];
+    [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay_highlight"] forState:UIControlStateHighlighted];
+    [_replayButton addTarget:self action:@selector(onClickReplayButton) forControlEvents:UIControlEventTouchUpInside];
+    _replayButton.tag = HTButtonTypeReplay;
+    [_replayButton sizeToFit];
+    [_replayBackView addSubview:_replayButton];
+    
+    // 2.5.2 分享按钮
+    _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_shareButton setImage:[UIImage imageNamed:@"btn_home_share"] forState:UIControlStateNormal];
+    [_shareButton setImage:[UIImage imageNamed:@"btn_home_share_highlight"] forState:UIControlStateHighlighted];
+    [_shareButton addTarget:self action:@selector(onClickShareButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_shareButton sizeToFit];
+    [_replayBackView addSubview:_shareButton];
+    
+    _replayBackView.frame = CGRectMake(0, 0, _playBackView.width, _playBackView.height);
+    _playButton.frame = CGRectMake(_playBackView.width / 2 - 35, _playBackView.height / 2 - 35, 70, 70);
+    _replayButton.frame = CGRectMake(_replayBackView.width /2 -35 -70, _replayBackView.height / 2 -35, 70, 70);
+    _shareButton.frame = CGRectMake(_replayBackView.width / 2 +35, _replayBackView.height / 2 -35, 70, 70);
+    
+    // 2.3 暂停按钮，静音按钮
+    _soundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_mute"]];
+    _soundImageView.alpha = 0.32;
+    if(SCREEN_WIDTH != IPHONE6_PLUS_SCREEN_WIDTH) {
+        //        [_playBackView addSubview:_soundImageView];
+    }
+    _pauseImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_pause"]];
+    _pauseImageView.alpha = 0.32;
+    [_playBackView addSubview:_pauseImageView];
+    
+    // 进度条
+    _progressBgView = [[UIView alloc] init];
+    _progressBgView.backgroundColor = [UIColor colorWithHex:0x585858];
+    [_playBackView addSubview:_progressBgView];
+    [_progressBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(_playBackView.width, 3));
+        make.bottom.equalTo(_playBackView);
+        make.centerX.equalTo(_playBackView);
+    }];
+    
+    _progressView = [[UIView alloc] init];
+    _progressView.backgroundColor = COMMON_GREEN_COLOR;
+    [_progressBgView addSubview:_progressView];
+    _progressView.height = 3;
+    
+    _soundImageView.right = _playBackView.width - 13;
+    _soundImageView.top = 5;
+    _pauseImageView.right = _playBackView.width - 8;
+    _pauseImageView.bottom = _playBackView.height - 8;
+    
+    _pauseImageView.hidden = YES;
+    self.soundImageView.hidden = ![[SharkfoodMuteSwitchDetector shared] isMute];
+    
+    // 题目标题
+    _contentView = [[UIView alloc] initWithFrame:CGRectMake(10, _playBackView.bottom, _playBackView.width, 72)];
+    _contentView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    [self.view addSubview:_contentView];
+    UIBezierPath *maskPath2 = [UIBezierPath bezierPathWithRoundedRect:_contentView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)];
+    CAShapeLayer *maskLayer2 = [[CAShapeLayer alloc] init];
+    maskLayer2.frame = _contentView.bounds;
+    maskLayer2.path = maskPath2.CGPath;
+    _contentView.layer.mask = maskLayer2;
+    
+    UITapGestureRecognizer *tap_content = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(contentViewClick)];
+    tap_content.numberOfTapsRequired = 1;
+    [_contentView addGestureRecognizer:tap_content];
+    
+    UIImageView *chapterImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_chapter"]];
+    [self.view addSubview:chapterImageView];
+    chapterImageView.width = 75;
+    chapterImageView.height = 27;
+    chapterImageView.left = 35;
+    chapterImageView.bottom = _playBackView.top -6;
+    
+    _chapterNumberLabel = [UILabel new];
+    _chapterNumberLabel.textColor = COMMON_PINK_COLOR;
+    _chapterNumberLabel.text = @"00";
+    _chapterNumberLabel.font = MOON_FONT_OF_SIZE(14);
+    [_chapterNumberLabel sizeToFit];
+    _chapterNumberLabel.center = chapterImageView.center;
+    [self.view addSubview:_chapterNumberLabel];
+    
+    _chapterTitleLabel = [UILabel new];
+    _chapterTitleLabel.textColor = COMMON_PINK_COLOR;
+    _chapterTitleLabel.font = PINGFANG_FONT_OF_SIZE(14);
+    [_chapterTitleLabel sizeToFit];
+    [self.view addSubview:_chapterTitleLabel];
+    [_chapterTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_contentView.mas_left).offset(12);
+        make.top.equalTo(_contentView.mas_top).offset(13);
+    }];
+    
+    
+    _chapterSubTitleLabel = [UILabel new];
+    _chapterSubTitleLabel.textColor = COMMON_GREEN_COLOR;
+    _chapterSubTitleLabel.font = PINGFANG_FONT_OF_SIZE(14);
+    [self.view addSubview:_chapterSubTitleLabel];
+    if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+        [_chapterSubTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_contentView.mas_left).offset(12);
+            make.top.equalTo(_chapterTitleLabel.mas_bottom).offset(12);
+        }];
+    } else {
+        [_chapterSubTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_contentView.mas_left).offset(12);
+            make.top.equalTo(_chapterTitleLabel.mas_bottom).offset(5);
+        }];
+    }
+    UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_detail"]];
+    [self.view addSubview:arrowImageView];
+    [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_chapterTitleLabel.mas_right).offset(4);
+        make.centerY.equalTo(_chapterTitleLabel.mas_centerY);
+    }];
+    
+    _answerButton = [UIButton new];
+    _answerButton.hidden = YES;
+    [_answerButton addTarget:self action:@selector(answerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil"] forState:UIControlStateNormal];
+    [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil_highlight"] forState:UIControlStateHighlighted];
+    [_answerButton sizeToFit];
+    [self.view addSubview:_answerButton];
+    [_answerButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_contentView.mas_right).offset(-16);
+        make.centerY.equalTo(_contentView.mas_bottom);
+    }];
+    
+    _triangleImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_detailspage_triangle"]];
+    [_triangleImageView sizeToFit];
+    [self.view addSubview:_triangleImageView];
+    
+    // 倒计时
+    _timeView = [[SKCardTimeView alloc] initWithFrame:CGRectZero];
+    _timeView.hidden = YES;
+    [self.view addSubview:_timeView];
+    
+    _timeView.size = CGSizeMake(ROUND_WIDTH_FLOAT(150), ROUND_HEIGHT_FLOAT(96));
+    _timeView.right = SCREEN_WIDTH - 35;
+    _timeView.bottom = _playBackView.top -6;
+    
+    // 帮助按钮
+    _helpButton = [UIButton new];
+    [_helpButton addTarget:self action:@selector(helpButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [_helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
+    [_helpButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_help_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:_helpButton];
+    [_helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+        make.top.equalTo(@12);
+        make.right.equalTo(weakSelf.view.mas_right).offset(-4);
+    }];
+    
+    //底部按钮组
+    NSArray *buttonsNameArray = @[@"puzzle", @"key", @"top", @"gift", @"tools"];
+    self.currentIndex = 0;
+    for (int i = 0; i<5; i++) {
+        UIButton *btn = [UIButton new];
+        [btn setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_%@", buttonsNameArray[i]]] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_%@_highlight", buttonsNameArray[i]]] forState:UIControlStateHighlighted];
+        btn.tag = 200+i;
+        btn.hidden = YES;
+        [btn addTarget:self action:@selector(bottomButtonsClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btn];
+        if (i<4) {
+            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(ROUND_WIDTH(40));
+                make.height.equalTo(ROUND_WIDTH(40));
+                make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-7);
+                make.left.equalTo(@(49+(ROUND_WIDTH_FLOAT(40)+PADDING)*i));
+            }];
+            if (i==0) {
+                btn.hidden = NO;
+                [_triangleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(_contentView.mas_bottom).offset(-1);
+                    make.centerX.equalTo(btn.mas_centerX);
+                }];
+            }
+        } else {
+            //道具按钮
+            if (_type == SKQuestionTypeTimeLimitLevel) {
+                btn.hidden = YES;
+            } else if (_type ==  SKQuestionTypeHistoryLevel) {
+                btn.hidden = NO;
+                [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(ROUND_WIDTH(40));
+                    make.height.equalTo(ROUND_WIDTH(40));
+                    make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-7);
+                    make.left.equalTo(@(49+(ROUND_WIDTH_FLOAT(40)+PADDING)*1));
+                }];
+            }
+        }
+    }
+    
+    if (NO_NETWORK) {
+        [HTProgressHUD dismiss];
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:blankView];
+        blankView.top = ROUND_HEIGHT_FLOAT(217);
+    } else {
+        [self loadData];
+    }
+}
+
+//视频
 - (void)createVideoOnView:(UIView *)backView withFrame:(CGRect)frame {
     _playerItem = nil;
     _player = nil;
@@ -2142,15 +2391,31 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (self.currentIndex == 0) {
                 //                [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
             }
-            [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(_contentView.mas_bottom).offset(-1);
-                make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*self.currentIndex+ROUND_WIDTH_FLOAT(40)/2-9.5));
-            }];
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+                SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+                [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(_contentView.mas_bottom).offset(-1);
+                    make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*self.currentIndex+ROUND_WIDTH_FLOAT(40)/2-9.5));
+                }];
+            } else {
+                [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(_contentView.mas_bottom).offset(-1);
+                    make.left.equalTo(@(49+(ROUND_WIDTH_FLOAT(40)+PADDING)*self.currentIndex+ROUND_WIDTH_FLOAT(40)/2-9.5));
+                }];
+            }
         } else if (self.currentIndex == 4) {
-            [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(_contentView.mas_bottom).offset(-1);
-                make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*1+ROUND_WIDTH_FLOAT(40)/2-9.5));
-            }];
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+                SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+                [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(_contentView.mas_bottom).offset(-1);
+                    make.left.equalTo(@(24+(ROUND_WIDTH_FLOAT(40)+PADDING)*1+ROUND_WIDTH_FLOAT(40)/2-9.5));
+                }];
+            } else {
+                [_triangleImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(_contentView.mas_bottom).offset(-1);
+                    make.left.equalTo(@(49+(ROUND_WIDTH_FLOAT(40)+PADDING)*1+ROUND_WIDTH_FLOAT(40)/2-9.5));
+                }];
+            }
         }
         
         if (self.currentIndex == 1) {
