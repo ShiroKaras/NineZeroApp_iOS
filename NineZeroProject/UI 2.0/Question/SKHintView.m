@@ -211,6 +211,7 @@
         hintLabel.text = @"";
         hintLabel.textColor = [UIColor whiteColor];
         hintLabel.font = PINGFANG_FONT_OF_SIZE(16);
+        hintLabel.numberOfLines = 2;
         [hintBackgroundView addSubview:hintLabel];
         [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(hintBackgroundView);
