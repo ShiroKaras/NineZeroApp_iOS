@@ -20,8 +20,19 @@
 #import "SKRankViewController.h"
 #import "HTNotificationController.h"
 #import "SKActivityNotificationView.h"
+#import "SKSwipeViewController.h"
 
-@interface SKHomepageViewController ()
+#define minTranslateYToSkip 0.25
+#define animationTime 0.25f
+#define translationAccelerate 1.f
+
+typedef enum {
+    BSScrollDirectionUnknown,
+    BSScrollDirectionFromBottomToTop,
+    BSScrollDirectionFromTopToBottom
+} BSScrollDirection;
+
+@interface SKHomepageViewController () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong)   HTImageView *headerImageView;
 @property (nonatomic, strong)   UIView      *timeCountDownBackView;
@@ -37,9 +48,22 @@
 @property (nonatomic, assign)   BOOL    isMonday;
 
 @property (nonatomic, strong)   SKIndexInfo *indexInfo;
+
+//扫一扫
+@property (nonatomic, strong) UIImageView *scanningMascotImageView;
+@property (nonatomic, strong) UILabel *headerLabel;
+@property (nonatomic, strong) UIView    *swipeView;
+@property (nonatomic, strong) UIImageView *cameraImageView;
+@property (nonatomic, strong) NSArray<SKScanning *> *scanningList;
+
 @end
 
-@implementation SKHomepageViewController
+@implementation SKHomepageViewController {
+    UIPanGestureRecognizer *_panGesture;
+    BOOL _isOnTop;
+    
+    BSScrollDirection _scrollDirection;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,6 +81,9 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    if (_swipeView != nil) {
+        [self removeSnapshotViewFromSuperView];
+    }
     [self loadData];
 }
 
@@ -81,6 +108,14 @@
             _timeCountDownBackView_isMonday.alpha = 0;
             _timeCountDownBackView.alpha = 1-_isMonday;
             [self scheduleCountDownTimer];
+            
+            //扫一扫
+            _headerLabel.hidden = NO;
+            _scanningMascotImageView.hidden = NO;
+            _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
+            [_panGesture setDelegate:self];
+            [self.view addGestureRecognizer:_panGesture];
+            
             if (_isMonday) {
                 [_timeLimitLevelButton addTarget:self action:@selector(showRelaxDayTimeLabel:) forControlEvents:UIControlEventTouchUpInside];
                 [_timeLimitLevelButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"] forState:UIControlStateNormal];
@@ -221,6 +256,29 @@
         make.height.equalTo(weakSelf.view.mas_width).offset(4);
     }];
 
+    _headerLabel = [UILabel new];
+    _headerLabel.text = @"下划开启扫一扫";
+    _headerLabel.font = [UIFont systemFontOfSize:14];
+    _headerLabel.textColor = [UIColor whiteColor];
+    [_headerLabel sizeToFit];
+    _headerLabel.hidden = YES;
+    [self.view addSubview:_headerLabel];
+    
+    _scanningMascotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_scanning"]];
+    [_scanningMascotImageView sizeToFit];
+    _scanningMascotImageView.hidden = YES;
+    [self.view addSubview:_scanningMascotImageView];
+    
+    [_headerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.view.mas_top).offset(8);
+        make.centerX.equalTo(weakSelf.view.mas_centerX).offset(20);
+    }];
+    
+    [_scanningMascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.view.mas_top);
+        make.right.equalTo(_headerLabel.mas_left).offset(-5);
+    }];
+    
     UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [notificationButton addTarget:self action:@selector(notificationButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     notificationButton.backgroundColor = COMMON_SEPARATOR_COLOR;
@@ -607,6 +665,157 @@
     [UD setValue:@(self.indexInfo.user_notice_count) forKey:NOTIFICATION_COUNT];
     HTNotificationController *controller = [[HTNotificationController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+#pragma mark - panGestureRecognized
+
+- (void)panGestureRecognized:(UIPanGestureRecognizer *)sender {
+    CGPoint translate = [sender translationInView:self.view];
+    translate.y = translate.y * translationAccelerate;
+    CGFloat boundsW = CGRectGetWidth(self.view.bounds);
+    CGFloat boundsH = CGRectGetHeight(self.view.bounds);
+    
+    switch (sender.state) {
+        case UIGestureRecognizerStateBegan:
+            // reset all values
+            _scrollDirection = BSScrollDirectionUnknown;
+            _isOnTop = NO;
+            _cameraImageView.centerX = _swipeView.centerX;
+            _cameraImageView.centerY = _swipeView.centerY;
+            break;
+            
+        case UIGestureRecognizerStateChanged: {
+            
+            // Determinate Scroll Direction
+            if (_scrollDirection == BSScrollDirectionUnknown) {
+                _scrollDirection = translate.y < 0 ? BSScrollDirectionFromBottomToTop : BSScrollDirectionFromTopToBottom;
+                // add snapshot on top
+                [self addSnapshotViewOnTopWithDirection:_scrollDirection];
+            }
+            
+            _swipeView.alpha = 0.7 * translate.y/SCREEN_HEIGHT;
+            _cameraImageView.centerX = self.view.centerX;
+            _cameraImageView.centerY = -_cameraImageView.height/2 + translate.y/2;
+            
+            // If snapshot doesnt exist -> set isOnTop
+            if (!_swipeView) {
+                _isOnTop = YES;
+            }
+            
+            // Is on top and pulling to from top to bottom, gesture is driven by handlePanGestureToPullToRefresh
+            if (_isOnTop && _scrollDirection == BSScrollDirectionFromTopToBottom) {
+                return;
+            }
+            
+            break;
+        }
+        case UIGestureRecognizerStateCancelled : {
+            // gesture was canceled - snapshot view backs to start position
+            // collection view has no more items to show, pangesture is available only for 50px
+            [UIView animateWithDuration:animationTime animations:^{
+                if (_scrollDirection == BSScrollDirectionFromBottomToTop) {
+                    CGRect endRect = CGRectMake(0, 0, boundsW, boundsH);
+                    [_swipeView setFrame:endRect];
+                } else {
+                    _swipeView.alpha = 0.7;
+                    _cameraImageView.centerX = self.view.centerX;
+                    _cameraImageView.centerY = self.view.centerY;
+                }
+            } completion:^(BOOL finished) {
+                [self removeSnapshotViewFromSuperView];
+            }];
+            break;
+        }
+        case UIGestureRecognizerStateEnded: {
+            // pull to refresh dragging, handled by handlePanGestureToPullToRefresh
+            if (_isOnTop && _scrollDirection == BSScrollDirectionFromTopToBottom) {
+                return;
+            }
+            
+            if (_scrollDirection == BSScrollDirectionFromTopToBottom && translate.y > minTranslateYToSkip * boundsH) {
+                [UIView animateWithDuration:animationTime animations:^{
+                    _swipeView.alpha = 0.7;
+                    _cameraImageView.centerX = self.view.centerX;
+                    _cameraImageView.centerY = self.view.centerY;
+                } completion:^(BOOL finished) {
+                    //判断相机是否开启
+                    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+                    if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied)
+                    {
+                        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+                        [alertView show];
+                        [UIView animateWithDuration:animationTime animations:^{
+                            _swipeView.alpha = 0;
+                            _cameraImageView.centerX = self.view.centerX;
+                            _cameraImageView.bottom = self.view.top;
+                        } completion:^(BOOL finished) {
+                            [self removeSnapshotViewFromSuperView];
+                        }];
+                    }else {
+                        SKSwipeViewController *swipeViewController = [[SKSwipeViewController alloc] initWithScanningList:_scanningList];
+                        [self.navigationController pushViewController:swipeViewController animated:NO];
+                    }
+                }];
+            } else {
+                [UIView animateWithDuration:animationTime animations:^{
+                    _swipeView.alpha = 0;
+                    _cameraImageView.centerX = self.view.centerX;
+                    _cameraImageView.bottom = self.view.top;
+                } completion:^(BOOL finished) {
+                    [self removeSnapshotViewFromSuperView];
+                }];
+            }
+            
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)removeSnapshotViewFromSuperView {
+    [_swipeView removeFromSuperview];
+    _swipeView = nil;
+    [_cameraImageView removeFromSuperview];
+    _cameraImageView = nil;
+}
+
+
+- (void)addSnapshotViewOnTopWithDirection:(BSScrollDirection)direction{
+    [self removeSnapshotViewFromSuperView];
+    
+    switch (direction) {
+        case BSScrollDirectionFromBottomToTop:
+            //下滑扫一扫
+            _swipeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+            _swipeView.backgroundColor = [UIColor blackColor];
+            _swipeView.alpha = 0;
+            [self.view addSubview:_swipeView];
+            
+            _cameraImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_camera"]];
+            [_cameraImageView sizeToFit];
+            _cameraImageView.centerX = self.view.centerX;
+            _cameraImageView.bottom = self.view.top;
+            [self.view addSubview:_cameraImageView];
+            
+            break;
+        case BSScrollDirectionFromTopToBottom:
+            //下滑扫一扫
+            _swipeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+            _swipeView.backgroundColor = [UIColor blackColor];
+            _swipeView.alpha = 0;
+            [self.view addSubview:_swipeView];
+            
+            _cameraImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_camera"]];
+            [_cameraImageView sizeToFit];
+            _cameraImageView.centerX = self.view.centerX;
+            _cameraImageView.bottom = self.view.top;
+            [self.view addSubview:_cameraImageView];
+            
+            break;
+        default:
+            break;
+    }
 }
 
 @end
