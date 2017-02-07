@@ -140,8 +140,8 @@
 // 3. 零仔文章
 // 4. 休息日文章
 - (void)handleAPNsDict:(NSDictionary *)dict {
-    NSString *method = dict[@"method"];
-    NSDictionary *dataDict = dict[@"data"];
+//    NSString *method = dict[@"method"];
+//    NSDictionary *dataDict = dict[@"data"];
 }
 
 - (void)createWindowAndVisibleWithOptions:(NSDictionary*)launchOptions {
