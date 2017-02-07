@@ -245,7 +245,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:self.currentQuestion.question_ar_pet];
     NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.currentQuestion.question_ar_pet stringByDeletingPathExtension]]];
     if ([[NSFileManager defaultManager] fileExistsAtPath:zipFilePath]) {
-        NSURL *localUrl = [NSURL fileURLWithPath:zipFilePath];
         [SSZipArchive unzipFileAtPath:zipFilePath toDestination:unzipFilesPath overwrite:YES password:nil progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
             
         } completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nonnull error) {
@@ -263,7 +262,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             return [NSURL fileURLWithPath:zipFilePath];
         } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
             if (filePath == nil) return;
-            NSURL *localUrl = [NSURL fileURLWithPath:[filePath path]];
+
             [SSZipArchive unzipFileAtPath:[filePath path] toDestination:unzipFilesPath overwrite:YES password:nil progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
                 
             } completionHandler:^(NSString * _Nonnull path, BOOL succeeded, NSError * _Nonnull error) {
