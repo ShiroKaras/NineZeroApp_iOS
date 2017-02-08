@@ -349,9 +349,12 @@
 //    [JPUSHService setupWithOption:launchOptions];
     [JPUSHService setupWithOption:launchOptions appKey:@"a55e70211d78ad951ecca453" channel:@"90" apsForProduction:true];
     [JPUSHService resetBadge];
-    if ([[SKStorageManager sharedInstance] getUserID]) {
-        [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[SKStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
-    }
+	if ([[SKStorageManager sharedInstance] getUserID]) {
+		[JPUSHService setTags:[NSSet setWithObject:@"iOS"]
+				   alias:[[SKStorageManager sharedInstance] getUserID]
+			callbackSelector:nil
+				  object:nil];
+	}
 }
 
 #pragma mark - JSPatch
