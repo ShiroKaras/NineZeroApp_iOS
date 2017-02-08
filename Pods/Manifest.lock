@@ -1,65 +1,59 @@
 PODS:
-  - AFDownloadRequestOperation (2.0.1):
-    - AFNetworking (~> 2.0)
-  - AFNetworking (2.6.0):
-    - AFNetworking/NSURLConnection (= 2.6.0)
-    - AFNetworking/NSURLSession (= 2.6.0)
-    - AFNetworking/Reachability (= 2.6.0)
-    - AFNetworking/Security (= 2.6.0)
-    - AFNetworking/Serialization (= 2.6.0)
-    - AFNetworking/UIKit (= 2.6.0)
-  - AFNetworking/NSURLConnection (2.6.0):
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.0)
-  - AFNetworking/Security (2.6.0)
-  - AFNetworking/Serialization (2.6.0)
-  - AFNetworking/UIKit (2.6.0):
-    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AMap3DMap (4.4.0):
+  - AMap3DMap (4.6.1):
     - AMapFoundation (~> 1.3)
-  - AMapFoundation (1.3.1)
-  - AMapLocation (1.2.2)
-  - AMapSearch (4.3.0):
+  - AMapFoundation (1.3.3)
+  - AMapLocation (2.3.0):
+    - AMapFoundation (~> 1.3)
+  - AMapSearch (4.5.0):
     - AMapFoundation (~> 1.2)
-  - FMDB (2.5):
-    - FMDB/standard (= 2.5)
-  - FMDB/common (2.5)
-  - FMDB/standard (2.5):
-    - FMDB/common
-  - HappyDNS (0.2.1)
-  - JPush (2.1.0)
-  - JSPatchPlatform (1.6.2):
-    - JSPatchPlatform/Core (= 1.6.2)
-  - JSPatchPlatform/Core (1.6.2)
-  - Masonry (0.6.2)
-  - MBProgressHUD (0.9.1)
-  - MBProgressHUD+BWMExtension (1.0.0):
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
+  - HappyDNS (0.3.10)
+  - JPush (2.1.9)
+  - JSPatch (1.1.2):
+    - JSPatch/Core (= 1.1.2)
+  - JSPatch/Core (1.1.2)
+  - JSPatchPlatform (1.6.6):
+    - JSPatchPlatform/Core (= 1.6.6)
+  - JSPatchPlatform/Core (1.6.6):
+    - JSPatch
+  - Masonry (0.6.4)
+  - MBProgressHUD (0.9.2)
+  - MBProgressHUD+BWMExtension (1.0.1):
     - MBProgressHUD (~> 0.9.1)
-  - Qiniu (7.0.12):
-    - AFNetworking (~> 2.0)
-    - HappyDNS (~> 0.1)
-  - SDWebImage (3.7.3):
-    - SDWebImage/Core (= 3.7.3)
-  - SDWebImage/Core (3.7.3)
-  - SSZipArchive (1.6.2)
+  - Qiniu (7.1.5):
+    - AFNetworking (~> 3)
+    - HappyDNS (~> 0.3)
+  - SDWebImage (3.7.6):
+    - SDWebImage/Core (= 3.7.6)
+  - SDWebImage/Core (3.7.6)
+  - SSZipArchive (1.7)
   - TTTAttributedLabel (1.13.4)
   - UIImage+animatedGif (0.1.0)
   - YLGIFImage (0.11)
   - YTKKeyValueStore (0.1.2):
     - FMDB (~> 2.0)
-  - YTKNetwork (0.5.0):
-    - AFDownloadRequestOperation (~> 2.0)
-    - AFNetworking (~> 2.0)
+  - YTKNetwork (2.0.3):
+    - AFNetworking (~> 3.0)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.6)
+  - AFNetworking (~> 3.0)
   - AMap3DMap
   - AMapLocation
   - AMapSearch
@@ -77,28 +71,28 @@ DEPENDENCIES:
   - YTKNetwork
 
 SPEC CHECKSUMS:
-  AFDownloadRequestOperation: 748a1643423e1ddb23f2178f778087d4f0ae8ac7
-  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
-  AMap3DMap: c3f6aa63aea668e34f88c7beea69167ef6e8f1a2
-  AMapFoundation: 636834a27cd003084f56b4232f3031e6a44c7e7e
-  AMapLocation: 5412fbf0385716d4d481e39a95929057cddc093f
-  AMapSearch: c90cc018a6c5281af17af6058ca99218a4d4b442
-  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
-  HappyDNS: 8eb3c929ee6143eb56bfddfc9e6052ca9429699c
-  JPush: 92cb879829f0d81ab17b2c9ad009fdb88c6cf6e5
-  JSPatchPlatform: 105e331f1b899a397d2bc0300a9ace9f9d7b8f08
-  Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
-  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  MBProgressHUD+BWMExtension: dd1dff033c1802edf7cb613c5643db5f090575bd
-  Qiniu: 1fb5191b3bc1edb65b2da3d905b8281e15bd1d5c
-  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
-  SSZipArchive: 428eb1ac8d37dd133404d30f422b23958c1f9acc
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AMap3DMap: eb6656fb441ed7eb310b3c121032e947d4d649e5
+  AMapFoundation: c086329a1f19afec00e4c197863665235eb43dc2
+  AMapLocation: 5fb51fe0e35e68a899199651942e6234d6257d91
+  AMapSearch: 7a6ebc20a42e34a021b042b047f198082fc2fc30
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
+  JPush: 8bccf709ace4318a8e7008cc4fab42b706bfad46
+  JSPatch: 741205ebb2e2238c223a436e4c8cf75cf40a345f
+  JSPatchPlatform: 8cc9aaebe21109d5fdfb4500384ddf38ed0990e9
+  Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MBProgressHUD+BWMExtension: d0603a1c0b03ef74cae6a0986d63c0bdf34bedfe
+  Qiniu: 77a3dba411556a383d72d17e842345a9d4c83252
+  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+  SSZipArchive: 63f8e11cfcc33e03e4cd666b4359ea8bd6facd0c
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   UIImage+animatedGif: 21cff7203edfb45ca0dd035505a4988cc0156356
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
-  YTKNetwork: 3f163c181ce5f03d52cf88f39d6757f46894280c
+  YTKNetwork: c4b0c29c9d639dc050d475de69ee626d53eac598
 
-PODFILE CHECKSUM: a675a1b030603d104ea9974ce292feafa902e193
+PODFILE CHECKSUM: fbbd1e2230397b288b7ef75494cfd368da037f43
 
 COCOAPODS: 1.1.1
