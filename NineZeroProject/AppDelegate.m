@@ -222,7 +222,7 @@
 #pragma mark - Location
 
 - (void)registerAMap{
-    [AMapLocationServices sharedServices].apiKey = @"2cb1a94b85ace5b91f5f00b37c0422e9";
+    [AMapServices sharedServices].apiKey = @"2cb1a94b85ace5b91f5f00b37c0422e9";
 }
 
 - (void)registerLocation {
