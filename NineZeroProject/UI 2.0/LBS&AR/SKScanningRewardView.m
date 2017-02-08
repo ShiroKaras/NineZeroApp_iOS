@@ -62,7 +62,7 @@
             _topImage.top = ROUND_HEIGHT_FLOAT(68);
             _topImage.centerX = self.centerX;
             
-            _ticket = [SKTicket objectWithKeyValues:response.data[@"ticket"]];
+            _ticket = [SKTicket mj_objectWithKeyValues:response.data[@"ticket"]];
             [self createTicketView];
             if (_ticket) {
                 _card.top = _topImage.bottom +25;
@@ -78,7 +78,7 @@
             _topImage.top = ROUND_HEIGHT_FLOAT(68);
             _topImage.centerX = self.centerX;
             
-            _ticket = [SKTicket objectWithKeyValues:response.data[@"ticket"]];
+            _ticket = [SKTicket mj_objectWithKeyValues:response.data[@"ticket"]];
             [self createTicketView];
             if (_ticket) {
                 _card.top = _topImage.bottom +25;

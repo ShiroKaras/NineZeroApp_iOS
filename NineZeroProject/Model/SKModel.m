@@ -11,7 +11,7 @@
 
 #define HTINIT(T) - (instancetype)init { \
 if (self = [super init]) { \
-[T setupReplacedKeyFromPropertyName:^NSDictionary *{ \
+[T mj_setupReplacedKeyFromPropertyName:^NSDictionary *{ \
 return [self propertyMapper]; \
 }]; \
 } \

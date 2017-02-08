@@ -222,7 +222,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [[[SKServiceManager sharedInstance] answerService] getRewardWithQuestionID:self.currentQuestion.qid rewardID:self.currentQuestion.reward_id callback:^(BOOL success, SKResponsePackage *response) {
             if (response.result == 0) {
                 self.rewardDict = response.data;
-                self.reward = [SKReward objectWithKeyValues:self.rewardDict];
+                self.reward = [SKReward mj_objectWithKeyValues:self.rewardDict];
             }
         }];
         
@@ -1082,7 +1082,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             self.isAnswered = YES;
             
             self.rewardDict = response.data;
-            self.reward = [SKReward objectWithKeyValues:self.rewardDict];
+            self.reward = [SKReward mj_objectWithKeyValues:self.rewardDict];
             
             UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
             alphaView.backgroundColor = COMMON_BG_COLOR;
@@ -1989,7 +1989,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 self.isAnswered = YES;
                 
                 self.rewardDict = response.data;
-                self.reward = [SKReward objectWithKeyValues:self.rewardDict];
+                self.reward = [SKReward mj_objectWithKeyValues:self.rewardDict];
                 [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
                     self.top10Array = userRankList;
                 }];
@@ -2021,7 +2021,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 self.isAnswered = YES;
                 
                 self.rewardDict = response.data;
-                self.reward = [SKReward objectWithKeyValues:self.rewardDict];
+                self.reward = [SKReward mj_objectWithKeyValues:self.rewardDict];
                 [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
                     self.top10Array = userRankList;
                 }];

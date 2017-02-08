@@ -23,7 +23,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.rewardDict = rewardDict;
-        self.reward = [SKReward objectWithKeyValues:rewardDict];
+        self.reward = [SKReward mj_objectWithKeyValues:rewardDict];
         [self createUIWithFrame:frame button:button];
     }
     return self;

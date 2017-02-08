@@ -173,7 +173,7 @@
                 
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * 22 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.successBackgroundView removeFromSuperview];
-                    _reward = [SKReward objectWithKeyValues:response.data];
+                    _reward = [SKReward mj_objectWithKeyValues:response.data];
                     if (_reward.gold != nil || _reward.experience_value !=nil || _reward.gemstone!=nil) {
                         [self createBaseRewardViewWithReward:_reward];
                     } else if (_reward.pet){
