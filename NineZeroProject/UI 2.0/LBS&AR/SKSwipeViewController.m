@@ -133,7 +133,12 @@
 
 - (void)showtipImageView {
     self.tipImageView.alpha = 1.0;
-    [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(hidetipImageView) userInfo:nil repeats:NO];
+    [UIView animateWithDuration:0.3 delay:10.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.tipImageView.alpha = 0;
+    } completion:^(BOOL finished) {
+        
+    }];
+//    [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(hidetipImageView) userInfo:nil repeats:NO];
 }
 
 - (void)hidetipImageView {
