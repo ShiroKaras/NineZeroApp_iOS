@@ -33,6 +33,7 @@ namespace EasyAR{
             virtual void initGL(int type, int count);
             virtual void resizeGL(int width, int height);
             virtual void render();
+            virtual bool clear();
             int flag = 0;
         private:
             Vec2I view_size;
@@ -73,6 +74,7 @@ namespace EasyAR{
             augmenter_ = Augmenter();
             flag = 0;
             swipeType = type;
+            tracked_target = 0;
             targetCount = count;
             for(int i = 0; i < targetCount; ++i) {
                 renderer[i]->init();
@@ -128,7 +130,8 @@ namespace EasyAR{
                         int index = [[[targetImageName componentsSeparatedByString:@"_"] lastObject] intValue];
                         if (texid[index]) {
                             video = new ARVideo;
-                            video->openVideoFile("video.mp4", texid[0]);
+                            std::string videoName = std::string("swipeVideo_")+std::to_string(index)+std::string(".mp4");
+                            video->openVideoFile(videoName, texid[0]);
                             video_renderer = renderer[0];
                         }
                     }
@@ -137,16 +140,6 @@ namespace EasyAR{
                         tracked_target = tid;
                         active_target = tid;
                     }
-                    
-//                    if ([[[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"/"] lastObject] containsString:@"swipeTargetImage"]) {
-//                        //if (resultView == NULL) {
-//                        if (flag == 0) {
-//                            NSInteger index = [[[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"_"] lastObject] integerValue];
-//                            resultView = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:index swipeType:swipeType];
-//                            [KEY_WINDOW addSubview:resultView];
-//                            flag = 1;
-//                        }
-//                    }
                 }
                 if (flag == 1) {
                     video->onFound();
@@ -166,8 +159,22 @@ namespace EasyAR{
                     tracked_target = 0;
                 }
             }
+            
             ////////////////////////////////END////////////////////////////////
         }
+        
+        bool HelloAR::clear()
+        {
+            AR::clear();
+            if(video){
+                delete video;
+                video = NULL;
+                tracked_target = 0;
+                active_target = 0;
+            }
+            return true;
+        }
+
     }
 }
 
