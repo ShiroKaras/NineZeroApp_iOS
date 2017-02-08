@@ -103,6 +103,7 @@
 		1160FB6F1E0FC4F600606F16 /* SKScanningResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB691E0FC4F600606F16 /* SKScanningResultView.m */; };
 		1160FB701E0FC4F600606F16 /* SKScanningRewardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB6B1E0FC4F600606F16 /* SKScanningRewardView.m */; };
 		1160FB711E0FC4F600606F16 /* SKSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB6D1E0FC4F600606F16 /* SKSwipeViewController.m */; };
+		116236B91E4AE76A009FEDCA /* renderer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 116236B71E4AE76A009FEDCA /* renderer.cc */; };
 		11644F4D1DDD97CB002E9FDE /* SKRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */; };
 		11644F501DDDA110002E9FDE /* SKRegisterTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 11644F4F1DDDA110002E9FDE /* SKRegisterTextField.m */; };
 		116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */; };
@@ -504,6 +505,8 @@
 		1160FB6B1E0FC4F600606F16 /* SKScanningRewardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKScanningRewardView.m; path = "NineZeroProject/UI 2.0/LBS&AR/SKScanningRewardView.m"; sourceTree = "<group>"; };
 		1160FB6C1E0FC4F600606F16 /* SKSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKSwipeViewController.h; path = "NineZeroProject/UI 2.0/LBS&AR/SKSwipeViewController.h"; sourceTree = "<group>"; };
 		1160FB6D1E0FC4F600606F16 /* SKSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKSwipeViewController.m; path = "NineZeroProject/UI 2.0/LBS&AR/SKSwipeViewController.m"; sourceTree = "<group>"; };
+		116236B71E4AE76A009FEDCA /* renderer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = renderer.cc; sourceTree = "<group>"; };
+		116236B81E4AE76A009FEDCA /* renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = renderer.hpp; sourceTree = "<group>"; };
 		11644F4B1DDD97CB002E9FDE /* SKRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterViewController.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.h"; sourceTree = "<group>"; };
 		11644F4C1DDD97CB002E9FDE /* SKRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKRegisterViewController.m; path = "NineZeroProject/UI 2.0/Login/SKRegisterViewController.m"; sourceTree = "<group>"; };
 		11644F4E1DDDA110002E9FDE /* SKRegisterTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKRegisterTextField.h; path = "NineZeroProject/UI 2.0/Login/SKRegisterTextField.h"; sourceTree = "<group>"; };
@@ -1201,6 +1204,8 @@
 		1160FB511E0FC1AE00606F16 /* EasyAR */ = {
 			isa = PBXGroup;
 			children = (
+				116236B71E4AE76A009FEDCA /* renderer.cc */,
+				116236B81E4AE76A009FEDCA /* renderer.hpp */,
 				1160FB521E0FC1AE00606F16 /* ar.cc */,
 				1160FB531E0FC1AE00606F16 /* ar.hpp */,
 				1160FB541E0FC1AE00606F16 /* OpenGLView.h */,
@@ -2474,6 +2479,7 @@
 			files = (
 				1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */,
 				113FA6991E1E1BFE001DFFC5 /* HTMascotItem.m in Sources */,
+				116236B91E4AE76A009FEDCA /* renderer.cc in Sources */,
 				11BF886D1E06479800347FA1 /* SKHintView.m in Sources */,
 				17A92CD11CA809B100BE893D /* MJRefreshAutoNormalFooter.m in Sources */,
 				1106D8911E28F0A5000035D7 /* SKActivityNotificationView.m in Sources */,

@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "ar.hpp"
+#include "renderer.hpp"
 
 /*
 * Steps to create the key for this sample:
@@ -28,6 +29,7 @@ namespace EasyAR{
         class HelloAR : public AR {
         public:
             HelloAR();
+            ~HelloAR();
             virtual void initGL(int type, int count);
             virtual void resizeGL(int width, int height);
             virtual void render();
@@ -38,9 +40,14 @@ namespace EasyAR{
             int swipeType;   //0 扫一扫, 1 LBS
             int targetCount;
             
+            VideoRenderer* renderer[3];
+            
             int tracked_target;
             int active_target;
             int texid[3];
+            ARVideo* video;
+            VideoRenderer* video_renderer;
+            
             SKScanningResultView *resultView;
         };
         
@@ -48,6 +55,18 @@ namespace EasyAR{
             tracked_target = 0;
             active_target = 0;
             view_size[0] = -1;
+            for(int i = 0; i < 40; ++i) {
+                texid[i] = 0;
+                renderer[i] = new VideoRenderer;
+            }
+            video = NULL;
+            video_renderer = NULL;
+        }
+        
+        HelloAR::~HelloAR() {
+            for(int i = 0; i < targetCount; ++i) {
+                delete renderer[i];
+            }
         }
         
         void HelloAR::initGL(int type, int count) {
@@ -55,6 +74,10 @@ namespace EasyAR{
             flag = 0;
             swipeType = type;
             targetCount = count;
+            for(int i = 0; i < targetCount; ++i) {
+                renderer[i]->init();
+                texid[i] = renderer[i]->texId();
+            }
         }
         
         void HelloAR::resizeGL(int width, int height) {
@@ -87,42 +110,63 @@ namespace EasyAR{
             augmenter_.drawVideoBackground();
             glViewport(viewport_[0], viewport_[1], viewport_[2], viewport_[3]);
             
+            //Custom
+            ////////////////////////////////START////////////////////////////////
+            
             AugmentedTarget::Status status = frame.targets()[0].status();
             if(status == AugmentedTarget::kTargetStatusTracked){
                 int tid = (frame.targets()[0].target().id()-1)%targetCount;
                 if(active_target && active_target != tid) {
+                    video->onLost();
+                    delete video;
                     tracked_target = 0;
                     active_target = 0;
                 }
                 if (!tracked_target) {
-                    if ([[[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"/"] lastObject] containsString:@"swipeTargetImage"]) {
-                        //if (resultView == NULL) {
-                        if (flag == 0) {
-                            NSInteger index = [[[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"_"] lastObject] integerValue];
-                            resultView = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:index swipeType:swipeType];
-                            [KEY_WINDOW addSubview:resultView];
-                            flag = 1;
-                        }
-                    } else if ([[[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"/"] lastObject] isEqualToString:@"lbsTargetImage"]) {
-                        if (flag == 0) {
-                            resultView = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:tid swipeType:swipeType];
-                            [KEY_WINDOW addSubview:resultView];
-                            flag = 1;
+                    if (video == NULL) {
+                        NSString *targetImageName = [[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"/"] lastObject];
+                        int index = [[[targetImageName componentsSeparatedByString:@"_"] lastObject] intValue];
+                        if (texid[index]) {
+                            video = new ARVideo;
+                            video->openVideoFile("video.mp4", texid[0]);
+                            video_renderer = renderer[0];
                         }
                     }
+                    if (video) {
+                        video->onFound();
+                        tracked_target = tid;
+                        active_target = tid;
+                    }
+                    
+//                    if ([[[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"/"] lastObject] containsString:@"swipeTargetImage"]) {
+//                        //if (resultView == NULL) {
+//                        if (flag == 0) {
+//                            NSInteger index = [[[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"_"] lastObject] integerValue];
+//                            resultView = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:index swipeType:swipeType];
+//                            [KEY_WINDOW addSubview:resultView];
+//                            flag = 1;
+//                        }
+//                    }
                 }
                 if (flag == 1) {
+                    video->onFound();
                     tracked_target = tid;
                     active_target = tid;
                 }
-                
+                Matrix44F projectionMatrix = getProjectionGL(camera_.cameraCalibration(), 0.2f, 500.f);
+                Matrix44F cameraview = getPoseGL(frame.targets()[0].pose());
+                ImageTarget target = frame.targets()[0].target().cast_dynamic<ImageTarget>();
+                if(tracked_target) {
+                    video->update();
+                    video_renderer->render(projectionMatrix, cameraview, target.size());
+                }
             } else {
                 if (tracked_target) {
+                    video->onLost();
                     tracked_target = 0;
                 }
-                //        [resultView removeFromSuperview];
-                //        resultView = nil;
             }
+            ////////////////////////////////END////////////////////////////////
         }
     }
 }
