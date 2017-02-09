@@ -1,0 +1,48 @@
+---
+
+Language: Cpp
+BasedOnStyle: LLVM
+Standard: Auto
+
+# Indentation
+IndentWidth: 8
+TabWidth: 8
+UseTab: Always
+ContinuationIndentWidth: 8
+ConstructorInitializerIndentWidth: 8
+IndentCaseLabels: true
+IndentFunctionDeclarationAfterType: false
+IndentWrappedFunctionNames: true
+ObjCBlockIndentWidth: 4
+
+# Space
+ObjCSpaceAfterProperty: true
+ObjCSpaceBeforeProtocolList: true
+SpacesInParentheses: false
+# SpacesInSquareBrackets: true
+SpacesInContainerLiterals: false
+SpacesBeforeTrailingComments: 1
+SpaceAfterControlStatementKeyword: true
+SpaceBeforeAssignmentOperators: true
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+# Column
+ColumnLimit: 0
+
+# Lining
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AllowShortBlocksOnASingleLine: false
+PointerBindsToType: false
+AlignTrailingComments: true
+BinPackParameters: false
+# BinPackArguments: false
+ExperimentalAutoDetectBinPacking: true
+AllowAllParametersOfDeclarationOnNextLine: false
+AlignEscapedNewlinesLeft: true
+
+BreakBeforeBraces: Attach
+AlwaysBreakBeforeMultilineStrings: false
+
+...

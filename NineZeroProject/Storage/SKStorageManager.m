@@ -44,11 +44,11 @@
 #pragma mark - LoginUser
 
 - (void)updateLoginUser:(SKLoginUser *)loginUser {
-    [_storageService putObject:[loginUser keyValues] withId:kStorageLoginUserKey intoTable:kStorageTableKey];
+    [_storageService putObject:[loginUser mj_keyValues] withId:kStorageLoginUserKey intoTable:kStorageTableKey];
 }
 
 - (SKLoginUser *)getLoginUser {
-    SKLoginUser *user = (SKLoginUser *)[SKLoginUser objectWithKeyValues:[_storageService getObjectById:kStorageLoginUserKey fromTable:kStorageTableKey]];
+    SKLoginUser *user = (SKLoginUser *)[SKLoginUser mj_objectWithKeyValues:[_storageService getObjectById:kStorageLoginUserKey fromTable:kStorageTableKey]];
     return user;
 }
 
@@ -74,12 +74,12 @@
 
 - (void)setUserInfo:(SKUserInfo *)userInfo {
     _userInfo = userInfo;
-    [_storageService putObject:[userInfo keyValues] withId:kStorageUserInfoKey intoTable:kStorageTableKey];
+    [_storageService putObject:[userInfo mj_keyValues] withId:kStorageUserInfoKey intoTable:kStorageTableKey];
 }
 
 - (SKUserInfo *)userInfo {
     if (_userInfo != nil) return _userInfo;
-    _userInfo = [SKUserInfo objectWithKeyValues:[_storageService getObjectById:kStorageUserInfoKey fromTable:kStorageTableKey]];
+    _userInfo = [SKUserInfo mj_objectWithKeyValues:[_storageService getObjectById:kStorageUserInfoKey fromTable:kStorageTableKey]];
     return _userInfo;
 }
 
@@ -87,12 +87,12 @@
 
 - (void)setProfileInfo:(SKProfileInfo *)profileInfo {
     _profileInfo = profileInfo;
-    [_storageService putObject:[profileInfo keyValues] withId:kStorageProfileInfoKey intoTable:kStorageTableKey];
+    [_storageService putObject:[profileInfo mj_keyValues] withId:kStorageProfileInfoKey intoTable:kStorageTableKey];
 }
 
 - (SKProfileInfo *)profileInfo {
     if (_profileInfo != nil) return _profileInfo;
-    _profileInfo = [SKProfileInfo objectWithKeyValues:[_storageService getObjectById:kStorageProfileInfoKey fromTable:kStorageTableKey]];
+    _profileInfo = [SKProfileInfo mj_objectWithKeyValues:[_storageService getObjectById:kStorageProfileInfoKey fromTable:kStorageTableKey]];
     return _profileInfo;
 }
 

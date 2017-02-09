@@ -44,7 +44,7 @@
     [super viewDidLoad];
     self.glView = [[OpenGLView alloc] initWithFrame:self.view.bounds withSwipeType:_swipeType targetsCount:(int)_scanningList.count];
     [self.view addSubview:self.glView];
-    [self.glView setOrientation:self.interfaceOrientation];
+    [self.glView setOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 
     //扫描线
     _scanningGridLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scanning_gridlines"]];
@@ -118,7 +118,7 @@
 
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    [self.glView resize:self.view.bounds orientation:self.interfaceOrientation];
+    [self.glView resize:self.view.bounds orientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
