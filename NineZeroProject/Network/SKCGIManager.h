@@ -14,7 +14,7 @@
 @interface SKCGIManager : NSObject
 
 + (NSString *)loginBaseCGIKey;
- 
+
 + (NSString *)questionBaseCGIKey;
 
 + (NSString *)profileBaseCGIKey;
@@ -30,4 +30,5 @@
 + (NSString *)shareBaseCGIKey;
 
 + (NSString *)scanningBaseCGIKey;
+
 @end

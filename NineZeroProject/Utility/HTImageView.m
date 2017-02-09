@@ -11,15 +11,15 @@
 @implementation HTImageView
 
 - (void)setAnimatedImageWithName:(NSString *)name {
-    [self setAnimatedImageWithName:name withLoopCount:1];
+	[self setAnimatedImageWithName:name withLoopCount:1];
 }
 
 - (void)setAnimatedImageWithName:(NSString *)name withLoopCount:(NSInteger)loopCount {
-    NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"gif"];
-    self.mImage = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]]];
-    _frameCount = self.mImage.frameCount;
-        self.mImage.loopCount = loopCount;
-    self.animatedImage = self.mImage;
+	NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"gif"];
+	self.mImage = [FLAnimatedImage animatedImageWithGIFData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]]];
+	_frameCount = self.mImage.frameCount;
+	self.mImage.loopCount = loopCount;
+	self.animatedImage = self.mImage;
 }
 
 @end
