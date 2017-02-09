@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-//#define APP_HOST @"http://112.74.133.183:8084"
-#define APP_HOST @"https://api.90app.tv"
+#define APP_HOST @"http://112.74.133.183:8082"
+//#define APP_HOST @"https://api.90app.tv"
 
 @interface SKCGIManager : NSObject
 
@@ -28,4 +28,6 @@
 + (NSString *)commonBaseCGIKey;
 
 + (NSString *)shareBaseCGIKey;
+
++ (NSString *)scanningBaseCGIKey;
 @end
