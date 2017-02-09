@@ -15,6 +15,7 @@
     SKPropService       *_propService;
     SKMascotService     *_mascotService;
     SKAnswerService     *_answerService;
+    SKScanningService   *_scanningService;
     SKCommonService     *_commonService;
     QNUploadManager     *_qiniuService;
 }
@@ -36,6 +37,7 @@
         _propService        = [[SKPropService alloc] init];
         _mascotService      = [[SKMascotService alloc] init];
         _answerService      = [[SKAnswerService alloc] init];
+        _scanningService    = [[SKScanningService alloc] init];
         _commonService      = [[SKCommonService alloc] init];
         _qiniuService = [[QNUploadManager alloc] init];
     }
@@ -66,6 +68,10 @@
 
 - (SKAnswerService *)answerService {
     return _answerService;
+}
+
+- (SKScanningService *)scanningService {
+    return _scanningService;
 }
 
 - (SKCommonService *)commonService {
