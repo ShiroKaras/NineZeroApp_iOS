@@ -129,6 +129,7 @@
 		116237691E4B332E009FEDCA /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116237671E4B332E009FEDCA /* SKUserAgreementViewController.m */; };
 		1162376A1E4B332E009FEDCA /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 116237681E4B332E009FEDCA /* SKUserAgreementViewController.xib */; };
 		1162376D1E4B33A1009FEDCA /* HTProfileRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1162376C1E4B33A1009FEDCA /* HTProfileRankCell.m */; };
+		116237731E4C0E16009FEDCA /* SKDownloadProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116237721E4C0E16009FEDCA /* SKDownloadProgressView.m */; };
 		116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */; };
 		11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
@@ -557,6 +558,8 @@
 		116237681E4B332E009FEDCA /* SKUserAgreementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SKUserAgreementViewController.xib; path = NineZeroProject/UI/Login/SKUserAgreementViewController.xib; sourceTree = "<group>"; };
 		1162376B1E4B33A1009FEDCA /* HTProfileRankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTProfileRankCell.h; path = NineZeroProject/UI/Rank/HTProfileRankCell.h; sourceTree = "<group>"; };
 		1162376C1E4B33A1009FEDCA /* HTProfileRankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTProfileRankCell.m; path = NineZeroProject/UI/Rank/HTProfileRankCell.m; sourceTree = "<group>"; };
+		116237711E4C0E16009FEDCA /* SKDownloadProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKDownloadProgressView.h; path = "NineZeroProject/UI/LBS&AR/SKDownloadProgressView.h"; sourceTree = SOURCE_ROOT; };
+		116237721E4C0E16009FEDCA /* SKDownloadProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKDownloadProgressView.m; path = "NineZeroProject/UI/LBS&AR/SKDownloadProgressView.m"; sourceTree = SOURCE_ROOT; };
 		116B5E8F1E06E5B100E5BDAC /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		1175B4E71DEFD06D00302B67 /* SKLogicHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLogicHeader.h; sourceTree = "<group>"; };
@@ -1228,6 +1231,8 @@
 				116236DF1E4B30F4009FEDCA /* SKScanningRewardView.m */,
 				116236E01E4B30F4009FEDCA /* SKSwipeViewController.h */,
 				116236E11E4B30F4009FEDCA /* SKSwipeViewController.m */,
+				116237711E4C0E16009FEDCA /* SKDownloadProgressView.h */,
+				116237721E4C0E16009FEDCA /* SKDownloadProgressView.m */,
 			);
 			name = Scan;
 			sourceTree = "<group>";
@@ -2625,6 +2630,7 @@
 				116237211E4B329E009FEDCA /* SKVerifyViewController.m in Sources */,
 				116236D41E4B3096009FEDCA /* SKLoginService.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,
+				116237731E4C0E16009FEDCA /* SKDownloadProgressView.m in Sources */,
 				116236E41E4B30F4009FEDCA /* SKScanningRewardView.m in Sources */,
 				11C7646F1E120E5300D86F40 /* MJFoundation.m in Sources */,
 				1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */,
