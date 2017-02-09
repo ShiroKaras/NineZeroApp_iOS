@@ -11,10 +11,16 @@
 #if (defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000)
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/Photos.h>
+enum {
+    kAMASSETMETADATA_PENDINGREADS = 1,
+    kAMASSETMETADATA_ALLFINISHED = 0
+};
 
 #import "QNResponseInfo.h"
 
-@interface QNPHAssetFile ()
+@interface QNPHAssetFile () {
+    BOOL _hasGotInfo;
+}
 
 @property (nonatomic) PHAsset *phAsset;
 
@@ -25,10 +31,6 @@
 @property (nonatomic, strong) NSData *assetData;
 
 @property (nonatomic, strong) NSURL *assetURL;
-
-@property (nonatomic, readonly) NSString *filepath;
-
-@property (nonatomic) NSFileHandle *file;
 
 @end
 
@@ -43,49 +45,19 @@
         }
         _fileModifyTime = t;
         _phAsset = phAsset;
-        _filepath = [self getInfo];
-        if (PHAssetMediaTypeVideo == self.phAsset.mediaType) {
-            NSError *error2 = nil;
-            NSDictionary *fileAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:_filepath error:&error2];
-            if (error2 != nil) {
-                if (error != nil) {
-                    *error = error2;
-                }
-                return self;
-            }
-            _fileSize = [fileAttr fileSize];
-            NSFileHandle *f = nil;
-            NSData *d = nil;
-            if (_fileSize > 16 * 1024 * 1024) {
-                f = [NSFileHandle fileHandleForReadingAtPath:_filepath];
-                if (f == nil) {
-                    if (error != nil) {
-                        *error = [[NSError alloc] initWithDomain:_filepath code:kQNFileError userInfo:nil];
-                    }
-                    return self;
-                }
-            } else {
-                d = [NSData dataWithContentsOfFile:_filepath options:NSDataReadingMappedIfSafe error:&error2];
-                if (error2 != nil) {
-                    if (error != nil) {
-                        *error = error2;
-                    }
-                    return self;
-                }
-            }
-            _file = f;
-            _assetData = d;
-        }
+        [self getInfo];
     }
     return self;
 }
 
 - (NSData *)read:(long)offset size:(long)size {
-    if (_assetData != nil) {
-        return [_assetData subdataWithRange:NSMakeRange(offset, (unsigned int)size)];
+    NSRange subRange = NSMakeRange(offset, size);
+    if (!self.assetData) {
+        self.assetData = [self fetchDataFromAsset:self.phAsset];
     }
-    [_file seekToFileOffset:offset];
-    return [_file readDataOfLength:size];
+    NSData *subData = [self.assetData subdataWithRange:subRange];
+
+    return subData;
 }
 
 - (NSData *)readAll {
@@ -93,16 +65,10 @@
 }
 
 - (void)close {
-    if (PHAssetMediaTypeVideo == self.phAsset.mediaType) {
-        if (_file != nil) {
-            [_file closeFile];
-        }
-        [[NSFileManager defaultManager] removeItemAtPath:_filepath error:nil];
-    }
 }
 
 - (NSString *)path {
-    return _filepath;
+    return self.assetURL.path;
 }
 
 - (int64_t)modifyTime {
@@ -113,52 +79,91 @@
     return _fileSize;
 }
 
-- (NSString *)getInfo {
-    __block NSString *filePath = nil;
-    if (PHAssetMediaTypeImage == self.phAsset.mediaType) {
-        PHImageRequestOptions *options = [PHImageRequestOptions new];
-        options.version = PHImageRequestOptionsVersionCurrent;
-        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-        options.resizeMode = PHImageRequestOptionsResizeModeNone;
-        //不支持icloud上传
-        options.networkAccessAllowed = NO;
-        options.synchronous = YES;
+- (void)getInfo {
+    if (!_hasGotInfo) {
+        _hasGotInfo = YES;
 
-        [[PHImageManager defaultManager] requestImageDataForAsset:self.phAsset
-                                                          options:options
-                                                    resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
-                                                        _assetData = imageData;
-                                                        _fileSize = imageData.length;
-                                                        _assetURL = [NSURL URLWithString:self.phAsset.localIdentifier];
-                                                        filePath = _assetURL.path;
-                                                    }];
-    } else if (PHAssetMediaTypeVideo == self.phAsset.mediaType) {
-        NSArray *assetResources = [PHAssetResource assetResourcesForAsset:self.phAsset];
-        PHAssetResource *resource;
-        for (PHAssetResource *assetRes in assetResources) {
-            if (assetRes.type == PHAssetResourceTypePairedVideo || assetRes.type == PHAssetResourceTypeVideo) {
-                resource = assetRes;
-            }
-        }
-        NSString *fileName = @"tempAssetVideo.mov";
-        if (resource.originalFilename) {
-            fileName = resource.originalFilename;
-        }
-        PHAssetResourceRequestOptions *options = [PHAssetResourceRequestOptions new];
-        //不支持icloud上传
-        options.networkAccessAllowed = NO;
+        if (PHAssetMediaTypeImage == self.phAsset.mediaType) {
+            PHImageRequestOptions *request = [PHImageRequestOptions new];
+            request.version = PHImageRequestOptionsVersionCurrent;
+            request.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+            request.resizeMode = PHImageRequestOptionsResizeModeNone;
+            request.synchronous = YES;
 
-        NSString *PATH_VIDEO_FILE = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
-        [[NSFileManager defaultManager] removeItemAtPath:PATH_VIDEO_FILE error:nil];
-        [[PHAssetResourceManager defaultManager] writeDataForAssetResource:resource toFile:[NSURL fileURLWithPath:PATH_VIDEO_FILE] options:options completionHandler:^(NSError *_Nullable error) {
-            if (error) {
-                filePath = nil;
-            } else {
-                filePath = PATH_VIDEO_FILE;
-            }
-        }];
+            [[PHImageManager defaultManager] requestImageDataForAsset:self.phAsset
+                                                              options:request
+                                                        resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
+                                                            _fileSize = imageData.length;
+                                                            _assetURL = [NSURL URLWithString:self.phAsset.localIdentifier];
+                                                        }];
+        } else if (PHAssetMediaTypeVideo == self.phAsset.mediaType) {
+            PHVideoRequestOptions *request = [PHVideoRequestOptions new];
+            request.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+            request.version = PHVideoRequestOptionsVersionCurrent;
+
+            NSConditionLock *assetReadLock = [[NSConditionLock alloc] initWithCondition:kAMASSETMETADATA_PENDINGREADS];
+            [[PHImageManager defaultManager] requestPlayerItemForVideo:self.phAsset options:request resultHandler:^(AVPlayerItem *playerItem, NSDictionary *info) {
+                AVURLAsset *urlAsset = (AVURLAsset *)playerItem.asset;
+                NSNumber *fileSize = nil;
+                [urlAsset.URL getResourceValue:&fileSize forKey:NSURLFileSizeKey error:nil];
+                _fileSize = [fileSize unsignedLongLongValue];
+                _assetURL = urlAsset.URL;
+
+                [assetReadLock lock];
+                [assetReadLock unlockWithCondition:kAMASSETMETADATA_ALLFINISHED];
+            }];
+            [assetReadLock lockWhenCondition:kAMASSETMETADATA_ALLFINISHED];
+            [assetReadLock unlock];
+            assetReadLock = nil;
+        }
     }
-    return filePath;
+}
+
+- (NSData *)fetchDataFromAsset:(PHAsset *)asset {
+    __block NSData *tmpData = [NSData data];
+
+    // Image
+    if (asset.mediaType == PHAssetMediaTypeImage) {
+        PHImageRequestOptions *request = [PHImageRequestOptions new];
+        request.version = PHImageRequestOptionsVersionCurrent;
+        request.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+        request.resizeMode = PHImageRequestOptionsResizeModeNone;
+        request.synchronous = YES;
+
+        [[PHImageManager defaultManager] requestImageDataForAsset:asset
+                                                          options:request
+                                                    resultHandler:
+                                                        ^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
+                                                            tmpData = [NSData dataWithData:imageData];
+                                                        }];
+    }
+    // Video
+    else {
+
+        PHVideoRequestOptions *request = [PHVideoRequestOptions new];
+        request.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+        request.version = PHVideoRequestOptionsVersionCurrent;
+
+        NSConditionLock *assetReadLock = [[NSConditionLock alloc] initWithCondition:kAMASSETMETADATA_PENDINGREADS];
+
+        [[PHImageManager defaultManager] requestAVAssetForVideo:asset
+                                                        options:request
+                                                  resultHandler:
+                                                      ^(AVAsset *asset, AVAudioMix *audioMix, NSDictionary *info) {
+                                                          AVURLAsset *urlAsset = (AVURLAsset *)asset;
+                                                          NSData *videoData = [NSData dataWithContentsOfURL:urlAsset.URL];
+                                                          tmpData = [NSData dataWithData:videoData];
+
+                                                          [assetReadLock lock];
+                                                          [assetReadLock unlockWithCondition:kAMASSETMETADATA_ALLFINISHED];
+                                                      }];
+
+        [assetReadLock lockWhenCondition:kAMASSETMETADATA_ALLFINISHED];
+        [assetReadLock unlock];
+        assetReadLock = nil;
+    }
+
+    return tmpData;
 }
 
 @end

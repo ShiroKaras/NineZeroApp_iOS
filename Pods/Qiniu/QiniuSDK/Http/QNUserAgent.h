@@ -26,11 +26,6 @@
 - (NSString *)description;
 
 /**
- *    UserAgent + AK 字串
- */
-- (NSString *)getUserAgent:(NSString *)access;
-
-/**
  *  单例
  */
 + (instancetype)sharedInstance;

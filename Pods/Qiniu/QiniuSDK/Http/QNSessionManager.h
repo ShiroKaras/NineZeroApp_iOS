@@ -19,8 +19,7 @@
          withMimeType:(NSString *)mime
     withCompleteBlock:(QNCompleteBlock)completeBlock
     withProgressBlock:(QNInternalProgressBlock)progressBlock
-      withCancelBlock:(QNCancelBlock)cancelBlock
-           withAccess:(NSString *)access;
+      withCancelBlock:(QNCancelBlock)cancelBlock;
 
 - (void)post:(NSString *)url
              withData:(NSData *)data
@@ -28,12 +27,11 @@
           withHeaders:(NSDictionary *)headers
     withCompleteBlock:(QNCompleteBlock)completeBlock
     withProgressBlock:(QNInternalProgressBlock)progressBlock
-      withCancelBlock:(QNCancelBlock)cancelBlock
-           withAccess:(NSString *)access;
+      withCancelBlock:(QNCancelBlock)cancelBlock;
 
 - (void)get:(NSString *)url
-          withHeaders:(NSDictionary *)headers
-    withCompleteBlock:(QNCompleteBlock)completeBlock;
+withHeaders:(NSDictionary *)headers
+withCompleteBlock:(QNCompleteBlock)completeBlock;
 
 @end
 

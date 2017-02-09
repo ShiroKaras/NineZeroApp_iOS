@@ -27,8 +27,6 @@
 @property (nonatomic, strong) QNConfiguration *config;
 @property (nonatomic) float previousPercent;
 
-@property (nonatomic, strong) NSString *access; //AK
-
 @end
 
 @implementation QNFormUpload
@@ -49,7 +47,6 @@
         _httpManager = http;
         _config = config;
         _previousPercent = 0;
-        _access = token.access;
     }
     return self;
 }
@@ -115,8 +112,7 @@
                        withMimeType:_option.mimeType
                   withCompleteBlock:retriedComplete
                   withProgressBlock:p
-                    withCancelBlock:_option.cancellationSignal
-                         withAccess:_access];
+                    withCancelBlock:_option.cancellationSignal];
     };
 
     [_httpManager multipartPost:[_config.zone up:_token].address
@@ -126,8 +122,7 @@
                    withMimeType:_option.mimeType
               withCompleteBlock:complete
               withProgressBlock:p
-                withCancelBlock:_option.cancellationSignal
-                     withAccess:_access];
+                withCancelBlock:_option.cancellationSignal];
 }
 
 @end

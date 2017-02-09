@@ -3,16 +3,15 @@
 //  MAMapKit
 //
 //  Created by yi chen on 2/24/16.
-//  Copyright © 2016 Amap. All rights reserved.
+//  Copyright © 2016 AutoNavi. All rights reserved.
 //
 
-#import "MAConfig.h"
 #import <AMapFoundationKit/AMapFoundationVersion.h>
 
 #ifndef MAMapVersion_h
 #define MAMapVersion_h
 
-#define MAMapVersionNumber                40601
+#define MAMapVersionNumber                40400
 
 #define MAMapMinRequiredFoundationVersion 10301
 
