@@ -3,7 +3,7 @@
 //  NineZeroProject
 //
 //  Created by SinLemon on 16/9/12.
-//  Copyright © 2016年 ShiroKaras. All rights reserved.
+//  Copyright © 2016年 ronhu. All rights reserved.
 //
 
 #import "SKActivityNotificationView.h"
@@ -51,6 +51,7 @@
     _contentImageView.frame = CGRectMake(20, 56, SCREEN_WIDTH-40, (SCREEN_WIDTH-40)*1.5);
     
     _adButton.frame = _contentImageView.frame;
+    [_adButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     _handImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_pop_hand"]];
     [_handImageView sizeToFit];
@@ -81,11 +82,12 @@
         _backView.bottom = 0;
         _dimmingView.alpha = 0;
     } completion:^(BOOL finished) {
-        [self removeFromSuperview];
+        self.bottom = 0;
     }];
 }
 
 - (void)show {
+    self.bottom = SCREEN_HEIGHT;
     _backView.bottom = 0;
     [UIView animateWithDuration:0.6 animations:^{
         _backView.bottom = SCREEN_HEIGHT;
