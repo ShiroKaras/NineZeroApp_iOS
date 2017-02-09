@@ -8,6 +8,7 @@
 
 #import "SKSwipeViewController.h"
 #import "SKScanningResultView.h"
+#import "SKDownloadProgressView.h"
 #import "HTUIHeader.h"
 
 @interface SKSwipeViewController ()
@@ -83,6 +84,21 @@
     [self showtipImageView];
     
     [self buildConstrains];
+    
+    if (!NO_NETWORK) {
+        //进度条
+        SKDownloadProgressView *progressView = [[SKDownloadProgressView alloc] init];
+        progressView.center = self.view.center;
+        [self.view addSubview:progressView];
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            [progressView setProgressViewPercent:1.];
+        } completion:^(BOOL finished) {
+            [progressView removeFromSuperview];
+        }];
+        
+        [self loadData];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -120,6 +136,12 @@
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.tipImageView);
         make.bottom.equalTo(self.tipImageView.mas_bottom).offset(-27);
+    }];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] scanningService] getScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
+        
     }];
 }
 
