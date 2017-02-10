@@ -548,7 +548,6 @@
 
 //点击活动关卡
 - (void)questionSelectButtonClick:(UIButton *)sender {
-    NSLog(@"%ld", sender.tag-100);
     NSString *questionID;
     if (self.season == 1) {
         questionID = self.questionList_season1[sender.tag-100].qid;
@@ -557,7 +556,7 @@
     }
     
     if (questionID == [self.questionList_season2 lastObject].qid && self.isMonday == NO) {
-        SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:questionID endTime:self.indexInfo.question_end_time];
+        SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:questionID endTime:(time_t)self.indexInfo.question_end_time];
         self.season = self.season;
         controller.delegate = self;
         [self.navigationController pushViewController:controller animated:YES];
@@ -791,7 +790,6 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"season"]) {
-        NSLog(@"%ld", self.season);
         if (self.season == 1) {
             _mascotImageView.image = [UIImage imageNamed:@"img_levelpage_season1"];
             [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1_highlight"] forState:UIControlStateNormal];

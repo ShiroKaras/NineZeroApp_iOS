@@ -967,7 +967,6 @@
         [HTProgressHUD dismiss];
         [self showPromptWithText:responseString];
         if (success) {
-            NSLog(@"%ld", coolTime);
 //            self.defaultMascotDetail.first_season.clue_cooling_time = coolTime;
 //            _iconCountLabel.text = [NSString stringWithFormat:@"%ld", [_iconCountLabel.text integerValue]-[self.defaultMascotDetail.first_season.clue_used_gold integerValue]];
 //            self.hintS1_islock = YES;

@@ -221,7 +221,6 @@
         self.loginUser.user_mobile = _phoneTextField.textField.text;
         self.loginUser.user_password = _passwordTextField.textField.text;
         [[[SKServiceManager sharedInstance] loginService] checkMobileRegisterStatus:_phoneTextField.textField.text callback:^(BOOL success, SKResponsePackage *response) {
-            DLog(@"%ld", response.result);
             if (response.result == 0) {
                 [self showTipsWithText:@"手机号码未注册"];
             } else {
@@ -258,7 +257,6 @@
     if (_phoneTextField.textField.text.length == 11) {
         //判断手机号是否被注册
         [[[SKServiceManager sharedInstance] loginService] checkMobileRegisterStatus:_phoneTextField.textField.text callback:^(BOOL success, SKResponsePackage *response) {
-            DLog(@"%ld", response.result);
             if (response.result == 0) {
                 [self showTipsWithText:@"手机号码未注册"];
             }

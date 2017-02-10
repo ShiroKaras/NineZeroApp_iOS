@@ -253,7 +253,7 @@
                 [AppDelegateInstance.window makeKeyAndVisible];
                 [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
             } else {
-                NSLog(@"%ld", response.result);
+                DLog(@"%ld", (long)response.result);
             }
         } else {
             [self showTipsWithText:@"网络连接错误"];

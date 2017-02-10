@@ -1287,7 +1287,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         UILabel *rankLabel = [UILabel new];
         rankLabel.font = MOON_FONT_OF_SIZE(32.5);
         rankLabel.textColor = COMMON_GREEN_COLOR;
-        rankLabel.text = [NSString stringWithFormat:@"%ld", self.reward.rank];
+        rankLabel.text = [NSString stringWithFormat:@"%ld", (long)self.reward.rank];
         [rankLabel sizeToFit];
         [rewardBaseInfoView addSubview:rankLabel];
         [rankLabel mas_makeConstraints:^(MASConstraintMaker *make) {

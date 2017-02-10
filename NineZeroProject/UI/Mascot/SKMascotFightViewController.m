@@ -66,7 +66,7 @@
     }];
     
     if (!NO_NETWORK) {
-        [[[SKServiceManager sharedInstance] mascotService] getRandomStringWithMascotID:[NSString stringWithFormat:@"%ld", _mascot.pet_id] callback:^(BOOL success, SKResponsePackage *response) {
+        [[[SKServiceManager sharedInstance] mascotService] getRandomStringWithMascotID:[NSString stringWithFormat:@"%ld", (long)_mascot.pet_id] callback:^(BOOL success, SKResponsePackage *response) {
             if (response.result == 0) {
                 //出现怪物
                 self.randomString = response.data[@"randomString"];
@@ -137,7 +137,7 @@
     [self.fightImageView startAnimating];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.033 * images.count * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[[SKServiceManager sharedInstance] mascotService] mascotBattleWithMascotID:[NSString stringWithFormat:@"%ld", _mascot.pet_id] randomString:self.randomString callback:^(BOOL success, SKResponsePackage *response) {
+        [[[SKServiceManager sharedInstance] mascotService] mascotBattleWithMascotID:[NSString stringWithFormat:@"%ld", (long)_mascot.pet_id] randomString:self.randomString callback:^(BOOL success, SKResponsePackage *response) {
             if (response.result == 0) {
                 //战斗胜利序列帧
                 self.successBackgroundView = [[UIView alloc] init];

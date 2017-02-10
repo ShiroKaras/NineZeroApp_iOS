@@ -161,11 +161,11 @@
         _badgeLevel = [self badgeLevel];
         if (_badgeLevel == 1) {
             NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:_badgeLevel] floatValue];
-            _expLabel.text = [NSString stringWithFormat:@"%ld", (targetLevel-self.exp)];
+            _expLabel.text = [NSString stringWithFormat:@"%ld", (long)(targetLevel-self.exp)];
             [_progressView setProgress:((float)self.exp)/targetLevel];
         } else if (_badgeLevel>1) {
             NSInteger targetLevel = [[[UD objectForKey:kBadgeLevels] objectAtIndex:_badgeLevel] floatValue];
-            _expLabel.text = [NSString stringWithFormat:@"%ld", (targetLevel-self.exp)];
+            _expLabel.text = [NSString stringWithFormat:@"%ld", (long)(targetLevel-self.exp)];
             [_progressView setProgress:(self.exp-[[[UD objectForKey:kBadgeLevels] objectAtIndex:_badgeLevel-1] floatValue])/(targetLevel-[[[UD objectForKey:kBadgeLevels] objectAtIndex:_badgeLevel-1] floatValue])];
         } else {
             _expLabel.text = @"0";
@@ -290,8 +290,8 @@
         cell.badgeRight = self.badgeArray[indexPath.row*2+1];
     }
     
-    cell.badgeLeftShadowImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_badge_shadow_%ld", indexPath.row*2]];
-    cell.badgeRightShadowImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_badge_shadow_%ld", indexPath.row*2+1]];
+    cell.badgeLeftShadowImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_badge_shadow_%d", indexPath.row*2]];
+    cell.badgeRightShadowImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_badge_shadow_%d", indexPath.row*2+1]];
     
     [cell.badgeLeftImageView sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row*2].medal_icon] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if (_badgeLevel>0 && _badgeLevel-1<indexPath.row*2+1) {
