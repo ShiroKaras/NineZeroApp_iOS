@@ -6,8 +6,8 @@
 //  Copyright © 2016年 ShiroKaras. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "OpenGLView.h"
+#import <UIKit/UIKit.h>
 
 @class SKScanning;
 @class SKQuestion;
@@ -20,9 +20,9 @@
 
 @interface SKSwipeViewController : UIViewController
 
-@property(nonatomic, strong) OpenGLView *glView;
-@property(nonatomic, weak)  id<SKScanningViewDelegate> delegate;
+@property (nonatomic, strong) OpenGLView *glView;
+@property (nonatomic, weak) id<SKScanningViewDelegate> delegate;
 
-- (instancetype)initWithScanningList:(NSArray<SKScanning*>*)scanningList;
+- (instancetype)initWithScanningList:(NSArray<SKScanning *> *)scanningList;
 - (instancetype)initWithQuestion:(SKQuestion *)question;
 @end

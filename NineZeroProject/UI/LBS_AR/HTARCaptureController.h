@@ -6,15 +6,15 @@
 //  Copyright © 2016年 HHHHTTTT. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "PRARManager.h"
 #import "MotionEffectView.h"
+#import "PRARManager.h"
+#import <UIKit/UIKit.h>
 
 @class SKQuestion;
 @class SKReward;
 @class HTARCaptureController;
 @protocol HTARCaptureControllerDelegate <NSObject>
-- (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward*)reward;
+- (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward *)reward;
 @end
 
 @interface HTARCaptureController : UIViewController

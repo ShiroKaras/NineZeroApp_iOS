@@ -10,6 +10,6 @@
 @class SKScanning;
 @interface SKScanningRewardView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame reward:(SKScanning*)reward;
+- (instancetype)initWithFrame:(CGRect)frame reward:(SKScanning *)reward;
 
 @end
