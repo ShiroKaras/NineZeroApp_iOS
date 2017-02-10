@@ -56,7 +56,6 @@
 		parameters:param
 		progress:nil
 		success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
-		    DLog(@"Response:%@", responseObject);
 		    SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
 		    callback(YES, package);
 		}

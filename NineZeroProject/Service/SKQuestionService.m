@@ -55,7 +55,6 @@
     NSDictionary *param = @{@"data" : [NSString encryptUseDES:jsonString key:nil]};
 	
 	[manager POST:[SKCGIManager questionBaseCGIKey] parameters:param progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-		DLog(@"Response:%@",responseObject);
         SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
         callback(YES, package);
 	} failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
