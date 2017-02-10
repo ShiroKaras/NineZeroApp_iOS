@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MJExtension/MJExtension.h>
+#import "MJExtension.h"
 
 // 基本返回包
 @interface SKResponsePackage : NSObject
@@ -35,7 +35,7 @@
 @property (nonatomic, copy)     NSString    *gold;
 @property (nonatomic, assign)   NSInteger   rank;
 
-@property (nonatomic, assign)   int         push_setting;   // 推送开关
+@property (nonatomic, assign)   BOOL        push_setting;   // 推送开关
 @end
 
 //用户个人页信息
@@ -81,15 +81,16 @@
 @property (nonatomic, copy)     NSString    *question_video;
 @property (nonatomic, copy)     NSString    *question_video_url;
 @property (nonatomic, copy)     NSString    *question_answer;
-@property (nonatomic, copy)     NSString    *question_ar_loaction;
+@property (nonatomic, copy)     NSArray     *question_location;
 @property (nonatomic, copy)     NSString    *question_ar_pet;
+@property (nonatomic, copy)     NSString    *question_ar_pet_url;
 @property (nonatomic, copy)     NSString    *reward_id;
 @property (nonatomic, copy)     NSString    *hint;
 @property (nonatomic, copy)     NSString    *hint_1;
 @property (nonatomic, copy)     NSString    *hint_2;
 @property (nonatomic, copy)     NSString    *question_video_cover;
 @property (nonatomic, copy)     NSString    *checkpoint_pic;
-@property (nonatomic, assign)   NSInteger   base_type;                  //0:文字类型  1:扫图片  2:LBS
+@property (nonatomic, assign)   NSInteger   base_type;                  //0:文字类型  1:LBS  2:扫图片
 @property (nonatomic, assign)   NSInteger   level_type;                 //0:极难题  1:第一季  2:第二季
 @property (nonatomic, assign)   BOOL        is_answer;
 @property (nonatomic, assign)   NSInteger   clue_count;                 //用户线索条数
@@ -111,11 +112,17 @@
 @property (nonatomic, copy)     NSString    *qid;
 @property (nonatomic, copy)     NSString    *article_title;
 @property (nonatomic, copy)     NSString    *article_desc;
-@property (nonatomic, copy)     NSString    *article_subtitle;
+//@property (nonatomic, copy)     NSString    *article_subtitle;
 @property (nonatomic, copy)     NSString    *article_pic;
 @property (nonatomic, copy)     NSString    *article_pic_1;
-@property (nonatomic, copy)     NSString    *article_pic_2;
 @property (nonatomic, copy)     NSString    *article_video_url;
+
+@property (nonatomic, copy)     NSString    *article_Illustration;          //头图或视频
+@property (nonatomic, copy)     NSString    *article_Illustration_url;
+@property (nonatomic, copy)     NSString    *article_Illustration_cover;    //头视频封面
+@property (nonatomic, copy)     NSString    *article_Illustration_cover_url;
+@property (nonatomic, assign)   NSInteger   article_Illustration_type;      // 0:无  1:视频  2:图片
+
 @end
 
 @interface SKMascotProp : NSObject
@@ -126,9 +133,9 @@
 @property (nonatomic, copy)     NSString    *user_id;
 @property (nonatomic, copy)     NSString    *sid;
 @property (nonatomic, copy)     NSString    *code;
-@property (nonatomic, assign)   uint64_t      create_time;
-@property (nonatomic, assign)   uint64_t      expire_time;
-@property (nonatomic, assign)   uint64_t      used_time;
+@property (nonatomic, assign)   uint64_t    create_time;
+@property (nonatomic, assign)   uint64_t    expire_time;
+@property (nonatomic, assign)   uint64_t    used_time;
 @property (nonatomic, assign)   BOOL        used;
 @property (nonatomic, copy)     NSString    *title;
 @property (nonatomic, copy)     NSString    *pic;
@@ -152,6 +159,7 @@
 @property (nonatomic, assign)   NSInteger   pet_id;
 @property (nonatomic, copy)     NSString    *pet_desc;
 @property (nonatomic, copy)     NSString    *pet_name;
+@property (nonatomic, copy)     NSString    *pet_family_num;
 @property (nonatomic, assign)   BOOL        user_haved;
 
 @property (nonatomic, assign)   NSInteger   pet_num;
@@ -187,6 +195,7 @@
 @property (nonatomic, copy)     NSString    *medal_pic;
 @property (nonatomic, copy)     NSString    *medal_description;
 @property (nonatomic, copy)     NSString    *level_type;
+@property (nonatomic, assign)   BOOL        isHad;
 @end
 
 @interface SKRanker : NSObject
@@ -201,8 +210,8 @@
 @end
 
 @interface SKDefaultMascotSkill : NSObject;
-@property (nonatomic, assign)   uint64_t      clue_cooling_time;
-@property (nonatomic, assign)   uint64_t      answer_cooling_time;
+@property (nonatomic, assign)   NSInteger   clue_cooling_time;
+@property (nonatomic, assign)   NSInteger   answer_cooling_time;
 @property (nonatomic, copy)     NSString    *clue_used_gold;
 @property (nonatomic, copy)     NSString    *answer_used_gold;
 @property (nonatomic, copy)     NSString    *clue_used_gemstone;
@@ -222,4 +231,16 @@
 @property (nonatomic, assign)   uint64_t time;                  // 通知时间
 @property (nonatomic, assign)   uint64_t title;                 // 通知标题
 @property (nonatomic, strong)   NSString *content;              // 内容
+@end
+
+//扫一扫
+@interface SKScanning : NSObject
+@property (nonatomic, copy) NSString *sid;
+@property (nonatomic, copy) NSString *status;       //状态（1：活动开启，0：活动关闭
+@property (nonatomic, copy) NSString *hint;
+@property (nonatomic, copy) NSString *reward_id;
+@property (nonatomic, copy) NSString *file_url;
+@property (nonatomic, copy) NSString *file_url_true;
+@property (nonatomic, copy) NSString *link_url;
+@property (nonatomic, copy) NSString *link_type;    //链接类型（0：视频，1：GIF图，2：图片）
 @end

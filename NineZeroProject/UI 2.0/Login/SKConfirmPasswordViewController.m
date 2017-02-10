@@ -124,7 +124,6 @@
 }
 
 - (void)nextButtonClick:(UIButton *)sender {
-    self.loginUser = [SKLoginUser new];
     self.loginUser.user_password = _passwordTextField.textField.text;
     
     [self.view endEditing:YES];

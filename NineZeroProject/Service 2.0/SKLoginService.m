@@ -87,6 +87,7 @@
 }
 
 - (void)loginWith:(SKLoginUser *)user callback:(SKResponseCallback)callback {
+    user.user_password = [NSString confusedPasswordWithLoginUser:user];
     NSDictionary *param = @{
                             @"method"       :   @"login",
                             @"user_password":   user.user_password,
@@ -123,6 +124,7 @@
 }
 
 - (void)resetPassword:(SKLoginUser *)user callback:(SKResponseCallback)callback {
+    user.user_password = [NSString confusedPasswordWithLoginUser:user];
     NSDictionary *param = @{
                             @"method"       :   @"reset",
                             @"user_password":   user.user_password,
@@ -131,8 +133,8 @@
                             };
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         NSDictionary *dataDict = response.data;
-        SKLoginUser *loginUser = [SKLoginUser objectWithKeyValues:dataDict];
         if (response.result == 0) {
+            SKLoginUser *loginUser = [SKLoginUser objectWithKeyValues:dataDict];
             [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
             [[SKStorageManager sharedInstance] updateLoginUser:loginUser];            
         }

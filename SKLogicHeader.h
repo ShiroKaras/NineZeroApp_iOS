@@ -11,11 +11,9 @@
 
 #import "SKModel.h"
 
-#import "HTCGIManager.h"
 #import "SKCGIManager.h"
 
 #import "HTLog.h"
-#import "HTStorageManager.h"
 #import "SKStorageManager.h"
 
 #import "SKNetworkDefine.h"
@@ -23,6 +21,6 @@
 #import "NSString+Utility.h"
 
 #import <AFNetworking.h>
-#import <MJExtension.h>
+#import "MJExtension.h"
 
 #endif /* SKLogicHeader_h */

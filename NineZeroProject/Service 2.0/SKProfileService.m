@@ -53,13 +53,12 @@
     NSDictionary *param = @{@"data" : [NSString encryptUseDES:jsonString key:nil]};
     
     [manager POST:[SKCGIManager profileBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-//        NSString *desString = [NSString decryptUseDES:responseObject[@"data"] key:nil];
-//        NSDictionary *desDict = [desString dictionaryWithJsonString];
         DLog(@"Response:%@",responseObject);
         SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
         if (package.result == 0) {
             callback(YES, package);
         } else {
+            callback(YES, package);
             DLog(@"%ld",(long)package.result);
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -74,9 +73,12 @@
                             @"method"       :   @"getUserInfo"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        SKProfileInfo *profileInfo = [SKProfileInfo objectWithKeyValues:[response keyValues][@"data"]];
-        [SKStorageManager sharedInstance].profileInfo = profileInfo;
-        callback(success, profileInfo);
+        if (success) {
+            SKProfileInfo *profileInfo = [SKProfileInfo objectWithKeyValues:[response keyValues][@"data"]];
+            [SKStorageManager sharedInstance].profileInfo = profileInfo;
+            callback(success, profileInfo);
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -86,14 +88,17 @@
                             @"method"       :   @"getUserTickets"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *ticketArray = [NSMutableArray array];
-        if ([response.data count]>0) {
-            for (int i=0; i<[response.data count]; i++) {
-                SKTicket *piece = [SKTicket objectWithKeyValues:response.data[i]];
-                [ticketArray addObject:piece];
+        if (success) {
+            NSMutableArray *ticketArray = [NSMutableArray array];
+            if ([response.data count]>0) {
+                for (int i=0; i<[response.data count]; i++) {
+                    SKTicket *piece = [SKTicket objectWithKeyValues:response.data[i]];
+                    [ticketArray addObject:piece];
+                }
             }
-        }
-        callback(success, ticketArray);
+            callback(success, ticketArray);
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -113,14 +118,24 @@
                             @"method"       :   @"getNotice"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *notificationArray = [NSMutableArray array];
-        if ([response.data count]>0) {
-            for (int i=0; i<[response.data count]; i++) {
-                SKNotification *notification = [SKNotification objectWithKeyValues:response.data[i]];
-                [notificationArray addObject:notification];
+        if (success) {
+            NSMutableArray *notificationArray = [NSMutableArray array];
+            SKNotification *firstNotification = [SKNotification objectWithKeyValues:
+                                                 @{
+                                                   @"time": @"0",
+                                                   @"content": @"欢迎加入“九零”，你已经被零仔锁定，现在，你可以通过这里帮助九零发现更大的世界！"
+                                                   }];
+            [notificationArray addObject:firstNotification];
+            
+            if ([response.data count]>0) {
+                for (int i=0; i<[response.data count]; i++) {
+                    SKNotification *notification = [SKNotification objectWithKeyValues:response.data[i]];
+                    [notificationArray insertObject:notification atIndex:0];
+                }
             }
-        }
-        callback(success, notificationArray);
+            callback(success, notificationArray);
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -130,9 +145,12 @@
                             @"method"       :   @"getBaseInfo"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        SKUserInfo *userInfo = [SKUserInfo objectWithKeyValues:[response keyValues][@"data"]];
-        [SKStorageManager sharedInstance].userInfo = userInfo;
-        callback(success, userInfo);
+        if (success && response.result == 0) {
+            SKUserInfo *userInfo = [SKUserInfo objectWithKeyValues:[response keyValues][@"data"]];
+            [SKStorageManager sharedInstance].userInfo = userInfo;
+            callback(success, userInfo);
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -142,14 +160,17 @@
                             @"method"       :   @"getOneRank"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *rankerArray = [NSMutableArray array];
-        if ([response.data count]>0) {
-            for (int i=0; i<[response.data count]; i++) {
-                SKRanker *ranker = [SKRanker objectWithKeyValues:response.data[i]];
-                [rankerArray addObject:ranker];
+        if (success) {
+            NSMutableArray *rankerArray = [NSMutableArray array];
+            if ([response.data count]>0) {
+                for (int i=0; i<[response.data count]; i++) {
+                    SKRanker *ranker = [SKRanker objectWithKeyValues:response.data[i]];
+                    [rankerArray addObject:ranker];
+                }
+                callback(success, rankerArray);
             }
-            callback(success, rankerArray);
-        }
+        } else
+            callback(success, nil);
     }];
 }
 
@@ -159,19 +180,40 @@
                             @"method"       :   @"getAllRank"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *rankerArray = [NSMutableArray array];
-        if ([response.data count]>0) {
-            for (int i=0; i<[response.data count]; i++) {
-                SKRanker *ranker = [SKRanker objectWithKeyValues:response.data[i]];
-                [rankerArray addObject:ranker];
+        if (success) {
+            NSMutableArray *rankerArray = [NSMutableArray array];
+            if ([response.data count]>0) {
+                for (int i=0; i<[response.data count]; i++) {
+                    SKRanker *ranker = [SKRanker objectWithKeyValues:response.data[i]];
+                    [rankerArray addObject:ranker];
+                }
+                callback(success, rankerArray);
             }
-            callback(success, rankerArray);
-        }
+        } else
+            callback(success, nil);
+    }];
+}
+
+//修改设置
+- (void)updateNotificationSwitch:(BOOL)isOn callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method"         :   @"updateSetting",
+                            @"push_setting"   :   [NSString stringWithFormat:@"%ld", (long)isOn]
+                            };
+    [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        if (success) {
+            callback(success, response);
+        } else
+            callback(NO, nil);
     }];
 }
 
 //修改个人信息
 - (void)updateUserInfoWith:(SKUserInfo*)userInfo withType:(int)type callback:(SKResponseCallback)callback {
+    if (userInfo == nil){
+        callback(NO, nil);
+        return;
+    }
     NSDictionary *param;
     if (type == 0) {
         param = @{
@@ -185,19 +227,22 @@
                 };
     }
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        if (response.result == 0) {
-            [self getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response2) { }];
-            callback(success, response);
-        } else {
+        if (success) {
+            if (response.result == 0) {
+                [self getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response2) { }];
+                callback(success, response);
+            } else {
+                callback(success, response);
+            }
+        } else
             callback(success, nil);
-        }
     }];
 }
 
 //用户反馈
 - (void)feedbackWithContent:(NSString *)content contact:(NSString *)contact completion:(SKResponseCallback)callback {
     NSDictionary *param = @{
-                            @"method"       :   @"updateSetting",
+                            @"method"       :   @"feedback",
                             @"content"      :   content,
                             @"contact"      :   contact
                             };
@@ -209,7 +254,9 @@
 //重新获取用户信息
 - (void)updateUserInfoFromServer {
     [self getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response) {
-        [[SKStorageManager sharedInstance] setUserInfo:response];
+        if (success && response != nil) {
+            [[SKStorageManager sharedInstance] setUserInfo:response];
+        }
     }];
 }
 
@@ -219,14 +266,17 @@
                             @"method"       :   @"getMedal"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *badgeArray = [NSMutableArray array];
-        if ([response.data[@"list"] count]>0) {
-            for (int i=0; i<[response.data[@"list"] count]; i++) {
-                SKBadge *badge = [SKBadge objectWithKeyValues:response.data[@"list"][i]];
-                [badgeArray addObject:badge];
+        if (success) {
+            NSMutableArray *badgeArray = [NSMutableArray array];
+            if ([response.data[@"list"] count]>0) {
+                for (int i=0; i<[response.data[@"list"] count]; i++) {
+                    SKBadge *badge = [SKBadge objectWithKeyValues:response.data[@"list"][i]];
+                    [badgeArray addObject:badge];
+                }
             }
-        }
-        callback(success, [response.data[@"user_experience_value"] integerValue], badgeArray);
+            callback(success, [response.data[@"user_experience_value"] integerValue], badgeArray);
+        } else
+            callback(success, 0, nil);
     }];
 }
 
@@ -236,14 +286,17 @@
                             @"method"       :   @"getPiece"
                             };
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *pieceArray = [NSMutableArray array];
-        if ([response.data count]>0) {
-            for (int i=0; i<[response.data count]; i++) {
-                SKPiece *piece = [SKPiece objectWithKeyValues:response.data[i]];
-                [pieceArray addObject:piece];
+        if (success) {
+            NSMutableArray *pieceArray = [NSMutableArray array];
+            if ([response.data count]>0) {
+                for (int i=0; i<[response.data count]; i++) {
+                    SKPiece *piece = [SKPiece objectWithKeyValues:response.data[i]];
+                    [pieceArray addObject:piece];
+                }
             }
-        }
-        callback(success, pieceArray);
+            callback(success, pieceArray);
+        } else
+            callback(success, nil);
     }];
 }
 @end

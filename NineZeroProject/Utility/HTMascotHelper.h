@@ -14,6 +14,4 @@
 
 + (UIColor *)colorWithMascotIndex:(NSInteger)index;
 
-+ (NSMutableArray<HTMascot *> *)mascotsFake;
-+ (HTMascot *)defaultMascots;
 @end

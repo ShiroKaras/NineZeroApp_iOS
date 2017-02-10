@@ -16,25 +16,44 @@
 @property (nonatomic, strong) UITableView *tableView;
 @end
 
-@implementation HTNotificationController
+@implementation HTNotificationController {
+    float lastOffsetY;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.bounces = NO;
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-    headerView.backgroundColor = COMMON_TITLE_BG_COLOR;
+    UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    tableViewHeaderView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableHeaderView = tableViewHeaderView;
+    
+    UIView *tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 16)];
+    tableViewFooterView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = tableViewFooterView;
+    
+    UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_shading"]];
+    backImageView.tag = 202;
+    backImageView.alpha = 0;
+    backImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 64);
+    backImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:backImageView];
+
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    headerView.tag = 200;
+    headerView.backgroundColor = [UIColor clearColor];
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"消息通知";
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = [UIFont systemFontOfSize:17];
+    titleLabel.font = PINGFANG_FONT_OF_SIZE(17);
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
     [headerView addSubview:titleLabel];
@@ -96,6 +115,50 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [HTNotificationCell calculateCellHeightWithText:_notices[indexPath.row].content];
+}
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y <= 64) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view viewWithTag:9001].alpha = 1;
+            [self.view viewWithTag:200].alpha = 1;
+            [self.view viewWithTag:202].alpha = 0;
+            [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
+            [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
+            [self.view viewWithTag:202].bottom = [self.view viewWithTag:202].height;
+        } completion:^(BOOL finished) {
+            
+        }];
+    } else {
+        if (lastOffsetY >= scrollView.contentOffset.y) {
+            [UIView animateWithDuration:0.3 animations:^{
+                //显示
+                [self.view viewWithTag:9001].alpha = 1;
+                [self.view viewWithTag:200].alpha = 1;
+                [self.view viewWithTag:202].alpha = 1;
+                [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
+                [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
+                [self.view viewWithTag:202].bottom = [self.view viewWithTag:202].height;
+            } completion:^(BOOL finished) {
+                
+            }];
+        } else {
+            [UIView animateWithDuration:0.3 animations:^{
+                //隐藏
+                [self.view viewWithTag:9001].alpha = 0;
+                [self.view viewWithTag:200].alpha = 0;
+                [self.view viewWithTag:202].alpha = 0;
+                [self.view viewWithTag:9001].bottom = 0;
+                [self.view viewWithTag:200].bottom = 0;
+                [self.view viewWithTag:202].bottom = 0;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }
+    }
+    lastOffsetY = scrollView.contentOffset.y;
 }
 
 @end

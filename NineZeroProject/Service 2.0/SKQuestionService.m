@@ -83,7 +83,11 @@
             SKQuestion *question = [SKQuestion objectWithKeyValues:[response.data[@"second_season"] objectAtIndex:i]];
             [questions_season2 insertObject:question atIndex:0];
         }
-        callback (YES, (long)response.data[@"first_season_answered"], (long)response.data[@"second_season_answered"], questions_season1, questions_season2);
+        _answeredQuestion_season1 = [response.data[@"first_season_answered"] integerValue];
+        _answeredQuestion_season2 = [response.data[@"second_season_answered"] integerValue];
+        _questionList_season1 = questions_season1;
+        _questionList_season2 = questions_season2;
+        callback (YES, [response.data[@"first_season_answered"] integerValue], [response.data[@"second_season_answered"] integerValue], questions_season1, questions_season2);
     }];
 }
 
@@ -110,10 +114,14 @@
         NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
         if (question.question_video) [downloadKeys addObject:question.question_video];
         if (question.question_video_cover) [downloadKeys addObject:question.question_video_cover];
+        if (question.description_pic) [downloadKeys addObject:question.description_pic];
+        if (question.question_ar_pet) [downloadKeys addObject:question.question_ar_pet];
         [[[SKServiceManager sharedInstance] commonService] getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, SKResponsePackage *response) {
             if (success) {
                 if (question.question_video) question.question_video_url = response.data[question.question_video];
                 if (question.question_video_cover) question.question_video_cover = response.data[question.question_video_cover];
+                if (question.description_pic) question.description_pic = response.data[question.description_pic];
+                if (question.question_ar_pet) question.question_ar_pet_url = response.data[question.question_ar_pet];
                 callback(success, question);
             } else {
                 callback(false, question);
@@ -148,18 +156,47 @@
 }
 
 //查看答案
-- (void)getQuestionAnswerDetailWithQuestionID:(NSString *)questionID callback:(SKResponseCallback)callback {
+- (void)getQuestionAnswerDetailWithQuestionID:(NSString *)questionID callback:(SKQuestionAnswerDetail)callback {
     NSDictionary *param = @{
                             @"method"       :   @"getAnswerDetail",
                             @"area_id"      :   @"010",
                             @"qid"          :   questionID
                             };
     [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+        SKAnswerDetail *answerDetail = [SKAnswerDetail objectWithKeyValues:[response.data keyValues]];
+        NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
+        if (answerDetail.article_Illustration) [downloadKeys addObject:answerDetail.article_Illustration];
+        [[[SKServiceManager sharedInstance] commonService] getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, SKResponsePackage *response) {
+            if (success) {
+                if (answerDetail.article_Illustration) answerDetail.article_Illustration_url = response.data[answerDetail.article_Illustration];
+                callback(success, answerDetail);
+            } else {
+                callback(false, answerDetail);
+            }
+        }];
+
+        callback(success, answerDetail);
     }];
 }
 
-- (void)getQuestionTop10WithQuestionID:(NSString *)questionID callback:(SKQuestionTop10Callback)callback {
+- (void)getRandomUserListWithQuestionID:(NSString *)questionID callback:(SKQuestionUserListCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"getAnsweredRandUserList",
+                            @"area_id"      :   @"010",
+                            @"qid"          :   questionID
+                            };
+    [self questionBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray *rankList = [NSMutableArray array];
+        for (int i=0; i<[response.data count]; i++) {
+            SKUserInfo *userInfo = [SKUserInfo objectWithKeyValues:response.data[i]];
+            [rankList addObject:userInfo];
+        }
+        callback(success, rankList);
+    }];
+
+}
+
+- (void)getQuestionTop10WithQuestionID:(NSString *)questionID callback:(SKQuestionUserListCallback)callback {
     NSDictionary *param = @{
                             @"method"       :   @"getTopAnsweredUserList",
                             @"area_id"      :   @"010",
@@ -172,6 +209,42 @@
             [rankList addObject:userInfo];
         }
         callback(success, rankList);
+    }];
+}
+
+- (void)shareQuestionWithQuestionID:(NSString *)questionID callback:(SKResponseCallback)callback {
+    NSDictionary *dict = @{
+                           @"method"       :   @"shareQuestion",
+                           @"qid"          :   questionID
+                           };
+    
+    // Create manager
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager setSecurityPolicy:[self customSecurityPolicy]];
+    
+    NSTimeInterval time=[[NSDate date] timeIntervalSince1970];// (NSTimeInterval) time = 1427189152.313643
+    long long int currentTime=(long long int)time;      //NSTimeInterval返回的是double类型
+    NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+    [mDict setValue:[NSString stringWithFormat:@"%lld",currentTime] forKey:@"time"];
+    [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
+    [mDict setValue:@"iOS" forKey:@"client"];
+    [mDict setValue:[[SKStorageManager sharedInstance] getUserID]  forKey:@"user_id"];
+    
+    NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    DLog(@"Json ParamString: %@", jsonString);
+    
+    NSDictionary *param = @{@"data" : [NSString encryptUseDES:jsonString key:nil]};
+    
+    [manager POST:[SKCGIManager shareBaseCGIKey] parameters:param success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        //        NSString *desString = [NSString decryptUseDES:responseObject[@"data"] key:nil];
+        //        NSDictionary *desDict = [desString dictionaryWithJsonString];
+        DLog(@"Response:%@",responseObject);
+        SKResponsePackage *package = [SKResponsePackage objectWithKeyValues:responseObject];
+        callback(YES, package);
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        DLog(@"%@", error);
+        callback(NO, nil);
     }];
 }
 

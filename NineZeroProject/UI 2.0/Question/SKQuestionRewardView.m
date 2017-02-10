@@ -13,6 +13,7 @@
 
 @interface SKQuestionRewardView ()
 @property (nonatomic, strong) NSDictionary *rewardDict;
+@property (nonatomic, strong) SKReward      *reward;
 @end
 
 @implementation SKQuestionRewardView
@@ -22,22 +23,42 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.rewardDict = rewardDict;
+        self.reward = [SKReward objectWithKeyValues:rewardDict];
         [self createUIWithFrame:frame button:button];
     }
     return self;
 }
 
 - (void)createUIWithFrame:(CGRect)frame button:(UIButton*)button {
+    BOOL isTicket = self.reward.ticket==nil?NO:YES;
+    
     //rewardBackView
     UIView *rewardBackView = [[UIView alloc] initWithFrame:frame];
     rewardBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     rewardBackView.layer.cornerRadius = 5;
     [self addSubview:rewardBackView];
     
-    UIImageView *giftImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_gift_highlight"]];
-    [self addSubview:giftImageView];
-    giftImageView.frame = button.frame;
-    
+    //Ticket
+    SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108)];
+    if (isTicket) {
+        [rewardBackView addSubview:card];
+        if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+            [card mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@(362));
+                make.height.equalTo(@(140));
+                make.centerX.equalTo(rewardBackView);
+                make.bottom.equalTo(rewardBackView.mas_bottom).offset(-15);
+            }];
+        } else {
+            [card mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(@280);
+                make.height.equalTo(@108);
+                make.centerX.equalTo(rewardBackView);
+                make.bottom.equalTo(rewardBackView.mas_bottom).offset(-(self.height-320-108)/2);
+            }];
+        }
+    }
+
     UIView *rewardBaseInfoView = [UIView new];
     rewardBaseInfoView.backgroundColor = [UIColor clearColor];
     [rewardBackView addSubview:rewardBaseInfoView];
@@ -45,24 +66,11 @@
         make.width.equalTo(@248);
         make.height.equalTo(@294);
         make.centerX.equalTo(rewardBackView);
-        if ([[self.rewardDict allKeys] containsObject:@"ticket"])   make.top.equalTo(@16);
-        else            make.top.equalTo(@86);
+        if (isTicket)   make.top.equalTo(@((rewardBackView.height-card.height-294)/2));
+        else            make.top.equalTo(@((rewardBackView.height-294)/2));
     }];
     
     [self createRewardBaseInfoWithBaseInfoView:rewardBaseInfoView];
-    
-    //Ticket
-    if ([[self.rewardDict allKeys] containsObject:@"ticket"]) {
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectZero];
-        [rewardBaseInfoView addSubview:card];
-        [card mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@280);
-            make.height.equalTo(@108);
-            make.centerX.equalTo(rewardBaseInfoView);
-            make.bottom.equalTo(rewardBackView.mas_bottom).offset(-(self.height-320-108)/2);
-        }];
-    }
-
 }
 
 - (void)createRewardBaseInfoWithBaseInfoView:(UIView*)rewardBaseInfoView {
@@ -110,7 +118,7 @@
     [rewardImageView_txt_3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@100);
         make.height.equalTo(@19);
-        make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(10);
+        make.top.equalTo(rewardImageView_txt_2.mas_bottom).offset(15);
         make.left.equalTo(rewardBaseInfoView);
     }];
     
@@ -140,7 +148,7 @@
     [rewardImageView_exp mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@18);
         make.height.equalTo(@18);
-        make.top.equalTo(rewardImageView_txt_3.mas_bottom).offset(6);
+        make.top.equalTo(rewardImageView_txt_3.mas_bottom).offset(9);
         make.right.equalTo(rewardImageView_txt_3);
     }];
     
@@ -170,7 +178,7 @@
     [rewardImageView_diamond mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@18);
         make.height.equalTo(@18);
-        make.top.equalTo(rewardImageView_exp.mas_bottom).offset(6);
+        make.top.equalTo(rewardImageView_exp.mas_bottom).offset(9);
         make.right.equalTo(rewardImageView_exp);
     }];
     

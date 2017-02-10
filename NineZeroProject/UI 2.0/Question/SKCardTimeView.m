@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *mainTimeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *detailTimeLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *decoImageView;
+//@property (strong, nonatomic) IBOutlet UIImageView *decoImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *resultImageView;
 //@property (nonatomic, strong) SKHelperGuideView *guideView;
 @property (nonatomic, assign) time_t endTime;
@@ -45,24 +45,33 @@
             [self scheduleCountDownTimer];
         } else {
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
-            _decoImageView.hidden = YES;
-            _mainTimeLabel.hidden = YES;
+//            _decoImageView.hidden = YES;
             _detailTimeLabel.hidden = YES;
+            _mainTimeLabel.hidden = YES;
             _resultImageView.hidden = NO;
             _resultImageView.contentMode = UIViewContentModeScaleAspectFit;
             if (question.is_answer) {
-                [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
+//                if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+//                    [_resultImageView setImage:[UIImage imageNamed:@"img_detailspage_success_6p"]];
+//                } else {
+                    [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
+//                }
             } else {
                 [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_gameover"]];
             }
         }
     } else if (type == SKQuestionTypeHistoryLevel) {
-        _decoImageView.hidden = YES;
+//        _decoImageView.hidden = YES;
         _mainTimeLabel.hidden = YES;
         _detailTimeLabel.hidden = YES;
         _resultImageView.hidden = NO;
+        _resultImageView.contentMode = UIViewContentModeScaleAspectFit;
         if (question.is_answer) {
-            [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
+//            if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+//                [_resultImageView setImage:[UIImage imageNamed:@"img_detailspage_success_6p"]];
+//            } else {
+                [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
+//            }
         } else {
             if (question.base_type == 1 || _question.base_type == 2) {
                 [_resultImageView setImage:[UIImage imageNamed:@"img_stamp_AR"]];
@@ -81,21 +90,21 @@
     time_t hour = delta / oneHour;
     time_t minute = (delta % oneHour) / 60;
     time_t second = delta - hour * oneHour - minute * 60;
-    _decoImageView.hidden = NO;
+//    _decoImageView.hidden = NO;
     _mainTimeLabel.hidden = NO;
-    _detailTimeLabel.hidden = YES;
+    _detailTimeLabel.hidden = NO;
     _resultImageView.hidden = YES;
     
     //TODO: 更改TimeView
     if (delta > 0) {
-        if (delta < oneHour * 36 && FIRST_TYPE_2) {
+        if (delta < oneHour * 36) {
 //            [self showGuideviewWithType:SKHelperGuideViewType2];
-            [UD setBool:YES forKey:@"firstLaunchType2"];
+//            [UD setBool:YES forKey:@"firstLaunchType2"];
         }
         // 小于1小时
         _mainTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld", hour, minute];
         _mainTimeLabel.textColor = COMMON_PINK_COLOR;
-        _decoImageView.hidden = YES;
+//        _decoImageView.hidden = YES;
         _detailTimeLabel.hidden = NO;
         _detailTimeLabel.text = [NSString stringWithFormat:@"%02ld", second];
         _detailTimeLabel.textColor = COMMON_PINK_COLOR;

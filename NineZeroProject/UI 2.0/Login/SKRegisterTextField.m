@@ -37,10 +37,11 @@ static const CGFloat lineWidth = 1;
         _placeholderLabel = [[UILabel alloc]initWithFrame:CGRectZero];
         _placeholderLabel.font = [UIFont systemFontOfSize:18.f];
         _placeholderLabel.textColor = [UIColor whiteColor];
+        _placeholderLabel.alpha = 0.6;
         [self addSubview:_placeholderLabel];
         
         _lineView = [[UIView alloc]initWithFrame:CGRectZero];
-        _lineView.backgroundColor = [UIColor lightGrayColor];
+        _lineView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_lineView];
         
         _lineLayer = [CALayer layer];
@@ -105,7 +106,7 @@ static const CGFloat lineWidth = 1;
         moveY += _placeholderLabel.frame.size.height/2 + heightSpaceing;
         moveX += padding;
         _placeholderLabel.center = CGPointMake(moveX, moveY);
-        _placeholderLabel.alpha = 1;
+        _placeholderLabel.alpha = 0.6;
         _moved = NO;
         _lineLayer.bounds = CGRectMake(0, 0, 0, lineWidth);
     }];

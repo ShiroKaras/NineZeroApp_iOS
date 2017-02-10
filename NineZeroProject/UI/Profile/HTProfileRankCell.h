@@ -24,8 +24,11 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) SKRanker *ranker;
 @property (nonatomic, strong) NSArray<SKRanker*>* topThreeRankers;
+@property (nonatomic, strong) UIView *separator;
+@property (nonatomic, strong) UIView *backView;
 
 - (void)showWithMe:(BOOL)me;
+- (void)showCorner:(BOOL)show;
 - (void)setTopThreeRankers:(NSArray<SKRanker *> *)topThreeRankers withType:(SKRankViewType)type;
 - (void)setRanker:(SKRanker *)ranker withType:(SKRankViewType)type;
 @end

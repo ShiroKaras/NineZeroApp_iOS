@@ -11,11 +11,12 @@ target 'NineZeroProject' do
   pod 'Qiniu', "~> 7.0"
   pod 'JPush', '~> 2.1.0'
   pod 'MBProgressHUD+BWMExtension', '~> 1.0.0'
-  pod 'MJExtension'
+  #pod 'MJExtension'
   pod 'Masonry', '~> 0.6.2'
   pod 'UIImage+animatedGif', '~> 0.1.0'
   pod 'TTTAttributedLabel'
   pod 'YLGIFImage'
+  pod 'SSZipArchive'
   pod 'AMapLocation'  #定位SDK
   pod 'AMap3DMap'  #3D地图SDK
   #pod 'AMap2DMap' #2D地图SDK (2D和3D不能同时使⽤用)

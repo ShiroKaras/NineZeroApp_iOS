@@ -9,8 +9,6 @@
 #import "SKVerifyViewController.h"
 #import "HTUIHeader.h"
 
-#import "SKConfirmPasswordViewController.h"
-
 @interface SKVerifyViewController ()
 
 @property (nonatomic, strong) UITextField *verifyCodeTextField;
@@ -18,7 +16,7 @@
 @property (nonatomic, assign) SKVerifyType type;
 
 @property (nonatomic, strong) SKLoginUser *loginUser;
-
+@property (nonatomic, strong) UIView *blackView;
 @end
 
 @implementation SKVerifyViewController {
@@ -31,7 +29,12 @@
     if (self) {
         _type = type;
         self.loginUser = loginUser;
-        [self createUIWithType:type];
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+            SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+            [self createUIWithType:type];
+        } else {
+            [self createUIiPhone4WithType:type];
+        }
     }
     return self;
 }
@@ -42,6 +45,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    _blackView.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -58,6 +66,10 @@
 
 - (void)createUIWithType:(SKVerifyType)type {
     self.view.backgroundColor = COMMON_PINK_COLOR;
+    
+    _blackView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _blackView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:_blackView];
     
     __weak __typeof(self)weakSelf = self;
     
@@ -114,7 +126,102 @@
         [circleView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@46);
             make.height.equalTo(@46);
-            make.top.equalTo(contentLabel.mas_bottom).offset(20);
+            make.top.equalTo(contentLabel.mas_bottom).offset(54);
+            make.left.equalTo(@((SCREEN_WIDTH-220)/2+i*58));
+        }];
+        
+        UILabel *numberLabel = [UILabel new];
+        numberLabel.tag = i+100;
+        numberLabel.text = @" ";
+        numberLabel.textColor = [UIColor whiteColor];
+        numberLabel.font = MOON_FONT_OF_SIZE(32);
+        [numberLabel sizeToFit];
+        [self.view addSubview:numberLabel];
+        [numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(circleView);
+        }];
+    }
+    
+    _resendVerifyCodeButton = [UIButton new];
+    [_resendVerifyCodeButton addTarget:self action:@selector(resendVerifyCodeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    _resendVerifyCodeButton.backgroundColor = [UIColor clearColor];
+    [_resendVerifyCodeButton setTitle:@"重新发送验证码（60s）" forState:UIControlStateNormal];
+    _resendVerifyCodeButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
+    _resendVerifyCodeButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
+    [self.view addSubview:_resendVerifyCodeButton];
+    
+    _verifyCodeTextField = [[UITextField alloc] init];
+    _verifyCodeTextField.keyboardType = UIKeyboardTypePhonePad;
+    [self.view addSubview:_verifyCodeTextField];
+    [_verifyCodeTextField becomeFirstResponder];
+    
+    _secondsToCountDown = 60;
+    [self scheduleTimerCountDown];
+}
+
+- (void)createUIiPhone4WithType:(SKVerifyType)type{
+    self.view.backgroundColor = COMMON_PINK_COLOR;
+    
+    _blackView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _blackView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:_blackView];
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    UIButton *closeButton = [UIButton new];
+    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:closeButton];
+    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+        make.top.equalTo(@12);
+        make.left.equalTo(@4);
+    }];
+    
+    UIImageView *stepImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_code"]];
+    [self.view addSubview:stepImageView];
+    [stepImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@26);
+        make.height.equalTo(@26);
+        make.top.equalTo(@19);
+        make.centerX.equalTo(weakSelf.view.mas_centerX).offset(11);
+    }];
+    
+    UIView *point = [UIView new];
+    point.backgroundColor = [UIColor whiteColor];
+    point.layer.cornerRadius = 6;
+    [self.view addSubview:point];
+    [point mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@12);
+        make.height.equalTo(@12);
+        make.right.equalTo(stepImageView.mas_left).offset(-10);
+        make.centerY.equalTo(stepImageView.mas_centerY);
+    }];
+    
+    UILabel *contentLabel = [UILabel new];
+    contentLabel.text = @"验证码短信马上就来";
+    contentLabel.textColor = [UIColor whiteColor];
+    contentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
+    contentLabel.textAlignment = NSTextAlignmentCenter;
+    contentLabel.numberOfLines = 2;
+    [contentLabel sizeToFit];
+    [self.view addSubview:contentLabel];
+    [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@102);
+        make.centerX.equalTo(weakSelf.view);
+    }];
+    
+    for (int i = 0; i<4; i++) {
+        UIView *circleView = [UIView new];
+        circleView.layer.cornerRadius = 23;
+        circleView.backgroundColor = [UIColor colorWithHex:0x97045D];
+        [self.view addSubview:circleView];
+        [circleView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@46);
+            make.height.equalTo(@46);
+            make.top.equalTo(contentLabel.mas_bottom).offset(40);
             make.left.equalTo(@((SCREEN_WIDTH-220)/2+i*58));
         }];
         
@@ -150,6 +257,7 @@
 #pragma mark - Actions
 
 - (void)closeButtonClick:(UIButton *)sender {
+    [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -185,14 +293,18 @@
             [[[SKServiceManager sharedInstance] loginService] registerWith:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
                 if (response.result == 0) {
                     //登录成功进入主页
+                    _type = SKVerifyTypeUnknow;
+                    _blackView.hidden = NO;
+                    [self.view bringSubviewToFront:_blackView];
                     [self.view endEditing:YES];
+                    [[NSNotificationCenter defaultCenter] removeObserver:self];
                     SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
                     AppDelegateInstance.mainController = controller;
                     HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
                     AppDelegateInstance.window.rootViewController = navController;
                     [AppDelegateInstance.window makeKeyAndVisible];
                 } else if (response.result == -1003) {
-                    [self showTipsWithText:@"验证码错误"];
+                    [self showTipsWithText:@"验证码错误" color:COMMON_RED_COLOR];
                     self.verifyCodeTextField.text = @"";
                     ((UILabel*)[self.view viewWithTag:100]).text = @"";
                     ((UILabel*)[self.view viewWithTag:101]).text = @"";
@@ -205,14 +317,18 @@
             [[[SKServiceManager sharedInstance] loginService] resetPassword:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
                 if (response.result == 0) {
                     //登录成功进入主页
+                    _type = SKVerifyTypeUnknow;
+                    _blackView.hidden = NO;
+                    [self.view bringSubviewToFront:_blackView];
                     [self.view endEditing:YES];
+                    [[NSNotificationCenter defaultCenter] removeObserver:self];
                     SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
                     AppDelegateInstance.mainController = controller;
                     HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
                     AppDelegateInstance.window.rootViewController = navController;
                     [AppDelegateInstance.window makeKeyAndVisible];
                 } else if (response.result == -1003){
-                    [self showTipsWithText:@"验证码错误"];
+                    [self showTipsWithText:@"验证码错误" color:COMMON_RED_COLOR];
                     self.verifyCodeTextField.text = @"";
                     ((UILabel*)[self.view viewWithTag:100]).text = @"";
                     ((UILabel*)[self.view viewWithTag:101]).text = @"";

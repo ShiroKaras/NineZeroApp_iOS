@@ -27,4 +27,5 @@
 
 + (NSString *)commonBaseCGIKey;
 
++ (NSString *)shareBaseCGIKey;
 @end

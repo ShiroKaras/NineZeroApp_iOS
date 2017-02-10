@@ -8,18 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "PRARManager.h"
+#import "MotionEffectView.h"
 
-@class HTQuestion;
+@class SKQuestion;
+@class SKReward;
 @class HTARCaptureController;
 @protocol HTARCaptureControllerDelegate <NSObject>
-- (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller;
+- (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward*)reward;
 @end
 
 @interface HTARCaptureController : UIViewController
 
-- (instancetype)initWithQuestion:(HTQuestion *)question;
+- (instancetype)initWithQuestion:(SKQuestion *)question;
 @property (nonatomic, weak) id<HTARCaptureControllerDelegate> delegate;
-@property (nonatomic, assign) uint64_t rewardID;
-@property (nonatomic, strong) HTQuestion *question;
+@property (nonatomic, assign) NSString *rewardID;
+@property (nonatomic, strong) SKQuestion *question;
 
 @end

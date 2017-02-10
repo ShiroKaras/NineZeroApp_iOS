@@ -113,6 +113,9 @@
         self.alpha = 0.0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
+        if ([_delegate respondsToSelector:@selector(didClickOKButton)]) {
+            [_delegate didClickOKButton];
+        }
     }];
 }
 

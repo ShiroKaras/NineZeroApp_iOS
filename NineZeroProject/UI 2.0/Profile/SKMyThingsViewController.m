@@ -22,7 +22,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = COMMON_SEPARATOR_COLOR;
+        self.backgroundColor = COMMON_BG_COLOR;
         self.layer.cornerRadius = 5;
         self.layer.masksToBounds = YES;
         
@@ -54,12 +54,13 @@
 @property (strong, nonatomic) SKDescriptionView *descriptionView;             // 详情页面
 @end
 
-@implementation SKMyThingsViewController
+@implementation SKMyThingsViewController {
+    float lastOffsetY;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,32 +69,63 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] profileService] getPieces:^(BOOL success, NSArray<SKPiece *> *pieces) {
-        self.pieceArray = pieces;
-        [self.collectionView reloadData];
+        if (pieces.count == 0) {
+            UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64)];
+            converView.backgroundColor = [UIColor clearColor];
+            [self.view addSubview:converView];
+            HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+            [blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
+            [self.view addSubview:blankView];
+            blankView.top = ROUND_HEIGHT_FLOAT(217);
+        } else {
+            self.pieceArray = pieces;
+            [self.collectionView reloadData];
+        }
     }];
 }
 
 - (void)createUI {
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = COMMON_BG_COLOR;
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    [layout setHeaderReferenceSize:CGSizeMake(320, 64)];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) collectionViewLayout:layout];
+    _collectionView.bounces = NO;
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    [_collectionView registerClass:[SKThingsCell class] forCellWithReuseIdentifier:NSStringFromClass([SKThingsCell class])];
+    [self.view addSubview:_collectionView];
+    
+    UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_shading"]];
+    backImageView.tag = 202;
+    backImageView.alpha = 0;
+    backImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 64);
+    backImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:backImageView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    headerView.tag = 200;
     headerView.backgroundColor = [UIColor clearColor];
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"已收集的玩意儿";
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = [UIFont systemFontOfSize:17];
+    titleLabel.font = PINGFANG_FONT_OF_SIZE(17);
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
     [headerView addSubview:titleLabel];
     [self.view addSubview:headerView];
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64) collectionViewLayout:layout];
-    _collectionView.delegate = self;
-    _collectionView.dataSource = self;
-    [_collectionView registerClass:[SKThingsCell class] forCellWithReuseIdentifier:NSStringFromClass([SKThingsCell class])];
-    [self.view addSubview:_collectionView];
+    if (NO_NETWORK) {
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:blankView];
+        blankView.top = ROUND_HEIGHT_FLOAT(217);
+    } else
+        [self loadData];
 }
 
 #pragma mark - UICollectionView Delegate
@@ -119,7 +151,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    _descriptionView = [[SKDescriptionView alloc] initWithURLString:self.pieceArray[indexPath.row].piece_describtion andType:SKDescriptionTypeQuestion andImageUrl:self.pieceArray[indexPath.row].piece_describe_pic];
+    _descriptionView = [[SKDescriptionView alloc] initWithURLString:self.pieceArray[indexPath.row].piece_describtion andType:SKDescriptionTypeProp andImageUrl:self.pieceArray[indexPath.row].piece_describe_pic];
     [self.view addSubview:_descriptionView];
     [_descriptionView showAnimated];
 }
@@ -131,6 +163,50 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.pieceArray.count;
+}
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y <= 64) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view viewWithTag:9001].alpha = 1;
+            [self.view viewWithTag:200].alpha = 1;
+            [self.view viewWithTag:202].alpha = 0;
+            [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
+            [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
+            [self.view viewWithTag:202].bottom = [self.view viewWithTag:200].height;
+        } completion:^(BOOL finished) {
+            
+        }];
+    } else {
+        if (lastOffsetY >= scrollView.contentOffset.y) {
+            [UIView animateWithDuration:0.3 animations:^{
+                //显示
+                [self.view viewWithTag:9001].alpha = 1;
+                [self.view viewWithTag:200].alpha = 1;
+                [self.view viewWithTag:202].alpha = 1;
+                [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
+                [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
+                [self.view viewWithTag:202].bottom = [self.view viewWithTag:200].height;
+            } completion:^(BOOL finished) {
+                
+            }];
+        } else {
+            [UIView animateWithDuration:0.3 animations:^{
+                //隐藏
+                [self.view viewWithTag:9001].alpha = 0;
+                [self.view viewWithTag:200].alpha = 0;
+                [self.view viewWithTag:202].alpha = 0;
+                [self.view viewWithTag:9001].bottom = 0;
+                [self.view viewWithTag:200].bottom = 0;
+                [self.view viewWithTag:202].bottom = 0;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }
+    }
+    lastOffsetY = scrollView.contentOffset.y;
 }
 
 @end

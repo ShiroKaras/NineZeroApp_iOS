@@ -11,7 +11,10 @@
 #import "FLAnimatedImage.h"
 
 @interface HTImageView : FLAnimatedImageView
+@property (nonatomic, strong) FLAnimatedImage *mImage;
+@property (nonatomic, assign) NSInteger frameCount;
 
 - (void)setAnimatedImageWithName:(NSString *)name;
+- (void)setAnimatedImageWithName:(NSString *)name withLoopCount:(NSInteger)loopCount;
 
 @end

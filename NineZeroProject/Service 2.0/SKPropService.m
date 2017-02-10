@@ -76,25 +76,24 @@
         NSString *responseString;
         if (response.result == 0) {
             if ([propType isEqualToString:@"1"]) {
-                responseString = @"获得线索道具";
+                responseString = @"购买成功";
             } else if ([propType isEqualToString:@"2"]) {
-                responseString = @"获得答案道具";
+                responseString = @"购买成功";
             }
-            success = YES;
-            callback(success, responseString, [response.data[@"rang_time"] integerValue]);
+            NSInteger coolTime = [response.data[@"rang_time"] integerValue];
+            callback(YES, responseString, coolTime);
         } else if (response.result == -8001) {
-            responseString = @"金币数不够";
-            success = NO;
+            responseString = @"金币不足";
+            callback(NO, responseString, 0);
         } else if (response.result == -8002) {
-            responseString = @"宝石数不够";
-            success = NO;
+            responseString = @"宝石不足";
+            callback(NO, responseString, 0);
         } else if (response.result == -8003) {
-            responseString = @"冷却时间不能购买";
-            success = NO;
+            responseString = @"冷却中";
+            callback(NO, responseString, 0);
         } else {
-            success = NO;
+            callback(NO, responseString, 0);
         }
-        callback(success, responseString, 0);
     }];
 }
 

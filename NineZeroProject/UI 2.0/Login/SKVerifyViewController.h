@@ -12,7 +12,8 @@
 
 typedef enum : NSUInteger {
     SKVerifyTypeRegister,
-    SKVerifyTypeResetPassword
+    SKVerifyTypeResetPassword,
+    SKVerifyTypeUnknow
 } SKVerifyType;
 
 @interface SKVerifyViewController : UIViewController

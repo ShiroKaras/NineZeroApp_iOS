@@ -64,9 +64,6 @@
 @property (nonatomic, strong) UILabel *nickName;
 @property (nonatomic, strong) UIImageView *coinImageView;
 @property (nonatomic, strong) UILabel *coinLabel;
-@property (nonatomic, strong) UIView *separator;
-
-@property (nonatomic, strong) UIView *backView;
 
 //TOP
 @property (nonatomic, strong) UIView *topBackView;
@@ -253,7 +250,7 @@
     _nickName.text = displayName;
     [_nickName sizeToFit];
 
-    _coinLabel.textColor = [self colorWithCoin:[ranker.gold integerValue]];
+    _coinLabel.textColor = COMMON_RED_COLOR;
 }
 
 - (void)setRanker:(SKRanker *)ranker withType:(SKRankViewType)type {
@@ -261,6 +258,7 @@
         _coinLabel.text = ranker.gold;
     } else if (type == SKRankViewTypeSeason2) {
         _coinLabel.text = ranker.user_experience_value;
+        _coinImageView.image = [UIImage imageNamed:@"img_rank_expicon"];
     }
     [_coinLabel sizeToFit];
     self.ranker = ranker;
@@ -294,6 +292,9 @@
         _ranker_1_CoinLabel.text = topThreeRankers[0].user_experience_value;
         _ranker_2_CoinLabel.text = topThreeRankers[1].user_experience_value;
         _ranker_3_CoinLabel.text = topThreeRankers[2].user_experience_value;
+        _ranker_1_CoinImage.image = [UIImage imageNamed:@"img_rank_expicon"];
+        _ranker_2_CoinImage.image = [UIImage imageNamed:@"img_rank_expicon"];
+        _ranker_3_CoinImage.image = [UIImage imageNamed:@"img_rank_expicon"];
     }
     [_ranker_1_CoinLabel sizeToFit];
     [_ranker_2_CoinLabel sizeToFit];
@@ -305,7 +306,24 @@
 - (void)showWithMe:(BOOL)me {
     _backView.backgroundColor = (me) ? COMMON_GREEN_COLOR : [UIColor colorWithHex:0x1F1F1F];
     _orderLabel.textColor = (me) ? [UIColor whiteColor] : COMMON_PINK_COLOR;
-    _coinLabel.textColor = (me) ? [UIColor whiteColor] : [UIColor colorWithHex:0xED203B];
+    _coinLabel.textColor = (me) ? [UIColor whiteColor] : COMMON_RED_COLOR;
+    _goldFrame.hidden = (me) ? ![[SKStorageManager sharedInstance] profileInfo].user_gold_head : NO;
+}
+
+- (void)showCorner:(BOOL)show {
+    if (show) {
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_backView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = _backView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        _backView.layer.mask = maskLayer;
+    } else {
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_backView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(0, 0)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = _backView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        _backView.layer.mask = maskLayer;
+    }
 }
 
 - (void)layoutSubviews {
@@ -316,13 +334,14 @@
     _orderImageView.centerY = self.height / 2;
     _orderLabel.frame = CGRectMake(PADDING+20, self.height / 2 - 10, 39, 20);
     _avatar.frame = CGRectMake(PADDING +67, self.height / 2 - 24, 48, 48);
-    _avatar.layer.cornerRadius = 28;
+    _avatar.layer.cornerRadius = 24;
     _avatar.layer.masksToBounds = YES;
     _goldFrame.width = 48;
     _goldFrame.height = 60;
     _goldFrame.centerX = _avatar.centerX;
     _goldFrame.bottom = _avatar.bottom;
-    _nickName.frame = CGRectMake(_avatar.right + 16, 18, 190, 15);
+//    _nickName.frame = CGRectMake(_avatar.right + 16, 18, 190, 15);
+    _nickName.frame = CGRectMake(_avatar.right + 16, 18, SCREEN_WIDTH-PADDING*2-_avatar.right-16-20, 15);
     _coinImageView.left = _avatar.right + 16;
     _coinImageView.top = _nickName.bottom +8;
     _coinLabel.left = _coinImageView.right + 6;

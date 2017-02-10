@@ -37,13 +37,20 @@
 }
 
 - (void)createUI {
-    self.view.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
+    self.view.backgroundColor = COMMON_BG_COLOR;
     
     __weak __typeof(self)weakSelf = self;
     
-    UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
-    backImageView.frame = self.view.frame;
+    //LOGO-640
+    YLImageView *backImageView = [[YLImageView alloc] init];
+    backImageView.image = [YLGIFImage imageNamed:@"LOGO-640.gif"];
     [self.view addSubview:backImageView];
+    [backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo((SCREEN_HEIGHT-49-54)/930*640);
+        make.height.mas_equalTo(SCREEN_HEIGHT-49-54);
+        make.top.equalTo(weakSelf.view);
+        make.centerX.equalTo(weakSelf.view);
+    }];
     
     UIView *bottomView1 = [UIView new];
     bottomView1.backgroundColor = COMMON_RED_COLOR;
@@ -115,6 +122,7 @@
     UIButton *registerButton = [UIButton new];
     [registerButton addTarget:self action:@selector(registerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
+    [registerButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateHighlighted];
     [bottomView2 addSubview:registerButton];
     [registerButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bottomView2);
@@ -126,6 +134,7 @@
     UIButton *loginButton = [UIButton new];
     [loginButton addTarget:self action:@selector(loginButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    [loginButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateHighlighted];
     [bottomView2 addSubview:loginButton];
     [loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(bottomView2);

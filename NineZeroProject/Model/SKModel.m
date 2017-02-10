@@ -7,7 +7,7 @@
 //
 
 #import "SKModel.h"
-#import <MJExtension.h>
+#import "MJExtension.h"
 
 #define HTINIT(T) - (instancetype)init { \
 if (self = [super init]) { \

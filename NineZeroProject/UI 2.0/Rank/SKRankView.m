@@ -19,7 +19,9 @@
 @property (nonatomic, strong)   UITableView *tableView;
 @end
 
-@implementation SKRankView
+@implementation SKRankView {
+    float lastOffsetY;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame type:(SKRankViewType)type
 {
@@ -27,7 +29,6 @@
     if (self) {
         self.type = type;
         [self createUI];
-        
     }
     return self;
 }
@@ -36,13 +37,13 @@
     self.backgroundColor = [UIColor blackColor];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
+    self.tableView.layer.cornerRadius = 5;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor blackColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.bounces = NO;
     [self addSubview:self.tableView];
-    
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     
     REGISTER_CLASS(HTProfileRankCell);
     
@@ -76,15 +77,6 @@
                 [HTProgressHUD dismiss];
             }
         }];
-    }
-    if (NO_NETWORK) {
-        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, self.width, self.height-60)];
-        converView.backgroundColor = COMMON_BG_COLOR;
-        [self addSubview:converView];
-        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
-        [self addSubview:self.blankView];
-        self.blankView.top = ROUND_HEIGHT_FLOAT(217);
     }
 }
 
@@ -120,10 +112,17 @@
             NSArray<SKRanker*>* topRankers = [NSArray arrayWithObjects:_rankerList[0], _rankerList[1], _rankerList[2], nil];
             [cell setTopThreeRankers:topRankers withType:self.type];
             return cell;
-        }else {
+        } else if (indexPath.row == _rankerList.count-3) {
             SKRanker *ranker = _rankerList[indexPath.row +2];
-            [cell setRanker:ranker withType:self.type];
             [cell showWithMe:NO];
+            [cell setRanker:ranker withType:self.type];
+            cell.separator.hidden = YES;
+            return cell;
+        } else {
+            SKRanker *ranker = _rankerList[indexPath.row +2];
+            [cell showWithMe:NO];
+            [cell setRanker:ranker withType:self.type];
+            cell.separator.hidden = NO;
             return cell;
         }
     } else if (self.type == SKRankViewTypeSeason2) {
@@ -135,13 +134,22 @@
         } else if (indexPath.row == 1) {
             [cell setRanker:_myRank withType:self.type];
             [cell showWithMe:YES];
+            cell.separator.hidden = NO;
+            return cell;
+        } else if (indexPath.row == _rankerList.count-3) {
+            SKRanker *ranker = _rankerList[indexPath.row +1];
+            [cell showWithMe:NO];
+            [cell setRanker:ranker withType:self.type];
+            cell.separator.hidden = YES;
             return cell;
         } else {
             SKRanker *ranker = _rankerList[indexPath.row +1];
-            [cell setRanker:ranker withType:self.type];
             [cell showWithMe:NO];
+            [cell setRanker:ranker withType:self.type];
+            cell.separator.hidden = NO;
             return cell;
         }
+        
     } else
         return nil;
 }
@@ -152,6 +160,63 @@
     } else {
         return 74;
     }
+}
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y <= 64) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [[self viewController].view viewWithTag:9001].alpha = 1;
+            [[self viewController].view viewWithTag:201].alpha = 1;
+            [[self viewController].view viewWithTag:202].alpha = 0;
+            [[self viewController].view viewWithTag:9001].bottom = [[self viewController].view viewWithTag:9001].height+12;
+            [[self viewController].view viewWithTag:201].bottom = [[self viewController].view viewWithTag:201].height;
+            [[self viewController].view viewWithTag:202].bottom = [[self viewController].view viewWithTag:202].height;
+        } completion:^(BOOL finished) {
+            
+        }];
+    } else {
+        if (lastOffsetY >= scrollView.contentOffset.y) {
+            [UIView animateWithDuration:0.3 animations:^{
+                //显示
+                [[self viewController].view viewWithTag:9001].alpha = 1;
+                [[self viewController].view viewWithTag:201].alpha = 1;
+                [[self viewController].view viewWithTag:202].alpha = 1;
+                [[self viewController].view viewWithTag:9001].bottom = [[self viewController].view viewWithTag:9001].height+12;
+                [[self viewController].view viewWithTag:201].bottom = [[self viewController].view viewWithTag:201].height;
+                [[self viewController].view viewWithTag:202].bottom = [[self viewController].view viewWithTag:202].height;
+            } completion:^(BOOL finished) {
+                
+            }];
+        } else {
+            [UIView animateWithDuration:0.3 animations:^{
+                //隐藏
+                [[self viewController].view viewWithTag:9001].alpha = 0;
+                [[self viewController].view viewWithTag:201].alpha = 0;
+                [[self viewController].view viewWithTag:202].alpha = 0;
+                [[self viewController].view viewWithTag:9001].bottom = 0;
+                [[self viewController].view viewWithTag:201].bottom = 0;
+                [[self viewController].view viewWithTag:202].bottom = 0;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }
+    }
+    lastOffsetY = scrollView.contentOffset.y;
+}
+
+#pragma mark - Action
+
+//获取View所在的Viewcontroller方法
+- (UIViewController *)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
 }
 
 @end

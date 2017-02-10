@@ -19,7 +19,7 @@
 #define HINT_BUTTON_2 201
 #define HINT_BUTTON_3 202
 
-@interface SKHintView ()
+@interface SKHintView () <SKMascotSkillDelegate>
 @property (nonatomic, assign) NSInteger     season;
 @property (nonatomic, assign) NSInteger     hintPropCount;
 @property (nonatomic, strong) UIImageView   *iconImageView;     //标记
@@ -53,9 +53,9 @@
             ((UILabel*)[self viewWithTag:HINT_LABEL_3]).text = hintList.hint_three;
             
             if ([self.hintList.hint_one isEqualToString:@""]) {
-
+                
             } else if ([self.hintList.hint_two isEqualToString:@""]) {
-                [self viewWithTag:HINT_BUTTON_1].hidden = YES;
+                [self viewWithTag:HINT_BUTTON_1].hidden = 1;
             } else if ([self.hintList.hint_three isEqualToString:@""]) {
                 [self viewWithTag:HINT_BUTTON_1].hidden = YES;
                 [self viewWithTag:HINT_BUTTON_2].hidden = YES;
@@ -66,7 +66,55 @@
             }
             
             //更新道具数量
-            DLog(@"%ld", hintList.num);
+            self.hintPropCount = self.hintList.num;
+            if (self.hintPropCount==0) {
+                _iconImageView.image = [UIImage imageNamed:@"btn_detailspage_clue_add"];
+            } else {
+                _iconImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_clue_season%lu",(unsigned long)_season]];
+            }
+            _propCountLabel.text = [NSString stringWithFormat:@"%ld",(long)self.hintPropCount];
+        }
+    }];
+}
+
+- (void)refreshData {
+    [[[SKServiceManager sharedInstance] questionService] getQuestionDetailCluesWithQuestionID:self.question.qid callback:^(BOOL success, NSInteger result, SKHintList *hintList) {
+        if (result==0) {
+            self.hintList = hintList;
+            
+            ((UILabel*)[self viewWithTag:HINT_LABEL_1]).text = hintList.hint_one;
+            ((UILabel*)[self viewWithTag:HINT_LABEL_2]).text = hintList.hint_two;
+            ((UILabel*)[self viewWithTag:HINT_LABEL_3]).text = hintList.hint_three;
+            
+            if ([self.hintList.hint_one isEqualToString:@""]) {
+                
+            } else if ([self.hintList.hint_two isEqualToString:@""]) {
+                [UIView animateWithDuration:0.3 animations:^{
+                    [self viewWithTag:HINT_BUTTON_1].alpha = 0;
+                } completion:^(BOOL finished) {
+                    [self viewWithTag:HINT_BUTTON_1].hidden = 1;
+                }];
+            } else if ([self.hintList.hint_three isEqualToString:@""]) {
+                [UIView animateWithDuration:0.3 animations:^{
+                    [self viewWithTag:HINT_BUTTON_1].alpha = 0;
+                    [self viewWithTag:HINT_BUTTON_2].alpha = 0;
+                } completion:^(BOOL finished) {
+                    [self viewWithTag:HINT_BUTTON_1].hidden = YES;
+                    [self viewWithTag:HINT_BUTTON_2].hidden = YES;
+                }];
+            } else {
+                [UIView animateWithDuration:0.3 animations:^{
+                    [self viewWithTag:HINT_BUTTON_1].alpha = 0;
+                    [self viewWithTag:HINT_BUTTON_2].alpha = 0;
+                    [self viewWithTag:HINT_BUTTON_3].alpha = 0;
+                } completion:^(BOOL finished) {
+                    [self viewWithTag:HINT_BUTTON_1].hidden = YES;
+                    [self viewWithTag:HINT_BUTTON_2].hidden = YES;
+                    [self viewWithTag:HINT_BUTTON_3].hidden = YES;
+                }];
+            }
+
+            //更新道具数量
             self.hintPropCount = self.hintList.num;
             if (self.hintPropCount==0) {
                 _iconImageView.image = [UIImage imageNamed:@"btn_detailspage_clue_add"];
@@ -80,7 +128,7 @@
 
 - (void)createUIWithFrame:(CGRect)frame {
     UIView *alphaView = [[UIView alloc] initWithFrame:frame];
-    alphaView.backgroundColor = [UIColor colorWithHex:0x0e0e0e];
+    alphaView.backgroundColor = COMMON_BG_COLOR;
     alphaView.alpha = 0.9;
     [self addSubview:alphaView];
     
@@ -90,7 +138,7 @@
     rightCornerBackView.backgroundColor = [UIColor blackColor];
     [self addSubview:rightCornerBackView];
     [rightCornerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@(97+15));
+        make.width.equalTo(@(97+25));
         make.height.equalTo(@30);
         make.right.equalTo(self).offset(15);
         make.top.equalTo(@13);
@@ -190,75 +238,118 @@
     }
 }
 
-- (void)showAlertViewWithText:(NSString *)text {
-    UIView *alertViewBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    alertViewBackView.backgroundColor = [UIColor clearColor];
-    [self addSubview:alertViewBackView];
+- (void)showPromptWithText:(NSString *)text {
+    [[self viewWithTag:9002] removeFromSuperview];
+    UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
+    [promptImageView sizeToFit];
     
-    UIImageView *propmtImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_article_prompt"]];
-    [propmtImageView sizeToFit];
-    [alertViewBackView addSubview:propmtImageView];
-    [propmtImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(alertViewBackView);
-    }];
+    UIView *promptView = [UIView new];
+    promptView.tag = 9002;
+    promptView.size = promptImageView.size;
+    promptView.center = self.center;
+    promptView.alpha = 0;
+    [self addSubview:promptView];
     
-    UILabel *_promptLabel = [UILabel new];
-    _promptLabel.text = text;
-    _promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
-    _promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
-    _promptLabel.textAlignment = NSTextAlignmentCenter;
-    [_promptLabel sizeToFit];
-    [propmtImageView addSubview:_promptLabel];
-    [_promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(propmtImageView);
-        make.centerY.equalTo(propmtImageView).offset(10);
-    }];
+    promptImageView.frame = CGRectMake(0, 0, promptView.width, promptView.height);
+    [promptView addSubview:promptImageView];
     
-    [UIView animateWithDuration:0.5 delay:3 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        alertViewBackView.alpha = 0;
+    UILabel *promptLabel = [UILabel new];
+    promptLabel.text = text;
+    promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
+    promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    promptLabel.textAlignment = NSTextAlignmentCenter;
+    [promptLabel sizeToFit];
+    [promptView addSubview:promptLabel];
+    promptLabel.frame = CGRectMake(8.5, 11, promptView.width-17, 57);
+    
+    promptView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        promptView.alpha = 1;
     } completion:^(BOOL finished) {
-        [alertViewBackView removeFromSuperview];
+        [UIView animateWithDuration:0.3 delay:1.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            promptView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [promptView removeFromSuperview];
+        }];
     }];
 }
 
 //关闭
 - (void)closeButtonClick:(UIButton *)sender {
-    [self removeFromSuperview];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha = 0;
+    } completion:^(BOOL finished) {
+        
+        [self removeFromSuperview];
+    }];
 }
 
 //获取提示
 - (void)getHintButtonClick:(UIButton *)sender {
     if (self.hintPropCount == 0) {
-        [self showAlertViewWithText:@"线索道具已用完"];
+        [self showPromptWithText:@"线索道具不足，点击右上角补充"];
     } else {
         if ([self.hintList.hint_one isEqualToString:@""]) {
             if (sender.tag == HINT_BUTTON_2 || sender.tag == HINT_BUTTON_3) {
-                [self showAlertViewWithText:@"请先解锁上一条线索"];
+                [self showPromptWithText:@"请先解锁前面的线索"];
                 return;
             }
         } else if ([self.hintList.hint_two isEqualToString:@""]) {
             if (sender.tag == HINT_BUTTON_3) {
-                [self showAlertViewWithText:@"请先解锁上一条线索"];
+                [self showPromptWithText:@"请先解锁前面的线索"];
                 return;
             }
         }
         
         [[[SKServiceManager sharedInstance] questionService] purchaseQuestionClueWithQuestionID:self.question.qid callback:^(BOOL success, SKResponsePackage *response) {
-            if (response.result == 0) {
-                [[self viewController] showTipsWithText:@"获得新的线索"];
+            if (response.result == 0)
+            {
+                [self showNumberLabelWithButton:sender];
             } else if (response.result == -3007) {
-                [[self viewController] showTipsWithText:@"已经获得所有线索"];
+                [self showPromptWithText:@"已经获得所有线索"];
             } else if (response.result == -3008) {
-                [[self viewController] showTipsWithText:@"线索道具不足"];
+                [self showPromptWithText:@"线索道具不足"];
             }
-            [self loadData];
+            [self refreshData];
         }];
     }
 }
 
+- (void)showNumberLabelWithButton:(UIButton *)sender {
+    UILabel *numberLabel = [UILabel new];
+    numberLabel.text = @"-1";
+    if (self.season == 1) {
+        numberLabel.textColor = COMMON_GREEN_COLOR;
+    } else if (self.season == 2)
+        numberLabel.textColor = COMMON_PINK_COLOR;
+    numberLabel.font = MOON_FONT_OF_SIZE(24);
+    [numberLabel sizeToFit];
+    [self addSubview:numberLabel];
+    numberLabel.centerX = sender.centerX;
+    numberLabel.centerY = sender.centerY;
+    
+    [UIView animateWithDuration:1 animations:^{
+        numberLabel.centerY -= 100;
+        numberLabel.alpha = 0;
+    } completion:^(BOOL finished) {
+        [numberLabel removeFromSuperview];
+    }];
+}
+
 - (void)addButtonClick:(UIButton *)sender {
     SKMascotSkillView *purchaseView = [[SKMascotSkillView alloc] initWithFrame:self.frame Type:SKMascotTypeDefault isHad:YES];
+    purchaseView.delegate = self;
+    purchaseView.alpha = 0;
     [self addSubview:purchaseView];
+    [UIView animateWithDuration:0.3 animations:^{
+        purchaseView.alpha = 1;
+    }];
+}
+
+#pragma mark - SKMascotSkillDelegate
+
+- (void)didClickCloseButtonMascotSkillView:(SKMascotSkillView *)view {
+    [self loadData];
 }
 
 //获取view对应的控制器

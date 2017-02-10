@@ -7,7 +7,6 @@
 //
 
 #import "SKLaunchAnimationViewController.h"
-#import "HTLoginRootController.h"
 #import "HTUIHeader.h"
 
 @interface SKLaunchAnimationViewController ()

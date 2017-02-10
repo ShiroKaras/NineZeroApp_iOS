@@ -20,7 +20,7 @@
 @property (nonatomic, strong) UIView *tipsBackView;                 ///< 提示背景
 @property (nonatomic, strong) UIView *dimmingView;                  ///< 答题背景
 @property (nonatomic, strong) UIImageView *participatorImageView;   //  头图
-@property (nonatomic, strong) NSArray<HTRanker*> *participatorArray;           //  参与者
+@property (nonatomic, strong) NSArray<SKUserInfo*> *participatorArray;           //  参与者
 
 @end
 
@@ -88,29 +88,34 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChangeText) name:UITextFieldTextDidChangeNotification object:nil];
         
-//        [[[HTServiceManager sharedInstance] questionService] getUsersRandomListWithQuestion:questionID callback:^(BOOL success, NSArray<HTRanker *> *ranker) {
-//            if (success) {
-//                _participatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_who_else"]];
-//                [_participatorImageView sizeToFit];
-//                [_participatorView addSubview:_participatorImageView];
-//                
-//                [_participatorImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//                    make.top.equalTo(_participatorView);
-//                    make.centerX.equalTo(_participatorView);
-//                }];
-//                
-//                _participatorArray = ranker;
-//                float sidePadding = (SCREEN_WIDTH-(42*4+19*3))/2.;
-//                for (int i=0; i<_participatorArray.count; i++) {
-//                    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(sidePadding+i%4*(42+23), 42+floor(i/4)*(42+14), 42, 42)];
-//                    imageView.layer.masksToBounds = YES;
-//                    imageView.layer.borderWidth = 2;
-//                    imageView.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
-//                    [imageView sd_setImageWithURL:[NSURL URLWithString:_participatorArray[i].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
-//                    [_participatorView addSubview:imageView];
-//                }
-//            }
-//        }];
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+            SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+            [[[SKServiceManager sharedInstance] questionService] getRandomUserListWithQuestionID:questionID callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
+                if (success) {
+                    _participatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_who_else"]];
+                    [_participatorImageView sizeToFit];
+                    [_participatorView addSubview:_participatorImageView];
+                    
+                    [_participatorImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.top.equalTo(_participatorView);
+                        make.centerX.equalTo(_participatorView);
+                    }];
+                    
+                    _participatorArray = userRankList;
+                    float sidePadding = (SCREEN_WIDTH-(42*4+19*3))/2.;
+                    for (int i=0; i<_participatorArray.count; i++) {
+                        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(sidePadding+i%4*(42+23), 42+floor(i/4)*(42+14), 42, 42)];
+                        imageView.layer.masksToBounds = YES;
+                        imageView.layer.borderWidth = 2;
+                        imageView.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
+                        [imageView sd_setImageWithURL:[NSURL URLWithString:_participatorArray[i].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+                        [_participatorView addSubview:imageView];
+                    }
+                }
+            }];
+        } else {
+            
+        }
     }
     return self;
 }
@@ -124,11 +129,11 @@
     // 1.1 参与者
     [_participatorView mas_makeConstraints:^(MASConstraintMaker *make) {
         if (SCREEN_WIDTH <= IPHONE5_SCREEN_WIDTH) {
-            make.top.equalTo(_dimmingView).offset(42);
+            make.top.equalTo(_dimmingView).offset(43);
         } else if (SCREEN_WIDTH >= IPHONE6_PLUS_SCREEN_WIDTH) {
-            make.top.equalTo(_dimmingView).offset(74);
+            make.top.equalTo(_dimmingView).offset(100);
         } else {
-            make.top.equalTo(_dimmingView).offset(62);
+            make.top.equalTo(_dimmingView).offset(71);
         }
         make.left.equalTo(_dimmingView);
         make.right.equalTo(_dimmingView);
@@ -155,14 +160,14 @@
     
     // 4. 结果
     [_resultImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self).centerOffset(CGPointMake(0, -20));
+        make.center.equalTo(self).centerOffset(CGPointMake(0,0));
     }];
     
     // 5. 提示
     [_tipsBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(0);
         make.width.equalTo(self);
-        make.height.equalTo(@30);
+        make.height.equalTo(@42);
     }];
     
     [_tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -212,6 +217,7 @@
 
 - (void)showAnswerCorrect:(BOOL)correct {
     _resultImageView.hidden = NO;
+    _participatorView.hidden = YES;
     if (correct == NO) {
         [UIView animateWithDuration:0.95 animations:^{ } completion:^(BOOL finished) {
             

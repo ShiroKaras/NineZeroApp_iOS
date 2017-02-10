@@ -29,8 +29,6 @@
     if (self = [super init]) {
         _prop = prop;
         
-        DLog(@"address-> %@",[[HTStorageManager sharedInstance] userInfo].address);
-        
         _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.85];
         
@@ -60,7 +58,7 @@
         _messageLabel.font = [UIFont systemFontOfSize:14];
         [_alertView addSubview:_messageLabel];
         
-        if ([[HTStorageManager sharedInstance] userInfo].address == nil || [[[HTStorageManager sharedInstance] userInfo].address isEqualToString:@""]) {
+        if ([[SKStorageManager sharedInstance] userInfo].address == nil || [[[SKStorageManager sharedInstance] userInfo].address isEqualToString:@""]) {
             _messageLabel.text = @"在兑换之前，请到个人主页右上角设置填写管理地址！";
         }else{
             _messageLabel.text = [NSString stringWithFormat:@"你是否确定要兑换%@礼包？", _prop.prop_name];

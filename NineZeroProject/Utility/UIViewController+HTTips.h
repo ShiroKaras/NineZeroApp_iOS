@@ -10,5 +10,6 @@
 
 @interface UIViewController (HTTips)
 - (void)showTipsWithText:(NSString *)text;
+- (void)showTipsWithText:(NSString *)text color:(UIColor*)color;
 - (void)showTipsWithText:(NSString *)text offset:(NSInteger)offset;
 @end

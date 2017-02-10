@@ -10,7 +10,7 @@
 #import "HTUIHeader.h"
 #import "SKRankView.h"
 
-@interface SKRankViewController ()
+@interface SKRankViewController () <UIScrollViewDelegate>
 @property (nonatomic, assign) SKRankViewType type;
 @end
 
@@ -30,25 +30,33 @@
     
     self.type = SKRankViewTypeSeason2;
     
+    UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_shading"]];
+    backImageView.tag = 202;
+    backImageView.alpha = 0;
+    backImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 64);
+    backImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview:backImageView];
+    
     UIButton *changeSeasonButton = [UIButton new];
+    changeSeasonButton.tag = 201;
     [changeSeasonButton addTarget:self action:@selector(flip:) forControlEvents:UIControlEventTouchUpInside];
     [changeSeasonButton setBackgroundImage:[UIImage imageNamed:@"btn_rank_season1"] forState:UIControlStateNormal];
     [self.view addSubview:changeSeasonButton];
     [changeSeasonButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(40, 50));
-        make.top.equalTo(@12);
-        make.right.equalTo(@(-4));
+        make.size.mas_equalTo(CGSizeMake(60, 66));
+        make.top.equalTo(@0);
+        make.right.equalTo(@(-16));
     }];
     
-//    UIButton *closeButton = [UIButton new];
-//    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-//    [self.view addSubview:closeButton];
-//    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(@12);
-//        make.left.equalTo(@4);
-//    }];
+    if (NO_NETWORK) {
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:blankView];
+        blankView.top = ROUND_HEIGHT_FLOAT(217);
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -79,10 +87,10 @@
     [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view cache:YES];
     
     //这里时查找视图里的子视图（这种情况查找，可能时因为父视图里面不只两个视图）
-    NSInteger fist= [[self.view subviews] indexOfObject:[self.view viewWithTag:100]];
-    NSInteger seconde= [[self.view subviews] indexOfObject:[self.view viewWithTag:101]];
+    NSInteger first= [[self.view subviews] indexOfObject:[self.view viewWithTag:100]];
+    NSInteger second= [[self.view subviews] indexOfObject:[self.view viewWithTag:101]];
     
-    [self.view exchangeSubviewAtIndex:fist withSubviewAtIndex:seconde];
+    [self.view exchangeSubviewAtIndex:first withSubviewAtIndex:second];
     
     //当父视图里面只有两个视图的时候，可以直接使用下面这段.
     

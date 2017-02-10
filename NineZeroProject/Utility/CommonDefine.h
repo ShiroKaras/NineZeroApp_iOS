@@ -41,7 +41,8 @@
 #define MOON_FONT_OF_SIZE(s)        [UIFont fontWithName:@"Moon-Bold" size:s]
 #define PINGFANG_FONT_OF_SIZE(s)    [UIFont fontWithName:@"PingFangSC-Regular" size:s]
 
-#define COMMON_BG_COLOR UIColorMake(14, 14, 14)
+//#define COMMON_BG_COLOR UIColorMake(14, 14, 14)
+#define COMMON_BG_COLOR             [UIColor colorWithHex:0x0E0E0E]
 #define COMMON_TITLE_BG_COLOR       [UIColor colorWithHex:0x1A1A1A]
 #define COMMON_GREEN_COLOR          [UIColor colorWithHex:0x24ddb2]
 #define COMMON_PINK_COLOR           [UIColor colorWithHex:0xd40e88]
@@ -64,19 +65,31 @@
 
 #define UD [NSUserDefaults standardUserDefaults]
 
+#define HAVE_NEW_MASCOT [UD boolForKey:@"newMascot"]
+#define RESET_NEW_MASCOT [UD setBool:NO forKey:@"newMascot"]
+#define GET_NEW_MASCOT [UD setBool:YES forKey:@"newMascot"]
+
+#define kMascots_Dict @"kMascotsArray"
+
 #define FIRST_LAUNCH [UD boolForKey:@"firstLaunch"]
 
-#define FIRST_TYPE_1 ![UD boolForKey:@"firstLaunchType1"]
-#define FIRST_TYPE_2 ![UD boolForKey:@"firstLaunchType2"]
-#define FIRST_TYPE_3 ![UD boolForKey:@"firstLaunchType3"]
+#define FIRST_COACHMARK_TYPE_1 ![UD boolForKey:@"firstLaunchTypePlayToEnd"]
+#define FIRST_COACHMARK_TYPE_2 ![UD boolForKey:@"firstLaunchTypeThreeWrongAnswer"]
+//#define FIRST_TYPE_3 ![UD boolForKey:@"firstLaunchType3"]
 
-#define FIRST_LAUNCH_AR ![UD boolForKey:@"firstLaunchTypeAR"]
-#define FIRST_LAUNCH_QUESTIONLIST ![UD boolForKey:@"firstLaunchQuestionList"]
-#define FIRST_LAUNCH_QUESTIONVIEW ![UD boolForKey:@"firstLaunchQuestionView"]
-#define FIRST_LAUNCH_MASCOTVIEW   ![UD boolForKey:@"firstLaunchMascotView"]
+#define FIRST_LAUNCH_AR             ![UD boolForKey:@"firstLaunchTypeAR"]
+#define FIRST_LAUNCH_QUESTIONLIST   ![UD boolForKey:@"firstLaunchQuestionList"]
+#define FIRST_LAUNCH_QUESTIONVIEW   ![UD boolForKey:@"firstLaunchQuestionView"]
+#define FIRST_LAUNCH_MASCOTVIEW     ![UD boolForKey:@"firstLaunchMascotView"]
+#define EVER_LAUNCHED_MASCOTVIEW      [UD setBool:YES forKey:@"firstLaunchMascotView"];
 
-#define kQuestionHintArray @"kkQuestionHintArrayFixed"
+#define kQuestionWrongAnswerCountSeason1 @"kQuestionWrongAnswerCountSeason1"
+#define kQuestionWrongAnswerCountSeason2 @"kQuestionWrongAnswerCountSeason2"
 
 #define kBadgeLevels @"kBadgeLevels"
+
+#define EVERYDAY_FIRST_ACTIVITY_NOTIFICATION @"EVERYDAY_FIRST_ACTIVITY_NOTIFICATION"
+#define ACTIVITY_NOTIFICATION_PIC_NAME @"ACTIVITY_NOTIFICATION_PIC_NAME"
+#define NOTIFICATION_COUNT @"NOTIFICATION_COUNT"
 
 #endif /* CommonDefine_h */

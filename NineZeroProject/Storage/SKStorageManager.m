@@ -10,7 +10,7 @@
 #import "HTStorageDefine.h"
 #import "SKModel.h"
 #import <YTKKeyValueStore.h>
-#import <MJExtension.h>
+#import "MJExtension.h"
 
 @implementation SKStorageManager {
     YTKKeyValueStore *_storageService;

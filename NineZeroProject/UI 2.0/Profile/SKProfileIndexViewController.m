@@ -62,7 +62,7 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) {
-        _rankLabel.text = response.rank;
+        _rankLabel.text = [response.rank integerValue]>999? @"1K+":response.rank;
         _coinLabel.text = response.user_gold;
         _diamondLabel.text = response.user_gemstone;
         _avatarGoldFrameImageView.hidden = !response.user_gold_head;
@@ -125,16 +125,35 @@
     [self createBackView1];
     [self createBackView2];
     
-//    //关闭
-//    UIButton *closeButton = [UIButton new];
-//    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-//    [self.view addSubview:closeButton];
-//    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(@12);
-//        make.left.equalTo(@4);
-//    }];
+    if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+        UIImageView *bottomImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userprofiles_banner_iPhone6"]];
+        [self.view addSubview:bottomImageView];
+        [bottomImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(self.view.mas_width);
+            make.height.equalTo(@150);
+            make.centerX.equalTo(self.view);
+            make.bottom.equalTo(self.view);
+        }];
+    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+        UIImageView *bottomImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userprofiles_banner_iPhone6P"]];
+        [self.view addSubview:bottomImageView];
+        [bottomImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(self.view.mas_width);
+            make.height.equalTo(@233);
+            make.centerX.equalTo(self.view);
+            make.bottom.equalTo(self.view);
+        }];
+    }
+    
+    if (NO_NETWORK) {
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:blankView];
+        blankView.top = ROUND_HEIGHT_FLOAT(217);
+    }
 }
 
 - (void)createBackView1 {
@@ -386,17 +405,17 @@
 
 - (void)rankButtonClick:(UIButton *)sender {
     SKRankViewController *controller = [[SKRankViewController alloc] init];
-    [self presentViewController:controller animated:YES completion:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)coinButtonClick:(UIButton*)sender {
-    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"http://112.74.133.183:8086/index.php?d=home&c=coin&m=coinIndex&user_id=%@",[[SKStorageManager sharedInstance] getUserID]]];
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/coin2.html&id=%@",[[SKStorageManager sharedInstance] getUserID]]];
     controller.titleString = @"金币";
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)diamondButtonClick:(UIButton*)sender {
-    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"http://112.74.133.183:8086/index.php?d=home&c=coin&m=diamondIndex&user_id=%@",[[SKStorageManager sharedInstance] getUserID]]];
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/diamond.html&id=%@",[[SKStorageManager sharedInstance] getUserID]]];
     controller.titleString = @"宝石";
     [self.navigationController pushViewController:controller animated:YES];
 }

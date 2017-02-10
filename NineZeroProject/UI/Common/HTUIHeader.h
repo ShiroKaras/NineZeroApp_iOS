@@ -17,12 +17,10 @@
 #import "UIButton+EnlargeTouchArea.h"
 #import "HUD+Utility.h"
 #import "CommonUI.h"
-#import "HTModel.h"
 #import "HTLog.h"
 #import "CommonDefine.h"
 #import "HTNavigationController.h"
 #import "HTCommonViewController.h"
-#import "HTServiceManager.h"
 #import "SKServiceManager.h"
 #import "NSString+Utility.h"
 #import "HTImageView.h"
@@ -40,6 +38,8 @@
 #import "MJRefresh.h"
 #import "HTLoginButton.h"
 #import "UIImage+Extension.h"
+#import <YLGIFImage/YLGIFImage.h>
+#import <YLGIFImage/YLImageView.h>
 
 #import "UMMobClick/MobClick.h"
 #import "TalkingData.h"

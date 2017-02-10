@@ -15,18 +15,21 @@
 
 @interface SKAllQuestionViewController ()<UIScrollViewDelegate, SKHelperScrollViewDelegate, SKQuestionViewControllerDelegate>
 
-@property(nonatomic, strong) UIScrollView *mScrollView_season1;
-@property(nonatomic, strong) UIPageControl *mPageContrl_season1;
-@property(nonatomic, strong) UIScrollView *mScrollView_season2;
-@property(nonatomic, strong) UIPageControl *mPageContrl_season2;
+@property(nonatomic, strong) UIScrollView   *mScrollView_season1;
+@property(nonatomic, strong) UIPageControl  *mPageContrl_season1;
+@property(nonatomic, strong) UIScrollView   *mScrollView_season2;
+@property(nonatomic, strong) UIPageControl  *mPageContrl_season2;
+@property(nonatomic, strong) UIView         *tempView;
 
-@property(nonatomic, strong) UIButton *helpButton;
-@property(nonatomic, strong) UIImageView *mascotImageView;
-@property(nonatomic, strong) UIButton *season1Button;
-@property(nonatomic, strong) UIButton *season2Button;
+@property(nonatomic, strong) UIButton       *helpButton;
+@property(nonatomic, strong) UIImageView    *mascotImageView;
+@property(nonatomic, strong) UIButton       *season1Button;
+@property(nonatomic, strong) UIButton       *season2Button;
 
 @property(nonatomic, assign) NSInteger season;
 
+@property (nonatomic, strong) UIView *HUDView;
+@property (nonatomic, strong) UIImageView *HUDImageView;
 @end
 
 @implementation SKAllQuestionViewController{
@@ -48,7 +51,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    [self loadData];
     [self addObserver:self forKeyPath:@"season" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 }
 
@@ -63,7 +65,6 @@
 #pragma mark - Load data
 - (void)loadData {
     [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
-        
         NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
         [self createSeason1UIWithData:mQuestionList_season1];
         
@@ -77,25 +78,16 @@
             [self helpButtonClick:nil];
             [UD setBool:YES forKey:@"firstLaunchQuestionList"];
         }
+        
+        [self hideHUD];
     }];
 }
 
 #pragma mark - Create UI
 - (void)createUI {
-    self.view.backgroundColor = [UIColor colorWithHex:0x0E0E0E];
+    self.view.backgroundColor = COMMON_BG_COLOR;
     
     WS(weakSelf);
-//    UIButton *closeButton = [UIButton new];
-//    [closeButton setImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-//    [closeButton setImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-//    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:closeButton];
-//    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.width.equalTo(@(40));
-//        make.height.equalTo(@(40));
-//        make.top.equalTo(weakSelf.view).offset(12);
-//        make.left.equalTo(weakSelf.view).offset(4);
-//    }];
     
     _helpButton = [UIButton new];
     [_helpButton setImage:[UIImage imageNamed:@"btn_levelpage_help"] forState:UIControlStateNormal];
@@ -111,37 +103,150 @@
     
     _mascotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_levelpage_season1"]];
     [self.view addSubview:_mascotImageView];
-    [_mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakSelf.view);
-        make.bottom.equalTo(weakSelf.view);
-    }];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        [_mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(weakSelf.view);
+            make.bottom.equalTo(weakSelf.view);
+        }];
+    } else {
+        [_mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(100, 37));
+            make.centerX.equalTo(weakSelf.view);
+            make.bottom.equalTo(weakSelf.view);
+        }];
+    }
     
     _season1Button = [UIButton new];
     [_season1Button addTarget:self action:@selector(season1ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1_highlight"] forState:UIControlStateNormal];
     [_season1Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season1_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:_season1Button];
-    [_season1Button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_mascotImageView);
-        make.bottom.equalTo(_mascotImageView.mas_top);
-    }];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        [_season1Button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_mascotImageView);
+            make.bottom.equalTo(_mascotImageView.mas_top);
+        }];
+    } else {
+        [_season1Button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(50, 17));
+            make.left.equalTo(_mascotImageView);
+            make.bottom.equalTo(_mascotImageView.mas_top);
+        }];
+    }
     
     _season2Button = [UIButton new];
     [_season2Button addTarget:self action:@selector(season2ButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2"] forState:UIControlStateNormal];
     [_season2Button setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_season2_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:_season2Button];
-    [_season2Button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(_mascotImageView);
-        make.bottom.equalTo(_mascotImageView.mas_top);
-    }];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        [_season2Button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(_mascotImageView);
+            make.bottom.equalTo(_mascotImageView.mas_top);
+        }];
+    } else {
+        [_season2Button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(50, 17));
+            make.right.equalTo(_mascotImageView);
+            make.bottom.equalTo(_mascotImageView.mas_top);
+        }];
+    }
+
+    [self createTempView];
+    
+    _HUDView = [[UIView alloc] initWithFrame:self.view.frame];
+    _HUDView.backgroundColor = [UIColor blackColor];
+    NSInteger count = 40;
+    NSMutableArray *images = [NSMutableArray array];
+    CGFloat length = 156;
+    _HUDImageView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH / 2 - length / 2, SCREEN_HEIGHT / 2 - length / 2, length, length)];
+    _HUDImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"loader_png_0000"]];
+    for (int i = 0; i != count; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"loader_png_00%02d", i]];
+        [images addObject:image];
+    }
+    _HUDImageView.animationImages = images;
+    _HUDImageView.animationDuration = 2.0;
+    _HUDImageView.animationRepeatCount = 0;
+    [_HUDView addSubview:_HUDImageView];
+    
+    [self showHUD];
+
+    
+    if (NO_NETWORK) {
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:blankView];
+        blankView.top = ROUND_HEIGHT_FLOAT(217);
+        [self hideHUD];
+    } else {
+        [self loadData];
+    }
+}
+
+- (void)createTempView {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+        _tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    } else {
+        float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(16)*4);
+        _tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, scrollViewHeight)];
+    }
+    [self.view addSubview:_tempView];
+    
+    for (int questionNumber=0; questionNumber<12; questionNumber++) {
+        int pageNumber = floor(questionNumber/12);
+        int itemInPage = questionNumber-pageNumber*12;
+        int i = itemInPage%3;
+        int j = floor(itemInPage/3);
+        UIView *itemView;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+            SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+            itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        } else {
+            itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(80)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        }
+        UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
+        coverImageView.image = [UIImage imageNamed:@"img_profile_photo_default"];
+        coverImageView.layer.cornerRadius = itemView.width/2;
+        coverImageView.layer.masksToBounds = YES;
+        [itemView addSubview:coverImageView];
+        
+        UIImageView *mImageButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_levelpage_uncompleted"]];
+        mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
+        [itemView addSubview:mImageButton];
+        
+        //关卡号
+        UILabel *mQuestionNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
+        mQuestionNumberLabel.textColor = [UIColor whiteColor];
+        mQuestionNumberLabel.text = [NSString stringWithFormat:@"%d",questionNumber+1];
+        mQuestionNumberLabel.textAlignment = NSTextAlignmentCenter;
+        mQuestionNumberLabel.font = MOON_FONT_OF_SIZE(23);
+        [itemView addSubview:mQuestionNumberLabel];
+        
+        [_tempView addSubview:itemView];
+    }
 }
 
 - (void)createSeason1UIWithData:(NSArray<SKQuestion*>*)questionList {
     self.questionList_season1 = questionList;
-    
-    float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
-    _mScrollView_season1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    float scrollViewHeight;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+        _mScrollView_season1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    } else {
+        scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+        _mScrollView_season1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, scrollViewHeight)];
+    }
+    _mScrollView_season1.backgroundColor = COMMON_BG_COLOR;
     _mScrollView_season1.delegate = self;
     _mScrollView_season1.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT_SEASON1, scrollViewHeight);
     _mScrollView_season1.pagingEnabled = YES;
@@ -173,15 +278,22 @@
         int itemInPage = questionNumber-pageNumber*12;
         int i = itemInPage%3;
         int j = floor(itemInPage/3);
-        UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        UIView *itemView;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+            SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+            itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        } else {
+            itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(80)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        }
         UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
+        coverImageView.tag = 300+questionNumber;
         NSURL *coverURL = ([questionList[questionNumber].thumbnail_pic isEqualToString:@""]||questionList[questionNumber].thumbnail_pic==nil)?[NSURL URLWithString:questionList[questionNumber].question_video_cover]: [NSURL URLWithString:questionList[questionNumber].thumbnail_pic];
         if (coverURL == nil) {
             coverImageView.image = [UIImage imageNamed:@"img_profile_photo_default"];
         } else {
             [coverImageView sd_setImageWithURL:coverURL placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 int type;
-                if (questionList[questionNumber].is_answer || !(questionList[questionNumber].base_type == 2))  type = 0;
+                if (questionList[questionNumber].is_answer || !(questionList[questionNumber].base_type == 0))  type = 0;
                 else    type = 1;
                 
                 [[SDWebImageManager sharedManager] downloadImageWithURL:imageURL options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
@@ -226,10 +338,16 @@
         mImageButton.tag = 100+questionNumber;
         [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
+        mImageButton.titleLabel.font = MOON_FONT_OF_SIZE(23);
+        [mImageButton setTitle:[NSString stringWithFormat:@"%d",questionNumber+1] forState:UIControlStateNormal];
+        [mImageButton setTitleColor:[UIColor colorWithHex:0x00DFB4] forState:UIControlStateHighlighted];
         if (questionList[questionNumber].is_answer) {
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+            
+            [mImageButton setTitleColor:COMMON_PINK_COLOR forState:UIControlStateNormal];
         } else {
+            [mImageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             if (questionList[questionNumber].base_type == 1 || questionList[questionNumber].base_type == 2) {
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR"] forState:UIControlStateNormal];
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_AR_highlight"] forState:UIControlStateHighlighted];
@@ -240,23 +358,22 @@
         }
         [itemView addSubview:mImageButton];
         
-        //关卡号
-        UILabel *mQuestionNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
-        mQuestionNumberLabel.textColor = [UIColor whiteColor];
-        mQuestionNumberLabel.text = [NSString stringWithFormat:@"%d",questionNumber+1];
-        mQuestionNumberLabel.textAlignment = NSTextAlignmentCenter;
-        mQuestionNumberLabel.font = MOON_FONT_OF_SIZE(23);
-        [itemView addSubview:mQuestionNumberLabel];
-        
         [_mScrollView_season1 addSubview:itemView];
     }
 }
 
 - (void)createSeason2UIWithData:(NSArray<SKQuestion*>*)questionList {
     self.questionList_season2 = questionList;
-    
-    float scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
-    _mScrollView_season2 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    float scrollViewHeight;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+        SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+        scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+        _mScrollView_season2 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 74, SCREEN_WIDTH, scrollViewHeight)];
+    } else {
+        scrollViewHeight = (ROUND_WIDTH_FLOAT(64)*4+ ROUND_HEIGHT_FLOAT(26)*4);
+        _mScrollView_season2 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, scrollViewHeight)];
+    }
+    _mScrollView_season2.backgroundColor = COMMON_BG_COLOR;
     _mScrollView_season2.delegate = self;
     _mScrollView_season2.contentSize = CGSizeMake(SCREEN_WIDTH*PAGE_COUNT_SEASON2, scrollViewHeight);
     _mScrollView_season2.pagingEnabled = YES;
@@ -288,8 +405,15 @@
         int itemInPage = questionNumber-pageNumber*12;
         int i = itemInPage%3;
         int j = floor(itemInPage/3);
-        UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        UIView *itemView;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
+            SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
+            itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(90)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        } else {
+            itemView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(35)+SCREEN_WIDTH*pageNumber+i*ROUND_WIDTH_FLOAT(93), ROUND_WIDTH_FLOAT(80)*j, ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64))];
+        }
         UIImageView *coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
+        coverImageView.tag = 400+questionNumber;
         coverImageView.layer.cornerRadius = itemView.width/2;
         coverImageView.layer.masksToBounds = YES;
         [itemView addSubview:coverImageView];
@@ -343,9 +467,13 @@
             mImageButton.tag = 200+questionNumber;
             [mImageButton addTarget:self action:@selector(questionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
+            mImageButton.titleLabel.font = MOON_FONT_OF_SIZE(23);
+            [mImageButton setTitle:[NSString stringWithFormat:@"%d",questionNumber+1] forState:UIControlStateNormal];
+            [mImageButton setTitleColor:[UIColor colorWithHex:0x00DFB4] forState:UIControlStateHighlighted];
             if (questionList[questionNumber].is_answer) {
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
                 [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+                [mImageButton setTitleColor:COMMON_PINK_COLOR forState:UIControlStateNormal];
             } else {
                 //是否是限时关卡
                 if (questionNumber == questionList.count-1 && !_isMonday) {
@@ -362,18 +490,11 @@
                 }
             }
             [itemView addSubview:mImageButton];
-            
-            //关卡号
-            UILabel *mQuestionNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemView.width, itemView.height)];
-            mQuestionNumberLabel.textColor = [UIColor whiteColor];
-            mQuestionNumberLabel.text = [NSString stringWithFormat:@"%d",questionNumber+1];
-            mQuestionNumberLabel.textAlignment = NSTextAlignmentCenter;
-            mQuestionNumberLabel.font = MOON_FONT_OF_SIZE(23);
-            [itemView addSubview:mQuestionNumberLabel];
         } else {
             //按钮
             UIButton *mImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
             mImageButton.tag = questionNumber;
+            mImageButton.adjustsImageWhenHighlighted = NO;
             [mImageButton addTarget:self action:@selector(lockedQuestionSelectButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             mImageButton.frame = CGRectMake(0, 0, itemView.width, itemView.height);
             [mImageButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_locked"] forState:UIControlStateNormal];
@@ -384,10 +505,6 @@
         
         [_mScrollView_season2 addSubview:itemView];
     }
-}
-
-- (void)updateUIWithData:(NSArray<SKQuestion*>*)questionList {
-    
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -431,21 +548,66 @@
 
 //点击活动关卡
 - (void)questionSelectButtonClick:(UIButton *)sender {
-    NSLog(@"%ld", sender.tag);
+    NSLog(@"%ld", sender.tag-100);
     NSString *questionID;
     if (self.season == 1) {
         questionID = self.questionList_season1[sender.tag-100].qid;
     } else if (self.season == 2){
         questionID = self.questionList_season2[sender.tag-200].qid;
     }
-    SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeHistoryLevel questionID:questionID];
-    controller.delegate = self;
-    [self.navigationController pushViewController:controller animated:YES];
+    
+    if (questionID == [self.questionList_season2 lastObject].qid && self.isMonday == NO) {
+        SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeTimeLimitLevel questionID:questionID endTime:self.indexInfo.question_end_time];
+        self.season = self.season;
+        controller.delegate = self;
+        [self.navigationController pushViewController:controller animated:YES];
+    } else {
+        SKQuestionViewController *controller = [[SKQuestionViewController alloc] initWithType:SKQuestionTypeHistoryLevel questionID:questionID];
+        controller.season = self.season;
+        controller.delegate = self;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 //点击锁定关卡
 - (void)lockedQuestionSelectButtonClick:(UIButton *)sender {
-    [self showTipsWithText:[NSString stringWithFormat:@"零仔在第%lu章等待援助", (unsigned long)[self.questionList_season2 count]]];
+    [self showPromptWithText:@"关卡即将开启，敬请期待"];
+}
+
+- (void)showPromptWithText:(NSString*)text {
+    [[self.view viewWithTag:9002] removeFromSuperview];
+    UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_levelpage_prompt"]];
+    [promptImageView sizeToFit];
+    
+    UIView *promptView = [UIView new];
+    promptView.tag = 9002;
+    promptView.size = promptImageView.size;
+    promptView.center = self.view.center;
+    promptView.alpha = 0;
+    [self.view addSubview:promptView];
+    
+    promptImageView.frame = CGRectMake(0, 0, promptView.width, promptView.height);
+    [promptView addSubview:promptImageView];
+    
+    UILabel *promptLabel = [UILabel new];
+    promptLabel.text = text;
+    promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
+    promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    promptLabel.textAlignment = NSTextAlignmentCenter;
+    [promptLabel sizeToFit];
+    [promptView addSubview:promptLabel];
+    promptLabel.frame = CGRectMake(8.5, 11, promptView.width-17, 57);
+    
+    promptView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        promptView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:1.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            promptView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [promptView removeFromSuperview];
+        }];
+    }];
 }
 
 - (void)helpButtonClick:(UIButton *)sender {
@@ -472,6 +634,19 @@
 - (void)season2ButtonClick:(UIButton *)sender {
     [TalkingData trackEvent:@"seasontwo"];
     self.season = 2;
+}
+
+- (void)showHUD {
+    [AppDelegateInstance.window addSubview:_HUDView];
+    _HUDView.alpha = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        _HUDView.alpha = 1;
+        [_HUDImageView startAnimating];
+    }];
+}
+
+- (void)hideHUD {
+    [_HUDView removeFromSuperview];
 }
 
 #pragma mark - SKHelperScrollViewDelegate
@@ -596,13 +771,19 @@
 
 - (void)answeredQuestionWithSerialNumber:(NSString *)serial season:(NSInteger)season {
     if (season == 1) {
-        self.questionList_season1[[serial integerValue]].is_answer = YES;
+        self.questionList_season1[[serial integerValue]-1].is_answer = YES;
         [((UIButton*)[self.view viewWithTag:100+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
         [((UIButton*)[self.view viewWithTag:100+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+        [((UIButton*)[self.view viewWithTag:100+[serial integerValue]-1]) setTitleColor:COMMON_PINK_COLOR forState:UIControlStateNormal];
+        NSURL *coverURL = ([self.questionList_season1[[serial integerValue]-1].thumbnail_pic isEqualToString:@""]||self.questionList_season1[[serial integerValue]-1].thumbnail_pic==nil)?[NSURL URLWithString:self.questionList_season1[[serial integerValue]-1].question_video_cover]: [NSURL URLWithString:self.questionList_season1[[serial integerValue]-1].thumbnail_pic];
+        [((UIImageView*)[self.view viewWithTag:300+[serial integerValue]-1]) sd_setImageWithURL:coverURL];
     } else if (season == 2) {
-        self.questionList_season2[[serial integerValue]].is_answer = YES;
+        self.questionList_season2[[serial integerValue]-1].is_answer = YES;
         [((UIButton*)[self.view viewWithTag:200+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed"] forState:UIControlStateNormal];
         [((UIButton*)[self.view viewWithTag:200+[serial integerValue]-1]) setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_completed_highlight"] forState:UIControlStateHighlighted];
+        [((UIButton*)[self.view viewWithTag:200+[serial integerValue]-1]) setTitleColor:COMMON_PINK_COLOR forState:UIControlStateNormal];
+        NSURL *coverURL = ([self.questionList_season2[[serial integerValue]-1].thumbnail_pic isEqualToString:@""]||self.questionList_season2[[serial integerValue]-1].thumbnail_pic==nil)?[NSURL URLWithString:self.questionList_season2[[serial integerValue]-1].question_video_cover]: [NSURL URLWithString:self.questionList_season2[[serial integerValue]-1].thumbnail_pic];
+        [((UIImageView*)[self.view viewWithTag:400+[serial integerValue]-1]) sd_setImageWithURL:coverURL];
     }
 }
 

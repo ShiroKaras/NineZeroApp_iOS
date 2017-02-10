@@ -168,7 +168,16 @@
                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithHTTPMethod:@"POST" URLString:URLString parameters:parameters success:success failure:failure];
-
+    
+    // add by HHHHTTTT
+    operation.securityPolicy.allowInvalidCertificates = YES;
+    //    self.requestSerializer = [AFJSONRequestSerializer serializer];
+    //    [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+    self.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    self.requestSerializer = [AFJSONRequestSerializer serializer];
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
+    // end
+    
     [self.operationQueue addOperation:operation];
 
     return operation;

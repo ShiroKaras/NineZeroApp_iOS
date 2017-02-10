@@ -38,4 +38,8 @@
     return [NSString stringWithFormat:@"%@/Common/appIndex",APP_HOST];
 }
 
++ (NSString *)shareBaseCGIKey {
+    return [NSString stringWithFormat:@"%@/Share/appIndex",APP_HOST];
+}
+
 @end

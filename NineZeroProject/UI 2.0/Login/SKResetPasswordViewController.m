@@ -106,8 +106,8 @@
     _nextButton = [UIButton new];
     [_nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _nextButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
-    _nextButton.backgroundColor = [UIColor blackColor];
-    _nextButton.alpha = 0.6;
+    [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xCA0E27]] forState:UIControlStateNormal];
+    [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xFF546B]] forState:UIControlStateHighlighted];
     [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
     [self.view addSubview:_nextButton];
 }
@@ -115,6 +115,7 @@
 #pragma mark - Actions
 
 - (void)closeButtonClick:(UIButton *)sender {
+    [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -330,10 +330,6 @@
     }];
 }
 
-#pragma mark - UIScrollView Delegate
-
-
-
 @end
 
 
@@ -358,127 +354,50 @@
 }
 
 - (void)createUIWithType:(SKHelperGuideViewType)type {
-    //step.1
+    //播放完成
     _view1 = [[UIView alloc] initWithFrame:self.frame];
     UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:_view1.frame];
-    imageView1.image = [UIImage imageNamed:@"coach_mark_1"];
     [_view1 addSubview:imageView1];
-    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button1 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
-    [button1 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
-    [button1 addTarget:self action:@selector(onClickTurnToView2) forControlEvents:UIControlEventTouchUpInside];
-    [button1 sizeToFit];
-    button1.centerX = _view1.centerX;
-    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-        button1.bottom = _view1.bottom - 84;
-        button1.left = _view1.left + 141.5;
-    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-        button1.bottom = _view1.bottom - 103.5;
-        button1.left =  _view1.left + 141;
-    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        button1.bottom = _view1.bottom - 108;
-        button1.left = _view1.left + 180.7;
-    }
-
-    [_view1 addSubview:button1];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+    [_view1 addGestureRecognizer:tap];
     
-    //step.2
+    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+        imageView1.image = [UIImage imageNamed:@"coach_mark_list_1_640"];
+    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+        imageView1.image = [UIImage imageNamed:@"coach_mark_list_1_750"];
+    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+        imageView1.image = [UIImage imageNamed:@"coach_mark_list_1_1242"];
+    }
+    
+    //3次错误提示
     _view2 = [[UIView alloc] initWithFrame:self.frame];
     UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:_view2.frame];
-    imageView2.image = [UIImage imageNamed:@"coach_mark_2"];
     [_view2 addSubview:imageView2];
-    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button2 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
-    [button2 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
-    [button2 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [button2 sizeToFit];
-    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-        button2.right = _view2.right - 124.5;
-        button2.bottom = _view2.bottom - 84;
-    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-        button2.right = _view2.right - 127;
-        button2.bottom = _view2.bottom - 103.5;
-    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        button2.right = _view2.right - 123;
-        button2.bottom = _view2.bottom - 108;
-    }
-    [_view2 addSubview:button2];
+    UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+    [_view2 addGestureRecognizer:tap2];
     
-    //step.3
-    _view3 = [[UIView alloc] initWithFrame:self.frame];
-    UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:_view3.frame];
-    imageView3.image = [UIImage imageNamed:@"coach_mark_3"];
-    [_view3 addSubview:imageView3];
-    _button3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_button3 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
-    [_button3 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
-    [_button3 sizeToFit];
     if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-        _button3.top = _view3.top + 163;
-        _button3.right = _view3.right - 160.5;
+        imageView2.image = [UIImage imageNamed:@"coach_mark_list_2_640"];
     } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-        _button3.top = _view3.top + 189;
-        _button3.right = _view3.right - 209.5;
+        imageView2.image = [UIImage imageNamed:@"coach_mark_list_2_750"];
     } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        _button3.top = _view3.top + 206.7;
-        _button3.right = _view3.right - 201.3;
+        imageView2.image = [UIImage imageNamed:@"coach_mark_list_2_1242"];
     }
-    [_view3 addSubview:_button3];
-
-    //step.4
-    _view4 = [[UIView alloc] initWithFrame:self.frame];
-    UIImageView *imageView4 = [[UIImageView alloc] initWithFrame:_view4.frame];
-    imageView4.image = [UIImage imageNamed:@"coach_mark_4"];
-    [_view4 addSubview:imageView4];
-    UIButton *button4 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button4 setImage:[UIImage imageNamed:@"btn_guide_know"] forState:UIControlStateNormal];
-    [button4 setImage:[UIImage imageNamed:@"btn_guide_know_highlight"] forState:UIControlStateHighlighted];
-    [button4 addTarget:self action:@selector(completeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [button4 sizeToFit];
-    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-        button4.top = _view4.top + 117.5;
-        button4.right = _view4.right - 109;
-    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-        button4.top = _view4.top + 127.5;
-        button4.right = _view4.right - 159;
-    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        button4.top = _view4.top + 123;
-        button4.right = _view4.right - 176;
-    }
-    UIImageView *buttonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_help_highlight"]];
-    [buttonImage sizeToFit];
-    buttonImage.frame = CGRectMake(10, 10, 40, 40);
-    [_view4 addSubview:buttonImage];
-    [_view4 addSubview:button4];
-
+    
     switch (type) {
         case SKHelperGuideViewType1:{
             [self addSubview:_view1];
-            [self addSubview:_view2];
             _view1.alpha = 1;
-            _view2.alpha = 0;
             break;
         }
         case SKHelperGuideViewType2:{
-            [self addSubview:_view3];
-            _view3.alpha = 1;
-            break;
-        }
-        case SKHelperGuideViewType3:{
-            [self addSubview:_view4];
-            _view1.alpha = 1;
+            [self addSubview:_view2];
+            _view2.alpha = 1;
             break;
         }
         default:
             break;
     }
-}
-
-- (void)onClickTurnToView2 {
-    _view1.alpha = 0;
-    _view2.alpha = 1;
-    _view3.alpha = 0;
-    _view4.alpha = 0;
 }
 
 - (void)completeButtonClick:(UIButton *)sender {

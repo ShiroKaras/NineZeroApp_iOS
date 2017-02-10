@@ -23,13 +23,14 @@
 NSString *kTipCloseMascot = @"正在靠近藏匿零仔";
 NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
-@interface HTARCaptureController () <PRARManagerDelegate,AMapLocationManagerDelegate>
+@interface HTARCaptureController () <PRARManagerDelegate,AMapLocationManagerDelegate,HTAlertViewDelegate>
 @property (nonatomic, strong) PRARManager *prARManager;
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIImageView *radarImageView;
 @property (nonatomic, strong) UIImageView *tipImageView;
 @property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UIImageView *mascotImageView;
+//@property (nonatomic, strong) MotionEffectView *mascotMotionView;
 @property (nonatomic, strong) HTImageView *captureSuccessImageView;
 @property (nonatomic, strong) UIView *successBackgroundView;
 @property (nonatomic, strong) AMapLocationManager *locationManager;
@@ -37,6 +38,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) UIButton *helpButton;
 @property (nonatomic, strong) SKHelperGuideView *guideView;
 @property (nonatomic, strong) SKHelperScrollView *helpView;
+
+@property (nonatomic, strong) NSArray *locationPointArray;
 @end
 
 @implementation HTARCaptureController {
@@ -47,26 +50,25 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     BOOL startFlag;
 }
 
-- (instancetype)initWithQuestion:(HTQuestion *)question {
+- (instancetype)initWithQuestion:(SKQuestion *)question {
     if (self = [super init]) {
         _question = question;
         startFlag = false;
-//        if (_question.question_ar_location.length != 0) {
-//            NSDictionary *locationDict = [_question.question_ar_location dictionaryWithJsonString];
-//            if (locationDict && locationDict[@"lng"] && locationDict[@"lat"]) {
-//                double lat = [[NSString stringWithFormat:@"%@", locationDict[@"lat"]] doubleValue];
-//                double lng = [[NSString stringWithFormat:@"%@", locationDict[@"lng"]] doubleValue];
-//                DLog(@"lat=>%f \n lng=>%f", lat, lng);
-//                _testMascotPoint = CLLocationCoordinate2DMake(lat, lng);
-//            }
-//        }
+        self.locationPointArray = question.question_location;
+        if (_question.question_location.count > 0) {
+            for (NSDictionary *locationDict in _question.question_location) {
+                double lat = [[NSString stringWithFormat:@"%@", locationDict[@"lat"]] doubleValue];
+                double lng = [[NSString stringWithFormat:@"%@", locationDict[@"lng"]] doubleValue];
+                DLog(@"lat=>%f \n lng=>%f", lat, lng);
+            }
+        }
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor blackColor];
     [self registerLocation];
 
     _needShowDebugLocation = NO;
@@ -113,16 +115,42 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.tipImageView addSubview:self.tipLabel];
     [self showtipImageView];
     
+    NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
+    NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:self.question.question_ar_pet];
+    NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
+    
+    NSFileManager *myFileManager=[NSFileManager defaultManager];
+    NSDirectoryEnumerator *myDirectoryEnumerator;
+    myDirectoryEnumerator=[myFileManager enumeratorAtPath:unzipFilesPath];
+    //列举目录内容，可以遍历子目录
+    NSString *unzipFileName;
+    
+    NSMutableArray<UIImage *> *images = [NSMutableArray array];
+    while((unzipFileName=[myDirectoryEnumerator nextObject])!=nil) {
+        NSData * data = [NSData dataWithContentsOfFile:[unzipFilesPath stringByAppendingPathComponent:unzipFileName]];
+        UIImage *image = [UIImage imageWithData:data];
+        [images addObject:image];
+    }
     self.mascotImageView = [[UIImageView alloc] init];
     self.mascotImageView.layer.masksToBounds = YES;
-    UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:_question.question_ar_pet]];
-    self.mascotImageView.image = gifImage;
-    [self.mascotImageView startAnimating];
     self.mascotImageView.hidden = YES;
     self.mascotImageView.userInteractionEnabled = YES;
     [self.view addSubview:self.mascotImageView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
     [self.mascotImageView addGestureRecognizer:tap];
+    self.mascotImageView.animationImages = images;
+    self.mascotImageView.animationDuration = 0.1 * images.count;
+    self.mascotImageView.animationRepeatCount = 0;
+    [self.mascotImageView startAnimating];
+
+    
+//    self.mascotMotionView = [[MotionEffectView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+//    self.mascotMotionView.hidden = YES;
+//    self.mascotMotionView.imageView.hidden = YES;
+//    self.mascotMotionView.center = self.view.center;
+//    self.mascotMotionView.delegate = self;
+//    [self.view addSubview:self.mascotMotionView];
+//    [self.mascotMotionView setImage:self.mascotImageView];
     
     if (FIRST_LAUNCH_AR) {
         SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
@@ -142,16 +170,16 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self buildConstrains];
     
     //判断GPS是否开启
+    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+    alertView.delegate = self;
     if ([CLLocationManager locationServicesEnabled]) {
         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways
             || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
             
         }else {
-            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
             [alertView show];
         }
     }else {
-        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
         [alertView show];
     }
 }
@@ -170,6 +198,10 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)dealloc {
 
+}
+
+- (void)didClickOKButton {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)showtipImageView {
@@ -209,10 +241,10 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     }];
     
     [self.mascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@130);
+        make.centerY.equalTo(self.view);
         make.centerX.equalTo(self.view);
-        make.width.equalTo(@265);
-        make.height.equalTo(@265);
+        make.width.equalTo(self.view);
+        make.height.equalTo(self.view.mas_width);
     }];
     
     [self.helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -248,7 +280,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         if (error){
             DLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
         }
-        DLog(@"location:%@", location);
         _testMascotPoint = [self getCurrentLocationWith:location];
         
         self.locationManager = [[AMapLocationManager alloc] init];
@@ -271,8 +302,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         MAMapPoint point2 = MAMapPointForCoordinate(CLLocationCoordinate2DMake(location.coordinate.latitude,location.coordinate.longitude));
         //2.计算距离
         CLLocationDistance distance = MAMetersBetweenMapPoints(point1,point2);
-        DLog(@"\nlat:%lf\nlng:%lf",lat , lng);
-        DLog(@"\n%lf", distance);
         
         if (currentDistance < 0 || distance < currentDistance) {
             currentDistance = distance;
@@ -282,6 +311,12 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     startFlag = true;
     return currentPoint;
 }
+
+//#pragma MotionEffectViewDelegate
+//
+//- (void)didTapMotionEffectView:(MotionEffectView *)view {
+//    [self onClickMascot];
+//}
 
 #pragma mark - AMapDelegate
 
@@ -311,20 +346,23 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)onClickBack {
+//    [self.mascotMotionView disableMotionEffect];
+//    [self.mascotMotionView removeFromSuperview];
+//    self.mascotMotionView = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)onCaptureMascotSuccessful {
-    [self.delegate didClickBackButtonInARCaptureController:self];
+- (void)onCaptureMascotSuccessfulWithReward:(SKReward *)reward {
+    [self.delegate didClickBackButtonInARCaptureController:self reward:reward];
 }
 
 - (void)onClickMascot {
-    CGPoint currentLocation = CGPointMake(_currentLocation.coordinate.longitude, _currentLocation.coordinate.latitude);
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [[[HTServiceManager sharedInstance] questionService] verifyQuestion:_question.questionID withLocation:currentLocation callback:^(BOOL success, HTResponsePackage *response) {
+    
+    [[[SKServiceManager sharedInstance] answerService] answerLBSQuestionWithLocation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        if (success && response.resultCode == 0) {
-            self.rewardID = [response.data[@"reward_id"] integerValue];
+        if (success && response.result == 0) {
+            self.rewardID = response.data[@"reward_id"];
             // 6.捕获成功
             self.successBackgroundView = [[UIView alloc] init];
             self.successBackgroundView.backgroundColor = [UIColor colorWithHex:0x1f1f1f alpha:0.8];
@@ -339,14 +377,14 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
             }
             self.captureSuccessImageView = [[HTImageView alloc] init];
             self.captureSuccessImageView.animationImages = images;
-            self.captureSuccessImageView.animationDuration = 0.1 * 18;
+            self.captureSuccessImageView.animationDuration = 0.05 * 18;
             self.captureSuccessImageView.animationRepeatCount = 1;
             [self.successBackgroundView addSubview:self.captureSuccessImageView];
             [self.captureSuccessImageView startAnimating];
             
             [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self.view);
-                make.top.equalTo(@161);
+                make.centerY.equalTo(self.view).offset(-30);
                 make.width.equalTo(@173);
                 make.height.equalTo(@173);
             }];
@@ -359,15 +397,17 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
             }];
             
             [self.mascotImageView removeFromSuperview];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.1 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self onCaptureMascotSuccessful];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.successBackgroundView removeFromSuperview];
+                [self onCaptureMascotSuccessfulWithReward:[SKReward objectWithKeyValues:[response.data keyValues]]];
             });
         } else {
-           if (response.resultMsg) {
-                [self showTipsWithText:response.resultMsg];
-           } else {
-                [self showTipsWithText:response.resultMsg];
-           }
+            if (response.result) {
+                [self showTipsWithText:[NSString stringWithFormat:@"异常%ld", (long)response.result]];
+            } else {
+                [self showTipsWithText:@"异常"];
+            }
         }
     }];
 }
@@ -414,13 +454,14 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.view bringSubviewToFront:self.helpButton];
     [self.view bringSubviewToFront:self.helpView];
     dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.view bringSubviewToFront:self.mascotMotionView];
         [self.view bringSubviewToFront:self.mascotImageView];
         [self.view bringSubviewToFront:self.captureSuccessImageView];
     });
 }
 
 - (void)prarUpdateFrame:(CGRect)arViewFrame {
-    BOOL needShowMascot = YES;
+    BOOL needShowMascot = NO;
     // x坐标匹配
     if (fabs(arViewFrame.origin.x) >= SCREEN_WIDTH && fabs(arViewFrame.origin.x - arViewFrame.size.width) >= SCREEN_WIDTH) {
         needShowMascot = NO;
@@ -430,18 +471,25 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         needShowMascot = NO;
     }
     CGFloat distance = self.prARManager.arObject.distance.floatValue;
-    if (distance > 200){
+    if (distance > 500){
         self.tipLabel.text = _question.hint;
         self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
         needShowMascot = NO;
-    }else if(distance <= 150){
+    } else if  (distance > 200) {
+        self.tipLabel.text = kTipCloseMascot;
+        self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_1"];
+        needShowMascot = NO;
+    } else if(distance > 0){
         self.tipLabel.text = kTipTapMascotToCapture;
         self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
         needShowMascot = YES;
+//        [self.mascotMotionView enableMotionEffect];
     }
     if (_needShowDebugLocation) {
         self.tipLabel.text = [NSString stringWithFormat:@"%.1f", distance];
     }
+//    self.mascotMotionView.hidden = !needShowMascot;
+//    self.mascotMotionView.imageView.hidden = !needShowMascot;
     self.mascotImageView.hidden = !needShowMascot;
     
     [[self.view viewWithTag:AR_VIEW_TAG] setFrame:arViewFrame];

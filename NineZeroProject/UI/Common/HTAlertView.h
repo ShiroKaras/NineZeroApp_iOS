@@ -16,7 +16,12 @@ typedef enum : NSUInteger {
     HTAlertViewTypeUnknown,
 } HTAlertViewType;
 
+@protocol HTAlertViewDelegate <NSObject>
+- (void)didClickOKButton;
+@end
+
 @interface HTAlertView : UIView
+@property(nonatomic, weak) id<HTAlertViewDelegate> delegate;
 - (instancetype)initWithType:(HTAlertViewType)type;
 - (void)show;
 @end

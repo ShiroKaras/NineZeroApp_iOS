@@ -15,7 +15,6 @@
 #import "SKLaunchAnimationViewController.h"
 #import "SKLoginRootViewController.h"
 
-#import <JSPatch/JSPatch.h>
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
@@ -48,13 +47,6 @@
     _cityCode = @"010";
     _active = true;
     
-    if (![UD boolForKey:@"everLaunched"]) {
-        [UD setBool:YES forKey:@"firstLaunch"];
-    }
-    else{
-        [UD setBool:NO forKey:@"firstLaunch"];
-    }
-    
     [self registerJPushWithLaunchOptions:launchOptions];
     [self registerJSPatch];
     [self registerAMap];
@@ -64,7 +56,6 @@
     [self registerUmeng];
     [self registerUserAgent];
     [self registerTalkingData];
-    [self registerJSPatch];
     
     [NSThread sleepForTimeInterval:2];
     [self createWindowAndVisibleWithOptions:launchOptions];
@@ -105,7 +96,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     DLog(@"applicationWillEnterForeground");
-    [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
+    [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -154,7 +145,9 @@
 }
 
 - (void)createWindowAndVisibleWithOptions:(NSDictionary*)launchOptions {
-    if ([[[SKServiceManager sharedInstance] loginService] loginUser] != nil) {
+    NSString *userID = [[SKStorageManager sharedInstance] getUserID];
+    NSLog(@"%@",userID);
+    if (userID != nil) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _mainController = [[SKHomepageViewController alloc] init];
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:_mainController];
@@ -190,8 +183,8 @@
             [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         }
         
-        [[[HTServiceManager sharedInstance] profileService] updateUserInfoFromSvr];
-        [[[HTServiceManager sharedInstance] profileService] updateProfileInfoFromServer];
+        [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+        
         // 用户通过点击图标启动程序 还是  点击通知启动程序
         // 获取启动时收到的APN
         NSDictionary* remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -199,23 +192,6 @@
             [self handleAPNsDict:remoteNotification];
         }
     }
-    
-//    [[[HTServiceManager sharedInstance] profileService] getVersion:^(NSDictionary *posts, NSError *error) {
-//        NSArray* infoArray = [posts objectForKey:@"results"];
-//        if (infoArray.count>0) {
-//            NSDictionary* releaseInfo =[infoArray objectAtIndex:0];
-//            NSString* appStoreVersion = [releaseInfo objectForKey:@"version"];
-//            NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-//            NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
-//            if (![appStoreVersion isEqualToString:currentVersion])
-//            {
-//                _trackViewURL = [[NSString alloc] initWithString:[releaseInfo objectForKey:@"trackViewUrl"]];
-//                NSString *msg =[releaseInfo objectForKey:@"releaseNotes"];
-//                UIAlertView* alertview =[[UIAlertView alloc] initWithTitle:@"版本升级" message:[NSString stringWithFormat:@"%@%@%@", @"新版本特性:",msg, @"\n是否升级？"] delegate:self cancelButtonTitle:@"稍后升级" otherButtonTitles:@"马上升级", nil];
-//                [alertview show];
-//            }
-//        }
-//    }];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -275,7 +251,7 @@
 #pragma mark - QiNiu
 
 - (void)registerQiniuService {
-    [[[SKServiceManager sharedInstance] commonService] getQiniuPublicTokenWithCompletion:^(NSString *token) {
+    [[[SKServiceManager sharedInstance] commonService] getQiniuPublicTokenWithCompletion:^(BOOL success, NSString *token) {
     }];
 }
 
@@ -373,7 +349,7 @@
 //    [JPUSHService setupWithOption:launchOptions];
     [JPUSHService setupWithOption:launchOptions appKey:@"a55e70211d78ad951ecca453" channel:@"90" apsForProduction:true];
     [JPUSHService resetBadge];
-    if ([[HTStorageManager sharedInstance] getUserID]) {
+    if ([[SKStorageManager sharedInstance] getUserID]) {
         [JPUSHService setTags:[NSSet setWithObject:@"iOS"] alias:[[SKStorageManager sharedInstance] getUserID] callbackSelector:nil target:nil];
     }
 }

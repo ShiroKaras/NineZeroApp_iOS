@@ -48,13 +48,13 @@
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = @"帮助我们进步";
     titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = [UIFont systemFontOfSize:17];
+    titleLabel.font = PINGFANG_FONT_OF_SIZE(17);
     [titleLabel sizeToFit];
     titleLabel.center = headerView.center;
     [headerView addSubview:titleLabel];
     [self.view addSubview:headerView];
     
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(10, 64, SCREEN_WIDTH-20, 205)];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(10, 64+8, SCREEN_WIDTH-20, 205)];
     backView.backgroundColor = COMMON_SEPARATOR_COLOR;
     backView.layer.cornerRadius = 5;
     backView.layer.masksToBounds = YES;
@@ -100,6 +100,8 @@
     _submitButton = [UIButton new];
     _submitButton.layer.cornerRadius = 5;
     _submitButton.layer.masksToBounds = YES;
+    self.submitButton.enabled = [self isSubmitButtonValid];
+    self.submitButton.titleLabel.alpha = [self isSubmitButtonValid]?1:0.6;
     [_submitButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateNormal];
     [_submitButton setBackgroundImage:[UIImage imageWithColor:COMMON_RED_COLOR] forState:UIControlStateHighlighted];
     [_submitButton setTitle:@"提交" forState:UIControlStateNormal];
@@ -111,15 +113,27 @@
         make.centerX.equalTo(backView);
         make.top.equalTo(backView.mas_bottom).offset(10);
     }];
+    
+    if (NO_NETWORK) {
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
+        [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        [self.view addSubview:blankView];
+        blankView.top = ROUND_HEIGHT_FLOAT(217);
+    }
 }
 
 - (void)textFieldTextDidChanged:(NSNotification *)notication {
     self.submitButton.enabled = [self isSubmitButtonValid];
+    self.submitButton.titleLabel.alpha = [self isSubmitButtonValid]?1:0.6;
 }
 
 - (void)textViewTextDidChanged:(NSNotification *)notification {
     self.placeholderLabel.hidden = (self.textView.text.length != 0);
     self.submitButton.enabled = [self isSubmitButtonValid];
+    self.submitButton.titleLabel.alpha = [self isSubmitButtonValid]?1:0.6;
 }
 
 - (BOOL)isSubmitButtonValid {
@@ -131,10 +145,11 @@
 
 - (void)onClickSubmit:(UIButton *)sender {
     self.submitButton.enabled = NO;
+    self.submitButton.titleLabel.alpha = [self isSubmitButtonValid]?1:0.6;
     [self.view endEditing:YES];
     [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"反馈中"];
-    [[[HTServiceManager sharedInstance] profileService] feedbackWithContent:self.textView.text mobile:self.textField.text completion:^(BOOL success, HTResponsePackage *response) {
-        if (success && response.resultCode == 0) {
+    [[[SKServiceManager sharedInstance] profileService] feedbackWithContent:self.textView.text contact:self.textField.text completion:^(BOOL success, SKResponsePackage *response) {
+        if (success && response.result == 0) {
             [self.navigationController popViewControllerAnimated:YES];
             [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
             [MBProgressHUD bwm_showTitle:@"感谢反馈" toView:KEY_WINDOW hideAfter:1.0];

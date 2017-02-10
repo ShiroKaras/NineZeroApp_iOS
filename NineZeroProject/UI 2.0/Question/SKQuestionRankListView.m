@@ -9,6 +9,8 @@
 #import "SKQuestionRankListView.h"
 #import "HTUIHeader.h"
 
+#define TOP_PADDING ROUND_HEIGHT_FLOAT(53)
+
 @interface SKQuestionRankListView ()
 @property (nonatomic, strong) NSArray<SKUserInfo*>* rankerList;
 @end
@@ -26,7 +28,7 @@
 }
 
 - (void)createUIWithFrame:(CGRect)frame button:(UIButton*)button {
-    UIView *rankBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, self.bottom-10-57)];
+    UIView *rankBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, self.bottom-10-TOP_PADDING)];
     rankBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     rankBackView.layer.cornerRadius = 5;
     rankBackView.layer.masksToBounds = YES;
@@ -35,7 +37,7 @@
     UIImageView *rankImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_top_highlight"]];
     [self addSubview:rankImageView];
     CGRect rect = button.frame;
-    rect.origin.y -= 57;
+    rect.origin.y -= TOP_PADDING;
     rankImageView.frame = rect;
     
     UIScrollView *rankScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, rankBackView.width, rankBackView.height)];
@@ -75,6 +77,8 @@
     
     // top1
     UIImageView *avatarImageView_top1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    avatarImageView_top1.layer.masksToBounds = YES;
+    avatarImageView_top1.layer.cornerRadius = 36;
     [top13View addSubview:avatarImageView_top1];
     [avatarImageView_top1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@72);
@@ -84,8 +88,10 @@
     }];
     
     UILabel *nameLabel_top1 = [UILabel new];
-    if (self.rankerList.count>0)
+    if (self.rankerList.count>0) {
         nameLabel_top1.text = self.rankerList[0].user_name;
+        [avatarImageView_top1 sd_setImageWithURL:[NSURL URLWithString:self.rankerList[0].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    }
     nameLabel_top1.textAlignment = NSTextAlignmentCenter;
     nameLabel_top1.textColor = [UIColor whiteColor];
     nameLabel_top1.font = PINGFANG_FONT_OF_SIZE(14);
@@ -98,6 +104,8 @@
     
     // top2
     UIImageView *avatarImageView_top2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    avatarImageView_top2.layer.masksToBounds = YES;
+    avatarImageView_top2.layer.cornerRadius = 28;
     [top13View addSubview:avatarImageView_top2];
     [avatarImageView_top2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@56);
@@ -107,8 +115,10 @@
     }];
     
     UILabel *nameLabel_top2 = [UILabel new];
-    if (self.rankerList.count>1)
+    if (self.rankerList.count>1) {
         nameLabel_top2.text = self.rankerList[1].user_name;
+        [avatarImageView_top2 sd_setImageWithURL:[NSURL URLWithString:self.rankerList[1].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    }
     nameLabel_top2.textAlignment = NSTextAlignmentCenter;
     nameLabel_top2.textColor = [UIColor whiteColor];
     nameLabel_top2.font = PINGFANG_FONT_OF_SIZE(14);
@@ -121,6 +131,8 @@
     
     // top3
     UIImageView *avatarImageView_top3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    avatarImageView_top3.layer.masksToBounds = YES;
+    avatarImageView_top3.layer.cornerRadius = 28;
     [top13View addSubview:avatarImageView_top3];
     [avatarImageView_top3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@56);
@@ -130,8 +142,10 @@
     }];
     
     UILabel *nameLabel_top3 = [UILabel new];
-    if (self.rankerList.count>2)
+    if (self.rankerList.count>2) {
         nameLabel_top3.text = self.rankerList[2].user_name;
+        [avatarImageView_top3 sd_setImageWithURL:[NSURL URLWithString:self.rankerList[2].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    }
     nameLabel_top3.textAlignment = NSTextAlignmentCenter;
     nameLabel_top3.textColor = [UIColor whiteColor];
     nameLabel_top3.font = PINGFANG_FONT_OF_SIZE(14);
@@ -168,7 +182,7 @@
         }];
         
         UILabel *orderLabel = [UILabel new];
-        orderLabel.textColor = COMMON_RED_COLOR;
+        orderLabel.textColor = COMMON_PINK_COLOR;
         orderLabel.text = [NSString stringWithFormat:@"%d", i+4];
         orderLabel.font = MOON_FONT_OF_SIZE(18);
         [orderLabel sizeToFit];
