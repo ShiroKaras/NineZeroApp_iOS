@@ -141,11 +141,7 @@ namespace EasyAR{
                         active_target = tid;
                     }
                 }
-                if (flag == 1) {
-                    video->onFound();
-                    tracked_target = tid;
-                    active_target = tid;
-                }
+
                 Matrix44F projectionMatrix = getProjectionGL(camera_.cameraCalibration(), 0.2f, 500.f);
                 Matrix44F cameraview = getPoseGL(frame.targets()[0].pose());
                 ImageTarget target = frame.targets()[0].target().cast_dynamic<ImageTarget>();
