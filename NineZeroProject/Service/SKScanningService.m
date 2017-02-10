@@ -76,4 +76,15 @@
     }];
 }
 
+- (void)getScanningRewardWithRewardID:(NSString *)rewardID callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method"       :   @"getRewardDetail",
+                            @"reward_id"    :   rewardID
+                            };
+    
+    [self scanningBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
 @end

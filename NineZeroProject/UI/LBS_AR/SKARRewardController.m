@@ -27,29 +27,10 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) HTLoginButton *sureButton;
 @property (nonatomic, strong) UIView *topBackView; //布局用View
-@property (nonatomic, strong) UIImageView *prefixOverImageView;
-@property (nonatomic, strong) UIImageView *suffixOverImageView;
-@property (nonatomic, strong) UIImageView *suffixOverImageView2;
-@property (nonatomic, strong) UIImageView *suffixOverImageView3;
-@property (nonatomic, strong) UIImageView *prefixGetImageView;
-@property (nonatomic, strong) UIImageView *suffixGetImageView;
-@property (nonatomic, strong) UILabel *percentLabel;
-@property (nonatomic, strong) UILabel *goldenLabel;
-@property (nonatomic, strong) UIImageView *andImageView;
-@property (nonatomic, strong) UIImageView *andImageView2;
-@property (nonatomic, strong) UIImageView *getImageView;
-@property (nonatomic, strong) UIImageView *happyMascotImageView;
 @property (nonatomic, strong) HTBlankView *blankView;
 
-@property (nonatomic, strong) SKTicketView *card; // 奖品卡片
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UIWebView *webView;
-
-@property (nonatomic, strong) SKPet *mascot;
-@property (nonatomic, strong) SKPiece *prop;
-@property (nonatomic, strong) SKTicket *ticket;
-@property (nonatomic, assign) NSUInteger goldNumber;
-@property (nonatomic, assign) NSUInteger rankNumber;
+@property (nonatomic, strong) UIView *dimmingView;
+@property (nonatomic, strong) SKReward *reward;
 @end
 
 @implementation SKARRewardController {
@@ -67,26 +48,24 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
-	_scrollView = [[UIScrollView alloc] init];
-	_scrollView.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.9];
-	_scrollView.delaysContentTouches = NO;
-	[self.view addSubview:_scrollView];
-
-	_sureButton = [HTLoginButton buttonWithType:UIButtonTypeCustom];
-	[_sureButton setTitle:@"完成" forState:UIControlStateNormal];
-	_sureButton.titleLabel.font = [UIFont systemFontOfSize:18];
-	_sureButton.enabled = YES;
-	[_sureButton addTarget:self action:@selector(onClickSureButton) forControlEvents:UIControlEventTouchUpInside];
-
-	[self.view addSubview:_sureButton];
-
+    
 	if (NO_NETWORK) {
 		self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
 		[self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
 		[self.view addSubview:self.blankView];
 		self.blankView.top = ROUND_HEIGHT_FLOAT(217);
-	}
+    } else {
+        [HTProgressHUD show];
+        [[[SKServiceManager sharedInstance] scanningService] getScanningRewardWithRewardID:_rewardID callback:^(BOOL success, SKResponsePackage *response) {
+            if (response.result == 0) {
+                [HTProgressHUD dismiss];
+                _reward = [SKReward mj_objectWithKeyValues:response.data];
+                if (_reward.ticket.ticket_id!=nil) {
+                    [self createBaseRewardViewWithReward:_reward];
+                }
+            }
+        }];
+    }
 }
 
 - (void)reloadView {
@@ -103,18 +82,6 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 	if (self.navigationController) {
 		self.navigationController.navigationBarHidden = YES;
 	}
-	[HTProgressHUD show];
-
-	//    [[[HTServiceManager sharedInstance] questionService] getAnswerScanningARWithQuestionID:[NSString stringWithFormat:@"%llu", _rewardID] callback:^(BOOL success, HTResponsePackage *response) {
-	//        [[[HTServiceManager sharedInstance] mascotService] getRewardWithID:_rewardID questionID:_qid completion:^(BOOL success, HTResponsePackage *rsp) {
-	//            [HTProgressHUD dismiss];
-	//            if (success && rsp.resultCode == 0) {
-	//                [self createTopViewWith:rsp];
-	//            } else {
-	//                [self showTipsWithText:@"网络失败"];
-	//            }
-	//        }];
-	//    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -123,197 +90,73 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-	//    if (self.navigationController) {
-	//        self.navigationController.navigationBarHidden = NO;
-	//    }
-}
-
-- (void)createTopViewWith:(SKResponsePackage *)rsp {
-	[self createTopView];
-
-	unsigned long type = 0;
-	if (rsp.data[@"rank"]) {
-		_rankNumber = [[NSString stringWithFormat:@"%@", rsp.data[@"rank"]] integerValue];
-		if ([rsp.data[@"rank"] integerValue] <= 10) {
-			_percentLabel.text = [NSString stringWithFormat:@"%@", rsp.data[@"rank"]];
-			_prefixOverImageView.image = [UIImage imageNamed:@"img_reward_page_1-10_txt_1"];
-			_suffixOverImageView2.hidden = NO;
-			_suffixOverImageView3.hidden = NO;
-		} else {
-			_percentLabel.text = [[NSString stringWithFormat:@"%.1lf", 100. - [rsp.data[@"rank"] integerValue] / 10.] stringByAppendingString:@"%"];
-			if (_rankNumber >= 700) {
-				_percentLabel.text = @"30%";
-			}
-			_suffixOverImageView.hidden = NO;
-		}
-		[_percentLabel sizeToFit];
-	}
-	if (rsp.data[@"ticket"]) {
-		type += NZRewardTypeTicket;
-		SKTicket *ticket = [SKTicket mj_objectWithKeyValues:rsp.data[@"ticket"]];
-		_ticket = ticket;
-		[self createTicketView];
-	}
-	if (rsp.data[@"pet"]) {
-		type += NZRewardTypePet;
-		SKPet *mascot = [SKPet mj_objectWithKeyValues:rsp.data[@"pet"]];
-		_mascot = mascot;
-	}
-	if (rsp.data[@"prop"]) {
-		type += NZRewardTypeProp;
-		SKPiece *prop = [SKPiece mj_objectWithKeyValues:rsp.data[@"prop"]];
-		_prop = prop;
-	}
-	if (_prop || _mascot) {
-		[self createGifView];
-	}
-
-	if (rsp.data[@"gold"]) {
-		_goldNumber = [[NSString stringWithFormat:@"%@", rsp.data[@"gold"]] integerValue];
-		_goldenLabel.text = [NSString stringWithFormat:@"%ld", (long)_goldNumber];
-		[_goldenLabel sizeToFit];
-		if (type == NZRewardTypeGold) {
-			//TODO 居中-只获取到金币的情况
-			_topBackView.center = _scrollView.center;
-			_happyMascotImageView.hidden = NO;
-		}
-	}
-
-	[self reloadView];
-}
-
-- (void)createTopView {
-	_topBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 264)];
-	_topBackView.backgroundColor = [UIColor clearColor];
-	[_scrollView addSubview:_topBackView];
-	_prefixOverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_1"]];
-	[_topBackView addSubview:_prefixOverImageView];
-	_suffixOverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_2"]];
-	[_topBackView addSubview:_suffixOverImageView];
-	_suffixOverImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_1-10_txt_2"]];
-	[_topBackView addSubview:_suffixOverImageView2];
-	_suffixOverImageView3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_1-10_txt_3"]];
-	[_topBackView addSubview:_suffixOverImageView3];
-	_suffixOverImageView.hidden = YES;
-	_suffixOverImageView2.hidden = YES;
-	_suffixOverImageView3.hidden = YES;
-	_prefixGetImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_3"]];
-	[_topBackView addSubview:_prefixGetImageView];
-	_suffixGetImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_4"]];
-	[_topBackView addSubview:_suffixGetImageView];
-	_happyMascotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_happy_mascot"]];
-	_happyMascotImageView.hidden = YES;
-	[_happyMascotImageView sizeToFit];
-	[_topBackView addSubview:_happyMascotImageView];
-
-	_percentLabel = [[UILabel alloc] init];
-	_percentLabel.font = MOON_FONT_OF_SIZE(32.5);
-	_percentLabel.textColor = COMMON_GREEN_COLOR;
-	[_topBackView addSubview:_percentLabel];
-
-	_goldenLabel = [[UILabel alloc] init];
-	_goldenLabel.font = MOON_FONT_OF_SIZE(23);
-	_goldenLabel.textColor = [UIColor colorWithHex:0xed203b];
-	[_topBackView addSubview:_goldenLabel];
-}
-
-- (void)createTicketView {
-	// and
-	_andImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_7_page_title-1"]];
-	[_scrollView addSubview:_andImageView2];
-
-	// 奖品
-	_card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:_ticket];
-	[_scrollView addSubview:_card];
-}
-
-- (void)createGifView {
-	_andImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_7_page_title-1"]];
-	[_scrollView addSubview:_andImageView];
-	_getImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_reward_page_txt_5"]];
-	[_scrollView addSubview:_getImageView];
-	// gif
-	_imageView = [[UIImageView alloc] init];
-	_imageView.contentMode = UIViewContentModeScaleAspectFit;
-	[_scrollView addSubview:_imageView];
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-	    NSString *gifString;
-	    if (_mascot) { // 优先展示零仔的，后台不应该同时下发零仔和道具两种都存在的情况
-		    gifString = _mascot.pet_gif;
-	    } else {
-		    gifString = _prop.piece_cover_pic;
-	    }
-	    if (gifString.length == 0)
-		    gifString = @""; // 留一手，万一gif为nil呢？
-	    //        UIImage *gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:gifString]];
-	    //        _imageView.image = gifImage;
-	    //        [_imageView startAnimating];
-	    [_imageView sd_setImageWithURL:[NSURL URLWithString:gifString]];
-	});
 }
 
 - (void)viewWillLayoutSubviews {
 	[super viewWillLayoutSubviews];
-
-	CGFloat maxOffsetY = 0;
-
-	// "恭喜你超越xxx"
-	_scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 50);
-	_prefixOverImageView.left = ROUND_WIDTH_FLOAT(56);
-	_prefixOverImageView.top = ROUND_HEIGHT_FLOAT(62);
-
-	_percentLabel.left = _prefixOverImageView.right + 5;
-	_percentLabel.bottom = _prefixOverImageView.bottom + 5;
-
-	_suffixOverImageView.top = _prefixOverImageView.bottom + 10;
-	_suffixOverImageView.left = _percentLabel.left;
-
-	_suffixOverImageView2.left = _percentLabel.right + 6;
-	_suffixOverImageView2.centerY = _percentLabel.centerY;
-
-	_suffixOverImageView3.top = _prefixOverImageView.bottom + 10;
-	_suffixOverImageView3.left = _prefixOverImageView.left + 82;
-
-	_happyMascotImageView.left = _prefixOverImageView.right + 7;
-	_happyMascotImageView.bottom = _percentLabel.top - 10;
-
-	// "你获得了 x 金币"
-	_prefixGetImageView.left = ROUND_WIDTH_FLOAT(54);
-	_prefixGetImageView.top = _prefixOverImageView.bottom + 60;
-	_goldenLabel.left = _prefixGetImageView.right + 3;
-	_goldenLabel.bottom = _prefixGetImageView.bottom + 3;
-	_suffixGetImageView.left = _goldenLabel.right + 5;
-	_suffixGetImageView.bottom = _goldenLabel.bottom - 5;
-
-	maxOffsetY = _suffixGetImageView.bottom;
-
-	// "& 捕获到"
-	if (_mascot || _prop) {
-		_andImageView.top = maxOffsetY + ROUND_HEIGHT_FLOAT(29);
-		_andImageView.centerX = SCREEN_WIDTH / 2;
-		_getImageView.left = _andImageView.right + 16;
-		_getImageView.centerY = _andImageView.centerY;
-		// gif
-		_imageView.width = self.view.width;
-		_imageView.height = 150;
-		_imageView.top = _andImageView.bottom + 27;
-		maxOffsetY = _imageView.bottom;
-	}
-
-	// 礼券
-	if (_ticket) {
-		_andImageView2.top = maxOffsetY + 27;
-		_andImageView2.centerX = SCREEN_WIDTH / 2;
-
-		_card.centerX = SCREEN_WIDTH / 2;
-		_card.top = _andImageView2.bottom + 29;
-		maxOffsetY = _card.bottom;
-	}
-
+    
 	_sureButton.frame = CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50);
+}
 
-	_scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, MAX(SCREEN_HEIGHT - 50, maxOffsetY + 100));
+#pragma mark - Reward
+
+- (void)createBaseRewardViewWithReward:(SKReward*)reward{
+    float height = 192+11+108;
+    
+    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:_dimmingView];
+    
+    UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
+    alphaView.backgroundColor = [UIColor blackColor];
+    alphaView.alpha = 0;
+    [_dimmingView addSubview:alphaView];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        alphaView.alpha = 0.9;
+    }];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
+    tap.numberOfTapsRequired = 1;
+    [_dimmingView addGestureRecognizer:tap];
+    
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scan_gift"]];
+    [_dimmingView addSubview:titleImageView];
+    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@248);
+        make.height.equalTo(@192);
+        make.centerX.equalTo(_dimmingView);
+        make.top.equalTo(_dimmingView).offset((SCREEN_HEIGHT-height)/2);
+    }];
+    
+    UILabel *bottomLabel = [UILabel new];
+    bottomLabel.text = @"点击任意区域关闭";
+    bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+    bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+    [bottomLabel sizeToFit];
+    [_dimmingView addSubview:bottomLabel];
+    [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_dimmingView);
+        make.bottom.equalTo(_dimmingView).offset(-16);
+    }];
+    
+    //奖励 - 礼券
+    
+    SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
+    [_dimmingView addSubview:card];
+    [card mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@280);
+        make.height.equalTo(@108);
+        make.centerX.equalTo(_dimmingView);
+        make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(SCREEN_HEIGHT-height)/2);
+    }];
+}
+
+#pragma mark - Action
+
+- (void)removeDimmingView {
+    [_dimmingView removeFromSuperview];
+    _dimmingView = nil;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

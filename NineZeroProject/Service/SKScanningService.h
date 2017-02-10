@@ -16,6 +16,6 @@ typedef void (^SKScanningCallback) (BOOL success, SKResponsePackage *package);
 
 - (void)getScanningWithCallBack:(SKScanningCallback) callback;
 
-- (void)getScanningRewardWithRewardID:(NSString *)rewardID callback:(SKResponsePackage *)package;
+- (void)getScanningRewardWithRewardID:(NSString *)rewardID callback:(SKResponseCallback) callback;
 
 @end
