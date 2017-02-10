@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIImageView *scanningGridLine;
 @property (nonatomic, strong) NSArray<SKScanning *> *scanningList;
 @property (nonatomic, strong) SKQuestion *question;
+@property (nonatomic, strong) UIImageView  *giftBackImageView;
 @property (nonatomic, strong) UIButton *giftButton;
 @property (nonatomic, strong) UIImageView *giftMascotHand;
 @property (nonatomic, assign) int swipeType;
@@ -89,16 +90,20 @@
 	[self.tipImageView addSubview:self.tipLabel];
 	[self showtipImageView];
 
+    self.giftBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_loadingvideo_gift_2"]];
+    [self.view addSubview:self.giftBackImageView];
+    
 	self.giftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.giftButton setBackgroundImage:[UIImage imageNamed:@"img_loadingvideo_gift_3"] forState:UIControlStateNormal];
 	[self.view addSubview:self.giftButton];
+    
 	//摇动动画
-	CABasicAnimation *animation = [[CABasicAnimation alloc] init];
-	animation.fromValue = @(-0.3);
-	animation.toValue = @(0.3);
+	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+	animation.fromValue = @(-0.2);
+	animation.toValue = @(0.2);
 	animation.duration = 0.2;
 	animation.repeatCount = 100;
 	animation.autoreverses = YES;
-	animation.delegate = self;
 	[self.giftButton.layer addAnimation:animation forKey:@"animateLayer"];
 
 	self.giftMascotHand = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_loadingvideo_gift_1"]];
@@ -162,6 +167,12 @@
 	    make.bottom.equalTo(self.tipImageView.mas_bottom).offset(-27);
 	}];
 
+    [self.giftBackImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(54, 42));
+        make.bottom.equalTo(self.view.mas_bottom).offset(-14);
+        make.right.equalTo(self.view.mas_right).offset(-14);
+    }];
+    
 	[self.giftButton mas_makeConstraints:^(MASConstraintMaker *make) {
 	    make.size.mas_equalTo(CGSizeMake(54, 42));
 	    make.bottom.equalTo(self.view.mas_bottom).offset(-14);
@@ -176,8 +187,8 @@
 
 - (void)loadData {
 	[[[SKServiceManager sharedInstance] scanningService] getScanningWithCallBack:^(BOOL success, SKResponsePackage *package){
-
-	}];
+        DLog(@"Scanning:%@", package.data);
+    }];
 }
 
 #pragma mark - Delegate

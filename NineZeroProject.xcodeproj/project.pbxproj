@@ -1227,7 +1227,6 @@
 			children = (
 				116236E61E4B3145009FEDCA /* EasyAR */,
 				116237771E4D623D009FEDCA /* SKScanningRewardView.m */,
-				116237781E4D623D009FEDCA /* SKSwipeViewController.m */,
 				1162377B1E4D623D009FEDCA /* SKARRewardController.h */,
 				1162377C1E4D623D009FEDCA /* SKARRewardController.m */,
 				1162377D1E4D623D009FEDCA /* SKDownloadProgressView.h */,
@@ -1236,6 +1235,7 @@
 				116237801E4D623D009FEDCA /* SKScanningResultView.m */,
 				116237811E4D623D009FEDCA /* SKScanningRewardView.h */,
 				116237821E4D623D009FEDCA /* SKSwipeViewController.h */,
+				116237781E4D623D009FEDCA /* SKSwipeViewController.m */,
 			);
 			name = Scan;
 			sourceTree = "<group>";
