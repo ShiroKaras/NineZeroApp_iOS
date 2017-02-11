@@ -119,13 +119,15 @@ typedef enum {
 		    [self scheduleCountDownTimer];
 
 		    //扫一扫
-		    _headerLabel.hidden = NO;
-		    _scanningMascotImageView.hidden = NO;
-		    _panGesture = [[UIPanGestureRecognizer alloc]
-			    initWithTarget:self
-				    action:@selector(panGestureRecognized:)];
-		    [_panGesture setDelegate:self];
-		    [self.view addGestureRecognizer:_panGesture];
+		    if (indexInfo.scanning_adv) {
+			    _headerLabel.hidden = NO;
+			    _scanningMascotImageView.hidden = NO;
+			    _panGesture = [[UIPanGestureRecognizer alloc]
+				    initWithTarget:self
+					    action:@selector(panGestureRecognized:)];
+			    [_panGesture setDelegate:self];
+			    [self.view addGestureRecognizer:_panGesture];
+		    }
 
 		    if (_isMonday) {
 			    [_timeLimitLevelButton addTarget:self
@@ -936,6 +938,7 @@ typedef enum {
 					    } else {
 						    SKSwipeViewController *swipeViewController =
 							    [[SKSwipeViewController alloc] init];
+
 						    [self.navigationController pushViewController:swipeViewController
 											 animated:NO];
 					    }

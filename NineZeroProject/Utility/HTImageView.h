@@ -6,11 +6,12 @@
 //  Copyright © 2016年 HHHHTTTT. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "FLAnimatedImageView.h"
 #import "FLAnimatedImage.h"
+#import "FLAnimatedImageView.h"
+#import <UIKit/UIKit.h>
 
 @interface HTImageView : FLAnimatedImageView
+
 @property (nonatomic, strong) FLAnimatedImage *mImage;
 @property (nonatomic, assign) NSInteger frameCount;
 

@@ -126,7 +126,7 @@ namespace EasyAR{
                     video->onLost();
                     delete video;
 					video = NULL;
-                    tracked_target = 0;
+					tracked_target = 0;
                     active_target = 0;
                 }
                 if (!tracked_target) {
@@ -153,12 +153,15 @@ namespace EasyAR{
 							} destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
 								return [NSURL fileURLWithPath:videoPath];
 							} completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-								if (texid[index]) {
+								if ([filePath.relativePath isEqual:videoPath]) {
+									if (texid[index]) {
 									video = new ARVideo;
 									std::string videoName = filePath.relativePath.UTF8String;
 									video->openVideoFile(videoName, texid[index]);
 									video_renderer = renderer[index];
+									}
 								}
+								
 							}];
 						}
                     }
@@ -168,6 +171,7 @@ namespace EasyAR{
                         active_target = tid;
                     }
                 }
+
                 Matrix44F projectionMatrix = getProjectionGL(camera_.cameraCalibration(), 0.2f, 500.f);
                 Matrix44F cameraview = getPoseGL(frame.targets()[0].pose());
                 ImageTarget target = frame.targets()[0].target().cast_dynamic<ImageTarget>();
@@ -196,7 +200,7 @@ namespace EasyAR{
             }
             return true;
         }
-
+        
     }
 }
 

@@ -55,7 +55,7 @@ DEPENDENCIES:
   - JSPatchPlatform
   - Masonry
   - MBProgressHUD+BWMExtension (~> 1.0.0)
-  - Qiniu
+  - Qiniu (~> 7.0)
   - SDWebImage (~> 3.7.3)
   - SSZipArchive
   - TTTAttributedLabel
@@ -84,6 +84,6 @@ SPEC CHECKSUMS:
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: fa38eca14ea87ee7486b442759339d6b70850c5d
+PODFILE CHECKSUM: 7add72c9093218b65cccd35ad07d3c54a88910e3
 
 COCOAPODS: 1.1.1

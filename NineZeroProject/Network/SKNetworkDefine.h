@@ -9,15 +9,15 @@
 #ifndef SKNetworkDefine_h
 #define SKNetworkDefine_h
 
-#import "SKModel.h"
-#import "NSString+DES.h"
 #import "CustomSecurityPolicy.h"
+#import "NSString+DES.h"
+#import "SKModel.h"
 
 // 公用
-typedef void (^HTHTTPErrorCallback) (NSString *errorMessage);
-typedef void (^HTHTTPSuccessCallback) (id responseObject);
-typedef void (^HTNetworkCallback) (BOOL success, id responseObject);
+typedef void (^HTHTTPErrorCallback)(NSString *errorMessage);
+typedef void (^HTHTTPSuccessCallback)(id responseObject);
+typedef void (^HTNetworkCallback)(BOOL success, id responseObject);
 
-typedef void (^SKResponseCallback) (BOOL success, SKResponsePackage *response);
+typedef void (^SKResponseCallback)(BOOL success, SKResponsePackage *response);
 
 #endif /* SKNetworkDefine_h */

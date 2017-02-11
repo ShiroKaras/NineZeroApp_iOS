@@ -22,6 +22,9 @@
 @property (nonatomic, strong) SKQuestion *question;
 @property (nonatomic, assign) int swipeType;
 @property (nonatomic, strong) SKDownloadProgressView *progressView;
+@property (nonatomic, strong) UIImageView *giftBackImageView;
+@property (nonatomic, strong) UIButton *giftButton;
+@property (nonatomic, strong) UIImageView *giftMascotHand;
 
 @end
 
@@ -69,6 +72,30 @@
 			    }];
 		}];
 
+	[self setupTips];
+
+	self.giftBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_loadingvideo_gift_2"]];
+	[self.view addSubview:self.giftBackImageView];
+
+	self.giftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[self.giftButton setBackgroundImage:[UIImage imageNamed:@"img_loadingvideo_gift_3"] forState:UIControlStateNormal];
+	[self.view addSubview:self.giftButton];
+
+	//摇动动画
+	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+	animation.fromValue = @(-0.2);
+	animation.toValue = @(0.2);
+	animation.duration = 0.2;
+	animation.repeatCount = 100;
+	animation.autoreverses = YES;
+	[self.giftButton.layer addAnimation:animation forKey:@"animateLayer"];
+
+	self.giftMascotHand = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_loadingvideo_gift_1"]];
+	[self.giftMascotHand sizeToFit];
+	[self.view addSubview:self.giftMascotHand];
+
+	[self buildConstrains];
+
 	if (!NO_NETWORK) {
 		[self loadData];
 	}
@@ -109,6 +136,23 @@
 	    make.centerX.equalTo(self.tipImageView);
 	    make.bottom.equalTo(self.tipImageView.mas_bottom).offset(-27);
 	}];
+
+	[self.giftBackImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+	    make.size.mas_equalTo(CGSizeMake(54, 42));
+	    make.bottom.equalTo(self.view.mas_bottom).offset(-14);
+	    make.right.equalTo(self.view.mas_right).offset(-14);
+	}];
+
+	[self.giftButton mas_makeConstraints:^(MASConstraintMaker *make) {
+	    make.size.mas_equalTo(CGSizeMake(54, 42));
+	    make.bottom.equalTo(self.view.mas_bottom).offset(-14);
+	    make.right.equalTo(self.view.mas_right).offset(-14);
+	}];
+
+	[self.giftMascotHand mas_makeConstraints:^(MASConstraintMaker *make) {
+	    make.right.equalTo(self.view);
+	    make.centerY.equalTo(self.giftButton);
+	}];
 }
 
 - (void)loadData {
@@ -122,7 +166,7 @@
 		    NSString *hint = [dic objectForKey:@"hint"];
 		    if (hint && hint.length > 0) {
 			    dispatch_async(dispatch_get_main_queue(), ^{
-				[self setupTips];
+				[self showtipImageView];
 				self.tipLabel.text = hint;
 			    });
 		    }
@@ -203,7 +247,8 @@
 - (void)setupOpenGLViewWithTargetNumber:(NSUInteger)targetNumber {
 	if (!_glView) {
 		self.glView = [[OpenGLView alloc] initWithFrame:self.view.bounds withSwipeType:_swipeType targetsCount:(int)targetNumber];
-		[self.view addSubview:self.glView];
+		//		_glView.layer.zPosition = -100;
+		[self.view insertSubview:self.glView belowSubview:self.scanningGridLine];
 		[self.glView setOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 	}
 }
@@ -216,16 +261,12 @@
 	[self.tipImageView sizeToFit];
 	[self.view addSubview:self.tipImageView];
 	self.tipLabel = [[UILabel alloc] init];
-	if (_swipeType == 0) {
-	} else if (_swipeType == 1) {
-		self.tipLabel.text = _question.hint;
-	}
+
 	self.tipLabel.font = [UIFont systemFontOfSize:13];
 	self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
 	[self.tipImageView addSubview:self.tipLabel];
-	[self showtipImageView];
-
-	[self buildConstrains];
+	self.tipLabel.hidden = YES;
+	self.tipImageView.hidden = YES;
 }
 
 - (void)setupProgressView {
@@ -244,6 +285,9 @@
 #pragma mark - Actions
 
 - (void)showtipImageView {
+	self.tipLabel.hidden = NO;
+	self.tipImageView.hidden = NO;
+
 	self.tipImageView.alpha = 1.0;
 	[UIView animateWithDuration:0.3
 			      delay:10.0
