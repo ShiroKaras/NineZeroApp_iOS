@@ -48,24 +48,25 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    
+
 	if (NO_NETWORK) {
 		self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
 		[self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
 		[self.view addSubview:self.blankView];
 		self.blankView.top = ROUND_HEIGHT_FLOAT(217);
-    } else {
-        [HTProgressHUD show];
-        [[[SKServiceManager sharedInstance] scanningService] getScanningRewardWithRewardID:_rewardID callback:^(BOOL success, SKResponsePackage *response) {
-            if (response.result == 0) {
-                [HTProgressHUD dismiss];
-                _reward = [SKReward mj_objectWithKeyValues:response.data];
-                if (_reward.ticket.ticket_id!=nil) {
-                    [self createBaseRewardViewWithReward:_reward];
-                }
-            }
-        }];
-    }
+	} else {
+		[HTProgressHUD show];
+		[[[SKServiceManager sharedInstance] scanningService] getScanningRewardWithRewardID:_rewardID
+											  callback:^(BOOL success, SKResponsePackage *response) {
+											      if (response.result == 0) {
+												      [HTProgressHUD dismiss];
+												      _reward = [SKReward mj_objectWithKeyValues:response.data];
+												      if (_reward.ticket.ticket_id != nil) {
+													      [self createBaseRewardViewWithReward:_reward];
+												      }
+											      }
+											  }];
+	}
 }
 
 - (void)reloadView {
@@ -94,69 +95,70 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 - (void)viewWillLayoutSubviews {
 	[super viewWillLayoutSubviews];
-    
+
 	_sureButton.frame = CGRectMake(0, SCREEN_HEIGHT - 50, SCREEN_WIDTH, 50);
 }
 
 #pragma mark - Reward
 
-- (void)createBaseRewardViewWithReward:(SKReward*)reward{
-    float height = 192+11+108;
-    
-    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:_dimmingView];
-    
-    UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
-    alphaView.backgroundColor = [UIColor blackColor];
-    alphaView.alpha = 0;
-    [_dimmingView addSubview:alphaView];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        alphaView.alpha = 0.9;
-    }];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
-    tap.numberOfTapsRequired = 1;
-    [_dimmingView addGestureRecognizer:tap];
-    
-    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scan_gift"]];
-    [_dimmingView addSubview:titleImageView];
-    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@248);
-        make.height.equalTo(@192);
-        make.centerX.equalTo(_dimmingView);
-        make.top.equalTo(_dimmingView).offset((SCREEN_HEIGHT-height)/2);
-    }];
-    
-    UILabel *bottomLabel = [UILabel new];
-    bottomLabel.text = @"点击任意区域关闭";
-    bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
-    bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
-    [bottomLabel sizeToFit];
-    [_dimmingView addSubview:bottomLabel];
-    [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(_dimmingView);
-        make.bottom.equalTo(_dimmingView).offset(-16);
-    }];
-    
-    //奖励 - 礼券
-    
-    SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
-    [_dimmingView addSubview:card];
-    [card mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@280);
-        make.height.equalTo(@108);
-        make.centerX.equalTo(_dimmingView);
-        make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(SCREEN_HEIGHT-height)/2);
-    }];
+- (void)createBaseRewardViewWithReward:(SKReward *)reward {
+	float height = 192 + 11 + 108;
+
+	_dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+	[self.view addSubview:_dimmingView];
+
+	UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
+	alphaView.backgroundColor = [UIColor blackColor];
+	alphaView.alpha = 0;
+	[_dimmingView addSubview:alphaView];
+
+	[UIView animateWithDuration:0.3
+			 animations:^{
+			     alphaView.alpha = 0.9;
+			 }];
+
+	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
+	tap.numberOfTapsRequired = 1;
+	[_dimmingView addGestureRecognizer:tap];
+
+	UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scan_gift"]];
+	[_dimmingView addSubview:titleImageView];
+	[titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+	    make.width.equalTo(@248);
+	    make.height.equalTo(@192);
+	    make.centerX.equalTo(_dimmingView);
+	    make.top.equalTo(_dimmingView).offset((SCREEN_HEIGHT - height) / 2);
+	}];
+
+	UILabel *bottomLabel = [UILabel new];
+	bottomLabel.text = @"点击任意区域关闭";
+	bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+	bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+	[bottomLabel sizeToFit];
+	[_dimmingView addSubview:bottomLabel];
+	[bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+	    make.centerX.equalTo(_dimmingView);
+	    make.bottom.equalTo(_dimmingView).offset(-16);
+	}];
+
+	//奖励 - 礼券
+
+	SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
+	[_dimmingView addSubview:card];
+	[card mas_makeConstraints:^(MASConstraintMaker *make) {
+	    make.width.equalTo(@280);
+	    make.height.equalTo(@108);
+	    make.centerX.equalTo(_dimmingView);
+	    make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(SCREEN_HEIGHT - height) / 2);
+	}];
 }
 
 #pragma mark - Action
 
 - (void)removeDimmingView {
-    [_dimmingView removeFromSuperview];
-    _dimmingView = nil;
-    [self dismissViewControllerAnimated:YES completion:nil];
+	[_dimmingView removeFromSuperview];
+	_dimmingView = nil;
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -23,6 +23,5 @@
 @property (nonatomic, strong) OpenGLView *glView;
 @property (nonatomic, weak) id<SKScanningViewDelegate> delegate;
 
-- (instancetype)initWithScanningList:(NSArray<SKScanning *> *)scanningList;
 - (instancetype)initWithQuestion:(SKQuestion *)question;
 @end

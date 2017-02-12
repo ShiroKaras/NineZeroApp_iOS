@@ -152,7 +152,7 @@ void ARVideo::openVideoFile(const std::string &path, int texid) {
 	path_ = path;
 	player_.setRenderTexture(texid);
 	player_.setVideoType(VideoPlayer::kVideoTypeNormal);
-	player_.open(path.c_str(), kStorageAssets, callback_);
+	player_.open(path.c_str(), kStorageAbsolute, callback_);
 }
 
 void ARVideo::openTransparentVideoFile(const std::string &path, int texid) {

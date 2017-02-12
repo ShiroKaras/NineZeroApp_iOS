@@ -937,8 +937,8 @@ typedef enum {
 							    }];
 					    } else {
 						    SKSwipeViewController *swipeViewController =
-							    [[SKSwipeViewController alloc]
-								    initWithScanningList:_scanningList];
+							    [[SKSwipeViewController alloc] init];
+
 						    [self.navigationController pushViewController:swipeViewController
 											 animated:NO];
 					    }

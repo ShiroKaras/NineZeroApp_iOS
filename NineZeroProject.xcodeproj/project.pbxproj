@@ -339,6 +339,7 @@
 		17F37A761C255420006759D1 /* HUD+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A751C255420006759D1 /* HUD+Utility.m */; };
 		26BD341E1C12DF3300472E46 /* moonbold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26BD341D1C12DF3300472E46 /* moonbold.ttf */; };
 		46DFF67061A677087C2A3582 /* libPods-NineZeroProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31D85F643AC1606DB0E05679 /* libPods-NineZeroProject.a */; };
+		987042991E4C75AC00770BFD /* NZPScanningFileDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 987042981E4C75AC00770BFD /* NZPScanningFileDownloadManager.m */; };
 		C1A76BB8BA08C99F581EEC18 /* libPods-NineZeroProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C7F57F4FFAD09A4E319A9C7 /* libPods-NineZeroProjectTests.a */; };
 		E5E885C9733CA87451550614 /* libPods-NineZeroProjectUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3409371C23A132D0A05D82A /* libPods-NineZeroProjectUITests.a */; };
 /* End PBXBuildFile section */
@@ -876,6 +877,8 @@
 		26BD341D1C12DF3300472E46 /* moonbold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = moonbold.ttf; sourceTree = "<group>"; };
 		31D85F643AC1606DB0E05679 /* libPods-NineZeroProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		832E8CEE1E3FBFEF8A9E6BA6 /* Pods-NineZeroProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProjectUITests/Pods-NineZeroProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
+		987042971E4C75AC00770BFD /* NZPScanningFileDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NZPScanningFileDownloadManager.h; sourceTree = "<group>"; };
+		987042981E4C75AC00770BFD /* NZPScanningFileDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NZPScanningFileDownloadManager.m; sourceTree = "<group>"; };
 		9C7F57F4FFAD09A4E319A9C7 /* libPods-NineZeroProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3409371C23A132D0A05D82A /* libPods-NineZeroProjectUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProjectUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5599231F34A2BBAAA62D1FE /* Pods-NineZeroProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProjectTests/Pods-NineZeroProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1656,6 +1659,8 @@
 				1133DD7A1E0A65190029511B /* FileService.m */,
 				11F706381E0D2424004332C2 /* CustomSecurityPolicy.h */,
 				11F706391E0D2424004332C2 /* CustomSecurityPolicy.m */,
+				987042971E4C75AC00770BFD /* NZPScanningFileDownloadManager.h */,
+				987042981E4C75AC00770BFD /* NZPScanningFileDownloadManager.m */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
@@ -2585,6 +2590,7 @@
 				1162371B1E4B329E009FEDCA /* SKConfirmPasswordViewController.m in Sources */,
 				11C764761E120E5300D86F40 /* NSObject+MJProperty.m in Sources */,
 				116236D61E4B3096009FEDCA /* SKProfileService.m in Sources */,
+				987042991E4C75AC00770BFD /* NZPScanningFileDownloadManager.m in Sources */,
 				1160FB441E0E927F00606F16 /* HTAlertView.m in Sources */,
 				1162374B1E4B32CF009FEDCA /* SKQuestionRewardView.m in Sources */,
 				1133DD7B1E0A65190029511B /* FileService.m in Sources */,
