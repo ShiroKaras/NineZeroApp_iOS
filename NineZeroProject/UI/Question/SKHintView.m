@@ -215,6 +215,7 @@
         [hintBackgroundView addSubview:hintLabel];
         [hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(hintBackgroundView);
+            make.width.equalTo(@240);
         }];
         
         NSString *intString;
