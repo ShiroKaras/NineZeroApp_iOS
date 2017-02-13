@@ -8,9 +8,17 @@
 
 #import <UIKit/UIKit.h>
 @class SKReward;
+@class SKScanningRewardViewController;
+
+@protocol SKScanningRewardDelegate <NSObject>
+
+- (void)didClickBackButtonInScanningCaptureController:(SKScanningRewardViewController *)controller;
+
+@end
 
 @interface SKScanningRewardViewController : UIViewController
 
+@property (nonatomic, weak) id<SKScanningRewardDelegate> delegate;
 - (instancetype)initWithRewardID:(NSString *)rewardID;
 
 @end

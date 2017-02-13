@@ -13,7 +13,7 @@
 #import "SKScanningRewardViewController.h"
 #import <SSZipArchive/ZipArchive.h>
 
-@interface SKSwipeViewController () <OpenGLViewDelegate>
+@interface SKSwipeViewController () <OpenGLViewDelegate, SKScanningRewardDelegate>
 
 @property (nonatomic, strong) UIImageView *tipImageView;
 @property (nonatomic, strong) UILabel *tipLabel;
@@ -103,7 +103,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-    [self.glView start];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -283,6 +282,7 @@
 - (void)getGift {
     [self hideGift];
     SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:self.rewardID];
+    controller.delegate = self;
     [self presentViewController:controller animated:NO completion:nil];
 }
 
@@ -304,6 +304,12 @@
 
 - (void)onCaptureMascotSuccessful {
 	[self.delegate didClickBackButtonInScanningResultView:self];
+}
+
+- (void)didClickBackButtonInScanningCaptureController:(SKScanningRewardViewController *)controller {
+    [controller dismissViewControllerAnimated:NO completion:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 #pragma mark - Actions
@@ -341,4 +347,5 @@
                          _scanningGridLine.right = 0;
                      }];
 }
+
 @end

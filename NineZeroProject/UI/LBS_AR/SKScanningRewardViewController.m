@@ -157,7 +157,11 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 - (void)removeDimmingView {
     [_dimmingView removeFromSuperview];
     _dimmingView = nil;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([_delegate respondsToSelector:@selector(didClickBackButtonInScanningCaptureController:)]) {
+        [_delegate didClickBackButtonInScanningCaptureController:self];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 @end
