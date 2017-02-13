@@ -27,7 +27,7 @@
 @property (nonatomic, strong) UIImageView *giftBackImageView;
 @property (nonatomic, strong) UIButton *giftButton;
 @property (nonatomic, strong) UIImageView *giftMascotHand;
-@property (nonatomic, assign) BOOL  isPushedGiftButton;
+@property (nonatomic, assign) BOOL  isRecognizedTargetImage;
 
 @property (nonatomic, strong) NSTimer *timerScanningGridLine;
 @end
@@ -53,7 +53,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-    _isPushedGiftButton = false;
+    _isRecognizedTargetImage = false;
 	//扫描线
 	_scanningGridLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scanning_gridlines"]];
 	[_scanningGridLine sizeToFit];
@@ -291,9 +291,12 @@
 - (void)isRecognizedTarget:(BOOL)flag {
     if (flag) {
         _scanningGridLine.hidden = YES;
-        if (!_isPushedGiftButton && !self.is_haved_ticket) {
-            [self pushGift];
-            _isPushedGiftButton = true;
+        if (!_isRecognizedTargetImage) {
+            [self hidetipImageView];
+            if (!self.is_haved_ticket && ![self.rewardID isEqualToString:@"0"]) {
+                [self pushGift];
+            }
+            _isRecognizedTargetImage = true;
         }
     } else {
         _scanningGridLine.hidden = NO;
@@ -319,16 +322,15 @@
 	self.tipImageView.hidden = NO;
 
 	self.tipImageView.alpha = 1.0;
-	[UIView animateWithDuration:0.3
-			      delay:10.0
-			    options:UIViewAnimationOptionCurveEaseInOut
-			 animations:^{
-			     self.tipImageView.alpha = 0;
-			 }
-			 completion:^(BOOL finished){
-
-			 }];
-	//    [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(hidetipImageView) userInfo:nil repeats:NO];
+//	[UIView animateWithDuration:0.3
+//			      delay:10.0
+//			    options:UIViewAnimationOptionCurveEaseInOut
+//			 animations:^{
+//			     self.tipImageView.alpha = 0;
+//			 }
+//			 completion:^(BOOL finished){
+//
+//			 }];
 }
 
 - (void)hidetipImageView {
