@@ -174,7 +174,7 @@ namespace EasyAR{
 						
 						
 						if ([[NSFileManager defaultManager] fileExistsAtPath:videoPath]) {
-							if (texid[index]) {
+							if (texid[index] && video == NULL) {
 								video = new ARVideo;
 								std::string videoName = videoPath.UTF8String;
 								video->openVideoFile(videoName, texid[index]);
@@ -188,7 +188,7 @@ namespace EasyAR{
 								return [NSURL fileURLWithPath:videoPath];
 							} completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
 								if ([filePath.relativePath isEqual:videoPath]) {
-									if (texid[index]) {
+									if (texid[index] && video == NULL) {
 									video = new ARVideo;
 									std::string videoName = filePath.relativePath.UTF8String;
 									video->openVideoFile(videoName, texid[index]);
