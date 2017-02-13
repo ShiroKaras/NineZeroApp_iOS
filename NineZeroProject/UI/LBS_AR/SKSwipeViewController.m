@@ -73,29 +73,38 @@
 		}];
 
 	[self setupTips];
-
-	self.giftBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_loadingvideo_gift_2"]];
-	[self.view addSubview:self.giftBackImageView];
-
-	self.giftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.giftButton setBackgroundImage:[UIImage imageNamed:@"img_loadingvideo_gift_3"] forState:UIControlStateNormal];
-	[self.view addSubview:self.giftButton];
-
-	//摇动动画
-	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-	animation.fromValue = @(-0.2);
-	animation.toValue = @(0.2);
-	animation.duration = 0.2;
-	animation.repeatCount = 100;
-	animation.autoreverses = YES;
-	[self.giftButton.layer addAnimation:animation forKey:@"animateLayer"];
-
-	self.giftMascotHand = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_loadingvideo_gift_1"]];
-	[self.giftMascotHand sizeToFit];
-	[self.view addSubview:self.giftMascotHand];
-
+    
 	[self buildConstrains];
 
+    self.giftBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_loadingvideo_gift_2"]];
+    self.giftBackImageView.size = CGSizeMake(54, 42);
+    self.giftBackImageView.bottom = self.view.bottom - 14;
+    self.giftBackImageView.left = self.view.right;
+    [self.view addSubview:self.giftBackImageView];
+    
+    self.giftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.giftButton setBackgroundImage:[UIImage imageNamed:@"img_loadingvideo_gift_3"] forState:UIControlStateNormal];
+    self.giftButton.size = self.giftBackImageView.size;
+    self.giftButton.bottom = self.giftBackImageView.bottom;
+    self.giftButton.right = self.giftBackImageView.right;
+    [self.view addSubview:self.giftButton];
+    //摇动动画
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    animation.fromValue = @(-0.2);
+    animation.toValue = @(0.2);
+    animation.duration = 0.2;
+    animation.repeatCount = 100;
+    animation.autoreverses = YES;
+    [self.giftButton.layer addAnimation:animation forKey:@"animateLayer"];
+    
+    self.giftMascotHand = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_loadingvideo_gift_1"]];
+    [self.giftMascotHand sizeToFit];
+    self.giftMascotHand.left = self.view.right;
+    self.giftMascotHand.centerY = self.giftButton.centerY;
+    [self.view addSubview:self.giftMascotHand];
+
+    [self pushGift];
+    
 	if (!NO_NETWORK) {
 		[self loadData];
 	}
@@ -135,23 +144,6 @@
 	[self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
 	    make.centerX.equalTo(self.tipImageView);
 	    make.bottom.equalTo(self.tipImageView.mas_bottom).offset(-27);
-	}];
-
-	[self.giftBackImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.mas_equalTo(CGSizeMake(54, 42));
-	    make.bottom.equalTo(self.view.mas_bottom).offset(-14);
-	    make.right.equalTo(self.view.mas_right).offset(-14);
-	}];
-
-	[self.giftButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.mas_equalTo(CGSizeMake(54, 42));
-	    make.bottom.equalTo(self.view.mas_bottom).offset(-14);
-	    make.right.equalTo(self.view.mas_right).offset(-14);
-	}];
-
-	[self.giftMascotHand mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.right.equalTo(self.view);
-	    make.centerY.equalTo(self.giftButton);
 	}];
 }
 
@@ -274,6 +266,24 @@
 	_progressView = [[SKDownloadProgressView alloc] init];
 	_progressView.center = self.view.center;
 	[self.view addSubview:_progressView];
+}
+
+#pragma mark - Gift
+
+- (void)pushGift {
+    [UIView animateWithDuration:0.5 animations:^{
+        self.giftBackImageView.right = self.view.right -14;
+        self.giftButton.right = self.giftBackImageView.right;
+        self.giftMascotHand.right = self.view.right;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.giftMascotHand.left = self.view.right;
+        }];
+    }];
+}
+
+- (void)hideGift {
+    
 }
 
 #pragma mark - Delegate
