@@ -132,6 +132,7 @@
 		116237881E4D623D009FEDCA /* SKScanningResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116237801E4D623D009FEDCA /* SKScanningResultView.m */; };
 		1162378B1E4D62EA009FEDCA /* HTARCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1162378A1E4D62EA009FEDCA /* HTARCaptureController.m */; };
 		116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */; };
+		1191C4D41E51846500583556 /* SKScanningRewardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1191C4D31E51846500583556 /* SKScanningRewardViewController.m */; };
 		11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
 		119C629D1E2769D2001B4CFD /* envy_01_00000.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 119C5CB91E2769D1001B4CFD /* envy_01_00000.jpg */; };
@@ -568,6 +569,8 @@
 		116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		1175B4E71DEFD06D00302B67 /* SKLogicHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLogicHeader.h; sourceTree = "<group>"; };
 		11838DD11D953728001A24A3 /* NineZeroProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NineZeroProject.entitlements; sourceTree = "<group>"; };
+		1191C4D21E51846500583556 /* SKScanningRewardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKScanningRewardViewController.h; path = NineZeroProject/UI/LBS_AR/SKScanningRewardViewController.h; sourceTree = "<group>"; };
+		1191C4D31E51846500583556 /* SKScanningRewardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKScanningRewardViewController.m; path = NineZeroProject/UI/LBS_AR/SKScanningRewardViewController.m; sourceTree = "<group>"; };
 		11961CDA1D2D2B3400A00AF9 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		1196F29F1CF6DFA600E70C83 /* SKImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKImageHelper.h; sourceTree = "<group>"; };
@@ -1229,14 +1232,16 @@
 			isa = PBXGroup;
 			children = (
 				116236E61E4B3145009FEDCA /* EasyAR */,
+				116237811E4D623D009FEDCA /* SKScanningRewardView.h */,
 				116237771E4D623D009FEDCA /* SKScanningRewardView.m */,
+				1191C4D21E51846500583556 /* SKScanningRewardViewController.h */,
+				1191C4D31E51846500583556 /* SKScanningRewardViewController.m */,
 				1162377B1E4D623D009FEDCA /* SKARRewardController.h */,
 				1162377C1E4D623D009FEDCA /* SKARRewardController.m */,
 				1162377D1E4D623D009FEDCA /* SKDownloadProgressView.h */,
 				1162377E1E4D623D009FEDCA /* SKDownloadProgressView.m */,
 				1162377F1E4D623D009FEDCA /* SKScanningResultView.h */,
 				116237801E4D623D009FEDCA /* SKScanningResultView.m */,
-				116237811E4D623D009FEDCA /* SKScanningRewardView.h */,
 				116237821E4D623D009FEDCA /* SKSwipeViewController.h */,
 				116237781E4D623D009FEDCA /* SKSwipeViewController.m */,
 			);
@@ -2617,6 +2622,7 @@
 				116236D71E4B3096009FEDCA /* SKPropService.m in Sources */,
 				1162375E1E4B32E5009FEDCA /* SKMascotIndexViewController.m in Sources */,
 				11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */,
+				1191C4D41E51846500583556 /* SKScanningRewardViewController.m in Sources */,
 				17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */,
 				175F82D11CB4124D00AC2664 /* HTWebController.m in Sources */,
 				1162371D1E4B329E009FEDCA /* SKLoginViewController.m in Sources */,

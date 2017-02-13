@@ -34,6 +34,7 @@ namespace EasyAR{
             ~HelloAR();
             virtual void initGL(int type, int count);
             virtual void resizeGL(int width, int height);
+            virtual bool isRecognizedTarget();
             virtual void render();
             virtual bool clear();
             int flag = 0;
@@ -88,6 +89,39 @@ namespace EasyAR{
         
         void HelloAR::resizeGL(int width, int height) {
             view_size = Vec2I(width, height);
+        }
+        
+        bool HelloAR::isRecognizedTarget() {
+            glClearColor(0.f, 0.f, 0.f, 1.f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            
+            Frame frame = augmenter_.newFrame();
+            if(view_size[0] > 0){
+                int width = view_size[0];
+                int height = view_size[1];
+                Vec2I size = Vec2I(1, 1);
+                if (camera_ && camera_.isOpened())
+                    size = camera_.size();
+                if(portrait_)
+                    std::swap(size[0], size[1]);
+                float scaleRatio = std::max((float)width / (float)size[0], (float)height / (float)size[1]);
+                Vec2I viewport_size = Vec2I((int)(size[0] * scaleRatio), (int)(size[1] * scaleRatio));
+                if(portrait_)
+                    viewport_ = Vec4I(0, height - viewport_size[1], viewport_size[0], viewport_size[1]);
+                else
+                    viewport_ = Vec4I(0, width - height, viewport_size[0], viewport_size[1]);
+                if(camera_ && camera_.isOpened())
+                    view_size[0] = -1;
+            }
+            augmenter_.setViewPort(viewport_);
+            augmenter_.drawVideoBackground();
+            glViewport(viewport_[0], viewport_[1], viewport_[2], viewport_[3]);
+            
+            AugmentedTarget::Status status = frame.targets()[0].status();
+            if(status == AugmentedTarget::kTargetStatusTracked)
+                return true;
+            else
+                return false;
         }
         
         void HelloAR::render() {
@@ -372,6 +406,10 @@ EasyAR::samples::HelloAR ar;
 {
     if (!((AppDelegate*)[[UIApplication sharedApplication]delegate]).active)
         return;
+    
+    if (ar.isRecognizedTarget()) {
+        [_delegate isRecognizedTarget];
+    }
     ar.render();
 
     (void)displayLink;

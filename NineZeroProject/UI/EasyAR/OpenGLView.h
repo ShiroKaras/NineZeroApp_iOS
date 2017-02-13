@@ -9,11 +9,18 @@
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
 
+@protocol OpenGLViewDelegate <NSObject>
+
+- (void)isRecognizedTarget;
+
+@end
+
 @interface OpenGLView : UIView
 
 @property (nonatomic, strong) CAEAGLLayer *eaglLayer;
 @property (nonatomic, strong) EAGLContext *context;
 @property (nonatomic) GLuint colorRenderBuffer;
+@property (nonatomic, weak) id<OpenGLViewDelegate> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame withSwipeType:(int)type targetsCount:(int)count;
 - (void)start;

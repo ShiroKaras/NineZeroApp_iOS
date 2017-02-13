@@ -10,10 +10,10 @@
 #import "HTUIHeader.h"
 #import "NZPScanningFileDownloadManager.h"
 #import "SKDownloadProgressView.h"
-#import "SKScanningResultView.h"
+#import "SKScanningRewardViewController.h"
 #import <SSZipArchive/ZipArchive.h>
 
-@interface SKSwipeViewController ()
+@interface SKSwipeViewController () <OpenGLViewDelegate>
 
 @property (nonatomic, strong) UIImageView *tipImageView;
 @property (nonatomic, strong) UILabel *tipLabel;
@@ -25,7 +25,7 @@
 @property (nonatomic, strong) UIImageView *giftBackImageView;
 @property (nonatomic, strong) UIButton *giftButton;
 @property (nonatomic, strong) UIImageView *giftMascotHand;
-
+@property (nonatomic, assign) BOOL  isPushedGiftButton;
 @end
 
 @implementation SKSwipeViewController
@@ -48,7 +48,8 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
+    
+    _isPushedGiftButton = false;
 	//扫描线
 	_scanningGridLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scanning_gridlines"]];
 	[_scanningGridLine sizeToFit];
@@ -87,6 +88,7 @@
     self.giftButton.size = self.giftBackImageView.size;
     self.giftButton.bottom = self.giftBackImageView.bottom;
     self.giftButton.right = self.giftBackImageView.right;
+    
     [self.view addSubview:self.giftButton];
     //摇动动画
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
@@ -102,8 +104,6 @@
     self.giftMascotHand.left = self.view.right;
     self.giftMascotHand.centerY = self.giftButton.centerY;
     [self.view addSubview:self.giftMascotHand];
-
-    [self pushGift];
     
 	if (!NO_NETWORK) {
 		[self loadData];
@@ -117,11 +117,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self.glView stop];
-	for (UIView *view in KEY_WINDOW.subviews) {
-		if ([view isKindOfClass:[SKScanningResultView class]]) {
-			[view removeFromSuperview];
-		}
-	}
 }
 
 - (void)viewWillLayoutSubviews {
@@ -239,6 +234,7 @@
 - (void)setupOpenGLViewWithTargetNumber:(NSUInteger)targetNumber {
 	if (!_glView) {
 		self.glView = [[OpenGLView alloc] initWithFrame:self.view.bounds withSwipeType:_swipeType targetsCount:(int)targetNumber];
+        self.glView.delegate = self;
 		//		_glView.layer.zPosition = -100;
 		[self.view insertSubview:self.glView belowSubview:self.scanningGridLine];
 		[self.glView setOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
@@ -284,6 +280,20 @@
 
 - (void)hideGift {
     
+}
+
+- (void)getGift {
+    SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:nil];
+    [self presentViewController:controller animated:NO completion:nil];
+}
+
+#pragma mark - OpenGLViewDelegate
+
+- (void)isRecognizedTarget {
+    if (!_isPushedGiftButton) {
+        [self pushGift];
+        _isPushedGiftButton = true;
+    }
 }
 
 #pragma mark - Delegate
