@@ -257,8 +257,7 @@
 
 - (void)setReward:(SKTicket *)reward {
     [_rewardDescriptionView setReward:reward];
-    NSLog(@"%@", reward.ticket_cover);
-    [_imageView sd_setImageWithURL:[NSURL URLWithString:reward.ticket_cover] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:reward.pic] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
 }
 
 - (void)setBadge:(SKBadge *)badge {
