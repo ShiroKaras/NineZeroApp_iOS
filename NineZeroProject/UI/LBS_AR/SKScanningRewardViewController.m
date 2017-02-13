@@ -56,6 +56,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
         [HTProgressHUD show];
         [[[SKServiceManager sharedInstance] scanningService] getScanningRewardWithRewardID:_rewardID
                                                                                   callback:^(BOOL success, SKResponsePackage *response) {
+                                                                                      DLog(@"Reward:%@", response.data);
                                                                                       if (response.result == 0) {
                                                                                           [HTProgressHUD dismiss];
                                                                                           _reward = [SKReward mj_objectWithKeyValues:response.data];
@@ -100,7 +101,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 #pragma mark - Reward
 
 - (void)createBaseRewardViewWithReward:(SKReward *)reward {
-    float height = 192 + 11 + 108;
+    float height = 192 + 30 + 108;
     
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_dimmingView];

@@ -243,6 +243,7 @@
 @property (nonatomic, copy) NSString *reward_id;
 @property (nonatomic, copy) NSString *file_url;
 @property (nonatomic, copy) NSString *file_url_true;
-@property (nonatomic, copy) NSString *link_url;
-@property (nonatomic, copy) NSString *link_type; //链接类型（0：视频，1：GIF图，2：图片）
+@property (nonatomic, copy) NSArray *link_url;
+@property (nonatomic, assign) BOOL is_haved_ticket;
+
 @end

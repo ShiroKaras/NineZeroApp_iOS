@@ -20,6 +20,8 @@
 @property (nonatomic, strong) UIImageView *scanningGridLine;
 //@property (nonatomic, strong) NSArray<SKScanning*>* scanningList;
 @property (nonatomic, strong) SKQuestion *question;
+@property (nonatomic, strong) NSString *rewardID;
+@property (nonatomic, assign) BOOL is_haved_ticket;
 @property (nonatomic, assign) int swipeType;
 @property (nonatomic, strong) SKDownloadProgressView *progressView;
 @property (nonatomic, strong) UIImageView *giftBackImageView;
@@ -84,6 +86,7 @@
     [self.view addSubview:self.giftBackImageView];
     
     self.giftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.giftButton addTarget:self action:@selector(getGift) forControlEvents:UIControlEventTouchUpInside];
     [self.giftButton setBackgroundImage:[UIImage imageNamed:@"img_loadingvideo_gift_3"] forState:UIControlStateNormal];
     self.giftButton.size = self.giftBackImageView.size;
     self.giftButton.bottom = self.giftBackImageView.bottom;
@@ -112,6 +115,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    [self.glView start];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -145,8 +149,12 @@
 - (void)loadData {
 	[[[SKServiceManager sharedInstance] scanningService] getScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
 	    if (success) {
+            NSDictionary *dic = package.data[0];
+            DLog(@"%@", dic);
+            self.rewardID = dic[@"reward_id"];
+            self.is_haved_ticket = [dic[@"is_haved_ticket"] boolValue];
+            
 		    // 获取zip下载地址
-		    NSDictionary *dic = package.data[0];
 		    __block NSString *downloadKey = [dic objectForKey:@"file_url"];
 		    __block NSArray *videoURLs = [dic objectForKey:@"link_url"];
 
@@ -279,18 +287,20 @@
 }
 
 - (void)hideGift {
-    
+    [self.giftBackImageView removeFromSuperview];
+    [self.giftButton removeFromSuperview];
 }
 
 - (void)getGift {
-    SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:nil];
+    [self hideGift];
+    SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:self.rewardID];
     [self presentViewController:controller animated:NO completion:nil];
 }
 
 #pragma mark - OpenGLViewDelegate
 
 - (void)isRecognizedTarget {
-    if (!_isPushedGiftButton) {
+    if (!_isPushedGiftButton && !self.is_haved_ticket) {
         [self pushGift];
         _isPushedGiftButton = true;
     }
