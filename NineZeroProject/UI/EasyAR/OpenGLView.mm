@@ -121,7 +121,7 @@ namespace EasyAR{
             
             AugmentedTarget::Status status = frame.targets()[0].status();
             if(status == AugmentedTarget::kTargetStatusTracked){
-                int tid = (frame.targets()[0].target().id()-1)%targetCount;
+                int tid = frame.targets()[0].target().id();
                 if(active_target && active_target != tid) {
                     video->onLost();
                     delete video;
