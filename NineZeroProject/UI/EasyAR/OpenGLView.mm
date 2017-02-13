@@ -385,7 +385,7 @@ EasyAR::samples::HelloAR ar;
 				continue;
 			}
 			NSString *absolutePath=[imagePath stringByAppendingPathComponent:fileName];
-			ar.loadFromImage([absolutePath UTF8String], (int)[childerFiles indexOfObject:fileName]);
+			ar.loadFromImage([absolutePath UTF8String], 0);
 		}
 	}
 	
