@@ -367,11 +367,6 @@
 								  UIUserNotificationTypeSound |
 								  UIUserNotificationTypeAlert)
 						      categories:nil];
-	} else {
-		[JPUSHService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-								  UIRemoteNotificationTypeSound |
-								  UIRemoteNotificationTypeAlert)
-						      categories:nil];
 	}
 
 	//    [JPUSHService setupWithOption:launchOptions];
