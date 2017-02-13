@@ -11,7 +11,7 @@
 
 @protocol OpenGLViewDelegate <NSObject>
 
-- (void)isRecognizedTarget;
+- (void)isRecognizedTarget:(BOOL)flag;
 
 @end
 

@@ -407,9 +407,7 @@ EasyAR::samples::HelloAR ar;
     if (!((AppDelegate*)[[UIApplication sharedApplication]delegate]).active)
         return;
     
-    if (ar.isRecognizedTarget()) {
-        [_delegate isRecognizedTarget];
-    }
+    [_delegate isRecognizedTarget:ar.isRecognizedTarget()];
     ar.render();
 
     (void)displayLink;

@@ -28,6 +28,8 @@
 @property (nonatomic, strong) UIButton *giftButton;
 @property (nonatomic, strong) UIImageView *giftMascotHand;
 @property (nonatomic, assign) BOOL  isPushedGiftButton;
+
+@property (nonatomic, strong) NSTimer *timerScanningGridLine;
 @end
 
 @implementation SKSwipeViewController
@@ -58,23 +60,9 @@
 	_scanningGridLine.top = 0;
 	_scanningGridLine.right = 0;
 	[self.view addSubview:_scanningGridLine];
-
-	[UIView animateWithDuration:1.0
-		animations:^{
-		    _scanningGridLine.left = SCREEN_WIDTH;
-		}
-		completion:^(BOOL finished) {
-		    _scanningGridLine.right = 0;
-		    _scanningGridLine.alpha = 0.4;
-		    [UIView animateWithDuration:1.0
-			    animations:^{
-				_scanningGridLine.left = SCREEN_WIDTH;
-			    }
-			    completion:^(BOOL finished) {
-				[_scanningGridLine removeFromSuperview];
-			    }];
-		}];
-
+    
+    _timerScanningGridLine = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(loopScanningGridLine) userInfo:nil repeats:YES];
+    
 	[self setupTips];
     
 	[self buildConstrains];
@@ -120,6 +108,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    self.scanningGridLine.hidden = YES;
 	[self.glView stop];
 }
 
@@ -299,10 +288,15 @@
 
 #pragma mark - OpenGLViewDelegate
 
-- (void)isRecognizedTarget {
-    if (!_isPushedGiftButton && !self.is_haved_ticket) {
-        [self pushGift];
-        _isPushedGiftButton = true;
+- (void)isRecognizedTarget:(BOOL)flag {
+    if (flag) {
+        _scanningGridLine.hidden = YES;
+        if (!_isPushedGiftButton && !self.is_haved_ticket) {
+            [self pushGift];
+            _isPushedGiftButton = true;
+        }
+    } else {
+        _scanningGridLine.hidden = NO;
     }
 }
 
@@ -336,5 +330,15 @@
 			 animations:^{
 			     self.tipImageView.alpha = 0;
 			 }];
+}
+
+- (void)loopScanningGridLine {
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         _scanningGridLine.left = SCREEN_WIDTH;
+                     }
+                     completion:^(BOOL finished) {
+                         _scanningGridLine.right = 0;
+                     }];
 }
 @end
