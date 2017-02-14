@@ -143,8 +143,8 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 	//奖励 - 礼券
 
-	SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
-	[_dimmingView addSubview:card];
+    SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
+    [_dimmingView addSubview:card];
     if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
         [card mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@(362));
@@ -152,7 +152,14 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
             make.centerX.equalTo(_dimmingView);
             make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(SCREEN_HEIGHT - height - 32) / 2);
         }];
-    } else {
+    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+        [card mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@335);
+            make.height.equalTo(@130);
+            make.centerX.equalTo(_dimmingView);
+            make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(SCREEN_HEIGHT - height - 22) / 2);
+        }];
+    } else if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
         [card mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@280);
             make.height.equalTo(@108);
