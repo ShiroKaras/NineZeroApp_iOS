@@ -37,12 +37,12 @@
         if (time>self.ticket.expire_time) {
             ticketImageView.image = [self convertImageToGreyScale:image];
             UIImageView *grayCoverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_gift_expired"]];
-            grayCoverImageView.frame = ticketImageView.frame;
-            [self addSubview:grayCoverImageView];
+            grayCoverImageView.frame = CGRectMake(0, 0, ticketImageView.width, ticketImageView.height);
+            [ticketImageView insertSubview:grayCoverImageView aboveSubview:ticketImageView];
         } else {
             UIImageView *grayCoverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_gift_expired_1"]];
-            grayCoverImageView.frame = ticketImageView.frame;
-            [self addSubview:grayCoverImageView];
+            grayCoverImageView.frame = CGRectMake(0, 0, ticketImageView.width, ticketImageView.height);
+            [ticketImageView insertSubview:grayCoverImageView aboveSubview:ticketImageView];
         }
     }];
     [self addSubview:ticketImageView];
