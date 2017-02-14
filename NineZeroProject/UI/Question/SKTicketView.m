@@ -27,17 +27,24 @@
 
 - (void)createUIWithFrame:(CGRect)frame {
     
-//    UIImageView *ticketBackgoundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_detailspage_couponbg"]];
-//    ticketBackgoundImageView.layer.masksToBounds =  YES;
-//    ticketBackgoundImageView.contentMode = UIViewContentModeScaleAspectFill;
-//    ticketBackgoundImageView.frame = self.frame;
-//    [self addSubview:ticketBackgoundImageView];
-    
     UIImageView *ticketImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
+    ticketImageView.backgroundColor = COMMON_BG_COLOR;
     ticketImageView.layer.masksToBounds = YES;
     ticketImageView.layer.cornerRadius =5;
     ticketImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [ticketImageView sd_setImageWithURL:[NSURL URLWithString:self.ticket.ticket_cover]];
+    [ticketImageView sd_setImageWithURL:[NSURL URLWithString:self.ticket.ticket_cover] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        NSTimeInterval time = [[NSDate date] timeIntervalSince1970]; // (NSTimeInterval) time = 1427189152.313643
+        if (time>self.ticket.expire_time) {
+            ticketImageView.image = [self convertImageToGreyScale:image];
+            UIImageView *grayCoverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_gift_expired"]];
+            grayCoverImageView.frame = ticketImageView.frame;
+            [self addSubview:grayCoverImageView];
+        } else {
+            UIImageView *grayCoverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_gift_expired_1"]];
+            grayCoverImageView.frame = ticketImageView.frame;
+            [self addSubview:grayCoverImageView];
+        }
+    }];
     [self addSubview:ticketImageView];
     
     UILabel *ticketTitleLabel_shadow = [UILabel new];
@@ -116,6 +123,22 @@
         make.bottom.equalTo(exchangeCodeLabel.mas_top).offset(-4);
         make.left.equalTo(ticketTitleLabel);
     }];
+}
+
+#pragma mark - Tool
+
+- (UIImage*)convertImageToGreyScale:(UIImage*) image
+{
+    CGRect imageRect = CGRectMake(0, 0, image.size.width, image.size.height);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    CGContextRef context = CGBitmapContextCreate(nil, image.size.width, image.size.height, 8, 0, colorSpace, kCGImageAlphaNone);
+    CGContextDrawImage(context, imageRect, [image CGImage]);
+    CGImageRef imageRef = CGBitmapContextCreateImage(context);
+    UIImage *newImage = [UIImage imageWithCGImage:imageRef];
+    CGColorSpaceRelease(colorSpace);
+    CGContextRelease(context);
+    CFRelease(imageRef);
+    return newImage;
 }
 
 @end
