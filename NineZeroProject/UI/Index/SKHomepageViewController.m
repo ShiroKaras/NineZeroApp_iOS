@@ -382,6 +382,24 @@ typedef enum {
 	    make.top.equalTo(notificationButton).offset(5);
 	}];
 
+    //极难题
+    UIButton *difficultQuestionButton = [UIButton new];
+    [difficultQuestionButton setImage:[UIImage imageNamed:@"btn_homepage_difficulty"] forState:UIControlStateNormal];
+    [self.view addSubview:difficultQuestionButton];
+    [difficultQuestionButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(62, 62));
+        make.bottom.equalTo(_headerImageView.mas_bottom).offset(-12);
+        make.right.equalTo(weakSelf.view).offset(-4);
+    }];
+    
+    UIImageView *shadowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_shadow"]];
+    [shadowImageView sizeToFit];
+    [self.view addSubview:shadowImageView];
+    [shadowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(difficultQuestionButton.mas_bottom).offset(2);
+        make.centerX.equalTo(difficultQuestionButton);
+    }];
+    
 	//限时关卡
 	_timeLimitLevelButton = [UIButton new];
 	[_timeLimitLevelButton

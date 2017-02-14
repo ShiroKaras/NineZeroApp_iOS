@@ -287,8 +287,8 @@
 		cell.badgeRight = self.badgeArray[indexPath.row * 2 + 1];
 	}
 
-	cell.badgeLeftShadowImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_badge_shadow_%d", indexPath.row * 2]];
-	cell.badgeRightShadowImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_badge_shadow_%d", indexPath.row * 2 + 1]];
+	cell.badgeLeftShadowImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_badge_shadow_%ld", indexPath.row * 2]];
+	cell.badgeRightShadowImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_badge_shadow_%ld", indexPath.row * 2 + 1]];
 
 	[cell.badgeLeftImageView sd_setImageWithURL:[NSURL URLWithString:self.badgeArray[indexPath.row * 2].medal_icon]
 					  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
