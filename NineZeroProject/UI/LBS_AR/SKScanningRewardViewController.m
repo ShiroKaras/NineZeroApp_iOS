@@ -101,7 +101,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 #pragma mark - Reward
 
 - (void)createBaseRewardViewWithReward:(SKReward *)reward {
-    float height = 192 + 30 + 108;
+    float height = 192 + 60 + 108;
     
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_dimmingView];
