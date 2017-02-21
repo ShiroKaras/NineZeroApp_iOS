@@ -11,39 +11,39 @@
 @implementation SKCGIManager
 
 + (NSString *)loginBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Login/appIndex", APP_HOST];
+	return [NSString stringWithFormat:@"%@/Login/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 + (NSString *)questionBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Question/appIndex", APP_HOST];
+	return [NSString stringWithFormat:@"%@/Question/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 + (NSString *)profileBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/User/appIndex", APP_HOST];
+	return [NSString stringWithFormat:@"%@/User/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 + (NSString *)propBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Prop/appIndex", APP_HOST];
+	return [NSString stringWithFormat:@"%@/Prop/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 + (NSString *)mascotBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Pet/appIndex", APP_HOST];
+	return [NSString stringWithFormat:@"%@/Pet/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 + (NSString *)answerBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Answer/appIndex", APP_HOST];
+	return [NSString stringWithFormat:@"%@/Answer/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 + (NSString *)commonBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Common/appIndex", APP_HOST];
+	return [NSString stringWithFormat:@"%@/Common/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 + (NSString *)shareBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Share/appIndex", APP_HOST];
+	return [NSString stringWithFormat:@"%@/Share/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 + (NSString *)scanningBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Scanning/appIndex", APP_HOST];
+	return [NSString stringWithFormat:@"%@/Scanning/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 @end
