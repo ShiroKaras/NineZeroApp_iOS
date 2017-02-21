@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>九零</string>
+	<string>九零$(BUNDLE_DISPLAY_NAME_SUFFIX)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -24,10 +24,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.zacyang.NineZero</string>
+			<string>com.zacyang.NineZero$(BUNDLE_ID_SUFFIX)</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>NineZeroApp</string>
+				<string>NineZeroApp$(BUNDLE_ID_SUFFIX)</string>
 			</array>
 		</dict>
 		<dict>
@@ -35,7 +35,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wb1266848941</string>
+				<string>wb$(WEIBO_URL_SCHEMES_SUFFIX)</string>
 			</array>
 		</dict>
 		<dict>
@@ -43,7 +43,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wxfb8f0b079901a486</string>
+				<string>wx$(WEIXIN_URL_SCHEMES_SUFFIX)</string>
 			</array>
 		</dict>
 		<dict>
@@ -51,7 +51,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>QQ41E10BDF</string>
+				<string>QQ$(QQ_URL_SCHEMES_SUFFIX)</string>
 			</array>
 		</dict>
 		<dict>
@@ -59,7 +59,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>tencent1105267679</string>
+				<string>tencent$(TENCENT_URL_SCHEMES_SUFFIX)</string>
 			</array>
 		</dict>
 	</array>
