@@ -34,6 +34,8 @@
 #import "WeiboSDK.h"
 //新浪微博SDK需要在项目Build Settings中的Other Linker Flags添加"-ObjC"
 
+#import "ClientConfiguration.h"
+
 @interface AppDelegate ()
 
 @property (nonatomic, strong) AMapLocationManager *locationManager;
@@ -236,7 +238,7 @@
 	// App ID: 在 App Analytics
 	// 创建应用后，进入数据报表页中，在“系统设置”-“编辑应用”页面里查看App ID。
 	// 渠道 ID: 是渠道标识符，可通过不同渠道单独追踪数据。
-	[TalkingData sessionStarted:@"EB304F0B34B5B775BD23554F6456B3C4" withChannelId:@"iOS"];
+	[TalkingData sessionStarted:[[ClientConfiguration sharedInstance] TalkingDataSession] withChannelId:@"iOS"];
 	[TalkingData setVersionWithCode:[[[NSBundle mainBundle] infoDictionary]
 						objectForKey:@"CFBundleShortVersionString"]
 				   name:[[[NSBundle mainBundle] infoDictionary]
@@ -246,7 +248,7 @@
 #pragma mark - Location
 
 - (void)registerAMap {
-	[AMapServices sharedServices].apiKey = @"2cb1a94b85ace5b91f5f00b37c0422e9";
+	[AMapServices sharedServices].apiKey = [[ClientConfiguration sharedInstance] AMapServicesAPIKey];
 }
 
 - (void)registerLocation {
@@ -292,7 +294,7 @@
 	NSString *version =
 		[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 	[MobClick setAppVersion:version];
-	UMConfigInstance.appKey = @"574011a6e0f55acb3200270a";
+	UMConfigInstance.appKey = [[ClientConfiguration sharedInstance] UMAnalyticsConfigAppKey];
 	UMConfigInstance.channelId = @"";
 	UMConfigInstance.ePolicy = BATCH;
 	[MobClick startWithConfigure:UMConfigInstance];
@@ -312,7 +314,7 @@
          */
 
 	// 117f8a0b99f70
-	[ShareSDK registerApp:@"117f8a0b99f70"
+	[ShareSDK registerApp:[[ClientConfiguration sharedInstance] ShareSDKAppKey]
 
 		activePlatforms:@[
 			@(SSDKPlatformTypeSinaWeibo), @(SSDKPlatformTypeWechat), @(SSDKPlatformTypeQQ)
@@ -338,18 +340,18 @@
 		    switch (platformType) {
 			    case SSDKPlatformTypeSinaWeibo:
 				    //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
-				    [appInfo SSDKSetupSinaWeiboByAppKey:@"1266848941"
-							      appSecret:@"af1a2b939f9d65313ae08ce40e4428b5"
-							    redirectUri:@"http://www.sharesdk.cn"
+				    [appInfo SSDKSetupSinaWeiboByAppKey:[[ClientConfiguration sharedInstance] SSDKPlatformTypeSinaWeiboAppKey]
+							      appSecret:[[ClientConfiguration sharedInstance] SSDKPlatformTypeSinaWeiboAppSecret]
+							    redirectUri:[[ClientConfiguration sharedInstance] SSDKPlatformTypeSinaWeiboRedirectUri]
 							       authType:SSDKAuthTypeBoth];
 				    break;
 			    case SSDKPlatformTypeWechat:
-				    [appInfo SSDKSetupWeChatByAppId:@"wxfb8f0b079901a486"
-							  appSecret:@"9b878253531427e0216f4c456a6216bc"];
+				    [appInfo SSDKSetupWeChatByAppId:[[ClientConfiguration sharedInstance] SSDKPlatformTypeWechatAppId]
+							  appSecret:[[ClientConfiguration sharedInstance] SSDKPlatformTypeWechatAppSecret]];
 				    break;
 			    case SSDKPlatformTypeQQ:
-				    [appInfo SSDKSetupQQByAppId:@"1105267679"
-							 appKey:@"kQ0GorXbIWGY7LMk"
+				    [appInfo SSDKSetupQQByAppId:[[ClientConfiguration sharedInstance] SSDKPlatformTypeQQAppId]
+							 appKey:[[ClientConfiguration sharedInstance] SSDKPlatformTypeQQAppKey]
 						       authType:SSDKAuthTypeBoth];
 				    break;
 			    default:
@@ -371,8 +373,8 @@
 
 	//    [JPUSHService setupWithOption:launchOptions];
 	[JPUSHService setupWithOption:launchOptions
-			       appKey:@"a55e70211d78ad951ecca453"
-			      channel:@"90"
+			       appKey:[[ClientConfiguration sharedInstance] JPUSHServiceAppKey]
+			      channel:[[ClientConfiguration sharedInstance] JPUSHServiceChannel]
 		     apsForProduction:true];
 	[JPUSHService resetBadge];
 	if ([[SKStorageManager sharedInstance] getUserID]) {
@@ -386,7 +388,7 @@
 #pragma mark - JSPatch
 
 - (void)registerJSPatch {
-	[JSPatch startWithAppKey:@"76be4930cef557f7"];
+	[JSPatch startWithAppKey:[[ClientConfiguration sharedInstance] JSPatchAppKey]];
 	[JSPatch sync];
 }
 

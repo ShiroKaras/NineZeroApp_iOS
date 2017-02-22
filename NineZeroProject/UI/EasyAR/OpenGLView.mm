@@ -10,6 +10,7 @@
 #import "SKScanningResultView.h"
 #import "NZPScanningFileDownloadManager.h"
 #import "SKDownloadProgressView.h"
+#import "ClientConfiguration.h"
 
 #include <iostream>
 #include "ar.hpp"
@@ -24,7 +25,7 @@
 *  3. find the created item in the list and show key
 *  4. set key string bellow
 */
-NSString* key = @"Xe0xQqtQ9vL7AjMdLqW2c8SovCLsaGtqCKChl285py1Ba7aAMwtGbKLTqQm8gyxveP1Skb9q37dUNkupEqp6fLPnxOd7fghQLNmO1f07ca1144bf716f23b53826e0d24889ajEdFsvWFcHYPDhmyJBeamJMp4PyZPzzur5JR7EVNO8jKW7D6bxh4bIFO7DO2aOvqkTD";
+NSString* key = [[ClientConfiguration sharedInstance] EasyARAppKey];
 
 namespace EasyAR{
     namespace samples{

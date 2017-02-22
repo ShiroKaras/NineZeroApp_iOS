@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-//#define APP_HOST @"http://112.74.133.183:8082"
-#define APP_HOST @"https://api.90app.tv"
+#import "ServerConfiguration.h"
 
 @interface SKCGIManager : NSObject
 
