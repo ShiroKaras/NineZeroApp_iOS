@@ -340,6 +340,9 @@
 		17F37A761C255420006759D1 /* HUD+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F37A751C255420006759D1 /* HUD+Utility.m */; };
 		26BD341E1C12DF3300472E46 /* moonbold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26BD341D1C12DF3300472E46 /* moonbold.ttf */; };
 		46DFF67061A677087C2A3582 /* libPods-NineZeroProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31D85F643AC1606DB0E05679 /* libPods-NineZeroProject.a */; };
+		98088D661E56EC9400ADB66F /* BaseConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 98088D651E56EC9400ADB66F /* BaseConfiguration.m */; };
+		98088D691E56EFE300ADB66F /* ClientConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 98088D681E56EFE300ADB66F /* ClientConfiguration.m */; };
+		98088D6C1E5703C000ADB66F /* ServerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 98088D6B1E5703C000ADB66F /* ServerConfiguration.m */; };
 		987042991E4C75AC00770BFD /* NZPScanningFileDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 987042981E4C75AC00770BFD /* NZPScanningFileDownloadManager.m */; };
 		C1A76BB8BA08C99F581EEC18 /* libPods-NineZeroProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C7F57F4FFAD09A4E319A9C7 /* libPods-NineZeroProjectTests.a */; };
 		E5E885C9733CA87451550614 /* libPods-NineZeroProjectUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3409371C23A132D0A05D82A /* libPods-NineZeroProjectUITests.a */; };
@@ -880,6 +883,13 @@
 		26BD341D1C12DF3300472E46 /* moonbold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = moonbold.ttf; sourceTree = "<group>"; };
 		31D85F643AC1606DB0E05679 /* libPods-NineZeroProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		832E8CEE1E3FBFEF8A9E6BA6 /* Pods-NineZeroProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProjectUITests/Pods-NineZeroProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
+		98088D5E1E56CFE100ADB66F /* environment */ = {isa = PBXFileReference; lastKnownFileType = folder; path = environment; sourceTree = "<group>"; };
+		98088D641E56EC9400ADB66F /* BaseConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseConfiguration.h; sourceTree = "<group>"; };
+		98088D651E56EC9400ADB66F /* BaseConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseConfiguration.m; sourceTree = "<group>"; };
+		98088D671E56EFE300ADB66F /* ClientConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientConfiguration.h; sourceTree = "<group>"; };
+		98088D681E56EFE300ADB66F /* ClientConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ClientConfiguration.m; sourceTree = "<group>"; tabWidth = 4; wrapsLines = 0; };
+		98088D6A1E5703C000ADB66F /* ServerConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfiguration.h; sourceTree = "<group>"; };
+		98088D6B1E5703C000ADB66F /* ServerConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfiguration.m; sourceTree = "<group>"; };
 		987042971E4C75AC00770BFD /* NZPScanningFileDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NZPScanningFileDownloadManager.h; sourceTree = "<group>"; };
 		987042981E4C75AC00770BFD /* NZPScanningFileDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NZPScanningFileDownloadManager.m; sourceTree = "<group>"; };
 		9C7F57F4FFAD09A4E319A9C7 /* libPods-NineZeroProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1028,6 +1038,7 @@
 		110F9D801CD881090097EB8A /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				98088D5E1E56CFE100ADB66F /* environment */,
 				11AD0C3D1DAA3490007951C5 /* assets */,
 				11B44EB21D8FF2C200CD2BAC /* Video */,
 				110F9D7F1CD880E20097EB8A /* Image */,
@@ -1666,6 +1677,12 @@
 				11F706391E0D2424004332C2 /* CustomSecurityPolicy.m */,
 				987042971E4C75AC00770BFD /* NZPScanningFileDownloadManager.h */,
 				987042981E4C75AC00770BFD /* NZPScanningFileDownloadManager.m */,
+				98088D641E56EC9400ADB66F /* BaseConfiguration.h */,
+				98088D651E56EC9400ADB66F /* BaseConfiguration.m */,
+				98088D671E56EFE300ADB66F /* ClientConfiguration.h */,
+				98088D681E56EFE300ADB66F /* ClientConfiguration.m */,
+				98088D6A1E5703C000ADB66F /* ServerConfiguration.h */,
+				98088D6B1E5703C000ADB66F /* ServerConfiguration.m */,
 			);
 			name = Utility;
 			path = NineZeroProject/Utility;
@@ -2080,6 +2097,8 @@
 				1777D3631BE798F400AC0203 /* Resources */,
 				9DC68BC8937B8335C291A82B /* [CP] Embed Pods Frameworks */,
 				AECE9D6C40E8D7684EB7D8BC /* [CP] Copy Pods Resources */,
+				98088D621E56DFA500ADB66F /* Client Config */,
+				98088D631E56E86D00ADB66F /* Server Config */,
 			);
 			buildRules = (
 			);
@@ -2144,6 +2163,7 @@
 					1777D3641BE798F400AC0203 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 6H2SM536G6;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -2394,6 +2414,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroProjectUITests/Pods-NineZeroProjectUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		98088D621E56DFA500ADB66F /* Client Config */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Client Config";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ". $SRCROOT/$TARGET_NAME/environment/client/clientconfig.sh";
+		};
+		98088D631E56E86D00ADB66F /* Server Config */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Server Config";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ". $SRCROOT/$TARGET_NAME/environment/server/serverconfig.sh";
+		};
 		9B328158B13D4248353ABED8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2609,6 +2657,7 @@
 				1162370B1E4B3288009FEDCA /* SKProfileMyTicketsViewController.m in Sources */,
 				1160FB451E0E927F00606F16 /* HTBlankView.m in Sources */,
 				17AE3B341C987F550082390F /* NSDate+Utility.m in Sources */,
+				98088D691E56EFE300ADB66F /* ClientConfiguration.m in Sources */,
 				17A92CD41CA809B100BE893D /* MJRefreshBackNormalFooter.m in Sources */,
 				116237651E4B32FB009FEDCA /* SKRankViewController.m in Sources */,
 				116237071E4B3288009FEDCA /* SKFeedbackViewController.m in Sources */,
@@ -2625,10 +2674,12 @@
 				1191C4D41E51846500583556 /* SKScanningRewardViewController.m in Sources */,
 				17A92CDC1CA809B100BE893D /* UIScrollView+MJRefresh.m in Sources */,
 				175F82D11CB4124D00AC2664 /* HTWebController.m in Sources */,
+				98088D6C1E5703C000ADB66F /* ServerConfiguration.m in Sources */,
 				1162371D1E4B329E009FEDCA /* SKLoginViewController.m in Sources */,
 				11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
+				98088D661E56EC9400ADB66F /* BaseConfiguration.m in Sources */,
 				116236D31E4B3096009FEDCA /* SKCommonService.m in Sources */,
 				17A92CDA1CA809B100BE893D /* MJRefreshConst.m in Sources */,
 				11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */,
@@ -2792,10 +2843,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				BUNDLE_DISPLAY_NAME_SUFFIX = " D";
+				BUNDLE_ID_SUFFIX = D;
 				CODE_SIGN_ENTITLEMENTS = NineZeroProject/NineZeroProject.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Zac Yang (6H2SM536G6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6H2SM536G6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2870,10 +2924,14 @@
 					"-lz",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zacyang.NineZero$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				QQ_URL_SCHEMES_SUFFIX = 41EB0FB3;
 				TARGETED_DEVICE_FAMILY = 1;
+				TENCENT_URL_SCHEMES_SUFFIX = 1105924019;
+				WEIBO_URL_SCHEMES_SUFFIX = 2834022254;
+				WEIXIN_URL_SCHEMES_SUFFIX = 5888d8475bab267e;
 			};
 			name = Debug;
 		};
@@ -2883,10 +2941,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				BUNDLE_DISPLAY_NAME_SUFFIX = "";
+				BUNDLE_ID_SUFFIX = "";
 				CODE_SIGN_ENTITLEMENTS = NineZeroProject/NineZeroProject.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Zac Yang (6H2SM536G6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6H2SM536G6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2961,10 +3022,14 @@
 					"-lz",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zacyang.NineZero$(BUNDLE_ID_SUFFIX)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				QQ_URL_SCHEMES_SUFFIX = 41E10BDF;
 				TARGETED_DEVICE_FAMILY = 1;
+				TENCENT_URL_SCHEMES_SUFFIX = 1105267679;
+				WEIBO_URL_SCHEMES_SUFFIX = 1266848941;
+				WEIXIN_URL_SCHEMES_SUFFIX = fb8f0b079901a486;
 			};
 			name = Release;
 		};
