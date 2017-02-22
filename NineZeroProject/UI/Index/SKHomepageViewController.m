@@ -11,7 +11,7 @@
 
 #import "JPUSHService.h"
 
-#import "HTNotificationController.h"
+#import "SKNotificationRootViewController.h"
 #import "SKActivityNotificationView.h"
 #import "SKAllQuestionViewController.h"
 #import "SKLoginRootViewController.h"
@@ -853,8 +853,8 @@ typedef enum {
 
 - (void)notificationButtonClick:(UIButton *)sender {
 	[UD setValue:@(self.indexInfo.user_notice_count) forKey:NOTIFICATION_COUNT];
-	HTNotificationController *controller =
-		[[HTNotificationController alloc] init];
+	SKNotificationRootViewController *controller =
+		[[SKNotificationRootViewController alloc] init];
 	[self.navigationController pushViewController:controller animated:YES];
 }
 

@@ -132,6 +132,7 @@
 		116237881E4D623D009FEDCA /* SKScanningResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116237801E4D623D009FEDCA /* SKScanningResultView.m */; };
 		1162378B1E4D62EA009FEDCA /* HTARCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1162378A1E4D62EA009FEDCA /* HTARCaptureController.m */; };
 		116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */; };
+		118C310D1E5D4630009C3701 /* SKNotificationRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 118C310C1E5D4630009C3701 /* SKNotificationRootViewController.m */; };
 		1191C4D41E51846500583556 /* SKScanningRewardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1191C4D31E51846500583556 /* SKScanningRewardViewController.m */; };
 		11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */; };
 		1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1196F2A01CF6DFA600E70C83 /* SKImageHelper.m */; };
@@ -569,6 +570,8 @@
 		116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		1175B4E71DEFD06D00302B67 /* SKLogicHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLogicHeader.h; sourceTree = "<group>"; };
 		11838DD11D953728001A24A3 /* NineZeroProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NineZeroProject.entitlements; sourceTree = "<group>"; };
+		118C310B1E5D4630009C3701 /* SKNotificationRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKNotificationRootViewController.h; path = NineZeroProject/UI/Index/SKNotificationRootViewController.h; sourceTree = "<group>"; };
+		118C310C1E5D4630009C3701 /* SKNotificationRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKNotificationRootViewController.m; path = NineZeroProject/UI/Index/SKNotificationRootViewController.m; sourceTree = "<group>"; };
 		1191C4D21E51846500583556 /* SKScanningRewardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKScanningRewardViewController.h; path = NineZeroProject/UI/LBS_AR/SKScanningRewardViewController.h; sourceTree = "<group>"; };
 		1191C4D31E51846500583556 /* SKScanningRewardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKScanningRewardViewController.m; path = NineZeroProject/UI/LBS_AR/SKScanningRewardViewController.m; sourceTree = "<group>"; };
 		11961CDA1D2D2B3400A00AF9 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -1462,6 +1465,8 @@
 				116237271E4B32B5009FEDCA /* SKActivityNotificationView.m */,
 				116237281E4B32B5009FEDCA /* SKHomepageViewController.h */,
 				116237291E4B32B5009FEDCA /* SKHomepageViewController.m */,
+				118C310B1E5D4630009C3701 /* SKNotificationRootViewController.h */,
+				118C310C1E5D4630009C3701 /* SKNotificationRootViewController.m */,
 			);
 			name = Index;
 			sourceTree = "<group>";
@@ -2578,6 +2583,7 @@
 				1162372B1E4B32B5009FEDCA /* HTNotificationController.m in Sources */,
 				17A92CD21CA809B100BE893D /* MJRefreshAutoStateFooter.m in Sources */,
 				116236F51E4B3233009FEDCA /* SKHelperView.m in Sources */,
+				118C310D1E5D4630009C3701 /* SKNotificationRootViewController.m in Sources */,
 				11C7646E1E120E5300D86F40 /* MJExtensionConst.m in Sources */,
 				1162378B1E4D62EA009FEDCA /* HTARCaptureController.m in Sources */,
 				11F7063A1E0D2424004332C2 /* CustomSecurityPolicy.m in Sources */,
