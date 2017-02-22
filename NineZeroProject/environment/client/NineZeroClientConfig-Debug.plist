@@ -15,15 +15,15 @@
 	<key>ShareSDKAppKey</key>
 	<string>1b760c8c937bc</string>
 	<key>SSDKPlatformTypeSinaWeiboAppKey</key>
-	<string>1266848941</string>
+	<string>2834022254</string>
 	<key>SSDKPlatformTypeSinaWeiboAppSecret</key>
-	<string>af1a2b939f9d65313ae08ce40e4428b5</string>
+	<string>be6f841d14def7fd1636737f2300d41d</string>
 	<key>SSDKPlatformTypeSinaWeiboRedirectUri</key>
 	<string>http://www.sharesdk.cn</string>
 	<key>SSDKPlatformTypeWechatAppId</key>
-	<string>wxfb8f0b079901a486</string>
+	<string>wx5888d8475bab267e</string>
 	<key>SSDKPlatformTypeWechatAppSecret</key>
-	<string>9b878253531427e0216f4c456a6216bc</string>
+	<string>0707d03967c306d207277a7c65bce4a2</string>
 	<key>SSDKPlatformTypeQQAppId</key>
 	<string>1105924019</string>
 	<key>SSDKPlatformTypeQQAppKey</key>
