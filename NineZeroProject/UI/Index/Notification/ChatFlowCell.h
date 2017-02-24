@@ -18,5 +18,8 @@ typedef enum : NSInteger {
 
 @property (nonatomic, assign) ChatFlowPositionType type;
 @property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, assign) float cellHeight;
+
+- (void)setObject:(id)object withType:(ChatFlowPositionType)type;
 
 @end

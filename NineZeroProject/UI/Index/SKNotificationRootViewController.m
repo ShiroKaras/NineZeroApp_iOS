@@ -10,6 +10,7 @@
 #import "HTUIHeader.h"
 
 #import "HTNotificationController.h"
+#import "ChatFlowViewController.h"
 
 @interface SKNotificationRootViewController ()
 @property (nonatomic, strong) UILabel *systemNotificaitonContent;
@@ -149,7 +150,8 @@
 }
 
 - (void)onClickSecretaryButton {
-    
+    ChatFlowViewController *controller = [[ChatFlowViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

@@ -70,16 +70,18 @@
 #pragma mark - UITableView Delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ChatFlowCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ChatFlowCell class]) forIndexPath:indexPath];
+    ChatFlowCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([ChatFlowCell class])];
     if (cell==nil) {
-         cell = [[ChatFlowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([ChatFlowCell class])];
+        cell = [[ChatFlowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([ChatFlowCell class])];
     }
-    cell.type = [_dataArray[indexPath.row] intValue];
+    
+    [cell setObject:nil withType:[_dataArray[indexPath.row] intValue]];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
+    ChatFlowCell *cell = (ChatFlowCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return cell.cellHeight;
 }
 
 #pragma mark - UITableView DataSource
