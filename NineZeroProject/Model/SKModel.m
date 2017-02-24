@@ -9,14 +9,15 @@
 #import "SKModel.h"
 #import "MJExtension.h"
 
-#define HTINIT(T) - (instancetype)init { \
-if (self = [super init]) { \
-[T setupReplacedKeyFromPropertyName:^NSDictionary *{ \
-return [self propertyMapper]; \
-}]; \
-} \
-return self; \
-}
+#define HTINIT(T)                                                                \
+	-(instancetype)init {                                                    \
+		if (self = [super init]) {                                       \
+			[T mj_setupReplacedKeyFromPropertyName:^NSDictionary * { \
+			    return [self propertyMapper];                        \
+			}];                                                      \
+		}                                                                \
+		return self;                                                     \
+	}
 
 @implementation SKResponsePackage
 @end
@@ -27,29 +28,33 @@ return self; \
 @implementation SKUserInfo
 @end
 
-@implementation SKProfileInfo 
+@implementation SKProfileInfo
 @end
 
 @implementation SKIndexInfo
+
 HTINIT(SKIndexInfo)
 - (NSDictionary *)propertyMapper {
-    NSDictionary *propertyMapper = @{@"question_end_time" : @"question_info.end_time",
-                                     @"qid"               : @"question_info.qid",
-                                     @"answered_status"   : @"question_info.answered_status",
-                                     @"monday_end_time"   : @"Monday.end_time",
-                                     @"adv_pic"           : @"advertising.adv_pic"
-                                     };
-    return propertyMapper;
+	NSDictionary *propertyMapper = @{ @"question_end_time": @"question_info.end_time",
+					  @"qid": @"question_info.qid",
+					  @"answered_status": @"question_info.answered_status",
+					  @"monday_end_time": @"Monday.end_time",
+					  @"adv_pic": @"advertising.adv_pic"
+	};
+	return propertyMapper;
 }
+
 @end
 
 @implementation SKQuestion
+
 HTINIT(SKQuestion)
 - (NSDictionary *)propertyMapper {
-    NSDictionary *propertyMapper = @{@"description_url" : @"description"
-                                     };
-    return propertyMapper;
+	NSDictionary *propertyMapper = @{ @"description_url": @"description"
+	};
+	return propertyMapper;
 }
+
 @end
 
 @implementation SKHintList

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'DE5AB759E8F795CA1214A77B5BDAE623'
+               BlueprintIdentifier = '09308BFF6651B0595797E4027EDAF7CD'
                BlueprintName = 'MBProgressHUD+BWMExtension'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libMBProgressHUD+BWMExtension.a'>

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'B40D84EC7DF1CFEEC3290849FAC0B590'
+               BlueprintIdentifier = '3BEEE4C8224A9EAD9BE5CB86E0DD2120'
                BlueprintName = 'UIImage+animatedGif'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libUIImage+animatedGif.a'>

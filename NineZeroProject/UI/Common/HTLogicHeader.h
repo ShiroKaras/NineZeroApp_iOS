@@ -20,7 +20,7 @@
 
 #import "NSString+Utility.h"
 
-#import <AFNetworking.h>
 #import "MJExtension.h"
+#import <AFNetworking.h>
 
 #endif /* HTLogicHeader_h */

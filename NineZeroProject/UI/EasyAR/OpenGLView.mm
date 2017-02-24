@@ -8,9 +8,12 @@
 #import "AppDelegate.h"
 #import "HTUIHeader.h"
 #import "SKScanningResultView.h"
+#import "NZPScanningFileDownloadManager.h"
+#import "SKDownloadProgressView.h"
 
 #include <iostream>
 #include "ar.hpp"
+#include "renderer.hpp"
 
 /*
 * Steps to create the key for this sample:
@@ -28,19 +31,29 @@ namespace EasyAR{
         class HelloAR : public AR {
         public:
             HelloAR();
+            ~HelloAR();
             virtual void initGL(int type, int count);
             virtual void resizeGL(int width, int height);
+            virtual bool isRecognizedTarget();
             virtual void render();
+            virtual bool clear();
             int flag = 0;
+			NSArray *videoURLs;
+			id progressDelegate;
         private:
             Vec2I view_size;
             
             int swipeType;   //0 扫一扫, 1 LBS
-            int targetCount;
+			int targetCount;
+            
+            VideoRenderer* renderer[40];
             
             int tracked_target;
             int active_target;
-            int texid[3];
+            int texid[40];
+            ARVideo* video;
+            VideoRenderer* video_renderer;
+            
             SKScanningResultView *resultView;
         };
         
@@ -48,17 +61,67 @@ namespace EasyAR{
             tracked_target = 0;
             active_target = 0;
             view_size[0] = -1;
+            for(int i = 0; i < 40; ++i) {
+                texid[i] = 0;
+                renderer[i] = new VideoRenderer;
+            }
+            video = NULL;
+            video_renderer = NULL;
+        }
+        
+        HelloAR::~HelloAR() {
+            for(int i = 0; i < targetCount; ++i) {
+                delete renderer[i];
+            }
         }
         
         void HelloAR::initGL(int type, int count) {
             augmenter_ = Augmenter();
             flag = 0;
             swipeType = type;
+            tracked_target = 0;
             targetCount = count;
+            for(int i = 0; i < targetCount; ++i) {
+                renderer[i]->init();
+                texid[i] = renderer[i]->texId();
+            }
         }
         
         void HelloAR::resizeGL(int width, int height) {
             view_size = Vec2I(width, height);
+        }
+        
+        bool HelloAR::isRecognizedTarget() {
+            glClearColor(0.f, 0.f, 0.f, 1.f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            
+            Frame frame = augmenter_.newFrame();
+            if(view_size[0] > 0){
+                int width = view_size[0];
+                int height = view_size[1];
+                Vec2I size = Vec2I(1, 1);
+                if (camera_ && camera_.isOpened())
+                    size = camera_.size();
+                if(portrait_)
+                    std::swap(size[0], size[1]);
+                float scaleRatio = std::max((float)width / (float)size[0], (float)height / (float)size[1]);
+                Vec2I viewport_size = Vec2I((int)(size[0] * scaleRatio), (int)(size[1] * scaleRatio));
+                if(portrait_)
+                    viewport_ = Vec4I(0, height - viewport_size[1], viewport_size[0], viewport_size[1]);
+                else
+                    viewport_ = Vec4I(0, width - height, viewport_size[0], viewport_size[1]);
+                if(camera_ && camera_.isOpened())
+                    view_size[0] = -1;
+            }
+            augmenter_.setViewPort(viewport_);
+            augmenter_.drawVideoBackground();
+            glViewport(viewport_[0], viewport_[1], viewport_[2], viewport_[3]);
+            
+            AugmentedTarget::Status status = frame.targets()[0].status();
+            if(status == AugmentedTarget::kTargetStatusTracked)
+                return true;
+            else
+                return false;
         }
         
         void HelloAR::render() {
@@ -87,43 +150,91 @@ namespace EasyAR{
             augmenter_.drawVideoBackground();
             glViewport(viewport_[0], viewport_[1], viewport_[2], viewport_[3]);
             
+            //Custom
+            ////////////////////////////////START////////////////////////////////
+            
             AugmentedTarget::Status status = frame.targets()[0].status();
             if(status == AugmentedTarget::kTargetStatusTracked){
-                int tid = (frame.targets()[0].target().id()-1)%targetCount;
+                int tid = frame.targets()[0].target().id();
                 if(active_target && active_target != tid) {
-                    tracked_target = 0;
+                    video->onLost();
+                    delete video;
+					video = NULL;
+					tracked_target = 0;
                     active_target = 0;
                 }
                 if (!tracked_target) {
-                    if ([[[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"/"] lastObject] containsString:@"swipeTargetImage"]) {
-                        //if (resultView == NULL) {
-                        if (flag == 0) {
-                            NSInteger index = [[[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"_"] lastObject] integerValue];
-                            resultView = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:index swipeType:swipeType];
-                            [KEY_WINDOW addSubview:resultView];
-                            flag = 1;
-                        }
-                    } else if ([[[[NSString stringWithUTF8String:frame.targets()[0].target().name()] componentsSeparatedByString:@"/"] lastObject] isEqualToString:@"lbsTargetImage"]) {
-                        if (flag == 0) {
-                            resultView = [[SKScanningResultView alloc] initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, SCREEN_HEIGHT-60) withIndex:tid swipeType:swipeType];
-                            [KEY_WINDOW addSubview:resultView];
-                            flag = 1;
-                        }
+                    if (video == NULL) {
+						// 下载视频
+						NSString *filePath = [[NSString stringWithUTF8String:frame.targets()[0].target().name()] stringByDeletingLastPathComponent];
+                        NSString *targetImageName = [[NSString stringWithUTF8String:frame.targets()[0].target().name()]  lastPathComponent];
+                        int index = [[[targetImageName componentsSeparatedByString:@"_"] lastObject] intValue];
+						
+						__block NSString *videoPath = [filePath stringByAppendingPathComponent:[NSString stringWithFormat:@"swipeVideo_%d.mp4", index]];
+						
+						
+						if ([[NSFileManager defaultManager] fileExistsAtPath:videoPath]) {
+							if (texid[index] && video == NULL) {
+								video = new ARVideo;
+								std::string videoName = videoPath.UTF8String;
+								video->openVideoFile(videoName, texid[index]);
+								video_renderer = renderer[index];
+							}
+						} else {
+							// 视频不存在，需要下载
+							[[NZPScanningFileDownloadManager manager] downloadVideoWithURL:[NSURL URLWithString:[videoURLs objectAtIndex:index]] progress:^(NSProgress *downloadProgress) {
+								[((OpenGLView *)progressDelegate) setupProgressView:downloadProgress];
+							} destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+								return [NSURL fileURLWithPath:videoPath];
+							} completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+								if ([filePath.relativePath isEqual:videoPath]) {
+									if (texid[index] && video == NULL) {
+									video = new ARVideo;
+									std::string videoName = filePath.relativePath.UTF8String;
+									video->openVideoFile(videoName, texid[index]);
+									video_renderer = renderer[index];
+									}
+								}
+								
+							}];
+						}
+                    }
+                    if (video) {
+                        video->onFound();
+                        tracked_target = tid;
+                        active_target = tid;
                     }
                 }
-                if (flag == 1) {
-                    tracked_target = tid;
-                    active_target = tid;
+
+                Matrix44F projectionMatrix = getProjectionGL(camera_.cameraCalibration(), 0.2f, 500.f);
+                Matrix44F cameraview = getPoseGL(frame.targets()[0].pose());
+                ImageTarget target = frame.targets()[0].target().cast_dynamic<ImageTarget>();
+                if(tracked_target) {
+                    video->update();
+                    video_renderer->render(projectionMatrix, cameraview, target.size());
                 }
-                
             } else {
                 if (tracked_target) {
+                    video->onLost();
                     tracked_target = 0;
                 }
-                //        [resultView removeFromSuperview];
-                //        resultView = nil;
             }
+            
+            ////////////////////////////////END////////////////////////////////
         }
+        
+        bool HelloAR::clear()
+        {
+            AR::clear();
+            if(video){
+                delete video;
+                video = NULL;
+                tracked_target = 0;
+                active_target = 0;
+            }
+            return true;
+        }
+        
     }
 }
 
@@ -145,13 +256,13 @@ EasyAR::samples::HelloAR ar;
 
 @property (nonatomic, assign) int swipeType;   //0 扫一扫, 1 LBS
 @property (nonatomic, assign) int targetsCount; //目标图数量
-
 - (void)displayLinkCallback:(CADisplayLink*)displayLink;
 
 @end
 
-@implementation OpenGLView
-
+@implementation OpenGLView {
+	SKDownloadProgressView *_progressView;
+}
 + (Class)layerClass
 {
     return [CAEAGLLayer class];
@@ -246,6 +357,45 @@ EasyAR::samples::HelloAR ar;
     [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
+- (void)startWithFileName:(NSString *)fileName videoURLs:(NSArray *)videoURLs {
+	ar.initCamera();
+	ar.videoURLs = videoURLs;
+	ar.progressDelegate = self;
+	
+	// cache目录
+	NSURL *cachePath = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+	NSString *imagePath = [cachePath URLByAppendingPathComponent:[[fileName lastPathComponent] stringByDeletingPathExtension]].relativePath;
+	NSFileManager *fileManager=[NSFileManager defaultManager];
+	if ([fileManager fileExistsAtPath:imagePath]) {
+		NSArray *childerFiles=[fileManager subpathsAtPath:imagePath];
+		childerFiles = [childerFiles sortedArrayUsingComparator:^NSComparisonResult(NSString* _Nonnull obj1, NSString *  _Nonnull obj2) {
+			int index1 = [[[obj1 componentsSeparatedByString:@"_"] lastObject] intValue];
+			int index2 = [[[obj2 componentsSeparatedByString:@"_"] lastObject] intValue];
+			if (index1 < index2) {
+				return NSOrderedAscending;
+			} else if (index2 == index1) {
+				return NSOrderedSame;
+			} else {
+				return NSOrderedDescending;
+			}
+		}];
+		for (NSString *fileName in childerFiles) {
+			NSLog(@"FileName: %@", fileName);
+			if([fileName.pathExtension isEqualToString:@"mp4"]){
+				continue;
+			}
+			NSString *absolutePath=[imagePath stringByAppendingPathComponent:fileName];
+			ar.loadFromImage([absolutePath UTF8String], 0);
+		}
+	}
+	
+	((AppDelegate*)[[UIApplication sharedApplication]delegate]).active = true;
+	ar.start();
+	
+	self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkCallback:)];
+	[self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
 - (void)stop
 {
     ((AppDelegate*)[[UIApplication sharedApplication]delegate]).active = false;
@@ -256,6 +406,8 @@ EasyAR::samples::HelloAR ar;
 {
     if (!((AppDelegate*)[[UIApplication sharedApplication]delegate]).active)
         return;
+    
+    [_delegate isRecognizedTarget:ar.isRecognizedTarget()];
     ar.render();
 
     (void)displayLink;
@@ -302,6 +454,23 @@ EasyAR::samples::HelloAR ar;
         default:
             break;
     }
+}
+
+- (void)setupProgressView:(NSProgress *) downloadProgress {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		//进度条
+		if(!_progressView) {
+			_progressView = [[SKDownloadProgressView alloc] init];
+			_progressView.center = CGPointMake([UIScreen mainScreen].bounds.size.width / 2, [UIScreen mainScreen].bounds.size.height / 2);
+			[self addSubview:_progressView];
+		}
+		[_progressView setProgressViewPercent:downloadProgress.fractionCompleted];
+		if(downloadProgress.fractionCompleted == 1.0) {
+			[_progressView removeFromSuperview];
+			_progressView = nil;
+		}
+		
+	});
 }
 
 @end

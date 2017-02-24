@@ -27,13 +27,13 @@
  @brief 获取annotation标题
  @return 返回annotation的标题信息
  */
-@property (nonatomic, readonly, copy) NSString *title;
+@property (nonatomic, copy) NSString *title;
 
 /*!
  @brief 获取annotation副标题
  @return 返回annotation的副标题信息
  */
-@property (nonatomic, readonly, copy) NSString *subtitle;
+@property (nonatomic, copy) NSString *subtitle;
 
 /**
  @brief 设置标注的坐标，在拖拽时会被调用.

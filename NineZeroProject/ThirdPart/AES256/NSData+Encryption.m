@@ -13,7 +13,7 @@
 
 @implementation NSData (Encryption)
 
-static char base64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+//static char base64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 - (NSData *)aes256_encrypt:(NSString *)key  //加密
 {
