@@ -175,6 +175,8 @@
 		11B8AEF01DF1820B001A3E0F /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEEC1DF1820B001A3E0F /* NSString+Base64.m */; };
 		11BC2DFE1D93C98200C9E775 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFC1D93C98200C9E775 /* libTalkingData.a */; };
 		11BC2E001D93C9CF00C9E775 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */; };
+		11C64D3C1E601AC000397835 /* ChatFlowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C64D391E601AC000397835 /* ChatFlowCell.m */; };
+		11C64D3D1E601AC000397835 /* ChatFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C64D3B1E601AC000397835 /* ChatFlowViewController.m */; };
 		11C7646D1E120E5300D86F40 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11C764571E120E5300D86F40 /* Info.plist */; };
 		11C7646E1E120E5300D86F40 /* MJExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C7645A1E120E5300D86F40 /* MJExtensionConst.m */; };
 		11C7646F1E120E5300D86F40 /* MJFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C7645C1E120E5300D86F40 /* MJFoundation.m */; };
@@ -627,6 +629,10 @@
 		11BC2DFC1D93C98200C9E775 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
 		11BC2DFD1D93C98200C9E775 /* TalkingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingData.h; sourceTree = "<group>"; };
 		11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		11C64D381E601AC000397835 /* ChatFlowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatFlowCell.h; path = NineZeroProject/UI/Index/Notification/ChatFlowCell.h; sourceTree = "<group>"; };
+		11C64D391E601AC000397835 /* ChatFlowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatFlowCell.m; path = NineZeroProject/UI/Index/Notification/ChatFlowCell.m; sourceTree = "<group>"; };
+		11C64D3A1E601AC000397835 /* ChatFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatFlowViewController.h; path = NineZeroProject/UI/Index/Notification/ChatFlowViewController.h; sourceTree = "<group>"; };
+		11C64D3B1E601AC000397835 /* ChatFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatFlowViewController.m; path = NineZeroProject/UI/Index/Notification/ChatFlowViewController.m; sourceTree = "<group>"; };
 		11C764571E120E5300D86F40 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11C764581E120E5300D86F40 /* MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtension.h; sourceTree = "<group>"; };
 		11C764591E120E5300D86F40 /* MJExtensionConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtensionConst.h; sourceTree = "<group>"; };
@@ -1425,6 +1431,21 @@
 			path = TalkingData;
 			sourceTree = "<group>";
 		};
+		11C64D371E601A7C00397835 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				118C310B1E5D4630009C3701 /* SKNotificationRootViewController.h */,
+				118C310C1E5D4630009C3701 /* SKNotificationRootViewController.m */,
+				116237241E4B32B5009FEDCA /* HTNotificationController.h */,
+				116237251E4B32B5009FEDCA /* HTNotificationController.m */,
+				11C64D3A1E601AC000397835 /* ChatFlowViewController.h */,
+				11C64D3B1E601AC000397835 /* ChatFlowViewController.m */,
+				11C64D381E601AC000397835 /* ChatFlowCell.h */,
+				11C64D391E601AC000397835 /* ChatFlowCell.m */,
+			);
+			name = Notification;
+			sourceTree = "<group>";
+		};
 		11C764561E120E5300D86F40 /* MJExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -1468,16 +1489,13 @@
 		11E3C0901DD5B26800550286 /* Index */ = {
 			isa = PBXGroup;
 			children = (
+				11C64D371E601A7C00397835 /* Notification */,
 				116237221E4B32B5009FEDCA /* HTNotificationCell.h */,
 				116237231E4B32B5009FEDCA /* HTNotificationCell.m */,
-				116237241E4B32B5009FEDCA /* HTNotificationController.h */,
-				116237251E4B32B5009FEDCA /* HTNotificationController.m */,
 				116237261E4B32B5009FEDCA /* SKActivityNotificationView.h */,
 				116237271E4B32B5009FEDCA /* SKActivityNotificationView.m */,
 				116237281E4B32B5009FEDCA /* SKHomepageViewController.h */,
 				116237291E4B32B5009FEDCA /* SKHomepageViewController.m */,
-				118C310B1E5D4630009C3701 /* SKNotificationRootViewController.h */,
-				118C310C1E5D4630009C3701 /* SKNotificationRootViewController.m */,
 			);
 			name = Index;
 			sourceTree = "<group>";
@@ -2617,6 +2635,7 @@
 				11F706371E0CD802004332C2 /* NSString+DES.m in Sources */,
 				1162370A1E4B3288009FEDCA /* SKProfileIndexViewController.m in Sources */,
 				1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */,
+				11C64D3D1E601AC000397835 /* ChatFlowViewController.m in Sources */,
 				17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */,
 				17B429021C54D4A8008AFBA9 /* YYImage.m in Sources */,
 				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,
@@ -2646,6 +2665,7 @@
 				1787FD2B1C4A9E85006E55A6 /* INTULocationManager.m in Sources */,
 				1160FB3F1E0E927F00606F16 /* HTLoginButton.m in Sources */,
 				17B429011C54D4A8008AFBA9 /* YYFrameImage.m in Sources */,
+				11C64D3C1E601AC000397835 /* ChatFlowCell.m in Sources */,
 				1162371B1E4B329E009FEDCA /* SKConfirmPasswordViewController.m in Sources */,
 				11C764761E120E5300D86F40 /* NSObject+MJProperty.m in Sources */,
 				116236D61E4B3096009FEDCA /* SKProfileService.m in Sources */,
