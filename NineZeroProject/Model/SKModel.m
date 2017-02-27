@@ -92,3 +92,6 @@ HTINIT(SKQuestion)
 
 @implementation SKNotification
 @end
+
+@implementation SKChatObject
+@end

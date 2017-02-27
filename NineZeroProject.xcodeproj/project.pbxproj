@@ -132,6 +132,7 @@
 		116237881E4D623D009FEDCA /* SKScanningResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116237801E4D623D009FEDCA /* SKScanningResultView.m */; };
 		1162378B1E4D62EA009FEDCA /* HTARCaptureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1162378A1E4D62EA009FEDCA /* HTARCaptureController.m */; };
 		116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */; };
+		116DA7B71E64186000006211 /* SKSecretaryService.m in Sources */ = {isa = PBXBuildFile; fileRef = 116DA7B61E64186000006211 /* SKSecretaryService.m */; };
 		118C310D1E5D4630009C3701 /* SKNotificationRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 118C310C1E5D4630009C3701 /* SKNotificationRootViewController.m */; };
 		1191C4D41E51846500583556 /* SKScanningRewardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1191C4D31E51846500583556 /* SKScanningRewardViewController.m */; };
 		11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 11961CDB1D2D2B3400A00AF9 /* UIImage+ImageEffects.m */; };
@@ -573,6 +574,8 @@
 		1162378A1E4D62EA009FEDCA /* HTARCaptureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTARCaptureController.m; path = NineZeroProject/UI/LBS_AR/HTARCaptureController.m; sourceTree = SOURCE_ROOT; };
 		116B5E8F1E06E5B100E5BDAC /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		116B5E901E06E5B100E5BDAC /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
+		116DA7B51E64186000006211 /* SKSecretaryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKSecretaryService.h; path = NineZeroProject/Service/SKSecretaryService.h; sourceTree = "<group>"; };
+		116DA7B61E64186000006211 /* SKSecretaryService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKSecretaryService.m; path = NineZeroProject/Service/SKSecretaryService.m; sourceTree = "<group>"; };
 		1175B4E71DEFD06D00302B67 /* SKLogicHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLogicHeader.h; sourceTree = "<group>"; };
 		11838DD11D953728001A24A3 /* NineZeroProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NineZeroProject.entitlements; sourceTree = "<group>"; };
 		118C310B1E5D4630009C3701 /* SKNotificationRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKNotificationRootViewController.h; path = NineZeroProject/UI/Index/SKNotificationRootViewController.h; sourceTree = "<group>"; };
@@ -1342,6 +1345,8 @@
 				116236CF1E4B3096009FEDCA /* SKQuestionService.m */,
 				116237741E4C4EC7009FEDCA /* SKScanningService.h */,
 				116237751E4C4EC7009FEDCA /* SKScanningService.m */,
+				116DA7B51E64186000006211 /* SKSecretaryService.h */,
+				116DA7B61E64186000006211 /* SKSecretaryService.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -2679,6 +2684,7 @@
 				116237641E4B32FB009FEDCA /* SKRankView.m in Sources */,
 				11CA0C581CD24E4200C06333 /* easing.c in Sources */,
 				17461D0F1C74C8C900C847E8 /* Reachability.m in Sources */,
+				116DA7B71E64186000006211 /* SKSecretaryService.m in Sources */,
 				11B8AEED1DF1820B001A3E0F /* AESCrypt.m in Sources */,
 				1162370B1E4B3288009FEDCA /* SKProfileMyTicketsViewController.m in Sources */,
 				1160FB451E0E927F00606F16 /* HTBlankView.m in Sources */,

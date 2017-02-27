@@ -30,4 +30,6 @@
 
 + (NSString *)scanningBaseCGIKey;
 
++ (NSString *)secretaryBaseCGIKey;
+
 @end

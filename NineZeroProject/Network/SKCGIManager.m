@@ -46,4 +46,8 @@
 	return [NSString stringWithFormat:@"%@/Scanning/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)secretaryBaseCGIKey {
+	return [NSString stringWithFormat:@"%@/Secretary/appIndex", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 @end
