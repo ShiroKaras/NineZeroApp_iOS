@@ -11,9 +11,9 @@
 #import <Masonry.h>
 #import "HTUIHeader.h"
 
-@interface ChatFlowViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ChatFlowViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSMutableArray<SKChatObject*> *dataArray;
 @property (nonatomic, strong) UIView *inputView;
 @property (nonatomic, strong) UITextField *inputTextField;
 @end
@@ -29,11 +29,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     
-    _dataArray = [NSMutableArray array];
-    for (int i=0; i<10; i++) {
-        [_dataArray addObject:@(1)];
-    }
-    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height-60) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -41,8 +36,6 @@
     self.tableView.backgroundColor = [UIColor blackColor];
     [self.tableView registerClass:[ChatFlowCell class] forCellReuseIdentifier:NSStringFromClass([ChatFlowCell class])];
     [self.view addSubview:self.tableView];
-    [self.tableView reloadData];
-    [self scrollViewToBottom:YES];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
     tap.numberOfTapsRequired = 1;
@@ -54,11 +47,14 @@
     [self.view addSubview:_inputView];
     
     _inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(14, 14, self.view.width-28, 32)];
+    _inputTextField.delegate = self;
+    _inputTextField.returnKeyType = UIReturnKeySend;
     _inputTextField.font = PINGFANG_FONT_OF_SIZE(12);
     _inputTextField.layer.cornerRadius = 5;
     _inputTextField.layer.borderColor = [UIColor colorWithHex:0x989696].CGColor;
     _inputTextField.layer.borderWidth = 2;
     _inputTextField.placeholder = @"您有什么想对我说的吗~";
+    [_inputTextField setValue:[UIColor colorWithHex:0x989696] forKeyPath:@"_placeholderLabel.textColor"];
     _inputTextField.textColor = [UIColor colorWithHex:0x989696];
     _inputTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 32)];
     _inputTextField.leftViewMode = UITextFieldViewModeAlways;
@@ -69,7 +65,12 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] secretaryService] showSecretaryWithCallback:^(BOOL success, NSArray<SKChatObject *> *chatFlowArray) {
-        DLog(@"chatArray: %@", chatFlowArray);
+        _dataArray = [NSMutableArray arrayWithArray:chatFlowArray];
+        [self.tableView reloadData];
+        [self scrollViewToBottom:YES];
+        for (SKChatObject *object in chatFlowArray) {
+            DLog(@"chatArray: %@", object.content);
+        }
     }];
 }
 
@@ -80,7 +81,7 @@
 #pragma mark - Action
 
 - (void)addChatData {
-    [_dataArray addObject:@(arc4random()%2+1)];
+//    [_dataArray addObject:@(arc4random()%2+1)];
     [self.tableView reloadData];
     [self scrollViewToBottom:YES];
 }
@@ -102,7 +103,7 @@
         cell = [[ChatFlowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([ChatFlowCell class])];
     }
     
-    [cell setObject:nil withType:[_dataArray[indexPath.row] intValue]];
+    [cell setObject:nil withType:[_dataArray[indexPath.row].type intValue]];
     return cell;
 }
 
@@ -127,6 +128,14 @@
 
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [[[SKServiceManager sharedInstance] secretaryService] sendFeedback:_inputTextField.text callback:^(BOOL success, SKResponsePackage *response) {
+        DLog(@"%@", response.data);
+    }];
+    [textField resignFirstResponder];
+    return YES;
+}
+
 #pragma mark - Keyboard
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -142,6 +151,7 @@
 }
 
 - (void)keyboardDidHide:(NSNotification *)notification {
+    
 }
 
 - (void)dismissKeyboard:(id)sender {

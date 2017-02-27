@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 typedef enum : NSInteger {
-    ChatFlowPositionTypeUnknow  = 0,
-    ChatFlowPositionTypeLeft    = 1,
-    ChatFlowPositionTypeRight   = 2
+    ChatFlowPositionTypeUnknow  = -1,
+    ChatFlowPositionTypeRight    = 0,
+    ChatFlowPositionTypeLeft   = 1
 } ChatFlowPositionType;
 
 @interface ChatFlowCell : UITableViewCell
