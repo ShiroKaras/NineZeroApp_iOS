@@ -75,7 +75,7 @@
             NSMutableArray<SKChatObject*> *chatArray = [NSMutableArray array];
             for (int i = 0; i != [response.data count]; i++) {
                 SKChatObject *chatObject = [SKChatObject mj_objectWithKeyValues:[response.data objectAtIndex:i]];
-                [chatArray addObject:chatObject];
+                [chatArray insertObject:chatObject atIndex:0];
             }
             callback(success, chatArray);
         } else {

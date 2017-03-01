@@ -66,6 +66,15 @@
 - (void)loadData {
     [[[SKServiceManager sharedInstance] secretaryService] showSecretaryWithCallback:^(BOOL success, NSArray<SKChatObject *> *chatFlowArray) {
         _dataArray = [NSMutableArray arrayWithArray:chatFlowArray];
+        if (chatFlowArray.count == 0) {
+            SKChatObject *object = [SKChatObject new];
+            object.content = @"Bibo！我是零仔小秘书~在九零APP中遇到任何问题都可以跟我进行反馈哟，不一定第一时间，但是小秘书一定会回复的:)";
+            NSString *date = [NSString stringWithFormat:@"%lu", (long)[[NSDate date] timeIntervalSince1970]];
+            object.created_time = date;
+            object.type = @"1";
+            [_dataArray addObject:object];
+        }
+        
         [self.tableView reloadData];
         [self scrollViewToBottom:YES];
         for (SKChatObject *object in chatFlowArray) {
@@ -79,12 +88,6 @@
 }
 
 #pragma mark - Action
-
-- (void)addChatData {
-//    [_dataArray addObject:@(arc4random()%2+1)];
-    [self.tableView reloadData];
-    [self scrollViewToBottom:YES];
-}
 
 - (void)scrollViewToBottom:(BOOL)animated
 {
@@ -103,7 +106,7 @@
         cell = [[ChatFlowCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([ChatFlowCell class])];
     }
     
-    [cell setObject:nil withType:[_dataArray[indexPath.row].type intValue]];
+    [cell setObject:_dataArray[indexPath.row] withType:[_dataArray[indexPath.row].type intValue]];
     return cell;
 }
 
@@ -129,8 +132,31 @@
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    SKChatObject *object = [SKChatObject new];
+    object.content = textField.text;
+    NSString *date = [NSString stringWithFormat:@"%lu", (long)[[NSDate date] timeIntervalSince1970]];
+    object.created_time = date;
+    object.type = @"0";
+    [_dataArray addObject:object];
+    
+    [self.tableView reloadData];
+    [self scrollViewToBottom:YES];
+    textField.text = @"";
+    
     [[[SKServiceManager sharedInstance] secretaryService] sendFeedback:_inputTextField.text callback:^(BOOL success, SKResponsePackage *response) {
-        DLog(@"%@", response.data);
+        if ([response.data[@"replay"] isEqualToString:@""])
+            return;
+        
+        SKChatObject *object = [SKChatObject new];
+        object.content = response.data[@"reply"];
+        NSString *date = response.data[@"time"];
+        object.created_time = date;
+        object.type = @"1";
+        [_dataArray addObject:object];
+        
+        [self.tableView reloadData];
+        [self scrollViewToBottom:YES];
+        textField.text = @"";
     }];
     [textField resignFirstResponder];
     return YES;

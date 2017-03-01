@@ -11,8 +11,10 @@
 #import <Masonry/Masonry.h>
 
 @interface ChatFlowCell ()
-@property (nonatomic, strong) UIView *chatBackView;
-@property (nonatomic, strong) UIView *chatColorBackView;
+@property (nonatomic, strong) UIView    *chatBackView;
+@property (nonatomic, strong) UIView    *chatColorBackView;
+@property (nonatomic, strong) UILabel   *contentLabel;
+@property (nonatomic, strong) UILabel   *stampLabel;
 @end
 
 @implementation ChatFlowCell
@@ -31,6 +33,16 @@
         _chatColorBackView.layer.cornerRadius = 5;
         [_chatBackView addSubview:_chatColorBackView];
         
+        _contentLabel = [UILabel new];
+        _contentLabel.font = PINGFANG_FONT_OF_SIZE(12);
+        _contentLabel.textColor = [UIColor whiteColor];
+        [_chatBackView addSubview:_contentLabel];
+        
+        _stampLabel = [UILabel new];
+        _stampLabel.font = PINGFANG_FONT_OF_SIZE(10);
+        _stampLabel.textColor = [UIColor colorWithHex:0x9c9c9c];
+        [_chatBackView addSubview:_stampLabel];
+        
         _avatarImageView = [UIImageView new];
         _avatarImageView.backgroundColor = [UIColor whiteColor];
         _avatarImageView.layer.cornerRadius = 20;
@@ -40,24 +52,50 @@
     return self;
 }
 
-- (void)setObject:(id)object withType:(ChatFlowPositionType)type {
+- (void)setObject:(SKChatObject*)object withType:(ChatFlowPositionType)type {
     self.type = type;
-    [self setTextHeight:100 cellFrame:self.frame];
+    _contentLabel.text = object.content;
+    
+    //    获取当前文本的属性
+    NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:PINGFANG_FONT_OF_SIZE(12),NSFontAttributeName,nil];
+    //ios7方法，获取文本需要的size，限制宽度
+    CGSize  actualsize =[object.content boundingRectWithSize:CGSizeMake(220,CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin  attributes:tdic context:nil].size;
+    [self setTextHeight:actualsize.height cellFrame:self.frame];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"YYYY-MM-dd hh:mm"];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[object.created_time longLongValue]];
+    NSString *confromTimespStr = [formatter stringFromDate:date];
+    _stampLabel.text = confromTimespStr;
+    [_stampLabel sizeToFit];
+    
+    [_stampLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_chatColorBackView.mas_bottom).offset(6);
+        if (type == ChatFlowPositionTypeLeft) {
+            make.left.equalTo(_chatColorBackView);
+        } else if (type == ChatFlowPositionTypeRight) {
+            make.right.equalTo(_chatColorBackView);
+        }
+    }];
 }
 
 - (void)setType:(ChatFlowPositionType)type {
     _type = type;
+    
     [_chatBackView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@248);
-        make.height.equalTo(self.mas_height).offset(-20);
-        make.top.equalTo(@10);
+        make.bottom.equalTo(self.mas_bottom);
+        make.top.equalTo(@14);
         if (type == ChatFlowPositionTypeLeft) {
             make.left.equalTo(@14);
         } else if (type == ChatFlowPositionTypeRight) {
             make.right.equalTo(self).offset(-14);
         }
     }];
-    
+
+    //零仔头像
     [_avatarImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(40, 40));
         make.top.equalTo(@0);
@@ -68,6 +106,7 @@
         }
     }];
     
+    //背景色
     if (type == ChatFlowPositionTypeLeft) {
         _chatColorBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
     } else if (type == ChatFlowPositionTypeRight) {
@@ -84,15 +123,21 @@
         }
     }];
     
+    //内容文本
+    [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@(14));
+        make.left.equalTo(_chatColorBackView).offset(14);
+        make.right.equalTo(_chatColorBackView).offset(-14);
+    }];
 }
 
 - (void)setTextHeight:(CGFloat)height cellFrame:(CGRect)cellFrame {
     if (_type == ChatFlowPositionTypeLeft) {
-        cellFrame.size.height = height +28.5 +14 +14 +16;
+        _cellHeight = height +28.5 +14 +14 +16 +14;
     } else {
-        cellFrame.size.height = height +28 +16;
+        _cellHeight = height +28 +16 +14;
     }
-    _cellHeight = cellFrame.size.height;
+    cellFrame.size.height = _cellHeight;
     [self setFrame:cellFrame];
 }
 

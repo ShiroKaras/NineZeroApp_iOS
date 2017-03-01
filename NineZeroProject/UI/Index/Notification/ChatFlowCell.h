@@ -14,12 +14,14 @@ typedef enum : NSInteger {
     ChatFlowPositionTypeLeft   = 1
 } ChatFlowPositionType;
 
+@class SKChatObject;
+
 @interface ChatFlowCell : UITableViewCell
 
 @property (nonatomic, assign) ChatFlowPositionType type;
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, assign) float cellHeight;
 
-- (void)setObject:(id)object withType:(ChatFlowPositionType)type;
+- (void)setObject:(SKChatObject*)object withType:(ChatFlowPositionType)type;
 
 @end
