@@ -344,8 +344,33 @@
 		98088D661E56EC9400ADB66F /* BaseConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 98088D651E56EC9400ADB66F /* BaseConfiguration.m */; };
 		98088D691E56EFE300ADB66F /* ClientConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 98088D681E56EFE300ADB66F /* ClientConfiguration.m */; };
 		98088D6C1E5703C000ADB66F /* ServerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 98088D6B1E5703C000ADB66F /* ServerConfiguration.m */; };
+		98576C2B1E651BC000704B21 /* SKPopupGetPuzzleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98576C2A1E651BC000704B21 /* SKPopupGetPuzzleView.m */; };
 		987042991E4C75AC00770BFD /* NZPScanningFileDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 987042981E4C75AC00770BFD /* NZPScanningFileDownloadManager.m */; };
 		98A1D9331E5ECC0E00ABE360 /* SKScanningImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A1D9321E5ECC0E00ABE360 /* SKScanningImageView.m */; };
+		98A6D88E1E63DAA000BB351D /* SKScanningPuzzleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A6D88D1E63DAA000BB351D /* SKScanningPuzzleView.m */; };
+		98B76F661E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0000.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F4F1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0000.png */; };
+		98B76F671E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0001.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F501E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0001.png */; };
+		98B76F681E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0002.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F511E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0002.png */; };
+		98B76F691E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0003.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F521E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0003.png */; };
+		98B76F6A1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0004.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F531E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0004.png */; };
+		98B76F6B1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0005.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F541E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0005.png */; };
+		98B76F6C1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0006.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F551E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0006.png */; };
+		98B76F6D1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0007.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F561E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0007.png */; };
+		98B76F6E1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0008.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F571E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0008.png */; };
+		98B76F6F1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0009.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F581E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0009.png */; };
+		98B76F701E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0010.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F591E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0010.png */; };
+		98B76F711E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0011.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F5A1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0011.png */; };
+		98B76F721E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0012.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F5B1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0012.png */; };
+		98B76F731E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0013.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F5C1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0013.png */; };
+		98B76F741E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0014.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F5D1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0014.png */; };
+		98B76F751E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0015.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F5E1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0015.png */; };
+		98B76F761E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0016.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F5F1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0016.png */; };
+		98B76F771E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0017.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F601E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0017.png */; };
+		98B76F781E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0018.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F611E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0018.png */; };
+		98B76F791E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0019.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F621E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0019.png */; };
+		98B76F7A1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0020.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F631E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0020.png */; };
+		98B76F7B1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0021.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F641E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0021.png */; };
+		98B76F7C1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0022.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B76F651E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0022.png */; };
 		C1A76BB8BA08C99F581EEC18 /* libPods-NineZeroProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C7F57F4FFAD09A4E319A9C7 /* libPods-NineZeroProjectTests.a */; };
 		E5E885C9733CA87451550614 /* libPods-NineZeroProjectUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3409371C23A132D0A05D82A /* libPods-NineZeroProjectUITests.a */; };
 /* End PBXBuildFile section */
@@ -894,10 +919,37 @@
 		98088D681E56EFE300ADB66F /* ClientConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ClientConfiguration.m; sourceTree = "<group>"; tabWidth = 4; wrapsLines = 0; };
 		98088D6A1E5703C000ADB66F /* ServerConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfiguration.h; sourceTree = "<group>"; };
 		98088D6B1E5703C000ADB66F /* ServerConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfiguration.m; sourceTree = "<group>"; };
+		98576C291E651BC000704B21 /* SKPopupGetPuzzleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKPopupGetPuzzleView.h; path = NineZeroProject/UI/LBS_AR/SKPopupGetPuzzleView.h; sourceTree = "<group>"; };
+		98576C2A1E651BC000704B21 /* SKPopupGetPuzzleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKPopupGetPuzzleView.m; path = NineZeroProject/UI/LBS_AR/SKPopupGetPuzzleView.m; sourceTree = "<group>"; };
 		987042971E4C75AC00770BFD /* NZPScanningFileDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NZPScanningFileDownloadManager.h; sourceTree = "<group>"; };
 		987042981E4C75AC00770BFD /* NZPScanningFileDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NZPScanningFileDownloadManager.m; sourceTree = "<group>"; };
 		98A1D9311E5ECC0E00ABE360 /* SKScanningImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKScanningImageView.h; path = NineZeroProject/UI/LBS_AR/SKScanningImageView.h; sourceTree = "<group>"; };
 		98A1D9321E5ECC0E00ABE360 /* SKScanningImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKScanningImageView.m; path = NineZeroProject/UI/LBS_AR/SKScanningImageView.m; sourceTree = "<group>"; };
+		98A6D88C1E63DAA000BB351D /* SKScanningPuzzleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKScanningPuzzleView.h; path = NineZeroProject/UI/LBS_AR/SKScanningPuzzleView.h; sourceTree = "<group>"; };
+		98A6D88D1E63DAA000BB351D /* SKScanningPuzzleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKScanningPuzzleView.m; path = NineZeroProject/UI/LBS_AR/SKScanningPuzzleView.m; sourceTree = "<group>"; };
+		98B76F4F1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0000.png; sourceTree = "<group>"; };
+		98B76F501E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0001.png; sourceTree = "<group>"; };
+		98B76F511E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0002.png; sourceTree = "<group>"; };
+		98B76F521E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0003.png; sourceTree = "<group>"; };
+		98B76F531E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0004.png; sourceTree = "<group>"; };
+		98B76F541E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0005.png; sourceTree = "<group>"; };
+		98B76F551E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0006.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0006.png; sourceTree = "<group>"; };
+		98B76F561E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0007.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0007.png; sourceTree = "<group>"; };
+		98B76F571E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0008.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0008.png; sourceTree = "<group>"; };
+		98B76F581E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0009.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0009.png; sourceTree = "<group>"; };
+		98B76F591E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0010.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0010.png; sourceTree = "<group>"; };
+		98B76F5A1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0011.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0011.png; sourceTree = "<group>"; };
+		98B76F5B1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0012.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0012.png; sourceTree = "<group>"; };
+		98B76F5C1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0013.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0013.png; sourceTree = "<group>"; };
+		98B76F5D1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0014.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0014.png; sourceTree = "<group>"; };
+		98B76F5E1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0015.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0015.png; sourceTree = "<group>"; };
+		98B76F5F1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0016.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0016.png; sourceTree = "<group>"; };
+		98B76F601E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0017.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0017.png; sourceTree = "<group>"; };
+		98B76F611E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0018.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0018.png; sourceTree = "<group>"; };
+		98B76F621E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0019.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0019.png; sourceTree = "<group>"; };
+		98B76F631E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0020.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0020.png; sourceTree = "<group>"; };
+		98B76F641E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0021.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0021.png; sourceTree = "<group>"; };
+		98B76F651E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0022.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gif_scanning_puzzlescanning_0022.png; sourceTree = "<group>"; };
 		9C7F57F4FFAD09A4E319A9C7 /* libPods-NineZeroProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3409371C23A132D0A05D82A /* libPods-NineZeroProjectUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProjectUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5599231F34A2BBAAA62D1FE /* Pods-NineZeroProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProjectTests/Pods-NineZeroProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1035,6 +1087,7 @@
 				17461CE71C7493DF00C847E8 /* img_ar_right_answer_gif */,
 				119C5CB71E2769D1001B4CFD /* MascotAnimationFrame */,
 				113FA69B1E1E1DC5001DFFC5 /* MascotGif */,
+				98B76F4E1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning */,
 				17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */,
 				17D1F8821C29ADCD0029E4AF /* wrong_answer_gif.gif */,
 			);
@@ -1263,6 +1316,10 @@
 				116237781E4D623D009FEDCA /* SKSwipeViewController.m */,
 				98A1D9311E5ECC0E00ABE360 /* SKScanningImageView.h */,
 				98A1D9321E5ECC0E00ABE360 /* SKScanningImageView.m */,
+				98A6D88C1E63DAA000BB351D /* SKScanningPuzzleView.h */,
+				98A6D88D1E63DAA000BB351D /* SKScanningPuzzleView.m */,
+				98576C291E651BC000704B21 /* SKPopupGetPuzzleView.h */,
+				98576C2A1E651BC000704B21 /* SKPopupGetPuzzleView.m */,
 			);
 			name = Scan;
 			sourceTree = "<group>";
@@ -2081,6 +2138,36 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		98B76F4E1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning */ = {
+			isa = PBXGroup;
+			children = (
+				98B76F4F1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0000.png */,
+				98B76F501E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0001.png */,
+				98B76F511E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0002.png */,
+				98B76F521E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0003.png */,
+				98B76F531E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0004.png */,
+				98B76F541E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0005.png */,
+				98B76F551E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0006.png */,
+				98B76F561E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0007.png */,
+				98B76F571E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0008.png */,
+				98B76F581E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0009.png */,
+				98B76F591E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0010.png */,
+				98B76F5A1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0011.png */,
+				98B76F5B1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0012.png */,
+				98B76F5C1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0013.png */,
+				98B76F5D1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0014.png */,
+				98B76F5E1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0015.png */,
+				98B76F5F1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0016.png */,
+				98B76F601E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0017.png */,
+				98B76F611E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0018.png */,
+				98B76F621E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0019.png */,
+				98B76F631E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0020.png */,
+				98B76F641E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0021.png */,
+				98B76F651E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0022.png */,
+			);
+			path = gif_scanning_puzzlescanning;
+			sourceTree = "<group>";
+		};
 		E5FBB8A3D1AAD104CB94730B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2227,10 +2314,13 @@
 				17A247BA1C623B9900359CCF /* right_answer_gif_0019.png in Resources */,
 				17A92CD91CA809B100BE893D /* MJRefresh.bundle in Resources */,
 				17A247851C623B9300359CCF /* raw_wrong_answer_gif_0007.png in Resources */,
+				98B76F691E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0003.png in Resources */,
 				17A247B71C623B9900359CCF /* right_answer_gif_0016.png in Resources */,
 				17D1F8811C29ADC40029E4AF /* right_answer_gif.gif in Resources */,
 				1787FD1B1C4A8884006E55A6 /* RadarMV.png in Resources */,
 				111ACAC31E2E0FDC007DE137 /* wrath_1.gif in Resources */,
+				98B76F671E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0001.png in Resources */,
+				98B76F761E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0016.png in Resources */,
 				111ACA8C1E2DCF83007DE137 /* right_answer_gif0008.png in Resources */,
 				112167611CEF565A0048EA01 /* LaunchScreen.storyboard in Resources */,
 				17A247AD1C623B9900359CCF /* right_answer_gif_0006.png in Resources */,
@@ -2243,6 +2333,7 @@
 				17A247881C623B9300359CCF /* raw_wrong_answer_gif_0010.png in Resources */,
 				111ACAC21E2E0FDC007DE137 /* sloth_3.gif in Resources */,
 				17A247B61C623B9900359CCF /* right_answer_gif_0015.png in Resources */,
+				98B76F681E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0002.png in Resources */,
 				17461D0A1C7493DF00C847E8 /* img_ar_right_answer_gif_0016.png in Resources */,
 				17A247831C623B9300359CCF /* raw_wrong_answer_gif_0005.png in Resources */,
 				17A247B41C623B9900359CCF /* right_answer_gif_0013.png in Resources */,
@@ -2261,14 +2352,17 @@
 				119C669E1E2769D5001B4CFD /* pride_01_00000.jpg in Resources */,
 				111ACAB81E2E0FDC007DE137 /* lingzai_2.gif in Resources */,
 				17D1F8831C29ADCD0029E4AF /* wrong_answer_gif.gif in Resources */,
+				98B76F6A1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0004.png in Resources */,
 				11C7646D1E120E5300D86F40 /* Info.plist in Resources */,
 				116237461E4B32CF009FEDCA /* SKCardTimeView.xib in Resources */,
 				111ACAB71E2E0FDC007DE137 /* lingzai_1.gif in Resources */,
 				1162376A1E4B332E009FEDCA /* SKUserAgreementViewController.xib in Resources */,
 				17A2478D1C623B9300359CCF /* raw_wrong_answer_gif_0015.png in Resources */,
+				98B76F7B1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0021.png in Resources */,
 				17461D061C7493DF00C847E8 /* img_ar_right_answer_gif_0012.png in Resources */,
 				111ACA8F1E2DCF83007DE137 /* right_answer_gif0011.png in Resources */,
 				111ACA881E2DCF83007DE137 /* right_answer_gif0004.png in Resources */,
+				98B76F7A1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0020.png in Resources */,
 				17461CFD1C7493DF00C847E8 /* img_ar_right_answer_gif_0003.png in Resources */,
 				17461D041C7493DF00C847E8 /* img_ar_right_answer_gif_0010.png in Resources */,
 				119C659D1E2769D4001B4CFD /* lust_01_00000.jpg in Resources */,
@@ -2277,7 +2371,9 @@
 				116237061E4B3288009FEDCA /* HTAboutController.xib in Resources */,
 				17A247B01C623B9900359CCF /* right_answer_gif_0009.png in Resources */,
 				111ACA6C1E2DCF4E007DE137 /* 90appbundle.cer in Resources */,
+				98B76F791E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0019.png in Resources */,
 				119C67191E2769D6001B4CFD /* pride_03_00000.jpg in Resources */,
+				98B76F731E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0013.png in Resources */,
 				17A247871C623B9300359CCF /* raw_wrong_answer_gif_0009.png in Resources */,
 				17461D081C7493DF00C847E8 /* img_ar_right_answer_gif_0014.png in Resources */,
 				111ACA981E2DCF83007DE137 /* right_answer_gif0020.png in Resources */,
@@ -2286,6 +2382,7 @@
 				111ACABD1E2E0FDC007DE137 /* pride_1.gif in Resources */,
 				17A247B81C623B9900359CCF /* right_answer_gif_0017.png in Resources */,
 				119C62ED1E2769D3001B4CFD /* envy_02_00000.jpg in Resources */,
+				98B76F771E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0017.png in Resources */,
 				119C65E91E2769D5001B4CFD /* lust_02_00000.jpg in Resources */,
 				17A2478F1C623B9300359CCF /* raw_wrong_answer_gif_0017.png in Resources */,
 				17461D071C7493DF00C847E8 /* img_ar_right_answer_gif_0013.png in Resources */,
@@ -2296,10 +2393,14 @@
 				1787FD1D1C4A8884006E55A6 /* ARRadar.xib in Resources */,
 				11AD0C481DAA3490007951C5 /* namecard.jpg in Resources */,
 				111ACA8E1E2DCF83007DE137 /* right_answer_gif0010.png in Resources */,
+				98B76F721E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0012.png in Resources */,
 				1787FD1A1C4A8884006E55A6 /* Radar.png in Resources */,
 				17A247821C623B9300359CCF /* raw_wrong_answer_gif_0004.png in Resources */,
 				17461CFC1C7493DF00C847E8 /* img_ar_right_answer_gif_0002.png in Resources */,
+				98B76F6D1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0007.png in Resources */,
+				98B76F661E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0000.png in Resources */,
 				26BD341E1C12DF3300472E46 /* moonbold.ttf in Resources */,
+				98B76F7C1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0022.png in Resources */,
 				11AD0C561DAA34A8007951C5 /* argame02.jpg in Resources */,
 				111ACAC11E2E0FDC007DE137 /* sloth_2.gif in Resources */,
 				111ACA911E2DCF83007DE137 /* right_answer_gif0013.png in Resources */,
@@ -2312,9 +2413,11 @@
 				111ACAB41E2E0FDC007DE137 /* gluttony_1.gif in Resources */,
 				17A247A81C623B9900359CCF /* right_answer_gif_0001.png in Resources */,
 				17A247BB1C623B9900359CCF /* right_answer_gif_0020.png in Resources */,
+				98B76F701E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0010.png in Resources */,
 				17A247B31C623B9900359CCF /* right_answer_gif_0012.png in Resources */,
 				17A247891C623B9300359CCF /* raw_wrong_answer_gif_0011.png in Resources */,
 				111ACA991E2DCF83007DE137 /* right_answer_gif0021.png in Resources */,
+				98B76F711E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0011.png in Resources */,
 				17461D021C7493DF00C847E8 /* img_ar_right_answer_gif_0008.png in Resources */,
 				11AD0C551DAA34A8007951C5 /* argame01.jpg in Resources */,
 				111ACAC01E2E0FDC007DE137 /* sloth_1.gif in Resources */,
@@ -2339,6 +2442,7 @@
 				11AD0C4E1DAA3490007951C5 /* targets2.json in Resources */,
 				111ACA921E2DCF83007DE137 /* right_answer_gif0014.png in Resources */,
 				119C66DC1E2769D5001B4CFD /* pride_02_00000.jpg in Resources */,
+				98B76F6C1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0006.png in Resources */,
 				17A247A71C623B9900359CCF /* right_answer_gif_0000.png in Resources */,
 				119C629D1E2769D2001B4CFD /* envy_01_00000.jpg in Resources */,
 				119C65551E2769D4001B4CFD /* lingzai_03_00000.jpg in Resources */,
@@ -2346,6 +2450,7 @@
 				11F2185E1CBB951300D2ED44 /* ShareSDK.bundle in Resources */,
 				111ACA961E2DCF83007DE137 /* right_answer_gif0018.png in Resources */,
 				111ACAB91E2E0FDC007DE137 /* lingzai_3.gif in Resources */,
+				98B76F6F1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0009.png in Resources */,
 				11AD0C4D1DAA3490007951C5 /* targets.json in Resources */,
 				17A247AE1C623B9900359CCF /* right_answer_gif_0007.png in Resources */,
 				17A2478B1C623B9300359CCF /* raw_wrong_answer_gif_0013.png in Resources */,
@@ -2355,13 +2460,16 @@
 				17A2478A1C623B9300359CCF /* raw_wrong_answer_gif_0012.png in Resources */,
 				11AD0C571DAA34A8007951C5 /* argame03.jpg in Resources */,
 				111ACABB1E2E0FDC007DE137 /* lust_2.gif in Resources */,
+				98B76F741E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0014.png in Resources */,
 				111ACAC51E2E0FDC007DE137 /* wrath_3.gif in Resources */,
 				119C63231E2769D3001B4CFD /* envy_03_00000.jpg in Resources */,
 				17461CFB1C7493DF00C847E8 /* img_ar_right_answer_gif_0001.png in Resources */,
 				119C67541E2769D6001B4CFD /* sloth_01_00000.jpg in Resources */,
 				111ACAB21E2E0FDC007DE137 /* envy_2.gif in Resources */,
+				98B76F6E1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0008.png in Resources */,
 				17461CFF1C7493DF00C847E8 /* img_ar_right_answer_gif_0005.png in Resources */,
 				11AD0C541DAA34A8007951C5 /* argame00.jpg in Resources */,
+				98B76F6B1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0005.png in Resources */,
 				119C682D1E2769D7001B4CFD /* wrath_02_00000.jpg in Resources */,
 				1787FD171C4A8884006E55A6 /* ar_icon.png in Resources */,
 				111ACA941E2DCF83007DE137 /* right_answer_gif0016.png in Resources */,
@@ -2371,9 +2479,11 @@
 				17461CFA1C7493DF00C847E8 /* img_ar_right_answer_gif_0000.png in Resources */,
 				119C63781E2769D3001B4CFD /* gluttony_01_00000.jpg in Resources */,
 				17A2478C1C623B9300359CCF /* raw_wrong_answer_gif_0014.png in Resources */,
+				98B76F751E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0015.png in Resources */,
 				17A247901C623B9300359CCF /* raw_wrong_answer_gif_0018.png in Resources */,
 				119C64F71E2769D4001B4CFD /* lingzai_02_00000.jpg in Resources */,
 				11AD0C471DAA3490007951C5 /* idback.jpg in Resources */,
+				98B76F781E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0018.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2608,6 +2718,7 @@
 				11B8AEEF1DF1820B001A3E0F /* NSData+CommonCrypto.m in Sources */,
 				1162371C1E4B329E009FEDCA /* SKLoginRootViewController.m in Sources */,
 				116237471E4B32CF009FEDCA /* SKComposeView.m in Sources */,
+				98576C2B1E651BC000704B21 /* SKPopupGetPuzzleView.m in Sources */,
 				17A92CD31CA809B100BE893D /* MJRefreshBackGifFooter.m in Sources */,
 				1162374D1E4B32CF009FEDCA /* SKTicketView.m in Sources */,
 				17A92CD61CA809B100BE893D /* MJRefreshGifHeader.m in Sources */,
@@ -2641,6 +2752,7 @@
 				1162378B1E4D62EA009FEDCA /* HTARCaptureController.m in Sources */,
 				11F7063A1E0D2424004332C2 /* CustomSecurityPolicy.m in Sources */,
 				11B8AEEE1DF1820B001A3E0F /* NSData+Base64.m in Sources */,
+				98A6D88E1E63DAA000BB351D /* SKScanningPuzzleView.m in Sources */,
 				17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */,
 				17A92CCE1CA809B100BE893D /* MJRefreshFooter.m in Sources */,
 				17B429041C54D4A8008AFBA9 /* YYSpriteSheetImage.m in Sources */,
