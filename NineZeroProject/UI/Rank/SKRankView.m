@@ -8,6 +8,7 @@
 
 #import "SKRankView.h"
 #import "HTUIHeader.h"
+#import "HTWebController.h"
 
 #define REGISTER_CLASS(clazz)  [self.tableView registerClass:[clazz class] forCellReuseIdentifier:NSStringFromClass([clazz class])];
 
@@ -159,6 +160,14 @@
         return (SCREEN_WIDTH-32)/288.*281.;
     } else {
         return 74;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.type == SKRankViewTypeSeason2 && indexPath.row == 1) {
+        HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/coin2.html&id=%@",[[SKStorageManager sharedInstance] getUserID]]];
+        controller.titleString = @"金币";
+        [[self viewController].navigationController pushViewController:controller animated:YES];
     }
 }
 
