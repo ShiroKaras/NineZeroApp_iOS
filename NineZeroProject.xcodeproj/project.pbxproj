@@ -345,6 +345,7 @@
 		98088D691E56EFE300ADB66F /* ClientConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 98088D681E56EFE300ADB66F /* ClientConfiguration.m */; };
 		98088D6C1E5703C000ADB66F /* ServerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 98088D6B1E5703C000ADB66F /* ServerConfiguration.m */; };
 		987042991E4C75AC00770BFD /* NZPScanningFileDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 987042981E4C75AC00770BFD /* NZPScanningFileDownloadManager.m */; };
+		98A1D9331E5ECC0E00ABE360 /* SKScanningImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A1D9321E5ECC0E00ABE360 /* SKScanningImageView.m */; };
 		C1A76BB8BA08C99F581EEC18 /* libPods-NineZeroProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C7F57F4FFAD09A4E319A9C7 /* libPods-NineZeroProjectTests.a */; };
 		E5E885C9733CA87451550614 /* libPods-NineZeroProjectUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3409371C23A132D0A05D82A /* libPods-NineZeroProjectUITests.a */; };
 /* End PBXBuildFile section */
@@ -895,6 +896,8 @@
 		98088D6B1E5703C000ADB66F /* ServerConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfiguration.m; sourceTree = "<group>"; };
 		987042971E4C75AC00770BFD /* NZPScanningFileDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NZPScanningFileDownloadManager.h; sourceTree = "<group>"; };
 		987042981E4C75AC00770BFD /* NZPScanningFileDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NZPScanningFileDownloadManager.m; sourceTree = "<group>"; };
+		98A1D9311E5ECC0E00ABE360 /* SKScanningImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKScanningImageView.h; path = NineZeroProject/UI/LBS_AR/SKScanningImageView.h; sourceTree = "<group>"; };
+		98A1D9321E5ECC0E00ABE360 /* SKScanningImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKScanningImageView.m; path = NineZeroProject/UI/LBS_AR/SKScanningImageView.m; sourceTree = "<group>"; };
 		9C7F57F4FFAD09A4E319A9C7 /* libPods-NineZeroProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3409371C23A132D0A05D82A /* libPods-NineZeroProjectUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroProjectUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5599231F34A2BBAAA62D1FE /* Pods-NineZeroProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProjectTests/Pods-NineZeroProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1258,6 +1261,8 @@
 				116237801E4D623D009FEDCA /* SKScanningResultView.m */,
 				116237821E4D623D009FEDCA /* SKSwipeViewController.h */,
 				116237781E4D623D009FEDCA /* SKSwipeViewController.m */,
+				98A1D9311E5ECC0E00ABE360 /* SKScanningImageView.h */,
+				98A1D9321E5ECC0E00ABE360 /* SKScanningImageView.m */,
 			);
 			name = Scan;
 			sourceTree = "<group>";
@@ -2687,6 +2692,7 @@
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
 				98088D661E56EC9400ADB66F /* BaseConfiguration.m in Sources */,
 				116236D31E4B3096009FEDCA /* SKCommonService.m in Sources */,
+				98A1D9331E5ECC0E00ABE360 /* SKScanningImageView.m in Sources */,
 				17A92CDA1CA809B100BE893D /* MJRefreshConst.m in Sources */,
 				11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */,
 				11C764751E120E5300D86F40 /* NSObject+MJKeyValue.m in Sources */,
