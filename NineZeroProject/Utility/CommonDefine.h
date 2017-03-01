@@ -82,6 +82,9 @@
 #define FIRST_LAUNCH_MASCOTVIEW ![UD boolForKey:@"firstLaunchMascotView"]
 #define EVER_LAUNCHED_MASCOTVIEW [UD setBool:YES forKey:@"firstLaunchMascotView"];
 
+#define FIRST_LAUNCH_SWIPEVIEW ![UD boolForKey:@"firstLaunchSwipeView"]
+#define LAUNCHED_SWIPEVIEW [UD setBool:YES forKey:@"firstLaunchSwipeView"];
+
 #define kQuestionWrongAnswerCountSeason1 @"kQuestionWrongAnswerCountSeason1"
 #define kQuestionWrongAnswerCountSeason2 @"kQuestionWrongAnswerCountSeason2"
 

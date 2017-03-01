@@ -19,6 +19,7 @@
 @interface SKScanningRewardViewController : UIViewController
 
 @property (nonatomic, weak) id<SKScanningRewardDelegate> delegate;
-- (instancetype)initWithRewardID:(NSString *)rewardID;
+
+- (instancetype)initWithRewardID:(NSString *)rewardID sId:(NSString *)sId scanType:(NSUInteger)scanType;
 
 @end
