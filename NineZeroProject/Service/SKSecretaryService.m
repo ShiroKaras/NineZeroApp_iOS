@@ -65,21 +65,22 @@
           }];
 }
 
-- (void)showSecretaryWithCallback:(SKChatFlowCallback)callback {
+- (void)showSecretaryWithPage:(NSString *)page callback:(SKChatFlowCallback)callback {
     NSDictionary *param = @{
-                            @"method": @"showSecretary"
+                            @"method": @"showSecretary",
+                            @"page":page
                             };
-    
     [self secretaryBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
             NSMutableArray<SKChatObject*> *chatArray = [NSMutableArray array];
             for (int i = 0; i != [response.data count]; i++) {
                 SKChatObject *chatObject = [SKChatObject mj_objectWithKeyValues:[response.data objectAtIndex:i]];
-                [chatArray insertObject:chatObject atIndex:0];
+                [chatArray addObject:chatObject];
             }
             callback(success, chatArray);
         } else {
-            
+            NSMutableArray<SKChatObject*> *chatArray = [NSMutableArray array];
+            callback(success, chatArray);
         }
     }];
 }

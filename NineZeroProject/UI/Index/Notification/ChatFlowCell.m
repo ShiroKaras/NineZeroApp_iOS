@@ -36,6 +36,7 @@
         _contentLabel = [UILabel new];
         _contentLabel.font = PINGFANG_FONT_OF_SIZE(12);
         _contentLabel.textColor = [UIColor whiteColor];
+        _contentLabel.numberOfLines = 0;
         [_chatBackView addSubview:_contentLabel];
         
         _stampLabel = [UILabel new];
@@ -94,7 +95,7 @@
             make.right.equalTo(self).offset(-14);
         }
     }];
-
+    
     //零仔头像
     [_avatarImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(40, 40));
@@ -125,9 +126,13 @@
     
     //内容文本
     [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(14));
         make.left.equalTo(_chatColorBackView).offset(14);
         make.right.equalTo(_chatColorBackView).offset(-14);
+        if (type == ChatFlowPositionTypeLeft) {
+            make.top.equalTo(@(28.5+14));
+        } else if (type == ChatFlowPositionTypeRight) {
+            make.top.equalTo(@(14));
+        }
     }];
 }
 

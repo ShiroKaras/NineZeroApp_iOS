@@ -64,7 +64,7 @@
 }
 
 - (void)loadData {
-    [[[SKServiceManager sharedInstance] secretaryService] showSecretaryWithCallback:^(BOOL success, NSArray<SKChatObject *> *chatFlowArray) {
+    [[[SKServiceManager sharedInstance] secretaryService] showSecretaryWithPage:@"1" callback:^(BOOL success, NSArray<SKChatObject *> *chatFlowArray) {
         _dataArray = [NSMutableArray arrayWithArray:chatFlowArray];
         if (chatFlowArray.count == 0) {
             SKChatObject *object = [SKChatObject new];
@@ -132,8 +132,11 @@
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSString *content = textField.text;
+    textField.text = @"";
+    
     SKChatObject *object = [SKChatObject new];
-    object.content = textField.text;
+    object.content = content;
     NSString *date = [NSString stringWithFormat:@"%lu", (long)[[NSDate date] timeIntervalSince1970]];
     object.created_time = date;
     object.type = @"0";
@@ -141,10 +144,10 @@
     
     [self.tableView reloadData];
     [self scrollViewToBottom:YES];
-    textField.text = @"";
     
-    [[[SKServiceManager sharedInstance] secretaryService] sendFeedback:_inputTextField.text callback:^(BOOL success, SKResponsePackage *response) {
-        if ([response.data[@"replay"] isEqualToString:@""])
+    [[[SKServiceManager sharedInstance] secretaryService] sendFeedback:content callback:^(BOOL success, SKResponsePackage *response) {
+        
+        if (response.result != 0)
             return;
         
         SKChatObject *object = [SKChatObject new];
