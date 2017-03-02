@@ -72,7 +72,7 @@
     _stampLabel.text = confromTimespStr;
     [_stampLabel sizeToFit];
     
-    [_stampLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_stampLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom).offset(0);
         if (type == ChatFlowPositionTypeLeft) {
             make.left.equalTo(_chatColorBackView);
@@ -116,7 +116,7 @@
     [_chatColorBackView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@(4));
         make.right.equalTo(_chatBackView.mas_right);
-        make.bottom.equalTo(@(-16));
+        make.bottom.equalTo(@(-20));
         if (type == ChatFlowPositionTypeLeft) {
             make.top.equalTo(@(28.5));
         } else if (type == ChatFlowPositionTypeRight) {
@@ -138,9 +138,9 @@
 
 - (void)setTextHeight:(CGFloat)height cellFrame:(CGRect)cellFrame {
     if (_type == ChatFlowPositionTypeLeft) {
-        _cellHeight = height +28.5 +14 +14 +16 +14;
+        _cellHeight = height +28.5 +14 +14 +20 +14;
     } else {
-        _cellHeight = height +28 +16 +14;
+        _cellHeight = height +28 +20 +14;
     }
     cellFrame.size.height = _cellHeight;
     [self setFrame:cellFrame];
