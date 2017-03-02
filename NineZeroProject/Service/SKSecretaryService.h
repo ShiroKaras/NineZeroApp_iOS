@@ -16,7 +16,7 @@ typedef void (^SKChatFlowCallback) (BOOL success, NSArray<SKChatObject *> *chatF
 
 @interface SKSecretaryService : NSObject
 
-- (void)showSecretaryWithPage:(NSString *)page callback:(SKChatFlowCallback)callback;
+- (void)showSecretaryWithPage:(NSInteger)page callback:(SKChatFlowCallback)callback;
 
 - (void)sendFeedback:(NSString *)content callback:(SKResponseCallback)callback;
 

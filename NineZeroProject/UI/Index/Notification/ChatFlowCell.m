@@ -73,7 +73,7 @@
     [_stampLabel sizeToFit];
     
     [_stampLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_chatColorBackView.mas_bottom).offset(6);
+        make.bottom.equalTo(self.mas_bottom).offset(0);
         if (type == ChatFlowPositionTypeLeft) {
             make.left.equalTo(_chatColorBackView);
         } else if (type == ChatFlowPositionTypeRight) {
@@ -113,7 +113,7 @@
     } else if (type == ChatFlowPositionTypeRight) {
         _chatColorBackView.backgroundColor = COMMON_RED_COLOR;
     }
-    [_chatColorBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_chatColorBackView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@(4));
         make.right.equalTo(_chatBackView.mas_right);
         make.bottom.equalTo(@(-16));
@@ -125,7 +125,7 @@
     }];
     
     //内容文本
-    [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_contentLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_chatColorBackView).offset(14);
         make.right.equalTo(_chatColorBackView).offset(-14);
         if (type == ChatFlowPositionTypeLeft) {

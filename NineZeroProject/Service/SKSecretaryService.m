@@ -65,10 +65,10 @@
           }];
 }
 
-- (void)showSecretaryWithPage:(NSString *)page callback:(SKChatFlowCallback)callback {
+- (void)showSecretaryWithPage:(NSInteger)page callback:(SKChatFlowCallback)callback {
     NSDictionary *param = @{
                             @"method": @"showSecretary",
-                            @"page":page
+                            @"page": [NSString stringWithFormat:@"%ld", page]
                             };
     [self secretaryBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
