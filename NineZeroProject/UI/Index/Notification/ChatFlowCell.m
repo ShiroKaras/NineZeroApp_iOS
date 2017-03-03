@@ -54,8 +54,8 @@
 }
 
 - (void)setObject:(SKChatObject*)object withType:(ChatFlowPositionType)type {
-    self.type = type;
     _contentLabel.text = object.content;
+    self.type = type;
     
     //    获取当前文本的属性
     NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:PINGFANG_FONT_OF_SIZE(12),NSFontAttributeName,nil];
@@ -85,8 +85,20 @@
 - (void)setType:(ChatFlowPositionType)type {
     _type = type;
     
+    
+    //    获取当前文本的属性
+    NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:PINGFANG_FONT_OF_SIZE(12),NSFontAttributeName,nil];
+    //ios7方法，获取文本需要的size，限制宽度
+    CGSize  actualsize =[_contentLabel.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX,18) options:NSStringDrawingUsesLineFragmentOrigin  attributes:tdic context:nil].size;
+    NSLog(@"%lf", actualsize.width);
+    
     [_chatBackView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@248);
+        if (actualsize.width>220) {
+            make.width.equalTo(@248);
+        } else {
+            make.width.equalTo(@(actualsize.width+34));
+            _contentLabel.textAlignment = NSTextAlignmentCenter;
+        }
         make.bottom.equalTo(self.mas_bottom);
         make.top.equalTo(@14);
         if (type == ChatFlowPositionTypeLeft) {
@@ -107,12 +119,7 @@
         }
     }];
     
-    //背景色
-    if (type == ChatFlowPositionTypeLeft) {
-        _chatColorBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
-    } else if (type == ChatFlowPositionTypeRight) {
-        _chatColorBackView.backgroundColor = COMMON_RED_COLOR;
-    }
+    //气泡
     [_chatColorBackView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@(4));
         make.right.equalTo(_chatBackView.mas_right);
@@ -124,6 +131,13 @@
         }
     }];
     
+    //背景色
+    if (type == ChatFlowPositionTypeLeft) {
+        _chatColorBackView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    } else if (type == ChatFlowPositionTypeRight) {
+        _chatColorBackView.backgroundColor = COMMON_RED_COLOR;
+    }
+    
     //内容文本
     [_contentLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_chatColorBackView).offset(14);
@@ -134,6 +148,10 @@
             make.top.equalTo(@(14));
         }
     }];
+}
+
+- (void)setTextWidth:(CGFloat)width {
+    
 }
 
 - (void)setTextHeight:(CGFloat)height cellFrame:(CGRect)cellFrame {
