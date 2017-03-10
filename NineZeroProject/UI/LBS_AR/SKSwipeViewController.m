@@ -29,7 +29,6 @@
 @property (nonatomic, strong) UIView *hintView;
 
 @property (nonatomic, strong) UIButton *hintGuideImageView;
-@property (nonatomic, strong) UILabel *hintGuideLabel;
 
 @property (nonatomic, strong) NSMutableArray *rewardAction;
 @property (nonatomic, strong) NSArray *rewardID;
@@ -41,6 +40,7 @@
 @property (nonatomic, strong) NSArray *linkURLs; // 普通扫一扫存储video url，拼图扫一扫返回目标图URL
 @property (nonatomic, strong) NSArray *linkClarity;
 @property (nonatomic, strong) NSString *defaultPic;
+@property (nonatomic, strong) SKReward *rewardRecord;
 
 @end
 
@@ -82,49 +82,53 @@
 }
 
 - (void)loadData {
-	__weak __typeof__(self) weakSelf = self;
 	[[[SKServiceManager sharedInstance] scanningService] getAllScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
 	    if (success) {
 		    NSDictionary *data = package.data[0];
 		    if (!data && ![data isKindOfClass:[NSDictionary class]]) {
 			    return;
 		    }
-		    __strong __typeof__(self) strongSelf = weakSelf;
 
 		    NSLog(@"data-->%@", data);
-		    strongSelf.swipeType = [[data objectForKey:@"type"] integerValue];
-		    strongSelf.downloadKey = [data objectForKey:@"file_url"];
-		    strongSelf.linkURLs = [data objectForKey:@"link_url"];
-		    strongSelf.rewardID = [data objectForKey:@"reward_id"];
-		    strongSelf.rewardAction = [[data objectForKey:@"reward_action"] mutableCopy];
-		    strongSelf.hint = [data objectForKey:@"hint"];
-		    strongSelf.sid = [data objectForKey:@"sid"];
-		    strongSelf.linkClarity = [data objectForKey:@"link_clarity"];
-		    strongSelf.defaultPic = [data objectForKey:@"default_pic"];
-		    [strongSelf setupScanningFile:data];
+		    self.swipeType = [[data objectForKey:@"type"] integerValue];
+		    self.downloadKey = [data objectForKey:@"file_url"];
+		    self.linkURLs = [data objectForKey:@"link_url"];
+		    self.rewardID = [data objectForKey:@"reward_id"];
+		    self.rewardAction = [[data objectForKey:@"reward_action"] mutableCopy];
+		    self.hint = [data objectForKey:@"hint"];
+		    self.sid = [data objectForKey:@"sid"];
+		    self.linkClarity = [data objectForKey:@"link_clarity"];
+		    self.defaultPic = [data objectForKey:@"default_pic"];
 
-		    switch (_swipeType) {
-			    case SKScanTypeImage: {
-				    strongSelf.scanningImageView = [[SKScanningImageView alloc] initWithFrame:self.view.frame];
-				    strongSelf.scanningImageView.delegate = strongSelf;
-				    [strongSelf.view insertSubview:strongSelf.scanningImageView atIndex:1];
+		    self.rewardRecord = [SKReward mj_objectWithKeyValues:[data objectForKey:@"reward_record"]];
 
-				    break;
-			    }
-			    case SKScanTypePuzzle: {
-				    strongSelf.scanningPuzzleView = [[SKScanningPuzzleView alloc] initWithLinkClarity:strongSelf.linkClarity rewardAction:strongSelf.rewardAction defaultPic:strongSelf.defaultPic];
-				    strongSelf.scanningPuzzleView.delegate = strongSelf;
-				    [strongSelf.view insertSubview:strongSelf.scanningPuzzleView atIndex:1];
-				    break;
-			    }
-			    default:
-				    break;
-		    }
+		    __weak __typeof__(self) weakSelf = self;
+		    [self setupScanningFile:data
+			    completionHandler:^{
+				__strong __typeof__(self) strongSelf = weakSelf;
+				switch (_swipeType) {
+					case SKScanTypeImage: {
+						strongSelf.scanningImageView = [[SKScanningImageView alloc] initWithFrame:self.view.frame];
+						strongSelf.scanningImageView.delegate = strongSelf;
+						[strongSelf.view insertSubview:strongSelf.scanningImageView atIndex:1];
+
+						break;
+					}
+					case SKScanTypePuzzle: {
+						strongSelf.scanningPuzzleView = [[SKScanningPuzzleView alloc] initWithLinkClarity:strongSelf.linkClarity rewardAction:strongSelf.rewardAction defaultPic:strongSelf.defaultPic];
+						strongSelf.scanningPuzzleView.delegate = strongSelf;
+						[strongSelf.view insertSubview:strongSelf.scanningPuzzleView atIndex:1];
+						break;
+					}
+					default:
+						break;
+				}
+			    }];
 	    }
 	}];
 }
 
-- (void)setupScanningFile:(NSDictionary *)data {
+- (void)setupScanningFile:(NSDictionary *)data completionHandler:(void (^)())completionHandler {
 	if (_hint && _hint.length > 0) {
 		[self setupHintButton];
 	}
@@ -139,20 +143,15 @@
 		// 文件不存在，需要下载
 		[self setupProgressView];
 
-		__weak __typeof__(self) weakSelf = self;
-
 		[NZPScanningFileDownloadManager downloadZip:_downloadKey
 			progress:^(NSProgress *downloadProgress) {
-			    __strong __typeof(self) strongSelf = weakSelf;
-
 			    // 更新进度条
 			    dispatch_async(dispatch_get_main_queue(), ^{
-				[strongSelf.progressView setProgressViewPercent:downloadProgress.fractionCompleted];
+				[self.progressView setProgressViewPercent:downloadProgress.fractionCompleted];
 			    });
 			}
 			completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
 			    if (!error) {
-				    __strong __typeof(self) strongSelf = weakSelf;
 				    NSString *fileName = [[filePath lastPathComponent] stringByDeletingPathExtension];
 				    NSURL *unzipFilesPath = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
 				    unzipFilesPath = [unzipFilesPath URLByAppendingPathComponent:fileName];
@@ -165,13 +164,14 @@
 					    }
 					    completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error) {
 						dispatch_async(dispatch_get_main_queue(), ^{
-						    [strongSelf.progressView removeFromSuperview];
-						    strongSelf.progressView = nil;
+						    [self.progressView removeFromSuperview];
+						    self.progressView = nil;
 						});
 						if (succeeded) {
 							// 加载识别图
-							[self setupOpenGLViewWithTargetNumber:strongSelf.rewardAction.count];
-							[self.glView startWithFileName:strongSelf.downloadKey videoURLs:strongSelf.linkURLs];
+							[self setupOpenGLViewWithTargetNumber:self.rewardAction.count];
+							[self.glView startWithFileName:self.downloadKey videoURLs:self.linkURLs];
+							completionHandler();
 						} else {
 							NSLog(@"zip解压失败:%@", error);
 						}
@@ -189,8 +189,6 @@
 		unzipFilePath = [documentsDirectoryURL URLByAppendingPathComponent:unzipFilePath].relativePath;
 		NSString *zipFileAtPath = [documentsDirectoryURL URLByAppendingPathComponent:_downloadKey].relativePath;
 
-		__weak __typeof__(self) weakSelf = self;
-
 		[SSZipArchive unzipFileAtPath:zipFileAtPath
 			toDestination:unzipFilePath
 			overwrite:YES
@@ -199,15 +197,16 @@
 
 			}
 			completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error) {
-			    __strong __typeof(self) strongSelf = weakSelf;
 			    // 加载识别图
-			    [self setupOpenGLViewWithTargetNumber:strongSelf.linkURLs.count];
-			    [self.glView startWithFileName:strongSelf.downloadKey videoURLs:strongSelf.linkURLs];
+			    [self setupOpenGLViewWithTargetNumber:self.linkURLs.count];
+			    [self.glView startWithFileName:self.downloadKey videoURLs:self.linkURLs];
+			    completionHandler();
 			}];
 	} else {
 		// 直接加载识别图
 		[self setupOpenGLViewWithTargetNumber:_linkURLs.count];
 		[self.glView startWithFileName:_downloadKey videoURLs:_linkURLs];
+		completionHandler();
 	}
 }
 
@@ -253,20 +252,20 @@
 		[self.view addSubview:_hintGuideImageView];
 		_hintGuideImageView.alpha = 0;
 
-		_hintGuideLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 12.5f)];
-		_hintGuideLabel.text = @"点击任意区域关闭";
-		_hintGuideLabel.textAlignment = NSTextAlignmentCenter;
-		_hintGuideLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
-		_hintGuideLabel.font = PINGFANG_FONT_OF_SIZE(12.f);
-		_hintGuideLabel.alpha = 0;
-		_hintGuideLabel.bottom = self.view.bottom - 16.f;
-		_hintGuideLabel.centerX = self.view.centerX;
-		[self.view addSubview:_hintGuideLabel];
+		UILabel *hintGuideLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 12.5f)];
+		hintGuideLabel.text = @"点击任意区域关闭";
+		hintGuideLabel.textAlignment = NSTextAlignmentCenter;
+		hintGuideLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+		hintGuideLabel.font = PINGFANG_FONT_OF_SIZE(12.f);
+		hintGuideLabel.alpha = 0;
+		hintGuideLabel.bottom = self.view.bottom - 16.f;
+		hintGuideLabel.centerX = self.view.centerX;
+		[_hintGuideImageView addSubview:hintGuideLabel];
 
 		[UIView animateWithDuration:0.5f
 				 animations:^{
 				     _hintGuideImageView.alpha = 1.0f;
-				     _hintGuideLabel.alpha = 1.0f;
+				     hintGuideLabel.alpha = 1.0f;
 				 }];
 
 		LAUNCHED_SWIPEVIEW
@@ -282,10 +281,17 @@
 }
 
 - (void)showHintView {
+	[_glView pause];
+
 	if (!_hintView) {
 		_hintView = [[UIView alloc] initWithFrame:self.view.frame];
-		_hintView.backgroundColor = [UIColor colorWithHex:0x000000];
-		_hintView.alpha = 0.0f;
+		[self.view addSubview:_hintView];
+
+		CALayer *backGroundLayer = [[CALayer alloc] init];
+		backGroundLayer.frame = SCREEN_BOUNDS;
+		backGroundLayer.backgroundColor = [UIColor colorWithHex:0x000000].CGColor;
+		backGroundLayer.opacity = 0.8;
+		[_hintView.layer addSublayer:backGroundLayer];
 
 		UIButton *closeButton = [[UIButton alloc] init];
 		[closeButton addTarget:self action:@selector(hideHintView) forControlEvents:UIControlEventTouchDown];
@@ -298,49 +304,55 @@
 		    make.left.equalTo(@4);
 		}];
 
-		TTTAttributedLabel *hintLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(0, 0, self.view.width - 32, self.view.height)];
+		TTTAttributedLabel *hintLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(40.f, 0, SCREEN_WIDTH - 80, 0)];
 		hintLabel.textAlignment = NSTextAlignmentCenter;
 		hintLabel.numberOfLines = 0;
 		hintLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
-		hintLabel.font = PINGFANG_FONT_OF_SIZE(12.0);
+		hintLabel.font = PINGFANG_FONT_OF_SIZE(10.0);
+		hintLabel.lineSpacing = 2.f;
 		hintLabel.text = _hint;
-		hintLabel.lineSpacing = 2.1f;
 		[_hintView addSubview:hintLabel];
-
-		hintLabel.left = self.view.left + 16.0f;
-		hintLabel.right = self.view.right - 16.0f;
 
 		CGSize lableSize = [TTTAttributedLabel sizeThatFitsAttributedString:hintLabel.attributedText withConstraints:CGSizeMake(self.view.width, self.view.height) limitedToNumberOfLines:0];
 		hintLabel.height = lableSize.height;
 		hintLabel.centerY = self.view.centerY;
 
-		[self.view addSubview:_hintView];
+		CALayer *hintImageLayer = [[CALayer alloc] init];
+		hintImageLayer.frame = CGRectMake((SCREEN_WIDTH - 253) / 2.f, hintLabel.top - 92.f - 20.f, 253, 92);
+		hintImageLayer.contents = (__bridge id _Nullable)([UIImage imageNamed:@"img_scanning_rule"].CGImage);
+		[_hintView.layer addSublayer:hintImageLayer];
+
+		CALayer *hintBackGroundLayer = [[CALayer alloc] init];
+		hintBackGroundLayer.frame = CGRectMake(20.f, hintLabel.frame.origin.y - 57.f, SCREEN_WIDTH - 40.f, hintLabel.height + 20.f + 20.f + 35.f);
+		hintBackGroundLayer.backgroundColor = [UIColor colorWithHex:0x1F1F1F].CGColor;
+		hintBackGroundLayer.cornerRadius = 5;
+		hintBackGroundLayer.shouldRasterize = YES;
+		[_hintView.layer insertSublayer:hintBackGroundLayer below:hintLabel.layer];
 	}
+
+	_hintView.alpha = 0;
 
 	[UIView animateWithDuration:0.5f
 			 animations:^{
-			     _hintView.alpha = 0.8f;
+			     _hintView.alpha = 1.0f;
 			 }];
 }
 
 - (void)hideHintGuideView {
-	[_hintGuideLabel removeFromSuperview];
-	_hintGuideLabel = nil;
 	[_hintGuideImageView removeFromSuperview];
 	_hintGuideImageView = nil;
 }
 
 - (void)hideHintView {
-	[UIView animateWithDuration:0.1
+	[UIView animateWithDuration:0.5f
 		animations:^{
 		    _hintView.alpha = 0;
 		}
 		completion:^(BOOL finished) {
 		    [_hintView removeFromSuperview];
 		    _hintView = nil;
+		    [_glView restart];
 		}];
-
-	[_glView restart];
 }
 
 - (void)onCaptureMascotSuccessful {
