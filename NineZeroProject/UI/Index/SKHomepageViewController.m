@@ -57,6 +57,9 @@ typedef enum {
 @property (nonatomic, strong) UIImageView *cameraImageView;
 @property (nonatomic, strong) NSArray<SKScanning *> *scanningList;
 
+@property (nonatomic, assign) int noticeCount;
+@property (nonatomic, assign) int secretaryCount;
+
 @end
 
 @implementation SKHomepageViewController {
@@ -201,6 +204,12 @@ typedef enum {
 		    }
 		}];
 
+    //获取通知和小秘书基础信息
+    [[[SKServiceManager sharedInstance] secretaryService] showSecretaryNoticeListWithCallback:^(BOOL success, SKResponsePackage *response) {
+        _noticeCount = [response.data[@"notice"][@"notice_count"] intValue];
+        _secretaryCount = [response.data[@"secretary"][@"secretary_count"] intValue];
+    }];
+    
 	//更新用户信息
 	[[[SKServiceManager sharedInstance] profileService]
 		getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response){
@@ -265,16 +274,16 @@ typedef enum {
 }
 
 - (void)judgeNotificationRedFlag {
-	if ([UD valueForKey:NOTIFICATION_COUNT] == nil) {
-		[UD setValue:@(self.indexInfo.user_notice_count) forKey:NOTIFICATION_COUNT];
+	if ([UD valueForKey:NOTIFICATION_COUNT] == nil || [UD valueForKey:SECRETARY_COUNT]) {
+		[UD setValue:@(_noticeCount) forKey:NOTIFICATION_COUNT];
+        [UD setValue:@(_secretaryCount) forKey:SECRETARY_COUNT];
+		self.notificationRedFlag.hidden = (_noticeCount > 0 || _secretaryCount > 0)
+        ? NO : YES;
+    } else {
 		self.notificationRedFlag.hidden =
-			self.indexInfo.user_notice_count > 0 ? NO : YES;
-	} else {
-		self.notificationRedFlag.hidden =
-			self.indexInfo.user_notice_count >
-					[[UD valueForKey:NOTIFICATION_COUNT] integerValue]
-				? NO
-				: YES;
+        _noticeCount > [[UD valueForKey:NOTIFICATION_COUNT] integerValue] ||
+        _secretaryCount > [[UD valueForKey:SECRETARY_COUNT] integerValue]
+        ? NO : YES;
 	}
 }
 
@@ -852,7 +861,6 @@ typedef enum {
 }
 
 - (void)notificationButtonClick:(UIButton *)sender {
-	[UD setValue:@(self.indexInfo.user_notice_count) forKey:NOTIFICATION_COUNT];
 	SKNotificationRootViewController *controller =
 		[[SKNotificationRootViewController alloc] init];
 	[self.navigationController pushViewController:controller animated:YES];

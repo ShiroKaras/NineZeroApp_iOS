@@ -20,4 +20,6 @@ typedef void (^SKChatFlowCallback) (BOOL success, NSArray<SKChatObject *> *chatF
 
 - (void)sendFeedback:(NSString *)content callback:(SKResponseCallback)callback;
 
+- (void)showSecretaryNoticeListWithCallback:(SKResponseCallback)callback;
+
 @end

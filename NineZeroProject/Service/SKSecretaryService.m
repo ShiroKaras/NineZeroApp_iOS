@@ -96,4 +96,14 @@
     }];
 }
 
+- (void)showSecretaryNoticeListWithCallback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method": @"showSecretaryNoticeList"
+                            };
+    
+    [self secretaryBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
 @end
