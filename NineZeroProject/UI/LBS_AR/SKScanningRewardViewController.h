@@ -22,4 +22,5 @@
 
 - (instancetype)initWithRewardID:(NSString *)rewardID sId:(NSString *)sId scanType:(NSUInteger)scanType;
 
+- (instancetype)initWithReward:(SKReward *)reward;
 @end

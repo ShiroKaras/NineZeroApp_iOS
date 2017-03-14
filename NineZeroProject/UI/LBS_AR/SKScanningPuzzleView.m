@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSMutableSet *puzzleLayers;
 
 @property (nonatomic, strong) UIButton *boxButton;
+@property (nonatomic, strong) CALayer *maskLayer;
 
 @end
 
@@ -91,7 +92,7 @@
 - (void)showPuzzleButton {
 	if (!_puzzleButton) {
 		self.puzzleButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-		[_puzzleButton addTarget:self action:@selector(showExchangeButton) forControlEvents:UIControlEventTouchDown];
+		[_puzzleButton addTarget:self action:@selector(tapPuzzleButton) forControlEvents:UIControlEventTouchDown];
 		[_puzzleButton setImage:[UIImage imageNamed:@"btn_scanning_puzzle"] forState:UIControlStateNormal];
 		[_puzzleButton setImage:[UIImage imageNamed:@"btn_scanning_puzzle_highlight"] forState:UIControlStateHighlighted];
 		[self addSubview:_puzzleButton];
@@ -117,8 +118,9 @@
 		[_exchangeButton addTarget:self action:@selector(exchangeGifts) forControlEvents:UIControlEventTouchDown];
 		[self addSubview:_exchangeButton];
 
+		__weak __typeof__(self) weakSelf = self;
 		[_exchangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-		    make.centerX.equalTo(self);
+		    make.centerX.equalTo(weakSelf);
 		    make.top.mas_equalTo(_puzzleView.bottom + 28.f);
 		}];
 	}
@@ -150,6 +152,25 @@
 
 	_puzzleView.hidden = NO;
 	[self setupExchangeButton];
+}
+
+- (void)setupPuzzleView {
+	if (_isShowPuzzles) {
+		[UIView animateWithDuration:0.2f
+				 animations:^{
+				     [self hideAnimationView];
+				     _puzzleButton.transform = CGAffineTransformRotate(_puzzleButton.transform, M_PI_4);
+				 }];
+
+		[self showPuzzleView];
+	} else {
+		[UIView animateWithDuration:0.2f
+				 animations:^{
+				     [self showAnimationView];
+				     _puzzleButton.transform = CGAffineTransformRotate(_puzzleButton.transform, -M_PI_4);
+				 }];
+		[self hidePuzzleView];
+	}
 }
 
 - (void)updatePuzzleView {
@@ -192,43 +213,48 @@
 
 - (void)showBoxView {
 	if (!_boxButton) {
-		_boxButton = [[UIButton alloc] init];
+		self.maskLayer = [[CALayer alloc] init];
+		self.maskLayer.backgroundColor = [UIColor colorWithHex:0x000000].CGColor;
+		self.maskLayer.frame = self.frame;
+		[self.layer addSublayer:_maskLayer];
+
+		_boxButton = [[UIButton alloc] initWithFrame:CGRectZero];
 		[_boxButton addTarget:self action:@selector(onTapBoxButton) forControlEvents:UIControlEventTouchDown];
-		[_boxButton setImage:[UIImage imageNamed:@"img_loadingvideo_gift_3"] forState:UIControlStateNormal];
+		[_boxButton setImage:[UIImage imageNamed:@"btn_scanning_gift"] forState:UIControlStateNormal];
 		[self addSubview:_boxButton];
 
+		__weak __typeof__(self) weakSelf = self;
 		[_boxButton mas_makeConstraints:^(MASConstraintMaker *make) {
-		    make.center.equalTo(self);
-		    make.width.mas_equalTo(100);
-		    make.height.mas_equalTo(100);
+		    make.center.equalTo(weakSelf);
+		    make.width.mas_equalTo(150);
+		    make.height.mas_equalTo(114);
 		}];
 	}
 	_boxButton.hidden = NO;
+	_maskLayer.hidden = NO;
+	_puzzleButton.userInteractionEnabled = NO;
+
+	_boxButton.transform = CGAffineTransformMakeScale(0, 0);
+	self.maskLayer.opacity = 0.0;
+
+	[UIView animateWithDuration:0.3f
+			      delay:0.0f
+			    options:UIViewAnimationOptionCurveEaseInOut
+			 animations:^{
+			     _boxButton.transform = CGAffineTransformMakeScale(1.0, 1.0);
+			     _maskLayer.opacity = 0.8;
+			 }
+			 completion:nil];
 }
 
 - (void)hideBoxView {
 	_boxButton.hidden = YES;
+	_maskLayer.hidden = YES;
+	_puzzleButton.userInteractionEnabled = YES;
 }
 
 #pragma Action
-- (void)showExchangeButton {
-	if (!_isShowPuzzles) {
-		[UIView animateWithDuration:0.2f
-				 animations:^{
-				     [self hideAnimationView];
-				     _puzzleButton.transform = CGAffineTransformRotate(_puzzleButton.transform, M_PI_4);
-				 }];
-
-		[self showPuzzleView];
-	} else {
-		[UIView animateWithDuration:0.2f
-				 animations:^{
-				     [self showAnimationView];
-				     _puzzleButton.transform = CGAffineTransformRotate(_puzzleButton.transform, -M_PI_4);
-				 }];
-		[self hidePuzzleView];
-	}
-
+- (void)tapPuzzleButton {
 	_isShowPuzzles = !_isShowPuzzles;
 
 	if ([_delegate respondsToSelector:@selector(scanningPuzzleView:isShowPuzzles:)]) {

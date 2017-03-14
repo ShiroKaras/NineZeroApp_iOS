@@ -34,6 +34,7 @@
 
 		[self addSubview:bgImageView];
 
+		__weak __typeof__(self) weakSelf = self;
 		UIImageView *puzzleImageView = [[UIImageView alloc] init];
 		[puzzleImageView sd_setImageWithURL:[NSURL URLWithString:imageURL]
 					  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -41,15 +42,15 @@
 						  make.size.mas_equalTo(image.size);
 					      }];
 					      [puzzleImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-						  make.centerY.equalTo(self.mas_top).offset(252);
-						  make.centerX.equalTo(self);
+						  make.centerY.equalTo(weakSelf.mas_top).offset(252);
+						  make.centerX.equalTo(weakSelf);
 					      }];
 					  }];
 		[self addSubview:puzzleImageView];
 
 		[puzzleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-		    make.centerY.equalTo(self.mas_top).offset(252);
-		    make.centerX.equalTo(self);
+		    make.centerY.equalTo(weakSelf.mas_top).offset(252);
+		    make.centerX.equalTo(weakSelf);
 		}];
 
 		UIImageView *giftImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scanning_puzzlegift"]];
@@ -57,7 +58,7 @@
 
 		[giftImage mas_makeConstraints:^(MASConstraintMaker *make) {
 		    make.top.equalTo(puzzleImageView.mas_bottom).offset(75);
-		    make.centerX.equalTo(self);
+		    make.centerX.equalTo(weakSelf);
 		}];
 
 		UILabel *bottomLabel = [UILabel new];
@@ -67,8 +68,8 @@
 		[bottomLabel sizeToFit];
 		[self addSubview:bottomLabel];
 		[bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-		    make.centerX.equalTo(self);
-		    make.bottom.equalTo(self).offset(-16);
+		    make.centerX.equalTo(weakSelf);
+		    make.bottom.equalTo(weakSelf).offset(-16);
 		}];
 
 		UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close)];

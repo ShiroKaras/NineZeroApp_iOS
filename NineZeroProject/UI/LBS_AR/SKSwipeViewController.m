@@ -23,6 +23,8 @@
 @property (nonatomic, strong) SKScanningImageView *scanningImageView;
 @property (nonatomic, strong) SKScanningPuzzleView *scanningPuzzleView;
 
+@property (nonatomic, strong) SKScanningRewardViewController *scanningRewardViewController;
+
 @property (nonatomic, strong) SKDownloadProgressView *progressView;
 
 @property (nonatomic, strong) UIButton *hintButton;
@@ -386,8 +388,6 @@
 			if (![[_isRecognizedTargetImage objectAtIndex:targetId] boolValue]) {
 				if (_rewardID && [[_rewardAction objectAtIndex:targetId] isEqualToString:@"0"]) {
 					_trackedTargetId = targetId;
-					[_scanningPuzzleView hideAnimationView];
-					[_scanningPuzzleView hidePuzzleButton];
 					[_glView pause];
 					[_scanningPuzzleView showBoxView];
 				}
@@ -398,26 +398,21 @@
 	} else {
 		if (_swipeType == SKScanTypeImage) {
 			[self.scanningImageView showScanningGridLine];
-		} else {
-			//			[self.scanningPuzzleView setHidden:NO];
 		}
 	}
 }
 
 #pragma mark - SKScanningRewardDelegate
 - (void)didClickBackButtonInScanningCaptureController:(SKScanningRewardViewController *)controller {
-	[controller dismissViewControllerAnimated:NO
-				       completion:^{
-					   [self.navigationController popViewControllerAnimated:YES];
-				       }];
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - SKScanningPuzzleViewDelegate
 - (void)scanningPuzzleView:(SKScanningPuzzleView *)view didTapExchangeButton:(UIButton *)button {
 	// 兑换
-	SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:[self.rewardID firstObject] sId:_sid scanType:_swipeType];
-	controller.delegate = self;
-	[self presentViewController:controller animated:NO completion:nil];
+	_scanningRewardViewController = [[SKScanningRewardViewController alloc] initWithRewardID:[self.rewardID firstObject] sId:_sid scanType:_swipeType];
+	_scanningRewardViewController.delegate = self;
+	[self.view addSubview:_scanningRewardViewController.view];
 }
 
 - (void)scanningPuzzleView:(SKScanningPuzzleView *)view didTapBoxButton:(UIButton *)button {
@@ -449,6 +444,17 @@
 		[_glView pause];
 	} else {
 		[_glView restart];
+	}
+
+	if (!_rewardRecord) {
+		[_scanningPuzzleView setupPuzzleView];
+	} else {
+		[_scanningPuzzleView hideAnimationView];
+		[_scanningPuzzleView hidePuzzleButton];
+
+		_scanningRewardViewController = [[SKScanningRewardViewController alloc] initWithReward:_rewardRecord];
+		_scanningRewardViewController.delegate = self;
+		[self.view addSubview:_scanningRewardViewController.view];
 	}
 }
 

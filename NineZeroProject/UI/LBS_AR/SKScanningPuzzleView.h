@@ -24,10 +24,18 @@
 
 - (instancetype)initWithLinkClarity:(NSArray *)clarity rewardAction:(NSArray *)rewardAction defaultPic:(NSString *)defaultPic;
 
+// 扫描线动画
 - (void)showAnimationView;
 - (void)hideAnimationView;
+
+// 拼图扫一扫大包箱
 - (void)showBoxView;
 - (void)hideBoxView;
+
+// 已获得碎片视图
+- (void)setupPuzzleView;
+
+// 底部扫一扫按钮
 - (void)showPuzzleButton;
 - (void)hidePuzzleButton;
 
