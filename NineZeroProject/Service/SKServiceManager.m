@@ -17,6 +17,7 @@
     SKAnswerService     *_answerService;
     SKScanningService   *_scanningService;
     SKCommonService     *_commonService;
+    SKSecretaryService  *_secretaryService;
     QNUploadManager     *_qiniuService;
 }
 
@@ -39,6 +40,7 @@
         _answerService      = [[SKAnswerService alloc] init];
         _scanningService    = [[SKScanningService alloc] init];
         _commonService      = [[SKCommonService alloc] init];
+        _secretaryService   = [[SKSecretaryService alloc] init];
         _qiniuService = [[QNUploadManager alloc] init];
     }
     return self;
@@ -76,6 +78,10 @@
 
 - (SKCommonService *)commonService {
     return _commonService;
+}
+
+- (SKSecretaryService *)secretaryService {
+    return _secretaryService;
 }
 
 - (QNUploadManager *)qiniuService {

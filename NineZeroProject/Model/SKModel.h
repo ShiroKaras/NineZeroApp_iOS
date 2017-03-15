@@ -245,5 +245,13 @@
 @property (nonatomic, copy) NSString *file_url_true;
 @property (nonatomic, copy) NSArray *link_url;
 @property (nonatomic, assign) BOOL is_haved_ticket;
+@end
 
+@interface SKChatObject : NSObject
+@property (nonatomic, copy) NSString *id;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) NSString *created_time;
+@property (nonatomic, copy) NSString *session_id;
+@property (nonatomic, copy) NSString *confirm_answer;
 @end

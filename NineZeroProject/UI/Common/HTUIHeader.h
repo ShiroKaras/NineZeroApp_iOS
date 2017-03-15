@@ -22,7 +22,8 @@
 #import "HTProgressHUD.h"
 #import "HTUIHelper.h"
 #import "HUD+Utility.h"
-#import "MJRefresh.h"
+//#import "MJRefresh.h"
+#import <MJRefresh/MJRefresh.h>
 #import "NSString+Utility.h"
 #import "SKImageHelper.h"
 #import "SKServiceManager.h"

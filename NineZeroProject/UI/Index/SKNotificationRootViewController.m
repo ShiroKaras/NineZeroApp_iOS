@@ -10,10 +10,13 @@
 #import "HTUIHeader.h"
 
 #import "HTNotificationController.h"
+#import "ChatFlowViewController.h"
 
 @interface SKNotificationRootViewController ()
 @property (nonatomic, strong) UILabel *systemNotificaitonContent;
 @property (nonatomic, strong) UILabel *secretaryContent;
+@property (nonatomic, assign) int noticeCount;
+@property (nonatomic, assign) int secretaryCount;
 @end
 
 @implementation SKNotificationRootViewController
@@ -66,8 +69,9 @@
         make.left.equalTo(@(64));
     }];
     
+    //系统通知
     _systemNotificaitonContent = [UILabel new];
-    _systemNotificaitonContent.text = @"TESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTEST";
+    _systemNotificaitonContent.text = @"";
     _systemNotificaitonContent.textColor = [UIColor colorWithHex:0xc3c3c3];
     _systemNotificaitonContent.font = PINGFANG_FONT_OF_SIZE(10);
     [_systemNotificaitonContent sizeToFit];
@@ -108,8 +112,9 @@
         make.left.equalTo(@(64));
     }];
     
+    //小秘书
     _secretaryContent = [UILabel new];
-    _secretaryContent.text = @"TESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTEST";
+    _secretaryContent.text = @"";
     _secretaryContent.textColor = _systemNotificaitonContent.textColor;
     _secretaryContent.font = _systemNotificaitonContent.font;
     [_secretaryContent sizeToFit];
@@ -135,6 +140,18 @@
     
     UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickSecretaryButton)];
     [secretaryButton addGestureRecognizer:tap2];
+    
+    [self loadData];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] secretaryService] showSecretaryNoticeListWithCallback:^(BOOL success, SKResponsePackage *response) {
+        _systemNotificaitonContent.text = response.data[@"notice"][@"notice_last_one"];
+        _noticeCount = [response.data[@"notice"][@"notice_count"] intValue];
+        
+        _secretaryContent.text = response.data[@"secretary"][@"secretary_last_one"];
+        _secretaryCount = [response.data[@"secretary"][@"secretary_count"] intValue];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -144,12 +161,15 @@
 #pragma mark - Action
 
 - (void)onClickNotificationButton {
+    [UD setValue:@(_noticeCount) forKey:NOTIFICATION_COUNT];
     HTNotificationController *controller = [[HTNotificationController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)onClickSecretaryButton {
-    
+    [UD setValue:@(_secretaryCount) forKey:SECRETARY_COUNT];
+    ChatFlowViewController *controller = [[ChatFlowViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end
