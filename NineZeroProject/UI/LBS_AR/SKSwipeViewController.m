@@ -88,6 +88,7 @@
 	    if (success) {
 		    NSDictionary *data = package.data[0];
 		    if (!data && ![data isKindOfClass:[NSDictionary class]]) {
+			    [self.navigationController popViewControllerAnimated:YES];
 			    return;
 		    }
 
@@ -126,6 +127,8 @@
 						break;
 				}
 			    }];
+	    } else {
+		    [self.navigationController popViewControllerAnimated:YES];
 	    }
 	}];
 }
@@ -307,16 +310,15 @@
 		}];
 
 		TTTAttributedLabel *hintLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(40.f, 0, SCREEN_WIDTH - 80, 0)];
-		hintLabel.textAlignment = NSTextAlignmentCenter;
+		hintLabel.textAlignment = NSTextAlignmentLeft;
 		hintLabel.numberOfLines = 0;
 		hintLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
 		hintLabel.font = PINGFANG_FONT_OF_SIZE(10.0);
-		hintLabel.lineSpacing = 2.f;
+		hintLabel.lineSpacing = 2.0f;
 		hintLabel.text = _hint;
 		[_hintView addSubview:hintLabel];
+		[hintLabel sizeToFit];
 
-		CGSize lableSize = [TTTAttributedLabel sizeThatFitsAttributedString:hintLabel.attributedText withConstraints:CGSizeMake(self.view.width, self.view.height) limitedToNumberOfLines:0];
-		hintLabel.height = lableSize.height;
 		hintLabel.centerY = self.view.centerY;
 
 		CALayer *hintImageLayer = [[CALayer alloc] init];
@@ -387,6 +389,8 @@
 		} else {
 			if (![[_isRecognizedTargetImage objectAtIndex:targetId] boolValue]) {
 				if (_rewardID && [[_rewardAction objectAtIndex:targetId] isEqualToString:@"0"]) {
+					[_scanningPuzzleView hidePuzzleButton];
+					[_scanningPuzzleView hideAnimationView];
 					_trackedTargetId = targetId;
 					[_glView pause];
 					[_scanningPuzzleView showBoxView];

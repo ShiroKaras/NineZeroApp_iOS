@@ -263,6 +263,10 @@
 }
 
 - (void)exchangeGifts {
+	[self hidePuzzleView];
+	[self hidePuzzleButton];
+	[self hideExchangeButton];
+
 	if ([_delegate respondsToSelector:@selector(scanningPuzzleView:didTapExchangeButton:)]) {
 		[_delegate scanningPuzzleView:self didTapExchangeButton:_exchangeButton];
 	}
