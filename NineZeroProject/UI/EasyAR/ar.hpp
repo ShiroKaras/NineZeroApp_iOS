@@ -27,6 +27,7 @@ class AR {
 	virtual void loadFromJsonFile(const std::string &path, const std::string &targetname, int tracker_id);
 	virtual void loadAllFromJsonFile(const std::string &path, int tracker_id);
 	virtual bool start();
+	virtual bool pause();
 	virtual bool stop();
 	virtual bool clear();
 

@@ -16,6 +16,14 @@ typedef void (^SKScanningCallback)(BOOL success, SKResponsePackage *package);
 
 - (void)getScanningWithCallBack:(SKScanningCallback)callback;
 
-- (void)getScanningRewardWithRewardID:(NSString *)rewardID callback:(SKResponseCallback)callback;
+- (void)getScanningRewardWithRewardId:(NSString *)rewardId callback:(SKResponseCallback)callback;
+
+- (void)getScanningRewardWithRewardId:(NSString *)rewardId sId:(NSString *)sId callback:(SKResponseCallback)callback;
+
+- (void)getScanningPuzzleRewardWithRewardId:(NSString *)rewardId sId:(NSString *)sId callback:(SKResponseCallback)callback;
+
+- (void)getScanningPuzzleWithMontageId:(NSString *)montageId sId:(NSString *)sId callback:(SKResponseCallback)callback;
+
+- (void)getAllScanningWithCallBack:(SKScanningCallback)callback;
 
 @end

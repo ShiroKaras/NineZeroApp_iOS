@@ -75,11 +75,13 @@ EOM
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "AMap3DMap/MAMapKit.framework/AMap.bundle"
+  install_resource "JSPatch/JSPatch/JSPatch.js"
   install_resource "MBProgressHUD+BWMExtension/Example/MBProgressHUD+BWMExtension/MBProgressHUD+BWMExtension.xcassets"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "AMap3DMap/MAMapKit.framework/AMap.bundle"
+  install_resource "JSPatch/JSPatch/JSPatch.js"
   install_resource "MBProgressHUD+BWMExtension/Example/MBProgressHUD+BWMExtension/MBProgressHUD+BWMExtension.xcassets"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
 fi

@@ -76,10 +76,61 @@
 				    }];
 }
 
-- (void)getScanningRewardWithRewardID:(NSString *)rewardID callback:(SKResponseCallback)callback {
+- (void)getScanningRewardWithRewardId:(NSString *)rewardId callback:(SKResponseCallback)callback {
 	NSDictionary *param = @{
 		@"method": @"getRewardDetail",
-		@"reward_id": rewardID
+		@"reward_id": rewardId
+	};
+
+	[self scanningBaseRequestWithParam:param
+				    callback:^(BOOL success, SKResponsePackage *response) {
+					callback(success, response);
+				    }];
+}
+
+- (void)getScanningRewardWithRewardId:(NSString *)rewardId sId:(NSString *)sId callback:(SKResponseCallback)callback {
+	NSDictionary *param = @{
+		@"method": @"getScanningRewardDetail",
+		@"reward_id": rewardId,
+		@"sid": sId
+	};
+
+	[self scanningBaseRequestWithParam:param
+				    callback:^(BOOL success, SKResponsePackage *response) {
+					callback(success, response);
+				    }];
+}
+
+- (void)getAllScanningWithCallBack:(SKScanningCallback)callback {
+	NSDictionary *param = @{
+		@"method": @"getAllScanning"
+	};
+
+	[self scanningBaseRequestWithParam:param
+				    callback:^(BOOL success, SKResponsePackage *response) {
+					callback(success, response);
+				    }];
+}
+
+- (void)getScanningPuzzleRewardWithRewardId:(NSString *)rewardId sId:(NSString *)sId callback:(SKResponseCallback)callback {
+	NSDictionary *param = @{
+		@"method": @"getLastMontageReward",
+		@"reward_id": rewardId,
+		@"sid": sId
+	};
+
+	[self scanningBaseRequestWithParam:param
+				    callback:^(BOOL success, SKResponsePackage *response) {
+					callback(success, response);
+				    }];
+}
+
+- (void)getScanningPuzzleWithMontageId:(NSString *)montageId sId:(NSString *)sId callback:(SKResponseCallback)callback {
+	NSDictionary *param = @{
+		@"method": @"getMontageRewardDetail",
+		@"reward_id": montageId,
+		@"sid": sId,
+		@"montage_id": montageId
 	};
 
 	[self scanningBaseRequestWithParam:param

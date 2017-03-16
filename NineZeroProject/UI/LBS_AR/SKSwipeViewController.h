@@ -9,9 +9,6 @@
 #import "OpenGLView.h"
 #import <UIKit/UIKit.h>
 
-@class SKScanning;
-@class SKQuestion;
-
 @class SKSwipeViewController;
 
 @protocol SKScanningViewDelegate <NSObject>
@@ -23,5 +20,4 @@
 @property (nonatomic, strong) OpenGLView *glView;
 @property (nonatomic, weak) id<SKScanningViewDelegate> delegate;
 
-- (instancetype)initWithQuestion:(SKQuestion *)question;
 @end
