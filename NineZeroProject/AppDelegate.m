@@ -21,7 +21,6 @@
 #import <ShareSDKConnector/ShareSDKConnector.h>
 
 #import "TalkingData.h"
-#import <JSPatchPlatform/JSPatch.h>
 
 //腾讯开放平台（对应QQ和QQ空间）SDK头文件
 #import <TencentOpenAPI/QQApiInterface.h>
@@ -51,7 +50,6 @@
 	_active = true;
 
 	[self registerJPushWithLaunchOptions:launchOptions];
-	[self registerJSPatch];
 	[self registerAMap];
 	[self registerLocation];
 	[self registerQiniuService];
@@ -383,13 +381,6 @@
 			callbackSelector:nil
 				  object:nil];
 	}
-}
-
-#pragma mark - JSPatch
-
-- (void)registerJSPatch {
-	[JSPatch startWithAppKey:[[ClientConfiguration sharedInstance] JSPatchAppKey]];
-	[JSPatch sync];
 }
 
 @end

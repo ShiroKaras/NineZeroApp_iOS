@@ -39,10 +39,6 @@
 	return [self stringValueWithKey:@"JPUSHServiceAppKey"];
 }
 
-- (NSString *)JSPatchAppKey {
-	return [self stringValueWithKey:@"JSPatchAppKey"];
-}
-
 - (NSString *)AMapServicesAPIKey {
 	return [self stringValueWithKey:@"AMapServicesAPIKey"];
 }
