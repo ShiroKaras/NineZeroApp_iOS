@@ -13,6 +13,7 @@
 #import "JPUSHService.h"
 #import "SKLaunchAnimationViewController.h"
 #import "SKLoginRootViewController.h"
+#import "NZTabbarViewController.h"
 #import <Qiniu/QiniuSDK.h>
 
 #import "UMMobClick/MobClick.h"
@@ -160,10 +161,9 @@
 
 - (void)createWindowAndVisibleWithOptions:(NSDictionary *)launchOptions {
 	NSString *userID = [[SKStorageManager sharedInstance] getUserID];
-	NSLog(@"%@", userID);
 	if (userID != nil) {
 		self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-		_mainController = [[SKHomepageViewController alloc] init];
+		_mainController = [[NZTabbarViewController alloc] init];
 		HTNavigationController *navController =
 			[[HTNavigationController alloc] initWithRootViewController:_mainController];
 		self.window.rootViewController = navController;
