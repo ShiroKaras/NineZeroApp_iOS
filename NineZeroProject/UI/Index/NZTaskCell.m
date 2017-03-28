@@ -12,6 +12,9 @@
 @interface NZTaskCell ()
 @property (nonatomic, strong) UIImageView   *taskImageView;
 @property (nonatomic, strong) UIImageView   *taskTitleImageView;
+@property (nonatomic, strong) UILabel       *distanceLabel;
+
+@property (nonatomic, strong) UIImageView   *deleteImageView;
 @end
 
 @implementation NZTaskCell
@@ -43,6 +46,7 @@
             make.height.equalTo(@16);
         }];
         
+        //Level
         UILabel *taskLevelLabel = [UILabel new];
         taskLevelLabel.text = @"任务难度";
         taskLevelLabel.textColor = [UIColor colorWithHex:0x9c9c9c];
@@ -54,6 +58,29 @@
             make.left.equalTo(_taskTitleImageView);
         }];
         
+        for (int i=0; i<5; i++) {
+            UIImageView *levelImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskpage_level"]];
+            [self.contentView addSubview:levelImageView];
+            [levelImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(25, 25));
+                make.centerY.equalTo(taskLevelLabel.mas_centerY);
+                make.left.equalTo(taskLevelLabel.mas_right).offset(4+25*i);
+            }];
+        }
+        
+        //Distance
+        _distanceLabel = [UILabel new];
+        _distanceLabel.text = @"0m";
+        _distanceLabel.textColor = taskLevelLabel.textColor;
+        _distanceLabel.font = PINGFANG_FONT_OF_SIZE(10);
+        [_distanceLabel sizeToFit];
+        [self.contentView addSubview:_distanceLabel];
+        [_distanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(taskLevelLabel);
+            make.right.equalTo(_taskImageView);
+        }];
+        
+        //Underline
         UIView *underLine = [UIView new];
         underLine.backgroundColor = [UIColor colorWithHex:0x303030];
         [self.contentView addSubview:underLine];
@@ -69,6 +96,29 @@
     }
     
     return self;
+}
+
+// 改变滑动删除按钮样式
+- (void)layoutSubviews {
+    [super layoutSubviews];
+
+    for (UIView *subView in self.subviews){
+        if([subView isKindOfClass:NSClassFromString(@"UITableViewCellDeleteConfirmationView")]) {
+            UIButton *confirmView=(UIButton *)[subView.subviews firstObject];
+            // 改背景颜色
+            confirmView.backgroundColor = COMMON_BG_COLOR;
+            [confirmView setImage:[UIImage imageNamed:@"btn_taskbook_delete"] forState:UIControlStateNormal];
+            [confirmView setImage:[UIImage imageNamed:@"btn_taskbook_delete_highlight"] forState:UIControlStateHighlighted];
+            confirmView.imageEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14);
+
+            for(UIView *sub in confirmView.subviews){
+                if([sub isKindOfClass:NSClassFromString(@"UIButtonLabel")]){
+                    [sub removeFromSuperview];
+                }
+            }
+            break;
+        }
+    }
 }
 
 @end
