@@ -11,6 +11,7 @@
 
 #import "JPUSHService.h"
 #import "SKSwipeViewController.h"
+#import "NZTaskViewController.h"
 
 @interface SKHomepageViewController ()
 @property (nonatomic, strong) UIView *dimmingView;
@@ -32,7 +33,7 @@
 		setStatusBarHidden:YES
 		     withAnimation:UIStatusBarAnimationNone];
 	[self.navigationController.navigationBar setHidden:YES];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES];
+	[[UIApplication sharedApplication] setStatusBarHidden:NO];
 	[self loadData];
 }
 
@@ -66,6 +67,7 @@
     
     //任务按钮
     UIButton *taskButton = [UIButton new];
+    [taskButton addTarget:self action:@selector(didClickTaskButton:) forControlEvents:UIControlEventTouchUpInside];
     [taskButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_taskbook"] forState:UIControlStateNormal];
     [taskButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_taskbook_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:taskButton];
@@ -87,6 +89,14 @@
 }
 
 #pragma mark - Actions
+
+- (void)removeDimmingView {
+    [UIView animateWithDuration:0.3 animations:^{
+        _dimmingView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [_dimmingView removeFromSuperview];
+    }];
+}
 
 - (void)didClickedChangeCityButton:(UIButton *)sender {
     _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
@@ -129,12 +139,10 @@
     [_dimmingView addSubview:changeCityTitleView];
 }
 
-- (void)removeDimmingView {
-    [UIView animateWithDuration:0.3 animations:^{
-        _dimmingView.alpha = 0;
-    } completion:^(BOOL finished) {
-        [_dimmingView removeFromSuperview];
-    }];
+
+- (void)didClickTaskButton:(UIButton*)sender {
+    NZTaskViewController *controller = [[NZTaskViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - panGestureRecognized
