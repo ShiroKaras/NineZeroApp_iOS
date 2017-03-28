@@ -53,25 +53,36 @@
 	__weak __typeof(self) weakSelf = self;
 	self.view.backgroundColor = COMMON_BG_COLOR;
     
-    //任务按钮
-    UIButton *taskButton = [UIButton new];
-    taskButton.backgroundColor = [UIColor redColor];
-    [self.view addSubview:taskButton];
-    [taskButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(30, 30));
-        make.top.equalTo(@20);
-        make.left.equalTo(@8);
-    }];
-    
     //切换城市按钮
     UIButton *changeCityButton = [UIButton new];
-    changeCityButton.backgroundColor = [UIColor redColor];
+    [changeCityButton setBackgroundImage:[UIImage imageNamed:@"btn_local_beijing"] forState:UIControlStateNormal];
     [changeCityButton addTarget:self action:@selector(didClickedChangeCityButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:changeCityButton];
     [changeCityButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(100, 40));
+        make.size.mas_equalTo(CGSizeMake(82, 34));
         make.centerX.equalTo(weakSelf.view);
-        make.top.equalTo(@20);
+        make.top.equalTo(@25);
+    }];
+    
+    //任务按钮
+    UIButton *taskButton = [UIButton new];
+    [taskButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_taskbook"] forState:UIControlStateNormal];
+    [taskButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_taskbook_highlight"] forState:UIControlStateHighlighted];
+    taskButton.backgroundColor = [UIColor redColor];
+    [self.view addSubview:taskButton];
+    [taskButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(27, 27));
+        make.centerY.equalTo(changeCityButton);
+        make.left.equalTo(@13.5);
+    }];
+    
+    //扫一扫按钮
+    UIButton *swipeButton = [UIButton new];
+    [self.view addSubview:swipeButton];
+    [swipeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(72, 72));
+        make.bottom.equalTo(@(-68));
+        make.centerX.equalTo(weakSelf.view);
     }];
 }
 
