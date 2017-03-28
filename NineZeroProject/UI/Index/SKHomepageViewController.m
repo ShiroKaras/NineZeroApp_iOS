@@ -68,7 +68,6 @@
     UIButton *taskButton = [UIButton new];
     [taskButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_taskbook"] forState:UIControlStateNormal];
     [taskButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_taskbook_highlight"] forState:UIControlStateHighlighted];
-    taskButton.backgroundColor = [UIColor redColor];
     [self.view addSubview:taskButton];
     [taskButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(27, 27));
@@ -78,6 +77,7 @@
     
     //扫一扫按钮
     UIButton *swipeButton = [UIButton new];
+    [swipeButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_scanning"] forState:UIControlStateNormal];
     [self.view addSubview:swipeButton];
     [swipeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(72, 72));
