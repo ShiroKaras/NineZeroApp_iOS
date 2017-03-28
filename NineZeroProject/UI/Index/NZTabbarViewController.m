@@ -18,15 +18,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     SKHomepageViewController *c1 = [[SKHomepageViewController alloc] init];
-    c1.tabBarItem.image = [UIImage imageNamed:@"img_profile_notification_mascot1"];
+    c1.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_task_highlight"];
     
     SKHomepageViewController *c2 = [[SKHomepageViewController alloc] init];
-    c2.tabBarItem.image = [UIImage imageNamed:@"img_profile_photo_default"];
+    c2.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_puzzle"];
     
     SKHomepageViewController *c3 = [[SKHomepageViewController alloc] init];
-    c3.tabBarItem.image = [UIImage imageNamed:@"img_profile_notification_mascot1"];
+    c3.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_lingzai"];
     
-    self.viewControllers = @[c1, c2, c3];
+    SKHomepageViewController *c4 = [[SKHomepageViewController alloc] init];
+    c4.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_lab"];
+    
+    SKHomepageViewController *c5 = [[SKHomepageViewController alloc] init];
+    c5.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_me"];
+    
+    self.viewControllers = @[c1, c2, c3, c4, c5];
 }
 
 - (void)didReceiveMemoryWarning {
