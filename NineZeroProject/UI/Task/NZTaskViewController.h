@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface NZTaskViewController : UIViewController
-
+@property (nonatomic, strong) UIImageView *titleImageView;
 @end

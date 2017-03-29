@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NZTaskDetailView : UIView
+@property(nonatomic, assign) float viewHeight;
 - (instancetype)initWithFrame:(CGRect)frame withModel:(NSDictionary*)modal;
 @end

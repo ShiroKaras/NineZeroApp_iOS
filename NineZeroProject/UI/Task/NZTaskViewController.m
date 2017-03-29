@@ -23,6 +23,17 @@
     self.view.backgroundColor = COMMON_BG_COLOR;
     self.automaticallyAdjustsScrollViewInsets = false;
     
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.width, 44)];
+    headerView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:headerView];
+    
+    _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskbook_title"]];
+    [headerView addSubview:_titleImageView];
+    [_titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(headerView);
+        make.centerX.equalTo(headerView);
+    }];
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

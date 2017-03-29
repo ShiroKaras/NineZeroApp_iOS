@@ -10,7 +10,7 @@
 #import "HTUIHeader.h"
 #import "NZTaskDetailView.h"
 
-@interface NZTaskDetailViewController ()
+@interface NZTaskDetailViewController () <UIScrollViewDelegate>
 @property (nonatomic, strong) UIImageView   *titleImageView;
 @property (nonatomic, strong) UIView        *tabBackView;
 @property (nonatomic, strong) UIScrollView  *scrollView;
@@ -95,7 +95,8 @@
     }];
     
     _scrollView = [UIScrollView new];
-    _scrollView.backgroundColor = [UIColor lightGrayColor];
+    _scrollView.delegate = self;
+    _scrollView.backgroundColor = [UIColor clearColor];
     _scrollView.bounces = NO;
     _scrollView.pagingEnabled = YES;
 //    _scrollView.showsHorizontalScrollIndicator = NO;
@@ -112,12 +113,44 @@
     
     _scrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, _scrollView.height)];
     _scrollView1.contentSize = CGSizeMake(self.view.width, 1000);
-    _scrollView1.backgroundColor = [UIColor yellowColor];
+    _scrollView1.backgroundColor = [UIColor clearColor];
     _scrollView1.bounces = NO;
     [_scrollView addSubview:_scrollView1];
     
     NZTaskDetailView *detailView = [[NZTaskDetailView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1000) withModel:nil];
+    detailView.frame = CGRectMake(0, 0, self.view.width, detailView.viewHeight);
     [_scrollView1 addSubview:detailView];
+    _scrollView1.contentSize = CGSizeMake(self.view.width, detailView.viewHeight+16+40);
+    
+    UIView *bottomView = [UIView new];
+    bottomView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    [self.view addSubview:bottomView];
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(weakSelf.view);
+        make.height.equalTo(@40);
+        make.centerX.equalTo(weakSelf.view);
+        make.bottom.equalTo(weakSelf);
+    }];
+    
+    UIButton *backButton = [UIButton new];
+    [backButton addTarget:self action:@selector(didClickBackButton:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back_highlight"] forState:UIControlStateHighlighted];
+    [bottomView addSubview:backButton];
+    [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@13.5);
+        make.centerY.equalTo(bottomView);
+    }];
+    
+    UIButton *addTaskButton = [UIButton new];
+    [addTaskButton addTarget:self action:@selector(didClickAddTaskButton:) forControlEvents:UIControlEventTouchUpInside];
+    [addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask"] forState:UIControlStateNormal];
+    [addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask_highlight"] forState:UIControlStateHighlighted];
+    [bottomView addSubview:addTaskButton];
+    [addTaskButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(bottomView);
+        make.right.equalTo(@(-13.5));
+    }];
 }
 
 #pragma mark - Actions
@@ -132,6 +165,7 @@
             make.bottom.equalTo(_tabBackView.mas_bottom).offset(-1);
         }];
         [_indicatorLine.superview layoutIfNeeded];
+        _scrollView.contentOffset = CGPointMake(0, 0);
     }];
 }
 
@@ -145,7 +179,48 @@
             make.bottom.equalTo(_tabBackView.mas_bottom).offset(-1);
         }];
         [_indicatorLine.superview layoutIfNeeded];
+        _scrollView.contentOffset = CGPointMake(self.view.width, 0);
     }];
+}
+
+- (void)didClickBackButton:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)didClickAddTaskButton:(UIButton *)sender {
+    
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == _scrollView) {
+        //得到图片移动相对原点的坐标
+        CGPoint point = scrollView.contentOffset;
+        
+        if (point.x > 2 * (SCREEN_WIDTH)) {
+            point.x = (SCREEN_WIDTH)* 2;
+            scrollView.contentOffset = point;
+        }
+    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if (scrollView == _scrollView) {
+        //根据图片坐标判断页数
+        NSInteger index = round(targetContentOffset->x / (SCREEN_WIDTH));
+        NSLog(@"%ld", (long)index);
+        switch (index) {
+            case 0:
+                [self didClickButton1:nil];
+                break;
+            case 1:
+                [self didClickButton2:nil];
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 @end

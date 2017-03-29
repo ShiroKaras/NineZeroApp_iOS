@@ -9,6 +9,7 @@
 #import "HTNavigationController.h"
 #import "CommonUI.h"
 #import "HTUIHeader.h"
+#import "NZTaskDetailViewController.h"
 
 @implementation HTNavigationController
 
@@ -35,7 +36,9 @@
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
 	[super pushViewController:viewController animated:animated];
 
-	if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1) {
+	if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1
+        &&![viewController isKindOfClass:[NZTaskDetailViewController class]]
+        ) {
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = 9001;
 		[button setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
