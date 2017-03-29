@@ -14,8 +14,6 @@
 
 - (NSString *)JPUSHServiceAppKey;
 
-- (NSString *)JSPatchAppKey;
-
 - (NSString *)AMapServicesAPIKey;
 
 - (NSString *)ShareSDKAppKey;
