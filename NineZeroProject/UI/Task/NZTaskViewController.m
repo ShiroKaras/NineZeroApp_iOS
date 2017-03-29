@@ -10,6 +10,7 @@
 #import "HTUIHeader.h"
 
 #import "NZTaskCell.h"
+#import "NZTaskDetailViewController.h"
 
 @interface NZTaskViewController () <UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic, strong) UITableView *tableView;
@@ -71,6 +72,11 @@
          [_tableView reloadData];
          */
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NZTaskDetailViewController *controller = [[NZTaskDetailViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - UITableView DataSource
