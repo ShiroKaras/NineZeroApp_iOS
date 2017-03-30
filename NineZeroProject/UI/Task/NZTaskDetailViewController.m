@@ -19,6 +19,9 @@
 @property (nonatomic, strong) UIButton      *button2;
 @property (nonatomic, strong) UIScrollView  *scrollView1;
 @property (nonatomic, strong) UIScrollView  *scrollView2;
+@property (nonatomic, strong) UIButton      *addTaskButton;
+//@property (nonatomic, strong) UIView        *tipsBackView;
+@property (nonatomic, assign) BOOL          isAddTaskList;
 @end
 
 @implementation NZTaskDetailViewController
@@ -26,10 +29,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadData {
+    _isAddTaskList = NO;
 }
 
 - (void)createUI {
@@ -142,12 +150,12 @@
         make.centerY.equalTo(bottomView);
     }];
     
-    UIButton *addTaskButton = [UIButton new];
-    [addTaskButton addTarget:self action:@selector(didClickAddTaskButton:) forControlEvents:UIControlEventTouchUpInside];
-    [addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask"] forState:UIControlStateNormal];
-    [addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask_highlight"] forState:UIControlStateHighlighted];
-    [bottomView addSubview:addTaskButton];
-    [addTaskButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    _addTaskButton = [UIButton new];
+    [_addTaskButton addTarget:self action:@selector(didClickAddTaskButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask"] forState:UIControlStateNormal];
+    [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask_highlight"] forState:UIControlStateHighlighted];
+    [bottomView addSubview:_addTaskButton];
+    [_addTaskButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(bottomView);
         make.right.equalTo(@(-13.5));
     }];
@@ -188,7 +196,43 @@
 }
 
 - (void)didClickAddTaskButton:(UIButton *)sender {
+    _isAddTaskList = !_isAddTaskList;
+    [self showTipsWith:_isAddTaskList];
+}
+
+- (void)showTipsWith:(BOOL)flag {
+    UIView *_tipsBackView = [[UIView alloc] initWithFrame:CGRectMake(0, -64, self.view.width, 64)];
+    [self.view addSubview:_tipsBackView];
+    _tipsBackView.backgroundColor = COMMON_GREEN_COLOR;
     
+    UIImageView *imageView;
+    if (flag) {
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskpage_addtask"]];
+        [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask_highlight"] forState:UIControlStateNormal];
+    } else {
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskbook_deletesuccess"]];
+        [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask"] forState:UIControlStateNormal];
+    }
+    [_tipsBackView addSubview:imageView];
+    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_tipsBackView.mas_centerX);
+        make.centerY.equalTo(_tipsBackView.mas_centerY);
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        _tipsBackView.top = 0;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3
+                              delay:1.4
+                            options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             _tipsBackView.top = -64;
+                         }
+                         completion:^(BOOL finished) {
+                             [_tipsBackView removeFromSuperview];
+                         }];
+    }];
+
 }
 
 #pragma mark - UIScrollViewDelegate
