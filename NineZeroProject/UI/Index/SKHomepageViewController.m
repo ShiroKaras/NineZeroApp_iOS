@@ -12,6 +12,7 @@
 #import "JPUSHService.h"
 #import "SKSwipeViewController.h"
 #import "NZTaskViewController.h"
+#import "SKSwipeViewController.h"
 
 @interface SKHomepageViewController ()
 @property (nonatomic, strong) UIView *dimmingView;
@@ -79,6 +80,7 @@
     
     //扫一扫按钮
     UIButton *swipeButton = [UIButton new];
+    [swipeButton addTarget:self action:@selector(didClickSwipeButton:) forControlEvents:UIControlEventTouchUpInside];
     [swipeButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_scanning"] forState:UIControlStateNormal];
     [self.view addSubview:swipeButton];
     [swipeButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -139,9 +141,13 @@
     [_dimmingView addSubview:changeCityTitleView];
 }
 
-
 - (void)didClickTaskButton:(UIButton*)sender {
     NZTaskViewController *controller = [[NZTaskViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)didClickSwipeButton:(UIButton *)sender {
+    SKSwipeViewController *controller = [[SKSwipeViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
