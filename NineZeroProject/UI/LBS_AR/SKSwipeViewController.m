@@ -59,7 +59,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
+    
 	if (!NO_NETWORK) {
 		[self loadData];
 	}
@@ -88,7 +88,7 @@
 	    if (success) {
 		    NSDictionary *data = package.data[0];
 		    if (!data && ![data isKindOfClass:[NSDictionary class]]) {
-			    [self.navigationController popViewControllerAnimated:YES];
+//			    [self.navigationController popViewControllerAnimated:YES];
 			    return;
 		    }
 
@@ -128,7 +128,7 @@
 				}
 			    }];
 	    } else {
-		    [self.navigationController popViewControllerAnimated:YES];
+//		    [self.navigationController popViewControllerAnimated:YES];
 	    }
 	}];
 }

@@ -180,6 +180,9 @@
 		11BC2DFE1D93C98200C9E775 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFC1D93C98200C9E775 /* libTalkingData.a */; };
 		11BC2E001D93C9CF00C9E775 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */; };
 		11C4604F1E8B605D00FDA2EA /* NZTaskDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C4604E1E8B605D00FDA2EA /* NZTaskDetailView.m */; };
+		11C460541E8D03F000FDA2EA /* NZQuestionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C460531E8D03F000FDA2EA /* NZQuestionListViewController.m */; };
+		11C460571E8D047800FDA2EA /* NZQuestionListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C460561E8D047800FDA2EA /* NZQuestionListCell.m */; };
+		11C4605D1E8D053B00FDA2EA /* NZQuestionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C4605C1E8D053B00FDA2EA /* NZQuestionDetailViewController.m */; };
 		11C64D3C1E601AC000397835 /* ChatFlowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C64D391E601AC000397835 /* ChatFlowCell.m */; };
 		11C64D3D1E601AC000397835 /* ChatFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C64D3B1E601AC000397835 /* ChatFlowViewController.m */; };
 		11C7646D1E120E5300D86F40 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11C764571E120E5300D86F40 /* Info.plist */; };
@@ -654,6 +657,12 @@
 		11BC2DFF1D93C9CF00C9E775 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		11C4604D1E8B605D00FDA2EA /* NZTaskDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZTaskDetailView.h; path = NineZeroProject/UI/Task/NZTaskDetailView.h; sourceTree = "<group>"; };
 		11C4604E1E8B605D00FDA2EA /* NZTaskDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZTaskDetailView.m; path = NineZeroProject/UI/Task/NZTaskDetailView.m; sourceTree = "<group>"; };
+		11C460521E8D03F000FDA2EA /* NZQuestionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZQuestionListViewController.h; path = NineZeroProject/UI/Question/NZQuestionListViewController.h; sourceTree = "<group>"; };
+		11C460531E8D03F000FDA2EA /* NZQuestionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZQuestionListViewController.m; path = NineZeroProject/UI/Question/NZQuestionListViewController.m; sourceTree = "<group>"; };
+		11C460551E8D047800FDA2EA /* NZQuestionListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZQuestionListCell.h; path = NineZeroProject/UI/Question/NZQuestionListCell.h; sourceTree = "<group>"; };
+		11C460561E8D047800FDA2EA /* NZQuestionListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZQuestionListCell.m; path = NineZeroProject/UI/Question/NZQuestionListCell.m; sourceTree = "<group>"; };
+		11C4605B1E8D053B00FDA2EA /* NZQuestionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZQuestionDetailViewController.h; path = NineZeroProject/UI/Question/NZQuestionDetailViewController.h; sourceTree = "<group>"; };
+		11C4605C1E8D053B00FDA2EA /* NZQuestionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZQuestionDetailViewController.m; path = NineZeroProject/UI/Question/NZQuestionDetailViewController.m; sourceTree = "<group>"; };
 		11C64D381E601AC000397835 /* ChatFlowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatFlowCell.h; path = NineZeroProject/UI/Index/Notification/ChatFlowCell.h; sourceTree = "<group>"; };
 		11C64D391E601AC000397835 /* ChatFlowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatFlowCell.m; path = NineZeroProject/UI/Index/Notification/ChatFlowCell.m; sourceTree = "<group>"; };
 		11C64D3A1E601AC000397835 /* ChatFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatFlowViewController.h; path = NineZeroProject/UI/Index/Notification/ChatFlowViewController.h; sourceTree = "<group>"; };
@@ -1019,27 +1028,8 @@
 		110A34A61DD07AEB00207115 /* Question */ = {
 			isa = PBXGroup;
 			children = (
-				1162372E1E4B32CF009FEDCA /* SKAllQuestionViewController.h */,
-				1162372F1E4B32CF009FEDCA /* SKAllQuestionViewController.m */,
-				116237301E4B32CF009FEDCA /* SKAnswerDetailView.h */,
-				116237311E4B32CF009FEDCA /* SKAnswerDetailView.m */,
-				116237321E4B32CF009FEDCA /* SKCardTimeView.h */,
-				116237331E4B32CF009FEDCA /* SKCardTimeView.m */,
-				116237341E4B32CF009FEDCA /* SKCardTimeView.xib */,
-				116237351E4B32CF009FEDCA /* SKComposeView.h */,
-				116237361E4B32CF009FEDCA /* SKComposeView.m */,
-				116237371E4B32CF009FEDCA /* SKDescriptionView.h */,
-				116237381E4B32CF009FEDCA /* SKDescriptionView.m */,
-				116237391E4B32CF009FEDCA /* SKHintView.h */,
-				1162373A1E4B32CF009FEDCA /* SKHintView.m */,
-				1162373B1E4B32CF009FEDCA /* SKQuestionRankListView.h */,
-				1162373C1E4B32CF009FEDCA /* SKQuestionRankListView.m */,
-				1162373D1E4B32CF009FEDCA /* SKQuestionRewardView.h */,
-				1162373E1E4B32CF009FEDCA /* SKQuestionRewardView.m */,
-				1162373F1E4B32CF009FEDCA /* SKQuestionViewController.h */,
-				116237401E4B32CF009FEDCA /* SKQuestionViewController.m */,
-				116237411E4B32CF009FEDCA /* SKTicketView.h */,
-				116237421E4B32CF009FEDCA /* SKTicketView.m */,
+				11C460511E8D03C100FDA2EA /* 3.0 */,
+				11C460501E8D03B500FDA2EA /* 2.0 */,
 			);
 			name = Question;
 			sourceTree = "<group>";
@@ -1470,6 +1460,47 @@
 				11BC2DFD1D93C98200C9E775 /* TalkingData.h */,
 			);
 			path = TalkingData;
+			sourceTree = "<group>";
+		};
+		11C460501E8D03B500FDA2EA /* 2.0 */ = {
+			isa = PBXGroup;
+			children = (
+				1162372E1E4B32CF009FEDCA /* SKAllQuestionViewController.h */,
+				1162372F1E4B32CF009FEDCA /* SKAllQuestionViewController.m */,
+				116237301E4B32CF009FEDCA /* SKAnswerDetailView.h */,
+				116237311E4B32CF009FEDCA /* SKAnswerDetailView.m */,
+				116237321E4B32CF009FEDCA /* SKCardTimeView.h */,
+				116237331E4B32CF009FEDCA /* SKCardTimeView.m */,
+				116237341E4B32CF009FEDCA /* SKCardTimeView.xib */,
+				116237351E4B32CF009FEDCA /* SKComposeView.h */,
+				116237361E4B32CF009FEDCA /* SKComposeView.m */,
+				116237371E4B32CF009FEDCA /* SKDescriptionView.h */,
+				116237381E4B32CF009FEDCA /* SKDescriptionView.m */,
+				116237391E4B32CF009FEDCA /* SKHintView.h */,
+				1162373A1E4B32CF009FEDCA /* SKHintView.m */,
+				1162373B1E4B32CF009FEDCA /* SKQuestionRankListView.h */,
+				1162373C1E4B32CF009FEDCA /* SKQuestionRankListView.m */,
+				1162373D1E4B32CF009FEDCA /* SKQuestionRewardView.h */,
+				1162373E1E4B32CF009FEDCA /* SKQuestionRewardView.m */,
+				1162373F1E4B32CF009FEDCA /* SKQuestionViewController.h */,
+				116237401E4B32CF009FEDCA /* SKQuestionViewController.m */,
+				116237411E4B32CF009FEDCA /* SKTicketView.h */,
+				116237421E4B32CF009FEDCA /* SKTicketView.m */,
+			);
+			name = 2.0;
+			sourceTree = "<group>";
+		};
+		11C460511E8D03C100FDA2EA /* 3.0 */ = {
+			isa = PBXGroup;
+			children = (
+				11C460521E8D03F000FDA2EA /* NZQuestionListViewController.h */,
+				11C460531E8D03F000FDA2EA /* NZQuestionListViewController.m */,
+				11C460551E8D047800FDA2EA /* NZQuestionListCell.h */,
+				11C460561E8D047800FDA2EA /* NZQuestionListCell.m */,
+				11C4605B1E8D053B00FDA2EA /* NZQuestionDetailViewController.h */,
+				11C4605C1E8D053B00FDA2EA /* NZQuestionDetailViewController.m */,
+			);
+			name = 3.0;
 			sourceTree = "<group>";
 		};
 		11C64D371E601A7C00397835 /* Notification */ = {
@@ -2587,6 +2618,7 @@
 				116236D91E4B3096009FEDCA /* SKServiceManager.m in Sources */,
 				1162375B1E4B32E5009FEDCA /* SKMascotAlbumView.m in Sources */,
 				116237871E4D623D009FEDCA /* SKDownloadProgressView.m in Sources */,
+				11C460571E8D047800FDA2EA /* NZQuestionListCell.m in Sources */,
 				116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */,
 				116237201E4B329E009FEDCA /* SKResetPasswordViewController.m in Sources */,
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
@@ -2685,6 +2717,7 @@
 				1162372D1E4B32B5009FEDCA /* SKHomepageViewController.m in Sources */,
 				1162374A1E4B32CF009FEDCA /* SKQuestionRankListView.m in Sources */,
 				1162372C1E4B32B5009FEDCA /* SKActivityNotificationView.m in Sources */,
+				11C4605D1E8D053B00FDA2EA /* NZQuestionDetailViewController.m in Sources */,
 				1160FB411E0E927F00606F16 /* SKShareView.m in Sources */,
 				116236D71E4B3096009FEDCA /* SKPropService.m in Sources */,
 				1162375E1E4B32E5009FEDCA /* SKMascotIndexViewController.m in Sources */,
@@ -2710,6 +2743,7 @@
 				113C421B1E2482DB003E393F /* MotionEffectView.m in Sources */,
 				1160FB431E0E927F00606F16 /* HTCommonViewController.m in Sources */,
 				11C764741E120E5300D86F40 /* NSObject+MJCoding.m in Sources */,
+				11C460541E8D03F000FDA2EA /* NZQuestionListViewController.m in Sources */,
 				1162375D1E4B32E5009FEDCA /* SKMascotFightViewController.m in Sources */,
 				11C764701E120E5300D86F40 /* MJProperty.m in Sources */,
 				116237211E4B329E009FEDCA /* SKVerifyViewController.m in Sources */,
