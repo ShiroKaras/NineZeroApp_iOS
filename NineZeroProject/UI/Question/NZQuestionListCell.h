@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface NZQuestionListCell : UITableViewCell
-
+@property (nonatomic, assign) float cellHeight;
 @end

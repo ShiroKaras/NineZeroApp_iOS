@@ -27,7 +27,7 @@
     headerView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:headerView];
     
-    _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskbook_title"]];
+    _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzlepage_title"]];
     [headerView addSubview:_titleImageView];
     [_titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(headerView);
@@ -60,7 +60,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NZQuestionListCell *cell = (NZQuestionListCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-    return 16+20+20+162+18;
+    return cell.cellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
