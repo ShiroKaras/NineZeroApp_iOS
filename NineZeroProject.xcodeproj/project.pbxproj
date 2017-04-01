@@ -183,6 +183,8 @@
 		11C460541E8D03F000FDA2EA /* NZQuestionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C460531E8D03F000FDA2EA /* NZQuestionListViewController.m */; };
 		11C460571E8D047800FDA2EA /* NZQuestionListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C460561E8D047800FDA2EA /* NZQuestionListCell.m */; };
 		11C4605D1E8D053B00FDA2EA /* NZQuestionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C4605C1E8D053B00FDA2EA /* NZQuestionDetailViewController.m */; };
+		11C460631E8D129800FDA2EA /* NZRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C460621E8D129800FDA2EA /* NZRankCell.m */; };
+		11C460661E8D12D100FDA2EA /* NZRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C460651E8D12D100FDA2EA /* NZRankViewController.m */; };
 		11C64D3C1E601AC000397835 /* ChatFlowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C64D391E601AC000397835 /* ChatFlowCell.m */; };
 		11C64D3D1E601AC000397835 /* ChatFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C64D3B1E601AC000397835 /* ChatFlowViewController.m */; };
 		11C7646D1E120E5300D86F40 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11C764571E120E5300D86F40 /* Info.plist */; };
@@ -663,6 +665,10 @@
 		11C460561E8D047800FDA2EA /* NZQuestionListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZQuestionListCell.m; path = NineZeroProject/UI/Question/NZQuestionListCell.m; sourceTree = "<group>"; };
 		11C4605B1E8D053B00FDA2EA /* NZQuestionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZQuestionDetailViewController.h; path = NineZeroProject/UI/Question/NZQuestionDetailViewController.h; sourceTree = "<group>"; };
 		11C4605C1E8D053B00FDA2EA /* NZQuestionDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZQuestionDetailViewController.m; path = NineZeroProject/UI/Question/NZQuestionDetailViewController.m; sourceTree = "<group>"; };
+		11C460611E8D129800FDA2EA /* NZRankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZRankCell.h; path = NineZeroProject/UI/Rank/NZRankCell.h; sourceTree = "<group>"; };
+		11C460621E8D129800FDA2EA /* NZRankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZRankCell.m; path = NineZeroProject/UI/Rank/NZRankCell.m; sourceTree = "<group>"; };
+		11C460641E8D12D100FDA2EA /* NZRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZRankViewController.h; path = NineZeroProject/UI/Rank/NZRankViewController.h; sourceTree = "<group>"; };
+		11C460651E8D12D100FDA2EA /* NZRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZRankViewController.m; path = NineZeroProject/UI/Rank/NZRankViewController.m; sourceTree = "<group>"; };
 		11C64D381E601AC000397835 /* ChatFlowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatFlowCell.h; path = NineZeroProject/UI/Index/Notification/ChatFlowCell.h; sourceTree = "<group>"; };
 		11C64D391E601AC000397835 /* ChatFlowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatFlowCell.m; path = NineZeroProject/UI/Index/Notification/ChatFlowCell.m; sourceTree = "<group>"; };
 		11C64D3A1E601AC000397835 /* ChatFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatFlowViewController.h; path = NineZeroProject/UI/Index/Notification/ChatFlowViewController.h; sourceTree = "<group>"; };
@@ -1499,6 +1505,10 @@
 				11C460561E8D047800FDA2EA /* NZQuestionListCell.m */,
 				11C4605B1E8D053B00FDA2EA /* NZQuestionDetailViewController.h */,
 				11C4605C1E8D053B00FDA2EA /* NZQuestionDetailViewController.m */,
+				11C460641E8D12D100FDA2EA /* NZRankViewController.h */,
+				11C460651E8D12D100FDA2EA /* NZRankViewController.m */,
+				11C460611E8D129800FDA2EA /* NZRankCell.h */,
+				11C460621E8D129800FDA2EA /* NZRankCell.m */,
 			);
 			name = 3.0;
 			sourceTree = "<group>";
@@ -2753,8 +2763,10 @@
 				11C4604F1E8B605D00FDA2EA /* NZTaskDetailView.m in Sources */,
 				116237831E4D623D009FEDCA /* SKScanningRewardView.m in Sources */,
 				17B429031C54D4A8008AFBA9 /* YYImageCoder.m in Sources */,
+				11C460661E8D12D100FDA2EA /* NZRankViewController.m in Sources */,
 				11C7646F1E120E5300D86F40 /* MJFoundation.m in Sources */,
 				1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */,
+				11C460631E8D129800FDA2EA /* NZRankCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
