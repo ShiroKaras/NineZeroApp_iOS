@@ -29,6 +29,8 @@
         }];
         
         _questionCoverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
+        _questionCoverImageView.layer.masksToBounds = YES;
+        _questionCoverImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:_questionCoverImageView];
         [_questionCoverImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_questionTypeImageView.mas_bottom).offset(20);
@@ -38,7 +40,7 @@
         }];
         
         [self layoutIfNeeded];
-        self.cellHeight = _questionCoverImageView.bottom+18;
+        self.cellHeight = _questionCoverImageView.bottom+20;
     }
     return self;
 }

@@ -11,6 +11,7 @@
 
 #import "NZQuestionListCell.h"
 #import "NZQuestionDetailViewController.h"
+#import "NZRankViewController.h"
 
 @interface NZQuestionListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -34,7 +35,18 @@
         make.centerX.equalTo(headerView);
     }];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64) style:UITableViewStylePlain];
+    UIButton *rankButton = [UIButton new];
+    [rankButton addTarget:self action:@selector(didClickRankButton:) forControlEvents:UIControlEventTouchUpInside];
+    [rankButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzlepage_ranking"] forState:UIControlStateNormal];
+    [rankButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzlepage_ranking_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:rankButton];
+    [rankButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(27, 27));
+        make.centerY.equalTo(headerView);
+        make.right.equalTo(headerView).offset(-13.5);
+    }];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64-44) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -45,6 +57,13 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - Actions
+
+- (void)didClickRankButton:(UIButton *)sender {
+    NZRankViewController *controller = [[NZRankViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - UITableView Delegate

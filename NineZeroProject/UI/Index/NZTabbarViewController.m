@@ -8,6 +8,7 @@
 
 #import "NZTabbarViewController.h"
 #import "SKHomepageViewController.h"
+#import "NZQuestionListViewController.h"
 
 @interface NZTabbarViewController ()
 
@@ -20,7 +21,7 @@
     SKHomepageViewController *c1 = [[SKHomepageViewController alloc] init];
     c1.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_task_highlight"];
     
-    SKHomepageViewController *c2 = [[SKHomepageViewController alloc] init];
+    NZQuestionListViewController *c2 = [[NZQuestionListViewController alloc] init];
     c2.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_puzzle"];
     
     SKHomepageViewController *c3 = [[SKHomepageViewController alloc] init];
