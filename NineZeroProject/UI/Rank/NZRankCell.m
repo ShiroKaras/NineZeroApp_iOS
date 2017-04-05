@@ -37,20 +37,20 @@
         _rankOrderLabel.text = @"99";
         _rankOrderLabel.textColor = COMMON_PINK_COLOR;
         _rankOrderLabel.font = MOON_FONT_OF_SIZE(14);
-        [self.contentView addSubview:_rankOrderLabel];
+        [backView addSubview:_rankOrderLabel];
         [_rankOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(backView);
             make.centerY.equalTo(backView);
         }];
 
-        _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+        _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
         _avatarImageView.layer.cornerRadius = 15;
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [self.contentView addSubview:_avatarImageView];
+        [backView addSubview:_avatarImageView];
         [_avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(30, 30));
-            make.centerX.equalTo(backView).offset(68);
+            make.centerX.equalTo(backView.mas_left).offset(72);
             make.centerY.equalTo(backView);
         }];
         
@@ -58,14 +58,14 @@
         _usernameLabel.text = @"我是一个零仔";
         _usernameLabel.textColor = [UIColor colorWithHex:0x3c3c3c];
         _usernameLabel.font = PINGFANG_FONT_OF_SIZE(10);
-        [self.contentView addSubview:_usernameLabel];
+        [backView addSubview:_usernameLabel];
         [_usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(backView);
-            make.left.equalTo(@102);
+            make.left.equalTo(backView.mas_left).offset(102);
         }];
         
         UIImageView *expImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzleranking_usetop"]];
-        [self.contentView addSubview:expImageView];
+        [backView addSubview:expImageView];
         [expImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(backView);
             make.centerX.equalTo(backView.mas_right).offset(-43-8);
@@ -75,7 +75,7 @@
         _expLabel.text = @"99999";
         _expLabel.textColor = [UIColor colorWithHex:0x3c3c3c];
         _expLabel.font = MOON_FONT_OF_SIZE(10);
-        [self.contentView addSubview:_expLabel];
+        [backView addSubview:_expLabel];
         [_expLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(backView);
             make.left.equalTo(expImageView.mas_right).offset(3);

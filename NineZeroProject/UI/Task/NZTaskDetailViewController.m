@@ -239,6 +239,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == _scrollView) {
+        NSLog(@"%lf", scrollView.contentOffset.x);
         //得到图片移动相对原点的坐标
         CGPoint point = scrollView.contentOffset;
         

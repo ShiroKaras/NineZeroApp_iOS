@@ -1144,12 +1144,8 @@
 		1133DD721E0A2AA90029511B /* Rank */ = {
 			isa = PBXGroup;
 			children = (
-				1162376B1E4B33A1009FEDCA /* HTProfileRankCell.h */,
-				1162376C1E4B33A1009FEDCA /* HTProfileRankCell.m */,
-				116237601E4B32FB009FEDCA /* SKRankView.h */,
-				116237611E4B32FB009FEDCA /* SKRankView.m */,
-				116237621E4B32FB009FEDCA /* SKRankViewController.h */,
-				116237631E4B32FB009FEDCA /* SKRankViewController.m */,
+				113F99701E8F75EF009FABE8 /* 3.0 */,
+				113F99711E8F75F8009FABE8 /* 2.0 */,
 			);
 			name = Rank;
 			sourceTree = "<group>";
@@ -1172,6 +1168,30 @@
 				113C421A1E2482DB003E393F /* MotionEffectView.m */,
 			);
 			path = MotionEffectView;
+			sourceTree = "<group>";
+		};
+		113F99701E8F75EF009FABE8 /* 3.0 */ = {
+			isa = PBXGroup;
+			children = (
+				11C460641E8D12D100FDA2EA /* NZRankViewController.h */,
+				11C460651E8D12D100FDA2EA /* NZRankViewController.m */,
+				11C460611E8D129800FDA2EA /* NZRankCell.h */,
+				11C460621E8D129800FDA2EA /* NZRankCell.m */,
+			);
+			name = 3.0;
+			sourceTree = "<group>";
+		};
+		113F99711E8F75F8009FABE8 /* 2.0 */ = {
+			isa = PBXGroup;
+			children = (
+				1162376B1E4B33A1009FEDCA /* HTProfileRankCell.h */,
+				1162376C1E4B33A1009FEDCA /* HTProfileRankCell.m */,
+				116237601E4B32FB009FEDCA /* SKRankView.h */,
+				116237611E4B32FB009FEDCA /* SKRankView.m */,
+				116237621E4B32FB009FEDCA /* SKRankViewController.h */,
+				116237631E4B32FB009FEDCA /* SKRankViewController.m */,
+			);
+			name = 2.0;
 			sourceTree = "<group>";
 		};
 		113FA6931E1E1BD7001DFFC5 /* MEImage+GIF */ = {
@@ -1505,10 +1525,6 @@
 				11C460561E8D047800FDA2EA /* NZQuestionListCell.m */,
 				11C4605B1E8D053B00FDA2EA /* NZQuestionDetailViewController.h */,
 				11C4605C1E8D053B00FDA2EA /* NZQuestionDetailViewController.m */,
-				11C460641E8D12D100FDA2EA /* NZRankViewController.h */,
-				11C460651E8D12D100FDA2EA /* NZRankViewController.m */,
-				11C460611E8D129800FDA2EA /* NZRankCell.h */,
-				11C460621E8D129800FDA2EA /* NZRankCell.m */,
 			);
 			name = 3.0;
 			sourceTree = "<group>";
