@@ -66,30 +66,22 @@
 		}];
 }
 
-//全部关卡
-- (void)getAllQuestionListCallback:(SKQuestionListCallback)callback {
-	NSDictionary *param = @{
-		@"method": @"getList",
-		@"area_id": @"010"
-	};
-	[self questionBaseRequestWithParam:param
-				    callback:^(BOOL success, SKResponsePackage *response) {
-					NSMutableArray<SKQuestion *> *questions_season1 = [[NSMutableArray alloc] init];
-					NSMutableArray<SKQuestion *> *questions_season2 = [[NSMutableArray alloc] init];
-					for (int i = 0; i != [response.data[@"first_season"] count]; i++) {
-						SKQuestion *question = [SKQuestion mj_objectWithKeyValues:[response.data[@"first_season"] objectAtIndex:i]];
-						[questions_season1 insertObject:question atIndex:0];
-					}
-					for (int i = 0; i != [response.data[@"second_season"] count]; i++) {
-						SKQuestion *question = [SKQuestion mj_objectWithKeyValues:[response.data[@"second_season"] objectAtIndex:i]];
-						[questions_season2 insertObject:question atIndex:0];
-					}
-					_answeredQuestion_season1 = [response.data[@"first_season_answered"] integerValue];
-					_answeredQuestion_season2 = [response.data[@"second_season_answered"] integerValue];
-					_questionList_season1 = questions_season1;
-					_questionList_season2 = questions_season2;
-					callback(YES, [response.data[@"first_season_answered"] integerValue], [response.data[@"second_season_answered"] integerValue], questions_season1, questions_season2);
-				    }];
+//第二季全部关卡
+- (void)getQuestionListCallback:(SKQuestionListCallback)callback {
+    NSDictionary *param = @{
+                            @"method": @"getQuestionList",
+                            @"area_id": @"010"
+                            };
+    [self questionBaseRequestWithParam:param
+                              callback:^(BOOL success, SKResponsePackage *response) {
+                                  NSMutableArray<SKQuestion *> *questions_season2 = [[NSMutableArray alloc] init];
+                                  for (int i = 0; i != [response.data count]; i++) {
+                                      SKQuestion *question = [SKQuestion mj_objectWithKeyValues:[response.data objectAtIndex:i]];
+                                      [questions_season2 insertObject:question atIndex:0];
+                                  }
+                                  _questionList_season2 = questions_season2;
+                                  callback(YES, questions_season2);
+                              }];
 }
 
 //极难题列表

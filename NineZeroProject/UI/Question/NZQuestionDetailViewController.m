@@ -98,6 +98,39 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
     
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height-49, self.view.width, 49)];
+    bottomView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:bottomView];
+    
+    UIButton *backButton = [UIButton new];
+    [backButton addTarget:self action:@selector(didClickBackButton:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back_highlight"] forState:UIControlStateHighlighted];
+    [bottomView addSubview:backButton];
+    [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(bottomView);
+        make.left.equalTo(@13.5);
+    }];
+  
+    
+    UIButton *shareButton = [UIButton new];
+    [shareButton setBackgroundImage:[UIImage imageNamed:@"btn_arpage_share"] forState:UIControlStateNormal];
+    [shareButton setBackgroundImage:[UIImage imageNamed:@"btn_arpage_share_highlight"] forState:UIControlStateHighlighted];
+    [bottomView addSubview:shareButton];
+    [shareButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(bottomView);
+        make.right.equalTo(bottomView).offset(-13.5);
+    }];
+    
+    UIButton *hintButton = [UIButton new];
+    [hintButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_hint"] forState:UIControlStateNormal];
+    [hintButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_hint_highlight"] forState:UIControlStateHighlighted];
+    [bottomView addSubview:hintButton];
+    [hintButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(bottomView);
+        make.right.equalTo(shareButton.mas_left).offset(-25);
+    }];
+
     //////////////////////////////////////// 视频 ////////////////////////////////////////
     
     _questionMainBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, PLAYBACKVIEW_HEIGHT+20)];
@@ -285,6 +318,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 #pragma mark - Actions
+
+- (void)didClickBackButton:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)removeDimmingView {
     [_dimmingView removeFromSuperview];

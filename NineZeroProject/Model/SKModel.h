@@ -97,6 +97,7 @@
 @property (nonatomic, assign) NSInteger clue_count;   //用户线索条数
 @property (nonatomic, assign) NSInteger answer_count; //用户答案条数
 @property (nonatomic, assign) NSInteger num;	  //答案道具数量
+@property (nonatomic, copy) NSString *list_pic;
 @end
 
 @interface SKHintList : NSObject
