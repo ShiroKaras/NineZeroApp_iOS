@@ -107,9 +107,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     WS(weakSelf);
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height-49)];
+    _scrollView.backgroundColor = [UIColor redColor];
     _scrollView.contentSize = CGSizeMake(self.view.width, PLAYBACKVIEW_HEIGHT+self.view.height-49);
     _scrollView.showsHorizontalScrollIndicator = NO;
-    _scrollView.showsVerticalScrollIndicator = NO;
+//    _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.bounces = NO;
     _scrollView.pagingEnabled = YES;
     _scrollView.delegate = self;
@@ -131,6 +132,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
   
     
     UIButton *shareButton = [UIButton new];
+    [shareButton addTarget:self action:@selector(onClickShareButton:) forControlEvents:UIControlEventTouchUpInside];
     [shareButton setBackgroundImage:[UIImage imageNamed:@"btn_arpage_share"] forState:UIControlStateNormal];
     [shareButton setBackgroundImage:[UIImage imageNamed:@"btn_arpage_share_highlight"] forState:UIControlStateHighlighted];
     [bottomView addSubview:shareButton];
@@ -308,27 +310,27 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     _indicatorLine.centerX = [self.view viewWithTag:100].centerX;
     
-    UIView *contentView = [UIView new];
-    [_scrollView addSubview:contentView];
-    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(contentView.superview);
-        make.centerX.equalTo(contentView.superview);
+    UIView *contentBackView = [UIView new];
+    [_scrollView addSubview:contentBackView];
+    [contentBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(contentBackView.superview);
+        make.centerX.equalTo(contentBackView.superview);
         make.top.equalTo(_contentHeaderView.mas_bottom);
         make.height.mas_equalTo(SCREEN_HEIGHT-20-55-49);
     }];
     
     [self.view layoutIfNeeded];
     
-    _detailScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, contentView.width, contentView.height)];
+    _detailScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, contentBackView.width, contentBackView.height)];
     _detailScrollView.bounces = NO;
     _detailScrollView.showsHorizontalScrollIndicator = NO;
     _detailScrollView.pagingEnabled = YES;
-    _detailScrollView.contentSize = CGSizeMake(contentView.width*4, contentView.height-20);
+    _detailScrollView.contentSize = CGSizeMake(contentBackView.width*4, contentBackView.height-20);
     _detailScrollView.delegate = self;
-    [contentView addSubview:_detailScrollView];
+    [contentBackView addSubview:_detailScrollView];
     
     //本章故事
-    NZQuestionContentView *questionContentView = [[NZQuestionContentView alloc] initWithFrame:CGRectMake(0, 0, contentView.width, contentView.height) content:@"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n"];
+    NZQuestionContentView *questionContentView = [[NZQuestionContentView alloc] initWithFrame:CGRectMake(0, 0, contentBackView.width, contentBackView.height) content:@"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n"];
     questionContentView.height = questionContentView.viewHeight;
     [_detailScrollView addSubview:questionContentView];
 
@@ -599,11 +601,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideShareView)];
     [_shareView addGestureRecognizer:tap];
     
-    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_chap_video_share_title"]];
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_sharepage_text"]];
     [_shareView addSubview:titleImageView];
     
     self.wechatButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.wechatButton setImage:[UIImage imageNamed:@"ico_chap_video_share_wechat"] forState:UIControlStateNormal];
+    [self.wechatButton setImage:[UIImage imageNamed:@"btn_sharepage_weibo"] forState:UIControlStateNormal];
+    [self.wechatButton setImage:[UIImage imageNamed:@"btn_sharepage_weibo_highlight"] forState:UIControlStateHighlighted];
     [self.wechatButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
     [self.wechatButton sizeToFit];
     self.wechatButton.tag = HTButtonTypeWechat;
@@ -611,7 +614,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_shareView addSubview:self.wechatButton];
     
     self.momentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.momentButton setImage:[UIImage imageNamed:@"ico_chap_video_share_moments"] forState:UIControlStateNormal];
+    [self.momentButton setImage:[UIImage imageNamed:@"btn_sharepage_friendcircle"] forState:UIControlStateNormal];
+    [self.momentButton setImage:[UIImage imageNamed:@"btn_sharepage_friendcircle_highlight"] forState:UIControlStateHighlighted];
     [self.momentButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
     [self.momentButton sizeToFit];
     self.momentButton.tag = HTButtonTypeMoment;
@@ -619,7 +623,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_shareView addSubview:self.momentButton];
     
     self.weiboButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.weiboButton setImage:[UIImage imageNamed:@"ico_chap_video_share_weibo"] forState:UIControlStateNormal];
+    [self.weiboButton setImage:[UIImage imageNamed:@"btn_sharepage_wechat"] forState:UIControlStateNormal];
+    [self.weiboButton setImage:[UIImage imageNamed:@"btn_sharepage_wechat_highlight"] forState:UIControlStateHighlighted];
     [self.weiboButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
     [self.weiboButton sizeToFit];
     self.weiboButton.tag = HTButtonTypeWeibo;
@@ -627,7 +632,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_shareView addSubview:self.weiboButton];
     
     self.qqButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.qqButton setImage:[UIImage imageNamed:@"ico_chap_video_share_qq"] forState:UIControlStateNormal];
+    [self.qqButton setImage:[UIImage imageNamed:@"btn_sharepage_qq"] forState:UIControlStateNormal];
+    [self.qqButton setImage:[UIImage imageNamed:@"btn_sharepage_qq_highlight"] forState:UIControlStateHighlighted];
     [self.qqButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
     [self.qqButton sizeToFit];
     self.qqButton.tag = HTButtonTypeQQ;
