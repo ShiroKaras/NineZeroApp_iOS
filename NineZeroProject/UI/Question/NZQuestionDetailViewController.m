@@ -294,6 +294,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     for (int i=0; i<4; i++) {
         UIButton *button = [UIButton new];
         button.tag = 100+i;
+        [button addTarget:self action:@selector(didClickTitleButton:) forControlEvents:UIControlEventTouchUpInside];
         [_contentHeaderView addSubview:button];
         [button setBackgroundImage:[UIImage imageNamed:imageNameArray[i]] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_highlight", imageNameArray[i]]] forState:UIControlStateHighlighted];
@@ -330,10 +331,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     NZQuestionContentView *questionContentView = [[NZQuestionContentView alloc] initWithFrame:CGRectMake(0, 0, contentView.width, contentView.height) content:@"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n"];
     questionContentView.height = questionContentView.viewHeight;
     [_detailScrollView addSubview:questionContentView];
+
     
-//    UIView *redView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentView.width, contentView.height)];
-//    redView.backgroundColor = [UIColor redColor];
-//    [_detailScrollView addSubview:redView];
     
     //////////////////////////////////////// END ////////////////////////////////////////
     
@@ -362,55 +361,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _playButton.hidden = NO;
     [_questionMainBackView addSubview:_playButton];
 
-}
-
-#pragma mark - ScrollView Delegate 
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == _scrollView) {
-        //得到图片移动相对原点的坐标
-        CGPoint point = scrollView.contentOffset;
-        
-        if (point.y > 2*SCREEN_HEIGHT) {
-            point.y = 503;
-            scrollView.contentOffset = point;
-        }
-    }
-    
-    if (scrollView == _detailScrollView) {
-        //得到图片移动相对原点的坐标
-        CGPoint point = scrollView.contentOffset;
-        //移动不能超过右边
-        if (point.x > 4 * SCREEN_WIDTH) {
-            point.x = SCREEN_WIDTH * 4;
-            scrollView.contentOffset = point;
-        }
-        //根据图片坐标判断页数
-        int index = round(point.x / (SCREEN_WIDTH));
-        [self scrollToIndex:index];
-    }
-}
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    
-}
-
-- (void)scrollToIndex:(int)index {
-    [UIView animateWithDuration:0.2 animations:^{
-        _indicatorLine.centerX = [self.view viewWithTag:100+index].centerX;
-    }];
-}
-
-#pragma mark - Actions
-
-- (void)didClickBackButton:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)removeDimmingView {
-    [_dimmingView removeFromSuperview];
-    _dimmingView = nil;
-    self.currentIndex = 0;
 }
 
 //视频
@@ -488,6 +438,65 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _playButton.center = backView.center;
     _playButton.hidden = NO;
     [self.view addSubview:_playButton];
+}
+
+#pragma mark - ScrollView Delegate 
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == _scrollView) {
+        //得到图片移动相对原点的坐标
+        CGPoint point = scrollView.contentOffset;
+        
+        if (point.y > 2*SCREEN_HEIGHT) {
+            point.y = 503;
+            scrollView.contentOffset = point;
+        }
+    }
+    
+    if (scrollView == _detailScrollView) {
+        //得到图片移动相对原点的坐标
+        CGPoint point = scrollView.contentOffset;
+        //移动不能超过右边
+        if (point.x > 4 * SCREEN_WIDTH) {
+            point.x = SCREEN_WIDTH * 4;
+            scrollView.contentOffset = point;
+        }
+        //根据图片坐标判断页数
+        int index = round(point.x / (SCREEN_WIDTH));
+        [self scrollToIndex:index];
+    }
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    
+}
+
+- (void)scrollToIndex:(int)index {
+    [UIView animateWithDuration:0.2 animations:^{
+        _indicatorLine.centerX = [self.view viewWithTag:100+index].centerX;
+    }];
+}
+
+#pragma mark - Actions
+
+- (void)didClickBackButton:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)removeDimmingView {
+    [_dimmingView removeFromSuperview];
+    _dimmingView = nil;
+    self.currentIndex = 0;
+}
+
+- (void)didClickTitleButton:(UIButton*)sender {
+    int index = (int)sender.tag -100;
+    [self scrollToIndex:index];
+    CGPoint point = _detailScrollView.contentOffset;
+    point.x = self.view.width*index;
+    [UIView animateWithDuration:0.3 animations:^{
+        _detailScrollView.contentOffset = point;
+    }];
 }
 
 #pragma mark - Video Actions
