@@ -49,7 +49,7 @@
         //Level
         UILabel *taskLevelLabel = [UILabel new];
         taskLevelLabel.text = @"任务难度";
-        taskLevelLabel.textColor = [UIColor colorWithHex:0x9c9c9c];
+        taskLevelLabel.textColor = COMMON_TEXT_2_COLOR;
         taskLevelLabel.font = PINGFANG_FONT_OF_SIZE(12);
         [taskLevelLabel sizeToFit];
         [self.contentView addSubview:taskLevelLabel];
@@ -82,7 +82,7 @@
         
         //Underline
         UIView *underLine = [UIView new];
-        underLine.backgroundColor = [UIColor colorWithHex:0x303030];
+        underLine.backgroundColor = COMMON_SEPARATOR_COLOR;
         [self.contentView addSubview:underLine];
         [underLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@1);

@@ -31,7 +31,7 @@ typedef void (^SKQuestionAnswerDetail) (BOOL success, SKAnswerDetail *answerDeta
 - (void)questionBaseRequestWithParam:(NSDictionary*)dict callback:(SKResponseCallback)callback;
 
 //全部关卡（不含极难题）
-//- (void)getAllQuestionListCallback:(SKQuestionListCallback)callback;
+- (void)getAllQuestionListCallback:(SKQuestionListCallback)callback;
 
 //第二季全部关卡
 - (void)getQuestionListCallback:(SKQuestionListCallback)callback;

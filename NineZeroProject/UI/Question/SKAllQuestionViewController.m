@@ -64,25 +64,25 @@
 
 #pragma mark - Load data
 - (void)loadData {
-	[[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
-	    NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
-	    [self createSeason1UIWithData:mQuestionList_season1];
-
-	    NSMutableArray *mQuestionList_season2 = [questionList_season2 mutableCopy];
-	    [self createSeason2UIWithData:mQuestionList_season2];
-
-	    if (answeredQuestion_season1 < 60)
-		    self.season = 1;
-	    else
-		    self.season = 2;
-
-	    if (FIRST_LAUNCH_QUESTIONLIST) {
-		    [self helpButtonClick:nil];
-		    [UD setBool:YES forKey:@"firstLaunchQuestionList"];
-	    }
-
-	    [self hideHUD];
-	}];
+//	[[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
+//	    NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
+//	    [self createSeason1UIWithData:mQuestionList_season1];
+//
+//	    NSMutableArray *mQuestionList_season2 = [questionList_season2 mutableCopy];
+//	    [self createSeason2UIWithData:mQuestionList_season2];
+//
+//	    if (answeredQuestion_season1 < 60)
+//		    self.season = 1;
+//	    else
+//		    self.season = 2;
+//
+//	    if (FIRST_LAUNCH_QUESTIONLIST) {
+//		    [self helpButtonClick:nil];
+//		    [UD setBool:YES forKey:@"firstLaunchQuestionList"];
+//	    }
+//
+//	    [self hideHUD];
+//	}];
 }
 
 #pragma mark - Create UI

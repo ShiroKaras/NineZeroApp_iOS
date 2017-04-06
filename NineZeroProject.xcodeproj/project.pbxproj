@@ -61,6 +61,8 @@
 		1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */; };
 		1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */; };
 		113C421B1E2482DB003E393F /* MotionEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 113C421A1E2482DB003E393F /* MotionEffectView.m */; };
+		113F99741E95F427009FABE8 /* NZQuestionContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F99731E95F427009FABE8 /* NZQuestionContentView.m */; };
+		113F99771E962DE6009FABE8 /* NZQuestionRankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F99761E962DE6009FABE8 /* NZQuestionRankView.m */; };
 		113FA6961E1E1BD7001DFFC5 /* MEImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 113FA6951E1E1BD7001DFFC5 /* MEImage+GIF.m */; };
 		1160FB3F1E0E927F00606F16 /* HTLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB2F1E0E927F00606F16 /* HTLoginButton.m */; };
 		1160FB401E0E927F00606F16 /* HTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB301E0E927F00606F16 /* HTNavigationController.m */; };
@@ -448,6 +450,10 @@
 		1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Encryption.m"; path = "AES256/NSData+Encryption.m"; sourceTree = "<group>"; };
 		113C42191E2482DB003E393F /* MotionEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionEffectView.h; sourceTree = "<group>"; };
 		113C421A1E2482DB003E393F /* MotionEffectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionEffectView.m; sourceTree = "<group>"; };
+		113F99721E95F427009FABE8 /* NZQuestionContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZQuestionContentView.h; path = NineZeroProject/UI/Question/NZQuestionContentView.h; sourceTree = "<group>"; };
+		113F99731E95F427009FABE8 /* NZQuestionContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZQuestionContentView.m; path = NineZeroProject/UI/Question/NZQuestionContentView.m; sourceTree = "<group>"; };
+		113F99751E962DE6009FABE8 /* NZQuestionRankView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZQuestionRankView.h; path = NineZeroProject/UI/Question/NZQuestionRankView.h; sourceTree = "<group>"; };
+		113F99761E962DE6009FABE8 /* NZQuestionRankView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZQuestionRankView.m; path = NineZeroProject/UI/Question/NZQuestionRankView.m; sourceTree = "<group>"; };
 		113FA6941E1E1BD7001DFFC5 /* MEImage+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MEImage+GIF.h"; sourceTree = "<group>"; };
 		113FA6951E1E1BD7001DFFC5 /* MEImage+GIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MEImage+GIF.m"; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
@@ -1525,6 +1531,10 @@
 				11C460561E8D047800FDA2EA /* NZQuestionListCell.m */,
 				11C4605B1E8D053B00FDA2EA /* NZQuestionDetailViewController.h */,
 				11C4605C1E8D053B00FDA2EA /* NZQuestionDetailViewController.m */,
+				113F99721E95F427009FABE8 /* NZQuestionContentView.h */,
+				113F99731E95F427009FABE8 /* NZQuestionContentView.m */,
+				113F99751E962DE6009FABE8 /* NZQuestionRankView.h */,
+				113F99761E962DE6009FABE8 /* NZQuestionRankView.m */,
 			);
 			name = 3.0;
 			sourceTree = "<group>";
@@ -2721,6 +2731,7 @@
 				1162371B1E4B329E009FEDCA /* SKConfirmPasswordViewController.m in Sources */,
 				11C764761E120E5300D86F40 /* NSObject+MJProperty.m in Sources */,
 				116236D61E4B3096009FEDCA /* SKProfileService.m in Sources */,
+				113F99771E962DE6009FABE8 /* NZQuestionRankView.m in Sources */,
 				987042991E4C75AC00770BFD /* NZPScanningFileDownloadManager.m in Sources */,
 				1160FB441E0E927F00606F16 /* HTAlertView.m in Sources */,
 				1162374B1E4B32CF009FEDCA /* SKQuestionRewardView.m in Sources */,
@@ -2750,6 +2761,7 @@
 				11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */,
 				1191C4D41E51846500583556 /* SKScanningRewardViewController.m in Sources */,
 				175F82D11CB4124D00AC2664 /* HTWebController.m in Sources */,
+				113F99741E95F427009FABE8 /* NZQuestionContentView.m in Sources */,
 				98088D6C1E5703C000ADB66F /* ServerConfiguration.m in Sources */,
 				1162371D1E4B329E009FEDCA /* SKLoginViewController.m in Sources */,
 				11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */,

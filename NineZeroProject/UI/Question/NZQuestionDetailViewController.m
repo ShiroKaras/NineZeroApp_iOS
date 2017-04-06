@@ -14,6 +14,7 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <CommonCrypto/CommonDigest.h>
+#import "NZQuestionContentView.h"
 
 #define SHARE_URL(u, v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
 
@@ -51,13 +52,17 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) NSURLSessionDownloadTask *downloadTask;
 @property (nonatomic, strong) UIImageView *coverImageView;
 
+//答题
+@property (nonatomic, strong) UIButton *answerButton;
+
 //简介
 @property (nonatomic, strong) UIImageView *chapterImageView;
 @property (nonatomic, strong) UILabel *questionTitleLabel;
 
 //内容
 @property (nonatomic, strong) UIView *contentHeaderView;
-@property (nonatomic, strong) UIScrollView *contentScrollView;
+@property (nonatomic, strong) UIView *indicatorLine;
+@property (nonatomic, strong) UIScrollView *detailScrollView;
 
 //分享
 @property (nonatomic, strong) UIView *replayBackView;
@@ -71,12 +76,22 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIButton *qqButton;
 @property (nonatomic, strong) UIButton *weiboButton;
 
+//Common
 @property (nonatomic, strong) SKQuestion *currentQuestion;
-
+@property (nonatomic, assign) SKQuestionType type;
 
 @end
 
 @implementation NZQuestionDetailViewController
+
+- (instancetype)initWithType:(SKQuestionType)type questionID:(NSString *)questionID {
+    if (self = [super init]) {
+        self.currentQuestion = [SKQuestion new];
+        _type = type;
+        self.currentQuestion.qid = questionID;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -89,10 +104,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)createUI {
+    WS(weakSelf);
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height-49)];
     _scrollView.contentSize = CGSizeMake(self.view.width, PLAYBACKVIEW_HEIGHT+self.view.height-49);
     _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.bounces = NO;
     _scrollView.pagingEnabled = YES;
     _scrollView.delegate = self;
@@ -218,6 +235,17 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     _pauseImageView.hidden = YES;
     
+    //////////////////////////////////////// 答题 ////////////////////////////////////////
+    
+    _answerButton = [UIButton new];
+    [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write"] forState:UIControlStateNormal];
+    [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write_highlight"] forState:UIControlStateHighlighted];
+    [_scrollView addSubview:_answerButton];
+    [_answerButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_playBackView).offset(-16);
+        make.bottom.equalTo(_playBackView).offset(-16);
+    }];
+    
     //////////////////////////////////////// 介绍 ////////////////////////////////////////
     
     _chapterImageView = [UIImageView new];
@@ -238,21 +266,34 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _questionTitleLabel.top = _chapterImageView.bottom +4;
     _questionTitleLabel.left = _chapterImageView.left;
     
-    //////////////////////////////////////// 内容 ////////////////////////////////////////
+    //////////////////////////////////////// 详细内容 ////////////////////////////////////////
     
     _contentHeaderView = [UIView new];
     _contentHeaderView.backgroundColor = [UIColor clearColor];
     [_scrollView addSubview:_contentHeaderView];
-    _contentHeaderView.width = self.view.width;
-    _contentHeaderView.height = 55;
-    _contentHeaderView.top = _questionMainBackView.bottom;
-    _contentHeaderView.centerX = _contentHeaderView.superview.centerX;
+    [_contentHeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(_contentHeaderView.superview);
+        make.height.equalTo(@55);
+        make.top.equalTo(_questionMainBackView.mas_bottom);
+        make.centerX.equalTo(_contentHeaderView.superview);
+    }];
+    
+    [self.view layoutIfNeeded];
+    
+    UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0, 54, self.view.width, 1)];
+    bottomLine.backgroundColor = COMMON_TEXT_3_COLOR;
+    [_contentHeaderView addSubview:bottomLine];
+    
+    _indicatorLine = [[UIView alloc] initWithFrame:CGRectMake(0, 54, 44, 1)];
+    _indicatorLine.backgroundColor = COMMON_GREEN_COLOR;
+    [_contentHeaderView addSubview:_indicatorLine];
     
     float padding = (self.view.width-52-27)/3;
     NSArray *imageNameArray = @[@"btn_puzzledetailpage_story", @"btn_puzzledetailpage_answer", @"btn_puzzledetailpage_ranking", @"btn_puzzledetailpage_gift"];
     
     for (int i=0; i<4; i++) {
         UIButton *button = [UIButton new];
+        button.tag = 100+i;
         [_contentHeaderView addSubview:button];
         [button setBackgroundImage:[UIImage imageNamed:imageNameArray[i]] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_highlight", imageNameArray[i]]] forState:UIControlStateHighlighted];
@@ -262,12 +303,37 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             make.left.mas_equalTo(26+i*padding);
         }];
     }
+    [self.view layoutIfNeeded];
     
-    _contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _contentHeaderView.bottom, self.view.width, self.view.height-49-20-55)];
-    _contentScrollView.backgroundColor = COMMON_GREEN_COLOR;
-    _contentScrollView.showsHorizontalScrollIndicator = NO;
-    _contentScrollView.contentSize = CGSizeMake(self.view.width, 1000);
-    [_scrollView addSubview:_contentScrollView];
+    _indicatorLine.centerX = [self.view viewWithTag:100].centerX;
+    
+    UIView *contentView = [UIView new];
+    [_scrollView addSubview:contentView];
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(contentView.superview);
+        make.centerX.equalTo(contentView.superview);
+        make.top.equalTo(_contentHeaderView.mas_bottom);
+        make.height.mas_equalTo(SCREEN_HEIGHT-20-55-49);
+    }];
+    
+    [self.view layoutIfNeeded];
+    
+    _detailScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, contentView.width, contentView.height)];
+    _detailScrollView.bounces = NO;
+    _detailScrollView.showsHorizontalScrollIndicator = NO;
+    _detailScrollView.pagingEnabled = YES;
+    _detailScrollView.contentSize = CGSizeMake(contentView.width*4, contentView.height-20);
+    _detailScrollView.delegate = self;
+    [contentView addSubview:_detailScrollView];
+    
+    //本章故事
+    NZQuestionContentView *questionContentView = [[NZQuestionContentView alloc] initWithFrame:CGRectMake(0, 0, contentView.width, contentView.height) content:@"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n"];
+    questionContentView.height = questionContentView.viewHeight;
+    [_detailScrollView addSubview:questionContentView];
+    
+//    UIView *redView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentView.width, contentView.height)];
+//    redView.backgroundColor = [UIColor redColor];
+//    [_detailScrollView addSubview:redView];
     
     //////////////////////////////////////// END ////////////////////////////////////////
     
@@ -302,7 +368,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == _scrollView) {
-        NSLog(@"%f", _scrollView.contentOffset.y);
         //得到图片移动相对原点的坐标
         CGPoint point = scrollView.contentOffset;
         
@@ -311,10 +376,29 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             scrollView.contentOffset = point;
         }
     }
+    
+    if (scrollView == _detailScrollView) {
+        //得到图片移动相对原点的坐标
+        CGPoint point = scrollView.contentOffset;
+        //移动不能超过右边
+        if (point.x > 4 * SCREEN_WIDTH) {
+            point.x = SCREEN_WIDTH * 4;
+            scrollView.contentOffset = point;
+        }
+        //根据图片坐标判断页数
+        int index = round(point.x / (SCREEN_WIDTH));
+        [self scrollToIndex:index];
+    }
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     
+}
+
+- (void)scrollToIndex:(int)index {
+    [UIView animateWithDuration:0.2 animations:^{
+        _indicatorLine.centerX = [self.view viewWithTag:100+index].centerX;
+    }];
 }
 
 #pragma mark - Actions

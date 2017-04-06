@@ -1961,9 +1961,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 														      callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
 															  self.top10Array = userRankList;
 														      }];
-					   [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
-					       self.currentQuestion = [questionList_season2 lastObject];
-					   }];
+                           [[[SKServiceManager sharedInstance] questionService] getQuestionListCallback:^(BOOL success, NSArray<SKQuestion *> *questionList) {
+                                self.currentQuestion = [questionList lastObject];
+                           }];
+//					   [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
+//					       self.currentQuestion = [questionList_season2 lastObject];
+//					   }];
 				       }];
 }
 

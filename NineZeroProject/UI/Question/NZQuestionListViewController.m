@@ -15,6 +15,7 @@
 
 @interface NZQuestionListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray<SKQuestion*>* dataArray;
 @end
 
 @implementation NZQuestionListViewController
@@ -53,10 +54,19 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView registerClass:[NZQuestionListCell class] forCellReuseIdentifier:NSStringFromClass([NZQuestionListCell class])];
     [self.view addSubview:self.tableView];
+    
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] questionService] getQuestionListCallback:^(BOOL success, NSArray<SKQuestion *> *questionList) {
+        _dataArray = questionList;
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - Actions
@@ -90,8 +100,8 @@
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return _dataArray.count;
-    return 10;
+    return _dataArray.count;
+//    return 10;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
