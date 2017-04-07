@@ -48,12 +48,7 @@
     c5.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_me_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     self.viewControllers = @[c1, c2, c3, c4, c5];
-    
-//    [self addChildVc:[[SKHomepageViewController alloc] init] title:nil image:@"btn_homepage_task" selectedImage:@"btn_homepage_task_highlight"];
-//    [self addChildVc:[[NZQuestionListViewController alloc] init] title:nil image:@"btn_homepage_puzzle" selectedImage:@"btn_homepage_puzzle_highlight"];
-//    [self addChildVc:[[SKHomepageViewController alloc] init] title:nil image:@"btn_homepage_lingzai" selectedImage:@"btn_homepage_lingzai_highlight"];
-//    [self addChildVc:[[SKHomepageViewController alloc] init] title:nil image:@"btn_homepage_lab" selectedImage:@"btn_homepage_lab_highlight"];
-//    [self addChildVc:[[SKHomepageViewController alloc] init] title:nil image:@"btn_homepage_me" selectedImage:@"btn_homepage_me_highlight"];
+
 }
 
 - (void)didReceiveMemoryWarning {

@@ -63,6 +63,7 @@
 		113C421B1E2482DB003E393F /* MotionEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 113C421A1E2482DB003E393F /* MotionEffectView.m */; };
 		113F99741E95F427009FABE8 /* NZQuestionContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F99731E95F427009FABE8 /* NZQuestionContentView.m */; };
 		113F99771E962DE6009FABE8 /* NZQuestionRankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F99761E962DE6009FABE8 /* NZQuestionRankView.m */; };
+		113F99821E979B70009FABE8 /* NZMascotMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 113F99811E979B70009FABE8 /* NZMascotMainViewController.m */; };
 		113FA6961E1E1BD7001DFFC5 /* MEImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 113FA6951E1E1BD7001DFFC5 /* MEImage+GIF.m */; };
 		1160FB3F1E0E927F00606F16 /* HTLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB2F1E0E927F00606F16 /* HTLoginButton.m */; };
 		1160FB401E0E927F00606F16 /* HTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1160FB301E0E927F00606F16 /* HTNavigationController.m */; };
@@ -454,6 +455,8 @@
 		113F99731E95F427009FABE8 /* NZQuestionContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZQuestionContentView.m; path = NineZeroProject/UI/Question/NZQuestionContentView.m; sourceTree = "<group>"; };
 		113F99751E962DE6009FABE8 /* NZQuestionRankView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZQuestionRankView.h; path = NineZeroProject/UI/Question/NZQuestionRankView.h; sourceTree = "<group>"; };
 		113F99761E962DE6009FABE8 /* NZQuestionRankView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZQuestionRankView.m; path = NineZeroProject/UI/Question/NZQuestionRankView.m; sourceTree = "<group>"; };
+		113F99801E979B70009FABE8 /* NZMascotMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZMascotMainViewController.h; path = NineZeroProject/UI/Mascot/NZMascotMainViewController.h; sourceTree = "<group>"; };
+		113F99811E979B70009FABE8 /* NZMascotMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZMascotMainViewController.m; path = NineZeroProject/UI/Mascot/NZMascotMainViewController.m; sourceTree = "<group>"; };
 		113FA6941E1E1BD7001DFFC5 /* MEImage+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MEImage+GIF.h"; sourceTree = "<group>"; };
 		113FA6951E1E1BD7001DFFC5 /* MEImage+GIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MEImage+GIF.m"; sourceTree = "<group>"; };
 		1142A4AC1CDCA12000215B96 /* NineZeroProject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NineZeroProject-Prefix.pch"; sourceTree = "<group>"; };
@@ -1005,18 +1008,8 @@
 		1106FFE11DD991D60002E36C /* Mascot */ = {
 			isa = PBXGroup;
 			children = (
-				1162374E1E4B32E5009FEDCA /* HTMascotItem.h */,
-				1162374F1E4B32E5009FEDCA /* HTMascotItem.m */,
-				116237501E4B32E5009FEDCA /* SKMascotAlbumView.h */,
-				116237511E4B32E5009FEDCA /* SKMascotAlbumView.m */,
-				116237521E4B32E5009FEDCA /* SKMascotFightManager.h */,
-				116237531E4B32E5009FEDCA /* SKMascotFightManager.m */,
-				116237541E4B32E5009FEDCA /* SKMascotFightViewController.h */,
-				116237551E4B32E5009FEDCA /* SKMascotFightViewController.m */,
-				116237561E4B32E5009FEDCA /* SKMascotIndexViewController.h */,
-				116237571E4B32E5009FEDCA /* SKMascotIndexViewController.m */,
-				116237581E4B32E5009FEDCA /* SKMascotView.h */,
-				116237591E4B32E5009FEDCA /* SKMascotView.m */,
+				113F997F1E979A3B009FABE8 /* 3.0 */,
+				113F997E1E979A2F009FABE8 /* 2.0 */,
 			);
 			name = Mascot;
 			sourceTree = "<group>";
@@ -1198,6 +1191,34 @@
 				116237631E4B32FB009FEDCA /* SKRankViewController.m */,
 			);
 			name = 2.0;
+			sourceTree = "<group>";
+		};
+		113F997E1E979A2F009FABE8 /* 2.0 */ = {
+			isa = PBXGroup;
+			children = (
+				1162374E1E4B32E5009FEDCA /* HTMascotItem.h */,
+				1162374F1E4B32E5009FEDCA /* HTMascotItem.m */,
+				116237501E4B32E5009FEDCA /* SKMascotAlbumView.h */,
+				116237511E4B32E5009FEDCA /* SKMascotAlbumView.m */,
+				116237521E4B32E5009FEDCA /* SKMascotFightManager.h */,
+				116237531E4B32E5009FEDCA /* SKMascotFightManager.m */,
+				116237541E4B32E5009FEDCA /* SKMascotFightViewController.h */,
+				116237551E4B32E5009FEDCA /* SKMascotFightViewController.m */,
+				116237561E4B32E5009FEDCA /* SKMascotIndexViewController.h */,
+				116237571E4B32E5009FEDCA /* SKMascotIndexViewController.m */,
+				116237581E4B32E5009FEDCA /* SKMascotView.h */,
+				116237591E4B32E5009FEDCA /* SKMascotView.m */,
+			);
+			name = 2.0;
+			sourceTree = "<group>";
+		};
+		113F997F1E979A3B009FABE8 /* 3.0 */ = {
+			isa = PBXGroup;
+			children = (
+				113F99801E979B70009FABE8 /* NZMascotMainViewController.h */,
+				113F99811E979B70009FABE8 /* NZMascotMainViewController.m */,
+			);
+			name = 3.0;
 			sourceTree = "<group>";
 		};
 		113FA6931E1E1BD7001DFFC5 /* MEImage+GIF */ = {
@@ -2657,6 +2678,7 @@
 				11C460571E8D047800FDA2EA /* NZQuestionListCell.m in Sources */,
 				116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */,
 				116237201E4B329E009FEDCA /* SKResetPasswordViewController.m in Sources */,
+				113F99821E979B70009FABE8 /* NZMascotMainViewController.m in Sources */,
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
 				116236D81E4B3096009FEDCA /* SKQuestionService.m in Sources */,
 				116236D21E4B3096009FEDCA /* SKAnswerService.m in Sources */,
