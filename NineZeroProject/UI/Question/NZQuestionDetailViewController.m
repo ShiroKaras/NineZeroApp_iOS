@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, assign) BOOL isAnswered;
 
 @property (nonatomic, strong) UIView *questionMainBackView;
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIScrollView *questionMainScrollView;
 @property (nonatomic, strong) UIView *dimmingView;
 
 //Video
@@ -105,16 +105,16 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)createUI {
     WS(weakSelf);
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height-49)];
-    _scrollView.backgroundColor = [UIColor redColor];
-    _scrollView.contentSize = CGSizeMake(self.view.width, PLAYBACKVIEW_HEIGHT+self.view.height-49);
-    _scrollView.showsHorizontalScrollIndicator = NO;
-//    _scrollView.showsVerticalScrollIndicator = NO;
-    _scrollView.bounces = NO;
-    _scrollView.pagingEnabled = YES;
-    _scrollView.delegate = self;
-    [self.view addSubview:_scrollView];
+    _questionMainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height-49)];
+    _questionMainScrollView.contentSize = CGSizeMake(self.view.width, PLAYBACKVIEW_HEIGHT+self.view.height-49);
+    _questionMainScrollView.showsHorizontalScrollIndicator = NO;
+    _questionMainScrollView.showsVerticalScrollIndicator = NO;
+    _questionMainScrollView.bounces = NO;
+    _questionMainScrollView.pagingEnabled = YES;
+    _questionMainScrollView.delegate = self;
+    [self.view addSubview:_questionMainScrollView];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height-49, self.view.width, 49)];
     bottomView.backgroundColor = [UIColor clearColor];
@@ -153,7 +153,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     //////////////////////////////////////// 视频 ////////////////////////////////////////
     
     _questionMainBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, PLAYBACKVIEW_HEIGHT+20)];
-    [_scrollView addSubview:_questionMainBackView];
+    [_questionMainScrollView addSubview:_questionMainBackView];
     
     // 主界面
     _playBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH)];
@@ -242,7 +242,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _answerButton = [UIButton new];
     [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write"] forState:UIControlStateNormal];
     [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write_highlight"] forState:UIControlStateHighlighted];
-    [_scrollView addSubview:_answerButton];
+    [_questionMainScrollView addSubview:_answerButton];
     [_answerButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_playBackView).offset(-16);
         make.bottom.equalTo(_playBackView).offset(-16);
@@ -272,7 +272,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     _contentHeaderView = [UIView new];
     _contentHeaderView.backgroundColor = [UIColor clearColor];
-    [_scrollView addSubview:_contentHeaderView];
+    [_questionMainScrollView addSubview:_contentHeaderView];
     [_contentHeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(_contentHeaderView.superview);
         make.height.equalTo(@55);
@@ -306,12 +306,14 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             make.left.mas_equalTo(26+i*padding);
         }];
     }
+    [((UIButton*)[self.view viewWithTag:100]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_highlight",imageNameArray[0]]] forState:UIControlStateNormal];
+    
     [self.view layoutIfNeeded];
     
     _indicatorLine.centerX = [self.view viewWithTag:100].centerX;
     
     UIView *contentBackView = [UIView new];
-    [_scrollView addSubview:contentBackView];
+    [_questionMainScrollView addSubview:contentBackView];
     [contentBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(contentBackView.superview);
         make.centerX.equalTo(contentBackView.superview);
@@ -445,7 +447,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - ScrollView Delegate 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == _scrollView) {
+    if (scrollView == _questionMainScrollView) {
         //得到图片移动相对原点的坐标
         CGPoint point = scrollView.contentOffset;
         
@@ -474,6 +476,36 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)scrollToIndex:(int)index {
+    NSArray *imageNameArray = @[@"btn_puzzledetailpage_story", @"btn_puzzledetailpage_answer", @"btn_puzzledetailpage_ranking", @"btn_puzzledetailpage_gift"];
+    switch (index) {
+        case 0:
+            [((UIButton*)[self.view viewWithTag:100+index]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_highlight",imageNameArray[index]]] forState:UIControlStateNormal];
+            [((UIButton*)[self.view viewWithTag:101]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[1]]] forState:UIControlStateNormal];
+            [((UIButton*)[self.view viewWithTag:102]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[2]]] forState:UIControlStateNormal];
+            [((UIButton*)[self.view viewWithTag:103]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[3]]] forState:UIControlStateNormal];
+            break;
+        case 1:
+            [((UIButton*)[self.view viewWithTag:100+index]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_highlight",imageNameArray[index]]] forState:UIControlStateNormal];
+            [((UIButton*)[self.view viewWithTag:100]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[0]]] forState:UIControlStateNormal];
+            [((UIButton*)[self.view viewWithTag:102]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[2]]] forState:UIControlStateNormal];
+            [((UIButton*)[self.view viewWithTag:103]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[3]]] forState:UIControlStateNormal];
+            break;
+        case 2:
+            [((UIButton*)[self.view viewWithTag:100+index]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_highlight",imageNameArray[index]]] forState:UIControlStateNormal];
+            [((UIButton*)[self.view viewWithTag:100]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[0]]] forState:UIControlStateNormal];
+            [((UIButton*)[self.view viewWithTag:101]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[1]]] forState:UIControlStateNormal];
+            [((UIButton*)[self.view viewWithTag:103]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[3]]] forState:UIControlStateNormal];
+            break;
+        case 3:
+            [((UIButton*)[self.view viewWithTag:100+index]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_highlight",imageNameArray[index]]] forState:UIControlStateNormal];
+            [((UIButton*)[self.view viewWithTag:100]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[0]]] forState:UIControlStateNormal];
+            [((UIButton*)[self.view viewWithTag:101]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[1]]] forState:UIControlStateNormal];
+            [((UIButton*)[self.view viewWithTag:102]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[2]]] forState:UIControlStateNormal];
+            break;
+        default:
+            break;
+    }
+    
     [UIView animateWithDuration:0.2 animations:^{
         _indicatorLine.centerX = [self.view viewWithTag:100+index].centerX;
     }];
