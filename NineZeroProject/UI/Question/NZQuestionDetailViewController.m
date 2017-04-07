@@ -31,8 +31,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 };
 
 @interface NZQuestionDetailViewController () <UIScrollViewDelegate>
-@property (nonatomic, assign) NSInteger currentIndex;
-@property (nonatomic, assign) BOOL isAnswered;
 
 @property (nonatomic, strong) UIView *questionMainBackView;
 @property (nonatomic, strong) UIScrollView *questionMainScrollView;
@@ -63,6 +61,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIView *contentHeaderView;
 @property (nonatomic, strong) UIView *indicatorLine;
 @property (nonatomic, strong) UIScrollView *detailScrollView;
+@property (nonatomic, assign) NSInteger currentIndex;
 
 //分享
 @property (nonatomic, strong) UIView *replayBackView;
@@ -77,8 +76,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIButton *weiboButton;
 
 //Common
+
 @property (nonatomic, strong) SKQuestion *currentQuestion;
 @property (nonatomic, assign) SKQuestionType type;
+@property (nonatomic, assign) BOOL isAnswered;
 
 @end
 
@@ -91,6 +92,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         self.currentQuestion.qid = questionID;
     }
     return self;
+}
+
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"isAnswered"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad {
@@ -337,8 +343,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_detailScrollView addSubview:questionContentView];
 
     
-    
     //////////////////////////////////////// END ////////////////////////////////////////
+
+    [self addObserver:self forKeyPath:@"isAnswered" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     
     if (NO_NETWORK) {
         [HTProgressHUD dismiss];
@@ -948,6 +955,27 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             result[13],
             result[14],
             result[15]];
+}
+
+#pragma mark - Notification
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"isAnswered"]) {
+        if (self.isAnswered == YES) {
+            //[_timeView setQuestion:self.currentQuestion type:_type endTime:_endTime];
+            self.answerButton.hidden = self.isAnswered;
+            [self.view viewWithTag:100].hidden = NO;
+            [self.view viewWithTag:101].hidden = YES;
+            [self.view viewWithTag:102].hidden = YES;
+            [self.view viewWithTag:103].hidden = YES;
+        } else {
+            //[_timeView setQuestion:self.currentQuestion type:_type endTime:_endTime];
+            [self.view viewWithTag:100].hidden = NO;
+            [self.view viewWithTag:101].hidden = NO;
+            [self.view viewWithTag:102].hidden = NO;
+            [self.view viewWithTag:103].hidden = NO;
+        }
+    }
 }
 
 @end
