@@ -97,15 +97,36 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 56)];
+    headerView.backgroundColor = COMMON_BG_COLOR;
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16, 102, 20)];
+    [headerView addSubview:imageView];
+    
+    if (section == 0) {
+        imageView.image = [UIImage imageNamed:@"img_puzzlepage_timedtask"];
+    } else if (section==1) {
+        imageView.image = [UIImage imageNamed:@"img_puzzlepage_dailytask"];
+    }
+    
+    return headerView;
+}
+
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _dataArray.count;
-//    return 10;
+    if (section == 0)
+        return 1;
+    else
+        return _dataArray.count-1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 56;
 }
 
 @end
