@@ -15,11 +15,13 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "NZQuestionContentView.h"
+#import "SKAnswerDetailView.h"
+#import "NZQuestionRankListView.h"
 
 #define SHARE_URL(u, v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
 
-#define PLAYBACKVIEW_HEIGHT self.view.width+16+18+4+90
-
+#define PLAYBACKVIEW_HEIGHT (self.view.width+16+18+4+90)
+#define SCROLLVIEW_HEIGHT (SCREEN_HEIGHT-20-55-49)
 typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeShare = 0,
     HTButtonTypeCancel,
@@ -63,6 +65,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIScrollView *detailScrollView;
 @property (nonatomic, assign) NSInteger currentIndex;
 
+@property (nonatomic, strong) NZQuestionContentView *questionContentView;
+@property (nonatomic, strong) NZQuestionRankListView *questionListView;
 //分享
 @property (nonatomic, strong) UIView *replayBackView;
 @property (nonatomic, strong) UIButton *replayButton;
@@ -338,11 +342,23 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [contentBackView addSubview:_detailScrollView];
     
     //本章故事
-    NZQuestionContentView *questionContentView = [[NZQuestionContentView alloc] initWithFrame:CGRectMake(0, 0, contentBackView.width, contentBackView.height) content:@"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n"];
-    questionContentView.height = questionContentView.viewHeight;
-    [_detailScrollView addSubview:questionContentView];
-
     
+    
+    _questionContentView = [[NZQuestionContentView alloc] initWithFrame:CGRectMake(0, 0, contentBackView.width, contentBackView.height) content:@"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n"];
+    _questionContentView.height = _questionContentView.viewHeight;
+    [_detailScrollView addSubview:_questionContentView];
+
+    //答案文章
+    
+    //排名列表
+    UIScrollView *rankScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(2*contentBackView.width, 0, contentBackView.width, contentBackView.height)];
+    [_detailScrollView addSubview:rankScrollView];
+    
+    _questionListView = [[NZQuestionRankListView alloc] initWithFrame:CGRectMake(0, 0, contentBackView.width, contentBackView.height) rankArray:nil];
+    _questionListView.height = _questionListView.viewHeight;
+    [rankScrollView addSubview:_questionListView];
+    
+    rankScrollView.contentSize = CGSizeMake(contentBackView.width, _questionListView.height);
     //////////////////////////////////////// END ////////////////////////////////////////
 
     [self addObserver:self forKeyPath:@"isAnswered" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
