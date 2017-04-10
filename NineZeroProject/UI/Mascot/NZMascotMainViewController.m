@@ -56,6 +56,11 @@
         make.centerY.equalTo(titleImageView);
         make.right.equalTo(titleView).offset(-13.5);
     }];
+    
+    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+    long long dTime = [[NSNumber numberWithDouble:time] longLongValue]; // 将double转为long long型
+    NSString *curTime = [NSString stringWithFormat:@"%llu",dTime]; // 输出long long型
+    NSLog(@"%@", curTime);
 }
 
 @end

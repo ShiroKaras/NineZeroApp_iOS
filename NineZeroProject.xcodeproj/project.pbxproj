@@ -1538,8 +1538,6 @@
 				1162373E1E4B32CF009FEDCA /* SKQuestionRewardView.m */,
 				1162373F1E4B32CF009FEDCA /* SKQuestionViewController.h */,
 				116237401E4B32CF009FEDCA /* SKQuestionViewController.m */,
-				116237411E4B32CF009FEDCA /* SKTicketView.h */,
-				116237421E4B32CF009FEDCA /* SKTicketView.m */,
 			);
 			name = 2.0;
 			sourceTree = "<group>";
@@ -1561,6 +1559,8 @@
 				11B4EF7B1E9B270C00FF5E83 /* NZQuestionRankListView.m */,
 				11B4EF7D1E9B717B00FF5E83 /* NZQuestionGiftView.h */,
 				11B4EF7E1E9B717B00FF5E83 /* NZQuestionGiftView.m */,
+				116237411E4B32CF009FEDCA /* SKTicketView.h */,
+				116237421E4B32CF009FEDCA /* SKTicketView.m */,
 			);
 			name = 3.0;
 			sourceTree = "<group>";

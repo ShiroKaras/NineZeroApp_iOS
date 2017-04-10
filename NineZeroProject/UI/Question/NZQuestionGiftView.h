@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class SKReward;
+
 @interface NZQuestionGiftView : UIView
+
+- (instancetype)initWithFrame:(CGRect)frame withReward:(SKReward*)reward;
 
 @end

@@ -17,6 +17,7 @@
 #import "NZQuestionContentView.h"
 #import "SKAnswerDetailView.h"
 #import "NZQuestionRankListView.h"
+#import "NZQuestionGiftView.h"
 
 #define SHARE_URL(u, v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
 
@@ -67,6 +68,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 @property (nonatomic, strong) NZQuestionContentView *questionContentView;
 @property (nonatomic, strong) NZQuestionRankListView *questionListView;
+@property (nonatomic, strong) NZQuestionGiftView *questionGiftView;
 //分享
 @property (nonatomic, strong) UIView *replayBackView;
 @property (nonatomic, strong) UIButton *replayButton;
@@ -342,8 +344,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     //排名列表
     _questionListView = [[NZQuestionRankListView alloc] initWithFrame:CGRectMake(2*contentBackView.width, 0, contentBackView.width, contentBackView.height) rankArray:nil];
-//    _questionListView.height = _questionListView.viewHeight;
     [_detailScrollView addSubview:_questionListView];
+    
+    //奖励
+    _questionGiftView = [[NZQuestionGiftView alloc] initWithFrame:CGRectMake(3*contentBackView.width, 0, contentBackView.width, contentBackView.height) withReward:nil];
+    [_detailScrollView addSubview:_questionGiftView];
     
     //////////////////////////////////////// END ////////////////////////////////////////
 
