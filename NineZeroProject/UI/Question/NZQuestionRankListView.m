@@ -14,10 +14,14 @@
 - (instancetype)initWithFrame:(CGRect)frame rankArray:(NSArray<SKUserInfo *> *)array{
     self = [super initWithFrame:frame];
     if (self) {
+        UIScrollView *rankScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        [self addSubview:rankScrollView];
+        
         self.viewHeight = 16+14+16+560;
+        rankScrollView.contentSize = CGSizeMake(frame.size.width, self.viewHeight);
         
         UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzledetailpage_ranking"]];
-        [self addSubview:titleImageView];
+        [rankScrollView addSubview:titleImageView];
         [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(@16);
             make.left.equalTo(@16);
@@ -25,7 +29,7 @@
         
         for (int i=0; i<10; i++) {
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20, 46+i*56, self.width-40, 40)];
-            [self addSubview:view];
+            [rankScrollView addSubview:view];
             
             UILabel *rankLabel = [UILabel new];
             rankLabel.text = [NSString stringWithFormat:@"%d",i+1];

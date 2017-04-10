@@ -265,18 +265,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_questionMainBackView addSubview:_chapterImageView];
     _chapterImageView.top = _playBackView.bottom +16;
     _chapterImageView.left = 16;
-    _chapterImageView.size = CGSizeMake(80, 18);
-    
-    _questionTitleLabel = [UILabel new];
-    _questionTitleLabel.text = @"零仔们\n在盐映画的证件照里\n看到了什么？";
-    _questionTitleLabel.textColor = [UIColor whiteColor];
-    _questionTitleLabel.font = PINGFANG_FONT_OF_SIZE(18);
-    _questionTitleLabel.numberOfLines = 3;
-    [_questionTitleLabel sizeToFit];
-    [_questionMainBackView addSubview:_questionTitleLabel];
-    _questionTitleLabel.size = CGSizeMake(270, 90);
-    _questionTitleLabel.top = _chapterImageView.bottom +4;
-    _questionTitleLabel.left = _chapterImageView.left;
+    _chapterImageView.size = CGSizeMake(210, 90);
     
     //////////////////////////////////////// 详细内容 ////////////////////////////////////////
     
@@ -350,15 +339,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
     //答案文章
     
+    
     //排名列表
-    UIScrollView *rankScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(2*contentBackView.width, 0, contentBackView.width, contentBackView.height)];
-    [_detailScrollView addSubview:rankScrollView];
+    _questionListView = [[NZQuestionRankListView alloc] initWithFrame:CGRectMake(2*contentBackView.width, 0, contentBackView.width, contentBackView.height) rankArray:nil];
+//    _questionListView.height = _questionListView.viewHeight;
+    [_detailScrollView addSubview:_questionListView];
     
-    _questionListView = [[NZQuestionRankListView alloc] initWithFrame:CGRectMake(0, 0, contentBackView.width, contentBackView.height) rankArray:nil];
-    _questionListView.height = _questionListView.viewHeight;
-    [rankScrollView addSubview:_questionListView];
-    
-    rankScrollView.contentSize = CGSizeMake(contentBackView.width, _questionListView.height);
     //////////////////////////////////////// END ////////////////////////////////////////
 
     [self addObserver:self forKeyPath:@"isAnswered" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
