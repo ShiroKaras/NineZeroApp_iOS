@@ -18,6 +18,7 @@
 #import "SKAnswerDetailView.h"
 #import "NZQuestionRankListView.h"
 #import "NZQuestionGiftView.h"
+#import "SKHintView.h"
 
 #define SHARE_URL(u, v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
 
@@ -154,6 +155,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
     
     UIButton *hintButton = [UIButton new];
+    [hintButton addTarget:self action:@selector(didClickHintButton:) forControlEvents:UIControlEventTouchUpInside];
     [hintButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_hint"] forState:UIControlStateNormal];
     [hintButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_hint_highlight"] forState:UIControlStateHighlighted];
     [bottomView addSubview:hintButton];
@@ -526,6 +528,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 #pragma mark - Actions
+
+- (void)didClickHintButton:(UIButton*)sender {
+    SKHintView *hintView = [[SKHintView alloc] initWithFrame:self.view.bounds questionID:self.currentQuestion season:2];
+    [self.view addSubview:hintView];
+}
 
 - (void)didClickBackButton:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];

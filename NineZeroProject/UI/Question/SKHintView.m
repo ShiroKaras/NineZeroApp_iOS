@@ -21,10 +21,8 @@
 
 @interface SKHintView () <SKMascotSkillDelegate>
 @property (nonatomic, assign) NSInteger     season;
-@property (nonatomic, assign) NSInteger     hintPropCount;
-@property (nonatomic, strong) UIImageView   *iconImageView;     //标记
-@property (nonatomic, strong) UIButton      *addButton;
-@property (nonatomic, strong) UILabel       *propCountLabel;
+@property (nonatomic, strong) UILabel       *goldLabel;
+@property (nonatomic, strong) UILabel       *gemLabel;
 @property (nonatomic, strong) SKQuestion    *question;
 @property (nonatomic, strong) SKHintList    *hintList;
 @end
@@ -37,7 +35,7 @@
         self.season = season;
         self.question = question;
         [self createUIWithFrame:frame];
-        [self loadData];
+//        [self loadData];
     }
     return self;
 }
@@ -65,14 +63,8 @@
                 [self viewWithTag:HINT_BUTTON_3].hidden = YES;
             }
             
-            //更新道具数量
-            self.hintPropCount = self.hintList.num;
-            if (self.hintPropCount==0) {
-                _iconImageView.image = [UIImage imageNamed:@"btn_detailspage_clue_add"];
-            } else {
-                _iconImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_clue_season%lu",(unsigned long)_season]];
-            }
-            _propCountLabel.text = [NSString stringWithFormat:@"%ld",(long)self.hintPropCount];
+            //更新金币宝石数量
+            //TODO
         }
     }];
 }
@@ -114,14 +106,8 @@
                 }];
             }
 
-            //更新道具数量
-            self.hintPropCount = self.hintList.num;
-            if (self.hintPropCount==0) {
-                _iconImageView.image = [UIImage imageNamed:@"btn_detailspage_clue_add"];
-            } else {
-                _iconImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_clue_season%lu",(unsigned long)_season]];
-            }
-            _propCountLabel.text = [NSString stringWithFormat:@"%ld",(long)self.hintPropCount];
+            //更新金币宝石数量
+            
         }
     }];
 }
@@ -132,72 +118,55 @@
     alphaView.alpha = 0.9;
     [self addSubview:alphaView];
     
-    UIView *rightCornerBackView = [UIView new];
-    rightCornerBackView.layer.cornerRadius = 15;
-    rightCornerBackView.layer.masksToBounds = YES;
-    rightCornerBackView.backgroundColor = [UIColor blackColor];
-    [self addSubview:rightCornerBackView];
-    [rightCornerBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@(97+25));
-        make.height.equalTo(@30);
-        make.right.equalTo(self).offset(15);
-        make.top.equalTo(@13);
-    }];
-    
     UIButton *closeButton = [UIButton new];
     [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_close"] forState:UIControlStateNormal];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_close_highlight"] forState:UIControlStateHighlighted];
     [self addSubview:closeButton];
     [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@12);
-        make.left.equalTo(@4);
+        make.top.equalTo(@33.5);
+        make.left.equalTo(@13.5);
     }];
     
-    //线索数量
-    _iconImageView = [UIImageView new];
-    if (self.hintPropCount==0) {
-        _iconImageView.image = [UIImage imageNamed:@"btn_detailspage_clue_add"];
-    } else {
-        _iconImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_clue_season%lu",(unsigned long)_season]];
-    }
-    [rightCornerBackView addSubview:_iconImageView];
-    [_iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(25, 25));
-        make.left.equalTo(rightCornerBackView).offset(2.5);
-        make.centerY.equalTo(rightCornerBackView);
+    //金币宝石数量
+    UIImageView *goldImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzlepage_gold"]];
+    [self addSubview:goldImageView];
+    [goldImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@31.5);
+        make.right.equalTo(self).offset(-16);
     }];
     
-    
-    _addButton = [UIButton new];
-    [_addButton addTarget:self action:@selector(addButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [rightCornerBackView addSubview:_addButton];
-    [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(rightCornerBackView);
-        make.center.equalTo(rightCornerBackView);
+    _goldLabel = [UILabel new];
+    _goldLabel.text = @"9999";
+    _goldLabel.textColor = [UIColor whiteColor];
+    _goldLabel.font = MOON_FONT_OF_SIZE(16);
+    [_goldLabel sizeToFit];
+    [self addSubview:_goldLabel];
+    [_goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(goldImageView);
+        make.right.equalTo(goldImageView.mas_left).offset(-6);
     }];
-    
-    UIImageView *textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_popup_solution_text"]];
-    [textImageView sizeToFit];
-    [rightCornerBackView addSubview:textImageView];
-    [textImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_iconImageView.mas_right).offset(6);
-        make.centerY.equalTo(_iconImageView);
+
+    UIImageView *gemImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzlepage_diamonds"]];
+    [self addSubview:gemImageView];
+    [gemImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(goldImageView.mas_bottom).offset(12);
+        make.right.equalTo(goldImageView);
     }];
-    
-    _propCountLabel = [UILabel new];
-    _propCountLabel.text = [NSString stringWithFormat:@"%ld",(long)self.hintPropCount];
-    _propCountLabel.textColor = [UIColor whiteColor];
-    _propCountLabel.font = MOON_FONT_OF_SIZE(18);
-    [_propCountLabel sizeToFit];
-    [rightCornerBackView addSubview:_propCountLabel];
-    [_propCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(textImageView.mas_right).offset(4);
-        make.centerY.equalTo(textImageView);
+
+    _gemLabel = [UILabel new];
+    _gemLabel.text = @"9999";
+    _gemLabel.textColor = [UIColor whiteColor];
+    _gemLabel.font = MOON_FONT_OF_SIZE(16);
+    [_gemLabel sizeToFit];
+    [self addSubview:_gemLabel];
+    [_gemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(gemImageView);
+        make.right.equalTo(gemImageView.mas_left).offset(-6);
     }];
     
     for (int i = 0; i<3; i++) {
-        UIImageView *hintBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailspage_cluebg"]];
+        UIImageView *hintBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_helppage_clue2"]];
         [self addSubview:hintBackgroundView];
         [hintBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@260);
@@ -220,17 +189,17 @@
         
         NSString *intString;
         if (i == 0) {
-            intString = @"一";
+            intString = @"消耗5金币";
         } else if (i == 1){
-            intString = @"二";
+            intString = @"消耗10金币";
         } else {
-            intString = @"三";
+            intString = @"消耗20金币";
         }
         UIButton *hintButton = [UIButton new];
         hintButton.tag = 200+i;
         [hintButton setTitle:[NSString stringWithFormat:@"线索%@",intString] forState:UIControlStateNormal];
         [hintButton addTarget:self action:@selector(getHintButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [hintButton setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_detailspage_season%lu",(unsigned long)_season]] forState:UIControlStateNormal];
+        [hintButton setBackgroundImage:[UIImage imageNamed:@"btn_helppage_clue1"] forState:UIControlStateNormal];
         hintButton.adjustsImageWhenHighlighted = NO;
         [self addSubview:hintButton];
         [hintButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -288,33 +257,7 @@
 
 //获取提示
 - (void)getHintButtonClick:(UIButton *)sender {
-    if (self.hintPropCount == 0) {
-        [self showPromptWithText:@"线索道具不足，点击右上角补充"];
-    } else {
-        if ([self.hintList.hint_one isEqualToString:@""]) {
-            if (sender.tag == HINT_BUTTON_2 || sender.tag == HINT_BUTTON_3) {
-                [self showPromptWithText:@"请先解锁前面的线索"];
-                return;
-            }
-        } else if ([self.hintList.hint_two isEqualToString:@""]) {
-            if (sender.tag == HINT_BUTTON_3) {
-                [self showPromptWithText:@"请先解锁前面的线索"];
-                return;
-            }
-        }
-        
-        [[[SKServiceManager sharedInstance] questionService] purchaseQuestionClueWithQuestionID:self.question.qid callback:^(BOOL success, SKResponsePackage *response) {
-            if (response.result == 0)
-            {
-                [self showNumberLabelWithButton:sender];
-            } else if (response.result == -3007) {
-                [self showPromptWithText:@"已经获得所有线索"];
-            } else if (response.result == -3008) {
-                [self showPromptWithText:@"线索道具不足"];
-            }
-            [self refreshData];
-        }];
-    }
+    
 }
 
 - (void)showNumberLabelWithButton:(UIButton *)sender {
