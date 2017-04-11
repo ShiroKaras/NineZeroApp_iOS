@@ -12,6 +12,13 @@
 
 @interface NZQuestionGiftView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame withReward:(SKReward*)reward;
+- (instancetype)initWithFrame:(CGRect)frame withReward:(SKReward *)reward;
+
+@end
+
+
+@interface NZQuestionFullScreenGiftView : UIView
+
+- (instancetype)initWithFrame:(CGRect)frame withReward:(SKReward *)reward;
 
 @end
