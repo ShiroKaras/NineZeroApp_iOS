@@ -18,7 +18,6 @@
 - (instancetype)initWithFrame:(CGRect)frame reward:(SKTicket*)reward
 {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = COMMON_GREEN_COLOR;
         self.ticket = reward;
         [self createUIWithFrame:frame];
     }
@@ -32,7 +31,7 @@
     ticketImageView.layer.masksToBounds = YES;
     ticketImageView.layer.cornerRadius =5;
     ticketImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [ticketImageView sd_setImageWithURL:[NSURL URLWithString:self.ticket.ticket_cover] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [ticketImageView sd_setImageWithURL:[NSURL URLWithString:self.ticket.ticket_cover] placeholderImage:[UIImage imageNamed:@"btn_detailspage_couponbg"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
 //        NSTimeInterval time = [[NSDate date] timeIntervalSince1970]; // (NSTimeInterval) time = 1427189152.313643
 //        if (time>self.ticket.expire_time) {
 //            ticketImageView.image = [self convertImageToGreyScale:image];
