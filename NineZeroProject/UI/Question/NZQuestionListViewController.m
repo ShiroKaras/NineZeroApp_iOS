@@ -65,6 +65,7 @@
 - (void)loadData {
     [[[SKServiceManager sharedInstance] questionService] getQuestionListCallback:^(BOOL success, NSArray<SKQuestion *> *questionList) {
         _dataArray = questionList;
+        NSLog(@"qid:%@", questionList[0].qid);
         [self.tableView reloadData];
     }];
 }
@@ -93,8 +94,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NZQuestionDetailViewController *controller = [[NZQuestionDetailViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
+    if (indexPath.section == 0) {
+        NZQuestionDetailViewController *controller = [[NZQuestionDetailViewController alloc] initWithType:NZQuestionTypeTimeLimitLevel questionID:self.dataArray[0].qid];
+        [self.navigationController pushViewController:controller animated:YES];
+    } else if (indexPath.section == 1){
+        NZQuestionDetailViewController *controller = [[NZQuestionDetailViewController alloc] initWithType:NZQuestionTypeHistoryLevel questionID:self.dataArray[indexPath.row+1].qid];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

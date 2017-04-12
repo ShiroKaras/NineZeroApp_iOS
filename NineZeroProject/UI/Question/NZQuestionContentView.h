@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SKQuestion;
 
 @interface NZQuestionContentView : UIView
 
 @property (nonatomic, assign) float viewHeight;
 
-- (instancetype)initWithFrame:(CGRect)frame content:(NSString*)content;
+- (instancetype)initWithFrame:(CGRect)frame question:(SKQuestion*)question;
 
 @end

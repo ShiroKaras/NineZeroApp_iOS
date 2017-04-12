@@ -259,7 +259,17 @@
 }
 
 - (void)showMascot {
-    
+    UIImageView *bgImageView = [[UIImageView alloc] init];
+    if (IPHONE5_SCREEN_WIDTH == SCREEN_WIDTH) {
+        bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_640"];
+    } else if (IPHONE6_SCREEN_WIDTH == SCREEN_WIDTH) {
+        bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_750"];
+    } else if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+        bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_1242"];
+    }
+    bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+    bgImageView.frame = _dimmingView.frame;
+    [_dimmingView addSubview:bgImageView];
     
     UIImageView *textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_congratulations2"]];
     [_dimmingView addSubview:textImageView];

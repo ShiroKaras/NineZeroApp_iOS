@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 
 typedef enum : NSUInteger {
-    SKQuestionTypeDefault,
-    SKQuestionTypeTimeLimitLevel,
-    SKQuestionTypeHistoryLevel,
-    SKQuestionTypeUnknown,
-} SKQuestionType;
+    NZQuestionTypeDefault,
+    NZQuestionTypeTimeLimitLevel,
+    NZQuestionTypeHistoryLevel,
+    NZQuestionTypeUnknown,
+} NZQuestionType;
 
 @interface NZQuestionDetailViewController : UIViewController
 
-- (instancetype)initWithType:(SKQuestionType)type questionID:(NSString *)questionID;
+- (instancetype)initWithType:(NZQuestionType)type questionID:(NSString *)questionID;
 
 @end

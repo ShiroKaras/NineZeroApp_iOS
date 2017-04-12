@@ -14,6 +14,8 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <CommonCrypto/CommonDigest.h>
+
+#import "SKCardTimeView.h"
 #import "NZQuestionContentView.h"
 #import "SKAnswerDetailView.h"
 #import "NZQuestionRankListView.h"
@@ -56,6 +58,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 //答题
 @property (nonatomic, strong) UIButton *answerButton;
+@property (nonatomic, strong) SKCardTimeView *timeView;
 
 //简介
 @property (nonatomic, strong) UIImageView *chapterImageView;
@@ -67,6 +70,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIScrollView *detailScrollView;
 @property (nonatomic, assign) NSInteger currentIndex;
 
+@property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) NZQuestionContentView *questionContentView;
 @property (nonatomic, strong) NZQuestionRankListView *questionListView;
 @property (nonatomic, strong) NZQuestionGiftView *questionGiftView;
@@ -85,14 +89,20 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 //Common
 
 @property (nonatomic, strong) SKQuestion *currentQuestion;
-@property (nonatomic, assign) SKQuestionType type;
+@property (nonatomic, strong) NSArray<SKUserInfo *> *top10Array;
+@property (nonatomic, assign) NZQuestionType type;
 @property (nonatomic, assign) BOOL isAnswered;
+@property (nonatomic, assign) NSInteger wrongAnswerCount;
+
+//奖励
+@property (nonatomic, strong) NSDictionary *rewardDict;
+@property (nonatomic, strong) SKReward *reward;
 
 @end
 
 @implementation NZQuestionDetailViewController
 
-- (instancetype)initWithType:(SKQuestionType)type questionID:(NSString *)questionID {
+- (instancetype)initWithType:(NZQuestionType)type questionID:(NSString *)questionID {
     if (self = [super init]) {
         self.currentQuestion = [SKQuestion new];
         _type = type;
@@ -117,7 +127,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)createUI {
-    WS(weakSelf);
+//    WS(weakSelf);
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     _questionMainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height-49)];
@@ -335,11 +345,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [contentBackView addSubview:_detailScrollView];
     
     //本章故事
-    
-    
-    _questionContentView = [[NZQuestionContentView alloc] initWithFrame:CGRectMake(0, 0, contentBackView.width, contentBackView.height) content:@"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\n\n\n\n"];
-    _questionContentView.height = _questionContentView.viewHeight;
-    [_detailScrollView addSubview:_questionContentView];
 
     //答案文章
     
@@ -371,16 +376,58 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)loadData {
-//    [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
-    _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_playButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
-    [_playButton setBackgroundImage:[UIImage imageNamed:@"img_puzzledetailpage_play"] forState:UIControlStateNormal];
-    [_playButton setBackgroundImage:[UIImage imageNamed:@"img_puzzledetailpage_play_highlight"] forState:UIControlStateHighlighted];
-    [_playButton sizeToFit];
-    _playButton.center = _playBackView.center;
-    _playButton.hidden = NO;
-    [_questionMainBackView addSubview:_playButton];
-
+    [HTProgressHUD show];
+    [[[SKServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:self.currentQuestion.qid
+                                                                                callback:^(BOOL success, SKQuestion *question) {
+                                                                                    [HTProgressHUD dismiss];
+//                                                                                    _timeView.hidden = NO;
+                                                                                    _answerButton.hidden = NO;
+                                                                                    
+                                                                                    self.currentQuestion = question;
+                                                                                    self.isAnswered = question.is_answer;
+                                                                                    
+                                                                                    //题目文章
+                                                                                    _questionContentView = [[NZQuestionContentView alloc] initWithFrame:CGRectMake(0, 0, _detailScrollView.width, _detailScrollView.height) question:self.currentQuestion];
+//                                                                                    _questionContentView.height = _questionContentView.viewHeight;
+                                                                                    [_detailScrollView addSubview:_questionContentView];
+                                                                                    
+                                                                                    //视频
+                                                                                    [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
+                                                                                    
+                                                                                    if (self.type == NZQuestionTypeTimeLimitLevel) {
+                                                                                        if (self.currentQuestion.base_type == 0) {
+                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil"] forState:UIControlStateNormal];
+                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil_highlight"] forState:UIControlStateHighlighted];
+                                                                                        } else {
+                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam"] forState:UIControlStateNormal];
+                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam_highlight"] forState:UIControlStateHighlighted];
+                                                                                        }
+                                                                                    } else if (self.type == NZQuestionTypeHistoryLevel) {
+                                                                                        if (self.currentQuestion.base_type == 0) {
+                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil"] forState:UIControlStateNormal];
+                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil_highlight"] forState:UIControlStateHighlighted];
+                                                                                        } else {
+                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked"] forState:UIControlStateNormal];
+                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked_highlight"] forState:UIControlStateHighlighted];
+                                                                                        }
+                                                                                    }
+                                                                                    
+                                                                                    [[[SKServiceManager sharedInstance] answerService] getRewardWithQuestionID:self.currentQuestion.qid
+                                                                                                                                                      rewardID:self.currentQuestion.reward_id
+                                                                                                                                                      callback:^(BOOL success, SKResponsePackage *response) {
+                                                                                                                                                          if (response.result == 0) {
+                                                                                                                                                              self.rewardDict = response.data;
+                                                                                                                                                              self.reward = [SKReward mj_objectWithKeyValues:self.rewardDict];
+                                                                                                                                                          }
+                                                                                                                                                      }];
+                                                                                    
+                                                                                    [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid
+                                                                                                                                                               callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
+                                                                                                                                                                   self.top10Array = userRankList;
+                                                                                                                                                               }];
+                                                                                    
+//                                                                                    [self loadMascot];
+                                                                                }];
 }
 
 //视频
@@ -457,7 +504,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_playButton sizeToFit];
     _playButton.center = backView.center;
     _playButton.hidden = NO;
-    [self.view addSubview:_playButton];
+    [_questionMainBackView addSubview:_playButton];
 }
 
 #pragma mark - ScrollView Delegate 
@@ -975,8 +1022,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"isAnswered"]) {
-        if (self.isAnswered == YES) {
+        if (self.isAnswered == NO) {
             //[_timeView setQuestion:self.currentQuestion type:_type endTime:_endTime];
+            _detailScrollView.contentSize = CGSizeMake(self.view.width, SCROLLVIEW_HEIGHT);
             self.answerButton.hidden = self.isAnswered;
             [self.view viewWithTag:100].hidden = NO;
             [self.view viewWithTag:101].hidden = YES;
@@ -984,6 +1032,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             [self.view viewWithTag:103].hidden = YES;
         } else {
             //[_timeView setQuestion:self.currentQuestion type:_type endTime:_endTime];
+            _detailScrollView.contentSize = CGSizeMake(self.view.width*4, SCROLLVIEW_HEIGHT);
             [self.view viewWithTag:100].hidden = NO;
             [self.view viewWithTag:101].hidden = NO;
             [self.view viewWithTag:102].hidden = NO;
