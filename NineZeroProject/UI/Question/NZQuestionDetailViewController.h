@@ -15,8 +15,12 @@ typedef enum : NSUInteger {
     NZQuestionTypeUnknown,
 } NZQuestionType;
 
-@interface NZQuestionDetailViewController : UIViewController
+@protocol NZQuestionViewControllerDelegate
+- (void)answeredQuestionWithSerialNumber:(NSString *)serial season:(NSInteger)season;
+@end
 
+@interface NZQuestionDetailViewController : UIViewController
+@property (nonatomic, assign) id<NZQuestionViewControllerDelegate> delegate;
 - (instancetype)initWithType:(NZQuestionType)type questionID:(NSString *)questionID;
 
 @end

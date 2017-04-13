@@ -21,6 +21,8 @@
 #import "NZQuestionRankListView.h"
 #import "NZQuestionGiftView.h"
 #import "SKHintView.h"
+#import "HTARCaptureController.h"
+#import "SKComposeView.h"
 
 #define SHARE_URL(u, v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
 
@@ -36,7 +38,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeReplay
 };
 
-@interface NZQuestionDetailViewController () <UIScrollViewDelegate>
+@interface NZQuestionDetailViewController () <UIScrollViewDelegate,SKComposeViewDelegate,HTARCaptureControllerDelegate>
 
 @property (nonatomic, strong) UIView *questionMainBackView;
 @property (nonatomic, strong) UIScrollView *questionMainScrollView;
@@ -59,6 +61,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 //答题
 @property (nonatomic, strong) UIButton *answerButton;
 @property (nonatomic, strong) SKCardTimeView *timeView;
+@property (nonatomic, strong) SKComposeView *composeView;	 // 答题界面
 
 //简介
 @property (nonatomic, strong) UIImageView *chapterImageView;
@@ -74,6 +77,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) NZQuestionContentView *questionContentView;
 @property (nonatomic, strong) NZQuestionRankListView *questionListView;
 @property (nonatomic, strong) NZQuestionGiftView *questionGiftView;
+
 //分享
 @property (nonatomic, strong) UIView *replayBackView;
 @property (nonatomic, strong) UIButton *replayButton;
@@ -120,6 +124,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     [self createUI];
+    
+    [self addObserver:self forKeyPath:@"isAnswered" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playItemDidPlayToEndTime:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -264,9 +274,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     //////////////////////////////////////// 答题 ////////////////////////////////////////
     
     _answerButton = [UIButton new];
+    [_answerButton addTarget:self action:@selector(answerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write"] forState:UIControlStateNormal];
     [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write_highlight"] forState:UIControlStateHighlighted];
-    [_questionMainScrollView addSubview:_answerButton];
+    [_answerButton sizeToFit];
+    [_questionMainBackView addSubview:_answerButton];
     [_answerButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_playBackView).offset(-16);
         make.bottom.equalTo(_playBackView).offset(-16);
@@ -358,8 +370,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_detailScrollView addSubview:_questionGiftView];
     
     //////////////////////////////////////// END ////////////////////////////////////////
-
-    [self addObserver:self forKeyPath:@"isAnswered" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     
     if (NO_NETWORK) {
         [HTProgressHUD dismiss];
@@ -394,23 +404,20 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                                                     //视频
                                                                                     [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
                                                                                     
-                                                                                    if (self.type == NZQuestionTypeTimeLimitLevel) {
-                                                                                        if (self.currentQuestion.base_type == 0) {
-                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil"] forState:UIControlStateNormal];
-                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil_highlight"] forState:UIControlStateHighlighted];
-                                                                                        } else {
-                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam"] forState:UIControlStateNormal];
-                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_ans_cam_highlight"] forState:UIControlStateHighlighted];
-                                                                                        }
-                                                                                    } else if (self.type == NZQuestionTypeHistoryLevel) {
-                                                                                        if (self.currentQuestion.base_type == 0) {
-                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil"] forState:UIControlStateNormal];
-                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_pencil_highlight"] forState:UIControlStateHighlighted];
-                                                                                        } else {
-                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked"] forState:UIControlStateNormal];
-                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_detailspage_locked_highlight"] forState:UIControlStateHighlighted];
+                                                                                    if (self.currentQuestion.base_type==0) {
+                                                                                        [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write"] forState:UIControlStateNormal];
+                                                                                        [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write_highlight"] forState:UIControlStateHighlighted];
+                                                                                    } else {
+                                                                                        if (self.type == NZQuestionTypeTimeLimitLevel) {
+                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_scanning"] forState:UIControlStateNormal];
+                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_scanning_highlight"] forState:UIControlStateHighlighted];
+                                                                                        } else if (self.type == NZQuestionTypeHistoryLevel) {
+                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_locked"] forState:UIControlStateNormal];
+                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_locked_highlight"] forState:UIControlStateHighlighted];
                                                                                         }
                                                                                     }
+                                                                                    
+                                                                                    
                                                                                     
                                                                                     [[[SKServiceManager sharedInstance] answerService] getRewardWithQuestionID:self.currentQuestion.qid
                                                                                                                                                       rewardID:self.currentQuestion.reward_id
@@ -574,7 +581,95 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
 }
 
+#pragma mark - HTARCaptureController Delegate
+
+- (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward *)reward {
+    [controller dismissViewControllerAnimated:NO
+                                   completion:^{
+                                       [_composeView showAnswerCorrect:YES];
+                                       self.isAnswered = YES;
+                                       self.reward = reward;
+                                       [_composeView endEditing:YES];
+                                       [_composeView removeFromSuperview];
+                                       [self removeDimmingView];
+                                       [self showRewardViewWithReward:nil];
+                                       
+                                       [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+                                       [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid
+                                                                                                                  callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
+                                                                                                                      self.top10Array = userRankList;
+                                                                                                                  }];
+                                       [[[SKServiceManager sharedInstance] questionService] getQuestionListCallback:^(BOOL success, NSArray<SKQuestion *> *questionList) {
+                                           self.currentQuestion = [questionList lastObject];
+                                       }];
+                                       //					   [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
+                                       //					       self.currentQuestion = [questionList_season2 lastObject];
+                                       //					   }];
+                                   }];
+}
+
 #pragma mark - Actions
+
+- (void)answerButtonClick:(UIButton *)sender {
+    [TalkingData trackEvent:@"answer"];
+    if (self.currentQuestion.base_type == 0) {
+        _composeView = [[SKComposeView alloc] initWithQustionID:self.currentQuestion.qid frame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        _composeView.associatedQuestion = self.currentQuestion;
+        _composeView.delegate = self;
+        _composeView.alpha = 0.0;
+        [self.view addSubview:_composeView];
+        [_composeView becomeFirstResponder];
+        [UIView animateWithDuration:0.3
+                         animations:^{
+                             _composeView.alpha = 1.0;
+                             [self.view addSubview:_composeView];
+                         }
+                         completion:^(BOOL finished) {
+                             [self stop];
+                         }];
+    } else {
+        if (self.type == SKQuestionTypeHistoryLevel) {
+            //往期关卡-线下题（地标已毁坏）
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prompt_Invalid"]];
+            [imageView sizeToFit];
+            imageView.right = self.view.right - 10;
+            imageView.bottom = _answerButton.top - 5;
+            imageView.alpha = 0;
+            [self.view addSubview:imageView];
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 imageView.alpha = 1;
+                             }
+                             completion:^(BOOL finished) {
+                                 [UIView animateWithDuration:0.5
+                                                       delay:5
+                                                     options:UIViewAnimationOptionCurveEaseIn
+                                                  animations:^{
+                                                      imageView.alpha = 0;
+                                                  }
+                                                  completion:^(BOOL finished) {
+                                                      [imageView removeFromSuperview];
+                                                  }];
+                             }];
+        } else if (self.type == SKQuestionTypeTimeLimitLevel) {
+            //限时关卡-线下题目
+            if (self.currentQuestion.base_type == 1) {
+                //LBS
+                AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+                if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
+                    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+                    [alertView show];
+                } else {
+                    HTARCaptureController *arCaptureController = [[HTARCaptureController alloc] initWithQuestion:self.currentQuestion];
+                    arCaptureController.delegate = self;
+                    [self presentViewController:arCaptureController animated:YES completion:nil];
+                }
+            } else if (self.currentQuestion.base_type == 2) {
+                //扫图片
+            }
+        }
+    }
+}
 
 - (void)didClickHintButton:(UIButton*)sender {
     SKHintView *hintView = [[SKHintView alloc] initWithFrame:self.view.bounds questionID:self.currentQuestion season:2];
@@ -599,6 +694,114 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [UIView animateWithDuration:0.3 animations:^{
         _detailScrollView.contentOffset = point;
     }];
+}
+
+#pragma mark - SKComposeView Delegate 答题
+
+- (void)updateHintCount:(NSInteger)count {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1]];
+    [dict setObject:@(count) forKey:self.currentQuestion.qid];
+    [UD setObject:dict forKey:kQuestionWrongAnswerCountSeason1];
+}
+
+- (void)composeView:(SKComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
+    if (_type == SKQuestionTypeTimeLimitLevel) {
+        [[[SKServiceManager sharedInstance] answerService] answerTimeLimitTextQuestionWithAnswerText:answer
+                                                                                            callback:^(BOOL success, SKResponsePackage *response) {
+                                                                                                if (response.result == 0) {
+                                                                                                    //回答正确
+                                                                                                    [self.delegate answeredQuestionWithSerialNumber:self.currentQuestion.serial season:self.currentQuestion.level_type];
+                                                                                                    self.currentQuestion.is_answer = YES;
+                                                                                                    [_composeView showAnswerCorrect:YES];
+                                                                                                    self.isAnswered = YES;
+                                                                                                    
+                                                                                                    self.rewardDict = response.data;
+                                                                                                    self.reward = [SKReward mj_objectWithKeyValues:self.rewardDict];
+                                                                                                    [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid
+                                                                                                                                                                               callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
+                                                                                                                                                                                   self.top10Array = userRankList;
+                                                                                                                                                                               }];
+                                                                                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                                                                        [_composeView endEditing:YES];
+                                                                                                        [_composeView removeFromSuperview];
+                                                                                                        [self removeDimmingView];
+                                                                                                        [self showRewardViewWithReward:nil];
+                                                                                                    });
+                                                                                                } else if (response.result == -3004) {
+                                                                                                    //回答错误
+                                                                                                    [_composeView showAnswerCorrect:NO];
+                                                                                                    _wrongAnswerCount++;
+                                                                                                    [self updateHintCount:_wrongAnswerCount];
+                                                                                                    if ([[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1][self.currentQuestion.qid] integerValue] > 2) {
+                                                                                                        [_composeView showAnswerTips:self.currentQuestion.hint];
+                                                                                                    }
+                                                                                                } else if (response.result == -7007) {
+                                                                                                }
+                                                                                            }];
+    } else if (_type == SKQuestionTypeHistoryLevel) {
+        [[[SKServiceManager sharedInstance] answerService] answerExpiredTextQuestionWithQuestionID:self.currentQuestion.qid
+                                                                                        answerText:answer
+                                                                                          callback:^(BOOL success, SKResponsePackage *response) {
+                                                                                              if (response.result == 0) {
+                                                                                                  //回答正确
+                                                                                                  [self.delegate answeredQuestionWithSerialNumber:self.currentQuestion.serial season:self.currentQuestion.level_type];
+                                                                                                  self.currentQuestion.is_answer = YES;
+                                                                                                  [_composeView showAnswerCorrect:YES];
+                                                                                                  self.isAnswered = YES;
+                                                                                                  
+                                                                                                  self.rewardDict = response.data;
+                                                                                                  self.reward = [SKReward mj_objectWithKeyValues:self.rewardDict];
+                                                                                                  [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid
+                                                                                                                                                                             callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
+                                                                                                                                                                                 self.top10Array = userRankList;
+                                                                                                                                                                             }];
+                                                                                                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                                                                      [_composeView endEditing:YES];
+                                                                                                      [_composeView removeFromSuperview];
+                                                                                                      [self removeDimmingView];
+                                                                                                      [self showRewardViewWithReward:nil];
+                                                                                                  });
+                                                                                              } else if (response.result == -3004) {
+                                                                                                  //回答错误
+                                                                                                  [_composeView showAnswerCorrect:NO];
+                                                                                                  _wrongAnswerCount++;
+                                                                                                  [self updateHintCount:_wrongAnswerCount];
+                                                                                              } else if (response.result == -7007) {
+                                                                                              }
+                                                                                          }];
+    }
+}
+
+- (void)didClickDimingViewInComposeView:(SKComposeView *)composeView {
+    [self.view endEditing:YES];
+    [composeView removeFromSuperview];
+}
+
+#pragma mark - Keyboard
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    CGRect keyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    _composeView.frame = CGRectMake(0, 0, self.view.width, self.view.height - keyboardRect.size.height);
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    [_composeView removeFromSuperview];
+    [_composeView endEditing:YES];
+}
+
+- (void)keyboardDidHide:(NSNotification *)notification {
+//    //显示GuideView
+//    if (FIRST_COACHMARK_TYPE_2 && [[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1][self.currentQuestion.qid] integerValue] > 2) {
+//        [self showGuideviewWithType:SKHelperGuideViewType2];
+//        [UD setBool:YES forKey:@"firstLaunchTypeThreeWrongAnswer"];
+//    }
+}
+
+#pragma mark - 获取奖励
+
+- (void)showRewardViewWithReward:(SKReward *)reward {
+    
 }
 
 #pragma mark - Video Actions
@@ -669,6 +872,17 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self.soundImageView.hidden = soundHidden;
 }
 
+- (void)playItemDidPlayToEndTime:(NSNotification *)notification {
+    if ([notification.object isEqual:self.playerItem]) {
+        //        [self stop];
+        //显示分享界面
+        [self showReplayAndShareButton];
+//        if (FIRST_COACHMARK_TYPE_1 && !self.currentQuestion.is_answer) {
+//            [self showGuideviewWithType:SKHelperGuideViewType1];
+//            [UD setBool:YES forKey:@"firstLaunchTypePlayToEnd"];
+//        }
+    }
+}
 #pragma mark - 分享
 
 - (void)onClickShareButton:sender {
@@ -1022,10 +1236,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"isAnswered"]) {
+        _answerButton.hidden = self.isAnswered;
         if (self.isAnswered == NO) {
             //[_timeView setQuestion:self.currentQuestion type:_type endTime:_endTime];
             _detailScrollView.contentSize = CGSizeMake(self.view.width, SCROLLVIEW_HEIGHT);
-            self.answerButton.hidden = self.isAnswered;
             [self.view viewWithTag:100].hidden = NO;
             [self.view viewWithTag:101].hidden = YES;
             [self.view viewWithTag:102].hidden = YES;
