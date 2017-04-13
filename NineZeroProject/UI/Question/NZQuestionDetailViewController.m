@@ -801,7 +801,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - 获取奖励
 
 - (void)showRewardViewWithReward:(SKReward *)reward {
-    
+    NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:self.view.bounds withReward:self.reward];
+    [self.view addSubview:rewardView];
 }
 
 #pragma mark - Video Actions

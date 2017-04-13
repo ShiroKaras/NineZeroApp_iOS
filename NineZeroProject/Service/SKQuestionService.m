@@ -261,4 +261,15 @@
 		}];
 }
 
+- (void)getHintWithQuestionID:(NSString *)questionID number:(NSString *)number callback:(SKResponseCallback)callback {
+    NSDictionary *dict = @{
+                           @"method": @"getGoldClue",
+                           @"qid": questionID,
+                           @"number": [NSString stringWithFormat:@"%d", [number intValue]+1]
+                           };
+    [self questionBaseRequestWithParam:dict callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
 @end
