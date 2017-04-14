@@ -35,37 +35,32 @@
         self.season = season;
         self.question = question;
         [self createUIWithFrame:frame];
-//        [self loadData];
+        [self loadData];
     }
     return self;
 }
 
 - (void)loadData {
     //关卡线索列表
-    [[[SKServiceManager sharedInstance] questionService] getQuestionDetailCluesWithQuestionID:self.question.qid callback:^(BOOL success, NSInteger result, SKHintList *hintList) {
-        if (result==0) {
-            self.hintList = hintList;
-            
-            ((UILabel*)[self viewWithTag:HINT_LABEL_1]).text = hintList.hint_one;
-            ((UILabel*)[self viewWithTag:HINT_LABEL_2]).text = hintList.hint_two;
-            ((UILabel*)[self viewWithTag:HINT_LABEL_3]).text = hintList.hint_three;
-            
-            if ([self.hintList.hint_one isEqualToString:@""]) {
-                
-            } else if ([self.hintList.hint_two isEqualToString:@""]) {
-                [self viewWithTag:HINT_BUTTON_1].hidden = 1;
-            } else if ([self.hintList.hint_three isEqualToString:@""]) {
-                [self viewWithTag:HINT_BUTTON_1].hidden = YES;
-                [self viewWithTag:HINT_BUTTON_2].hidden = YES;
-            } else {
-                [self viewWithTag:HINT_BUTTON_1].hidden = YES;
-                [self viewWithTag:HINT_BUTTON_2].hidden = YES;
-                [self viewWithTag:HINT_BUTTON_3].hidden = YES;
-            }
-            
-            //更新金币宝石数量
-            //TODO
+    
+    [[[SKServiceManager sharedInstance] questionService] getHintListWithQuestionID:self.question.qid callback:^(BOOL success, NSInteger result, SKHintList *hintList) {
+        _goldLabel.text = hintList.gold;
+        
+        self.hintList = hintList;
+        ((UILabel*)[self viewWithTag:HINT_LABEL_1]).text = hintList.hint_one;
+        ((UILabel*)[self viewWithTag:HINT_LABEL_2]).text = hintList.hint_two;
+        ((UILabel*)[self viewWithTag:HINT_LABEL_3]).text = hintList.hint_three;
+        
+        if (![self.hintList.hint_one isEqualToString:@""]) {
+            [self viewWithTag:HINT_BUTTON_1].hidden = YES;
         }
+        if (![self.hintList.hint_two isEqualToString:@""]) {
+            [self viewWithTag:HINT_BUTTON_2].hidden = YES;
+        }
+        if (![self.hintList.hint_three isEqualToString:@""]) {
+            [self viewWithTag:HINT_BUTTON_3].hidden = YES;
+        }
+          
     }];
 }
 
@@ -146,24 +141,8 @@
         make.centerY.equalTo(goldImageView);
         make.right.equalTo(goldImageView.mas_left).offset(-6);
     }];
-
-    UIImageView *gemImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzlepage_diamonds"]];
-    [self addSubview:gemImageView];
-    [gemImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(goldImageView.mas_bottom).offset(12);
-        make.right.equalTo(goldImageView);
-    }];
-
-    _gemLabel = [UILabel new];
-    _gemLabel.text = @"9999";
-    _gemLabel.textColor = [UIColor whiteColor];
-    _gemLabel.font = MOON_FONT_OF_SIZE(16);
-    [_gemLabel sizeToFit];
-    [self addSubview:_gemLabel];
-    [_gemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(gemImageView);
-        make.right.equalTo(gemImageView.mas_left).offset(-6);
-    }];
+    
+    //线索
     
     for (int i = 0; i<3; i++) {
         UIImageView *hintBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_helppage_clue2"]];
@@ -257,7 +236,9 @@
 
 //获取提示
 - (void)getHintButtonClick:(UIButton *)sender {
-    
+    [[[SKServiceManager sharedInstance] questionService] getHintWithQuestionID:_question.qid number:(int)sender.tag-200 callback:^(BOOL success, SKResponsePackage *response) {
+        [self loadData];
+    }];
 }
 
 - (void)showNumberLabelWithButton:(UIButton *)sender {
