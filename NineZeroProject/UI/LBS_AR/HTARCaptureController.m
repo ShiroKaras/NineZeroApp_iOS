@@ -196,6 +196,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)dealloc {
+    
 }
 
 - (void)didClickOKButton {
