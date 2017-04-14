@@ -75,6 +75,7 @@
 @property (nonatomic, copy) NSString *chapter;
 @property (nonatomic, copy) NSString *title_one;
 @property (nonatomic, copy) NSString *title_two;
+@property (nonatomic, copy) NSString *total_pic;
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *thumbnail_pic;
 @property (nonatomic, copy) NSString *description_pic;
@@ -91,6 +92,7 @@
 @property (nonatomic, copy) NSString *hint_2;
 @property (nonatomic, copy) NSString *question_video_cover;
 @property (nonatomic, copy) NSString *checkpoint_pic;
+@property (nonatomic, assign) NSInteger limit_time_type; //1:限时关卡 0:往期关卡
 @property (nonatomic, assign) NSInteger base_type;  //0:文字类型  1:LBS  2:扫图片
 @property (nonatomic, assign) NSInteger level_type; //0:极难题  1:第一季  2:第二季
 @property (nonatomic, assign) BOOL is_answer;
@@ -98,6 +100,7 @@
 @property (nonatomic, assign) NSInteger answer_count; //用户答案条数
 @property (nonatomic, assign) NSInteger num;	  //答案道具数量
 @property (nonatomic, copy) NSString *list_pic;
+@property (nonatomic, assign) NSString *count_down;  //剩余时间
 @end
 
 @interface SKHintList : NSObject

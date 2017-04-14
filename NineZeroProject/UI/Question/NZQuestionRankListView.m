@@ -27,8 +27,9 @@
             make.left.equalTo(@16);
         }];
         
-        for (int i=0; i<10; i++) {
+        for (int i=0; i<array.count; i++) {
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(20, 46+i*56, self.width-40, 40)];
+            view.backgroundColor = [UIColor clearColor];
             [rankScrollView addSubview:view];
             
             UILabel *rankLabel = [UILabel new];
@@ -42,7 +43,8 @@
                 make.left.equalTo(view);
             }];
             
-            UIImageView *avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+            UIImageView *avatarImageView = [[UIImageView alloc] init];
+            [avatarImageView sd_setImageWithURL:[NSURL URLWithString:array[i].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
             [view addSubview:avatarImageView];
             [avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(40, 40));
@@ -51,7 +53,7 @@
             }];
             
             UILabel *userNameLabel = [UILabel new];
-            userNameLabel.text = @"默认用户";
+            userNameLabel.text = array[i].user_name;
             userNameLabel.textColor = [UIColor whiteColor];
             userNameLabel.font = PINGFANG_FONT_OF_SIZE(12);
             [userNameLabel sizeToFit];

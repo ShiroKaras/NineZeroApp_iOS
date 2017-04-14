@@ -77,7 +77,7 @@
                                   NSMutableArray<SKQuestion *> *questions_season2 = [[NSMutableArray alloc] init];
                                   for (int i = 0; i != [response.data count]; i++) {
                                       SKQuestion *question = [SKQuestion mj_objectWithKeyValues:[response.data objectAtIndex:i]];
-                                      [questions_season2 insertObject:question atIndex:0];
+                                      [questions_season2 addObject:question];
                                   }
                                   _questionList_season2 = questions_season2;
                                   callback(YES, questions_season2);

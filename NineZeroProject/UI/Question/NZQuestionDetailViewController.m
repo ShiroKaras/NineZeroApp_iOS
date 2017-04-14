@@ -75,6 +75,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) NZQuestionContentView *questionContentView;
+@property (nonatomic, strong) SKAnswerDetailView *questionAnswerView;
 @property (nonatomic, strong) NZQuestionRankListView *questionListView;
 @property (nonatomic, strong) NZQuestionGiftView *questionGiftView;
 
@@ -271,7 +272,18 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     _pauseImageView.hidden = YES;
     
+    [self.view layoutIfNeeded];
     //////////////////////////////////////// 答题 ////////////////////////////////////////
+    
+    // 倒计时
+    _timeView = [[SKCardTimeView alloc] initWithFrame:CGRectZero];
+    _timeView.hidden = YES;
+    [_questionMainBackView addSubview:_timeView];
+    
+    _timeView.size = CGSizeMake(ROUND_WIDTH_FLOAT(100), ROUND_HEIGHT_FLOAT(65));
+    _timeView.right = SCREEN_WIDTH - 16;
+    _timeView.top = _playBackView.bottom + 20;
+
     
     _answerButton = [UIButton new];
     [_answerButton addTarget:self action:@selector(answerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -287,7 +299,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     //////////////////////////////////////// 介绍 ////////////////////////////////////////
     
     _chapterImageView = [UIImageView new];
-    _chapterImageView.backgroundColor = COMMON_GREEN_COLOR;
+    [_chapterImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.total_pic]];
     [_questionMainBackView addSubview:_chapterImageView];
     _chapterImageView.top = _playBackView.bottom +16;
     _chapterImageView.left = 16;
@@ -360,15 +372,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
     //答案文章
     
-    
-    //排名列表
-    _questionListView = [[NZQuestionRankListView alloc] initWithFrame:CGRectMake(2*contentBackView.width, 0, contentBackView.width, contentBackView.height) rankArray:nil];
-    [_detailScrollView addSubview:_questionListView];
-    
-    //奖励
-    _questionGiftView = [[NZQuestionGiftView alloc] initWithFrame:CGRectMake(3*contentBackView.width, 0, contentBackView.width, contentBackView.height) withReward:nil];
-    [_detailScrollView addSubview:_questionGiftView];
-    
     //////////////////////////////////////// END ////////////////////////////////////////
     
     if (NO_NETWORK) {
@@ -390,16 +393,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [[[SKServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:self.currentQuestion.qid
                                                                                 callback:^(BOOL success, SKQuestion *question) {
                                                                                     [HTProgressHUD dismiss];
-//                                                                                    _timeView.hidden = NO;
+                                                                                    _timeView.hidden = NO;
                                                                                     _answerButton.hidden = NO;
                                                                                     
                                                                                     self.currentQuestion = question;
                                                                                     self.isAnswered = question.is_answer;
                                                                                     
-                                                                                    //题目文章
-                                                                                    _questionContentView = [[NZQuestionContentView alloc] initWithFrame:CGRectMake(0, 0, _detailScrollView.width, _detailScrollView.height) question:self.currentQuestion];
-//                                                                                    _questionContentView.height = _questionContentView.viewHeight;
-                                                                                    [_detailScrollView addSubview:_questionContentView];
+                                                                                    [self createDetail];
                                                                                     
                                                                                     //视频
                                                                                     [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
@@ -435,6 +435,24 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                                                     
 //                                                                                    [self loadMascot];
                                                                                 }];
+}
+
+- (void)createDetail {
+    //题目文章
+    _questionContentView = [[NZQuestionContentView alloc] initWithFrame:CGRectMake(0, 0, _detailScrollView.width, _detailScrollView.height) question:self.currentQuestion];
+    [_detailScrollView addSubview:_questionContentView];
+    
+    //答案文章
+    _questionAnswerView = [[SKAnswerDetailView alloc] initWithFrame:CGRectMake(_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) questionID:self.currentQuestion.qid];
+//    [_detailScrollView addSubview:_questionAnswerView];
+    
+    //排名列表
+    _questionListView = [[NZQuestionRankListView alloc] initWithFrame:CGRectMake(2*_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) rankArray:self.top10Array];
+    [_detailScrollView addSubview:_questionListView];
+    
+    //奖励
+    _questionGiftView = [[NZQuestionGiftView alloc] initWithFrame:CGRectMake(3*_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) withReward:self.reward];
+    [_detailScrollView addSubview:_questionGiftView];
 }
 
 //视频
@@ -628,7 +646,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                              [self stop];
                          }];
     } else {
-        if (self.type == SKQuestionTypeHistoryLevel) {
+        if (self.type == NZQuestionTypeHistoryLevel) {
             //往期关卡-线下题（地标已毁坏）
             UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_prompt_Invalid"]];
             [imageView sizeToFit];
@@ -651,7 +669,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                       [imageView removeFromSuperview];
                                                   }];
                              }];
-        } else if (self.type == SKQuestionTypeTimeLimitLevel) {
+        } else if (self.type == NZQuestionTypeTimeLimitLevel) {
             //限时关卡-线下题目
             if (self.currentQuestion.base_type == 1) {
                 //LBS
@@ -705,7 +723,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)composeView:(SKComposeView *)composeView didComposeWithAnswer:(NSString *)answer {
-    if (_type == SKQuestionTypeTimeLimitLevel) {
+    if (_type == NZQuestionTypeTimeLimitLevel) {
         [[[SKServiceManager sharedInstance] answerService] answerTimeLimitTextQuestionWithAnswerText:answer
                                                                                             callback:^(BOOL success, SKResponsePackage *response) {
                                                                                                 if (response.result == 0) {
@@ -738,7 +756,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                                                                 } else if (response.result == -7007) {
                                                                                                 }
                                                                                             }];
-    } else if (_type == SKQuestionTypeHistoryLevel) {
+    } else if (_type == NZQuestionTypeHistoryLevel) {
         [[[SKServiceManager sharedInstance] answerService] answerExpiredTextQuestionWithQuestionID:self.currentQuestion.qid
                                                                                         answerText:answer
                                                                                           callback:^(BOOL success, SKResponsePackage *response) {
@@ -1239,14 +1257,14 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     if ([keyPath isEqualToString:@"isAnswered"]) {
         _answerButton.hidden = self.isAnswered;
         if (self.isAnswered == NO) {
-            //[_timeView setQuestion:self.currentQuestion type:_type endTime:_endTime];
+            [_timeView setQuestion:self.currentQuestion type:_type endTime:_endTime];
             _detailScrollView.contentSize = CGSizeMake(self.view.width, SCROLLVIEW_HEIGHT);
             [self.view viewWithTag:100].hidden = NO;
             [self.view viewWithTag:101].hidden = YES;
             [self.view viewWithTag:102].hidden = YES;
             [self.view viewWithTag:103].hidden = YES;
         } else {
-            //[_timeView setQuestion:self.currentQuestion type:_type endTime:_endTime];
+            [_timeView setQuestion:self.currentQuestion type:_type endTime:_endTime];
             _detailScrollView.contentSize = CGSizeMake(self.view.width*4, SCROLLVIEW_HEIGHT);
             [self.view viewWithTag:100].hidden = NO;
             [self.view viewWithTag:101].hidden = NO;

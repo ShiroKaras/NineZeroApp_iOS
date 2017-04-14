@@ -21,6 +21,8 @@ typedef enum : NSUInteger {
 
 @interface NZQuestionDetailViewController : UIViewController
 @property (nonatomic, assign) id<NZQuestionViewControllerDelegate> delegate;
+@property (nonatomic, assign) uint64_t endTime;
+
 - (instancetype)initWithType:(NZQuestionType)type questionID:(NSString *)questionID;
 
 @end

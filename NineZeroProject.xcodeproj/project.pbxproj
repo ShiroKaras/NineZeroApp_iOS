@@ -1523,11 +1523,6 @@
 			children = (
 				1162372E1E4B32CF009FEDCA /* SKAllQuestionViewController.h */,
 				1162372F1E4B32CF009FEDCA /* SKAllQuestionViewController.m */,
-				116237321E4B32CF009FEDCA /* SKCardTimeView.h */,
-				116237331E4B32CF009FEDCA /* SKCardTimeView.m */,
-				116237341E4B32CF009FEDCA /* SKCardTimeView.xib */,
-				116237351E4B32CF009FEDCA /* SKComposeView.h */,
-				116237361E4B32CF009FEDCA /* SKComposeView.m */,
 				116237371E4B32CF009FEDCA /* SKDescriptionView.h */,
 				116237381E4B32CF009FEDCA /* SKDescriptionView.m */,
 				1162373B1E4B32CF009FEDCA /* SKQuestionRankListView.h */,
@@ -1561,6 +1556,11 @@
 				116237421E4B32CF009FEDCA /* SKTicketView.m */,
 				116237391E4B32CF009FEDCA /* SKHintView.h */,
 				1162373A1E4B32CF009FEDCA /* SKHintView.m */,
+				116237321E4B32CF009FEDCA /* SKCardTimeView.h */,
+				116237331E4B32CF009FEDCA /* SKCardTimeView.m */,
+				116237341E4B32CF009FEDCA /* SKCardTimeView.xib */,
+				116237351E4B32CF009FEDCA /* SKComposeView.h */,
+				116237361E4B32CF009FEDCA /* SKComposeView.m */,
 			);
 			name = 3.0;
 			sourceTree = "<group>";

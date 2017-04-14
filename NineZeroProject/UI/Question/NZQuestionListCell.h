@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class SKQuestion;
+
 @interface NZQuestionListCell : UITableViewCell
 @property (nonatomic, assign) float cellHeight;
+
+- (void)setCellWithQuetion:(SKQuestion *)question;
+
 @end

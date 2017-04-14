@@ -27,12 +27,44 @@
             make.left.equalTo(@16);
         }];
         
-        UIImageView *rankTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_successtext1"]];
-        [scrollView addSubview:rankTextImageView];
-        [rankTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self);
-            make.top.equalTo(titleImageView.mas_bottom).offset(31);
-        }];
+        UIImageView *rankTextImageView;
+        if (reward.rank<10) {
+            rankTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_successtext2"]];
+            [scrollView addSubview:rankTextImageView];
+            [rankTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(self);
+                make.top.equalTo(titleImageView.mas_bottom).offset(31);
+            }];
+            
+            UILabel *percentLabel = [UILabel new];
+            percentLabel.font = MOON_FONT_OF_SIZE(40);
+            percentLabel.textColor = COMMON_PINK_COLOR;
+            percentLabel.text = [NSString stringWithFormat:@"%ld",reward.rank];
+            [percentLabel sizeToFit];
+            [scrollView addSubview:percentLabel];
+            [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(rankTextImageView.mas_left).offset(88.5);
+                make.bottom.equalTo(rankTextImageView.mas_bottom).offset(-20);
+            }];
+        } else {
+            rankTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_successtext1"]];
+            [scrollView addSubview:rankTextImageView];
+            [rankTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(self);
+                make.top.equalTo(titleImageView.mas_bottom).offset(31);
+            }];
+            
+            UILabel *percentLabel = [UILabel new];
+            percentLabel.font = MOON_FONT_OF_SIZE(40);
+            percentLabel.textColor = COMMON_PINK_COLOR;
+            percentLabel.text = @"99.9%";
+            [percentLabel sizeToFit];
+            [scrollView addSubview:percentLabel];
+            [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(rankTextImageView.mas_left).offset(98);
+                make.bottom.equalTo(rankTextImageView.mas_bottom).offset(-27);
+            }];
+        }
         
         UIImageView *textImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_gettext"]];
         [scrollView addSubview:textImageView1];
@@ -43,7 +75,7 @@
         
         //金币
         UILabel *goldLabel = [UILabel new];
-        goldLabel.text = @"5";
+        goldLabel.text = reward.gold==nil?@"0":reward.gold;
         goldLabel.textColor = COMMON_PINK_COLOR;
         goldLabel.font = MOON_FONT_OF_SIZE(30);
         [goldLabel sizeToFit];
@@ -62,7 +94,7 @@
         
         //宝石
         UILabel *gemLabel = [UILabel new];
-        gemLabel.text = @"5";
+        gemLabel.text = reward.gemstone==nil?@"0":reward.gemstone;
         gemLabel.textColor = COMMON_PINK_COLOR;
         gemLabel.font = MOON_FONT_OF_SIZE(30);
         [gemLabel sizeToFit];
@@ -81,7 +113,7 @@
         
         //经验值
         UILabel *expLabel = [UILabel new];
-        expLabel.text = @"5";
+        expLabel.text = reward.experience_value==nil?@"0":reward.experience_value;
         expLabel.textColor = COMMON_PINK_COLOR;
         expLabel.font = MOON_FONT_OF_SIZE(30);
         [expLabel sizeToFit];
@@ -100,10 +132,15 @@
         
         [self layoutIfNeeded];
         
-        SKTicketView *ticket = [[SKTicketView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-280)/2, expTextImageView.bottom+31, 280, 108) reward:reward.ticket];
-        [scrollView addSubview:ticket];
+        scrollView.contentSize = CGSizeMake(frame.size.width, expTextImageView.bottom+16);
         
-        scrollView.contentSize = CGSizeMake(frame.size.width, ticket.bottom);
+        if (reward.ticket != nil) {
+            SKTicketView *ticket = [[SKTicketView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-280)/2, expTextImageView.bottom+31, 280, 108) reward:reward.ticket];
+            [scrollView addSubview:ticket];
+            scrollView.contentSize = CGSizeMake(frame.size.width, ticket.bottom+16);
+        }
+        
+        
     }
     return self;
 }

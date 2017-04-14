@@ -31,7 +31,7 @@
 	[super viewWillAppear:animated];
 	[TalkingData trackPageBegin:@"homepage"];
 	[[UIApplication sharedApplication]
-		setStatusBarHidden:YES
+		setStatusBarHidden:NO
 		     withAnimation:UIStatusBarAnimationNone];
 	[self.navigationController.navigationBar setHidden:YES];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO];

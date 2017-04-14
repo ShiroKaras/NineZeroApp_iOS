@@ -16,6 +16,7 @@
 @interface NZQuestionListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<SKQuestion*>* dataArray;
+@property (nonatomic, assign) uint64_t endTime;
 @end
 
 @implementation NZQuestionListViewController
@@ -65,7 +66,10 @@
 - (void)loadData {
     [[[SKServiceManager sharedInstance] questionService] getQuestionListCallback:^(BOOL success, NSArray<SKQuestion *> *questionList) {
         _dataArray = questionList;
-        NSLog(@"qid:%@", questionList[0].qid);
+        //计算结束时间
+        NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+        NSTimeInterval a=[dat timeIntervalSince1970];
+        _endTime = (uint64_t)a+[questionList[0].count_down longLongValue];
         [self.tableView reloadData];
     }];
 }
@@ -84,6 +88,7 @@
     if (cell==nil) {
         cell = [[NZQuestionListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZQuestionListCell class])];
     }
+    [cell setCellWithQuetion:indexPath.section==0?self.dataArray[0]:self.dataArray[indexPath.row+1]];
     
     return cell;
 }
@@ -96,6 +101,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         NZQuestionDetailViewController *controller = [[NZQuestionDetailViewController alloc] initWithType:NZQuestionTypeTimeLimitLevel questionID:self.dataArray[0].qid];
+        controller.endTime = _endTime;
         [self.navigationController pushViewController:controller animated:YES];
     } else if (indexPath.section == 1){
         NZQuestionDetailViewController *controller = [[NZQuestionDetailViewController alloc] initWithType:NZQuestionTypeHistoryLevel questionID:self.dataArray[indexPath.row+1].qid];

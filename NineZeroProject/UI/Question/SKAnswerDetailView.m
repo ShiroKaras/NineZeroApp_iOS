@@ -130,8 +130,6 @@
 }
 
 - (void)createUI {
-	[[UIApplication sharedApplication] setStatusBarHidden:YES];
-
 	_backScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
 	_backScrollView.bottom = self.bottom - 10;
 	_backScrollView.backgroundColor = COMMON_SEPARATOR_COLOR;

@@ -92,7 +92,7 @@
             SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
             [[[SKServiceManager sharedInstance] questionService] getRandomUserListWithQuestionID:questionID callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
                 if (success) {
-                    _participatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_who_else"]];
+                    _participatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_writepage_text"]];
                     [_participatorImageView sizeToFit];
                     [_participatorView addSubview:_participatorImageView];
                     
