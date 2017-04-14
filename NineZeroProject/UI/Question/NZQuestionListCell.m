@@ -11,10 +11,6 @@
 
 @interface NZQuestionListCell()
 @property (nonatomic, strong) SKQuestion *question;
-@property (nonatomic, strong) UIImageView *questionCoverImageView;
-@property (nonatomic, strong) UIImageView *timeLabelImageView;
-@property (nonatomic, strong) UILabel *timeLabel;
-@property (nonatomic, assign) time_t deltaTime;
 @end
 
 @implementation NZQuestionListCell
@@ -63,6 +59,7 @@
     _question = question;
     if (question.limit_time_type==1) {
         _timeLabel.hidden = NO;
+        _timeLabelImageView.hidden = NO;
         _deltaTime = [question.count_down longLongValue];
         [self scheduleCountDownTimer];
     } else {
@@ -70,9 +67,11 @@
         //往期关卡
         if (question.is_answer) {
             _timeLabelImageView.image = [UIImage imageNamed:@"img_puzzlepage_successlabel"];
+            _timeLabelImageView.hidden = NO;
         } else {
             if (question.base_type) {
                 _timeLabelImageView.image = [UIImage imageNamed:@"img_puzzlepage_offlinelabel"];
+                _timeLabelImageView.hidden = NO;
             } else {
                 _timeLabelImageView.hidden = YES;
             }

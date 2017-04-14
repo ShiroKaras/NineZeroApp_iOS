@@ -105,6 +105,7 @@
 
 @interface SKHintList : NSObject
 @property (nonatomic, assign) NSInteger num; //线索数量
+@property (nonatomic, copy) NSString *gold;
 @property (nonatomic, copy) NSString *hint_one;
 @property (nonatomic, copy) NSString *hint_two;
 @property (nonatomic, copy) NSString *hint_three;

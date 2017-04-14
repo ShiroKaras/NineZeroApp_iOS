@@ -16,6 +16,7 @@
 @interface NZQuestionListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<SKQuestion*>* dataArray;
+@property (nonatomic, assign) time_t deltaTime;
 @property (nonatomic, assign) uint64_t endTime;
 @end
 
@@ -89,7 +90,6 @@
         cell = [[NZQuestionListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZQuestionListCell class])];
     }
     [cell setCellWithQuetion:indexPath.section==0?self.dataArray[0]:self.dataArray[indexPath.row+1]];
-    
     return cell;
 }
 

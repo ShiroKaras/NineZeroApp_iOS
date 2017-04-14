@@ -261,14 +261,25 @@
 		}];
 }
 
-- (void)getHintWithQuestionID:(NSString *)questionID number:(NSString *)number callback:(SKResponseCallback)callback {
+- (void)getHintWithQuestionID:(NSString *)questionID number:(int)number callback:(SKResponseCallback)callback {
     NSDictionary *dict = @{
                            @"method": @"getGoldClue",
                            @"qid": questionID,
-                           @"number": [NSString stringWithFormat:@"%d", [number intValue]+1]
+                           @"number": [NSString stringWithFormat:@"%d", number+1]
                            };
     [self questionBaseRequestWithParam:dict callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
+    }];
+}
+
+- (void)getHintListWithQuestionID:(NSString *)questionID callback:(SKQuestionHintListCallback)callback {
+    NSDictionary *dict = @{
+                           @"method": @"getQuestionClueList",
+                           @"qid": questionID,
+                           };
+    [self questionBaseRequestWithParam:dict callback:^(BOOL success, SKResponsePackage *response) {
+        SKHintList *hintList = [SKHintList mj_objectWithKeyValues:[response.data mj_keyValues]];
+        callback(success, response.result, hintList);
     }];
 }
 

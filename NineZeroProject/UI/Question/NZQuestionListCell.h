@@ -13,6 +13,11 @@
 @interface NZQuestionListCell : UITableViewCell
 @property (nonatomic, assign) float cellHeight;
 
+@property (nonatomic, strong) UIImageView *questionCoverImageView;
+@property (nonatomic, strong) UIImageView *timeLabelImageView;
+@property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, assign) time_t deltaTime;
+
 - (void)setCellWithQuetion:(SKQuestion *)question;
 
 @end

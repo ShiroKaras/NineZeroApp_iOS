@@ -61,6 +61,9 @@ typedef void (^SKQuestionAnswerDetail) (BOOL success, SKAnswerDetail *answerDeta
 - (void)shareQuestionWithQuestionID:(NSString *)questionID callback:(SKResponseCallback)callback;
 
 //获取提示（3.0）
-- (void)getHintWithQuestionID:(NSString *)questionID number:(NSString *)number callback:(SKResponseCallback)callback;
+- (void)getHintWithQuestionID:(NSString *)questionID number:(int)number callback:(SKResponseCallback)callback;
+
+//获取提示列表 (3.0)
+- (void)getHintListWithQuestionID:(NSString *)questionID callback:(SKQuestionHintListCallback)callback;
 
 @end
