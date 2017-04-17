@@ -12,6 +12,6 @@
 
 @interface NZMascotView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame withMascotIndex:(SKMascot*)mascot;
+- (instancetype)initWithFrame:(CGRect)frame withMascot:(SKMascot*)mascot;
 
 @end
