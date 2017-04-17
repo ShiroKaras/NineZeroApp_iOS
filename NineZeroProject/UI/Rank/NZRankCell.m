@@ -87,5 +87,11 @@
     return self;
 }
 
+- (void)setRanker:(SKRanker *)ranker {
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:ranker.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    _rankOrderLabel.text = [NSString stringWithFormat:@"%ld",ranker.rank];
+    _usernameLabel.text = ranker.user_name;
+    _expLabel.text = ranker.user_experience_value;
+}
 
 @end

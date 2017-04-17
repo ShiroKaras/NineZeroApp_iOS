@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class SKRanker;
+
 @interface NZRankCell : UITableViewCell
 @property (nonatomic, assign) float cellHeight;
+
+- (void)setRanker:(SKRanker *)ranker;
+
 @end

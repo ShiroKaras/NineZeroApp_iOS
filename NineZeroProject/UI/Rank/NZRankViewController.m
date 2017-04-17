@@ -13,6 +13,9 @@
 
 @interface NZRankViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong)   NSArray<SKRanker *> *rankerList;
+
 @end
 
 @implementation NZRankViewController
@@ -40,10 +43,24 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView registerClass:[NZRankCell class] forCellReuseIdentifier:NSStringFromClass([NZRankCell class])];
     [self.view addSubview:self.tableView];
+    
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] profileService] getSeason2RankListCallback:^(BOOL success, NSArray<SKRanker *> *rankerList) {
+        if (success) {
+            _rankerList = rankerList;
+            [self.tableView reloadData];
+            [HTProgressHUD dismiss];
+        } else {
+            [HTProgressHUD dismiss];
+        }
+    }];
 }
 
 #pragma mark - UITableView Delegate
@@ -53,7 +70,7 @@
     if (cell==nil) {
         cell = [[NZRankCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZRankCell class])];
     }
-    
+    [cell setRanker:self.rankerList[indexPath.row]];
     return cell;
 }
 
