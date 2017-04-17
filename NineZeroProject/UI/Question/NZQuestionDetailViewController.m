@@ -390,51 +390,54 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)loadData {
     [HTProgressHUD show];
-    [[[SKServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:self.currentQuestion.qid
-                                                                                callback:^(BOOL success, SKQuestion *question) {
-                                                                                    [HTProgressHUD dismiss];
-                                                                                    _timeView.hidden = NO;
-                                                                                    _answerButton.hidden = NO;
-                                                                                    
-                                                                                    self.currentQuestion = question;
-                                                                                    self.isAnswered = question.is_answer;
-                                                                                    
-                                                                                    [self createDetail];
-                                                                                    
-                                                                                    //视频
-                                                                                    [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
-                                                                                    
-                                                                                    if (self.currentQuestion.base_type==0) {
-                                                                                        [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write"] forState:UIControlStateNormal];
-                                                                                        [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write_highlight"] forState:UIControlStateHighlighted];
-                                                                                    } else {
-                                                                                        if (self.type == NZQuestionTypeTimeLimitLevel) {
-                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_scanning"] forState:UIControlStateNormal];
-                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_scanning_highlight"] forState:UIControlStateHighlighted];
-                                                                                        } else if (self.type == NZQuestionTypeHistoryLevel) {
-                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_locked"] forState:UIControlStateNormal];
-                                                                                            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_locked_highlight"] forState:UIControlStateHighlighted];
-                                                                                        }
-                                                                                    }
-                                                                                    
-                                                                                    
-                                                                                    
-                                                                                    [[[SKServiceManager sharedInstance] answerService] getRewardWithQuestionID:self.currentQuestion.qid
-                                                                                                                                                      rewardID:self.currentQuestion.reward_id
-                                                                                                                                                      callback:^(BOOL success, SKResponsePackage *response) {
-                                                                                                                                                          if (response.result == 0) {
-                                                                                                                                                              self.rewardDict = response.data;
-                                                                                                                                                              self.reward = [SKReward mj_objectWithKeyValues:self.rewardDict];
-                                                                                                                                                          }
-                                                                                                                                                      }];
-                                                                                    
-                                                                                    [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid
-                                                                                                                                                               callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
-                                                                                                                                                                   self.top10Array = userRankList;
-                                                                                                                                                               }];
-                                                                                    
-//                                                                                    [self loadMascot];
-                                                                                }];
+    [[[SKServiceManager sharedInstance] questionService] getQuestionDetailWithQuestionID:self.currentQuestion.qid callback:^(BOOL success, SKQuestion *question) {
+        [HTProgressHUD dismiss];
+        _timeView.hidden = NO;
+        _answerButton.hidden = NO;
+        
+        self.currentQuestion = question;
+        self.isAnswered = question.is_answer;
+        
+        [self createDetail];
+        
+        //视频
+        [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
+        
+        if (self.currentQuestion.base_type==0) {
+            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write"] forState:UIControlStateNormal];
+            [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write_highlight"] forState:UIControlStateHighlighted];
+        } else {
+            if (self.type == NZQuestionTypeTimeLimitLevel) {
+                [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_scanning"] forState:UIControlStateNormal];
+                [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_scanning_highlight"] forState:UIControlStateHighlighted];
+            } else if (self.type == NZQuestionTypeHistoryLevel) {
+                [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_locked"] forState:UIControlStateNormal];
+                [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_locked_highlight"] forState:UIControlStateHighlighted];
+            }
+        }
+        
+        [[[SKServiceManager sharedInstance] answerService] getRewardWithQuestionID:self.currentQuestion.qid
+                                                                          rewardID:self.currentQuestion.reward_id
+                                                                          callback:^(BOOL success, SKResponsePackage *response) {
+                                                                              if (response.result == 0) {
+                                                                                  self.rewardDict = response.data;
+                                                                                  self.reward = [SKReward mj_objectWithKeyValues:self.rewardDict];
+                                                                                  //奖励
+                                                                                  _questionGiftView = [[NZQuestionGiftView alloc] initWithFrame:CGRectMake(3*_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) withReward:self.reward];
+                                                                                  [_detailScrollView addSubview:_questionGiftView];
+                                                                              }
+                                                                          }];
+        
+        [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid
+                                                                                   callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
+                                                                                       self.top10Array = userRankList;
+                                                                                       //排名列表
+                                                                                       _questionListView = [[NZQuestionRankListView alloc] initWithFrame:CGRectMake(2*_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) rankArray:self.top10Array];
+                                                                                       [_detailScrollView addSubview:_questionListView];
+                                                                                   }];
+        
+        //                                                                                    [self loadMascot];
+    }];
 }
 
 - (void)createDetail {
@@ -445,14 +448,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     //答案文章
     _questionAnswerView = [[SKAnswerDetailView alloc] initWithFrame:CGRectMake(_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) questionID:self.currentQuestion.qid];
 //    [_detailScrollView addSubview:_questionAnswerView];
-    
-    //排名列表
-    _questionListView = [[NZQuestionRankListView alloc] initWithFrame:CGRectMake(2*_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) rankArray:self.top10Array];
-    [_detailScrollView addSubview:_questionListView];
-    
-    //奖励
-    _questionGiftView = [[NZQuestionGiftView alloc] initWithFrame:CGRectMake(3*_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) withReward:self.reward];
-    [_detailScrollView addSubview:_questionGiftView];
 }
 
 //视频

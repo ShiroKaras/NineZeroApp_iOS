@@ -265,6 +265,7 @@
     NSDictionary *dict = @{
                            @"method": @"getGoldClue",
                            @"qid": questionID,
+                           @"area_id": @"010",
                            @"number": [NSString stringWithFormat:@"%d", number+1]
                            };
     [self questionBaseRequestWithParam:dict callback:^(BOOL success, SKResponsePackage *response) {
