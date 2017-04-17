@@ -29,7 +29,7 @@
         _backgroundImageView.image = [UIImage imageNamed:@"img_lingzaipage_bg"];
         [self addSubview:_backgroundImageView];
         
-        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16+44, 45.5, 45.5)];
+        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16+64, 45.5, 45.5)];
         icon.image = [UIImage imageNamed:@"img_lingzaipage_imprisontime"];
         [self addSubview:icon];
         

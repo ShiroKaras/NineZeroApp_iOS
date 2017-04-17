@@ -176,6 +176,8 @@
 		11B4EF7C1E9B270C00FF5E83 /* NZQuestionRankListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF7B1E9B270C00FF5E83 /* NZQuestionRankListView.m */; };
 		11B4EF7F1E9B717B00FF5E83 /* NZQuestionGiftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF7E1E9B717B00FF5E83 /* NZQuestionGiftView.m */; };
 		11B4EF851EA4613F00FF5E83 /* NZMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF841EA4613F00FF5E83 /* NZMascotView.m */; };
+		11B4EF8B1EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF8A1EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.m */; };
+		11B4EF8E1EA4D20100FF5E83 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF8D1EA4D20100FF5E83 /* UILabel+ChangeLineSpaceAndWordSpace.m */; };
 		11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE831DEFD52A001A3E0F /* SKModel.m */; };
 		11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE901DEFF5DA001A3E0F /* SKStorageManager.m */; };
 		11B8AEED1DF1820B001A3E0F /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEE61DF1820B001A3E0F /* AESCrypt.m */; };
@@ -657,6 +659,10 @@
 		11B4EF7E1E9B717B00FF5E83 /* NZQuestionGiftView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZQuestionGiftView.m; path = NineZeroProject/UI/Question/NZQuestionGiftView.m; sourceTree = "<group>"; };
 		11B4EF831EA4613F00FF5E83 /* NZMascotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZMascotView.h; path = NineZeroProject/UI/Mascot/NZMascotView.h; sourceTree = "<group>"; };
 		11B4EF841EA4613F00FF5E83 /* NZMascotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZMascotView.m; path = NineZeroProject/UI/Mascot/NZMascotView.m; sourceTree = "<group>"; };
+		11B4EF891EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZMascotCrimeFileViewController.h; path = NineZeroProject/UI/Mascot/NZMascotCrimeFileViewController.h; sourceTree = "<group>"; };
+		11B4EF8A1EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZMascotCrimeFileViewController.m; path = NineZeroProject/UI/Mascot/NZMascotCrimeFileViewController.m; sourceTree = "<group>"; };
+		11B4EF8C1EA4D20100FF5E83 /* UILabel+ChangeLineSpaceAndWordSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+ChangeLineSpaceAndWordSpace.h"; sourceTree = "<group>"; };
+		11B4EF8D1EA4D20100FF5E83 /* UILabel+ChangeLineSpaceAndWordSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ChangeLineSpaceAndWordSpace.m"; sourceTree = "<group>"; };
 		11B8AE821DEFD52A001A3E0F /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKModel.h; path = NineZeroProject/Model/SKModel.h; sourceTree = "<group>"; };
 		11B8AE831DEFD52A001A3E0F /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKModel.m; path = NineZeroProject/Model/SKModel.m; sourceTree = "<group>"; };
 		11B8AE8F1DEFF5DA001A3E0F /* SKStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKStorageManager.h; path = NineZeroProject/Storage/SKStorageManager.h; sourceTree = "<group>"; };
@@ -1225,6 +1231,8 @@
 				113F99811E979B70009FABE8 /* NZMascotMainViewController.m */,
 				11B4EF831EA4613F00FF5E83 /* NZMascotView.h */,
 				11B4EF841EA4613F00FF5E83 /* NZMascotView.m */,
+				11B4EF891EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.h */,
+				11B4EF8A1EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.m */,
 			);
 			name = 3.0;
 			sourceTree = "<group>";
@@ -1812,6 +1820,8 @@
 			children = (
 				113C42181E2482DB003E393F /* MotionEffectView */,
 				11F706341E0CD802004332C2 /* DES */,
+				11B4EF8C1EA4D20100FF5E83 /* UILabel+ChangeLineSpaceAndWordSpace.h */,
+				11B4EF8D1EA4D20100FF5E83 /* UILabel+ChangeLineSpaceAndWordSpace.m */,
 				17B8F7441C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.h */,
 				17B8F7451C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m */,
 				174C53361BE7A57000893C22 /* CommonUI.h */,
@@ -2742,6 +2752,7 @@
 				17F37A761C255420006759D1 /* HUD+Utility.m in Sources */,
 				11961CDC1D2D2B3400A00AF9 /* UIImage+ImageEffects.m in Sources */,
 				1787FD1C1C4A8884006E55A6 /* ARRadar.m in Sources */,
+				11B4EF8E1EA4D20100FF5E83 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				17AE3B371C9884B10082390F /* NSDate+TimeAgo.m in Sources */,
 				116236ED1E4B3145009FEDCA /* ar.cc in Sources */,
 				1162372B1E4B32B5009FEDCA /* HTNotificationController.m in Sources */,
@@ -2799,6 +2810,7 @@
 				98088D6C1E5703C000ADB66F /* ServerConfiguration.m in Sources */,
 				1162371D1E4B329E009FEDCA /* SKLoginViewController.m in Sources */,
 				11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */,
+				11B4EF8B1EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
 				98088D661E56EC9400ADB66F /* BaseConfiguration.m in Sources */,

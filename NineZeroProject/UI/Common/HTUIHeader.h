@@ -41,6 +41,7 @@
 #import <UIKit/UIKit.h>
 #import <YLGIFImage/YLGIFImage.h>
 #import <YLGIFImage/YLImageView.h>
+#import "UILabel+ChangeLineSpaceAndWordSpace.h"
 
 #import "TalkingData.h"
 #import "UMMobClick/MobClick.h"

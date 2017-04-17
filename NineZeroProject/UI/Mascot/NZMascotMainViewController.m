@@ -10,6 +10,7 @@
 #import "HTUIHeader.h"
 
 #import "NZMascotView.h"
+#import "NZMascotCrimeFileViewController.h"
 
 @interface NZMascotMainViewController () <UIScrollViewDelegate>
 @property (nonatomic, assign) NSInteger currentIndex;
@@ -36,13 +37,13 @@
     
     self.currentIndex = 0;
     
-    _mScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 20, self.view.width, self.view.height-20-49)];
-    _mScrollView.contentSize = CGSizeMake(_mScrollView.width*7, _mScrollView.height);
-    _mScrollView.delegate = self;
-    _mScrollView.pagingEnabled = YES;
-    _mScrollView.bounces = NO;
+    _mScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -20, self.view.width, self.view.height+20-49)];
+    _mScrollView.contentSize = CGSizeMake(self.view.width*7, self.view.height-49);
     _mScrollView.showsHorizontalScrollIndicator = NO;
     _mScrollView.showsVerticalScrollIndicator = NO;
+    _mScrollView.bounces = NO;
+    _mScrollView.pagingEnabled = YES;
+    _mScrollView.delegate = self;
     [self.view addSubview:_mScrollView];
     
     for (int i = 0; i<7; i++) {
@@ -70,8 +71,6 @@
         make.centerY.equalTo(titleImageView);
         make.right.equalTo(titleView).offset(-13.5);
     }];
-    
-    
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -101,7 +100,13 @@
     } else {
         [_titleRightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_archives"] forState:UIControlStateNormal];
         [_titleRightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_archives_highlight"] forState:UIControlStateHighlighted];
+        [_titleRightButton addTarget:self action:@selector(didClickMascotCrimeFileButton:) forControlEvents:UIControlEventTouchUpInside];
     }
+}
+
+- (void)didClickMascotCrimeFileButton:(UIButton*)sender {
+    NZMascotCrimeFileViewController *controller = [[NZMascotCrimeFileViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end
