@@ -45,8 +45,8 @@
         [_timeLabel sizeToFit];
         [self.contentView addSubview:_timeLabel];
         [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(_timeLabelImageView);
-            make.centerY.equalTo(_timeLabelImageView);
+            make.centerX.equalTo(_timeLabelImageView).offset(2);
+            make.centerY.equalTo(_timeLabelImageView).offset(2);
         }];
         
         [self layoutIfNeeded];
@@ -57,18 +57,19 @@
 
 - (void)setCellWithQuetion:(SKQuestion *)question {
     _question = question;
-    if (question.limit_time_type==1) {
-        _timeLabel.hidden = NO;
+    if (question.is_answer) {
+        _timeLabelImageView.image = [UIImage imageNamed:@"img_puzzlepage_successlabel"];
         _timeLabelImageView.hidden = NO;
-        _deltaTime = [question.count_down longLongValue];
-        [self scheduleCountDownTimer];
     } else {
-        _timeLabel.hidden = YES;
-        //往期关卡
-        if (question.is_answer) {
-            _timeLabelImageView.image = [UIImage imageNamed:@"img_puzzlepage_successlabel"];
+        if (question.limit_time_type==1) {
+            _timeLabel.hidden = NO;
             _timeLabelImageView.hidden = NO;
+            _timeLabelImageView.image = [UIImage imageNamed:@"img_puzzlepage_timelabel"];
+            _deltaTime = [question.count_down longLongValue];
+            [self scheduleCountDownTimer];
         } else {
+            _timeLabel.hidden = YES;
+            //往期关卡
             if (question.base_type) {
                 _timeLabelImageView.image = [UIImage imageNamed:@"img_puzzlepage_offlinelabel"];
                 _timeLabelImageView.hidden = NO;
@@ -90,7 +91,7 @@
     
     //TODO: 更改TimeView
     if (_deltaTime > 0) {
-        _timeLabel.text = [NSString stringWithFormat:@"%2ld:%2ld:%2ld",hour,minute,second];
+        _timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
     } else {
         // 过去时间
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];

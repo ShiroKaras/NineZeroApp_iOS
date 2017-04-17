@@ -9,11 +9,14 @@
 #import "NZMascotMainViewController.h"
 #import "HTUIHeader.h"
 
+#import "NZMascotView.h"
+
 @interface NZMascotMainViewController ()
 @property (nonatomic, assign) NSInteger currentIndex;
 
-@property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UIButton *titleRightButton;
+@property (nonatomic, strong) UIScrollView *mScrollView;
+
 @end
 
 @implementation NZMascotMainViewController
@@ -30,12 +33,6 @@
 - (void)createUI{
     self.view.backgroundColor = COMMON_BG_COLOR;
     self.currentIndex = 0;
-    
-    _backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height-49)];
-    _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-    _backgroundImageView.layer.masksToBounds = YES;
-    _backgroundImageView.image = [UIImage imageNamed:@"img_lingzaipage_bg"];
-    [self.view addSubview:_backgroundImageView];
     
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     titleView.backgroundColor = COMMON_BG_COLOR;
@@ -56,11 +53,6 @@
         make.centerY.equalTo(titleImageView);
         make.right.equalTo(titleView).offset(-13.5);
     }];
-    
-    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-    long long dTime = [[NSNumber numberWithDouble:time] longLongValue]; // 将double转为long long型
-    NSString *curTime = [NSString stringWithFormat:@"%llu",dTime]; // 输出long long型
-    NSLog(@"%@", curTime);
 }
 
 @end

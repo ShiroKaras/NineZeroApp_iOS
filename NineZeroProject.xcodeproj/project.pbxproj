@@ -175,6 +175,7 @@
 		11B44EC41D8FF30D00CD2BAC /* trailer_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 11B44EC31D8FF30D00CD2BAC /* trailer_video.mp4 */; };
 		11B4EF7C1E9B270C00FF5E83 /* NZQuestionRankListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF7B1E9B270C00FF5E83 /* NZQuestionRankListView.m */; };
 		11B4EF7F1E9B717B00FF5E83 /* NZQuestionGiftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF7E1E9B717B00FF5E83 /* NZQuestionGiftView.m */; };
+		11B4EF851EA4613F00FF5E83 /* NZMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF841EA4613F00FF5E83 /* NZMascotView.m */; };
 		11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE831DEFD52A001A3E0F /* SKModel.m */; };
 		11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE901DEFF5DA001A3E0F /* SKStorageManager.m */; };
 		11B8AEED1DF1820B001A3E0F /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEE61DF1820B001A3E0F /* AESCrypt.m */; };
@@ -654,6 +655,8 @@
 		11B4EF7B1E9B270C00FF5E83 /* NZQuestionRankListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZQuestionRankListView.m; path = NineZeroProject/UI/Question/NZQuestionRankListView.m; sourceTree = "<group>"; };
 		11B4EF7D1E9B717B00FF5E83 /* NZQuestionGiftView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZQuestionGiftView.h; path = NineZeroProject/UI/Question/NZQuestionGiftView.h; sourceTree = "<group>"; };
 		11B4EF7E1E9B717B00FF5E83 /* NZQuestionGiftView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZQuestionGiftView.m; path = NineZeroProject/UI/Question/NZQuestionGiftView.m; sourceTree = "<group>"; };
+		11B4EF831EA4613F00FF5E83 /* NZMascotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZMascotView.h; path = NineZeroProject/UI/Mascot/NZMascotView.h; sourceTree = "<group>"; };
+		11B4EF841EA4613F00FF5E83 /* NZMascotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZMascotView.m; path = NineZeroProject/UI/Mascot/NZMascotView.m; sourceTree = "<group>"; };
 		11B8AE821DEFD52A001A3E0F /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKModel.h; path = NineZeroProject/Model/SKModel.h; sourceTree = "<group>"; };
 		11B8AE831DEFD52A001A3E0F /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKModel.m; path = NineZeroProject/Model/SKModel.m; sourceTree = "<group>"; };
 		11B8AE8F1DEFF5DA001A3E0F /* SKStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKStorageManager.h; path = NineZeroProject/Storage/SKStorageManager.h; sourceTree = "<group>"; };
@@ -1220,6 +1223,8 @@
 			children = (
 				113F99801E979B70009FABE8 /* NZMascotMainViewController.h */,
 				113F99811E979B70009FABE8 /* NZMascotMainViewController.m */,
+				11B4EF831EA4613F00FF5E83 /* NZMascotView.h */,
+				11B4EF841EA4613F00FF5E83 /* NZMascotView.m */,
 			);
 			name = 3.0;
 			sourceTree = "<group>";
@@ -2252,8 +2257,9 @@
 		1777D35D1BE798F400AC0203 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = NZ;
 				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = ronhu;
+				ORGANIZATIONNAME = SinLemon;
 				TargetAttributes = {
 					1777D3641BE798F400AC0203 = {
 						CreatedOnToolsVersion = 7.1;
@@ -2720,6 +2726,7 @@
 				1162374D1E4B32CF009FEDCA /* SKTicketView.m in Sources */,
 				116236C11E4B3072009FEDCA /* SKCGIManager.m in Sources */,
 				112167641CF0637B0048EA01 /* SKLaunchAnimationViewController.m in Sources */,
+				11B4EF851EA4613F00FF5E83 /* NZMascotView.m in Sources */,
 				1162375C1E4B32E5009FEDCA /* SKMascotFightManager.m in Sources */,
 				1162374C1E4B32CF009FEDCA /* SKQuestionViewController.m in Sources */,
 				11B360781E8A69220077A081 /* NZTaskDetailViewController.m in Sources */,

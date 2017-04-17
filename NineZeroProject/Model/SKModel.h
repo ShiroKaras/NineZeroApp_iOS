@@ -232,6 +232,9 @@
 @property (nonatomic, strong) SKDefaultMascotSkill *second_season;
 @end
 
+@interface SKMascot : NSObject
+@end
+
 @interface SKNotification : NSObject
 @property (nonatomic, assign) uint64_t notice_id; // 消息id
 @property (nonatomic, assign) uint64_t user_id;   // 用户id
