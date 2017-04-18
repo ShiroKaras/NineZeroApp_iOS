@@ -9,6 +9,8 @@
 #import "NZMascotCrimeFileViewController.h"
 #import "HTUIHeader.h"
 
+#import "NZEvidenceView.h"
+
 @interface NZMascotCrimeFileViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) SKMascot *mascot;
@@ -16,6 +18,8 @@
 
 @property (nonatomic, strong) UIImageView *infoImageView;
 @property (nonatomic, strong) UILabel *infoLabel;
+
+@property (nonatomic, strong) NZEvidenceView *propView;
 @end
 
 @implementation NZMascotCrimeFileViewController
@@ -82,7 +86,8 @@
     for (int i=0; i<count; i++) {
         int x = i%4;
         int y = (int)i/4;
-        UIView *propView = [[UIView alloc] initWithFrame:CGRectMake(16+x*(width+12), top+16+y*(width+12), width, width)];
+        UIButton *propView = [[UIButton alloc] initWithFrame:CGRectMake(16+x*(width+12), top+16+y*(width+12), width, width)];
+        [propView addTarget:self action:@selector(didClickProp:) forControlEvents:UIControlEventTouchUpInside];
         propView.backgroundColor = COMMON_GREEN_COLOR;
         [_mScrollView addSubview:propView];
     }
@@ -92,6 +97,14 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - Actions
+
+- (void)didClickProp:(UIButton *)sender {
+    _propView = [[NZEvidenceView alloc] initWithFrame:self.view.bounds withMascot:self.mascot];
+    _propView.userInteractionEnabled = YES;
+    [self.view addSubview:_propView];
 }
 
 @end

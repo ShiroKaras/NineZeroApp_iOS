@@ -178,6 +178,7 @@
 		11B4EF851EA4613F00FF5E83 /* NZMascotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF841EA4613F00FF5E83 /* NZMascotView.m */; };
 		11B4EF8B1EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF8A1EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.m */; };
 		11B4EF8E1EA4D20100FF5E83 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF8D1EA4D20100FF5E83 /* UILabel+ChangeLineSpaceAndWordSpace.m */; };
+		11B4EF911EA5C5D100FF5E83 /* NZEvidenceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF901EA5C5D100FF5E83 /* NZEvidenceView.m */; };
 		11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE831DEFD52A001A3E0F /* SKModel.m */; };
 		11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE901DEFF5DA001A3E0F /* SKStorageManager.m */; };
 		11B8AEED1DF1820B001A3E0F /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEE61DF1820B001A3E0F /* AESCrypt.m */; };
@@ -663,6 +664,8 @@
 		11B4EF8A1EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZMascotCrimeFileViewController.m; path = NineZeroProject/UI/Mascot/NZMascotCrimeFileViewController.m; sourceTree = "<group>"; };
 		11B4EF8C1EA4D20100FF5E83 /* UILabel+ChangeLineSpaceAndWordSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+ChangeLineSpaceAndWordSpace.h"; sourceTree = "<group>"; };
 		11B4EF8D1EA4D20100FF5E83 /* UILabel+ChangeLineSpaceAndWordSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ChangeLineSpaceAndWordSpace.m"; sourceTree = "<group>"; };
+		11B4EF8F1EA5C5D100FF5E83 /* NZEvidenceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZEvidenceView.h; path = NineZeroProject/UI/Mascot/NZEvidenceView.h; sourceTree = "<group>"; };
+		11B4EF901EA5C5D100FF5E83 /* NZEvidenceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZEvidenceView.m; path = NineZeroProject/UI/Mascot/NZEvidenceView.m; sourceTree = "<group>"; };
 		11B8AE821DEFD52A001A3E0F /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKModel.h; path = NineZeroProject/Model/SKModel.h; sourceTree = "<group>"; };
 		11B8AE831DEFD52A001A3E0F /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKModel.m; path = NineZeroProject/Model/SKModel.m; sourceTree = "<group>"; };
 		11B8AE8F1DEFF5DA001A3E0F /* SKStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKStorageManager.h; path = NineZeroProject/Storage/SKStorageManager.h; sourceTree = "<group>"; };
@@ -1233,6 +1236,8 @@
 				11B4EF841EA4613F00FF5E83 /* NZMascotView.m */,
 				11B4EF891EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.h */,
 				11B4EF8A1EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.m */,
+				11B4EF8F1EA5C5D100FF5E83 /* NZEvidenceView.h */,
+				11B4EF901EA5C5D100FF5E83 /* NZEvidenceView.m */,
 			);
 			name = 3.0;
 			sourceTree = "<group>";
@@ -2760,6 +2765,7 @@
 				118C310D1E5D4630009C3701 /* SKNotificationRootViewController.m in Sources */,
 				986D35231E7927C2006320D4 /* SKComposeView.m in Sources */,
 				11C7646E1E120E5300D86F40 /* MJExtensionConst.m in Sources */,
+				11B4EF911EA5C5D100FF5E83 /* NZEvidenceView.m in Sources */,
 				1162378B1E4D62EA009FEDCA /* HTARCaptureController.m in Sources */,
 				11F7063A1E0D2424004332C2 /* CustomSecurityPolicy.m in Sources */,
 				11B8AEEE1DF1820B001A3E0F /* NSData+Base64.m in Sources */,
