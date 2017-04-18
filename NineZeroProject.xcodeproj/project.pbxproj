@@ -1756,19 +1756,19 @@
 		11FF643A1DDD5BF500768080 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				1162370F1E4B329E009FEDCA /* SKLoginRootViewController.h */,
+				116237101E4B329E009FEDCA /* SKLoginRootViewController.m */,
 				116237661E4B332E009FEDCA /* SKUserAgreementViewController.h */,
 				116237671E4B332E009FEDCA /* SKUserAgreementViewController.m */,
 				116237681E4B332E009FEDCA /* SKUserAgreementViewController.xib */,
-				1162370D1E4B329E009FEDCA /* SKConfirmPasswordViewController.h */,
-				1162370E1E4B329E009FEDCA /* SKConfirmPasswordViewController.m */,
-				1162370F1E4B329E009FEDCA /* SKLoginRootViewController.h */,
-				116237101E4B329E009FEDCA /* SKLoginRootViewController.m */,
 				116237111E4B329E009FEDCA /* SKLoginViewController.h */,
 				116237121E4B329E009FEDCA /* SKLoginViewController.m */,
 				116237131E4B329E009FEDCA /* SKRegisterTextField.h */,
 				116237141E4B329E009FEDCA /* SKRegisterTextField.m */,
 				116237151E4B329E009FEDCA /* SKRegisterViewController.h */,
 				116237161E4B329E009FEDCA /* SKRegisterViewController.m */,
+				1162370D1E4B329E009FEDCA /* SKConfirmPasswordViewController.h */,
+				1162370E1E4B329E009FEDCA /* SKConfirmPasswordViewController.m */,
 				116237171E4B329E009FEDCA /* SKResetPasswordViewController.h */,
 				116237181E4B329E009FEDCA /* SKResetPasswordViewController.m */,
 				116237191E4B329E009FEDCA /* SKVerifyViewController.h */,
