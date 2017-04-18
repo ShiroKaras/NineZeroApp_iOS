@@ -46,9 +46,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [TalkingData trackPageBegin:@"personalpage"];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -153,7 +153,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 	} else if (self.type == SKQuestionTypeHistoryLevel) {
 		[TalkingData trackPageBegin:@"historylevelpage"];
 	}
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+	//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 	if (self.navigationController) {
 		self.navigationController.navigationBarHidden = YES;
 	}

@@ -34,7 +34,7 @@
 		setStatusBarHidden:NO
 		     withAnimation:UIStatusBarAnimationNone];
 	[self.navigationController.navigationBar setHidden:YES];
-	[[UIApplication sharedApplication] setStatusBarHidden:NO];
+	//[[UIApplication sharedApplication] setStatusBarHidden:NO];
 	[self loadData];
 }
 

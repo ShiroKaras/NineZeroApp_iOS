@@ -51,9 +51,6 @@
             make.top.equalTo(propTextImageView.mas_bottom).offset(25);
         }];
 
-//        UIButton *closeButton = [[UIButton alloc] initWithFrame:frame];
-//        [closeButton addTarget:self action:@selector(closeView) forControlEvents:UIControlEventTouchUpInside];
-//        [self addSubview:closeButton];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeView)];
         [self addGestureRecognizer:tap];
     }

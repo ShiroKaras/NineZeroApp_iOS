@@ -42,7 +42,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[TalkingData trackPageBegin:@"loginpage"];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+	//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 	[self.navigationController.navigationBar setHidden:YES];
 	_blackView.hidden = YES;
 }
