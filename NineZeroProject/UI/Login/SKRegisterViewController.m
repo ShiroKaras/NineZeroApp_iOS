@@ -69,7 +69,7 @@
 }
 
 - (void)createUI {
-    self.view.backgroundColor = COMMON_RED_COLOR;
+    self.view.backgroundColor = COMMON_GREEN_COLOR;
     
     __weak __typeof(self)weakSelf = self;
     
@@ -85,13 +85,11 @@
         make.left.equalTo(@4);
     }];
     
-    UILabel *titleLabel = [UILabel new];
-    titleLabel.text = @"开始吧！";
-    titleLabel.textColor = [UIColor whiteColor];
-    [self.view addSubview:titleLabel];
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_registerpage_title"]];
+    [self.view addSubview:titleImageView];
+    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf.view);
-        make.top.equalTo(@22);
+        make.top.equalTo(@46);
     }];
     
     _phoneTextField = [[SKRegisterTextField alloc] init];
@@ -134,7 +132,8 @@
     _nextButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
     [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xCA0E27]] forState:UIControlStateNormal];
     [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xFF546B]] forState:UIControlStateHighlighted];
-    [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
+    [_nextButton setImage:[UIImage imageNamed:@"btn_logins_next"] forState:UIControlStateNormal];
+    [_nextButton setImage:[UIImage imageNamed:@"btn_logins_next_highlight"] forState:UIControlStateHighlighted];
     _nextButton.adjustsImageWhenHighlighted = NO;
     [self.view addSubview:_nextButton];
     
@@ -232,7 +231,8 @@
     _nextButton.frame = CGRectMake(0, self.view.height, self.view.width, 50);
     [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xCA0E27]] forState:UIControlStateNormal];
     [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xFF546B]] forState:UIControlStateHighlighted];
-    [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
+    [_nextButton setImage:[UIImage imageNamed:@"btn_logins_next"] forState:UIControlStateNormal];
+    [_nextButton setImage:[UIImage imageNamed:@"btn_logins_next_highlight"] forState:UIControlStateHighlighted];
     _nextButton.adjustsImageWhenHighlighted = NO;
     [self.view addSubview:_nextButton];
     

@@ -120,8 +120,9 @@
     
     for (int i = 0; i<4; i++) {
         UIView *circleView = [UIView new];
-        circleView.layer.cornerRadius = 23;
-        circleView.backgroundColor = [UIColor colorWithHex:0x97045D];
+        circleView.backgroundColor = COMMON_GREEN_COLOR;
+        circleView.layer.borderWidth =2;
+        circleView.layer.borderColor = [UIColor whiteColor].CGColor;
         [self.view addSubview:circleView];
         [circleView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@46);

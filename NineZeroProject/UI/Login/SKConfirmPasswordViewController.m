@@ -113,7 +113,8 @@
     _nextButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
     _nextButton.backgroundColor = [UIColor blackColor];
     _nextButton.alpha = 0.6;
-    [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
+    [_nextButton setImage:[UIImage imageNamed:@"btn_logins_next"] forState:UIControlStateNormal];
+    [_nextButton setImage:[UIImage imageNamed:@"btn_logins_next_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:_nextButton];
 }
 
