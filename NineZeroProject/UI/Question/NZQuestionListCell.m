@@ -59,6 +59,7 @@
     _question = question;
     if (question.is_answer) {
         _timeLabelImageView.image = [UIImage imageNamed:@"img_puzzlepage_successlabel"];
+        _timeLabel.hidden = YES;
         _timeLabelImageView.hidden = NO;
     } else {
         if (question.limit_time_type==1) {
@@ -69,6 +70,7 @@
             [self scheduleCountDownTimer];
         } else {
             _timeLabel.hidden = YES;
+            _timeLabelImageView.hidden = NO;
             //往期关卡
             if (question.base_type) {
                 _timeLabelImageView.image = [UIImage imageNamed:@"img_puzzlepage_offlinelabel"];
