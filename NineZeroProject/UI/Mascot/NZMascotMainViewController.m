@@ -65,6 +65,7 @@
     }];
     
     _titleRightButton = [UIButton new];
+    [_titleRightButton addTarget:self action:@selector(didClickTopRightButton:) forControlEvents:UIControlEventTouchUpInside];
     [_titleRightButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzlepage_ranking"] forState:UIControlStateNormal];
     [_titleRightButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzlepage_ranking_highlight"] forState:UIControlStateHighlighted];
     [titleView addSubview:_titleRightButton];
@@ -98,11 +99,17 @@
     if (index == SKMascotTypeDefault) {
         [_titleRightButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzlepage_ranking"] forState:UIControlStateNormal];
         [_titleRightButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzlepage_ranking_highlight"] forState:UIControlStateHighlighted];
-        [_titleRightButton addTarget:self action:@selector(didClickRankListButton:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         [_titleRightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_archives"] forState:UIControlStateNormal];
         [_titleRightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_archives_highlight"] forState:UIControlStateHighlighted];
-        [_titleRightButton addTarget:self action:@selector(didClickMascotCrimeFileButton:) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+- (void)didClickTopRightButton:(UIButton *)sender {
+    if (self.currentIndex == SKMascotTypeDefault) {
+        [self didClickRankListButton:sender];
+    } else {
+        [self didClickMascotCrimeFileButton:sender];
     }
 }
 
