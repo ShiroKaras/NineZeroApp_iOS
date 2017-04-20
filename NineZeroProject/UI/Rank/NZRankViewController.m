@@ -9,16 +9,23 @@
 #import "NZRankViewController.h"
 #import "HTUIHeader.h"
 
-#import "NZRankCell.h"
-
 @interface NZRankViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, assign) NZRankListType type;
 @property (nonatomic, strong) UITableView *tableView;
-
-@property (nonatomic, strong)   NSArray<SKRanker *> *rankerList;
+@property (nonatomic, strong) NSArray<SKRanker *> *rankerList;
 
 @end
 
 @implementation NZRankViewController
+
+- (instancetype)initWithType:(NZRankListType)type
+{
+    self = [super init];
+    if (self) {
+        _type = type;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -70,16 +77,17 @@
     if (cell==nil) {
         cell = [[NZRankCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZRankCell class])];
     }
-    [cell setRanker:self.rankerList[indexPath.row]];
+    if (indexPath.row == 0) {
+        [cell setRanker:self.rankerList[0] isMe:YES withType:_type];
+    } else {
+        [cell setRanker:self.rankerList[indexPath.row-1] isMe:NO withType:_type];
+    }
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NZRankCell *cell = (NZRankCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-    if (indexPath.row == 0) {
-        return 60;
-    } else
-        return 40;
+    return cell.cellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

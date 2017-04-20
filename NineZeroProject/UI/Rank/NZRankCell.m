@@ -10,9 +10,11 @@
 #import "HTUIHeader.h"
 
 @interface NZRankCell()
+@property (nonatomic, strong) UIView        *backView;
 @property (nonatomic, strong) UILabel       *rankOrderLabel;
 @property (nonatomic, strong) UIImageView   *avatarImageView;
 @property (nonatomic, strong) UILabel       *usernameLabel;
+@property (nonatomic, strong) UIImageView   *expImageView;
 @property (nonatomic, strong) UILabel       *expLabel;
 @end
 
@@ -23,62 +25,63 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = COMMON_BG_COLOR;
         
-        UIView *backView = [UIView new];
-        backView.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:backView];
-        [backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _backView = [UIView new];
+        _backView.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:_backView];
+        [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(@16);
             make.right.equalTo(self.mas_right).offset(-16);
             make.top.equalTo(self.mas_top);
-            make.height.equalTo(@30);
+            make.height.mas_equalTo(30);
         }];
         
         _rankOrderLabel = [UILabel new];
         _rankOrderLabel.text = @"99";
         _rankOrderLabel.textColor = COMMON_PINK_COLOR;
         _rankOrderLabel.font = MOON_FONT_OF_SIZE(14);
-        [backView addSubview:_rankOrderLabel];
+        [_backView addSubview:_rankOrderLabel];
         [_rankOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(backView);
-            make.centerY.equalTo(backView);
+            make.left.equalTo(_backView);
+            make.centerY.equalTo(_backView);
         }];
-
+        
         _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
         _avatarImageView.layer.cornerRadius = 15;
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [backView addSubview:_avatarImageView];
+        [_backView addSubview:_avatarImageView];
         [_avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(30, 30));
-            make.centerX.equalTo(backView.mas_left).offset(72);
-            make.centerY.equalTo(backView);
+            make.height.equalTo(_backView.mas_height);
+            make.width.equalTo(_backView.mas_height);
+            make.centerX.equalTo(_backView.mas_left).offset(72);
+            make.centerY.equalTo(_backView);
         }];
         
         _usernameLabel = [UILabel new];
         _usernameLabel.text = @"我是一个零仔";
         _usernameLabel.textColor = [UIColor colorWithHex:0x3c3c3c];
         _usernameLabel.font = PINGFANG_FONT_OF_SIZE(10);
-        [backView addSubview:_usernameLabel];
+        [_backView addSubview:_usernameLabel];
         [_usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(backView);
-            make.left.equalTo(backView.mas_left).offset(102);
+            make.centerY.equalTo(_backView);
+            make.left.equalTo(_backView.mas_left).offset(112);
         }];
         
-        UIImageView *expImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzleranking_usetop"]];
-        [backView addSubview:expImageView];
-        [expImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(backView);
-            make.centerX.equalTo(backView.mas_right).offset(-43-8);
+        _expImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzleranking_usetop"]];
+        [_backView addSubview:_expImageView];
+        [_expImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(_backView);
+            make.centerX.equalTo(_backView.mas_right).offset(-43-8);
         }];
         
         _expLabel = [UILabel new];
         _expLabel.text = @"99999";
         _expLabel.textColor = [UIColor colorWithHex:0x3c3c3c];
         _expLabel.font = MOON_FONT_OF_SIZE(10);
-        [backView addSubview:_expLabel];
+        [_backView addSubview:_expLabel];
         [_expLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(backView);
-            make.left.equalTo(expImageView.mas_right).offset(3);
+            make.centerY.equalTo(_backView);
+            make.left.equalTo(_expImageView.mas_right).offset(3);
         }];
         
         [self layoutIfNeeded];
@@ -92,6 +95,62 @@
     _rankOrderLabel.text = [NSString stringWithFormat:@"%ld",ranker.rank];
     _usernameLabel.text = ranker.user_name;
     _expLabel.text = ranker.user_experience_value;
+}
+
+- (void)setRanker:(SKRanker *)ranker isMe:(BOOL)isMe {
+    if (isMe) {
+        [_backView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@16);
+            make.right.equalTo(self.mas_right).offset(-16);
+            make.top.equalTo(self.mas_top);
+            make.height.mas_equalTo(50);
+        }];
+        _avatarImageView.layer.cornerRadius = 25;
+        
+        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(12);
+        _usernameLabel.textColor = COMMON_GREEN_COLOR;
+        
+        _expImageView.image = [UIImage imageNamed:@"img_puzzleranking_mytop"];
+        
+        _expLabel.font = MOON_FONT_OF_SIZE(12);
+        _expLabel.textColor = COMMON_GREEN_COLOR;
+        
+        [self setRanker:ranker];
+        _cellHeight = 60;
+    } else {
+        [_backView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@16);
+            make.right.equalTo(self.mas_right).offset(-16);
+            make.top.equalTo(self.mas_top);
+            make.height.mas_equalTo(30);
+        }];
+        _avatarImageView.layer.cornerRadius = 15;
+        
+        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(10);
+        _usernameLabel.textColor = COMMON_TEXT_3_COLOR;
+        
+        _expImageView.image = [UIImage imageNamed:@"img_puzzleranking_usetop"];
+        
+        _expLabel.font = MOON_FONT_OF_SIZE(10);
+        _expLabel.textColor = COMMON_TEXT_3_COLOR;
+        
+        [self setRanker:ranker];
+        _cellHeight = 40;
+    }
+}
+
+- (void)setRanker:(SKRanker *)ranker isMe:(BOOL)isMe withType:(NZRankListType)type {
+    if (type == NZRankListTypeQuestion) {
+        [self setRanker:ranker isMe:isMe];
+    } else if (type == NZRankListTypeHunter) {
+        [self setRanker:ranker isMe:isMe];
+        if (isMe) {
+            _expImageView.image = [UIImage imageNamed:@"img_hunterranking_mytime"];
+        } else {
+            _expImageView.image = [UIImage imageNamed:@"img_hunterranking_usertime"];
+        }
+        _expLabel.text = @"999H";
+    }
 }
 
 @end

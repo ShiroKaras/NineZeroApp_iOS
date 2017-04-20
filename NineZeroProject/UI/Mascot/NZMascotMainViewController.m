@@ -11,6 +11,7 @@
 
 #import "NZMascotView.h"
 #import "NZMascotCrimeFileViewController.h"
+#import "NZRankViewController.h"
 
 @interface NZMascotMainViewController () <UIScrollViewDelegate>
 @property (nonatomic, assign) NSInteger currentIndex;
@@ -97,6 +98,7 @@
     if (index == SKMascotTypeDefault) {
         [_titleRightButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzlepage_ranking"] forState:UIControlStateNormal];
         [_titleRightButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzlepage_ranking_highlight"] forState:UIControlStateHighlighted];
+        [_titleRightButton addTarget:self action:@selector(didClickRankListButton:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         [_titleRightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_archives"] forState:UIControlStateNormal];
         [_titleRightButton setBackgroundImage:[UIImage imageNamed:@"btn_lingzaipage_archives_highlight"] forState:UIControlStateHighlighted];
@@ -107,6 +109,11 @@
 - (void)didClickMascotCrimeFileButton:(UIButton*)sender {
     NZMascotCrimeFileViewController *controller = [[NZMascotCrimeFileViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)didClickRankListButton:(UIButton*)sender {
+    NZRankViewController *viewController = [[NZRankViewController alloc] initWithType:NZRankListTypeHunter];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

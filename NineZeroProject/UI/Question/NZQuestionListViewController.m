@@ -78,7 +78,7 @@
 #pragma mark - Actions
 
 - (void)didClickRankButton:(UIButton *)sender {
-    NZRankViewController *controller = [[NZRankViewController alloc] init];
+    NZRankViewController *controller = [[NZRankViewController alloc] initWithType:NZRankListTypeQuestion];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

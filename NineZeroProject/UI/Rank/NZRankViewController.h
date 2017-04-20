@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NZRankCell.h"
 
 @interface NZRankViewController : UIViewController
 @property (nonatomic, strong) UIImageView *titleImageView;
+
+- (instancetype)initWithType:(NZRankListType)type;
+
 @end

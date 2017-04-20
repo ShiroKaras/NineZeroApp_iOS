@@ -82,11 +82,14 @@
     
     int width = (self.view.width -16*2 -12*3)/4;
     int top = titleImageView2.bottom;
-    int count=20;
+    int count=24;
     for (int i=0; i<count; i++) {
         int x = i%4;
         int y = (int)i/4;
         UIButton *propView = [[UIButton alloc] initWithFrame:CGRectMake(16+x*(width+12), top+16+y*(width+12), width, width)];
+        propView.backgroundColor = [UIColor clearColor];
+        propView.layer.borderWidth = 2;
+        propView.layer.borderColor = [UIColor whiteColor].CGColor;
         [propView addTarget:self action:@selector(didClickProp:) forControlEvents:UIControlEventTouchUpInside];
         propView.backgroundColor = COMMON_GREEN_COLOR;
         [_mScrollView addSubview:propView];
