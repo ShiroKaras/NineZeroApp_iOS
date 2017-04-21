@@ -181,6 +181,7 @@
 		11B4EF911EA5C5D100FF5E83 /* NZEvidenceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF901EA5C5D100FF5E83 /* NZEvidenceView.m */; };
 		11B4EF951EA8C7D500FF5E83 /* NZLabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF941EA8C7D500FF5E83 /* NZLabViewController.m */; };
 		11B4EF981EA8C80600FF5E83 /* NZLabTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF971EA8C80600FF5E83 /* NZLabTableViewCell.m */; };
+		11B4EF9B1EA9FE5000FF5E83 /* NZLabDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF9A1EA9FE5000FF5E83 /* NZLabDetailViewController.m */; };
 		11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE831DEFD52A001A3E0F /* SKModel.m */; };
 		11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE901DEFF5DA001A3E0F /* SKStorageManager.m */; };
 		11B8AEED1DF1820B001A3E0F /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEE61DF1820B001A3E0F /* AESCrypt.m */; };
@@ -672,6 +673,8 @@
 		11B4EF941EA8C7D500FF5E83 /* NZLabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZLabViewController.m; path = NineZeroProject/UI/Lab/NZLabViewController.m; sourceTree = "<group>"; };
 		11B4EF961EA8C80600FF5E83 /* NZLabTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZLabTableViewCell.h; path = NineZeroProject/UI/Lab/NZLabTableViewCell.h; sourceTree = "<group>"; };
 		11B4EF971EA8C80600FF5E83 /* NZLabTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZLabTableViewCell.m; path = NineZeroProject/UI/Lab/NZLabTableViewCell.m; sourceTree = "<group>"; };
+		11B4EF991EA9FE5000FF5E83 /* NZLabDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZLabDetailViewController.h; path = NineZeroProject/UI/Lab/NZLabDetailViewController.h; sourceTree = "<group>"; };
+		11B4EF9A1EA9FE5000FF5E83 /* NZLabDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZLabDetailViewController.m; path = NineZeroProject/UI/Lab/NZLabDetailViewController.m; sourceTree = "<group>"; };
 		11B8AE821DEFD52A001A3E0F /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKModel.h; path = NineZeroProject/Model/SKModel.h; sourceTree = "<group>"; };
 		11B8AE831DEFD52A001A3E0F /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKModel.m; path = NineZeroProject/Model/SKModel.m; sourceTree = "<group>"; };
 		11B8AE8F1DEFF5DA001A3E0F /* SKStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKStorageManager.h; path = NineZeroProject/Storage/SKStorageManager.h; sourceTree = "<group>"; };
@@ -1515,6 +1518,8 @@
 				11B4EF941EA8C7D500FF5E83 /* NZLabViewController.m */,
 				11B4EF961EA8C80600FF5E83 /* NZLabTableViewCell.h */,
 				11B4EF971EA8C80600FF5E83 /* NZLabTableViewCell.m */,
+				11B4EF991EA9FE5000FF5E83 /* NZLabDetailViewController.h */,
+				11B4EF9A1EA9FE5000FF5E83 /* NZLabDetailViewController.m */,
 			);
 			name = Lab;
 			sourceTree = "<group>";
@@ -2761,6 +2766,7 @@
 				1162374D1E4B32CF009FEDCA /* SKTicketView.m in Sources */,
 				116236C11E4B3072009FEDCA /* SKCGIManager.m in Sources */,
 				112167641CF0637B0048EA01 /* SKLaunchAnimationViewController.m in Sources */,
+				11B4EF9B1EA9FE5000FF5E83 /* NZLabDetailViewController.m in Sources */,
 				11B4EF851EA4613F00FF5E83 /* NZMascotView.m in Sources */,
 				1162375C1E4B32E5009FEDCA /* SKMascotFightManager.m in Sources */,
 				1162374C1E4B32CF009FEDCA /* SKQuestionViewController.m in Sources */,
