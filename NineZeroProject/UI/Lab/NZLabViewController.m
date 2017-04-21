@@ -34,11 +34,17 @@
         make.centerX.equalTo(headerView);
     }];
     
+    UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, ROUND_WIDTH_FLOAT(180))];
+    tableViewHeaderView.backgroundColor = COMMON_GREEN_COLOR;
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64-49) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.showsHorizontalScrollIndicator = NO;
+    self.tableView.tableHeaderView = tableViewHeaderView;
     [self.tableView registerClass:[NZLabTableViewCell class] forCellReuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
     [self.view addSubview:self.tableView];
 }
