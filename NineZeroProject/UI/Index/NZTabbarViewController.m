@@ -7,10 +7,12 @@
 //
 
 #import "NZTabbarViewController.h"
+#import "HTUIHeader.h"
+
 #import "SKHomepageViewController.h"
 #import "NZQuestionListViewController.h"
 #import "NZMascotMainViewController.h"
-#import "HTUIHeader.h"
+#import "NZLabViewController.h"
 
 @interface NZTabbarViewController ()
 
@@ -38,7 +40,7 @@
     c3.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_lingzai"];
     c3.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_lingzai_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    SKHomepageViewController *c4 = [[SKHomepageViewController alloc] init];
+    NZLabViewController *c4 = [[NZLabViewController alloc] init];
     c4.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
     c4.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_lab"];
     c4.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_lab_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

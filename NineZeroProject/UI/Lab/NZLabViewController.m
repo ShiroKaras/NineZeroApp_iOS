@@ -1,24 +1,24 @@
 //
-//  NZTaskViewController.m
+//  NZLabViewController.m
 //  NineZeroProject
 //
-//  Created by SinLemon on 2017/3/28.
-//  Copyright © 2017年 ronhu. All rights reserved.
+//  Created by SinLemon on 2017/4/20.
+//  Copyright © 2017年 SinLemon. All rights reserved.
 //
 
-#import "NZTaskViewController.h"
+#import "NZLabViewController.h"
 #import "HTUIHeader.h"
 
-#import "NZTaskCell.h"
-#import "NZTaskDetailViewController.h"
+#import "NZLabTableViewCell.h"
 
-@interface NZTaskViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface NZLabViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @end
 
-@implementation NZTaskViewController
+@implementation NZLabViewController
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     self.automaticallyAdjustsScrollViewInsets = false;
@@ -39,9 +39,8 @@
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
-    [self.tableView registerClass:[NZTaskCell class] forCellReuseIdentifier:NSStringFromClass([NZTaskCell class])];
+    [self.tableView registerClass:[NZLabTableViewCell class] forCellReuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
     [self.view addSubview:self.tableView];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,43 +50,22 @@
 #pragma mark - UITableView Delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NZTaskCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NZTaskCell class])];
+    NZLabTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NZLabTableViewCell class])];
     if (cell==nil) {
-        cell = [[NZTaskCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZTaskCell class])];
+        cell = [[NZLabTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
     }
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NZTaskCell *cell = (NZTaskCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    NZLabTableViewCell *cell = (NZLabTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
     return cell.cellHeight;
 }
 
-// 先要设Cell可编辑
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-// 定义编辑样式
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleDelete;
-}
-
-// 进入编辑模式，按下出现的编辑按钮后,进行删除操作
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        /*
-         [_dataMArr removeObjectAtIndex:indexPath.row];
-         [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-         [_tableView reloadData];
-         */
-    }
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NZTaskDetailViewController *controller = [[NZTaskDetailViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
+    
 }
 
 #pragma mark - UITableView DataSource
@@ -100,5 +78,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
+
 
 @end
