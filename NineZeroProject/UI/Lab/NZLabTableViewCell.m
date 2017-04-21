@@ -52,6 +52,16 @@
             make.top.equalTo(_titleLabel.mas_bottom).offset(9);
         }];
         
+        //Underline
+        UIView *underLine = [UIView new];
+        underLine.backgroundColor = COMMON_SEPARATOR_COLOR;
+        [self.contentView addSubview:underLine];
+        [underLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@1);
+            make.left.equalTo(@12);
+            make.right.equalTo(self.contentView).offset(-12);
+            make.bottom.equalTo(self.contentView);
+        }];
     }
     
     return self;
