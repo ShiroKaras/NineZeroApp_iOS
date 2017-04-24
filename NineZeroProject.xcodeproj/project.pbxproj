@@ -189,6 +189,7 @@
 		11B4EFA61EAA198700FF5E83 /* cat4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 11B4EFA21EAA198700FF5E83 /* cat4.jpg */; };
 		11B4EFAB1EAA1A3000FF5E83 /* CHTCollectionViewWaterfallFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EFA81EAA1A3000FF5E83 /* CHTCollectionViewWaterfallFooter.m */; };
 		11B4EFAC1EAA1A3000FF5E83 /* CHTCollectionViewWaterfallHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EFAA1EAA1A3000FF5E83 /* CHTCollectionViewWaterfallHeader.m */; };
+		11B4EFAF1EADD36000FF5E83 /* SKStrongHoldService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EFAE1EADD36000FF5E83 /* SKStrongHoldService.m */; };
 		11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE831DEFD52A001A3E0F /* SKModel.m */; };
 		11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE901DEFF5DA001A3E0F /* SKStorageManager.m */; };
 		11B8AEED1DF1820B001A3E0F /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEE61DF1820B001A3E0F /* AESCrypt.m */; };
@@ -692,6 +693,8 @@
 		11B4EFA81EAA1A3000FF5E83 /* CHTCollectionViewWaterfallFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHTCollectionViewWaterfallFooter.m; path = NineZeroProject/UI/Lab/CHTCollectionViewWaterfallFooter.m; sourceTree = "<group>"; };
 		11B4EFA91EAA1A3000FF5E83 /* CHTCollectionViewWaterfallHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHTCollectionViewWaterfallHeader.h; path = NineZeroProject/UI/Lab/CHTCollectionViewWaterfallHeader.h; sourceTree = "<group>"; };
 		11B4EFAA1EAA1A3000FF5E83 /* CHTCollectionViewWaterfallHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHTCollectionViewWaterfallHeader.m; path = NineZeroProject/UI/Lab/CHTCollectionViewWaterfallHeader.m; sourceTree = "<group>"; };
+		11B4EFAD1EADD36000FF5E83 /* SKStrongHoldService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKStrongHoldService.h; path = NineZeroProject/Service/SKStrongHoldService.h; sourceTree = "<group>"; };
+		11B4EFAE1EADD36000FF5E83 /* SKStrongHoldService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKStrongHoldService.m; path = NineZeroProject/Service/SKStrongHoldService.m; sourceTree = "<group>"; };
 		11B8AE821DEFD52A001A3E0F /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKModel.h; path = NineZeroProject/Model/SKModel.h; sourceTree = "<group>"; };
 		11B8AE831DEFD52A001A3E0F /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKModel.m; path = NineZeroProject/Model/SKModel.m; sourceTree = "<group>"; };
 		11B8AE8F1DEFF5DA001A3E0F /* SKStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKStorageManager.h; path = NineZeroProject/Storage/SKStorageManager.h; sourceTree = "<group>"; };
@@ -1463,6 +1466,8 @@
 				116237751E4C4EC7009FEDCA /* SKScanningService.m */,
 				116DA7B51E64186000006211 /* SKSecretaryService.h */,
 				116DA7B61E64186000006211 /* SKSecretaryService.m */,
+				11B4EFAD1EADD36000FF5E83 /* SKStrongHoldService.h */,
+				11B4EFAE1EADD36000FF5E83 /* SKStrongHoldService.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -2781,6 +2786,7 @@
 				11B4EF951EA8C7D500FF5E83 /* NZLabViewController.m in Sources */,
 				17A89ABA1C1DBA290087BF00 /* FLAnimatedImageView.m in Sources */,
 				1160FB421E0E927F00606F16 /* UIViewController+ImagePicker.m in Sources */,
+				11B4EFAF1EADD36000FF5E83 /* SKStrongHoldService.m in Sources */,
 				1787FD1F1C4A8884006E55A6 /* PRARManager.m in Sources */,
 				11235EEA1E88BCF6000A1F1E /* NZTabbarViewController.m in Sources */,
 				1162376D1E4B33A1009FEDCA /* HTProfileRankCell.m in Sources */,
