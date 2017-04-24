@@ -262,4 +262,28 @@
 @property (nonatomic, copy) NSString *created_time;
 @property (nonatomic, copy) NSString *session_id;
 @property (nonatomic, copy) NSString *confirm_answer;
+
+@end
+
+//据点
+@interface SKStronghold : NSObject
+@property (nonatomic, copy) NSString *id;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *difficulty;   //难度
+@property (nonatomic, copy) NSString *distance;     //距离
+@end
+
+//据点内项目
+@interface SKStrongholdItem : NSObject
+@property (nonatomic, copy) NSString *id;
+@property (nonatomic, copy) NSString *cid;          //城市ID
+@property (nonatomic, copy) NSString *pid;          //零仔ID
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *address;
+@property (nonatomic, copy) NSString *lng;
+@property (nonatomic, copy) NSString *lat;
+@property (nonatomic, copy) NSString *thumbnail;    //缩略图
+@property (nonatomic, copy) NSString *bigpic;       //大图
+@property (nonatomic, copy) NSString *difficulty;   //难度
+@property (nonatomic, assign) BOOL *task_status;  //是否已收藏
 @end

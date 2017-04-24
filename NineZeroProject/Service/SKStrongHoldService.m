@@ -33,7 +33,7 @@
     return securityPolicy;
 }
 
-- (void)secretaryBaseRequestWithParam:(NSDictionary *)dict callback:(SKResponseCallback)callback {
+- (void)strongholdBaseRequestWithParam:(NSDictionary *)dict callback:(SKResponseCallback)callback {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager setSecurityPolicy:[self customSecurityPolicy]];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -65,6 +65,81 @@
           }];
 }
 
+- (void)getStrongholdListWithMascotID:(NSString *)mid forLocation:(CLLocationCoordinate2D)location callback:(SKQuestionStrongholdListCallback)callback{
+    NSDictionary *param = @{
+                            @"method"   : @"getStrongholdList",
+                            @"pid"      : mid,
+                            @"city_code": AppDelegateInstance.cityCode,
+                            @"lat"      : [NSString stringWithFormat:@"%lf", location.latitude],
+                            @"lng"      : [NSString stringWithFormat:@"%lf", location.longitude]
+                            };
+    [self strongholdBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray *dataArray = [NSMutableArray array];
+        for (int i = 0; i < [response.data count]; i++) {
+            SKStronghold *stronghold = [SKStronghold mj_objectWithKeyValues:response.data[i]];
+            [dataArray addObject:stronghold];
+        }
+        callback(success, dataArray);
+    }];
+}
 
+- (void)getStrongholdInfoWithID:(NSString *)sid callback:(SKQuestionStrongholdItemCallback)callback {
+    NSDictionary *param = @{
+                            @"method"   : @"strongholdInfo",
+                            @"id"      : sid,
+                            };
+    [self strongholdBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        SKStrongholdItem *strongholdItem = [SKStrongholdItem mj_objectWithKeyValues:response.data];
+        callback(success, strongholdItem);
+    }];
+}
+
+- (void)getTaskListWithLocation:(CLLocationCoordinate2D)location callback:(SKQuestionStrongholdListCallback)callback{
+    NSDictionary *param = @{
+                            @"method"   : @"getTaskList",
+                            @"lat"      : [NSString stringWithFormat:@"%lf", location.latitude],
+                            @"lng"      : [NSString stringWithFormat:@"%lf", location.longitude]
+                            };
+    [self strongholdBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray *dataArray = [NSMutableArray array];
+        for (int i = 0; i < [response.data count]; i++) {
+            SKStronghold *stronghold = [SKStronghold mj_objectWithKeyValues:response.data[i]];
+            [dataArray addObject:stronghold];
+        }
+        callback(success, dataArray);
+    }];
+}
+
+- (void)addTaskWithID:(NSString *)taskID {
+    NSDictionary *param = @{
+                            @"method"   : @"addTask",
+                            @"sid"      : taskID
+                            };
+    [self strongholdBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        
+    }];
+}
+
+- (void)deleteTaskWithID:(NSString *)taskID {
+    NSDictionary *param = @{
+                            @"method"   : @"cancelTask",
+                            @"sid"      : taskID
+                            };
+    [self strongholdBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        
+    }];
+}
+
+- (void)scanningWithStrongholdID:(NSString *)sid forLoacation:(CLLocationCoordinate2D)location callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method"   : @"strongholdAnswer",
+                            @"sid"      : sid,
+                            @"lat"      : [NSString stringWithFormat:@"%lf", location.latitude],
+                            @"lng"      : [NSString stringWithFormat:@"%lf", location.longitude]
+                            };
+    [self strongholdBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        
+    }];
+}
 
 @end

@@ -18,6 +18,7 @@
 #import "SKCommonService.h"
 #import "SKScanningService.h"
 #import "SKSecretaryService.h"
+#import "SKStrongHoldService.h"
 #import <Qiniu/QiniuSDK.h>
 
 @interface SKServiceManager : NSObject
@@ -50,6 +51,9 @@
 
 /** secretaryService, 负责秘书部分相关业务 */
 - (SKSecretaryService *)secretaryService;
+
+/** strongholdService, 负责据点部分相关业务 */
+- (SKStrongHoldService *)strongholdService;
 
 /** qiniuService, 负责七牛相关的业务 */
 - (QNUploadManager *)qiniuService;

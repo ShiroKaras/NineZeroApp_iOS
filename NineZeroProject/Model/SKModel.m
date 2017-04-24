@@ -95,3 +95,6 @@ HTINIT(SKQuestion)
 
 @implementation SKChatObject
 @end
+
+@implementation SKStronghold
+@end
