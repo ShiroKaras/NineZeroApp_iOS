@@ -10,6 +10,7 @@
 #import "HTUIHeader.h"
 
 #import "NZLabTableViewCell.h"
+#import "NZLabDetailViewController.h"
 
 @interface NZLabViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -71,7 +72,8 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NZLabDetailViewController *controller = [[NZLabDetailViewController alloc] initWithTopicID:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - UITableView DataSource

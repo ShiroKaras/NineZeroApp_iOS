@@ -182,6 +182,13 @@
 		11B4EF951EA8C7D500FF5E83 /* NZLabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF941EA8C7D500FF5E83 /* NZLabViewController.m */; };
 		11B4EF981EA8C80600FF5E83 /* NZLabTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF971EA8C80600FF5E83 /* NZLabTableViewCell.m */; };
 		11B4EF9B1EA9FE5000FF5E83 /* NZLabDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF9A1EA9FE5000FF5E83 /* NZLabDetailViewController.m */; };
+		11B4EF9E1EAA16C500FF5E83 /* NZLabDetialCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EF9D1EAA16C500FF5E83 /* NZLabDetialCollectionViewCell.m */; };
+		11B4EFA31EAA198700FF5E83 /* cat1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 11B4EF9F1EAA198700FF5E83 /* cat1.jpg */; };
+		11B4EFA41EAA198700FF5E83 /* cat2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 11B4EFA01EAA198700FF5E83 /* cat2.jpg */; };
+		11B4EFA51EAA198700FF5E83 /* cat3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 11B4EFA11EAA198700FF5E83 /* cat3.jpg */; };
+		11B4EFA61EAA198700FF5E83 /* cat4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 11B4EFA21EAA198700FF5E83 /* cat4.jpg */; };
+		11B4EFAB1EAA1A3000FF5E83 /* CHTCollectionViewWaterfallFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EFA81EAA1A3000FF5E83 /* CHTCollectionViewWaterfallFooter.m */; };
+		11B4EFAC1EAA1A3000FF5E83 /* CHTCollectionViewWaterfallHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4EFAA1EAA1A3000FF5E83 /* CHTCollectionViewWaterfallHeader.m */; };
 		11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE831DEFD52A001A3E0F /* SKModel.m */; };
 		11B8AE911DEFF5DA001A3E0F /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AE901DEFF5DA001A3E0F /* SKStorageManager.m */; };
 		11B8AEED1DF1820B001A3E0F /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B8AEE61DF1820B001A3E0F /* AESCrypt.m */; };
@@ -675,6 +682,16 @@
 		11B4EF971EA8C80600FF5E83 /* NZLabTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZLabTableViewCell.m; path = NineZeroProject/UI/Lab/NZLabTableViewCell.m; sourceTree = "<group>"; };
 		11B4EF991EA9FE5000FF5E83 /* NZLabDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZLabDetailViewController.h; path = NineZeroProject/UI/Lab/NZLabDetailViewController.h; sourceTree = "<group>"; };
 		11B4EF9A1EA9FE5000FF5E83 /* NZLabDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZLabDetailViewController.m; path = NineZeroProject/UI/Lab/NZLabDetailViewController.m; sourceTree = "<group>"; };
+		11B4EF9C1EAA16C500FF5E83 /* NZLabDetialCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZLabDetialCollectionViewCell.h; path = NineZeroProject/UI/Lab/NZLabDetialCollectionViewCell.h; sourceTree = "<group>"; };
+		11B4EF9D1EAA16C500FF5E83 /* NZLabDetialCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZLabDetialCollectionViewCell.m; path = NineZeroProject/UI/Lab/NZLabDetialCollectionViewCell.m; sourceTree = "<group>"; };
+		11B4EF9F1EAA198700FF5E83 /* cat1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = cat1.jpg; path = Images/cat1.jpg; sourceTree = "<group>"; };
+		11B4EFA01EAA198700FF5E83 /* cat2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = cat2.jpg; path = Images/cat2.jpg; sourceTree = "<group>"; };
+		11B4EFA11EAA198700FF5E83 /* cat3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = cat3.jpg; path = Images/cat3.jpg; sourceTree = "<group>"; };
+		11B4EFA21EAA198700FF5E83 /* cat4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = cat4.jpg; path = Images/cat4.jpg; sourceTree = "<group>"; };
+		11B4EFA71EAA1A3000FF5E83 /* CHTCollectionViewWaterfallFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHTCollectionViewWaterfallFooter.h; path = NineZeroProject/UI/Lab/CHTCollectionViewWaterfallFooter.h; sourceTree = "<group>"; };
+		11B4EFA81EAA1A3000FF5E83 /* CHTCollectionViewWaterfallFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHTCollectionViewWaterfallFooter.m; path = NineZeroProject/UI/Lab/CHTCollectionViewWaterfallFooter.m; sourceTree = "<group>"; };
+		11B4EFA91EAA1A3000FF5E83 /* CHTCollectionViewWaterfallHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHTCollectionViewWaterfallHeader.h; path = NineZeroProject/UI/Lab/CHTCollectionViewWaterfallHeader.h; sourceTree = "<group>"; };
+		11B4EFAA1EAA1A3000FF5E83 /* CHTCollectionViewWaterfallHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHTCollectionViewWaterfallHeader.m; path = NineZeroProject/UI/Lab/CHTCollectionViewWaterfallHeader.m; sourceTree = "<group>"; };
 		11B8AE821DEFD52A001A3E0F /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKModel.h; path = NineZeroProject/Model/SKModel.h; sourceTree = "<group>"; };
 		11B8AE831DEFD52A001A3E0F /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKModel.m; path = NineZeroProject/Model/SKModel.m; sourceTree = "<group>"; };
 		11B8AE8F1DEFF5DA001A3E0F /* SKStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKStorageManager.h; path = NineZeroProject/Storage/SKStorageManager.h; sourceTree = "<group>"; };
@@ -1067,6 +1084,10 @@
 		110F9D7F1CD880E20097EB8A /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				11B4EF9F1EAA198700FF5E83 /* cat1.jpg */,
+				11B4EFA01EAA198700FF5E83 /* cat2.jpg */,
+				11B4EFA11EAA198700FF5E83 /* cat3.jpg */,
+				11B4EFA21EAA198700FF5E83 /* cat4.jpg */,
 				111ACA9A1E2E06FB007DE137 /* LOGO-640.gif */,
 				1114AE031CE48DD800CCF92C /* Assets.xcassets */,
 				111ACA6D1E2DCF83007DE137 /* FightSuccess */,
@@ -1520,6 +1541,12 @@
 				11B4EF971EA8C80600FF5E83 /* NZLabTableViewCell.m */,
 				11B4EF991EA9FE5000FF5E83 /* NZLabDetailViewController.h */,
 				11B4EF9A1EA9FE5000FF5E83 /* NZLabDetailViewController.m */,
+				11B4EF9C1EAA16C500FF5E83 /* NZLabDetialCollectionViewCell.h */,
+				11B4EF9D1EAA16C500FF5E83 /* NZLabDetialCollectionViewCell.m */,
+				11B4EFA71EAA1A3000FF5E83 /* CHTCollectionViewWaterfallFooter.h */,
+				11B4EFA81EAA1A3000FF5E83 /* CHTCollectionViewWaterfallFooter.m */,
+				11B4EFA91EAA1A3000FF5E83 /* CHTCollectionViewWaterfallHeader.h */,
+				11B4EFAA1EAA1A3000FF5E83 /* CHTCollectionViewWaterfallHeader.m */,
 			);
 			name = Lab;
 			sourceTree = "<group>";
@@ -2362,6 +2389,7 @@
 				111ACAC31E2E0FDC007DE137 /* wrath_1.gif in Resources */,
 				98B76F671E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0001.png in Resources */,
 				98B76F761E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0016.png in Resources */,
+				11B4EFA61EAA198700FF5E83 /* cat4.jpg in Resources */,
 				111ACA8C1E2DCF83007DE137 /* right_answer_gif0008.png in Resources */,
 				112167611CEF565A0048EA01 /* LaunchScreen.storyboard in Resources */,
 				17A247AD1C623B9900359CCF /* right_answer_gif_0006.png in Resources */,
@@ -2426,6 +2454,7 @@
 				98B76F771E63F2CE00AA5D25 /* gif_scanning_puzzlescanning_0017.png in Resources */,
 				119C65E91E2769D5001B4CFD /* lust_02_00000.jpg in Resources */,
 				17A2478F1C623B9300359CCF /* raw_wrong_answer_gif_0017.png in Resources */,
+				11B4EFA51EAA198700FF5E83 /* cat3.jpg in Resources */,
 				17461D071C7493DF00C847E8 /* img_ar_right_answer_gif_0013.png in Resources */,
 				17A247B91C623B9900359CCF /* right_answer_gif_0018.png in Resources */,
 				17A247AA1C623B9900359CCF /* right_answer_gif_0003.png in Resources */,
@@ -2468,6 +2497,7 @@
 				11F218581CBB951300D2ED44 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				111ACA901E2DCF83007DE137 /* right_answer_gif0012.png in Resources */,
 				111ACA851E2DCF83007DE137 /* right_answer_gif0001.png in Resources */,
+				11B4EFA41EAA198700FF5E83 /* cat2.jpg in Resources */,
 				17461D0B1C7493DF00C847E8 /* img_ar_right_answer_gif_0017.png in Resources */,
 				119C680B1E2769D6001B4CFD /* wrath_01_00000.jpg in Resources */,
 				17A2478E1C623B9300359CCF /* raw_wrong_answer_gif_0016.png in Resources */,
@@ -2478,6 +2508,7 @@
 				17A247AB1C623B9900359CCF /* right_answer_gif_0004.png in Resources */,
 				111ACA8D1E2DCF83007DE137 /* right_answer_gif0009.png in Resources */,
 				17461D011C7493DF00C847E8 /* img_ar_right_answer_gif_0007.png in Resources */,
+				11B4EFA31EAA198700FF5E83 /* cat1.jpg in Resources */,
 				1787FD191C4A8884006E55A6 /* ar_overlay@2x.png in Resources */,
 				119C64951E2769D4001B4CFD /* lingzai_01_00000.jpg in Resources */,
 				11AD0C4E1DAA3490007951C5 /* targets2.json in Resources */,
@@ -2726,6 +2757,7 @@
 				116237871E4D623D009FEDCA /* SKDownloadProgressView.m in Sources */,
 				11C460571E8D047800FDA2EA /* NZQuestionListCell.m in Sources */,
 				116B5E911E06E5B100E5BDAC /* UIImage+Extension.m in Sources */,
+				11B4EF9E1EAA16C500FF5E83 /* NZLabDetialCollectionViewCell.m in Sources */,
 				116237201E4B329E009FEDCA /* SKResetPasswordViewController.m in Sources */,
 				113F99821E979B70009FABE8 /* NZMascotMainViewController.m in Sources */,
 				1777D36D1BE798F400AC0203 /* AppDelegate.m in Sources */,
@@ -2778,6 +2810,7 @@
 				11C64D3D1E601AC000397835 /* ChatFlowViewController.m in Sources */,
 				17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */,
 				17B429021C54D4A8008AFBA9 /* YYImage.m in Sources */,
+				11B4EFAC1EAA1A3000FF5E83 /* CHTCollectionViewWaterfallHeader.m in Sources */,
 				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,
 				174C53521BE7A60E00893C22 /* CommonUI.m in Sources */,
 				17F37A761C255420006759D1 /* HUD+Utility.m in Sources */,
@@ -2842,6 +2875,7 @@
 				98088D6C1E5703C000ADB66F /* ServerConfiguration.m in Sources */,
 				1162371D1E4B329E009FEDCA /* SKLoginViewController.m in Sources */,
 				11B8AE841DEFD52A001A3E0F /* SKModel.m in Sources */,
+				11B4EFAB1EAA1A3000FF5E83 /* CHTCollectionViewWaterfallFooter.m in Sources */,
 				11B4EF8B1EA4AC0100FF5E83 /* NZMascotCrimeFileViewController.m in Sources */,
 				1721D7281BEFBE1400498304 /* HTStorageDefine.m in Sources */,
 				1706CB4B1BFA542E00E59255 /* NSString+Utility.m in Sources */,
