@@ -84,6 +84,12 @@ HTINIT(SKQuestion)
 @implementation SKRanker
 @end
 
+@implementation SKMascot
+@end
+
+@implementation SKMascotEvidence
+@end
+
 @implementation SKDefaultMascotSkill
 @end
 
@@ -97,4 +103,7 @@ HTINIT(SKQuestion)
 @end
 
 @implementation SKStronghold
+@end
+
+@implementation SKStrongholdItem
 @end

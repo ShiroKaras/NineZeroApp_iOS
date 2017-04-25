@@ -213,6 +213,7 @@
 @property (nonatomic, copy) NSString *user_experience_value;
 @property (nonatomic, copy) NSString *area_name;
 @property (nonatomic, assign) BOOL user_gold_head; //是否有头像边框
+@property (nonatomic, copy) NSString *total_coop_time;  //关押时间
 @end
 
 @interface SKDefaultMascotSkill : NSObject
@@ -232,7 +233,19 @@
 @property (nonatomic, strong) SKDefaultMascotSkill *second_season;
 @end
 
+@interface SKMascotEvidence : NSObject
+@property (nonatomic, copy) NSString *crime_name;
+@property (nonatomic, copy) NSString *crime_pic;
+@property (nonatomic, copy) NSString *crime_description;
+@end
+
 @interface SKMascot : NSObject
+@property (nonatomic, copy) NSString *pet_name;
+@property (nonatomic, copy) NSString *pet_id;
+@property (nonatomic, copy) NSString *pet_last_coop_time;   //剩余时间
+@property (nonatomic, copy) NSString *pet_archives;     //
+@property (nonatomic, copy) NSString *pet_desc;         //零仔描述
+@property (nonatomic, copy) NSArray<SKMascotEvidence*> *crime_evidence;    //犯罪证据
 @end
 
 @interface SKNotification : NSObject
