@@ -47,7 +47,7 @@ typedef void (^NZMascotCoopTimeRankListCallback) (BOOL success, NSArray<SKRanker
 - (void)getMascotCoopTimeRankListCallback:(NZMascotCoopTimeRankListCallback)callback;
 
 //获取其他零仔详情
-- (void)getMascotDetailWithMascotID:(NSString*)mascotID callback:(NZMascotArrayCallback)callback;
+- (void)getMascotDetailWithMascotID:(NSString*)mascotID callback:(void (^)(BOOL, SKMascot *))callback;
 
 //获取零仔证据详情
 - (void)getMascotEvidenceDetailWithID:(NSString *)eid callback:(void(^)(BOOL success, SKMascotEvidence *evidence))callback;

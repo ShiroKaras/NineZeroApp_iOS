@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 
 typedef enum : NSUInteger {
-    SKMascotTypeDefault     = 0,
-    SKMascotTypeSloth       = 1,
-    SKMascotTypePride       = 2,
-    SKMascotTypeWrath       = 3,
-    SKMascotTypeGluttony    = 4,
-    SKMascotTypeLust        = 5,
-    SKMascotTypeEnvy        = 6
+    SKMascotTypeDefault     = 1,
+    SKMascotTypeSloth       = 2,
+    SKMascotTypePride       = 3,
+    SKMascotTypeWrath       = 4,
+    SKMascotTypeGluttony    = 5,
+    SKMascotTypeLust        = 6,
+    SKMascotTypeEnvy        = 7
 } SKMascotType;
 
 @interface NZMascotMainViewController : UIViewController

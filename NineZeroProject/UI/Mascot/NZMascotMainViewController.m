@@ -19,6 +19,8 @@
 @property (nonatomic, strong) UIButton *titleRightButton;
 @property (nonatomic, strong) UIScrollView *mScrollView;
 
+@property (nonatomic, strong) NSArray<SKMascot*> *mascotArray;
+
 @end
 
 @implementation NZMascotMainViewController
@@ -73,6 +75,15 @@
         make.centerY.equalTo(titleImageView);
         make.right.equalTo(titleView).offset(-13.5);
     }];
+    
+    [self loadData];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] mascotService] getAllPetsCoopTimeCallback:^(BOOL success, NSArray<SKMascot *> *mascots) {
+        _mascotArray = mascots;
+        NSLog(@"%@", mascots[0].pet_last_coop_time);
+    }];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -91,8 +102,8 @@
         scrollView.contentOffset=point;
     }
     //根据图片坐标判断页数
-    self.currentIndex = round(point.x/(SCREEN_WIDTH));
-    [self updateButtonWithIndex:self.currentIndex];
+    _currentIndex = round(point.x/(SCREEN_WIDTH))+1;
+    [self updateButtonWithIndex:_currentIndex];
 }
 
 - (void)updateButtonWithIndex:(NSInteger)index {
@@ -114,7 +125,7 @@
 }
 
 - (void)didClickMascotCrimeFileButton:(UIButton*)sender {
-    NZMascotCrimeFileViewController *controller = [[NZMascotCrimeFileViewController alloc] init];
+    NZMascotCrimeFileViewController *controller = [[NZMascotCrimeFileViewController alloc] initWithMascot:_mascotArray[_currentIndex]];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

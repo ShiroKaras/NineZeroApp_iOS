@@ -149,7 +149,7 @@
         } else {
             _expImageView.image = [UIImage imageNamed:@"img_hunterranking_usertime"];
         }
-        _expLabel.text = @"999H";
+        _expLabel.text = [ranker.total_coop_time stringByAppendingString:@"H"];
     }
 }
 

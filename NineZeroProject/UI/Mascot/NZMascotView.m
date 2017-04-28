@@ -13,7 +13,6 @@
 @property (nonatomic, strong) SKMascot *mascot;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UILabel *timeLabel;
-@property (nonatomic, assign) time_t deltaTime;
 @end
 
 @implementation NZMascotView

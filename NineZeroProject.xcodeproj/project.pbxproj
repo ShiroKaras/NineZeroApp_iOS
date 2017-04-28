@@ -219,6 +219,7 @@
 		11C764771E120E5300D86F40 /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C7646C1E120E5300D86F40 /* NSString+MJExtension.m */; };
 		11CA0C581CD24E4200C06333 /* easing.c in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C541CD24E4200C06333 /* easing.c */; };
 		11CA0C591CD24E4200C06333 /* YXEasing.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CA0C571CD24E4200C06333 /* YXEasing.m */; };
+		11CE6E121EB1C36E004F1707 /* NZUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E111EB1C36E004F1707 /* NZUserProfileViewController.m */; };
 		11F218531CBB951300D2ED44 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218311CBB951300D2ED44 /* ShareSDK.framework */; };
 		11F218541CBB951300D2ED44 /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218341CBB951300D2ED44 /* ShareSDKExtension.framework */; };
 		11F218551CBB951300D2ED44 /* ShareSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11F218351CBB951300D2ED44 /* ShareSDKUI.bundle */; };
@@ -752,6 +753,8 @@
 		11CA0C551CD24E4200C06333 /* easing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easing.h; sourceTree = "<group>"; };
 		11CA0C561CD24E4200C06333 /* YXEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXEasing.h; sourceTree = "<group>"; };
 		11CA0C571CD24E4200C06333 /* YXEasing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXEasing.m; sourceTree = "<group>"; };
+		11CE6E101EB1C36E004F1707 /* NZUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZUserProfileViewController.h; path = NineZeroProject/UI/Profile/NZUserProfileViewController.h; sourceTree = "<group>"; };
+		11CE6E111EB1C36E004F1707 /* NZUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZUserProfileViewController.m; path = NineZeroProject/UI/Profile/NZUserProfileViewController.m; sourceTree = "<group>"; };
 		11F218311CBB951300D2ED44 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		11F218341CBB951300D2ED44 /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
 		11F218351CBB951300D2ED44 /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
@@ -1170,21 +1173,8 @@
 		1132B2C61DF5058800DA992F /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				116236F61E4B3288009FEDCA /* HTAboutController.h */,
-				116236F71E4B3288009FEDCA /* HTAboutController.m */,
-				116236F81E4B3288009FEDCA /* HTAboutController.xib */,
-				116236F91E4B3288009FEDCA /* SKFeedbackViewController.h */,
-				116236FA1E4B3288009FEDCA /* SKFeedbackViewController.m */,
-				116236FB1E4B3288009FEDCA /* SKMyBadgesViewController.h */,
-				116236FC1E4B3288009FEDCA /* SKMyBadgesViewController.m */,
-				116236FD1E4B3288009FEDCA /* SKMyThingsViewController.h */,
-				116236FE1E4B3288009FEDCA /* SKMyThingsViewController.m */,
-				116236FF1E4B3288009FEDCA /* SKProfileIndexViewController.h */,
-				116237001E4B3288009FEDCA /* SKProfileIndexViewController.m */,
-				116237011E4B3288009FEDCA /* SKProfileMyTicketsViewController.h */,
-				116237021E4B3288009FEDCA /* SKProfileMyTicketsViewController.m */,
-				116237031E4B3288009FEDCA /* SKProfileSettingViewController.h */,
-				116237041E4B3288009FEDCA /* SKProfileSettingViewController.m */,
+				11CE6E0F1EB1C336004F1707 /* 3.0 */,
+				11CE6E0E1EB1C32A004F1707 /* 2.0 */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -1691,6 +1681,37 @@
 				11CA0C571CD24E4200C06333 /* YXEasing.m */,
 			);
 			path = Easing;
+			sourceTree = "<group>";
+		};
+		11CE6E0E1EB1C32A004F1707 /* 2.0 */ = {
+			isa = PBXGroup;
+			children = (
+				116236F61E4B3288009FEDCA /* HTAboutController.h */,
+				116236F71E4B3288009FEDCA /* HTAboutController.m */,
+				116236F81E4B3288009FEDCA /* HTAboutController.xib */,
+				116236F91E4B3288009FEDCA /* SKFeedbackViewController.h */,
+				116236FA1E4B3288009FEDCA /* SKFeedbackViewController.m */,
+				116236FB1E4B3288009FEDCA /* SKMyBadgesViewController.h */,
+				116236FC1E4B3288009FEDCA /* SKMyBadgesViewController.m */,
+				116236FD1E4B3288009FEDCA /* SKMyThingsViewController.h */,
+				116236FE1E4B3288009FEDCA /* SKMyThingsViewController.m */,
+				116236FF1E4B3288009FEDCA /* SKProfileIndexViewController.h */,
+				116237001E4B3288009FEDCA /* SKProfileIndexViewController.m */,
+				116237011E4B3288009FEDCA /* SKProfileMyTicketsViewController.h */,
+				116237021E4B3288009FEDCA /* SKProfileMyTicketsViewController.m */,
+				116237031E4B3288009FEDCA /* SKProfileSettingViewController.h */,
+				116237041E4B3288009FEDCA /* SKProfileSettingViewController.m */,
+			);
+			name = 2.0;
+			sourceTree = "<group>";
+		};
+		11CE6E0F1EB1C336004F1707 /* 3.0 */ = {
+			isa = PBXGroup;
+			children = (
+				11CE6E101EB1C36E004F1707 /* NZUserProfileViewController.h */,
+				11CE6E111EB1C36E004F1707 /* NZUserProfileViewController.m */,
+			);
+			name = 3.0;
 			sourceTree = "<group>";
 		};
 		11E3C0901DD5B26800550286 /* Index */ = {
@@ -2846,6 +2867,7 @@
 				11C64D3C1E601AC000397835 /* ChatFlowCell.m in Sources */,
 				1162371B1E4B329E009FEDCA /* SKConfirmPasswordViewController.m in Sources */,
 				11C764761E120E5300D86F40 /* NSObject+MJProperty.m in Sources */,
+				11CE6E121EB1C36E004F1707 /* NZUserProfileViewController.m in Sources */,
 				116236D61E4B3096009FEDCA /* SKProfileService.m in Sources */,
 				987042991E4C75AC00770BFD /* NZPScanningFileDownloadManager.m in Sources */,
 				1160FB441E0E927F00606F16 /* HTAlertView.m in Sources */,

@@ -59,15 +59,27 @@
 }
 
 - (void)loadData {
-    [[[SKServiceManager sharedInstance] profileService] getSeason2RankListCallback:^(BOOL success, NSArray<SKRanker *> *rankerList) {
-        if (success) {
-            _rankerList = rankerList;
-            [self.tableView reloadData];
-            [HTProgressHUD dismiss];
-        } else {
-            [HTProgressHUD dismiss];
-        }
-    }];
+    if (_type == NZRankListTypeQuestion) {
+        [[[SKServiceManager sharedInstance] profileService] getSeason2RankListCallback:^(BOOL success, NSArray<SKRanker *> *rankerList) {
+            if (success) {
+                _rankerList = rankerList;
+                [self.tableView reloadData];
+                [HTProgressHUD dismiss];
+            } else {
+                [HTProgressHUD dismiss];
+            }
+        }];
+    } else if (_type == NZRankListTypeHunter) {
+        [[[SKServiceManager sharedInstance] mascotService] getMascotCoopTimeRankListCallback:^(BOOL success, NSArray<SKRanker *> *rankerList) {
+            if (success) {
+                _rankerList = rankerList;
+                [self.tableView reloadData];
+                [HTProgressHUD dismiss];
+            } else {
+                [HTProgressHUD dismiss];
+            }
+        }];
+    }
 }
 
 #pragma mark - UITableView Delegate
@@ -97,8 +109,7 @@
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return _dataArray.count;
-    return 100;
+    return _rankerList.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

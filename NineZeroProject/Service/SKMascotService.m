@@ -193,18 +193,14 @@
     }];
 }
 
-- (void)getMascotDetailWithMascotID:(NSString *)mascotID callback:(NZMascotArrayCallback)callback {
+- (void)getMascotDetailWithMascotID:(NSString *)mascotID callback:(void (^)(BOOL, SKMascot *))callback {
     NSDictionary *param = @{
                             @"method": @"getPetCoopDetail",
                             @"pet_id": mascotID
                             };
     [self mascotBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray<SKMascot*> *dataArray = [NSMutableArray array];
-        for (int i=0; i<[response.data count]; i++) {
-            SKMascot *mascot = [SKMascot mj_objectWithKeyValues:response.data[i]];
-            [dataArray addObject:mascot];
-        }
-        callback(success, dataArray);
+        SKMascot *mascot = [SKMascot mj_objectWithKeyValues:response.data];
+        callback(success, mascot);
     }];
 }
 

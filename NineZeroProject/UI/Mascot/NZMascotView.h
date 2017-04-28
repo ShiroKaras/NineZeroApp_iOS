@@ -12,6 +12,8 @@
 
 @interface NZMascotView : UIView
 
+@property (nonatomic, assign) time_t deltaTime;
+
 - (instancetype)initWithFrame:(CGRect)frame withMascot:(SKMascot*)mascot;
 
 @end

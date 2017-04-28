@@ -13,6 +13,7 @@
 #import "NZQuestionListViewController.h"
 #import "NZMascotMainViewController.h"
 #import "NZLabViewController.h"
+#import "NZUserProfileViewController.h"
 
 @interface NZTabbarViewController ()
 
@@ -45,7 +46,7 @@
     c4.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_lab"];
     c4.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_lab_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    SKHomepageViewController *c5 = [[SKHomepageViewController alloc] init];
+    NZUserProfileViewController *c5 = [[NZUserProfileViewController alloc] init];
     c5.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
     c5.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_me"];
     c5.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_me_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
