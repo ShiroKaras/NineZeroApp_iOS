@@ -122,12 +122,7 @@
         [_dimmingView addSubview:cityView];
         
         [UIView animateWithDuration:0.3 animations:^{
-            [cityView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(self.view.width, 60));
-                make.top.mas_equalTo(80+60*i);
-                make.left.equalTo(0);
-            }];
-            [cityView.superview layoutIfNeeded];//强制绘制
+            cityView.top = 80+60*i;
         }];
     }
     

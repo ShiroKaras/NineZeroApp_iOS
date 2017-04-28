@@ -75,7 +75,7 @@
         make.centerY.equalTo(_tabBackView);
         make.left.equalTo(@82);
     }];
-    
+
     _button2 = [UIButton new];
     [_button2 addTarget:self action:@selector(didClickButton2:) forControlEvents:UIControlEventTouchUpInside];
     [_button2 setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_arrest"] forState:UIControlStateNormal];
@@ -86,7 +86,7 @@
         make.centerY.equalTo(_tabBackView);
         make.right.equalTo(_tabBackView).offset(-82);
     }];
-    
+
     UIView *underLine = [UIView new];
     [_tabBackView addSubview:underLine];
     [underLine mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -101,7 +101,7 @@
         make.centerX.equalTo(_button1);
         make.bottom.equalTo(underLine.mas_top);
     }];
-    
+
     _scrollView = [UIScrollView new];
     _scrollView.delegate = self;
     _scrollView.backgroundColor = [UIColor clearColor];
@@ -115,10 +115,10 @@
         make.width.equalTo(weakSelf.view);
         make.centerX.equalTo(weakSelf.view);
     }];
-    
+
     [self.view layoutIfNeeded];
     _scrollView.contentSize = CGSizeMake(self.view.width*2, _scrollView.height);
-    
+
     _scrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, _scrollView.height)];
     _scrollView1.contentSize = CGSizeMake(self.view.width, 1000);
     _scrollView1.backgroundColor = [UIColor clearColor];
@@ -137,9 +137,9 @@
         make.width.equalTo(weakSelf.view);
         make.height.equalTo(@40);
         make.centerX.equalTo(weakSelf.view);
-        make.bottom.equalTo(weakSelf);
+        make.bottom.equalTo(weakSelf.view);
     }];
-    
+
     UIButton *backButton = [UIButton new];
     [backButton addTarget:self action:@selector(didClickBackButton:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
