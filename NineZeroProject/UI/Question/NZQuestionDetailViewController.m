@@ -62,6 +62,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIButton *answerButton;
 @property (nonatomic, strong) SKCardTimeView *timeView;
 @property (nonatomic, strong) SKComposeView *composeView;	 // 答题界面
+@property (nonatomic, strong) UIButton *hintButton;
 
 //简介
 @property (nonatomic, strong) UIImageView *chapterImageView;
@@ -175,12 +176,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.right.equalTo(bottomView).offset(-13.5);
     }];
     
-    UIButton *hintButton = [UIButton new];
-    [hintButton addTarget:self action:@selector(didClickHintButton:) forControlEvents:UIControlEventTouchUpInside];
-    [hintButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_hint"] forState:UIControlStateNormal];
-    [hintButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_hint_highlight"] forState:UIControlStateHighlighted];
-    [bottomView addSubview:hintButton];
-    [hintButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    _hintButton = [UIButton new];
+    [_hintButton addTarget:self action:@selector(didClickHintButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_hint"] forState:UIControlStateNormal];
+    [_hintButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_hint_highlight"] forState:UIControlStateHighlighted];
+    [bottomView addSubview:_hintButton];
+    _hintButton.hidden = YES;
+    [_hintButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(bottomView);
         make.right.equalTo(shareButton.mas_left).offset(-25);
     }];
@@ -368,10 +370,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _detailScrollView.delegate = self;
     [contentBackView addSubview:_detailScrollView];
     
-    //本章故事
-
-    //答案文章
-    
     //////////////////////////////////////// END ////////////////////////////////////////
     
     if (NO_NETWORK) {
@@ -402,6 +400,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         
         //视频
         [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
+        
+        self.hintButton.hidden = (self.type==NZQuestionTypeTimeLimitLevel||self.currentQuestion.base_type!=0);
         
         if (self.currentQuestion.base_type==0) {
             [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write"] forState:UIControlStateNormal];
