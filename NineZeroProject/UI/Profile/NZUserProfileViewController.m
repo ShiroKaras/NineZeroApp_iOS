@@ -25,7 +25,7 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewDidLoad {
@@ -142,12 +142,15 @@
 //        make.height.equalTo(@1);
 //    }];
     
-    UIView *cView = [[UIView alloc] initWithFrame:CGRectMake(0, _mainInfoView.bottom, self.view.width, self.view.height-20-49-49)];
-    cView.backgroundColor = COMMON_GREEN_COLOR;
-    [_scrollView addSubview:cView];
-//    _contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _mainInfoView.bottom, self.view.width, self.view.height-20-48-49)];
-//    _contentScrollView.contentSize = CGSizeMake(self.view.width, 2000);
-//    [_scrollView addSubview:_contentScrollView];
+//    UIView *cView = [[UIView alloc] initWithFrame:CGRectMake(0, _mainInfoView.bottom, self.view.width, self.view.height-20-49-49)];
+//    cView.backgroundColor = COMMON_GREEN_COLOR;
+//    [_scrollView addSubview:cView];
+    _contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _mainInfoView.bottom-20, self.view.width, self.view.height-20-48-49)];
+    _contentScrollView.delegate = self;
+    _contentScrollView.bounces = NO;
+    _contentScrollView.backgroundColor = COMMON_GREEN_COLOR;
+    _contentScrollView.contentSize = CGSizeMake(self.view.width, 2000);
+    [_scrollView addSubview:_contentScrollView];
 }
 
 #pragma mark - ScrollView Delegate

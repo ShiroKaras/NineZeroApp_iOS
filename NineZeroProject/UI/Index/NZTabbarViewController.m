@@ -50,8 +50,9 @@
     c5.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
     c5.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_me"];
     c5.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_me_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    HTNavigationController *controller = [[HTNavigationController alloc] initWithRootViewController:c5];
     
-    self.viewControllers = @[c1, c2, c3, c4, c5];
+    self.viewControllers = @[c1, c2, c3, c4, controller];
 
 }
 
