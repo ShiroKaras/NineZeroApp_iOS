@@ -20,7 +20,9 @@
 @property (nonatomic, strong) UIScrollView *contentScrollView;
 @end
 
-@implementation NZUserProfileViewController
+@implementation NZUserProfileViewController {
+    BOOL _scrollFlag;
+}
 
 -(void) viewWillAppear:(BOOL)animated
 {
@@ -30,6 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _scrollFlag = YES;
     [self createUI];
 }
 
@@ -134,6 +137,7 @@
     underLine.height = 1;
     
     _mainInfoView.height = underLine.bottom;
+    NSLog(@"%lf", buttonsBackView.top);
     
 //    [underLine mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.bottom.equalTo(buttonsBackView.mas_bottom);
@@ -145,18 +149,44 @@
 //    UIView *cView = [[UIView alloc] initWithFrame:CGRectMake(0, _mainInfoView.bottom, self.view.width, self.view.height-20-49-49)];
 //    cView.backgroundColor = COMMON_GREEN_COLOR;
 //    [_scrollView addSubview:cView];
-    _contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _mainInfoView.bottom-20, self.view.width, self.view.height-20-48-49)];
+    _contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _mainInfoView.bottom, self.view.width, self.view.height-20-48-49)];
     _contentScrollView.delegate = self;
     _contentScrollView.bounces = NO;
     _contentScrollView.backgroundColor = COMMON_GREEN_COLOR;
     _contentScrollView.contentSize = CGSizeMake(self.view.width, 2000);
     [_scrollView addSubview:_contentScrollView];
+    
+    UIView *testView = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    testView.backgroundColor = COMMON_RED_COLOR;
+    [_contentScrollView addSubview:testView];
 }
 
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%lf", scrollView.contentOffset.y);
+    if (scrollView == _scrollView) {
+        //得到图片移动相对原点的坐标
+        CGPoint point = scrollView.contentOffset;
+    }
+    
+    if (scrollView == _contentScrollView) {
+        //得到图片移动相对原点的坐标
+        CGPoint point = scrollView.contentOffset;
+        NSLog(@"%lf", point.y);
+        if (point.y > 50) {
+            if (_scrollFlag) {
+                _scrollFlag = NO;
+                [self scrollView:_scrollView scrollToPoint:CGPointMake(0, 182)];
+            }
+        }
+        if (point.y == 0) {
+            _scrollFlag = YES;
+        }
+    }
+}
+
+- (void)scrollView:(UIScrollView*)scrollView scrollToPoint:(CGPoint)point {
+    [scrollView setContentOffset:point animated:YES];
 }
 
 #pragma mark - Actions
