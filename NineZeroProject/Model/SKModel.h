@@ -300,3 +300,27 @@
 @property (nonatomic, copy) NSString *difficulty;   //难度
 @property (nonatomic, assign) BOOL *task_status;  //是否已收藏
 @end
+
+@interface SKBanner : NSObject
+@property (nonatomic, copy) NSString *id;
+@property (nonatomic, copy) NSString *banner;
+@property (nonatomic, copy) NSString *link;
+@end
+
+@interface SKTopic : NSObject
+@property (nonatomic, copy) NSString *id;
+@property (nonatomic, copy) NSString *topic_list_pic;
+@end
+
+@interface SKComment : NSObject
+@property (nonatomic, copy) NSString *user_avatar;
+@property (nonatomic, copy) NSString *user_name;
+@property (nonatomic, copy) NSString *user_comment;
+@property (nonatomic, assign) time_t *time;
+@end
+
+@interface SKTopicDetail : NSObject
+@property (nonatomic, copy) NSString *topic_detail_pic;
+@property (nonatomic, assign) NSInteger *join_num;
+@property (nonatomic, copy) NSArray<SKComment*>* user_comment;
+@end

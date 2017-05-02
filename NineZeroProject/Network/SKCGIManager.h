@@ -34,4 +34,6 @@
 
 + (NSString *)strongHoldBaseCGIKey;
 
++ (NSString *)topicBaseCGIKey;
+
 @end

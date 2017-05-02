@@ -54,4 +54,8 @@
     return [NSString stringWithFormat:@"%@/StrongHold/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)topicBaseCGIKey {
+    return [NSString stringWithFormat:@"%@/Topic/appIndex", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 @end

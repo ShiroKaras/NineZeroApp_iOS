@@ -107,3 +107,23 @@ HTINIT(SKQuestion)
 
 @implementation SKStrongholdItem
 @end
+
+@implementation SKBanner
+@end
+
+@implementation SKTopic
+@end
+
+@implementation SKComment
+@end
+
+@implementation SKTopicDetail
+HTINIT(SKQuestion)
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{ @"topic_detail_pic"   : @"topic_detail.topic_detail_pic",
+                                      @"join_num"           : @"topic_detail.join_num"
+                                      };
+    return propertyMapper;
+}
+@end
+
