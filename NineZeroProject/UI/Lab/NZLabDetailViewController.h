@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface NZLabDetailViewController : UIViewController
+@property (nonatomic, strong) NSString *TopicThumbnailUrl;
 
 - (instancetype)initWithTopicID:(NSString *)topicID;
 
