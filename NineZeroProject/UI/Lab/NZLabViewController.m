@@ -14,6 +14,10 @@
 
 @interface NZLabViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) NSArray<SKBanner*> *bannerArray;
+@property (nonatomic, strong) NSArray<SKTopic*>  *topicArray;
+
 @end
 
 @implementation NZLabViewController
@@ -48,10 +52,18 @@
     self.tableView.tableHeaderView = tableViewHeaderView;
     [self.tableView registerClass:[NZLabTableViewCell class] forCellReuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
     [self.view addSubview:self.tableView];
+    
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] topicService] getBannerListCallback:^(BOOL success, NSArray<SKBanner *> *bannerList) {
+        _bannerArray = bannerList;
+    }];
 }
 
 #pragma mark - UITableView Delegate
