@@ -20,6 +20,7 @@ target 'NineZeroProject' do
   pod 'AMapSearch' #搜索服务SDK
   pod 'MJRefresh'
   pod 'CHTCollectionViewWaterfallLayout'
+  pod 'PSCarouselView'
 end
 
 target 'NineZeroProjectTests' do

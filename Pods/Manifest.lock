@@ -34,6 +34,8 @@ PODS:
   - MBProgressHUD+BWMExtension (1.0.1):
     - MBProgressHUD (~> 0.9.1)
   - MJRefresh (3.1.12)
+  - PSCarouselView (1.4.1):
+    - SDWebImage
   - Qiniu (7.1.5):
     - AFNetworking (~> 3)
     - HappyDNS (~> 0.3)
@@ -57,6 +59,7 @@ DEPENDENCIES:
   - Masonry
   - MBProgressHUD+BWMExtension (~> 1.0.0)
   - MJRefresh
+  - PSCarouselView
   - Qiniu (~> 7.0)
   - SDWebImage (~> 3.7.3)
   - SSZipArchive
@@ -79,6 +82,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MBProgressHUD+BWMExtension: d0603a1c0b03ef74cae6a0986d63c0bdf34bedfe
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  PSCarouselView: ba326d737bb157608e28e53e525af50ce0606fd8
   Qiniu: 77a3dba411556a383d72d17e842345a9d4c83252
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SSZipArchive: 04547dfa448be5ed7ecbaf7eaf8a6e9eb9b42997
@@ -87,6 +91,6 @@ SPEC CHECKSUMS:
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: 2974cc557538c2934fb1ed12c3e933bb9ea72ef7
+PODFILE CHECKSUM: e647546c260d26dd41662f35888a15f2a069aa17
 
 COCOAPODS: 1.1.1
