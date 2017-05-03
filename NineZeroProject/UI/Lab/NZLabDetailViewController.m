@@ -48,9 +48,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) NSArray *cellSizes;
 @property (nonatomic, strong) NSArray *cats;
 
-//Banner
-
-
 //分享
 @property (nonatomic, strong) UIView *shareView;
 @property (nonatomic, strong) UIButton *cancelButton;
@@ -59,7 +56,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIButton *qqButton;
 @property (nonatomic, strong) UIButton *weiboButton;
 
-
+@property (nonatomic, strong) SKTopicDetail *topicDetail;
 @end
 
 @implementation NZLabDetailViewController
@@ -165,6 +162,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.centerY.equalTo(shareButton);
         make.right.equalTo(shareButton.mas_left).offset(-25);
     }];
+    
+    [self loadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -181,6 +180,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     CHTCollectionViewWaterfallLayout *layout =
     (CHTCollectionViewWaterfallLayout *)self.collectionView.collectionViewLayout;
     layout.columnCount = UIInterfaceOrientationIsPortrait(orientation) ? 2 : 3;
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] topicService] getTopicDetailWithID:_topicID callback:^(BOOL success, SKTopicDetail *topicDetail) {
+        _topicDetail = topicDetail;
+        [_collectionView reloadData];
+    }];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -208,6 +214,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                           withReuseIdentifier:HEADER_IDENTIFIER
                                                                  forIndexPath:indexPath];
+        [((CHTCollectionViewWaterfallHeader*)reusableView).mImageView sd_setImageWithURL:[NSURL URLWithString:_topicDetail.topic_detail.topic_detail_pic]];
     } else if ([kind isEqualToString:CHTCollectionElementKindSectionFooter]) {
         reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                           withReuseIdentifier:FOOTER_IDENTIFIER

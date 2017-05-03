@@ -56,6 +56,8 @@
 #define COMMON_TEXT_2_COLOR [UIColor colorWithHex:0x9C9C9C]
 #define COMMON_TEXT_3_COLOR [UIColor colorWithHex:0x3C3C3C]
 
+#define PLACEHOLDER_IMAGE [UIImage imageNamed:@"img_mascot_article_list_cover_default"]
+
 #define KEYWINDS_ROOT_CONTROLLER [[[[UIApplication sharedApplication] delegate] window] rootViewController]
 #define KEY_WINDOW [[[UIApplication sharedApplication] delegate] window]
 #define APPLICATION_DELEGATE [[UIApplication sharedApplication] delegate]

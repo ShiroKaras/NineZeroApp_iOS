@@ -7,13 +7,17 @@
 //
 
 #import "CHTCollectionViewWaterfallHeader.h"
+#import "HTUIHeader.h"
 
 @implementation CHTCollectionViewWaterfallHeader
 
 #pragma mark - Accessors
 - (id)initWithFrame:(CGRect)frame {
   if (self = [super initWithFrame:frame]) {
-    self.backgroundColor = [UIColor redColor];
+      _mImageView = [[UIImageView alloc] initWithFrame:self.frame];
+      _mImageView.contentMode = UIViewContentModeScaleAspectFill;
+      _mImageView.layer.masksToBounds = YES;
+      [self addSubview:_mImageView];
   }
   return self;
 }

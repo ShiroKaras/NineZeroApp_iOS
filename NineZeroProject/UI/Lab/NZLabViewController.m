@@ -11,9 +11,11 @@
 
 #import "NZLabTableViewCell.h"
 #import "NZLabDetailViewController.h"
+#import <PSCarouselView/PSCarouselView.h>
 
-@interface NZLabViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface NZLabViewController () <UITableViewDelegate, UITableViewDataSource, PSCarouselDelegate>
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) PSCarouselView *carouselView;
 
 @property (nonatomic, strong) NSArray<SKBanner*> *bannerArray;
 @property (nonatomic, strong) NSArray<SKTopic*>  *topicArray;
@@ -39,9 +41,6 @@
         make.centerX.equalTo(headerView);
     }];
     
-    UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, ROUND_WIDTH_FLOAT(180))];
-    tableViewHeaderView.backgroundColor = COMMON_GREEN_COLOR;
-    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64-49) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -49,7 +48,6 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.showsHorizontalScrollIndicator = NO;
-    self.tableView.tableHeaderView = tableViewHeaderView;
     [self.tableView registerClass:[NZLabTableViewCell class] forCellReuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
     [self.view addSubview:self.tableView];
     
@@ -62,7 +60,24 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] topicService] getBannerListCallback:^(BOOL success, NSArray<SKBanner *> *bannerList) {
-        _bannerArray = bannerList;
+        if ([bannerList count] > 0) {
+            UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, ROUND_WIDTH_FLOAT(180))];
+            
+            self.carouselView = [[PSCarouselView alloc] initWithFrame:tableViewHeaderView.frame];
+            self.carouselView.placeholder = PLACEHOLDER_IMAGE;
+            self.carouselView.contentMode = UIViewContentModeScaleAspectFill;
+            self.carouselView.autoMoving = YES;
+            self.carouselView.movingTimeInterval = 1.5f;
+            [tableViewHeaderView addSubview:self.carouselView];
+            self.carouselView.imageURLs = bannerList;
+            
+            self.tableView.tableHeaderView = tableViewHeaderView;
+        }
+    }];
+    
+    [[[SKServiceManager sharedInstance] topicService] getTopicListCallback:^(BOOL success, NSArray<SKTopic *> *topicList) {
+        _topicArray = topicList;
+        [self.tableView reloadData];
     }];
 }
 
@@ -73,6 +88,8 @@
     if (cell==nil) {
         cell = [[NZLabTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
     }
+    [cell.thumbImageView sd_setImageWithURL:[NSURL URLWithString:_topicArray[indexPath.row].topic_list_pic]];
+    cell.titleLabel.text = [_topicArray[indexPath.row].topic_title stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
     
     return cell;
 }
@@ -84,15 +101,14 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NZLabDetailViewController *controller = [[NZLabDetailViewController alloc] initWithTopicID:nil];
+    NZLabDetailViewController *controller = [[NZLabDetailViewController alloc] initWithTopicID:_topicArray[indexPath.row].id];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return _dataArray.count;
-    return 10;
+    return _topicArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

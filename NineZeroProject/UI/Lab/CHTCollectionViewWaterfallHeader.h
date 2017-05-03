@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CHTCollectionViewWaterfallHeader : UICollectionReusableView
-
+@property (nonatomic, strong) UIImageView *mImageView;
 @end

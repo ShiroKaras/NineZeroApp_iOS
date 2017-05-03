@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface NZLabTableViewCell : UITableViewCell
+@property (nonatomic, strong) UIImageView *thumbImageView;
+@property (nonatomic, strong) UILabel *titleLabel;
+
 @property (nonatomic, assign) float cellHeight;
 @end

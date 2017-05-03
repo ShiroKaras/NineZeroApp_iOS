@@ -10,8 +10,6 @@
 #import "HTUIHeader.h"
 
 @interface NZLabTableViewCell ()
-@property (nonatomic, strong) UIImageView *thumbImageView;
-@property (nonatomic, strong) UILabel *titleLabel;
 @end
 
 @implementation NZLabTableViewCell
@@ -24,6 +22,8 @@
         _cellHeight = 16+105+16+1;
         
         _thumbImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_article_list_cover_default"]];
+        _thumbImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _thumbImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_thumbImageView];
         [_thumbImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(140, 105));

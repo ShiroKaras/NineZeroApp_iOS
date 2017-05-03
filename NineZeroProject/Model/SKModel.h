@@ -309,6 +309,7 @@
 
 @interface SKTopic : NSObject
 @property (nonatomic, copy) NSString *id;
+@property (nonatomic, copy) NSString *topic_title;
 @property (nonatomic, copy) NSString *topic_list_pic;
 @end
 
@@ -319,8 +320,12 @@
 @property (nonatomic, assign) time_t *time;
 @end
 
-@interface SKTopicDetail : NSObject
+@interface SKTopicDetailBase : NSObject
 @property (nonatomic, copy) NSString *topic_detail_pic;
-@property (nonatomic, assign) NSInteger *join_num;
-@property (nonatomic, copy) NSArray<SKComment*>* user_comment;
+@property (nonatomic, assign) NSInteger join_num;
+@end
+
+@interface SKTopicDetail : NSObject
+@property (nonatomic, strong) SKTopicDetailBase *topic_detail;
+@property (nonatomic, copy) NSArray<SKComment*> *user_comment;
 @end

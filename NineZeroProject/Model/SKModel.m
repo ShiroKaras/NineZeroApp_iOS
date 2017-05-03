@@ -117,6 +117,9 @@ HTINIT(SKQuestion)
 @implementation SKComment
 @end
 
+@implementation SKTopicDetailBase
+@end
+
 @implementation SKTopicDetail
 HTINIT(SKQuestion)
 - (NSDictionary *)propertyMapper {
