@@ -327,5 +327,5 @@
 
 @interface SKTopicDetail : NSObject
 @property (nonatomic, strong) SKTopicDetailBase *topic_detail;
-@property (nonatomic, copy) NSArray<SKComment*> *user_comment;
+@property (nonatomic, strong) NSArray<SKComment*> *user_comment;
 @end

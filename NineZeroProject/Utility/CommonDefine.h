@@ -46,13 +46,13 @@
 #define COMMON_PINK_COLOR [UIColor colorWithHex:0xd40e88]
 #define COMMON_RED_COLOR [UIColor colorWithHex:0xed203b]
 
-#define COMMON_TEXT_COLOR [UIColor colorWithHex:0x505050]
 #define COMMON_SELECTED_COLOR [UIColor colorWithHex:0x505050]
 #define COMMON_SEPARATOR_COLOR [UIColor colorWithHex:0x303030]
 
 #define COMMON_BG_COLOR [UIColor colorWithHex:0x0E0E0E]
 #define COMMON_TITLE_BG_COLOR [UIColor colorWithHex:0x1F1F1F]
 
+#define COMMON_TEXT_COLOR   [UIColor colorWithHex:0x505050]
 #define COMMON_TEXT_2_COLOR [UIColor colorWithHex:0x9C9C9C]
 #define COMMON_TEXT_3_COLOR [UIColor colorWithHex:0x3C3C3C]
 

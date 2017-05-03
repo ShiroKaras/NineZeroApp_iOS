@@ -23,7 +23,6 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <CommonCrypto/CommonDigest.h>
 
-#define CELL_COUNT 30
 #define CELL_IDENTIFIER @"WaterfallCell"
 #define HEADER_IDENTIFIER @"WaterfallHeader"
 #define FOOTER_IDENTIFIER @"WaterfallFooter"
@@ -85,7 +84,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.backgroundColor = [UIColor clearColor];
         [_collectionView registerClass:[NZLabDetialCollectionViewCell class]
             forCellWithReuseIdentifier:CELL_IDENTIFIER];
         [_collectionView registerClass:[CHTCollectionViewWaterfallHeader class]
@@ -126,6 +125,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
     self.automaticallyAdjustsScrollViewInsets = false;
     [self.view addSubview:self.collectionView];
     
@@ -192,7 +192,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return CELL_COUNT;
+    return _topicDetail.user_comment.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -203,7 +203,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     NZLabDetialCollectionViewCell *cell =
     (NZLabDetialCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER
                                                                                 forIndexPath:indexPath];
-    cell.imageView.image = [UIImage imageNamed:self.cats[indexPath.item % 4]];
+    cell.avatarImageView.image = [UIImage imageNamed:self.cats[indexPath.item % 4]];
+    cell.usernameLabel.text = _topicDetail.user_comment[indexPath.row].user_name;
+    [cell setComment:_topicDetail.user_comment[indexPath.row].user_comment];
+    
     return cell;
 }
 
@@ -226,7 +229,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.cellSizes[indexPath.item % 4] CGSizeValue];
+    CGSize titleSize = [_topicDetail.user_comment[indexPath.row].user_comment boundingRectWithSize:CGSizeMake((SCREEN_WIDTH-30)/2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_FONT_OF_SIZE(12)} context:nil].size;
+    return CGSizeMake((self.view.width-30)/2, titleSize.height+42);
 }
 
 #pragma mark - Actions

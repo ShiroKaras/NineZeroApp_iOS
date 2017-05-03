@@ -121,12 +121,15 @@ HTINIT(SKQuestion)
 @end
 
 @implementation SKTopicDetail
-HTINIT(SKQuestion)
-- (NSDictionary *)propertyMapper {
-    NSDictionary *propertyMapper = @{ @"topic_detail_pic"   : @"topic_detail.topic_detail_pic",
-                                      @"join_num"           : @"topic_detail.join_num"
-                                      };
-    return propertyMapper;
+-(instancetype)init {
+    if (self = [super init]) {
+        [SKTopicDetail mj_setupObjectClassInArray:^NSDictionary *{
+            return @{
+                     @"user_comment" : @"SKComment",
+                     };
+        }];
+    }
+    return self;
 }
 @end
 

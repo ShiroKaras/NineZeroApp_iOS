@@ -82,7 +82,7 @@
 - (void)loadData {
     [[[SKServiceManager sharedInstance] mascotService] getAllPetsCoopTimeCallback:^(BOOL success, NSArray<SKMascot *> *mascots) {
         _mascotArray = mascots;
-        NSLog(@"%@", mascots[0].pet_last_coop_time);
+        //NSLog(@"%@", mascots[0].pet_last_coop_time);
     }];
 }
 

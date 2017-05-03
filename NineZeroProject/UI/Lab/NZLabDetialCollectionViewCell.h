@@ -10,6 +10,10 @@
 
 @interface NZLabDetialCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, strong) UILabel *usernameLabel;
+@property (nonatomic, strong) UILabel *commentLabel;
+@property (nonatomic, assign) float cellHeight;
 
+- (void)setComment:(NSString *)comment;
 @end
