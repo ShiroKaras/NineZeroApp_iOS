@@ -10,6 +10,7 @@
 #import "HTUIHeader.h"
 
 @interface NZSubmitCommentViewController ()
+@property (nonatomic, strong) NSString *topicID;
 @property (nonatomic, strong) UIButton *submitButton;
 @property (nonatomic, strong) UITextView  *textView;
 @property (nonatomic, strong) UITextField *textField;
@@ -18,6 +19,14 @@
 @end
 
 @implementation NZSubmitCommentViewController
+
+- (instancetype)initWithTopicID:(NSString*)topicID {
+    self = [super init];
+    if (self) {
+        _topicID = topicID;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -150,14 +159,14 @@
         [self setButtonDisabled];
     }
     [self.view endEditing:YES];
-//    [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"反馈中"];
-//    [[[SKServiceManager sharedInstance] profileService] feedbackWithContent:self.textView.text contact:self.textField.text completion:^(BOOL success, SKResponsePackage *response) {
-//        if (success && response.result == 0) {
-//            [self.navigationController popViewControllerAnimated:YES];
-//            [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
-//            [MBProgressHUD bwm_showTitle:@"感谢反馈" toView:KEY_WINDOW hideAfter:1.0];
-//        }
-//    }];
+    [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"提交中"];
+    [[[SKServiceManager sharedInstance] topicService] submitCommentWithTopicID:_topicID content:self.textView.text callback:^(BOOL success, SKResponsePackage *response) {
+        if (success && response.result == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
+            [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
+            [MBProgressHUD bwm_showTitle:@"提交成功" toView:KEY_WINDOW hideAfter:1.0];
+        }
+    }];
 }
 
 #pragma mark - Actions

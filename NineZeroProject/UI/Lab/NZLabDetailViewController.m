@@ -242,7 +242,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 //    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
 //    
 //    [self.navigationController pushViewController:controller animated:NO];
-    NZSubmitCommentViewController *controller = [[NZSubmitCommentViewController alloc] init];
+    NZSubmitCommentViewController *controller = [[NZSubmitCommentViewController alloc] initWithTopicID:_topicID];
     [self presentViewController:controller animated:YES completion:nil];
 }
 

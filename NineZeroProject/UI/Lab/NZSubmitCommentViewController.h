@@ -10,4 +10,6 @@
 
 @interface NZSubmitCommentViewController : UIViewController
 
+- (instancetype)initWithTopicID:(NSString*)topicID;
+
 @end
