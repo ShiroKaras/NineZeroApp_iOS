@@ -130,7 +130,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [self.view addSubview:self.collectionView];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height-49, self.view.width, 49)];
-    bottomView.backgroundColor = COMMON_BG_COLOR;
+    bottomView.backgroundColor = COMMON_TITLE_BG_COLOR;
     [self.view addSubview:bottomView];
     
     UIButton *backButton = [UIButton new];
