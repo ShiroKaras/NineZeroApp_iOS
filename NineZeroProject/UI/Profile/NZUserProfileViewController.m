@@ -18,10 +18,18 @@
 @property (nonatomic, strong) UILabel *gemLabel;
 
 @property (nonatomic, strong) UIScrollView *contentScrollView;
+@property (nonatomic, strong) UIScrollView *contentScrollView0;
+@property (nonatomic, strong) UIScrollView *contentScrollView1;
+@property (nonatomic, strong) UIScrollView *contentScrollView2;
+@property (nonatomic, strong) UIScrollView *contentScrollView3;
 @end
 
 @implementation NZUserProfileViewController {
     BOOL _scrollFlag;
+    float _startY;
+    float _otherPageStartY;
+    BOOL _shoudCheckDirection;
+    CGPoint _contentOffset;
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -149,27 +157,31 @@
 //    UIView *cView = [[UIView alloc] initWithFrame:CGRectMake(0, _mainInfoView.bottom, self.view.width, self.view.height-20-49-49)];
 //    cView.backgroundColor = COMMON_GREEN_COLOR;
 //    [_scrollView addSubview:cView];
+    
     _contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _mainInfoView.bottom, self.view.width, self.view.height-20-48-49)];
     _contentScrollView.delegate = self;
     _contentScrollView.bounces = NO;
+    _contentScrollView.pagingEnabled = YES;
     _contentScrollView.backgroundColor = COMMON_GREEN_COLOR;
-    _contentScrollView.contentSize = CGSizeMake(self.view.width, 2000);
+    _contentScrollView.contentSize = CGSizeMake(self.view.width*4, _contentScrollView.height);
     [_scrollView addSubview:_contentScrollView];
     
+    _contentScrollView0 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView.width, _contentScrollView.height)];
+    _contentScrollView0.delegate = self;
+    _contentScrollView0.bounces = NO;
+    _contentScrollView0.backgroundColor = COMMON_RED_COLOR;
+    _contentScrollView0.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
+    [_contentScrollView addSubview:_contentScrollView0];
+    
     UIView *testView = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-    testView.backgroundColor = COMMON_RED_COLOR;
-    [_contentScrollView addSubview:testView];
+    testView.backgroundColor = COMMON_GREEN_COLOR;
+    [_contentScrollView0 addSubview:testView];
 }
 
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == _scrollView) {
-        //得到图片移动相对原点的坐标
-        CGPoint point = scrollView.contentOffset;
-    }
-    
-    if (scrollView == _contentScrollView) {
+    if (scrollView == _contentScrollView0) {
         //得到图片移动相对原点的坐标
         CGPoint point = scrollView.contentOffset;
         NSLog(@"%lf", point.y);
@@ -181,6 +193,7 @@
         }
         if (point.y == 0) {
             _scrollFlag = YES;
+            [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         }
     }
 }
