@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UILabel *userNameLabel;
 @property (nonatomic, strong) UILabel *coinLabel;
 @property (nonatomic, strong) UILabel *gemLabel;
+@property (nonatomic, strong) UIImageView *indicatorLine;
 
 @property (nonatomic, strong) UIScrollView *contentScrollView;
 @property (nonatomic, strong) UIScrollView *contentScrollView0;
@@ -124,6 +125,7 @@
     NSArray *buttonImageNameArray = @[@"btn_userpage_achievement", @"btn_userpage_gift", @"btn_userpage_ranking", @"btn_userpage_partake"];
     for (int i=0; i<4; i++) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(padding+(padding+50)*i, 0, 50, 48)];
+        button.tag = 100+i;
         if (i==0) {
             [button setImage:[UIImage imageNamed:[buttonImageNameArray[i] stringByAppendingString:@"_highlight"]] forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:buttonImageNameArray[i]]  forState:UIControlStateHighlighted];
@@ -135,6 +137,7 @@
         [buttonsBackView addSubview:button];
         
         UILabel *label = [UILabel new];
+        label.tag = 200+i;
         label.text = @"999";
         label.textColor = i==0?COMMON_GREEN_COLOR:COMMON_TEXT_3_COLOR;
         label.font = MOON_FONT_OF_SIZE(12);
@@ -153,19 +156,13 @@
     underLine.height = 1;
     
     _mainInfoView.height = underLine.bottom;
-    NSLog(@"%lf", buttonsBackView.top);
     
-//    [underLine mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.equalTo(buttonsBackView.mas_bottom);
-//        make.centerX.equalTo(_mainInfoView);
-//        make.width.equalTo(_mainInfoView);
-//        make.height.equalTo(@1);
-//    }];
+    //指示线
+    _indicatorLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userpage_choose"]];
+    _indicatorLine.centerX = [self.view viewWithTag:100].centerX;
+    [underLine addSubview:_indicatorLine];
     
-//    UIView *cView = [[UIView alloc] initWithFrame:CGRectMake(0, _mainInfoView.bottom, self.view.width, self.view.height-20-49-49)];
-//    cView.backgroundColor = COMMON_GREEN_COLOR;
-//    [_scrollView addSubview:cView];
-    
+    //内容栏
     _contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _mainInfoView.bottom, self.view.width, self.view.height-20-48-49)];
     _contentScrollView.delegate = self;
     _contentScrollView.bounces = NO;
@@ -250,11 +247,35 @@
             _scrollFlag = YES;
             [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         }
+        
+    }
+    if (scrollView == _contentScrollView) {
+        //得到图片移动相对原点的坐标
+        CGPoint point = scrollView.contentOffset;
+        
+        //根据图片坐标判断页数
+        int index = round(point.x / (SCREEN_WIDTH));
+        [self scrollToIndex:index];
     }
 }
 
 - (void)scrollView:(UIScrollView*)scrollView scrollToPoint:(CGPoint)point {
     [scrollView setContentOffset:point animated:YES];
+}
+
+- (void)scrollToIndex:(int)index {
+    NSArray *imageNameArray = @[@"btn_userpage_achievement", @"btn_userpage_gift", @"btn_userpage_ranking", @"btn_userpage_partake"];
+    for (int i = 0; i<4; i++) {
+        [((UIButton*)[self.view viewWithTag:100+i]) setImage:[UIImage imageNamed:i==index?
+                                                              [NSString stringWithFormat:@"%@_highlight",imageNameArray[i]]:
+                                                              [NSString stringWithFormat:@"%@",imageNameArray[i]]]
+                                                    forState:UIControlStateNormal];
+        ((UILabel*)[self.view viewWithTag:200+i]).textColor = i==index?COMMON_GREEN_COLOR:COMMON_TEXT_3_COLOR;
+    }
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        _indicatorLine.centerX = [self.view viewWithTag:100+index].centerX;
+    }];
 }
 
 #pragma mark - NZTopRankListViewDelegate

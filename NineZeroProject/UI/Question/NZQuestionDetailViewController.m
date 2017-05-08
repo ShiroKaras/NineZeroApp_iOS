@@ -70,7 +70,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 //内容
 @property (nonatomic, strong) UIView *contentHeaderView;
-@property (nonatomic, strong) UIView *indicatorLine;
+@property (nonatomic, strong) UIImageView *indicatorLine;
 @property (nonatomic, strong) UIScrollView *detailScrollView;
 @property (nonatomic, assign) NSInteger currentIndex;
 
@@ -325,8 +325,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     bottomLine.backgroundColor = COMMON_TEXT_3_COLOR;
     [_contentHeaderView addSubview:bottomLine];
     
-    _indicatorLine = [[UIView alloc] initWithFrame:CGRectMake(0, 54, 44, 1)];
-    _indicatorLine.backgroundColor = COMMON_GREEN_COLOR;
+    _indicatorLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzledetailpage_choose"]];
+    _indicatorLine.top = bottomLine.top;
     [_contentHeaderView addSubview:_indicatorLine];
     
     float padding = (self.view.width-52-27)/3;
@@ -560,33 +560,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)scrollToIndex:(int)index {
     NSArray *imageNameArray = @[@"btn_puzzledetailpage_story", @"btn_puzzledetailpage_answer", @"btn_puzzledetailpage_ranking", @"btn_puzzledetailpage_gift"];
-    switch (index) {
-        case 0:
-            [((UIButton*)[self.view viewWithTag:100+index]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_highlight",imageNameArray[index]]] forState:UIControlStateNormal];
-            [((UIButton*)[self.view viewWithTag:101]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[1]]] forState:UIControlStateNormal];
-            [((UIButton*)[self.view viewWithTag:102]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[2]]] forState:UIControlStateNormal];
-            [((UIButton*)[self.view viewWithTag:103]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[3]]] forState:UIControlStateNormal];
-            break;
-        case 1:
-            [((UIButton*)[self.view viewWithTag:100+index]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_highlight",imageNameArray[index]]] forState:UIControlStateNormal];
-            [((UIButton*)[self.view viewWithTag:100]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[0]]] forState:UIControlStateNormal];
-            [((UIButton*)[self.view viewWithTag:102]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[2]]] forState:UIControlStateNormal];
-            [((UIButton*)[self.view viewWithTag:103]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[3]]] forState:UIControlStateNormal];
-            break;
-        case 2:
-            [((UIButton*)[self.view viewWithTag:100+index]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_highlight",imageNameArray[index]]] forState:UIControlStateNormal];
-            [((UIButton*)[self.view viewWithTag:100]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[0]]] forState:UIControlStateNormal];
-            [((UIButton*)[self.view viewWithTag:101]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[1]]] forState:UIControlStateNormal];
-            [((UIButton*)[self.view viewWithTag:103]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[3]]] forState:UIControlStateNormal];
-            break;
-        case 3:
-            [((UIButton*)[self.view viewWithTag:100+index]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_highlight",imageNameArray[index]]] forState:UIControlStateNormal];
-            [((UIButton*)[self.view viewWithTag:100]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[0]]] forState:UIControlStateNormal];
-            [((UIButton*)[self.view viewWithTag:101]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[1]]] forState:UIControlStateNormal];
-            [((UIButton*)[self.view viewWithTag:102]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[2]]] forState:UIControlStateNormal];
-            break;
-        default:
-            break;
+    
+    for (int i = 0; i<4; i++) {
+        if (i== index) {
+            [((UIButton*)[self.view viewWithTag:100+i]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_highlight",imageNameArray[i]]] forState:UIControlStateNormal];
+        } else {
+            [((UIButton*)[self.view viewWithTag:100+i]) setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",imageNameArray[i]]] forState:UIControlStateNormal];
+        }
     }
     
     [UIView animateWithDuration:0.2 animations:^{

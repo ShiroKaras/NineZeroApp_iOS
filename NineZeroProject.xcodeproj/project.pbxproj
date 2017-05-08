@@ -1699,9 +1699,6 @@
 		11CE6E0E1EB1C32A004F1707 /* 2.0 */ = {
 			isa = PBXGroup;
 			children = (
-				116236F61E4B3288009FEDCA /* HTAboutController.h */,
-				116236F71E4B3288009FEDCA /* HTAboutController.m */,
-				116236F81E4B3288009FEDCA /* HTAboutController.xib */,
 				116236F91E4B3288009FEDCA /* SKFeedbackViewController.h */,
 				116236FA1E4B3288009FEDCA /* SKFeedbackViewController.m */,
 				116236FB1E4B3288009FEDCA /* SKMyBadgesViewController.h */,
@@ -1727,6 +1724,9 @@
 				11CE6E1E1EC01F64004F1707 /* NZTopRankListView.m */,
 				116237031E4B3288009FEDCA /* SKProfileSettingViewController.h */,
 				116237041E4B3288009FEDCA /* SKProfileSettingViewController.m */,
+				116236F61E4B3288009FEDCA /* HTAboutController.h */,
+				116236F71E4B3288009FEDCA /* HTAboutController.m */,
+				116236F81E4B3288009FEDCA /* HTAboutController.xib */,
 			);
 			name = 3.0;
 			sourceTree = "<group>";
