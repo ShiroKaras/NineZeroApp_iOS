@@ -11,8 +11,10 @@
 #import "NZTicketListView.h"
 #import "NZTopRankListView.h"
 #import "NZRankViewController.h"
+#import "NZLabTableViewCell.h"
+#import "NZLabDetailViewController.h"
 
-@interface NZUserProfileViewController () <UIScrollViewDelegate, NZTopRankListViewDelegate>
+@interface NZUserProfileViewController () <UIScrollViewDelegate, NZTopRankListViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *mainInfoView;
 @property (nonatomic, strong) UIImageView *avatarImageView;
@@ -24,7 +26,9 @@
 @property (nonatomic, strong) UIScrollView *contentScrollView0;
 @property (nonatomic, strong) UIScrollView *contentScrollView1;
 @property (nonatomic, strong) UIScrollView *contentScrollView2;
-@property (nonatomic, strong) UIScrollView *contentScrollView3;
+@property (nonatomic, strong) UITableView  *contentTableView3;
+@property (nonatomic, strong) NSArray<SKTopic*>  *topicArray;
+
 @end
 
 @implementation NZUserProfileViewController {
@@ -203,12 +207,35 @@
     topRankersListView.delegate = self;
     [_contentScrollView2 addSubview:topRankersListView];
     _contentScrollView2.contentSize = CGSizeMake(_contentScrollView2.width, topRankersListView.height);
+    
+    //参与的话题
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 52)];
+    UIImageView *titleImageView_topic = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userpage_partake"]];
+    titleImageView_topic.left = 16;
+    titleImageView_topic.centerY = headerView.centerY;
+    [headerView addSubview:titleImageView_topic];
+    
+    _contentTableView3 = [[UITableView alloc] initWithFrame:CGRectMake(_contentScrollView.width*3, 0, _contentScrollView.width, _contentScrollView.height) style:UITableViewStylePlain];
+    _contentTableView3.delegate = self;
+    _contentTableView3.dataSource = self;
+    _contentTableView3.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _contentTableView3.backgroundColor = [UIColor clearColor];
+    _contentTableView3.showsVerticalScrollIndicator = NO;
+    _contentTableView3.showsHorizontalScrollIndicator = NO;
+    _contentTableView3.bounces = NO;
+    _contentTableView3.tableHeaderView = headerView;
+    [_contentTableView3 registerClass:[NZLabTableViewCell class] forCellReuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
+    [_contentScrollView addSubview:_contentTableView3];
 }
 
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == _contentScrollView0||scrollView == _contentScrollView1) {
+    if (scrollView == _contentScrollView0||
+        scrollView == _contentScrollView1||
+        scrollView == _contentScrollView2||
+        scrollView == _contentTableView3) {
         //得到图片移动相对原点的坐标
         CGPoint point = scrollView.contentOffset;
         NSLog(@"%lf", point.y);
@@ -244,6 +271,39 @@
 
 - (void)settingButtonClick:(UIButton*)sender {
     
+}
+
+#pragma mark - TableView Delegate 
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NZLabTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NZLabTableViewCell class])];
+    if (cell==nil) {
+        cell = [[NZLabTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
+    }
+    [cell.thumbImageView sd_setImageWithURL:[NSURL URLWithString:_topicArray[indexPath.row].topic_list_pic]];
+    cell.titleLabel.text = [_topicArray[indexPath.row].topic_title stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+    
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NZLabTableViewCell *cell = (NZLabTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return cell.cellHeight;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NZLabDetailViewController *controller = [[NZLabDetailViewController alloc] initWithTopicID:_topicArray[indexPath.row].id];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+#pragma mark - UITableView DataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _topicArray.count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
 }
 
 @end
