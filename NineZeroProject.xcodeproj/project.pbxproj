@@ -224,6 +224,8 @@
 		11CE6E191EB8756A004F1707 /* SKTopicService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E181EB8756A004F1707 /* SKTopicService.m */; };
 		11CE6E1C1EBB3CA1004F1707 /* NZTicketListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E1B1EBB3CA1004F1707 /* NZTicketListView.m */; };
 		11CE6E1F1EC01F64004F1707 /* NZTopRankListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E1E1EC01F64004F1707 /* NZTopRankListView.m */; };
+		11CE6E221EC0809E004F1707 /* NZNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E211EC0809E004F1707 /* NZNotificationViewController.m */; };
+		11CE6E251EC08366004F1707 /* NZNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E241EC08366004F1707 /* NZNotificationTableViewCell.m */; };
 		11F218531CBB951300D2ED44 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218311CBB951300D2ED44 /* ShareSDK.framework */; };
 		11F218541CBB951300D2ED44 /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218341CBB951300D2ED44 /* ShareSDKExtension.framework */; };
 		11F218551CBB951300D2ED44 /* ShareSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11F218351CBB951300D2ED44 /* ShareSDKUI.bundle */; };
@@ -767,6 +769,10 @@
 		11CE6E1B1EBB3CA1004F1707 /* NZTicketListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZTicketListView.m; path = NineZeroProject/UI/Profile/NZTicketListView.m; sourceTree = "<group>"; };
 		11CE6E1D1EC01F64004F1707 /* NZTopRankListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZTopRankListView.h; path = NineZeroProject/UI/Profile/NZTopRankListView.h; sourceTree = "<group>"; };
 		11CE6E1E1EC01F64004F1707 /* NZTopRankListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZTopRankListView.m; path = NineZeroProject/UI/Profile/NZTopRankListView.m; sourceTree = "<group>"; };
+		11CE6E201EC0809E004F1707 /* NZNotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZNotificationViewController.h; path = NineZeroProject/UI/Profile/NZNotificationViewController.h; sourceTree = "<group>"; };
+		11CE6E211EC0809E004F1707 /* NZNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZNotificationViewController.m; path = NineZeroProject/UI/Profile/NZNotificationViewController.m; sourceTree = "<group>"; };
+		11CE6E231EC08366004F1707 /* NZNotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZNotificationTableViewCell.h; path = NineZeroProject/UI/Profile/NZNotificationTableViewCell.h; sourceTree = "<group>"; };
+		11CE6E241EC08366004F1707 /* NZNotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZNotificationTableViewCell.m; path = NineZeroProject/UI/Profile/NZNotificationTableViewCell.m; sourceTree = "<group>"; };
 		11F218311CBB951300D2ED44 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		11F218341CBB951300D2ED44 /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
 		11F218351CBB951300D2ED44 /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
@@ -1644,10 +1650,10 @@
 		11C64D371E601A7C00397835 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
-				118C310B1E5D4630009C3701 /* SKNotificationRootViewController.h */,
-				118C310C1E5D4630009C3701 /* SKNotificationRootViewController.m */,
 				116237241E4B32B5009FEDCA /* HTNotificationController.h */,
 				116237251E4B32B5009FEDCA /* HTNotificationController.m */,
+				118C310B1E5D4630009C3701 /* SKNotificationRootViewController.h */,
+				118C310C1E5D4630009C3701 /* SKNotificationRootViewController.m */,
 				11C64D3A1E601AC000397835 /* ChatFlowViewController.h */,
 				11C64D3B1E601AC000397835 /* ChatFlowViewController.m */,
 				11C64D381E601AC000397835 /* ChatFlowCell.h */,
@@ -1727,6 +1733,10 @@
 				116236F61E4B3288009FEDCA /* HTAboutController.h */,
 				116236F71E4B3288009FEDCA /* HTAboutController.m */,
 				116236F81E4B3288009FEDCA /* HTAboutController.xib */,
+				11CE6E201EC0809E004F1707 /* NZNotificationViewController.h */,
+				11CE6E211EC0809E004F1707 /* NZNotificationViewController.m */,
+				11CE6E231EC08366004F1707 /* NZNotificationTableViewCell.h */,
+				11CE6E241EC08366004F1707 /* NZNotificationTableViewCell.m */,
 			);
 			name = 3.0;
 			sourceTree = "<group>";
@@ -2802,6 +2812,7 @@
 			files = (
 				1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */,
 				1162370C1E4B3288009FEDCA /* SKProfileSettingViewController.m in Sources */,
+				11CE6E251EC08366004F1707 /* NZNotificationTableViewCell.m in Sources */,
 				116236EF1E4B3145009FEDCA /* renderer.cc in Sources */,
 				1162375F1E4B32E5009FEDCA /* SKMascotView.m in Sources */,
 				1162371E1E4B329E009FEDCA /* SKRegisterTextField.m in Sources */,
@@ -2855,6 +2866,7 @@
 				116236C11E4B3072009FEDCA /* SKCGIManager.m in Sources */,
 				112167641CF0637B0048EA01 /* SKLaunchAnimationViewController.m in Sources */,
 				11B4EF9B1EA9FE5000FF5E83 /* NZLabDetailViewController.m in Sources */,
+				11CE6E221EC0809E004F1707 /* NZNotificationViewController.m in Sources */,
 				11B4EF851EA4613F00FF5E83 /* NZMascotView.m in Sources */,
 				1162375C1E4B32E5009FEDCA /* SKMascotFightManager.m in Sources */,
 				1162374C1E4B32CF009FEDCA /* SKQuestionViewController.m in Sources */,

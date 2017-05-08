@@ -14,6 +14,7 @@
 #import "NZLabTableViewCell.h"
 #import "NZLabDetailViewController.h"
 #import "SKProfileSettingViewController.h"
+#import "NZNotificationViewController.h"
 
 @interface NZUserProfileViewController () <UIScrollViewDelegate, NZTopRankListViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -288,7 +289,8 @@
 #pragma mark - Actions
 
 - (void)notificationButtonClick:(UIButton *)sender {
-    
+    NZNotificationViewController *controller = [[NZNotificationViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)settingButtonClick:(UIButton*)sender {
