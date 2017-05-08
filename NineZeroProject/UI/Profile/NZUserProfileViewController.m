@@ -9,8 +9,10 @@
 #import "NZUserProfileViewController.h"
 #import "HTUIHeader.h"
 #import "NZTicketListView.h"
+#import "NZTopRankListView.h"
+#import "NZRankViewController.h"
 
-@interface NZUserProfileViewController () <UIScrollViewDelegate>
+@interface NZUserProfileViewController () <UIScrollViewDelegate, NZTopRankListViewDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *mainInfoView;
 @property (nonatomic, strong) UIImageView *avatarImageView;
@@ -163,7 +165,7 @@
     _contentScrollView.delegate = self;
     _contentScrollView.bounces = NO;
     _contentScrollView.pagingEnabled = YES;
-    _contentScrollView.backgroundColor = COMMON_GREEN_COLOR;
+    _contentScrollView.backgroundColor = [UIColor clearColor];
     _contentScrollView.contentSize = CGSizeMake(self.view.width*4, _contentScrollView.height);
     [_scrollView addSubview:_contentScrollView];
     
@@ -175,26 +177,38 @@
     _contentScrollView0.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
     [_contentScrollView addSubview:_contentScrollView0];
     
+    UIView *testView = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    testView.backgroundColor = COMMON_GREEN_COLOR;
+    [_contentScrollView0 addSubview:testView];
+
     //礼券
     _contentScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(_contentScrollView.width, 0, _contentScrollView.width, _contentScrollView.height)];
     _contentScrollView1.delegate = self;
     _contentScrollView1.bounces = NO;
     _contentScrollView1.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
     [_contentScrollView addSubview:_contentScrollView1];
+    
     NZTicketListView *ticketListView = [[NZTicketListView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView1.width, 0) withTickets:nil];
-//    ticketListView.height = ticketListView.viewHeight;
     [_contentScrollView1 addSubview:ticketListView];
     _contentScrollView1.contentSize = CGSizeMake(_contentScrollView1.width, ticketListView.viewHeight);
     
-    UIView *testView = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-    testView.backgroundColor = COMMON_GREEN_COLOR;
-    [_contentScrollView0 addSubview:testView];
+    //排名
+    _contentScrollView2 = [[UIScrollView alloc] initWithFrame:CGRectMake(_contentScrollView.width*2, 0, _contentScrollView.width, _contentScrollView.height)];
+    _contentScrollView2.delegate = self;
+    _contentScrollView2.bounces = NO;
+    _contentScrollView2.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
+    [_contentScrollView addSubview:_contentScrollView2];
+    
+    NZTopRankListView *topRankersListView = [[NZTopRankListView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView2.width, 0) withRankers:nil];
+    topRankersListView.delegate = self;
+    [_contentScrollView2 addSubview:topRankersListView];
+    _contentScrollView2.contentSize = CGSizeMake(_contentScrollView2.width, topRankersListView.height);
 }
 
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == _contentScrollView0) {
+    if (scrollView == _contentScrollView0||scrollView == _contentScrollView1) {
         //得到图片移动相对原点的坐标
         CGPoint point = scrollView.contentOffset;
         NSLog(@"%lf", point.y);
@@ -213,6 +227,13 @@
 
 - (void)scrollView:(UIScrollView*)scrollView scrollToPoint:(CGPoint)point {
     [scrollView setContentOffset:point animated:YES];
+}
+
+#pragma mark - NZTopRankListViewDelegate
+
+- (void)didClickHunterRankButton {
+    NZRankViewController *controller = [[NZRankViewController alloc] initWithType:NZRankListTypeHunter];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - Actions

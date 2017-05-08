@@ -35,7 +35,7 @@
             [self addSubview:ticketView];
         }
     
-        self.viewHeight = titleImageView.bottom+16+ ((self.width-32)/288*111+6)*(TICKET_NUM+1)+36;
+        self.viewHeight = titleImageView.bottom+16+ ((self.width-32)/288*111+6)*TICKET_NUM+6;
         self.height = _viewHeight;
     }
     return self;
