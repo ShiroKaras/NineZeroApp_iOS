@@ -222,6 +222,7 @@
 		11CE6E121EB1C36E004F1707 /* NZUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E111EB1C36E004F1707 /* NZUserProfileViewController.m */; };
 		11CE6E161EB82AAA004F1707 /* NZSubmitCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E151EB82AAA004F1707 /* NZSubmitCommentViewController.m */; };
 		11CE6E191EB8756A004F1707 /* SKTopicService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E181EB8756A004F1707 /* SKTopicService.m */; };
+		11CE6E1C1EBB3CA1004F1707 /* NZTicketListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E1B1EBB3CA1004F1707 /* NZTicketListView.m */; };
 		11F218531CBB951300D2ED44 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218311CBB951300D2ED44 /* ShareSDK.framework */; };
 		11F218541CBB951300D2ED44 /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218341CBB951300D2ED44 /* ShareSDKExtension.framework */; };
 		11F218551CBB951300D2ED44 /* ShareSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11F218351CBB951300D2ED44 /* ShareSDKUI.bundle */; };
@@ -761,6 +762,8 @@
 		11CE6E151EB82AAA004F1707 /* NZSubmitCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZSubmitCommentViewController.m; path = NineZeroProject/UI/Lab/NZSubmitCommentViewController.m; sourceTree = "<group>"; };
 		11CE6E171EB8756A004F1707 /* SKTopicService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKTopicService.h; path = NineZeroProject/Service/SKTopicService.h; sourceTree = "<group>"; };
 		11CE6E181EB8756A004F1707 /* SKTopicService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKTopicService.m; path = NineZeroProject/Service/SKTopicService.m; sourceTree = "<group>"; };
+		11CE6E1A1EBB3CA1004F1707 /* NZTicketListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZTicketListView.h; path = NineZeroProject/UI/Profile/NZTicketListView.h; sourceTree = "<group>"; };
+		11CE6E1B1EBB3CA1004F1707 /* NZTicketListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZTicketListView.m; path = NineZeroProject/UI/Profile/NZTicketListView.m; sourceTree = "<group>"; };
 		11F218311CBB951300D2ED44 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		11F218341CBB951300D2ED44 /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
 		11F218351CBB951300D2ED44 /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
@@ -1717,6 +1720,8 @@
 			children = (
 				11CE6E101EB1C36E004F1707 /* NZUserProfileViewController.h */,
 				11CE6E111EB1C36E004F1707 /* NZUserProfileViewController.m */,
+				11CE6E1A1EBB3CA1004F1707 /* NZTicketListView.h */,
+				11CE6E1B1EBB3CA1004F1707 /* NZTicketListView.m */,
 			);
 			name = 3.0;
 			sourceTree = "<group>";
@@ -2855,6 +2860,7 @@
 				1787FD1E1C4A8884006E55A6 /* LocationMath.m in Sources */,
 				11C64D3D1E601AC000397835 /* ChatFlowViewController.m in Sources */,
 				17490C6F1C4B640500F84092 /* QKGeofenceManager.m in Sources */,
+				11CE6E1C1EBB3CA1004F1707 /* NZTicketListView.m in Sources */,
 				17B429021C54D4A8008AFBA9 /* YYImage.m in Sources */,
 				11B4EFAC1EAA1A3000FF5E83 /* CHTCollectionViewWaterfallHeader.m in Sources */,
 				17A89AB91C1DBA290087BF00 /* FLAnimatedImage.m in Sources */,

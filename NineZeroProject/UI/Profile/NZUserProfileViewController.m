@@ -8,6 +8,7 @@
 
 #import "NZUserProfileViewController.h"
 #import "HTUIHeader.h"
+#import "NZTicketListView.h"
 
 @interface NZUserProfileViewController () <UIScrollViewDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -166,12 +167,24 @@
     _contentScrollView.contentSize = CGSizeMake(self.view.width*4, _contentScrollView.height);
     [_scrollView addSubview:_contentScrollView];
     
+    //
     _contentScrollView0 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView.width, _contentScrollView.height)];
     _contentScrollView0.delegate = self;
     _contentScrollView0.bounces = NO;
     _contentScrollView0.backgroundColor = COMMON_RED_COLOR;
     _contentScrollView0.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
     [_contentScrollView addSubview:_contentScrollView0];
+    
+    //礼券
+    _contentScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(_contentScrollView.width, 0, _contentScrollView.width, _contentScrollView.height)];
+    _contentScrollView1.delegate = self;
+    _contentScrollView1.bounces = NO;
+    _contentScrollView1.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
+    [_contentScrollView addSubview:_contentScrollView1];
+    NZTicketListView *ticketListView = [[NZTicketListView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView1.width, 0) withTickets:nil];
+//    ticketListView.height = ticketListView.viewHeight;
+    [_contentScrollView1 addSubview:ticketListView];
+    _contentScrollView1.contentSize = CGSizeMake(_contentScrollView1.width, ticketListView.viewHeight);
     
     UIView *testView = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
     testView.backgroundColor = COMMON_GREEN_COLOR;
