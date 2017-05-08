@@ -13,6 +13,7 @@
 #import "NZRankViewController.h"
 #import "NZLabTableViewCell.h"
 #import "NZLabDetailViewController.h"
+#import "SKProfileSettingViewController.h"
 
 @interface NZUserProfileViewController () <UIScrollViewDelegate, NZTopRankListViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -270,7 +271,8 @@
 }
 
 - (void)settingButtonClick:(UIButton*)sender {
-    
+    SKProfileSettingViewController *controller = [[SKProfileSettingViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - TableView Delegate 
