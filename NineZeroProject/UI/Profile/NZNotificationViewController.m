@@ -47,6 +47,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
     if (NO_NETWORK) {
@@ -73,10 +74,6 @@
     }
 }
 
-#pragma mark - UITableView Delegate
-
-
-
 #pragma mark - UITableView Datasource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -84,17 +81,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return _notices.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NZNotificationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NZNotificationTableViewCell class]) forIndexPath:indexPath];
-    
+    [cell setNotification:_notices[indexPath.row]];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
+    return [NZNotificationTableViewCell calculateCellHeightWithText:_notices[indexPath.row].content];
 }
 
 @end

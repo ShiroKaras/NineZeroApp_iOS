@@ -10,6 +10,8 @@
 @class SKNotification;
 
 @interface NZNotificationTableViewCell : UITableViewCell
+@property (nonatomic, assign) float cellHeight;
+
 - (void)setNotification:(SKNotification *)notification;
 + (CGFloat)calculateCellHeightWithText:(NSString *)text;
 @end
