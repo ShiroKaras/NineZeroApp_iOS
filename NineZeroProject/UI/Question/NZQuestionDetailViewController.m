@@ -400,8 +400,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         
         //视频
         [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
-        
+        [_coverImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.question_video_cover] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
         self.hintButton.hidden = (self.type==NZQuestionTypeTimeLimitLevel||self.currentQuestion.base_type!=0);
+        
+        [_chapterImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.title_pic]];
         
         if (self.currentQuestion.base_type==0) {
             [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write"] forState:UIControlStateNormal];
@@ -514,8 +516,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             });
         }];
     }
-    
-    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.question_video_cover] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
     
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_playButton addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];

@@ -28,7 +28,7 @@
             make.top.equalTo(self);
             make.left.equalTo(@16);
             make.right.equalTo(self).offset(-16);
-            make.height.mas_equalTo((self.width-32)/288*162);
+            make.height.mas_equalTo(ROUND_WIDTH_FLOAT(162));
         }];
 
         _timeLabelImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzlepage_timelabel"]];
@@ -57,6 +57,8 @@
 
 - (void)setCellWithQuetion:(SKQuestion *)question {
     _question = question;
+    [_questionCoverImageView sd_setImageWithURL:[NSURL URLWithString:_question.list_pic] placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
+    
     if (question.is_answer) {
         _timeLabelImageView.image = [UIImage imageNamed:@"img_puzzlepage_successlabel"];
         _timeLabel.hidden = YES;
