@@ -73,6 +73,7 @@
 @property (nonatomic, copy) NSString *serial;
 @property (nonatomic, copy) NSString *area_id;
 @property (nonatomic, copy) NSString *chapter;
+@property (nonatomic, copy) NSString *title_content;
 @property (nonatomic, copy) NSString *title_one;
 @property (nonatomic, copy) NSString *title_two;
 @property (nonatomic, copy) NSString *total_pic;
@@ -101,6 +102,7 @@
 @property (nonatomic, assign) NSInteger num;	  //答案道具数量
 @property (nonatomic, copy) NSString *list_pic;     //列表封面
 @property (nonatomic, copy) NSString *title_pic;    //标题图片
+@property (nonatomic, copy) NSString *chapter_pic;
 @property (nonatomic, assign) NSString *count_down;  //剩余时间
 @end
 

@@ -299,13 +299,24 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
     
     //////////////////////////////////////// 介绍 ////////////////////////////////////////
-    
+
     _chapterImageView = [UIImageView new];
-    [_chapterImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.total_pic]];
     [_questionMainBackView addSubview:_chapterImageView];
+    _chapterImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _chapterImageView.layer.masksToBounds = YES;
     _chapterImageView.top = _playBackView.bottom +16;
     _chapterImageView.left = 16;
-    _chapterImageView.size = CGSizeMake(210, 90);
+    _chapterImageView.size = CGSizeMake(80, 18);
+    
+    _questionTitleLabel = [UILabel new];
+    _questionTitleLabel.textColor = [UIColor whiteColor];
+    _questionTitleLabel.font = PINGFANG_FONT_OF_SIZE(18);
+    _questionTitleLabel.numberOfLines = 3;
+    [_questionTitleLabel sizeToFit];
+    [_questionMainBackView addSubview:_questionTitleLabel];
+    _questionTitleLabel.size = CGSizeMake(270, 90);
+    _questionTitleLabel.top = _chapterImageView.bottom +4;
+    _questionTitleLabel.left = _chapterImageView.left;
     
     //////////////////////////////////////// 详细内容 ////////////////////////////////////////
     
@@ -403,7 +414,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         [_coverImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.question_video_cover] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
         self.hintButton.hidden = (self.type==NZQuestionTypeTimeLimitLevel||self.currentQuestion.base_type!=0);
         
-        [_chapterImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.title_pic]];
+        [_chapterImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.chapter_pic]];
+        
+        _questionTitleLabel.text = self.currentQuestion.title_content;
+        [_questionTitleLabel sizeToFit];
         
         if (self.currentQuestion.base_type==0) {
             [_answerButton setBackgroundImage:[UIImage imageNamed:@"btn_puzzledetailpage_write"] forState:UIControlStateNormal];
