@@ -226,6 +226,7 @@
 		11CE6E1F1EC01F64004F1707 /* NZTopRankListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E1E1EC01F64004F1707 /* NZTopRankListView.m */; };
 		11CE6E221EC0809E004F1707 /* NZNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E211EC0809E004F1707 /* NZNotificationViewController.m */; };
 		11CE6E251EC08366004F1707 /* NZNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E241EC08366004F1707 /* NZNotificationTableViewCell.m */; };
+		11CE6E281EC1B9B3004F1707 /* NZBadgesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE6E271EC1B9B3004F1707 /* NZBadgesView.m */; };
 		11F218531CBB951300D2ED44 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218311CBB951300D2ED44 /* ShareSDK.framework */; };
 		11F218541CBB951300D2ED44 /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F218341CBB951300D2ED44 /* ShareSDKExtension.framework */; };
 		11F218551CBB951300D2ED44 /* ShareSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11F218351CBB951300D2ED44 /* ShareSDKUI.bundle */; };
@@ -773,6 +774,8 @@
 		11CE6E211EC0809E004F1707 /* NZNotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZNotificationViewController.m; path = NineZeroProject/UI/Profile/NZNotificationViewController.m; sourceTree = "<group>"; };
 		11CE6E231EC08366004F1707 /* NZNotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZNotificationTableViewCell.h; path = NineZeroProject/UI/Profile/NZNotificationTableViewCell.h; sourceTree = "<group>"; };
 		11CE6E241EC08366004F1707 /* NZNotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZNotificationTableViewCell.m; path = NineZeroProject/UI/Profile/NZNotificationTableViewCell.m; sourceTree = "<group>"; };
+		11CE6E261EC1B9B3004F1707 /* NZBadgesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZBadgesView.h; path = NineZeroProject/UI/Profile/NZBadgesView.h; sourceTree = "<group>"; };
+		11CE6E271EC1B9B3004F1707 /* NZBadgesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZBadgesView.m; path = NineZeroProject/UI/Profile/NZBadgesView.m; sourceTree = "<group>"; };
 		11F218311CBB951300D2ED44 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		11F218341CBB951300D2ED44 /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
 		11F218351CBB951300D2ED44 /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
@@ -1724,6 +1727,8 @@
 			children = (
 				11CE6E101EB1C36E004F1707 /* NZUserProfileViewController.h */,
 				11CE6E111EB1C36E004F1707 /* NZUserProfileViewController.m */,
+				11CE6E261EC1B9B3004F1707 /* NZBadgesView.h */,
+				11CE6E271EC1B9B3004F1707 /* NZBadgesView.m */,
 				11CE6E1A1EBB3CA1004F1707 /* NZTicketListView.h */,
 				11CE6E1B1EBB3CA1004F1707 /* NZTicketListView.m */,
 				11CE6E1D1EC01F64004F1707 /* NZTopRankListView.h */,
@@ -2833,6 +2838,7 @@
 				116237091E4B3288009FEDCA /* SKMyThingsViewController.m in Sources */,
 				116237081E4B3288009FEDCA /* SKMyBadgesViewController.m in Sources */,
 				11B4EF981EA8C80600FF5E83 /* NZLabTableViewCell.m in Sources */,
+				11CE6E281EC1B9B3004F1707 /* NZBadgesView.m in Sources */,
 				17B8F7461C25B4EF00DD6984 /* UIButton+EnlargeTouchArea.m in Sources */,
 				1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */,
 				1787FD151C4A8884006E55A6 /* ARObject.m in Sources */,

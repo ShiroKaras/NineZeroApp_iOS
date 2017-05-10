@@ -15,6 +15,7 @@
 #import "NZLabDetailViewController.h"
 #import "SKProfileSettingViewController.h"
 #import "NZNotificationViewController.h"
+#import "NZBadgesView.h"
 
 @interface NZUserProfileViewController () <UIScrollViewDelegate, NZTopRankListViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -172,17 +173,16 @@
     _contentScrollView.contentSize = CGSizeMake(self.view.width*4, _contentScrollView.height);
     [_scrollView addSubview:_contentScrollView];
     
-    //
+    //勋章
     _contentScrollView0 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView.width, _contentScrollView.height)];
     _contentScrollView0.delegate = self;
     _contentScrollView0.bounces = NO;
-    _contentScrollView0.backgroundColor = COMMON_RED_COLOR;
     _contentScrollView0.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
     [_contentScrollView addSubview:_contentScrollView0];
     
-    UIView *testView = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-    testView.backgroundColor = COMMON_GREEN_COLOR;
-    [_contentScrollView0 addSubview:testView];
+    NZBadgesView *badgeView = [[NZBadgesView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView0.width, _contentScrollView0.height) badges:nil];
+    [_contentScrollView0 addSubview:badgeView];
+    _contentScrollView0.contentSize = CGSizeMake(_contentScrollView0.width, badgeView.viewHeight);
 
     //礼券
     _contentScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(_contentScrollView.width, 0, _contentScrollView.width, _contentScrollView.height)];
