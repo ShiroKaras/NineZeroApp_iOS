@@ -109,9 +109,9 @@
 
 - (void)submitCommentWithTopicID:(NSString *)topicID content:(NSString *)content callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
-                            @"method"   : @"giveComment",
-                            @"id"       : topicID,
-                            @"comment"  : content
+                            @"method"       : @"giveComment",
+                            @"id"           : topicID,
+                            @"user_comment" : content
                             };
     [self topicBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);

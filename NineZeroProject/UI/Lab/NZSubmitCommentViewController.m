@@ -98,6 +98,8 @@
     _wordCountLabel.right = self.view.right - 16;
     _wordCountLabel.bottom = _submitButton.top - 16;
     
+    [_textView becomeFirstResponder];
+    
     if (NO_NETWORK) {
         UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
         converView.backgroundColor = COMMON_BG_COLOR;
