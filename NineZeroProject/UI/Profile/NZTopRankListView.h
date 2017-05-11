@@ -17,9 +17,18 @@
 @end
 
 @interface NZTopRankListView : UIView
-
+@property(nonatomic, strong) NSArray<SKRanker*> *rankerArray;
 @property(nonatomic, weak) id<NZTopRankListViewDelegate> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame withRankers:(NSArray<SKRanker*>*)rankers;
 
+@end
+
+
+//单行View
+@interface NZRankCellView : UIView
+@property (nonatomic, strong) UILabel *rankOrderLabel;
+@property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, strong) UILabel *usernameLabel;
+@property (nonatomic, strong) UILabel *expLabel;
 @end

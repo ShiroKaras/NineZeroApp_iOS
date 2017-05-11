@@ -22,16 +22,17 @@
         titleImageView.top = 16;
         
         for (int i=0; i<11; i++) {
-            UIView *view;
+            NZRankCellView *view;
             if (i==0) {
-                view = [[UIView alloc] initWithFrame:CGRectMake(16, titleImageView.bottom+24, self.width-32, 40)];
+                view = [[NZRankCellView alloc] initWithFrame:CGRectMake(16, titleImageView.bottom+24, self.width-32, ROUND_HEIGHT_FLOAT(40))];
             } else {
-                view = [[UIView alloc] initWithFrame:CGRectMake(16, titleImageView.bottom+24+60+40*(i-1), self.width-32, 30)];
+                view = [[NZRankCellView alloc] initWithFrame:CGRectMake(16, titleImageView.bottom+24+60+ROUND_HEIGHT_FLOAT(40)*(i-1), self.width-32, ROUND_HEIGHT_FLOAT(30))];
             }
-            view.backgroundColor = COMMON_RED_COLOR;
             view.tag = 100+i;
             [self addSubview:view];
         }
+        
+        
         
         //猎人榜
         UIButton *rank1 = [UIButton new];
@@ -64,6 +65,78 @@
     if ([_delegate respondsToSelector:@selector(didClickHunterRankButton)]) {
         [_delegate didClickHunterRankButton];
     }
+}
+
+- (void)setRankerArray:(NSArray<SKRanker *> *)rankerArray {
+    _rankerArray = rankerArray;
+    for (int i=0; i<11; i++) {
+        ((NZRankCellView*)[self viewWithTag:100+i]).rankOrderLabel.text = [NSString stringWithFormat:@"%ld", rankerArray[i].rank];
+        ((NZRankCellView*)[self viewWithTag:100+i]).usernameLabel.text = rankerArray[i].user_name;
+        [((NZRankCellView*)[self viewWithTag:100+i]).avatarImageView sd_setImageWithURL:[NSURL URLWithString:rankerArray[i].user_avatar] placeholderImage:[UIImage imageNamed:@""]];
+        ((NZRankCellView*)[self viewWithTag:100+i]).expLabel.text = rankerArray[i].user_experience_value;
+    }
+}
+
+@end
+
+
+
+@implementation NZRankCellView
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _rankOrderLabel = [UILabel new];
+        _rankOrderLabel.text = @"99";
+        _rankOrderLabel.textColor = COMMON_PINK_COLOR;
+        _rankOrderLabel.font = MOON_FONT_OF_SIZE(14);
+        [self addSubview:_rankOrderLabel];
+        [_rankOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self);
+            make.centerY.equalTo(self);
+        }];
+        
+        _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+        _avatarImageView.layer.cornerRadius = frame.size.height/2;
+        _avatarImageView.layer.masksToBounds = YES;
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [self addSubview:_avatarImageView];
+        [_avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(self.mas_height);
+            make.width.equalTo(self.mas_height);
+            make.centerX.equalTo(self.mas_left).offset(72);
+            make.centerY.equalTo(self);
+        }];
+        
+        _usernameLabel = [UILabel new];
+        _usernameLabel.text = @"我是一个零仔";
+        _usernameLabel.textColor = [UIColor colorWithHex:0x3c3c3c];
+        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(10);
+        [self addSubview:_usernameLabel];
+        [_usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self);
+            make.left.equalTo(self.mas_left).offset(112);
+        }];
+        
+        UIImageView *expImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzleranking_usetop"]];
+        [self addSubview:expImageView];
+        [expImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self);
+            make.centerX.equalTo(self.mas_right).offset(-43-8);
+        }];
+        
+        _expLabel = [UILabel new];
+        _expLabel.text = @"99999";
+        _expLabel.textColor = [UIColor colorWithHex:0x3c3c3c];
+        _expLabel.font = MOON_FONT_OF_SIZE(10);
+        [self addSubview:_expLabel];
+        [_expLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self);
+            make.left.equalTo(expImageView.mas_right).offset(3);
+        }];
+    }
+    return self;
 }
 
 @end

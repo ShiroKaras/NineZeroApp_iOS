@@ -32,7 +32,7 @@
             make.left.equalTo(@16);
             make.right.equalTo(self.mas_right).offset(-16);
             make.top.equalTo(self.mas_top);
-            make.height.mas_equalTo(30);
+            make.height.equalTo(ROUND_HEIGHT(30));
         }];
         
         _rankOrderLabel = [UILabel new];
@@ -85,7 +85,7 @@
         }];
         
         [self layoutIfNeeded];
-        self.cellHeight = 40;
+        self.cellHeight = ROUND_HEIGHT_FLOAT(40);
     }
     return self;
 }
@@ -103,9 +103,9 @@
             make.left.equalTo(@16);
             make.right.equalTo(self.mas_right).offset(-16);
             make.top.equalTo(self.mas_top);
-            make.height.mas_equalTo(50);
+            make.height.equalTo(ROUND_HEIGHT(50));
         }];
-        _avatarImageView.layer.cornerRadius = 25;
+        _avatarImageView.layer.cornerRadius = ROUND_HEIGHT_FLOAT(25);
         
         _usernameLabel.font = PINGFANG_FONT_OF_SIZE(12);
         _usernameLabel.textColor = COMMON_GREEN_COLOR;
@@ -116,15 +116,15 @@
         _expLabel.textColor = COMMON_GREEN_COLOR;
         
         [self setRanker:ranker];
-        _cellHeight = 60;
+        _cellHeight = ROUND_HEIGHT_FLOAT(60);
     } else {
         [_backView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(@16);
             make.right.equalTo(self.mas_right).offset(-16);
             make.top.equalTo(self.mas_top);
-            make.height.mas_equalTo(30);
+            make.height.equalTo(ROUND_HEIGHT(30));
         }];
-        _avatarImageView.layer.cornerRadius = 15;
+        _avatarImageView.layer.cornerRadius = ROUND_HEIGHT_FLOAT(15);
         
         _usernameLabel.font = PINGFANG_FONT_OF_SIZE(10);
         _usernameLabel.textColor = COMMON_TEXT_3_COLOR;
@@ -135,7 +135,7 @@
         _expLabel.textColor = COMMON_TEXT_3_COLOR;
         
         [self setRanker:ranker];
-        _cellHeight = 40;
+        _cellHeight = ROUND_HEIGHT_FLOAT(40);
     }
 }
 

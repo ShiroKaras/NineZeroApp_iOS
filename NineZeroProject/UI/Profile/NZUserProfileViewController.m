@@ -16,6 +16,7 @@
 #import "SKProfileSettingViewController.h"
 #import "NZNotificationViewController.h"
 #import "NZBadgesView.h"
+#import "SKTicketView.h"
 
 @interface NZUserProfileViewController () <UIScrollViewDelegate, NZTopRankListViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -27,10 +28,14 @@
 @property (nonatomic, strong) UIImageView *indicatorLine;
 
 @property (nonatomic, strong) UIScrollView *contentScrollView;
-@property (nonatomic, strong) UIScrollView *contentScrollView0;
-@property (nonatomic, strong) UIScrollView *contentScrollView1;
-@property (nonatomic, strong) UIScrollView *contentScrollView2;
-@property (nonatomic, strong) UITableView  *contentTableView3;
+@property (nonatomic, strong) UIScrollView *contentScrollView_badge;
+@property (nonatomic, strong) UITableView  *contentTableView_tickets;
+@property (nonatomic, strong) UIScrollView *contentScrollView_rank;
+@property (nonatomic, strong) UITableView  *contentTableView_topic;
+
+@property (nonatomic, strong) NZTopRankListView *topRankersListView;
+
+@property (nonatomic, strong) NSArray<SKTicket*> *ticketArray;
 @property (nonatomic, strong) NSArray<SKTopic*>  *topicArray;
 
 @end
@@ -140,9 +145,10 @@
         
         UILabel *label = [UILabel new];
         label.tag = 200+i;
-        label.text = @"999";
+        label.text = @"99999";
         label.textColor = i==0?COMMON_GREEN_COLOR:COMMON_TEXT_3_COLOR;
         label.font = MOON_FONT_OF_SIZE(12);
+        label.textAlignment = NSTextAlignmentCenter;
         [label sizeToFit];
         [buttonsBackView addSubview:label];
         label.centerX = button.centerX;
@@ -174,38 +180,44 @@
     [_scrollView addSubview:_contentScrollView];
     
     //勋章
-    _contentScrollView0 = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView.width, _contentScrollView.height)];
-    _contentScrollView0.delegate = self;
-    _contentScrollView0.bounces = NO;
-    _contentScrollView0.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
-    [_contentScrollView addSubview:_contentScrollView0];
+    _contentScrollView_badge = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView.width, _contentScrollView.height)];
+    _contentScrollView_badge.delegate = self;
+    _contentScrollView_badge.bounces = NO;
+    _contentScrollView_badge.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
+    [_contentScrollView addSubview:_contentScrollView_badge];
     
-    NZBadgesView *badgeView = [[NZBadgesView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView0.width, _contentScrollView0.height) badges:nil];
-    [_contentScrollView0 addSubview:badgeView];
-    _contentScrollView0.contentSize = CGSizeMake(_contentScrollView0.width, badgeView.viewHeight);
+    NZBadgesView *badgeView = [[NZBadgesView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView_badge.width, _contentScrollView_badge.height) badges:nil];
+    [_contentScrollView_badge addSubview:badgeView];
+    _contentScrollView_badge.contentSize = CGSizeMake(_contentScrollView_badge.width, badgeView.viewHeight);
 
     //礼券
-    _contentScrollView1 = [[UIScrollView alloc] initWithFrame:CGRectMake(_contentScrollView.width, 0, _contentScrollView.width, _contentScrollView.height)];
-    _contentScrollView1.delegate = self;
-    _contentScrollView1.bounces = NO;
-    _contentScrollView1.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
-    [_contentScrollView addSubview:_contentScrollView1];
+    UIView *ticketHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 50)];
+    UIImageView *ticketTitleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userpage_gift"]];
+    [ticketHeaderView addSubview:ticketTitleImageView];
+    ticketTitleImageView.left = 16;
+    ticketTitleImageView.centerY = ticketHeaderView.centerY;
     
-    NZTicketListView *ticketListView = [[NZTicketListView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView1.width, 0) withTickets:nil];
-    [_contentScrollView1 addSubview:ticketListView];
-    _contentScrollView1.contentSize = CGSizeMake(_contentScrollView1.width, ticketListView.viewHeight);
+    _contentTableView_tickets = [[UITableView alloc] initWithFrame:CGRectMake(_contentScrollView.width, 0, _contentScrollView.width, _contentScrollView.height) style:UITableViewStylePlain];
+    _contentTableView_tickets.backgroundColor = [UIColor clearColor];
+    _contentTableView_tickets.delegate = self;
+    _contentTableView_tickets.dataSource = self;
+    _contentTableView_tickets.bounces = NO;
+    _contentTableView_tickets.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_contentTableView_tickets registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
+    _contentTableView_tickets.tableHeaderView = ticketHeaderView;
+    [_contentScrollView addSubview:_contentTableView_tickets];
     
     //排名
-    _contentScrollView2 = [[UIScrollView alloc] initWithFrame:CGRectMake(_contentScrollView.width*2, 0, _contentScrollView.width, _contentScrollView.height)];
-    _contentScrollView2.delegate = self;
-    _contentScrollView2.bounces = NO;
-    _contentScrollView2.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
-    [_contentScrollView addSubview:_contentScrollView2];
+    _contentScrollView_rank = [[UIScrollView alloc] initWithFrame:CGRectMake(_contentScrollView.width*2, 0, _contentScrollView.width, _contentScrollView.height)];
+    _contentScrollView_rank.delegate = self;
+    _contentScrollView_rank.bounces = NO;
+    _contentScrollView_rank.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
+    [_contentScrollView addSubview:_contentScrollView_rank];
     
-    NZTopRankListView *topRankersListView = [[NZTopRankListView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView2.width, 0) withRankers:nil];
-    topRankersListView.delegate = self;
-    [_contentScrollView2 addSubview:topRankersListView];
-    _contentScrollView2.contentSize = CGSizeMake(_contentScrollView2.width, topRankersListView.height);
+    _topRankersListView = [[NZTopRankListView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView_rank.width, 0) withRankers:nil];
+    _topRankersListView.delegate = self;
+    [_contentScrollView_rank addSubview:_topRankersListView];
+    _contentScrollView_rank.contentSize = CGSizeMake(_contentScrollView_rank.width, _topRankersListView.height);
     
     //参与的话题
     
@@ -215,30 +227,58 @@
     titleImageView_topic.centerY = headerView.centerY;
     [headerView addSubview:titleImageView_topic];
     
-    _contentTableView3 = [[UITableView alloc] initWithFrame:CGRectMake(_contentScrollView.width*3, 0, _contentScrollView.width, _contentScrollView.height) style:UITableViewStylePlain];
-    _contentTableView3.delegate = self;
-    _contentTableView3.dataSource = self;
-    _contentTableView3.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _contentTableView3.backgroundColor = [UIColor clearColor];
-    _contentTableView3.showsVerticalScrollIndicator = NO;
-    _contentTableView3.showsHorizontalScrollIndicator = NO;
-    _contentTableView3.bounces = NO;
-    _contentTableView3.tableHeaderView = headerView;
-    [_contentTableView3 registerClass:[NZLabTableViewCell class] forCellReuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
-    [_contentScrollView addSubview:_contentTableView3];
+    _contentTableView_topic = [[UITableView alloc] initWithFrame:CGRectMake(_contentScrollView.width*3, 0, _contentScrollView.width, _contentScrollView.height) style:UITableViewStylePlain];
+    _contentTableView_topic.delegate = self;
+    _contentTableView_topic.dataSource = self;
+    _contentTableView_topic.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _contentTableView_topic.backgroundColor = [UIColor clearColor];
+    _contentTableView_topic.showsVerticalScrollIndicator = NO;
+    _contentTableView_topic.showsHorizontalScrollIndicator = NO;
+    _contentTableView_topic.bounces = NO;
+    _contentTableView_topic.tableHeaderView = headerView;
+    [_contentTableView_topic registerClass:[NZLabTableViewCell class] forCellReuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
+    [_contentScrollView addSubview:_contentTableView_topic];
+    
+    [self loadData];
+}
+
+- (void)loadData {
+    _userNameLabel.text = [[SKStorageManager sharedInstance] userInfo].user_name;
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:[[SKStorageManager sharedInstance] userInfo].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    
+    [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) {
+//        _rankLabel.text = [response.rank integerValue]>999? @"1K+":response.rank;
+//        _coinLabel.text = response.user_gold;
+        ((UILabel*)[self.view viewWithTag:201]).text = response.ticket_num;
+        ((UILabel*)[self.view viewWithTag:202]).text = response.rank;
+    }];
+    
+    [[[SKServiceManager sharedInstance] profileService] getUserTicketsCallbackCallback:^(BOOL suceese, NSArray<SKTicket *> *tickets) {
+        self.ticketArray = tickets;
+        [_contentTableView_tickets reloadData];
+    }];
+    
+    [[[SKServiceManager sharedInstance] profileService] getSeason2RankListCallback:^(BOOL success, NSArray<SKRanker *> *rankerList) {
+        if (success) {
+            _topRankersListView.rankerArray = rankerList;
+            [HTProgressHUD dismiss];
+        } else {
+            [HTProgressHUD dismiss];
+        }
+    }];
 }
 
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == _contentScrollView0||
-        scrollView == _contentScrollView1||
-        scrollView == _contentScrollView2||
-        scrollView == _contentTableView3) {
+    if (scrollView == _contentScrollView_badge||
+        scrollView == _contentTableView_tickets||
+        scrollView == _contentScrollView_rank||
+        scrollView == _contentTableView_topic) {
         //得到图片移动相对原点的坐标
         CGPoint point = scrollView.contentOffset;
         NSLog(@"%lf", point.y);
-        if (point.y > 50) {
+        if (point.y > 30) {
             if (_scrollFlag) {
                 _scrollFlag = NO;
                 [self scrollView:_scrollView scrollToPoint:CGPointMake(0, 182)];
@@ -301,30 +341,60 @@
 #pragma mark - TableView Delegate 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NZLabTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NZLabTableViewCell class])];
-    if (cell==nil) {
-        cell = [[NZLabTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
-    }
-    [cell.thumbImageView sd_setImageWithURL:[NSURL URLWithString:_topicArray[indexPath.row].topic_list_pic]];
-    cell.titleLabel.text = [_topicArray[indexPath.row].topic_title stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
-    
-    return cell;
+    if (tableView == _contentTableView_topic) {
+        NZLabTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NZLabTableViewCell class])];
+        if (cell==nil) {
+            cell = [[NZLabTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
+        }
+        [cell.thumbImageView sd_setImageWithURL:[NSURL URLWithString:_topicArray[indexPath.row].topic_list_pic]];
+        cell.titleLabel.text = [_topicArray[indexPath.row].topic_title stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+        
+        return cell;
+    } else if (tableView == _contentTableView_tickets) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        for (UIView *view in cell.contentView.subviews) {
+            [view removeFromSuperview];
+        }
+        
+        SKTicketView *ticketView = [[SKTicketView alloc] initWithFrame:CGRectMake(16, 16, self.view.width-32, (self.view.width-32)/288*111) reward:self.ticketArray[indexPath.row]];
+        [cell.contentView addSubview:ticketView];
+        [ticketView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@(self.view.width-32));
+            make.height.equalTo(@((self.view.width-32)/288*111));
+            make.top.equalTo(cell);
+            make.centerX.equalTo(cell);
+        }];
+        return cell;
+    } else
+        return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NZLabTableViewCell *cell = (NZLabTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-    return cell.cellHeight;
+    if (tableView == _contentTableView_topic) {
+        NZLabTableViewCell *cell = (NZLabTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+        return cell.cellHeight;
+    } else if(tableView == _contentTableView_tickets) {
+        return (self.view.width-32)/288*111+6;
+    } else
+        return 0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NZLabDetailViewController *controller = [[NZLabDetailViewController alloc] initWithTopicID:_topicArray[indexPath.row].id];
-    [self.navigationController pushViewController:controller animated:YES];
+    if (tableView == _contentTableView_topic) {
+        NZLabDetailViewController *controller = [[NZLabDetailViewController alloc] initWithTopicID:_topicArray[indexPath.row].id];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _topicArray.count;
+    if (tableView == _contentTableView_topic) {
+        return _topicArray.count;
+    } else
+        return _ticketArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
