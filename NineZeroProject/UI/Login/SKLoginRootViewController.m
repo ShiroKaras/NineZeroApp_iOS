@@ -149,15 +149,13 @@
 - (void)registerButtonClick:(UIButton *)sender {
 	[TalkingData trackEvent:@"register"];
 	SKRegisterViewController *controller = [[SKRegisterViewController alloc] init];
-	HTNavigationController *root = [[HTNavigationController alloc] initWithRootViewController:controller];
-	[self presentViewController:root animated:YES completion:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)loginButtonClick:(UIButton *)sender {
 	[TalkingData trackEvent:@"login"];
 	SKLoginViewController *controller = [[SKLoginViewController alloc] init];
-	HTNavigationController *root = [[HTNavigationController alloc] initWithRootViewController:controller];
-	[self presentViewController:root animated:YES completion:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)loginButtonWeixinClicked:(id)sender {
