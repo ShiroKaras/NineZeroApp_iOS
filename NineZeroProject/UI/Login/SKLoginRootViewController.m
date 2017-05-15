@@ -53,7 +53,7 @@
 	}];
 
 	UIView *bottomView1 = [UIView new];
-	bottomView1.backgroundColor = COMMON_RED_COLOR;
+	bottomView1.backgroundColor = COMMON_GREEN_COLOR;
 	[self.view addSubview:bottomView1];
 	[bottomView1 mas_makeConstraints:^(MASConstraintMaker *make) {
 	    make.left.equalTo(weakSelf.view);
@@ -149,14 +149,14 @@
 - (void)registerButtonClick:(UIButton *)sender {
 	[TalkingData trackEvent:@"register"];
 	SKRegisterViewController *controller = [[SKRegisterViewController alloc] init];
-	UINavigationController *root = [[UINavigationController alloc] initWithRootViewController:controller];
+	HTNavigationController *root = [[HTNavigationController alloc] initWithRootViewController:controller];
 	[self presentViewController:root animated:YES completion:nil];
 }
 
 - (void)loginButtonClick:(UIButton *)sender {
 	[TalkingData trackEvent:@"login"];
 	SKLoginViewController *controller = [[SKLoginViewController alloc] init];
-	UINavigationController *root = [[UINavigationController alloc] initWithRootViewController:controller];
+	HTNavigationController *root = [[HTNavigationController alloc] initWithRootViewController:controller];
 	[self presentViewController:root animated:YES completion:nil];
 }
 
@@ -233,7 +233,7 @@
 									    DLog(@"%@", response);
 									    if (success) {
 										    if (response.result == 0) {
-											    SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
+											    NZTabbarViewController *controller = [[NZTabbarViewController alloc] init];
 											    AppDelegateInstance.mainController = controller;
 											    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
 											    AppDelegateInstance.window.rootViewController = navController;

@@ -46,9 +46,9 @@
         _timeLabel.left = titleImageView.left;
         _timeLabel.top = titleImageView.bottom+4;
         
-        //倒计时
-        NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-        long long dTime = [[NSNumber numberWithDouble:time] longLongValue]; // 将double转为long long型
+//        倒计时
+//        NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+//        long long dTime = [[NSNumber numberWithDouble:time] longLongValue]; // 将double转为long long型
 //        NSString *curTime = [NSString stringWithFormat:@"%llu",dTime];      // 输出long long型
 //        NSLog(@"Time:%@", curTime);
         _deltaTime = 24*3600;

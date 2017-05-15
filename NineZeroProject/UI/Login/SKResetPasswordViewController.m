@@ -59,17 +59,17 @@
 
 	__weak __typeof(self) weakSelf = self;
 
-	UIButton *closeButton = [UIButton new];
-	[closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-	[closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-	[closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-	[self.view addSubview:closeButton];
-	[closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.width.equalTo(@40);
-	    make.height.equalTo(@40);
-	    make.top.equalTo(@12);
-	    make.left.equalTo(@4);
-	}];
+//	UIButton *closeButton = [UIButton new];
+//	[closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//	[closeButton setBackgroundImage:[UIImage imageNamed:@"btn_logins_back"] forState:UIControlStateNormal];
+//	[closeButton setBackgroundImage:[UIImage imageNamed:@"btn_logins_back_highlight"] forState:UIControlStateHighlighted];
+//	[self.view addSubview:closeButton];
+//	[closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//	    make.width.equalTo(@40);
+//	    make.height.equalTo(@40);
+//	    make.top.equalTo(@12);
+//	    make.left.equalTo(@4);
+//	}];
 
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_forgetpage_title"]];
     [self.view addSubview:titleImageView];
