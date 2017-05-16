@@ -14,9 +14,20 @@
 
 @interface NZTaskViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray<SKStronghold*> *strongholdArray;
+@property (nonatomic, assign) NSInteger mid;
 @end
 
 @implementation NZTaskViewController
+
+- (instancetype)initWithMascotID:(NSInteger)mid
+{
+    self = [super init];
+    if (self) {
+        _mid = mid;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,10 +53,18 @@
     [self.tableView registerClass:[NZTaskCell class] forCellReuseIdentifier:NSStringFromClass([NZTaskCell class])];
     [self.view addSubview:self.tableView];
 
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadData {
+    [[[SKServiceManager sharedInstance] strongholdService] getStrongholdListWithMascotID:[NSString stringWithFormat:@"%ld", _mid] forLocation:CLLocationCoordinate2DMake(39.924345, 116.519776) callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
+        _strongholdArray = strongholdList;
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - UITableView Delegate
@@ -55,7 +74,7 @@
     if (cell==nil) {
         cell = [[NZTaskCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZTaskCell class])];
     }
-    
+    [cell loadDataWith:_strongholdArray[indexPath.row]];
     return cell;
 }
 
@@ -86,15 +105,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NZTaskDetailViewController *controller = [[NZTaskDetailViewController alloc] init];
+    NZTaskDetailViewController *controller = [[NZTaskDetailViewController alloc] initWithID:_strongholdArray[indexPath.row].id];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return _dataArray.count;
-    return 10;
+    return _strongholdArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

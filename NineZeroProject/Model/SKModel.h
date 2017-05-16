@@ -287,6 +287,8 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *difficulty;   //难度
 @property (nonatomic, copy) NSString *distance;     //距离
+@property (nonatomic, copy) NSString *thumbnail;    //缩略图
+@property (nonatomic, copy) NSString *name_pic;    //标题图片
 @end
 
 //据点内项目

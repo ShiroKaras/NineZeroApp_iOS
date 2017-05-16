@@ -37,20 +37,20 @@
         }];
         
         _taskTitleImageView = [UIImageView new];
-        _taskTitleImageView.backgroundColor = [UIColor redColor];
+        _taskTitleImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_taskTitleImageView];
         [_taskTitleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_taskImageView.mas_bottom).offset(16);
             make.left.equalTo(_taskImageView);
-            make.right.equalTo(_taskImageView);
-            make.height.equalTo(@16);
+            make.width.equalTo(@288);
+            make.height.equalTo(@22);
         }];
         
         //Level
         UILabel *taskLevelLabel = [UILabel new];
         taskLevelLabel.text = @"任务难度";
         taskLevelLabel.textColor = COMMON_TEXT_2_COLOR;
-        taskLevelLabel.font = PINGFANG_FONT_OF_SIZE(12);
+        taskLevelLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
         [taskLevelLabel sizeToFit];
         [self.contentView addSubview:taskLevelLabel];
         [taskLevelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -60,11 +60,12 @@
         
         for (int i=0; i<5; i++) {
             UIImageView *levelImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskpage_level"]];
+            levelImageView.tag = 100+i;
             [self.contentView addSubview:levelImageView];
             [levelImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(25, 25));
+                make.size.mas_equalTo(CGSizeMake(ROUND_HEIGHT_FLOAT(25), ROUND_HEIGHT_FLOAT(25)));
                 make.centerY.equalTo(taskLevelLabel.mas_centerY);
-                make.left.equalTo(taskLevelLabel.mas_right).offset(4+25*i);
+                make.left.equalTo(taskLevelLabel.mas_right).offset(ROUND_HEIGHT_FLOAT(4)+ROUND_HEIGHT_FLOAT(25)*i);
             }];
         }
         
@@ -72,7 +73,7 @@
         _distanceLabel = [UILabel new];
         _distanceLabel.text = @"0m";
         _distanceLabel.textColor = taskLevelLabel.textColor;
-        _distanceLabel.font = PINGFANG_FONT_OF_SIZE(10);
+        _distanceLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(10));
         [_distanceLabel sizeToFit];
         [self.contentView addSubview:_distanceLabel];
         [_distanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -118,6 +119,15 @@
             }
             break;
         }
+    }
+}
+
+- (void)loadDataWith:(SKStronghold *)stronghold {
+    [_taskImageView sd_setImageWithURL:[NSURL URLWithString:stronghold.thumbnail] placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
+    [_taskTitleImageView sd_setImageWithURL:[NSURL URLWithString:stronghold.name_pic]];
+    _distanceLabel.text = [stronghold.distance stringByAppendingString:@"m"];
+    for (int i=0; i<5; i++) {
+        ((UIImageView *)[self viewWithTag:100+i]).image = i<[stronghold.difficulty intValue]? [UIImage imageNamed:@"img_taskpage_level_highlight"]:[UIImage imageNamed:@"img_taskpage_level"];
     }
 }
 

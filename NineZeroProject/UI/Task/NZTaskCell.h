@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SKStronghold;
 
 @interface NZTaskCell : UITableViewCell
 @property (nonatomic, assign) float cellHeight;
+
+- (void)loadDataWith:(SKStronghold*)stronghold;
+
 @end
