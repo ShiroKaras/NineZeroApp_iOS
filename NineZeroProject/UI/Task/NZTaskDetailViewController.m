@@ -11,6 +11,8 @@
 #import "NZTaskDetailView.h"
 
 @interface NZTaskDetailViewController () <UIScrollViewDelegate>
+@property (nonatomic, strong) SKStrongholdItem *detail;
+
 @property (nonatomic, strong) UIImageView   *titleImageView;
 @property (nonatomic, strong) UIView        *tabBackView;
 @property (nonatomic, strong) UIScrollView  *scrollView;
@@ -24,6 +26,15 @@
 
 @implementation NZTaskDetailViewController
 
+- (instancetype)initWithID:(NSString*)sid {
+    self = [super init];
+    if (self) {
+        _detail = [SKStrongholdItem new];
+        _detail.id = sid;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
@@ -36,6 +47,16 @@
 
 - (void)loadData {
     _isAddTaskList = NO;
+    [[[SKServiceManager sharedInstance] strongholdService] getStrongholdInfoWithID:_detail.id callback:^(BOOL success, SKStrongholdItem *strongholdItem) {
+        _detail = strongholdItem;
+        
+        [_titleImageView sd_setImageWithURL:[NSURL URLWithString:strongholdItem.bigpic] placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
+        
+        NZTaskDetailView *detailView = [[NZTaskDetailView alloc] initWithFrame:CGRectMake(0, _titleImageView.bottom, self.view.width, 1000) withModel:strongholdItem];
+        [_scrollView addSubview:detailView];
+        
+        _scrollView.contentSize = CGSizeMake(self.view.width, detailView.viewHeight+16+40+ROUND_WIDTH_FLOAT(240));
+    }];
 }
 
 - (void)createUI {
@@ -57,10 +78,11 @@
     _titleImageView.contentMode = UIViewContentModeScaleAspectFill;
     [_scrollView addSubview:_titleImageView];
     
-    NZTaskDetailView *detailView = [[NZTaskDetailView alloc] initWithFrame:CGRectMake(0, _titleImageView.bottom, self.view.width, 1000) withModel:nil];
-    [_scrollView addSubview:detailView];
-    
-    _scrollView.contentSize = CGSizeMake(self.view.width, detailView.viewHeight+16+40+weakSelf.view.width/320*240);
+    UIButton *scanningButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.right-16-ROUND_WIDTH_FLOAT(40), _titleImageView.bottom-16-ROUND_WIDTH_FLOAT(40), ROUND_WIDTH_FLOAT(40), ROUND_WIDTH_FLOAT(40))];
+    [scanningButton addTarget:self action:@selector(didClickScanningButton:) forControlEvents:UIControlEventTouchUpInside];
+    [scanningButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_scanning"] forState:UIControlStateNormal];
+    [scanningButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_scanning_highlight"] forState:UIControlStateHighlighted];
+    [_scrollView addSubview:scanningButton];
     
     UIView *bottomView = [UIView new];
     bottomView.backgroundColor = COMMON_TITLE_BG_COLOR;
@@ -165,6 +187,12 @@
                          }];
     }];
 
+}
+
+#pragma mark - Actions
+
+- (void)didClickScanningButton:(UIButton *)sender {
+    
 }
 
 #pragma mark - UIScrollViewDelegate

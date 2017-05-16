@@ -10,4 +10,6 @@
 
 @interface NZTaskDetailViewController : UIViewController
 
+- (instancetype)initWithID:(NSString*)sid;
+
 @end

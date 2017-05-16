@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SKStrongholdItem;
 
 @interface NZTaskDetailView : UIView
 @property(nonatomic, assign) float viewHeight;
-- (instancetype)initWithFrame:(CGRect)frame withModel:(NSDictionary*)modal;
+- (instancetype)initWithFrame:(CGRect)frame withModel:(SKStrongholdItem*)model;
 @end

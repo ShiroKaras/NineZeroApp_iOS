@@ -11,30 +11,20 @@
 
 @implementation NZTaskDetailView
 
-- (instancetype)initWithFrame:(CGRect)frame withModel:(NSDictionary*)modal
+- (instancetype)initWithFrame:(CGRect)frame withModel:(SKStrongholdItem*)model
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
-        titleImageView.layer.masksToBounds = YES;
-        titleImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [self addSubview:titleImageView];
-        [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@16);
-            make.left.equalTo(@16);
-            make.right.equalTo(@(-16));
-            make.height.mas_equalTo((frame.size.width-32)/288*145);
-        }];
         
         UIImageView *imageLabel_Pos = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskpage_position"]];
         [self addSubview:imageLabel_Pos];
         [imageLabel_Pos mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(titleImageView);
-            make.top.equalTo(titleImageView.mas_bottom).offset(16);
+            make.left.equalTo(@16);
+            make.top.equalTo(@16);
         }];
         
         UILabel *label_Pos = [UILabel new];
-        label_Pos.text = @"久神火锅（北京市朝阳区三里屯脏街同利大厦三层久神烧烤）";
+        label_Pos.text = model.target_address;
         label_Pos.textColor = [UIColor whiteColor];
         label_Pos.font = PINGFANG_FONT_OF_SIZE(12);
         label_Pos.numberOfLines = 0;
@@ -53,7 +43,7 @@
         }];
         
         UILabel *label_Time = [UILabel new];
-        label_Time.text = @"11:00 - 22:00";
+        label_Time.text = model.target_time;
         label_Time.textColor = [UIColor whiteColor];
         label_Time.font = PINGFANG_FONT_OF_SIZE(12);
         label_Time.numberOfLines = 0;
@@ -72,7 +62,7 @@
         }];
         
         UILabel *label_Tel = [UILabel new];
-        label_Tel.text = @"010-654321";
+        label_Tel.text = model.telephone;
         label_Tel.textColor = [UIColor whiteColor];
         label_Tel.font = PINGFANG_FONT_OF_SIZE(12);
         label_Tel.numberOfLines = 0;
@@ -83,30 +73,44 @@
             make.width.equalTo(ROUND_WIDTH(192));
         }];
         
-        UIImageView *detailImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
-        titleImageView.layer.masksToBounds = YES;
-        titleImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [self addSubview:detailImageView];
-        [detailImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(label_Tel.mas_bottom).offset(16);
-            make.centerX.equalTo(self);
-            make.size.equalTo(titleImageView);
-        }];
-        
-        UILabel *label_detail = [UILabel new];
-        label_detail.text = @"详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息-详细信息";
-        label_detail.textColor = [UIColor whiteColor];
-        label_detail.font = PINGFANG_FONT_OF_SIZE(12);
-        label_detail.numberOfLines = 0;
-        [self addSubview:label_detail];
-        [label_detail mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(detailImageView.mas_bottom).offset(16);
-            make.left.equalTo(detailImageView);
-            make.right.equalTo(detailImageView);
-        }];
-        
         [self layoutIfNeeded];
-        _viewHeight = label_detail.bottom;
+        _viewHeight = label_Tel.bottom;
+        
+        for (int i=0; i<model.article_details.count; i++) {
+            if ([[[model.article_details[i] componentsSeparatedByString:@"."] lastObject] isEqualToString:@"jpg"]||
+                [[[model.article_details[i] componentsSeparatedByString:@"."] lastObject] isEqualToString:@"png"]||
+                [[[model.article_details[i] componentsSeparatedByString:@"."] lastObject] isEqualToString:@"gif"]) {
+                
+                UIImageView *detailImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
+                detailImageView.layer.masksToBounds = YES;
+                detailImageView.contentMode = UIViewContentModeScaleAspectFill;
+                [detailImageView sd_setImageWithURL:[NSURL URLWithString:model.article_details[i]] placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
+                [self addSubview:detailImageView];
+                [detailImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.top.mas_equalTo(_viewHeight+16);
+                    make.centerX.equalTo(self);
+                    make.size.mas_equalTo(CGSizeMake(frame.size.width-32, (frame.size.width-32)/288*145));
+                }];
+                [self layoutIfNeeded];
+                _viewHeight = detailImageView.bottom;
+                
+            } else {
+                UILabel *label_detail = [UILabel new];
+                label_detail.text = model.article_details[i];
+                label_detail.textColor = [UIColor whiteColor];
+                label_detail.font = PINGFANG_FONT_OF_SIZE(12);
+                label_detail.numberOfLines = 0;
+                [self addSubview:label_detail];
+                [label_detail mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.top.mas_equalTo(_viewHeight+16);
+                    make.left.equalTo(@16);
+                    make.right.equalTo(self.mas_right).offset(-16);
+                }];
+                [self layoutIfNeeded];
+                _viewHeight = label_detail.bottom;
+            }
+        }
+        
     }
     return self;
 }

@@ -88,6 +88,19 @@
         make.bottom.equalTo(@(-68));
         make.centerX.equalTo(weakSelf.view);
     }];
+    
+    [self.view layoutIfNeeded];
+    
+    NSArray *mascotName = @[@"零仔〇",@"懒惰", @"傲慢",@"暴怒",@"嫉妒",@"淫欲",@"饕餮"];
+    float buttonWidth = (self.view.width-16*4)/3;
+    for (int i=0; i<6; i++) {
+        UIButton *mascotButton = [[UIButton alloc] initWithFrame:CGRectMake(16+(i%3)*(buttonWidth+16), 160+(i%2)*(buttonWidth+16), buttonWidth, buttonWidth)];
+        [mascotButton addTarget:self action:@selector(didClickMascotButotn:) forControlEvents:UIControlEventTouchUpInside];
+        [mascotButton setTitle:mascotName[i+1] forState:UIControlStateNormal];
+        mascotButton.backgroundColor = COMMON_GREEN_COLOR;
+        mascotButton.tag = 202+i;
+        [self.view addSubview:mascotButton];
+    }
 }
 
 #pragma mark - Actions
@@ -143,6 +156,12 @@
 
 - (void)didClickSwipeButton:(UIButton *)sender {
     SKSwipeViewController *controller = [[SKSwipeViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)didClickMascotButotn:(UIButton*)sender {
+    NSInteger mid = sender.tag-200;
+    NZTaskViewController *controller = [[NZTaskViewController alloc] initWithMascotID:mid];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
