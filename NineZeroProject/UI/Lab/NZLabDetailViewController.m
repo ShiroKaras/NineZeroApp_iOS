@@ -123,6 +123,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _collectionView.dataSource = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self loadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
@@ -163,7 +168,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.right.equalTo(shareButton.mas_left).offset(-25);
     }];
     
-    [self loadData];
+//    [self loadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -229,8 +234,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize titleSize = [_topicDetail.user_comment[indexPath.row].user_comment boundingRectWithSize:CGSizeMake((SCREEN_WIDTH-30)/2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_FONT_OF_SIZE(12)} context:nil].size;
-    return CGSizeMake((self.view.width-30)/2, titleSize.height+42);
+    CGSize titleSize = [_topicDetail.user_comment[indexPath.row].user_comment boundingRectWithSize:CGSizeMake((SCREEN_WIDTH-30)/2-12, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_FONT_OF_SIZE(12)} context:nil].size;
+    return CGSizeMake((self.view.width-30)/2, titleSize.height+44);
 }
 
 #pragma mark - Actions

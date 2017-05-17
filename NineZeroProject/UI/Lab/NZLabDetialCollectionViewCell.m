@@ -50,6 +50,7 @@
         _commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(6, 36, self.frame.size.width-12, 16)];
         _commentLabel.textColor = [UIColor whiteColor];
         _commentLabel.font = PINGFANG_FONT_OF_SIZE(12);
+        _commentLabel.numberOfLines = 0;
     }
     return _commentLabel;
 }
@@ -58,6 +59,7 @@
     _commentLabel.text = comment;
     [_commentLabel sizeToFit];
     _cellHeight = _commentLabel.height +42;
+    NSLog(@"Comment label height: %lf", _cellHeight);
 }
 
 @end
