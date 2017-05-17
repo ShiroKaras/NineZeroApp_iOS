@@ -11,6 +11,7 @@
 
 @interface NZRankViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, assign) NZRankListType type;
+@property (nonatomic, strong) SKRanker *myRank;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<SKRanker *> *rankerList;
 
@@ -42,6 +43,13 @@
         make.centerY.equalTo(headerView);
         make.centerX.equalTo(headerView);
     }];
+    
+    _myRank = [[SKRanker alloc] init];
+    _myRank.rank = [[SKStorageManager sharedInstance].profileInfo.rank integerValue];
+    _myRank.user_avatar = [SKStorageManager sharedInstance].userInfo.user_avatar;
+    _myRank.user_name = [SKStorageManager sharedInstance].userInfo.user_name;
+    _myRank.gold = [SKStorageManager sharedInstance].profileInfo.user_gold;
+    _myRank.user_experience_value = [SKStorageManager sharedInstance].profileInfo.user_experience_value;
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64) style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -90,7 +98,7 @@
         cell = [[NZRankCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZRankCell class])];
     }
     if (indexPath.row == 0) {
-        [cell setRanker:self.rankerList[0] isMe:YES withType:_type];
+        [cell setRanker:_myRank isMe:YES withType:_type];
     } else {
         [cell setRanker:self.rankerList[indexPath.row-1] isMe:NO withType:_type];
     }

@@ -11,6 +11,7 @@
 
 @interface NZQuestionContentView : UIView
 
+@property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, assign) float viewHeight;
 
 - (instancetype)initWithFrame:(CGRect)frame question:(SKQuestion*)question;

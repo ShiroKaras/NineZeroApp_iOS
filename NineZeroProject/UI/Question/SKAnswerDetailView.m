@@ -23,7 +23,6 @@
 @property (nonatomic, strong) SKAnswerDetail *answerDetail;
 
 @property (nonatomic, strong) UIView *dimmingView;
-@property (nonatomic, strong) UIScrollView *backScrollView;
 @property (nonatomic, strong) UIButton *cancelButton;	//关闭按钮
 @property (nonatomic, strong) UIImageView *headerImageView;  //头图
 @property (nonatomic, strong) UIImageView *contentImageView; //内容封面（不一定显示）
@@ -135,7 +134,7 @@
 	_backScrollView.backgroundColor = COMMON_SEPARATOR_COLOR;
 	_backScrollView.bounces = NO;
 	_backScrollView.alwaysBounceVertical = YES;
-	_backScrollView.delegate = self;
+	//_backScrollView.delegate = self;
 	[self addSubview:_backScrollView];
 
 	_headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(7, (self.frame.size.width - 14) / 307 * 72 - (self.frame.size.width - 14) / 640 * 218 + 30, self.frame.size.width - 14, (self.frame.size.width - 14) / 640 * 218)];

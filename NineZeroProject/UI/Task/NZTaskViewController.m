@@ -38,7 +38,12 @@
     headerView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:headerView];
     
-    _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskbook_title"]];
+    NSArray *mascotName = @[@"零仔〇",@"sloth", @"pride",@"wrath",@"envy",@"lust",@"gluttony"];
+    if (_mid>1&&_mid<8) {
+        _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_taskpage_title_%@",mascotName[_mid-1]]]];
+    } else {
+        _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskbook_title"]];
+    }
     [headerView addSubview:_titleImageView];
     [_titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(headerView);

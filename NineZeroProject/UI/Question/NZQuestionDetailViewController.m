@@ -106,7 +106,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 @end
 
-@implementation NZQuestionDetailViewController
+@implementation NZQuestionDetailViewController {
+    BOOL _scrollFlag;
+}
 
 - (instancetype)initWithType:(NZQuestionType)type questionID:(NSString *)questionID {
     if (self = [super init]) {
@@ -125,6 +127,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
+    _scrollFlag = YES;
     [self createUI];
     
     [self addObserver:self forKeyPath:@"isAnswered" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
@@ -459,11 +462,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)createDetail {
     //题目文章
     _questionContentView = [[NZQuestionContentView alloc] initWithFrame:CGRectMake(0, 0, _detailScrollView.width, _detailScrollView.height) question:self.currentQuestion];
+    _questionContentView.webView.scrollView.delegate = self;
     [_detailScrollView addSubview:_questionContentView];
     
     //答案文章
     _questionAnswerView = [[SKAnswerDetailView alloc] initWithFrame:CGRectMake(_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) questionID:self.currentQuestion.qid];
-//    [_detailScrollView addSubview:_questionAnswerView];
+    _questionAnswerView.backScrollView.delegate = self;
+    [_detailScrollView addSubview:_questionAnswerView];
 }
 
 //视频
@@ -553,8 +558,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             scrollView.contentOffset = point;
         }
     }
-    
-    if (scrollView == _detailScrollView) {
+    else if (scrollView == _detailScrollView) {
         //得到图片移动相对原点的坐标
         CGPoint point = scrollView.contentOffset;
         //移动不能超过右边
@@ -565,11 +569,24 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         //根据图片坐标判断页数
         int index = round(point.x / (SCREEN_WIDTH));
         [self scrollToIndex:index];
+    } else {
+        //得到图片移动相对原点的坐标
+        CGPoint point = scrollView.contentOffset;
+        if (point.y > 30) {
+            if (_scrollFlag) {
+                _scrollFlag = NO;
+                [self scrollView:scrollView scrollToPoint:CGPointMake(0, 182)];
+            }
+        }
+        if (point.y == 0) {
+            _scrollFlag = YES;
+            [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        }
     }
 }
 
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    
+- (void)scrollView:(UIScrollView*)scrollView scrollToPoint:(CGPoint)point {
+    [scrollView setContentOffset:point animated:YES];
 }
 
 - (void)scrollToIndex:(int)index {

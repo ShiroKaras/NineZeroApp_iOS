@@ -11,7 +11,6 @@
 
 @interface NZQuestionContentView () <UIWebViewDelegate>
 
-@property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) UIView *backView;
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) UIView *converView;
@@ -33,6 +32,7 @@
         
         _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 36, frame.size.width, frame.size.height)];
 //        _webView.scrollView.contentInset = UIEdgeInsetsMake(36, 0, 0, 0);
+        _webView.scrollView.bounces = NO;
         _webView.delegate = self;
         _webView.opaque = NO;
         _webView.backgroundColor = [UIColor clearColor];
@@ -57,6 +57,5 @@
     
     self.viewHeight = _webView.height+36;
 }
-
 
 @end

@@ -132,6 +132,7 @@
     NSArray *buttonImageNameArray = @[@"btn_userpage_achievement", @"btn_userpage_gift", @"btn_userpage_ranking", @"btn_userpage_partake"];
     for (int i=0; i<4; i++) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(padding+(padding+50)*i, 0, 50, 48)];
+        [button addTarget:self action:@selector(didClickTitleButton:) forControlEvents:UIControlEventTouchUpInside];
         button.tag = 100+i;
         if (i==0) {
             [button setImage:[UIImage imageNamed:[buttonImageNameArray[i] stringByAppendingString:@"_highlight"]] forState:UIControlStateNormal];
@@ -277,7 +278,6 @@
         scrollView == _contentTableView_topic) {
         //得到图片移动相对原点的坐标
         CGPoint point = scrollView.contentOffset;
-        NSLog(@"%lf", point.y);
         if (point.y > 30) {
             if (_scrollFlag) {
                 _scrollFlag = NO;
@@ -338,6 +338,15 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+- (void)didClickTitleButton:(UIButton *)sender {
+    int index = (int)sender.tag -100;
+    [self scrollToIndex:index];
+    CGPoint point = _contentScrollView.contentOffset;
+    point.x = self.view.width*index;
+    [UIView animateWithDuration:0.3 animations:^{
+        _contentScrollView.contentOffset = point;
+    }];
+}
 #pragma mark - TableView Delegate 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
