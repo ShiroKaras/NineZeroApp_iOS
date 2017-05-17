@@ -164,7 +164,7 @@
     [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"提交中"];
     [[[SKServiceManager sharedInstance] topicService] submitCommentWithTopicID:_topicID content:self.textView.text callback:^(BOOL success, SKResponsePackage *response) {
         if (success && response.result == 0) {
-            [self.navigationController popViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil ];
             [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
             [MBProgressHUD bwm_showTitle:@"提交成功" toView:KEY_WINDOW hideAfter:1.0];
         }

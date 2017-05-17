@@ -125,6 +125,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self createUI];
     [self loadData];
 }
 
@@ -132,6 +133,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     self.automaticallyAdjustsScrollViewInsets = false;
+}
+
+- (void)createUI {
     [self.view addSubview:self.collectionView];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height-49, self.view.width, 49)];
@@ -167,8 +171,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.centerY.equalTo(shareButton);
         make.right.equalTo(shareButton.mas_left).offset(-25);
     }];
-    
-//    [self loadData];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -208,7 +211,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     NZLabDetialCollectionViewCell *cell =
     (NZLabDetialCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER
                                                                                 forIndexPath:indexPath];
-    cell.avatarImageView.image = [UIImage imageNamed:self.cats[indexPath.item % 4]];
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:_topicDetail.user_comment[indexPath.row].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
     cell.usernameLabel.text = _topicDetail.user_comment[indexPath.row].user_name;
     [cell setComment:_topicDetail.user_comment[indexPath.row].user_comment];
     
@@ -234,7 +237,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize titleSize = [_topicDetail.user_comment[indexPath.row].user_comment boundingRectWithSize:CGSizeMake((SCREEN_WIDTH-30)/2-12, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_FONT_OF_SIZE(12)} context:nil].size;
+    CGSize titleSize = [_topicDetail.user_comment[indexPath.row].user_comment boundingRectWithSize:CGSizeMake((SCREEN_WIDTH-30)/2-14, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_FONT_OF_SIZE(12)} context:nil].size;
     return CGSizeMake((self.view.width-30)/2, titleSize.height+44);
 }
 
