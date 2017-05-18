@@ -29,6 +29,15 @@
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _mid = 0;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
@@ -66,10 +75,18 @@
 }
 
 - (void)loadData {
-    [[[SKServiceManager sharedInstance] strongholdService] getStrongholdListWithMascotID:[NSString stringWithFormat:@"%ld", _mid] forLocation:CLLocationCoordinate2DMake(39.924345, 116.519776) callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
-        _strongholdArray = strongholdList;
-        [self.tableView reloadData];
-    }];
+    if (_mid == 0) {
+        [[[SKServiceManager sharedInstance] strongholdService] getTaskListWithLocation:CLLocationCoordinate2DMake(39.924345, 116.519776) callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
+            _strongholdArray = strongholdList;
+            [self.tableView reloadData];
+        }];
+    }
+    if (_mid>1&&_mid<8) {
+        [[[SKServiceManager sharedInstance] strongholdService] getStrongholdListWithMascotID:[NSString stringWithFormat:@"%ld", _mid] forLocation:CLLocationCoordinate2DMake(39.924345, 116.519776) callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
+            _strongholdArray = strongholdList;
+            [self.tableView reloadData];
+        }];
+    }
 }
 
 #pragma mark - UITableView Delegate

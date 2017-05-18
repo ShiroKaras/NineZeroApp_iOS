@@ -150,6 +150,7 @@
 }
 
 - (void)didClickAddTaskButton:(UIButton *)sender {
+    [[[SKServiceManager sharedInstance] strongholdService] addTaskWithID:_detail.id];
     _isAddTaskList = !_isAddTaskList;
     [self showTipsWith:_isAddTaskList];
 }
