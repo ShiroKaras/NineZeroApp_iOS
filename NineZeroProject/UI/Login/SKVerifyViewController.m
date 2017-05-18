@@ -11,6 +11,7 @@
 
 @interface SKVerifyViewController ()
 
+@property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UITextField *verifyCodeTextField;
 @property (nonatomic, strong) UIButton *resendVerifyCodeButton;
 @property (nonatomic, assign) SKVerifyType type;
@@ -65,7 +66,7 @@
 }
 
 - (void)createUIWithType:(SKVerifyType)type {
-    self.view.backgroundColor = COMMON_PINK_COLOR;
+    self.view.backgroundColor = COMMON_GREEN_COLOR;
     
     _blackView = [[UIView alloc] initWithFrame:self.view.bounds];
     _blackView.backgroundColor = [UIColor blackColor];
@@ -105,15 +106,15 @@
         make.centerY.equalTo(stepImageView.mas_centerY);
     }];
     
-    UILabel *contentLabel = [UILabel new];
-    contentLabel.text = @"验证码短信马上就来";
-    contentLabel.textColor = [UIColor whiteColor];
-    contentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
-    contentLabel.textAlignment = NSTextAlignmentCenter;
-    contentLabel.numberOfLines = 2;
-    [contentLabel sizeToFit];
-    [self.view addSubview:contentLabel];
-    [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _contentLabel = [UILabel new];
+    _contentLabel.text = @"验证码短信马上就来\n60秒后可重新发送";
+    _contentLabel.textColor = [UIColor whiteColor];
+    _contentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
+    _contentLabel.textAlignment = NSTextAlignmentCenter;
+    _contentLabel.numberOfLines = 2;
+    [_contentLabel sizeToFit];
+    [self.view addSubview:_contentLabel];
+    [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ROUND_HEIGHT(122));
         make.centerX.equalTo(weakSelf.view);
     }];
@@ -127,7 +128,7 @@
         [circleView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@46);
             make.height.equalTo(@46);
-            make.top.equalTo(contentLabel.mas_bottom).offset(54);
+            make.top.equalTo(_contentLabel.mas_bottom).offset(54);
             make.left.equalTo(@((SCREEN_WIDTH-220)/2+i*58));
         }];
         
@@ -146,7 +147,7 @@
     _resendVerifyCodeButton = [UIButton new];
     [_resendVerifyCodeButton addTarget:self action:@selector(resendVerifyCodeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _resendVerifyCodeButton.backgroundColor = [UIColor clearColor];
-    [_resendVerifyCodeButton setTitle:@"重新发送验证码（60s）" forState:UIControlStateNormal];
+    [_resendVerifyCodeButton setTitle:@"接收短信出问题了？重新发送验证码" forState:UIControlStateNormal];
     _resendVerifyCodeButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
     _resendVerifyCodeButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
     [self.view addSubview:_resendVerifyCodeButton];
@@ -161,25 +162,13 @@
 }
 
 - (void)createUIiPhone4WithType:(SKVerifyType)type{
-    self.view.backgroundColor = COMMON_PINK_COLOR;
+    self.view.backgroundColor = COMMON_GREEN_COLOR;
     
     _blackView = [[UIView alloc] initWithFrame:self.view.bounds];
     _blackView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:_blackView];
     
     __weak __typeof(self)weakSelf = self;
-    
-    UIButton *closeButton = [UIButton new];
-    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-    [self.view addSubview:closeButton];
-    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@40);
-        make.height.equalTo(@40);
-        make.top.equalTo(@12);
-        make.left.equalTo(@4);
-    }];
     
     UIImageView *stepImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_code"]];
     [self.view addSubview:stepImageView];
@@ -201,15 +190,15 @@
         make.centerY.equalTo(stepImageView.mas_centerY);
     }];
     
-    UILabel *contentLabel = [UILabel new];
-    contentLabel.text = @"验证码短信马上就来";
-    contentLabel.textColor = [UIColor whiteColor];
-    contentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
-    contentLabel.textAlignment = NSTextAlignmentCenter;
-    contentLabel.numberOfLines = 2;
-    [contentLabel sizeToFit];
-    [self.view addSubview:contentLabel];
-    [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _contentLabel = [UILabel new];
+    _contentLabel.text = @"验证码短信马上就来\n60秒后可重新发送";
+    _contentLabel.textColor = [UIColor whiteColor];
+    _contentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
+    _contentLabel.textAlignment = NSTextAlignmentCenter;
+    _contentLabel.numberOfLines = 2;
+    [_contentLabel sizeToFit];
+    [self.view addSubview:_contentLabel];
+    [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@102);
         make.centerX.equalTo(weakSelf.view);
     }];
@@ -222,7 +211,7 @@
         [circleView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@46);
             make.height.equalTo(@46);
-            make.top.equalTo(contentLabel.mas_bottom).offset(40);
+            make.top.equalTo(_contentLabel.mas_bottom).offset(40);
             make.left.equalTo(@((SCREEN_WIDTH-220)/2+i*58));
         }];
         
@@ -241,7 +230,7 @@
     _resendVerifyCodeButton = [UIButton new];
     [_resendVerifyCodeButton addTarget:self action:@selector(resendVerifyCodeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _resendVerifyCodeButton.backgroundColor = [UIColor clearColor];
-    [_resendVerifyCodeButton setTitle:@"重新发送验证码（60s）" forState:UIControlStateNormal];
+    [_resendVerifyCodeButton setTitle:@"接收短信出问题了？重新发送验证码" forState:UIControlStateNormal];
     _resendVerifyCodeButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
     _resendVerifyCodeButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
     [self.view addSubview:_resendVerifyCodeButton];
@@ -377,9 +366,7 @@
         _resendVerifyCodeButton.alpha = 0.7;
         _resendVerifyCodeButton.enabled = NO;
         [UIView setAnimationsEnabled:NO];
-        [_resendVerifyCodeButton setTitle:[NSString stringWithFormat:@"重新发送验证码（%ld）", (long)_secondsToCountDown] forState:UIControlStateNormal];
-        [_resendVerifyCodeButton setTitle:[NSString stringWithFormat:@"重新发送验证码（%ld）", (long)_secondsToCountDown] forState:UIControlStateDisabled];
-        [_resendVerifyCodeButton layoutIfNeeded];
+        _contentLabel.text = [NSString stringWithFormat:@"验证码短信马上就来\n%ld秒后可重新发送",(long)_secondsToCountDown];
         [UIView setAnimationsEnabled:YES];
     }
 }
