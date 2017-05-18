@@ -40,6 +40,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) SKHelperScrollView *helpView;
 
 @property (nonatomic, strong) NSArray *locationPointArray;
+
+@property (nonatomic, assign) NSInteger type;   //1.限时获取
 @end
 
 @implementation HTARCaptureController {
@@ -64,6 +66,13 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 		}
 	}
 	return self;
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _type = 1;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -116,6 +125,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	[self showtipImageView];
 
 	NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
+    if (_type == 1) {
+        unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.pet_gif stringByDeletingPathExtension]]];
+    }
 
 	NSFileManager *myFileManager = [NSFileManager defaultManager];
 	NSDirectoryEnumerator *myDirectoryEnumerator;
@@ -131,7 +143,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	}
 	self.mascotImageView = [[UIImageView alloc] init];
 	self.mascotImageView.layer.masksToBounds = YES;
-	self.mascotImageView.hidden = YES;
+    self.mascotImageView.hidden = _type==1? NO:YES;
 	self.mascotImageView.userInteractionEnabled = YES;
 	[self.view addSubview:self.mascotImageView];
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];

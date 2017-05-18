@@ -46,6 +46,20 @@ HTINIT(SKIndexInfo)
 
 @end
 
+@implementation SKIndexScanning
+
+HTINIT(SKIndexScanning)
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{
+                                     @"pet_gif" : @"scanning_adv.pet_gif",
+                                     @"reward_id" : @"scanning_adv.reward_id",
+                                     @"scanning_type" : @"scanning_adv.scanning_type",
+                                     @"adv_pic": @"advertising.adv_pic"
+                                     };
+    return propertyMapper;
+}
+@end
+
 @implementation SKQuestion
 
 HTINIT(SKQuestion)
@@ -97,6 +111,9 @@ HTINIT(SKQuestion)
 @end
 
 @implementation SKNotification
+@end
+
+@implementation SKScanning
 @end
 
 @implementation SKChatObject

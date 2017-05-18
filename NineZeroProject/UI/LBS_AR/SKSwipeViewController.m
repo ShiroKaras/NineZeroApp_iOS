@@ -88,11 +88,12 @@
 	    if (success) {
 		    NSDictionary *data = package.data[0];
 		    if (!data && ![data isKindOfClass:[NSDictionary class]]) {
-//			    [self.navigationController popViewControllerAnimated:YES];
+			    [self.navigationController popViewControllerAnimated:YES];
 			    return;
 		    }
 
 		    NSLog(@"data-->%@", data);
+            
 		    self.swipeType = [[data objectForKey:@"type"] integerValue];
 		    self.downloadKey = [data objectForKey:@"file_url"];
 		    self.linkURLs = [data objectForKey:@"link_url"];
@@ -102,7 +103,7 @@
 		    self.sid = [data objectForKey:@"sid"];
 		    self.linkClarity = [data objectForKey:@"link_clarity"];
 		    self.defaultPic = [data objectForKey:@"default_pic"];
-
+            
 		    self.rewardRecord = [SKReward mj_objectWithKeyValues:[data objectForKey:@"reward_record"]];
 
 		    __weak __typeof__(self) weakSelf = self;
@@ -128,7 +129,7 @@
 				}
 			    }];
 	    } else {
-//		    [self.navigationController popViewControllerAnimated:YES];
+		    [self.navigationController popViewControllerAnimated:YES];
 	    }
 	}];
 }

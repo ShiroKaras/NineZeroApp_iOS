@@ -67,6 +67,16 @@
 @property (nonatomic, assign) BOOL scanning_adv;
 @end
 
+//首页扫一扫
+@interface SKIndexScanning : NSObject
+@property (nonatomic, copy) NSString *pet_gif;
+@property (nonatomic, copy) NSString *pet_gif_url;
+@property (nonatomic, copy) NSString *reward_id;
+@property (nonatomic, copy) NSString *scanning_type;
+@property (nonatomic, copy) NSString *adv_pic;
+@end
+
+//题目
 @interface SKQuestion : NSObject
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *qid;
@@ -271,6 +281,7 @@
 @property (nonatomic, assign) BOOL is_haved_ticket;
 @end
 
+//会话
 @interface SKChatObject : NSObject
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *content;
@@ -309,6 +320,7 @@
 @property (nonatomic, assign) BOOL task_status;         //是否已收藏
 @property (nonatomic, assign) BOOL is_haved_pet;
 @property (nonatomic, copy) NSString *pet_gif;
+@property (nonatomic, copy) NSString *pet_gif_url;
 @property (nonatomic, copy) NSString *pet_gif_id;
 @end
 

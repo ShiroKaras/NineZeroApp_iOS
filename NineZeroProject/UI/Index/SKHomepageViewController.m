@@ -13,9 +13,13 @@
 #import "SKSwipeViewController.h"
 #import "NZTaskViewController.h"
 #import "SKSwipeViewController.h"
+#import "HTARCaptureController.h"
+#import "NZPScanningFileDownloadManager.h"
+#import "SSZipArchive.h"
 
 @interface SKHomepageViewController ()
 @property (nonatomic, strong) UIView *dimmingView;
+@property (nonatomic, strong) SKIndexScanning *scaningInfo;
 @end
 
 @implementation SKHomepageViewController {
@@ -48,7 +52,57 @@
 }
 
 - (void)loadData {
-    
+    [[[SKServiceManager sharedInstance] commonService] getPublicPage:^(BOOL success, SKIndexScanning *indexScanningInfo) {
+        _scaningInfo = indexScanningInfo;   //1.扫一扫 2.时间段
+        if ([indexScanningInfo.scanning_type integerValue] == 1) {
+            
+        } else if ([indexScanningInfo.scanning_type integerValue] == 2) {
+            NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
+            NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:indexScanningInfo.pet_gif];
+            NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [indexScanningInfo.pet_gif stringByDeletingPathExtension]]];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:zipFilePath]) {
+                [SSZipArchive unzipFileAtPath:zipFilePath
+                                toDestination:unzipFilesPath
+                                    overwrite:YES
+                                     password:nil
+                              progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
+                                  
+                              }
+                            completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error){
+                                
+                            }];
+            } else {
+                NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+                AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+                NSURL *URL = [NSURL URLWithString:indexScanningInfo.pet_gif_url];
+                NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+                
+                NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request
+                                                                                 progress:nil
+                                                                              destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                                                                  NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
+                                                                                  NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:indexScanningInfo.pet_gif];
+                                                                                  return [NSURL fileURLWithPath:zipFilePath];
+                                                                              }
+                                                                        completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                                                                            if (filePath == nil)
+                                                                                return;
+                                                                            
+                                                                            [SSZipArchive unzipFileAtPath:[filePath path]
+                                                                                            toDestination:unzipFilesPath
+                                                                                                overwrite:YES
+                                                                                                 password:nil
+                                                                                          progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
+                                                                                              
+                                                                                          }
+                                                                                        completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error){
+                                                                                            
+                                                                                        }];
+                                                                        }];
+                [downloadTask resume];
+            }
+        }
+    }];
 }
 
 - (void)createUI {
@@ -155,8 +209,25 @@
 }
 
 - (void)didClickSwipeButton:(UIButton *)sender {
-    SKSwipeViewController *controller = [[SKSwipeViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
+    //判断相机是否开启
+    AVAuthorizationStatus authStatus = [AVCaptureDevice
+                                        authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (authStatus == AVAuthorizationStatusRestricted ||
+        authStatus == AVAuthorizationStatusDenied) {
+        HTAlertView *alertView =
+        [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+        [alertView show];
+    } else {
+        if ([_scaningInfo.scanning_type integerValue] == 1) {
+            SKSwipeViewController *swipeViewController =
+            [[SKSwipeViewController alloc] init];
+            [self.navigationController pushViewController:swipeViewController animated:NO];
+        } else if ([_scaningInfo.scanning_type integerValue] == 2) {
+            HTARCaptureController *controller = [[HTARCaptureController alloc] init];
+            controller.pet_gif = _scaningInfo.pet_gif;
+            [self.navigationController pushViewController:controller animated:NO];
+        }
+    }
 }
 
 - (void)didClickMascotButotn:(UIButton*)sender {
