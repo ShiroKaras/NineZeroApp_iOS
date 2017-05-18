@@ -6,7 +6,6 @@
 //  Copyright © 2017年 SinLemon. All rights reserved.
 //
 
-#import "SKLogicHeader.h"
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 

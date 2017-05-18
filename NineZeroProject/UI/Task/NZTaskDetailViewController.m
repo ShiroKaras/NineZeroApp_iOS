@@ -9,6 +9,7 @@
 #import "NZTaskDetailViewController.h"
 #import "HTUIHeader.h"
 #import "NZTaskDetailView.h"
+#import "SSZipArchive.h"
 
 @interface NZTaskDetailViewController () <UIScrollViewDelegate>
 @property (nonatomic, strong) SKStrongholdItem *detail;
@@ -56,6 +57,52 @@
         [_scrollView addSubview:detailView];
         
         _scrollView.contentSize = CGSizeMake(self.view.width, detailView.viewHeight+16+40+ROUND_WIDTH_FLOAT(240));
+        
+        //加载零仔动图压缩包
+        NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
+        NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:strongholdItem.pet_gif];
+        NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [strongholdItem.pet_gif stringByDeletingPathExtension]]];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:zipFilePath]) {
+            [SSZipArchive unzipFileAtPath:zipFilePath
+                            toDestination:unzipFilesPath
+                                overwrite:YES
+                                 password:nil
+                          progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
+                              
+                          }
+                        completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error){
+                            
+                        }];
+        } else {
+            NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+            AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+            NSURL *URL = [NSURL URLWithString:strongholdItem.pet_gif_url];
+            NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+            
+            NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request
+                                                                             progress:nil
+                                                                          destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                                                              NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
+                                                                              NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:strongholdItem.pet_gif];
+                                                                              return [NSURL fileURLWithPath:zipFilePath];
+                                                                          }
+                                                                    completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                                                                        if (filePath == nil)
+                                                                            return;
+                                                                        
+                                                                        [SSZipArchive unzipFileAtPath:[filePath path]
+                                                                                        toDestination:unzipFilesPath
+                                                                                            overwrite:YES
+                                                                                             password:nil
+                                                                                      progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
+                                                                                          
+                                                                                      }
+                                                                                    completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error){
+                                                                                        
+                                                                                    }];
+                                                                    }];
+            [downloadTask resume];
+        }
     }];
 }
 

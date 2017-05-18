@@ -42,6 +42,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) NSArray *locationPointArray;
 
 @property (nonatomic, assign) NSInteger type;   //1.限时获取
+
+@property (nonatomic, strong) SKStrongholdItem *strongholdItem;
 @end
 
 @implementation HTARCaptureController {
@@ -71,6 +73,19 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (instancetype)init {
     if (self = [super init]) {
         _type = 1;
+    }
+    return self;
+}
+
+- (instancetype)initWithStronghold:(SKStrongholdItem*)stronghold {
+    if (self = [super init]) {
+        _strongholdItem = stronghold;
+        startFlag = false;
+        NSDictionary *locationDict = @{
+                                       @"lat" : stronghold.lat,
+                                       @"lng" : stronghold.lng
+                                       };
+        self.locationPointArray = @[locationDict];
     }
     return self;
 }
@@ -127,6 +142,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
     if (_type == 1) {
         unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.pet_gif stringByDeletingPathExtension]]];
+    } else if (_strongholdItem != nil) {
+        unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.strongholdItem.pet_gif stringByDeletingPathExtension]]];
     }
 
 	NSFileManager *myFileManager = [NSFileManager defaultManager];
@@ -305,7 +322,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	CLLocationDistance currentDistance = -1;
 	CLLocationCoordinate2D currentPoint = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
 
-	for (NSDictionary *dict in _question.question_location) {
+	for (NSDictionary *dict in self.locationPointArray) {
 		double lat = [dict[@"lat"] doubleValue];
 		double lng = [dict[@"lng"] doubleValue];
 

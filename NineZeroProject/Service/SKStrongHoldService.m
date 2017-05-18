@@ -7,6 +7,7 @@
 //
 
 #import "SKStrongHoldService.h"
+#import "SKServiceManager.h"
 
 @implementation SKStrongHoldService
 
@@ -89,8 +90,21 @@
                             @"id"      : sid,
                             };
     [self strongholdBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        SKStrongholdItem *strongholdItem = [SKStrongholdItem mj_objectWithKeyValues:response.data];
-        callback(success, strongholdItem);
+        if (success) {
+            SKStrongholdItem *strongholdItem = [SKStrongholdItem mj_objectWithKeyValues:response.data];
+            NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
+            if (strongholdItem.pet_gif)
+                [downloadKeys addObject:strongholdItem.pet_gif];
+            [[[SKServiceManager sharedInstance] commonService] getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, SKResponsePackage *response) {
+                if (success) {
+                    if (strongholdItem.pet_gif)
+                        strongholdItem.pet_gif_url = response.data[strongholdItem.pet_gif];
+                    callback(success, strongholdItem);
+                } else {
+                    callback(false, strongholdItem);
+                }
+            }];
+        }
     }];
 }
 
