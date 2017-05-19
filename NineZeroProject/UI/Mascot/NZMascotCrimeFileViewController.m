@@ -56,7 +56,6 @@
     [self.view addSubview:_mScrollView];
     
     _infoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16, self.view.width-32, (self.view.width-32)/288*142)];
-    _infoImageView.backgroundColor = COMMON_GREEN_COLOR;
     [_mScrollView addSubview:_infoImageView];
     
     UIImageView *titleImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_archivespage_case"]];
@@ -80,8 +79,7 @@
         make.left.equalTo(titleImageView1);
     }];
     [self.view layoutIfNeeded];
-//    titleImageView2.top = _infoLabel.bottom +16;
-//    titleImageView2.left = titleImageView1.left;
+
     
     [self loadData];
 }
@@ -92,6 +90,8 @@
         _infoLabel.text = mascot.pet_desc;
         [UILabel changeLineSpaceForLabel:_infoLabel WithSpace:5.0];
         [_infoLabel sizeToFit];
+        
+        [_infoImageView sd_setImageWithURL:[NSURL URLWithString:mascot.pet_archives]];
         
         [self.view layoutIfNeeded];
         
@@ -104,9 +104,8 @@
             UIButton *propView = [[UIButton alloc] initWithFrame:CGRectMake(16+x*(width+12), top+16+y*(width+12), width, width)];
             propView.backgroundColor = [UIColor clearColor];
             propView.layer.borderWidth = 2;
-            propView.layer.borderColor = [UIColor whiteColor].CGColor;
+            propView.layer.borderColor = COMMON_TITLE_BG_COLOR.CGColor;
             [propView addTarget:self action:@selector(didClickProp:) forControlEvents:UIControlEventTouchUpInside];
-            propView.backgroundColor = COMMON_GREEN_COLOR;
             [_mScrollView addSubview:propView];
         }
         

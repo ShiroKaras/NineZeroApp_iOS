@@ -256,7 +256,7 @@
 @property (nonatomic, copy) NSString *pet_name;
 @property (nonatomic, copy) NSString *pet_id;
 @property (nonatomic, copy) NSString *pet_last_coop_time;   //剩余时间
-@property (nonatomic, copy) NSString *pet_archives;     //
+@property (nonatomic, copy) NSString *pet_archives;     //零仔档案头图
 @property (nonatomic, copy) NSString *pet_desc;         //零仔描述
 @property (nonatomic, copy) NSArray<SKMascotEvidence*> *crime_evidence;    //犯罪证据
 @end
