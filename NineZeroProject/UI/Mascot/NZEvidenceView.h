@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class SKMascot;
+@class SKMascotEvidence;
 
 @interface NZEvidenceView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame withMascot:(SKMascot *)mascot;
+- (instancetype)initWithFrame:(CGRect)frame withCrimeEvidence:(SKMascotEvidence *)evidence;
 
 @end

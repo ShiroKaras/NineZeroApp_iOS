@@ -11,7 +11,7 @@
 
 @implementation NZEvidenceView
 
-- (instancetype)initWithFrame:(CGRect)frame withMascot:(SKMascot *)mascot {
+- (instancetype)initWithFrame:(CGRect)frame withCrimeEvidence:(SKMascotEvidence *)evidence {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
@@ -21,7 +21,7 @@
         [self addSubview:alphaView];
         
         UIImageView *propImageView = [UIImageView new];
-        propImageView.backgroundColor = COMMON_GREEN_COLOR;
+        [propImageView sd_setImageWithURL:[NSURL URLWithString:evidence.crime_pic]];
         propImageView.layer.cornerRadius = 2;
         propImageView.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
         [self addSubview:propImageView];
@@ -32,7 +32,7 @@
         }];
         
         UIImageView *propTextImageView = [UIImageView new];
-        propTextImageView.backgroundColor = COMMON_GREEN_COLOR;
+        [propTextImageView sd_setImageWithURL:[NSURL URLWithString:evidence.crime_name]];
         [self addSubview:propTextImageView];
         [propTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(100, 26));
@@ -41,7 +41,7 @@
         }];
         
         UILabel *propTextLabel = [UILabel new];
-        propTextLabel.text = @"这里不能随地大小便\n获得增加拘禁时间24H";
+        propTextLabel.text = evidence.crime_description;
         propTextLabel.textColor = [UIColor whiteColor];
         propTextLabel.font = PINGFANG_FONT_OF_SIZE(14);
         [propTextLabel sizeToFit];

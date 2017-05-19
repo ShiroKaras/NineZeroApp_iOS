@@ -250,6 +250,7 @@
 @property (nonatomic, copy) NSString *crime_name;
 @property (nonatomic, copy) NSString *crime_pic;
 @property (nonatomic, copy) NSString *crime_description;
+@property (nonatomic, copy) NSString *crime_thumbnail_pic;
 @end
 
 @interface SKMascot : NSObject

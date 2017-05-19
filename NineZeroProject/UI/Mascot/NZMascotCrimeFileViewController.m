@@ -101,12 +101,20 @@
         for (int i=0; i<count; i++) {
             int x = i%4;
             int y = (int)i/4;
-            UIButton *propView = [[UIButton alloc] initWithFrame:CGRectMake(16+x*(width+12), top+16+y*(width+12), width, width)];
+            UIImageView *propView = [[UIImageView alloc] initWithFrame:CGRectMake(16+x*(width+12), top+16+y*(width+12), width, width)];
+            propView.tag = 100+i;
             propView.backgroundColor = [UIColor clearColor];
             propView.layer.borderWidth = 2;
             propView.layer.borderColor = COMMON_TITLE_BG_COLOR.CGColor;
-            [propView addTarget:self action:@selector(didClickProp:) forControlEvents:UIControlEventTouchUpInside];
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickProp:)];
+            [propView addGestureRecognizer:tap];
             [_mScrollView addSubview:propView];
+            if (i<mascot.crime_evidence.count) {
+                [propView sd_setImageWithURL:[NSURL URLWithString:mascot.crime_evidence[i].crime_thumbnail_pic]];
+                propView.userInteractionEnabled = YES;
+            } else {
+                propView.userInteractionEnabled = NO;
+            }
         }
         
         _mScrollView.contentSize = CGSizeMake(self.view.width, _titleImageView2.bottom+16+((int)(count/4))*(width+16));
@@ -119,8 +127,9 @@
 
 #pragma mark - Actions
 
-- (void)didClickProp:(UIButton *)sender {
-    _propView = [[NZEvidenceView alloc] initWithFrame:self.view.bounds withMascot:self.mascot];
+- (void)didClickProp:(UITapGestureRecognizer *)gestureRecognizer {
+    UIImageView *v = (UIImageView *)[gestureRecognizer view];
+    _propView = [[NZEvidenceView alloc] initWithFrame:self.view.bounds withCrimeEvidence:self.mascot.crime_evidence[v.tag-100]];
     _propView.userInteractionEnabled = YES;
     [self.view addSubview:_propView];
 }
