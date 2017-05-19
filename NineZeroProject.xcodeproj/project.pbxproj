@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1108618A1ECEC03D00CD7493 /* NZAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 110861891ECEC03D00CD7493 /* NZAdView.m */; };
 		1114AE041CE48DD800CCF92C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1114AE031CE48DD800CCF92C /* Assets.xcassets */; };
 		111ACA6C1E2DCF4E007DE137 /* 90appbundle.cer in Resources */ = {isa = PBXBuildFile; fileRef = 111ACA6B1E2DCF4E007DE137 /* 90appbundle.cer */; };
 		111ACA841E2DCF83007DE137 /* right_answer_gif0000.png in Resources */ = {isa = PBXBuildFile; fileRef = 111ACA6E1E2DCF83007DE137 /* right_answer_gif0000.png */; };
@@ -415,6 +416,8 @@
 
 /* Begin PBXFileReference section */
 		0696EDC999FBD0A955EEFA5C /* Pods-NineZeroProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProjectTests/Pods-NineZeroProjectTests.release.xcconfig"; sourceTree = "<group>"; };
+		110861881ECEC03C00CD7493 /* NZAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZAdView.h; path = NineZeroProject/UI/Index/NZAdView.h; sourceTree = "<group>"; };
+		110861891ECEC03D00CD7493 /* NZAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZAdView.m; path = NineZeroProject/UI/Index/NZAdView.m; sourceTree = "<group>"; };
 		1114AE031CE48DD800CCF92C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		111ACA6B1E2DCF4E007DE137 /* 90appbundle.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = 90appbundle.cer; sourceTree = "<group>"; };
 		111ACA6E1E2DCF83007DE137 /* right_answer_gif0000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_answer_gif0000.png; sourceTree = "<group>"; };
@@ -1769,6 +1772,8 @@
 				116237271E4B32B5009FEDCA /* SKActivityNotificationView.m */,
 				116237281E4B32B5009FEDCA /* SKHomepageViewController.h */,
 				116237291E4B32B5009FEDCA /* SKHomepageViewController.m */,
+				110861881ECEC03C00CD7493 /* NZAdView.h */,
+				110861891ECEC03D00CD7493 /* NZAdView.m */,
 			);
 			name = Index;
 			sourceTree = "<group>";
@@ -2876,6 +2881,7 @@
 				11B4EF851EA4613F00FF5E83 /* NZMascotView.m in Sources */,
 				1162375C1E4B32E5009FEDCA /* SKMascotFightManager.m in Sources */,
 				1162374C1E4B32CF009FEDCA /* SKQuestionViewController.m in Sources */,
+				1108618A1ECEC03D00CD7493 /* NZAdView.m in Sources */,
 				11B360781E8A69220077A081 /* NZTaskDetailViewController.m in Sources */,
 				116237051E4B3288009FEDCA /* HTAboutController.m in Sources */,
 				11F706371E0CD802004332C2 /* NSString+DES.m in Sources */,

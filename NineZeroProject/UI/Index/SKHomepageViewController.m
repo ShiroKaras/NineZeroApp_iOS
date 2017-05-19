@@ -14,6 +14,8 @@
 #import "NZTaskViewController.h"
 #import "SKSwipeViewController.h"
 #import "HTARCaptureController.h"
+#import "NZAdView.h"
+
 #import "NZPScanningFileDownloadManager.h"
 #import "SSZipArchive.h"
 
@@ -57,50 +59,12 @@
         if ([indexScanningInfo.scanning_type integerValue] == 1) {
             
         } else if ([indexScanningInfo.scanning_type integerValue] == 2) {
-            NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
-            NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:indexScanningInfo.pet_gif];
-            NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [indexScanningInfo.pet_gif stringByDeletingPathExtension]]];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:zipFilePath]) {
-                [SSZipArchive unzipFileAtPath:zipFilePath
-                                toDestination:unzipFilesPath
-                                    overwrite:YES
-                                     password:nil
-                              progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
-                                  
-                              }
-                            completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error){
-                                
-                            }];
-            } else {
-                NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-                AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-                NSURL *URL = [NSURL URLWithString:indexScanningInfo.pet_gif_url];
-                NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-                
-                NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request
-                                                                                 progress:nil
-                                                                              destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-                                                                                  NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
-                                                                                  NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:indexScanningInfo.pet_gif];
-                                                                                  return [NSURL fileURLWithPath:zipFilePath];
-                                                                              }
-                                                                        completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-                                                                            if (filePath == nil)
-                                                                                return;
-                                                                            
-                                                                            [SSZipArchive unzipFileAtPath:[filePath path]
-                                                                                            toDestination:unzipFilesPath
-                                                                                                overwrite:YES
-                                                                                                 password:nil
-                                                                                          progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
-                                                                                              
-                                                                                          }
-                                                                                        completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error){
-                                                                                            
-                                                                                        }];
-                                                                        }];
-                [downloadTask resume];
-            }
+            [self loadZip];
+        }
+        
+        if (![indexScanningInfo.adv_pic isEqualToString:@""]&&indexScanningInfo.adv_pic!=nil) {
+            //加载广告
+            [self loadAdvWithImage:indexScanningInfo.adv_pic];
         }
     }];
 }
@@ -155,6 +119,58 @@
         mascotButton.tag = 202+i;
         [self.view addSubview:mascotButton];
     }
+}
+
+- (void)loadZip {
+    NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
+    NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:_scaningInfo.pet_gif];
+    NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [_scaningInfo.pet_gif stringByDeletingPathExtension]]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:zipFilePath]) {
+        [SSZipArchive unzipFileAtPath:zipFilePath
+                        toDestination:unzipFilesPath
+                            overwrite:YES
+                             password:nil
+                      progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
+                          
+                      }
+                    completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error){
+                        
+                    }];
+    } else {
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+        NSURL *URL = [NSURL URLWithString:_scaningInfo.pet_gif_url];
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        
+        NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request
+                                                                         progress:nil
+                                                                      destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                                                          NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
+                                                                          NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:_scaningInfo.pet_gif];
+                                                                          return [NSURL fileURLWithPath:zipFilePath];
+                                                                      }
+                                                                completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                                                                    if (filePath == nil)
+                                                                        return;
+                                                                    
+                                                                    [SSZipArchive unzipFileAtPath:[filePath path]
+                                                                                    toDestination:unzipFilesPath
+                                                                                        overwrite:YES
+                                                                                         password:nil
+                                                                                  progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
+                                                                                      
+                                                                                  }
+                                                                                completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error){
+                                                                                    
+                                                                                }];
+                                                                }];
+        [downloadTask resume];
+    }
+}
+
+- (void)loadAdvWithImage:(NSString*)imageUrl {
+    NZAdView *adView = [[NZAdView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) image:[NSURL URLWithString:imageUrl]];
+    [KEY_WINDOW addSubview:adView];
 }
 
 #pragma mark - Actions
