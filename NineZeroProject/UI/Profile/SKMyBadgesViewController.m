@@ -145,7 +145,7 @@
 }
 
 - (void)loadData {
-	[[[SKServiceManager sharedInstance] profileService] getBadges:^(BOOL success, NSInteger exp, NSArray<SKBadge *> *badges) {
+	[[[SKServiceManager sharedInstance] profileService] getBadges:^(BOOL success, NSInteger exp, NSInteger coopTime, NSArray<SKBadge *> *badges, NSArray<SKBadge*> *medals) {
 	    self.badgeArray = badges;
 	    self.exp = exp;
 

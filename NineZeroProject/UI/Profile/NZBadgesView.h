@@ -16,3 +16,10 @@
 - (instancetype)initWithFrame:(CGRect)frame badges:(NSArray<SKBadge*>*)badges;
 
 @end
+
+
+@interface NZBadgeViewCell : UIView
+@property (nonatomic, strong) UIImageView *coverImageView;
+@property (nonatomic, strong) UILabel *nameLabel;
+- (void)isGetBadge:(BOOL)flag;
+@end

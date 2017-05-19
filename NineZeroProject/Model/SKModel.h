@@ -211,9 +211,12 @@
 @property (nonatomic, copy) NSString *medal_name;
 @property (nonatomic, copy) NSString *medal_level;
 @property (nonatomic, copy) NSString *medal_icon;
+@property (nonatomic, copy) NSString *medal_error_icon;
 @property (nonatomic, copy) NSString *medal_pic;
+@property (nonatomic, copy) NSString *medal_error_pic;
 @property (nonatomic, copy) NSString *medal_description;
 @property (nonatomic, copy) NSString *level_type;
+@property (nonatomic, copy) NSString *medal_type;
 @property (nonatomic, assign) BOOL isHad;
 @end
 

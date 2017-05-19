@@ -289,9 +289,9 @@
 							       [badgeArray addObject:badge];
 						       }
 					       }
-					       callback(success, [response.data[@"user_experience_value"] integerValue], badgeArray);
+					       callback(success, [response.data[@"user_experience_value"] integerValue],0, badgeArray, nil);
 				       } else
-					       callback(success, 0, nil);
+					       callback(success, 0,0, nil, nil);
 				   }];
 }
 
@@ -314,5 +314,33 @@
 				       } else
 					       callback(success, nil);
 				   }];
+}
+
+- (void)getUserAchievement:(SKGetBadgesCallback)callback {
+    NSDictionary *param = @{
+                            @"method": @"getUserAchievement"
+                            };
+    [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        if (success) {
+            NSMutableArray *badgeArray = [NSMutableArray array];
+            if ([response.data[@"user_achievement"] count] > 0) {
+                for (int i = 0; i < [response.data[@"user_achievement"] count]; i++) {
+                    SKBadge *badge = [SKBadge mj_objectWithKeyValues:response.data[@"user_achievement"][i]];
+                    [badgeArray addObject:badge];
+                }
+            }
+            
+            NSMutableArray *medalArray = [NSMutableArray array];
+            if ([response.data[@"user_medal"] count] > 0) {
+                for (int i = 0; i < [response.data[@"user_medal"] count]; i++) {
+                    SKBadge *medal = [SKBadge mj_objectWithKeyValues:response.data[@"user_medal"][i]];
+                    [medalArray addObject:medal];
+                }
+            }
+            
+            callback(success, [response.data[@"user_experience_value"] integerValue], [response.data[@"total_coop_time"] integerValue], badgeArray, medalArray);
+        } else
+            callback(success, 0, 0, nil, nil);
+    }];
 }
 @end

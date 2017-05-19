@@ -279,6 +279,19 @@
             [HTProgressHUD dismiss];
         }
     }];
+    
+    //勋章数量
+    [[[SKServiceManager sharedInstance] profileService] getUserAchievement:^(BOOL success, NSInteger exp, NSInteger coopTime, NSArray<SKBadge *> *badges, NSArray<SKBadge*> *medals) {
+        NSInteger _badgeLevel = 0;
+        for (int i=0; i<badges.count; i++) {
+            if (exp >= [badges[i].medal_level integerValue])    _badgeLevel++;
+        }
+        for (int i=0; i<medals.count; i++) {
+            if (coopTime >= [medals[i].medal_level integerValue])   _badgeLevel++;
+        }
+        ((UILabel*)[self.view viewWithTag:200]).text = [NSString stringWithFormat:@"%ld", _badgeLevel];
+    }];
+
 }
 
 #pragma mark - ScrollView Delegate
