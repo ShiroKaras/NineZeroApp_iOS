@@ -37,8 +37,6 @@
             [self addSubview:view];
         }
         
-        
-        
         //猎人榜
         _hunterListButton = [UIButton new];
         [_hunterListButton addTarget:self action:@selector(didClickHunterButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -70,6 +68,7 @@
 - (void)setRankerArray:(NSArray<SKRanker *> *)rankerArray {
     for (int i=0; i<11; i++) {
         if (i<rankerArray.count) {
+            ((NZRankCellView*)[self viewWithTag:100+i]).hidden = NO;
             ((NZRankCellView*)[self viewWithTag:100+i]).rankOrderLabel.text = [NSString stringWithFormat:@"%ld", rankerArray[i].rank];
             ((NZRankCellView*)[self viewWithTag:100+i]).usernameLabel.text = rankerArray[i].user_name;
             [((NZRankCellView*)[self viewWithTag:100+i]).avatarImageView sd_setImageWithURL:[NSURL URLWithString:rankerArray[i].user_avatar] placeholderImage:[UIImage imageNamed:@""]];
