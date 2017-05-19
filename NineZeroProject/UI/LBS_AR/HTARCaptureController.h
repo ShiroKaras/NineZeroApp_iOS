@@ -12,6 +12,7 @@
 
 @class SKQuestion;
 @class SKReward;
+@class SKStrongholdItem;
 @class HTARCaptureController;
 @protocol HTARCaptureControllerDelegate <NSObject>
 - (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward *)reward;
@@ -20,6 +21,7 @@
 @interface HTARCaptureController : UIViewController
 
 - (instancetype)initWithQuestion:(SKQuestion *)question;
+- (instancetype)initWithStronghold:(SKStrongholdItem*)stronghold;
 
 @property (nonatomic, weak) id<HTARCaptureControllerDelegate> delegate;
 @property (nonatomic, assign) NSString *rewardID;

@@ -37,6 +37,8 @@
 
 @property (nonatomic, strong) NSArray<SKTicket*> *ticketArray;
 @property (nonatomic, strong) NSArray<SKTopic*>  *topicArray;
+@property (nonatomic, strong) NSArray<SKRanker *> *rankerList;
+@property (nonatomic, strong) NSArray<SKRanker *> *hunterRankerList;
 
 @end
 
@@ -262,6 +264,16 @@
     [[[SKServiceManager sharedInstance] profileService] getSeason2RankListCallback:^(BOOL success, NSArray<SKRanker *> *rankerList) {
         if (success) {
             _topRankersListView.rankerArray = rankerList;
+            _rankerList = rankerList;
+            [HTProgressHUD dismiss];
+        } else {
+            [HTProgressHUD dismiss];
+        }
+    }];
+    
+    [[[SKServiceManager sharedInstance] mascotService] getMascotCoopTimeRankListCallback:^(BOOL success, NSArray<SKRanker *> *rankerList) {
+        if (success) {
+            _hunterRankerList = rankerList;            
             [HTProgressHUD dismiss];
         } else {
             [HTProgressHUD dismiss];
@@ -321,9 +333,12 @@
 
 #pragma mark - NZTopRankListViewDelegate
 
+- (void)didClickRankButton {
+    _topRankersListView.rankerArray = _rankerList;
+}
+
 - (void)didClickHunterRankButton {
-    NZRankViewController *controller = [[NZRankViewController alloc] initWithType:NZRankListTypeHunter];
-    [self.navigationController pushViewController:controller animated:YES];
+    _topRankersListView.rankerArray = _hunterRankerList;
 }
 
 #pragma mark - Actions

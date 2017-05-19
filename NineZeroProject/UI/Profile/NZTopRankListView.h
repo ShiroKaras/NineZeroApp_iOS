@@ -12,6 +12,7 @@
 
 @protocol NZTopRankListViewDelegate <NSObject>
 
+- (void)didClickRankButton;
 - (void)didClickHunterRankButton;
 
 @end

@@ -9,6 +9,7 @@
 #import "NZTaskDetailViewController.h"
 #import "HTUIHeader.h"
 #import "NZTaskDetailView.h"
+#import "HTARCaptureController.h"
 #import "SSZipArchive.h"
 
 @interface NZTaskDetailViewController () <UIScrollViewDelegate>
@@ -240,7 +241,8 @@
 #pragma mark - Actions
 
 - (void)didClickScanningButton:(UIButton *)sender {
-    
+    HTARCaptureController *controller = [[HTARCaptureController alloc] initWithStronghold:_detail];
+    [self.navigationController pushViewController:controller animated:NO];
 }
 
 #pragma mark - UIScrollViewDelegate

@@ -125,7 +125,7 @@
 }
 
 - (void)didClickMascotCrimeFileButton:(UIButton*)sender {
-    NZMascotCrimeFileViewController *controller = [[NZMascotCrimeFileViewController alloc] initWithMascot:_mascotArray[_currentIndex]];
+    NZMascotCrimeFileViewController *controller = [[NZMascotCrimeFileViewController alloc] initWithMascot:_mascotArray[_currentIndex-1]];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

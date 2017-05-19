@@ -9,6 +9,11 @@
 #import "NZTopRankListView.h"
 #import "HTUIHeader.h"
 
+@interface NZTopRankListView ()
+@property (nonatomic, strong) UIButton *rankListButton;
+@property (nonatomic, strong) UIButton *hunterListButton;
+@end
+
 @implementation NZTopRankListView
 
 - (instancetype)initWithFrame:(CGRect)frame withRankers:(NSArray<SKRanker *> *)rankers {
@@ -35,45 +40,61 @@
         
         
         //猎人榜
-        UIButton *rank1 = [UIButton new];
-        [rank1 addTarget:self action:@selector(didClickHunterButton:) forControlEvents:UIControlEventTouchUpInside];
-        [rank1 setTitle:@"猎人榜" forState:UIControlStateNormal];
-        [rank1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        rank1.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
-        rank1.width = 60;
-        rank1.height = 30;
-        rank1.right = self.right-16;
-        rank1.centerY = titleImageView.centerY;
-        [self addSubview:rank1];
+        _hunterListButton = [UIButton new];
+        [_hunterListButton addTarget:self action:@selector(didClickHunterButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_hunterListButton setTitle:@"猎人榜" forState:UIControlStateNormal];
+        [_hunterListButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _hunterListButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
+        _hunterListButton.width = 60;
+        _hunterListButton.height = 30;
+        _hunterListButton.right = self.right-16;
+        _hunterListButton.centerY = titleImageView.centerY;
+        [self addSubview:_hunterListButton];
         
         //解谜榜
-        UIButton *rank2 = [UIButton new];
-        [self addSubview:rank2];
-        [rank2 setTitle:@"解谜榜" forState:UIControlStateNormal];
-        [rank2 setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateNormal];
-        rank2.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
-        rank2.width = 60;
-        rank2.height = 30;
-        rank2.right = rank1.left-8;
-        rank2.centerY = titleImageView.centerY;
+        _rankListButton = [UIButton new];
+        [_rankListButton addTarget:self action:@selector(didClickRankListButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_rankListButton];
+        [_rankListButton setTitle:@"解谜榜" forState:UIControlStateNormal];
+        [_rankListButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateNormal];
+        _rankListButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
+        _rankListButton.width = 60;
+        _rankListButton.height = 30;
+        _rankListButton.right = _hunterListButton.left-8;
+        _rankListButton.centerY = titleImageView.centerY;
         self.height = [self viewWithTag:110].bottom+16;
     }
     return self;
 }
 
-- (void)didClickHunterButton:(UIButton *)sender {
-    if ([_delegate respondsToSelector:@selector(didClickHunterRankButton)]) {
-        [_delegate didClickHunterRankButton];
+- (void)setRankerArray:(NSArray<SKRanker *> *)rankerArray {
+    for (int i=0; i<11; i++) {
+        if (i<rankerArray.count) {
+            ((NZRankCellView*)[self viewWithTag:100+i]).rankOrderLabel.text = [NSString stringWithFormat:@"%ld", rankerArray[i].rank];
+            ((NZRankCellView*)[self viewWithTag:100+i]).usernameLabel.text = rankerArray[i].user_name;
+            [((NZRankCellView*)[self viewWithTag:100+i]).avatarImageView sd_setImageWithURL:[NSURL URLWithString:rankerArray[i].user_avatar] placeholderImage:[UIImage imageNamed:@""]];
+            ((NZRankCellView*)[self viewWithTag:100+i]).expLabel.text = rankerArray[i].user_experience_value;
+        } else  {
+            ((NZRankCellView*)[self viewWithTag:100+i]).hidden = YES;
+        }
     }
 }
 
-- (void)setRankerArray:(NSArray<SKRanker *> *)rankerArray {
-    _rankerArray = rankerArray;
-    for (int i=0; i<11; i++) {
-        ((NZRankCellView*)[self viewWithTag:100+i]).rankOrderLabel.text = [NSString stringWithFormat:@"%ld", rankerArray[i].rank];
-        ((NZRankCellView*)[self viewWithTag:100+i]).usernameLabel.text = rankerArray[i].user_name;
-        [((NZRankCellView*)[self viewWithTag:100+i]).avatarImageView sd_setImageWithURL:[NSURL URLWithString:rankerArray[i].user_avatar] placeholderImage:[UIImage imageNamed:@""]];
-        ((NZRankCellView*)[self viewWithTag:100+i]).expLabel.text = rankerArray[i].user_experience_value;
+#pragma - mark Delegate
+
+- (void)didClickRankListButton:(UIButton *)sender {
+    [_rankListButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateNormal];
+    [_hunterListButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    if ([_delegate respondsToSelector:@selector(didClickRankButton)]) {
+        [_delegate didClickRankButton];
+    }
+}
+
+- (void)didClickHunterButton:(UIButton *)sender {
+    [_rankListButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_hunterListButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateNormal];
+    if ([_delegate respondsToSelector:@selector(didClickHunterRankButton)]) {
+        [_delegate didClickHunterRankButton];
     }
 }
 
