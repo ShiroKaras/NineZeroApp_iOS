@@ -35,6 +35,8 @@
             }
             view.tag = 100+i;
             [self addSubview:view];
+            
+            _viewHeight = view.bottom+16;
         }
         
         //猎人榜
@@ -60,7 +62,7 @@
         _rankListButton.height = 30;
         _rankListButton.right = _hunterListButton.left-8;
         _rankListButton.centerY = titleImageView.centerY;
-        self.height = [self viewWithTag:110].bottom+16;
+        
     }
     return self;
 }

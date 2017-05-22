@@ -1614,8 +1614,6 @@
 			children = (
 				1162372E1E4B32CF009FEDCA /* SKAllQuestionViewController.h */,
 				1162372F1E4B32CF009FEDCA /* SKAllQuestionViewController.m */,
-				116237371E4B32CF009FEDCA /* SKDescriptionView.h */,
-				116237381E4B32CF009FEDCA /* SKDescriptionView.m */,
 				1162373B1E4B32CF009FEDCA /* SKQuestionRankListView.h */,
 				1162373C1E4B32CF009FEDCA /* SKQuestionRankListView.m */,
 				1162373D1E4B32CF009FEDCA /* SKQuestionRewardView.h */,
@@ -1750,6 +1748,8 @@
 				11CE6E211EC0809E004F1707 /* NZNotificationViewController.m */,
 				11CE6E231EC08366004F1707 /* NZNotificationTableViewCell.h */,
 				11CE6E241EC08366004F1707 /* NZNotificationTableViewCell.m */,
+				116237371E4B32CF009FEDCA /* SKDescriptionView.h */,
+				116237381E4B32CF009FEDCA /* SKDescriptionView.m */,
 			);
 			name = 3.0;
 			sourceTree = "<group>";

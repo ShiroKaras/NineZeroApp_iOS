@@ -17,6 +17,7 @@
 #import "NZNotificationViewController.h"
 #import "NZBadgesView.h"
 #import "SKTicketView.h"
+#import "SKDescriptionView.h"
 
 @interface NZUserProfileViewController () <UIScrollViewDelegate, NZTopRankListViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -217,10 +218,10 @@
     _contentScrollView_rank.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
     [_contentScrollView addSubview:_contentScrollView_rank];
     
-    _topRankersListView = [[NZTopRankListView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView_rank.width, 0) withRankers:nil];
+    _topRankersListView = [[NZTopRankListView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView_rank.width, 636) withRankers:nil];
     _topRankersListView.delegate = self;
     [_contentScrollView_rank addSubview:_topRankersListView];
-    _contentScrollView_rank.contentSize = CGSizeMake(_contentScrollView_rank.width, _topRankersListView.height);
+    _contentScrollView_rank.contentSize = CGSizeMake(_contentScrollView_rank.width, 700);
     
     //参与的话题
     
@@ -422,6 +423,11 @@
     if (tableView == _contentTableView_topic) {
         NZLabDetailViewController *controller = [[NZLabDetailViewController alloc] initWithTopicID:_topicArray[indexPath.row].id];
         [self.navigationController pushViewController:controller animated:YES];
+    } else if (tableView == _contentTableView_tickets) {
+        SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.ticketArray[indexPath.row].address andType:SKDescriptionTypeReward andImageUrl:self.ticketArray[indexPath.row].pic];
+        [descriptionView setReward:self.ticketArray[indexPath.row]];
+        [self.view addSubview:descriptionView];
+        [descriptionView showAnimated];
     }
 }
 

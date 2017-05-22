@@ -20,6 +20,7 @@
 @interface NZTopRankListView : UIView
 @property(nonatomic, strong) NSArray<SKRanker*> *rankerArray;
 @property(nonatomic, weak) id<NZTopRankListViewDelegate> delegate;
+@property(nonatomic, assign) float viewHeight;
 
 - (instancetype)initWithFrame:(CGRect)frame withRankers:(NSArray<SKRanker*>*)rankers;
 
