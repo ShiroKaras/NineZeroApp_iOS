@@ -44,9 +44,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 @property (nonatomic, strong) NSString *topicID;
 
-@property (nonatomic, strong) NSArray *cellSizes;
-@property (nonatomic, strong) NSArray *cats;
-
 //分享
 @property (nonatomic, strong) UIView *shareView;
 @property (nonatomic, strong) UIButton *cancelButton;
@@ -80,7 +77,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         layout.minimumColumnSpacing = 20;
         layout.minimumInteritemSpacing = 30;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height-49) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, SCREEN_HEIGHT-49) collectionViewLayout:layout];
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
@@ -95,25 +92,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                    withReuseIdentifier:FOOTER_IDENTIFIER];
     }
     return _collectionView;
-}
-
-- (NSArray *)cellSizes {
-    if (!_cellSizes) {
-        _cellSizes = @[
-                       [NSValue valueWithCGSize:CGSizeMake(400, 550)],
-                       [NSValue valueWithCGSize:CGSizeMake(1000, 665)],
-                       [NSValue valueWithCGSize:CGSizeMake(1024, 689)],
-                       [NSValue valueWithCGSize:CGSizeMake(640, 427)]
-                       ];
-    }
-    return _cellSizes;
-}
-
-- (NSArray *)cats {
-    if (!_cats) {
-        _cats = @[@"cat1.jpg", @"cat2.jpg", @"cat3.jpg", @"cat4.jpg"];
-    }
-    return _cats;
 }
 
 #pragma mark - Life Cycle
@@ -136,6 +114,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)createUI {
+//    self.tabBarController.tabBar.hidden = YES;
+    
     [self.view addSubview:self.collectionView];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height-49, self.view.width, 49)];

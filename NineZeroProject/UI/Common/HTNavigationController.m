@@ -11,6 +11,7 @@
 #import "HTUIHeader.h"
 #import "NZTaskDetailViewController.h"
 #import "NZQuestionDetailViewController.h"
+#import "NZLabDetailViewController.h"
 
 @implementation HTNavigationController
 
@@ -40,6 +41,7 @@
 	if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1
         &&![viewController isKindOfClass:[NZTaskDetailViewController class]]
         &&![viewController isKindOfClass:[NZQuestionDetailViewController class]]
+        &&![viewController isKindOfClass:[NZLabDetailViewController class]]
         ) {
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = 9001;

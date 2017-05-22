@@ -68,7 +68,7 @@
         _avatarGoldFrameImageView.hidden = !response.user_gold_head;
         ((UILabel*)[self.view viewWithTag:PROFILE_TICKET]).text = response.ticket_num;
         ((UILabel*)[self.view viewWithTag:PROFILE_BADGE]).text = response.medal_num;
-        ((UILabel*)[self.view viewWithTag:PROFILE_THING]).text = response.piece_num;
+        
     }];
 }
 

@@ -105,6 +105,8 @@
     
     _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
     _avatarImageView.size = CGSizeMake(ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64));
+    _avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(64)/2;
+    _avatarImageView.layer.masksToBounds = YES;
     _avatarImageView.centerX = titleView.centerX;
     _avatarImageView.top = titleView.bottom;
     [_mainInfoView addSubview:_avatarImageView];
@@ -251,15 +253,22 @@
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:[[SKStorageManager sharedInstance] userInfo].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
     
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) {
-//        _rankLabel.text = [response.rank integerValue]>999? @"1K+":response.rank;
-//        _coinLabel.text = response.user_gold;
+//        ((UILabel*)[self.view viewWithTag:200]).text = response.achievement_num;
         ((UILabel*)[self.view viewWithTag:201]).text = response.ticket_num;
-        ((UILabel*)[self.view viewWithTag:202]).text = response.rank;
+        ((UILabel*)[self.view viewWithTag:202]).text = [response.rank integerValue]>999? @"1K+":response.rank;
+//        ((UILabel*)[self.view viewWithTag:203]).text = response.join_num;
     }];
     
     [[[SKServiceManager sharedInstance] profileService] getUserTicketsCallbackCallback:^(BOOL suceese, NSArray<SKTicket *> *tickets) {
         self.ticketArray = tickets;
         [_contentTableView_tickets reloadData];
+        if (self.ticketArray.count == 0) {
+            HTBlankView *blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_gift"] text:@"参加官方活动，凭券获得神秘礼物"];
+            [blankView setOffset:10];
+            [_contentScrollView addSubview:blankView];
+            blankView.centerX = _contentScrollView.width*1.5;
+            blankView.top = 100;
+        }
     }];
     
     [[[SKServiceManager sharedInstance] profileService] getSeason2RankListCallback:^(BOOL success, NSArray<SKRanker *> *rankerList) {
@@ -293,6 +302,19 @@
         ((UILabel*)[self.view viewWithTag:200]).text = [NSString stringWithFormat:@"%ld", _badgeLevel];
     }];
 
+    //参与话题
+    [[[SKServiceManager sharedInstance] profileService] getJoinTopicListCallback:^(BOOL success, NSArray<SKTopic *> *topicList) {
+        _topicArray = topicList;
+        ((UILabel*)[self.view viewWithTag:203]).text = [NSString stringWithFormat:@"%ld", topicList.count];
+        [_contentTableView_topic reloadData];
+        if (topicList.count == 0) {
+            HTBlankView *blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_topic"] text:@"脑洞大不大，参与话题多说话"];
+            [blankView setOffset:10];
+            [_contentScrollView addSubview:blankView];
+            blankView.top = 100;
+            blankView.centerX = _contentScrollView.width*3.5;
+        }
+    }];
 }
 
 #pragma mark - ScrollView Delegate
@@ -421,8 +443,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == _contentTableView_topic) {
+        self.hidesBottomBarWhenPushed=YES;
         NZLabDetailViewController *controller = [[NZLabDetailViewController alloc] initWithTopicID:_topicArray[indexPath.row].id];
         [self.navigationController pushViewController:controller animated:YES];
+        self.hidesBottomBarWhenPushed=NO;
     } else if (tableView == _contentTableView_tickets) {
         SKDescriptionView *descriptionView = [[SKDescriptionView alloc] initWithURLString:self.ticketArray[indexPath.row].address andType:SKDescriptionTypeReward andImageUrl:self.ticketArray[indexPath.row].pic];
         [descriptionView setReward:self.ticketArray[indexPath.row]];

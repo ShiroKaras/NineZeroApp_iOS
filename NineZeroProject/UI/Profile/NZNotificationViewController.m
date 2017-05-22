@@ -51,10 +51,10 @@
     [self.view addSubview:self.tableView];
     
     if (NO_NETWORK) {
-        self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-        [self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
+        _blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
+        [_blankView setOffset:10];
         [self.view addSubview:self.blankView];
-        self.blankView.top = ROUND_HEIGHT_FLOAT(217);
+        _blankView.center = self.view.center;
     } else {
         self.notices = [NSArray array];
         [HTProgressHUD show];
@@ -64,10 +64,10 @@
                 _notices = notifications;
                 [self.tableView reloadData];
                 if (_notices.count == 0) {
-                    self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
-                    [self.blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
+                    _blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_news"] text:@"系统暂时没有联系你"];
+                    [_blankView setOffset:10];
                     [self.view addSubview:self.blankView];
-                    self.blankView.top = ROUND_HEIGHT_FLOAT(217);
+                    _blankView.center = self.view.center;
                 }
             }
         }];

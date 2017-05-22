@@ -42,12 +42,13 @@
 @interface SKProfileInfo : NSObject
 @property (nonatomic, copy) NSString *user_gold;	     //金币数
 @property (nonatomic, copy) NSString *user_experience_value; //经验值
-@property (nonatomic, copy) NSString *piece_num;	     //玩意儿数
+@property (nonatomic, copy) NSString *achievement_num;	    //勋章数量
 @property (nonatomic, copy) NSString *ticket_num;	    //礼券数
-@property (nonatomic, copy) NSString *rank;		     //排名
-@property (nonatomic, copy) NSString *user_gemstone;	 //宝石
-@property (nonatomic, copy) NSString *medal_num;	     //勋章
-@property (nonatomic, assign) BOOL user_gold_head;	   //是否有头像边框
+@property (nonatomic, copy) NSString *rank;             //排名
+@property (nonatomic, copy) NSString *join_num;         //参与话题数量
+@property (nonatomic, copy) NSString *user_gemstone;	//宝石
+@property (nonatomic, copy) NSString *medal_num;	    //勋章
+@property (nonatomic, assign) BOOL user_gold_head;      //是否有头像边框
 @end
 
 //首页

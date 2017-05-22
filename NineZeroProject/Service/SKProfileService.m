@@ -343,4 +343,20 @@
             callback(success, 0, 0, nil, nil);
     }];
 }
+
+- (void)getJoinTopicListCallback:(SKTopicListCallback)callback {
+    NSDictionary *param = @{
+                            @"method"   : @"getUserJoin",
+                            };
+    
+    [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKTopic*>*array = [NSMutableArray array];
+        for (int i=0; i<[response.data count]; i++) {
+            SKTopic *topic = [SKTopic mj_objectWithKeyValues:response.data[i]];
+            [array addObject:topic];
+        }
+        callback(success, array);
+    }];
+}
+
 @end

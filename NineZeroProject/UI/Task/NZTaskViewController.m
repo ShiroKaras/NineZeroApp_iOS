@@ -14,7 +14,7 @@
 
 @interface NZTaskViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray<SKStronghold*> *strongholdArray;
+@property (nonatomic, strong) NSMutableArray<SKStronghold*> *strongholdArray;
 @property (nonatomic, assign) NSInteger mid;
 @end
 
@@ -77,16 +77,26 @@
 - (void)loadData {
     if (_mid == 0) {
         [[[SKServiceManager sharedInstance] strongholdService] getTaskListWithLocation:CLLocationCoordinate2DMake(39.924345, 116.519776) callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
-            _strongholdArray = strongholdList;
+            _strongholdArray = [NSMutableArray arrayWithArray:strongholdList];
             [self.tableView reloadData];
+            if (_strongholdArray.count == 0) {
+                [self loadBlankView];
+            }
         }];
     }
     if (_mid>1&&_mid<8) {
         [[[SKServiceManager sharedInstance] strongholdService] getStrongholdListWithMascotID:[NSString stringWithFormat:@"%ld", _mid] forLocation:CLLocationCoordinate2DMake(39.924345, 116.519776) callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
-            _strongholdArray = strongholdList;
+            _strongholdArray = [NSMutableArray arrayWithArray:strongholdList];
             [self.tableView reloadData];
         }];
     }
+}
+
+- (void)loadBlankView {
+    HTBlankView *blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_task"] text:@"据点那么多，你不去看看？"];
+    [blankView setOffset:10];
+    [self.view addSubview:blankView];
+    blankView.center = self.view.center;
 }
 
 #pragma mark - UITableView Delegate
@@ -118,11 +128,10 @@
 // 进入编辑模式，按下出现的编辑按钮后,进行删除操作
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        /*
-         [_dataMArr removeObjectAtIndex:indexPath.row];
-         [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-         [_tableView reloadData];
-         */
+        [[[SKServiceManager sharedInstance] strongholdService] deleteTaskWithID:_strongholdArray[indexPath.row].id];
+        [_strongholdArray removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [tableView reloadData];
     }
 }
 

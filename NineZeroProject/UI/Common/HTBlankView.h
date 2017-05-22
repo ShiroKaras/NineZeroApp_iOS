@@ -17,5 +17,8 @@ typedef NS_ENUM(NSUInteger, HTBlankViewType) {
 @interface HTBlankView : UIView
 // 默认为大，深色，宽度一定为屏幕宽度
 - (instancetype)initWithType:(HTBlankViewType)type;
+- (instancetype)initWithImage:(UIImage*)image text:(NSString*)text;
 - (void)setImage:(UIImage *)image andOffset:(CGFloat)offset;
+- (void)setOffset:(CGFloat)offset;
+
 @end
