@@ -195,7 +195,11 @@
 					       if ([response.data count] > 0) {
 						       for (int i = 0; i < [response.data count]; i++) {
 							       SKRanker *ranker = [SKRanker mj_objectWithKeyValues:response.data[i]];
-							       [rankerArray addObject:ranker];
+                                   if (i!=[response.data count]-1) {
+                                       [rankerArray addObject:ranker];
+                                   } else {
+                                       [rankerArray insertObject:ranker atIndex:0];
+                                   }
 						       }
 						       callback(success, rankerArray);
 					       }

@@ -187,7 +187,11 @@
         NSMutableArray *dataArray = [NSMutableArray array];
         for (int i=0; i<[response.data count]; i++) {
             SKRanker *ranker = [SKRanker mj_objectWithKeyValues:response.data[i]];
-            [dataArray addObject:ranker];
+            if (i!=[response.data count]) {
+                [dataArray addObject:ranker];
+            } else {
+                [dataArray insertObject:ranker atIndex:0];
+            }
         }
         callback(success, dataArray);
     }];

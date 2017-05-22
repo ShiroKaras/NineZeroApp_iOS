@@ -97,11 +97,9 @@
     if (cell==nil) {
         cell = [[NZRankCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZRankCell class])];
     }
-    if (indexPath.row == 0) {
-        [cell setRanker:_myRank isMe:YES withType:_type];
-    } else {
-        [cell setRanker:self.rankerList[indexPath.row-1] isMe:NO withType:_type];
-    }
+    
+    [cell setRanker:self.rankerList[indexPath.row] isMe:(indexPath.row == 0) withType:_type];
+    
     return cell;
 }
 
