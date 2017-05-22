@@ -73,7 +73,7 @@
 //获取个人信息
 - (void)getUserInfoDetailCallback:(SKProfileInfoCallback)callback {
 	NSDictionary *param = @{
-		@"method": @"getUserInfo"
+		@"method": @"getUserAllInfo"
 	};
 	[self profileBaseRequestWithParam:param
 				   callback:^(BOOL success, SKResponsePackage *response) {

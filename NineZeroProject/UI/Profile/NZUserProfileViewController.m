@@ -253,10 +253,10 @@
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:[[SKStorageManager sharedInstance] userInfo].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
     
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) {
-//        ((UILabel*)[self.view viewWithTag:200]).text = response.achievement_num;
+        ((UILabel*)[self.view viewWithTag:200]).text = response.achievement_num;
         ((UILabel*)[self.view viewWithTag:201]).text = response.ticket_num;
-        ((UILabel*)[self.view viewWithTag:202]).text = [response.rank integerValue]>999? @"1K+":response.rank;
-//        ((UILabel*)[self.view viewWithTag:203]).text = response.join_num;
+        ((UILabel*)[self.view viewWithTag:202]).text = [response.experience_rank integerValue]>999? @"1K+":response.experience_rank;
+        ((UILabel*)[self.view viewWithTag:203]).text = response.join_num;
     }];
     
     [[[SKServiceManager sharedInstance] profileService] getUserTicketsCallbackCallback:^(BOOL suceese, NSArray<SKTicket *> *tickets) {
@@ -290,22 +290,22 @@
         }
     }];
     
-    //勋章数量
-    [[[SKServiceManager sharedInstance] profileService] getUserAchievement:^(BOOL success, NSInteger exp, NSInteger coopTime, NSArray<SKBadge *> *badges, NSArray<SKBadge*> *medals) {
-        NSInteger _badgeLevel = 0;
-        for (int i=0; i<badges.count; i++) {
-            if (exp >= [badges[i].medal_level integerValue])    _badgeLevel++;
-        }
-        for (int i=0; i<medals.count; i++) {
-            if (coopTime >= [medals[i].medal_level integerValue])   _badgeLevel++;
-        }
-        ((UILabel*)[self.view viewWithTag:200]).text = [NSString stringWithFormat:@"%ld", _badgeLevel];
-    }];
+//    //勋章数量
+//    [[[SKServiceManager sharedInstance] profileService] getUserAchievement:^(BOOL success, NSInteger exp, NSInteger coopTime, NSArray<SKBadge *> *badges, NSArray<SKBadge*> *medals) {
+//        NSInteger _badgeLevel = 0;
+//        for (int i=0; i<badges.count; i++) {
+//            if (exp >= [badges[i].medal_level integerValue])    _badgeLevel++;
+//        }
+//        for (int i=0; i<medals.count; i++) {
+//            if (coopTime >= [medals[i].medal_level integerValue])   _badgeLevel++;
+//        }
+//        ((UILabel*)[self.view viewWithTag:200]).text = [NSString stringWithFormat:@"%ld", _badgeLevel];
+//    }];
 
     //参与话题
     [[[SKServiceManager sharedInstance] profileService] getJoinTopicListCallback:^(BOOL success, NSArray<SKTopic *> *topicList) {
         _topicArray = topicList;
-        ((UILabel*)[self.view viewWithTag:203]).text = [NSString stringWithFormat:@"%ld", topicList.count];
+//        ((UILabel*)[self.view viewWithTag:203]).text = [NSString stringWithFormat:@"%ld", topicList.count];
         [_contentTableView_topic reloadData];
         if (topicList.count == 0) {
             HTBlankView *blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_topic"] text:@"脑洞大不大，参与话题多说话"];

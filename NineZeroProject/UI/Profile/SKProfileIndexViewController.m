@@ -62,12 +62,12 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) {
-        _rankLabel.text = [response.rank integerValue]>999? @"1K+":response.rank;
+        _rankLabel.text = [response.experience_rank integerValue]>999? @"1K+":response.experience_rank;
         _coinLabel.text = response.user_gold;
         _diamondLabel.text = response.user_gemstone;
         _avatarGoldFrameImageView.hidden = !response.user_gold_head;
         ((UILabel*)[self.view viewWithTag:PROFILE_TICKET]).text = response.ticket_num;
-        ((UILabel*)[self.view viewWithTag:PROFILE_BADGE]).text = response.medal_num;
+//        ((UILabel*)[self.view viewWithTag:PROFILE_BADGE]).text = response.medal_num;
         
     }];
 }

@@ -45,11 +45,11 @@
     }];
     
     _myRank = [[SKRanker alloc] init];
-    _myRank.rank = [[SKStorageManager sharedInstance].profileInfo.rank integerValue];
+    _myRank.rank = [[SKStorageManager sharedInstance].profileInfo.experience_rank integerValue];
     _myRank.user_avatar = [SKStorageManager sharedInstance].userInfo.user_avatar;
     _myRank.user_name = [SKStorageManager sharedInstance].userInfo.user_name;
     _myRank.gold = [SKStorageManager sharedInstance].profileInfo.user_gold;
-    _myRank.user_experience_value = [SKStorageManager sharedInstance].profileInfo.user_experience_value;
+//    _myRank.user_experience_value = [SKStorageManager sharedInstance].profileInfo.user_experience_value;
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64) style:UITableViewStylePlain];
     self.tableView.delegate = self;
