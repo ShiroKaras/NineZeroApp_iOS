@@ -31,6 +31,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     [self createUI];
+    [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -41,7 +42,6 @@
 		     withAnimation:UIStatusBarAnimationNone];
 	[self.navigationController.navigationBar setHidden:YES];
 	//[[UIApplication sharedApplication] setStatusBarHidden:NO];
-	[self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

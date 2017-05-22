@@ -8,6 +8,7 @@
 
 #import "NZBadgesView.h"
 #import "HTUIHeader.h"
+#import "NZBadgeDetailView.h"
 
 @interface NZBadgesView ()
 
@@ -15,6 +16,9 @@
 @property (nonatomic, strong) NSArray<SKBadge *> *medalArray;
 @property (nonatomic, assign) NSInteger exp;
 @property (nonatomic, assign) NSInteger badgeLevel;
+@property (nonatomic, strong) UIImageView *titleImageView;
+@property (nonatomic, strong) UIImageView *titleImageView2;
+@property (nonatomic, strong) NZBadgeDetailView *badgeDetailView;
 
 @end
 
@@ -26,33 +30,10 @@
     if (self) {
         self.backgroundColor = COMMON_BG_COLOR;
         
-        UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userpage_puzzleachievement"]];
-        [self addSubview:titleImageView];
-        titleImageView.left = 16;
-        titleImageView.top = 16;
-        
-        float width = (frame.size.width-16*4)/3;
-        float height = width+32;
-        //谜题成就
-        for (int i=0; i<10; i++) {
-            NZBadgeViewCell *cell = [[NZBadgeViewCell alloc] initWithFrame:CGRectMake(16+(16+width)*(i%3), titleImageView.bottom+16+(14+height)*(i/3), width, height)];
-            cell.tag = 100+i;
-            [self addSubview:cell];
-            _viewHeight = cell.bottom;
-        }
-        
-        UIImageView *titleImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userpage_taskachievement"]];
-        [self addSubview:titleImageView2];
-        titleImageView2.left = 16;
-        titleImageView2.top = _viewHeight+16;
-        //任务成就
-        for (int i=0; i<7; i++) {
-            NZBadgeViewCell *cell = [[NZBadgeViewCell alloc] initWithFrame:CGRectMake(16+(16+width)*(i%3), titleImageView2.bottom+16+(14+height)*(i/3), width, height)];
-            cell.tag = 200+i;
-            [self addSubview:cell];
-            _viewHeight = cell.bottom;
-        }
-        _viewHeight +=16;
+        _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userpage_puzzleachievement"]];
+        [self addSubview:_titleImageView];
+        _titleImageView.left = 16;
+        _titleImageView.top = 16;
         
         [self loadData];
     }
@@ -66,28 +47,60 @@
         
         _badgeLevel = 0;
         
+        float width = (self.frame.size.width-16*4)/3;
+        float height = width+32;
         
-        for (int i=0; i<badges.count; i++) {
-            NZBadgeViewCell *cell = ((NZBadgeViewCell*)[self viewWithTag:100+i]);
-            [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:badges[i].medal_error_icon]];
-            cell.nameLabel.text = badges[i].medal_name;
-            if (exp >= [badges[i].medal_level integerValue]) {
-                _badgeLevel++;
-                [cell isGetBadge:YES];
-                [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:badges[i].medal_icon]];
+        //谜题成就
+        for (int i=0; i<self.badgeArray.count +self.medalArray.count; i++) {
+            if (i== self.badgeArray.count) {
+                _titleImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userpage_taskachievement"]];
+                [self addSubview:_titleImageView2];
+                _titleImageView2.left = 16;
+                _titleImageView2.top = _viewHeight+16;
             }
+            
+            NZBadgeViewCell *cell;
+            if (i<self.badgeArray.count) {
+                cell = [[NZBadgeViewCell alloc] initWithFrame:CGRectMake(16+(16+width)*(i%3), _titleImageView.bottom+16+(14+height)*(i/3), width, height)];
+                cell.tag = 100+i;
+                [self addSubview:cell];
+                [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:badges[i].medal_error_icon]];
+                cell.nameLabel.text = badges[i].medal_name;
+                if (exp >= [badges[i].medal_level integerValue]) {
+                    _badgeLevel++;
+                    [cell isGetBadge:YES];
+                    [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:badges[i].medal_icon]];
+                }
+                
+                UIButton *button = [[UIButton alloc] initWithFrame:cell.frame];
+                button.tag = 300+i;
+                [button addTarget:self action:@selector(didClickBadge:) forControlEvents:UIControlEventTouchUpInside];
+                [self addSubview:button];
+            } else {
+                unsigned long j = i-self.badgeArray.count;
+                cell = [[NZBadgeViewCell alloc] initWithFrame:CGRectMake(16+(16+width)*(j%3), _titleImageView2.bottom+16+(14+height)*(j/3), width, height)];
+                cell.tag = 200+j;
+                [self addSubview:cell];
+                [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:medals[j].medal_error_icon]];
+                cell.nameLabel.text = medals[j].medal_name;
+                if (coopTime >= [medals[j].medal_level integerValue]) {
+                    _badgeLevel++;
+                    [cell isGetBadge:YES];
+                    [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:medals[j].medal_icon]];
+                }
+                
+                UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(16+(16+width)*(j%3), _titleImageView2.bottom+16+(14+height)*(j/3), width, height)];
+                button.tag = 400+j;
+                [button addTarget:self action:@selector(didClickMedal:) forControlEvents:UIControlEventTouchUpInside];
+                [self addSubview:button];
+            }
+            
+            _viewHeight = cell.bottom;
+            
         }
+        [self layoutIfNeeded];
+        _viewHeight +=16;
         
-        for (int i=0; i<medals.count; i++) {
-            NZBadgeViewCell *cell = ((NZBadgeViewCell*)[self viewWithTag:200+i]);
-            [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:medals[i].medal_error_icon]];
-            cell.nameLabel.text = medals[i].medal_name;
-            if (coopTime >= [medals[i].medal_level integerValue]) {
-                _badgeLevel++;
-                [cell isGetBadge:YES];
-                [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:medals[i].medal_icon]];
-            }
-        }
     }];
 }
 
@@ -102,6 +115,30 @@
         }
     }];
     return badgeLevel;
+}
+
+#pragma mark - 
+
+- (UIViewController *)viewController {
+    for (UIView *next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UINavigationController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
+
+- (void)didClickBadge:(UIButton *)sender {
+    _badgeDetailView = [[NZBadgeDetailView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withBadge:_badgeArray[(int)sender.tag-300]];
+    _badgeDetailView.userInteractionEnabled = YES;
+    [[self viewController].view addSubview:_badgeDetailView];
+}
+
+- (void)didClickMedal:(UIButton *)sender {
+    _badgeDetailView = [[NZBadgeDetailView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withBadge:_medalArray[(int)sender.tag-400]];
+    _badgeDetailView.userInteractionEnabled = YES;
+    [[self viewController].view addSubview:_badgeDetailView];
 }
 
 @end

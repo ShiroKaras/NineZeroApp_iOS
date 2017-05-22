@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1108618A1ECEC03D00CD7493 /* NZAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 110861891ECEC03D00CD7493 /* NZAdView.m */; };
+		1108618D1ED28E4200CD7493 /* NZBadgeDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1108618C1ED28E4200CD7493 /* NZBadgeDetailView.m */; };
 		1114AE041CE48DD800CCF92C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1114AE031CE48DD800CCF92C /* Assets.xcassets */; };
 		111ACA6C1E2DCF4E007DE137 /* 90appbundle.cer in Resources */ = {isa = PBXBuildFile; fileRef = 111ACA6B1E2DCF4E007DE137 /* 90appbundle.cer */; };
 		111ACA841E2DCF83007DE137 /* right_answer_gif0000.png in Resources */ = {isa = PBXBuildFile; fileRef = 111ACA6E1E2DCF83007DE137 /* right_answer_gif0000.png */; };
@@ -418,6 +419,8 @@
 		0696EDC999FBD0A955EEFA5C /* Pods-NineZeroProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroProjectTests/Pods-NineZeroProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		110861881ECEC03C00CD7493 /* NZAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZAdView.h; path = NineZeroProject/UI/Index/NZAdView.h; sourceTree = "<group>"; };
 		110861891ECEC03D00CD7493 /* NZAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZAdView.m; path = NineZeroProject/UI/Index/NZAdView.m; sourceTree = "<group>"; };
+		1108618B1ED28E4200CD7493 /* NZBadgeDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NZBadgeDetailView.h; path = NineZeroProject/UI/Index/NZBadgeDetailView.h; sourceTree = "<group>"; };
+		1108618C1ED28E4200CD7493 /* NZBadgeDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NZBadgeDetailView.m; path = NineZeroProject/UI/Index/NZBadgeDetailView.m; sourceTree = "<group>"; };
 		1114AE031CE48DD800CCF92C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		111ACA6B1E2DCF4E007DE137 /* 90appbundle.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = 90appbundle.cer; sourceTree = "<group>"; };
 		111ACA6E1E2DCF83007DE137 /* right_answer_gif0000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_answer_gif0000.png; sourceTree = "<group>"; };
@@ -1732,6 +1735,8 @@
 				11CE6E111EB1C36E004F1707 /* NZUserProfileViewController.m */,
 				11CE6E261EC1B9B3004F1707 /* NZBadgesView.h */,
 				11CE6E271EC1B9B3004F1707 /* NZBadgesView.m */,
+				1108618B1ED28E4200CD7493 /* NZBadgeDetailView.h */,
+				1108618C1ED28E4200CD7493 /* NZBadgeDetailView.m */,
 				11CE6E1A1EBB3CA1004F1707 /* NZTicketListView.h */,
 				11CE6E1B1EBB3CA1004F1707 /* NZTicketListView.m */,
 				11CE6E1D1EC01F64004F1707 /* NZTopRankListView.h */,
@@ -2918,6 +2923,7 @@
 				1787FD2B1C4A9E85006E55A6 /* INTULocationManager.m in Sources */,
 				1160FB3F1E0E927F00606F16 /* HTLoginButton.m in Sources */,
 				17B429011C54D4A8008AFBA9 /* YYFrameImage.m in Sources */,
+				1108618D1ED28E4200CD7493 /* NZBadgeDetailView.m in Sources */,
 				11C64D3C1E601AC000397835 /* ChatFlowCell.m in Sources */,
 				1162371B1E4B329E009FEDCA /* SKConfirmPasswordViewController.m in Sources */,
 				11C764761E120E5300D86F40 /* NSObject+MJProperty.m in Sources */,

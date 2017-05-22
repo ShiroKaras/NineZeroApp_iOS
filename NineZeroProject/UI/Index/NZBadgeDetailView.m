@@ -1,34 +1,35 @@
 //
-//  NZEvidenceView.m
+//  NZBadgeDetailView.m
 //  NineZeroProject
 //
-//  Created by SinLemon on 2017/4/18.
+//  Created by SinLemon on 2017/5/22.
 //  Copyright © 2017年 SinLemon. All rights reserved.
 //
 
-#import "NZEvidenceView.h"
+#import "NZBadgeDetailView.h"
 #import "HTUIHeader.h"
 
-@interface NZEvidenceView ()
+@interface NZBadgeDetailView ()
 @property (nonatomic, strong) UIImageView *propImageView;
 @property (nonatomic, strong) UIImageView *propTextImageView;
 @property (nonatomic, strong) UILabel *propTextLabel;
 @end
 
-@implementation NZEvidenceView
+@implementation NZBadgeDetailView
 
-- (instancetype)initWithFrame:(CGRect)frame withCrimeEvidence:(SKMascotEvidence *)evidence {
+- (instancetype)initWithFrame:(CGRect)frame withBadge:(SKBadge*)badge {
     self = [super initWithFrame:frame];
     if (self) {
         [self createUIWithFrame:frame];
         
-        [_propImageView sd_setImageWithURL:[NSURL URLWithString:evidence.crime_pic]];
-        [_propTextImageView sd_setImageWithURL:[NSURL URLWithString:evidence.crime_name]];
-        _propTextLabel.text = evidence.crime_description;
+        [_propImageView sd_setImageWithURL:[NSURL URLWithString:badge.medal_pic]];
+        [_propTextImageView sd_setImageWithURL:[NSURL URLWithString:badge.medal_name_pic]];
+        _propTextLabel.text = badge.medal_description;
         [_propTextLabel sizeToFit];
     }
     return self;
 }
+
 
 - (void)createUIWithFrame:(CGRect)frame {
     self.backgroundColor = [UIColor clearColor];
@@ -51,7 +52,7 @@
     _propTextImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:_propTextImageView];
     [_propTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(100, 26));
+        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(222), 26));
         make.centerX.equalTo(alphaView.mas_centerX);
         make.top.equalTo(_propImageView.mas_bottom).offset(30);
     }];
@@ -72,6 +73,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeView)];
     [self addGestureRecognizer:tap];
 }
+
 
 - (void)closeView {
     [self removeFromSuperview];

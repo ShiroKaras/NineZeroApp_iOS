@@ -189,9 +189,9 @@
     _contentScrollView_badge.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
     [_contentScrollView addSubview:_contentScrollView_badge];
     
-    NZBadgesView *badgeView = [[NZBadgesView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView_badge.width, _contentScrollView_badge.height) badges:nil];
+    NZBadgesView *badgeView = [[NZBadgesView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView_badge.width, 1220) badges:nil];
     [_contentScrollView_badge addSubview:badgeView];
-    _contentScrollView_badge.contentSize = CGSizeMake(_contentScrollView_badge.width, badgeView.viewHeight);
+    _contentScrollView_badge.contentSize = CGSizeMake(_contentScrollView_badge.width, 1220);
 
     //礼券
     UIView *ticketHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 50)];
