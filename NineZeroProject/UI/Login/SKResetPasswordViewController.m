@@ -104,8 +104,7 @@
 	_nextButton = [UIButton new];
 	[_nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
 	_nextButton.frame = CGRectMake(0, self.view.height - 50, self.view.width, 50);
-	[_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xCA0E27]] forState:UIControlStateNormal];
-	[_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0xFF546B]] forState:UIControlStateHighlighted];
+    [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0x0e0e0e alpha:0.3]] forState:UIControlStateNormal];
     [_nextButton setImage:[UIImage imageNamed:@"btn_logins_next"] forState:UIControlStateNormal];
     [_nextButton setImage:[UIImage imageNamed:@"btn_logins_next_highlight"] forState:UIControlStateHighlighted];
 	[self.view addSubview:_nextButton];
