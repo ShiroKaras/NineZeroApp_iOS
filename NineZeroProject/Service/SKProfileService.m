@@ -327,21 +327,20 @@
     [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         if (success) {
             NSMutableArray *badgeArray = [NSMutableArray array];
-            if ([response.data[@"user_achievement"] count] > 0) {
-                for (int i = 0; i < [response.data[@"user_achievement"] count]; i++) {
-                    SKBadge *badge = [SKBadge mj_objectWithKeyValues:response.data[@"user_achievement"][i]];
+            if ([response.data[@"user_medal"] count] > 0) {
+                for (int i = 0; i < [response.data[@"user_medal"] count]; i++) {
+                    SKBadge *badge = [SKBadge mj_objectWithKeyValues:response.data[@"user_medal"][i]];
                     [badgeArray addObject:badge];
                 }
             }
             
             NSMutableArray *medalArray = [NSMutableArray array];
-            if ([response.data[@"user_medal"] count] > 0) {
-                for (int i = 0; i < [response.data[@"user_medal"] count]; i++) {
-                    SKBadge *medal = [SKBadge mj_objectWithKeyValues:response.data[@"user_medal"][i]];
+            if ([response.data[@"user_achievement"] count] > 0) {
+                for (int i = 0; i < [response.data[@"user_achievement"] count]; i++) {
+                    SKBadge *medal = [SKBadge mj_objectWithKeyValues:response.data[@"user_achievement"][i]];
                     [medalArray addObject:medal];
                 }
             }
-            
             callback(success, [response.data[@"user_experience_value"] integerValue], [response.data[@"total_coop_time"] integerValue], badgeArray, medalArray);
         } else
             callback(success, 0, 0, nil, nil);
