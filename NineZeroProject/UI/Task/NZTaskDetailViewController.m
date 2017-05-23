@@ -39,8 +39,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self addObserver:self forKeyPath:@"isAddTaskList" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    
     [self createUI];
     [self loadData];
+}
+
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"isAddTaskList"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,10 +54,9 @@
 }
 
 - (void)loadData {
-    _isAddTaskList = NO;
     [[[SKServiceManager sharedInstance] strongholdService] getStrongholdInfoWithID:_detail.id callback:^(BOOL success, SKStrongholdItem *strongholdItem) {
         _detail = strongholdItem;
-        
+        self.isAddTaskList = strongholdItem.task_status;
         [_titleImageView sd_setImageWithURL:[NSURL URLWithString:strongholdItem.bigpic] placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
         
         NZTaskDetailView *detailView = [[NZTaskDetailView alloc] initWithFrame:CGRectMake(0, _titleImageView.bottom, self.view.width, 1000) withModel:strongholdItem];
@@ -198,8 +203,12 @@
 }
 
 - (void)didClickAddTaskButton:(UIButton *)sender {
-    [[[SKServiceManager sharedInstance] strongholdService] addTaskWithID:_detail.id];
-    _isAddTaskList = !_isAddTaskList;
+    if (self.isAddTaskList) {
+        [[[SKServiceManager sharedInstance] strongholdService] deleteTaskWithID:_detail.id];
+    } else {
+        [[[SKServiceManager sharedInstance] strongholdService] addTaskWithID:_detail.id];
+    }
+    self.isAddTaskList = !self.isAddTaskList;
     [self showTipsWith:_isAddTaskList];
 }
 
@@ -213,8 +222,8 @@
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskpage_addtask"]];
         [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask_highlight"] forState:UIControlStateNormal];
     } else {
-        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskbook_deletesuccess"]];
-        [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask"] forState:UIControlStateNormal];
+        imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskpage_canceltask"]];
+        [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"img_taskpage_canceltask"] forState:UIControlStateNormal];
     }
     [_tipsBackView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -236,6 +245,20 @@
                          }];
     }];
 
+}
+
+#pragma mark - Notification
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"isAddTaskList"]) {
+        if (self.isAddTaskList) {
+            [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask_highlight"] forState:UIControlStateNormal];
+            [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask"] forState:UIControlStateHighlighted];
+        } else {
+            [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask"] forState:UIControlStateNormal];
+            [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask_highlight"] forState:UIControlStateHighlighted];
+        }
+    }
 }
 
 #pragma mark - Actions

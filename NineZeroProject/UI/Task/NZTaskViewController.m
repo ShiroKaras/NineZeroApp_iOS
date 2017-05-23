@@ -40,11 +40,23 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self createUI];
+    [self registerLocation];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     self.automaticallyAdjustsScrollViewInsets = false;
-    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+- (void)createUI {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.width, 44)];
     headerView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:headerView];
@@ -68,12 +80,6 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView registerClass:[NZTaskCell class] forCellReuseIdentifier:NSStringFromClass([NZTaskCell class])];
     [self.view addSubview:self.tableView];
-
-    [self registerLocation];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 - (void)loadDataWithLocation:(CLLocation*)location {
@@ -159,6 +165,9 @@
         [_strongholdArray removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [tableView reloadData];
+        if (_strongholdArray.count==0) {
+            [self loadBlankView];
+        }
     }
 }
 
