@@ -243,7 +243,7 @@
         } else if ([_scaningInfo.scanning_type integerValue] == 2) {
             HTARCaptureController *controller = [[HTARCaptureController alloc] init];
             controller.pet_gif = _scaningInfo.pet_gif;
-            [self.navigationController pushViewController:controller animated:NO];
+            [self presentViewController:controller animated:NO completion:nil];
         }
     }
 }

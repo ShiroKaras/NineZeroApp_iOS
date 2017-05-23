@@ -102,8 +102,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 	// 2.返回
 	self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.backButton setImage:[UIImage imageNamed:@"btn_fullscreen_back"] forState:UIControlStateNormal];
-	[self.backButton setImage:[UIImage imageNamed:@"btn_fullscreen_back_highlight"] forState:UIControlStateHighlighted];
+	[self.backButton setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+	[self.backButton setImage:[UIImage imageNamed:@"btn_back_highlight"] forState:UIControlStateHighlighted];
 	[self.backButton addTarget:self action:@selector(onClickBack) forControlEvents:UIControlEventTouchUpInside];
 	[self.backButton sizeToFit];
 	[self.view addSubview:self.backButton];
