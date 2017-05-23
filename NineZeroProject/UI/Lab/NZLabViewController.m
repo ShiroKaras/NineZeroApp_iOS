@@ -13,6 +13,8 @@
 #import "NZLabDetailViewController.h"
 #import <PSCarouselView/PSCarouselView.h>
 
+#import "HTWebController.h"
+
 @interface NZLabViewController () <UITableViewDelegate, UITableViewDataSource, PSCarouselDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) PSCarouselView *carouselView;
@@ -60,6 +62,7 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] topicService] getBannerListCallback:^(BOOL success, NSArray<SKBanner *> *bannerList) {
+        self.bannerArray = bannerList;
         if ([bannerList count] > 0) {
             UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, ROUND_WIDTH_FLOAT(180))];
             
@@ -69,8 +72,12 @@
             self.carouselView.autoMoving = YES;
             self.carouselView.movingTimeInterval = 1.5f;
             [tableViewHeaderView addSubview:self.carouselView];
-            self.carouselView.imageURLs = bannerList;
-            
+            NSMutableArray *urlArray = [NSMutableArray array];
+            for (SKBanner *banner in bannerList) {
+                [urlArray addObject:banner.banner_pic];
+            }
+            self.carouselView.imageURLs = urlArray;
+            self.carouselView.pageDelegate = self;
             self.tableView.tableHeaderView = tableViewHeaderView;
         }
     }];
@@ -79,6 +86,10 @@
         _topicArray = topicList;
         [self.tableView reloadData];
     }];
+}
+
+- (void)didClickHeaderView {
+    
 }
 
 #pragma mark - UITableView Delegate
@@ -115,5 +126,17 @@
     return 1;
 }
 
+#pragma mark - PSCarouselDelegate
 
+- (void)carousel:(PSCarouselView *)carousel didMoveToPage:(NSUInteger)page
+{
+    NSLog(@"Page:%ld", page);
+    
+}
+
+- (void)carousel:(PSCarouselView *)carousel didTouchPage:(NSUInteger)page
+{
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:self.bannerArray[page].link];
+    [self.navigationController pushViewController:controller animated:YES];
+}
 @end
