@@ -21,7 +21,7 @@ typedef void (^SKQuestionStrongholdItemCallback) (BOOL success, SKStrongholdItem
 
 @interface SKStrongHoldService : NSObject
 
-- (void)getStrongholdListWithMascotID:(NSString*)mid forLocation:(CLLocationCoordinate2D)location callback:(SKQuestionStrongholdListCallback)callback;
+- (void)getStrongholdListWithMascotID:(NSString*)mid forLocation:(CLLocation*)location callback:(SKQuestionStrongholdListCallback)callback;
 
 - (void)getStrongholdInfoWithID:(NSString*)sid callback:(SKQuestionStrongholdItemCallback)callback;
 

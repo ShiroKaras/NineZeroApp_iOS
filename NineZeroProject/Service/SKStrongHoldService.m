@@ -66,13 +66,13 @@
           }];
 }
 
-- (void)getStrongholdListWithMascotID:(NSString *)mid forLocation:(CLLocationCoordinate2D)location callback:(SKQuestionStrongholdListCallback)callback{
+- (void)getStrongholdListWithMascotID:(NSString *)mid forLocation:(CLLocation*)location callback:(SKQuestionStrongholdListCallback)callback{
     NSDictionary *param = @{
                             @"method"   : @"getStrongholdList",
                             @"pid"      : mid,
                             @"city_code": AppDelegateInstance.cityCode,
-                            @"lat"      : [NSString stringWithFormat:@"%lf", location.latitude],
-                            @"lng"      : [NSString stringWithFormat:@"%lf", location.longitude]
+                            @"lat"      : [NSString stringWithFormat:@"%lf", location.coordinate.latitude],
+                            @"lng"      : [NSString stringWithFormat:@"%lf", location.coordinate.longitude]
                             };
     [self strongholdBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray *dataArray = [NSMutableArray array];

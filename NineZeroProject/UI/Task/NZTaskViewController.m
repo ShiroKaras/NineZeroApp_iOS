@@ -16,6 +16,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<SKStronghold*> *strongholdArray;
 @property (nonatomic, assign) NSInteger mid;
+
+@property (nonatomic, strong) AMapLocationManager *locationManager;
 @end
 
 @implementation NZTaskViewController
@@ -67,14 +69,14 @@
     [self.tableView registerClass:[NZTaskCell class] forCellReuseIdentifier:NSStringFromClass([NZTaskCell class])];
     [self.view addSubview:self.tableView];
 
-    [self loadData];
+    [self registerLocation];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (void)loadData {
+- (void)loadDataWithLocation:(CLLocation*)location {
     if (_mid == 0) {
         [[[SKServiceManager sharedInstance] strongholdService] getTaskListWithLocation:CLLocationCoordinate2DMake(39.924345, 116.519776) callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
             _strongholdArray = [NSMutableArray arrayWithArray:strongholdList];
@@ -85,7 +87,7 @@
         }];
     }
     if (_mid>1&&_mid<8) {
-        [[[SKServiceManager sharedInstance] strongholdService] getStrongholdListWithMascotID:[NSString stringWithFormat:@"%ld", _mid] forLocation:CLLocationCoordinate2DMake(39.924345, 116.519776) callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
+        [[[SKServiceManager sharedInstance] strongholdService] getStrongholdListWithMascotID:[NSString stringWithFormat:@"%ld", (long)(long)_mid] forLocation:location callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
             _strongholdArray = [NSMutableArray arrayWithArray:strongholdList];
             [self.tableView reloadData];
         }];
@@ -97,6 +99,31 @@
     [blankView setOffset:10];
     [self.view addSubview:blankView];
     blankView.center = self.view.center;
+}
+
+- (void)registerLocation {
+    self.locationManager = [[AMapLocationManager alloc] init];
+    // 带逆地理信息的一次定位（返回坐标和地址信息）
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    //   定位超时时间，可修改，最小2s
+    self.locationManager.locationTimeout = 2;
+    //   逆地理请求超时时间，可修改，最小2s
+    self.locationManager.reGeocodeTimeout = 2;
+    
+    // 带逆地理（返回坐标和地址信息）
+    [self.locationManager
+     requestLocationWithReGeocode:YES
+     completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode,
+                       NSError *error) {
+         if (error) {
+             DLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+         }
+         if (regeocode) {
+             DLog(@"citycode:%@", regeocode.citycode);
+         }
+         DLog(@"location:%@", location);
+         [self loadDataWithLocation:location];
+     }];
 }
 
 #pragma mark - UITableView Delegate
