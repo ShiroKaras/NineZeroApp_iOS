@@ -109,17 +109,20 @@
                                 if (success) {
                                     SKIndexScanning *scanning = [SKIndexScanning mj_objectWithKeyValues:response.data];
                                     NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
-                                    if (scanning.pet_gif)
+                                    if (scanning.pet_gif){
                                         [downloadKeys addObject:scanning.pet_gif];
-                                    [self getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, SKResponsePackage *response) {
-                                        if (success) {
-                                            if (scanning.pet_gif)
-                                                scanning.pet_gif_url = response.data[scanning.pet_gif];
-                                            callback(success, scanning);
-                                        } else {
-                                            callback(false, scanning);
-                                        }
-                                    }];
+                                        [self getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, SKResponsePackage *response) {
+                                            if (success) {
+                                                if (scanning.pet_gif)
+                                                    scanning.pet_gif_url = response.data[scanning.pet_gif];
+                                                callback(success, scanning);
+                                            } else {
+                                                callback(false, scanning);
+                                            }
+                                        }];
+                                    } else {
+                                        callback(success, scanning);
+                                    }
                                 }
                             }];
 }

@@ -59,7 +59,9 @@
         if ([indexScanningInfo.scanning_type integerValue] == 1) {
             
         } else if ([indexScanningInfo.scanning_type integerValue] == 2) {
-            [self loadZip];
+            if (!indexScanningInfo.is_haved_reward) {
+                [self loadZip];
+            }
         }
         
         if (![indexScanningInfo.adv_pic isEqualToString:@""]&&indexScanningInfo.adv_pic!=nil) {

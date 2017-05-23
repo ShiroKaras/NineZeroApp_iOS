@@ -72,6 +72,7 @@
 @property (nonatomic, copy) NSString *pet_gif;
 @property (nonatomic, copy) NSString *pet_gif_url;
 @property (nonatomic, copy) NSString *reward_id;
+@property (nonatomic, assign) BOOL   is_haved_reward;
 @property (nonatomic, copy) NSString *scanning_type;
 @property (nonatomic, copy) NSString *adv_pic;
 @end
@@ -331,7 +332,7 @@
 
 @interface SKBanner : NSObject
 @property (nonatomic, copy) NSString *id;
-@property (nonatomic, copy) NSString *banner;
+@property (nonatomic, copy) NSString *banner_pic;
 @property (nonatomic, copy) NSString *link;
 @end
 
