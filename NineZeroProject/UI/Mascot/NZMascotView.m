@@ -11,6 +11,7 @@
 
 @interface NZMascotView ()
 @property (nonatomic, strong) SKMascot *mascot;
+@property (nonatomic, strong) UIView *countDownBackView;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UILabel *timeLabel;
 @end
@@ -28,12 +29,16 @@
         _backgroundImageView.image = [UIImage imageNamed:@"img_lingzaipage_bg"];
         [self addSubview:_backgroundImageView];
         
-        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16+64, 45.5, 45.5)];
+        _countDownBackView = [[UIView alloc] initWithFrame:CGRectMake(16, 16+64, 150, 50)];
+        _countDownBackView.backgroundColor = [UIColor clearColor];
+        [self addSubview:_countDownBackView];
+        
+        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45.5, 45.5)];
         icon.image = [UIImage imageNamed:@"img_lingzaipage_imprisontime"];
-        [self addSubview:icon];
+        [_countDownBackView addSubview:icon];
         
         UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaipage_imprisontext"]];
-        [self addSubview:titleImageView];
+        [_countDownBackView addSubview:titleImageView];
         titleImageView.left = icon.right+4;
         titleImageView.top = icon.top +4;
         
@@ -42,7 +47,7 @@
         _timeLabel.textColor = COMMON_PINK_COLOR;
         _timeLabel.font = MOON_FONT_OF_SIZE(24);
         [_timeLabel sizeToFit];
-        [self addSubview:_timeLabel];
+        [_countDownBackView addSubview:_timeLabel];
         _timeLabel.left = titleImageView.left;
         _timeLabel.top = titleImageView.bottom+4;
         
@@ -51,7 +56,6 @@
 //        long long dTime = [[NSNumber numberWithDouble:time] longLongValue]; // 将double转为long long型
 //        NSString *curTime = [NSString stringWithFormat:@"%llu",dTime];      // 输出long long型
 //        NSLog(@"Time:%@", curTime);
-        _deltaTime = 24*3600;
         [self scheduleCountDownTimer];
     }
     return self;
@@ -68,11 +72,20 @@
     
     //TODO: 更改TimeView
     if (_deltaTime > 0) {
+        _countDownBackView.hidden = NO;
         _timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",hour,minute,second];
     } else {
         // 过去时间
+        _countDownBackView.hidden = YES;
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
+        _timeLabel.text = [NSString stringWithFormat:@"00:00:00"];
     }
+}
+
+- (void)setDeltaTime:(time_t)deltaTime {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
+    _deltaTime = deltaTime;
+    [self scheduleCountDownTimer];
 }
 
 @end

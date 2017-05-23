@@ -82,7 +82,9 @@
 - (void)loadData {
     [[[SKServiceManager sharedInstance] mascotService] getAllPetsCoopTimeCallback:^(BOOL success, NSArray<SKMascot *> *mascots) {
         _mascotArray = mascots;
-        //NSLog(@"%@", mascots[0].pet_last_coop_time);
+        for (int i=0; i<mascots.count; i++) {
+            ((NZMascotView*)[self.view viewWithTag:100+i]).deltaTime = mascots[i].pet_last_coop_time == nil? 0:[mascots[i].pet_last_coop_time integerValue];
+        }
     }];
 }
 
