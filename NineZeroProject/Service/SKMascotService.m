@@ -184,16 +184,18 @@
                             @"method" : @"getPetCoopRank",
                             };
     [self mascotBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray *dataArray = [NSMutableArray array];
-        for (int i=0; i<[response.data count]; i++) {
-            SKRanker *ranker = [SKRanker mj_objectWithKeyValues:response.data[i]];
-            if (i!=[response.data count]) {
-                [dataArray addObject:ranker];
-            } else {
-                [dataArray insertObject:ranker atIndex:0];
+        NSMutableArray *rankerArray = [NSMutableArray array];
+        if ([response.data count] > 0) {
+            for (int i = 0; i < [response.data count]; i++) {
+                SKRanker *ranker = [SKRanker mj_objectWithKeyValues:response.data[i]];
+                if (i!=[response.data count]-1) {
+                    [rankerArray addObject:ranker];
+                } else {
+                    [rankerArray insertObject:ranker atIndex:0];
+                }
             }
+            callback(success, rankerArray);
         }
-        callback(success, dataArray);
     }];
 }
 

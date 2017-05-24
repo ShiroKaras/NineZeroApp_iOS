@@ -139,4 +139,14 @@
 				    }];
 }
 
+- (void)getTimeSlotRewardDetailWithRewardID:(NSString*)rewardId callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method": @"getTimeSlotRewardDetail",
+                            @"reward_id" : rewardId
+                            };
+    [self scanningBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+
+}
 @end

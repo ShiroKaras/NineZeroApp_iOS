@@ -128,8 +128,12 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	tapThree.numberOfTapsRequired = 1;
 	[self.radarImageView addGestureRecognizer:tapThree];
 	[self.view addSubview:self.radarImageView];
-
-	// 4.提示
+    if (_type==1&&_isHadReward==NO) {
+        self.radarImageView.hidden = YES;
+    }
+    
+    
+	// 4.提示 (3.0版本不显示)
 	self.tipImageView = [[UIImageView alloc] init];
 	self.tipImageView.layer.masksToBounds = YES;
 	self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
@@ -141,52 +145,42 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
 	[self.tipImageView addSubview:self.tipLabel];
 	[self showtipImageView];
-
-    if (!_isHadReward) {
-        NSString *unzipFilesPath;
-        if (_type == 1) {
-            unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.pet_gif stringByDeletingPathExtension]]];
-        } else if (_type==2) {
-            unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
-        } else if (_type == 3) {
-            unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.strongholdItem.pet_gif stringByDeletingPathExtension]]];
-        }
-        
-        NSFileManager *myFileManager = [NSFileManager defaultManager];
-        NSDirectoryEnumerator *myDirectoryEnumerator;
-        myDirectoryEnumerator = [myFileManager enumeratorAtPath:unzipFilesPath];
-        //列举目录内容，可以遍历子目录
-        NSString *unzipFileName;
-        
-        NSMutableArray<UIImage *> *images = [NSMutableArray array];
-        while ((unzipFileName = [myDirectoryEnumerator nextObject]) != nil) {
-            NSData *data = [NSData dataWithContentsOfFile:[unzipFilesPath stringByAppendingPathComponent:unzipFileName]];
-            UIImage *image = [UIImage imageWithData:data];
-            [images addObject:image];
-        }
-        self.mascotImageView = [[UIImageView alloc] init];
-        self.mascotImageView.layer.masksToBounds = YES;
-        self.mascotImageView.hidden = _type==1? NO:YES;
-        self.mascotImageView.userInteractionEnabled = YES;
-        [self.view addSubview:self.mascotImageView];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
-        [self.mascotImageView addGestureRecognizer:tap];
-        self.mascotImageView.animationImages = images;
-        self.mascotImageView.animationDuration = 0.1 * images.count;
-        self.mascotImageView.animationRepeatCount = 0;
-        [self.mascotImageView startAnimating];
+    self.tipImageView.alpha = 0;
+    self.tipImageView.hidden = YES;
+    
+    //1.首页 2.题目 3.据点
+    NSString *unzipFilesPath;
+    if (_type == 1) {
+        unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.pet_gif stringByDeletingPathExtension]]];
+    } else if (_type==2) {
+        unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
+    } else if (_type == 3) {
+        unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.strongholdItem.pet_gif stringByDeletingPathExtension]]];
     }
     
+    NSFileManager *myFileManager = [NSFileManager defaultManager];
+    NSDirectoryEnumerator *myDirectoryEnumerator;
+    myDirectoryEnumerator = [myFileManager enumeratorAtPath:unzipFilesPath];
+    //列举目录内容，可以遍历子目录
+    NSString *unzipFileName;
     
-    
-    
-	//    self.mascotMotionView = [[MotionEffectView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
-	//    self.mascotMotionView.hidden = YES;
-	//    self.mascotMotionView.imageView.hidden = YES;
-	//    self.mascotMotionView.center = self.view.center;
-	//    self.mascotMotionView.delegate = self;
-	//    [self.view addSubview:self.mascotMotionView];
-	//    [self.mascotMotionView setImage:self.mascotImageView];
+    NSMutableArray<UIImage *> *images = [NSMutableArray array];
+    while ((unzipFileName = [myDirectoryEnumerator nextObject]) != nil) {
+        NSData *data = [NSData dataWithContentsOfFile:[unzipFilesPath stringByAppendingPathComponent:unzipFileName]];
+        UIImage *image = [UIImage imageWithData:data];
+        [images addObject:image];
+    }
+    self.mascotImageView = [[UIImageView alloc] init];
+    self.mascotImageView.layer.masksToBounds = YES;
+    self.mascotImageView.hidden = _type==1? _isHadReward:YES;
+    self.mascotImageView.userInteractionEnabled = YES;
+    [self.view addSubview:self.mascotImageView];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
+    [self.mascotImageView addGestureRecognizer:tap];
+    self.mascotImageView.animationImages = images;
+    self.mascotImageView.animationDuration = 0.1 * images.count;
+    self.mascotImageView.animationRepeatCount = 0;
+    [self.mascotImageView startAnimating];
 
 	if (FIRST_LAUNCH_AR) {
 		SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
@@ -261,7 +255,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	}];
 
 	[self.radarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.top.equalTo(@11);
+	    make.top.equalTo(@31);
 	    make.right.equalTo(@(-11));
 	    make.width.equalTo(@(90));
 	    make.height.equalTo(@(90));
@@ -401,9 +395,26 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)onClickMascot {
-	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    
-    if (_type==2||_type==1) {
+//	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    if (_type==1) {
+        [[[SKServiceManager sharedInstance] scanningService] getTimeSlotRewardDetailWithRewardID:self.rewardID callback:^(BOOL success, SKResponsePackage *response) {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            if (success) {
+                [self catchSuccess];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.successBackgroundView removeFromSuperview];
+                    [self onCaptureMascotSuccessfulWithReward:[SKReward mj_objectWithKeyValues:[response.data mj_keyValues]]];
+                });
+            } else {
+                if (response.result) {
+                    [self showTipsWithText:[NSString stringWithFormat:@"异常%ld", (long)response.result]];
+                } else {
+                    [self showTipsWithText:@"异常"];
+                }
+            }
+ 
+        }];
+    } else if (_type==2) {
         [[[SKServiceManager sharedInstance] answerService] answerLBSQuestionWithLocation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (success && response.result == 0) {
@@ -542,14 +553,17 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 		self.tipLabel.text = _question.hint;
 		self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
 		needShowMascot = NO;
+        self.radarImageView.hidden = NO;
 	} else if (distance > 200) {
 		self.tipLabel.text = kTipCloseMascot;
 		self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_1"];
 		needShowMascot = NO;
+        self.radarImageView.hidden = NO;
 	} else if (distance > 0) {
 		self.tipLabel.text = kTipTapMascotToCapture;
 		self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
 		needShowMascot = YES;
+        self.radarImageView.hidden = YES;
 		//        [self.mascotMotionView enableMotionEffect];
 	}
 	if (_needShowDebugLocation) {

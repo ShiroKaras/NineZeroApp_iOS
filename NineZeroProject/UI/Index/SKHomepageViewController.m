@@ -17,11 +17,12 @@
 #import "NZAdView.h"
 #import "SKActivityNotificationView.h"
 #import "HTWebController.h"
+#import "NZQuestionGiftView.h"
 
 #import "NZPScanningFileDownloadManager.h"
 #import "SSZipArchive.h"
 
-@interface SKHomepageViewController ()
+@interface SKHomepageViewController () <HTARCaptureControllerDelegate>
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) SKIndexScanning *scaningInfo;
 @property (nonatomic, strong) SKActivityNotificationView *activityNotificationView; //活动通知
@@ -297,7 +298,10 @@
             [self.navigationController pushViewController:swipeViewController animated:NO];
         } else if ([_scaningInfo.scanning_type integerValue] == 2) {
             HTARCaptureController *controller = [[HTARCaptureController alloc] init];
+            controller.delegate = self;
             controller.pet_gif = _scaningInfo.pet_gif;
+            controller.isHadReward = _scaningInfo.is_haved_reward;
+            controller.rewardID = _scaningInfo.reward_id;
             [self presentViewController:controller animated:NO completion:nil];
         }
     }
@@ -314,6 +318,21 @@
     controller.type = 1;
     [self.navigationController pushViewController:controller animated:YES];
 }
-#pragma mark - panGestureRecognized
+
+#pragma mark - HTARCaptureController Delegate
+
+- (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward *)reward {
+    [controller dismissViewControllerAnimated:NO
+                                   completion:^{
+                                       [self removeDimmingView];
+                                       [self showRewardViewWithReward:reward];
+                                       [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+                                   }];
+}
+
+- (void)showRewardViewWithReward:(SKReward *)reward {
+    NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:self.view.bounds withReward:reward];
+    [self.view addSubview:rewardView];
+}
 
 @end

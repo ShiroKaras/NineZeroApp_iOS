@@ -13,7 +13,7 @@
 #import "NZQuestionGiftView.h"
 #import "SSZipArchive.h"
 
-@interface NZTaskDetailViewController () <UIScrollViewDelegate>
+@interface NZTaskDetailViewController () <UIScrollViewDelegate, HTARCaptureControllerDelegate>
 @property (nonatomic, strong) SKStrongholdItem *detail;
 @property (nonatomic, strong) UIView        *dimmingView;
 @property (nonatomic, strong) UIImageView   *titleImageView;
@@ -277,6 +277,7 @@
 
 - (void)didClickScanningButton:(UIButton *)sender {
     HTARCaptureController *controller = [[HTARCaptureController alloc] initWithStronghold:_detail];
+    controller.delegate = self;
     [self presentViewController:controller animated:NO completion:nil];
 }
 

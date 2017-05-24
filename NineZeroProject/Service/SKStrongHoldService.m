@@ -152,7 +152,7 @@
                             @"lng"      : [NSString stringWithFormat:@"%lf", location.coordinate.longitude]
                             };
     [self strongholdBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        
+        callback(success, response);
     }];
 }
 
