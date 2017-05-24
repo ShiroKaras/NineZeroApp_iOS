@@ -14,6 +14,8 @@
 - (instancetype)initWithFrame:(CGRect)frame rankArray:(NSArray<SKUserInfo *> *)array{
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = COMMON_BG_COLOR;
+        
         UIScrollView *rankScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [self addSubview:rankScrollView];
         
@@ -44,6 +46,8 @@
             }];
             
             UIImageView *avatarImageView = [[UIImageView alloc] init];
+            avatarImageView.layer.cornerRadius = 20;
+            avatarImageView.layer.masksToBounds = YES;
             [avatarImageView sd_setImageWithURL:[NSURL URLWithString:array[i].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
             [view addSubview:avatarImageView];
             [avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
