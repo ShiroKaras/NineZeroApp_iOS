@@ -311,6 +311,7 @@
 
 - (void)didClickAd {
     HTWebController *controller = [[HTWebController alloc] initWithURLString:self.adLink];
+    controller.type = 1;
     [self.navigationController pushViewController:controller animated:YES];
 }
 #pragma mark - panGestureRecognized

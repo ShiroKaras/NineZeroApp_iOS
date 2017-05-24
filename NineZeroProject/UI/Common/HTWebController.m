@@ -27,8 +27,11 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.view.backgroundColor = COMMON_BG_COLOR;
-
-	_webView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 64, self.view.bounds.size.width - 20, self.view.bounds.size.height - 64)];
+    if (_type==1) {
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, self.view.bounds.size.width, self.view.bounds.size.height - 20)];
+    } else {
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 64, self.view.bounds.size.width - 20, self.view.bounds.size.height - 64)];
+    }
 	_webView.scrollView.delaysContentTouches = NO;
 	_webView.opaque = NO;
 	_webView.backgroundColor = [UIColor clearColor];

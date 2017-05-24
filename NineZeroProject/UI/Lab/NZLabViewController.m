@@ -137,6 +137,7 @@
 - (void)carousel:(PSCarouselView *)carousel didTouchPage:(NSUInteger)page
 {
     HTWebController *controller = [[HTWebController alloc] initWithURLString:self.bannerArray[page].link];
+    controller.type = 1;
     [self.navigationController pushViewController:controller animated:YES];
 }
 @end
