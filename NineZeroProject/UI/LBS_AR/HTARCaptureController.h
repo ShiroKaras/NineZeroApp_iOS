@@ -27,5 +27,5 @@
 @property (nonatomic, assign) NSString *rewardID;
 @property (nonatomic, strong) SKQuestion *question;
 @property (nonatomic, strong) NSString *pet_gif;
-
+@property (nonatomic, assign) BOOL isHadReward;
 @end

@@ -142,39 +142,44 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	[self.tipImageView addSubview:self.tipLabel];
 	[self showtipImageView];
 
-    NSString *unzipFilesPath;
-    if (_type == 1) {
-        unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.pet_gif stringByDeletingPathExtension]]];
-    } else if (_type==2) {
-        unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
-    } else if (_type == 3) {
-        unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.strongholdItem.pet_gif stringByDeletingPathExtension]]];
+    if (!_isHadReward) {
+        NSString *unzipFilesPath;
+        if (_type == 1) {
+            unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.pet_gif stringByDeletingPathExtension]]];
+        } else if (_type==2) {
+            unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
+        } else if (_type == 3) {
+            unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.strongholdItem.pet_gif stringByDeletingPathExtension]]];
+        }
+        
+        NSFileManager *myFileManager = [NSFileManager defaultManager];
+        NSDirectoryEnumerator *myDirectoryEnumerator;
+        myDirectoryEnumerator = [myFileManager enumeratorAtPath:unzipFilesPath];
+        //列举目录内容，可以遍历子目录
+        NSString *unzipFileName;
+        
+        NSMutableArray<UIImage *> *images = [NSMutableArray array];
+        while ((unzipFileName = [myDirectoryEnumerator nextObject]) != nil) {
+            NSData *data = [NSData dataWithContentsOfFile:[unzipFilesPath stringByAppendingPathComponent:unzipFileName]];
+            UIImage *image = [UIImage imageWithData:data];
+            [images addObject:image];
+        }
+        self.mascotImageView = [[UIImageView alloc] init];
+        self.mascotImageView.layer.masksToBounds = YES;
+        self.mascotImageView.hidden = _type==1? NO:YES;
+        self.mascotImageView.userInteractionEnabled = YES;
+        [self.view addSubview:self.mascotImageView];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
+        [self.mascotImageView addGestureRecognizer:tap];
+        self.mascotImageView.animationImages = images;
+        self.mascotImageView.animationDuration = 0.1 * images.count;
+        self.mascotImageView.animationRepeatCount = 0;
+        [self.mascotImageView startAnimating];
     }
-
-	NSFileManager *myFileManager = [NSFileManager defaultManager];
-	NSDirectoryEnumerator *myDirectoryEnumerator;
-	myDirectoryEnumerator = [myFileManager enumeratorAtPath:unzipFilesPath];
-	//列举目录内容，可以遍历子目录
-	NSString *unzipFileName;
-
-	NSMutableArray<UIImage *> *images = [NSMutableArray array];
-	while ((unzipFileName = [myDirectoryEnumerator nextObject]) != nil) {
-		NSData *data = [NSData dataWithContentsOfFile:[unzipFilesPath stringByAppendingPathComponent:unzipFileName]];
-		UIImage *image = [UIImage imageWithData:data];
-		[images addObject:image];
-	}
-	self.mascotImageView = [[UIImageView alloc] init];
-	self.mascotImageView.layer.masksToBounds = YES;
-    self.mascotImageView.hidden = _type==1? NO:YES;
-	self.mascotImageView.userInteractionEnabled = YES;
-	[self.view addSubview:self.mascotImageView];
-	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
-	[self.mascotImageView addGestureRecognizer:tap];
-	self.mascotImageView.animationImages = images;
-	self.mascotImageView.animationDuration = 0.1 * images.count;
-	self.mascotImageView.animationRepeatCount = 0;
-	[self.mascotImageView startAnimating];
-
+    
+    
+    
+    
 	//    self.mascotMotionView = [[MotionEffectView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
 	//    self.mascotMotionView.hidden = YES;
 	//    self.mascotMotionView.imageView.hidden = YES;
