@@ -259,8 +259,8 @@
             tapGesture.numberOfTapsRequired = 1;
             [_dimmingView addGestureRecognizer:tapGesture];
         } else {
-            if (reward.piece != nil) {
-                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTicket)];
+            if (reward.petCoop !=nil) {
+                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMascot)];
                 tapGesture.numberOfTapsRequired = 1;
                 [_dimmingView addGestureRecognizer:tapGesture];
             } else {
@@ -271,28 +271,6 @@
         }
     }
     return self;
-}
-
-- (void)showTicket {
-    for (UIView *view in _dimmingView.subviews) {
-        [view removeFromSuperview];
-    }
-    
-    _dimmingView.alpha = 0;
-    [UIView animateWithDuration:0.2 animations:^{
-        _dimmingView.alpha = 1;
-    }];
-    
-    UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
-    [_dimmingView addSubview:backImageView];
-    
-    SKTicketView *ticket = [[SKTicketView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-280)/2, ROUND_HEIGHT_FLOAT(180), 280, 108) reward:_reward.ticket];
-    [_dimmingView addSubview:ticket];
-    
-    UIImageView *textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_congratulations1"]];
-    [_dimmingView addSubview:textImageView];
-    textImageView.centerX = _dimmingView.centerX;
-    textImageView.bottom = _dimmingView.bottom -ROUND_HEIGHT_FLOAT(154);
 }
 
 - (void)showMascot {
@@ -308,23 +286,62 @@
     bgImageView.frame = _dimmingView.frame;
     [_dimmingView addSubview:bgImageView];
     
+    UIImageView *mascotImageView = [UIImageView new];
+    mascotImageView.width = ROUND_WIDTH_FLOAT(252);
+    mascotImageView.height = ROUND_WIDTH_FLOAT(252);
+    mascotImageView.top = ROUND_HEIGHT_FLOAT(80);
+    mascotImageView.centerX = self.centerX;
+    [self addSubview:mascotImageView];
+    [mascotImageView sd_setImageWithURL:[NSURL URLWithString:self.reward.petCoop.crime_pic]];
+    
     UIImageView *textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_congratulations2"]];
     [_dimmingView addSubview:textImageView];
     textImageView.centerX = _dimmingView.centerX;
     textImageView.bottom = _dimmingView.bottom -ROUND_HEIGHT_FLOAT(154);
     
-    UIImageView *textImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_congratulations2"]];
+    UIImageView *textImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_addtime"]];
     [_dimmingView addSubview:textImageView2];
     textImageView2.left = textImageView.left+31;
     textImageView2.top = textImageView.bottom+39;
     
     UILabel *timeLabel = [UILabel new];
-    timeLabel.text = @"24H";
+    timeLabel.text = [self.reward.petCoop.num stringByAppendingString:@"H"];
     timeLabel.textColor = COMMON_PINK_COLOR;
     timeLabel.font = MOON_FONT_OF_SIZE(30);
     [timeLabel sizeToFit];
     timeLabel.left = textImageView2.right +4;
     timeLabel.bottom = textImageView2.bottom;
+}
+
+- (void)showTicket {
+    for (UIView *view in _dimmingView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    _dimmingView.alpha = 0;
+    [UIView animateWithDuration:0.2 animations:^{
+        _dimmingView.alpha = 1;
+    }];
+    
+    UIImageView *bgImageView = [[UIImageView alloc] init];
+    if (IPHONE5_SCREEN_WIDTH == SCREEN_WIDTH) {
+        bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_640"];
+    } else if (IPHONE6_SCREEN_WIDTH == SCREEN_WIDTH) {
+        bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_750"];
+    } else if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+        bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_1242"];
+    }
+    bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+    bgImageView.frame = _dimmingView.frame;
+    [_dimmingView addSubview:bgImageView];
+    
+    SKTicketView *ticket = [[SKTicketView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-280)/2, ROUND_HEIGHT_FLOAT(180), 280, 108) reward:_reward.ticket];
+    [_dimmingView addSubview:ticket];
+    
+    UIImageView *textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_congratulations1"]];
+    [_dimmingView addSubview:textImageView];
+    textImageView.centerX = _dimmingView.centerX;
+    textImageView.bottom = _dimmingView.bottom -ROUND_HEIGHT_FLOAT(154);
 }
 
 - (void)removeView {

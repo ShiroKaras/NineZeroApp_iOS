@@ -89,6 +89,9 @@ HTINIT(SKQuestion)
 @implementation SKPet
 @end
 
+@implementation SKPetCoop
+@end
+
 @implementation SKReward
 @end
 

@@ -54,8 +54,17 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	BOOL startFlag;
 }
 
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _type = 1;
+    }
+    return self;
+}
+
 - (instancetype)initWithQuestion:(SKQuestion *)question {
 	if (self = [super init]) {
+        _type = 2;
 		_question = question;
 		startFlag = false;
 		self.locationPointArray = question.question_location;
@@ -70,15 +79,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	return self;
 }
 
-- (instancetype)init {
-    if (self = [super init]) {
-        _type = 1;
-    }
-    return self;
-}
-
 - (instancetype)initWithStronghold:(SKStrongholdItem*)stronghold {
     if (self = [super init]) {
+        _type = 3;
         _strongholdItem = stronghold;
         startFlag = false;
         NSDictionary *locationDict = @{
@@ -139,10 +142,12 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	[self.tipImageView addSubview:self.tipLabel];
 	[self showtipImageView];
 
-	NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
+    NSString *unzipFilesPath;
     if (_type == 1) {
         unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.pet_gif stringByDeletingPathExtension]]];
-    } else if (_strongholdItem != nil) {
+    } else if (_type==2) {
+        unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
+    } else if (_type == 3) {
         unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.strongholdItem.pet_gif stringByDeletingPathExtension]]];
     }
 
@@ -385,64 +390,89 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)onCaptureMascotSuccessfulWithReward:(SKReward *)reward {
-	[self.delegate didClickBackButtonInARCaptureController:self reward:reward];
+    if ([self respondsToSelector:@selector(didClickBackButtonInARCaptureController:reward:)]) {
+        [self.delegate didClickBackButtonInARCaptureController:self reward:reward];
+    }
 }
 
 - (void)onClickMascot {
 	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    if (_type==2||_type==1) {
+        [[[SKServiceManager sharedInstance] answerService] answerLBSQuestionWithLocation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            if (success && response.result == 0) {
+                self.rewardID = response.data[@"reward_id"];
+                [self catchSuccess];
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.successBackgroundView removeFromSuperview];
+                    [self onCaptureMascotSuccessfulWithReward:[SKReward mj_objectWithKeyValues:[response.data mj_keyValues]]];
+                });
+                
+            } else {
+                if (response.result) {
+                    [self showTipsWithText:[NSString stringWithFormat:@"异常%ld", (long)response.result]];
+                } else {
+                    [self showTipsWithText:@"异常"];
+                }
+            }
+        }];
+    } else if (_type == 3) {
+        [[[SKServiceManager sharedInstance] strongholdService] scanningWithStrongholdID:_strongholdItem.id forLoacation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            if (success && response.result == 0) {
+                [self catchSuccess];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.successBackgroundView removeFromSuperview];
+                    [self onCaptureMascotSuccessfulWithReward:[SKReward mj_objectWithKeyValues:[response.data mj_keyValues]]];
+                });
+            } else {
+                if (response.result) {
+                    [self showTipsWithText:[NSString stringWithFormat:@"异常%ld", (long)response.result]];
+                } else {
+                    [self showTipsWithText:@"异常"];
+                }
+            }
+        }];
+    }
+}
 
-	[[[SKServiceManager sharedInstance] answerService] answerLBSQuestionWithLocation:_currentLocation
-										callback:^(BOOL success, SKResponsePackage *response) {
-										    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-										    if (success && response.result == 0) {
-											    self.rewardID = response.data[@"reward_id"];
-											    // 6.捕获成功
-											    self.successBackgroundView = [[UIView alloc] init];
-											    self.successBackgroundView.backgroundColor = [UIColor colorWithHex:0x1f1f1f alpha:0.8];
-											    self.successBackgroundView.layer.cornerRadius = 5.0f;
-											    [self.view addSubview:self.successBackgroundView];
-											    [self.view bringSubviewToFront:self.successBackgroundView];
-
-											    NSMutableArray<UIImage *> *images = [NSMutableArray array];
-											    for (int i = 0; i != 18; i++) {
-												    UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"img_ar_right_answer_gif_00%02d", i]];
-												    [images addObject:animatedImage];
-											    }
-											    self.captureSuccessImageView = [[HTImageView alloc] init];
-											    self.captureSuccessImageView.animationImages = images;
-											    self.captureSuccessImageView.animationDuration = 0.05 * 18;
-											    self.captureSuccessImageView.animationRepeatCount = 1;
-											    [self.successBackgroundView addSubview:self.captureSuccessImageView];
-											    [self.captureSuccessImageView startAnimating];
-
-											    [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-												make.centerX.equalTo(self.view);
-												make.centerY.equalTo(self.view).offset(-30);
-												make.width.equalTo(@173);
-												make.height.equalTo(@173);
-											    }];
-
-											    [self.captureSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-												make.left.equalTo(@4);
-												make.top.equalTo(@4);
-												make.width.equalTo(@165);
-												make.height.equalTo(@165);
-											    }];
-
-											    [self.mascotImageView removeFromSuperview];
-
-											    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-												[self.successBackgroundView removeFromSuperview];
-												[self onCaptureMascotSuccessfulWithReward:[SKReward mj_objectWithKeyValues:[response.data mj_keyValues]]];
-											    });
-										    } else {
-											    if (response.result) {
-												    [self showTipsWithText:[NSString stringWithFormat:@"异常%ld", (long)response.result]];
-											    } else {
-												    [self showTipsWithText:@"异常"];
-											    }
-										    }
-										}];
+- (void)catchSuccess {
+    // 6.捕获成功
+    self.successBackgroundView = [[UIView alloc] init];
+    self.successBackgroundView.backgroundColor = [UIColor colorWithHex:0x1f1f1f alpha:0.8];
+    self.successBackgroundView.layer.cornerRadius = 5.0f;
+    [self.view addSubview:self.successBackgroundView];
+    [self.view bringSubviewToFront:self.successBackgroundView];
+    
+    NSMutableArray<UIImage *> *images = [NSMutableArray array];
+    for (int i = 0; i != 18; i++) {
+        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"img_ar_right_answer_gif_00%02d", i]];
+        [images addObject:animatedImage];
+    }
+    self.captureSuccessImageView = [[HTImageView alloc] init];
+    self.captureSuccessImageView.animationImages = images;
+    self.captureSuccessImageView.animationDuration = 0.05 * 18;
+    self.captureSuccessImageView.animationRepeatCount = 1;
+    [self.successBackgroundView addSubview:self.captureSuccessImageView];
+    [self.captureSuccessImageView startAnimating];
+    
+    [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.centerY.equalTo(self.view).offset(-30);
+        make.width.equalTo(@173);
+        make.height.equalTo(@173);
+    }];
+    
+    [self.captureSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@4);
+        make.top.equalTo(@4);
+        make.width.equalTo(@165);
+        make.height.equalTo(@165);
+    }];
+    
+    [self.mascotImageView removeFromSuperview];
 }
 
 - (void)onClickShowDebug {

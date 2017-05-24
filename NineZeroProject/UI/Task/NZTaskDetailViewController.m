@@ -10,11 +10,12 @@
 #import "HTUIHeader.h"
 #import "NZTaskDetailView.h"
 #import "HTARCaptureController.h"
+#import "NZQuestionGiftView.h"
 #import "SSZipArchive.h"
 
 @interface NZTaskDetailViewController () <UIScrollViewDelegate>
 @property (nonatomic, strong) SKStrongholdItem *detail;
-
+@property (nonatomic, strong) UIView        *dimmingView;
 @property (nonatomic, strong) UIImageView   *titleImageView;
 @property (nonatomic, strong) UIView        *tabBackView;
 @property (nonatomic, strong) UIScrollView  *scrollView;
@@ -247,6 +248,17 @@
 
 }
 
+#pragma mark - HTARCaptureController Delegate
+
+- (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward *)reward {
+    [controller dismissViewControllerAnimated:NO
+                                   completion:^{
+                                       [self removeDimmingView];
+                                       [self showRewardViewWithReward:reward];
+                                       [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+                                   }];
+}
+
 #pragma mark - Notification
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context {
@@ -265,7 +277,17 @@
 
 - (void)didClickScanningButton:(UIButton *)sender {
     HTARCaptureController *controller = [[HTARCaptureController alloc] initWithStronghold:_detail];
-    [self.navigationController pushViewController:controller animated:NO];
+    [self presentViewController:controller animated:NO completion:nil];
+}
+
+- (void)removeDimmingView {
+    [_dimmingView removeFromSuperview];
+    _dimmingView = nil;
+}
+
+- (void)showRewardViewWithReward:(SKReward *)reward {
+    NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:self.view.bounds withReward:reward];
+    [self.view addSubview:rewardView];
 }
 
 #pragma mark - UIScrollViewDelegate

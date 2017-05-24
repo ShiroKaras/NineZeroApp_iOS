@@ -144,12 +144,12 @@
     }];
 }
 
-- (void)scanningWithStrongholdID:(NSString *)sid forLoacation:(CLLocationCoordinate2D)location callback:(SKResponseCallback)callback {
+- (void)scanningWithStrongholdID:(NSString *)sid forLoacation:(CLLocation*)location callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"   : @"strongholdAnswer",
                             @"sid"      : sid,
-                            @"lat"      : [NSString stringWithFormat:@"%lf", location.latitude],
-                            @"lng"      : [NSString stringWithFormat:@"%lf", location.longitude]
+                            @"lat"      : [NSString stringWithFormat:@"%lf", location.coordinate.latitude],
+                            @"lng"      : [NSString stringWithFormat:@"%lf", location.coordinate.longitude]
                             };
     [self strongholdBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         

@@ -16,6 +16,7 @@
 #import "HTARCaptureController.h"
 #import "NZAdView.h"
 #import "SKActivityNotificationView.h"
+#import "HTWebController.h"
 
 #import "NZPScanningFileDownloadManager.h"
 #import "SSZipArchive.h"
@@ -24,6 +25,7 @@
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) SKIndexScanning *scaningInfo;
 @property (nonatomic, strong) SKActivityNotificationView *activityNotificationView; //活动通知
+@property (nonatomic, strong) NSString *adLink;
 
 @end
 
@@ -60,6 +62,7 @@
     [[[SKServiceManager sharedInstance] commonService] getPeacock:^(BOOL success, SKResponsePackage *response) {
         if (![response.data[@"peacock_pic"] isEqualToString:@""]&&response.data[@"peacock_pic"]!=nil) {
             [self loadAdvWithImage:response.data[@"peacock_pic"]];
+            self.adLink = response.data[@"link"];
         }
     }];
     
@@ -221,6 +224,9 @@
 
 - (void)loadAdvWithImage:(NSString*)imageUrl {
     NZAdView *adView = [[NZAdView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) image:[NSURL URLWithString:imageUrl]];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickAd)];
+    tap.numberOfTapsRequired = 1;
+    [adView addGestureRecognizer:tap];
     [KEY_WINDOW addSubview:adView];
 }
 
@@ -303,6 +309,10 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+- (void)didClickAd {
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:self.adLink];
+    [self.navigationController pushViewController:controller animated:YES];
+}
 #pragma mark - panGestureRecognized
 
 @end

@@ -57,20 +57,16 @@
 }
 
 - (void)createUI {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.width, 44)];
-    headerView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:headerView];
-    
     NSArray *mascotName = @[@"零仔〇",@"sloth", @"pride",@"wrath",@"envy",@"lust",@"gluttony"];
     if (_mid>1&&_mid<8) {
         _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_taskpage_title_%@",mascotName[_mid-1]]]];
     } else {
         _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskbook_title"]];
     }
-    [headerView addSubview:_titleImageView];
+    [self.view addSubview:_titleImageView];
     [_titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(headerView);
-        make.centerX.equalTo(headerView);
+        make.centerY.equalTo(self.view.mas_top).offset(42);
+        make.centerX.equalTo(self.view);
     }];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64) style:UITableViewStylePlain];
@@ -150,7 +146,10 @@
 
 // 先要设Cell可编辑
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    if(_mid>1&&_mid<8)
+        return YES;
+    else
+        return NO;
 }
 
 // 定义编辑样式

@@ -195,6 +195,11 @@
 @property (nonatomic, copy) NSString *expire_time;
 @end
 
+@interface SKPetCoop : NSObject
+@property (nonatomic, copy) NSString *num;
+@property (nonatomic, copy) NSString *crime_pic;
+@end
+
 //用户奖励
 @interface SKReward : NSObject
 @property (nonatomic, copy) NSString *reward_id;
@@ -205,6 +210,7 @@
 @property (nonatomic, strong) SKPet *pet;
 @property (nonatomic, strong) SKPiece *piece;
 @property (nonatomic, strong) SKTicket *ticket;
+@property (nonatomic, strong) SKPetCoop *petCoop;
 @end
 
 @interface SKBadge : NSObject

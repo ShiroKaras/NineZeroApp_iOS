@@ -32,5 +32,5 @@ typedef void (^SKQuestionStrongholdItemCallback) (BOOL success, SKStrongholdItem
 - (void)deleteTaskWithID:(NSString *)taskID;
 
 //据点扫一扫
-- (void)scanningWithStrongholdID:(NSString *)sid forLoacation:(CLLocationCoordinate2D)location callback:(SKResponseCallback)callback;
+- (void)scanningWithStrongholdID:(NSString *)sid forLoacation:(CLLocation*)location callback:(SKResponseCallback)callback;
 @end
