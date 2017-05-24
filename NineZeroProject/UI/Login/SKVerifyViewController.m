@@ -106,15 +106,15 @@
         make.centerY.equalTo(stepImageView.mas_centerY);
     }];
     
-    _contentLabel = [UILabel new];
-    _contentLabel.text = @"验证码短信马上就来\n60秒后可重新发送";
-    _contentLabel.textColor = [UIColor whiteColor];
-    _contentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
-    _contentLabel.textAlignment = NSTextAlignmentCenter;
-    _contentLabel.numberOfLines = 2;
-    [_contentLabel sizeToFit];
-    [self.view addSubview:_contentLabel];
-    [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UILabel *contentLabel = [UILabel new];
+    contentLabel.text = @"验证码短信马上就来";
+    contentLabel.textColor = [UIColor whiteColor];
+    contentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
+    contentLabel.textAlignment = NSTextAlignmentCenter;
+    contentLabel.numberOfLines = 2;
+    [contentLabel sizeToFit];
+    [self.view addSubview:contentLabel];
+    [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ROUND_HEIGHT(122));
         make.centerX.equalTo(weakSelf.view);
     }];
@@ -147,7 +147,7 @@
     _resendVerifyCodeButton = [UIButton new];
     [_resendVerifyCodeButton addTarget:self action:@selector(resendVerifyCodeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _resendVerifyCodeButton.backgroundColor = [UIColor clearColor];
-    [_resendVerifyCodeButton setTitle:@"接收短信出问题了？重新发送验证码" forState:UIControlStateNormal];
+    [_resendVerifyCodeButton setTitle:@"重新发送验证码（60s）" forState:UIControlStateNormal];
     _resendVerifyCodeButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
     _resendVerifyCodeButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
     [self.view addSubview:_resendVerifyCodeButton];
@@ -190,15 +190,15 @@
         make.centerY.equalTo(stepImageView.mas_centerY);
     }];
     
-    _contentLabel = [UILabel new];
-    _contentLabel.text = @"验证码短信马上就来\n60秒后可重新发送";
-    _contentLabel.textColor = [UIColor whiteColor];
-    _contentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
-    _contentLabel.textAlignment = NSTextAlignmentCenter;
-    _contentLabel.numberOfLines = 2;
-    [_contentLabel sizeToFit];
-    [self.view addSubview:_contentLabel];
-    [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UILabel *contentLabel = [UILabel new];
+    contentLabel.text = @"验证码短信马上就来";
+    contentLabel.textColor = [UIColor whiteColor];
+    contentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
+    contentLabel.textAlignment = NSTextAlignmentCenter;
+    contentLabel.numberOfLines = 2;
+    [contentLabel sizeToFit];
+    [self.view addSubview:contentLabel];
+    [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@102);
         make.centerX.equalTo(weakSelf.view);
     }];
@@ -230,7 +230,7 @@
     _resendVerifyCodeButton = [UIButton new];
     [_resendVerifyCodeButton addTarget:self action:@selector(resendVerifyCodeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _resendVerifyCodeButton.backgroundColor = [UIColor clearColor];
-    [_resendVerifyCodeButton setTitle:@"接收短信出问题了？重新发送验证码" forState:UIControlStateNormal];
+    [_resendVerifyCodeButton setTitle:@"重新发送验证码（60s）" forState:UIControlStateNormal];
     _resendVerifyCodeButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
     _resendVerifyCodeButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
     [self.view addSubview:_resendVerifyCodeButton];
@@ -366,7 +366,9 @@
         _resendVerifyCodeButton.alpha = 0.7;
         _resendVerifyCodeButton.enabled = NO;
         [UIView setAnimationsEnabled:NO];
-        _contentLabel.text = [NSString stringWithFormat:@"验证码短信马上就来\n%ld秒后可重新发送",(long)_secondsToCountDown];
+        [_resendVerifyCodeButton setTitle:[NSString stringWithFormat:@"重新发送验证码（%ld）", (long)_secondsToCountDown] forState:UIControlStateNormal];
+        [_resendVerifyCodeButton setTitle:[NSString stringWithFormat:@"重新发送验证码（%ld）", (long)_secondsToCountDown] forState:UIControlStateDisabled];
+        [_resendVerifyCodeButton layoutIfNeeded];
         [UIView setAnimationsEnabled:YES];
     }
 }
