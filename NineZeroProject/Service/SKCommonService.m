@@ -100,6 +100,15 @@
 				  }];
 }
 
+- (void)getPeacock:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method" : @"getPeacock"
+                            };
+    [self commonBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
 - (void)getPublicPage:(SKIndexScanningCallback)callback {
     NSDictionary *param = @{
                             @"method" : @"publicPage"

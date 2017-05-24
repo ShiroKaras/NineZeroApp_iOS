@@ -15,6 +15,7 @@
 #import "SKSwipeViewController.h"
 #import "HTARCaptureController.h"
 #import "NZAdView.h"
+#import "SKActivityNotificationView.h"
 
 #import "NZPScanningFileDownloadManager.h"
 #import "SSZipArchive.h"
@@ -22,6 +23,8 @@
 @interface SKHomepageViewController ()
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) SKIndexScanning *scaningInfo;
+@property (nonatomic, strong) SKActivityNotificationView *activityNotificationView; //活动通知
+
 @end
 
 @implementation SKHomepageViewController {
@@ -54,6 +57,12 @@
 }
 
 - (void)loadData {
+    [[[SKServiceManager sharedInstance] commonService] getPeacock:^(BOOL success, SKResponsePackage *response) {
+        if (![response.data[@"peacock_pic"] isEqualToString:@""]&&response.data[@"peacock_pic"]!=nil) {
+            [self loadAdvWithImage:response.data[@"peacock_pic"]];
+        }
+    }];
+    
     [[[SKServiceManager sharedInstance] commonService] getPublicPage:^(BOOL success, SKIndexScanning *indexScanningInfo) {
         _scaningInfo = indexScanningInfo;   //1.扫一扫 2.时间段
         if ([indexScanningInfo.scanning_type integerValue] == 1) {
@@ -66,9 +75,43 @@
         
         if (![indexScanningInfo.adv_pic isEqualToString:@""]&&indexScanningInfo.adv_pic!=nil) {
             //加载广告
-            [self loadAdvWithImage:indexScanningInfo.adv_pic];
+            if ([self isNewDay] || ![self isSamePic]) {
+                _activityNotificationView.hidden = NO;
+                [_activityNotificationView show];
+                [_activityNotificationView.contentImageView
+                 sd_setImageWithURL:[NSURL URLWithString:self.scaningInfo.adv_pic]
+                 completed:^(UIImage *image, NSError *error,
+                             SDImageCacheType cacheType, NSURL *imageURL){
+                 }];
+            }
         }
     }];
+}
+
+- (BOOL)isNewDay {
+    NSDate *senddate = [NSDate date];
+    NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"YYYYMMdd"];
+    NSString *locationString = [dateformatter stringFromDate:senddate];
+    if (![locationString
+          isEqualToString:
+          [UD objectForKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION]]) {
+        [UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
+        return YES;
+    } else {
+        [UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
+        return NO;
+    }
+}
+
+- (BOOL)isSamePic {
+    if ([self.scaningInfo.adv_pic
+         isEqualToString:[UD stringForKey:ACTIVITY_NOTIFICATION_PIC_NAME]]) {
+        return YES;
+    } else {
+        [UD setObject:self.scaningInfo.adv_pic forKey:ACTIVITY_NOTIFICATION_PIC_NAME];
+        return NO;
+    }
 }
 
 - (void)createUI {
@@ -121,6 +164,12 @@
         mascotButton.tag = 202+i;
         [self.view addSubview:mascotButton];
     }
+    
+    //活动通知
+    _activityNotificationView = [[SKActivityNotificationView alloc]
+                                 initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    _activityNotificationView.hidden = YES;
+    [self.view addSubview:_activityNotificationView];
 }
 
 - (void)loadZip {

@@ -21,6 +21,9 @@ typedef void (^SKIndexScanningCallback) (BOOL success, SKIndexScanning *indexSca
 // 首页信息
 - (void)getHomepageInfoCallBack:(SKIndexInfoCallback)callback;
 
+// 获取开屏图
+- (void)getPeacock:(SKResponseCallback)callback;
+
 // 获取广告图和扫一扫类型(3.0)
 - (void)getPublicPage:(SKIndexScanningCallback)callback;
 
