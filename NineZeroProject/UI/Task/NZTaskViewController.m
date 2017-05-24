@@ -147,9 +147,9 @@
 // 先要设Cell可编辑
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     if(_mid>1&&_mid<8)
-        return YES;
-    else
         return NO;
+    else
+        return YES;
 }
 
 // 定义编辑样式
