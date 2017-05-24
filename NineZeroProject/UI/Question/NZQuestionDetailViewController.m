@@ -580,7 +580,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         }
         if (point.y == 0) {
             _scrollFlag = YES;
-            [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+            [_questionMainScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         }
     }
 }
