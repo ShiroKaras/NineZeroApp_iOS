@@ -42,8 +42,10 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) NSArray *locationPointArray;
 
 @property (nonatomic, assign) NSInteger type;   //1.限时获取
-
 @property (nonatomic, strong) SKStrongholdItem *strongholdItem;
+
+@property (nonatomic, strong) UIView *promptView;
+@property (nonatomic, assign) BOOL isShowedPrompt;  //是否已提示过捕捉
 @end
 
 @implementation HTARCaptureController {
@@ -99,7 +101,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	[self registerLocation];
 
 	_needShowDebugLocation = NO;
-
+    _isShowedPrompt = NO;
+    
 	// 1.AR
 	self.prARManager = [[PRARManager alloc] initWithSize:self.view.frame.size delegate:self showRadar:NO];
 
@@ -128,9 +131,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	tapThree.numberOfTapsRequired = 1;
 	[self.radarImageView addGestureRecognizer:tapThree];
 	[self.view addSubview:self.radarImageView];
-    if (_type==1&&_isHadReward==NO) {
-        self.radarImageView.hidden = YES;
-    }
     
     
 	// 4.提示 (3.0版本不显示)
@@ -147,6 +147,20 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	[self showtipImageView];
     self.tipImageView.alpha = 0;
     self.tipImageView.hidden = YES;
+    
+    // 3.0版提示
+    self.promptView = [[UIView alloc] initWithFrame:CGRectMake(0, -64, self.view.width, 64)];
+    self.promptView.backgroundColor = COMMON_GREEN_COLOR;
+    [self.view addSubview:self.promptView];
+    UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_arpage_prompt"]];
+    [self.promptView addSubview:promptImageView];
+    [promptImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.promptView);
+    }];
+    if (_type == 1 && _isHadReward==NO) {
+        self.radarImageView.hidden = YES;
+        [self showPromptView];
+    }
     
     //1.首页 2.题目 3.据点
     NSString *unzipFilesPath;
@@ -246,6 +260,20 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 			 animations:^{
 			     self.tipImageView.alpha = 0;
 			 }];
+}
+
+- (void)showPromptView {
+    _isShowedPrompt = YES;
+    [UIView animateWithDuration:0.3 animations:^{
+    } completion:^(BOOL finished) {
+        self.promptView.top = 0;
+        [self.view layoutIfNeeded];
+        [UIView animateWithDuration:0.3 delay:5.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.promptView.top = -64;
+        } completion:^(BOOL finished) {
+            [self.promptView removeFromSuperview];
+        }];
+    }];
 }
 
 - (void)buildConstrains {
@@ -529,6 +557,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	[self.view bringSubviewToFront:self.backButton];
 	[self.view bringSubviewToFront:self.radarImageView];
 	[self.view bringSubviewToFront:self.tipImageView];
+    [self.view bringSubviewToFront:self.promptView];
 	[self.view bringSubviewToFront:self.helpButton];
 	[self.view bringSubviewToFront:self.helpView];
 	dispatch_async(dispatch_get_main_queue(), ^{
@@ -565,6 +594,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 		needShowMascot = YES;
         self.radarImageView.hidden = YES;
 		//        [self.mascotMotionView enableMotionEffect];
+        [self showPromptView];
 	}
 	if (_needShowDebugLocation) {
 		self.tipLabel.text = [NSString stringWithFormat:@"%.1f", distance];
