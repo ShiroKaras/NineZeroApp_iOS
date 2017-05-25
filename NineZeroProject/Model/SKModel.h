@@ -72,7 +72,7 @@
 @property (nonatomic, copy) NSString *pet_gif;
 @property (nonatomic, copy) NSString *pet_gif_url;
 @property (nonatomic, copy) NSString *reward_id;
-@property (nonatomic, assign) BOOL   is_haved_reward;
+@property (nonatomic, assign) BOOL is_haved_reward;
 @property (nonatomic, copy) NSString *scanning_type;
 @property (nonatomic, copy) NSString *adv_pic;
 @end
@@ -267,7 +267,7 @@
 @interface SKMascot : NSObject
 @property (nonatomic, copy) NSString *pet_name;
 @property (nonatomic, copy) NSString *pet_id;
-@property (nonatomic, copy) NSString *pet_last_coop_time;   //剩余时间
+@property (nonatomic, copy) NSString *last_coop_time;   //剩余时间
 @property (nonatomic, copy) NSString *pet_archives;     //零仔档案头图
 @property (nonatomic, copy) NSString *pet_desc;         //零仔描述
 @property (nonatomic, copy) NSArray<SKMascotEvidence*> *crime_evidence;    //犯罪证据

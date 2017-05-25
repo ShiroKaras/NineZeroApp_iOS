@@ -331,8 +331,8 @@
 }
 
 - (void)showRewardViewWithReward:(SKReward *)reward {
-    NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:self.view.bounds withReward:reward];
-    [self.view addSubview:rewardView];
+    NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withReward:reward];
+    [KEY_WINDOW addSubview:rewardView];
 }
 
 @end

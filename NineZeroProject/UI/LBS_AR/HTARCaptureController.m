@@ -195,7 +195,11 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     self.mascotImageView.animationDuration = 0.1 * images.count;
     self.mascotImageView.animationRepeatCount = 0;
     [self.mascotImageView startAnimating];
-
+    
+    if (_type == 1&&_isHadReward == YES) {
+        self.mascotImageView.hidden = YES;
+    }
+    
 	if (FIRST_LAUNCH_AR) {
 		SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
 		helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT - 356) / 2, 0, 0);
@@ -417,7 +421,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)onCaptureMascotSuccessfulWithReward:(SKReward *)reward {
-    if ([self respondsToSelector:@selector(didClickBackButtonInARCaptureController:reward:)]) {
+    if ([self.delegate respondsToSelector:@selector(didClickBackButtonInARCaptureController:reward:)]) {
         [self.delegate didClickBackButtonInARCaptureController:self reward:reward];
     }
 }
@@ -462,8 +466,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
                 }
             }
         }];
-    } else if (_type == 3) {
-        [[[SKServiceManager sharedInstance] strongholdService] scanningWithStrongholdID:_strongholdItem.id forLoacation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
+    } else if (_type == 3) {    //据点
+        [[[SKServiceManager sharedInstance] strongholdService] scanningWithStronghold:_strongholdItem forLoacation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (success && response.result == 0) {
                 [self catchSuccess];
@@ -568,6 +572,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)prarUpdateFrame:(CGRect)arViewFrame {
+    if (_type==1) {
+        return;
+    }
 	BOOL needShowMascot = NO;
 	// x坐标匹配
 	if (fabs(arViewFrame.origin.x) >= SCREEN_WIDTH && fabs(arViewFrame.origin.x - arViewFrame.size.width) >= SCREEN_WIDTH) {

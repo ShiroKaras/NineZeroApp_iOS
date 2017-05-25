@@ -36,10 +36,11 @@
 HTINIT(SKIndexInfo)
 - (NSDictionary *)propertyMapper {
 	NSDictionary *propertyMapper = @{ @"question_end_time": @"question_info.end_time",
-					  @"qid": @"question_info.qid",
-					  @"answered_status": @"question_info.answered_status",
-					  @"monday_end_time": @"Monday.end_time",
-					  @"adv_pic": @"advertising.adv_pic"
+                                      @"qid": @"question_info.qid",
+                                      @"answered_status": @"question_info.answered_status",
+                                      @"monday_end_time": @"Monday.end_time",
+                                      @"adv_pic": @"advertising.adv_pic",
+                    
 	};
 	return propertyMapper;
 }
@@ -54,6 +55,7 @@ HTINIT(SKIndexScanning)
                                      @"pet_gif" : @"scanning_adv.pet_gif",
                                      @"reward_id" : @"scanning_adv.reward_id",
                                      @"scanning_type" : @"scanning_adv.scanning_type",
+                                     @"is_haved_reward" : @"scanning_adv.is_haved_reward",
                                      @"adv_pic": @"advertising.adv_pic"
                                      };
     return propertyMapper;

@@ -144,12 +144,13 @@
     }];
 }
 
-- (void)scanningWithStrongholdID:(NSString *)sid forLoacation:(CLLocation*)location callback:(SKResponseCallback)callback {
+- (void)scanningWithStronghold:(SKStrongholdItem *)strongholdItem forLoacation:(CLLocation*)location callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method"   : @"strongholdAnswer",
-                            @"sid"      : sid,
+                            @"sid"      : strongholdItem.id,
                             @"lat"      : [NSString stringWithFormat:@"%lf", location.coordinate.latitude],
-                            @"lng"      : [NSString stringWithFormat:@"%lf", location.coordinate.longitude]
+                            @"lng"      : [NSString stringWithFormat:@"%lf", location.coordinate.longitude],
+                            @"pet_gif_id" : strongholdItem.pet_gif_id
                             };
     [self strongholdBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);

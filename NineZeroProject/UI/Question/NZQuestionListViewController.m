@@ -68,9 +68,9 @@
     [[[SKServiceManager sharedInstance] questionService] getQuestionListCallback:^(BOOL success, NSArray<SKQuestion *> *questionList) {
         _dataArray = questionList;
         //计算结束时间
-        NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
-        NSTimeInterval a=[dat timeIntervalSince1970];
-        _endTime = (uint64_t)a+[questionList[0].count_down longLongValue];
+        NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];
+        NSTimeInterval a=[date timeIntervalSince1970];
+        _endTime = (uint64_t)a+(uint64_t)[questionList[0].count_down longLongValue];
         [self.tableView reloadData];
     }];
 }

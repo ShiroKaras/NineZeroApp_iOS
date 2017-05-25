@@ -25,6 +25,11 @@
 
 @implementation NZMascotMainViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self loadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
@@ -75,15 +80,13 @@
         make.centerY.equalTo(titleImageView);
         make.right.equalTo(titleView).offset(-13.5);
     }];
-    
-    [self loadData];
 }
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] mascotService] getAllPetsCoopTimeCallback:^(BOOL success, NSArray<SKMascot *> *mascots) {
         _mascotArray = mascots;
         for (int i=0; i<mascots.count; i++) {
-            ((NZMascotView*)[self.view viewWithTag:100+i]).deltaTime = mascots[i].pet_last_coop_time == nil? 0:[mascots[i].pet_last_coop_time integerValue];
+            ((NZMascotView*)[self.view viewWithTag:100+i]).deltaTime = mascots[i].last_coop_time == nil? 0:[mascots[i].last_coop_time integerValue];
         }
     }];
 }

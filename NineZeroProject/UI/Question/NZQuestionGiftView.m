@@ -151,6 +151,10 @@
 @interface NZQuestionFullScreenGiftView ()
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) SKReward *reward;
+
+@property (nonatomic, strong) UITapGestureRecognizer *tapGesture_showTicket;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGesture_showMascot;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGesture_removeView;
 @end
 
 @implementation NZQuestionFullScreenGiftView
@@ -255,18 +259,18 @@
         [self layoutIfNeeded];
         
         if (reward.ticket != nil) {
-            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTicket)];
-            tapGesture.numberOfTapsRequired = 1;
-            [_dimmingView addGestureRecognizer:tapGesture];
+            _tapGesture_showTicket = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTicket)];
+            _tapGesture_showTicket.numberOfTapsRequired = 1;
+            [_dimmingView addGestureRecognizer:_tapGesture_showTicket];
         } else {
             if (reward.petCoop !=nil) {
-                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMascot)];
-                tapGesture.numberOfTapsRequired = 1;
-                [_dimmingView addGestureRecognizer:tapGesture];
+                _tapGesture_showMascot = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMascot)];
+                _tapGesture_showMascot.numberOfTapsRequired = 1;
+                [_dimmingView addGestureRecognizer:_tapGesture_showMascot];
             } else {
-                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
-                tapGesture.numberOfTapsRequired = 1;
-                [_dimmingView addGestureRecognizer:tapGesture];
+                _tapGesture_removeView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
+                _tapGesture_removeView.numberOfTapsRequired = 1;
+                [_dimmingView addGestureRecognizer:_tapGesture_removeView];
             }
         }
     }
@@ -274,6 +278,15 @@
 }
 
 - (void)showMascot {
+    for (UIView *view in _dimmingView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    _dimmingView.alpha = 0;
+    [UIView animateWithDuration:0.2 animations:^{
+        _dimmingView.alpha = 1;
+    }];
+    
     UIImageView *bgImageView = [[UIImageView alloc] init];
     if (IPHONE5_SCREEN_WIDTH == SCREEN_WIDTH) {
         bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_640"];
@@ -311,6 +324,13 @@
     [timeLabel sizeToFit];
     timeLabel.left = textImageView2.right +4;
     timeLabel.bottom = textImageView2.bottom;
+    
+    for (UITapGestureRecognizer *tap in _dimmingView.gestureRecognizers) {
+        [_dimmingView removeGestureRecognizer:tap];
+    }
+    UITapGestureRecognizer  *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
+    tapGesture.numberOfTapsRequired = 1;
+    [_dimmingView addGestureRecognizer:tapGesture];
 }
 
 - (void)showTicket {
@@ -342,6 +362,20 @@
     [_dimmingView addSubview:textImageView];
     textImageView.centerX = _dimmingView.centerX;
     textImageView.bottom = _dimmingView.bottom -ROUND_HEIGHT_FLOAT(154);
+    
+    for (UITapGestureRecognizer *tap in _dimmingView.gestureRecognizers) {
+        [_dimmingView removeGestureRecognizer:tap];
+    }
+    
+    if (self.reward.petCoop !=nil) {
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMascot)];
+        tapGesture.numberOfTapsRequired = 1;
+        [_dimmingView addGestureRecognizer:tapGesture];
+    } else {
+        UITapGestureRecognizer  *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
+        tapGesture.numberOfTapsRequired = 1;
+        [_dimmingView addGestureRecognizer:tapGesture];
+    }
 }
 
 - (void)removeView {
