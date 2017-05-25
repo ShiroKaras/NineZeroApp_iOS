@@ -40,9 +40,8 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self createUI];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self registerLocation];
 }
 
@@ -50,6 +49,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     self.automaticallyAdjustsScrollViewInsets = false;
+    [self createUI];
 }
 
 - (void)didReceiveMemoryWarning {
