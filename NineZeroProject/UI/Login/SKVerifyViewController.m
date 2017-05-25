@@ -128,7 +128,7 @@
         [circleView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@46);
             make.height.equalTo(@46);
-            make.top.equalTo(_contentLabel.mas_bottom).offset(54);
+            make.top.equalTo(contentLabel.mas_bottom).offset(54);
             make.left.equalTo(@((SCREEN_WIDTH-220)/2+i*58));
         }];
         
