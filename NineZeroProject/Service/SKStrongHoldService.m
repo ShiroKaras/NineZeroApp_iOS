@@ -66,11 +66,11 @@
           }];
 }
 
-- (void)getStrongholdListWithMascotID:(NSString *)mid forLocation:(CLLocation*)location callback:(SKQuestionStrongholdListCallback)callback{
+- (void)getStrongholdListWithMascotID:(NSString *)mid location:(CLLocation*)location cityCode:(NSString*)cityCode callback:(SKQuestionStrongholdListCallback)callback{
     NSDictionary *param = @{
                             @"method"   : @"getStrongholdList",
                             @"pid"      : mid,
-                            @"city_code": AppDelegateInstance.cityCode,
+                            @"city_code": cityCode,
                             @"lat"      : [NSString stringWithFormat:@"%lf", location.coordinate.latitude],
                             @"lng"      : [NSString stringWithFormat:@"%lf", location.coordinate.longitude]
                             };
@@ -93,26 +93,29 @@
         if (success) {
             SKStrongholdItem *strongholdItem = [SKStrongholdItem mj_objectWithKeyValues:response.data];
             NSMutableArray<NSString *> *downloadKeys = [NSMutableArray array];
-            if (strongholdItem.pet_gif)
+            if (strongholdItem.pet_gif) {
                 [downloadKeys addObject:strongholdItem.pet_gif];
-            [[[SKServiceManager sharedInstance] commonService] getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, SKResponsePackage *response) {
-                if (success) {
-                    if (strongholdItem.pet_gif)
-                        strongholdItem.pet_gif_url = response.data[strongholdItem.pet_gif];
-                    callback(success, strongholdItem);
-                } else {
-                    callback(false, strongholdItem);
-                }
-            }];
+                [[[SKServiceManager sharedInstance] commonService] getQiniuDownloadURLsWithKeys:downloadKeys callback:^(BOOL success, SKResponsePackage *response) {
+                    if (success) {
+                        if (strongholdItem.pet_gif)
+                            strongholdItem.pet_gif_url = response.data[strongholdItem.pet_gif];
+                        callback(success, strongholdItem);
+                    } else {
+                        callback(false, strongholdItem);
+                    }
+                }];
+            } else
+                callback (success, strongholdItem);
+            
         }
     }];
 }
 
-- (void)getTaskListWithLocation:(CLLocationCoordinate2D)location callback:(SKQuestionStrongholdListCallback)callback{
+- (void)getTaskListWithLocation:(CLLocation*)location callback:(SKQuestionStrongholdListCallback)callback{
     NSDictionary *param = @{
                             @"method"   : @"getTaskList",
-                            @"lat"      : [NSString stringWithFormat:@"%lf", location.latitude],
-                            @"lng"      : [NSString stringWithFormat:@"%lf", location.longitude]
+                            @"lat"      : [NSString stringWithFormat:@"%lf", location.coordinate.latitude],
+                            @"lng"      : [NSString stringWithFormat:@"%lf", location.coordinate.longitude]
                             };
     [self strongholdBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray *dataArray = [NSMutableArray array];

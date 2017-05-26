@@ -103,7 +103,7 @@
 
 - (void)getAllScanningWithCallBack:(SKScanningCallback)callback {
 	NSDictionary *param = @{
-		@"method": @"getAllScanning"
+		@"method": @"getScanning"
 	};
 
 	[self scanningBaseRequestWithParam:param

@@ -15,6 +15,7 @@
 #import "NZLabDetialCollectionViewCell.h"
 #import "CHTCollectionViewWaterfallHeader.h"
 #import "CHTCollectionViewWaterfallFooter.h"
+#import "HTWebController.h"
 
 #import "WXApi.h"
 #import "WeiboSDK.h"
@@ -28,6 +29,7 @@
 #define FOOTER_IDENTIFIER @"WaterfallFooter"
 
 #define SHARE_URL(u, v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
+
 typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeShare = 0,
     HTButtonTypeCancel,
@@ -206,6 +208,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                           withReuseIdentifier:HEADER_IDENTIFIER
                                                                  forIndexPath:indexPath];
         [((CHTCollectionViewWaterfallHeader*)reusableView).mImageView sd_setImageWithURL:[NSURL URLWithString:_topicDetail.topic_detail.topic_detail_pic]];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enterArticle)];
+        tapGesture.numberOfTapsRequired = 1;
+        [reusableView addGestureRecognizer:tapGesture];
     } else if ([kind isEqualToString:CHTCollectionElementKindSectionFooter]) {
         reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                           withReuseIdentifier:FOOTER_IDENTIFIER
@@ -222,6 +227,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 #pragma mark - Actions
+
+- (void)enterArticle {
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"http://112.74.133.183:9092/Home/TopicArticle/topic_article_detail/topic_id/%@.html", _topicID]];
+    controller.type = 1;
+    [self.navigationController pushViewController:controller animated:YES];
+}
 
 - (void)submitButtonClick:(UIButton*)sender {
 //    CATransition* transition = [CATransition animation];

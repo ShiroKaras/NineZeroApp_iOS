@@ -80,7 +80,8 @@
 
 - (void)loadDataWithLocation:(CLLocation*)location {
     if (_mid == 0) {
-        [[[SKServiceManager sharedInstance] strongholdService] getTaskListWithLocation:CLLocationCoordinate2DMake(39.924345, 116.519776) callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
+        [[[SKServiceManager sharedInstance] strongholdService] getTaskListWithLocation:location callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
+            [HTProgressHUD dismiss];
             _strongholdArray = [NSMutableArray arrayWithArray:strongholdList];
             [self.tableView reloadData];
             if (_strongholdArray.count == 0) {
@@ -89,7 +90,8 @@
         }];
     }
     if (_mid>1&&_mid<8) {
-        [[[SKServiceManager sharedInstance] strongholdService] getStrongholdListWithMascotID:[NSString stringWithFormat:@"%ld", (long)(long)_mid] forLocation:location callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
+        [[[SKServiceManager sharedInstance] strongholdService] getStrongholdListWithMascotID:[NSString stringWithFormat:@"%ld", (long)(long)_mid] location:location cityCode:_cityCode callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
+            [HTProgressHUD dismiss];
             _strongholdArray = [NSMutableArray arrayWithArray:strongholdList];
             [self.tableView reloadData];
         }];
@@ -104,6 +106,7 @@
 }
 
 - (void)registerLocation {
+    [HTProgressHUD show];
     self.locationManager = [[AMapLocationManager alloc] init];
     // 带逆地理信息的一次定位（返回坐标和地址信息）
     [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];

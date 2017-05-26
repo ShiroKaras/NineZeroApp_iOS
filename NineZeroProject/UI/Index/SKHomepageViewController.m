@@ -28,6 +28,9 @@
 @property (nonatomic, strong) SKActivityNotificationView *activityNotificationView; //活动通知
 @property (nonatomic, strong) NSString *adLink;
 
+@property (nonatomic, strong) UIButton  *changeCityButton;
+@property (nonatomic, assign) NSInteger selectedCityIndex;
+@property (nonatomic, strong) NSString  *selectedCityCode;
 @end
 
 @implementation SKHomepageViewController {
@@ -36,6 +39,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    _selectedCityCode = @"010";
     [self createUI];
     [self loadData];
 }
@@ -123,11 +127,11 @@
 	self.view.backgroundColor = COMMON_BG_COLOR;
     
     //切换城市按钮
-    UIButton *changeCityButton = [UIButton new];
-    [changeCityButton setBackgroundImage:[UIImage imageNamed:@"btn_local_beijing"] forState:UIControlStateNormal];
-    [changeCityButton addTarget:self action:@selector(didClickedChangeCityButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:changeCityButton];
-    [changeCityButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    _changeCityButton = [UIButton new];
+    [_changeCityButton setImage:[UIImage imageNamed:@"btn_local_beijing"] forState:UIControlStateNormal];
+    [_changeCityButton addTarget:self action:@selector(didClickedChangeCityButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_changeCityButton];
+    [_changeCityButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(82, 34));
         make.centerX.equalTo(weakSelf.view);
         make.top.equalTo(@25);
@@ -141,7 +145,7 @@
     [self.view addSubview:taskButton];
     [taskButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(27, 27));
-        make.centerY.equalTo(changeCityButton);
+        make.centerY.equalTo(_changeCityButton);
         make.left.equalTo(@13.5);
     }];
     
@@ -254,12 +258,15 @@
     alphaView.alpha = 0.8;
     [_dimmingView addSubview:alphaView];
     
+    NSArray *cityNameArray = @[@"beijing", @"shanghai", @"guangzhou", @"chengdu", @"suzhou", @"hangzhou"];
+    
     //Cities
     for (int i=0; i<6; i++) {
         UIButton *cityView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 60)];
+        [cityView addTarget:self action:@selector(didClickSelectedCityButton:) forControlEvents:UIControlEventTouchUpInside];
         cityView.tag = 100+i;
-        [cityView setTitle:[NSString stringWithFormat:@"%d", i] forState:UIControlStateNormal];
-        cityView.backgroundColor = [UIColor grayColor];
+        [cityView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_local_%@", cityNameArray[i]]] forState:UIControlStateNormal];
+        cityView.backgroundColor = COMMON_BG_COLOR;
         [_dimmingView addSubview:cityView];
         
         [UIView animateWithDuration:0.3 animations:^{
@@ -275,6 +282,16 @@
     UIView *changeCityTitleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 80)];
     changeCityTitleView.backgroundColor = [UIColor blackColor];
     [_dimmingView addSubview:changeCityTitleView];
+}
+
+- (void)didClickSelectedCityButton:(UIButton *)sender {
+    _selectedCityIndex = (long)sender.tag - 100;
+    
+    NSArray *cityNameArray = @[@"beijing", @"shanghai", @"guangzhou", @"chengdu", @"suzhou", @"hangzhou"];
+    NSArray *cityCodeArray = @[@"010", @"021", @"020", @"028", @"0512", @"0571"];
+    [_changeCityButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_local_%@", cityNameArray[_selectedCityIndex]]] forState:UIControlStateNormal];
+    _selectedCityCode = cityCodeArray[_selectedCityIndex];
+    [self removeDimmingView];
 }
 
 - (void)didClickTaskButton:(UIButton*)sender {
@@ -310,6 +327,7 @@
 - (void)didClickMascotButotn:(UIButton*)sender {
     NSInteger mid = sender.tag-200;
     NZTaskViewController *controller = [[NZTaskViewController alloc] initWithMascotID:mid];
+    controller.cityCode = _selectedCityCode;
     [self.navigationController pushViewController:controller animated:YES];
 }
 

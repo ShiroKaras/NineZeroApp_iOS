@@ -276,9 +276,18 @@
 #pragma mark - Actions
 
 - (void)didClickScanningButton:(UIButton *)sender {
-    HTARCaptureController *controller = [[HTARCaptureController alloc] initWithStronghold:_detail];
-    controller.delegate = self;
-    [self presentViewController:controller animated:NO completion:nil];
+    AVAuthorizationStatus authStatus = [AVCaptureDevice
+                                        authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (authStatus == AVAuthorizationStatusRestricted ||
+        authStatus == AVAuthorizationStatusDenied) {
+        HTAlertView *alertView =
+        [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+        [alertView show];
+    } else {
+        HTARCaptureController *controller = [[HTARCaptureController alloc] initWithStronghold:_detail];
+        controller.delegate = self;
+        [self presentViewController:controller animated:NO completion:nil];
+    }
 }
 
 - (void)removeDimmingView {

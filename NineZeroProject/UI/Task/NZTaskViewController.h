@@ -10,6 +10,7 @@
 
 @interface NZTaskViewController : UIViewController
 @property (nonatomic, strong) UIImageView *titleImageView;
+@property (nonatomic, strong) NSString *cityCode;
 
 - (instancetype)initWithMascotID:(NSInteger)mid;
 

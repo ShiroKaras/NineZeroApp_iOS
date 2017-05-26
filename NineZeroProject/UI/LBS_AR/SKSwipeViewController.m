@@ -91,7 +91,7 @@
 			    [self.navigationController popViewControllerAnimated:YES];
 			    return;
 		    }
-
+            
 		    NSLog(@"data-->%@", data);
             
 		    self.swipeType = [[data objectForKey:@"type"] integerValue];

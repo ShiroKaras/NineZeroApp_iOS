@@ -103,10 +103,20 @@ HTINIT(SKQuestion)
 @implementation SKRanker
 @end
 
-@implementation SKMascot
+@implementation SKMascotEvidence
 @end
 
-@implementation SKMascotEvidence
+@implementation SKMascot
+-(instancetype)init {
+    if (self = [super init]) {
+        [SKMascot mj_setupObjectClassInArray:^NSDictionary *{
+            return @{
+                     @"crime_evidence" : @"SKMascotEvidence",
+                     };
+        }];
+    }
+    return self;
+}
 @end
 
 @implementation SKDefaultMascotSkill

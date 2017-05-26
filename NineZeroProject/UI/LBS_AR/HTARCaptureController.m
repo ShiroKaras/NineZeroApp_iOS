@@ -220,18 +220,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	}
 
 	[self buildConstrains];
-
-	//判断GPS是否开启
-	HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-	alertView.delegate = self;
-	if ([CLLocationManager locationServicesEnabled]) {
-		if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-		} else {
-			[alertView show];
-		}
-	} else {
-		[alertView show];
-	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -251,6 +239,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)didClickOKButton {
+    [self.promptView removeFromSuperview];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -387,8 +376,20 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location {
 	if (startFlag) {
-		_currentLocation = location;
-		[self.prARManager startARWithData:[self getDummyData] forLocation:location.coordinate];
+        
+        //判断GPS是否开启
+        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+        alertView.delegate = self;
+        if ([CLLocationManager locationServicesEnabled]) {
+            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+                _currentLocation = location;
+                [self.prARManager startARWithData:[self getDummyData] forLocation:location.coordinate];
+            } else {
+                [alertView show];
+            }
+        } else {
+            [alertView show];
+        }
 	}
 }
 
@@ -417,6 +418,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	//    [self.mascotMotionView disableMotionEffect];
 	//    [self.mascotMotionView removeFromSuperview];
 	//    self.mascotMotionView = nil;
+    [self.promptView removeFromSuperview];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

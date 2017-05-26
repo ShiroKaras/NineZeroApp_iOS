@@ -46,8 +46,8 @@
         
         // 2. 答题按钮
         _composeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_composeButton setImage:[UIImage imageNamed:@"btn_ans_send"] forState:UIControlStateNormal];
-        [_composeButton setImage:[UIImage imageNamed:@"btn_ans_send_highlight"] forState:UIControlStateHighlighted];
+        [_composeButton setImage:[UIImage imageNamed:@"btn_puzzledetailpage_send"] forState:UIControlStateNormal];
+        [_composeButton setImage:[UIImage imageNamed:@"btn_puzzledetailpage_send_highlight"] forState:UIControlStateHighlighted];
         _composeButton.enabled = NO;
         [_composeButton addTarget:self action:@selector(didClickComposeButton) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_composeButton];
@@ -140,18 +140,18 @@
         make.bottom.equalTo(_textFieldBackView.mas_top);
     }];
     
-    // 2. 答题按钮
-    [_composeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_bottom).offset(-22);
-        make.right.equalTo(self.mas_right).offset(-19);
-    }];
-    
-    // 3. 答题框
+    // 2. 答题框
     [_textFieldBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom);
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
         make.height.equalTo(@47);
+    }];
+    
+    // 3. 答题按钮
+    [_composeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(_textFieldBackView);
+        make.right.equalTo(self.mas_right).offset(-13.5);
     }];
     
     [_textField mas_makeConstraints:^(MASConstraintMaker *make) {

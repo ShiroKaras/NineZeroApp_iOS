@@ -21,11 +21,11 @@ typedef void (^SKQuestionStrongholdItemCallback) (BOOL success, SKStrongholdItem
 
 @interface SKStrongHoldService : NSObject
 
-- (void)getStrongholdListWithMascotID:(NSString*)mid forLocation:(CLLocation*)location callback:(SKQuestionStrongholdListCallback)callback;
+- (void)getStrongholdListWithMascotID:(NSString *)mid location:(CLLocation*)location cityCode:(NSString*)cityCode callback:(SKQuestionStrongholdListCallback)callback;
 
 - (void)getStrongholdInfoWithID:(NSString*)sid callback:(SKQuestionStrongholdItemCallback)callback;
 
-- (void)getTaskListWithLocation:(CLLocationCoordinate2D)location callback:(SKQuestionStrongholdListCallback)callback;
+- (void)getTaskListWithLocation:(CLLocation*)location callback:(SKQuestionStrongholdListCallback)callback;
 
 - (void)addTaskWithID:(NSString *)taskID;
 

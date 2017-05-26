@@ -151,10 +151,6 @@
 @interface NZQuestionFullScreenGiftView ()
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) SKReward *reward;
-
-@property (nonatomic, strong) UITapGestureRecognizer *tapGesture_showTicket;
-@property (nonatomic, strong) UITapGestureRecognizer *tapGesture_showMascot;
-@property (nonatomic, strong) UITapGestureRecognizer *tapGesture_removeView;
 @end
 
 @implementation NZQuestionFullScreenGiftView
@@ -259,18 +255,18 @@
         [self layoutIfNeeded];
         
         if (reward.ticket != nil) {
-            _tapGesture_showTicket = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTicket)];
-            _tapGesture_showTicket.numberOfTapsRequired = 1;
-            [_dimmingView addGestureRecognizer:_tapGesture_showTicket];
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTicket)];
+            tapGesture.numberOfTapsRequired = 1;
+            [_dimmingView addGestureRecognizer:tapGesture];
         } else {
             if (reward.petCoop !=nil) {
-                _tapGesture_showMascot = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMascot)];
-                _tapGesture_showMascot.numberOfTapsRequired = 1;
-                [_dimmingView addGestureRecognizer:_tapGesture_showMascot];
+                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMascot)];
+                tapGesture.numberOfTapsRequired = 1;
+                [_dimmingView addGestureRecognizer:tapGesture];
             } else {
-                _tapGesture_removeView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
-                _tapGesture_removeView.numberOfTapsRequired = 1;
-                [_dimmingView addGestureRecognizer:_tapGesture_removeView];
+                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
+                tapGesture.numberOfTapsRequired = 1;
+                [_dimmingView addGestureRecognizer:tapGesture];
             }
         }
     }
