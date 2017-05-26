@@ -132,10 +132,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
         converView.backgroundColor = COMMON_BG_COLOR;
         [self.view addSubview:converView];
-        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-        [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
-        [self.view addSubview:blankView];
-        blankView.top = ROUND_HEIGHT_FLOAT(217);
+        HTBlankView *_blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
+        [_blankView setOffset:10];
+        [converView addSubview:_blankView];
+        _blankView.center = converView.center;
     } else {
         [self loadData];
     }

@@ -43,7 +43,6 @@
     [self addObserver:self forKeyPath:@"isAddTaskList" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     
     [self createUI];
-    [self loadData];
 }
 
 - (void)dealloc {
@@ -167,6 +166,17 @@
         make.centerY.equalTo(bottomView);
         make.right.equalTo(@(-13.5));
     }];
+    
+    if (NO_NETWORK) {
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *_blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
+        [_blankView setOffset:10];
+        [converView addSubview:_blankView];
+        _blankView.center = converView.center;
+    } else
+        [self loadData];
 }
 
 #pragma mark - Actions

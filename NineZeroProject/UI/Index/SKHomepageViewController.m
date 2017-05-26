@@ -41,7 +41,6 @@
 	[super viewDidLoad];
     _selectedCityCode = @"010";
     [self createUI];
-    [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -178,6 +177,17 @@
                                  initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     _activityNotificationView.hidden = YES;
     [self.view addSubview:_activityNotificationView];
+    
+    if (NO_NETWORK) {
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *_blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
+        [_blankView setOffset:10];
+        [converView addSubview:_blankView];
+        _blankView.center = converView.center;
+    } else
+        [self loadData];
 }
 
 - (void)loadZip {

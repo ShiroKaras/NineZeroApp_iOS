@@ -245,7 +245,9 @@
     [_contentTableView_topic registerClass:[NZLabTableViewCell class] forCellReuseIdentifier:NSStringFromClass([NZLabTableViewCell class])];
     [_contentScrollView addSubview:_contentTableView_topic];
     
-    [self loadData];
+    if (!NO_NETWORK) {
+        [self loadData];
+    }
 }
 
 - (void)loadData {

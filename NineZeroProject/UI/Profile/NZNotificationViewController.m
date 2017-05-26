@@ -51,10 +51,13 @@
     [self.view addSubview:self.tableView];
     
     if (NO_NETWORK) {
-        _blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *_blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
         [_blankView setOffset:10];
-        [self.view addSubview:self.blankView];
-        _blankView.center = self.view.center;
+        [converView addSubview:_blankView];
+        _blankView.center = converView.center;
     } else {
         self.notices = [NSArray array];
         [HTProgressHUD show];
