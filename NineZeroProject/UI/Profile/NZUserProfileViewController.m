@@ -331,7 +331,7 @@
         if (point.y > 30) {
             if (_scrollFlag) {
                 _scrollFlag = NO;
-                [self scrollView:_scrollView scrollToPoint:CGPointMake(0, _mainInfoView.height)];
+                [self scrollView:_scrollView scrollToPoint:CGPointMake(0, 44+ROUND_HEIGHT_FLOAT(64)+10+20+33)];
             }
         }
         if (point.y == 0) {

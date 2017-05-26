@@ -181,92 +181,149 @@
             make.bottom.equalTo(self).offset(-16);
         }];
         
-        UIImageView *rankTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_successtext1"]];
-        [_dimmingView addSubview:rankTextImageView];
-        [rankTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self);
-            make.top.equalTo(self).offset(ROUND_HEIGHT_FLOAT(157));
-        }];
-        
-        UIImageView *textImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_gettext"]];
-        [_dimmingView addSubview:textImageView1];
-        [textImageView1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(rankTextImageView);
-            make.top.equalTo(rankTextImageView.mas_bottom).offset(ROUND_HEIGHT_FLOAT(46));
-        }];
-        
-        //金币
-        UILabel *goldLabel = [UILabel new];
-        goldLabel.text = @"5";
-        goldLabel.textColor = COMMON_PINK_COLOR;
-        goldLabel.font = MOON_FONT_OF_SIZE(30);
-        [goldLabel sizeToFit];
-        [_dimmingView addSubview:goldLabel];
-        [goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(textImageView1.mas_bottom).offset(13);
-            make.right.equalTo(textImageView1);
-        }];
-        
-        UIImageView *goldTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_gold"]];
-        [_dimmingView addSubview:goldTextImageView];
-        [goldTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(goldLabel);
-            make.left.equalTo(goldLabel.mas_right).offset(6);
-        }];
-        
-        //宝石
-        UILabel *gemLabel = [UILabel new];
-        gemLabel.text = @"5";
-        gemLabel.textColor = COMMON_PINK_COLOR;
-        gemLabel.font = MOON_FONT_OF_SIZE(30);
-        [gemLabel sizeToFit];
-        [_dimmingView addSubview:gemLabel];
-        [gemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(goldLabel.mas_bottom).offset(13);
-            make.right.equalTo(textImageView1);
-        }];
-        
-        UIImageView *gemTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_diamonds"]];
-        [_dimmingView addSubview:gemTextImageView];
-        [gemTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(gemLabel);
-            make.left.equalTo(gemLabel.mas_right).offset(6);
-        }];
-        
-        //经验值
-        UILabel *expLabel = [UILabel new];
-        expLabel.text = @"5";
-        expLabel.textColor = COMMON_PINK_COLOR;
-        expLabel.font = MOON_FONT_OF_SIZE(30);
-        [expLabel sizeToFit];
-        [_dimmingView addSubview:expLabel];
-        [expLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(gemLabel.mas_bottom).offset(13);
-            make.right.equalTo(textImageView1);
-        }];
-        
-        UIImageView *expTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_exp"]];
-        [_dimmingView addSubview:expTextImageView];
-        [expTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(expLabel);
-            make.left.equalTo(expLabel.mas_right).offset(6);
-        }];
-        
-        [self layoutIfNeeded];
-        
-        if (reward.ticket != nil) {
-            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTicket)];
-            tapGesture.numberOfTapsRequired = 1;
-            [_dimmingView addGestureRecognizer:tapGesture];
-        } else {
-            if (reward.petCoop !=nil) {
-                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMascot)];
+        if (reward.gold!=nil || reward.gemstone!=nil) {
+            UIImageView *rankTextImageView;
+            if (reward.rank) {
+                //排名
+                if (reward.rank<10) {
+                    rankTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_successtext2"]];
+                    [_dimmingView addSubview:rankTextImageView];
+                    [rankTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.centerX.equalTo(self);
+                        make.top.equalTo(self).offset(ROUND_HEIGHT_FLOAT(157));
+                    }];
+                    
+                    UILabel *percentLabel = [UILabel new];
+                    percentLabel.font = MOON_FONT_OF_SIZE(40);
+                    percentLabel.textColor = COMMON_PINK_COLOR;
+                    percentLabel.text = [NSString stringWithFormat:@"%ld",reward.rank];
+                    [percentLabel sizeToFit];
+                    [_dimmingView addSubview:percentLabel];
+                    [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(rankTextImageView.mas_left).offset(88.5);
+                        make.bottom.equalTo(rankTextImageView.mas_bottom).offset(-20);
+                    }];
+                } else {
+                    rankTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_successtext1"]];
+                    [_dimmingView addSubview:rankTextImageView];
+                    [rankTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.centerX.equalTo(self);
+                        make.top.equalTo(self).offset(ROUND_HEIGHT_FLOAT(157));
+                    }];
+                    
+                    UILabel *percentLabel = [UILabel new];
+                    percentLabel.font = MOON_FONT_OF_SIZE(40);
+                    percentLabel.textColor = COMMON_PINK_COLOR;
+                    percentLabel.text = [NSString stringWithFormat:@"%ld",reward.rank];
+                    [percentLabel sizeToFit];
+                    [_dimmingView addSubview:percentLabel];
+                    [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(rankTextImageView.mas_left).offset(88.5);
+                        make.bottom.equalTo(rankTextImageView.mas_bottom).offset(-20);
+                    }];
+                }
+            } else {
+                //无排名
+                rankTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_successtext1"]];
+                [_dimmingView addSubview:rankTextImageView];
+                [rankTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self);
+                    make.top.equalTo(self).offset(ROUND_HEIGHT_FLOAT(157));
+                }];
+            }
+            
+            UIImageView *textImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_gettext"]];
+            [_dimmingView addSubview:textImageView1];
+            [textImageView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(rankTextImageView);
+                make.top.equalTo(rankTextImageView.mas_bottom).offset(ROUND_HEIGHT_FLOAT(46));
+            }];
+            
+            //金币
+            UILabel *goldLabel = [UILabel new];
+            goldLabel.text = reward.gold;
+            goldLabel.textColor = COMMON_PINK_COLOR;
+            goldLabel.font = MOON_FONT_OF_SIZE(30);
+            [goldLabel sizeToFit];
+            [_dimmingView addSubview:goldLabel];
+            [goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(textImageView1.mas_bottom).offset(13);
+                make.right.equalTo(textImageView1);
+            }];
+            
+            UIImageView *goldTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_gold"]];
+            [_dimmingView addSubview:goldTextImageView];
+            [goldTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(goldLabel);
+                make.left.equalTo(goldLabel.mas_right).offset(6);
+            }];
+            
+            //宝石
+            UILabel *gemLabel = [UILabel new];
+            gemLabel.text = reward.gemstone;
+            gemLabel.textColor = COMMON_PINK_COLOR;
+            gemLabel.font = MOON_FONT_OF_SIZE(30);
+            [gemLabel sizeToFit];
+            [_dimmingView addSubview:gemLabel];
+            [gemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(goldLabel.mas_bottom).offset(13);
+                make.right.equalTo(textImageView1);
+            }];
+            
+            UIImageView *gemTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_diamonds"]];
+            [_dimmingView addSubview:gemTextImageView];
+            [gemTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(gemLabel);
+                make.left.equalTo(gemLabel.mas_right).offset(6);
+            }];
+            
+            //经验值
+            UILabel *expLabel = [UILabel new];
+            expLabel.text = reward.experience_value;
+            expLabel.textColor = COMMON_PINK_COLOR;
+            expLabel.font = MOON_FONT_OF_SIZE(30);
+            [expLabel sizeToFit];
+            [_dimmingView addSubview:expLabel];
+            [expLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(gemLabel.mas_bottom).offset(13);
+                make.right.equalTo(textImageView1);
+            }];
+            
+            UIImageView *expTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_exp"]];
+            [_dimmingView addSubview:expTextImageView];
+            [expTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(expLabel);
+                make.left.equalTo(expLabel.mas_right).offset(6);
+            }];
+            
+            [self layoutIfNeeded];
+            if (reward.ticket != nil) {
+                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTicket)];
                 tapGesture.numberOfTapsRequired = 1;
                 [_dimmingView addGestureRecognizer:tapGesture];
             } else {
-                UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
-                tapGesture.numberOfTapsRequired = 1;
-                [_dimmingView addGestureRecognizer:tapGesture];
+                if (reward.petCoop !=nil) {
+                    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMascot)];
+                    tapGesture.numberOfTapsRequired = 1;
+                    [_dimmingView addGestureRecognizer:tapGesture];
+                } else {
+                    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
+                    tapGesture.numberOfTapsRequired = 1;
+                    [_dimmingView addGestureRecognizer:tapGesture];
+                }
+            }
+        } else {
+            //无金币 宝石 经验值
+            if (reward.ticket != nil) {
+                [self showTicket];
+            } else {
+                if (reward.petCoop !=nil) {
+                    [self showMascot];
+                } else {
+                    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
+                    tapGesture.numberOfTapsRequired = 1;
+                    [_dimmingView addGestureRecognizer:tapGesture];
+                }
             }
         }
     }

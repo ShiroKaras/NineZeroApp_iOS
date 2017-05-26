@@ -41,6 +41,12 @@
 	[super viewDidLoad];
     _selectedCityCode = @"010";
     [self createUI];
+    [[[SKServiceManager sharedInstance] commonService] getPeacock:^(BOOL success, SKResponsePackage *response) {
+        if (![response.data[@"peacock_pic"] isEqualToString:@""]&&response.data[@"peacock_pic"]!=nil) {
+            [self loadAdvWithImage:response.data[@"peacock_pic"]];
+            self.adLink = response.data[@"link"];
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -50,7 +56,7 @@
 		setStatusBarHidden:NO
 		     withAnimation:UIStatusBarAnimationNone];
 	[self.navigationController.navigationBar setHidden:YES];
-	//[[UIApplication sharedApplication] setStatusBarHidden:NO];
+    [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -63,13 +69,6 @@
 }
 
 - (void)loadData {
-    [[[SKServiceManager sharedInstance] commonService] getPeacock:^(BOOL success, SKResponsePackage *response) {
-        if (![response.data[@"peacock_pic"] isEqualToString:@""]&&response.data[@"peacock_pic"]!=nil) {
-            [self loadAdvWithImage:response.data[@"peacock_pic"]];
-            self.adLink = response.data[@"link"];
-        }
-    }];
-    
     [[[SKServiceManager sharedInstance] commonService] getPublicPage:^(BOOL success, SKIndexScanning *indexScanningInfo) {
         _scaningInfo = indexScanningInfo;   //1.扫一扫 2.时间段
         if ([indexScanningInfo.scanning_type integerValue] == 1) {
@@ -177,8 +176,6 @@
                                  initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     _activityNotificationView.hidden = YES;
     [self.view addSubview:_activityNotificationView];
-    
-    [self loadData];
 }
 
 - (void)loadZip {
