@@ -95,56 +95,87 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     return self;
 }
 
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    //    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [self.prARManager stopAR];
+    [self.locationManager stopUpdatingLocation];
+}
+
+- (void)dealloc {
+    
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.view.backgroundColor = [UIColor blackColor];
-	[self registerLocation];
+    
+    //判断GPS是否开启
+    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+    alertView.delegate = self;
+    if ([CLLocationManager locationServicesEnabled]) {
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+            [self createUI];
+        } else {
+            [alertView show];
+        }
+    } else {
+        [alertView show];
+    }
+}
 
-	_needShowDebugLocation = NO;
+- (void)createUI {
+    _needShowDebugLocation = NO;
     _isShowedPrompt = NO;
     
-	// 1.AR
-	self.prARManager = [[PRARManager alloc] initWithSize:self.view.frame.size delegate:self showRadar:NO];
-
-	// 2.返回
-	self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.backButton setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
-	[self.backButton setImage:[UIImage imageNamed:@"btn_back_highlight"] forState:UIControlStateHighlighted];
-	[self.backButton addTarget:self action:@selector(onClickBack) forControlEvents:UIControlEventTouchUpInside];
-	[self.backButton sizeToFit];
-	[self.view addSubview:self.backButton];
-
-	// 3.雷达
-	NSInteger radarCount = 50;
-	NSMutableArray *radars = [NSMutableArray arrayWithCapacity:radarCount];
-	for (int i = 0; i != radarCount; i++) {
-		[radars addObject:[UIImage imageNamed:[NSString stringWithFormat:@"raw_radar_gif_000%02d", i]]];
-	}
-	self.radarImageView = [[UIImageView alloc] init];
-	self.radarImageView.layer.masksToBounds = YES;
-	self.radarImageView.animationImages = radars;
-	self.radarImageView.animationDuration = 2.0f;
-	self.radarImageView.animationRepeatCount = 0;
-	[self.radarImageView startAnimating];
-	self.radarImageView.userInteractionEnabled = YES;
-	UITapGestureRecognizer *tapThree = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickShowDebug)];
-	tapThree.numberOfTapsRequired = 1;
-	[self.radarImageView addGestureRecognizer:tapThree];
-	[self.view addSubview:self.radarImageView];
+    [self registerLocation];
+    self.prARManager = [[PRARManager alloc] initWithSize:self.view.frame.size delegate:self showRadar:NO];
+    
+    // 2.返回
+    self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.backButton setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@"btn_back_highlight"] forState:UIControlStateHighlighted];
+    [self.backButton addTarget:self action:@selector(onClickBack) forControlEvents:UIControlEventTouchUpInside];
+    [self.backButton sizeToFit];
+    [self.view addSubview:self.backButton];
+    
+    // 3.雷达
+    NSInteger radarCount = 50;
+    NSMutableArray *radars = [NSMutableArray arrayWithCapacity:radarCount];
+    for (int i = 0; i != radarCount; i++) {
+        [radars addObject:[UIImage imageNamed:[NSString stringWithFormat:@"raw_radar_gif_000%02d", i]]];
+    }
+    self.radarImageView = [[UIImageView alloc] init];
+    self.radarImageView.layer.masksToBounds = YES;
+    self.radarImageView.animationImages = radars;
+    self.radarImageView.animationDuration = 2.0f;
+    self.radarImageView.animationRepeatCount = 0;
+    [self.radarImageView startAnimating];
+    self.radarImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapThree = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickShowDebug)];
+    tapThree.numberOfTapsRequired = 1;
+    [self.radarImageView addGestureRecognizer:tapThree];
+    [self.view addSubview:self.radarImageView];
     
     
-	// 4.提示 (3.0版本不显示)
-	self.tipImageView = [[UIImageView alloc] init];
-	self.tipImageView.layer.masksToBounds = YES;
-	self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
-	self.tipImageView.contentMode = UIViewContentModeBottom;
-	[self.tipImageView sizeToFit];
-	[self.view addSubview:self.tipImageView];
-	self.tipLabel = [[UILabel alloc] init];
-	self.tipLabel.font = [UIFont systemFontOfSize:13];
-	self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
-	[self.tipImageView addSubview:self.tipLabel];
-	[self showtipImageView];
+    // 4.提示 (3.0版本不显示)
+    self.tipImageView = [[UIImageView alloc] init];
+    self.tipImageView.layer.masksToBounds = YES;
+    self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
+    self.tipImageView.contentMode = UIViewContentModeBottom;
+    [self.tipImageView sizeToFit];
+    [self.view addSubview:self.tipImageView];
+    self.tipLabel = [[UILabel alloc] init];
+    self.tipLabel.font = [UIFont systemFontOfSize:13];
+    self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
+    [self.tipImageView addSubview:self.tipLabel];
+    [self showtipImageView];
     self.tipImageView.alpha = 0;
     self.tipImageView.hidden = YES;
     
@@ -200,42 +231,26 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         self.mascotImageView.hidden = YES;
     }
     
-	if (FIRST_LAUNCH_AR) {
-		SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
-		helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT - 356) / 2, 0, 0);
-		helpView.dimmingView.alpha = 0;
-		[KEY_WINDOW addSubview:helpView];
-
-		[UIView animateWithDuration:0.3
-				      delay:0
-				    options:UIViewAnimationOptionCurveEaseOut
-				 animations:^{
-				     helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-				     helpView.dimmingView.alpha = 0.9;
-				 }
-				 completion:^(BOOL finished){
-
-				 }];
-		[UD setBool:YES forKey:@"firstLaunchTypeAR"];
-	}
-
-	[self buildConstrains];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	//[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-	[self.prARManager stopAR];
-	[self.locationManager stopUpdatingLocation];
-}
-
-- (void)dealloc {
+    if (FIRST_LAUNCH_AR) {
+        SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
+        helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT - 356) / 2, 0, 0);
+        helpView.dimmingView.alpha = 0;
+        [KEY_WINDOW addSubview:helpView];
+        
+        [UIView animateWithDuration:0.3
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                             helpView.dimmingView.alpha = 0.9;
+                         }
+                         completion:^(BOOL finished){
+                             
+                         }];
+        [UD setBool:YES forKey:@"firstLaunchTypeAR"];
+    }
     
+    [self buildConstrains];
 }
 
 - (void)didClickOKButton {
@@ -376,21 +391,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location {
 	if (startFlag) {
-        
-        //判断GPS是否开启
-        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-        alertView.delegate = self;
-        if ([CLLocationManager locationServicesEnabled]) {
-            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-                _currentLocation = location;
-                [self.prARManager startARWithData:[self getDummyData] forLocation:location.coordinate];
-            } else {
-                [alertView show];
-            }
-        } else {
-            [alertView show];
-        }
-	}
+        _currentLocation = location;
+        [self.prARManager startARWithData:[self getDummyData] forLocation:location.coordinate];
+    }
 }
 
 #pragma mark - Action

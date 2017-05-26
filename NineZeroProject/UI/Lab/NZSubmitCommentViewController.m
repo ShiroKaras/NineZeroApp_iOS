@@ -131,10 +131,11 @@
 }
 
 - (void)textViewTextDidChanged:(NSNotification *)notification {
-    _wordCountLabel.text = [NSString stringWithFormat:@"剩余字数%ld", 140 -_textView.text.length];
+    _wordCountLabel.text = [NSString stringWithFormat:@"剩余字数%u", 140 -_textView.text.length];
     
-    if (_textView.text.length > 140) {
+    if (_textView.text.length >= 140) {
         _textView.text = [_textView.text substringToIndex:140];
+        _wordCountLabel.text = @"剩余字数0";
     }
     
     self.placeholderLabel.hidden = (self.textView.text.length != 0);
