@@ -114,7 +114,7 @@
 @property (nonatomic, copy) NSString *list_pic;     //列表封面
 @property (nonatomic, copy) NSString *title_pic;    //标题图片
 @property (nonatomic, copy) NSString *chapter_pic;
-@property (nonatomic, assign) NSString *count_down;  //剩余时间
+@property (nonatomic, copy) NSString *count_down;  //剩余时间
 @end
 
 @interface SKHintList : NSObject
