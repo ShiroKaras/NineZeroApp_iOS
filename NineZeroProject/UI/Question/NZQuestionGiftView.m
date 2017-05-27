@@ -182,6 +182,11 @@
         }];
         
         if (reward.gold!=nil || reward.gemstone!=nil) {
+            _dimmingView.alpha = 0;
+            [UIView animateWithDuration:0.2 animations:^{
+                _dimmingView.alpha = 1;
+            }];
+            
             UIImageView *rankTextImageView;
             if (reward.rank) {
                 //排名
@@ -196,7 +201,7 @@
                     UILabel *percentLabel = [UILabel new];
                     percentLabel.font = MOON_FONT_OF_SIZE(40);
                     percentLabel.textColor = COMMON_PINK_COLOR;
-                    percentLabel.text = [NSString stringWithFormat:@"%ld",reward.rank];
+                    percentLabel.text = [NSString stringWithFormat:@"%ld",(long)reward.rank];
                     [percentLabel sizeToFit];
                     [_dimmingView addSubview:percentLabel];
                     [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -214,7 +219,7 @@
                     UILabel *percentLabel = [UILabel new];
                     percentLabel.font = MOON_FONT_OF_SIZE(40);
                     percentLabel.textColor = COMMON_PINK_COLOR;
-                    percentLabel.text = [NSString stringWithFormat:@"%ld",reward.rank];
+                    percentLabel.text = [NSString stringWithFormat:@"%ld",(long)reward.rank];
                     [percentLabel sizeToFit];
                     [_dimmingView addSubview:percentLabel];
                     [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
