@@ -164,7 +164,7 @@
     float buttonWidth = (self.view.width-16*4)/3;
     for (int i=0; i<6; i++) {
         UIButton *mascotButton = [[UIButton alloc] initWithFrame:CGRectMake(16+(i%3)*(buttonWidth+16), 160+(i/3)*(buttonWidth+16), buttonWidth, buttonWidth)];
-        [mascotButton addTarget:self action:@selector(didClickMascotButotn:) forControlEvents:UIControlEventTouchUpInside];
+        [mascotButton addTarget:self action:@selector(didClickMascotButton:) forControlEvents:UIControlEventTouchUpInside];
         [mascotButton setTitle:mascotName[i+1] forState:UIControlStateNormal];
         mascotButton.backgroundColor = COMMON_GREEN_COLOR;
         mascotButton.tag = 202+i;
@@ -272,7 +272,7 @@
         }];
     }
     
-    _selectedButton = [self.view viewWithTag:100];
+    _selectedButton = [self.view viewWithTag:100+_selectedCityIndex];
     [_selectedButton setBackgroundColor:COMMON_GREEN_COLOR];
     [_selectedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
@@ -322,7 +322,7 @@
     }
 }
 
-- (void)didClickMascotButotn:(UIButton*)sender {
+- (void)didClickMascotButton:(UIButton*)sender {
     NSInteger mid = sender.tag-200;
     NZTaskViewController *controller = [[NZTaskViewController alloc] initWithMascotID:mid];
     controller.cityCode = _selectedCityCode;
