@@ -196,7 +196,7 @@
 @end
 
 @interface SKPetCoop : NSObject
-@property (nonatomic, copy) NSString *num;
+@property (nonatomic, copy) NSString *hour;
 @property (nonatomic, copy) NSString *crime_pic;
 @end
 
