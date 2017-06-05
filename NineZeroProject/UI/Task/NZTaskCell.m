@@ -125,7 +125,10 @@
 - (void)loadDataWith:(SKStronghold *)stronghold {
     [_taskImageView sd_setImageWithURL:[NSURL URLWithString:stronghold.thumbnail] placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
     [_taskTitleImageView sd_setImageWithURL:[NSURL URLWithString:stronghold.name_pic]];
-    _distanceLabel.text = [stronghold.distance stringByAppendingString:@"m"];
+    
+    _distanceLabel.text = [stronghold.distance integerValue]>999? [NSString stringWithFormat:@"%.1fkm", [stronghold.distance integerValue]/1000.0]
+                                                                : [stronghold.distance stringByAppendingString:@"m"];
+    
     for (int i=0; i<5; i++) {
         ((UIImageView *)[self viewWithTag:100+i]).image = i<[stronghold.difficulty intValue]? [UIImage imageNamed:@"img_taskpage_level_highlight"]:[UIImage imageNamed:@"img_taskpage_level"];
     }
