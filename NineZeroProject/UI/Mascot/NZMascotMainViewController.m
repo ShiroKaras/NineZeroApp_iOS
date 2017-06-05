@@ -60,7 +60,7 @@
     _mScrollView.delegate = self;
     [self.view addSubview:_mScrollView];
     
-    NSArray *mascotNameArray = @[@"", @"lingzai", @"envy", @"pride", @"sloth", @"gluttony", @"wrath", @"lust"];
+    NSArray *mascotNameArray = @[@"", @"lingzai", @"sloth", @"pride", @"wrath", @"envy", @"lust", @"gluttony"];
     
     for (int i=1; i<=7; i++) {
         SKMascot *mascot = [SKMascot new];

@@ -70,9 +70,7 @@
         [_countDownBackView addSubview:_timeLabel];
         _timeLabel.left = titleImageView.left;
         _timeLabel.top = titleImageView.bottom+4;
-        if ([_mascot.last_coop_time integerValue]==0) {
-            _timeLabel.hidden = YES;
-        }
+
         [self scheduleCountDownTimer];
     }
     return self;
