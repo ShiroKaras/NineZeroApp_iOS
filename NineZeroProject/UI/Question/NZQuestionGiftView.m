@@ -376,12 +376,13 @@
     textImageView2.top = textImageView.bottom+39;
     
     UILabel *timeLabel = [UILabel new];
-    timeLabel.text = [self.reward.petCoop.num stringByAppendingString:@"H"];
+    timeLabel.text = [self.reward.petCoop.hour stringByAppendingString:@"H"];
     timeLabel.textColor = COMMON_PINK_COLOR;
     timeLabel.font = MOON_FONT_OF_SIZE(30);
     [timeLabel sizeToFit];
-    timeLabel.left = textImageView2.right +4;
-    timeLabel.bottom = textImageView2.bottom;
+    [_dimmingView addSubview:timeLabel];
+    timeLabel.left = textImageView2.right+8;
+    timeLabel.bottom = textImageView2.bottom+8;
     
     for (UITapGestureRecognizer *tap in _dimmingView.gestureRecognizers) {
         [_dimmingView removeGestureRecognizer:tap];

@@ -22,10 +22,12 @@
     if (self) {
         [self createUIWithFrame:frame];
         
-        [_propImageView sd_setImageWithURL:[NSURL URLWithString:evidence.crime_pic]];
-        [_propTextImageView sd_setImageWithURL:[NSURL URLWithString:evidence.crime_name]];
-        _propTextLabel.text = evidence.crime_description;
-        [_propTextLabel sizeToFit];
+        [[[SKServiceManager sharedInstance] mascotService] getMascotEvidenceDetailWithID:evidence.id callback:^(BOOL success, SKMascotEvidence *evidence) {
+            [_propImageView sd_setImageWithURL:[NSURL URLWithString:evidence.crime_pic]];
+            [_propTextImageView sd_setImageWithURL:[NSURL URLWithString:evidence.crime_name]];
+            _propTextLabel.text = evidence.crime_description;
+            [_propTextLabel sizeToFit];
+        }];
     }
     return self;
 }

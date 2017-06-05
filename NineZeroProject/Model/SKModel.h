@@ -258,6 +258,7 @@
 @end
 
 @interface SKMascotEvidence : NSObject
+@property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *crime_name;
 @property (nonatomic, copy) NSString *crime_pic;
 @property (nonatomic, copy) NSString *crime_description;
