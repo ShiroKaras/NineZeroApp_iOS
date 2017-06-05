@@ -231,10 +231,10 @@
     UIImageView *imageView;
     if (flag) {
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskpage_addtask"]];
-        [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask_highlight"] forState:UIControlStateNormal];
+//        [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask_highlight"] forState:UIControlStateNormal];
     } else {
         imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskpage_canceltask"]];
-        [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"img_taskpage_canceltask"] forState:UIControlStateNormal];
+//        [_addTaskButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_addtask"] forState:UIControlStateNormal];
     }
     [_tipsBackView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
