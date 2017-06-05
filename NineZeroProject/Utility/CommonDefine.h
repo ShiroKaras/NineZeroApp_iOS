@@ -25,6 +25,10 @@
 
 #define UIColorMake(r, g, b) [[UIColor alloc] initWithRed:r / 255.0 green:g / 255.0 blue:b / 255.0 alpha:1]
 
+//Image
+#define ResourcePath(path)  [[NSBundle mainBundle] pathForResource:path ofType:nil]
+#define ImageWithPath(path) [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], path]]
+
 //Masonry
 #define WS(weakSelf) __weak __typeof(&*self) weakSelf = self;
 

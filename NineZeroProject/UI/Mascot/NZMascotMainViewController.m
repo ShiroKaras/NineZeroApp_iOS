@@ -15,6 +15,7 @@
 
 @interface NZMascotMainViewController () <UIScrollViewDelegate>
 @property (nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic, assign) NSInteger currentIndexTemp;
 
 @property (nonatomic, strong) UIButton *titleRightButton;
 @property (nonatomic, strong) UIScrollView *mScrollView;
@@ -32,7 +33,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self addObserver:self forKeyPath:@"currentIndex" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [self createUI];
+}
+
+- (void)dealloc {
+//    [self removeObserver:self forKeyPath:@"currentIndex"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,9 +60,14 @@
     _mScrollView.delegate = self;
     [self.view addSubview:_mScrollView];
     
-    for (int i = 0; i<7; i++) {
-        NZMascotView *mascotView = [[NZMascotView alloc] initWithFrame:CGRectMake(_mScrollView.width * i, 0, _mScrollView.width, _mScrollView.height) withMascot:nil];
-        mascotView.tag = 100+i;
+    NSArray *mascotNameArray = @[@"", @"lingzai", @"envy", @"pride", @"sloth", @"gluttony", @"wrath", @"lust"];
+    
+    for (int i=1; i<=7; i++) {
+        SKMascot *mascot = [SKMascot new];
+        mascot.pet_id = [NSString stringWithFormat:@"%i", i];
+        mascot.pet_name = mascotNameArray[i];
+        NZMascotView *mascotView = [[NZMascotView alloc] initWithFrame:CGRectMake(_mScrollView.width * (i-1), 0, _mScrollView.width, _mScrollView.height) withMascot:mascot];
+        mascotView.tag = 100+i-1;
         [_mScrollView addSubview:mascotView];
     }
     
@@ -107,9 +118,14 @@
         scrollView.contentOffset=point;
     }
     //根据图片坐标判断页数
-    _currentIndex = round(point.x/(SCREEN_WIDTH))+1;
+    self.currentIndex = round(point.x/(SCREEN_WIDTH))+1;
     [self updateButtonWithIndex:_currentIndex];
 }
+
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+//    CGPoint point=scrollView.contentOffset;
+//    [((NZMascotView*)[self.view viewWithTag:100+round(point.x/(SCREEN_WIDTH))]) tapMascot];
+//}
 
 - (void)updateButtonWithIndex:(NSInteger)index {
     if (index == SKMascotTypeDefault) {
@@ -138,5 +154,18 @@
     NZRankViewController *viewController = [[NZRankViewController alloc] initWithType:NZRankListTypeHunter];
     [self.navigationController pushViewController:viewController animated:YES];
 }
+
+#pragma mark - Notification
+
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context {
+//    if ([keyPath isEqualToString:@"currentIndex"]) {
+//        NSLog(@"%ld", _currentIndex);
+//        if (_currentIndex!=_currentIndexTemp) {
+//            [((NZMascotView*)[self.view viewWithTag:100+_currentIndex-1]) tapMascot];
+//            _currentIndexTemp = _currentIndex;
+//        }
+//    }
+//}
+
 
 @end
