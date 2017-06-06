@@ -257,7 +257,6 @@
     [_dimmingView addSubview:alphaView];
     
     NSArray *cityNameArray = @[@"beijing", @"shanghai", @"guangzhou"];
-    
     //Cities
     for (int i=0; i<cityNameArray.count; i++) {
         UIButton *cityView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 60)];
@@ -280,6 +279,11 @@
     UIView *changeCityTitleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 80)];
     changeCityTitleView.backgroundColor = [UIColor blackColor];
     [_dimmingView addSubview:changeCityTitleView];
+    
+    UIImageView *changeCityTitleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_citypage_title"]];
+    [_dimmingView addSubview:changeCityTitleImageView];
+    changeCityTitleImageView.centerX = _dimmingView.centerX;
+    changeCityTitleImageView.top = 33;
 }
 
 - (void)didClickSelectedCityButton:(UIButton *)sender {
@@ -330,6 +334,7 @@
 }
 
 - (void)didClickAd {
+    if (self.adLink==nil || [self.adLink isEqualToString:@""])  return;
     HTWebController *controller = [[HTWebController alloc] initWithURLString:self.adLink];
     controller.type = 1;
     [self.navigationController pushViewController:controller animated:YES];
