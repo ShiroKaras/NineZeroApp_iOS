@@ -205,7 +205,7 @@
                     [percentLabel sizeToFit];
                     [_dimmingView addSubview:percentLabel];
                     [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.left.equalTo(rankTextImageView.mas_left).offset(88.5);
+                        make.left.equalTo(rankTextImageView.mas_right).offset(4);
                         make.bottom.equalTo(rankTextImageView.mas_bottom).offset(-20);
                     }];
                 } else {
@@ -219,11 +219,12 @@
                     UILabel *percentLabel = [UILabel new];
                     percentLabel.font = MOON_FONT_OF_SIZE(40);
                     percentLabel.textColor = COMMON_PINK_COLOR;
+                    percentLabel.text = self.reward.rank>700? @"30%" : [[NSString stringWithFormat:@"%.1lf", 100. - self.reward.rank / 10.] stringByAppendingString:@"%"];
                     percentLabel.text = [NSString stringWithFormat:@"%ld",(long)reward.rank];
                     [percentLabel sizeToFit];
                     [_dimmingView addSubview:percentLabel];
                     [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.left.equalTo(rankTextImageView.mas_left).offset(88.5);
+                        make.left.equalTo(rankTextImageView.mas_right).offset(4);
                         make.bottom.equalTo(rankTextImageView.mas_bottom).offset(-20);
                     }];
                 }

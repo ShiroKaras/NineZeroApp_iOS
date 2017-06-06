@@ -580,7 +580,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         if (point.y > 30) {
             if (_scrollFlag) {
                 _scrollFlag = NO;
-                [self scrollView:scrollView scrollToPoint:CGPointMake(0, PLAYBACKVIEW_HEIGHT)];
+                [self scrollView:_questionMainScrollView scrollToPoint:CGPointMake(0, PLAYBACKVIEW_HEIGHT)];
             }
         }
         if (point.y == 0) {
