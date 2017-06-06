@@ -256,14 +256,14 @@
     alphaView.alpha = 0.8;
     [_dimmingView addSubview:alphaView];
     
-    NSArray *cityNameArray = @[@"beijing", @"shanghai", @"guangzhou", @"chengdu", @"suzhou", @"hangzhou"];
+    NSArray *cityNameArray = @[@"beijing", @"shanghai", @"guangzhou"];
     
     //Cities
-    for (int i=0; i<6; i++) {
+    for (int i=0; i<cityNameArray.count; i++) {
         UIButton *cityView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 60)];
         [cityView addTarget:self action:@selector(didClickSelectedCityButton:) forControlEvents:UIControlEventTouchUpInside];
         cityView.tag = 100+i;
-        [cityView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_local_%@", cityNameArray[i]]] forState:UIControlStateNormal];
+        [cityView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_citypage_%@", cityNameArray[i]]] forState:UIControlStateNormal];
         cityView.backgroundColor = COMMON_BG_COLOR;
         [_dimmingView addSubview:cityView];
         
