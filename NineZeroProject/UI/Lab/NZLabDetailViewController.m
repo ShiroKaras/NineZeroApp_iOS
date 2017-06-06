@@ -300,8 +300,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_shareView addSubview:titleImageView];
     
     self.wechatButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.wechatButton setImage:[UIImage imageNamed:@"btn_sharepage_weibo"] forState:UIControlStateNormal];
-    [self.wechatButton setImage:[UIImage imageNamed:@"btn_sharepage_weibo_highlight"] forState:UIControlStateHighlighted];
+    [self.wechatButton setImage:[UIImage imageNamed:@"btn_sharepage_wechat"] forState:UIControlStateNormal];
+    [self.wechatButton setImage:[UIImage imageNamed:@"btn_sharepage_wechat_highlight"] forState:UIControlStateHighlighted];
     [self.wechatButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
     [self.wechatButton sizeToFit];
     self.wechatButton.tag = HTButtonTypeWechat;
@@ -318,8 +318,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_shareView addSubview:self.momentButton];
     
     self.weiboButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.weiboButton setImage:[UIImage imageNamed:@"btn_sharepage_wechat"] forState:UIControlStateNormal];
-    [self.weiboButton setImage:[UIImage imageNamed:@"btn_sharepage_wechat_highlight"] forState:UIControlStateHighlighted];
+    [self.weiboButton setImage:[UIImage imageNamed:@"btn_sharepage_weibo"] forState:UIControlStateNormal];
+    [self.weiboButton setImage:[UIImage imageNamed:@"btn_sharepage_weibo_highlight"] forState:UIControlStateHighlighted];
     [self.weiboButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
     [self.weiboButton sizeToFit];
     self.weiboButton.tag = HTButtonTypeWeibo;
@@ -408,7 +408,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [alert show];
                 return;
             }
-            NSArray *imageArray = @[self.TopicThumbnailUrl];
+            NSArray *imageArray = @[self.topicDetail.topic_detail.topic_detail_pic];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -454,7 +454,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.TopicThumbnailUrl];
+            NSArray *imageArray = @[self.topicDetail.topic_detail.topic_detail_pic];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -499,7 +499,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.TopicThumbnailUrl];
+            NSArray *imageArray = @[self.topicDetail.topic_detail.topic_detail_pic];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -544,7 +544,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.TopicThumbnailUrl];
+            NSArray *imageArray = @[self.topicDetail.topic_detail.topic_detail_pic];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];

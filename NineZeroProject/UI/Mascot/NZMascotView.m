@@ -90,7 +90,7 @@
     _mascotGifImageView.animationDuration = 0.033*_currentFrameCount;
     _mascotGifImageView.animationRepeatCount = 1;
     [_mascotGifImageView startAnimating];
-    [self performSelector:@selector(clearAinimationImageMemory) withObject:nil afterDelay:0.033*_currentFrameCount];
+    [self performSelector:@selector(clearAinimationImageMemory) withObject:nil afterDelay:0.033*_currentFrameCount+1];
 }
 
 // 清除animationImages所占用内存
