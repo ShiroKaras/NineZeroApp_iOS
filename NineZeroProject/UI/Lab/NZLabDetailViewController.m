@@ -28,7 +28,7 @@
 #define HEADER_IDENTIFIER @"WaterfallHeader"
 #define FOOTER_IDENTIFIER @"WaterfallFooter"
 
-#define SHARE_URL(u, v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
+#define SHARE_URL(u) [NSString stringWithFormat:@"https://admin.90app.tv/Home/TopicArticle/topic_article_detail/topic_id/%@.html", (u)]
 
 typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeShare = 0,
@@ -414,7 +414,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKEnableUseClientShare];
                 [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, self.topicID)]
+                                                    url:[NSURL URLWithString:SHARE_URL(self.topicID)]
                                                   title:nil
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatSession
@@ -460,7 +460,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKEnableUseClientShare];
                 [shareParams SSDKSetupShareParamsByText:nil
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, self.topicID)]
+                                                    url:[NSURL URLWithString:SHARE_URL(self.topicID)]
                                                   title:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatTimeline
@@ -503,9 +503,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验 %@ 来自@九零APP", SHARE_URL(AppDelegateInstance.cityCode, self.topicID)]
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验 %@ 来自@九零APP", SHARE_URL(self.topicID)]
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, self.topicID)]
+                                                    url:[NSURL URLWithString:SHARE_URL(self.topicID)]
                                                   title:nil
                                                    type:SSDKContentTypeImage];
                 [ShareSDK share:SSDKPlatformTypeSinaWeibo
@@ -550,7 +550,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKEnableUseClientShare];
                 [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:SHARE_URL(AppDelegateInstance.cityCode, self.topicID)]
+                                                    url:[NSURL URLWithString:SHARE_URL(self.topicID)]
                                                   title:nil
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeQQFriend
