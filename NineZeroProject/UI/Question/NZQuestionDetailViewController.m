@@ -414,9 +414,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         
         self.currentQuestion = question;
         self.isAnswered = question.is_answer;
-        
-        [self createDetail];
-        
+ 
         //视频
         [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
         [_coverImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.question_video_cover] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
@@ -440,31 +438,20 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             }
         }
         
-        [[[SKServiceManager sharedInstance] answerService] getRewardWithQuestionID:self.currentQuestion.qid
-                                                                          rewardID:self.currentQuestion.reward_id
-                                                                          callback:^(BOOL success, SKResponsePackage *response) {
-                                                                              if (response.result == 0) {
-                                                                                  self.rewardDict = response.data;
-                                                                                  self.reward = [SKReward mj_objectWithKeyValues:self.rewardDict];
-                                                                                  //奖励
-                                                                                  _questionGiftView = [[NZQuestionGiftView alloc] initWithFrame:CGRectMake(3*_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) withReward:self.reward];
-                                                                                  [_detailScrollView addSubview:_questionGiftView];
-                                                                              }
-                                                                          }];
-        
-        [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid
-                                                                                   callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
-                                                                                       self.top10Array = userRankList;
-                                                                                       //排名列表
-                                                                                       _questionListView = [[NZQuestionRankListView alloc] initWithFrame:CGRectMake(2*_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) rankArray:self.top10Array];
-                                                                                       [_detailScrollView addSubview:_questionListView];
-                                                                                   }];
-        
-        //                                                                                    [self loadMascot];
+        [self createDetail];
     }];
 }
 
 - (void)createDetail {
+    [_questionContentView removeFromSuperview];
+    _questionContentView = nil;
+    [_questionAnswerView removeFromSuperview];
+    _questionAnswerView = nil;
+    [_questionGiftView removeFromSuperview];
+    _questionGiftView = nil;
+    [_questionListView removeFromSuperview];
+    _questionListView = nil;
+    
     //题目文章
     _questionContentView = [[NZQuestionContentView alloc] initWithFrame:CGRectMake(0, 0, _detailScrollView.width, _detailScrollView.height) question:self.currentQuestion];
     _questionContentView.webView.scrollView.delegate = self;
@@ -474,6 +461,26 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _questionAnswerView = [[SKAnswerDetailView alloc] initWithFrame:CGRectMake(_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) questionID:self.currentQuestion.qid];
     _questionAnswerView.backScrollView.delegate = self;
     [_detailScrollView addSubview:_questionAnswerView];
+    
+    [[[SKServiceManager sharedInstance] answerService] getRewardWithQuestionID:self.currentQuestion.qid
+                                                                      rewardID:self.currentQuestion.reward_id
+                                                                      callback:^(BOOL success, SKResponsePackage *response) {
+                                                                          if (response.result == 0) {
+                                                                              self.rewardDict = response.data;
+                                                                              self.reward = [SKReward mj_objectWithKeyValues:self.rewardDict];
+                                                                              //奖励
+                                                                              _questionGiftView = [[NZQuestionGiftView alloc] initWithFrame:CGRectMake(3*_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) withReward:self.reward];
+                                                                              [_detailScrollView addSubview:_questionGiftView];
+                                                                          }
+                                                                      }];
+    
+    [[[SKServiceManager sharedInstance] questionService] getQuestionTop10WithQuestionID:self.currentQuestion.qid
+                                                                               callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
+                                                                                   self.top10Array = userRankList;
+                                                                                   //排名列表
+                                                                                   _questionListView = [[NZQuestionRankListView alloc] initWithFrame:CGRectMake(2*_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) rankArray:self.top10Array];
+                                                                                   [_detailScrollView addSubview:_questionListView];
+                                                                               }];
 }
 
 //视频
@@ -761,6 +768,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                                                                                                                                                callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
                                                                                                                                                                                    self.top10Array = userRankList;
                                                                                                                                                                                }];
+                                                                                                    [self createDetail];
                                                                                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                                                                                         [_composeView endEditing:YES];
                                                                                                         [_composeView removeFromSuperview];
@@ -795,6 +803,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                                                                                                                                              callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
                                                                                                                                                                                  self.top10Array = userRankList;
                                                                                                                                                                              }];
+                                                                                                  [self createDetail];
                                                                                                   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                                                                                       [_composeView endEditing:YES];
                                                                                                       [_composeView removeFromSuperview];

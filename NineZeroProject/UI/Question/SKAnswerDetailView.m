@@ -62,7 +62,7 @@
 											      self.answerDetail = answerDetail;
 											      _contentView.text = answerDetail.article_desc;
 											      [_contentView sizeToFit];
-											      _contentView.centerX = self.centerX;
+											      _contentView.centerX = _backScrollView.centerX;
 
 											      [self hideHUD];
 											      [UIView animateWithDuration:0.5
@@ -129,9 +129,9 @@
 }
 
 - (void)createUI {
-	_backScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
+	_backScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
 	_backScrollView.bottom = self.bottom - 10;
-	_backScrollView.backgroundColor = COMMON_SEPARATOR_COLOR;
+	_backScrollView.backgroundColor = COMMON_BG_COLOR;
 	_backScrollView.bounces = NO;
 	_backScrollView.alwaysBounceVertical = YES;
 	//_backScrollView.delegate = self;

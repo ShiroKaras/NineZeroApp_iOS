@@ -56,7 +56,10 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView registerClass:[NZQuestionListCell class] forCellReuseIdentifier:NSStringFromClass([NZQuestionListCell class])];
     [self.view addSubview:self.tableView];
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     if (NO_NETWORK) {
         UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
         converView.backgroundColor = COMMON_BG_COLOR;

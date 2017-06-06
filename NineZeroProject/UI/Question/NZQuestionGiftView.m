@@ -33,7 +33,10 @@
             [scrollView addSubview:rankTextImageView];
             [rankTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self);
-                make.top.equalTo(titleImageView.mas_bottom).offset(31);
+                if (reward.ticket != nil)
+                    make.top.equalTo(titleImageView.mas_bottom).offset(31);
+                else
+                    make.top.equalTo(titleImageView.mas_bottom).offset((self.height-152-64-49)/2);
             }];
             
             UILabel *percentLabel = [UILabel new];
@@ -51,13 +54,16 @@
             [scrollView addSubview:rankTextImageView];
             [rankTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self);
-                make.top.equalTo(titleImageView.mas_bottom).offset(31);
+                if (reward.ticket != nil)
+                    make.top.equalTo(titleImageView.mas_bottom).offset(31);
+                else
+                    make.top.equalTo(titleImageView.mas_bottom).offset((self.height-152-64-49)/2);
             }];
             
             UILabel *percentLabel = [UILabel new];
             percentLabel.font = MOON_FONT_OF_SIZE(40);
             percentLabel.textColor = COMMON_PINK_COLOR;
-            percentLabel.text = @"99.9%";
+            percentLabel.text = reward.rank>700? @"30%" : [[NSString stringWithFormat:@"%.1lf", 100. - reward.rank / 10.] stringByAppendingString:@"%"];
             [percentLabel sizeToFit];
             [scrollView addSubview:percentLabel];
             [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
