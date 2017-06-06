@@ -18,6 +18,7 @@
 @property (nonatomic, assign) NSInteger mid;
 
 @property (nonatomic, strong) AMapLocationManager *locationManager;
+@property (nonatomic, assign) BOOL isOpenLBS;
 @end
 
 @implementation NZTaskViewController
@@ -132,11 +133,16 @@
                        NSError *error) {
          if (error) {
              DLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+             _isOpenLBS = NO;
          }
          if (regeocode) {
              DLog(@"citycode:%@", regeocode.citycode);
          }
          DLog(@"location:%@", location);
+         
+         if (location != nil)   _isOpenLBS = YES;
+         else _isOpenLBS = NO;
+         
          [self loadDataWithLocation:location];
      }];
 }
@@ -149,6 +155,7 @@
         cell = [[NZTaskCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZTaskCell class])];
     }
     [cell loadDataWith:_strongholdArray[indexPath.row]];
+    cell.distanceLabel.hidden = !_isOpenLBS;
     return cell;
 }
 

@@ -12,7 +12,6 @@
 @interface NZTaskCell ()
 @property (nonatomic, strong) UIImageView   *taskImageView;
 @property (nonatomic, strong) UIImageView   *taskTitleImageView;
-@property (nonatomic, strong) UILabel       *distanceLabel;
 
 @property (nonatomic, strong) UIImageView   *deleteImageView;
 @end

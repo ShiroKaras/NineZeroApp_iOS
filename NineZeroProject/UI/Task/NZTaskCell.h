@@ -11,6 +11,7 @@
 
 @interface NZTaskCell : UITableViewCell
 @property (nonatomic, assign) float cellHeight;
+@property (nonatomic, strong) UILabel *distanceLabel;
 
 - (void)loadDataWith:(SKStronghold*)stronghold;
 
