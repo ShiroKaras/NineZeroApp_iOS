@@ -108,6 +108,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 @implementation NZQuestionDetailViewController {
     BOOL _scrollFlag;
+    float tempContentY;
 }
 
 - (instancetype)initWithType:(NZQuestionType)type questionID:(NSString *)questionID {
@@ -558,7 +559,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         CGPoint point = scrollView.contentOffset;
         
         if (point.y > 2*SCREEN_HEIGHT) {
-            point.y = 503;
+            point.y = PLAYBACKVIEW_HEIGHT;
             scrollView.contentOffset = point;
         }
     }
@@ -579,12 +580,23 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         if (point.y > 30) {
             if (_scrollFlag) {
                 _scrollFlag = NO;
-                [self scrollView:scrollView scrollToPoint:CGPointMake(0, 44+ROUND_HEIGHT_FLOAT(64)+10+20+33)];
+                [self scrollView:scrollView scrollToPoint:CGPointMake(0, PLAYBACKVIEW_HEIGHT)];
             }
         }
         if (point.y == 0) {
             _scrollFlag = YES;
             [_questionMainScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+            _questionContentView.webView.scrollView.contentOffset = CGPointMake(0, 1);
+        }
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == _questionMainScrollView) {
+        if (tempContentY!=scrollView.contentOffset.y) {
+            NSLog(@"%lf", scrollView.contentOffset.y);
+            _questionContentView.webView.scrollView.contentOffset = CGPointMake(0, 1);
+            tempContentY = scrollView.contentOffset.y;
         }
     }
 }
