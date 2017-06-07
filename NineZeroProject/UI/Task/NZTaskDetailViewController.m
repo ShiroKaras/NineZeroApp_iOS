@@ -125,7 +125,7 @@
 //    _scrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:_scrollView];
     
-    _titleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.width/320*240)];
+    _titleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.width)];
     _titleImageView.image = [UIImage imageNamed:@"img_monday_music_cover_default"];
     _titleImageView.layer.masksToBounds = YES;
     _titleImageView.contentMode = UIViewContentModeScaleAspectFill;
