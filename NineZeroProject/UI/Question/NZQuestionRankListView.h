@@ -13,6 +13,7 @@
 @interface NZQuestionRankListView : UIView
 
 @property (nonatomic, assign) float viewHeight;
+@property (nonatomic, strong) UIScrollView *rankScrollView;
 
 - (instancetype)initWithFrame:(CGRect)frame rankArray:(NSArray<SKUserInfo*>*)array;
 

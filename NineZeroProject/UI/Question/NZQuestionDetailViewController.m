@@ -470,6 +470,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                                               self.reward = [SKReward mj_objectWithKeyValues:self.rewardDict];
                                                                               //奖励
                                                                               _questionGiftView = [[NZQuestionGiftView alloc] initWithFrame:CGRectMake(3*_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) withReward:self.reward];
+                                                                              _questionGiftView.scrollView.delegate = self;
                                                                               [_detailScrollView addSubview:_questionGiftView];
                                                                           }
                                                                       }];
@@ -479,6 +480,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                                                    self.top10Array = userRankList;
                                                                                    //排名列表
                                                                                    _questionListView = [[NZQuestionRankListView alloc] initWithFrame:CGRectMake(2*_detailScrollView.width, 0, _detailScrollView.width, _detailScrollView.height) rankArray:self.top10Array];
+                                                                                   _questionListView.rankScrollView.delegate = self;
                                                                                    [_detailScrollView addSubview:_questionListView];
                                                                                }];
 }
@@ -594,6 +596,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             _scrollFlag = YES;
             [_questionMainScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
             _questionContentView.webView.scrollView.contentOffset = CGPointMake(0, 1);
+            _questionAnswerView.backScrollView.contentOffset = CGPointMake(0, 1);
+            _questionListView.rankScrollView.contentOffset = CGPointMake(0, 1);
+            _questionGiftView.scrollView.contentOffset = CGPointMake(0, 1);
         }
     }
 }
@@ -603,6 +608,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         if (tempContentY!=scrollView.contentOffset.y) {
             NSLog(@"%lf", scrollView.contentOffset.y);
             _questionContentView.webView.scrollView.contentOffset = CGPointMake(0, 1);
+            _questionAnswerView.backScrollView.contentOffset = CGPointMake(0, 1);
+            _questionListView.rankScrollView.contentOffset = CGPointMake(0, 1);
+            _questionGiftView.scrollView.contentOffset = CGPointMake(0, 1);
             tempContentY = scrollView.contentOffset.y;
         }
     }

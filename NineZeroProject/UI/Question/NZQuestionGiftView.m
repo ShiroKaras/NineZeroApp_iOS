@@ -17,11 +17,11 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        [self addSubview:scrollView];
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        [self addSubview:_scrollView];
         
         UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzledetailpage_gift"]];
-        [scrollView addSubview:titleImageView];
+        [_scrollView addSubview:titleImageView];
         [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(@16);
             make.left.equalTo(@16);
@@ -30,7 +30,7 @@
         UIImageView *rankTextImageView;
         if (reward.rank<10) {
             rankTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_successtext2"]];
-            [scrollView addSubview:rankTextImageView];
+            [_scrollView addSubview:rankTextImageView];
             [rankTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self);
                 if (reward.ticket != nil)
@@ -44,14 +44,14 @@
             percentLabel.textColor = COMMON_PINK_COLOR;
             percentLabel.text = [NSString stringWithFormat:@"%ld",reward.rank];
             [percentLabel sizeToFit];
-            [scrollView addSubview:percentLabel];
+            [_scrollView addSubview:percentLabel];
             [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(rankTextImageView.mas_left).offset(88.5);
                 make.bottom.equalTo(rankTextImageView.mas_bottom).offset(-20);
             }];
         } else {
             rankTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_successtext1"]];
-            [scrollView addSubview:rankTextImageView];
+            [_scrollView addSubview:rankTextImageView];
             [rankTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self);
                 if (reward.ticket != nil)
@@ -65,7 +65,7 @@
             percentLabel.textColor = COMMON_PINK_COLOR;
             percentLabel.text = reward.rank>700? @"30%" : [[NSString stringWithFormat:@"%.1lf", 100. - reward.rank / 10.] stringByAppendingString:@"%"];
             [percentLabel sizeToFit];
-            [scrollView addSubview:percentLabel];
+            [_scrollView addSubview:percentLabel];
             [percentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(rankTextImageView.mas_left).offset(98);
                 make.bottom.equalTo(rankTextImageView.mas_bottom).offset(-27);
@@ -73,7 +73,7 @@
         }
         
         UIImageView *textImageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_gettext"]];
-        [scrollView addSubview:textImageView1];
+        [_scrollView addSubview:textImageView1];
         [textImageView1 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(rankTextImageView);
             make.top.equalTo(rankTextImageView.mas_bottom).offset(26);
@@ -85,14 +85,14 @@
         goldLabel.textColor = COMMON_PINK_COLOR;
         goldLabel.font = MOON_FONT_OF_SIZE(30);
         [goldLabel sizeToFit];
-        [scrollView addSubview:goldLabel];
+        [_scrollView addSubview:goldLabel];
         [goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(textImageView1.mas_bottom).offset(13);
             make.right.equalTo(textImageView1);
         }];
         
         UIImageView *goldTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_gold"]];
-        [scrollView addSubview:goldTextImageView];
+        [_scrollView addSubview:goldTextImageView];
         [goldTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(goldLabel);
             make.left.equalTo(goldLabel.mas_right).offset(6);
@@ -104,14 +104,14 @@
         gemLabel.textColor = COMMON_PINK_COLOR;
         gemLabel.font = MOON_FONT_OF_SIZE(30);
         [gemLabel sizeToFit];
-        [scrollView addSubview:gemLabel];
+        [_scrollView addSubview:gemLabel];
         [gemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(goldLabel.mas_bottom).offset(13);
             make.right.equalTo(textImageView1);
         }];
         
         UIImageView *gemTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_diamonds"]];
-        [scrollView addSubview:gemTextImageView];
+        [_scrollView addSubview:gemTextImageView];
         [gemTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(gemLabel);
             make.left.equalTo(gemLabel.mas_right).offset(6);
@@ -123,14 +123,14 @@
         expLabel.textColor = COMMON_PINK_COLOR;
         expLabel.font = MOON_FONT_OF_SIZE(30);
         [expLabel sizeToFit];
-        [scrollView addSubview:expLabel];
+        [_scrollView addSubview:expLabel];
         [expLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(gemLabel.mas_bottom).offset(13);
             make.right.equalTo(textImageView1);
         }];
         
         UIImageView *expTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_exp"]];
-        [scrollView addSubview:expTextImageView];
+        [_scrollView addSubview:expTextImageView];
         [expTextImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(expLabel);
             make.left.equalTo(expLabel.mas_right).offset(6);
@@ -138,12 +138,12 @@
         
         [self layoutIfNeeded];
         
-        scrollView.contentSize = CGSizeMake(frame.size.width, expTextImageView.bottom+16);
+        _scrollView.contentSize = CGSizeMake(frame.size.width, expTextImageView.bottom+16);
         
         if (reward.ticket != nil) {
             SKTicketView *ticket = [[SKTicketView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-280)/2, expTextImageView.bottom+31, 280, 108) reward:reward.ticket];
-            [scrollView addSubview:ticket];
-            scrollView.contentSize = CGSizeMake(frame.size.width, ticket.bottom+16);
+            [_scrollView addSubview:ticket];
+            _scrollView.contentSize = CGSizeMake(frame.size.width, ticket.bottom+16);
         }
         
         

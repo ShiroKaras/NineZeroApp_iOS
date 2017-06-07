@@ -11,7 +11,7 @@
 @class SKReward;
 
 @interface NZQuestionGiftView : UIView
-
+@property (nonatomic, strong) UIScrollView *scrollView;
 - (instancetype)initWithFrame:(CGRect)frame withReward:(SKReward *)reward;
 
 @end
