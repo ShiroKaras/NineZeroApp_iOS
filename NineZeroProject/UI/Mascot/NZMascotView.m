@@ -77,7 +77,7 @@
 }
 
 - (void)tapMascot {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scheduleCountDownTimer) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(clearAinimationImageMemory) object:nil];
     NSMutableArray *_imageArray = [NSMutableArray array];
     NSArray *imageCount = @[@50,@53,@64,@59,@45,@64,@60];
     _currentFrameCount = [imageCount[[_mascot.pet_id intValue]-1] intValue];
