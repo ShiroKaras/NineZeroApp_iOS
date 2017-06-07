@@ -33,7 +33,7 @@
 @property (nonatomic, strong) UIButton *hintGuideImageView;
 
 @property (nonatomic, strong) NSMutableArray *rewardAction;
-@property (nonatomic, strong) NSArray *rewardID;
+@property (nonatomic, strong) NSString *rewardID;
 @property (nonatomic, assign) SKScanType swipeType; // default is SKScanTypeImage
 @property (nonatomic, strong) NSMutableArray *isRecognizedTargetImage;
 @property (nonatomic, copy) NSString *hint;
@@ -69,6 +69,11 @@
 	[super viewWillAppear:animated];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.scanningImageView removeFromSuperview];
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	[self.glView stop];
@@ -94,15 +99,16 @@
             
 		    NSLog(@"data-->%@", data);
             
-		    self.swipeType = [[data objectForKey:@"type"] integerValue];
+		    self.swipeType = SKScanTypeImage;
 		    self.downloadKey = [data objectForKey:@"file_url"];
 		    self.linkURLs = [data objectForKey:@"link_url"];
 		    self.rewardID = [data objectForKey:@"reward_id"];
-		    self.rewardAction = [[data objectForKey:@"reward_action"] mutableCopy];
 		    self.hint = [data objectForKey:@"hint"];
 		    self.sid = [data objectForKey:@"sid"];
+            //拼图扫一扫字段（暂时无用）
 		    self.linkClarity = [data objectForKey:@"link_clarity"];
 		    self.defaultPic = [data objectForKey:@"default_pic"];
+            self.rewardAction = [[data objectForKey:@"reward_action"] mutableCopy];
             
 		    self.rewardRecord = [SKReward mj_objectWithKeyValues:[data objectForKey:@"reward_record"]];
 
@@ -175,7 +181,7 @@
 						});
 						if (succeeded) {
 							// 加载识别图
-							[self setupOpenGLViewWithTargetNumber:self.rewardAction.count];
+							[self setupOpenGLViewWithTargetNumber:self.linkURLs.count];
 							[self.glView startWithFileName:self.downloadKey videoURLs:self.linkURLs];
 							completionHandler();
 						} else {
@@ -368,7 +374,7 @@
 
 - (void)scanningImageView:(SKScanningImageView *)imageView didTapGiftButton:(id)giftButton {
 	[imageView removeGiftView];
-	SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:[self.rewardID objectAtIndex:_trackedTargetId] sId:_sid scanType:_swipeType];
+	SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:self.rewardID sId:_sid scanType:_swipeType];
 	controller.delegate = self;
 	[self presentViewController:controller animated:NO completion:nil];
 }
@@ -376,29 +382,14 @@
 #pragma mark - OpenGLViewDelegate
 
 - (void)isRecognizedTarget:(BOOL)flag targetId:(int)targetId {
-	if (flag && targetId >= 0 && targetId < _isRecognizedTargetImage.count) {
+	if (flag && targetId >= 0) {
+        [self.scanningImageView.scanningGridLine setHidden:YES];
 		if (_swipeType == SKScanTypeImage) {
-			if (![[_isRecognizedTargetImage objectAtIndex:targetId] boolValue]) {
-				if (_rewardID && ![[_rewardID objectAtIndex:targetId] isEqualToString:@"0"] && [[_rewardAction objectAtIndex:targetId] isEqualToString:@"0"]) {
-					_trackedTargetId = targetId;
-					[self.scanningImageView.scanningGridLine setHidden:YES];
-					[_scanningImageView setUpGiftView];
-					[_scanningImageView pushGift];
-				}
-				_isRecognizedTargetImage[targetId] = [NSNumber numberWithBool:true];
-			}
-		} else {
-			if (![[_isRecognizedTargetImage objectAtIndex:targetId] boolValue]) {
-				if (_rewardID && [[_rewardAction objectAtIndex:targetId] isEqualToString:@"0"]) {
-					[_scanningPuzzleView hidePuzzleButton];
-					[_scanningPuzzleView hideAnimationView];
-					_trackedTargetId = targetId;
-					[_glView pause];
-					[_scanningPuzzleView showBoxView];
-				}
-
-				_isRecognizedTargetImage[targetId] = [NSNumber numberWithBool:true];
-			}
+            if (_rewardID && ![_rewardID isEqualToString:@"0"]) {
+                _trackedTargetId = targetId;
+                [_scanningImageView setUpGiftView];
+                [_scanningImageView pushGift];
+            }
 		}
 	} else {
 		if (_swipeType == SKScanTypeImage) {
@@ -415,7 +406,7 @@
 #pragma mark - SKScanningPuzzleViewDelegate
 - (void)scanningPuzzleView:(SKScanningPuzzleView *)view didTapExchangeButton:(UIButton *)button {
 	// 兑换
-	_scanningRewardViewController = [[SKScanningRewardViewController alloc] initWithRewardID:[self.rewardID firstObject] sId:_sid scanType:_swipeType];
+	_scanningRewardViewController = [[SKScanningRewardViewController alloc] initWithRewardID:self.rewardID sId:_sid scanType:_swipeType];
 	_scanningRewardViewController.delegate = self;
 	[self.view addSubview:_scanningRewardViewController.view];
 }
