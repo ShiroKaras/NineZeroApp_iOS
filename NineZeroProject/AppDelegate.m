@@ -182,23 +182,23 @@
 		self.window.rootViewController = navController;
 		[self.window makeKeyAndVisible];
 
-		if (![UD boolForKey:@"everLaunch"]) {
-			self.launchViewController = [[SKLaunchAnimationViewController alloc] init];
-			[self.window addSubview:self.launchViewController.view];
-			__weak AppDelegate *weakSelf = self;
-			self.launchViewController.didSelectedEnter = ^() {
-			    [UIView animateWithDuration:0.3
-				    animations:^{
-					weakSelf.launchViewController.view.alpha = 0;
-				    }
-				    completion:^(BOOL finished) {
-					weakSelf.launchViewController = nil;
-					//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-				    }];
-			};
-		} else {
-			//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-		}
+//		if (![UD boolForKey:@"everLaunch"]) {
+//			self.launchViewController = [[SKLaunchAnimationViewController alloc] init];
+//			[self.window addSubview:self.launchViewController.view];
+//			__weak AppDelegate *weakSelf = self;
+//			self.launchViewController.didSelectedEnter = ^() {
+//			    [UIView animateWithDuration:0.3
+//				    animations:^{
+//					weakSelf.launchViewController.view.alpha = 0;
+//				    }
+//				    completion:^(BOOL finished) {
+//					weakSelf.launchViewController = nil;
+//					//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//				    }];
+//			};
+//		} else {
+//			//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//		}
 
 		[[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
 
