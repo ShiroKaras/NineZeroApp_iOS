@@ -160,7 +160,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)createUI {
-//    WS(weakSelf);
+    //    WS(weakSelf);
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     _questionMainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height-49)];
@@ -185,7 +185,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.centerY.equalTo(bottomView);
         make.left.equalTo(@13.5);
     }];
-  
+    
     
     UIButton *shareButton = [UIButton new];
     [shareButton addTarget:self action:@selector(onClickShareButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -207,7 +207,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.centerY.equalTo(bottomView);
         make.right.equalTo(shareButton.mas_left).offset(-25);
     }];
-
+    
     //////////////////////////////////////// 视频 ////////////////////////////////////////
     
     _questionMainBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, PLAYBACKVIEW_HEIGHT+20)];
@@ -243,25 +243,17 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     // 2.5.1 重播按钮
     _replayButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay"] forState:UIControlStateNormal];
-    [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay_highlight"] forState:UIControlStateHighlighted];
+    [_replayButton setImage:[UIImage imageNamed:@"img_puzzledetailpage_replay"] forState:UIControlStateNormal];
+    [_replayButton setImage:[UIImage imageNamed:@"img_puzzledetailpage_replay_highlight"] forState:UIControlStateHighlighted];
     [_replayButton addTarget:self action:@selector(onClickReplayButton) forControlEvents:UIControlEventTouchUpInside];
     _replayButton.tag = HTButtonTypeReplay;
     [_replayButton sizeToFit];
     [_replayBackView addSubview:_replayButton];
     
-    // 2.5.2 分享按钮
-    _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_shareButton setImage:[UIImage imageNamed:@"btn_home_share"] forState:UIControlStateNormal];
-    [_shareButton setImage:[UIImage imageNamed:@"btn_home_share_highlight"] forState:UIControlStateHighlighted];
-    [_shareButton addTarget:self action:@selector(onClickShareButton:) forControlEvents:UIControlEventTouchUpInside];
-    [_shareButton sizeToFit];
-    [_replayBackView addSubview:_shareButton];
-    
     _replayBackView.frame = CGRectMake(0, 0, _playBackView.width, _playBackView.height);
     _playButton.frame = CGRectMake(_playBackView.width / 2 - 35, _playBackView.height / 2 - 35, 70, 70);
-    _replayButton.frame = CGRectMake(_replayBackView.width / 2 - 35 - 70, _replayBackView.height / 2 - 35, 70, 70);
-    _shareButton.frame = CGRectMake(_replayBackView.width / 2 + 35, _replayBackView.height / 2 - 35, 70, 70);
+    _replayButton.centerX = _replayBackView.centerX;
+    _replayButton.centerY = _replayBackView.centerY;
     
     // 2.3 暂停按钮，静音按钮
     _soundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_mute"]];
@@ -269,7 +261,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     if (SCREEN_WIDTH != IPHONE6_PLUS_SCREEN_WIDTH) {
         //        [_playBackView addSubview:_soundImageView];
     }
-    _pauseImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_pause"]];
+    _pauseImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_pause"]];
     _pauseImageView.alpha = 0.32;
     [_playBackView addSubview:_pauseImageView];
     
@@ -290,8 +282,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     _soundImageView.right = _playBackView.width - 13;
     _soundImageView.top = 5;
-    _pauseImageView.right = _playBackView.width - 8;
-    _pauseImageView.bottom = _playBackView.height - 8;
+    _pauseImageView.left = _playBackView.left;
+    _pauseImageView.bottom = _playBackView.bottom;
     
     _pauseImageView.hidden = YES;
     
@@ -306,7 +298,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _timeView.size = CGSizeMake(ROUND_WIDTH_FLOAT(100), ROUND_HEIGHT_FLOAT(65));
     _timeView.right = SCREEN_WIDTH - 16;
     _timeView.top = _playBackView.bottom + 16;
-
+    
     
     _answerButton = [UIButton new];
     [_answerButton addTarget:self action:@selector(answerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -320,7 +312,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
     
     //////////////////////////////////////// 介绍 ////////////////////////////////////////
-
+    
     _chapterImageView = [UIImageView new];
     [_questionMainBackView addSubview:_chapterImageView];
     _chapterImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -413,7 +405,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         
         self.currentQuestion = question;
         self.isAnswered = question.is_answer;
- 
+        
         //视频
         [self createVideoOnView:_playBackView withFrame:CGRectMake(0, 0, _playBackView.width, _playBackView.height)];
         [_coverImageView sd_setImageWithURL:[NSURL URLWithString:self.currentQuestion.question_video_cover] placeholderImage:[UIImage imageNamed:@"img_chap_video_cover_default"]];
@@ -559,7 +551,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [_questionMainBackView addSubview:_playButton];
 }
 
-#pragma mark - ScrollView Delegate 
+#pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == _questionMainScrollView) {
@@ -847,11 +839,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)keyboardDidHide:(NSNotification *)notification {
-//    //显示GuideView
-//    if (FIRST_COACHMARK_TYPE_2 && [[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1][self.currentQuestion.qid] integerValue] > 2) {
-//        [self showGuideviewWithType:SKHelperGuideViewType2];
-//        [UD setBool:YES forKey:@"firstLaunchTypeThreeWrongAnswer"];
-//    }
+    //    //显示GuideView
+    //    if (FIRST_COACHMARK_TYPE_2 && [[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1][self.currentQuestion.qid] integerValue] > 2) {
+    //        [self showGuideviewWithType:SKHelperGuideViewType2];
+    //        [UD setBool:YES forKey:@"firstLaunchTypeThreeWrongAnswer"];
+    //    }
 }
 
 #pragma mark - 获取奖励
@@ -934,10 +926,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         //        [self stop];
         //显示分享界面
         [self showReplayAndShareButton];
-//        if (FIRST_COACHMARK_TYPE_1 && !self.currentQuestion.is_answer) {
-//            [self showGuideviewWithType:SKHelperGuideViewType1];
-//            [UD setBool:YES forKey:@"firstLaunchTypePlayToEnd"];
-//        }
+        //        if (FIRST_COACHMARK_TYPE_1 && !self.currentQuestion.is_answer) {
+        //            [self showGuideviewWithType:SKHelperGuideViewType1];
+        //            [UD setBool:YES forKey:@"firstLaunchTypePlayToEnd"];
+        //        }
     }
 }
 #pragma mark - 分享
