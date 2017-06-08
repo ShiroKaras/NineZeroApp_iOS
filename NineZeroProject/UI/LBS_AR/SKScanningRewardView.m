@@ -57,7 +57,7 @@
 									  callback:^(BOOL success, SKResponsePackage *response) {
 									      [HTProgressHUD dismiss];
 									      if (success && response.result == 0) {
-										      _topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scan_gift"]];
+										      _topImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_successtext3"]];
 										      [_topImage sizeToFit];
 										      [self addSubview:_topImage];
 
