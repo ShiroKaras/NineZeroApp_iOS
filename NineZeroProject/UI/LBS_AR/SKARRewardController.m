@@ -102,7 +102,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 #pragma mark - Reward
 
 - (void)createBaseRewardViewWithReward:(SKReward *)reward {
-	float height = 80 + 11 + 108;
+	float height = 192 + 11 + 108;
 
 	_dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
 	[self.view addSubview:_dimmingView];
@@ -121,11 +121,11 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 	tap.numberOfTapsRequired = 1;
 	[_dimmingView addGestureRecognizer:tap];
 
-	UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_successtext3"]];
+	UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scan_gift"]];
 	[_dimmingView addSubview:titleImageView];
 	[titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.width.equalTo(@184);
-	    make.height.equalTo(@80);
+	    make.width.equalTo(@248);
+	    make.height.equalTo(@192);
 	    make.centerX.equalTo(_dimmingView);
 	    make.top.equalTo(_dimmingView).offset((SCREEN_HEIGHT - height) / 2);
 	}];

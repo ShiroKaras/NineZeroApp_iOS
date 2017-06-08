@@ -134,22 +134,26 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 	__weak __typeof__(self) weakSelf = self;
 	_dimmingView = [[UIView alloc] init];
-    [self.view addSubview:_dimmingView];
-    _dimmingView.width = ROUND_WIDTH_FLOAT(184);
-	_dimmingView.height = ROUND_WIDTH_FLOAT(80);
-    _dimmingView.top = ROUND_HEIGHT_FLOAT(54);
-    _dimmingView.centerX = weakSelf.view.centerX;
+	_dimmingView.height = 188.f;
+
+	[self.view addSubview:_dimmingView];
+	[_dimmingView mas_makeConstraints:^(MASConstraintMaker *make) {
+	    make.width.equalTo(@247);
+	    make.centerX.equalTo(weakSelf.view);
+	    make.top.equalTo(weakSelf.view).offset(54);
+	}];
 
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeRewardInfoView)];
 	[self.view addGestureRecognizer:tap];
 
-	UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_successtext3"]];
+	UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scan_gift"]];
 	[_dimmingView addSubview:titleImageView];
+
 	[titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.width.equalTo(_dimmingView);
-	    make.height.equalTo(_dimmingView);
-	    make.centerX.equalTo(_dimmingView);
-	    make.top.equalTo(_dimmingView);
+	    make.width.equalTo(weakSelf.dimmingView);
+	    make.height.equalTo(@188);
+	    make.centerX.equalTo(weakSelf.dimmingView);
+	    make.top.equalTo(weakSelf.dimmingView);
 	}];
 
 	__block CGFloat height = _dimmingView.height;
