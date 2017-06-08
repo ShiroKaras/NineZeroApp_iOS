@@ -12,6 +12,7 @@
 #import "NZTaskDetailViewController.h"
 #import "NZQuestionDetailViewController.h"
 #import "NZLabDetailViewController.h"
+#import "HTWebController.h"
 
 @implementation HTNavigationController
 
@@ -42,6 +43,7 @@
         &&![viewController isKindOfClass:[NZTaskDetailViewController class]]
         &&![viewController isKindOfClass:[NZQuestionDetailViewController class]]
         &&![viewController isKindOfClass:[NZLabDetailViewController class]]
+        &&![viewController isKindOfClass:[HTWebController class]]
         ) {
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = 9001;

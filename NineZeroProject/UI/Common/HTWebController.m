@@ -43,16 +43,20 @@
 	_webView.mediaPlaybackRequiresUserAction = NO;
 	[self.view addSubview:_webView];
 
-	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
-	headerView.backgroundColor = [UIColor clearColor];
-	UILabel *titleLabel = [UILabel new];
-	titleLabel.text = self.titleString;
-	titleLabel.textColor = [UIColor whiteColor];
-	titleLabel.font = PINGFANG_FONT_OF_SIZE(17);
-	[titleLabel sizeToFit];
-	titleLabel.center = headerView.center;
-	[headerView addSubview:titleLabel];
-	[self.view addSubview:headerView];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height-49, self.view.width, 49)];
+    bottomView.backgroundColor = COMMON_TITLE_BG_COLOR;
+    [self.view addSubview:bottomView];
+    
+    UIButton *backButton = [UIButton new];
+    [backButton addTarget:self action:@selector(didClickBackButton:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back_highlight"] forState:UIControlStateHighlighted];
+    [bottomView addSubview:backButton];
+    [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(bottomView);
+        make.left.equalTo(@13.5);
+    }];
+
 
 	[HTProgressHUD show];
 }
@@ -78,6 +82,10 @@
     } else {
         _webView = [[UIWebView alloc] initWithFrame:CGRectMake(10, 64, self.view.bounds.size.width - 20, self.view.bounds.size.height - 64)];
     }
+}
+
+- (void)didClickBackButton:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
