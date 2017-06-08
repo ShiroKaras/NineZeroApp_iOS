@@ -26,7 +26,7 @@
 
 #define SHARE_URL(u, v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
 
-#define PLAYBACKVIEW_HEIGHT (self.view.width+16+18+4+90)
+#define PLAYBACKVIEW_HEIGHT (self.view.width+16+18+4+66)
 #define SCROLLVIEW_HEIGHT (SCREEN_HEIGHT-20-55-49)
 typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeShare = 0,
@@ -173,7 +173,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [self.view addSubview:_questionMainScrollView];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height-49, self.view.width, 49)];
-    bottomView.backgroundColor = [UIColor clearColor];
+    bottomView.backgroundColor = COMMON_TITLE_BG_COLOR;
     [self.view addSubview:bottomView];
     
     UIButton *backButton = [UIButton new];
@@ -327,15 +327,14 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     _chapterImageView.layer.masksToBounds = YES;
     _chapterImageView.top = _playBackView.bottom +16;
     _chapterImageView.left = 16;
-    _chapterImageView.size = CGSizeMake(80, 18);
+    _chapterImageView.size = CGSizeMake(ROUND_WIDTH_FLOAT(80), ROUND_WIDTH_FLOAT(18));
     
     _questionTitleLabel = [UILabel new];
     _questionTitleLabel.textColor = [UIColor whiteColor];
-    _questionTitleLabel.font = PINGFANG_FONT_OF_SIZE(18);
-    _questionTitleLabel.numberOfLines = 3;
+    _questionTitleLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(18));
+    _questionTitleLabel.numberOfLines = 2;
     [_questionTitleLabel sizeToFit];
     [_questionMainBackView addSubview:_questionTitleLabel];
-    _questionTitleLabel.size = CGSizeMake(270, 90);
     _questionTitleLabel.top = _chapterImageView.bottom +4;
     _questionTitleLabel.left = _chapterImageView.left;
     
