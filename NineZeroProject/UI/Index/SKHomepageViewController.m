@@ -45,8 +45,10 @@
     [self createUI];
     [[[SKServiceManager sharedInstance] commonService] getPeacock:^(BOOL success, SKResponsePackage *response) {
         if (![response.data[@"peacock_pic"] isEqualToString:@""]&&response.data[@"peacock_pic"]!=nil) {
-            [self loadAdvWithImage:response.data[@"peacock_pic"]];
-            self.adLink = response.data[@"link"];
+            if ([response.data[@"status"] integerValue]==1) {
+                [self loadAdvWithImage:response.data[@"peacock_pic"]];
+                self.adLink = response.data[@"link"];                
+            }
         }
     }];
 }
