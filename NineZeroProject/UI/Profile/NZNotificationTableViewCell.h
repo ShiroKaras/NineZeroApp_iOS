@@ -11,6 +11,7 @@
 
 @interface NZNotificationTableViewCell : UITableViewCell
 @property (nonatomic, assign) float cellHeight;
+@property (nonatomic, strong) UIView *bottomLine;
 
 - (void)setNotification:(SKNotification *)notification;
 + (CGFloat)calculateCellHeightWithText:(NSString *)text;

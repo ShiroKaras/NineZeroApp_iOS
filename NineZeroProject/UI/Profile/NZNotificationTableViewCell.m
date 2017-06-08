@@ -19,7 +19,6 @@ static CGFloat kLineSpace = 7;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *contentLabel;
-@property (nonatomic, strong) UIView *bottomLine;
 @end
 
 @implementation NZNotificationTableViewCell
@@ -32,8 +31,8 @@ static CGFloat kLineSpace = 7;
         [self.contentView addSubview:self.avatarImageView];
         [self.contentView addSubview:self.nameLabel];
         [self.contentView addSubview:self.timeLabel];
+        [self.contentView addSubview:self.bottomLine];
         [self.contentView addSubview:self.contentLabel];
-//        [self.contentView addSubview:self.bottomLine];
     }
     return self;
 }
@@ -76,13 +75,14 @@ static CGFloat kLineSpace = 7;
         _contentLabel.textColor = [UIColor whiteColor];
         _contentLabel.font = PINGFANG_FONT_OF_SIZE(12);
         _contentLabel.numberOfLines = 0;
+        [_contentLabel sizeToFit];
     }
     return _contentLabel;
 }
 
 - (UIView *)bottomLine {
     if (!_bottomLine) {
-        _bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0, self.bottom-1, SCREEN_WIDTH, 0.5)];
+        _bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
         _bottomLine.backgroundColor = COMMON_SEPARATOR_COLOR;
     }
     return _bottomLine;
@@ -107,7 +107,6 @@ static CGFloat kLineSpace = 7;
     _contentLabel.size = rect.size;
     _contentLabel.text = notification.content;
     [self setNeedsLayout];
-    _bottomLine.bottom = self.bottom;
     
     _cellHeight = _contentLabel.bottom+17;
 }

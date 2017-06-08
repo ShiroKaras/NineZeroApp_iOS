@@ -287,7 +287,7 @@
     }];
  
     UIView *splitLine = [UIView new];
-    splitLine.backgroundColor = [UIColor colorWithHex:0x2d2d2d];
+    splitLine.backgroundColor = COMMON_SEPARATOR_COLOR;
     [_backView1 addSubview:splitLine];
     [splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@10);
@@ -379,7 +379,7 @@
     }];
     
     UIView *splitLine = [UIView new];
-    splitLine.backgroundColor = [UIColor colorWithHex:0x2d2d2d];
+    splitLine.backgroundColor = COMMON_SEPARATOR_COLOR;
     [_backView2 addSubview:splitLine];
     [splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@10);
@@ -456,7 +456,7 @@
     }];
     
     UIView *splitLine = [UIView new];
-    splitLine.backgroundColor = [UIColor colorWithHex:0x2d2d2d];
+    splitLine.backgroundColor = COMMON_SEPARATOR_COLOR;
     [_backView3 addSubview:splitLine];
     [splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@10);
