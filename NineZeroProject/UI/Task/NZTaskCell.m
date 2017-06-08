@@ -32,7 +32,7 @@
             make.top.equalTo(@16);
             make.left.equalTo(@16);
             make.right.equalTo(self.mas_right).offset(-16);
-            make.height.mas_equalTo((self.width-32)/288*145);
+            make.height.mas_equalTo((SCREEN_WIDTH-32)/288*145);
         }];
         
         _taskTitleImageView = [UIImageView new];
