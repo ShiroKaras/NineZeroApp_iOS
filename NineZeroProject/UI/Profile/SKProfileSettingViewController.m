@@ -118,7 +118,7 @@
                 UILabel *label = [UILabel new];
                 label.text = @"点击修改";
                 label.textColor = [UIColor whiteColor];
-                label.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
+                label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
                 [view addSubview:label];
                 [label sizeToFit];
                 [label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -140,7 +140,7 @@
                 _usernameLabel = [UILabel new];
                 _usernameLabel.textColor = COMMON_TEXT_2_COLOR;
                 _usernameLabel.text = [[SKStorageManager sharedInstance] getLoginUser].user_name;
-                _usernameLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
+                _usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
                 [_usernameLabel sizeToFit];
                 [view addSubview:_usernameLabel];
                 [_usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -151,7 +151,7 @@
                 UILabel *label = [UILabel new];
                 label.text = @"点击修改";
                 label.textColor = [UIColor whiteColor];
-                label.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
+                label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
                 [view addSubview:label];
                 [label sizeToFit];
                 [label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -173,7 +173,7 @@
                 UILabel *label = [UILabel new];
                 label.text = @"清理缓存";
                 label.textColor = COMMON_TEXT_2_COLOR;
-                label.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
+                label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
                 [view addSubview:label];
                 [label mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(@16);
@@ -185,7 +185,7 @@
                 [self listFileAtPath:cacheFilePath];
                 _cacheLabel.text = [NSString stringWithFormat:@"%.1fMB", cacheSize];
                 _cacheLabel.textColor = [UIColor whiteColor];
-                _cacheLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
+                _cacheLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
                 [view addSubview:_cacheLabel];
                 [_cacheLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.right.equalTo(view).offset(-20);
@@ -206,7 +206,7 @@
                 UILabel *label = [UILabel new];
                 label.text = @"什么是九零";
                 label.textColor = COMMON_TEXT_2_COLOR;
-                label.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
+                label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
                 [view addSubview:label];
                 [label mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(@16);
@@ -234,7 +234,7 @@
                 UILabel *label = [UILabel new];
                 label.text = @"关于";
                 label.textColor = COMMON_TEXT_2_COLOR;
-                label.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
+                label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
                 [view addSubview:label];
                 [label mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(@16);
@@ -244,7 +244,7 @@
                 UILabel *infoLabel = [UILabel new];
                 infoLabel.text =  [NSString stringWithFormat:@"V%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
                 infoLabel.textColor = [UIColor whiteColor];
-                infoLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
+                infoLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
                 [view addSubview:infoLabel];
                 [infoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.right.equalTo(view).offset(-16);

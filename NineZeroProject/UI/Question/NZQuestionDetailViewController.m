@@ -331,7 +331,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     _questionTitleLabel = [UILabel new];
     _questionTitleLabel.textColor = [UIColor whiteColor];
-    _questionTitleLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(18));
+    _questionTitleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(18);
     _questionTitleLabel.numberOfLines = 2;
     [_questionTitleLabel sizeToFit];
     [_questionMainBackView addSubview:_questionTitleLabel];

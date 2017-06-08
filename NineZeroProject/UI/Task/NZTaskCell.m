@@ -49,7 +49,7 @@
         UILabel *taskLevelLabel = [UILabel new];
         taskLevelLabel.text = @"任务难度";
         taskLevelLabel.textColor = COMMON_TEXT_2_COLOR;
-        taskLevelLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
+        taskLevelLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
         [taskLevelLabel sizeToFit];
         [self.contentView addSubview:taskLevelLabel];
         [taskLevelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,7 +72,7 @@
         _distanceLabel = [UILabel new];
         _distanceLabel.text = @"0m";
         _distanceLabel.textColor = taskLevelLabel.textColor;
-        _distanceLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(10));
+        _distanceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
         [_distanceLabel sizeToFit];
         [self.contentView addSubview:_distanceLabel];
         [_distanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {

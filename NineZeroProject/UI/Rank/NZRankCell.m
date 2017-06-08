@@ -60,7 +60,7 @@
         _usernameLabel = [UILabel new];
         _usernameLabel.text = @"我是一个零仔";
         _usernameLabel.textColor = [UIColor colorWithHex:0x3c3c3c];
-        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(10));
+        _usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
         [_backView addSubview:_usernameLabel];
         [_usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(_backView);
@@ -107,7 +107,7 @@
         }];
         _avatarImageView.layer.cornerRadius = ROUND_HEIGHT_FLOAT(25);
         
-        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
+        _usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
         _usernameLabel.textColor = COMMON_GREEN_COLOR;
         
         _expImageView.image = [UIImage imageNamed:@"img_puzzleranking_mytop"];
@@ -126,7 +126,7 @@
         }];
         _avatarImageView.layer.cornerRadius = ROUND_HEIGHT_FLOAT(15);
         
-        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(10));
+        _usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
         _usernameLabel.textColor = COMMON_TEXT_3_COLOR;
         
         _expImageView.image = [UIImage imageNamed:@"img_puzzleranking_usetop"];

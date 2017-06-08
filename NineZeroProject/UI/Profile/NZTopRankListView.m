@@ -31,7 +31,7 @@
             if (i==0) {
                 view = [[NZRankCellView alloc] initWithFrame:CGRectMake(16, titleImageView.bottom+24, self.width-32, ROUND_HEIGHT_FLOAT(40))];
                 view.usernameLabel.textColor = COMMON_GREEN_COLOR;
-                view.usernameLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
+                view.usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
                 view.expImageView.image = [UIImage imageNamed:@"img_puzzleranking_mytop"];
                 view.expLabel.textColor = COMMON_GREEN_COLOR;
             } else {
@@ -138,7 +138,7 @@
         _usernameLabel = [UILabel new];
         _usernameLabel.text = @"我是一个零仔";
         _usernameLabel.textColor = [UIColor colorWithHex:0x3c3c3c];
-        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(10));
+        _usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
         [self addSubview:_usernameLabel];
         [_usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self);
