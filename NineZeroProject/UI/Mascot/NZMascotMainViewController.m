@@ -21,7 +21,7 @@
 @property (nonatomic, strong) UIScrollView *mScrollView;
 
 @property (nonatomic, strong) NSArray<SKMascot*> *mascotArray;
-
+@property (nonatomic, strong) UIPageControl *pageControl;
 @end
 
 @implementation NZMascotMainViewController
@@ -91,6 +91,18 @@
         make.centerY.equalTo(titleImageView);
         make.right.equalTo(titleView).offset(-13.5);
     }];
+    
+    _pageControl = [[UIPageControl alloc] init];
+    _pageControl.numberOfPages = 7;
+    _pageControl.pageIndicatorTintColor = [UIColor colorWithHex:0x004d40];
+    _pageControl.currentPageIndicatorTintColor = COMMON_GREEN_COLOR;
+    _pageControl.userInteractionEnabled = NO;
+    [self.view addSubview:_pageControl];
+    [_pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.view.mas_top).offset(16+64);
+        make.height.equalTo(@(8));
+    }];
 }
 
 - (void)loadData {
@@ -120,6 +132,8 @@
     //根据图片坐标判断页数
     self.currentIndex = round(point.x/(SCREEN_WIDTH))+1;
     [self updateButtonWithIndex:_currentIndex];
+    NSInteger index = round(point.x / (SCREEN_WIDTH));
+    _pageControl.currentPage = index;
 }
 
 //- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {

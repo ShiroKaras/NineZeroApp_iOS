@@ -40,13 +40,14 @@
         _mascotGifImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, self.width, self.height-64)];
         _mascotGifImageView.layer.masksToBounds = YES;
         _mascotGifImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _mascotGifImageView.userInteractionEnabled = YES;
         NSString *imageName = [NSString stringWithFormat:@"png_%@gif_00000.png", _mascot.pet_name];
         _mascotGifImageView.image = ImageWithPath(imageName);
         [self addSubview:_mascotGifImageView];
-
+        
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapMascot)];
         tap.numberOfTapsRequired = 1;
-        [self addGestureRecognizer:tap];
+        [_mascotGifImageView addGestureRecognizer:tap];
 
         _countDownBackView = [[UIView alloc] initWithFrame:CGRectMake(16, 16+64, 150, 50)];
         _countDownBackView.backgroundColor = [UIColor clearColor];
