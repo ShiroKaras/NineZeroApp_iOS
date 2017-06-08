@@ -13,7 +13,7 @@
 
 #import "HTUIHeader.h"
 #import "MBProgressHUD+BWMExtension.h"
-#import "SKHelperView.h"
+//#import "SKHelperView.h"
 #import <UIImage+animatedGIF.h>
 
 #import <AMapFoundationKit/AMapFoundationKit.h>
@@ -36,8 +36,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 @property (nonatomic, strong) AMapLocationManager *singleLocationManager;
 @property (nonatomic, strong) UIButton *helpButton;
-@property (nonatomic, strong) SKHelperGuideView *guideView;
-@property (nonatomic, strong) SKHelperScrollView *helpView;
+//@property (nonatomic, strong) SKHelperGuideView *guideView;
+//@property (nonatomic, strong) SKHelperScrollView *helpView;
 
 @property (nonatomic, strong) NSArray *locationPointArray;
 
@@ -231,24 +231,24 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         self.mascotImageView.hidden = YES;
     }
     
-    if (FIRST_LAUNCH_AR) {
-        SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
-        helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT - 356) / 2, 0, 0);
-        helpView.dimmingView.alpha = 0;
-        [KEY_WINDOW addSubview:helpView];
-        
-        [UIView animateWithDuration:0.3
-                              delay:0
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-                             helpView.dimmingView.alpha = 0.9;
-                         }
-                         completion:^(BOOL finished){
-                             
-                         }];
-        [UD setBool:YES forKey:@"firstLaunchTypeAR"];
-    }
+//    if (FIRST_LAUNCH_AR) {
+//        SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
+//        helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT - 356) / 2, 0, 0);
+//        helpView.dimmingView.alpha = 0;
+//        [KEY_WINDOW addSubview:helpView];
+//        
+//        [UIView animateWithDuration:0.3
+//                              delay:0
+//                            options:UIViewAnimationOptionCurveEaseOut
+//                         animations:^{
+//                             helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//                             helpView.dimmingView.alpha = 0.9;
+//                         }
+//                         completion:^(BOOL finished){
+//                             
+//                         }];
+//        [UD setBool:YES forKey:@"firstLaunchTypeAR"];
+//    }
     
     [self buildConstrains];
 }
@@ -326,11 +326,11 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	[super viewDidAppear:animated];
 }
 
-- (void)showGuideviewWithType:(SKHelperGuideViewType)type {
-	_guideView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:type];
-	[KEY_WINDOW addSubview:_guideView];
-	[KEY_WINDOW bringSubviewToFront:_guideView];
-}
+//- (void)showGuideviewWithType:(SKHelperGuideViewType)type {
+//	_guideView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:type];
+//	[KEY_WINDOW addSubview:_guideView];
+//	[KEY_WINDOW bringSubviewToFront:_guideView];
+//}
 
 #pragma mark - Location
 
@@ -398,24 +398,24 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 #pragma mark - Action
 
-- (void)arQuestionHelpButtonClick:(UIButton *)sender {
-	[TalkingData trackEvent:@"vrtips"];
-	_helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
-	_helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT - 356) / 2, 0, 0);
-	_helpView.dimmingView.alpha = 0;
-	[self.view addSubview:_helpView];
-
-	[UIView animateWithDuration:0.3
-			      delay:0
-			    options:UIViewAnimationOptionCurveEaseOut
-			 animations:^{
-			     _helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-			     _helpView.dimmingView.alpha = 0.9;
-			 }
-			 completion:^(BOOL finished){
-
-			 }];
-}
+//- (void)arQuestionHelpButtonClick:(UIButton *)sender {
+//	[TalkingData trackEvent:@"vrtips"];
+//	_helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
+//	_helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT - 356) / 2, 0, 0);
+//	_helpView.dimmingView.alpha = 0;
+//	[self.view addSubview:_helpView];
+//
+//	[UIView animateWithDuration:0.3
+//			      delay:0
+//			    options:UIViewAnimationOptionCurveEaseOut
+//			 animations:^{
+//			     _helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//			     _helpView.dimmingView.alpha = 0.9;
+//			 }
+//			 completion:^(BOOL finished){
+//
+//			 }];
+//}
 
 - (void)onClickBack {
 	//    [self.mascotMotionView disableMotionEffect];
@@ -568,7 +568,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	[self.view bringSubviewToFront:self.tipImageView];
     [self.view bringSubviewToFront:self.promptView];
 	[self.view bringSubviewToFront:self.helpButton];
-	[self.view bringSubviewToFront:self.helpView];
+//	[self.view bringSubviewToFront:self.helpView];
 	dispatch_async(dispatch_get_main_queue(), ^{
 	    //        [self.view bringSubviewToFront:self.mascotMotionView];
 	    [self.view bringSubviewToFront:self.mascotImageView];
