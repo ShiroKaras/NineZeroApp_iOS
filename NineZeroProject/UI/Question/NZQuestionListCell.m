@@ -20,7 +20,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = COMMON_BG_COLOR;
         
-        _questionCoverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
+        _questionCoverImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzlepage_loading"]];
         _questionCoverImageView.layer.masksToBounds = YES;
         _questionCoverImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:_questionCoverImageView];
@@ -57,7 +57,7 @@
 
 - (void)setCellWithQuetion:(SKQuestion *)question {
     _question = question;
-    [_questionCoverImageView sd_setImageWithURL:[NSURL URLWithString:_question.list_pic] placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
+    [_questionCoverImageView sd_setImageWithURL:[NSURL URLWithString:_question.list_pic] placeholderImage:[UIImage imageNamed:@"img_puzzlepage_loading"]];
     
     if (question.is_answer) {
         _timeLabelImageView.image = [UIImage imageNamed:@"img_puzzlepage_successlabel"];

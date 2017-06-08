@@ -217,7 +217,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                           withReuseIdentifier:HEADER_IDENTIFIER
                                                                  forIndexPath:indexPath];
-        [((CHTCollectionViewWaterfallHeader*)reusableView).mImageView sd_setImageWithURL:[NSURL URLWithString:_topicDetail.topic_detail.topic_detail_pic]];
+        [((CHTCollectionViewWaterfallHeader*)reusableView).mImageView sd_setImageWithURL:[NSURL URLWithString:_topicDetail.topic_detail.topic_detail_pic] placeholderImage:[UIImage imageNamed:@"img_labdetail_loading"]];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enterArticle)];
         tapGesture.numberOfTapsRequired = 1;
         [reusableView addGestureRecognizer:tapGesture];

@@ -21,7 +21,7 @@
     
         _cellHeight = 16+105+16+1;
         
-        _thumbImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_mascot_article_list_cover_default"]];
+        _thumbImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_labpage_loading"]];
         _thumbImageView.contentMode = UIViewContentModeScaleAspectFill;
         _thumbImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_thumbImageView];

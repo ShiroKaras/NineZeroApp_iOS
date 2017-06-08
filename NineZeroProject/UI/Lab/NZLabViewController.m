@@ -76,7 +76,7 @@
             UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, ROUND_WIDTH_FLOAT(180))];
             
             self.carouselView = [[PSCarouselView alloc] initWithFrame:tableViewHeaderView.frame];
-            self.carouselView.placeholder = PLACEHOLDER_IMAGE;
+            self.carouselView.placeholder = [UIImage imageNamed:@"img_banner_loading"];
             self.carouselView.contentMode = UIViewContentModeScaleAspectFill;
             self.carouselView.autoMoving = YES;
             self.carouselView.movingTimeInterval = 1.5f;

@@ -305,7 +305,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     _timeView.size = CGSizeMake(ROUND_WIDTH_FLOAT(100), ROUND_HEIGHT_FLOAT(65));
     _timeView.right = SCREEN_WIDTH - 16;
-    _timeView.top = _playBackView.bottom + 20;
+    _timeView.top = _playBackView.bottom + 16;
 
     
     _answerButton = [UIButton new];

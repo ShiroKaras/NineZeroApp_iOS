@@ -24,7 +24,7 @@
         self.backgroundColor = COMMON_BG_COLOR;
         
         _taskImageView = [UIImageView new];
-        _taskImageView.image = [UIImage imageNamed:@"img_monday_music_cover_default"];
+        _taskImageView.image = [UIImage imageNamed:@"img_taskpage_loading"];
         _taskImageView.contentMode = UIViewContentModeScaleAspectFill;
         _taskImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_taskImageView];
@@ -122,7 +122,7 @@
 }
 
 - (void)loadDataWith:(SKStronghold *)stronghold {
-    [_taskImageView sd_setImageWithURL:[NSURL URLWithString:stronghold.thumbnail] placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
+    [_taskImageView sd_setImageWithURL:[NSURL URLWithString:stronghold.thumbnail] placeholderImage:[UIImage imageNamed:@"img_taskpage_loading"]];
     [_taskTitleImageView sd_setImageWithURL:[NSURL URLWithString:stronghold.name_pic]];
     
     _distanceLabel.text = [stronghold.distance integerValue]>999? [NSString stringWithFormat:@"%.1fkm", [stronghold.distance integerValue]/1000.0]
