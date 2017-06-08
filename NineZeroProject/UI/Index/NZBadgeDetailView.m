@@ -21,8 +21,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self createUIWithFrame:frame];
-        
-        [_propImageView sd_setImageWithURL:[NSURL URLWithString:badge.medal_pic]];
+        [_propImageView sd_setImageWithURL:[NSURL URLWithString:badge.isHad ? badge.medal_pic : badge.medal_error_pic]];
         [_propTextImageView sd_setImageWithURL:[NSURL URLWithString:badge.medal_name_pic]];
         _propTextLabel.text = badge.medal_description;
         [_propTextLabel sizeToFit];

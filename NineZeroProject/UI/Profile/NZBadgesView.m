@@ -70,6 +70,7 @@
                     _badgeLevel++;
                     [cell isGetBadge:YES];
                     [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:badges[i].medal_icon]];
+                    badges[i].isHad = YES;
                 }
                 
                 UIButton *button = [[UIButton alloc] initWithFrame:cell.frame];
@@ -87,6 +88,7 @@
                     _badgeLevel++;
                     [cell isGetBadge:YES];
                     [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:medals[j].medal_icon]];
+                    medals[i].isHad = YES;
                 }
                 
                 UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(16+(16+width)*(j%3), _titleImageView2.bottom+16+(14+height)*(j/3), width, height)];
@@ -132,13 +134,13 @@
 - (void)didClickBadge:(UIButton *)sender {
     _badgeDetailView = [[NZBadgeDetailView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withBadge:_badgeArray[(int)sender.tag-300]];
     _badgeDetailView.userInteractionEnabled = YES;
-    [[self viewController].view addSubview:_badgeDetailView];
+    [KEY_WINDOW addSubview:_badgeDetailView];
 }
 
 - (void)didClickMedal:(UIButton *)sender {
     _badgeDetailView = [[NZBadgeDetailView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withBadge:_medalArray[(int)sender.tag-400]];
     _badgeDetailView.userInteractionEnabled = YES;
-    [[self viewController].view addSubview:_badgeDetailView];
+    [KEY_WINDOW addSubview:_badgeDetailView];
 }
 
 @end
