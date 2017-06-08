@@ -243,17 +243,25 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     // 2.5.1 重播按钮
     _replayButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_replayButton setImage:[UIImage imageNamed:@"img_puzzledetailpage_replay"] forState:UIControlStateNormal];
-    [_replayButton setImage:[UIImage imageNamed:@"img_puzzledetailpage_replay_highlight"] forState:UIControlStateHighlighted];
+    [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay"] forState:UIControlStateNormal];
+    [_replayButton setImage:[UIImage imageNamed:@"btn_home_replay_highlight"] forState:UIControlStateHighlighted];
     [_replayButton addTarget:self action:@selector(onClickReplayButton) forControlEvents:UIControlEventTouchUpInside];
     _replayButton.tag = HTButtonTypeReplay;
     [_replayButton sizeToFit];
     [_replayBackView addSubview:_replayButton];
     
+    // 2.5.2 分享按钮
+    _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_shareButton setImage:[UIImage imageNamed:@"btn_home_share"] forState:UIControlStateNormal];
+    [_shareButton setImage:[UIImage imageNamed:@"btn_home_share_highlight"] forState:UIControlStateHighlighted];
+    [_shareButton addTarget:self action:@selector(onClickShareButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_shareButton sizeToFit];
+    [_replayBackView addSubview:_shareButton];
+    
     _replayBackView.frame = CGRectMake(0, 0, _playBackView.width, _playBackView.height);
     _playButton.frame = CGRectMake(_playBackView.width / 2 - 35, _playBackView.height / 2 - 35, 70, 70);
-    _replayButton.centerX = _replayBackView.centerX;
-    _replayButton.centerY = _replayBackView.centerY;
+    _replayButton.frame = CGRectMake(_replayBackView.width / 2 - 35 - 70, _replayBackView.height / 2 - 35, 70, 70);
+    _shareButton.frame = CGRectMake(_replayBackView.width / 2 + 35, _replayBackView.height / 2 - 35, 70, 70);
     
     // 2.3 暂停按钮，静音按钮
     _soundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_mute"]];
@@ -261,7 +269,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     if (SCREEN_WIDTH != IPHONE6_PLUS_SCREEN_WIDTH) {
         //        [_playBackView addSubview:_soundImageView];
     }
-    _pauseImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_pause"]];
+    _pauseImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_pause"]];
     _pauseImageView.alpha = 0.32;
     [_playBackView addSubview:_pauseImageView];
     
@@ -282,8 +290,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     _soundImageView.right = _playBackView.width - 13;
     _soundImageView.top = 5;
-    _pauseImageView.left = _playBackView.left;
-    _pauseImageView.bottom = _playBackView.bottom;
+    _pauseImageView.right = _playBackView.width - 8;
+    _pauseImageView.bottom = _playBackView.height - 8;
     
     _pauseImageView.hidden = YES;
     
