@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -26,17 +26,17 @@
             <rect key="frame" x="0.0" y="0.0" width="144" height="65"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_puzzledetailpage_success" translatesAutoresizingMaskIntoConstraints="NO" id="SQ4-oY-UhO">
+                    <rect key="frame" x="51" y="0.0" width="93" height="65"/>
+                </imageView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKJ-Ub-RJS">
-                    <rect key="frame" x="99" y="7" width="45" height="41"/>
+                    <rect key="frame" x="99" y="0.0" width="45" height="41"/>
                     <fontDescription key="fontDescription" name="Moon-Bold" family="Moon" pointSize="39"/>
                     <color key="textColor" red="0.83137254901960778" green="0.054901960784313725" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_puzzledetailpage_success" translatesAutoresizingMaskIntoConstraints="NO" id="SQ4-oY-UhO">
-                    <rect key="frame" x="51" y="0.0" width="93" height="65"/>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yoF-Ay-hlL">
-                    <rect key="frame" x="92.5" y="44" width="51.5" height="21"/>
+                    <rect key="frame" x="92" y="37" width="51.5" height="21"/>
                     <fontDescription key="fontDescription" name="Moon-Bold" family="Moon" pointSize="20"/>
                     <color key="textColor" red="0.83137254900000002" green="0.054901960780000002" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -46,11 +46,14 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="SQ4-oY-UhO" secondAttribute="trailing" id="6by-DI-z27"/>
                 <constraint firstAttribute="trailing" secondItem="bKJ-Ub-RJS" secondAttribute="trailing" id="7Qe-pO-YxK"/>
-                <constraint firstAttribute="bottom" secondItem="yoF-Ay-hlL" secondAttribute="bottom" id="BpR-6E-6q4"/>
-                <constraint firstAttribute="bottom" secondItem="SQ4-oY-UhO" secondAttribute="bottom" id="U6O-h4-thC"/>
+                <constraint firstItem="bKJ-Ub-RJS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="bLS-CH-f5i"/>
                 <constraint firstAttribute="trailing" secondItem="yoF-Ay-hlL" secondAttribute="trailing" id="cwt-ek-cFQ"/>
-                <constraint firstItem="yoF-Ay-hlL" firstAttribute="top" secondItem="bKJ-Ub-RJS" secondAttribute="bottom" constant="-4" id="qk8-hJ-lFN"/>
+                <constraint firstItem="yoF-Ay-hlL" firstAttribute="top" secondItem="bKJ-Ub-RJS" secondAttribute="bottom" constant="-4" id="gwd-P4-aH5"/>
+                <constraint firstItem="SQ4-oY-UhO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="iuj-jb-Ac2"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-93" y="85"/>
         </view>
