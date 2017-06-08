@@ -30,6 +30,10 @@
             NZRankCellView *view;
             if (i==0) {
                 view = [[NZRankCellView alloc] initWithFrame:CGRectMake(16, titleImageView.bottom+24, self.width-32, ROUND_HEIGHT_FLOAT(40))];
+                view.usernameLabel.textColor = COMMON_GREEN_COLOR;
+                view.usernameLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
+                view.expImageView.image = [UIImage imageNamed:@"img_puzzleranking_mytop"];
+                view.expLabel.textColor = COMMON_GREEN_COLOR;
             } else {
                 view = [[NZRankCellView alloc] initWithFrame:CGRectMake(16, titleImageView.bottom+24+60+ROUND_HEIGHT_FLOAT(40)*(i-1), self.width-32, ROUND_HEIGHT_FLOAT(30))];
             }
@@ -112,7 +116,7 @@
         _rankOrderLabel = [UILabel new];
         _rankOrderLabel.text = @"99";
         _rankOrderLabel.textColor = COMMON_PINK_COLOR;
-        _rankOrderLabel.font = MOON_FONT_OF_SIZE(14);
+        _rankOrderLabel.font = MOON_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(14));
         [self addSubview:_rankOrderLabel];
         [_rankOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self);
@@ -134,16 +138,16 @@
         _usernameLabel = [UILabel new];
         _usernameLabel.text = @"我是一个零仔";
         _usernameLabel.textColor = [UIColor colorWithHex:0x3c3c3c];
-        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(10);
+        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(10));
         [self addSubview:_usernameLabel];
         [_usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self);
             make.left.equalTo(self.mas_left).offset(112);
         }];
         
-        UIImageView *expImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzleranking_usetop"]];
-        [self addSubview:expImageView];
-        [expImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        _expImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzleranking_usetop"]];
+        [self addSubview:_expImageView];
+        [_expImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self);
             make.centerX.equalTo(self.mas_right).offset(-43-8);
         }];
@@ -151,11 +155,11 @@
         _expLabel = [UILabel new];
         _expLabel.text = @"99999";
         _expLabel.textColor = [UIColor colorWithHex:0x3c3c3c];
-        _expLabel.font = MOON_FONT_OF_SIZE(10);
+        _expLabel.font = MOON_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(10));
         [self addSubview:_expLabel];
         [_expLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self);
-            make.left.equalTo(expImageView.mas_right).offset(3);
+            make.left.equalTo(_expImageView.mas_right).offset(3);
         }];
     }
     return self;

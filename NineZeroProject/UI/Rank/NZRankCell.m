@@ -38,7 +38,7 @@
         _rankOrderLabel = [UILabel new];
         _rankOrderLabel.text = @"99";
         _rankOrderLabel.textColor = COMMON_PINK_COLOR;
-        _rankOrderLabel.font = MOON_FONT_OF_SIZE(14);
+        _rankOrderLabel.font = MOON_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(14));
         [_backView addSubview:_rankOrderLabel];
         [_rankOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(_backView);
@@ -60,7 +60,7 @@
         _usernameLabel = [UILabel new];
         _usernameLabel.text = @"我是一个零仔";
         _usernameLabel.textColor = [UIColor colorWithHex:0x3c3c3c];
-        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(10);
+        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(10));
         [_backView addSubview:_usernameLabel];
         [_usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(_backView);
@@ -77,7 +77,7 @@
         _expLabel = [UILabel new];
         _expLabel.text = @"99999";
         _expLabel.textColor = [UIColor colorWithHex:0x3c3c3c];
-        _expLabel.font = MOON_FONT_OF_SIZE(10);
+        _expLabel.font = MOON_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(10));
         [_backView addSubview:_expLabel];
         [_expLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(_backView);
@@ -107,12 +107,12 @@
         }];
         _avatarImageView.layer.cornerRadius = ROUND_HEIGHT_FLOAT(25);
         
-        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(12);
+        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
         _usernameLabel.textColor = COMMON_GREEN_COLOR;
         
         _expImageView.image = [UIImage imageNamed:@"img_puzzleranking_mytop"];
         
-        _expLabel.font = MOON_FONT_OF_SIZE(12);
+        _expLabel.font = MOON_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
         _expLabel.textColor = COMMON_GREEN_COLOR;
         
         [self setRanker:ranker];
@@ -126,12 +126,12 @@
         }];
         _avatarImageView.layer.cornerRadius = ROUND_HEIGHT_FLOAT(15);
         
-        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(10);
+        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(10));
         _usernameLabel.textColor = COMMON_TEXT_3_COLOR;
         
         _expImageView.image = [UIImage imageNamed:@"img_puzzleranking_usetop"];
         
-        _expLabel.font = MOON_FONT_OF_SIZE(10);
+        _expLabel.font = MOON_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(10));
         _expLabel.textColor = COMMON_TEXT_3_COLOR;
         
         [self setRanker:ranker];

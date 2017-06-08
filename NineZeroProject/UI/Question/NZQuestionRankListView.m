@@ -38,7 +38,7 @@
             UILabel *rankLabel = [UILabel new];
             rankLabel.text = [NSString stringWithFormat:@"%d",i+1];
             rankLabel.textColor = COMMON_PINK_COLOR;
-            rankLabel.font = MOON_FONT_OF_SIZE(16);
+            rankLabel.font = MOON_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(16));
             [rankLabel sizeToFit];
             [view addSubview:rankLabel];
             [rankLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -60,7 +60,7 @@
             UILabel *userNameLabel = [UILabel new];
             userNameLabel.text = array[i].user_name;
             userNameLabel.textColor = [UIColor whiteColor];
-            userNameLabel.font = PINGFANG_FONT_OF_SIZE(12);
+            userNameLabel.font = PINGFANG_FONT_OF_SIZE(ROUND_WIDTH_FLOAT(12));
             [userNameLabel sizeToFit];
             [view addSubview:userNameLabel];
             [userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {

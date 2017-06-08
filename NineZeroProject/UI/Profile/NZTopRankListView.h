@@ -32,5 +32,6 @@
 @property (nonatomic, strong) UILabel *rankOrderLabel;
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;
+@property (nonatomic, strong) UIImageView *expImageView;
 @property (nonatomic, strong) UILabel *expLabel;
 @end
