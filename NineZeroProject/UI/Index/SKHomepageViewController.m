@@ -44,10 +44,12 @@
     _selectedCityCode = @"010";
     [self createUI];
     [[[SKServiceManager sharedInstance] commonService] getPeacock:^(BOOL success, SKResponsePackage *response) {
+        NSDictionary *dict = [NSDictionary dictionaryWithDictionary:response.data];
+        NSLog(@"%@", dict);
         if (![response.data[@"peacock_pic"] isEqualToString:@""]&&response.data[@"peacock_pic"]!=nil) {
             if ([response.data[@"status"] integerValue]==1) {
                 [self loadAdvWithImage:response.data[@"peacock_pic"]];
-                self.adLink = response.data[@"link"];                
+                self.adLink = response.data[@"link"];
             }
         }
     }];
