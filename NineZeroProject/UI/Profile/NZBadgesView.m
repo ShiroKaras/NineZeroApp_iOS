@@ -88,7 +88,7 @@
                     _badgeLevel++;
                     [cell isGetBadge:YES];
                     [cell.coverImageView sd_setImageWithURL:[NSURL URLWithString:medals[j].medal_icon]];
-                    medals[i].isHad = YES;
+                    medals[j].isHad = YES;
                 }
                 
                 UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(16+(16+width)*(j%3), _titleImageView2.bottom+16+(14+height)*(j/3), width, height)];
