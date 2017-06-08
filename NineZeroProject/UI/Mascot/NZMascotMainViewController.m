@@ -100,7 +100,7 @@
     [self.view addSubview:_pageControl];
     [_pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(self.view.mas_top).offset(16+64);
+        make.top.equalTo(self.view.mas_top).offset(4+64);
         make.height.equalTo(@(8));
     }];
 }
