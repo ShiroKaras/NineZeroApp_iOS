@@ -74,7 +74,7 @@
 			//            }
 		} else {
 			if (question.base_type == 1 || _question.base_type == 2) {
-				[_resultImageView setImage:[UIImage imageNamed:@"img_stamp_AR"]];
+				[_resultImageView setImage:[UIImage imageNamed:@"img_puzzledetailpage_ar"]];
 			} else {
 				_resultImageView.hidden = YES;
 			}
