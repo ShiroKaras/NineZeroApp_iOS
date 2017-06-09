@@ -33,13 +33,13 @@
         
         _mascotDefaultImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, self.width, self.height-64)];
         _mascotDefaultImageView.layer.masksToBounds = YES;
-        _mascotDefaultImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _mascotDefaultImageView.contentMode = UIViewContentModeScaleAspectFill;
         _mascotDefaultImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_lingzaipage_%ld_default", [_mascot.pet_id integerValue]-1]];
         [self addSubview:_mascotDefaultImageView];
         
         _mascotGifImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, self.width, self.height-64)];
         _mascotGifImageView.layer.masksToBounds = YES;
-        _mascotGifImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _mascotGifImageView.contentMode = UIViewContentModeScaleAspectFill;
         _mascotGifImageView.userInteractionEnabled = YES;
         NSString *imageName = [NSString stringWithFormat:@"png_%@gif_00000.png", _mascot.pet_name];
         _mascotGifImageView.image = ImageWithPath(imageName);
