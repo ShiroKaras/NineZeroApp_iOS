@@ -78,7 +78,21 @@
             ((NZRankCellView*)[self viewWithTag:100+i]).rankOrderLabel.text = [NSString stringWithFormat:@"%ld", rankerArray[i].rank];
             ((NZRankCellView*)[self viewWithTag:100+i]).usernameLabel.text = rankerArray[i].user_name;
             [((NZRankCellView*)[self viewWithTag:100+i]).avatarImageView sd_setImageWithURL:[NSURL URLWithString:rankerArray[i].user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
-            ((NZRankCellView*)[self viewWithTag:100+i]).expLabel.text = rankerArray[i].user_experience_value;
+            if ([rankerArray[i].total_coop_time integerValue]>0) {
+                ((NZRankCellView*)[self viewWithTag:100+i]).expLabel.text = rankerArray[i].total_coop_time;
+                if (i==0) {
+                    ((NZRankCellView*)[self viewWithTag:100+i]).expImageView.image = [UIImage imageNamed:@"img_hunterranking_mytime"];
+                } else {
+                    ((NZRankCellView*)[self viewWithTag:100+i]).expImageView.image = [UIImage imageNamed:@"img_hunterranking_usertime"];
+                }
+            } else {
+                ((NZRankCellView*)[self viewWithTag:100+i]).expLabel.text = rankerArray[i].user_experience_value;
+                if (i==0) {
+                    ((NZRankCellView*)[self viewWithTag:100+i]).expImageView.image = [UIImage imageNamed:@"img_puzzleranking_mytop"];
+                } else {
+                    ((NZRankCellView*)[self viewWithTag:100+i]).expImageView.image = [UIImage imageNamed:@"img_puzzleranking_usetop"];
+                }
+            }
         } else  {
             ((NZRankCellView*)[self viewWithTag:100+i]).hidden = YES;
         }
