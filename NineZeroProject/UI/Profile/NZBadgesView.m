@@ -153,8 +153,6 @@
     if (self) {
         _coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.width)];
         _coverImageView.layer.masksToBounds = YES;
-        _coverImageView.layer.borderColor = COMMON_TITLE_BG_COLOR.CGColor;
-        _coverImageView.layer.borderWidth = 1;
         [self addSubview:_coverImageView];
         
         _nameLabel = [UILabel new];
@@ -173,10 +171,10 @@
 
 - (void)isGetBadge:(BOOL)flag {
     if (flag) {
-        _coverImageView.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
+//        _coverImageView.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
         _nameLabel.textColor = COMMON_GREEN_COLOR;
     } else {
-        _coverImageView.layer.borderColor = COMMON_TITLE_BG_COLOR.CGColor;
+//        _coverImageView.layer.borderColor = COMMON_TITLE_BG_COLOR.CGColor;
         _nameLabel.textColor = COMMON_TEXT_3_COLOR;
     }
 }

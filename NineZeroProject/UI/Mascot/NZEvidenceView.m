@@ -40,7 +40,7 @@
     [self addSubview:alphaView];
     
     _propImageView = [UIImageView new];
-    _propImageView.layer.cornerRadius = 2;
+    _propImageView.layer.borderWidth = 2;
     _propImageView.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
     [self addSubview:_propImageView];
     [_propImageView mas_makeConstraints:^(MASConstraintMaker *make) {

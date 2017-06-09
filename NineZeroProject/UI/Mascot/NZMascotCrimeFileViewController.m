@@ -111,14 +111,17 @@
             int y = (int)i/4;
             UIImageView *propView = [[UIImageView alloc] initWithFrame:CGRectMake(16+x*(width+12), top+16+y*(width+12), width, width)];
             propView.tag = 100+i;
-            propView.backgroundColor = [UIColor clearColor];
             propView.layer.borderWidth = 2;
             propView.layer.borderColor = COMMON_TITLE_BG_COLOR.CGColor;
+            propView.backgroundColor = [UIColor clearColor];
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickProp:)];
             [propView addGestureRecognizer:tap];
             [_mScrollView addSubview:propView];
             if (i<mascot.crime_evidence.count) {
-                [propView sd_setImageWithURL:[NSURL URLWithString:mascot.crime_evidence[i].crime_thumbnail_pic]];
+                propView.layer.borderWidth = 0;
+                if (mascot.crime_evidence[i].crime_thumbnail_pic!=nil && ![mascot.crime_evidence[i].crime_thumbnail_pic isEqualToString:@""]) {
+                    [propView sd_setImageWithURL:[NSURL URLWithString:mascot.crime_evidence[i].crime_thumbnail_pic]];
+                }
                 propView.userInteractionEnabled = YES;
             } else {
                 propView.userInteractionEnabled = NO;
