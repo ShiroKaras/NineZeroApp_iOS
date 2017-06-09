@@ -57,12 +57,12 @@
     [[[SKServiceManager sharedInstance] strongholdService] getStrongholdInfoWithID:_detail.id callback:^(BOOL success, SKStrongholdItem *strongholdItem) {
         _detail = strongholdItem;
         self.isAddTaskList = strongholdItem.task_status;
-        [_titleImageView sd_setImageWithURL:[NSURL URLWithString:strongholdItem.bigpic] placeholderImage:[UIImage imageNamed:@"img_monday_music_cover_default"]];
+        [_titleImageView sd_setImageWithURL:[NSURL URLWithString:strongholdItem.bigpic] placeholderImage:[UIImage imageNamed:@"img_taskdetail_loading"]];
         
         NZTaskDetailView *detailView = [[NZTaskDetailView alloc] initWithFrame:CGRectMake(0, _titleImageView.bottom, self.view.width, 1000) withModel:strongholdItem];
         [_scrollView addSubview:detailView];
         
-        _scrollView.contentSize = CGSizeMake(self.view.width, detailView.viewHeight+16+40+ROUND_WIDTH_FLOAT(240));
+        _scrollView.contentSize = CGSizeMake(self.view.width, detailView.viewHeight+16+40+_titleImageView.height);
         
         //加载零仔动图压缩包
         NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
@@ -126,7 +126,7 @@
     [self.view addSubview:_scrollView];
     
     _titleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.width)];
-    _titleImageView.image = [UIImage imageNamed:@"img_monday_music_cover_default"];
+    _titleImageView.image = [UIImage imageNamed:@"img_taskdetail_loading"];
     _titleImageView.layer.masksToBounds = YES;
     _titleImageView.contentMode = UIViewContentModeScaleAspectFill;
     [_scrollView addSubview:_titleImageView];
