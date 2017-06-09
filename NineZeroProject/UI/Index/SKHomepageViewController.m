@@ -185,7 +185,7 @@
     [swipeButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_scanning"] forState:UIControlStateNormal];
     [self.view addSubview:swipeButton];
     [swipeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(72), ROUND_WIDTH_FLOAT(72)));
+        make.size.mas_equalTo(CGSizeMake(72, 72));
         make.bottom.equalTo(@(-68));
         make.centerX.equalTo(weakSelf.view);
     }];
