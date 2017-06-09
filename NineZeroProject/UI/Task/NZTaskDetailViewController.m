@@ -62,7 +62,7 @@
         NZTaskDetailView *detailView = [[NZTaskDetailView alloc] initWithFrame:CGRectMake(0, _titleImageView.bottom, self.view.width, 1000) withModel:strongholdItem];
         [_scrollView addSubview:detailView];
         
-        _scrollView.contentSize = CGSizeMake(self.view.width, detailView.viewHeight+16+40+_titleImageView.height);
+        _scrollView.contentSize = CGSizeMake(self.view.width, detailView.viewHeight+16+_titleImageView.height);
         
         //加载零仔动图压缩包
         NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];

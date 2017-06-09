@@ -95,8 +95,18 @@
                 _viewHeight = detailImageView.bottom;
                 
             } else {
+                //间距
+                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+                paragraphStyle.lineSpacing = 13; // 字体的行间距
+                
+                NSDictionary *attributes = @{
+                                             NSFontAttributeName: PINGFANG_FONT_OF_SIZE(14),
+                                             NSParagraphStyleAttributeName: paragraphStyle,
+                                             NSForegroundColorAttributeName: [UIColor whiteColor]
+                                             };
+                
                 UILabel *label_detail = [UILabel new];
-                label_detail.text = model.article_details[i];
+                label_detail.attributedText = [[NSAttributedString alloc] initWithString:model.article_details[i] attributes:attributes];
                 label_detail.textColor = [UIColor whiteColor];
                 label_detail.font = PINGFANG_FONT_OF_SIZE(12);
                 label_detail.numberOfLines = 0;
