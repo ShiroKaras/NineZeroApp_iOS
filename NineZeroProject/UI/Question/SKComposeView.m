@@ -265,6 +265,8 @@
 #pragma mark - Tool Method
 
 - (void)didTapDimmingView {
+    //显示状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     if ([self.delegate respondsToSelector:@selector(didClickDimingViewInComposeView:)]) {
         [self.delegate didClickDimingViewInComposeView:self];
     }

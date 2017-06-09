@@ -658,6 +658,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)answerButtonClick:(UIButton *)sender {
     [TalkingData trackEvent:@"answer"];
+    
+    //隐藏状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    
     if (self.currentQuestion.base_type == 0) {
         _composeView = [[SKComposeView alloc] initWithQustionID:self.currentQuestion.qid frame:CGRectMake(0, 0, self.view.width, self.view.height)];
         _composeView.associatedQuestion = self.currentQuestion;
@@ -773,6 +777,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                                                                         [_composeView removeFromSuperview];
                                                                                                         [self removeDimmingView];
                                                                                                         [self showRewardViewWithReward:nil];
+                                                                                                        //显示状态栏
+                                                                                                        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
                                                                                                     });
                                                                                                 } else if (response.result == -3004) {
                                                                                                     //回答错误
@@ -808,6 +814,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                                                                                                       [_composeView removeFromSuperview];
                                                                                                       [self removeDimmingView];
                                                                                                       [self showRewardViewWithReward:nil];
+                                                                                                      //显示状态栏
+                                                                                                      [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
                                                                                                   });
                                                                                               } else if (response.result == -3004) {
                                                                                                   //回答错误
