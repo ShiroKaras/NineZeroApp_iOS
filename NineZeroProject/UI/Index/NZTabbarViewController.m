@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[UITabBar appearance] setBarTintColor:COMMON_BG_COLOR];
+    [[UITabBar appearance] setBarTintColor:COMMON_TITLE_BG_COLOR];
     [UITabBar appearance].translucent = NO;
     
     SKHomepageViewController *c1 = [[SKHomepageViewController alloc] init];

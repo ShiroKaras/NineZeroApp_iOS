@@ -57,7 +57,7 @@
     [[[SKServiceManager sharedInstance] strongholdService] getStrongholdInfoWithID:_detail.id callback:^(BOOL success, SKStrongholdItem *strongholdItem) {
         _detail = strongholdItem;
         self.isAddTaskList = strongholdItem.task_status;
-        [_titleImageView sd_setImageWithURL:[NSURL URLWithString:strongholdItem.bigpic] placeholderImage:[UIImage imageNamed:@"img_taskdetail_loading"]];
+        [_titleImageView sd_setImageWithURL:[NSURL URLWithString:strongholdItem.bigpic] placeholderImage:[UIImage imageNamed:@"img_labdetail_loading"]];
         
         NZTaskDetailView *detailView = [[NZTaskDetailView alloc] initWithFrame:CGRectMake(0, _titleImageView.bottom, self.view.width, 1000) withModel:strongholdItem];
         [_scrollView addSubview:detailView];
@@ -126,7 +126,7 @@
     [self.view addSubview:_scrollView];
     
     _titleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.width)];
-    _titleImageView.image = [UIImage imageNamed:@"img_taskdetail_loading"];
+    _titleImageView.image = [UIImage imageNamed:@"img_labdetail_loading"];
     _titleImageView.layer.masksToBounds = YES;
     _titleImageView.contentMode = UIViewContentModeScaleAspectFill;
     [_scrollView addSubview:_titleImageView];
