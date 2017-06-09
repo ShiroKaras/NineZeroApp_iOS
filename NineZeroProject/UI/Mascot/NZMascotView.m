@@ -80,7 +80,7 @@
 - (void)tapMascot {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(clearAinimationImageMemory) object:nil];
     NSMutableArray *_imageArray = [NSMutableArray array];
-    NSArray *imageCount = @[@50,@53,@64,@59,@45,@64,@60];
+    NSArray *imageCount = @[@50,@59,@64,@64,@53,@60,@45];
     _currentFrameCount = [imageCount[[_mascot.pet_id intValue]-1] intValue];
     for (int i=0; i<_currentFrameCount; i++) {
         NSString *imageName = [NSString stringWithFormat:@"png_%@gif_%05d.png", _mascot.pet_name, i];

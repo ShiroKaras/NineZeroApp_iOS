@@ -2106,13 +2106,13 @@
 		119C5CB71E2769D1001B4CFD /* MascotAnimationFrame */ = {
 			isa = PBXGroup;
 			children = (
-				11F7C91C1EE5354500DEE004 /* png_pridegif */,
-				11F7C5FF1EE51EE100DEE004 /* png_envygif */,
-				11F7C6351EE51EE100DEE004 /* png_gluttonygif */,
 				11F7C6631EE51EE200DEE004 /* png_lingzaigif */,
-				11F7C6961EE51EE200DEE004 /* png_lustgif */,
 				11F7C7141EE51EE200DEE004 /* png_slothgif */,
+				11F7C91C1EE5354500DEE004 /* png_pridegif */,
 				11F7C7501EE51EE200DEE004 /* png_wrathgif */,
+				11F7C5FF1EE51EE100DEE004 /* png_envygif */,
+				11F7C6961EE51EE200DEE004 /* png_lustgif */,
+				11F7C6351EE51EE100DEE004 /* png_gluttonygif */,
 			);
 			name = MascotAnimationFrame;
 			path = Images/MascotAnimationFrame;
