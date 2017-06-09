@@ -685,14 +685,14 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             imageView.right = self.view.right - 10;
             imageView.bottom = _answerButton.top - 5;
             imageView.alpha = 0;
-            [self.view addSubview:imageView];
+            [_questionMainScrollView addSubview:imageView];
             [UIView animateWithDuration:0.5
                              animations:^{
                                  imageView.alpha = 1;
                              }
                              completion:^(BOOL finished) {
                                  [UIView animateWithDuration:0.5
-                                                       delay:5
+                                                       delay:2
                                                      options:UIViewAnimationOptionCurveEaseIn
                                                   animations:^{
                                                       imageView.alpha = 0;
