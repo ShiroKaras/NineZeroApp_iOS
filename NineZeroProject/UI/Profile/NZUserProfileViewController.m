@@ -268,7 +268,7 @@
             HTBlankView *blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_gift"] text:@"参加官方活动，凭券获得神秘礼物"];
             [blankView setOffset:10];
             [_contentScrollView addSubview:blankView];
-            blankView.centerX = _contentScrollView.width*1.5;
+            blankView.centerX = _contentScrollView.width;
             blankView.top = 100;
         }
     }];
@@ -314,7 +314,7 @@
             [blankView setOffset:10];
             [_contentScrollView addSubview:blankView];
             blankView.top = 100;
-            blankView.centerX = _contentScrollView.width*3.5;
+            blankView.centerX = _contentScrollView.width*2;
         }
     }];
 }
