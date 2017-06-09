@@ -97,7 +97,7 @@
             } else {
                 //间距
                 NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-                paragraphStyle.lineSpacing = 13; // 字体的行间距
+                paragraphStyle.lineSpacing = 8; // 字体的行间距
                 
                 NSDictionary *attributes = @{
                                              NSFontAttributeName: PINGFANG_FONT_OF_SIZE(14),
