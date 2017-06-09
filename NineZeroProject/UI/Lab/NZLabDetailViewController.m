@@ -239,7 +239,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - Actions
 
 - (void)enterArticle {
-    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"http://112.74.133.183:9092/Home/TopicArticle/topic_article_detail/topic_id/%@.html", _topicID]];
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"https://admin.90app.tv/Home/TopicArticle/topic_article_detail/topic_id/%@.html", _topicID]];
     controller.type = 1;
     [self.navigationController pushViewController:controller animated:YES];
 }
