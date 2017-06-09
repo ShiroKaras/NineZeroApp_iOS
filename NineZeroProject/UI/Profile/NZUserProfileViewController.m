@@ -388,7 +388,9 @@
 
 - (void)settingButtonClick:(UIButton*)sender {
     SKProfileSettingViewController *controller = [[SKProfileSettingViewController alloc] init];
+    self.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:controller animated:YES];
+    self.hidesBottomBarWhenPushed=NO;
 }
 
 - (void)didClickTitleButton:(UIButton *)sender {

@@ -627,11 +627,13 @@
 - (void)whatIsNineZero:(UIButton*)sender {
     HTWebController *controller = [[HTWebController alloc] initWithURLString:@"https://admin.90app.tv/index.php?s=/Home/user/about2.html"];
     controller.titleString = @"什么是九零";
+    self.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)aboutNineZero:(UIButton*)sender {
     HTAboutController *aboutController = [[HTAboutController alloc] init];
+    self.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:aboutController animated:YES];
 }
 
