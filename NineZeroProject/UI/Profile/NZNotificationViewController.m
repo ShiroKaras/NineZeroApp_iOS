@@ -42,7 +42,7 @@
         make.centerY.equalTo(titleView);
     }];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-49-64) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64) style:UITableViewStylePlain];
     [self.tableView registerClass:[NZNotificationTableViewCell class] forCellReuseIdentifier:NSStringFromClass([NZNotificationTableViewCell class])];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

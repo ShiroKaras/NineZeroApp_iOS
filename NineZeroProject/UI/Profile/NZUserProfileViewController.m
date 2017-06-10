@@ -383,7 +383,9 @@
 
 - (void)notificationButtonClick:(UIButton *)sender {
     NZNotificationViewController *controller = [[NZNotificationViewController alloc] init];
+    self.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:controller animated:YES];
+    self.hidesBottomBarWhenPushed=NO;
 }
 
 - (void)settingButtonClick:(UIButton*)sender {
@@ -448,7 +450,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == _contentTableView_topic) {
         self.hidesBottomBarWhenPushed=YES;
-        NZLabDetailViewController *controller = [[NZLabDetailViewController alloc] initWithTopicID:_topicArray[indexPath.row].id];
+        NZLabDetailViewController *controller = [[NZLabDetailViewController alloc] initWithTopicID:_topicArray[indexPath.row].id title:_topicArray[indexPath.row].topic_title];
         [self.navigationController pushViewController:controller animated:YES];
         self.hidesBottomBarWhenPushed=NO;
     } else if (tableView == _contentTableView_tickets) {
