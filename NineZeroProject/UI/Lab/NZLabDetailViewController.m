@@ -396,7 +396,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)sharedQuestion {
-    [self showSharePromptView];
+//    [self showSharePromptView];
 }
 
 - (void)shareWithThirdPlatform:(UIButton *)sender {
