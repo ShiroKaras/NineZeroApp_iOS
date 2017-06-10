@@ -45,6 +45,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIView *dimmingView;
 
 @property (nonatomic, strong) NSString *topicID;
+@property (nonatomic, strong) NSString *topicTitle;
 
 //分享
 @property (nonatomic, strong) UIView *shareView;
@@ -59,11 +60,15 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 @implementation NZLabDetailViewController
 
-- (instancetype)initWithTopicID:(NSString *)topicID {
+- (instancetype)initWithTopicID:(NSString *)topicID title:(NSString *)title {
     self = [super init];
     if (self) {
         _topicID = topicID;
+        _topicTitle = title;
+        _topicTitle = [_topicTitle stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+        _topicTitle = [_topicTitle stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     }
+    
     return self;
 }
 
@@ -412,7 +417,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
+                [shareParams SSDKSetupShareParamsByText:_topicTitle
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(self.topicID)]
                                                   title:nil
@@ -461,7 +466,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKSetupShareParamsByText:nil
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(self.topicID)]
-                                                  title:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
+                                                  title:_topicTitle
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatTimeline
                      parameters:shareParams
@@ -503,7 +508,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验 %@ 来自@九零APP", SHARE_URL(self.topicID)]
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"%@ %@ 来自@九零APP",_topicTitle, SHARE_URL(self.topicID)]
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(self.topicID)]
                                                   title:nil
@@ -548,7 +553,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
+                [shareParams SSDKSetupShareParamsByText:_topicTitle
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(self.topicID)]
                                                   title:nil

@@ -11,6 +11,6 @@
 @interface NZLabDetailViewController : UIViewController
 @property (nonatomic, strong) NSString *TopicThumbnailUrl;
 
-- (instancetype)initWithTopicID:(NSString *)topicID;
+- (instancetype)initWithTopicID:(NSString *)topicID title:(NSString *)title;
 
 @end
