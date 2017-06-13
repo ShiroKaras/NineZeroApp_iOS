@@ -37,7 +37,11 @@
     headerView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:headerView];
     
-    _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzleranking_title"]];
+    if (_type == NZRankListTypeHunter) {
+        _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_hunterranking_title"]];
+    } else if (_type == NZRankListTypeQuestion) {
+        _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_puzzleranking_title"]];
+    }
     [headerView addSubview:_titleImageView];
     [_titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(headerView);
