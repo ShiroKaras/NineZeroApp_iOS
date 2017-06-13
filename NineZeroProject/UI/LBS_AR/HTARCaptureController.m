@@ -179,7 +179,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [self.tipImageView addSubview:self.tipLabel];
     [self showtipImageView];
     self.tipImageView.alpha = 0;
-    self.tipImageView.hidden = YES;
+//    self.tipImageView.hidden = YES;
     
     // 3.0版提示
     self.promptView = [[UIView alloc] initWithFrame:CGRectMake(0, -64, self.view.width, 64)];

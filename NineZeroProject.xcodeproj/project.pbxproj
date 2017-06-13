@@ -2058,6 +2058,8 @@
 			isa = PBXGroup;
 			children = (
 				116236E61E4B3145009FEDCA /* EasyAR */,
+				116237821E4D623D009FEDCA /* SKSwipeViewController.h */,
+				116237781E4D623D009FEDCA /* SKSwipeViewController.m */,
 				116237811E4D623D009FEDCA /* SKScanningRewardView.h */,
 				116237771E4D623D009FEDCA /* SKScanningRewardView.m */,
 				1191C4D21E51846500583556 /* SKScanningRewardViewController.h */,
@@ -2068,8 +2070,6 @@
 				1162377E1E4D623D009FEDCA /* SKDownloadProgressView.m */,
 				1162377F1E4D623D009FEDCA /* SKScanningResultView.h */,
 				116237801E4D623D009FEDCA /* SKScanningResultView.m */,
-				116237821E4D623D009FEDCA /* SKSwipeViewController.h */,
-				116237781E4D623D009FEDCA /* SKSwipeViewController.m */,
 				98A1D9311E5ECC0E00ABE360 /* SKScanningImageView.h */,
 				98A1D9321E5ECC0E00ABE360 /* SKScanningImageView.m */,
 				98A6D88C1E63DAA000BB351D /* SKScanningPuzzleView.h */,
