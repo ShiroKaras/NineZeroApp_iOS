@@ -35,11 +35,17 @@
 @property (nonatomic, strong) UITableView  *contentTableView_topic;
 
 @property (nonatomic, strong) NZTopRankListView *topRankersListView;
+@property (nonatomic, strong) UITableView *topRankerListTableView;
 
 @property (nonatomic, strong) NSArray<SKTicket*> *ticketArray;
 @property (nonatomic, strong) NSArray<SKTopic*>  *topicArray;
 @property (nonatomic, strong) NSArray<SKRanker *> *rankerList;
 @property (nonatomic, strong) NSArray<SKRanker *> *hunterRankerList;
+@property (nonatomic, strong) NSArray<SKRanker *> *currentRankerList;
+@property (nonatomic, assign) NZRankListType rankType;
+
+@property (nonatomic, strong) UIButton *rankListButton;
+@property (nonatomic, strong) UIButton *hunterListButton;
 
 @end
 
@@ -214,16 +220,47 @@
     [_contentScrollView addSubview:_contentTableView_tickets];
     
     //排名
-    _contentScrollView_rank = [[UIScrollView alloc] initWithFrame:CGRectMake(_contentScrollView.width*2, 0, _contentScrollView.width, _contentScrollView.height)];
-    _contentScrollView_rank.delegate = self;
-    _contentScrollView_rank.bounces = NO;
-    _contentScrollView_rank.contentSize = CGSizeMake(self.view.width, _contentScrollView.height*2);
-    [_contentScrollView addSubview:_contentScrollView_rank];
+    UIView *topRankHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 50)];
+    topRankHeaderView.backgroundColor = COMMON_BG_COLOR;
     
-    _topRankersListView = [[NZTopRankListView alloc] initWithFrame:CGRectMake(0, 0, _contentScrollView_rank.width, 636) withRankers:nil];
-    _topRankersListView.delegate = self;
-    [_contentScrollView_rank addSubview:_topRankersListView];
-    _contentScrollView_rank.contentSize = CGSizeMake(_contentScrollView_rank.width, 700);
+    UIImageView *rankTitleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userpage_ranking"]];
+    [topRankHeaderView addSubview:rankTitleImageView];
+    rankTitleImageView.left = 16;
+    rankTitleImageView.top = 16;
+    
+    //猎人榜
+    _hunterListButton = [UIButton new];
+    [_hunterListButton addTarget:self action:@selector(didClickHunterRankButton) forControlEvents:UIControlEventTouchUpInside];
+    [_hunterListButton setTitle:@"猎人榜" forState:UIControlStateNormal];
+    [_hunterListButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _hunterListButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
+    _hunterListButton.width = 60;
+    _hunterListButton.height = 30;
+    _hunterListButton.right = topRankHeaderView.right-16;
+    _hunterListButton.centerY = titleImageView.centerY;
+    [topRankHeaderView addSubview:_hunterListButton];
+    
+    //解谜榜
+    _rankListButton = [UIButton new];
+    [_rankListButton addTarget:self action:@selector(didClickRankButton) forControlEvents:UIControlEventTouchUpInside];
+    [topRankHeaderView addSubview:_rankListButton];
+    [_rankListButton setTitle:@"解谜榜" forState:UIControlStateNormal];
+    [_rankListButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateNormal];
+    _rankListButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(12);
+    _rankListButton.width = 60;
+    _rankListButton.height = 30;
+    _rankListButton.right = _hunterListButton.left-8;
+    _rankListButton.centerY = titleImageView.centerY;
+    
+    _topRankerListTableView = [[UITableView alloc] initWithFrame:CGRectMake(_contentScrollView.width*2, 0, _contentScrollView.width, _contentScrollView.height) style:UITableViewStylePlain];
+    _topRankerListTableView.delegate = self;
+    _topRankerListTableView.dataSource = self;
+    _topRankerListTableView.bounces = NO;
+    _topRankerListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _topRankerListTableView.backgroundColor = [UIColor clearColor];
+    [_topRankerListTableView registerClass:[NZRankCell class] forCellReuseIdentifier:NSStringFromClass([NZRankCell class])];
+    _topRankerListTableView.tableHeaderView = topRankHeaderView;
+    [_contentScrollView addSubview:_topRankerListTableView];
     
     //参与的话题
     
@@ -275,8 +312,9 @@
     
     [[[SKServiceManager sharedInstance] profileService] getSeason2RankListCallback:^(BOOL success, NSArray<SKRanker *> *rankerList) {
         if (success) {
-            _topRankersListView.rankerArray = rankerList;
             _rankerList = rankerList;
+            _currentRankerList = _rankerList;
+            [_topRankerListTableView reloadData];
             [HTProgressHUD dismiss];
         } else {
             [HTProgressHUD dismiss];
@@ -285,29 +323,16 @@
     
     [[[SKServiceManager sharedInstance] mascotService] getMascotCoopTimeRankListCallback:^(BOOL success, NSArray<SKRanker *> *rankerList) {
         if (success) {
-            _hunterRankerList = rankerList;            
+            _hunterRankerList = rankerList;
             [HTProgressHUD dismiss];
         } else {
             [HTProgressHUD dismiss];
         }
     }];
-    
-//    //勋章数量
-//    [[[SKServiceManager sharedInstance] profileService] getUserAchievement:^(BOOL success, NSInteger exp, NSInteger coopTime, NSArray<SKBadge *> *badges, NSArray<SKBadge*> *medals) {
-//        NSInteger _badgeLevel = 0;
-//        for (int i=0; i<badges.count; i++) {
-//            if (exp >= [badges[i].medal_level integerValue])    _badgeLevel++;
-//        }
-//        for (int i=0; i<medals.count; i++) {
-//            if (coopTime >= [medals[i].medal_level integerValue])   _badgeLevel++;
-//        }
-//        ((UILabel*)[self.view viewWithTag:200]).text = [NSString stringWithFormat:@"%ld", _badgeLevel];
-//    }];
 
     //参与话题
     [[[SKServiceManager sharedInstance] profileService] getJoinTopicListCallback:^(BOOL success, NSArray<SKTopic *> *topicList) {
         _topicArray = topicList;
-//        ((UILabel*)[self.view viewWithTag:203]).text = [NSString stringWithFormat:@"%ld", topicList.count];
         [_contentTableView_topic reloadData];
         if (topicList.count == 0) {
             HTBlankView *blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_topic"] text:@"脑洞大不大，参与话题多说话"];
@@ -324,13 +349,14 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == _contentScrollView_badge||
         scrollView == _contentTableView_tickets||
-        scrollView == _contentScrollView_rank||
+        scrollView == _topRankerListTableView||
         scrollView == _contentTableView_topic) {
         //得到图片移动相对原点的坐标
         CGPoint point = scrollView.contentOffset;
         if (point.y > 30) {
             if (_scrollFlag) {
                 _scrollFlag = NO;
+                [scrollView setContentOffset:CGPointMake(0, 1)];
                 [self scrollView:_scrollView scrollToPoint:CGPointMake(0, 44+ROUND_HEIGHT_FLOAT(64)+10+20+33)];
             }
         }
@@ -372,11 +398,21 @@
 #pragma mark - NZTopRankListViewDelegate
 
 - (void)didClickRankButton {
-    _topRankersListView.rankerArray = _rankerList;
+    [_rankListButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateNormal];
+    [_hunterListButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    _currentRankerList = _rankerList;
+    _rankType = NZRankListTypeQuestion;
+    [_topRankerListTableView reloadData];
 }
 
 - (void)didClickHunterRankButton {
-    _topRankersListView.rankerArray = _hunterRankerList;
+    [_rankListButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_hunterListButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateNormal];
+    
+    _currentRankerList = _hunterRankerList;
+    _rankType = NZRankListTypeHunter;
+    [_topRankerListTableView reloadData];
 }
 
 #pragma mark - Actions
@@ -433,6 +469,13 @@
             make.centerX.equalTo(cell);
         }];
         return cell;
+    } else if (tableView == _topRankerListTableView) {
+        NZRankCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NZRankCell class])];
+        if (cell==nil) {
+            cell = [[NZRankCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZRankCell class])];
+        }
+        [cell setRanker:_currentRankerList[indexPath.row] isMe:(indexPath.row == 0) withType:_rankType];
+        return cell;
     } else
         return nil;
 }
@@ -443,6 +486,9 @@
         return cell.cellHeight;
     } else if(tableView == _contentTableView_tickets) {
         return (self.view.width-32)/288*111+6;
+    } else if (tableView == _topRankerListTableView) {
+        NZRankCell *cell = (NZRankCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+        return cell.cellHeight;
     } else
         return 0;
 }
@@ -466,6 +512,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == _contentTableView_topic) {
         return _topicArray.count;
+    } else if (tableView == _topRankerListTableView) {
+        return _currentRankerList.count;
     } else
         return _ticketArray.count;
 }
