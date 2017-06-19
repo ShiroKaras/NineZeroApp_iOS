@@ -183,6 +183,7 @@
     UIButton *swipeButton = [UIButton new];
     [swipeButton addTarget:self action:@selector(didClickSwipeButton:) forControlEvents:UIControlEventTouchUpInside];
     [swipeButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_scanning"] forState:UIControlStateNormal];
+    [swipeButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_scanning_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:swipeButton];
     [swipeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(72, 72));
