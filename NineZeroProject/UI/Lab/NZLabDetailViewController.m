@@ -89,6 +89,8 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor clearColor];
+        _collectionView.showsVerticalScrollIndicator = NO;
+        _collectionView.showsHorizontalScrollIndicator = NO;
         [_collectionView registerClass:[NZLabDetialCollectionViewCell class]
             forCellWithReuseIdentifier:CELL_IDENTIFIER];
         [_collectionView registerClass:[CHTCollectionViewWaterfallHeader class]
@@ -110,6 +112,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    for (UIView *view in self.view.subviews) {
+        [view removeFromSuperview];
+    }
     [self createUI];
 }
 
@@ -191,6 +196,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [[[SKServiceManager sharedInstance] topicService] getTopicDetailWithID:_topicID callback:^(BOOL success, SKTopicDetail *topicDetail) {
         _topicDetail = topicDetail;
         [_collectionView reloadData];
+        if (topicDetail.user_comment.count == 0) {
+            HTBlankView *_blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_lab"] text:@"你可以向全宇宙发表自己的看法"];
+            [_blankView setOffset:10];
+            [self.collectionView addSubview:_blankView];
+            _blankView.top = SCREEN_WIDTH + 40;
+            _blankView.centerX = self.collectionView.centerX;
+        }
     }];
 }
 
