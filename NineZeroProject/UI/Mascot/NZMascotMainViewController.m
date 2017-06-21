@@ -12,6 +12,7 @@
 #import "NZMascotView.h"
 #import "NZMascotCrimeFileViewController.h"
 #import "NZRankViewController.h"
+#import "SKHelperView.h"
 
 @interface NZMascotMainViewController () <UIScrollViewDelegate>
 @property (nonatomic, assign) NSInteger currentIndex;
@@ -103,6 +104,12 @@
         make.top.equalTo(self.view.mas_top).offset(4+64);
         make.height.equalTo(@(8));
     }];
+    
+    if (FIRST_LAUNCH_MASCOTVIEW) {
+        EVER_LAUNCHED_MASCOTVIEW
+        SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewType2];
+        [self.view addSubview:helperView];
+    }
 }
 
 - (void)loadData {

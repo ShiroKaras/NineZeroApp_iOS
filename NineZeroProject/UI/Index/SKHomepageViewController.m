@@ -18,6 +18,7 @@
 #import "SKActivityNotificationView.h"
 #import "HTWebController.h"
 #import "NZQuestionGiftView.h"
+#import "SKHelperView.h"
 
 #import "NZPScanningFileDownloadManager.h"
 #import "SSZipArchive.h"
@@ -198,6 +199,12 @@
                                  initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     _activityNotificationView.hidden = YES;
     [self.view addSubview:_activityNotificationView];
+    
+    if (FIRST_LAUNCH_HOMEPAGE) {
+        SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewType2];
+        [self.view addSubview:helperView];
+        EVER_LAUNCH_HOMEPAGE
+    }
 }
 
 - (void)updateCityWithName:(NSString*)cityName {

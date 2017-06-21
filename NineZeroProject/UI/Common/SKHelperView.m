@@ -354,45 +354,48 @@
 }
 
 - (void)createUIWithType:(SKHelperGuideViewType)type {
-    //播放完成
     _view1 = [[UIView alloc] initWithFrame:self.frame];
     UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:_view1.frame];
     [_view1 addSubview:imageView1];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
     [_view1 addGestureRecognizer:tap];
     
-    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-        imageView1.image = [UIImage imageNamed:@"coach_mark_list_1_640"];
-    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-        imageView1.image = [UIImage imageNamed:@"coach_mark_list_1_750"];
-    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        imageView1.image = [UIImage imageNamed:@"coach_mark_list_1_1242"];
-    }
-    
-    //3次错误提示
     _view2 = [[UIView alloc] initWithFrame:self.frame];
     UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:_view2.frame];
     [_view2 addSubview:imageView2];
     UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
     [_view2 addGestureRecognizer:tap2];
     
-    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-        imageView2.image = [UIImage imageNamed:@"coach_mark_list_2_640"];
-    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-        imageView2.image = [UIImage imageNamed:@"coach_mark_list_2_750"];
-    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        imageView2.image = [UIImage imageNamed:@"coach_mark_list_2_1242"];
-    }
-    
     switch (type) {
         case SKHelperGuideViewType1:{
+            if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+                imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_640"];
+                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_640"];
+            } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+                imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_750"];
+                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_750"];
+            } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+                imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_1242"];
+                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_1242"];
+            }
+            
             [self addSubview:_view1];
             _view1.alpha = 1;
             break;
         }
         case SKHelperGuideViewType2:{
-            [self addSubview:_view2];
-            _view2.alpha = 1;
+            if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+                imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach1_640"];
+                imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach2_640"];
+            } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+                imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach1_750"];
+                imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach2_750"];
+            } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+                imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach1_1242"];
+                imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach2_1242"];
+            }
+            [self addSubview:_view1];
+            _view1.alpha = 1;
             break;
         }
         default:
@@ -400,7 +403,13 @@
     }
 }
 
+- (void)nextStep:(UIButton*)sender {
+    [_view1 removeFromSuperview];
+    [self addSubview:_view2];
+}
+
 - (void)completeButtonClick:(UIButton *)sender {
+    [_view2 removeFromSuperview];
     [self removeFromSuperview];
 }
 

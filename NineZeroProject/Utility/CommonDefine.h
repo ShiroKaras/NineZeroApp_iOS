@@ -85,14 +85,20 @@
 
 #define kMascots_Dict @"kMascotsArray"
 
+//第一次启动
 #define FIRST_LAUNCH [UD boolForKey:@"firstLaunch"]
+
+#define FIRST_LAUNCH_HOMEPAGE ![UD boolForKey:@"firstLaunchQuestionList"]
+#define EVER_LAUNCH_HOMEPAGE [UD setBool:YES forKey:@"firstLaunchQuestionList"];
 
 #define FIRST_COACHMARK_TYPE_1 ![UD boolForKey:@"firstLaunchTypePlayToEnd"]
 #define FIRST_COACHMARK_TYPE_2 ![UD boolForKey:@"firstLaunchTypeThreeWrongAnswer"]
 
 #define FIRST_LAUNCH_AR ![UD boolForKey:@"firstLaunchTypeAR"]
+
 #define FIRST_LAUNCH_QUESTIONLIST ![UD boolForKey:@"firstLaunchQuestionList"]
 #define FIRST_LAUNCH_QUESTIONVIEW ![UD boolForKey:@"firstLaunchQuestionView"]
+
 #define FIRST_LAUNCH_MASCOTVIEW ![UD boolForKey:@"firstLaunchMascotView"]
 #define EVER_LAUNCHED_MASCOTVIEW [UD setBool:YES forKey:@"firstLaunchMascotView"];
 
@@ -102,6 +108,7 @@
 #define kQuestionWrongAnswerCountSeason1 @"kQuestionWrongAnswerCountSeason1"
 #define kQuestionWrongAnswerCountSeason2 @"kQuestionWrongAnswerCountSeason2"
 
+//
 #define kBadgeLevels @"kBadgeLevels"
 
 #define EVERYDAY_FIRST_ACTIVITY_NOTIFICATION @"EVERYDAY_FIRST_ACTIVITY_NOTIFICATION"
