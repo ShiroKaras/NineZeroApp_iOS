@@ -18,7 +18,17 @@
 #import <SSZipArchive/ZipArchive.h>
 #import <TTTAttributedLabel.h>
 
-@interface SKSwipeViewController () <OpenGLViewDelegate, SKScanningRewardDelegate, SKScanningImageViewDelegate, SKScanningPuzzleViewDelegate, SKPopupGetPuzzleViewDelegate>
+#import "FXDanmaku.h"
+#import "NSObject+FXAlertView.h"
+#import "DemoDanmakuItemData.h"
+#import "DemoDanmakuItem.h"
+
+#define CurrentDevice [UIDevice currentDevice]
+#define CurrentOrientation [[UIDevice currentDevice] orientation]
+#define ScreenScale [UIScreen mainScreen].scale
+#define NotificationCetner [NSNotificationCenter defaultCenter]
+
+@interface SKSwipeViewController () <OpenGLViewDelegate, SKScanningRewardDelegate, SKScanningImageViewDelegate, SKScanningPuzzleViewDelegate, SKPopupGetPuzzleViewDelegate, FXDanmakuDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) SKScanningImageView *scanningImageView;
 @property (nonatomic, strong) SKScanningPuzzleView *scanningPuzzleView;
@@ -43,11 +53,20 @@
 @property (nonatomic, strong) NSArray *linkClarity;
 @property (nonatomic, strong) NSString *defaultPic;
 @property (nonatomic, strong) SKReward *rewardRecord;
+@property (nonatomic, strong) NSArray *lid; //目标图对应id
+@property (nonatomic, assign) BOOL bstatus; //弹幕是否开启
 
+@property (nonatomic, strong) FXDanmaku *danmaku;
+@property (nonatomic, strong) UIView *bottomView;
+@property (nonatomic, strong) UITextField *commentTextField;
+@property (nonatomic, strong) UIButton *danmakuSwitchButton;
 @end
 
 @implementation SKSwipeViewController {
 	NSUInteger _trackedTargetId;
+    BOOL danmakuSwith;
+    int currentImageOrder;
+    BOOL danmakuIsGet;
 }
 
 - (instancetype)init {
@@ -59,6 +78,10 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    
+    [self createUI];
+    
+    [self setupDanmaku];
     
 	if (!NO_NETWORK) {
 		[self loadData];
@@ -92,6 +115,162 @@
 	[self.glView setOrientation:toInterfaceOrientation];
 }
 
+- (void)createUI {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bottom-49, SCREEN_WIDTH, 49)];
+    [self.view addSubview:self.bottomView];
+    
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(13, 11, 27, 27)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back_highligth"] forState:UIControlStateHighlighted];
+    [backButton addTarget:self action:@selector(didClickBackButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomView addSubview:backButton];
+    
+    _danmakuSwitchButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bottomView.width-13-27, 11, 27, 27)];
+    [_danmakuSwitchButton setBackgroundImage:[UIImage imageNamed:@"btn_ar_shieldbarrage"] forState:UIControlStateNormal];
+    [_danmakuSwitchButton setBackgroundImage:[UIImage imageNamed:@"btn_ar_shieldbarrage_highlight"] forState:UIControlStateHighlighted];
+    [_danmakuSwitchButton addTarget:self action:@selector(danmakuSwitchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomView addSubview:_danmakuSwitchButton];
+    danmakuSwith = YES;
+    
+    _commentTextField = [[UITextField alloc] initWithFrame:CGRectMake(14, 7, self.bottomView.width-14-13-27-14, 35)];
+    _commentTextField.delegate = self;
+    _commentTextField.layer.cornerRadius = 5;
+    _commentTextField.layer.borderWidth = 1;
+    _commentTextField.layer.borderColor = [UIColor whiteColor].CGColor;
+    _commentTextField.returnKeyType = UIReturnKeySend;
+    _commentTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12, 60)];
+    _commentTextField.leftViewMode = UITextFieldViewModeAlways;
+    [_commentTextField setTextColor:[UIColor whiteColor]];
+    _commentTextField.font = PINGFANG_FONT_OF_SIZE(12);
+    NSMutableParagraphStyle *style = [_commentTextField.defaultTextAttributes[NSParagraphStyleAttributeName] mutableCopy];
+    style.minimumLineHeight = _commentTextField.font.lineHeight - (_commentTextField.font.lineHeight - [UIFont systemFontOfSize:14.0].lineHeight) / 2.0;
+    _commentTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"我也来评论下..."
+                                                                          attributes:@{
+                                                                                       NSForegroundColorAttributeName:COMMON_TEXT_2_COLOR,
+                                                                                       NSFontAttributeName : [UIFont systemFontOfSize:12.0],
+                                                                                       NSParagraphStyleAttributeName : style
+                                                                                       }];
+    [self.bottomView addSubview:_commentTextField];
+    self.commentTextField.hidden = YES;
+    self.danmakuSwitchButton.hidden = YES;
+}
+
+- (void)danmakuSwitchButtonClick:(UIButton*)sender {
+    danmakuSwith = !danmakuSwith;
+    if (danmakuSwith) {
+        [sender setBackgroundImage:[UIImage imageNamed:@"btn_ar_shieldbarrage"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"btn_ar_shieldbarrage_highlight"] forState:UIControlStateHighlighted];
+    } else {
+        [sender setBackgroundImage:[UIImage imageNamed:@"btn_ar_barrage"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"btn_ar_barrage_highlight"] forState:UIControlStateHighlighted];
+    }
+}
+
+- (void)didClickBackButton {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)textFieldTextDidChange:(NSNotification *)notification {
+    if (_commentTextField.text.length > 11) {
+        _commentTextField.text = [_commentTextField.text substringToIndex:11];
+    }
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    CGRect keyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.bottomView.frame = CGRectMake(0, self.view.height - keyboardRect.size.height-49, self.view.width, 49);
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    self.bottomView.frame = CGRectMake(0, self.view.height-49, self.view.width, 49);
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [_commentTextField resignFirstResponder];    //主要是[receiver resignFirstResponder]在哪调用就能把receiver对应的键盘往下收
+    [[[SKServiceManager sharedInstance] scanningService] sendScanningComment:_commentTextField.text imageID:self.lid[currentImageOrder] callback:^(BOOL success, SKResponsePackage *response) {
+        DemoDanmakuItemData *data = [DemoDanmakuItemData data];
+        data.avatarName = [[SKStorageManager sharedInstance] userInfo].user_avatar;
+        data.desc = _commentTextField.text;
+        [self.danmaku addData:data];
+    }];
+    return YES;
+}
+
+//Danmaku
+
+#pragma mark - Danmaku Views
+- (void)setupDanmaku {
+    self.danmaku = [[FXDanmaku alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 186)];
+    [self.view addSubview:self.danmaku];
+    
+    FXDanmakuConfiguration *config = [FXDanmakuConfiguration defaultConfiguration];
+    config.rowHeight = [DemoDanmakuItem itemHeight];
+    self.danmaku.configuration = config;
+    self.danmaku.delegate = self;
+    [self.danmaku registerNib:[UINib nibWithNibName:NSStringFromClass([DemoDanmakuItem class]) bundle:nil]
+       forItemReuseIdentifier:[DemoDanmakuItem reuseIdentifier]];
+}
+
+#pragma mark  Observer
+- (void)setupObserver {
+    [NotificationCetner addObserver:self
+                           selector:@selector(applicationWillResignActive:)
+                               name:UIApplicationWillResignActiveNotification
+                             object:nil];
+    [NotificationCetner addObserver:self
+                           selector:@selector(applicationDidBecomeActive:)
+                               name:UIApplicationDidBecomeActiveNotification
+                             object:nil];
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    [self.danmaku start];
+}
+
+- (void)applicationWillResignActive:(NSNotification*)notification {
+    [self.danmaku pause];
+}
+
+#pragma mark  Actions
+
+- (void)addOneData:(id)sender {
+    [self addDatasWithCount:1];
+}
+
+#pragma mark  FXDanmakuDelegate
+- (void)danmaku:(FXDanmaku *)danmaku didClickItem:(FXDanmakuItem *)item withData:(DemoDanmakuItemData *)data {
+    [self fx_presentConfirmViewWithTitle:nil
+                                 message:[NSString stringWithFormat:@"You click %@", data.desc]
+                      confirmButtonTitle:nil
+                       cancelButtonTitle:@"Ok"
+                          confirmHandler:nil
+                           cancelHandler:nil];
+}
+
+#pragma mark  DataSource
+- (void)addDatasWithCount:(NSUInteger)count {
+    static NSUInteger index = 0;
+    for (NSUInteger i = 0; i < count; i++) {
+        DemoDanmakuItemData *data = [DemoDanmakuItemData data];
+        data.avatarName = [NSString stringWithFormat:@"avatar%d", arc4random()%6];
+        data.desc = [NSString stringWithFormat:@"DanmakuItem-%@", @(index++)];
+        [self.danmaku addData:data];
+    }
+    
+    if (!self.danmaku.isRunning) {
+        [self.danmaku start];
+    }
+}
+
+#pragma mark -
+//Load data
+
 - (void)loadData {
 	[[[SKServiceManager sharedInstance] scanningService] getAllScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
 	    if (success) {
@@ -109,13 +288,19 @@
 		    self.rewardID = [data objectForKey:@"reward_id"];
 		    self.hint = [data objectForKey:@"hint"];
 		    self.sid = [data objectForKey:@"sid"];
-            //拼图扫一扫字段（暂时无用）
-		    self.linkClarity = [data objectForKey:@"link_clarity"];
-		    self.defaultPic = [data objectForKey:@"default_pic"];
-            self.rewardAction = [[data objectForKey:@"reward_action"] mutableCopy];
+            self.lid = [data objectForKey:@"lid"];
+            self.bstatus = [[data objectForKey:@"bstatus"] boolValue];
+            if (_bstatus == NO) {
+                self.danmaku.hidden = YES;
+            }
+//            //拼图扫一扫字段（暂时无用）
+//		    self.linkClarity = [data objectForKey:@"link_clarity"];
+//		    self.defaultPic = [data objectForKey:@"default_pic"];
+//            self.rewardAction = [[data objectForKey:@"reward_action"] mutableCopy];
+//		    self.rewardRecord = [SKReward mj_objectWithKeyValues:[data objectForKey:@"reward_record"]];
             
-		    self.rewardRecord = [SKReward mj_objectWithKeyValues:[data objectForKey:@"reward_record"]];
-
+            
+            
 		    __weak __typeof__(self) weakSelf = self;
 		    [self setupScanningFile:data
 			    completionHandler:^{
@@ -387,6 +572,8 @@
 
 - (void)isRecognizedTarget:(BOOL)flag targetId:(int)targetId {
 	if (flag && targetId >= 0) {
+        currentImageOrder = targetId;
+        //扫到目标图
         [self.scanningImageView.scanningGridLine setHidden:YES];
 		if (_swipeType == SKScanTypeImage) {
             if (_rewardID && ![_rewardID isEqualToString:@"0"]) {
@@ -394,10 +581,33 @@
                 [_scanningImageView setUpGiftView];
                 [_scanningImageView pushGift];
             }
+            self.commentTextField.hidden = NO;
+            self.danmakuSwitchButton.hidden = NO;
+            if (!danmakuIsGet) {
+                danmakuIsGet = YES;
+                [[[SKServiceManager sharedInstance] scanningService] getScanningBarrageWithImageID:self.lid[currentImageOrder] callback:^(BOOL success, NSArray<SKDanmakuItem *> *danmakuList) {
+                    [self.danmaku start];
+                    for (SKDanmakuItem *danmaku in danmakuList) {
+                        DemoDanmakuItemData *data = [DemoDanmakuItemData data];
+                        data.avatarName = danmaku.user_avatar;
+                        data.desc = danmaku.contents;
+                        [self.danmaku addData:data];
+                    }
+                    
+                    if (!self.danmaku.isRunning) {
+                        [self.danmaku start];
+                    }
+                    
+                }];
+            }
 		}
 	} else {
+        //未扫到目标图
+        danmakuIsGet = NO;
+        [self.scanningImageView showScanningGridLine];
 		if (_swipeType == SKScanTypeImage) {
-			[self.scanningImageView showScanningGridLine];
+            self.commentTextField.hidden = YES;
+            self.danmakuSwitchButton.hidden = YES;
 		}
 	}
 }

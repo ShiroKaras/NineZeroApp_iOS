@@ -39,6 +39,20 @@
 		11235EEA1E88BCF6000A1F1E /* NZTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11235EE91E88BCF6000A1F1E /* NZTabbarViewController.m */; };
 		1126BFC81CF59BBE00E4FAC3 /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */; };
 		1133DD7B1E0A65190029511B /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1133DD7A1E0A65190029511B /* FileService.m */; };
+		11342A021EFA572700413345 /* FXDanmaku.m in Sources */ = {isa = PBXBuildFile; fileRef = 113429F11EFA572700413345 /* FXDanmaku.m */; };
+		11342A031EFA572700413345 /* FXDanmakuConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 113429F31EFA572700413345 /* FXDanmakuConfiguration.m */; };
+		11342A041EFA572700413345 /* FXDanmakuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 113429F51EFA572700413345 /* FXDanmakuItem.m */; };
+		11342A051EFA572700413345 /* FXDanmakuItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = 113429F81EFA572700413345 /* FXDanmakuItemData.m */; };
+		11342A061EFA572700413345 /* FXGCDOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 113429FB1EFA572700413345 /* FXGCDOperationQueue.m */; };
+		11342A071EFA572700413345 /* FXGCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 113429FD1EFA572700413345 /* FXGCDTimer.m */; };
+		11342A081EFA572700413345 /* FXReusableObjectQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 113429FF1EFA572700413345 /* FXReusableObjectQueue.m */; };
+		11342A091EFA572700413345 /* FXSingleRowItemsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11342A011EFA572700413345 /* FXSingleRowItemsManager.m */; };
+		11342A101EFA64B200413345 /* NSObject+FXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11342A0B1EFA64B200413345 /* NSObject+FXAlertView.m */; };
+		11342A111EFA64B200413345 /* NSTimer+FXWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11342A0D1EFA64B200413345 /* NSTimer+FXWeakTimer.m */; };
+		11342A121EFA64B200413345 /* UIImageView+CornerRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = 11342A0F1EFA64B200413345 /* UIImageView+CornerRadius.m */; };
+		11342A1A1EFA650600413345 /* DemoDanmakuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 11342A161EFA650600413345 /* DemoDanmakuItem.m */; };
+		11342A1B1EFA650600413345 /* DemoDanmakuItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11342A171EFA650600413345 /* DemoDanmakuItem.xib */; };
+		11342A1C1EFA650600413345 /* DemoDanmakuItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = 11342A191EFA650600413345 /* DemoDanmakuItemData.m */; };
 		1139CBA01DACD4EB004FF6B0 /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */; };
 		1139CBA31DACD5DC004FF6B0 /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139CBA21DACD5DC004FF6B0 /* NSData+Encryption.m */; };
 		113C421B1E2482DB003E393F /* MotionEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 113C421A1E2482DB003E393F /* MotionEffectView.m */; };
@@ -815,6 +829,35 @@
 		1126BFC71CF59BBE00E4FAC3 /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		1133DD791E0A65190029511B /* FileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileService.h; sourceTree = "<group>"; };
 		1133DD7A1E0A65190029511B /* FileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileService.m; sourceTree = "<group>"; };
+		113429F01EFA572700413345 /* FXDanmaku.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXDanmaku.h; sourceTree = "<group>"; };
+		113429F11EFA572700413345 /* FXDanmaku.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXDanmaku.m; sourceTree = "<group>"; };
+		113429F21EFA572700413345 /* FXDanmakuConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXDanmakuConfiguration.h; sourceTree = "<group>"; };
+		113429F31EFA572700413345 /* FXDanmakuConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXDanmakuConfiguration.m; sourceTree = "<group>"; };
+		113429F41EFA572700413345 /* FXDanmakuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXDanmakuItem.h; sourceTree = "<group>"; };
+		113429F51EFA572700413345 /* FXDanmakuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXDanmakuItem.m; sourceTree = "<group>"; };
+		113429F61EFA572700413345 /* FXDanmakuItem_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXDanmakuItem_Private.h; sourceTree = "<group>"; };
+		113429F71EFA572700413345 /* FXDanmakuItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXDanmakuItemData.h; sourceTree = "<group>"; };
+		113429F81EFA572700413345 /* FXDanmakuItemData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXDanmakuItemData.m; sourceTree = "<group>"; };
+		113429F91EFA572700413345 /* FXDanmakuMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXDanmakuMacro.h; sourceTree = "<group>"; };
+		113429FA1EFA572700413345 /* FXGCDOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXGCDOperationQueue.h; sourceTree = "<group>"; };
+		113429FB1EFA572700413345 /* FXGCDOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXGCDOperationQueue.m; sourceTree = "<group>"; };
+		113429FC1EFA572700413345 /* FXGCDTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXGCDTimer.h; sourceTree = "<group>"; };
+		113429FD1EFA572700413345 /* FXGCDTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXGCDTimer.m; sourceTree = "<group>"; };
+		113429FE1EFA572700413345 /* FXReusableObjectQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXReusableObjectQueue.h; sourceTree = "<group>"; };
+		113429FF1EFA572700413345 /* FXReusableObjectQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXReusableObjectQueue.m; sourceTree = "<group>"; };
+		11342A001EFA572700413345 /* FXSingleRowItemsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXSingleRowItemsManager.h; sourceTree = "<group>"; };
+		11342A011EFA572700413345 /* FXSingleRowItemsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXSingleRowItemsManager.m; sourceTree = "<group>"; };
+		11342A0A1EFA64B200413345 /* NSObject+FXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FXAlertView.h"; sourceTree = "<group>"; };
+		11342A0B1EFA64B200413345 /* NSObject+FXAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FXAlertView.m"; sourceTree = "<group>"; };
+		11342A0C1EFA64B200413345 /* NSTimer+FXWeakTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+FXWeakTimer.h"; sourceTree = "<group>"; };
+		11342A0D1EFA64B200413345 /* NSTimer+FXWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+FXWeakTimer.m"; sourceTree = "<group>"; };
+		11342A0E1EFA64B200413345 /* UIImageView+CornerRadius.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CornerRadius.h"; sourceTree = "<group>"; };
+		11342A0F1EFA64B200413345 /* UIImageView+CornerRadius.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CornerRadius.m"; sourceTree = "<group>"; };
+		11342A151EFA650600413345 /* DemoDanmakuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDanmakuItem.h; sourceTree = "<group>"; };
+		11342A161EFA650600413345 /* DemoDanmakuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDanmakuItem.m; sourceTree = "<group>"; };
+		11342A171EFA650600413345 /* DemoDanmakuItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoDanmakuItem.xib; sourceTree = "<group>"; };
+		11342A181EFA650600413345 /* DemoDanmakuItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDanmakuItemData.h; sourceTree = "<group>"; };
+		11342A191EFA650600413345 /* DemoDanmakuItemData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDanmakuItemData.m; sourceTree = "<group>"; };
 		1139CB9E1DACD4EB004FF6B0 /* NSString+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+AES256.h"; path = "AES256/NSString+AES256.h"; sourceTree = "<group>"; };
 		1139CB9F1DACD4EB004FF6B0 /* NSString+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+AES256.m"; path = "AES256/NSString+AES256.m"; sourceTree = "<group>"; };
 		1139CBA11DACD5DC004FF6B0 /* NSData+Encryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Encryption.h"; path = "AES256/NSData+Encryption.h"; sourceTree = "<group>"; };
@@ -1813,9 +1856,10 @@
 		110A34A51DD07ACE00207115 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1160FB501E0FC17500606F16 /* LBS&AR */,
+				11342A141EFA650600413345 /* Danmaku */,
 				11B4EF921EA8C7AC00FF5E83 /* Lab */,
 				11B360751E8A68ED0077A081 /* Task */,
-				1160FB501E0FC17500606F16 /* LBS&AR */,
 				1160FB2D1E0E922200606F16 /* Common */,
 				1132B2C61DF5058800DA992F /* Profile */,
 				11FF643A1DDD5BF500768080 /* Login */,
@@ -1932,6 +1976,44 @@
 				113F99711E8F75F8009FABE8 /* 2.0 */,
 			);
 			name = Rank;
+			sourceTree = "<group>";
+		};
+		113429EF1EFA572700413345 /* FXDanmaku */ = {
+			isa = PBXGroup;
+			children = (
+				113429F01EFA572700413345 /* FXDanmaku.h */,
+				113429F11EFA572700413345 /* FXDanmaku.m */,
+				113429F21EFA572700413345 /* FXDanmakuConfiguration.h */,
+				113429F31EFA572700413345 /* FXDanmakuConfiguration.m */,
+				113429F41EFA572700413345 /* FXDanmakuItem.h */,
+				113429F51EFA572700413345 /* FXDanmakuItem.m */,
+				113429F61EFA572700413345 /* FXDanmakuItem_Private.h */,
+				113429F71EFA572700413345 /* FXDanmakuItemData.h */,
+				113429F81EFA572700413345 /* FXDanmakuItemData.m */,
+				113429F91EFA572700413345 /* FXDanmakuMacro.h */,
+				113429FA1EFA572700413345 /* FXGCDOperationQueue.h */,
+				113429FB1EFA572700413345 /* FXGCDOperationQueue.m */,
+				113429FC1EFA572700413345 /* FXGCDTimer.h */,
+				113429FD1EFA572700413345 /* FXGCDTimer.m */,
+				113429FE1EFA572700413345 /* FXReusableObjectQueue.h */,
+				113429FF1EFA572700413345 /* FXReusableObjectQueue.m */,
+				11342A001EFA572700413345 /* FXSingleRowItemsManager.h */,
+				11342A011EFA572700413345 /* FXSingleRowItemsManager.m */,
+			);
+			path = FXDanmaku;
+			sourceTree = "<group>";
+		};
+		11342A141EFA650600413345 /* Danmaku */ = {
+			isa = PBXGroup;
+			children = (
+				11342A151EFA650600413345 /* DemoDanmakuItem.h */,
+				11342A161EFA650600413345 /* DemoDanmakuItem.m */,
+				11342A171EFA650600413345 /* DemoDanmakuItem.xib */,
+				11342A181EFA650600413345 /* DemoDanmakuItemData.h */,
+				11342A191EFA650600413345 /* DemoDanmakuItemData.m */,
+			);
+			name = Danmaku;
+			path = NineZeroProject/UI/Danmaku;
 			sourceTree = "<group>";
 		};
 		1139CB9D1DACD4A3004FF6B0 /* AES256 */ = {
@@ -3115,6 +3197,12 @@
 		174C53351BE7A55400893C22 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				11342A0A1EFA64B200413345 /* NSObject+FXAlertView.h */,
+				11342A0B1EFA64B200413345 /* NSObject+FXAlertView.m */,
+				11342A0C1EFA64B200413345 /* NSTimer+FXWeakTimer.h */,
+				11342A0D1EFA64B200413345 /* NSTimer+FXWeakTimer.m */,
+				11342A0E1EFA64B200413345 /* UIImageView+CornerRadius.h */,
+				11342A0F1EFA64B200413345 /* UIImageView+CornerRadius.m */,
 				113C42181E2482DB003E393F /* MotionEffectView */,
 				11F706341E0CD802004332C2 /* DES */,
 				11B4EF8C1EA4D20100FF5E83 /* UILabel+ChangeLineSpaceAndWordSpace.h */,
@@ -3355,6 +3443,7 @@
 		17A89A8F1C1DB9BB0087BF00 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				113429EF1EFA572700413345 /* FXDanmaku */,
 				113FA6931E1E1BD7001DFFC5 /* MEImage+GIF */,
 				11C764561E120E5300D86F40 /* MJExtension */,
 				11B8AEE41DF1820B001A3E0F /* AESCrypt */,
@@ -4025,6 +4114,7 @@
 				11F7C9611EE5354500DEE004 /* png_pridegif_00004.png in Resources */,
 				1787FD191C4A8884006E55A6 /* ar_overlay@2x.png in Resources */,
 				11AD0C4E1DAA3490007951C5 /* targets2.json in Resources */,
+				11342A1B1EFA650600413345 /* DemoDanmakuItem.xib in Resources */,
 				11F7C9691EE5354500DEE004 /* png_pridegif_00012.png in Resources */,
 				111ACA921E2DCF83007DE137 /* right_answer_gif0014.png in Resources */,
 				11F7C9081EE51EE300DEE004 /* png_wrathgif_00044.png in Resources */,
@@ -4357,6 +4447,7 @@
 				1162371E1E4B329E009FEDCA /* SKRegisterTextField.m in Sources */,
 				116237451E4B32CF009FEDCA /* SKCardTimeView.m in Sources */,
 				116236D91E4B3096009FEDCA /* SKServiceManager.m in Sources */,
+				11342A041EFA572700413345 /* FXDanmakuItem.m in Sources */,
 				1162375B1E4B32E5009FEDCA /* SKMascotAlbumView.m in Sources */,
 				116237871E4D623D009FEDCA /* SKDownloadProgressView.m in Sources */,
 				11C460571E8D047800FDA2EA /* NZQuestionListCell.m in Sources */,
@@ -4380,6 +4471,7 @@
 				116237841E4D623D009FEDCA /* SKSwipeViewController.m in Sources */,
 				116237431E4B32CF009FEDCA /* SKAllQuestionViewController.m in Sources */,
 				1162371F1E4B329E009FEDCA /* SKRegisterViewController.m in Sources */,
+				11342A021EFA572700413345 /* FXDanmaku.m in Sources */,
 				116237491E4B32CF009FEDCA /* SKHintView.m in Sources */,
 				17B429001C54D4A8008AFBA9 /* YYAnimatedImageView.m in Sources */,
 				116237481E4B32CF009FEDCA /* SKDescriptionView.m in Sources */,
@@ -4395,15 +4487,22 @@
 				116237691E4B332E009FEDCA /* SKUserAgreementViewController.m in Sources */,
 				11C764771E120E5300D86F40 /* NSString+MJExtension.m in Sources */,
 				1160FB401E0E927F00606F16 /* HTNavigationController.m in Sources */,
+				11342A091EFA572700413345 /* FXSingleRowItemsManager.m in Sources */,
+				11342A1A1EFA650600413345 /* DemoDanmakuItem.m in Sources */,
 				1777D36A1BE798F400AC0203 /* main.m in Sources */,
 				1744BFCA1C9D52EB00708716 /* UIViewController+HTTips.m in Sources */,
+				11342A071EFA572700413345 /* FXGCDTimer.m in Sources */,
+				11342A061EFA572700413345 /* FXGCDOperationQueue.m in Sources */,
+				11342A121EFA64B200413345 /* UIImageView+CornerRadius.m in Sources */,
 				11B3607E1E8A69650077A081 /* NZTaskViewController.m in Sources */,
 				11B3607D1E8A69650077A081 /* NZTaskCell.m in Sources */,
 				11B8AEEF1DF1820B001A3E0F /* NSData+CommonCrypto.m in Sources */,
 				1162371C1E4B329E009FEDCA /* SKLoginRootViewController.m in Sources */,
 				98576C2B1E651BC000704B21 /* SKPopupGetPuzzleView.m in Sources */,
+				11342A111EFA64B200413345 /* NSTimer+FXWeakTimer.m in Sources */,
 				1162374D1E4B32CF009FEDCA /* SKTicketView.m in Sources */,
 				116236C11E4B3072009FEDCA /* SKCGIManager.m in Sources */,
+				11342A081EFA572700413345 /* FXReusableObjectQueue.m in Sources */,
 				112167641CF0637B0048EA01 /* SKLaunchAnimationViewController.m in Sources */,
 				11B4EF9B1EA9FE5000FF5E83 /* NZLabDetailViewController.m in Sources */,
 				11CE6E221EC0809E004F1707 /* NZNotificationViewController.m in Sources */,
@@ -4411,6 +4510,7 @@
 				1162375C1E4B32E5009FEDCA /* SKMascotFightManager.m in Sources */,
 				1162374C1E4B32CF009FEDCA /* SKQuestionViewController.m in Sources */,
 				1108618A1ECEC03D00CD7493 /* NZAdView.m in Sources */,
+				11342A1C1EFA650600413345 /* DemoDanmakuItemData.m in Sources */,
 				11B360781E8A69220077A081 /* NZTaskDetailViewController.m in Sources */,
 				116237051E4B3288009FEDCA /* HTAboutController.m in Sources */,
 				11F706371E0CD802004332C2 /* NSString+DES.m in Sources */,
@@ -4442,6 +4542,7 @@
 				17A89AAE1C1DBA150087BF00 /* LTInfiniteScrollView.m in Sources */,
 				17B429041C54D4A8008AFBA9 /* YYSpriteSheetImage.m in Sources */,
 				116236EE1E4B3145009FEDCA /* OpenGLView.mm in Sources */,
+				11342A101EFA64B200413345 /* NSObject+FXAlertView.m in Sources */,
 				116236D51E4B3096009FEDCA /* SKMascotService.m in Sources */,
 				11C764721E120E5300D86F40 /* MJPropertyType.m in Sources */,
 				1787FD2B1C4A9E85006E55A6 /* INTULocationManager.m in Sources */,
@@ -4473,6 +4574,7 @@
 				113FA6961E1E1BD7001DFFC5 /* MEImage+GIF.m in Sources */,
 				11C764731E120E5300D86F40 /* NSObject+MJClass.m in Sources */,
 				1162372D1E4B32B5009FEDCA /* SKHomepageViewController.m in Sources */,
+				11342A051EFA572700413345 /* FXDanmakuItemData.m in Sources */,
 				1162374A1E4B32CF009FEDCA /* SKQuestionRankListView.m in Sources */,
 				1162372C1E4B32B5009FEDCA /* SKActivityNotificationView.m in Sources */,
 				11B4EF7C1E9B270C00FF5E83 /* NZQuestionRankListView.m in Sources */,
@@ -4521,6 +4623,7 @@
 				11C460661E8D12D100FDA2EA /* NZRankViewController.m in Sources */,
 				11C7646F1E120E5300D86F40 /* MJFoundation.m in Sources */,
 				1196F2A11CF6DFA600E70C83 /* SKImageHelper.m in Sources */,
+				11342A031EFA572700413345 /* FXDanmakuConfiguration.m in Sources */,
 				11C460631E8D129800FDA2EA /* NZRankCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4744,7 +4847,7 @@
 					"-lz",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZeroD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				QQ_URL_SCHEMES_SUFFIX = 41EB0FB3;
@@ -4843,7 +4946,7 @@
 					"-lz",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZero;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZeroD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				QQ_URL_SCHEMES_SUFFIX = 41E10BDF;

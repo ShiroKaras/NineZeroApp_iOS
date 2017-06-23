@@ -149,4 +149,46 @@
     }];
 
 }
+
+//3.0.1
+- (void)getLbsRewardDetailWithID:(NSString *)rewardId callback:(SKScanningRewardCallback)callback {
+    NSDictionary *param = @{
+                            @"method": @"getLbsRewardDetail",
+                            @"reward_id" : rewardId
+                            };
+    [self scanningBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        SKReward *reward = [SKReward mj_objectWithKeyValues:response.data];
+        callback(success, reward);
+    }];
+}
+
+- (void)sendScanningComment:(NSString *)comment imageID:(NSString *)imageID callback:(SKResponseCallback)callback {
+    if (comment==nil) {
+        return;
+    }
+    NSDictionary *param = @{
+                            @"method": @"giveScanningComment",
+                            @"user_comment" : comment,
+                            @"lid" : imageID
+                            };
+    [self scanningBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
+- (void)getScanningBarrageWithImageID:(NSString *)imageID callback:(SKDanmakuListCallback)callback {
+    NSDictionary *param = @{
+                            @"method": @"getScanningBarrage",
+                            @"lid" : imageID
+                            };
+    [self scanningBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKDanmakuItem*>*danmakuList = [NSMutableArray array];
+        for (int i = 0; i < [response.data[@"user_comment"] count]; i++) {
+            SKDanmakuItem *danmakuItem = [SKDanmakuItem mj_objectWithKeyValues:response.data[@"user_comment"][i]];
+            [danmakuList addObject:danmakuItem];
+        }
+        callback(success, danmakuList);
+    }];
+}
+
 @end

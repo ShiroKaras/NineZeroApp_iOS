@@ -14,6 +14,7 @@
 
 typedef void (^SKScanningCallback)(BOOL success, SKResponsePackage *package);
 typedef void (^SKScanningRewardCallback)(BOOL success, SKReward *reward);
+typedef void (^SKDanmakuListCallback)(BOOL success, NSArray<SKDanmakuItem*>* danmakuList);
 
 - (void)getScanningWithCallBack:(SKScanningCallback)callback;
 
@@ -29,5 +30,15 @@ typedef void (^SKScanningRewardCallback)(BOOL success, SKReward *reward);
 
 //3.0 获取限时零仔
 - (void)getTimeSlotRewardDetailWithRewardID:(NSString*)rewardId callback:(SKResponseCallback)callback;
+
+//3.0.1
+//获取 LBS 奖励接口
+- (void)getLbsRewardDetailWithID:(NSString*)rewardId callback:(SKScanningRewardCallback)callback;
+
+//图片识别弹幕评论接口
+- (void)sendScanningComment:(NSString *)comment imageID:(NSString*)imageID callback:(SKResponseCallback)callback;
+
+//图片识别弹幕详情接口
+- (void)getScanningBarrageWithImageID:(NSString *)imageID callback:(SKDanmakuListCallback)callback;
 
 @end

@@ -165,3 +165,5 @@ HTINIT(SKQuestion)
 }
 @end
 
+@implementation SKDanmakuItem
+@end

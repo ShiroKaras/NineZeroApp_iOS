@@ -365,3 +365,10 @@
 @property (nonatomic, strong) SKTopicDetailBase *topic_detail;
 @property (nonatomic, strong) NSArray<SKComment*> *user_comment;
 @end
+
+@interface SKDanmakuItem : NSObject
+@property (nonatomic, copy) NSString *user_avatar;
+@property (nonatomic, copy) NSString *user_name;
+@property (nonatomic, copy) NSString *contents;
+@property (nonatomic, copy) NSString *release_time;
+@end
