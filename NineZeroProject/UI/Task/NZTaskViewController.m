@@ -13,9 +13,12 @@
 #import "NZTaskDetailViewController.h"
 
 @interface NZTaskViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) NSArray *mascotName;
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<SKStronghold*> *strongholdArray;
 @property (nonatomic, assign) NSInteger mid;
+@property (nonatomic, strong) UIButton *helpButton;
 
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 @property (nonatomic, assign) BOOL isOpenLBS;
@@ -58,9 +61,9 @@
 }
 
 - (void)createUI {
-    NSArray *mascotName = @[@"零仔〇",@"sloth", @"pride",@"wrath",@"envy",@"lust",@"gluttony"];
+    _mascotName = @[@"lingzai",@"sloth", @"pride",@"wrath",@"envy",@"lust",@"gluttony"];
     if (_mid>1&&_mid<8) {
-        _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_taskpage_title_%@1",mascotName[_mid-1]]]];
+        _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_taskpage_title_%@1",_mascotName[_mid-1]]]];
     } else {
         _titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_taskbook_title"]];
     }
@@ -68,6 +71,18 @@
     [_titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.view.mas_top).offset(42);
         make.centerX.equalTo(self.view);
+    }];
+    
+    // 帮助按钮
+    _helpButton = [UIButton new];
+    [_helpButton addTarget:self action:@selector(helpButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [_helpButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_introduce"] forState:UIControlStateNormal];
+    [_helpButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_introduce_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:_helpButton];
+    [_helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(27, 27));
+        make.centerY.equalTo(_titleImageView);
+        make.right.equalTo(@(-13));
     }];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64) style:UITableViewStylePlain];
@@ -203,6 +218,40 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
+}
+
+#pragma mark - Actions
+
+- (void)helpButtonClicked:(UIButton *)sender {
+    UIImageView *helpImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    helpImageView.contentMode = UIViewContentModeScaleAspectFit;
+    helpImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeHelper:)];
+    tap.numberOfTapsRequired = 1;
+    [helpImageView addGestureRecognizer:tap];
+    
+    if(SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+        helpImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_taskpage_%@info_640",_mascotName[_mid-1]]];
+    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+        helpImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_taskpage_%@info_750",_mascotName[_mid-1]]];
+    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+        helpImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_taskpage_%@info_1242",_mascotName[_mid-1]]];
+    }
+    [KEY_WINDOW addSubview:helpImageView];
+    helpImageView.alpha = 0;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        helpImageView.alpha = 1;
+    }];
+}
+
+- (void)closeHelper:(UITapGestureRecognizer*)gestureRecognizer {
+    UIImageView *v = (UIImageView *)[gestureRecognizer view];
+    [UIView animateWithDuration:0.3 animations:^{
+        v.alpha = 0;
+    } completion:^(BOOL finished) {
+        [v removeFromSuperview];
+    }];
 }
 
 @end

@@ -91,6 +91,9 @@
 #define FIRST_LAUNCH_HOMEPAGE ![UD boolForKey:@"firstLaunchQuestionList"]
 #define EVER_LAUNCH_HOMEPAGE [UD setBool:YES forKey:@"firstLaunchQuestionList"];
 
+#define FIRST_LAUNCH_TASKLIST ![UD boolForKey:@"firstLaunchTaskList"]
+#define EVER_LAUNCH_TASKLIST [UD setBool:YES forKey:@"firstLaunchTaskList"];
+
 #define FIRST_COACHMARK_TYPE_1 ![UD boolForKey:@"firstLaunchTypePlayToEnd"]
 #define FIRST_COACHMARK_TYPE_2 ![UD boolForKey:@"firstLaunchTypeThreeWrongAnswer"]
 
