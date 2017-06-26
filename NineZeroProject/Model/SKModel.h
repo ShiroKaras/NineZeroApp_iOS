@@ -288,8 +288,8 @@
 @property (nonatomic, copy) NSString *status; //状态（1：活动开启，0：活动关闭
 @property (nonatomic, copy) NSString *hint;
 @property (nonatomic, copy) NSString *reward_id;
-@property (nonatomic, copy) NSString *file_url;
-@property (nonatomic, copy) NSString *file_url_true;
+@property (nonatomic, copy) NSString *file_url;         //压缩包文件名
+@property (nonatomic, copy) NSString *file_url_true;    //压缩包URL
 @property (nonatomic, copy) NSArray *link_url;
 @property (nonatomic, assign) BOOL is_haved_ticket;
 @end

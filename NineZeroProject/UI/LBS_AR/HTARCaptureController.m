@@ -41,7 +41,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 @property (nonatomic, strong) NSArray *locationPointArray;
 
-@property (nonatomic, assign) NSInteger type;   //1.限时获取
+@property (nonatomic, assign) NZLbsType type;   //1.限时获取
 @property (nonatomic, strong) SKStrongholdItem *strongholdItem;
 
 @property (nonatomic, strong) UIView *promptView;
@@ -59,14 +59,14 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (instancetype)init {
     if (self = [super init]) {
-        _type = 1;
+        _type = NZLbsTypeDefault;
     }
     return self;
 }
 
 - (instancetype)initWithQuestion:(SKQuestion *)question {
 	if (self = [super init]) {
-        _type = 2;
+        _type = NZLbsTypeQuestion;
 		_question = question;
 		startFlag = false;
 		self.locationPointArray = question.question_location;
@@ -83,7 +83,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (instancetype)initWithStronghold:(SKStrongholdItem*)stronghold {
     if (self = [super init]) {
-        _type = 3;
+        _type = NZLbsTypeStronghold;
         _strongholdItem = stronghold;
         startFlag = false;
         NSDictionary *locationDict = @{
@@ -95,6 +95,15 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     return self;
 }
 
+- (instancetype)initWithHomepage {
+    if (self = [super init]) {
+        _type = NZLbsTypeHomepage;
+        [[[SKServiceManager sharedInstance] scanningService] getScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
+            self.locationPointArray = package.data[@"scanning_lbs_locations"];
+        }];
+    }
+    return self;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -190,18 +199,18 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     [promptImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.promptView);
     }];
-    if (_type == 1 && _isHadReward==NO) {
+    if (_type == NZLbsTypeDefault && _isHadReward==NO) {
         self.radarImageView.hidden = YES;
         [self showPromptView];
     }
     
-    //1.首页 2.题目 3.据点
+    //1.首页 2.题目 3.据点 4.首页LBS
     NSString *unzipFilesPath;
-    if (_type == 1) {
+    if (_type == NZLbsTypeDefault || _type == NZLbsTypeHomepage) {
         unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.pet_gif stringByDeletingPathExtension]]];
-    } else if (_type==2) {
+    } else if (_type == NZLbsTypeQuestion) {
         unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
-    } else if (_type == 3) {
+    } else if (_type == NZLbsTypeStronghold) {
         unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.strongholdItem.pet_gif stringByDeletingPathExtension]]];
     }
     
@@ -219,7 +228,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     }
     self.mascotImageView = [[UIImageView alloc] init];
     self.mascotImageView.layer.masksToBounds = YES;
-    self.mascotImageView.hidden = _type==1? _isHadReward:YES;
+    self.mascotImageView.hidden = (_type==NZLbsTypeDefault)|(_type==NZLbsTypeHomepage)? _isHadReward:YES;
     self.mascotImageView.userInteractionEnabled = YES;
     [self.view addSubview:self.mascotImageView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
@@ -229,7 +238,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     self.mascotImageView.animationRepeatCount = 0;
     [self.mascotImageView startAnimating];
     
-    if (_type == 1&&_isHadReward == YES) {
+    if ((_type==NZLbsTypeDefault)|(_type==NZLbsTypeHomepage)&&_isHadReward == YES) {
         self.mascotImageView.hidden = YES;
     }
     
@@ -435,7 +444,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)onClickMascot {
 //	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    if (_type==1) {
+    if (_type==NZLbsTypeDefault | _type==NZLbsTypeHomepage) {
         [[[SKServiceManager sharedInstance] scanningService] getTimeSlotRewardDetailWithRewardID:self.rewardID callback:^(BOOL success, SKResponsePackage *response) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (success) {
@@ -453,7 +462,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
             }
  
         }];
-    } else if (_type==2) {
+    } else if (_type==NZLbsTypeQuestion) {
         [[[SKServiceManager sharedInstance] answerService] answerLBSQuestionWithLocation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (success && response.result == 0) {
@@ -473,7 +482,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
                 }
             }
         }];
-    } else if (_type == 3) {    //据点
+    } else if (_type == NZLbsTypeStronghold) {    //据点
         [[[SKServiceManager sharedInstance] strongholdService] scanningWithStronghold:_strongholdItem forLoacation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (success && response.result == 0) {
@@ -579,7 +588,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)prarUpdateFrame:(CGRect)arViewFrame {
-    if (_type==1) {
+    if (_type==NZLbsTypeDefault) {
         return;
     }
 	BOOL needShowMascot = NO;

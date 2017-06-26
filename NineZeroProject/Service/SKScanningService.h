@@ -26,8 +26,6 @@ typedef void (^SKDanmakuListCallback)(BOOL success, NSArray<SKDanmakuItem*>* dan
 
 - (void)getScanningPuzzleWithMontageId:(NSString *)montageId sId:(NSString *)sId callback:(SKResponseCallback)callback;
 
-- (void)getAllScanningWithCallBack:(SKScanningCallback)callback;
-
 //3.0 获取限时零仔
 - (void)getTimeSlotRewardDetailWithRewardID:(NSString*)rewardId callback:(SKResponseCallback)callback;
 

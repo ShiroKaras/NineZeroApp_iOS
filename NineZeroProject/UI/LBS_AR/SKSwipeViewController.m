@@ -272,7 +272,7 @@
 //Load data
 
 - (void)loadData {
-	[[[SKServiceManager sharedInstance] scanningService] getAllScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
+	[[[SKServiceManager sharedInstance] scanningService] getScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
 	    if (success) {
 		    NSDictionary *data = package.data[0];
 		    if (!data && ![data isKindOfClass:[NSDictionary class]]) {

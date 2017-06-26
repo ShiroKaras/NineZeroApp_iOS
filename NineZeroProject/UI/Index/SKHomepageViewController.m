@@ -450,17 +450,33 @@
         [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
         [alertView show];
     } else {
-        if ([_scaningInfo.scanning_type integerValue] == 1) {
-            SKSwipeViewController *swipeViewController =
-            [[SKSwipeViewController alloc] init];
-            [self.navigationController pushViewController:swipeViewController animated:NO];
-        } else if ([_scaningInfo.scanning_type integerValue] == 2) {
-            HTARCaptureController *controller = [[HTARCaptureController alloc] init];
-            controller.delegate = self;
-            controller.pet_gif = _scaningInfo.pet_gif;
-            controller.isHadReward = _scaningInfo.is_haved_reward;
-            controller.rewardID = _scaningInfo.reward_id;
-            [self presentViewController:controller animated:NO completion:nil];
+        switch ([_scaningInfo.scanning_type integerValue]) {
+            case 1: {
+                SKSwipeViewController *swipeViewController =
+                [[SKSwipeViewController alloc] init];
+                [self.navigationController pushViewController:swipeViewController animated:NO];
+                break;
+            }
+            case 2: {
+                HTARCaptureController *controller = [[HTARCaptureController alloc] init];
+                controller.delegate = self;
+                controller.pet_gif = _scaningInfo.pet_gif;
+                controller.isHadReward = _scaningInfo.is_haved_reward;
+                controller.rewardID = _scaningInfo.reward_id;
+                [self presentViewController:controller animated:NO completion:nil];
+                break;
+            }
+            case 3: {
+                HTARCaptureController *controller = [[HTARCaptureController alloc] initWithHomepage];
+                controller.delegate = self;
+                controller.pet_gif = _scaningInfo.pet_gif;
+                controller.isHadReward = _scaningInfo.is_haved_reward;
+                controller.rewardID = _scaningInfo.reward_id;
+                [self presentViewController:controller animated:NO completion:nil];
+                break;
+            }
+            default:
+                break;
         }
     }
 }

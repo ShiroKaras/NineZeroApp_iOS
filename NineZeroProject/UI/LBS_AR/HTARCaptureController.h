@@ -14,6 +14,15 @@
 @class SKReward;
 @class SKStrongholdItem;
 @class HTARCaptureController;
+
+typedef enum : NSUInteger {
+    NZLbsTypeUnknown = 0,
+    NZLbsTypeDefault,
+    NZLbsTypeQuestion,
+    NZLbsTypeStronghold,
+    NZLbsTypeHomepage
+} NZLbsType;
+
 @protocol HTARCaptureControllerDelegate <NSObject>
 - (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward *)reward;
 @end
@@ -22,6 +31,7 @@
 
 - (instancetype)initWithQuestion:(SKQuestion *)question;
 - (instancetype)initWithStronghold:(SKStrongholdItem*)stronghold;
+- (instancetype)initWithHomepage;
 
 @property (nonatomic, weak) id<HTARCaptureControllerDelegate> delegate;
 @property (nonatomic, assign) NSString *rewardID;

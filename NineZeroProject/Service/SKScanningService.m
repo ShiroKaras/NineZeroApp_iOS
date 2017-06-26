@@ -101,17 +101,6 @@
 				    }];
 }
 
-- (void)getAllScanningWithCallBack:(SKScanningCallback)callback {
-	NSDictionary *param = @{
-		@"method": @"getScanning"
-	};
-
-	[self scanningBaseRequestWithParam:param
-				    callback:^(BOOL success, SKResponsePackage *response) {
-					callback(success, response);
-				    }];
-}
-
 - (void)getScanningPuzzleRewardWithRewardId:(NSString *)rewardId sId:(NSString *)sId callback:(SKResponseCallback)callback {
 	NSDictionary *param = @{
 		@"method": @"getLastMontageReward",
