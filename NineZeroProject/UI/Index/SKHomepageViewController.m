@@ -114,13 +114,17 @@
 
 //更新提示
 - (void)showUpdateAlert {
+    _dimmingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    _dimmingView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.85];
+    [KEY_WINDOW addSubview:_dimmingView];
+    
     _updateAlertView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 230, 143)];
     _updateAlertView.backgroundColor = COMMON_BG_COLOR;
     _updateAlertView.layer.borderWidth = 2;
     _updateAlertView.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
     _updateAlertView.centerX = self.view.centerX;
     _updateAlertView.centerY = self.view.centerY;
-    [self.view addSubview:_updateAlertView];
+    [_dimmingView addSubview:_updateAlertView];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_ updates_title"]];
     imageView.centerX = _updateAlertView.width/2;
@@ -169,9 +173,8 @@
 
 - (void)closeUpdateAlert {
     //更新界面
-    _updateAlertView.hidden = YES;
-    [_updateAlertView removeFromSuperview];
-    _updateAlertView = nil;
+    _dimmingView.hidden = YES;
+    [_dimmingView removeFromSuperview];
 }
 
 - (void)didClickUpdateButton {
