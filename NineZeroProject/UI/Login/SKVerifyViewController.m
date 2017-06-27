@@ -11,6 +11,7 @@
 
 @interface SKVerifyViewController ()
 
+@property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UITextField *verifyCodeTextField;
 @property (nonatomic, strong) UIButton *resendVerifyCodeButton;
 @property (nonatomic, assign) SKVerifyType type;
@@ -65,7 +66,7 @@
 }
 
 - (void)createUIWithType:(SKVerifyType)type {
-    self.view.backgroundColor = COMMON_PINK_COLOR;
+    self.view.backgroundColor = COMMON_GREEN_COLOR;
     
     _blackView = [[UIView alloc] initWithFrame:self.view.bounds];
     _blackView.backgroundColor = [UIColor blackColor];
@@ -73,17 +74,17 @@
     
     __weak __typeof(self)weakSelf = self;
     
-    UIButton *closeButton = [UIButton new];
-    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-    [self.view addSubview:closeButton];
-    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@40);
-        make.height.equalTo(@40);
-        make.top.equalTo(@12);
-        make.left.equalTo(@4);
-    }];
+//    UIButton *closeButton = [UIButton new];
+//    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_logins_back"] forState:UIControlStateNormal];
+//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_logins_back_highlight"] forState:UIControlStateHighlighted];
+//    [self.view addSubview:closeButton];
+//    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(@40);
+//        make.height.equalTo(@40);
+//        make.top.equalTo(@12);
+//        make.left.equalTo(@4);
+//    }];
     
     UIImageView *stepImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_code"]];
     [self.view addSubview:stepImageView];
@@ -120,8 +121,9 @@
     
     for (int i = 0; i<4; i++) {
         UIView *circleView = [UIView new];
-        circleView.layer.cornerRadius = 23;
-        circleView.backgroundColor = [UIColor colorWithHex:0x97045D];
+        circleView.backgroundColor = COMMON_GREEN_COLOR;
+        circleView.layer.borderWidth =2;
+        circleView.layer.borderColor = [UIColor whiteColor].CGColor;
         [self.view addSubview:circleView];
         [circleView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@46);
@@ -160,25 +162,13 @@
 }
 
 - (void)createUIiPhone4WithType:(SKVerifyType)type{
-    self.view.backgroundColor = COMMON_PINK_COLOR;
+    self.view.backgroundColor = COMMON_GREEN_COLOR;
     
     _blackView = [[UIView alloc] initWithFrame:self.view.bounds];
     _blackView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:_blackView];
     
     __weak __typeof(self)weakSelf = self;
-    
-    UIButton *closeButton = [UIButton new];
-    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-    [self.view addSubview:closeButton];
-    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@40);
-        make.height.equalTo(@40);
-        make.top.equalTo(@12);
-        make.left.equalTo(@4);
-    }];
     
     UIImageView *stepImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_code"]];
     [self.view addSubview:stepImageView];
@@ -221,7 +211,7 @@
         [circleView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@46);
             make.height.equalTo(@46);
-            make.top.equalTo(contentLabel.mas_bottom).offset(40);
+            make.top.equalTo(_contentLabel.mas_bottom).offset(40);
             make.left.equalTo(@((SCREEN_WIDTH-220)/2+i*58));
         }];
         
@@ -298,7 +288,7 @@
                     [self.view bringSubviewToFront:_blackView];
                     [self.view endEditing:YES];
                     [[NSNotificationCenter defaultCenter] removeObserver:self];
-                    SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
+                    NZTabbarViewController *controller = [[NZTabbarViewController alloc] init];
                     AppDelegateInstance.mainController = controller;
                     HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
                     AppDelegateInstance.window.rootViewController = navController;
@@ -322,7 +312,7 @@
                     [self.view bringSubviewToFront:_blackView];
                     [self.view endEditing:YES];
                     [[NSNotificationCenter defaultCenter] removeObserver:self];
-                    SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
+                    NZTabbarViewController *controller = [[NZTabbarViewController alloc] init];
                     AppDelegateInstance.mainController = controller;
                     HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
                     AppDelegateInstance.window.rootViewController = navController;

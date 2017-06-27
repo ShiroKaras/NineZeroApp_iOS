@@ -14,11 +14,18 @@
 
 typedef void (^SKGetTokenCallback) (BOOL success, NSString *token);
 typedef void (^SKIndexInfoCallback) (BOOL success, SKIndexInfo *indexInfo);
+typedef void (^SKIndexScanningCallback) (BOOL success, SKIndexScanning *indexScanningInfo);
 
 @interface SKCommonService : NSObject
 
 // 首页信息
 - (void)getHomepageInfoCallBack:(SKIndexInfoCallback)callback;
+
+// 获取开屏图
+- (void)getPeacock:(SKResponseCallback)callback;
+
+// 获取广告图和扫一扫类型(3.0)
+- (void)getPublicPage:(SKIndexScanningCallback)callback;
 
 // Qiniu Token
 - (void)getQiniuPublicTokenWithCompletion:(SKGetTokenCallback)callback;

@@ -39,7 +39,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[TalkingData trackPageBegin:@"alllevelspage"];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+	//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 	[self.navigationController.navigationBar setHidden:YES];
 }
 
@@ -64,25 +64,25 @@
 
 #pragma mark - Load data
 - (void)loadData {
-	[[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
-	    NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
-	    [self createSeason1UIWithData:mQuestionList_season1];
-
-	    NSMutableArray *mQuestionList_season2 = [questionList_season2 mutableCopy];
-	    [self createSeason2UIWithData:mQuestionList_season2];
-
-	    if (answeredQuestion_season1 < 60)
-		    self.season = 1;
-	    else
-		    self.season = 2;
-
-	    if (FIRST_LAUNCH_QUESTIONLIST) {
-		    [self helpButtonClick:nil];
-		    [UD setBool:YES forKey:@"firstLaunchQuestionList"];
-	    }
-
-	    [self hideHUD];
-	}];
+//	[[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
+//	    NSMutableArray *mQuestionList_season1 = [questionList_season1 mutableCopy];
+//	    [self createSeason1UIWithData:mQuestionList_season1];
+//
+//	    NSMutableArray *mQuestionList_season2 = [questionList_season2 mutableCopy];
+//	    [self createSeason2UIWithData:mQuestionList_season2];
+//
+//	    if (answeredQuestion_season1 < 60)
+//		    self.season = 1;
+//	    else
+//		    self.season = 2;
+//
+//	    if (FIRST_LAUNCH_QUESTIONLIST) {
+//		    [self helpButtonClick:nil];
+//		    [UD setBool:YES forKey:@"firstLaunchQuestionList"];
+//	    }
+//
+//	    [self hideHUD];
+//	}];
 }
 
 #pragma mark - Create UI
@@ -178,13 +178,13 @@
 	[self showHUD];
 
 	if (NO_NETWORK) {
-		UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-		converView.backgroundColor = COMMON_BG_COLOR;
-		[self.view addSubview:converView];
-		HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-		[blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
-		[self.view addSubview:blankView];
-		blankView.top = ROUND_HEIGHT_FLOAT(217);
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *_blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
+        [_blankView setOffset:10];
+        [converView addSubview:_blankView];
+        _blankView.center = converView.center;
 		[self hideHUD];
 	} else {
 		[self loadData];

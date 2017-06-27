@@ -196,8 +196,9 @@
 		[KEY_WINDOW bringSubviewToFront:rewardView];
 	} else if (_swipeType == 1) {
 		[[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
-		[[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2){
-		}];
+        [[[SKServiceManager sharedInstance] questionService] getQuestionListCallback:^(BOOL success, NSArray<SKQuestion *> *questionList) { }];
+//		[[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2){
+//		}];
 		SKARRewardController *rewardController = [[SKARRewardController alloc] initWithRewardID:[[[[SKServiceManager sharedInstance] questionService] questionList_season2] lastObject].reward_id questionID:[[[[SKServiceManager sharedInstance] questionService] questionList_season2] lastObject].qid];
 		if (IOS_VERSION >= 8.0) {
 			rewardController.modalPresentationStyle = UIModalPresentationOverCurrentContext;

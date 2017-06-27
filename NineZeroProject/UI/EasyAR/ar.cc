@@ -41,6 +41,9 @@ bool AR::initCamera() {
 	tracker_.setSimultaneousNum(1);
 	tracker2_.setSimultaneousNum(2);
 	status &= augmenter_.attachCamera(camera_);
+
+	status &= camera_.start();
+	camera_.setFocusMode(CameraDevice::kFocusModeContinousauto);
 	return status;
 }
 
@@ -85,10 +88,16 @@ void AR::loadAllFromJsonFile(const std::string &path, int tracker_id) {
 
 bool AR::start() {
 	bool status = true;
-	status &= camera_.start();
-	camera_.setFocusMode(CameraDevice::kFocusModeContinousauto);
+
 	status &= tracker_.start();
 	status &= tracker2_.start();
+	return status;
+}
+
+bool AR::pause() {
+	bool status = true;
+	status &= tracker_.stop();
+	status &= tracker2_.stop();
 	return status;
 }
 

@@ -36,10 +36,17 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 @property (nonatomic, strong) AMapLocationManager *singleLocationManager;
 @property (nonatomic, strong) UIButton *helpButton;
-@property (nonatomic, strong) SKHelperGuideView *guideView;
-@property (nonatomic, strong) SKHelperScrollView *helpView;
+//@property (nonatomic, strong) SKHelperGuideView *guideView;
+//@property (nonatomic, strong) SKHelperScrollView *helpView;
 
 @property (nonatomic, strong) NSArray *locationPointArray;
+
+@property (nonatomic, assign) NZLbsType type;   //1.限时获取
+@property (nonatomic, strong) SKStrongholdItem *strongholdItem;
+
+@property (nonatomic, strong) UIView *promptView;
+@property (nonatomic, assign) BOOL isShowedPrompt;  //是否已提示过捕捉
+@property (nonatomic, strong) NSString *sid;    //活动ID;
 @end
 
 @implementation HTARCaptureController {
@@ -50,8 +57,17 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	BOOL startFlag;
 }
 
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _type = NZLbsTypeDefault;
+    }
+    return self;
+}
+
 - (instancetype)initWithQuestion:(SKQuestion *)question {
 	if (self = [super init]) {
+        _type = NZLbsTypeQuestion;
 		_question = question;
 		startFlag = false;
 		self.locationPointArray = question.question_location;
@@ -66,139 +82,183 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	return self;
 }
 
-- (void)viewDidLoad {
-	[super viewDidLoad];
-	self.view.backgroundColor = [UIColor blackColor];
-	[self registerLocation];
+- (instancetype)initWithStronghold:(SKStrongholdItem*)stronghold {
+    if (self = [super init]) {
+        _type = NZLbsTypeStronghold;
+        _strongholdItem = stronghold;
+        startFlag = false;
+        NSDictionary *locationDict = @{
+                                       @"lat" : stronghold.lat,
+                                       @"lng" : stronghold.lng
+                                       };
+        self.locationPointArray = @[locationDict];
+    }
+    return self;
+}
 
-	_needShowDebugLocation = NO;
-
-	// 1.AR
-	self.prARManager = [[PRARManager alloc] initWithSize:self.view.frame.size delegate:self showRadar:NO];
-
-	// 2.返回
-	self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[self.backButton setImage:[UIImage imageNamed:@"btn_fullscreen_back"] forState:UIControlStateNormal];
-	[self.backButton setImage:[UIImage imageNamed:@"btn_fullscreen_back_highlight"] forState:UIControlStateHighlighted];
-	[self.backButton addTarget:self action:@selector(onClickBack) forControlEvents:UIControlEventTouchUpInside];
-	[self.backButton sizeToFit];
-	[self.view addSubview:self.backButton];
-
-	// 3.雷达
-	NSInteger radarCount = 50;
-	NSMutableArray *radars = [NSMutableArray arrayWithCapacity:radarCount];
-	for (int i = 0; i != radarCount; i++) {
-		[radars addObject:[UIImage imageNamed:[NSString stringWithFormat:@"raw_radar_gif_000%02d", i]]];
-	}
-	self.radarImageView = [[UIImageView alloc] init];
-	self.radarImageView.layer.masksToBounds = YES;
-	self.radarImageView.animationImages = radars;
-	self.radarImageView.animationDuration = 2.0f;
-	self.radarImageView.animationRepeatCount = 0;
-	[self.radarImageView startAnimating];
-	self.radarImageView.userInteractionEnabled = YES;
-	UITapGestureRecognizer *tapThree = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickShowDebug)];
-	tapThree.numberOfTapsRequired = 1;
-	[self.radarImageView addGestureRecognizer:tapThree];
-	[self.view addSubview:self.radarImageView];
-
-	// 4.提示
-	self.tipImageView = [[UIImageView alloc] init];
-	self.tipImageView.layer.masksToBounds = YES;
-	self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
-	self.tipImageView.contentMode = UIViewContentModeBottom;
-	[self.tipImageView sizeToFit];
-	[self.view addSubview:self.tipImageView];
-	self.tipLabel = [[UILabel alloc] init];
-	self.tipLabel.font = [UIFont systemFontOfSize:13];
-	self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
-	[self.tipImageView addSubview:self.tipLabel];
-	[self showtipImageView];
-
-	NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
-
-	NSFileManager *myFileManager = [NSFileManager defaultManager];
-	NSDirectoryEnumerator *myDirectoryEnumerator;
-	myDirectoryEnumerator = [myFileManager enumeratorAtPath:unzipFilesPath];
-	//列举目录内容，可以遍历子目录
-	NSString *unzipFileName;
-
-	NSMutableArray<UIImage *> *images = [NSMutableArray array];
-	while ((unzipFileName = [myDirectoryEnumerator nextObject]) != nil) {
-		NSData *data = [NSData dataWithContentsOfFile:[unzipFilesPath stringByAppendingPathComponent:unzipFileName]];
-		UIImage *image = [UIImage imageWithData:data];
-		[images addObject:image];
-	}
-	self.mascotImageView = [[UIImageView alloc] init];
-	self.mascotImageView.layer.masksToBounds = YES;
-	self.mascotImageView.hidden = YES;
-	self.mascotImageView.userInteractionEnabled = YES;
-	[self.view addSubview:self.mascotImageView];
-	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
-	[self.mascotImageView addGestureRecognizer:tap];
-	self.mascotImageView.animationImages = images;
-	self.mascotImageView.animationDuration = 0.1 * images.count;
-	self.mascotImageView.animationRepeatCount = 0;
-	[self.mascotImageView startAnimating];
-
-	//    self.mascotMotionView = [[MotionEffectView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
-	//    self.mascotMotionView.hidden = YES;
-	//    self.mascotMotionView.imageView.hidden = YES;
-	//    self.mascotMotionView.center = self.view.center;
-	//    self.mascotMotionView.delegate = self;
-	//    [self.view addSubview:self.mascotMotionView];
-	//    [self.mascotMotionView setImage:self.mascotImageView];
-
-	if (FIRST_LAUNCH_AR) {
-		SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
-		helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT - 356) / 2, 0, 0);
-		helpView.dimmingView.alpha = 0;
-		[KEY_WINDOW addSubview:helpView];
-
-		[UIView animateWithDuration:0.3
-				      delay:0
-				    options:UIViewAnimationOptionCurveEaseOut
-				 animations:^{
-				     helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-				     helpView.dimmingView.alpha = 0.9;
-				 }
-				 completion:^(BOOL finished){
-
-				 }];
-		[UD setBool:YES forKey:@"firstLaunchTypeAR"];
-	}
-
-	[self buildConstrains];
-
-	//判断GPS是否开启
-	HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-	alertView.delegate = self;
-	if ([CLLocationManager locationServicesEnabled]) {
-		if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-		} else {
-			[alertView show];
-		}
-	} else {
-		[alertView show];
-	}
+- (instancetype)initWithHomepage {
+    if (self = [super init]) {
+        _type = NZLbsTypeHomepage;
+        [[[SKServiceManager sharedInstance] scanningService] getScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
+            self.locationPointArray = package.data[@"scanning_lbs_locations"];
+            self.isHadReward = [package.data[@"is_haved_reward"] boolValue];
+            self.rewardID = package.data[@"reward_id"];
+            self.sid = package.data[@"sid"];
+        }];
+    }
+    return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    [super viewWillAppear:animated];
+    //隐藏状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-	[self.prARManager stopAR];
-	[self.locationManager stopUpdatingLocation];
+    [super viewWillDisappear:animated];
+    //显示状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [self.prARManager stopAR];
+    [self.locationManager stopUpdatingLocation];
 }
 
 - (void)dealloc {
+    
+}
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	self.view.backgroundColor = [UIColor blackColor];
+    
+    //判断GPS是否开启
+    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+    alertView.delegate = self;
+    if ([CLLocationManager locationServicesEnabled]) {
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+            [self createUI];
+        } else {
+            [alertView show];
+        }
+    } else {
+        [alertView show];
+    }
+}
+
+- (void)createUI {
+    _needShowDebugLocation = NO;
+    _isShowedPrompt = NO;
+    
+    [self registerLocation];
+    self.prARManager = [[PRARManager alloc] initWithSize:self.view.frame.size delegate:self showRadar:NO];
+    
+    // 2.返回
+    self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.backButton setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@"btn_back_highlight"] forState:UIControlStateHighlighted];
+    [self.backButton addTarget:self action:@selector(onClickBack) forControlEvents:UIControlEventTouchUpInside];
+    [self.backButton sizeToFit];
+    [self.view addSubview:self.backButton];
+    
+    // 3.雷达
+    NSInteger radarCount = 50;
+    NSMutableArray *radars = [NSMutableArray arrayWithCapacity:radarCount];
+    for (int i = 0; i != radarCount; i++) {
+        [radars addObject:[UIImage imageNamed:[NSString stringWithFormat:@"raw_radar_gif_000%02d", i]]];
+    }
+    self.radarImageView = [[UIImageView alloc] init];
+    self.radarImageView.layer.masksToBounds = YES;
+    self.radarImageView.animationImages = radars;
+    self.radarImageView.animationDuration = 2.0f;
+    self.radarImageView.animationRepeatCount = 0;
+    [self.radarImageView startAnimating];
+    self.radarImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapThree = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickShowDebug)];
+    tapThree.numberOfTapsRequired = 1;
+    [self.radarImageView addGestureRecognizer:tapThree];
+    [self.view addSubview:self.radarImageView];
+    
+    
+    // 4.提示 (3.0版本不显示)
+    self.tipImageView = [[UIImageView alloc] init];
+    self.tipImageView.layer.masksToBounds = YES;
+    self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
+    self.tipImageView.contentMode = UIViewContentModeBottom;
+    [self.tipImageView sizeToFit];
+    [self.view addSubview:self.tipImageView];
+    self.tipLabel = [[UILabel alloc] init];
+    self.tipLabel.font = [UIFont systemFontOfSize:13];
+    self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
+    [self.tipImageView addSubview:self.tipLabel];
+    [self showtipImageView];
+    self.tipImageView.alpha = 0;
+//    self.tipImageView.hidden = YES;
+    
+    // 3.0版提示
+    self.promptView = [[UIView alloc] initWithFrame:CGRectMake(0, -64, self.view.width, 64)];
+    self.promptView.backgroundColor = COMMON_GREEN_COLOR;
+    [self.view addSubview:self.promptView];
+    UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_arpage_prompt"]];
+    [self.promptView addSubview:promptImageView];
+    [promptImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.promptView);
+    }];
+    if (_type == NZLbsTypeDefault && _isHadReward==NO) {
+        self.radarImageView.hidden = YES;
+        [self showPromptView];
+    }
+    
+    //1.首页 2.题目 3.据点 4.首页LBS
+    NSString *unzipFilesPath;
+    if (_type == NZLbsTypeDefault || _type == NZLbsTypeHomepage) {
+        unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.pet_gif stringByDeletingPathExtension]]];
+    } else if (_type == NZLbsTypeQuestion) {
+        unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
+    } else if (_type == NZLbsTypeStronghold) {
+        unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.strongholdItem.pet_gif stringByDeletingPathExtension]]];
+    }
+    
+    NSFileManager *myFileManager = [NSFileManager defaultManager];
+    NSDirectoryEnumerator *myDirectoryEnumerator;
+    myDirectoryEnumerator = [myFileManager enumeratorAtPath:unzipFilesPath];
+    //列举目录内容，可以遍历子目录
+    NSString *unzipFileName;
+    
+    NSMutableArray<UIImage *> *images = [NSMutableArray array];
+    while ((unzipFileName = [myDirectoryEnumerator nextObject]) != nil) {
+        NSData *data = [NSData dataWithContentsOfFile:[unzipFilesPath stringByAppendingPathComponent:unzipFileName]];
+        UIImage *image = [UIImage imageWithData:data];
+        [images addObject:image];
+    }
+    self.mascotImageView = [[UIImageView alloc] init];
+    self.mascotImageView.layer.masksToBounds = YES;
+    self.mascotImageView.hidden = (_type==NZLbsTypeDefault)|(_type==NZLbsTypeHomepage)? _isHadReward:YES;
+    self.mascotImageView.userInteractionEnabled = YES;
+    [self.view addSubview:self.mascotImageView];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickMascot)];
+    [self.mascotImageView addGestureRecognizer:tap];
+    self.mascotImageView.animationImages = images;
+    self.mascotImageView.animationDuration = 0.1 * images.count;
+    self.mascotImageView.animationRepeatCount = 0;
+    [self.mascotImageView startAnimating];
+    
+    if ((_type==NZLbsTypeDefault)&&_isHadReward == YES) {
+        self.mascotImageView.hidden = YES;
+    } else if (_type==NZLbsTypeHomepage) {
+        self.mascotImageView.hidden = YES;
+    }
+    
+    if (FIRST_LAUNCH_AR) {
+        EVER_LAUNCH_AR
+        SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeLBS];
+        [KEY_WINDOW addSubview:helperView];
+    }
+    
+    [self buildConstrains];
 }
 
 - (void)didClickOKButton {
+    [self.promptView removeFromSuperview];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -214,6 +274,20 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 			 }];
 }
 
+- (void)showPromptView {
+    _isShowedPrompt = YES;
+    [UIView animateWithDuration:0.3 animations:^{
+    } completion:^(BOOL finished) {
+        self.promptView.top = 0;
+        [self.view layoutIfNeeded];
+        [UIView animateWithDuration:0.3 delay:5.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.promptView.top = -64;
+        } completion:^(BOOL finished) {
+            [self.promptView removeFromSuperview];
+        }];
+    }];
+}
+
 - (void)buildConstrains {
 	[self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
 	    make.left.equalTo(@11);
@@ -221,7 +295,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	}];
 
 	[self.radarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.top.equalTo(@11);
+	    make.top.equalTo(@31);
 	    make.right.equalTo(@(-11));
 	    make.width.equalTo(@(90));
 	    make.height.equalTo(@(90));
@@ -256,11 +330,11 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	[super viewDidAppear:animated];
 }
 
-- (void)showGuideviewWithType:(SKHelperGuideViewType)type {
-	_guideView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:type];
-	[KEY_WINDOW addSubview:_guideView];
-	[KEY_WINDOW bringSubviewToFront:_guideView];
-}
+//- (void)showGuideviewWithType:(SKHelperGuideViewType)type {
+//	_guideView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:type];
+//	[KEY_WINDOW addSubview:_guideView];
+//	[KEY_WINDOW bringSubviewToFront:_guideView];
+//}
 
 #pragma mark - Location
 
@@ -292,7 +366,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	CLLocationDistance currentDistance = -1;
 	CLLocationCoordinate2D currentPoint = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
 
-	for (NSDictionary *dict in _question.question_location) {
+	for (NSDictionary *dict in self.locationPointArray) {
 		double lat = [dict[@"lat"] doubleValue];
 		double lng = [dict[@"lng"] doubleValue];
 
@@ -321,101 +395,161 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location {
 	if (startFlag) {
-		_currentLocation = location;
-		[self.prARManager startARWithData:[self getDummyData] forLocation:location.coordinate];
-	}
+        _currentLocation = location;
+        [self.prARManager startARWithData:[self getDummyData] forLocation:location.coordinate];
+    }
 }
 
 #pragma mark - Action
 
-- (void)arQuestionHelpButtonClick:(UIButton *)sender {
-	[TalkingData trackEvent:@"vrtips"];
-	_helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
-	_helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT - 356) / 2, 0, 0);
-	_helpView.dimmingView.alpha = 0;
-	[self.view addSubview:_helpView];
-
-	[UIView animateWithDuration:0.3
-			      delay:0
-			    options:UIViewAnimationOptionCurveEaseOut
-			 animations:^{
-			     _helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-			     _helpView.dimmingView.alpha = 0.9;
-			 }
-			 completion:^(BOOL finished){
-
-			 }];
-}
+//- (void)arQuestionHelpButtonClick:(UIButton *)sender {
+//	[TalkingData trackEvent:@"vrtips"];
+//	_helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
+//	_helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT - 356) / 2, 0, 0);
+//	_helpView.dimmingView.alpha = 0;
+//	[self.view addSubview:_helpView];
+//
+//	[UIView animateWithDuration:0.3
+//			      delay:0
+//			    options:UIViewAnimationOptionCurveEaseOut
+//			 animations:^{
+//			     _helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//			     _helpView.dimmingView.alpha = 0.9;
+//			 }
+//			 completion:^(BOOL finished){
+//
+//			 }];
+//}
 
 - (void)onClickBack {
 	//    [self.mascotMotionView disableMotionEffect];
 	//    [self.mascotMotionView removeFromSuperview];
 	//    self.mascotMotionView = nil;
+    [self.promptView removeFromSuperview];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)onCaptureMascotSuccessfulWithReward:(SKReward *)reward {
-	[self.delegate didClickBackButtonInARCaptureController:self reward:reward];
+    if ([self.delegate respondsToSelector:@selector(didClickBackButtonInARCaptureController:reward:)]) {
+        [self.delegate didClickBackButtonInARCaptureController:self reward:reward];
+    }
 }
 
 - (void)onClickMascot {
-	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+//	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    if (_type==NZLbsTypeDefault) {
+        [[[SKServiceManager sharedInstance] scanningService] getTimeSlotRewardDetailWithRewardID:self.rewardID callback:^(BOOL success, SKResponsePackage *response) {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            if (success) {
+                [self catchSuccess];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.successBackgroundView removeFromSuperview];
+                    [self onCaptureMascotSuccessfulWithReward:[SKReward mj_objectWithKeyValues:[response.data mj_keyValues]]];
+                });
+            } else {
+                if (response.result) {
+                    [self showTipsWithText:[NSString stringWithFormat:@"异常%ld", (long)response.result]];
+                } else {
+                    [self showTipsWithText:@"异常"];
+                }
+            }
+        }];
+    } else if (_type==NZLbsTypeQuestion) {
+        [[[SKServiceManager sharedInstance] answerService] answerLBSQuestionWithLocation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            if (success && response.result == 0) {
+                [self catchSuccess];
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.successBackgroundView removeFromSuperview];
+                    [self onCaptureMascotSuccessfulWithReward:[SKReward mj_objectWithKeyValues:[response.data mj_keyValues]]];
+                });
+                
+            } else {
+                if (response.result) {
+                    [self showTipsWithText:[NSString stringWithFormat:@"异常%ld", (long)response.result]];
+                } else {
+                    [self showTipsWithText:@"异常"];
+                }
+            }
+        }];
+    } else if (_type == NZLbsTypeStronghold) {    //据点
+        [[[SKServiceManager sharedInstance] strongholdService] scanningWithStronghold:_strongholdItem forLoacation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            if (success && response.result == 0) {
+                [self catchSuccess];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.successBackgroundView removeFromSuperview];
+                    [self onCaptureMascotSuccessfulWithReward:[SKReward mj_objectWithKeyValues:[response.data mj_keyValues]]];
+                });
+            } else {
+                if (response.result) {
+                    [self showTipsWithText:[NSString stringWithFormat:@"异常%ld", (long)response.result]];
+                } else {
+                    [self showTipsWithText:@"异常"];
+                }
+            }
+        }];
+    } else if (_type==NZLbsTypeHomepage) {
+        [[[SKServiceManager sharedInstance] scanningService] getLbsRewardDetailWithID:self.rewardID sid:self.sid callback:^(BOOL success, SKResponsePackage *response) {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            if (success) {
+                [self catchSuccess];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.successBackgroundView removeFromSuperview];
+                    [self onCaptureMascotSuccessfulWithReward:[SKReward mj_objectWithKeyValues:[response.data mj_keyValues]]];
+                });
+            } else {
+                if (response.result) {
+                    [self showTipsWithText:[NSString stringWithFormat:@"异常%ld", (long)response.result]];
+                } else {
+                    [self showTipsWithText:@"异常"];
+                }
+            }
+        }];
+    }
+}
 
-	[[[SKServiceManager sharedInstance] answerService] answerLBSQuestionWithLocation:_currentLocation
-										callback:^(BOOL success, SKResponsePackage *response) {
-										    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-										    if (success && response.result == 0) {
-											    self.rewardID = response.data[@"reward_id"];
-											    // 6.捕获成功
-											    self.successBackgroundView = [[UIView alloc] init];
-											    self.successBackgroundView.backgroundColor = [UIColor colorWithHex:0x1f1f1f alpha:0.8];
-											    self.successBackgroundView.layer.cornerRadius = 5.0f;
-											    [self.view addSubview:self.successBackgroundView];
-											    [self.view bringSubviewToFront:self.successBackgroundView];
-
-											    NSMutableArray<UIImage *> *images = [NSMutableArray array];
-											    for (int i = 0; i != 18; i++) {
-												    UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"img_ar_right_answer_gif_00%02d", i]];
-												    [images addObject:animatedImage];
-											    }
-											    self.captureSuccessImageView = [[HTImageView alloc] init];
-											    self.captureSuccessImageView.animationImages = images;
-											    self.captureSuccessImageView.animationDuration = 0.05 * 18;
-											    self.captureSuccessImageView.animationRepeatCount = 1;
-											    [self.successBackgroundView addSubview:self.captureSuccessImageView];
-											    [self.captureSuccessImageView startAnimating];
-
-											    [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-												make.centerX.equalTo(self.view);
-												make.centerY.equalTo(self.view).offset(-30);
-												make.width.equalTo(@173);
-												make.height.equalTo(@173);
-											    }];
-
-											    [self.captureSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-												make.left.equalTo(@4);
-												make.top.equalTo(@4);
-												make.width.equalTo(@165);
-												make.height.equalTo(@165);
-											    }];
-
-											    [self.mascotImageView removeFromSuperview];
-
-											    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-												[self.successBackgroundView removeFromSuperview];
-												[self onCaptureMascotSuccessfulWithReward:[SKReward mj_objectWithKeyValues:[response.data mj_keyValues]]];
-											    });
-										    } else {
-											    if (response.result) {
-												    [self showTipsWithText:[NSString stringWithFormat:@"异常%ld", (long)response.result]];
-											    } else {
-												    [self showTipsWithText:@"异常"];
-											    }
-										    }
-										}];
+- (void)catchSuccess {
+    // 6.捕获成功
+    self.successBackgroundView = [[UIView alloc] init];
+    self.successBackgroundView.backgroundColor = [UIColor colorWithHex:0x1f1f1f alpha:0.8];
+    self.successBackgroundView.layer.cornerRadius = 5.0f;
+    [self.view addSubview:self.successBackgroundView];
+    [self.view bringSubviewToFront:self.successBackgroundView];
+    
+    NSMutableArray<UIImage *> *images = [NSMutableArray array];
+    for (int i = 0; i != 18; i++) {
+        UIImage *animatedImage = [UIImage imageNamed:[NSString stringWithFormat:@"img_ar_right_answer_gif_00%02d", i]];
+        [images addObject:animatedImage];
+    }
+    self.captureSuccessImageView = [[HTImageView alloc] init];
+    self.captureSuccessImageView.animationImages = images;
+    self.captureSuccessImageView.animationDuration = 0.05 * 18;
+    self.captureSuccessImageView.animationRepeatCount = 1;
+    [self.successBackgroundView addSubview:self.captureSuccessImageView];
+    [self.captureSuccessImageView startAnimating];
+    
+    [self.successBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.centerY.equalTo(self.view).offset(-30);
+        make.width.equalTo(@173);
+        make.height.equalTo(@173);
+    }];
+    
+    [self.captureSuccessImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@4);
+        make.top.equalTo(@4);
+        make.width.equalTo(@165);
+        make.height.equalTo(@165);
+    }];
+    
+    [self.mascotImageView removeFromSuperview];
 }
 
 - (void)onClickShowDebug {
+    if (_type == NZLbsTypeDefault) return;
+    
 	self.tipLabel.text = @"";
 	_needShowDebugLocation = YES;
 	[self showtipImageView];
@@ -453,8 +587,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	[self.view bringSubviewToFront:self.backButton];
 	[self.view bringSubviewToFront:self.radarImageView];
 	[self.view bringSubviewToFront:self.tipImageView];
+    [self.view bringSubviewToFront:self.promptView];
 	[self.view bringSubviewToFront:self.helpButton];
-	[self.view bringSubviewToFront:self.helpView];
+//	[self.view bringSubviewToFront:self.helpView];
 	dispatch_async(dispatch_get_main_queue(), ^{
 	    //        [self.view bringSubviewToFront:self.mascotMotionView];
 	    [self.view bringSubviewToFront:self.mascotImageView];
@@ -463,6 +598,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)prarUpdateFrame:(CGRect)arViewFrame {
+    if (_type==NZLbsTypeDefault) {
+        return;
+    }
 	BOOL needShowMascot = NO;
 	// x坐标匹配
 	if (fabs(arViewFrame.origin.x) >= SCREEN_WIDTH && fabs(arViewFrame.origin.x - arViewFrame.size.width) >= SCREEN_WIDTH) {
@@ -477,22 +615,28 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 		self.tipLabel.text = _question.hint;
 		self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
 		needShowMascot = NO;
+        self.radarImageView.hidden = NO;
 	} else if (distance > 200) {
 		self.tipLabel.text = kTipCloseMascot;
 		self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_1"];
 		needShowMascot = NO;
+        self.radarImageView.hidden = NO;
 	} else if (distance > 0) {
 		self.tipLabel.text = kTipTapMascotToCapture;
 		self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
 		needShowMascot = YES;
-		//        [self.mascotMotionView enableMotionEffect];
+        self.radarImageView.hidden = _isHadReward==YES? NO:YES;
+        
+        [self showPromptView];
 	}
 	if (_needShowDebugLocation) {
 		self.tipLabel.text = [NSString stringWithFormat:@"%.1f", distance];
 	}
 	//    self.mascotMotionView.hidden = !needShowMascot;
 	//    self.mascotMotionView.imageView.hidden = !needShowMascot;
-	self.mascotImageView.hidden = !needShowMascot;
+    
+    self.mascotImageView.hidden = _isHadReward==YES? YES:!needShowMascot;
+    
 
 	[[self.view viewWithTag:AR_VIEW_TAG] setFrame:arViewFrame];
 }

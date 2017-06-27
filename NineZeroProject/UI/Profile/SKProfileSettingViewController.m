@@ -74,41 +74,202 @@
 - (void)createUI {
     WS(weakself);
     self.view.backgroundColor = [UIColor blackColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UILabel *titleLabel = [UILabel new];
-    titleLabel.text = @"设置";
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = PINGFANG_FONT_OF_SIZE(17);
-    [titleLabel sizeToFit];
-    [self.view addSubview:titleLabel];
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakself.view);
-        make.top.equalTo(@19);
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.width, 44)];
+    [self.view addSubview:titleView];
+    
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_settingpage_title"]];
+    [titleView addSubview:titleImageView];
+    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(titleView);
+        make.centerY.equalTo(titleView);
     }];
-    
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
+
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-49)];
     _scrollView.backgroundColor = [UIColor clearColor];
-    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, 360+50+40);
+    _scrollView.bounces = NO;
+    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ROUND_HEIGHT_FLOAT(54)*5+64+50+50);
     [self.view addSubview:_scrollView];
     
-    [self createBackView1];
-    [self createBackView2];
-    [self createBackView3];
+    for (int i=0; i<5; i++) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 64+i*ROUND_HEIGHT_FLOAT(54), self.view.width, ROUND_HEIGHT_FLOAT(54))];
+        [self.view addSubview:view];
+        
+        UIView *sepLine = [[UIView alloc] initWithFrame:CGRectMake(16, ROUND_HEIGHT_FLOAT(53), view.width-32, 1)];
+        sepLine.backgroundColor = COMMON_SEPARATOR_COLOR;
+        [view addSubview:sepLine];
+        
+        switch (i) {
+            case 0: {
+                //头像
+                _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+                _avatarImageView.layer.cornerRadius = 15;
+                _avatarImageView.layer.masksToBounds = YES;
+                _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
+                [view addSubview:_avatarImageView];
+                [_avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.width.equalTo(ROUND_HEIGHT(30));
+                    make.height.equalTo(ROUND_HEIGHT(30));
+                    make.centerY.equalTo(view);
+                    make.left.equalTo(@16);
+                }];
+                
+                UILabel *label = [UILabel new];
+                label.text = @"点击修改";
+                label.textColor = [UIColor whiteColor];
+                label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+                [view addSubview:label];
+                [label sizeToFit];
+                [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(view).offset(-16);
+                    make.centerY.equalTo(view).offset(6);
+                }];
+                
+                UIButton *button = [UIButton new];
+                [button addTarget:self action:@selector(presentSystemPhotoLibraryController) forControlEvents:UIControlEventTouchUpInside];
+                [view addSubview:button];
+                [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.size.equalTo(view);
+                    make.center.equalTo(view);
+                }];
+                break;
+            }
+            case 1:{
+                //昵称
+                _usernameLabel = [UILabel new];
+                _usernameLabel.textColor = COMMON_TEXT_2_COLOR;
+                _usernameLabel.text = [[SKStorageManager sharedInstance] getLoginUser].user_name;
+                _usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+                [_usernameLabel sizeToFit];
+                [view addSubview:_usernameLabel];
+                [_usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(@16);
+                    make.centerY.equalTo(view).offset(6);
+                }];
+                
+                UILabel *label = [UILabel new];
+                label.text = @"点击修改";
+                label.textColor = [UIColor whiteColor];
+                label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+                [view addSubview:label];
+                [label sizeToFit];
+                [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(view).offset(-16);
+                    make.centerY.equalTo(view).offset(6);
+                }];
+                
+                UIButton *button = [UIButton new];
+                [button addTarget:self action:@selector(updateUsername:) forControlEvents:UIControlEventTouchUpInside];
+                [view addSubview:button];
+                [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.size.equalTo(view);
+                    make.center.equalTo(view);
+                }];
+                break;
+            }
+            case 2:{
+                //清理缓存
+                UILabel *label = [UILabel new];
+                label.text = @"清理缓存";
+                label.textColor = COMMON_TEXT_2_COLOR;
+                label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+                [view addSubview:label];
+                [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(@16);
+                    make.centerY.equalTo(view).offset(6);
+                }];
+                
+                _cacheLabel = [UILabel new];
+                NSString *cacheFilePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
+                [self listFileAtPath:cacheFilePath];
+                _cacheLabel.text = [NSString stringWithFormat:@"%.1fMB", cacheSize];
+                _cacheLabel.textColor = [UIColor whiteColor];
+                _cacheLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+                [view addSubview:_cacheLabel];
+                [_cacheLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(view).offset(-20);
+                    make.centerY.equalTo(view).offset(6);
+                }];
+                
+                UIButton *clearCacheButton = [UIButton new];
+                [clearCacheButton addTarget:self action:@selector(clearCache) forControlEvents:UIControlEventTouchUpInside];
+                [view addSubview:clearCacheButton];
+                [clearCacheButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(view);
+                    make.center.equalTo(view);
+                }];
+                break;
+            }
+            case 3:{
+                //什么是九零
+                UILabel *label = [UILabel new];
+                label.text = @"什么是九零";
+                label.textColor = COMMON_TEXT_2_COLOR;
+                label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+                [view addSubview:label];
+                [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(@16);
+                    make.centerY.equalTo(view).offset(6);
+                }];
+                
+                UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_settingpage_next"]];
+                [view addSubview:arrowImageView];
+                [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(label);
+                    make.right.equalTo(view).offset(-16);
+                }];
+                
+                UIButton *button = [UIButton new];
+                [button addTarget:self action:@selector(whatIsNineZero:) forControlEvents:UIControlEventTouchUpInside];
+                [view addSubview:button];
+                [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.size.equalTo(view);
+                    make.center.equalTo(view);
+                }];
+                break;
+            }
+            case 4:{
+                //版本
+                UILabel *label = [UILabel new];
+                label.text = @"关于";
+                label.textColor = COMMON_TEXT_2_COLOR;
+                label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+                [view addSubview:label];
+                [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(@16);
+                    make.centerY.equalTo(view).offset(6);
+                }];
+                
+                UILabel *infoLabel = [UILabel new];
+                infoLabel.text =  [NSString stringWithFormat:@"V%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+                infoLabel.textColor = [UIColor whiteColor];
+                infoLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+                [view addSubview:infoLabel];
+                [infoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(view).offset(-16);
+                    make.centerY.equalTo(label);
+                }];
+                break;
+            }
+            default:
+                break;
+        }
+    }
     
     UIButton *quitButton = [UIButton new];
     [quitButton addTarget:self action:@selector(quitButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [quitButton setBackgroundImage:[UIImage imageWithColor:COMMON_RED_COLOR] forState:UIControlStateNormal];
+    [quitButton setImage:[UIImage imageNamed:@"btn_settingpage_quit"] forState:UIControlStateNormal];
+    [quitButton setImage:[UIImage imageNamed:@"btn_settingpage_quit_highlight"] forState:UIControlStateHighlighted];
+    [quitButton setBackgroundImage:[UIImage imageWithColor:COMMON_SEPARATOR_COLOR] forState:UIControlStateNormal];
     [quitButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
-    quitButton.layer.cornerRadius = 5;
     quitButton.layer.masksToBounds = YES;
-    [quitButton setTitle:@"退出登录" forState:UIControlStateNormal];
-    [quitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_scrollView addSubview:quitButton];
     [quitButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@(SCREEN_WIDTH-20));
+        make.width.equalTo(weakself.view);
         make.height.equalTo(@(50));
-        make.top.equalTo(_backView3.mas_bottom).offset(10);
-        make.centerX.equalTo(_scrollView);
+        make.top.equalTo(weakself.view).offset(64+ROUND_HEIGHT_FLOAT(54)*5+ROUND_HEIGHT_FLOAT(64));
+        make.centerX.equalTo(weakself.view);
     }];
 }
 
@@ -126,7 +287,7 @@
     }];
  
     UIView *splitLine = [UIView new];
-    splitLine.backgroundColor = [UIColor colorWithHex:0x2d2d2d];
+    splitLine.backgroundColor = COMMON_SEPARATOR_COLOR;
     [_backView1 addSubview:splitLine];
     [splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@10);
@@ -218,7 +379,7 @@
     }];
     
     UIView *splitLine = [UIView new];
-    splitLine.backgroundColor = [UIColor colorWithHex:0x2d2d2d];
+    splitLine.backgroundColor = COMMON_SEPARATOR_COLOR;
     [_backView2 addSubview:splitLine];
     [splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@10);
@@ -295,7 +456,7 @@
     }];
     
     UIView *splitLine = [UIView new];
-    splitLine.backgroundColor = [UIColor colorWithHex:0x2d2d2d];
+    splitLine.backgroundColor = COMMON_SEPARATOR_COLOR;
     [_backView3 addSubview:splitLine];
     [splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@10);
@@ -466,11 +627,13 @@
 - (void)whatIsNineZero:(UIButton*)sender {
     HTWebController *controller = [[HTWebController alloc] initWithURLString:@"https://admin.90app.tv/index.php?s=/Home/user/about2.html"];
     controller.titleString = @"什么是九零";
+    self.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)aboutNineZero:(UIButton*)sender {
     HTAboutController *aboutController = [[HTAboutController alloc] init];
+    self.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:aboutController animated:YES];
 }
 

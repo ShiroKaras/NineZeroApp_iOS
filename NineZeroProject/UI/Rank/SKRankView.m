@@ -8,6 +8,7 @@
 
 #import "SKRankView.h"
 #import "HTUIHeader.h"
+#import "HTWebController.h"
 
 #define REGISTER_CLASS(clazz)  [self.tableView registerClass:[clazz class] forCellReuseIdentifier:NSStringFromClass([clazz class])];
 
@@ -49,11 +50,11 @@
     
     self.rankerList = [NSArray array];
     _myRank = [[SKRanker alloc] init];
-    _myRank.rank = [[SKStorageManager sharedInstance].profileInfo.rank integerValue];
+    _myRank.rank = [[SKStorageManager sharedInstance].profileInfo.experience_rank integerValue];
     _myRank.user_avatar = [SKStorageManager sharedInstance].userInfo.user_avatar;
     _myRank.user_name = [SKStorageManager sharedInstance].userInfo.user_name;
     _myRank.gold = [SKStorageManager sharedInstance].profileInfo.user_gold;
-    _myRank.user_experience_value = [SKStorageManager sharedInstance].profileInfo.user_experience_value;
+//    _myRank.user_experience_value = [SKStorageManager sharedInstance].profileInfo.user_experience_value;
     
     [HTProgressHUD show];
     
@@ -159,6 +160,14 @@
         return (SCREEN_WIDTH-32)/288.*281.;
     } else {
         return 74;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.type == SKRankViewTypeSeason2 && indexPath.row == 1) {
+        HTWebController *controller = [[HTWebController alloc] initWithURLString:[NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/coin2.html&id=%@",[[SKStorageManager sharedInstance] getUserID]]];
+        controller.titleString = @"金币";
+        [[self viewController].navigationController pushViewController:controller animated:YES];
     }
 }
 

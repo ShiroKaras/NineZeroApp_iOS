@@ -46,9 +46,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [TalkingData trackPageBegin:@"personalpage"];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
     [self.navigationController.navigationBar setHidden:YES];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    //[[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -62,13 +62,13 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] profileService] getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response) {
-        _rankLabel.text = [response.rank integerValue]>999? @"1K+":response.rank;
+        _rankLabel.text = [response.experience_rank integerValue]>999? @"1K+":response.experience_rank;
         _coinLabel.text = response.user_gold;
         _diamondLabel.text = response.user_gemstone;
         _avatarGoldFrameImageView.hidden = !response.user_gold_head;
         ((UILabel*)[self.view viewWithTag:PROFILE_TICKET]).text = response.ticket_num;
-        ((UILabel*)[self.view viewWithTag:PROFILE_BADGE]).text = response.medal_num;
-        ((UILabel*)[self.view viewWithTag:PROFILE_THING]).text = response.piece_num;
+//        ((UILabel*)[self.view viewWithTag:PROFILE_BADGE]).text = response.medal_num;
+        
     }];
 }
 
@@ -149,10 +149,10 @@
         UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
         converView.backgroundColor = COMMON_BG_COLOR;
         [self.view addSubview:converView];
-        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-        [blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
-        [self.view addSubview:blankView];
-        blankView.top = ROUND_HEIGHT_FLOAT(217);
+        HTBlankView *_blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
+        [_blankView setOffset:10];
+        [converView addSubview:_blankView];
+        _blankView.center = converView.center;
     }
 }
 

@@ -256,11 +256,11 @@
 		}];
 	} else {
 		//道具数量
-		[[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:_mascotIdArray[_type]
-										      callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
-											  self.familyMascotArray = mascotArray;
-											  [self updateButtons];
-										      }];
+//		[[[SKServiceManager sharedInstance] mascotService] getMascotDetailWithMascotID:_mascotIdArray[_type]
+//										      callback:^(BOOL success, NSArray<SKPet *> *mascotArray) {
+//											  self.familyMascotArray = mascotArray;
+//											  [self updateButtons];
+//										      }];
 	}
 }
 

@@ -22,7 +22,8 @@
 #import "HTProgressHUD.h"
 #import "HTUIHelper.h"
 #import "HUD+Utility.h"
-#import "MJRefresh.h"
+//#import "MJRefresh.h"
+#import <MJRefresh/MJRefresh.h>
 #import "NSString+Utility.h"
 #import "SKImageHelper.h"
 #import "SKServiceManager.h"
@@ -40,6 +41,7 @@
 #import <UIKit/UIKit.h>
 #import <YLGIFImage/YLGIFImage.h>
 #import <YLGIFImage/YLImageView.h>
+#import "UILabel+ChangeLineSpaceAndWordSpace.h"
 
 #import "TalkingData.h"
 #import "UMMobClick/MobClick.h"

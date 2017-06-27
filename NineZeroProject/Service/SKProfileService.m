@@ -73,7 +73,7 @@
 //获取个人信息
 - (void)getUserInfoDetailCallback:(SKProfileInfoCallback)callback {
 	NSDictionary *param = @{
-		@"method": @"getUserInfo"
+		@"method": @"getUserAllInfo"
 	};
 	[self profileBaseRequestWithParam:param
 				   callback:^(BOOL success, SKResponsePackage *response) {
@@ -195,7 +195,11 @@
 					       if ([response.data count] > 0) {
 						       for (int i = 0; i < [response.data count]; i++) {
 							       SKRanker *ranker = [SKRanker mj_objectWithKeyValues:response.data[i]];
-							       [rankerArray addObject:ranker];
+                                   if (i!=[response.data count]-1) {
+                                       [rankerArray addObject:ranker];
+                                   } else {
+                                       [rankerArray insertObject:ranker atIndex:0];
+                                   }
 						       }
 						       callback(success, rankerArray);
 					       }
@@ -289,9 +293,9 @@
 							       [badgeArray addObject:badge];
 						       }
 					       }
-					       callback(success, [response.data[@"user_experience_value"] integerValue], badgeArray);
+					       callback(success, [response.data[@"user_experience_value"] integerValue],0, badgeArray, nil);
 				       } else
-					       callback(success, 0, nil);
+					       callback(success, 0,0, nil, nil);
 				   }];
 }
 
@@ -315,4 +319,47 @@
 					       callback(success, nil);
 				   }];
 }
+
+- (void)getUserAchievement:(SKGetBadgesCallback)callback {
+    NSDictionary *param = @{
+                            @"method": @"getUserAchievement"
+                            };
+    [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        if (success) {
+            NSMutableArray *badgeArray = [NSMutableArray array];
+            if ([response.data[@"user_medal"] count] > 0) {
+                for (int i = 0; i < [response.data[@"user_medal"] count]; i++) {
+                    SKBadge *badge = [SKBadge mj_objectWithKeyValues:response.data[@"user_medal"][i]];
+                    [badgeArray addObject:badge];
+                }
+            }
+            
+            NSMutableArray *medalArray = [NSMutableArray array];
+            if ([response.data[@"user_achievement"] count] > 0) {
+                for (int i = 0; i < [response.data[@"user_achievement"] count]; i++) {
+                    SKBadge *medal = [SKBadge mj_objectWithKeyValues:response.data[@"user_achievement"][i]];
+                    [medalArray addObject:medal];
+                }
+            }
+            callback(success, [response.data[@"user_experience_value"] integerValue], [response.data[@"total_coop_time"] integerValue], badgeArray, medalArray);
+        } else
+            callback(success, 0, 0, nil, nil);
+    }];
+}
+
+- (void)getJoinTopicListCallback:(SKTopicListCallback)callback {
+    NSDictionary *param = @{
+                            @"method"   : @"getUserJoin",
+                            };
+    
+    [self profileBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKTopic*>*array = [NSMutableArray array];
+        for (int i=0; i<[response.data count]; i++) {
+            SKTopic *topic = [SKTopic mj_objectWithKeyValues:response.data[i]];
+            [array addObject:topic];
+        }
+        callback(success, array);
+    }];
+}
+
 @end

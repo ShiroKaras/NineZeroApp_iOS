@@ -12,6 +12,8 @@
 
 typedef void (^SKMascotListCallback) (BOOL success, NSArray<SKPet*> *mascotArray);
 typedef void (^SKDefaultMascotCallback) (BOOL success, SKDefaultMascotDetail *defaultMascot);
+typedef void (^NZMascotArrayCallback) (BOOL success, NSArray<SKMascot*> *mascots);
+typedef void (^NZMascotCoopTimeRankListCallback) (BOOL success, NSArray<SKRanker*> *rankerList);
 
 @interface SKMascotService : NSObject
 
@@ -24,8 +26,8 @@ typedef void (^SKDefaultMascotCallback) (BOOL success, SKDefaultMascotDetail *de
 //获取默认零仔详情
 - (void)getDefaultMascotDetailCallback:(SKDefaultMascotCallback)callback;
 
-//获取其他零仔详情
-- (void)getMascotDetailWithMascotID:(NSString*)mascotID callback:(SKMascotListCallback)callback;
+////获取其他零仔详情
+//- (void)getMascotDetailWithMascotID:(NSString*)mascotID callback:(SKMascotListCallback)callback;
 
 //使用零仔技能
 - (void)useMascotSkillWithMascotID:(NSString*)mascotID callback:(SKResponseCallback)callback;
@@ -35,5 +37,19 @@ typedef void (^SKDefaultMascotCallback) (BOOL success, SKDefaultMascotDetail *de
 
 //零仔战斗获取奖励
 - (void)mascotBattleWithMascotID:(NSString*)mascotID randomString:(NSString*)randomString callback:(SKResponseCallback)callback;
+
+#pragma mark - 3.0
+
+//获取所有零仔关押时间
+- (void)getAllPetsCoopTimeCallback:(NZMascotArrayCallback)callback;
+
+//零仔关押时间排名
+- (void)getMascotCoopTimeRankListCallback:(NZMascotCoopTimeRankListCallback)callback;
+
+//获取其他零仔详情
+- (void)getMascotDetailWithMascotID:(NSString*)mascotID callback:(void (^)(BOOL, SKMascot *))callback;
+
+//获取零仔证据详情
+- (void)getMascotEvidenceDetailWithID:(NSString *)eid callback:(void(^)(BOOL success, SKMascotEvidence *evidence))callback;
 
 @end

@@ -10,42 +10,68 @@
 #import "HTUIHeader.h"
 #import "NZPScanningFileDownloadManager.h"
 #import "SKDownloadProgressView.h"
+#import "SKPopupGetPuzzleView.h"
+#import "SKScanningImageView.h"
+#import "SKScanningPuzzleView.h"
+#import "SKScanningPuzzleView.h"
 #import "SKScanningRewardViewController.h"
 #import <SSZipArchive/ZipArchive.h>
+#import <TTTAttributedLabel.h>
 
-@interface SKSwipeViewController () <OpenGLViewDelegate, SKScanningRewardDelegate>
+#import "FXDanmaku.h"
+#import "NSObject+FXAlertView.h"
+#import "DemoDanmakuItemData.h"
+#import "DemoDanmakuItem.h"
 
-@property (nonatomic, strong) UIImageView *tipImageView;
-@property (nonatomic, strong) UILabel *tipLabel;
-@property (nonatomic, strong) UIImageView *scanningGridLine;
-//@property (nonatomic, strong) NSArray<SKScanning*>* scanningList;
-@property (nonatomic, strong) SKQuestion *question;
-@property (nonatomic, strong) NSString *rewardID;
-@property (nonatomic, assign) BOOL is_haved_ticket;
-@property (nonatomic, assign) int swipeType;
+#define CurrentDevice [UIDevice currentDevice]
+#define CurrentOrientation [[UIDevice currentDevice] orientation]
+#define ScreenScale [UIScreen mainScreen].scale
+#define NotificationCetner [NSNotificationCenter defaultCenter]
+
+@interface SKSwipeViewController () <OpenGLViewDelegate, SKScanningRewardDelegate, SKScanningImageViewDelegate, SKScanningPuzzleViewDelegate, SKPopupGetPuzzleViewDelegate, FXDanmakuDelegate, UITextFieldDelegate>
+
+@property (nonatomic, strong) SKScanningImageView *scanningImageView;
+@property (nonatomic, strong) SKScanningPuzzleView *scanningPuzzleView;
+
+@property (nonatomic, strong) SKScanningRewardViewController *scanningRewardViewController;
+
 @property (nonatomic, strong) SKDownloadProgressView *progressView;
-@property (nonatomic, strong) UIImageView *giftBackImageView;
-@property (nonatomic, strong) UIButton *giftButton;
-@property (nonatomic, strong) UIImageView *giftMascotHand;
-@property (nonatomic, assign) BOOL  isRecognizedTargetImage;
 
-@property (nonatomic, strong) NSTimer *timerScanningGridLine;
+@property (nonatomic, strong) UIButton *hintButton;
+@property (nonatomic, strong) UIView *hintView;
+
+@property (nonatomic, strong) UIButton *hintGuideImageView;
+
+@property (nonatomic, strong) NSMutableArray *rewardAction;
+@property (nonatomic, strong) NSString *rewardID;
+@property (nonatomic, assign) SKScanType swipeType; // default is SKScanTypeImage
+@property (nonatomic, strong) NSMutableArray *isRecognizedTargetImage;
+@property (nonatomic, copy) NSString *hint;
+@property (nonatomic, copy) NSString *sid; // 活动id
+@property (nonatomic, copy) NSString *downloadKey;
+@property (nonatomic, strong) NSArray *linkURLs; // 普通扫一扫存储video url，拼图扫一扫返回目标图URL
+@property (nonatomic, strong) NSArray *linkClarity;
+@property (nonatomic, strong) NSString *defaultPic;
+@property (nonatomic, strong) SKReward *rewardRecord;
+@property (nonatomic, strong) NSArray *lid; //目标图对应id
+@property (nonatomic, assign) BOOL bstatus; //弹幕是否开启
+
+@property (nonatomic, strong) FXDanmaku *danmaku;
+@property (nonatomic, strong) UIView *bottomView;
+@property (nonatomic, strong) UITextField *commentTextField;
+@property (nonatomic, strong) UIButton *danmakuSwitchButton;
 @end
 
-@implementation SKSwipeViewController
+@implementation SKSwipeViewController {
+	NSUInteger _trackedTargetId;
+    BOOL danmakuSwith;
+    int currentImageOrder;
+    BOOL danmakuIsGet;
+}
 
 - (instancetype)init {
 	if (self = [super init]) {
-		_swipeType = 0;
-	}
-	return self;
-}
-
-- (instancetype)initWithQuestion:(SKQuestion *)question {
-	self = [super init];
-	if (self) {
-		_swipeType = 1;
-		_question = question;
+		_swipeType = SKScanTypeImage;
 	}
 	return self;
 }
@@ -53,48 +79,9 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-    _isRecognizedTargetImage = false;
-	//扫描线
-	_scanningGridLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_scanning_gridlines"]];
-	[_scanningGridLine sizeToFit];
-	_scanningGridLine.top = 0;
-	_scanningGridLine.right = 0;
-	[self.view addSubview:_scanningGridLine];
+    [self createUI];
     
-    _timerScanningGridLine = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(loopScanningGridLine) userInfo:nil repeats:YES];
-    
-	[self setupTips];
-    
-	[self buildConstrains];
-
-    self.giftBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_loadingvideo_gift_2"]];
-    self.giftBackImageView.size = CGSizeMake(54, 42);
-    self.giftBackImageView.bottom = self.view.bottom - 14;
-    self.giftBackImageView.left = self.view.right;
-    [self.view addSubview:self.giftBackImageView];
-    
-    self.giftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.giftButton addTarget:self action:@selector(getGift) forControlEvents:UIControlEventTouchUpInside];
-    [self.giftButton setBackgroundImage:[UIImage imageNamed:@"img_loadingvideo_gift_3"] forState:UIControlStateNormal];
-    self.giftButton.size = self.giftBackImageView.size;
-    self.giftButton.bottom = self.giftBackImageView.bottom;
-    self.giftButton.right = self.giftBackImageView.right;
-    
-    [self.view addSubview:self.giftButton];
-    //摇动动画
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    animation.fromValue = @(-0.2);
-    animation.toValue = @(0.2);
-    animation.duration = 0.2;
-    animation.repeatCount = 100;
-    animation.autoreverses = YES;
-    [self.giftButton.layer addAnimation:animation forKey:@"animateLayer"];
-    
-    self.giftMascotHand = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_loadingvideo_gift_1"]];
-    [self.giftMascotHand sizeToFit];
-    self.giftMascotHand.left = self.view.right;
-    self.giftMascotHand.centerY = self.giftButton.centerY;
-    [self.view addSubview:self.giftMascotHand];
+    [self setupDanmaku];
     
 	if (!NO_NETWORK) {
 		[self loadData];
@@ -103,11 +90,19 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    //隐藏状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillAppear:animated];
-    self.scanningGridLine.hidden = YES;
+    [super viewWillDisappear:animated];
+    [self.scanningImageView removeFromSuperview];
+    //显示状态栏
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	[self.glView stop];
 }
 
@@ -120,137 +115,290 @@
 	[self.glView setOrientation:toInterfaceOrientation];
 }
 
-- (void)buildConstrains {
-	[self.tipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.bottom.equalTo(@(-55));
-	    make.centerX.equalTo(self.view);
-	    make.width.equalTo(@(288));
-	    make.height.equalTo(@(86));
-	}];
-
-	[self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.centerX.equalTo(self.tipImageView);
-	    make.bottom.equalTo(self.tipImageView.mas_bottom).offset(-27);
-	}];
+- (void)createUI {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bottom-49, SCREEN_WIDTH, 49)];
+    [self.view addSubview:self.bottomView];
+    
+//    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(13, 11, 27, 27)];
+//    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+//    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back_highligth"] forState:UIControlStateHighlighted];
+//    [backButton addTarget:self action:@selector(didClickBackButton) forControlEvents:UIControlEventTouchUpInside];
+//    [self.bottomView addSubview:backButton];
+    
+    _danmakuSwitchButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bottomView.width-13-27, 11, 27, 27)];
+    [_danmakuSwitchButton setBackgroundImage:[UIImage imageNamed:@"btn_ar_shieldbarrage"] forState:UIControlStateNormal];
+    [_danmakuSwitchButton setBackgroundImage:[UIImage imageNamed:@"btn_ar_shieldbarrage_highlight"] forState:UIControlStateHighlighted];
+    [_danmakuSwitchButton addTarget:self action:@selector(danmakuSwitchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomView addSubview:_danmakuSwitchButton];
+    danmakuSwith = YES;
+    
+    _commentTextField = [[UITextField alloc] initWithFrame:CGRectMake(14, 7, self.bottomView.width-14-13-27-14, 35)];
+    _commentTextField.delegate = self;
+    _commentTextField.layer.cornerRadius = 5;
+    _commentTextField.layer.borderWidth = 1;
+    _commentTextField.layer.borderColor = [UIColor whiteColor].CGColor;
+    _commentTextField.returnKeyType = UIReturnKeySend;
+    _commentTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 12, 60)];
+    _commentTextField.leftViewMode = UITextFieldViewModeAlways;
+    [_commentTextField setTextColor:[UIColor whiteColor]];
+    _commentTextField.font = PINGFANG_FONT_OF_SIZE(12);
+    NSMutableParagraphStyle *style = [_commentTextField.defaultTextAttributes[NSParagraphStyleAttributeName] mutableCopy];
+    style.minimumLineHeight = _commentTextField.font.lineHeight - (_commentTextField.font.lineHeight - [UIFont systemFontOfSize:14.0].lineHeight) / 2.0;
+    _commentTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"我也来评论下..."
+                                                                          attributes:@{
+                                                                                       NSForegroundColorAttributeName:COMMON_TEXT_2_COLOR,
+                                                                                       NSFontAttributeName : [UIFont systemFontOfSize:12.0],
+                                                                                       NSParagraphStyleAttributeName : style
+                                                                                       }];
+    [self.bottomView addSubview:_commentTextField];
+    self.commentTextField.hidden = YES;
+    self.danmakuSwitchButton.hidden = YES;
 }
+
+- (void)danmakuSwitchButtonClick:(UIButton*)sender {
+    danmakuSwith = !danmakuSwith;
+    if (danmakuSwith) {
+        [sender setBackgroundImage:[UIImage imageNamed:@"btn_ar_shieldbarrage"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"btn_ar_shieldbarrage_highlight"] forState:UIControlStateHighlighted];
+    } else {
+        [sender setBackgroundImage:[UIImage imageNamed:@"btn_ar_barrage"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"btn_ar_barrage_highlight"] forState:UIControlStateHighlighted];
+    }
+}
+
+- (void)didClickBackButton {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)textFieldTextDidChange:(NSNotification *)notification {
+    if (_commentTextField.text.length > 11) {
+        _commentTextField.text = [_commentTextField.text substringToIndex:11];
+    }
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    CGRect keyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.bottomView.frame = CGRectMake(0, self.view.height - keyboardRect.size.height-49, self.view.width, 49);
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    self.bottomView.frame = CGRectMake(0, self.view.height-49, self.view.width, 49);
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [_commentTextField resignFirstResponder];    //主要是[receiver resignFirstResponder]在哪调用就能把receiver对应的键盘往下收
+    [[[SKServiceManager sharedInstance] scanningService] sendScanningComment:_commentTextField.text imageID:self.lid[currentImageOrder] callback:^(BOOL success, SKResponsePackage *response) {
+        DemoDanmakuItemData *data = [DemoDanmakuItemData data];
+        data.avatarName = [[SKStorageManager sharedInstance] userInfo].user_avatar;
+        data.desc = _commentTextField.text;
+        data.backColor = COMMON_GREEN_COLOR;
+        [self.danmaku addData:data];
+        _commentTextField.text = @"";
+    }];
+    return YES;
+}
+
+//Danmaku
+
+#pragma mark - Danmaku Views
+- (void)setupDanmaku {
+    self.danmaku = [[FXDanmaku alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 186)];
+    [self.view addSubview:self.danmaku];
+    
+    FXDanmakuConfiguration *config = [FXDanmakuConfiguration defaultConfiguration];
+    config.rowHeight = [DemoDanmakuItem itemHeight];
+    self.danmaku.configuration = config;
+    self.danmaku.delegate = self;
+    [self.danmaku registerNib:[UINib nibWithNibName:NSStringFromClass([DemoDanmakuItem class]) bundle:nil]
+       forItemReuseIdentifier:[DemoDanmakuItem reuseIdentifier]];
+}
+
+#pragma mark  Observer
+- (void)setupObserver {
+    [NotificationCetner addObserver:self
+                           selector:@selector(applicationWillResignActive:)
+                               name:UIApplicationWillResignActiveNotification
+                             object:nil];
+    [NotificationCetner addObserver:self
+                           selector:@selector(applicationDidBecomeActive:)
+                               name:UIApplicationDidBecomeActiveNotification
+                             object:nil];
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    [self.danmaku start];
+}
+
+- (void)applicationWillResignActive:(NSNotification*)notification {
+    [self.danmaku pause];
+}
+
+#pragma mark  FXDanmakuDelegate
+- (void)danmaku:(FXDanmaku *)danmaku didClickItem:(FXDanmakuItem *)item withData:(DemoDanmakuItemData *)data {
+    [self fx_presentConfirmViewWithTitle:nil
+                                 message:[NSString stringWithFormat:@"You click %@", data.desc]
+                      confirmButtonTitle:nil
+                       cancelButtonTitle:@"Ok"
+                          confirmHandler:nil
+                           cancelHandler:nil];
+}
+
+#pragma mark -
+//Load data
 
 - (void)loadData {
 	[[[SKServiceManager sharedInstance] scanningService] getScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
 	    if (success) {
-            NSDictionary *dic = package.data[0];
-            DLog(@"%@", dic);
-            self.rewardID = dic[@"reward_id"];
-            self.is_haved_ticket = [dic[@"is_haved_ticket"] boolValue];
+		    NSDictionary *data = package.data[0];
+		    if (!data && ![data isKindOfClass:[NSDictionary class]]) {
+			    [self.navigationController popViewControllerAnimated:YES];
+			    return;
+		    }
             
-		    // 获取zip下载地址
-		    __block NSString *downloadKey = [dic objectForKey:@"file_url"];
-		    __block NSArray *videoURLs = [dic objectForKey:@"link_url"];
+		    NSLog(@"data-->%@", data);
+            
+		    self.swipeType = SKScanTypeImage;
+		    self.downloadKey = [data objectForKey:@"file_url"];
+		    self.linkURLs = [data objectForKey:@"link_url"];
+		    self.rewardID = [data objectForKey:@"reward_id"];
+		    self.hint = [data objectForKey:@"hint"];
+		    self.sid = [data objectForKey:@"sid"];
+            self.lid = [data objectForKey:@"lid"];
+            self.bstatus = [[data objectForKey:@"bstatus"] boolValue];
+            if (_bstatus == NO) {
+                self.danmaku.hidden = YES;
+            }
+//            //拼图扫一扫字段（暂时无用）
+//		    self.linkClarity = [data objectForKey:@"link_clarity"];
+//		    self.defaultPic = [data objectForKey:@"default_pic"];
+//            self.rewardAction = [[data objectForKey:@"reward_action"] mutableCopy];
+//		    self.rewardRecord = [SKReward mj_objectWithKeyValues:[data objectForKey:@"reward_record"]];
+            
+            
+            
+		    __weak __typeof__(self) weakSelf = self;
+		    [self setupScanningFile:data
+			    completionHandler:^{
+				__strong __typeof__(self) strongSelf = weakSelf;
+				switch (_swipeType) {
+					case SKScanTypeImage: {
+						strongSelf.scanningImageView = [[SKScanningImageView alloc] initWithFrame:self.view.frame];
+						strongSelf.scanningImageView.delegate = strongSelf;
+						[strongSelf.view insertSubview:strongSelf.scanningImageView atIndex:1];
 
-		    NSString *hint = [dic objectForKey:@"hint"];
-		    if (hint && hint.length > 0) {
-			    dispatch_async(dispatch_get_main_queue(), ^{
-				[self showtipImageView];
-				self.tipLabel.text = hint;
-			    });
-		    }
-
-		    if (![NZPScanningFileDownloadManager isZipFileExistsWithFileName:downloadKey]) {
-			    // 文件不存在，需要下载
-			    [self setupProgressView];
-
-			    [NZPScanningFileDownloadManager downloadZip:downloadKey
-				    progress:^(NSProgress *downloadProgress) {
-					// 更新进度条
-					dispatch_async(dispatch_get_main_queue(), ^{
-					    [_progressView setProgressViewPercent:downloadProgress.fractionCompleted];
-					});
-				    }
-				    completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-					if (!error) {
-						NSString *fileName = [[filePath lastPathComponent] stringByDeletingPathExtension];
-						NSURL *unzipFilesPath = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-						unzipFilesPath = [unzipFilesPath URLByAppendingPathComponent:fileName];
-
-						[SSZipArchive unzipFileAtPath:filePath.relativePath
-							toDestination:unzipFilesPath.relativePath
-							overwrite:YES
-							password:nil
-							progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
-							}
-							completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error) {
-							    dispatch_async(dispatch_get_main_queue(), ^{
-								[_progressView removeFromSuperview];
-								_progressView = nil;
-							    });
-							    if (succeeded) {
-								    // 加载识别图
-								    [self setupOpenGLViewWithTargetNumber:videoURLs.count];
-								    [self.glView startWithFileName:downloadKey videoURLs:videoURLs];
-							    } else {
-								    NSLog(@"zip解压失败:%@", error);
-							    }
-
-							}];
-					} else {
-						NSLog(@"识别图下载失败:%@", error);
+						break;
 					}
-
-				    }];
-		    } else if (![NZPScanningFileDownloadManager isUnZipFileExistsWithFileName:downloadKey]) {
-			    // zip已下载但是解压文件不存在
-			    NSString *unzipFilePath = [[downloadKey lastPathComponent] stringByDeletingPathExtension];
-			    NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-			    unzipFilePath = [documentsDirectoryURL URLByAppendingPathComponent:unzipFilePath].relativePath;
-			    NSString *zipFileAtPath = [documentsDirectoryURL URLByAppendingPathComponent:downloadKey].relativePath;
-
-			    [SSZipArchive unzipFileAtPath:zipFileAtPath
-				    toDestination:unzipFilePath
-				    overwrite:YES
-				    password:nil
-				    progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
-
-				    }
-				    completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error) {
-					// 加载识别图
-					[self setupOpenGLViewWithTargetNumber:videoURLs.count];
-					[self.glView startWithFileName:downloadKey videoURLs:videoURLs];
-				    }];
-		    } else {
-			    // 直接加载识别图
-			    [self setupOpenGLViewWithTargetNumber:videoURLs.count];
-			    [self.glView startWithFileName:downloadKey videoURLs:videoURLs];
-		    }
+					case SKScanTypePuzzle: {
+						strongSelf.scanningPuzzleView = [[SKScanningPuzzleView alloc] initWithLinkClarity:strongSelf.linkClarity rewardAction:strongSelf.rewardAction defaultPic:strongSelf.defaultPic];
+						strongSelf.scanningPuzzleView.delegate = strongSelf;
+						[strongSelf.view insertSubview:strongSelf.scanningPuzzleView atIndex:1];
+						break;
+					}
+					default:
+						break;
+				}
+			    }];
 	    } else {
-		    // 获取AR活动信息失败
-		    NSLog(@"获取AR信息失败");
+		    [self.navigationController popViewControllerAnimated:YES];
 	    }
 	}];
+}
+
+- (void)setupScanningFile:(NSDictionary *)data completionHandler:(void (^)())completionHandler {
+	if (_hint && _hint.length > 0) {
+		[self setupHintButton];
+	}
+
+	NSMutableArray *array = [NSMutableArray arrayWithCapacity:_rewardAction.count];
+	for (int i = 0; i < _rewardAction.count; i++) {
+		[array addObject:[NSNumber numberWithBool:false]];
+	}
+	self.isRecognizedTargetImage = array;
+
+	if (![NZPScanningFileDownloadManager isZipFileExistsWithFileName:_downloadKey]) {
+		// 文件不存在，需要下载
+		[self setupProgressView];
+
+		[NZPScanningFileDownloadManager downloadZip:_downloadKey
+			progress:^(NSProgress *downloadProgress) {
+			    // 更新进度条
+			    dispatch_async(dispatch_get_main_queue(), ^{
+				[self.progressView setProgressViewPercent:downloadProgress.fractionCompleted];
+			    });
+			}
+			completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+			    if (!error) {
+				    NSString *fileName = [[filePath lastPathComponent] stringByDeletingPathExtension];
+				    NSURL *unzipFilesPath = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+				    unzipFilesPath = [unzipFilesPath URLByAppendingPathComponent:fileName];
+
+				    [SSZipArchive unzipFileAtPath:filePath.relativePath
+					    toDestination:unzipFilesPath.relativePath
+					    overwrite:YES
+					    password:nil
+					    progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
+					    }
+					    completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error) {
+						dispatch_async(dispatch_get_main_queue(), ^{
+						    [self.progressView removeFromSuperview];
+						    self.progressView = nil;
+						});
+						if (succeeded) {
+							// 加载识别图
+							[self setupOpenGLViewWithTargetNumber:self.linkURLs.count];
+							[self.glView startWithFileName:self.downloadKey videoURLs:self.linkURLs];
+							completionHandler();
+						} else {
+							NSLog(@"zip解压失败:%@", error);
+						}
+
+					    }];
+			    } else {
+				    NSLog(@"识别图下载失败:%@", error);
+			    }
+
+			}];
+	} else if (![NZPScanningFileDownloadManager isUnZipFileExistsWithFileName:_downloadKey]) {
+		// zip已下载但是解压文件不存在
+		NSString *unzipFilePath = [[_downloadKey lastPathComponent] stringByDeletingPathExtension];
+		NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+		unzipFilePath = [documentsDirectoryURL URLByAppendingPathComponent:unzipFilePath].relativePath;
+		NSString *zipFileAtPath = [documentsDirectoryURL URLByAppendingPathComponent:_downloadKey].relativePath;
+
+		[SSZipArchive unzipFileAtPath:zipFileAtPath
+			toDestination:unzipFilePath
+			overwrite:YES
+			password:nil
+			progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
+
+			}
+			completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error) {
+			    // 加载识别图
+			    [self setupOpenGLViewWithTargetNumber:self.linkURLs.count];
+			    [self.glView startWithFileName:self.downloadKey videoURLs:self.linkURLs];
+			    completionHandler();
+			}];
+	} else {
+		// 直接加载识别图
+		[self setupOpenGLViewWithTargetNumber:_linkURLs.count];
+		[self.glView startWithFileName:_downloadKey videoURLs:_linkURLs];
+		completionHandler();
+	}
 }
 
 - (void)setupOpenGLViewWithTargetNumber:(NSUInteger)targetNumber {
 	if (!_glView) {
 		self.glView = [[OpenGLView alloc] initWithFrame:self.view.bounds withSwipeType:_swipeType targetsCount:(int)targetNumber];
-        self.glView.delegate = self;
-		//		_glView.layer.zPosition = -100;
-		[self.view insertSubview:self.glView belowSubview:self.scanningGridLine];
+		self.glView.delegate = self;
+		[self.view insertSubview:_glView atIndex:0];
 		[self.glView setOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 	}
-}
-- (void)setupTips {
-	//提示
-	self.tipImageView = [[UIImageView alloc] init];
-	self.tipImageView.layer.masksToBounds = YES;
-	self.tipImageView.image = [UIImage imageNamed:@"img_ar_hint_bg"];
-	self.tipImageView.contentMode = UIViewContentModeBottom;
-	[self.tipImageView sizeToFit];
-	[self.view addSubview:self.tipImageView];
-	self.tipLabel = [[UILabel alloc] init];
-
-	self.tipLabel.font = [UIFont systemFontOfSize:13];
-	self.tipLabel.textColor = [UIColor colorWithHex:0x9d9d9d];
-	[self.tipImageView addSubview:self.tipLabel];
-	self.tipLabel.hidden = YES;
-	self.tipImageView.hidden = YES;
 }
 
 - (void)setupProgressView {
@@ -260,94 +408,253 @@
 	[self.view addSubview:_progressView];
 }
 
-#pragma mark - Gift
+- (void)setupHintButton {
+	if (FIRST_LAUNCH_SWIPEVIEW) {
+		_hintButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40.f, 40.f)];
+		_hintButton.right = self.view.right - 4.f;
+		_hintButton.top = self.view.top + 12.f;
+		[_hintButton setImage:[UIImage imageNamed:@"btn_scanning_rule"] forState:UIControlStateNormal];
+		[_hintButton setImage:[UIImage imageNamed:@"btn_scanning_rule_highlight"] forState:UIControlStateHighlighted];
+		[_hintButton addTarget:self action:@selector(showHintView) forControlEvents:UIControlEventTouchDown];
+		[self.view addSubview:_hintButton];
 
-- (void)pushGift {
-    [UIView animateWithDuration:0.5 animations:^{
-        self.giftBackImageView.right = self.view.right -14;
-        self.giftButton.right = self.giftBackImageView.right;
-        self.giftMascotHand.right = self.view.right;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.giftMascotHand.left = self.view.right;
-        }];
-    }];
+		_hintGuideImageView = [[UIButton alloc] initWithFrame:self.view.frame];
+
+		UIImage *backgroundImage;
+		if (IPHONE5_SCREEN_WIDTH == SCREEN_WIDTH) {
+			backgroundImage = [UIImage imageNamed:@"coach_scanning_mark_640"];
+		} else if (IPHONE6_SCREEN_WIDTH == SCREEN_WIDTH) {
+			backgroundImage = [UIImage imageNamed:@"coach_scanning_mark_750"];
+		} else if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+			backgroundImage = [UIImage imageNamed:@"coach_scanning_mark_1242"];
+		}
+
+		[_hintGuideImageView setImage:backgroundImage forState:UIControlStateNormal];
+		[_hintGuideImageView addTarget:self action:@selector(hideHintGuideView) forControlEvents:UIControlEventTouchDown];
+		[self.view addSubview:_hintGuideImageView];
+		_hintGuideImageView.alpha = 0;
+
+		UILabel *hintGuideLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 12.5f)];
+		hintGuideLabel.text = @"点击任意区域关闭";
+		hintGuideLabel.textAlignment = NSTextAlignmentCenter;
+		hintGuideLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+		hintGuideLabel.font = PINGFANG_FONT_OF_SIZE(12.f);
+		hintGuideLabel.alpha = 0;
+		hintGuideLabel.bottom = self.view.bottom - 16.f;
+		hintGuideLabel.centerX = self.view.centerX;
+		[_hintGuideImageView addSubview:hintGuideLabel];
+
+		[UIView animateWithDuration:0.5f
+				 animations:^{
+				     _hintGuideImageView.alpha = 1.0f;
+				     hintGuideLabel.alpha = 1.0f;
+				 }];
+
+		LAUNCHED_SWIPEVIEW
+	} else {
+		_hintButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40.f, 40.f)];
+		_hintButton.right = self.view.right - 4.f;
+		_hintButton.top = self.view.top + 12.f;
+		[_hintButton setImage:[UIImage imageNamed:@"btn_scanning_rule"] forState:UIControlStateNormal];
+		[_hintButton setImage:[UIImage imageNamed:@"btn_scanning_rule_highlight"] forState:UIControlStateHighlighted];
+		[_hintButton addTarget:self action:@selector(showHintView) forControlEvents:UIControlEventTouchDown];
+		[self.view addSubview:_hintButton];
+	}
 }
 
-- (void)hideGift {
-    [self.giftBackImageView removeFromSuperview];
-    [self.giftButton removeFromSuperview];
+- (void)showHintView {
+	[_glView pause];
+
+	if (!_hintView) {
+		_hintView = [[UIView alloc] initWithFrame:self.view.frame];
+		[self.view addSubview:_hintView];
+
+		CALayer *backGroundLayer = [[CALayer alloc] init];
+		backGroundLayer.frame = SCREEN_BOUNDS;
+		backGroundLayer.backgroundColor = [UIColor colorWithHex:0x000000].CGColor;
+		backGroundLayer.opacity = 0.8;
+		[_hintView.layer addSublayer:backGroundLayer];
+
+		UIButton *closeButton = [[UIButton alloc] init];
+		[closeButton addTarget:self action:@selector(hideHintView) forControlEvents:UIControlEventTouchDown];
+		[closeButton setImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
+		[_hintView addSubview:closeButton];
+		[closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+		    make.width.equalTo(@40);
+		    make.height.equalTo(@40);
+		    make.top.equalTo(@12);
+		    make.left.equalTo(@4);
+		}];
+
+		TTTAttributedLabel *hintLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(40.f, 0, SCREEN_WIDTH - 80, 0)];
+		hintLabel.textAlignment = NSTextAlignmentLeft;
+		hintLabel.numberOfLines = 0;
+		hintLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
+		hintLabel.font = PINGFANG_FONT_OF_SIZE(10.0);
+		hintLabel.lineSpacing = 2.0f;
+		hintLabel.text = _hint;
+		[_hintView addSubview:hintLabel];
+		[hintLabel sizeToFit];
+
+		hintLabel.centerY = self.view.centerY;
+
+		CALayer *hintImageLayer = [[CALayer alloc] init];
+		hintImageLayer.frame = CGRectMake((SCREEN_WIDTH - 253) / 2.f, hintLabel.top - 92.f - 20.f, 253, 92);
+		hintImageLayer.contents = (__bridge id _Nullable)([UIImage imageNamed:@"img_scanning_rule"].CGImage);
+		[_hintView.layer addSublayer:hintImageLayer];
+
+		CALayer *hintBackGroundLayer = [[CALayer alloc] init];
+		hintBackGroundLayer.frame = CGRectMake(20.f, hintLabel.frame.origin.y - 57.f, SCREEN_WIDTH - 40.f, hintLabel.height + 20.f + 20.f + 35.f);
+		hintBackGroundLayer.backgroundColor = [UIColor colorWithHex:0x1F1F1F].CGColor;
+		hintBackGroundLayer.cornerRadius = 5;
+		hintBackGroundLayer.shouldRasterize = YES;
+		[_hintView.layer insertSublayer:hintBackGroundLayer below:hintLabel.layer];
+	}
+
+	_hintView.alpha = 0;
+
+	[UIView animateWithDuration:0.5f
+			 animations:^{
+			     _hintView.alpha = 1.0f;
+			 }];
 }
 
-- (void)getGift {
-    [self hideGift];
-    SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:self.rewardID];
-    controller.delegate = self;
-    [self presentViewController:controller animated:NO completion:nil];
+- (void)hideHintGuideView {
+	[_hintGuideImageView removeFromSuperview];
+	_hintGuideImageView = nil;
 }
 
-#pragma mark - OpenGLViewDelegate
-
-- (void)isRecognizedTarget:(BOOL)flag {
-    if (flag) {
-        _scanningGridLine.hidden = YES;
-        if (!_isRecognizedTargetImage) {
-            [self hidetipImageView];
-            if (!self.is_haved_ticket && ![self.rewardID isEqualToString:@"0"]) {
-                [self pushGift];
-            }
-            _isRecognizedTargetImage = true;
-        }
-    } else {
-        _scanningGridLine.hidden = NO;
-    }
+- (void)hideHintView {
+	[UIView animateWithDuration:0.5f
+		animations:^{
+		    _hintView.alpha = 0;
+		}
+		completion:^(BOOL finished) {
+		    [_hintView removeFromSuperview];
+		    _hintView = nil;
+		    [_glView restart];
+		}];
 }
-
-#pragma mark - Delegate
 
 - (void)onCaptureMascotSuccessful {
 	[self.delegate didClickBackButtonInScanningResultView:self];
 }
 
+#pragma SKScanningImageViewDelegate
+
+- (void)scanningImageView:(SKScanningImageView *)imageView didTapGiftButton:(id)giftButton {
+	[imageView removeGiftView];
+	SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:self.rewardID sId:_sid scanType:_swipeType];
+	controller.delegate = self;
+	[self presentViewController:controller animated:NO completion:nil];
+}
+
+#pragma mark - OpenGLViewDelegate
+
+- (void)isRecognizedTarget:(BOOL)flag targetId:(int)targetId {
+	if (flag && targetId >= 0) {
+        currentImageOrder = targetId;
+        //扫到目标图
+        [self.scanningImageView.scanningGridLine setHidden:YES];
+		if (_swipeType == SKScanTypeImage) {
+            if (_rewardID && ![_rewardID isEqualToString:@"0"]) {
+                _trackedTargetId = targetId;
+                [_scanningImageView setUpGiftView];
+                [_scanningImageView pushGift];
+            }
+            self.commentTextField.hidden = NO;
+            self.danmakuSwitchButton.hidden = NO;
+            if (!danmakuIsGet) {
+                danmakuIsGet = YES;
+                [[[SKServiceManager sharedInstance] scanningService] getScanningBarrageWithImageID:self.lid[currentImageOrder] callback:^(BOOL success, NSArray<SKDanmakuItem *> *danmakuList) {
+                    [self.danmaku start];
+                    for (SKDanmakuItem *danmaku in danmakuList) {
+                        DemoDanmakuItemData *data = [DemoDanmakuItemData data];
+                        data.avatarName = danmaku.user_avatar;
+                        data.desc = danmaku.contents;
+                        data.backColor = COMMON_TITLE_BG_COLOR;
+                        [self.danmaku addData:data];
+                    }
+                    
+                    if (!self.danmaku.isRunning) {
+                        [self.danmaku start];
+                    }
+                    
+                }];
+            }
+		}
+	} else {
+        //未扫到目标图
+        danmakuIsGet = NO;
+        [self.scanningImageView showScanningGridLine];
+		if (_swipeType == SKScanTypeImage) {
+            self.commentTextField.hidden = YES;
+            self.danmakuSwitchButton.hidden = YES;
+		}
+	}
+}
+
+#pragma mark - SKScanningRewardDelegate
 - (void)didClickBackButtonInScanningCaptureController:(SKScanningRewardViewController *)controller {
-    [controller dismissViewControllerAnimated:NO completion:^{
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - Actions
-
-- (void)showtipImageView {
-	self.tipLabel.hidden = NO;
-	self.tipImageView.hidden = NO;
-
-	self.tipImageView.alpha = 1.0;
-//	[UIView animateWithDuration:0.3
-//			      delay:10.0
-//			    options:UIViewAnimationOptionCurveEaseInOut
-//			 animations:^{
-//			     self.tipImageView.alpha = 0;
-//			 }
-//			 completion:^(BOOL finished){
-//
-//			 }];
+#pragma mark - SKScanningPuzzleViewDelegate
+- (void)scanningPuzzleView:(SKScanningPuzzleView *)view didTapExchangeButton:(UIButton *)button {
+	// 兑换
+	_scanningRewardViewController = [[SKScanningRewardViewController alloc] initWithRewardID:self.rewardID sId:_sid scanType:_swipeType];
+	_scanningRewardViewController.delegate = self;
+	[self.view addSubview:_scanningRewardViewController.view];
 }
 
-- (void)hidetipImageView {
-	[UIView animateWithDuration:0.3
-			 animations:^{
-			     self.tipImageView.alpha = 0;
-			 }];
+- (void)scanningPuzzleView:(SKScanningPuzzleView *)view didTapBoxButton:(UIButton *)button {
+	// 点开宝箱
+	[_scanningPuzzleView hideBoxView];
+
+	[[[SKServiceManager sharedInstance] scanningService] getScanningPuzzleWithMontageId:[_linkURLs objectAtIndex:_trackedTargetId]
+											sId:_sid
+										   callback:^(BOOL success, SKResponsePackage *response) {
+										       NSLog(@"%@", response);
+										       if (success && response.result == 0) {
+											       SKPopupGetPuzzleView *puzzleView = [[SKPopupGetPuzzleView alloc] initWithPuzzleImageURL:[_linkURLs objectAtIndex:_trackedTargetId]];
+											       puzzleView.delegate = self;
+											       [self.view addSubview:puzzleView];
+
+											       _rewardAction[_trackedTargetId] = @"1";
+
+										       } else {
+											       NSLog(@"获取拼图碎片失败");
+											       [_glView restart];
+											       [_scanningPuzzleView showAnimationView];
+											       [_scanningPuzzleView showPuzzleButton];
+										       }
+										   }];
 }
 
-- (void)loopScanningGridLine {
-    [UIView animateWithDuration:1.0
-                     animations:^{
-                         _scanningGridLine.left = SCREEN_WIDTH;
-                     }
-                     completion:^(BOOL finished) {
-                         _scanningGridLine.right = 0;
-                     }];
+- (void)scanningPuzzleView:(SKScanningPuzzleView *)view isShowPuzzles:(BOOL)isShowPuzzles {
+	if (isShowPuzzles) {
+		[_glView pause];
+	} else {
+		[_glView restart];
+	}
+
+	if (!_rewardRecord) {
+		[_scanningPuzzleView setupPuzzleView];
+	} else {
+		[_scanningPuzzleView hideAnimationView];
+		[_scanningPuzzleView hidePuzzleButton];
+
+		_scanningRewardViewController = [[SKScanningRewardViewController alloc] initWithReward:_rewardRecord];
+		_scanningRewardViewController.delegate = self;
+		[self.view addSubview:_scanningRewardViewController.view];
+	}
+}
+
+#pragma mark SKPopupGetPuzzleViewDelegate
+- (void)didRemoveFromSuperView {
+	[_glView restart];
+	[_scanningPuzzleView showAnimationView];
+	[_scanningPuzzleView showPuzzleButton];
 }
 
 @end

@@ -25,7 +25,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+	//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 	[self.navigationController.navigationBar setHidden:YES];
 }
 
@@ -67,15 +67,15 @@
 	[headerView addSubview:titleLabel];
 	[self.view addSubview:headerView];
 
-	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	backButton.tag = 9001;
-	[backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-	[backButton setImage:[UIImage imageNamed:@"btn_detailspage_return"] forState:UIControlStateNormal];
-	[backButton setImage:[UIImage imageNamed:@"btn_detailspage_return_highlight"] forState:UIControlStateHighlighted];
-	[backButton sizeToFit];
-	[self.view addSubview:backButton];
-	backButton.top += 12;
-	backButton.left += 4;
+//	UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//	backButton.tag = 9001;
+//	[backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//	[backButton setImage:[UIImage imageNamed:@"btn_logins_back"] forState:UIControlStateNormal];
+//	[backButton setImage:[UIImage imageNamed:@"btn_logins_back_highlight"] forState:UIControlStateHighlighted];
+//	[backButton sizeToFit];
+//	[self.view addSubview:backButton];
+//	backButton.top += 12;
+//	backButton.left += 4;
 }
 
 - (void)back {

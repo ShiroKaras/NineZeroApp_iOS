@@ -10,85 +10,71 @@
 #import "HTUIHeader.h"
 
 #import "JPUSHService.h"
-
-#import "HTNotificationController.h"
-#import "SKActivityNotificationView.h"
-#import "SKAllQuestionViewController.h"
-#import "SKLoginRootViewController.h"
-#import "SKMascotIndexViewController.h"
-#import "SKProfileIndexViewController.h"
-#import "SKProfileSettingViewController.h"
-#import "SKQuestionViewController.h"
-#import "SKRankViewController.h"
 #import "SKSwipeViewController.h"
+#import "NZTaskViewController.h"
+#import "SKSwipeViewController.h"
+#import "HTARCaptureController.h"
+#import "NZAdView.h"
+#import "SKActivityNotificationView.h"
+#import "HTWebController.h"
+#import "NZQuestionGiftView.h"
+#import "SKHelperView.h"
 
-#define minTranslateYToSkip 0.25
-#define animationTime 0.25f
-#define translationAccelerate 1.f
+#import "NZPScanningFileDownloadManager.h"
+#import "SSZipArchive.h"
 
-typedef enum {
-	BSScrollDirectionUnknown,
-	BSScrollDirectionFromBottomToTop,
-	BSScrollDirectionFromTopToBottom
-} BSScrollDirection;
+@interface SKHomepageViewController () <HTARCaptureControllerDelegate>
+@property (nonatomic, strong) UIView *dimmingView;
+@property (nonatomic, strong) SKIndexScanning *scaningInfo;
+@property (nonatomic, strong) SKActivityNotificationView *activityNotificationView; //活动通知
+@property (nonatomic, strong) NSString *adLink;
 
-@interface SKHomepageViewController () <UIGestureRecognizerDelegate>
+@property (nonatomic, strong) UIButton  *changeCityButton;
+@property (nonatomic, assign) NSInteger selectedCityIndex;
+@property (nonatomic, strong) NSString  *selectedCityCode;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIImageView *mapImageView;
 
-@property (nonatomic, strong) HTImageView *headerImageView;
-@property (nonatomic, strong) UIView *timeCountDownBackView;
-@property (nonatomic, strong) UILabel *timeCountDownLabel;
-@property (nonatomic, strong) UIButton *timeLimitLevelButton;
-@property (nonatomic, strong) UIImageView *timeCountDownBackView_isMonday;
-@property (nonatomic, strong) UILabel *timeCountDownLabel_isMonday;
-@property (nonatomic, strong) UIView *notificationRedFlag;
-
-@property (nonatomic, strong)
-	SKActivityNotificationView *activityNotificationView; //活动通知
-
-@property (nonatomic, assign) uint64_t endTime;
-@property (nonatomic, assign) BOOL isMonday;
-
-@property (nonatomic, strong) SKIndexInfo *indexInfo;
-
-//扫一扫
-@property (nonatomic, strong) UIImageView *scanningMascotImageView;
-@property (nonatomic, strong) UILabel *headerLabel;
-@property (nonatomic, strong) UIView *swipeView;
-@property (nonatomic, strong) UIImageView *cameraImageView;
-@property (nonatomic, strong) NSArray<SKScanning *> *scanningList;
-
+@property (nonatomic, strong) UIView *updateAlertView;
+@property (nonatomic, strong) NSDictionary *appInfo;
 @end
 
 @implementation SKHomepageViewController {
-	UIPanGestureRecognizer *_panGesture;
-	BOOL _isOnTop;
-
-	BSScrollDirection _scrollDirection;
+    UIButton *_selectedButton;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	if ([[UIDevice currentDevice] userInterfaceIdiom] ==
-		    UIUserInterfaceIdiomPhone &&
-	    SCREEN_HEIGHT > IPHONE4_SCREEN_HEIGHT) {
-		[self createUI];
-	} else {
-		[self createUIiPhone4];
-	}
+    _selectedCityCode = @"010";
+    [self createUI];
+    [[[SKServiceManager sharedInstance] commonService] getPeacock:^(BOOL success, SKResponsePackage *response) {
+        NSDictionary *dict = [NSDictionary dictionaryWithDictionary:response.data];
+        NSLog(@"%@", dict);
+        if (![response.data[@"peacock_pic"] isEqualToString:@""]&&response.data[@"peacock_pic"]!=nil) {
+            if ([response.data[@"status"] integerValue]==1) {
+                [self loadAdvWithImage:response.data[@"peacock_pic"]];
+                self.adLink = response.data[@"link"];
+            }
+        }
+    }];
+    
+    [[[SKServiceManager sharedInstance] commonService] getPublicPage:^(BOOL success, SKIndexScanning *indexScanningInfo) {
+        if ([indexScanningInfo.screen_remind boolValue]) {
+            [self versionUpdate];
+        }
+    }];
+    
+    [[[SKServiceManager sharedInstance] profileService] getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response) { }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[TalkingData trackPageBegin:@"homepage"];
 	[[UIApplication sharedApplication]
-		setStatusBarHidden:YES
+		setStatusBarHidden:NO
 		     withAnimation:UIStatusBarAnimationNone];
 	[self.navigationController.navigationBar setHidden:YES];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES];
-	if (_swipeView != nil) {
-		[self removeSnapshotViewFromSuperView];
-	}
-	[self loadData];
+    [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -101,931 +87,499 @@ typedef enum {
 }
 
 - (void)loadData {
-	[HTProgressHUD show];
-	[[[SKServiceManager sharedInstance]
-		commonService] getHomepageInfoCallBack:^(BOOL success,
-							 SKIndexInfo *indexInfo) {
-	    [HTProgressHUD dismiss];
-	    if (success) {
-		    _indexInfo = indexInfo;
-		    [_headerImageView
-			    sd_setImageWithURL:[NSURL URLWithString:indexInfo.index_gif]
-			      placeholderImage:[UIImage imageNamed:@"img_homepage_default"]];
-		    _isMonday = indexInfo.isMonday;
-		    _endTime = _isMonday == true ? indexInfo.monday_end_time
-						 : indexInfo.question_end_time;
-		    _timeCountDownBackView_isMonday.alpha = 0;
-		    _timeCountDownBackView.alpha = 1 - _isMonday;
-		    [self scheduleCountDownTimer];
-
-		    //扫一扫
-		    if (indexInfo.scanning_adv) {
-			    _headerLabel.hidden = NO;
-			    _scanningMascotImageView.hidden = NO;
-			    _panGesture = [[UIPanGestureRecognizer alloc]
-				    initWithTarget:self
-					    action:@selector(panGestureRecognized:)];
-			    [_panGesture setDelegate:self];
-			    [self.view addGestureRecognizer:_panGesture];
-		    }
-
-		    if (_isMonday) {
-			    [_timeLimitLevelButton addTarget:self
-						      action:@selector(showRelaxDayTimeLabel:)
-					    forControlEvents:UIControlEventTouchUpInside];
-			    [_timeLimitLevelButton
-				    setBackgroundImage:[UIImage imageNamed:@"btn_homepage_locked"]
-					      forState:UIControlStateNormal];
-		    } else {
-			    [_timeLimitLevelButton
-					   addTarget:self
-					      action:@selector(timeLimitQuestionButtonClick:)
-				    forControlEvents:UIControlEventTouchUpInside];
-			    [_timeLimitLevelButton
-				    setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"]
-					      forState:UIControlStateNormal];
-			    [_timeLimitLevelButton
-				    setBackgroundImage:[UIImage
-							       imageNamed:@"btn_homepage_timer_highlight"]
-					      forState:UIControlStateHighlighted];
-		    }
-		    if (![_indexInfo.adv_pic isEqualToString:@""]) {
-			    if ([self isNewDay] || ![self isSamePic]) {
-				    _activityNotificationView.hidden = NO;
-				    [_activityNotificationView show];
-				    [_activityNotificationView.contentImageView
-					    sd_setImageWithURL:[NSURL URLWithString:self.indexInfo.adv_pic]
-						     completed:^(UIImage *image, NSError *error,
-								 SDImageCacheType cacheType, NSURL *imageURL){
-						     }];
-			    }
-		    }
-		    [self judgeNotificationRedFlag];
-	    }
-	}];
-
-	[[[SKServiceManager sharedInstance] questionService]
-		getAllQuestionListCallback:^(
-			BOOL success, NSInteger answeredQuestion_season1,
-			NSInteger answeredQuestion_season2,
-			NSArray<SKQuestion *> *questionList_season1,
-			NSArray<SKQuestion *> *questionList_season2) {
-
-		    if ([UD dictionaryForKey:kQuestionWrongAnswerCountSeason1] == nil ||
-			[[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1] allKeys]
-					.count == 0) {
-			    NSMutableDictionary *hintDict = [NSMutableDictionary dictionary];
-			    for (SKQuestion *question in questionList_season1) {
-				    [hintDict setObject:@0 forKey:question.qid];
-			    }
-			    for (SKQuestion *question in questionList_season2) {
-				    [hintDict setObject:@0 forKey:question.qid];
-			    }
-
-			    [UD setObject:hintDict forKey:kQuestionWrongAnswerCountSeason1];
-		    } else {
-			    NSMutableDictionary *hintDict = [NSMutableDictionary
-				    dictionaryWithDictionary:
-					    [UD dictionaryForKey:kQuestionWrongAnswerCountSeason1]];
-			    for (SKQuestion *question in questionList_season1) {
-				    if (![[hintDict allKeys] containsObject:question.qid]) {
-					    [hintDict setObject:@0 forKey:question.qid];
-				    }
-			    }
-			    for (SKQuestion *question in questionList_season2) {
-				    if (![[hintDict allKeys] containsObject:question.qid]) {
-					    [hintDict setObject:@0 forKey:question.qid];
-				    }
-			    }
-			    [UD setObject:hintDict forKey:kQuestionWrongAnswerCountSeason1];
-		    }
-		}];
-
-	//更新用户信息
-	[[[SKServiceManager sharedInstance] profileService]
-		getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response){
-		}];
-	[[[SKServiceManager sharedInstance] profileService]
-		getUserInfoDetailCallback:^(BOOL success, SKProfileInfo *response){
-		}];
-
-	//注册通知
-	if ([[SKStorageManager sharedInstance] getUserID]) {
-		[JPUSHService setTags:[NSSet setWithObject:@"iOS"]
-				   alias:[[SKStorageManager sharedInstance] getUserID]
-			callbackSelector:nil
-				  object:nil];
-	}
-
-	if (![UD boolForKey:@"firstLaunch2"]) {
-		[UD setBool:YES forKey:@"firstLaunch2"];
-		//第一次启动
-		NSArray *mascotArray = @[@0, @0, @0, @0, @0, @0, @0];
-		[UD setObject:
-				@{ [[SKStorageManager sharedInstance] getUserID]: mascotArray }
-			   forKey:kMascots_Dict];
-	} else {
-		//不是第一次启动了
-		NSMutableDictionary *dict = [NSMutableDictionary
-			dictionaryWithDictionary:[UD objectForKey:kMascots_Dict]];
-		if (![[dict allKeys]
-			    containsObject:[[SKStorageManager sharedInstance] getUserID]]) {
-			NSArray *mascotArray = @[@0, @0, @0, @0, @0, @0, @0];
-			[UD setObject:
-					@{ [[SKStorageManager sharedInstance] getUserID]: mascotArray }
-				   forKey:kMascots_Dict];
-		}
-	}
+    [[[SKServiceManager sharedInstance] commonService] getPublicPage:^(BOOL success, SKIndexScanning *indexScanningInfo) {
+        _scaningInfo = indexScanningInfo;   //1.扫一扫 2.时间段
+        if ([indexScanningInfo.scanning_type integerValue] == 1) {
+            
+        } else if ([indexScanningInfo.scanning_type integerValue] == 2) {
+            if (!indexScanningInfo.is_haved_reward) {
+                [self loadZip];
+            }
+        }
+        
+        if (![indexScanningInfo.adv_pic isEqualToString:@""]&&indexScanningInfo.adv_pic!=nil) {
+            //加载广告
+            if ([self isNewDay] || ![self isSamePic]) {
+                _activityNotificationView.hidden = NO;
+                [_activityNotificationView show];
+                [_activityNotificationView.contentImageView
+                 sd_setImageWithURL:[NSURL URLWithString:self.scaningInfo.adv_pic]
+                 completed:^(UIImage *image, NSError *error,
+                             SDImageCacheType cacheType, NSURL *imageURL){
+                 }];
+            }
+        }
+    }];
 }
 
+//更新提示
+- (void)showUpdateAlert {
+    _updateAlertView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 230, 143)];
+    _updateAlertView.backgroundColor = COMMON_BG_COLOR;
+    _updateAlertView.layer.borderWidth = 2;
+    _updateAlertView.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
+    _updateAlertView.centerX = self.view.centerX;
+    _updateAlertView.centerY = self.view.centerY;
+    [self.view addSubview:_updateAlertView];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_ updates_title"]];
+    imageView.centerX = _updateAlertView.width/2;
+    imageView.centerY = (_updateAlertView.height-43)/2;
+    [_updateAlertView addSubview:imageView];
+    
+    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 100, 116, 43)];
+    [cancelButton setImage:[UIImage imageNamed:@"btn_updates_cancel"] forState:UIControlStateNormal];
+    [cancelButton setImage:[UIImage imageNamed:@"btn_updates_cancel_highlight"] forState:UIControlStateHighlighted];
+    [cancelButton addTarget:self action:@selector(closeUpdateAlert) forControlEvents:UIControlEventTouchUpInside];
+    cancelButton.layer.borderWidth = 2;
+    cancelButton.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
+    [_updateAlertView addSubview:cancelButton];
+    
+    UIButton *okButton = [[UIButton alloc] initWithFrame:CGRectMake(114, 100, 116, 43)];
+    [okButton setImage:[UIImage imageNamed:@"btn_updates_update"] forState:UIControlStateNormal];
+    [okButton setImage:[UIImage imageNamed:@"btn_updates_update_highlight"] forState:UIControlStateHighlighted];
+    [okButton addTarget:self action:@selector(didClickUpdateButton) forControlEvents:UIControlEventTouchUpInside];
+    okButton.layer.borderWidth = 2;
+    okButton.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
+    [_updateAlertView addSubview:okButton];
+}
+
+- (void)versionUpdate{    
+    //获得当前发布的版本
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
+        //耗时的操作---获取某个应用在AppStore上的信息，更改id就行
+        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://itunes.apple.com/lookup?id=1117413473"]
+                                                   encoding:NSUTF8StringEncoding error:nil];
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+        self.appInfo = dic;
+        
+//        //获得上线版本号
+//        NSString *version = [[[dic objectForKey:@"results"]firstObject]objectForKey:@"version"];
+//        NSString *updateInfo = [[[dic objectForKey:@"results"]firstObject]objectForKey:@"releaseNotes"];
+//        //获得当前版本
+//        NSString *currentVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //更新界面
+            [self showUpdateAlert];
+        });
+    });
+}
+
+- (void)closeUpdateAlert {
+    //更新界面
+    _updateAlertView.hidden = YES;
+    [_updateAlertView removeFromSuperview];
+    _updateAlertView = nil;
+}
+
+- (void)didClickUpdateButton {
+    NSString *url = [[[self.appInfo objectForKey:@"results"]firstObject]objectForKey:@"trackViewUrl"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+}
+
+//是否是新一天
 - (BOOL)isNewDay {
-	NSDate *senddate = [NSDate date];
-	NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
-	[dateformatter setDateFormat:@"YYYYMMdd"];
-	NSString *locationString = [dateformatter stringFromDate:senddate];
-	if (![locationString
-		    isEqualToString:
-			    [UD objectForKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION]]) {
-		[UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
-		return YES;
-	} else {
-		[UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
-		return NO;
-	}
+    NSDate *senddate = [NSDate date];
+    NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"YYYYMMdd"];
+    NSString *locationString = [dateformatter stringFromDate:senddate];
+    if (![locationString
+          isEqualToString:
+          [UD objectForKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION]]) {
+        [UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
+        return YES;
+    } else {
+        [UD setObject:locationString forKey:EVERYDAY_FIRST_ACTIVITY_NOTIFICATION];
+        return NO;
+    }
 }
 
 - (BOOL)isSamePic {
-	if ([self.indexInfo.adv_pic
-		    isEqualToString:[UD stringForKey:ACTIVITY_NOTIFICATION_PIC_NAME]]) {
-		return YES;
-	} else {
-		[UD setObject:self.indexInfo.adv_pic forKey:ACTIVITY_NOTIFICATION_PIC_NAME];
-		return NO;
-	}
-}
-
-- (void)judgeNotificationRedFlag {
-	if ([UD valueForKey:NOTIFICATION_COUNT] == nil) {
-		[UD setValue:@(self.indexInfo.user_notice_count) forKey:NOTIFICATION_COUNT];
-		self.notificationRedFlag.hidden =
-			self.indexInfo.user_notice_count > 0 ? NO : YES;
-	} else {
-		self.notificationRedFlag.hidden =
-			self.indexInfo.user_notice_count >
-					[[UD valueForKey:NOTIFICATION_COUNT] integerValue]
-				? NO
-				: YES;
-	}
-}
-
-- (void)scheduleCountDownTimer {
-	[NSObject
-		cancelPreviousPerformRequestsWithTarget:self
-					       selector:@selector(scheduleCountDownTimer)
-						 object:nil];
-	[self performSelector:@selector(scheduleCountDownTimer)
-		     withObject:nil
-		     afterDelay:1.0];
-	time_t delta = (time_t)_endTime - time(NULL);
-	time_t oneHour = 3600;
-	time_t hour = delta / oneHour;
-	time_t minute = (delta % oneHour) / 60;
-	time_t second = delta - hour * oneHour - minute * 60;
-
-	if (delta > 0) {
-		if (_isMonday) {
-			_timeCountDownLabel_isMonday.text = [NSString
-				stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
-		} else
-			_timeCountDownLabel.text = [NSString
-				stringWithFormat:@"%02ld:%02ld:%02ld", hour, minute, second];
-	} else {
-		// 过去时间
-		[NSObject
-			cancelPreviousPerformRequestsWithTarget:self
-						       selector:@selector(
-									scheduleCountDownTimer)
-							 object:nil];
-	}
+    if ([self.scaningInfo.adv_pic
+         isEqualToString:[UD stringForKey:ACTIVITY_NOTIFICATION_PIC_NAME]]) {
+        return YES;
+    } else {
+        [UD setObject:self.scaningInfo.adv_pic forKey:ACTIVITY_NOTIFICATION_PIC_NAME];
+        return NO;
+    }
 }
 
 - (void)createUI {
 	__weak __typeof(self) weakSelf = self;
-
 	self.view.backgroundColor = COMMON_BG_COLOR;
-
-	_headerImageView = [[HTImageView alloc]
-		initWithImage:[UIImage imageNamed:@"img_homepage_default"]];
-	_headerImageView.layer.masksToBounds = YES;
-	_headerImageView.contentMode = UIViewContentModeScaleAspectFill;
-	[self.view addSubview:_headerImageView];
-	[_headerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.top.equalTo(weakSelf.view);
-	    make.left.equalTo(weakSelf.view);
-	    make.right.equalTo(weakSelf.view);
-	    make.height.equalTo(weakSelf.view.mas_width).offset(4);
-	}];
-
-	_headerLabel = [UILabel new];
-	_headerLabel.text = @"下划开启扫一扫";
-	_headerLabel.font = [UIFont systemFontOfSize:14];
-	_headerLabel.textColor = [UIColor whiteColor];
-	[_headerLabel sizeToFit];
-	_headerLabel.hidden = YES;
-	[self.view addSubview:_headerLabel];
-
-	_scanningMascotImageView = [[UIImageView alloc]
-		initWithImage:[UIImage imageNamed:@"img_homepage_scanning"]];
-	[_scanningMascotImageView sizeToFit];
-	_scanningMascotImageView.hidden = YES;
-	[self.view addSubview:_scanningMascotImageView];
-
-	[_headerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.top.equalTo(weakSelf.view.mas_top).offset(8);
-	    make.centerX.equalTo(weakSelf.view.mas_centerX).offset(20);
-	}];
-
-	[_scanningMascotImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.top.equalTo(weakSelf.view.mas_top);
-	    make.right.equalTo(_headerLabel.mas_left).offset(-5);
-	}];
-
-	UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[notificationButton addTarget:self
-			       action:@selector(notificationButtonClick:)
-		     forControlEvents:UIControlEventTouchUpInside];
-	notificationButton.backgroundColor = COMMON_SEPARATOR_COLOR;
-	notificationButton.layer.cornerRadius = 15;
-	[notificationButton setImage:[UIImage imageNamed:@"btn_homepage_news"]
-			    forState:UIControlStateNormal];
-	[notificationButton
-		setImage:[UIImage imageNamed:@"btn_homepage_news_highlight"]
-		forState:UIControlStateHighlighted];
-	[notificationButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 12)];
-	[self.view addSubview:notificationButton];
-	[notificationButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.width.equalTo(@55);
-	    make.height.equalTo(@30);
-	    make.top.equalTo(weakSelf.view).offset(14);
-	    make.right.equalTo(weakSelf.view).offset(15);
-	}];
-
-	self.notificationRedFlag =
-		[[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
-	self.notificationRedFlag.layer.cornerRadius = 4;
-	self.notificationRedFlag.backgroundColor = COMMON_RED_COLOR;
-	self.notificationRedFlag.hidden = YES;
-	[self.view addSubview:self.notificationRedFlag];
-	[self.notificationRedFlag mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.mas_equalTo(CGSizeMake(8, 8));
-	    make.left.equalTo(notificationButton).offset(24);
-	    make.top.equalTo(notificationButton).offset(5);
-	}];
-
-//    //极难题
-//    UIButton *difficultQuestionButton = [UIButton new];
-//    [difficultQuestionButton setImage:[UIImage imageNamed:@"btn_homepage_difficulty"] forState:UIControlStateNormal];
-//    [self.view addSubview:difficultQuestionButton];
-//    [difficultQuestionButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.size.mas_equalTo(CGSizeMake(62, 62));
-//        make.bottom.equalTo(_headerImageView.mas_bottom).offset(-12);
-//        make.right.equalTo(weakSelf.view).offset(-4);
-//    }];
-//    
-//    UIImageView *shadowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_shadow"]];
-//    [shadowImageView sizeToFit];
-//    [self.view addSubview:shadowImageView];
-//    [shadowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(difficultQuestionButton.mas_bottom).offset(2);
-//        make.centerX.equalTo(difficultQuestionButton);
-//    }];
     
-	//限时关卡
-	_timeLimitLevelButton = [UIButton new];
-	[_timeLimitLevelButton
-		setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"]
-			  forState:UIControlStateNormal];
-	[self.view addSubview:_timeLimitLevelButton];
-	[_timeLimitLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.width.equalTo(ROUND_WIDTH(70));
-	    make.height.equalTo(ROUND_HEIGHT(93));
-	    make.centerX.equalTo(weakSelf.view);
-	    make.top.equalTo(_headerImageView.mas_bottom).offset(30);
-	}];
-
-	//全部关卡
-	UIButton *allLevelButton = [UIButton new];
-	[allLevelButton addTarget:self
-			   action:@selector(allLevelQuestionButtonClick:)
-		 forControlEvents:UIControlEventTouchUpInside];
-	[allLevelButton
-		setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional"]
-			  forState:UIControlStateNormal];
-	[allLevelButton
-		setBackgroundImage:[UIImage
-					   imageNamed:@"btn_homepage_traditional_highlight"]
-			  forState:UIControlStateHighlighted];
-	[self.view addSubview:allLevelButton];
-	[allLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.equalTo(_timeLimitLevelButton);
-	    make.centerY.equalTo(_timeLimitLevelButton);
-	    make.right.equalTo(_timeLimitLevelButton.mas_left).offset(-25);
-	}];
-
-	//零仔
-	UIButton *mascotButton = [UIButton new];
-	[mascotButton addTarget:self
-			  action:@selector(mascotButtonClick:)
-		forControlEvents:UIControlEventTouchUpInside];
-	[mascotButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai"]
-				forState:UIControlStateNormal];
-	[mascotButton
-		setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai_highlight"]
-			  forState:UIControlStateHighlighted];
-	[self.view addSubview:mascotButton];
-	[mascotButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.equalTo(_timeLimitLevelButton);
-	    make.centerY.equalTo(_timeLimitLevelButton);
-	    make.left.equalTo(_timeLimitLevelButton.mas_right).offset(25);
-	}];
-
-	//排行榜
-	UIButton *rankButton = [UIButton new];
-	[rankButton addTarget:self
-			  action:@selector(rankButtonClick:)
-		forControlEvents:UIControlEventTouchUpInside];
-	[rankButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top"]
-			      forState:UIControlStateNormal];
-	[rankButton
-		setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top_highlight"]
-			  forState:UIControlStateHighlighted];
-	[self.view addSubview:rankButton];
-	[rankButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.equalTo(_timeLimitLevelButton);
-	    make.top.equalTo(allLevelButton.mas_bottom).offset(16);
-	    make.centerX.equalTo(allLevelButton);
-	}];
-
-	//我
-	UIButton *meButton = [UIButton new];
-	[meButton addTarget:self
-			  action:@selector(meButtonClick:)
-		forControlEvents:UIControlEventTouchUpInside];
-	[meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me"]
-			    forState:UIControlStateNormal];
-	[meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me_highlight"]
-			    forState:UIControlStateHighlighted];
-	[self.view addSubview:meButton];
-	[meButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.equalTo(_timeLimitLevelButton);
-	    make.centerX.equalTo(_timeLimitLevelButton);
-	    make.centerY.equalTo(rankButton);
-	}];
-
-	//设置
-	UIButton *settingButton = [UIButton new];
-	[settingButton addTarget:self
-			  action:@selector(settingButtonClick:)
-		forControlEvents:UIControlEventTouchUpInside];
-	[settingButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_setting"]
-				 forState:UIControlStateNormal];
-	[settingButton
-		setBackgroundImage:[UIImage imageNamed:@"btn_homepage_setting_highlight"]
-			  forState:UIControlStateHighlighted];
-	[self.view addSubview:settingButton];
-	[settingButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.equalTo(_timeLimitLevelButton);
-	    make.centerX.equalTo(mascotButton);
-	    make.centerY.equalTo(rankButton);
-	}];
-
-	//倒计时
-	_timeCountDownBackView = [UIView new];
-	_timeCountDownBackView.alpha = 0;
-	_timeCountDownBackView.layer.cornerRadius = 3;
-	_timeCountDownBackView.backgroundColor = [UIColor colorWithHex:0xFF063E];
-	[self.view addSubview:_timeCountDownBackView];
-	[_timeCountDownBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.width.equalTo(ROUND_WIDTH(60));
-	    make.height.equalTo(ROUND_HEIGHT(25));
-	    make.left.equalTo(_timeLimitLevelButton.mas_left)
-		    .offset(ROUND_WIDTH_FLOAT(35));
-	    make.bottom.equalTo(_timeLimitLevelButton.mas_bottom)
-		    .offset(ROUND_HEIGHT_FLOAT(-82));
-	}];
-
-	_timeCountDownLabel = [UILabel new];
-	_timeCountDownLabel.font = MOON_FONT_OF_SIZE(14);
-	_timeCountDownLabel.textColor = [UIColor whiteColor];
-	_timeCountDownLabel.textAlignment = NSTextAlignmentCenter;
-	_timeCountDownLabel.text = @"00:00:00";
-	[_timeCountDownBackView addSubview:_timeCountDownLabel];
-	[_timeCountDownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.equalTo(_timeCountDownBackView);
-	    make.center.equalTo(_timeCountDownBackView);
-	}];
-
-	//休息日倒计时
-	_timeCountDownBackView_isMonday = [[UIImageView alloc]
-		initWithImage:[UIImage imageNamed:@"popup_homepage_timer"]];
-	_timeCountDownBackView_isMonday.alpha = 0;
-	[self.view addSubview:_timeCountDownBackView_isMonday];
-	[_timeCountDownBackView_isMonday
-		mas_makeConstraints:^(MASConstraintMaker *make) {
-		    make.size.mas_equalTo(
-			    CGSizeMake(ROUND_WIDTH_FLOAT(67), ROUND_WIDTH_FLOAT(37)));
-		    make.left.equalTo(_timeLimitLevelButton);
-		    make.bottom.equalTo(_timeLimitLevelButton)
-			    .offset(ROUND_HEIGHT_FLOAT(-84.5));
-		}];
-
-	_timeCountDownLabel_isMonday = [UILabel new];
-	_timeCountDownLabel_isMonday.font = MOON_FONT_OF_SIZE(12);
-	_timeCountDownLabel_isMonday.textColor = [UIColor whiteColor];
-	_timeCountDownLabel_isMonday.textAlignment = NSTextAlignmentCenter;
-	_timeCountDownLabel_isMonday.text = @"00:00:00";
-	[_timeCountDownBackView_isMonday addSubview:_timeCountDownLabel_isMonday];
-	[_timeCountDownLabel_isMonday
-		mas_makeConstraints:^(MASConstraintMaker *make) {
-		    make.width.equalTo(_timeCountDownBackView_isMonday);
-		    make.height.equalTo(@18);
-		    make.bottom.equalTo(_timeCountDownBackView_isMonday).offset(-6);
-		    make.centerX.equalTo(_timeCountDownBackView_isMonday);
-		}];
-
-	//活动通知
-	_activityNotificationView = [[SKActivityNotificationView alloc]
-		initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-	_activityNotificationView.hidden = YES;
-	[self.view addSubview:_activityNotificationView];
+    //切换城市按钮
+    _changeCityButton = [UIButton new];
+    [_changeCityButton setImage:[UIImage imageNamed:@"btn_local_beijing"] forState:UIControlStateNormal];
+    [_changeCityButton addTarget:self action:@selector(didClickedChangeCityButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_changeCityButton];
+    [_changeCityButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(82, 34));
+        make.centerX.equalTo(weakSelf.view);
+        make.top.equalTo(@25);
+    }];
+    
+    //任务按钮
+    UIButton *taskButton = [UIButton new];
+    [taskButton addTarget:self action:@selector(didClickTaskButton:) forControlEvents:UIControlEventTouchUpInside];
+    [taskButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_taskbook"] forState:UIControlStateNormal];
+    [taskButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_taskbook_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:taskButton];
+    [taskButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(27, 27));
+        make.centerY.equalTo(_changeCityButton);
+        make.left.equalTo(@13.5);
+    }];
+    
+    //零仔们
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64-49)];
+    _scrollView.bounces = NO;
+    _scrollView.contentSize = CGSizeMake(self.view.width, ROUND_WIDTH_FLOAT(568));
+    [self.view addSubview:_scrollView];
+    
+    _mapImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, ROUND_WIDTH_FLOAT(568))];
+    _mapImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [_scrollView addSubview:_mapImageView];
+    
+    //    NSArray *mascotName = @[@"零仔〇",@"懒惰", @"傲慢",@"暴怒",@"嫉妒",@"淫欲",@"饕餮"];
+    float buttonWidth = ROUND_WIDTH_FLOAT(100);
+    for (int i=0; i<6; i++) {
+        UIButton *mascotButton = [[UIButton alloc] initWithFrame:CGRectMake(16+(i%3)*(buttonWidth+16), 160+(i/3)*(buttonWidth+16), buttonWidth, buttonWidth)];
+        //        mascotButton.alpha = 0.3;
+        //        [mascotButton setTitle:mascotName[i+1] forState:UIControlStateNormal];
+        //        mascotButton.backgroundColor = COMMON_GREEN_COLOR;
+        [mascotButton addTarget:self action:@selector(didClickMascotButton:) forControlEvents:UIControlEventTouchUpInside];
+        mascotButton.tag = 202+i;
+        [self.scrollView addSubview:mascotButton];
+    }
+    
+    [self updateCityWithName:@"beijing"];
+    
+    
+    //扫一扫按钮
+    UIButton *swipeButton = [UIButton new];
+    [swipeButton addTarget:self action:@selector(didClickSwipeButton:) forControlEvents:UIControlEventTouchUpInside];
+    [swipeButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_scanning"] forState:UIControlStateNormal];
+    [swipeButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_scanning_highlight"] forState:UIControlStateHighlighted];
+    [self.view addSubview:swipeButton];
+    [swipeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(72, 72));
+        make.bottom.equalTo(@(-68));
+        make.centerX.equalTo(weakSelf.view);
+    }];
+    
+    [self.view layoutIfNeeded];
+    
+    //活动通知
+    _activityNotificationView = [[SKActivityNotificationView alloc]
+                                 initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    _activityNotificationView.hidden = YES;
+    [self.view addSubview:_activityNotificationView];
 }
 
-- (void)createUIiPhone4 {
-	__weak __typeof(self) weakSelf = self;
+- (void)updateCityWithName:(NSString*)cityName {
+    _mapImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"map_%@", cityName]];
+    if ([cityName isEqualToString:@"beijing"]) {
+        //懒惰
+        UIButton *btn_sloth = [self.view viewWithTag:202];
+        btn_sloth.top = ROUND_WIDTH_FLOAT(113.5);
+        btn_sloth.right = _scrollView.right -ROUND_WIDTH_FLOAT(116.5);
+        
+        //傲慢
+        UIButton *btn_pride = [self.view viewWithTag:203];
+        btn_pride.top = ROUND_WIDTH_FLOAT(328.5);
+        btn_pride.right = _scrollView.right -ROUND_WIDTH_FLOAT(35);
+        btn_pride.width = ROUND_WIDTH_FLOAT(77);
+        btn_pride.height = ROUND_WIDTH_FLOAT(123);
+        
+        //暴怒
+        UIButton *btn_wrath = [self.view viewWithTag:204];
+        btn_wrath.top = ROUND_WIDTH_FLOAT(416);
+        btn_wrath.right = _scrollView.right -ROUND_WIDTH_FLOAT(140.5);
+        
+        //嫉妒
+        UIButton *btn_envy = [self.view viewWithTag:205];
+        btn_envy.top = ROUND_WIDTH_FLOAT(32);
+        btn_envy.right = _scrollView.right -ROUND_WIDTH_FLOAT(11.5);
+        
+        //淫欲
+        UIButton *btn_lust = [self.view viewWithTag:206];
+        btn_lust.top = ROUND_WIDTH_FLOAT(223);
+        btn_lust.right = _scrollView.right -ROUND_WIDTH_FLOAT(5);
+        
+        //饕餮
+        UIButton *btn_gluttony = [self.view viewWithTag:207];
+        btn_gluttony.top = ROUND_WIDTH_FLOAT(261);
+        btn_gluttony.left = 0;
+        
+        [self.view layoutIfNeeded];
+        
+    } else if ([cityName isEqualToString:@"shanghai"]) {
+        //懒惰
+        UIButton *btn_sloth = [self.view viewWithTag:202];
+        btn_sloth.top = ROUND_WIDTH_FLOAT(381.5);
+        btn_sloth.right = _scrollView.right -ROUND_WIDTH_FLOAT(26.5);
+        
+        //傲慢
+        UIButton *btn_pride = [self.view viewWithTag:203];
+        btn_pride.top = ROUND_WIDTH_FLOAT(257);
+        btn_pride.width = ROUND_WIDTH_FLOAT(100);
+        btn_pride.height = ROUND_WIDTH_FLOAT(100);
+        btn_pride.right = _scrollView.right;
+        
+        //暴怒
+        UIButton *btn_wrath = [self.view viewWithTag:204];
+        btn_wrath.top = ROUND_WIDTH_FLOAT(68);
+        btn_wrath.left = ROUND_WIDTH_FLOAT(110);
+        
+        //嫉妒
+        UIButton *btn_envy = [self.view viewWithTag:205];
+        btn_envy.top = ROUND_WIDTH_FLOAT(284);
+        btn_envy.left = ROUND_WIDTH_FLOAT(49);
+        
+        //淫欲
+        UIButton *btn_lust = [self.view viewWithTag:206];
+        btn_lust.top = ROUND_WIDTH_FLOAT(179);
+        btn_lust.left = ROUND_WIDTH_FLOAT(18);
+        
+        //饕餮
+        UIButton *btn_gluttony = [self.view viewWithTag:207];
+        btn_gluttony.top = ROUND_WIDTH_FLOAT(68);
+        btn_gluttony.right = _scrollView.right;
+        
+        [self.view layoutIfNeeded];
 
-	self.view.backgroundColor = COMMON_BG_COLOR;
+    } else if ([cityName isEqualToString:@"guangzhou"]) {
+        //懒惰
+        UIButton *btn_sloth = [self.view viewWithTag:202];
+        btn_sloth.top = ROUND_WIDTH_FLOAT(376.5);
+        btn_sloth.left = ROUND_WIDTH_FLOAT(10.5);
+        
+        //傲慢
+        UIButton *btn_pride = [self.view viewWithTag:203];
+        btn_pride.top = ROUND_WIDTH_FLOAT(117);
+        btn_pride.width = ROUND_WIDTH_FLOAT(100);
+        btn_pride.height = ROUND_WIDTH_FLOAT(100);
+        btn_pride.right = _scrollView.right -ROUND_WIDTH_FLOAT(14.5);
+        
+        //暴怒
+        UIButton *btn_wrath = [self.view viewWithTag:204];
+        btn_wrath.top = ROUND_WIDTH_FLOAT(233);
+        btn_wrath.right = _scrollView.right -ROUND_WIDTH_FLOAT(10);
+        
+        //嫉妒
+        UIButton *btn_envy = [self.view viewWithTag:205];
+        btn_envy.top = ROUND_WIDTH_FLOAT(87);
+        btn_envy.right = _scrollView.right -ROUND_WIDTH_FLOAT(133.5);
+        
+        //淫欲
+        UIButton *btn_lust = [self.view viewWithTag:206];
+        btn_lust.top = ROUND_WIDTH_FLOAT(376);
+        btn_lust.right = _scrollView.right -ROUND_WIDTH_FLOAT(28);
+        
+        //饕餮
+        UIButton *btn_gluttony = [self.view viewWithTag:207];
+        btn_gluttony.top = ROUND_WIDTH_FLOAT(201);
+        btn_gluttony.right = _scrollView.right - ROUND_WIDTH_FLOAT(169);
+        
+        [self.view layoutIfNeeded];
+    }
+}
 
-	_headerImageView = [[HTImageView alloc]
-		initWithImage:[UIImage imageNamed:@"img_homepage_default"]];
-	_headerImageView.layer.masksToBounds = YES;
-	_headerImageView.contentMode = UIViewContentModeScaleAspectFill;
-	[self.view addSubview:_headerImageView];
-	[_headerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.top.equalTo(weakSelf.view).offset(-40);
-	    make.left.equalTo(weakSelf.view);
-	    make.right.equalTo(weakSelf.view);
-	    make.height.equalTo(weakSelf.view.mas_width).offset(4);
-	}];
+- (void)loadZip {
+    NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
+    NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:_scaningInfo.pet_gif];
+    NSString *unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [_scaningInfo.pet_gif stringByDeletingPathExtension]]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:zipFilePath]) {
+        [SSZipArchive unzipFileAtPath:zipFilePath
+                        toDestination:unzipFilesPath
+                            overwrite:YES
+                             password:nil
+                      progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
+                          
+                      }
+                    completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error){
+                        
+                    }];
+    } else {
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+        NSURL *URL = [NSURL URLWithString:_scaningInfo.pet_gif_url];
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        
+        NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request
+                                                                         progress:nil
+                                                                      destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                                                          NSString *cacheDirectory = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/"]];
+                                                                          NSString *zipFilePath = [cacheDirectory stringByAppendingPathComponent:_scaningInfo.pet_gif];
+                                                                          return [NSURL fileURLWithPath:zipFilePath];
+                                                                      }
+                                                                completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                                                                    if (filePath == nil)
+                                                                        return;
+                                                                    
+                                                                    [SSZipArchive unzipFileAtPath:[filePath path]
+                                                                                    toDestination:unzipFilesPath
+                                                                                        overwrite:YES
+                                                                                         password:nil
+                                                                                  progressHandler:^(NSString *entry, unz_file_info zipInfo, long entryNumber, long total) {
+                                                                                      
+                                                                                  }
+                                                                                completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error){
+                                                                                    
+                                                                                }];
+                                                                }];
+        [downloadTask resume];
+    }
+}
 
-	UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	[notificationButton addTarget:self
-			       action:@selector(notificationButtonClick:)
-		     forControlEvents:UIControlEventTouchUpInside];
-	notificationButton.backgroundColor = COMMON_SEPARATOR_COLOR;
-	notificationButton.layer.cornerRadius = 15;
-	[notificationButton setImage:[UIImage imageNamed:@"btn_homepage_news"]
-			    forState:UIControlStateNormal];
-	[notificationButton
-		setImage:[UIImage imageNamed:@"btn_homepage_news_highlight"]
-		forState:UIControlStateHighlighted];
-	[notificationButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 12)];
-	[self.view addSubview:notificationButton];
-	[notificationButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.width.equalTo(@55);
-	    make.height.equalTo(@30);
-	    make.top.equalTo(weakSelf.view).offset(14);
-	    make.right.equalTo(weakSelf.view).offset(15);
-	}];
-
-	self.notificationRedFlag =
-		[[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
-	self.notificationRedFlag.layer.cornerRadius = 4;
-	self.notificationRedFlag.backgroundColor = COMMON_RED_COLOR;
-	self.notificationRedFlag.hidden = YES;
-	[self.view addSubview:self.notificationRedFlag];
-	[self.notificationRedFlag mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.mas_equalTo(CGSizeMake(8, 8));
-	    make.left.equalTo(notificationButton).offset(24);
-	    make.top.equalTo(notificationButton).offset(5);
-	}];
-
-	//限时关卡
-	_timeLimitLevelButton = [UIButton new];
-	[_timeLimitLevelButton
-		setBackgroundImage:[UIImage imageNamed:@"btn_homepage_timer"]
-			  forState:UIControlStateNormal];
-	[self.view addSubview:_timeLimitLevelButton];
-	[_timeLimitLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.width.equalTo(ROUND_WIDTH(70));
-	    make.height.equalTo(ROUND_HEIGHT(93));
-	    make.centerX.equalTo(weakSelf.view);
-	    make.top.equalTo(_headerImageView.mas_bottom).offset(30);
-	}];
-
-	//全部关卡
-	UIButton *allLevelButton = [UIButton new];
-	[allLevelButton addTarget:self
-			   action:@selector(allLevelQuestionButtonClick:)
-		 forControlEvents:UIControlEventTouchUpInside];
-	[allLevelButton
-		setBackgroundImage:[UIImage imageNamed:@"btn_homepage_traditional"]
-			  forState:UIControlStateNormal];
-	[allLevelButton
-		setBackgroundImage:[UIImage
-					   imageNamed:@"btn_homepage_traditional_highlight"]
-			  forState:UIControlStateHighlighted];
-	[self.view addSubview:allLevelButton];
-	[allLevelButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.equalTo(_timeLimitLevelButton);
-	    make.centerY.equalTo(_timeLimitLevelButton);
-	    make.right.equalTo(_timeLimitLevelButton.mas_left).offset(-25);
-	}];
-
-	//零仔
-	UIButton *mascotButton = [UIButton new];
-	[mascotButton addTarget:self
-			  action:@selector(mascotButtonClick:)
-		forControlEvents:UIControlEventTouchUpInside];
-	[mascotButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai"]
-				forState:UIControlStateNormal];
-	[mascotButton
-		setBackgroundImage:[UIImage imageNamed:@"btn_homepage_lingzai_highlight"]
-			  forState:UIControlStateHighlighted];
-	[self.view addSubview:mascotButton];
-	[mascotButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.equalTo(_timeLimitLevelButton);
-	    make.centerY.equalTo(_timeLimitLevelButton);
-	    make.left.equalTo(_timeLimitLevelButton.mas_right).offset(25);
-	}];
-
-	//排行榜
-	UIButton *rankButton = [UIButton new];
-	[rankButton addTarget:self
-			  action:@selector(rankButtonClick:)
-		forControlEvents:UIControlEventTouchUpInside];
-	[rankButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top"]
-			      forState:UIControlStateNormal];
-	[rankButton
-		setBackgroundImage:[UIImage imageNamed:@"btn_homepage_top_highlight"]
-			  forState:UIControlStateHighlighted];
-	[self.view addSubview:rankButton];
-	[rankButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.equalTo(_timeLimitLevelButton);
-	    make.top.equalTo(allLevelButton.mas_bottom).offset(6);
-	    make.centerX.equalTo(allLevelButton);
-	}];
-
-	//我
-	UIButton *meButton = [UIButton new];
-	[meButton addTarget:self
-			  action:@selector(meButtonClick:)
-		forControlEvents:UIControlEventTouchUpInside];
-	[meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me"]
-			    forState:UIControlStateNormal];
-	[meButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_me_highlight"]
-			    forState:UIControlStateHighlighted];
-	[self.view addSubview:meButton];
-	[meButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.equalTo(_timeLimitLevelButton);
-	    make.centerX.equalTo(_timeLimitLevelButton);
-	    make.centerY.equalTo(rankButton);
-	}];
-
-	//设置
-	UIButton *settingButton = [UIButton new];
-	[settingButton addTarget:self
-			  action:@selector(settingButtonClick:)
-		forControlEvents:UIControlEventTouchUpInside];
-	[settingButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_setting"]
-				 forState:UIControlStateNormal];
-	[settingButton
-		setBackgroundImage:[UIImage imageNamed:@"btn_homepage_setting_highlight"]
-			  forState:UIControlStateHighlighted];
-	[self.view addSubview:settingButton];
-	[settingButton mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.equalTo(_timeLimitLevelButton);
-	    make.centerX.equalTo(mascotButton);
-	    make.centerY.equalTo(rankButton);
-	}];
-
-	//倒计时
-	_timeCountDownBackView = [UIView new];
-	_timeCountDownBackView.alpha = 0;
-	_timeCountDownBackView.layer.cornerRadius = 3;
-	_timeCountDownBackView.backgroundColor = [UIColor colorWithHex:0xFF063E];
-	[self.view addSubview:_timeCountDownBackView];
-	[_timeCountDownBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.width.equalTo(ROUND_WIDTH(60));
-	    make.height.equalTo(ROUND_HEIGHT(25));
-	    make.left.equalTo(_timeLimitLevelButton.mas_left)
-		    .offset(ROUND_WIDTH_FLOAT(35));
-	    make.bottom.equalTo(_timeLimitLevelButton.mas_bottom)
-		    .offset(ROUND_HEIGHT_FLOAT(-82));
-	}];
-
-	_timeCountDownLabel = [UILabel new];
-	_timeCountDownLabel.font = MOON_FONT_OF_SIZE(14);
-	_timeCountDownLabel.textColor = [UIColor whiteColor];
-	_timeCountDownLabel.textAlignment = NSTextAlignmentCenter;
-	_timeCountDownLabel.text = @"00:00:00";
-	[_timeCountDownBackView addSubview:_timeCountDownLabel];
-	[_timeCountDownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.size.equalTo(_timeCountDownBackView);
-	    make.center.equalTo(_timeCountDownBackView);
-	}];
-
-	//休息日倒计时
-	_timeCountDownBackView_isMonday = [[UIImageView alloc]
-		initWithImage:[UIImage imageNamed:@"popup_homepage_timer"]];
-	_timeCountDownBackView_isMonday.alpha = 0;
-	[self.view addSubview:_timeCountDownBackView_isMonday];
-	[_timeCountDownBackView_isMonday
-		mas_makeConstraints:^(MASConstraintMaker *make) {
-		    make.size.mas_equalTo(
-			    CGSizeMake(ROUND_WIDTH_FLOAT(67), ROUND_WIDTH_FLOAT(37)));
-		    make.left.equalTo(_timeLimitLevelButton);
-		    make.bottom.equalTo(_timeLimitLevelButton)
-			    .offset(ROUND_HEIGHT_FLOAT(-84.5));
-		}];
-
-	_timeCountDownLabel_isMonday = [UILabel new];
-	_timeCountDownLabel_isMonday.font = MOON_FONT_OF_SIZE(12);
-	_timeCountDownLabel_isMonday.textColor = [UIColor whiteColor];
-	_timeCountDownLabel_isMonday.textAlignment = NSTextAlignmentCenter;
-	_timeCountDownLabel_isMonday.text = @"00:00:00";
-	[_timeCountDownBackView_isMonday addSubview:_timeCountDownLabel_isMonday];
-	[_timeCountDownLabel_isMonday
-		mas_makeConstraints:^(MASConstraintMaker *make) {
-		    make.width.equalTo(_timeCountDownBackView_isMonday);
-		    make.height.equalTo(@18);
-		    make.bottom.equalTo(_timeCountDownBackView_isMonday).offset(-6);
-		    make.centerX.equalTo(_timeCountDownBackView_isMonday);
-		}];
-
-	//活动通知
-	_activityNotificationView = [[SKActivityNotificationView alloc]
-		initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-	_activityNotificationView.hidden = YES;
-	[self.view addSubview:_activityNotificationView];
+- (void)loadAdvWithImage:(NSString*)imageUrl {
+    NZAdView *adView = [[NZAdView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) image:[NSURL URLWithString:imageUrl]];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickAd)];
+    tap.numberOfTapsRequired = 1;
+    [adView addGestureRecognizer:tap];
+    [KEY_WINDOW addSubview:adView];
 }
 
 #pragma mark - Actions
-- (void)showRelaxDayTimeLabel:(UIButton *)sender {
-	if (_isMonday) {
-		[UIView animateWithDuration:0.3
-			animations:^{
-			    _timeCountDownBackView_isMonday.alpha = 1;
-			}
-			completion:^(BOOL finished) {
-			    [UIView animateWithDuration:0.3
-						  delay:2
-						options:UIViewAnimationOptionCurveEaseInOut
-					     animations:^{
-						 _timeCountDownBackView_isMonday.alpha = 0;
-					     }
-					     completion:^(BOOL finished){
 
-					     }];
-			}];
-	} else {
-		[UIView animateWithDuration:0.3
-			animations:^{
-			    _timeCountDownBackView.alpha = 1;
-			}
-			completion:^(BOOL finished) {
-			    [UIView animateWithDuration:0.3
-						  delay:2
-						options:UIViewAnimationOptionCurveEaseInOut
-					     animations:^{
-						 _timeCountDownBackView.alpha = 0;
-					     }
-					     completion:^(BOOL finished){
-
-					     }];
-			}];
-	}
+- (void)removeDimmingView {
+    [UIView animateWithDuration:0.3 animations:^{
+        _dimmingView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [_dimmingView removeFromSuperview];
+    }];
 }
 
-- (void)timeLimitQuestionButtonClick:(UIButton *)sender {
-	[TalkingData trackEvent:@"timelimit"];
-	SKQuestionViewController *controller = [[SKQuestionViewController alloc]
-		initWithType:SKQuestionTypeTimeLimitLevel
-		  questionID:self.indexInfo.qid
-		     endTime:(time_t)_endTime];
-	[self.navigationController pushViewController:controller animated:YES];
+- (void)didClickedChangeCityButton:(UIButton *)sender {
+    _dimmingView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _dimmingView.backgroundColor  = [UIColor clearColor];
+    [self.view addSubview:_dimmingView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeDimmingView)];
+    [_dimmingView addGestureRecognizer:tap];
+    
+    UIView *alphaView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _dimmingView.width, _dimmingView.height)];
+    alphaView.backgroundColor = [UIColor blackColor];
+    alphaView.alpha = 0.8;
+    [_dimmingView addSubview:alphaView];
+    
+    NSArray *cityNameArray = @[@"beijing", @"shanghai", @"guangzhou"];
+    //Cities
+    for (int i=0; i<cityNameArray.count; i++) {
+        UIButton *cityView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 60)];
+        [cityView addTarget:self action:@selector(didClickSelectedCityButton:) forControlEvents:UIControlEventTouchUpInside];
+        cityView.tag = 100+i;
+        [cityView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_citypage_%@", cityNameArray[i]]] forState:UIControlStateNormal];
+        cityView.backgroundColor = COMMON_BG_COLOR;
+        [_dimmingView addSubview:cityView];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            cityView.top = 80+60*i;
+        }];
+    }
+    
+    _selectedButton = [self.view viewWithTag:100+_selectedCityIndex];
+    [_selectedButton setBackgroundColor:COMMON_GREEN_COLOR];
+    [_selectedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_selectedButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_citypage_%@_highlight", cityNameArray[_selectedCityIndex]]] forState:UIControlStateNormal];
+    
+    //TitleView
+    UIView *changeCityTitleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 80)];
+    changeCityTitleView.backgroundColor = [UIColor blackColor];
+    [_dimmingView addSubview:changeCityTitleView];
+    
+    UIImageView *changeCityTitleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_citypage_title"]];
+    [_dimmingView addSubview:changeCityTitleImageView];
+    changeCityTitleImageView.centerX = _dimmingView.centerX;
+    changeCityTitleImageView.top = 33;
 }
 
-- (void)allLevelQuestionButtonClick:(UIButton *)sender {
-	[TalkingData trackEvent:@"alllevels"];
-	SKAllQuestionViewController *controller =
-		[[SKAllQuestionViewController alloc] init];
-	controller.indexInfo = self.indexInfo;
-	controller.isMonday = self.isMonday;
-	[self.navigationController pushViewController:controller animated:YES];
+- (void)didClickSelectedCityButton:(UIButton *)sender {
+    _selectedCityIndex = (long)sender.tag - 100;
+    NSArray *cityNameArray = @[@"beijing", @"shanghai", @"guangzhou"];
+    NSArray *cityCodeArray = @[@"010", @"021", @"020"];
+    [self updateCityWithName:cityNameArray[_selectedCityIndex]];
+    [_changeCityButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_local_%@", cityNameArray[_selectedCityIndex]]] forState:UIControlStateNormal];
+    _selectedCityCode = cityCodeArray[_selectedCityIndex];
+    [self removeDimmingView];
 }
 
-- (void)mascotButtonClick:(UIButton *)sender {
-	[TalkingData trackEvent:@"lingzai"];
-	SKMascotIndexViewController *controller =
-		[[SKMascotIndexViewController alloc] init];
-	[self.navigationController pushViewController:controller animated:YES];
+- (void)didClickTaskButton:(UIButton*)sender {
+    NZTaskViewController *controller = [[NZTaskViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)rankButtonClick:(UIButton *)sender {
-	[TalkingData trackEvent:@"rankinglist"];
-	SKRankViewController *controller = [[SKRankViewController alloc] init];
-	[self.navigationController pushViewController:controller animated:YES];
+- (void)didClickSwipeButton:(UIButton *)sender {
+    //判断相机是否开启
+    AVAuthorizationStatus authStatus = [AVCaptureDevice
+                                        authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (authStatus == AVAuthorizationStatusRestricted ||
+        authStatus == AVAuthorizationStatusDenied) {
+        HTAlertView *alertView =
+        [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+        [alertView show];
+    } else {
+        switch ([_scaningInfo.scanning_type integerValue]) {
+            case 1: {
+                SKSwipeViewController *swipeViewController =
+                [[SKSwipeViewController alloc] init];
+                [self.navigationController pushViewController:swipeViewController animated:NO];
+                break;
+            }
+            case 2: {
+                HTARCaptureController *controller = [[HTARCaptureController alloc] init];
+                controller.delegate = self;
+                controller.pet_gif = _scaningInfo.pet_gif;
+                controller.isHadReward = _scaningInfo.is_haved_reward;
+                controller.rewardID = _scaningInfo.reward_id;
+                [self presentViewController:controller animated:NO completion:nil];
+                break;
+            }
+            case 3: {
+                HTARCaptureController *controller = [[HTARCaptureController alloc] initWithHomepage];
+                controller.delegate = self;
+                controller.pet_gif = _scaningInfo.pet_gif;
+                [self presentViewController:controller animated:NO completion:nil];
+                break;
+            }
+            default:
+                break;
+        }
+    }
 }
 
-- (void)meButtonClick:(UIButton *)sender {
-	[TalkingData trackEvent:@"myhomepage"];
-	SKProfileIndexViewController *controller =
-		[[SKProfileIndexViewController alloc] init];
-	[self.navigationController pushViewController:controller animated:YES];
+- (void)didClickMascotButton:(UIButton*)sender {
+    NSInteger mid = sender.tag-200;
+    NZTaskViewController *controller = [[NZTaskViewController alloc] initWithMascotID:mid];
+    controller.cityCode = _selectedCityCode;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)settingButtonClick:(UIButton *)sender {
-	[TalkingData trackEvent:@"setting"];
-	SKProfileSettingViewController *controller =
-		[[SKProfileSettingViewController alloc] init];
-	[self.navigationController pushViewController:controller animated:YES];
+- (void)didClickAd {
+    if (self.adLink==nil || [self.adLink isEqualToString:@""])  return;
+    HTWebController *controller = [[HTWebController alloc] initWithURLString:self.adLink];
+    controller.type = 1;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)notificationButtonClick:(UIButton *)sender {
-	[UD setValue:@(self.indexInfo.user_notice_count) forKey:NOTIFICATION_COUNT];
-	HTNotificationController *controller =
-		[[HTNotificationController alloc] init];
-	[self.navigationController pushViewController:controller animated:YES];
+#pragma mark - HTARCaptureController Delegate
+
+- (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward *)reward {
+    [controller dismissViewControllerAnimated:NO
+                                   completion:^{
+                                       [self removeDimmingView];
+                                       [self showRewardViewWithReward:reward];
+                                       [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+                                   }];
 }
 
-#pragma mark - panGestureRecognized
-
-- (void)panGestureRecognized:(UIPanGestureRecognizer *)sender {
-	CGPoint translate = [sender translationInView:self.view];
-	translate.y = translate.y * translationAccelerate;
-	CGFloat boundsW = CGRectGetWidth(self.view.bounds);
-	CGFloat boundsH = CGRectGetHeight(self.view.bounds);
-
-	switch (sender.state) {
-		case UIGestureRecognizerStateBegan:
-			// reset all values
-			_scrollDirection = BSScrollDirectionUnknown;
-			_isOnTop = NO;
-			_cameraImageView.centerX = _swipeView.centerX;
-			_cameraImageView.centerY = _swipeView.centerY;
-			break;
-
-		case UIGestureRecognizerStateChanged: {
-			// Determinate Scroll Direction
-			if (_scrollDirection == BSScrollDirectionUnknown) {
-				_scrollDirection = translate.y < 0 ? BSScrollDirectionFromBottomToTop
-								   : BSScrollDirectionFromTopToBottom;
-				// add snapshot on top
-				[self addSnapshotViewOnTopWithDirection:_scrollDirection];
-			}
-
-			_swipeView.alpha = 0.7 * translate.y / SCREEN_HEIGHT;
-			_cameraImageView.centerX = self.view.centerX;
-			_cameraImageView.centerY = -_cameraImageView.height / 2 + translate.y / 2;
-
-			// If snapshot doesnt exist -> set isOnTop
-			if (!_swipeView) {
-				_isOnTop = YES;
-			}
-
-			// Is on top and pulling to from top to bottom, gesture is driven by
-			// handlePanGestureToPullToRefresh
-			if (_isOnTop && _scrollDirection == BSScrollDirectionFromTopToBottom) {
-				return;
-			}
-
-			break;
-		}
-		case UIGestureRecognizerStateCancelled: {
-			// gesture was canceled - snapshot view backs to start position
-			// collection view has no more items to show, pangesture is available only
-			// for 50px
-			[UIView animateWithDuration:animationTime
-				animations:^{
-				    if (_scrollDirection == BSScrollDirectionFromBottomToTop) {
-					    CGRect endRect = CGRectMake(0, 0, boundsW, boundsH);
-					    [_swipeView setFrame:endRect];
-				    } else {
-					    _swipeView.alpha = 0.7;
-					    _cameraImageView.centerX = self.view.centerX;
-					    _cameraImageView.centerY = self.view.centerY;
-				    }
-				}
-				completion:^(BOOL finished) {
-				    [self removeSnapshotViewFromSuperView];
-				}];
-			break;
-		}
-		case UIGestureRecognizerStateEnded: {
-			// pull to refresh dragging, handled by handlePanGestureToPullToRefresh
-			if (_isOnTop && _scrollDirection == BSScrollDirectionFromTopToBottom) {
-				return;
-			}
-
-			if (_scrollDirection == BSScrollDirectionFromTopToBottom &&
-			    translate.y > minTranslateYToSkip * boundsH) {
-				[UIView animateWithDuration:animationTime
-					animations:^{
-					    _swipeView.alpha = 0.7;
-					    _cameraImageView.centerX = self.view.centerX;
-					    _cameraImageView.centerY = self.view.centerY;
-					}
-					completion:^(BOOL finished) {
-					    //判断相机是否开启
-					    AVAuthorizationStatus authStatus = [AVCaptureDevice
-						    authorizationStatusForMediaType:AVMediaTypeVideo];
-					    if (authStatus == AVAuthorizationStatusRestricted ||
-						authStatus == AVAuthorizationStatusDenied) {
-						    HTAlertView *alertView =
-							    [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
-						    [alertView show];
-						    [UIView animateWithDuration:animationTime
-							    animations:^{
-								_swipeView.alpha = 0;
-								_cameraImageView.centerX = self.view.centerX;
-								_cameraImageView.bottom = self.view.top;
-							    }
-							    completion:^(BOOL finished) {
-								[self removeSnapshotViewFromSuperView];
-							    }];
-					    } else {
-						    SKSwipeViewController *swipeViewController =
-							    [[SKSwipeViewController alloc] init];
-
-						    [self.navigationController pushViewController:swipeViewController
-											 animated:NO];
-					    }
-					}];
-			} else {
-				[UIView animateWithDuration:animationTime
-					animations:^{
-					    _swipeView.alpha = 0;
-					    _cameraImageView.centerX = self.view.centerX;
-					    _cameraImageView.bottom = self.view.top;
-					}
-					completion:^(BOOL finished) {
-					    [self removeSnapshotViewFromSuperView];
-					}];
-			}
-
-			break;
-		}
-		default:
-			break;
-	}
-}
-
-- (void)removeSnapshotViewFromSuperView {
-	[_swipeView removeFromSuperview];
-	_swipeView = nil;
-	[_cameraImageView removeFromSuperview];
-	_cameraImageView = nil;
-}
-
-- (void)addSnapshotViewOnTopWithDirection:(BSScrollDirection)direction {
-	[self removeSnapshotViewFromSuperView];
-
-	switch (direction) {
-		case BSScrollDirectionFromBottomToTop:
-			//下滑扫一扫
-			_swipeView = [[UIView alloc]
-				initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-			_swipeView.backgroundColor = [UIColor blackColor];
-			_swipeView.alpha = 0;
-			[self.view addSubview:_swipeView];
-
-			_cameraImageView = [[UIImageView alloc]
-				initWithImage:[UIImage imageNamed:@"img_homepage_camera"]];
-			[_cameraImageView sizeToFit];
-			_cameraImageView.centerX = self.view.centerX;
-			_cameraImageView.bottom = self.view.top;
-			[self.view addSubview:_cameraImageView];
-
-			break;
-		case BSScrollDirectionFromTopToBottom:
-			//下滑扫一扫
-			_swipeView = [[UIView alloc]
-				initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-			_swipeView.backgroundColor = [UIColor blackColor];
-			_swipeView.alpha = 0;
-			[self.view addSubview:_swipeView];
-
-			_cameraImageView = [[UIImageView alloc]
-				initWithImage:[UIImage imageNamed:@"img_homepage_camera"]];
-			[_cameraImageView sizeToFit];
-			_cameraImageView.centerX = self.view.centerX;
-			_cameraImageView.bottom = self.view.top;
-			[self.view addSubview:_cameraImageView];
-
-			break;
-		default:
-			break;
-	}
+- (void)showRewardViewWithReward:(SKReward *)reward {
+    NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withReward:reward];
+    [KEY_WINDOW addSubview:rewardView];
 }
 
 @end

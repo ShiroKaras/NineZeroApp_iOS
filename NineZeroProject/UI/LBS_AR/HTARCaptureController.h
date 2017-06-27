@@ -12,7 +12,17 @@
 
 @class SKQuestion;
 @class SKReward;
+@class SKStrongholdItem;
 @class HTARCaptureController;
+
+typedef enum : NSUInteger {
+    NZLbsTypeUnknown = 0,
+    NZLbsTypeDefault,
+    NZLbsTypeQuestion,
+    NZLbsTypeStronghold,
+    NZLbsTypeHomepage
+} NZLbsType;
+
 @protocol HTARCaptureControllerDelegate <NSObject>
 - (void)didClickBackButtonInARCaptureController:(HTARCaptureController *)controller reward:(SKReward *)reward;
 @end
@@ -20,8 +30,12 @@
 @interface HTARCaptureController : UIViewController
 
 - (instancetype)initWithQuestion:(SKQuestion *)question;
-@property (nonatomic, weak) id<HTARCaptureControllerDelegate> delegate;
-@property (nonatomic, assign) NSString *rewardID;
-@property (nonatomic, strong) SKQuestion *question;
+- (instancetype)initWithStronghold:(SKStrongholdItem*)stronghold;
+- (instancetype)initWithHomepage;
 
+@property (nonatomic, weak) id<HTARCaptureControllerDelegate> delegate;
+@property (nonatomic, strong) NSString *rewardID;
+@property (nonatomic, strong) SKQuestion *question;
+@property (nonatomic, strong) NSString *pet_gif;
+@property (nonatomic, assign) BOOL isHadReward;
 @end

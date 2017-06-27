@@ -12,6 +12,8 @@
 
 @interface SKAnswerDetailView : UIView
 
+@property (nonatomic, strong) UIScrollView *backScrollView;
+
 - (instancetype)initWithFrame:(CGRect)frame questionID:(NSString *)questionID;
 
 @end

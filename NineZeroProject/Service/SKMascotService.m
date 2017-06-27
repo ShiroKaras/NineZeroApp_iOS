@@ -105,26 +105,26 @@
 				  }];
 }
 
-//获取零仔详情
-- (void)getMascotDetailWithMascotID:(NSString *)mascotID callback:(SKMascotListCallback)callback {
-	NSDictionary *param = @{
-		@"method": @"getPetDetail",
-		@"pet_id": mascotID
-	};
-	[self mascotBaseRequestWithParam:param
-				  callback:^(BOOL success, SKResponsePackage *response) {
-				      if ([response.data count] > 0) {
-					      NSMutableArray *mascotArray = [NSMutableArray array];
-					      for (int i = 0; i < [response.data count]; i++) {
-						      SKPet *mascot = [SKPet mj_objectWithKeyValues:response.data[i]];
-						      [mascotArray addObject:mascot];
-					      }
-					      callback(success, mascotArray);
-				      } else {
-					      callback(success, nil);
-				      }
-				  }];
-}
+////获取零仔详情
+//- (void)getMascotDetailWithMascotID:(NSString *)mascotID callback:(SKMascotListCallback)callback {
+//	NSDictionary *param = @{
+//		@"method": @"getPetDetail",
+//		@"pet_id": mascotID
+//	};
+//	[self mascotBaseRequestWithParam:param
+//				  callback:^(BOOL success, SKResponsePackage *response) {
+//				      if ([response.data count] > 0) {
+//					      NSMutableArray *mascotArray = [NSMutableArray array];
+//					      for (int i = 0; i < [response.data count]; i++) {
+//						      SKPet *mascot = [SKPet mj_objectWithKeyValues:response.data[i]];
+//						      [mascotArray addObject:mascot];
+//					      }
+//					      callback(success, mascotArray);
+//				      } else {
+//					      callback(success, nil);
+//				      }
+//				  }];
+//}
 
 //使用零仔技能
 - (void)useMascotSkillWithMascotID:(NSString *)mascotID callback:(SKResponseCallback)callback {
@@ -161,6 +161,64 @@
 				  callback:^(BOOL success, SKResponsePackage *response) {
 				      callback(success, response);
 				  }];
+}
+
+#pragma mark - 3.0
+
+- (void)getAllPetsCoopTimeCallback:(NZMascotArrayCallback)callback {
+    NSDictionary *param = @{
+                            @"method": @"getAllPetsCoop",
+                            };
+    [self mascotBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKMascot*> *dataArray = [NSMutableArray array];
+        for (int i=0; i<[response.data count]; i++) {
+            SKMascot *mascot = [SKMascot mj_objectWithKeyValues:response.data[i]];
+            [dataArray addObject:mascot];
+        }
+        callback(success, dataArray);
+    }];
+}
+
+- (void)getMascotCoopTimeRankListCallback:(NZMascotCoopTimeRankListCallback)callback {
+    NSDictionary *param = @{
+                            @"method" : @"getPetCoopRank",
+                            };
+    [self mascotBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray *rankerArray = [NSMutableArray array];
+        if ([response.data count] > 0) {
+            for (int i = 0; i < [response.data count]; i++) {
+                SKRanker *ranker = [SKRanker mj_objectWithKeyValues:response.data[i]];
+                if (i!=[response.data count]-1) {
+                    [rankerArray addObject:ranker];
+                } else {
+                    [rankerArray insertObject:ranker atIndex:0];
+                }
+            }
+            callback(success, rankerArray);
+        }
+    }];
+}
+
+- (void)getMascotDetailWithMascotID:(NSString *)mascotID callback:(void (^)(BOOL, SKMascot *))callback {
+    NSDictionary *param = @{
+                            @"method": @"getPetCoopDetail",
+                            @"pet_id": mascotID
+                            };
+    [self mascotBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        SKMascot *mascot = [SKMascot mj_objectWithKeyValues:response.data];
+        callback(success, mascot);
+    }];
+}
+
+- (void)getMascotEvidenceDetailWithID:(NSString *)eid callback:(void (^)(BOOL, SKMascotEvidence *))callback {
+    NSDictionary *param = @{
+                            @"method": @"getCrimeDetail",
+                            @"id"    : eid
+                            };
+    [self mascotBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        SKMascotEvidence *evidence = [SKMascotEvidence mj_objectWithKeyValues:response.data];
+        callback(success, evidence);
+    }];
 }
 
 @end

@@ -14,32 +14,35 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AMap3DMap (4.4.0):
+  - AMap3DMap (5.0.0):
     - AMapFoundation (~> 1.3)
-  - AMapFoundation (1.3.1)
-  - AMapLocation (2.1.1):
+  - AMapFoundation (1.4.0)
+  - AMapLocation (2.3.1):
+    - AMapFoundation (~> 1.3)
+  - AMapSearch (5.0.0):
     - AMapFoundation (~> 1.2)
-  - AMapSearch (4.3.0):
-    - AMapFoundation (~> 1.2)
+  - CHTCollectionViewWaterfallLayout (0.9.5):
+    - CHTCollectionViewWaterfallLayout/ObjC (= 0.9.5)
+  - CHTCollectionViewWaterfallLayout/ObjC (0.9.5)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - HappyDNS (0.3.10)
   - JPush (2.1.9)
-  - JSPatchPlatform (1.6.2):
-    - JSPatchPlatform/Core (= 1.6.2)
-  - JSPatchPlatform/Core (1.6.2)
   - Masonry (1.0.2)
   - MBProgressHUD (0.9.2)
   - MBProgressHUD+BWMExtension (1.0.1):
     - MBProgressHUD (~> 0.9.1)
-  - Qiniu (7.1.2):
+  - MJRefresh (3.1.12)
+  - PSCarouselView (1.4.1):
+    - SDWebImage
+  - Qiniu (7.1.5):
     - AFNetworking (~> 3)
     - HappyDNS (~> 0.3)
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
-  - SSZipArchive (1.6.2)
+  - SSZipArchive (1.8.1)
   - TTTAttributedLabel (1.13.4)
   - UIImage+animatedGif (0.1.0)
   - YLGIFImage (0.11)
@@ -51,10 +54,12 @@ DEPENDENCIES:
   - AMap3DMap
   - AMapLocation
   - AMapSearch
+  - CHTCollectionViewWaterfallLayout
   - JPush (~> 2.1.0)
-  - JSPatchPlatform
   - Masonry
   - MBProgressHUD+BWMExtension (~> 1.0.0)
+  - MJRefresh
+  - PSCarouselView
   - Qiniu (~> 7.0)
   - SDWebImage (~> 3.7.3)
   - SSZipArchive
@@ -65,25 +70,27 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AMap3DMap: c3f6aa63aea668e34f88c7beea69167ef6e8f1a2
-  AMapFoundation: 636834a27cd003084f56b4232f3031e6a44c7e7e
-  AMapLocation: dd203f76b034ef5cb546600f4e1ffad2a3a14072
-  AMapSearch: c90cc018a6c5281af17af6058ca99218a4d4b442
+  AMap3DMap: 4d0a53d0e57c7c758560225dfdaf593b306bd468
+  AMapFoundation: 458974f46a39df8407fd818ab83d2630d494c726
+  AMapLocation: 6016f0e09c127461c9c8e36945f34c0f037ad962
+  AMapSearch: cf7fd100d533995822d92c22586abfaf7cdf6eef
+  CHTCollectionViewWaterfallLayout: 775ff73f48cfc13859b62d8bceb96e772e4a0318
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
   JPush: 8bccf709ace4318a8e7008cc4fab42b706bfad46
-  JSPatchPlatform: 105e331f1b899a397d2bc0300a9ace9f9d7b8f08
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MBProgressHUD+BWMExtension: d0603a1c0b03ef74cae6a0986d63c0bdf34bedfe
-  Qiniu: d57cb922b5c31f0d1cfe2c8fea3cf83997cdcf62
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  PSCarouselView: ba326d737bb157608e28e53e525af50ce0606fd8
+  Qiniu: 77a3dba411556a383d72d17e842345a9d4c83252
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
-  SSZipArchive: 428eb1ac8d37dd133404d30f422b23958c1f9acc
+  SSZipArchive: 04547dfa448be5ed7ecbaf7eaf8a6e9eb9b42997
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   UIImage+animatedGif: 21cff7203edfb45ca0dd035505a4988cc0156356
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: 7add72c9093218b65cccd35ad07d3c54a88910e3
+PODFILE CHECKSUM: e647546c260d26dd41662f35888a15f2a069aa17
 
 COCOAPODS: 1.1.1

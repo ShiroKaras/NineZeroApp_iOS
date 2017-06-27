@@ -18,7 +18,9 @@ target 'NineZeroProject' do
   pod 'AMapLocation'  #定位SDK
   pod 'AMap3DMap'  #3D地图SDK
   pod 'AMapSearch' #搜索服务SDK
-  pod 'JSPatchPlatform'
+  pod 'MJRefresh'
+  pod 'CHTCollectionViewWaterfallLayout'
+  pod 'PSCarouselView'
 end
 
 target 'NineZeroProjectTests' do

@@ -12,11 +12,12 @@
 
 typedef void (^SKProfileInfoCallback) (BOOL success, SKProfileInfo *response);
 typedef void (^SKUserInfoCallback) (BOOL success, SKUserInfo *response);
-typedef void (^SKGetBadgesCallback) (BOOL success, NSInteger exp, NSArray<SKBadge *> *badges) ;
+typedef void (^SKGetBadgesCallback) (BOOL success, NSInteger exp, NSInteger coopTime ,NSArray<SKBadge *> *badges, NSArray<SKBadge*> *medals) ;
 typedef void (^SKGetPiecesCallback) (BOOL success, NSArray<SKPiece *> *pieces) ;
 typedef void (^SKGetTicketsCallback) (BOOL suceese, NSArray<SKTicket*> *tickets);
 typedef void (^SKGetRankerListCallbakc) (BOOL success, NSArray<SKRanker*> *rankerList);
 typedef void (^SKGetNotificationsCallback) (BOOL success, NSArray<SKNotification *> *notifications);
+typedef void (^SKTopicListCallback) (BOOL success, NSArray<SKTopic*> *topicList);
 
 @interface SKProfileService : NSObject
 
@@ -58,5 +59,11 @@ typedef void (^SKGetNotificationsCallback) (BOOL success, NSArray<SKNotification
 
 //获取碎片
 - (void)getPieces:(SKGetPiecesCallback)callback;
+
+//成就
+- (void)getUserAchievement:(SKGetBadgesCallback)callback;
+
+//参与的话题
+- (void)getJoinTopicListCallback:(SKTopicListCallback)callback;
 
 @end

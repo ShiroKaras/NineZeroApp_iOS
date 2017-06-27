@@ -37,8 +37,32 @@
     return self;
 }
 
+- (instancetype)initWithImage:(UIImage*)image text:(NSString*)text {
+    self = [super initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200)];
+    if (self) {
+        self.backgroundColor = [UIColor clearColor];
+        
+        _imageView = [[UIImageView alloc] initWithImage:image];;
+        [self addSubview:_imageView];
+        
+        _label = [[UILabel alloc] init];
+        _label.font = [UIFont systemFontOfSize:12];
+        _label.textColor = [UIColor colorWithHex:0x878787];
+        _label.textAlignment = NSTextAlignmentCenter;
+        _label.text = text;
+        [self addSubview:_label];
+        [_label sizeToFit];
+    }
+    return self;
+}
+
 - (void)setImage:(UIImage *)image andOffset:(CGFloat)offset {
     _imageView.image = image;
+    _offset = offset;
+    [self setNeedsLayout];
+}
+
+- (void)setOffset:(CGFloat)offset {
     _offset = offset;
     [self setNeedsLayout];
 }

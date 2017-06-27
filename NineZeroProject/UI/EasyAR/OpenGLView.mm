@@ -10,6 +10,7 @@
 #import "SKScanningResultView.h"
 #import "NZPScanningFileDownloadManager.h"
 #import "SKDownloadProgressView.h"
+#import "ClientConfiguration.h"
 
 #include <iostream>
 #include "ar.hpp"
@@ -24,7 +25,7 @@
 *  3. find the created item in the list and show key
 *  4. set key string bellow
 */
-NSString* key = @"Xe0xQqtQ9vL7AjMdLqW2c8SovCLsaGtqCKChl285py1Ba7aAMwtGbKLTqQm8gyxveP1Skb9q37dUNkupEqp6fLPnxOd7fghQLNmO1f07ca1144bf716f23b53826e0d24889ajEdFsvWFcHYPDhmyJBeamJMp4PyZPzzur5JR7EVNO8jKW7D6bxh4bIFO7DO2aOvqkTD";
+NSString* key = [[ClientConfiguration sharedInstance] EasyARAppKey];
 
 namespace EasyAR{
     namespace samples{
@@ -40,15 +41,17 @@ namespace EasyAR{
             int flag = 0;
 			NSArray *videoURLs;
 			id progressDelegate;
+			int lastTrackedTargetId;
+			
         private:
             Vec2I view_size;
             
-            int swipeType;   //0 扫一扫, 1 LBS
+            int swipeType;   //0 普通扫一扫, 1 拼图扫一扫
 			int targetCount;
             
             VideoRenderer* renderer[40];
             
-            int tracked_target;
+			int tracked_target;
             int active_target;
             int texid[40];
             ARVideo* video;
@@ -80,6 +83,7 @@ namespace EasyAR{
             flag = 0;
             swipeType = type;
             tracked_target = 0;
+			lastTrackedTargetId = -1;
             targetCount = count;
             for(int i = 0; i < targetCount; ++i) {
                 renderer[i]->init();
@@ -162,13 +166,16 @@ namespace EasyAR{
 					video = NULL;
 					tracked_target = 0;
                     active_target = 0;
+					lastTrackedTargetId = -1;
                 }
                 if (!tracked_target) {
-                    if (video == NULL) {
+                    if (swipeType == 0 && video == NULL) {
 						// 下载视频
 						NSString *filePath = [[NSString stringWithUTF8String:frame.targets()[0].target().name()] stringByDeletingLastPathComponent];
                         NSString *targetImageName = [[NSString stringWithUTF8String:frame.targets()[0].target().name()]  lastPathComponent];
                         int index = [[[targetImageName componentsSeparatedByString:@"_"] lastObject] intValue];
+						
+						lastTrackedTargetId = index;
 						
 						__block NSString *videoPath = [filePath stringByAppendingPathComponent:[NSString stringWithFormat:@"swipeVideo_%d.mp4", index]];
 						
@@ -198,7 +205,11 @@ namespace EasyAR{
 								
 							}];
 						}
-                    }
+					} else if (swipeType == 1) {
+                        NSString *targetImageName = [[NSString stringWithUTF8String:frame.targets()[0].target().name()]  lastPathComponent];
+                        int index = [[[targetImageName componentsSeparatedByString:@"_"] lastObject] intValue];
+						lastTrackedTargetId = index;
+					}
                     if (video) {
                         video->onFound();
                         tracked_target = tid;
@@ -254,7 +265,7 @@ EasyAR::samples::HelloAR ar;
 @property (strong, nonatomic) AVPlayerLayer *playerLayer;
 @property (strong, nonatomic) AVPlayerItem  *playerItem;
 
-@property (nonatomic, assign) int swipeType;   //0 扫一扫, 1 LBS
+@property (nonatomic, assign) SKScanType swipeType;
 @property (nonatomic, assign) int targetsCount; //目标图数量
 - (void)displayLinkCallback:(CADisplayLink*)displayLink;
 
@@ -268,7 +279,7 @@ EasyAR::samples::HelloAR ar;
     return [CAEAGLLayer class];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame withSwipeType:(int)type targetsCount:(int)count; {
+- (instancetype)initWithFrame:(CGRect)frame withSwipeType:(SKScanType)type targetsCount:(int)count; {
     _swipeType = type;
     _targetsCount = count;
     return [self initWithFrame:frame];
@@ -327,7 +338,7 @@ EasyAR::samples::HelloAR ar;
 
 - (void)start{
     ar.initCamera();
-    
+	
     // 本地沙盒目录
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSFileManager *fileManager=[NSFileManager defaultManager];
@@ -355,6 +366,14 @@ EasyAR::samples::HelloAR ar;
     
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkCallback:)];
     [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+- (void)pause {
+	ar.pause();
+}
+
+- (void)restart {
+	ar.start();
 }
 
 - (void)startWithFileName:(NSString *)fileName videoURLs:(NSArray *)videoURLs {
@@ -406,8 +425,15 @@ EasyAR::samples::HelloAR ar;
 {
     if (!((AppDelegate*)[[UIApplication sharedApplication]delegate]).active)
         return;
-    
-    [_delegate isRecognizedTarget:ar.isRecognizedTarget()];
+	
+	if ([_delegate respondsToSelector:@selector(isRecognizedTarget:targetId:)]) {
+		[_delegate isRecognizedTarget:ar.isRecognizedTarget() targetId:ar.lastTrackedTargetId];
+	}
+	
+	if ([_delegate respondsToSelector:@selector(isRecognizedTarget:)]) {
+		[_delegate isRecognizedTarget:ar.isRecognizedTarget()];
+	}
+	
     ar.render();
 
     (void)displayLink;

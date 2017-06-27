@@ -28,7 +28,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+	//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 	[self.navigationController.navigationBar setHidden:YES];
 }
 
@@ -53,7 +53,7 @@
 	}];
 
 	UIView *bottomView1 = [UIView new];
-	bottomView1.backgroundColor = COMMON_RED_COLOR;
+	bottomView1.backgroundColor = COMMON_GREEN_COLOR;
 	[self.view addSubview:bottomView1];
 	[bottomView1 mas_makeConstraints:^(MASConstraintMaker *make) {
 	    make.left.equalTo(weakSelf.view);
@@ -110,7 +110,7 @@
 	}];
 
 	UIView *bottomView2 = [UIView new];
-	bottomView2.backgroundColor = COMMON_RED_COLOR;
+	bottomView2.backgroundColor = COMMON_GREEN_COLOR;
 	[self.view addSubview:bottomView2];
 	[bottomView2 mas_makeConstraints:^(MASConstraintMaker *make) {
 	    make.left.equalTo(weakSelf.view);
@@ -121,8 +121,8 @@
 
 	UIButton *registerButton = [UIButton new];
 	[registerButton addTarget:self action:@selector(registerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-	[registerButton setTitle:@"注册" forState:UIControlStateNormal];
-	[registerButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateHighlighted];
+    [registerButton setImage:[UIImage imageNamed:@"btn_logins_register"] forState:UIControlStateNormal];
+    [registerButton setImage:[UIImage imageNamed:@"btn_logins_register_highlight"] forState:UIControlStateHighlighted];
 	[bottomView2 addSubview:registerButton];
 	[registerButton mas_makeConstraints:^(MASConstraintMaker *make) {
 	    make.left.equalTo(bottomView2);
@@ -133,8 +133,8 @@
 
 	UIButton *loginButton = [UIButton new];
 	[loginButton addTarget:self action:@selector(loginButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-	[loginButton setTitle:@"登录" forState:UIControlStateNormal];
-	[loginButton setTitleColor:COMMON_GREEN_COLOR forState:UIControlStateHighlighted];
+    [loginButton setImage:[UIImage imageNamed:@"btn_logins_login"] forState:UIControlStateNormal];
+    [loginButton setImage:[UIImage imageNamed:@"btn_logins_login_highlight"] forState:UIControlStateHighlighted];
 	[bottomView2 addSubview:loginButton];
 	[loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
 	    make.right.equalTo(bottomView2);
@@ -149,15 +149,13 @@
 - (void)registerButtonClick:(UIButton *)sender {
 	[TalkingData trackEvent:@"register"];
 	SKRegisterViewController *controller = [[SKRegisterViewController alloc] init];
-	UINavigationController *root = [[UINavigationController alloc] initWithRootViewController:controller];
-	[self presentViewController:root animated:YES completion:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)loginButtonClick:(UIButton *)sender {
 	[TalkingData trackEvent:@"login"];
 	SKLoginViewController *controller = [[SKLoginViewController alloc] init];
-	UINavigationController *root = [[UINavigationController alloc] initWithRootViewController:controller];
-	[self presentViewController:root animated:YES completion:nil];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)loginButtonWeixinClicked:(id)sender {
@@ -233,7 +231,7 @@
 									    DLog(@"%@", response);
 									    if (success) {
 										    if (response.result == 0) {
-											    SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
+											    NZTabbarViewController *controller = [[NZTabbarViewController alloc] init];
 											    AppDelegateInstance.mainController = controller;
 											    HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
 											    AppDelegateInstance.window.rootViewController = navController;

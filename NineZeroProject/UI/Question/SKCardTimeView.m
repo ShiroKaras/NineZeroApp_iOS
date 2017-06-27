@@ -37,10 +37,10 @@
 	self.backgroundColor = [UIColor clearColor];
 }
 
-- (void)setQuestion:(SKQuestion *)question type:(SKQuestionType)type endTime:(time_t)endTime {
+- (void)setQuestion:(SKQuestion *)question type:(NZQuestionType)type endTime:(time_t)endTime {
 	_question = question;
 	_endTime = endTime;
-	if (type == SKQuestionTypeTimeLimitLevel) {
+	if (type == NZQuestionTypeTimeLimitLevel) {
 		if (question.is_answer == NO) {
 			[self scheduleCountDownTimer];
 		} else {
@@ -54,13 +54,13 @@
 				//                if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
 				//                    [_resultImageView setImage:[UIImage imageNamed:@"img_detailspage_success_6p"]];
 				//                } else {
-				[_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
+				[_resultImageView setImage:[UIImage imageNamed:@"img_puzzledetailpage_success"]];
 				//                }
 			} else {
 				[_resultImageView setImage:[UIImage imageNamed:@"img_stamp_gameover"]];
 			}
 		}
-	} else if (type == SKQuestionTypeHistoryLevel) {
+	} else if (type == NZQuestionTypeHistoryLevel) {
 		//        _decoImageView.hidden = YES;
 		_mainTimeLabel.hidden = YES;
 		_detailTimeLabel.hidden = YES;
@@ -70,11 +70,11 @@
 			//            if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
 			//                [_resultImageView setImage:[UIImage imageNamed:@"img_detailspage_success_6p"]];
 			//            } else {
-			[_resultImageView setImage:[UIImage imageNamed:@"img_stamp_sucess"]];
+			[_resultImageView setImage:[UIImage imageNamed:@"img_puzzledetailpage_success"]];
 			//            }
 		} else {
 			if (question.base_type == 1 || _question.base_type == 2) {
-				[_resultImageView setImage:[UIImage imageNamed:@"img_stamp_AR"]];
+				[_resultImageView setImage:[UIImage imageNamed:@"img_puzzledetailpage_ar"]];
 			} else {
 				_resultImageView.hidden = YES;
 			}

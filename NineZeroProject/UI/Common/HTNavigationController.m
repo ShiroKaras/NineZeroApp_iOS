@@ -9,6 +9,11 @@
 #import "HTNavigationController.h"
 #import "CommonUI.h"
 #import "HTUIHeader.h"
+#import "NZTaskDetailViewController.h"
+#import "NZQuestionDetailViewController.h"
+#import "NZLabDetailViewController.h"
+#import "HTWebController.h"
+#import "SKSwipeViewController.h"
 
 @implementation HTNavigationController
 
@@ -35,14 +40,20 @@
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
 	[super pushViewController:viewController animated:animated];
 
-	if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1) {
+	if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1
+        &&![viewController isKindOfClass:[NZTaskDetailViewController class]]
+        &&![viewController isKindOfClass:[NZQuestionDetailViewController class]]
+        &&![viewController isKindOfClass:[NZLabDetailViewController class]]
+        &&![viewController isKindOfClass:[HTWebController class]]
+//        &&![viewController isKindOfClass:[SKSwipeViewController class]]
+        ) {
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = 9001;
-		[button setImage:[UIImage imageNamed:@"btn_detailspage_return"] forState:UIControlStateNormal];
-		[button setImage:[UIImage imageNamed:@"btn_detailspage_return_highlight"] forState:UIControlStateHighlighted];
+		[button setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+		[button setImage:[UIImage imageNamed:@"btn_back_highlight"] forState:UIControlStateHighlighted];
 		[button sizeToFit];
-		button.top += 12;
-		button.left += 4;
+		button.top += 28;
+		button.left += 13.5;
 		[button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
 		//        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 		[viewController.view addSubview:button];

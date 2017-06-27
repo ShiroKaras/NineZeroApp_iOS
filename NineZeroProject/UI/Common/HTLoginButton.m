@@ -34,7 +34,8 @@
 - (void)showNextTipImage:(BOOL)show {
     if (show == YES) {
         self.titleLabel.text = @"";
-        [self setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
+        [self setImage:[UIImage imageNamed:@"btn_logins_next"] forState:UIControlStateNormal];
+        [self setImage:[UIImage imageNamed:@"btn_logins_next_highlight"] forState:UIControlStateHighlighted];
     } else {
         [self setImage:nil forState:UIControlStateNormal];
     }

@@ -12,4 +12,5 @@
 - (instancetype)initWithURLString:(NSString *)urlString;
 @property (nonatomic, copy) NSString *titleString;
 @property (nonatomic, copy) NSString *urlString;
+@property (nonatomic, assign) int type;     //1.全屏
 @end

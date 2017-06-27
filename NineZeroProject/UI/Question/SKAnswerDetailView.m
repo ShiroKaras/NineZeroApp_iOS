@@ -23,7 +23,6 @@
 @property (nonatomic, strong) SKAnswerDetail *answerDetail;
 
 @property (nonatomic, strong) UIView *dimmingView;
-@property (nonatomic, strong) UIScrollView *backScrollView;
 @property (nonatomic, strong) UIButton *cancelButton;	//关闭按钮
 @property (nonatomic, strong) UIImageView *headerImageView;  //头图
 @property (nonatomic, strong) UIImageView *contentImageView; //内容封面（不一定显示）
@@ -63,7 +62,7 @@
 											      self.answerDetail = answerDetail;
 											      _contentView.text = answerDetail.article_desc;
 											      [_contentView sizeToFit];
-											      _contentView.centerX = self.centerX;
+											      _contentView.centerX = _backScrollView.centerX;
 
 											      [self hideHUD];
 											      [UIView animateWithDuration:0.5
@@ -130,14 +129,12 @@
 }
 
 - (void)createUI {
-	[[UIApplication sharedApplication] setStatusBarHidden:YES];
-
-	_backScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
+	_backScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
 	_backScrollView.bottom = self.bottom - 10;
-	_backScrollView.backgroundColor = COMMON_SEPARATOR_COLOR;
+	_backScrollView.backgroundColor = COMMON_BG_COLOR;
 	_backScrollView.bounces = NO;
 	_backScrollView.alwaysBounceVertical = YES;
-	_backScrollView.delegate = self;
+	//_backScrollView.delegate = self;
 	[self addSubview:_backScrollView];
 
 	_headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(7, (self.frame.size.width - 14) / 307 * 72 - (self.frame.size.width - 14) / 640 * 218 + 30, self.frame.size.width - 14, (self.frame.size.width - 14) / 640 * 218)];

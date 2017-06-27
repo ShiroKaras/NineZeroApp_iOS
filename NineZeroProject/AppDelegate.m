@@ -13,6 +13,7 @@
 #import "JPUSHService.h"
 #import "SKLaunchAnimationViewController.h"
 #import "SKLoginRootViewController.h"
+#import "NZTabbarViewController.h"
 #import <Qiniu/QiniuSDK.h>
 
 #import "UMMobClick/MobClick.h"
@@ -21,7 +22,6 @@
 #import <ShareSDKConnector/ShareSDKConnector.h>
 
 #import "TalkingData.h"
-#import <JSPatchPlatform/JSPatch.h>
 
 //腾讯开放平台（对应QQ和QQ空间）SDK头文件
 #import <TencentOpenAPI/QQApiInterface.h>
@@ -33,6 +33,8 @@
 //新浪微博SDK头文件
 #import "WeiboSDK.h"
 //新浪微博SDK需要在项目Build Settings中的Other Linker Flags添加"-ObjC"
+
+#import "ClientConfiguration.h"
 
 @interface AppDelegate ()
 
@@ -49,7 +51,6 @@
 	_active = true;
 
 	[self registerJPushWithLaunchOptions:launchOptions];
-	[self registerJSPatch];
 	[self registerAMap];
 	[self registerLocation];
 	[self registerQiniuService];
@@ -158,16 +159,14 @@
 
 - (void)createWindowAndVisibleWithOptions:(NSDictionary *)launchOptions {
 	NSString *userID = [[SKStorageManager sharedInstance] getUserID];
-	NSLog(@"%@", userID);
 	if (userID != nil) {
 		self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-		_mainController = [[SKHomepageViewController alloc] init];
+		_mainController = [[NZTabbarViewController alloc] init];
 		HTNavigationController *navController =
 			[[HTNavigationController alloc] initWithRootViewController:_mainController];
 		self.window.rootViewController = navController;
 		[self.window makeKeyAndVisible];
-		[[UIApplication sharedApplication] setStatusBarHidden:YES
-							withAnimation:UIStatusBarAnimationFade];
+		//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 		// 用户通过点击图标启动程序 还是  点击通知启动程序
 		// 获取启动时收到的APN
 		NSDictionary *remoteNotification =
@@ -183,26 +182,23 @@
 		self.window.rootViewController = navController;
 		[self.window makeKeyAndVisible];
 
-		if (![UD boolForKey:@"everLaunch"]) {
-			self.launchViewController = [[SKLaunchAnimationViewController alloc] init];
-			[self.window addSubview:self.launchViewController.view];
-			__weak AppDelegate *weakSelf = self;
-			self.launchViewController.didSelectedEnter = ^() {
-			    [UIView animateWithDuration:0.3
-				    animations:^{
-					weakSelf.launchViewController.view.alpha = 0;
-				    }
-				    completion:^(BOOL finished) {
-					weakSelf.launchViewController = nil;
-					[[UIApplication sharedApplication]
-						setStatusBarHidden:YES
-						     withAnimation:UIStatusBarAnimationFade];
-				    }];
-			};
-		} else {
-			[[UIApplication sharedApplication] setStatusBarHidden:YES
-								withAnimation:UIStatusBarAnimationFade];
-		}
+//		if (![UD boolForKey:@"everLaunch"]) {
+//			self.launchViewController = [[SKLaunchAnimationViewController alloc] init];
+//			[self.window addSubview:self.launchViewController.view];
+//			__weak AppDelegate *weakSelf = self;
+//			self.launchViewController.didSelectedEnter = ^() {
+//			    [UIView animateWithDuration:0.3
+//				    animations:^{
+//					weakSelf.launchViewController.view.alpha = 0;
+//				    }
+//				    completion:^(BOOL finished) {
+//					weakSelf.launchViewController = nil;
+//					//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//				    }];
+//			};
+//		} else {
+//			//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//		}
 
 		[[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
 
@@ -236,7 +232,7 @@
 	// App ID: 在 App Analytics
 	// 创建应用后，进入数据报表页中，在“系统设置”-“编辑应用”页面里查看App ID。
 	// 渠道 ID: 是渠道标识符，可通过不同渠道单独追踪数据。
-	[TalkingData sessionStarted:@"EB304F0B34B5B775BD23554F6456B3C4" withChannelId:@"iOS"];
+	[TalkingData sessionStarted:[[ClientConfiguration sharedInstance] TalkingDataSession] withChannelId:@"iOS"];
 	[TalkingData setVersionWithCode:[[[NSBundle mainBundle] infoDictionary]
 						objectForKey:@"CFBundleShortVersionString"]
 				   name:[[[NSBundle mainBundle] infoDictionary]
@@ -246,7 +242,7 @@
 #pragma mark - Location
 
 - (void)registerAMap {
-	[AMapServices sharedServices].apiKey = @"2cb1a94b85ace5b91f5f00b37c0422e9";
+	[AMapServices sharedServices].apiKey = [[ClientConfiguration sharedInstance] AMapServicesAPIKey];
 }
 
 - (void)registerLocation {
@@ -292,7 +288,7 @@
 	NSString *version =
 		[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 	[MobClick setAppVersion:version];
-	UMConfigInstance.appKey = @"574011a6e0f55acb3200270a";
+	UMConfigInstance.appKey = [[ClientConfiguration sharedInstance] UMAnalyticsConfigAppKey];
 	UMConfigInstance.channelId = @"";
 	UMConfigInstance.ePolicy = BATCH;
 	[MobClick startWithConfigure:UMConfigInstance];
@@ -312,7 +308,7 @@
          */
 
 	// 117f8a0b99f70
-	[ShareSDK registerApp:@"117f8a0b99f70"
+	[ShareSDK registerApp:[[ClientConfiguration sharedInstance] ShareSDKAppKey]
 
 		activePlatforms:@[
 			@(SSDKPlatformTypeSinaWeibo), @(SSDKPlatformTypeWechat), @(SSDKPlatformTypeQQ)
@@ -338,18 +334,18 @@
 		    switch (platformType) {
 			    case SSDKPlatformTypeSinaWeibo:
 				    //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
-				    [appInfo SSDKSetupSinaWeiboByAppKey:@"1266848941"
-							      appSecret:@"af1a2b939f9d65313ae08ce40e4428b5"
-							    redirectUri:@"http://www.sharesdk.cn"
+				    [appInfo SSDKSetupSinaWeiboByAppKey:[[ClientConfiguration sharedInstance] SSDKPlatformTypeSinaWeiboAppKey]
+							      appSecret:[[ClientConfiguration sharedInstance] SSDKPlatformTypeSinaWeiboAppSecret]
+							    redirectUri:[[ClientConfiguration sharedInstance] SSDKPlatformTypeSinaWeiboRedirectUri]
 							       authType:SSDKAuthTypeBoth];
 				    break;
 			    case SSDKPlatformTypeWechat:
-				    [appInfo SSDKSetupWeChatByAppId:@"wxfb8f0b079901a486"
-							  appSecret:@"9b878253531427e0216f4c456a6216bc"];
+				    [appInfo SSDKSetupWeChatByAppId:[[ClientConfiguration sharedInstance] SSDKPlatformTypeWechatAppId]
+							  appSecret:[[ClientConfiguration sharedInstance] SSDKPlatformTypeWechatAppSecret]];
 				    break;
 			    case SSDKPlatformTypeQQ:
-				    [appInfo SSDKSetupQQByAppId:@"1105267679"
-							 appKey:@"kQ0GorXbIWGY7LMk"
+				    [appInfo SSDKSetupQQByAppId:[[ClientConfiguration sharedInstance] SSDKPlatformTypeQQAppId]
+							 appKey:[[ClientConfiguration sharedInstance] SSDKPlatformTypeQQAppKey]
 						       authType:SSDKAuthTypeBoth];
 				    break;
 			    default:
@@ -371,8 +367,8 @@
 
 	//    [JPUSHService setupWithOption:launchOptions];
 	[JPUSHService setupWithOption:launchOptions
-			       appKey:@"a55e70211d78ad951ecca453"
-			      channel:@"90"
+			       appKey:[[ClientConfiguration sharedInstance] JPUSHServiceAppKey]
+			      channel:[[ClientConfiguration sharedInstance] JPUSHServiceChannel]
 		     apsForProduction:true];
 	[JPUSHService resetBadge];
 	if ([[SKStorageManager sharedInstance] getUserID]) {
@@ -381,13 +377,6 @@
 			callbackSelector:nil
 				  object:nil];
 	}
-}
-
-#pragma mark - JSPatch
-
-- (void)registerJSPatch {
-	[JSPatch startWithAppKey:@"76be4930cef557f7"];
-	[JSPatch sync];
 }
 
 @end

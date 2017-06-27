@@ -38,10 +38,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关于" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqZ-do-icb">
-                    <rect key="frame" x="0.0" y="0.0" width="310" height="60"/>
+                    <rect key="frame" x="0.0" y="20" width="310" height="44"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="60" id="eGS-Id-AfO"/>
+                        <constraint firstAttribute="height" constant="44" id="eGS-Id-AfO"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -56,7 +56,7 @@
                 <constraint firstItem="mnL-hC-1hh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="115" id="Ysv-KH-4Xj"/>
                 <constraint firstItem="vt1-lx-zjM" firstAttribute="trailing" secondItem="x1u-7O-JfT" secondAttribute="trailing" id="cKo-Ek-8Ki"/>
                 <constraint firstItem="mnL-hC-1hh" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-13" id="emF-Wx-TwO"/>
-                <constraint firstItem="zqZ-do-icb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="kXu-c1-LIe"/>
+                <constraint firstItem="zqZ-do-icb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="kXu-c1-LIe"/>
                 <constraint firstItem="x1u-7O-JfT" firstAttribute="top" secondItem="vt1-lx-zjM" secondAttribute="bottom" constant="13" id="s2Q-Br-CoQ"/>
                 <constraint firstItem="vt1-lx-zjM" firstAttribute="leading" secondItem="x1u-7O-JfT" secondAttribute="leading" id="yK2-mh-bIg"/>
                 <constraint firstAttribute="bottom" secondItem="x1u-7O-JfT" secondAttribute="bottom" constant="67" id="yM2-Gs-cpK"/>

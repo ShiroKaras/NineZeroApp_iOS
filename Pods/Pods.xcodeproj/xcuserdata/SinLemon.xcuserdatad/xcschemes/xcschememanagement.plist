@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CHTCollectionViewWaterfallLayout.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -29,7 +34,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Masonry.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PSCarouselView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -87,7 +102,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>09308BFF6651B0595797E4027EDAF7CD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>108EF8AE28776CC085AF5B6D0FBE3006</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,7 +127,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>25C1127F17C014FDD16F2194B6D11624</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>270A81A96B43FDC77205148203D5049B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>28C8C7F9F0D7AD2CDF1E6BCBCD4C3193</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3193B79199B525740108B29848941C2F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,7 +177,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>69B54639072617BDF0AE986D0D48D323</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>880AC22A84D37CA5E312D8C7B29C71CA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -162,7 +212,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>AD6DE4179CBE05BBD90687E0AD6C9BE0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BA4A20C885CBE78BD61AE6B9412297B1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BF1619332963646A3BA305A66613B8B7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E6B10D7376E53972D719384A30F17D9B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE508DA63070FADB95BEB393C07DF2D7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

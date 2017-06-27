@@ -43,17 +43,17 @@
     
     __weak __typeof(self)weakSelf = self;
     
-    UIButton *closeButton = [UIButton new];
-    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back"] forState:UIControlStateNormal];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_levelpage_back_highlight"] forState:UIControlStateHighlighted];
-    [self.view addSubview:closeButton];
-    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(@40);
-        make.height.equalTo(@40);
-        make.top.equalTo(@12);
-        make.left.equalTo(@4);
-    }];
+//    UIButton *closeButton = [UIButton new];
+//    [closeButton addTarget:self action:@selector(closeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_logins_back"] forState:UIControlStateNormal];
+//    [closeButton setBackgroundImage:[UIImage imageNamed:@"btn_logins_back_highlight"] forState:UIControlStateHighlighted];
+//    [self.view addSubview:closeButton];
+//    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.equalTo(@40);
+//        make.height.equalTo(@40);
+//        make.top.equalTo(@12);
+//        make.left.equalTo(@4);
+//    }];
     
     UIView *point = [UIView new];
     point.backgroundColor = [UIColor whiteColor];
@@ -111,9 +111,9 @@
     _nextButton = [UIButton new];
     [_nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _nextButton.frame = CGRectMake(0, self.view.height-50, self.view.width, 50);
-    _nextButton.backgroundColor = [UIColor blackColor];
-    _nextButton.alpha = 0.6;
-    [_nextButton setImage:[UIImage imageNamed:@"ico_btnanchor_right"] forState:UIControlStateNormal];
+    [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0x0e0e0e alpha:0.3]] forState:UIControlStateNormal];
+    [_nextButton setImage:[UIImage imageNamed:@"btn_logins_next"] forState:UIControlStateNormal];
+    [_nextButton setImage:[UIImage imageNamed:@"btn_logins_next_highlight"] forState:UIControlStateHighlighted];
     [self.view addSubview:_nextButton];
 }
 
@@ -129,7 +129,7 @@
     [self.view endEditing:YES];
     [[[SKServiceManager sharedInstance] loginService] resetPassword:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
         //登录成功进入主页
-        SKHomepageViewController *controller = [[SKHomepageViewController alloc] init];
+        NZTabbarViewController *controller = [[NZTabbarViewController alloc] init];
         AppDelegateInstance.mainController = controller;
         HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
         AppDelegateInstance.window.rootViewController = navController;

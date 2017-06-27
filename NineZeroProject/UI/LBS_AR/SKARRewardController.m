@@ -50,13 +50,13 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 	[super viewDidLoad];
 
 	if (NO_NETWORK) {
-		self.blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-		[self.blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
-		[self.view addSubview:self.blankView];
-		self.blankView.top = ROUND_HEIGHT_FLOAT(217);
+        _blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
+        [_blankView setOffset:10];
+        [self.view addSubview:self.blankView];
+        _blankView.center = self.view.center;
 	} else {
 		[HTProgressHUD show];
-		[[[SKServiceManager sharedInstance] scanningService] getScanningRewardWithRewardID:_rewardID
+		[[[SKServiceManager sharedInstance] scanningService] getScanningRewardWithRewardId:_rewardID
 											  callback:^(BOOL success, SKResponsePackage *response) {
 											      if (response.result == 0) {
 												      [HTProgressHUD dismiss];
@@ -79,7 +79,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+	//[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 	if (self.navigationController) {
 		self.navigationController.navigationBarHidden = YES;
 	}
@@ -143,34 +143,34 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 	//奖励 - 礼券
 
-    if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 362, 140) reward:self.reward.ticket];
-        [_dimmingView addSubview:card];
-        [card mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@(362));
-            make.height.equalTo(@(140));
-            make.centerX.equalTo(_dimmingView);
-            make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(SCREEN_HEIGHT - height - 32) / 2);
-        }];
-    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 335, 130) reward:self.reward.ticket];
-        [_dimmingView addSubview:card];
-        [card mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@335);
-            make.height.equalTo(@130);
-            make.centerX.equalTo(_dimmingView);
-            make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(SCREEN_HEIGHT - height - 22) / 2);
-        }];
-    } else if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-        SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
-        [_dimmingView addSubview:card];
-        [card mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@280);
-            make.height.equalTo(@108);
-            make.centerX.equalTo(_dimmingView);
-            make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(SCREEN_HEIGHT - height) / 2);
-        }];
-    }
+	if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+		SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 362, 140) reward:self.reward.ticket];
+		[_dimmingView addSubview:card];
+		[card mas_makeConstraints:^(MASConstraintMaker *make) {
+		    make.width.equalTo(@(362));
+		    make.height.equalTo(@(140));
+		    make.centerX.equalTo(_dimmingView);
+		    make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(SCREEN_HEIGHT - height - 32) / 2);
+		}];
+	} else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+		SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 335, 130) reward:self.reward.ticket];
+		[_dimmingView addSubview:card];
+		[card mas_makeConstraints:^(MASConstraintMaker *make) {
+		    make.width.equalTo(@335);
+		    make.height.equalTo(@130);
+		    make.centerX.equalTo(_dimmingView);
+		    make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(SCREEN_HEIGHT - height - 22) / 2);
+		}];
+	} else if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+		SKTicketView *card = [[SKTicketView alloc] initWithFrame:CGRectMake(0, 0, 280, 108) reward:self.reward.ticket];
+		[_dimmingView addSubview:card];
+		[card mas_makeConstraints:^(MASConstraintMaker *make) {
+		    make.width.equalTo(@280);
+		    make.height.equalTo(@108);
+		    make.centerX.equalTo(_dimmingView);
+		    make.bottom.equalTo(_dimmingView.mas_bottom).offset(-(SCREEN_HEIGHT - height) / 2);
+		}];
+	}
 }
 
 #pragma mark - Action

@@ -14,7 +14,8 @@
 @class SKAnswerDetail;
 @class SKUserInfo;
 
-typedef void (^SKQuestionListCallback) (BOOL success,NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2);
+typedef void (^SKQuestionListCallback) (BOOL success, NSArray<SKQuestion *> *questionList);
+
 typedef void (^SKQuestionDetialCallback) (BOOL success, SKQuestion *question);
 typedef void (^SKQuestionHintListCallback) (BOOL success, NSInteger result, SKHintList *hintList);
 typedef void (^SKQuestionAnswerDetialCallback) (BOOL success, SKAnswerDetail *questionAnswerDetail);
@@ -22,15 +23,18 @@ typedef void (^SKQuestionUserListCallback) (BOOL success, NSArray<SKUserInfo*> *
 typedef void (^SKQuestionAnswerDetail) (BOOL success, SKAnswerDetail *answerDetail);
 
 @interface SKQuestionService : NSObject
-@property (nonatomic, assign) NSInteger answeredQuestion_season1;
-@property (nonatomic, assign) NSInteger answeredQuestion_season2;
-@property (nonatomic, strong) NSArray<SKQuestion*> *questionList_season1;
+//@property (nonatomic, assign) NSInteger answeredQuestion_season1;
+//@property (nonatomic, assign) NSInteger answeredQuestion_season2;
+//@property (nonatomic, strong) NSArray<SKQuestion*> *questionList_season1;
 @property (nonatomic, strong) NSArray<SKQuestion*> *questionList_season2;
 
 - (void)questionBaseRequestWithParam:(NSDictionary*)dict callback:(SKResponseCallback)callback;
 
 //全部关卡（不含极难题）
 - (void)getAllQuestionListCallback:(SKQuestionListCallback)callback;
+
+//第二季全部关卡
+- (void)getQuestionListCallback:(SKQuestionListCallback)callback;
 
 //极难题列表
 - (void)getDifficultQuestionListCallback:(SKResponseCallback)callback;
@@ -55,5 +59,11 @@ typedef void (^SKQuestionAnswerDetail) (BOOL success, SKAnswerDetail *answerDeta
 
 //分享题目
 - (void)shareQuestionWithQuestionID:(NSString *)questionID callback:(SKResponseCallback)callback;
+
+//获取提示（3.0）
+- (void)getHintWithQuestionID:(NSString *)questionID number:(int)number callback:(SKResponseCallback)callback;
+
+//获取提示列表 (3.0)
+- (void)getHintListWithQuestionID:(NSString *)questionID callback:(SKQuestionHintListCallback)callback;
 
 @end

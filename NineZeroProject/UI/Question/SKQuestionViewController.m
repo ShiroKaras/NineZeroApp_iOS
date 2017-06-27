@@ -153,7 +153,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 	} else if (self.type == SKQuestionTypeHistoryLevel) {
 		[TalkingData trackPageBegin:@"historylevelpage"];
 	}
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+	//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 	if (self.navigationController) {
 		self.navigationController.navigationBarHidden = YES;
 	}
@@ -775,13 +775,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 	if (NO_NETWORK) {
 		[HTProgressHUD dismiss];
-		UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-		converView.backgroundColor = COMMON_BG_COLOR;
-		[self.view addSubview:converView];
-		HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNetworkError];
-		[blankView setImage:[UIImage imageNamed:@"img_error_grey_big"] andOffset:17];
-		[self.view addSubview:blankView];
-		blankView.top = ROUND_HEIGHT_FLOAT(217);
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *_blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
+        [_blankView setOffset:10];
+        [converView addSubview:_blankView];
+        _blankView.center = converView.center;
 	} else {
 		[self loadData];
 	}
@@ -1961,9 +1961,12 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 														      callback:^(BOOL success, NSArray<SKUserInfo *> *userRankList) {
 															  self.top10Array = userRankList;
 														      }];
-					   [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
-					       self.currentQuestion = [questionList_season2 lastObject];
-					   }];
+                           [[[SKServiceManager sharedInstance] questionService] getQuestionListCallback:^(BOOL success, NSArray<SKQuestion *> *questionList) {
+                                self.currentQuestion = [questionList lastObject];
+                           }];
+//					   [[[SKServiceManager sharedInstance] questionService] getAllQuestionListCallback:^(BOOL success, NSInteger answeredQuestion_season1, NSInteger answeredQuestion_season2, NSArray<SKQuestion *> *questionList_season1, NSArray<SKQuestion *> *questionList_season2) {
+//					       self.currentQuestion = [questionList_season2 lastObject];
+//					   }];
 				       }];
 }
 
@@ -2014,7 +2017,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)keyboardDidHide:(NSNotification *)notification {
 	//显示GuideView
 	if (FIRST_COACHMARK_TYPE_2 && [[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1][self.currentQuestion.qid] integerValue] > 2) {
-		[self showGuideviewWithType:SKHelperGuideViewType2];
+		[self showGuideviewWithType:SKHelperGuideViewTypeMascot1];
 		[UD setBool:YES forKey:@"firstLaunchTypeThreeWrongAnswer"];
 	}
 }
