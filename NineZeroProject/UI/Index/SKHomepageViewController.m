@@ -63,6 +63,8 @@
             [self versionUpdate];
         }
     }];
+    
+    [[[SKServiceManager sharedInstance] profileService] getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response) { }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
