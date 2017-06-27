@@ -2017,7 +2017,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)keyboardDidHide:(NSNotification *)notification {
 	//显示GuideView
 	if (FIRST_COACHMARK_TYPE_2 && [[UD dictionaryForKey:kQuestionWrongAnswerCountSeason1][self.currentQuestion.qid] integerValue] > 2) {
-		[self showGuideviewWithType:SKHelperGuideViewType2];
+		[self showGuideviewWithType:SKHelperGuideViewTypeMascot];
 		[UD setBool:YES forKey:@"firstLaunchTypeThreeWrongAnswer"];
 	}
 }

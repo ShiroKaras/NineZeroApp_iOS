@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray<SKStronghold*> *strongholdArray;
 @property (nonatomic, assign) NSInteger mid;
 @property (nonatomic, strong) UIButton *helpButton;
+@property (nonatomic, strong) UIView *helperView;
 
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 @property (nonatomic, assign) BOOL isOpenLBS;
@@ -101,6 +102,11 @@
         [_blankView setOffset:10];
         [converView addSubview:_blankView];
         _blankView.center = converView.center;
+    }
+    
+    if (FIRST_LAUNCH_TASKLIST) {
+        EVER_LAUNCH_TASKLIST
+        [self helpButtonClicked:nil];
     }
 }
 
@@ -238,6 +244,18 @@
         helpImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_taskpage_%@info_1242",_mascotName[_mid-1]]];
     }
     [KEY_WINDOW addSubview:helpImageView];
+    
+    UILabel *bottomLabel = [UILabel new];
+    bottomLabel.text = @"点击任意区域关闭";
+    bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+    bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+    [bottomLabel sizeToFit];
+    [helpImageView addSubview:bottomLabel];
+    [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(helpImageView);
+        make.bottom.equalTo(helpImageView).offset(-16);
+    }];
+    
     helpImageView.alpha = 0;
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -251,7 +269,34 @@
         v.alpha = 0;
     } completion:^(BOOL finished) {
         [v removeFromSuperview];
+        [_helpButton setImage:[UIImage imageNamed:@"btn_taskpage_introduce_highlight"] forState:UIControlStateNormal];
+        [UIView animateWithDuration:0.075
+                         animations:^{
+                             _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 1.1, 1.1);
+                         }
+                         completion:^(BOOL finished) {
+                             [UIView animateWithDuration:0.075
+                                              animations:^{
+                                                  _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 0.9, 0.9);
+                                              }
+                                              completion:^(BOOL finished) {
+                                                  [UIView animateWithDuration:0.075
+                                                                   animations:^{
+                                                                       _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 1.1, 1.1);
+                                                                   }
+                                                                   completion:^(BOOL finished) {
+                                                                       [UIView animateWithDuration:0.075
+                                                                                        animations:^{
+                                                                                            _helpButton.transform = CGAffineTransformScale(_helpButton.transform, 0.9, 0.9);
+                                                                                        }
+                                                                                        completion:^(BOOL finished) {
+                                                                                            [_helpButton setImage:[UIImage imageNamed:@"btn_taskpage_introduce"] forState:UIControlStateNormal];
+                                                                                        }];
+                                                                   }];
+                                              }];
+                         }];
     }];
 }
+
 
 @end

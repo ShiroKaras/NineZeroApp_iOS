@@ -13,7 +13,7 @@
 
 #import "HTUIHeader.h"
 #import "MBProgressHUD+BWMExtension.h"
-//#import "SKHelperView.h"
+#import "SKHelperView.h"
 #import <UIImage+animatedGIF.h>
 
 #import <AMapFoundationKit/AMapFoundationKit.h>
@@ -46,6 +46,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 @property (nonatomic, strong) UIView *promptView;
 @property (nonatomic, assign) BOOL isShowedPrompt;  //是否已提示过捕捉
+@property (nonatomic, strong) NSString *sid;    //活动ID;
 @end
 
 @implementation HTARCaptureController {
@@ -102,6 +103,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
             self.locationPointArray = package.data[@"scanning_lbs_locations"];
             self.isHadReward = [package.data[@"is_haved_reward"] boolValue];
             self.rewardID = package.data[@"reward_id"];
+            self.sid = package.data[@"sid"];
         }];
     }
     return self;
@@ -246,24 +248,11 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         self.mascotImageView.hidden = YES;
     }
     
-//    if (FIRST_LAUNCH_AR) {
-//        SKHelperScrollView *helpView = [[SKHelperScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperScrollViewTypeAR];
-//        helpView.scrollView.frame = CGRectMake(0, -(SCREEN_HEIGHT - 356) / 2, 0, 0);
-//        helpView.dimmingView.alpha = 0;
-//        [KEY_WINDOW addSubview:helpView];
-//        
-//        [UIView animateWithDuration:0.3
-//                              delay:0
-//                            options:UIViewAnimationOptionCurveEaseOut
-//                         animations:^{
-//                             helpView.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-//                             helpView.dimmingView.alpha = 0.9;
-//                         }
-//                         completion:^(BOOL finished){
-//                             
-//                         }];
-//        [UD setBool:YES forKey:@"firstLaunchTypeAR"];
-//    }
+    if (FIRST_LAUNCH_AR) {
+        EVER_LAUNCH_AR
+        SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeLBS];
+        [KEY_WINDOW addSubview:helperView];
+    }
     
     [self buildConstrains];
 }
@@ -469,7 +458,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         [[[SKServiceManager sharedInstance] answerService] answerLBSQuestionWithLocation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (success && response.result == 0) {
-                self.rewardID = response.data[@"reward_id"];
                 [self catchSuccess];
                 
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -503,8 +491,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
             }
         }];
     } else if (_type==NZLbsTypeHomepage) {
-        [[[SKServiceManager sharedInstance] scanningService] getLbsRewardDetailWithID:self.rewardID callback:^(BOOL success, SKResponsePackage *response) {
-            NSLog(@"%@", [NSDictionary dictionaryWithDictionary:response.data]);
+        [[[SKServiceManager sharedInstance] scanningService] getLbsRewardDetailWithID:self.rewardID sid:self.sid callback:^(BOOL success, SKResponsePackage *response) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (success) {
                 [self catchSuccess];

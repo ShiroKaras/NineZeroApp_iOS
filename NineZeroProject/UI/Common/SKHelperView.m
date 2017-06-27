@@ -357,17 +357,24 @@
     _view1 = [[UIView alloc] initWithFrame:self.frame];
     UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:_view1.frame];
     [_view1 addSubview:imageView1];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
-    [_view1 addGestureRecognizer:tap];
     
     _view2 = [[UIView alloc] initWithFrame:self.frame];
     UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:_view2.frame];
     [_view2 addSubview:imageView2];
-    UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
-    [_view2 addGestureRecognizer:tap2];
     
     switch (type) {
         case SKHelperGuideViewType1:{
+            UILabel *bottomLabel = [UILabel new];
+            bottomLabel.text = @"点击任意区域关闭";
+            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+            [bottomLabel sizeToFit];
+            [_view2 addSubview:bottomLabel];
+            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(_view2);
+                make.bottom.equalTo(_view2).offset(-16);
+            }];
+            
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_640"];
                 imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_640"];
@@ -378,12 +385,27 @@
                 imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_1242"];
                 imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_1242"];
             }
-            
             [self addSubview:_view1];
             _view1.alpha = 1;
             break;
         }
-        case SKHelperGuideViewType2:{
+        case SKHelperGuideViewTypeMascot:{
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
+            [_view1 addGestureRecognizer:tap];
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+            [_view2 addGestureRecognizer:tap2];
+            
+            UILabel *bottomLabel = [UILabel new];
+            bottomLabel.text = @"点击任意区域关闭";
+            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+            [bottomLabel sizeToFit];
+            [_view2 addSubview:bottomLabel];
+            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(_view2);
+                make.bottom.equalTo(_view2).offset(-16);
+            }];
+            
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach1_640"];
                 imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach2_640"];
@@ -393,6 +415,62 @@
             } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach1_1242"];
                 imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach2_1242"];
+            }
+            [self addSubview:_view1];
+            _view1.alpha = 1;
+            break;
+        }
+        case SKHelperGuideViewTypeTaskList:{
+            
+            break;
+        }
+        case SKHelperGuideViewTypeTaskDetail: {
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+            [_view1 addGestureRecognizer:tap2];
+            
+            UILabel *bottomLabel = [UILabel new];
+            bottomLabel.text = @"点击任意区域关闭";
+            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+            [bottomLabel sizeToFit];
+            [_view1 addSubview:bottomLabel];
+            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(_view1);
+                make.bottom.equalTo(_view1).offset(-16);
+            }];
+            
+            if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+                imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_640"];
+            } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+                imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_750"];
+            } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+                imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_1242"];
+            }
+            [self addSubview:_view1];
+            _view1.alpha = 1;
+            break;
+        }
+        case SKHelperGuideViewTypeLBS: {
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+            [_view1 addGestureRecognizer:tap2];
+            
+            UILabel *bottomLabel = [UILabel new];
+            bottomLabel.text = @"点击任意区域关闭";
+            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+            [bottomLabel sizeToFit];
+            [_view1 addSubview:bottomLabel];
+            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(_view1);
+                make.bottom.equalTo(_view1).offset(-16);
+            }];
+            
+            if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+                imageView1.image = [UIImage imageNamed:@"img_taskpage_coach2_640"];
+            } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+                imageView1.image = [UIImage imageNamed:@"img_taskpage_coach2_750"];
+            } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+                imageView1.image = [UIImage imageNamed:@"img_taskpage_coach2_1242"];
             }
             [self addSubview:_view1];
             _view1.alpha = 1;

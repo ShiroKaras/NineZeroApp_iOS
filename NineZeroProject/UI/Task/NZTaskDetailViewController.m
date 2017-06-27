@@ -12,6 +12,7 @@
 #import "HTARCaptureController.h"
 #import "NZQuestionGiftView.h"
 #import "SSZipArchive.h"
+#import "SKHelperView.h"
 
 @interface NZTaskDetailViewController () <UIScrollViewDelegate, HTARCaptureControllerDelegate>
 @property (nonatomic, strong) SKStrongholdItem *detail;
@@ -177,6 +178,12 @@
         _blankView.center = converView.center;
     } else
         [self loadData];
+    
+    if (FIRST_LAUNCH_TASKDETAIL) {
+        SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeTaskDetail];
+        [KEY_WINDOW addSubview:helperView];
+        EVER_LAUNCH_TASKDETAIL
+    }
 }
 
 #pragma mark - Actions

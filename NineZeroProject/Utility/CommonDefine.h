@@ -94,10 +94,14 @@
 #define FIRST_LAUNCH_TASKLIST ![UD boolForKey:@"firstLaunchTaskList"]
 #define EVER_LAUNCH_TASKLIST [UD setBool:YES forKey:@"firstLaunchTaskList"];
 
-#define FIRST_COACHMARK_TYPE_1 ![UD boolForKey:@"firstLaunchTypePlayToEnd"]
-#define FIRST_COACHMARK_TYPE_2 ![UD boolForKey:@"firstLaunchTypeThreeWrongAnswer"]
+#define FIRST_LAUNCH_TASKDETAIL ![UD boolForKey:@"firstLaunchTaskDetail"]
+#define EVER_LAUNCH_TASKDETAIL [UD setBool:YES forKey:@"firstLaunchTaskDetail"];
 
 #define FIRST_LAUNCH_AR ![UD boolForKey:@"firstLaunchTypeAR"]
+#define EVER_LAUNCH_AR [UD setBool:YES forKey:@"firstLaunchTypeAR"];
+
+#define FIRST_COACHMARK_TYPE_1 ![UD boolForKey:@"firstLaunchTypePlayToEnd"]
+#define FIRST_COACHMARK_TYPE_2 ![UD boolForKey:@"firstLaunchTypeThreeWrongAnswer"]
 
 #define FIRST_LAUNCH_QUESTIONLIST ![UD boolForKey:@"firstLaunchQuestionList"]
 #define FIRST_LAUNCH_QUESTIONVIEW ![UD boolForKey:@"firstLaunchQuestionView"]
