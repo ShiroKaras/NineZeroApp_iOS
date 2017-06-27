@@ -102,9 +102,8 @@
             }
         }
         
-        [self versionUpdate];
         if ([indexScanningInfo.screen_remind boolValue]) {
-            
+            [self versionUpdate];
         }
     }];
 }

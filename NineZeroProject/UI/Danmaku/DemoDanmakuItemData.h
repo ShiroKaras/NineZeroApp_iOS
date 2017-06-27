@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSString *avatarName;
 @property (nonatomic, copy) NSString *desc;
+@property (nonatomic, copy) UIColor *backColor;
 
 + (instancetype)data;
 + (instancetype)highPriorityData;

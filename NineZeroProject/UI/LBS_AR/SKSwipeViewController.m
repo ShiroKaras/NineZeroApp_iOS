@@ -197,6 +197,7 @@
         DemoDanmakuItemData *data = [DemoDanmakuItemData data];
         data.avatarName = [[SKStorageManager sharedInstance] userInfo].user_avatar;
         data.desc = _commentTextField.text;
+        data.backColor = COMMON_GREEN_COLOR;
         [self.danmaku addData:data];
         _commentTextField.text = @"";
     }];
@@ -571,6 +572,7 @@
                         DemoDanmakuItemData *data = [DemoDanmakuItemData data];
                         data.avatarName = danmaku.user_avatar;
                         data.desc = danmaku.contents;
+                        data.backColor = COMMON_TITLE_BG_COLOR;
                         [self.danmaku addData:data];
                     }
                     
