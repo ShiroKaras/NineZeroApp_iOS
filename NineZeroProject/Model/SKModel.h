@@ -75,6 +75,7 @@
 @property (nonatomic, assign) BOOL is_haved_reward;
 @property (nonatomic, copy) NSString *scanning_type;
 @property (nonatomic, copy) NSString *adv_pic;
+@property (nonatomic, copy) NSString *screen_remind;
 @end
 
 //题目

@@ -34,6 +34,9 @@
 @property (nonatomic, strong) NSString  *selectedCityCode;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *mapImageView;
+
+@property (nonatomic, strong) UIView *updateAlertView;
+@property (nonatomic, strong) NSDictionary *appInfo;
 @end
 
 @implementation SKHomepageViewController {
@@ -98,9 +101,82 @@
                  }];
             }
         }
+        
+        [self versionUpdate];
+        if ([indexScanningInfo.screen_remind boolValue]) {
+            
+        }
     }];
 }
 
+//更新提示
+- (void)showUpdateAlert {
+    _updateAlertView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 230, 143)];
+    _updateAlertView.backgroundColor = COMMON_BG_COLOR;
+    _updateAlertView.layer.borderWidth = 2;
+    _updateAlertView.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
+    _updateAlertView.centerX = self.view.centerX;
+    _updateAlertView.centerY = self.view.centerY;
+    [self.view addSubview:_updateAlertView];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_ updates_title"]];
+    imageView.centerX = _updateAlertView.width/2;
+    imageView.centerY = (_updateAlertView.height-43)/2;
+    [_updateAlertView addSubview:imageView];
+    
+    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 100, 116, 43)];
+    [cancelButton setImage:[UIImage imageNamed:@"btn_updates_cancel"] forState:UIControlStateNormal];
+    [cancelButton setImage:[UIImage imageNamed:@"btn_updates_cancel_highlight"] forState:UIControlStateHighlighted];
+    [cancelButton addTarget:self action:@selector(closeUpdateAlert) forControlEvents:UIControlEventTouchUpInside];
+    cancelButton.layer.borderWidth = 2;
+    cancelButton.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
+    [_updateAlertView addSubview:cancelButton];
+    
+    UIButton *okButton = [[UIButton alloc] initWithFrame:CGRectMake(114, 100, 116, 43)];
+    [okButton setImage:[UIImage imageNamed:@"btn_updates_update"] forState:UIControlStateNormal];
+    [okButton setImage:[UIImage imageNamed:@"btn_updates_update_highlight"] forState:UIControlStateHighlighted];
+    [okButton addTarget:self action:@selector(didClickUpdateButton) forControlEvents:UIControlEventTouchUpInside];
+    okButton.layer.borderWidth = 2;
+    okButton.layer.borderColor = COMMON_GREEN_COLOR.CGColor;
+    [_updateAlertView addSubview:okButton];
+}
+
+- (void)versionUpdate{    
+    //获得当前发布的版本
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
+        //耗时的操作---获取某个应用在AppStore上的信息，更改id就行
+        NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://itunes.apple.com/lookup?id=1117413473"]
+                                                   encoding:NSUTF8StringEncoding error:nil];
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+        self.appInfo = dic;
+        
+//        //获得上线版本号
+//        NSString *version = [[[dic objectForKey:@"results"]firstObject]objectForKey:@"version"];
+//        NSString *updateInfo = [[[dic objectForKey:@"results"]firstObject]objectForKey:@"releaseNotes"];
+//        //获得当前版本
+//        NSString *currentVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //更新界面
+            [self showUpdateAlert];
+        });
+    });
+}
+
+- (void)closeUpdateAlert {
+    //更新界面
+    _updateAlertView.hidden = YES;
+    [_updateAlertView removeFromSuperview];
+    _updateAlertView = nil;
+}
+
+- (void)didClickUpdateButton {
+    NSString *url = [[[self.appInfo objectForKey:@"results"]firstObject]objectForKey:@"trackViewUrl"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+}
+
+//是否是新一天
 - (BOOL)isNewDay {
     NSDate *senddate = [NSDate date];
     NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
@@ -199,12 +275,6 @@
                                  initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     _activityNotificationView.hidden = YES;
     [self.view addSubview:_activityNotificationView];
-    
-    if (FIRST_LAUNCH_HOMEPAGE) {
-        SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewType2];
-        [self.view addSubview:helperView];
-        EVER_LAUNCH_HOMEPAGE
-    }
 }
 
 - (void)updateCityWithName:(NSString*)cityName {
