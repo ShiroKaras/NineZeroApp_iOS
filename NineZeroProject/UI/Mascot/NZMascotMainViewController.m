@@ -104,6 +104,12 @@
         make.top.equalTo(self.view.mas_top).offset(4+64);
         make.height.equalTo(@(8));
     }];
+    
+    if (FIRST_LAUNCH_MASCOTVIEW_1) {
+        EVER_LAUNCHED_MASCOTVIEW_1
+        SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeMascot1];
+        [KEY_WINDOW addSubview:helperView];
+    }
 }
 
 - (void)loadData {
@@ -136,9 +142,9 @@
     NSInteger index = round(point.x / (SCREEN_WIDTH));
     _pageControl.currentPage = index;
     
-    if (index == 1 &&FIRST_LAUNCH_MASCOTVIEW) {
-        EVER_LAUNCHED_MASCOTVIEW
-        SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeMascot];
+    if (index == 1 &&FIRST_LAUNCH_MASCOTVIEW_2) {
+        EVER_LAUNCHED_MASCOTVIEW_2
+        SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeMascot2];
         [KEY_WINDOW addSubview:helperView];
     }
 }

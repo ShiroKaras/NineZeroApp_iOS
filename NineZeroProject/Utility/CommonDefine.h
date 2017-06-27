@@ -106,8 +106,11 @@
 #define FIRST_LAUNCH_QUESTIONLIST ![UD boolForKey:@"firstLaunchQuestionList"]
 #define FIRST_LAUNCH_QUESTIONVIEW ![UD boolForKey:@"firstLaunchQuestionView"]
 
-#define FIRST_LAUNCH_MASCOTVIEW ![UD boolForKey:@"firstLaunchMascotView"]
-#define EVER_LAUNCHED_MASCOTVIEW [UD setBool:YES forKey:@"firstLaunchMascotView"];
+#define FIRST_LAUNCH_MASCOTVIEW_1 ![UD boolForKey:@"firstLaunchMascotView1"]
+#define EVER_LAUNCHED_MASCOTVIEW_1 [UD setBool:YES forKey:@"firstLaunchMascotView1"];
+
+#define FIRST_LAUNCH_MASCOTVIEW_2 ![UD boolForKey:@"firstLaunchMascotView2"]
+#define EVER_LAUNCHED_MASCOTVIEW_2 [UD setBool:YES forKey:@"firstLaunchMascotView2"];
 
 #define FIRST_LAUNCH_SWIPEVIEW ![UD boolForKey:@"firstLaunchSwipeView"]
 #define LAUNCHED_SWIPEVIEW [UD setBool:YES forKey:@"firstLaunchSwipeView"];
