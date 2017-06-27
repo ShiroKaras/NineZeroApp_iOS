@@ -47,6 +47,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) NSString *topicID;
 @property (nonatomic, strong) NSString *topicTitle;
 
+@property (nonatomic, strong) HTBlankView *blankView;
 //分享
 @property (nonatomic, strong) UIView *shareView;
 @property (nonatomic, strong) UIButton *cancelButton;
@@ -162,23 +163,23 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         make.centerY.equalTo(shareButton);
         make.right.equalTo(shareButton.mas_left).offset(-25);
     }];
-
-    if (NO_NETWORK) {
-        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-        converView.backgroundColor = COMMON_BG_COLOR;
-        [self.view addSubview:converView];
-        HTBlankView *_blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
-        [_blankView setOffset:10];
-        [converView addSubview:_blankView];
-        _blankView.center = converView.center;
-    } else {
-        [self loadData];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self updateLayoutForOrientation:[UIApplication sharedApplication].statusBarOrientation];
+    
+    if (NO_NETWORK) {
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+        converView.backgroundColor = COMMON_BG_COLOR;
+        [self.view addSubview:converView];
+        HTBlankView *blankView_nosignal = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
+        [blankView_nosignal setOffset:10];
+        blankView_nosignal.center = converView.center;
+        [converView addSubview:blankView_nosignal];
+    } else {
+        [self loadData];
+    }
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -197,11 +198,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         _topicDetail = topicDetail;
         [_collectionView reloadData];
         if (topicDetail.user_comment.count == 0) {
-            HTBlankView *_blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_lab"] text:@"你可以向全宇宙发表自己的看法"];
+            _blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_lab"] text:@"你可以向全宇宙发表自己的看法"];
             [_blankView setOffset:10];
             [self.collectionView addSubview:_blankView];
             _blankView.top = SCREEN_WIDTH + 40;
             _blankView.centerX = self.collectionView.centerX;
+        } else {
+            [_blankView removeFromSuperview];
         }
     }];
 }
