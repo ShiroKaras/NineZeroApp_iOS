@@ -162,9 +162,11 @@
 - (void)danmakuSwitchButtonClick:(UIButton*)sender {
     danmakuSwith = !danmakuSwith;
     if (danmakuSwith) {
+        self.danmaku.hidden = NO;
         [sender setBackgroundImage:[UIImage imageNamed:@"btn_ar_shieldbarrage"] forState:UIControlStateNormal];
         [sender setBackgroundImage:[UIImage imageNamed:@"btn_ar_shieldbarrage_highlight"] forState:UIControlStateHighlighted];
     } else {
+        self.danmaku.hidden = YES;
         [sender setBackgroundImage:[UIImage imageNamed:@"btn_ar_barrage"] forState:UIControlStateNormal];
         [sender setBackgroundImage:[UIImage imageNamed:@"btn_ar_barrage_highlight"] forState:UIControlStateHighlighted];
     }
@@ -208,7 +210,7 @@
 
 #pragma mark - Danmaku Views
 - (void)setupDanmaku {
-    self.danmaku = [[FXDanmaku alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 186)];
+    self.danmaku = [[FXDanmaku alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 186*0.6)];
     [self.view addSubview:self.danmaku];
     
     FXDanmakuConfiguration *config = [FXDanmakuConfiguration defaultConfiguration];

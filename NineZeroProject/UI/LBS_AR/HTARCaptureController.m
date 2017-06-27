@@ -100,6 +100,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     if (self = [super init]) {
         _type = NZLbsTypeHomepage;
         [[[SKServiceManager sharedInstance] scanningService] getScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
+            NSLog(@"%@", package.data);
             self.locationPointArray = package.data[@"scanning_lbs_locations"];
             self.isHadReward = [package.data[@"is_haved_reward"] boolValue];
             self.rewardID = package.data[@"reward_id"];
@@ -248,7 +249,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         self.mascotImageView.hidden = YES;
     }
     
-    if (FIRST_LAUNCH_AR) {
+    if (FIRST_LAUNCH_AR && _type == NZLbsTypeStronghold) {
         EVER_LAUNCH_AR
         SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeLBS];
         [KEY_WINDOW addSubview:helperView];
@@ -627,7 +628,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 		self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
 		needShowMascot = YES;
         self.radarImageView.hidden = _isHadReward==YES? NO:YES;
-        if (!_isShowedPrompt) {
+        if (!_isShowedPrompt && !_isHadReward) {
             [self showPromptView];
         }
 	}

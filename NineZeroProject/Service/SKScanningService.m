@@ -65,15 +65,15 @@
 		}];
 }
 
-- (void)getScanningWithCallBack:(SKScanningCallback)callback {
+- (void)getScanningWithCallBack:(SKResponseCallback)callback {
 	NSDictionary *param = @{
 		@"method": @"getScanning"
 	};
 
-	[self scanningBaseRequestWithParam:param
-				    callback:^(BOOL success, SKResponsePackage *response) {
-					callback(success, response);
-				    }];
+    [self scanningBaseRequestWithParam:param
+                              callback:^(BOOL success, SKResponsePackage *response) {
+                                  callback(success, response);
+                              }];
 }
 
 - (void)getScanningRewardWithRewardId:(NSString *)rewardId callback:(SKResponseCallback)callback {
@@ -82,10 +82,10 @@
 		@"reward_id": rewardId
 	};
 
-	[self scanningBaseRequestWithParam:param
-				    callback:^(BOOL success, SKResponsePackage *response) {
-					callback(success, response);
-				    }];
+    [self scanningBaseRequestWithParam:param
+                              callback:^(BOOL success, SKResponsePackage *response) {
+                                  callback(success, response);
+                              }];
 }
 
 - (void)getScanningRewardWithRewardId:(NSString *)rewardId sId:(NSString *)sId callback:(SKResponseCallback)callback {
