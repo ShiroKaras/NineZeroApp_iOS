@@ -15,9 +15,11 @@
 
 @interface NZQuestionListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray<SKQuestion*>* dataArray;
+@property (nonatomic, strong) NSMutableArray<SKQuestion*>* dataArray;
 @property (nonatomic, assign) time_t deltaTime;
 @property (nonatomic, assign) uint64_t endTime;
+
+@property (nonatomic, assign) BOOL isShowTimeLimitQuestion;
 @end
 
 @implementation NZQuestionListViewController
@@ -78,11 +80,17 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] questionService] getQuestionListCallback:^(BOOL success, NSArray<SKQuestion *> *questionList) {
-        _dataArray = questionList;
+        _dataArray = [NSMutableArray arrayWithArray:questionList];
         //计算结束时间
         NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];
         NSTimeInterval a=[date timeIntervalSince1970];
         _endTime = (uint64_t)a+(uint64_t)[questionList[0].count_down longLongValue];
+        if ([questionList[0].count_down longLongValue] <=0) {
+            _isShowTimeLimitQuestion = NO;
+            [_dataArray removeObjectAtIndex:0];
+        } else {
+            _isShowTimeLimitQuestion = YES;
+        }
         [self.tableView reloadData];
     }];
 }
@@ -101,7 +109,11 @@
     if (cell==nil) {
         cell = [[NZQuestionListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NZQuestionListCell class])];
     }
-    [cell setCellWithQuetion:indexPath.section==0?self.dataArray[0]:self.dataArray[indexPath.row+1]];
+    if (_isShowTimeLimitQuestion) {
+        [cell setCellWithQuetion:indexPath.section==0?self.dataArray[0]:self.dataArray[indexPath.row+1]];
+    } else {
+        [cell setCellWithQuetion:self.dataArray[indexPath.row]];
+    }
     return cell;
 }
 
@@ -111,12 +123,17 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        NZQuestionDetailViewController *controller = [[NZQuestionDetailViewController alloc] initWithType:NZQuestionTypeTimeLimitLevel questionID:self.dataArray[0].qid];
-        controller.endTime = _endTime;
-        [self.navigationController pushViewController:controller animated:YES];
-    } else if (indexPath.section == 1){
-        NZQuestionDetailViewController *controller = [[NZQuestionDetailViewController alloc] initWithType:NZQuestionTypeHistoryLevel questionID:self.dataArray[indexPath.row+1].qid];
+    if (_isShowTimeLimitQuestion) {
+        if (indexPath.section == 0) {
+            NZQuestionDetailViewController *controller = [[NZQuestionDetailViewController alloc] initWithType:NZQuestionTypeTimeLimitLevel questionID:self.dataArray[0].qid];
+            controller.endTime = _endTime;
+            [self.navigationController pushViewController:controller animated:YES];
+        } else if (indexPath.section == 1){
+            NZQuestionDetailViewController *controller = [[NZQuestionDetailViewController alloc] initWithType:NZQuestionTypeHistoryLevel questionID:self.dataArray[indexPath.row+1].qid];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+    } else {
+        NZQuestionDetailViewController *controller = [[NZQuestionDetailViewController alloc] initWithType:NZQuestionTypeHistoryLevel questionID:self.dataArray[indexPath.row].qid];
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
@@ -127,9 +144,13 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16, 102, 20)];
     [headerView addSubview:imageView];
     
-    if (section == 0) {
-        imageView.image = [UIImage imageNamed:@"img_puzzlepage_timedtask"];
-    } else if (section==1) {
+    if (_isShowTimeLimitQuestion) {
+        if (section == 0) {
+            imageView.image = [UIImage imageNamed:@"img_puzzlepage_timedtask"];
+        } else if (section==1) {
+            imageView.image = [UIImage imageNamed:@"img_puzzlepage_dailytask"];
+        }
+    } else {
         imageView.image = [UIImage imageNamed:@"img_puzzlepage_dailytask"];
     }
     
@@ -139,14 +160,22 @@
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0)
-        return 1;
-    else
-        return _dataArray.count-1;
+    if (_isShowTimeLimitQuestion) {
+        if (section == 0)
+            return 1;
+        else
+            return _dataArray.count-1;
+    } else {
+        return _dataArray.count;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    if (_isShowTimeLimitQuestion) {
+        return 2;
+    } else {
+        return 1;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
