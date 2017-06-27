@@ -34,7 +34,7 @@ typedef enum : NSUInteger {
 - (instancetype)initWithHomepage;
 
 @property (nonatomic, weak) id<HTARCaptureControllerDelegate> delegate;
-@property (nonatomic, assign) NSString *rewardID;
+@property (nonatomic, strong) NSString *rewardID;
 @property (nonatomic, strong) SKQuestion *question;
 @property (nonatomic, strong) NSString *pet_gif;
 @property (nonatomic, assign) BOOL isHadReward;

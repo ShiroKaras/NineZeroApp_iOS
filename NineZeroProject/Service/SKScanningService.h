@@ -31,7 +31,7 @@ typedef void (^SKDanmakuListCallback)(BOOL success, NSArray<SKDanmakuItem*>* dan
 
 //3.0.1
 //获取 LBS 奖励接口
-- (void)getLbsRewardDetailWithID:(NSString*)rewardId callback:(SKResponseCallback)callback;
+- (void)getLbsRewardDetailWithID:(NSString*)rewardId sid:(NSString*)sid callback:(SKResponseCallback)callback;
 
 //图片识别弹幕评论接口
 - (void)sendScanningComment:(NSString *)comment imageID:(NSString*)imageID callback:(SKResponseCallback)callback;
