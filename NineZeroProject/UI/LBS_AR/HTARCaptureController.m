@@ -277,6 +277,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (void)showPromptView {
     _isShowedPrompt = YES;
     [UIView animateWithDuration:0.3 animations:^{
+        
     } completion:^(BOOL finished) {
         self.promptView.top = 0;
         [self.view layoutIfNeeded];
@@ -626,8 +627,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 		self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
 		needShowMascot = YES;
         self.radarImageView.hidden = _isHadReward==YES? NO:YES;
-        
-        [self showPromptView];
+        if (!_isShowedPrompt) {
+            [self showPromptView];
+        }
 	}
 	if (_needShowDebugLocation) {
 		self.tipLabel.text = [NSString stringWithFormat:@"%.1f", distance];

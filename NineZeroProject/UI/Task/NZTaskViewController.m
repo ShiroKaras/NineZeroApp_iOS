@@ -23,6 +23,7 @@
 
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 @property (nonatomic, assign) BOOL isOpenLBS;
+@property (nonatomic, assign) BOOL hideHelperButton;
 @end
 
 @implementation NZTaskViewController
@@ -41,6 +42,7 @@
     self = [super init];
     if (self) {
         _mid = 0;
+        _hideHelperButton = YES;
     }
     return self;
 }
@@ -76,6 +78,7 @@
     
     // 帮助按钮
     _helpButton = [UIButton new];
+    _helpButton.hidden = _hideHelperButton;
     [_helpButton addTarget:self action:@selector(helpButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [_helpButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_introduce"] forState:UIControlStateNormal];
     [_helpButton setBackgroundImage:[UIImage imageNamed:@"btn_taskpage_introduce_highlight"] forState:UIControlStateHighlighted];
