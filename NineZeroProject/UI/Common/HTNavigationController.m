@@ -45,7 +45,7 @@
         &&![viewController isKindOfClass:[NZQuestionDetailViewController class]]
         &&![viewController isKindOfClass:[NZLabDetailViewController class]]
         &&![viewController isKindOfClass:[HTWebController class]]
-        &&![viewController isKindOfClass:[SKSwipeViewController class]]
+//        &&![viewController isKindOfClass:[SKSwipeViewController class]]
         ) {
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = 9001;
