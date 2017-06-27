@@ -123,11 +123,11 @@
     self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bottom-49, SCREEN_WIDTH, 49)];
     [self.view addSubview:self.bottomView];
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(13, 11, 27, 27)];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back_highligth"] forState:UIControlStateHighlighted];
-    [backButton addTarget:self action:@selector(didClickBackButton) forControlEvents:UIControlEventTouchUpInside];
-    [self.bottomView addSubview:backButton];
+//    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(13, 11, 27, 27)];
+//    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+//    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back_highligth"] forState:UIControlStateHighlighted];
+//    [backButton addTarget:self action:@selector(didClickBackButton) forControlEvents:UIControlEventTouchUpInside];
+//    [self.bottomView addSubview:backButton];
     
     _danmakuSwitchButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bottomView.width-13-27, 11, 27, 27)];
     [_danmakuSwitchButton setBackgroundImage:[UIImage imageNamed:@"btn_ar_shieldbarrage"] forState:UIControlStateNormal];
@@ -198,6 +198,7 @@
         data.avatarName = [[SKStorageManager sharedInstance] userInfo].user_avatar;
         data.desc = _commentTextField.text;
         [self.danmaku addData:data];
+        _commentTextField.text = @"";
     }];
     return YES;
 }
@@ -237,12 +238,6 @@
     [self.danmaku pause];
 }
 
-#pragma mark  Actions
-
-- (void)addOneData:(id)sender {
-    [self addDatasWithCount:1];
-}
-
 #pragma mark  FXDanmakuDelegate
 - (void)danmaku:(FXDanmaku *)danmaku didClickItem:(FXDanmakuItem *)item withData:(DemoDanmakuItemData *)data {
     [self fx_presentConfirmViewWithTitle:nil
@@ -251,21 +246,6 @@
                        cancelButtonTitle:@"Ok"
                           confirmHandler:nil
                            cancelHandler:nil];
-}
-
-#pragma mark  DataSource
-- (void)addDatasWithCount:(NSUInteger)count {
-    static NSUInteger index = 0;
-    for (NSUInteger i = 0; i < count; i++) {
-        DemoDanmakuItemData *data = [DemoDanmakuItemData data];
-        data.avatarName = [NSString stringWithFormat:@"avatar%d", arc4random()%6];
-        data.desc = [NSString stringWithFormat:@"DanmakuItem-%@", @(index++)];
-        [self.danmaku addData:data];
-    }
-    
-    if (!self.danmaku.isRunning) {
-        [self.danmaku start];
-    }
 }
 
 #pragma mark -

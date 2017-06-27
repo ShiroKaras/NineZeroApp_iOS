@@ -470,8 +470,6 @@
                 HTARCaptureController *controller = [[HTARCaptureController alloc] initWithHomepage];
                 controller.delegate = self;
                 controller.pet_gif = _scaningInfo.pet_gif;
-                controller.isHadReward = _scaningInfo.is_haved_reward;
-                controller.rewardID = _scaningInfo.reward_id;
                 [self presentViewController:controller animated:NO completion:nil];
                 break;
             }

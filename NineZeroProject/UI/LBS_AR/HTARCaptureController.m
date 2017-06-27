@@ -100,6 +100,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         _type = NZLbsTypeHomepage;
         [[[SKServiceManager sharedInstance] scanningService] getScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
             self.locationPointArray = package.data[@"scanning_lbs_locations"];
+            self.isHadReward = [package.data[@"is_haved_reward"] boolValue];
+            self.rewardID = package.data[@"reward_id"];
         }];
     }
     return self;
@@ -238,7 +240,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     self.mascotImageView.animationRepeatCount = 0;
     [self.mascotImageView startAnimating];
     
-    if ((_type==NZLbsTypeDefault)|(_type==NZLbsTypeHomepage)&&_isHadReward == YES) {
+    if ((_type==NZLbsTypeDefault)&&_isHadReward == YES) {
+        self.mascotImageView.hidden = YES;
+    } else if (_type==NZLbsTypeHomepage) {
         self.mascotImageView.hidden = YES;
     }
     
@@ -500,6 +504,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         }];
     } else if (_type==NZLbsTypeHomepage) {
         [[[SKServiceManager sharedInstance] scanningService] getLbsRewardDetailWithID:self.rewardID callback:^(BOOL success, SKResponsePackage *response) {
+            NSLog(@"%@", [NSDictionary dictionaryWithDictionary:response.data]);
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (success) {
                 [self catchSuccess];
@@ -556,6 +561,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 }
 
 - (void)onClickShowDebug {
+    if (_type == NZLbsTypeDefault) return;
+    
 	self.tipLabel.text = @"";
 	_needShowDebugLocation = YES;
 	[self showtipImageView];
@@ -631,8 +638,8 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 		self.tipLabel.text = kTipTapMascotToCapture;
 		self.tipImageView.image = [UIImage imageNamed:@"img_ar_notification_bg_2"];
 		needShowMascot = YES;
-        self.radarImageView.hidden = YES;
-		//        [self.mascotMotionView enableMotionEffect];
+        self.radarImageView.hidden = _isHadReward==YES? NO:YES;
+        
         [self showPromptView];
 	}
 	if (_needShowDebugLocation) {
@@ -640,7 +647,9 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	}
 	//    self.mascotMotionView.hidden = !needShowMascot;
 	//    self.mascotMotionView.imageView.hidden = !needShowMascot;
-	self.mascotImageView.hidden = !needShowMascot;
+    
+    self.mascotImageView.hidden = _isHadReward==YES? YES:!needShowMascot;
+    
 
 	[[self.view viewWithTag:AR_VIEW_TAG] setFrame:arViewFrame];
 }
