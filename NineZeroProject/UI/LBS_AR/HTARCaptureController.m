@@ -444,7 +444,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 
 - (void)onClickMascot {
 //	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    if (_type==NZLbsTypeDefault | _type==NZLbsTypeHomepage) {
+    if (_type==NZLbsTypeDefault) {
         [[[SKServiceManager sharedInstance] scanningService] getTimeSlotRewardDetailWithRewardID:self.rewardID callback:^(BOOL success, SKResponsePackage *response) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (success) {
@@ -460,7 +460,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
                     [self showTipsWithText:@"异常"];
                 }
             }
- 
         }];
     } else if (_type==NZLbsTypeQuestion) {
         [[[SKServiceManager sharedInstance] answerService] answerLBSQuestionWithLocation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
@@ -486,6 +485,23 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         [[[SKServiceManager sharedInstance] strongholdService] scanningWithStronghold:_strongholdItem forLoacation:_currentLocation callback:^(BOOL success, SKResponsePackage *response) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (success && response.result == 0) {
+                [self catchSuccess];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.successBackgroundView removeFromSuperview];
+                    [self onCaptureMascotSuccessfulWithReward:[SKReward mj_objectWithKeyValues:[response.data mj_keyValues]]];
+                });
+            } else {
+                if (response.result) {
+                    [self showTipsWithText:[NSString stringWithFormat:@"异常%ld", (long)response.result]];
+                } else {
+                    [self showTipsWithText:@"异常"];
+                }
+            }
+        }];
+    } else if (_type==NZLbsTypeHomepage) {
+        [[[SKServiceManager sharedInstance] scanningService] getLbsRewardDetailWithID:self.rewardID callback:^(BOOL success, SKResponsePackage *response) {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            if (success) {
                 [self catchSuccess];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((0.05 * 18) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.successBackgroundView removeFromSuperview];

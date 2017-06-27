@@ -140,14 +140,14 @@
 }
 
 //3.0.1
-- (void)getLbsRewardDetailWithID:(NSString *)rewardId callback:(SKScanningRewardCallback)callback {
+- (void)getLbsRewardDetailWithID:(NSString *)rewardId callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"method": @"getLbsRewardDetail",
                             @"reward_id" : rewardId
                             };
     [self scanningBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        SKReward *reward = [SKReward mj_objectWithKeyValues:response.data];
-        callback(success, reward);
+//        SKReward *reward = [SKReward mj_objectWithKeyValues:response.data];
+        callback(success, response);
     }];
 }
 
