@@ -7,6 +7,7 @@
 //
 
 #import "FXDanmakuItemData.h"
+#import <UIKit/UIKit.h>
 
 @interface DemoDanmakuItemData : FXDanmakuItemData
 

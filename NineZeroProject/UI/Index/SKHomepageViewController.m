@@ -57,6 +57,12 @@
             }
         }
     }];
+    
+    [[[SKServiceManager sharedInstance] commonService] getPublicPage:^(BOOL success, SKIndexScanning *indexScanningInfo) {
+        if ([indexScanningInfo.screen_remind boolValue]) {
+            [self versionUpdate];
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -100,10 +106,6 @@
                              SDImageCacheType cacheType, NSURL *imageURL){
                  }];
             }
-        }
-        
-        if ([indexScanningInfo.screen_remind boolValue]) {
-            [self versionUpdate];
         }
     }];
 }

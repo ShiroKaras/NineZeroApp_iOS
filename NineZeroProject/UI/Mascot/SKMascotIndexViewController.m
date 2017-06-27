@@ -180,8 +180,8 @@
         make.right.equalTo(_skillButton);
     }];
     
-    if (FIRST_LAUNCH_MASCOTVIEW) {
-        EVER_LAUNCHED_MASCOTVIEW
+    if (FIRST_LAUNCH_MASCOTVIEW_1) {
+        EVER_LAUNCHED_MASCOTVIEW_1
         
         _guideView = [[UIView alloc] initWithFrame:self.view.bounds];
         _guideView.backgroundColor = [UIColor clearColor];
