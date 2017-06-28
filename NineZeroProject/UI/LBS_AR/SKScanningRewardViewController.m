@@ -67,7 +67,6 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 
 		if (_scanType == 0) {
 			[[[SKServiceManager sharedInstance] scanningService] getScanningRewardWithRewardId:_rewardID
-												       sId:_sId
 												  callback:^(BOOL success, SKResponsePackage *response) {
 												      DLog(@"Reward:%@", response.data);
 												      if (response.result == 0) {
@@ -206,10 +205,13 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 			}];
 		}
 	}
-
-	[_dimmingView mas_makeConstraints:^(MASConstraintMaker *make) {
-	    make.height.mas_equalTo(height);
-	}];
+    
+    [_dimmingView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@247);
+        make.height.mas_equalTo(height);
+        make.centerX.equalTo(weakSelf.view);
+        make.top.mas_equalTo((SCREEN_HEIGHT-height)/2);
+    }];
 }
 
 - (void)createRewardInfoViewWithBaseHeight:(CGFloat *)height {

@@ -43,7 +43,7 @@
 	if (!self.giftBackImageView) {
 		self.giftBackImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_loadingvideo_gift_2"]];
 		self.giftBackImageView.size = CGSizeMake(54, 42);
-		self.giftBackImageView.bottom = self.bottom - 14;
+		self.giftBackImageView.bottom = self.bottom - 14 - 49;
 		self.giftBackImageView.left = self.right;
 		[self addSubview:self.giftBackImageView];
 
