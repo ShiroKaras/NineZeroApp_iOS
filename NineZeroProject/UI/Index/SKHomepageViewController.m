@@ -542,9 +542,8 @@
                 break;
             }
             case 3: {
-                HTARCaptureController *controller = [[HTARCaptureController alloc] initWithHomepage];
+                HTARCaptureController *controller = [[HTARCaptureController alloc] initWithHomepageWithPetgif:_scaningInfo.pet_gif];
                 controller.delegate = self;
-                controller.pet_gif = _scaningInfo.pet_gif;
                 [self presentViewController:controller animated:NO completion:nil];
                 break;
             }

@@ -61,19 +61,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (instancetype)init {
     if (self = [super init]) {
         _type = NZLbsTypeDefault;
-        
-        //判断GPS是否开启
-        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-        alertView.delegate = self;
-        if ([CLLocationManager locationServicesEnabled]) {
-            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-                [self createUI];
-            } else {
-                [alertView show];
-            }
-        } else {
-            [alertView show];
-        }
     }
     return self;
 }
@@ -91,19 +78,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 				DLog(@"lat=>%f \n lng=>%f", lat, lng);
 			}
 		}
-        
-        //判断GPS是否开启
-        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-        alertView.delegate = self;
-        if ([CLLocationManager locationServicesEnabled]) {
-            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-                [self createUI];
-            } else {
-                [alertView show];
-            }
-        } else {
-            [alertView show];
-        }
 	}
 	return self;
 }
@@ -118,26 +92,14 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
                                        @"lng" : stronghold.lng
                                        };
         self.locationPointArray = @[locationDict];
-        
-        //判断GPS是否开启
-        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-        alertView.delegate = self;
-        if ([CLLocationManager locationServicesEnabled]) {
-            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-                [self createUI];
-            } else {
-                [alertView show];
-            }
-        } else {
-            [alertView show];
-        }
     }
     return self;
 }
 
-- (instancetype)initWithHomepage {
+- (instancetype)initWithHomepageWithPetgif:(NSString*)petgif {
     if (self = [super init]) {
         _type = NZLbsTypeHomepage;
+        _pet_gif = petgif;
         [[[SKServiceManager sharedInstance] scanningService] getScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
             self.locationPointArray = package.data[@"scanning_lbs_locations"];
             self.isHadReward = [package.data[@"is_haved_reward"] boolValue];
@@ -181,6 +143,23 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.view.backgroundColor = [UIColor blackColor];
+    
+    if (_type == NZLbsTypeDefault ||
+        _type == NZLbsTypeQuestion ||
+        _type == NZLbsTypeStronghold) {
+        //判断GPS是否开启
+        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+        alertView.delegate = self;
+        if ([CLLocationManager locationServicesEnabled]) {
+            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+                [self createUI];
+            } else {
+                [alertView show];
+            }
+        } else {
+            [alertView show];
+        }
+    }
 }
 
 - (void)createUI {
@@ -249,6 +228,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     //1.首页 2.题目 3.据点 4.首页LBS
     NSString *unzipFilesPath;
     if (_type == NZLbsTypeDefault || _type == NZLbsTypeHomepage) {
+        NSLog(@"%@", self.pet_gif);
         unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.pet_gif stringByDeletingPathExtension]]];
     } else if (_type == NZLbsTypeQuestion) {
         unzipFilesPath = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/%@", [self.question.question_ar_pet stringByDeletingPathExtension]]];
