@@ -89,7 +89,8 @@
         _scaningInfo = indexScanningInfo;   //1.扫一扫 2.时间段
         if ([indexScanningInfo.scanning_type integerValue] == 1) {
             
-        } else if ([indexScanningInfo.scanning_type integerValue] == 2) {
+        } else if ([indexScanningInfo.scanning_type integerValue] == 2 ||
+                   [indexScanningInfo.scanning_type integerValue] == 3) {
             if (!indexScanningInfo.is_haved_reward) {
                 [self loadZip];
             }

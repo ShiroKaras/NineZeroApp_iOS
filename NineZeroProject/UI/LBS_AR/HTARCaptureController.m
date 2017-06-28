@@ -61,6 +61,19 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (instancetype)init {
     if (self = [super init]) {
         _type = NZLbsTypeDefault;
+        
+        //判断GPS是否开启
+        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+        alertView.delegate = self;
+        if ([CLLocationManager locationServicesEnabled]) {
+            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+                [self createUI];
+            } else {
+                [alertView show];
+            }
+        } else {
+            [alertView show];
+        }
     }
     return self;
 }
@@ -78,6 +91,19 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 				DLog(@"lat=>%f \n lng=>%f", lat, lng);
 			}
 		}
+        
+        //判断GPS是否开启
+        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+        alertView.delegate = self;
+        if ([CLLocationManager locationServicesEnabled]) {
+            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+                [self createUI];
+            } else {
+                [alertView show];
+            }
+        } else {
+            [alertView show];
+        }
 	}
 	return self;
 }
@@ -92,6 +118,19 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
                                        @"lng" : stronghold.lng
                                        };
         self.locationPointArray = @[locationDict];
+        
+        //判断GPS是否开启
+        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+        alertView.delegate = self;
+        if ([CLLocationManager locationServicesEnabled]) {
+            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+                [self createUI];
+            } else {
+                [alertView show];
+            }
+        } else {
+            [alertView show];
+        }
     }
     return self;
 }
@@ -100,11 +139,22 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
     if (self = [super init]) {
         _type = NZLbsTypeHomepage;
         [[[SKServiceManager sharedInstance] scanningService] getScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
-            NSLog(@"%@", package.data);
             self.locationPointArray = package.data[@"scanning_lbs_locations"];
             self.isHadReward = [package.data[@"is_haved_reward"] boolValue];
             self.rewardID = package.data[@"reward_id"];
             self.sid = package.data[@"sid"];
+            //判断GPS是否开启
+            HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
+            alertView.delegate = self;
+            if ([CLLocationManager locationServicesEnabled]) {
+                if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+                    [self createUI];
+                } else {
+                    [alertView show];
+                }
+            } else {
+                [alertView show];
+            }
         }];
     }
     return self;
@@ -131,19 +181,6 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.view.backgroundColor = [UIColor blackColor];
-    
-    //判断GPS是否开启
-    HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeLocation];
-    alertView.delegate = self;
-    if ([CLLocationManager locationServicesEnabled]) {
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
-            [self createUI];
-        } else {
-            [alertView show];
-        }
-    } else {
-        [alertView show];
-    }
 }
 
 - (void)createUI {
@@ -369,9 +406,14 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
 	CLLocationCoordinate2D currentPoint = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
 
 	for (NSDictionary *dict in self.locationPointArray) {
-		double lat = [dict[@"lat"] doubleValue];
-		double lng = [dict[@"lng"] doubleValue];
-
+        double lat, lng;
+        if (_type == NZLbsTypeHomepage) {
+            lat = [dict[@"latitude"] doubleValue];
+            lng = [dict[@"longitude"] doubleValue];
+        } else {
+            lat = [dict[@"lat"] doubleValue];
+            lng = [dict[@"lng"] doubleValue];
+        }
 		//1.将两个经纬度点转成投影点
 		MAMapPoint point1 = MAMapPointForCoordinate(CLLocationCoordinate2DMake(lat, lng));
 		MAMapPoint point2 = MAMapPointForCoordinate(CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude));
@@ -633,7 +675,7 @@ NSString *kTipTapMascotToCapture = @"快点击零仔进行捕获";
         }
 	}
 	if (_needShowDebugLocation) {
-		self.tipLabel.text = [NSString stringWithFormat:@"%.1f", distance];
+		self.tipLabel.text = [NSString stringWithFormat:@"距离目标 %.1fm", distance];
 	}
 	//    self.mascotMotionView.hidden = !needShowMascot;
 	//    self.mascotMotionView.imageView.hidden = !needShowMascot;

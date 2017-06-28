@@ -13,6 +13,7 @@
 
 @property (nonatomic, copy) NSString *avatarName;
 @property (nonatomic, copy) NSString *desc;
+@property (nonatomic, copy) NSString *user_id;
 @property (nonatomic, copy) UIColor *backColor;
 
 + (instancetype)data;
