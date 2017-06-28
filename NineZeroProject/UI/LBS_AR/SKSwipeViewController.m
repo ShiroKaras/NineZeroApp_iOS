@@ -55,6 +55,7 @@
 @property (nonatomic, strong) SKReward *rewardRecord;
 @property (nonatomic, strong) NSArray *lid; //目标图对应id
 @property (nonatomic, assign) BOOL bstatus; //弹幕是否开启
+@property (nonatomic, assign) BOOL isHadReward; //是否已获取奖励
 
 @property (nonatomic, strong) FXDanmaku *danmaku;
 @property (nonatomic, strong) UIView *bottomView;
@@ -122,12 +123,6 @@
     
     self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bottom-49, SCREEN_WIDTH, 49)];
     [self.view addSubview:self.bottomView];
-    
-//    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(13, 11, 27, 27)];
-//    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
-//    [backButton setBackgroundImage:[UIImage imageNamed:@"btn_back_highligth"] forState:UIControlStateHighlighted];
-//    [backButton addTarget:self action:@selector(didClickBackButton) forControlEvents:UIControlEventTouchUpInside];
-//    [self.bottomView addSubview:backButton];
     
     _danmakuSwitchButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bottomView.width-13-27, 11, 27, 27)];
     [_danmakuSwitchButton setBackgroundImage:[UIImage imageNamed:@"btn_ar_shieldbarrage"] forState:UIControlStateNormal];
@@ -263,8 +258,6 @@
 			    return;
 		    }
             
-		    NSLog(@"data-->%@", data);
-            
 		    self.swipeType = SKScanTypeImage;
 		    self.downloadKey = [data objectForKey:@"file_url"];
 		    self.linkURLs = [data objectForKey:@"link_url"];
@@ -273,8 +266,10 @@
 		    self.sid = [data objectForKey:@"sid"];
             self.lid = [data objectForKey:@"lid"];
             self.bstatus = [[data objectForKey:@"bstatus"] boolValue];
+            self.isHadReward = [[data objectForKey:@"is_haved_ticket" ] boolValue];
             if (_bstatus == NO) {
                 self.danmaku.hidden = YES;
+                self.bottomView.hidden = YES;
             }
 //            //拼图扫一扫字段（暂时无用）
 //		    self.linkClarity = [data objectForKey:@"link_clarity"];
@@ -559,7 +554,7 @@
         //扫到目标图
         [self.scanningImageView.scanningGridLine setHidden:YES];
 		if (_swipeType == SKScanTypeImage) {
-            if (_rewardID && ![_rewardID isEqualToString:@"0"]) {
+            if (_rewardID && ![_rewardID isEqualToString:@"0"] && !_isHadReward) {
                 _trackedTargetId = targetId;
                 [_scanningImageView setUpGiftView];
                 [_scanningImageView pushGift];
