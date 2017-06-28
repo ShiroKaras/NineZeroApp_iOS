@@ -370,6 +370,7 @@
 @interface SKDanmakuItem : NSObject
 @property (nonatomic, copy) NSString *user_avatar;
 @property (nonatomic, copy) NSString *user_name;
+@property (nonatomic, copy) NSString *user_id;
 @property (nonatomic, copy) NSString *contents;
 @property (nonatomic, copy) NSString *release_time;
 @end

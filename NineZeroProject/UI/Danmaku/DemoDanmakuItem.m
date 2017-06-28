@@ -61,7 +61,6 @@
 - (void)itemWillBeDisplayedWithData:(DemoDanmakuItemData *)data {
     self.backView.layer.cornerRadius = 15;
     self.backView.backgroundColor = data.backColor;
-//    self.avatarImageView.image = [UIImage imageNamed:data.avatarName];
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:data.avatarName] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
     self.descLabel.text = data.desc;
 }

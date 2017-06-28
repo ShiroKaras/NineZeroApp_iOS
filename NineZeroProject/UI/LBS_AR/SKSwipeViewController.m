@@ -574,7 +574,12 @@
                         DemoDanmakuItemData *data = [DemoDanmakuItemData data];
                         data.avatarName = danmaku.user_avatar;
                         data.desc = danmaku.contents;
-                        data.backColor = COMMON_TITLE_BG_COLOR;
+                        data.user_id = danmaku.user_id;
+                        if ([danmaku.user_id isEqualToString:[[SKStorageManager sharedInstance] getUserID]]) {
+                            data.backColor = COMMON_GREEN_COLOR;
+                        } else {
+                            data.backColor = COMMON_TITLE_BG_COLOR;
+                        }
                         [self.danmaku addData:data];
                     }
                     
