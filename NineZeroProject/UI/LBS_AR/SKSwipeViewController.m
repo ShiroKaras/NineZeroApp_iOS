@@ -238,12 +238,7 @@
 
 #pragma mark  FXDanmakuDelegate
 - (void)danmaku:(FXDanmaku *)danmaku didClickItem:(FXDanmakuItem *)item withData:(DemoDanmakuItemData *)data {
-    [self fx_presentConfirmViewWithTitle:nil
-                                 message:[NSString stringWithFormat:@"You click %@", data.desc]
-                      confirmButtonTitle:nil
-                       cancelButtonTitle:@"Ok"
-                          confirmHandler:nil
-                           cancelHandler:nil];
+    
 }
 
 #pragma mark -
