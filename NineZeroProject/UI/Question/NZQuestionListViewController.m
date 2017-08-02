@@ -87,7 +87,6 @@
         _endTime = (uint64_t)a+(uint64_t)[questionList[0].count_down longLongValue];
         if ([questionList[0].count_down longLongValue] <=0) {
             _isShowTimeLimitQuestion = NO;
-            [_dataArray removeObjectAtIndex:0];
         } else {
             _isShowTimeLimitQuestion = YES;
         }
