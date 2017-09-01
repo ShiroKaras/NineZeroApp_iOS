@@ -86,7 +86,7 @@
 #define kMascots_Dict @"kMascotsArray"
 
 //第一次启动
-#define FIRST_LAUNCH [UD boolForKey:@"firstLaunch"]
+#define FIRST_LAUNCH ![UD boolForKey:@"firstLaunch"]
 
 #define FIRST_LAUNCH_HOMEPAGE ![UD boolForKey:@"firstLaunchQuestionList"]
 #define EVER_LAUNCH_HOMEPAGE [UD setBool:YES forKey:@"firstLaunchQuestionList"];
