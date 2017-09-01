@@ -390,15 +390,17 @@
             break;
         }
         case SKHelperGuideViewTypeMascot1:{
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
-            [_view1 addGestureRecognizer:tap];
+            UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
+            [_view1 addGestureRecognizer:tap1];
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+            [_view2 addGestureRecognizer:tap2];
             
             UILabel *bottomLabel = [UILabel new];
             bottomLabel.text = @"点击任意区域关闭";
             bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
             bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
             [bottomLabel sizeToFit];
-            [_view1 addSubview:bottomLabel];
+            [_view2 addSubview:bottomLabel];
             [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(_view1);
                 make.bottom.equalTo(_view1).offset(-16);
@@ -406,28 +408,30 @@
             
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach1_640"];
-                imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach2_640"];
+                imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach3_640"];
             } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach1_750"];
-                imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach2_750"];
+                imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach3_750"];
             } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach1_1242"];
-                imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach2_1242"];
+                imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach3_1242"];
             }
             [self addSubview:_view1];
             _view1.alpha = 1;
             break;
         }
         case SKHelperGuideViewTypeMascot2: {
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
-            [_view1 addGestureRecognizer:tap];
+            UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
+            [_view1 addGestureRecognizer:tap1];
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+            [_view1 addGestureRecognizer:tap2];
             
             UILabel *bottomLabel = [UILabel new];
             bottomLabel.text = @"点击任意区域关闭";
             bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
             bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
             [bottomLabel sizeToFit];
-            [_view1 addSubview:bottomLabel];
+            [_view2 addSubview:bottomLabel];
             [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(_view1);
                 make.bottom.equalTo(_view1).offset(-16);
@@ -435,10 +439,13 @@
             
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach2_640"];
+                imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach4_640"];
             } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach2_750"];
+                imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach4_750"];
             } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach2_1242"];
+                imageView2.image = [UIImage imageNamed:@"img_lingzaipage_coach4_1242"];
             }
             [self addSubview:_view1];
             _view1.alpha = 1;

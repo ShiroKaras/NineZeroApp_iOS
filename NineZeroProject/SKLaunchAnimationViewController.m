@@ -51,24 +51,32 @@
 - (void)createUI {
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*3, SCREEN_HEIGHT);
-    scrollView.backgroundColor = COMMON_GREEN_COLOR;
+    scrollView.backgroundColor = [UIColor colorWithHex:0x101010];
     scrollView.pagingEnabled = YES;
     [self.view addSubview:scrollView];
 
+    for (int i=0; i<3; i++) {
+        UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_guidepage_%d",i+1]]];
+        [scrollView addSubview:image];
+        [image mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(scrollView);
+            make.height.equalTo(@(SCREEN_WIDTH/32*44));
+            make.top.equalTo(scrollView);
+            make.left.equalTo(@(SCREEN_WIDTH*i));
+        }];
+    }
+    
 	_enterButton = [UIButton new];
-    _enterButton.backgroundColor = COMMON_RED_COLOR;
 	[_enterButton addTarget:self action:@selector(onClickEnterButton:) forControlEvents:UIControlEventTouchUpInside];
-//	[_enterButton setImage:[UIImage imageNamed:@"btn_trailer_enter"] forState:UIControlStateNormal];
+    [_enterButton setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor]] forState:UIControlStateNormal];
+    [_enterButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
+	[_enterButton setImage:[UIImage imageNamed:@"btn_guidepage_enter"] forState:UIControlStateNormal];
+    [_enterButton setImage:[UIImage imageNamed:@"btn_guidepage_enter_highlight"] forState:UIControlStateHighlighted];
     [scrollView addSubview:_enterButton];
     
-//    _enterButton.size = CGSizeMake(100, 50);
-//    _enterButton.centerX = scrollView.centerX+SCREEN_WIDTH*2;
-//    _enterButton.centerY = scrollView.centerY;
-    [_enterButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(100, 50));
-        make.centerX.equalTo(scrollView.mas_centerX).offset(SCREEN_WIDTH*2);
-        make.centerY.equalTo(scrollView.mas_centerY);
-    }];
+    _enterButton.size = CGSizeMake(SCREEN_WIDTH, 50);
+    _enterButton.left = SCREEN_WIDTH *2;
+    _enterButton.bottom = scrollView.bottom;
 }
 
 - (void)onClickEnterButton:(UIButton *)sender {
