@@ -13,12 +13,14 @@
 @interface NZQuestionGiftView : UIView
 @property (nonatomic, strong) UIScrollView *scrollView;
 - (instancetype)initWithFrame:(CGRect)frame withReward:(SKReward *)reward;
-
 @end
 
 
+@protocol NZQuestionFullScreenGiftViewDelegate <NSObject>
+- (void)didHideFullScreenGiftView;
+@end
+
 @interface NZQuestionFullScreenGiftView : UIView
-
+@property (nonatomic, weak) id<NZQuestionFullScreenGiftViewDelegate> delegate;
 - (instancetype)initWithFrame:(CGRect)frame withReward:(SKReward *)reward;
-
 @end

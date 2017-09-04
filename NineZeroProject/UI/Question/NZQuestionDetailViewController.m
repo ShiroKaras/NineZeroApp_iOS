@@ -23,6 +23,7 @@
 #import "SKHintView.h"
 #import "HTARCaptureController.h"
 #import "SKComposeView.h"
+#import "SKHelperView.h"
 
 #define SHARE_URL(u, v) [NSString stringWithFormat:@"https://admin.90app.tv/index.php?s=/Home/user/detail2.html/&area_id=%@&id=%@", (u), [self md5:(v)]]
 
@@ -38,7 +39,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeReplay
 };
 
-@interface NZQuestionDetailViewController () <UIScrollViewDelegate,SKComposeViewDelegate,HTARCaptureControllerDelegate>
+@interface NZQuestionDetailViewController () <UIScrollViewDelegate,SKComposeViewDelegate,HTARCaptureControllerDelegate, NZQuestionFullScreenGiftViewDelegate>
 
 @property (nonatomic, strong) UIView *questionMainBackView;
 @property (nonatomic, strong) UIScrollView *questionMainScrollView;
@@ -435,6 +436,18 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         }
         
         [self createDetail];
+        
+        
+        if (FIRST_LAUNCH_QUESTIONDETAIL) {
+            [UD setBool:YES forKey:@"firstLaunchQuestionDetail"];
+            SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeQuestionDetail];
+            [KEY_WINDOW addSubview:helperView];
+        } else {
+            if (question.limit_time_type==1 && FIRST_LAUNCH_QUESTIONDETAIL_TIMELIMIT) {
+                SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeQuestionDetailTimeLimit];
+                [KEY_WINDOW addSubview:helperView];
+            }
+        }
     }];
 }
 
@@ -864,6 +877,14 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 - (void)showRewardViewWithReward:(SKReward *)reward {
     NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:self.view.bounds withReward:self.reward];
     [self.view addSubview:rewardView];
+}
+
+- (void)didHideFullScreenGiftView {
+    if (FIRST_COACHMARK_TYPE_RIGHTANSWER) {
+        [UD setBool:YES forKey:@"firstLaunchTypeRightAnswer"];
+        SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeQuestionAnswered];
+        [KEY_WINDOW addSubview:helperView];
+    }
 }
 
 #pragma mark - Video Actions

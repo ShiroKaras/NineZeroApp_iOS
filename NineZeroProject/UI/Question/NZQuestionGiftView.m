@@ -445,6 +445,9 @@
 
 - (void)removeView {
     [self removeFromSuperview];
+    if ([_delegate respondsToSelector:@selector(didHideFullScreenGiftView)]) {
+        [self.delegate didHideFullScreenGiftView];
+    }
 }
 
 @end

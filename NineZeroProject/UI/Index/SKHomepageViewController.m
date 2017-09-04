@@ -75,6 +75,10 @@
     [self loadData];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 	[TalkingData trackPageEnd:@"homepage"];
@@ -96,16 +100,22 @@
             }
         }
         
-        if (![indexScanningInfo.adv_pic isEqualToString:@""]&&indexScanningInfo.adv_pic!=nil) {
-            //加载广告
-            if ([self isNewDay] || ![self isSamePic]) {
-                _activityNotificationView.hidden = NO;
-                [_activityNotificationView show];
-                [_activityNotificationView.contentImageView
-                 sd_setImageWithURL:[NSURL URLWithString:self.scaningInfo.adv_pic]
-                 completed:^(UIImage *image, NSError *error,
-                             SDImageCacheType cacheType, NSURL *imageURL){
-                 }];
+        if (FIRST_LAUNCH_HOMEPAGE) {
+            EVER_LAUNCH_HOMEPAGE
+            SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeHomepage];
+            [KEY_WINDOW addSubview:helperView];
+        }else {
+            if (![indexScanningInfo.adv_pic isEqualToString:@""]&&indexScanningInfo.adv_pic!=nil) {
+                //加载广告
+                if ([self isNewDay] || ![self isSamePic]) {
+                    _activityNotificationView.hidden = NO;
+                    [_activityNotificationView show];
+                    [_activityNotificationView.contentImageView
+                     sd_setImageWithURL:[NSURL URLWithString:self.scaningInfo.adv_pic]
+                     completed:^(UIImage *image, NSError *error,
+                                 SDImageCacheType cacheType, NSURL *imageURL){
+                     }];
+                }
             }
         }
     }];

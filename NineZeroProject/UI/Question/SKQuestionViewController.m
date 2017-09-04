@@ -2512,7 +2512,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 		//显示分享界面
 		[self showReplayAndShareButton];
 		if (FIRST_COACHMARK_TYPE_1 && !self.currentQuestion.is_answer) {
-			[self showGuideviewWithType:SKHelperGuideViewType1];
+			[self showGuideviewWithType:SKHelperGuideViewTypeQuestionPlayToEnd];
 			[UD setBool:YES forKey:@"firstLaunchTypePlayToEnd"];
 		}
 	}

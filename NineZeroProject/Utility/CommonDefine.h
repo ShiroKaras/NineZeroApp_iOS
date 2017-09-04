@@ -88,30 +88,46 @@
 //第一次启动
 #define FIRST_LAUNCH ![UD boolForKey:@"firstLaunch"]
 
-#define FIRST_LAUNCH_HOMEPAGE ![UD boolForKey:@"firstLaunchQuestionList"]
-#define EVER_LAUNCH_HOMEPAGE [UD setBool:YES forKey:@"firstLaunchQuestionList"];
+#define FIRST_LAUNCH_HOMEPAGE ![UD boolForKey:@"firstLaunchHomepage"]
+#define EVER_LAUNCH_HOMEPAGE [UD setBool:YES forKey:@"firstLaunchHomepage"];
 
+//第一次任务列表
 #define FIRST_LAUNCH_TASKLIST ![UD boolForKey:@"firstLaunchTaskList"]
 #define EVER_LAUNCH_TASKLIST [UD setBool:YES forKey:@"firstLaunchTaskList"];
 
+//第一次任务详情
 #define FIRST_LAUNCH_TASKDETAIL ![UD boolForKey:@"firstLaunchTaskDetail"]
 #define EVER_LAUNCH_TASKDETAIL [UD setBool:YES forKey:@"firstLaunchTaskDetail"];
 
+//第一次AR
 #define FIRST_LAUNCH_AR ![UD boolForKey:@"firstLaunchTypeAR"]
 #define EVER_LAUNCH_AR [UD setBool:YES forKey:@"firstLaunchTypeAR"];
 
+//第一次播放完成
 #define FIRST_COACHMARK_TYPE_1 ![UD boolForKey:@"firstLaunchTypePlayToEnd"]
+//第一次答3次错题
 #define FIRST_COACHMARK_TYPE_2 ![UD boolForKey:@"firstLaunchTypeThreeWrongAnswer"]
+//第一次答对题目
+#define FIRST_COACHMARK_TYPE_RIGHTANSWER ![UD boolForKey:@"firstLaunchTypeRightAnswer"]
 
+//第一次问题列表
 #define FIRST_LAUNCH_QUESTIONLIST ![UD boolForKey:@"firstLaunchQuestionList"]
-#define FIRST_LAUNCH_QUESTIONVIEW ![UD boolForKey:@"firstLaunchQuestionView"]
+//第一次限时
+#define FIRST_LAUNCH_QUESTIONLIST_TIMELIMIT ![UD boolForKey:@"firstLaunchQuestionListTimeLimit"]
+//第一次问题详情
+#define FIRST_LAUNCH_QUESTIONDETAIL ![UD boolForKey:@"firstLaunchQuestionDetail"]
+//第一次进入限时详情
+#define FIRST_LAUNCH_QUESTIONDETAIL_TIMELIMIT ![UD boolForKey:@"firstLaunchQuestionDetailTimeLimit"]
 
+//第一次零仔〇
 #define FIRST_LAUNCH_MASCOTVIEW_1 ![UD boolForKey:@"firstLaunchMascotView1"]
 #define EVER_LAUNCHED_MASCOTVIEW_1 [UD setBool:YES forKey:@"firstLaunchMascotView1"];
 
+//第一次零仔页后半部分
 #define FIRST_LAUNCH_MASCOTVIEW_2 ![UD boolForKey:@"firstLaunchMascotView2"]
 #define EVER_LAUNCHED_MASCOTVIEW_2 [UD setBool:YES forKey:@"firstLaunchMascotView2"];
 
+//第一次扫一扫
 #define FIRST_LAUNCH_SWIPEVIEW ![UD boolForKey:@"firstLaunchSwipeView"]
 #define LAUNCHED_SWIPEVIEW [UD setBool:YES forKey:@"firstLaunchSwipeView"];
 

@@ -362,28 +362,42 @@
     UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:_view2.frame];
     [_view2 addSubview:imageView2];
     
+    _view3 = [[UIView alloc] initWithFrame:self.frame];
+    UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:_view3.frame];
+    [_view3 addSubview:imageView3];
+    
     switch (type) {
-        case SKHelperGuideViewType1:{
+        case SKHelperGuideViewTypeHomepage:{
+            UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
+            [_view1 addGestureRecognizer:tap1];
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep_3s:)];
+            [_view1 addGestureRecognizer:tap2];
+            UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick_3s:)];
+            [_view3 addGestureRecognizer:tap3];
+            
             UILabel *bottomLabel = [UILabel new];
             bottomLabel.text = @"点击任意区域关闭";
             bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
             bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
             [bottomLabel sizeToFit];
-            [_view2 addSubview:bottomLabel];
+            [_view3 addSubview:bottomLabel];
             [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view2);
-                make.bottom.equalTo(_view2).offset(-16);
+                make.centerX.equalTo(_view3);
+                make.bottom.equalTo(_view3).offset(-16);
             }];
             
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-                imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_640"];
-                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_640"];
+                imageView1.image = [UIImage imageNamed:@"img_story_1_640"];
+                imageView2.image = [UIImage imageNamed:@"img_story_2_640"];
+                imageView3.image = [UIImage imageNamed:@"img_story_3_640"];
             } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-                imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_750"];
-                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_750"];
+                imageView1.image = [UIImage imageNamed:@"img_story_1_750"];
+                imageView2.image = [UIImage imageNamed:@"img_story_2_750"];
+                imageView3.image = [UIImage imageNamed:@"img_story_3_750"];
             } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
-                imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_1242"];
-                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_1242"];
+                imageView1.image = [UIImage imageNamed:@"img_story_1_1242"];
+                imageView2.image = [UIImage imageNamed:@"img_story_2_1242"];
+                imageView3.image = [UIImage imageNamed:@"img_story_3_1242"];
             }
             [self addSubview:_view1];
             _view1.alpha = 1;
@@ -402,8 +416,8 @@
             [bottomLabel sizeToFit];
             [_view2 addSubview:bottomLabel];
             [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view1);
-                make.bottom.equalTo(_view1).offset(-16);
+                make.centerX.equalTo(_view2);
+                make.bottom.equalTo(_view2).offset(-16);
             }];
             
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
@@ -433,8 +447,8 @@
             [bottomLabel sizeToFit];
             [_view2 addSubview:bottomLabel];
             [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view1);
-                make.bottom.equalTo(_view1).offset(-16);
+                make.centerX.equalTo(_view2);
+                make.bottom.equalTo(_view2).offset(-16);
             }];
             
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
@@ -456,26 +470,36 @@
             break;
         }
         case SKHelperGuideViewTypeTaskDetail: {
-            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+            UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
+            [_view1 addGestureRecognizer:tap1];
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep_3s:)];
             [_view1 addGestureRecognizer:tap2];
+            UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick_3s:)];
+            [_view3 addGestureRecognizer:tap3];
             
             UILabel *bottomLabel = [UILabel new];
             bottomLabel.text = @"点击任意区域关闭";
             bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
             bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
             [bottomLabel sizeToFit];
-            [_view1 addSubview:bottomLabel];
+            [_view3 addSubview:bottomLabel];
             [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view1);
-                make.bottom.equalTo(_view1).offset(-16);
+                make.centerX.equalTo(_view3);
+                make.bottom.equalTo(_view3).offset(-16);
             }];
             
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_640"];
+                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_640"];
+                imageView3.image = [UIImage imageNamed:@"img_taskpage_coach3_640"];
             } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_750"];
+                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_750"];
+                imageView3.image = [UIImage imageNamed:@"img_taskpage_coach3_750"];
             } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_1242"];
+                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_1242"];
+                imageView3.image = [UIImage imageNamed:@"img_taskpage_coach3_1242"];
             }
             [self addSubview:_view1];
             _view1.alpha = 1;
@@ -507,6 +531,120 @@
             _view1.alpha = 1;
             break;
         }
+        case SKHelperGuideViewTypeQuestionList: {
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+            [_view1 addGestureRecognizer:tap2];
+            
+            UILabel *bottomLabel = [UILabel new];
+            bottomLabel.text = @"点击任意区域关闭";
+            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+            [bottomLabel sizeToFit];
+            [_view1 addSubview:bottomLabel];
+            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(_view1);
+                make.bottom.equalTo(_view1).offset(-16);
+            }];
+            
+            imageView1.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_coach1_%ld",(long)SCREEN_WIDTH]];
+            
+            [self addSubview:_view1];
+            _view1.alpha = 1;
+            break;
+        }
+        case SKHelperGuideViewTypeQuestionListTimeLimit: {
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+            [_view1 addGestureRecognizer:tap2];
+            
+            UILabel *bottomLabel = [UILabel new];
+            bottomLabel.text = @"点击任意区域关闭";
+            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+            [bottomLabel sizeToFit];
+            [_view1 addSubview:bottomLabel];
+            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(_view1);
+                make.bottom.equalTo(_view1).offset(-16);
+            }];
+            
+            imageView1.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_timelevel_coach1_%ld",(long)SCREEN_WIDTH]];
+            
+            [self addSubview:_view1];
+            _view1.alpha = 1;
+            break;
+        }
+        case SKHelperGuideViewTypeQuestionDetail: {
+            UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
+            [_view1 addGestureRecognizer:tap1];
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep_3s:)];
+            [_view1 addGestureRecognizer:tap2];
+            UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick_3s:)];
+            [_view3 addGestureRecognizer:tap3];
+            
+            UILabel *bottomLabel = [UILabel new];
+            bottomLabel.text = @"点击任意区域关闭";
+            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+            [bottomLabel sizeToFit];
+            [_view3 addSubview:bottomLabel];
+            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(_view3);
+                make.bottom.equalTo(_view3).offset(-16);
+            }];
+            
+            imageView1.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_coach2_%ld", (long)SCREEN_WIDTH]];
+            imageView2.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_coach3_%ld", (long)SCREEN_WIDTH]];
+            imageView3.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_coach4_%ld", (long)SCREEN_WIDTH]];
+            
+            [self addSubview:_view1];
+            _view1.alpha = 1;
+            break;
+        }
+        case SKHelperGuideViewTypeQuestionDetailTimeLimit: {
+            UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
+            [_view1 addGestureRecognizer:tap1];
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+            [_view1 addGestureRecognizer:tap2];
+            
+            UILabel *bottomLabel = [UILabel new];
+            bottomLabel.text = @"点击任意区域关闭";
+            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+            [bottomLabel sizeToFit];
+            [_view2 addSubview:bottomLabel];
+            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(_view2);
+                make.bottom.equalTo(_view2).offset(-16);
+            }];
+            
+            imageView1.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_timelevel_coach2_%ld", (long)SCREEN_WIDTH]];
+            imageView2.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_timelevel_coach3_%ld", (long)SCREEN_WIDTH]];
+            
+            [self addSubview:_view1];
+            _view1.alpha = 1;
+            break;
+        }
+        case SKHelperGuideViewTypeQuestionAnswered: {
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+            [_view1 addGestureRecognizer:tap2];
+            
+            UILabel *bottomLabel = [UILabel new];
+            bottomLabel.text = @"点击任意区域关闭";
+            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
+            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
+            [bottomLabel sizeToFit];
+            [_view1 addSubview:bottomLabel];
+            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(_view1);
+                make.bottom.equalTo(_view1).offset(-16);
+            }];
+            
+            imageView1.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_coach5_%ld",(long)SCREEN_WIDTH]];
+            
+            [self addSubview:_view1];
+            _view1.alpha = 1;
+            break;
+        }
         default:
             break;
     }
@@ -517,8 +655,18 @@
     [self addSubview:_view2];
 }
 
+- (void)nextStep_3s:(UIButton*)sender {
+    [_view2 removeFromSuperview];
+    [self addSubview:_view3];
+}
+
 - (void)completeButtonClick:(UIButton *)sender {
     [_view2 removeFromSuperview];
+    [self removeFromSuperview];
+}
+
+- (void)completeButtonClick_3s:(UIButton *)sender {
+    [_view3 removeFromSuperview];
     [self removeFromSuperview];
 }
 

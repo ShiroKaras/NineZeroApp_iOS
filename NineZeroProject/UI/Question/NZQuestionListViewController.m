@@ -12,6 +12,7 @@
 #import "NZQuestionListCell.h"
 #import "NZQuestionDetailViewController.h"
 #import "NZRankViewController.h"
+#import "SKHelperView.h"
 
 @interface NZQuestionListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -91,6 +92,18 @@
             _isShowTimeLimitQuestion = YES;
         }
         [self.tableView reloadData];
+        
+        if (FIRST_LAUNCH_QUESTIONLIST) {
+            [UD setBool:YES forKey:@"firstLaunchQuestionList"];
+            SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeQuestionList];
+            [KEY_WINDOW addSubview:helperView];
+        } else {
+            if (self.dataArray[0].limit_time_type==1 && FIRST_LAUNCH_QUESTIONLIST_TIMELIMIT) {
+                [UD setBool:YES forKey:@"firstLaunchQuestionListTimeLimit"];
+                SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeQuestionListTimeLimit];
+                [KEY_WINDOW addSubview:helperView];
+            }
+        }
     }];
 }
 
