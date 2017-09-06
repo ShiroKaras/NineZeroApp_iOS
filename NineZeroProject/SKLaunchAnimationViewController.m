@@ -64,6 +64,19 @@
             make.top.equalTo(scrollView);
             make.left.equalTo(@(SCREEN_WIDTH*i));
         }];
+        [self.view layoutIfNeeded];
+        for (int j=0; j<3; j++) {
+            UIView *baseline = [UIView new];
+            if ((i==0&&j==0)||(i==1&&j==1)||(i==2&&j==2)) {
+                baseline.backgroundColor = [UIColor colorWithHex:0x00E2B8];
+            } else {
+                baseline.backgroundColor = [UIColor colorWithHex:0x353535];
+            }
+            [scrollView addSubview:baseline];
+            baseline.size = CGSizeMake(35, 3);
+            baseline.centerX = image.centerX-35-20+(35+20)*j;
+            baseline.top = image.bottom +22;
+        }
     }
     
 	_enterButton = [UIButton new];

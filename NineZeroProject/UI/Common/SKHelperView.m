@@ -371,7 +371,7 @@
             UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
             [_view1 addGestureRecognizer:tap1];
             UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep_3s:)];
-            [_view1 addGestureRecognizer:tap2];
+            [_view2 addGestureRecognizer:tap2];
             UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick_3s:)];
             [_view3 addGestureRecognizer:tap3];
             
@@ -438,7 +438,7 @@
             UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
             [_view1 addGestureRecognizer:tap1];
             UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
-            [_view1 addGestureRecognizer:tap2];
+            [_view2 addGestureRecognizer:tap2];
             
             UILabel *bottomLabel = [UILabel new];
             bottomLabel.text = @"点击任意区域关闭";
@@ -472,34 +472,29 @@
         case SKHelperGuideViewTypeTaskDetail: {
             UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
             [_view1 addGestureRecognizer:tap1];
-            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep_3s:)];
-            [_view1 addGestureRecognizer:tap2];
-            UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick_3s:)];
-            [_view3 addGestureRecognizer:tap3];
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+            [_view2 addGestureRecognizer:tap2];
             
             UILabel *bottomLabel = [UILabel new];
             bottomLabel.text = @"点击任意区域关闭";
             bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
             bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
             [bottomLabel sizeToFit];
-            [_view3 addSubview:bottomLabel];
+            [_view2 addSubview:bottomLabel];
             [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view3);
-                make.bottom.equalTo(_view3).offset(-16);
+                make.centerX.equalTo(_view2);
+                make.bottom.equalTo(_view2).offset(-16);
             }];
             
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_640"];
-                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_640"];
-                imageView3.image = [UIImage imageNamed:@"img_taskpage_coach3_640"];
+                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach3_640"];
             } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_750"];
-                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_750"];
-                imageView3.image = [UIImage imageNamed:@"img_taskpage_coach3_750"];
+                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach3_750"];
             } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_1242"];
-                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach2_1242"];
-                imageView3.image = [UIImage imageNamed:@"img_taskpage_coach3_1242"];
+                imageView2.image = [UIImage imageNamed:@"img_taskpage_coach3_1242"];
             }
             [self addSubview:_view1];
             _view1.alpha = 1;
@@ -577,7 +572,7 @@
             UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
             [_view1 addGestureRecognizer:tap1];
             UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep_3s:)];
-            [_view1 addGestureRecognizer:tap2];
+            [_view2 addGestureRecognizer:tap2];
             UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick_3s:)];
             [_view3 addGestureRecognizer:tap3];
             
@@ -604,7 +599,7 @@
             UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
             [_view1 addGestureRecognizer:tap1];
             UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
-            [_view1 addGestureRecognizer:tap2];
+            [_view2 addGestureRecognizer:tap2];
             
             UILabel *bottomLabel = [UILabel new];
             bottomLabel.text = @"点击任意区域关闭";
@@ -655,14 +650,14 @@
     [self addSubview:_view2];
 }
 
-- (void)nextStep_3s:(UIButton*)sender {
-    [_view2 removeFromSuperview];
-    [self addSubview:_view3];
-}
-
 - (void)completeButtonClick:(UIButton *)sender {
     [_view2 removeFromSuperview];
     [self removeFromSuperview];
+}
+
+- (void)nextStep_3s:(UIButton*)sender {
+    [_view2 removeFromSuperview];
+    [self addSubview:_view3];
 }
 
 - (void)completeButtonClick_3s:(UIButton *)sender {

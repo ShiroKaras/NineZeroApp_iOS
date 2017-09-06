@@ -876,6 +876,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 - (void)showRewardViewWithReward:(SKReward *)reward {
     NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:self.view.bounds withReward:self.reward];
+    rewardView.delegate = self;
     [self.view addSubview:rewardView];
 }
 
