@@ -366,6 +366,42 @@
     UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:_view3.frame];
     [_view3 addSubview:imageView3];
     
+    UILabel *bottomLabel1 = [UILabel new];
+    bottomLabel1.text = @"点击任意区域关闭";
+    bottomLabel1.textColor = [UIColor colorWithHex:0xa2a2a2];
+    bottomLabel1.font = PINGFANG_FONT_OF_SIZE(12);
+    bottomLabel1.textAlignment = NSTextAlignmentCenter;
+    [_view1 addSubview:bottomLabel1];
+    [bottomLabel1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_view1);
+        make.bottom.equalTo(_view1).offset(-16);
+        make.width.equalTo(_view1);
+    }];
+    
+    UILabel *bottomLabel2 = [UILabel new];
+    bottomLabel2.text = @"点击任意区域关闭";
+    bottomLabel2.textColor = [UIColor colorWithHex:0xa2a2a2];
+    bottomLabel2.font = PINGFANG_FONT_OF_SIZE(12);
+    bottomLabel2.textAlignment = NSTextAlignmentCenter;
+    [_view2 addSubview:bottomLabel2];
+    [bottomLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_view2);
+        make.bottom.equalTo(_view2).offset(-16);
+        make.width.equalTo(_view2);
+    }];
+    
+    UILabel *bottomLabel3 = [UILabel new];
+    bottomLabel3.text = @"点击任意区域关闭";
+    bottomLabel3.textColor = [UIColor colorWithHex:0xa2a2a2];
+    bottomLabel3.font = PINGFANG_FONT_OF_SIZE(12);
+    bottomLabel3.textAlignment = NSTextAlignmentCenter;
+    [_view3 addSubview:bottomLabel3];
+    [bottomLabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_view3);
+        make.bottom.equalTo(_view3).offset(-16);
+        make.width.equalTo(_view3);
+    }];
+    
     switch (type) {
         case SKHelperGuideViewTypeHomepage:{
             UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
@@ -375,16 +411,9 @@
             UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick_3s:)];
             [_view3 addGestureRecognizer:tap3];
             
-            UILabel *bottomLabel = [UILabel new];
-            bottomLabel.text = @"点击任意区域关闭";
-            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
-            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
-            [bottomLabel sizeToFit];
-            [_view3 addSubview:bottomLabel];
-            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view3);
-                make.bottom.equalTo(_view3).offset(-16);
-            }];
+            bottomLabel1.text = @"点击任意区域进入下一页";
+            bottomLabel2.text = @"点击任意区域进入下一页";
+            bottomLabel3.text = @"点击任意区域关闭";
             
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_story_1_640"];
@@ -409,16 +438,8 @@
             UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
             [_view2 addGestureRecognizer:tap2];
             
-            UILabel *bottomLabel = [UILabel new];
-            bottomLabel.text = @"点击任意区域关闭";
-            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
-            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
-            [bottomLabel sizeToFit];
-            [_view2 addSubview:bottomLabel];
-            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view2);
-                make.bottom.equalTo(_view2).offset(-16);
-            }];
+            bottomLabel1.text = @"点击任意区域进入下一页";
+            bottomLabel2.text = @"点击任意区域关闭";
             
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach1_640"];
@@ -440,16 +461,8 @@
             UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
             [_view2 addGestureRecognizer:tap2];
             
-            UILabel *bottomLabel = [UILabel new];
-            bottomLabel.text = @"点击任意区域关闭";
-            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
-            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
-            [bottomLabel sizeToFit];
-            [_view2 addSubview:bottomLabel];
-            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view2);
-                make.bottom.equalTo(_view2).offset(-16);
-            }];
+            bottomLabel1.text = @"点击任意区域进入下一页";
+            bottomLabel2.text = @"点击任意区域关闭";
             
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_lingzaipage_coach2_640"];
@@ -475,16 +488,8 @@
             UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
             [_view2 addGestureRecognizer:tap2];
             
-            UILabel *bottomLabel = [UILabel new];
-            bottomLabel.text = @"点击任意区域关闭";
-            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
-            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
-            [bottomLabel sizeToFit];
-            [_view2 addSubview:bottomLabel];
-            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view2);
-                make.bottom.equalTo(_view2).offset(-16);
-            }];
+            bottomLabel1.text = @"点击任意区域进入下一页";
+            bottomLabel2.text = @"点击任意区域关闭";
             
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_taskpage_coach1_640"];
@@ -504,16 +509,7 @@
             UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
             [_view1 addGestureRecognizer:tap2];
             
-            UILabel *bottomLabel = [UILabel new];
-            bottomLabel.text = @"点击任意区域关闭";
-            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
-            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
-            [bottomLabel sizeToFit];
-            [_view1 addSubview:bottomLabel];
-            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view1);
-                make.bottom.equalTo(_view1).offset(-16);
-            }];
+            bottomLabel1.text = @"点击任意区域关闭";
             
             if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
                 imageView1.image = [UIImage imageNamed:@"img_taskpage_coach2_640"];
@@ -530,16 +526,7 @@
             UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
             [_view1 addGestureRecognizer:tap2];
             
-            UILabel *bottomLabel = [UILabel new];
-            bottomLabel.text = @"点击任意区域关闭";
-            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
-            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
-            [bottomLabel sizeToFit];
-            [_view1 addSubview:bottomLabel];
-            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view1);
-                make.bottom.equalTo(_view1).offset(-16);
-            }];
+            bottomLabel1.text = @"点击任意区域关闭";
             
             imageView1.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_coach1_%ld",(long)SCREEN_WIDTH]];
             
@@ -551,16 +538,7 @@
             UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
             [_view1 addGestureRecognizer:tap2];
             
-            UILabel *bottomLabel = [UILabel new];
-            bottomLabel.text = @"点击任意区域关闭";
-            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
-            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
-            [bottomLabel sizeToFit];
-            [_view1 addSubview:bottomLabel];
-            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view1);
-                make.bottom.equalTo(_view1).offset(-16);
-            }];
+            bottomLabel1.text = @"点击任意区域关闭";
             
             imageView1.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_timelevel_coach1_%ld",(long)SCREEN_WIDTH]];
             
@@ -576,20 +554,29 @@
             UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick_3s:)];
             [_view3 addGestureRecognizer:tap3];
             
-            UILabel *bottomLabel = [UILabel new];
-            bottomLabel.text = @"点击任意区域关闭";
-            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
-            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
-            [bottomLabel sizeToFit];
-            [_view3 addSubview:bottomLabel];
-            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view3);
-                make.bottom.equalTo(_view3).offset(-16);
-            }];
+            bottomLabel1.text = @"点击任意区域进入下一页";
+            bottomLabel2.text = @"点击任意区域进入下一页";
+            bottomLabel3.text = @"点击任意区域关闭";
             
             imageView1.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_coach2_%ld", (long)SCREEN_WIDTH]];
             imageView2.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_coach3_%ld", (long)SCREEN_WIDTH]];
             imageView3.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_coach4_%ld", (long)SCREEN_WIDTH]];
+            
+            [self addSubview:_view1];
+            _view1.alpha = 1;
+            break;
+        }
+        case SKHelperGuideViewTypeQuestionDetail2: {
+            UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep:)];
+            [_view1 addGestureRecognizer:tap1];
+            UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
+            [_view2 addGestureRecognizer:tap2];
+            
+            bottomLabel1.text = @"点击任意区域进入下一页";
+            bottomLabel2.text = @"点击任意区域关闭";
+            
+            imageView1.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_coach2_%ld", (long)SCREEN_WIDTH]];
+            imageView2.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_coach3_%ld", (long)SCREEN_WIDTH]];
             
             [self addSubview:_view1];
             _view1.alpha = 1;
@@ -601,16 +588,8 @@
             UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
             [_view2 addGestureRecognizer:tap2];
             
-            UILabel *bottomLabel = [UILabel new];
-            bottomLabel.text = @"点击任意区域关闭";
-            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
-            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
-            [bottomLabel sizeToFit];
-            [_view2 addSubview:bottomLabel];
-            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view2);
-                make.bottom.equalTo(_view2).offset(-16);
-            }];
+            bottomLabel1.text = @"点击任意区域进入下一页";
+            bottomLabel2.text = @"点击任意区域关闭";
             
             imageView1.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_timelevel_coach2_%ld", (long)SCREEN_WIDTH]];
             imageView2.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_timelevel_coach3_%ld", (long)SCREEN_WIDTH]];
@@ -619,20 +598,12 @@
             _view1.alpha = 1;
             break;
         }
+            
         case SKHelperGuideViewTypeQuestionAnswered: {
             UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(completeButtonClick:)];
             [_view1 addGestureRecognizer:tap2];
             
-            UILabel *bottomLabel = [UILabel new];
-            bottomLabel.text = @"点击任意区域关闭";
-            bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
-            bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
-            [bottomLabel sizeToFit];
-            [_view1 addSubview:bottomLabel];
-            [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_view1);
-                make.bottom.equalTo(_view1).offset(-16);
-            }];
+            bottomLabel1.text = @"点击任意区域关闭";
             
             imageView1.image = [UIImage imageNamed:[NSString stringWithFormat:@"img_puzzlepage_coach5_%ld",(long)SCREEN_WIDTH]];
             

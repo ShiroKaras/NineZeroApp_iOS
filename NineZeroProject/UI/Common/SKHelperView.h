@@ -65,6 +65,7 @@ typedef enum : NSUInteger {
     SKHelperGuideViewTypeQuestionList,
     SKHelperGuideViewTypeQuestionListTimeLimit,
     SKHelperGuideViewTypeQuestionDetail,
+    SKHelperGuideViewTypeQuestionDetail2,
     SKHelperGuideViewTypeQuestionDetailTimeLimit,
     SKHelperGuideViewTypeQuestionAnswered,
     SKHelperGuideViewTypeQuestionPlayToEnd

@@ -235,6 +235,18 @@
         make.top.equalTo(@25);
     }];
     
+    //帮助按钮
+    UIButton *helpButton = [UIButton new];
+    [helpButton setImage:[UIImage imageNamed:@"btn_homepage_story"] forState:UIControlStateNormal];
+    [helpButton setImage:[UIImage imageNamed:@"btn_homepage_story_highlight"] forState:UIControlStateHighlighted];
+    [helpButton addTarget:self action:@selector(didClickHelpButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:helpButton];
+    [helpButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(27, 27));
+        make.centerY.equalTo(_changeCityButton);
+        make.right.equalTo(@-13.5);
+    }];
+    
     //任务按钮
     UIButton *taskButton = [UIButton new];
     [taskButton addTarget:self action:@selector(didClickTaskButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -563,6 +575,12 @@
                 break;
         }
     }
+}
+
+- (void)didClickHelpButton:(UIButton*)sender {
+    EVER_LAUNCH_HOMEPAGE
+    SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeHomepage];
+    [KEY_WINDOW addSubview:helperView];
 }
 
 - (void)didClickMascotButton:(UIButton*)sender {

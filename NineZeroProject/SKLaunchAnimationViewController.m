@@ -81,7 +81,7 @@
     
 	_enterButton = [UIButton new];
 	[_enterButton addTarget:self action:@selector(onClickEnterButton:) forControlEvents:UIControlEventTouchUpInside];
-    [_enterButton setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor]] forState:UIControlStateNormal];
+    [_enterButton setBackgroundImage:[UIImage imageWithColor:COMMON_TITLE_BG_COLOR] forState:UIControlStateNormal];
     [_enterButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
 	[_enterButton setImage:[UIImage imageNamed:@"btn_guidepage_enter"] forState:UIControlStateNormal];
     [_enterButton setImage:[UIImage imageNamed:@"btn_guidepage_enter_highlight"] forState:UIControlStateHighlighted];

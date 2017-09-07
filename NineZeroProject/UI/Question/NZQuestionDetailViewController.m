@@ -440,8 +440,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         
         if (FIRST_LAUNCH_QUESTIONDETAIL) {
             [UD setBool:YES forKey:@"firstLaunchQuestionDetail"];
-            SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeQuestionDetail];
-            [KEY_WINDOW addSubview:helperView];
+            if (question.base_type==0) {
+                SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeQuestionDetail];
+                [KEY_WINDOW addSubview:helperView];
+            } else {
+            SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeQuestionDetail2];
+                [KEY_WINDOW addSubview:helperView];
+            }
         } else {
             if (question.limit_time_type==1 && FIRST_LAUNCH_QUESTIONDETAIL_TIMELIMIT) {
                 SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withType:SKHelperGuideViewTypeQuestionDetailTimeLimit];
