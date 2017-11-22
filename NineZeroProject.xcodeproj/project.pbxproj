@@ -1942,7 +1942,6 @@
 				17A2476A1C623B9300359CCF /* raw_wrong_answer_gif */,
 				17461CE71C7493DF00C847E8 /* img_ar_right_answer_gif */,
 				119C5CB71E2769D1001B4CFD /* MascotAnimationFrame */,
-				113FA69B1E1E1DC5001DFFC5 /* MascotGif */,
 				98B76F4E1E63F2CE00AA5D25 /* gif_scanning_puzzlescanning */,
 				111ACA9A1E2E06FB007DE137 /* LOGO-640.gif */,
 				17D1F8801C29ADC40029E4AF /* right_answer_gif.gif */,
@@ -2180,14 +2179,6 @@
 				113FA6951E1E1BD7001DFFC5 /* MEImage+GIF.m */,
 			);
 			path = "MEImage+GIF";
-			sourceTree = "<group>";
-		};
-		113FA69B1E1E1DC5001DFFC5 /* MascotGif */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = MascotGif;
-			path = Images/MascotGif;
 			sourceTree = "<group>";
 		};
 		114131971EFA1E9A001C1E95 /* CoachMark */ = {

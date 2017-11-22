@@ -137,7 +137,7 @@
     _updateAlertView.centerY = self.view.centerY;
     [_dimmingView addSubview:_updateAlertView];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_ updates_title"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_updates_title"]];
     imageView.centerX = _updateAlertView.width/2;
     imageView.centerY = (_updateAlertView.height-43)/2;
     [_updateAlertView addSubview:imageView];
@@ -226,7 +226,7 @@
     
     //切换城市按钮
     _changeCityButton = [UIButton new];
-    [_changeCityButton setImage:[UIImage imageNamed:@"btn_local_beijing"] forState:UIControlStateNormal];
+    [_changeCityButton setImage:[UIImage imageNamed:@"btn_local_luhan"] forState:UIControlStateNormal];
     [_changeCityButton addTarget:self action:@selector(didClickedChangeCityButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_changeCityButton];
     [_changeCityButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -270,19 +270,19 @@
     _mapImageView.contentMode = UIViewContentModeScaleAspectFit;
     [_scrollView addSubview:_mapImageView];
     
-    //    NSArray *mascotName = @[@"零仔〇",@"懒惰", @"傲慢",@"暴怒",@"嫉妒",@"淫欲",@"饕餮"];
+//    NSArray *mascotName = @[@"零仔〇",@"懒惰", @"傲慢",@"暴怒",@"嫉妒",@"淫欲",@"饕餮"];
     float buttonWidth = ROUND_WIDTH_FLOAT(100);
     for (int i=0; i<6; i++) {
         UIButton *mascotButton = [[UIButton alloc] initWithFrame:CGRectMake(16+(i%3)*(buttonWidth+16), 160+(i/3)*(buttonWidth+16), buttonWidth, buttonWidth)];
-        //        mascotButton.alpha = 0.3;
-        //        [mascotButton setTitle:mascotName[i+1] forState:UIControlStateNormal];
-        //        mascotButton.backgroundColor = COMMON_GREEN_COLOR;
+//        mascotButton.alpha = 0.3;
+//        [mascotButton setTitle:mascotName[i+1] forState:UIControlStateNormal];
+//        mascotButton.backgroundColor = COMMON_GREEN_COLOR;
         [mascotButton addTarget:self action:@selector(didClickMascotButton:) forControlEvents:UIControlEventTouchUpInside];
         mascotButton.tag = 202+i;
         [self.scrollView addSubview:mascotButton];
     }
     
-    [self updateCityWithName:@"beijing"];
+    [self updateCityWithName:@"luhan"];
     
     
     //扫一扫按钮
@@ -308,111 +308,154 @@
 
 - (void)updateCityWithName:(NSString*)cityName {
     _mapImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"map_%@", cityName]];
-    if ([cityName isEqualToString:@"beijing"]) {
+    if ([cityName isEqualToString:@"luhan"]) {
+        _scrollView.contentSize = CGSizeMake(self.view.width, ROUND_WIDTH_FLOAT(568));
+        _mapImageView.frame = CGRectMake(0, 0, self.view.width, ROUND_WIDTH_FLOAT(568));
         //懒惰
         UIButton *btn_sloth = [self.view viewWithTag:202];
-        btn_sloth.top = ROUND_WIDTH_FLOAT(113.5);
-        btn_sloth.right = _scrollView.right -ROUND_WIDTH_FLOAT(116.5);
+        btn_sloth.size = CGSizeMake(ROUND_WIDTH_FLOAT(171), ROUND_WIDTH_FLOAT(131));
+        btn_sloth.top = ROUND_WIDTH_FLOAT(9.5);
+        btn_sloth.left = ROUND_WIDTH_FLOAT(12);
         
         //傲慢
         UIButton *btn_pride = [self.view viewWithTag:203];
-        btn_pride.top = ROUND_WIDTH_FLOAT(328.5);
-        btn_pride.right = _scrollView.right -ROUND_WIDTH_FLOAT(35);
-        btn_pride.width = ROUND_WIDTH_FLOAT(77);
-        btn_pride.height = ROUND_WIDTH_FLOAT(123);
+        btn_pride.size = CGSizeMake(ROUND_WIDTH_FLOAT(124), ROUND_WIDTH_FLOAT(161));
+        btn_pride.top = ROUND_WIDTH_FLOAT(203);
+        btn_pride.right = _scrollView.right -ROUND_WIDTH_FLOAT(6.5);
         
         //暴怒
         UIButton *btn_wrath = [self.view viewWithTag:204];
-        btn_wrath.top = ROUND_WIDTH_FLOAT(416);
-        btn_wrath.right = _scrollView.right -ROUND_WIDTH_FLOAT(140.5);
+        btn_wrath.size = CGSizeMake(ROUND_WIDTH_FLOAT(171), ROUND_WIDTH_FLOAT(131));
+        btn_wrath.top = ROUND_WIDTH_FLOAT(170);
+        btn_wrath.left = ROUND_WIDTH_FLOAT(5);
         
         //嫉妒
         UIButton *btn_envy = [self.view viewWithTag:205];
-        btn_envy.top = ROUND_WIDTH_FLOAT(32);
-        btn_envy.right = _scrollView.right -ROUND_WIDTH_FLOAT(11.5);
+        btn_envy.size = CGSizeMake(ROUND_WIDTH_FLOAT(129), ROUND_WIDTH_FLOAT(131));
+        btn_envy.top = ROUND_WIDTH_FLOAT(310);
+        btn_envy.left = ROUND_WIDTH_FLOAT(5);
         
         //淫欲
         UIButton *btn_lust = [self.view viewWithTag:206];
-        btn_lust.top = ROUND_WIDTH_FLOAT(223);
-        btn_lust.right = _scrollView.right -ROUND_WIDTH_FLOAT(5);
+        btn_lust.size = CGSizeMake(ROUND_WIDTH_FLOAT(124), ROUND_WIDTH_FLOAT(126));
+        btn_lust.top = ROUND_WIDTH_FLOAT(68.5);
+        btn_lust.right = _scrollView.right-ROUND_WIDTH_FLOAT(6.5);
         
         //饕餮
         UIButton *btn_gluttony = [self.view viewWithTag:207];
-        btn_gluttony.top = ROUND_WIDTH_FLOAT(261);
-        btn_gluttony.left = 0;
+        btn_gluttony.size = CGSizeMake(ROUND_WIDTH_FLOAT(129), ROUND_WIDTH_FLOAT(138));
+        btn_gluttony.top = ROUND_WIDTH_FLOAT(373);
+        btn_gluttony.left = ROUND_WIDTH_FLOAT(141);
         
         [self.view layoutIfNeeded];
-        
-    } else if ([cityName isEqualToString:@"shanghai"]) {
-        //懒惰
+    } else {
+        _scrollView.contentSize = CGSizeMake(self.view.width, ROUND_WIDTH_FLOAT(568));
+        _mapImageView.frame = CGRectMake(0, 0, self.view.width, ROUND_WIDTH_FLOAT(568));
+        float buttonWidth = ROUND_WIDTH_FLOAT(100);
         UIButton *btn_sloth = [self.view viewWithTag:202];
-        btn_sloth.top = ROUND_WIDTH_FLOAT(381.5);
-        btn_sloth.right = _scrollView.right -ROUND_WIDTH_FLOAT(26.5);
-        
-        //傲慢
         UIButton *btn_pride = [self.view viewWithTag:203];
-        btn_pride.top = ROUND_WIDTH_FLOAT(257);
-        btn_pride.width = ROUND_WIDTH_FLOAT(100);
-        btn_pride.height = ROUND_WIDTH_FLOAT(100);
-        btn_pride.right = _scrollView.right;
-        
-        //暴怒
         UIButton *btn_wrath = [self.view viewWithTag:204];
-        btn_wrath.top = ROUND_WIDTH_FLOAT(68);
-        btn_wrath.left = ROUND_WIDTH_FLOAT(110);
-        
-        //嫉妒
         UIButton *btn_envy = [self.view viewWithTag:205];
-        btn_envy.top = ROUND_WIDTH_FLOAT(284);
-        btn_envy.left = ROUND_WIDTH_FLOAT(49);
-        
-        //淫欲
         UIButton *btn_lust = [self.view viewWithTag:206];
-        btn_lust.top = ROUND_WIDTH_FLOAT(179);
-        btn_lust.left = ROUND_WIDTH_FLOAT(18);
-        
-        //饕餮
         UIButton *btn_gluttony = [self.view viewWithTag:207];
-        btn_gluttony.top = ROUND_WIDTH_FLOAT(68);
-        btn_gluttony.right = _scrollView.right;
         
-        [self.view layoutIfNeeded];
-
-    } else if ([cityName isEqualToString:@"guangzhou"]) {
-        //懒惰
-        UIButton *btn_sloth = [self.view viewWithTag:202];
-        btn_sloth.top = ROUND_WIDTH_FLOAT(376.5);
-        btn_sloth.left = ROUND_WIDTH_FLOAT(10.5);
+        btn_sloth.size = CGSizeMake(buttonWidth, buttonWidth);
+        btn_pride.size = CGSizeMake(buttonWidth, buttonWidth);
+        btn_wrath.size = CGSizeMake(buttonWidth, buttonWidth);
+        btn_envy.size = CGSizeMake(buttonWidth, buttonWidth);
+        btn_lust.size = CGSizeMake(buttonWidth, buttonWidth);
+        btn_gluttony.size = CGSizeMake(buttonWidth, buttonWidth);
         
-        //傲慢
-        UIButton *btn_pride = [self.view viewWithTag:203];
-        btn_pride.top = ROUND_WIDTH_FLOAT(117);
-        btn_pride.width = ROUND_WIDTH_FLOAT(100);
-        btn_pride.height = ROUND_WIDTH_FLOAT(100);
-        btn_pride.right = _scrollView.right -ROUND_WIDTH_FLOAT(14.5);
-        
-        //暴怒
-        UIButton *btn_wrath = [self.view viewWithTag:204];
-        btn_wrath.top = ROUND_WIDTH_FLOAT(233);
-        btn_wrath.right = _scrollView.right -ROUND_WIDTH_FLOAT(10);
-        
-        //嫉妒
-        UIButton *btn_envy = [self.view viewWithTag:205];
-        btn_envy.top = ROUND_WIDTH_FLOAT(87);
-        btn_envy.right = _scrollView.right -ROUND_WIDTH_FLOAT(133.5);
-        
-        //淫欲
-        UIButton *btn_lust = [self.view viewWithTag:206];
-        btn_lust.top = ROUND_WIDTH_FLOAT(376);
-        btn_lust.right = _scrollView.right -ROUND_WIDTH_FLOAT(28);
-        
-        //饕餮
-        UIButton *btn_gluttony = [self.view viewWithTag:207];
-        btn_gluttony.top = ROUND_WIDTH_FLOAT(201);
-        btn_gluttony.right = _scrollView.right - ROUND_WIDTH_FLOAT(169);
-        
-        [self.view layoutIfNeeded];
+        if ([cityName isEqualToString:@"beijing"]) {
+            //懒惰
+            btn_sloth.size = CGSizeMake(buttonWidth, buttonWidth);
+            btn_sloth.top = ROUND_WIDTH_FLOAT(113.5);
+            btn_sloth.right = _scrollView.right -ROUND_WIDTH_FLOAT(116.5);
+            
+            //傲慢
+            btn_pride.top = ROUND_WIDTH_FLOAT(328.5);
+            btn_pride.right = _scrollView.right -ROUND_WIDTH_FLOAT(35);
+            btn_pride.width = ROUND_WIDTH_FLOAT(77);
+            btn_pride.height = ROUND_WIDTH_FLOAT(123);
+            
+            //暴怒
+            btn_wrath.top = ROUND_WIDTH_FLOAT(416);
+            btn_wrath.right = _scrollView.right -ROUND_WIDTH_FLOAT(140.5);
+            
+            //嫉妒
+            btn_envy.top = ROUND_WIDTH_FLOAT(32);
+            btn_envy.right = _scrollView.right -ROUND_WIDTH_FLOAT(11.5);
+            
+            //淫欲
+            btn_lust.top = ROUND_WIDTH_FLOAT(223);
+            btn_lust.right = _scrollView.right -ROUND_WIDTH_FLOAT(5);
+            
+            //饕餮
+            btn_gluttony.top = ROUND_WIDTH_FLOAT(261);
+            btn_gluttony.left = 0;
+            
+            [self.view layoutIfNeeded];
+            
+        } else if ([cityName isEqualToString:@"shanghai"]) {
+            //懒惰
+            btn_sloth.top = ROUND_WIDTH_FLOAT(381.5);
+            btn_sloth.right = _scrollView.right -ROUND_WIDTH_FLOAT(26.5);
+            
+            //傲慢
+            btn_pride.top = ROUND_WIDTH_FLOAT(257);
+            btn_pride.width = ROUND_WIDTH_FLOAT(100);
+            btn_pride.height = ROUND_WIDTH_FLOAT(100);
+            btn_pride.right = _scrollView.right;
+            
+            //暴怒
+            btn_wrath.top = ROUND_WIDTH_FLOAT(68);
+            btn_wrath.left = ROUND_WIDTH_FLOAT(110);
+            
+            //嫉妒
+            btn_envy.top = ROUND_WIDTH_FLOAT(284);
+            btn_envy.left = ROUND_WIDTH_FLOAT(49);
+            
+            //淫欲
+            btn_lust.top = ROUND_WIDTH_FLOAT(179);
+            btn_lust.left = ROUND_WIDTH_FLOAT(18);
+            
+            //饕餮
+            btn_gluttony.top = ROUND_WIDTH_FLOAT(68);
+            btn_gluttony.right = _scrollView.right;
+            
+            [self.view layoutIfNeeded];
+            
+        } else if ([cityName isEqualToString:@"guangzhou"]) {
+            //懒惰
+            btn_sloth.top = ROUND_WIDTH_FLOAT(376.5);
+            btn_sloth.left = ROUND_WIDTH_FLOAT(10.5);
+            
+            //傲慢
+            btn_pride.top = ROUND_WIDTH_FLOAT(117);
+            btn_pride.width = ROUND_WIDTH_FLOAT(100);
+            btn_pride.height = ROUND_WIDTH_FLOAT(100);
+            btn_pride.right = _scrollView.right -ROUND_WIDTH_FLOAT(14.5);
+            
+            //暴怒
+            btn_wrath.top = ROUND_WIDTH_FLOAT(233);
+            btn_wrath.right = _scrollView.right -ROUND_WIDTH_FLOAT(10);
+            
+            //嫉妒
+            btn_envy.top = ROUND_WIDTH_FLOAT(87);
+            btn_envy.right = _scrollView.right -ROUND_WIDTH_FLOAT(133.5);
+            
+            //淫欲
+            btn_lust.top = ROUND_WIDTH_FLOAT(376);
+            btn_lust.right = _scrollView.right -ROUND_WIDTH_FLOAT(28);
+            
+            //饕餮
+            btn_gluttony.top = ROUND_WIDTH_FLOAT(201);
+            btn_gluttony.right = _scrollView.right - ROUND_WIDTH_FLOAT(169);
+            
+            [self.view layoutIfNeeded];
+        }
     }
+    
 }
 
 - (void)loadZip {
@@ -493,7 +536,7 @@
     alphaView.alpha = 0.8;
     [_dimmingView addSubview:alphaView];
     
-    NSArray *cityNameArray = @[@"beijing", @"shanghai", @"guangzhou"];
+    NSArray *cityNameArray = @[@"luhan", @"beijing", @"shanghai", @"guangzhou"];
     //Cities
     for (int i=0; i<cityNameArray.count; i++) {
         UIButton *cityView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 60)];
@@ -526,8 +569,8 @@
 
 - (void)didClickSelectedCityButton:(UIButton *)sender {
     _selectedCityIndex = (long)sender.tag - 100;
-    NSArray *cityNameArray = @[@"beijing", @"shanghai", @"guangzhou"];
-    NSArray *cityCodeArray = @[@"010", @"021", @"020"];
+    NSArray *cityNameArray = @[@"luhan", @"beijing", @"shanghai", @"guangzhou"];
+    NSArray *cityCodeArray = @[@"999", @"010", @"021", @"020"];
     [self updateCityWithName:cityNameArray[_selectedCityIndex]];
     [_changeCityButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_local_%@", cityNameArray[_selectedCityIndex]]] forState:UIControlStateNormal];
     _selectedCityCode = cityCodeArray[_selectedCityIndex];
