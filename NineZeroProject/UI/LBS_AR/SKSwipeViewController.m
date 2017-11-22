@@ -12,8 +12,6 @@
 #import "SKDownloadProgressView.h"
 #import "SKPopupGetPuzzleView.h"
 #import "SKScanningImageView.h"
-#import "SKScanningPuzzleView.h"
-#import "SKScanningPuzzleView.h"
 #import "SKScanningRewardViewController.h"
 #import <SSZipArchive/ZipArchive.h>
 #import <TTTAttributedLabel.h>
@@ -28,10 +26,9 @@
 #define ScreenScale [UIScreen mainScreen].scale
 #define NotificationCetner [NSNotificationCenter defaultCenter]
 
-@interface SKSwipeViewController () <OpenGLViewDelegate, SKScanningRewardDelegate, SKScanningImageViewDelegate, SKScanningPuzzleViewDelegate, SKPopupGetPuzzleViewDelegate, FXDanmakuDelegate, UITextFieldDelegate>
+@interface SKSwipeViewController () <OpenGLViewDelegate, SKScanningRewardDelegate, SKScanningImageViewDelegate, FXDanmakuDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) SKScanningImageView *scanningImageView;
-@property (nonatomic, strong) SKScanningPuzzleView *scanningPuzzleView;
 
 @property (nonatomic, strong) SKScanningRewardViewController *scanningRewardViewController;
 
@@ -286,12 +283,6 @@
 						strongSelf.scanningImageView.delegate = strongSelf;
 						[strongSelf.view insertSubview:strongSelf.scanningImageView atIndex:1];
 
-						break;
-					}
-					case SKScanTypePuzzle: {
-						strongSelf.scanningPuzzleView = [[SKScanningPuzzleView alloc] initWithLinkClarity:strongSelf.linkClarity rewardAction:strongSelf.rewardAction defaultPic:strongSelf.defaultPic];
-						strongSelf.scanningPuzzleView.delegate = strongSelf;
-						[strongSelf.view insertSubview:strongSelf.scanningPuzzleView atIndex:1];
 						break;
 					}
 					default:
@@ -596,64 +587,6 @@
 #pragma mark - SKScanningRewardDelegate
 - (void)didClickBackButtonInScanningCaptureController:(SKScanningRewardViewController *)controller {
 	[self.navigationController popViewControllerAnimated:YES];
-}
-
-#pragma mark - SKScanningPuzzleViewDelegate
-- (void)scanningPuzzleView:(SKScanningPuzzleView *)view didTapExchangeButton:(UIButton *)button {
-	// 兑换
-	_scanningRewardViewController = [[SKScanningRewardViewController alloc] initWithRewardID:self.rewardID sId:_sid scanType:_swipeType];
-	_scanningRewardViewController.delegate = self;
-	[self.view addSubview:_scanningRewardViewController.view];
-}
-
-- (void)scanningPuzzleView:(SKScanningPuzzleView *)view didTapBoxButton:(UIButton *)button {
-	// 点开宝箱
-	[_scanningPuzzleView hideBoxView];
-
-	[[[SKServiceManager sharedInstance] scanningService] getScanningPuzzleWithMontageId:[_linkURLs objectAtIndex:_trackedTargetId]
-											sId:_sid
-										   callback:^(BOOL success, SKResponsePackage *response) {
-										       NSLog(@"%@", response);
-										       if (success && response.result == 0) {
-											       SKPopupGetPuzzleView *puzzleView = [[SKPopupGetPuzzleView alloc] initWithPuzzleImageURL:[_linkURLs objectAtIndex:_trackedTargetId]];
-											       puzzleView.delegate = self;
-											       [self.view addSubview:puzzleView];
-
-											       _rewardAction[_trackedTargetId] = @"1";
-
-										       } else {
-											       NSLog(@"获取拼图碎片失败");
-											       [_glView restart];
-											       [_scanningPuzzleView showAnimationView];
-											       [_scanningPuzzleView showPuzzleButton];
-										       }
-										   }];
-}
-
-- (void)scanningPuzzleView:(SKScanningPuzzleView *)view isShowPuzzles:(BOOL)isShowPuzzles {
-	if (isShowPuzzles) {
-		[_glView pause];
-	} else {
-		[_glView restart];
-	}
-
-	if (!_rewardRecord) {
-		[_scanningPuzzleView setupPuzzleView];
-	} else {
-		[_scanningPuzzleView hideAnimationView];
-		[_scanningPuzzleView hidePuzzleButton];
-
-		_scanningRewardViewController = [[SKScanningRewardViewController alloc] initWithReward:_rewardRecord];
-		_scanningRewardViewController.delegate = self;
-		[self.view addSubview:_scanningRewardViewController.view];
-	}
-}
-
-#pragma mark SKPopupGetPuzzleViewDelegate
-- (void)didRemoveFromSuperView {
-	[_glView restart];
-	[_scanningPuzzleView showAnimationView];
-	[_scanningPuzzleView showPuzzleButton];
 }
 
 @end

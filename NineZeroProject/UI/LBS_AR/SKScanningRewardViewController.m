@@ -81,25 +81,6 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 													      [self dismissViewControllerAnimated:NO completion:nil];
 												      }
 												  }];
-		} else if (_scanType == 1) {
-			[[[SKServiceManager sharedInstance] scanningService] getScanningPuzzleRewardWithRewardId:_rewardID
-													     sId:_sId
-													callback:^(BOOL success, SKResponsePackage *response) {
-													    DLog(@"Reward:%@", response.data);
-													    if (response.result == 0) {
-														    [HTProgressHUD dismiss];
-														    _reward = [SKReward mj_objectWithKeyValues:response.data];
-														    if (_reward) {
-															    [self createBaseRewardViewWithReward:_reward];
-														    }
-													    } else if (response.result == -9006) {
-														    // 已获得该奖励
-														    [HTProgressHUD dismiss];
-														    [self dismissViewControllerAnimated:NO completion:nil];
-													    } else {
-														    [self dismissViewControllerAnimated:NO completion:nil];
-													    }
-													}];
 		}
 	} else {
 		[self createBaseRewardViewWithReward:_reward];
