@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface NZTaskDetailViewController : UIViewController
-
+@property (nonatomic, strong) NSString *cityCode;
 - (instancetype)initWithID:(NSString*)sid;
 
 @end

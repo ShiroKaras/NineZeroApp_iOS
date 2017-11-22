@@ -216,6 +216,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NZTaskDetailViewController *controller = [[NZTaskDetailViewController alloc] initWithID:_strongholdArray[indexPath.row].id];
+    controller.cityCode = self.cityCode;
     [self.navigationController pushViewController:controller animated:YES];
 }
 

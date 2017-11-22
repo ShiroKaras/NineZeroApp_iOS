@@ -11,6 +11,24 @@
 
 #import "SKTicketView.h"
 
+#import "WXApi.h"
+#import "WeiboSDK.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <CommonCrypto/CommonDigest.h>
+
+#define SHARE_URL(u) [NSString stringWithFormat:@"https://admin.90app.tv/Home/TopicArticle/topic_article_detail/topic_id/%@.html", (u)]
+
+typedef NS_ENUM(NSInteger, HTButtonType) {
+    HTButtonTypeShare = 0,
+    HTButtonTypeCancel,
+    HTButtonTypeWechat,
+    HTButtonTypeMoment,
+    HTButtonTypeWeibo,
+    HTButtonTypeQQ
+};
+
 @implementation NZQuestionGiftView
 
 - (instancetype)initWithFrame:(CGRect)frame withReward:(SKReward *)reward
@@ -341,63 +359,6 @@
     return self;
 }
 
-- (void)showMascot {
-    for (UIView *view in _dimmingView.subviews) {
-        [view removeFromSuperview];
-    }
-    
-    _dimmingView.alpha = 0;
-    [UIView animateWithDuration:0.2 animations:^{
-        _dimmingView.alpha = 1;
-    }];
-    
-    UIImageView *bgImageView = [[UIImageView alloc] init];
-    if (IPHONE5_SCREEN_WIDTH == SCREEN_WIDTH) {
-        bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_640"];
-    } else if (IPHONE6_SCREEN_WIDTH == SCREEN_WIDTH) {
-        bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_750"];
-    } else if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
-        bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_1242"];
-    }
-    bgImageView.contentMode = UIViewContentModeScaleAspectFill;
-    bgImageView.frame = _dimmingView.frame;
-    [_dimmingView addSubview:bgImageView];
-    
-    UIImageView *mascotImageView = [UIImageView new];
-    mascotImageView.width = ROUND_WIDTH_FLOAT(252);
-    mascotImageView.height = ROUND_WIDTH_FLOAT(252);
-    mascotImageView.top = ROUND_HEIGHT_FLOAT(80);
-    mascotImageView.centerX = self.centerX;
-    [self addSubview:mascotImageView];
-    [mascotImageView sd_setImageWithURL:[NSURL URLWithString:self.reward.petCoop.crime_pic]];
-    
-    UIImageView *textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_congratulations2"]];
-    [_dimmingView addSubview:textImageView];
-    textImageView.centerX = _dimmingView.centerX;
-    textImageView.bottom = _dimmingView.bottom -ROUND_HEIGHT_FLOAT(154);
-    
-    UIImageView *textImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_addtime"]];
-    [_dimmingView addSubview:textImageView2];
-    textImageView2.left = textImageView.left+31;
-    textImageView2.top = textImageView.bottom+39;
-    
-    UILabel *timeLabel = [UILabel new];
-    timeLabel.text = [self.reward.petCoop.hour stringByAppendingString:@"H"];
-    timeLabel.textColor = COMMON_PINK_COLOR;
-    timeLabel.font = MOON_FONT_OF_SIZE(30);
-    [timeLabel sizeToFit];
-    [_dimmingView addSubview:timeLabel];
-    timeLabel.left = textImageView2.right+8;
-    timeLabel.bottom = textImageView2.bottom+8;
-    
-    for (UITapGestureRecognizer *tap in _dimmingView.gestureRecognizers) {
-        [_dimmingView removeGestureRecognizer:tap];
-    }
-    UITapGestureRecognizer  *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
-    tapGesture.numberOfTapsRequired = 1;
-    [_dimmingView addGestureRecognizer:tapGesture];
-}
-
 - (void)showTicket {
     for (UIView *view in _dimmingView.subviews) {
         [view removeFromSuperview];
@@ -443,11 +404,397 @@
     }
 }
 
+- (void)showMascot {
+    for (UIView *view in _dimmingView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    _dimmingView.alpha = 0;
+    [UIView animateWithDuration:0.2 animations:^{
+        _dimmingView.alpha = 1;
+    }];
+    
+    UIImageView *bgImageView = [[UIImageView alloc] init];
+    if (IPHONE5_SCREEN_WIDTH == SCREEN_WIDTH) {
+        bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_640"];
+    } else if (IPHONE6_SCREEN_WIDTH == SCREEN_WIDTH) {
+        bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_750"];
+    } else if (IPHONE6_PLUS_SCREEN_WIDTH == SCREEN_WIDTH) {
+        bgImageView.image = [UIImage imageNamed:@"img_img_popup_giftbg_1242"];
+    }
+    bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+    bgImageView.frame = _dimmingView.frame;
+    [_dimmingView addSubview:bgImageView];
+    
+    UIImageView *mascotImageView = [UIImageView new];
+    mascotImageView.width = ROUND_WIDTH_FLOAT(252);
+    mascotImageView.height = ROUND_WIDTH_FLOAT(252);
+    mascotImageView.top = ROUND_HEIGHT_FLOAT(80);
+    mascotImageView.centerX = self.centerX;
+    [self addSubview:mascotImageView];
+    [mascotImageView sd_setImageWithURL:[NSURL URLWithString:self.reward.petCoop.crime_pic]];
+    
+    UIImageView *textImageView;
+    if ([self.cityCode isEqualToString:@"999"]) {
+        //luhan
+        textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_specialpage_title"]];
+    } else {
+        textImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_congratulations2"]];
+    }
+    [_dimmingView addSubview:textImageView];
+    textImageView.centerX = _dimmingView.centerX;
+    textImageView.bottom = _dimmingView.bottom -ROUND_HEIGHT_FLOAT(154);
+    
+    UIImageView *textImageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_addtime"]];
+    [_dimmingView addSubview:textImageView2];
+    textImageView2.left = textImageView.left+31;
+    textImageView2.top = textImageView.bottom+39;
+    
+    UILabel *timeLabel = [UILabel new];
+    timeLabel.text = [self.reward.petCoop.hour stringByAppendingString:@"H"];
+    timeLabel.textColor = COMMON_PINK_COLOR;
+    timeLabel.font = MOON_FONT_OF_SIZE(30);
+    [timeLabel sizeToFit];
+    [_dimmingView addSubview:timeLabel];
+    timeLabel.left = textImageView2.right+8;
+    timeLabel.bottom = textImageView2.bottom+8;
+    
+    for (UITapGestureRecognizer *tap in _dimmingView.gestureRecognizers) {
+        [_dimmingView removeGestureRecognizer:tap];
+    }
+    
+    if ([self.cityCode isEqualToString:@"999"]) {
+        //luhan
+        UIButton *shareButton = [UIButton new];
+        [shareButton addTarget:self action:@selector(shareMascot:) forControlEvents:UIControlEventTouchUpInside];
+        [shareButton setBackgroundImage:[UIImage imageNamed:@"btn_share"] forState:UIControlStateNormal];
+        [shareButton setBackgroundImage:[UIImage imageNamed:@"btn_share_highlight"] forState:UIControlStateHighlighted];
+        shareButton.size = CGSizeMake(_dimmingView.width, ROUND_HEIGHT_FLOAT(49));
+        shareButton.bottom = _dimmingView.height;
+        shareButton.centerX = _dimmingView.width/2;
+        [_dimmingView addSubview:shareButton];
+        
+        UIButton *closeButton = [UIButton new];
+        [closeButton addTarget:self action:@selector(removeView) forControlEvents:UIControlEventTouchUpInside];
+        [closeButton setImage:[UIImage imageNamed:@"btn_puzzledetailpage_close"] forState:UIControlStateNormal];
+        [closeButton setImage:[UIImage imageNamed:@"btn_puzzledetailpage_close_highlight"] forState:UIControlStateHighlighted];
+        closeButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(27), ROUND_WIDTH_FLOAT(27));
+        closeButton.left = ROUND_WIDTH_FLOAT(13.5);
+        closeButton.top = ROUND_HEIGHT_FLOAT(28.5);
+        [_dimmingView addSubview:closeButton];
+    } else {
+        UITapGestureRecognizer  *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
+        tapGesture.numberOfTapsRequired = 1;
+        [_dimmingView addGestureRecognizer:tapGesture];
+    }
+    
+}
+
 - (void)removeView {
     [self removeFromSuperview];
     if ([_delegate respondsToSelector:@selector(didHideFullScreenGiftView)]) {
         [self.delegate didHideFullScreenGiftView];
     }
+}
+
+- (void)shareMascot:(UIButton*)sender {
+    for (UIView *view in _dimmingView.subviews) {
+        [view removeFromSuperview];
+    }
+    _dimmingView.alpha = 0;
+    [UIView animateWithDuration:0.2 animations:^{
+        _dimmingView.alpha = 1;
+    }];
+    
+    UIButton *closeButton = [UIButton new];
+    [closeButton addTarget:self action:@selector(removeView) forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setImage:[UIImage imageNamed:@"btn_puzzledetailpage_close"] forState:UIControlStateNormal];
+    [closeButton setImage:[UIImage imageNamed:@"btn_puzzledetailpage_close_highlight"] forState:UIControlStateHighlighted];
+    closeButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(27), ROUND_WIDTH_FLOAT(27));
+    closeButton.left = ROUND_WIDTH_FLOAT(13.5);
+    closeButton.top = ROUND_HEIGHT_FLOAT(28.5);
+    [_dimmingView addSubview:closeButton];
+    
+    UIImageView *titleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(115.5), ROUND_WIDTH_FLOAT(20))];
+    titleImageView.image = [UIImage imageNamed:@"img_speciallabsharepage_title"];
+    titleImageView.contentMode = UIViewContentModeScaleAspectFit;
+    titleImageView.centerX = _dimmingView.width/2;
+    titleImageView.top = ROUND_HEIGHT_FLOAT(207);
+    [_dimmingView addSubview:titleImageView];
+    
+    UIButton *wechatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [wechatButton setImage:[UIImage imageNamed:@"btn_sharepage_wechat"] forState:UIControlStateNormal];
+    [wechatButton setImage:[UIImage imageNamed:@"btn_sharepage_wechat_highlight"] forState:UIControlStateHighlighted];
+    [wechatButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    [wechatButton sizeToFit];
+    wechatButton.tag = HTButtonTypeWechat;
+    wechatButton.alpha = 1;
+    [_dimmingView addSubview:wechatButton];
+    
+    UIButton *momentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [momentButton setImage:[UIImage imageNamed:@"btn_sharepage_friendcircle"] forState:UIControlStateNormal];
+    [momentButton setImage:[UIImage imageNamed:@"btn_sharepage_friendcircle_highlight"] forState:UIControlStateHighlighted];
+    [momentButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    [momentButton sizeToFit];
+    momentButton.tag = HTButtonTypeMoment;
+    momentButton.alpha = 1;
+    [_dimmingView addSubview:momentButton];
+    
+    UIButton *weiboButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [weiboButton setImage:[UIImage imageNamed:@"btn_sharepage_weibo"] forState:UIControlStateNormal];
+    [weiboButton setImage:[UIImage imageNamed:@"btn_sharepage_weibo_highlight"] forState:UIControlStateHighlighted];
+    [weiboButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    [weiboButton sizeToFit];
+    weiboButton.tag = HTButtonTypeWeibo;
+    weiboButton.alpha = 1;
+    [_dimmingView addSubview:weiboButton];
+    
+    UIButton *qqButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [qqButton setImage:[UIImage imageNamed:@"btn_sharepage_qq"] forState:UIControlStateNormal];
+    [qqButton setImage:[UIImage imageNamed:@"btn_sharepage_qq_highlight"] forState:UIControlStateHighlighted];
+    [qqButton addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
+    [qqButton sizeToFit];
+    qqButton.tag = HTButtonTypeQQ;
+    qqButton.alpha = 1;
+    [_dimmingView addSubview:qqButton];
+    
+    __weak UIView *weakShareView = _dimmingView;
+    float padding = (SCREEN_WIDTH - wechatButton.width * 4) / 5;
+    
+    [wechatButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakShareView.mas_left).mas_offset(padding);
+        make.top.equalTo(titleImageView.mas_bottom).mas_offset(80);
+    }];
+    
+    [momentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(wechatButton.mas_right).mas_offset(padding);
+        make.top.equalTo(titleImageView.mas_bottom).mas_offset(80);
+    }];
+    
+    [weiboButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(momentButton.mas_right).mas_offset(padding);
+        make.top.equalTo(titleImageView.mas_bottom).mas_offset(80);
+    }];
+    
+    [qqButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weiboButton.mas_right).mas_offset(padding);
+        make.top.equalTo(titleImageView.mas_bottom).mas_offset(80);
+    }];
+    
+}
+
+#pragma mark - Share
+
+- (void)shareWithThirdPlatform:(UIButton *)sender {
+    [TalkingData trackEvent:@"share"];
+    HTButtonType type = (HTButtonType)sender.tag;
+    switch (type) {
+        case HTButtonTypeWechat: {
+            if (![WXApi isWXAppInstalled]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:@"未安装客户端"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+                return;
+            }
+            NSArray *imageArray = @[self.reward.petCoop.crime_pic];
+            if (imageArray) {
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:@""
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:SHARE_URL(self.reward.reward_id)]
+                                                  title:nil
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeWechatSession
+                     parameters:shareParams
+                 onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                     DLog(@"State -> %lu", (unsigned long)state);
+                     switch (state) {
+                         case SSDKResponseStateSuccess: {
+                             [self removeView];
+                             
+                             break;
+                         }
+                         case SSDKResponseStateFail: {
+                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                             message:[NSString stringWithFormat:@"%@", error]
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"OK"
+                                                                   otherButtonTitles:nil, nil];
+                             [alert show];
+                             break;
+                         }
+                         default:
+                             break;
+                     }
+                 }];
+            }
+            break;
+        }
+        case HTButtonTypeMoment: {
+            if (![WXApi isWXAppInstalled]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:@"未安装客户端"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+                return;
+            }
+            
+            NSArray *imageArray = @[self.reward.petCoop.crime_pic];
+            if (imageArray) {
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:nil
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:SHARE_URL(self.reward.reward_id)]
+                                                  title:@""
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeWechatTimeline
+                     parameters:shareParams
+                 onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                     switch (state) {
+                         case SSDKResponseStateSuccess: {
+                             [self removeView];
+                             break;
+                         }
+                         case SSDKResponseStateFail: {
+                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                             message:[NSString stringWithFormat:@"%@", error]
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"OK"
+                                                                   otherButtonTitles:nil, nil];
+                             [alert show];
+                             break;
+                         }
+                         default:
+                             break;
+                     }
+                 }];
+            }
+            break;
+        }
+        case HTButtonTypeWeibo: {
+            if (![WeiboSDK isWeiboAppInstalled]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:@"未安装客户端"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+                return;
+            }
+            
+            NSArray *imageArray = @[self.reward.petCoop.crime_pic];
+            if (imageArray) {
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"%@ %@ 来自@九零APP",@"", SHARE_URL(self.reward.reward_id)]
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:SHARE_URL(self.reward.reward_id)]
+                                                  title:nil
+                                                   type:SSDKContentTypeImage];
+                [ShareSDK share:SSDKPlatformTypeSinaWeibo
+                     parameters:shareParams
+                 onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                     switch (state) {
+                         case SSDKResponseStateSuccess: {
+                             [self removeView];
+                             
+                             break;
+                         }
+                         case SSDKResponseStateFail: {
+                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                             message:[NSString stringWithFormat:@"%@", error]
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"OK"
+                                                                   otherButtonTitles:nil, nil];
+                             [alert show];
+                             break;
+                         }
+                         default:
+                             break;
+                     }
+                 }];
+            }
+            break;
+        }
+        case HTButtonTypeQQ: {
+            if (![QQApiInterface isQQInstalled]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:@"未安装客户端"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+                return;
+            }
+            
+            NSArray *imageArray = @[self.reward.petCoop.crime_pic];
+            if (imageArray) {
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:@""
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:SHARE_URL(self.reward.reward_id)]
+                                                  title:nil
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeQQFriend
+                     parameters:shareParams
+                 onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                     switch (state) {
+                         case SSDKResponseStateSuccess: {
+                             [self removeView];
+                             break;
+                         }
+                         case SSDKResponseStateFail: {
+                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                             message:[NSString stringWithFormat:@"%@", error]
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"OK"
+                                                                   otherButtonTitles:nil, nil];
+                             [alert show];
+                             break;
+                         }
+                         default:
+                             break;
+                     }
+                 }];
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+#pragma mark - ToolMethod
+
+- (NSString *)md5:(NSString *)str {
+    const char *cStr = [str UTF8String];
+    unsigned char result[16];
+    CC_MD5(cStr, (CC_LONG)strlen(cStr), result);
+    return [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+            result[0],
+            result[1],
+            result[2],
+            result[3],
+            result[4],
+            result[5],
+            result[6],
+            result[7],
+            result[8],
+            result[9],
+            result[10],
+            result[11],
+            result[12],
+            result[13],
+            result[14],
+            result[15]];
 }
 
 @end

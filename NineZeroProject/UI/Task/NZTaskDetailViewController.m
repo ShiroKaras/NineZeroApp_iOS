@@ -314,40 +314,8 @@
 
 - (void)showRewardViewWithReward:(SKReward *)reward {
     NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:self.view.bounds withReward:reward];
+    rewardView.cityCode = self.cityCode;
     [self.view addSubview:rewardView];
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    if (scrollView == _scrollView) {
-//        NSLog(@"%lf", scrollView.contentOffset.x);
-//        //得到图片移动相对原点的坐标
-//        CGPoint point = scrollView.contentOffset;
-//        
-//        if (point.x > 2 * (SCREEN_WIDTH)) {
-//            point.x = (SCREEN_WIDTH)* 2;
-//            scrollView.contentOffset = point;
-//        }
-//    }
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-//    if (scrollView == _scrollView) {
-//        //根据图片坐标判断页数
-//        NSInteger index = round(targetContentOffset->x / (SCREEN_WIDTH));
-//        NSLog(@"%ld", (long)index);
-//        switch (index) {
-//            case 0:
-//                [self didClickButton1:nil];
-//                break;
-//            case 1:
-//                [self didClickButton2:nil];
-//                break;
-//            default:
-//                break;
-//        }
-//    }
 }
 
 @end

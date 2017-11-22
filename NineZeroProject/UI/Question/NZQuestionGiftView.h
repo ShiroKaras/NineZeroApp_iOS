@@ -21,6 +21,7 @@
 @end
 
 @interface NZQuestionFullScreenGiftView : UIView
+@property (nonatomic, strong) NSString *cityCode;
 @property (nonatomic, weak) id<NZQuestionFullScreenGiftViewDelegate> delegate;
 - (instancetype)initWithFrame:(CGRect)frame withReward:(SKReward *)reward;
 @end
