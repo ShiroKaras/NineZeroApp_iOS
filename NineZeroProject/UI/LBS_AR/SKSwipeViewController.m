@@ -82,8 +82,7 @@
     [self setupDanmaku];
     
 	if (!NO_NETWORK) {
-//		[self loadData];
-        [self setupOpenGLViewWithTargetNumber:4];
+		[self loadData];
 	}
 }
 
@@ -91,7 +90,6 @@
 	[super viewWillAppear:animated];
     //隐藏状态栏
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    [self.glView start];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -379,7 +377,7 @@
 
 - (void)setupOpenGLViewWithTargetNumber:(NSUInteger)targetNumber {
 	if (!_glView) {
-		self.glView = [[OpenGLView alloc] initWithFrame:self.view.bounds];
+		self.glView = [[OpenGLView alloc] initWithFrame:self.view.bounds withSwipeType:_swipeType targetsCount:(int)targetNumber];
 		self.glView.delegate = self;
 		[self.view insertSubview:_glView atIndex:0];
 		[self.glView setOrientation:[[UIApplication sharedApplication] statusBarOrientation]];

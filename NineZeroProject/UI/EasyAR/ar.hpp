@@ -38,10 +38,8 @@ class AR {
 
       protected:
 	CameraDevice camera_;
-	ImageTracker tracker1_;
+	ImageTracker tracker_;
 	ImageTracker tracker2_;
-    ImageTracker tracker3_;
-    ImageTracker tracker4_;
 	Augmenter augmenter_;
 	bool portrait_;
 	Vec4I viewport_;

@@ -36,14 +36,10 @@ bool AR::initCamera() {
 	bool status = true;
 	status &= camera_.open();
 	camera_.setSize(Vec2I(1280, 720));
-	status &= tracker1_.attachCamera(camera_);
+	status &= tracker_.attachCamera(camera_);
 	status &= tracker2_.attachCamera(camera_);
-    status &= tracker3_.attachCamera(camera_);
-    status &= tracker4_.attachCamera(camera_);
-	tracker1_.setSimultaneousNum(1);
+	tracker_.setSimultaneousNum(1);
 	tracker2_.setSimultaneousNum(2);
-    tracker3_.setSimultaneousNum(3);
-    tracker4_.setSimultaneousNum(4);
 	status &= augmenter_.attachCamera(camera_);
 
 	status &= camera_.start();
@@ -66,67 +62,49 @@ void AR::loadFromImage(const std::string &path, int tracker_id) {
 								     "}";
 	target.load(jstr.c_str(), EasyAR::kStorageAssets | EasyAR::kStorageJson);
 	if (tracker_id == 0)
-		tracker1_.loadTarget(target, new HelloCallBack());
-    else if (tracker_id == 1)
-        tracker2_.loadTarget(target, new HelloCallBack());
-    else if (tracker_id == 2)
-        tracker3_.loadTarget(target, new HelloCallBack());
-    else if (tracker_id == 3)
-        tracker4_.loadTarget(target, new HelloCallBack());
+		tracker_.loadTarget(target, new HelloCallBack());
+	else
+		tracker2_.loadTarget(target, new HelloCallBack());
 }
 
 void AR::loadFromJsonFile(const std::string &path, const std::string &targetname, int tracker_id) {
 	ImageTarget target;
 	target.load(path.c_str(), EasyAR::kStorageAssets, targetname.c_str());
-    if (tracker_id == 0)
-        tracker1_.loadTarget(target, new HelloCallBack());
-    else if (tracker_id == 1)
-        tracker2_.loadTarget(target, new HelloCallBack());
-    else if (tracker_id == 2)
-        tracker3_.loadTarget(target, new HelloCallBack());
-    else if (tracker_id == 3)
-        tracker4_.loadTarget(target, new HelloCallBack());
+	if (tracker_id == 0)
+		tracker_.loadTarget(target, new HelloCallBack());
+	else
+		tracker2_.loadTarget(target, new HelloCallBack());
 }
 
 void AR::loadAllFromJsonFile(const std::string &path, int tracker_id) {
 	TargetList targets = ImageTarget::loadAll(path.c_str(), EasyAR::kStorageAssets);
 	for (int i = 0; i < targets.size(); ++i) {
 		if (tracker_id == 0)
-			tracker1_.loadTarget(targets[i], new HelloCallBack());
-		else if (tracker_id == 1)
+			tracker_.loadTarget(targets[i], new HelloCallBack());
+		else
 			tracker2_.loadTarget(targets[i], new HelloCallBack());
-        else if (tracker_id == 2)
-            tracker3_.loadTarget(targets[i], new HelloCallBack());
-        else if (tracker_id == 3)
-            tracker4_.loadTarget(targets[i], new HelloCallBack());
 	}
 }
 
 bool AR::start() {
 	bool status = true;
 
-	status &= tracker1_.start();
+	status &= tracker_.start();
 	status &= tracker2_.start();
-    status &= tracker3_.start();
-    status &= tracker4_.start();
 	return status;
 }
 
 bool AR::pause() {
 	bool status = true;
-	status &= tracker1_.stop();
+	status &= tracker_.stop();
 	status &= tracker2_.stop();
-    status &= tracker3_.stop();
-    status &= tracker4_.stop();
 	return status;
 }
 
 bool AR::stop() {
 	bool status = true;
-	status &= tracker1_.stop();
+	status &= tracker_.stop();
 	status &= tracker2_.stop();
-    status &= tracker3_.stop();
-    status &= tracker4_.stop();
 	status &= camera_.stop();
 	return status;
 }
@@ -136,10 +114,8 @@ bool AR::clear() {
 	status &= stop();
 	status &= camera_.close();
 	camera_.clear();
-	tracker1_.clear();
+	tracker_.clear();
 	tracker2_.clear();
-    tracker3_.clear();
-    tracker4_.clear();
 	augmenter_.clear();
 	return status;
 }
