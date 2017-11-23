@@ -603,10 +603,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@""
+                [shareParams SSDKSetupShareParamsByText:@"九零携手“鹿晗愿望季”，用AR探索城市传统文化"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(self.reward.petCoop.id)]
-                                                  title:nil
+                                                  title:@"我捕捉到“鹿”版特别零仔！"
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatSession
                      parameters:shareParams
@@ -649,10 +649,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:nil
+                [shareParams SSDKSetupShareParamsByText:@"九零携手“鹿晗愿望季”，用AR探索城市传统文化"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(self.reward.petCoop.id)]
-                                                  title:@""
+                                                  title:@"我捕捉到“鹿”版特别零仔！"
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatTimeline
                      parameters:shareParams
@@ -693,10 +693,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"%@ %@ 来自@九零APP",@"", SHARE_URL(self.reward.petCoop.id)]
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"%@ %@ 来自@九零APP",@"九零携手“鹿晗愿望季”，用AR探索城市传统文化", SHARE_URL(self.reward.petCoop.id)]
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(self.reward.petCoop.id)]
-                                                  title:nil
+                                                  title:@"我捕捉到“鹿”版特别零仔！"
                                                    type:SSDKContentTypeImage];
                 [ShareSDK share:SSDKPlatformTypeSinaWeibo
                      parameters:shareParams
@@ -738,10 +738,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@""
+                [shareParams SSDKSetupShareParamsByText:@"九零携手“鹿晗愿望季”，用AR探索城市传统文化"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(self.reward.petCoop.id)]
-                                                  title:nil
+                                                  title:@"我捕捉到“鹿”版特别零仔！"
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeQQFriend
                      parameters:shareParams
