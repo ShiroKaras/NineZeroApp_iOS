@@ -16,7 +16,7 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <CommonCrypto/CommonDigest.h>
 
-#define SHARE_URL(u) [NSString stringWithFormat:@"https://admin.90app.tv/Home/TopicArticle/topic_article_detail/topic_id/%@.html", (u)]
+#define SHARE_URL(u) [NSString stringWithFormat:@"http://h5.90app.tv/app90/shareCrime?c_id=%@", (u)]
 
 typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeShare = 0,
@@ -171,6 +171,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     for (UIView *view in self.subviews) {
         [view removeFromSuperview];
     }
+    UIView *alphaView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
+    alphaView.backgroundColor = COMMON_BG_COLOR;
+    alphaView.alpha = 0.9;
+    [self addSubview:alphaView];
     self.alpha = 0;
     [UIView animateWithDuration:0.2 animations:^{
         self.alpha = 1;
@@ -273,7 +277,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@""
+                [shareParams SSDKSetupShareParamsByText:@"TEST"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(self.evidence.id)]
                                                   title:nil
@@ -322,7 +326,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKSetupShareParamsByText:nil
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(self.evidence.id)]
-                                                  title:@""
+                                                  title:@"TEST"
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatTimeline
                      parameters:shareParams
@@ -408,7 +412,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@""
+                [shareParams SSDKSetupShareParamsByText:@"TEST"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL(self.evidence.id)]
                                                   title:nil

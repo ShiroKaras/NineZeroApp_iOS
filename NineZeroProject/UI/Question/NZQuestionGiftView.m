@@ -18,7 +18,7 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <CommonCrypto/CommonDigest.h>
 
-#define SHARE_URL(u) [NSString stringWithFormat:@"https://admin.90app.tv/Home/TopicArticle/topic_article_detail/topic_id/%@.html", (u)]
+#define SHARE_URL(u) [NSString stringWithFormat:@"http://h5.90app.tv/app90/shareCrime?c_id=%@", (u)]
 
 typedef NS_ENUM(NSInteger, HTButtonType) {
     HTButtonTypeShare = 0,
@@ -605,7 +605,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKEnableUseClientShare];
                 [shareParams SSDKSetupShareParamsByText:@""
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:SHARE_URL(self.reward.reward_id)]
+                                                    url:[NSURL URLWithString:SHARE_URL(self.reward.petCoop.id)]
                                                   title:nil
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatSession
@@ -651,7 +651,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKEnableUseClientShare];
                 [shareParams SSDKSetupShareParamsByText:nil
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:SHARE_URL(self.reward.reward_id)]
+                                                    url:[NSURL URLWithString:SHARE_URL(self.reward.petCoop.id)]
                                                   title:@""
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatTimeline
@@ -693,9 +693,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"%@ %@ 来自@九零APP",@"", SHARE_URL(self.reward.reward_id)]
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"%@ %@ 来自@九零APP",@"", SHARE_URL(self.reward.petCoop.id)]
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:SHARE_URL(self.reward.reward_id)]
+                                                    url:[NSURL URLWithString:SHARE_URL(self.reward.petCoop.id)]
                                                   title:nil
                                                    type:SSDKContentTypeImage];
                 [ShareSDK share:SSDKPlatformTypeSinaWeibo
@@ -740,7 +740,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKEnableUseClientShare];
                 [shareParams SSDKSetupShareParamsByText:@""
                                                  images:imageArray
-                                                    url:[NSURL URLWithString:SHARE_URL(self.reward.reward_id)]
+                                                    url:[NSURL URLWithString:SHARE_URL(self.reward.petCoop.id)]
                                                   title:nil
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeQQFriend

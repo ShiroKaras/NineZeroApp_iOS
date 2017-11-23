@@ -196,7 +196,9 @@
 @property (nonatomic, copy) NSString *expire_time;
 @end
 
+//犯罪证据
 @interface SKPetCoop : NSObject
+@property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *hour;
 @property (nonatomic, copy) NSString *crime_pic;
 @end
