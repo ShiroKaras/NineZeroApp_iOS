@@ -21,6 +21,8 @@
 #import "DemoDanmakuItemData.h"
 #import "DemoDanmakuItem.h"
 
+#import "NZEvidenceView.h"
+
 #define CurrentDevice [UIDevice currentDevice]
 #define CurrentOrientation [[UIDevice currentDevice] orientation]
 #define ScreenScale [UIScreen mainScreen].scale
@@ -281,6 +283,9 @@
 						strongSelf.scanningImageView.delegate = strongSelf;
 						[strongSelf.view insertSubview:strongSelf.scanningImageView atIndex:1];
 
+                        [_scanningImageView setUpGiftView];
+                        [_scanningImageView pushGift];
+                        
 						break;
 					}
 					default:
@@ -527,9 +532,14 @@
 
 - (void)scanningImageView:(SKScanningImageView *)imageView didTapGiftButton:(id)giftButton {
 	[imageView removeGiftView];
-	SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:self.rewardID sId:_sid scanType:_swipeType];
-	controller.delegate = self;
-	[self presentViewController:controller animated:NO completion:nil];
+    SKMascotEvidence *evidence = [SKMascotEvidence new];
+    long randomnumber = arc4random()%27+10;
+    evidence.id = [NSString stringWithFormat:@"%ld", randomnumber];
+    NZEvidenceView *eView = [[NZEvidenceView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withCrimeEvidence:evidence];
+    [self.view addSubview:eView];
+//    SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:self.rewardID sId:_sid scanType:_swipeType];
+//    controller.delegate = self;
+//    [self presentViewController:controller animated:NO completion:nil];
 }
 
 #pragma mark - OpenGLViewDelegate
@@ -541,10 +551,11 @@
         [self.scanningImageView.scanningGridLine setHidden:YES];
 		if (_swipeType == SKScanTypeImage) {
             if (_rewardID && ![_rewardID isEqualToString:@"0"] && !_isHadReward) {
-                _trackedTargetId = targetId;
-                [_scanningImageView setUpGiftView];
-                [_scanningImageView pushGift];
             }
+            _trackedTargetId = targetId;
+            [_scanningImageView setUpGiftView];
+            [_scanningImageView pushGift];
+            
             self.commentTextField.hidden = NO;
             self.danmakuSwitchButton.hidden = NO;
             if (!danmakuIsGet) {
