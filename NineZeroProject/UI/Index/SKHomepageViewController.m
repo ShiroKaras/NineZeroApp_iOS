@@ -45,7 +45,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    _selectedCityCode = @"010";
+    _selectedCityCode = @"999";
     [self createUI];
     
     if (!FIRST_LAUNCH_HOMEPAGE) {

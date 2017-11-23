@@ -125,7 +125,7 @@
         }];
     }
     if (_mid>1&&_mid<8) {
-        [[[SKServiceManager sharedInstance] strongholdService] getStrongholdListWithMascotID:[NSString stringWithFormat:@"%ld", (long)(long)_mid] location:location cityCode:[_cityCode isEqualToString:@"999"]?@"999":_cityCode callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
+        [[[SKServiceManager sharedInstance] strongholdService] getStrongholdListWithMascotID:[NSString stringWithFormat:@"%ld", (long)(long)_mid] location:location cityCode:_cityCode callback:^(BOOL success, NSArray<SKStronghold *> *strongholdList) {
             [HTProgressHUD dismiss];
             _strongholdArray = [NSMutableArray arrayWithArray:strongholdList];
             [self.tableView reloadData];
