@@ -35,7 +35,7 @@
 
 - (void)answerBaseRequestWithParam:(NSDictionary *)dict callback:(SKResponseCallback)callback {
 	AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-	[manager setSecurityPolicy:[self customSecurityPolicy]];
+    //[manager setSecurityPolicy:[self customSecurityPolicy]];
 	manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
 	NSTimeInterval time = [[NSDate date] timeIntervalSince1970]; // (NSTimeInterval) time = 1427189152.313643

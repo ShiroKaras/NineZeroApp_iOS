@@ -880,7 +880,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 #pragma mark - 获取奖励
 
 - (void)showRewardViewWithReward:(SKReward *)reward {
-    NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:self.view.bounds withReward:self.reward];
+    NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:self.view.bounds withReward:self.reward withCityCode:nil];
     rewardView.delegate = self;
     [self.view addSubview:rewardView];
 }

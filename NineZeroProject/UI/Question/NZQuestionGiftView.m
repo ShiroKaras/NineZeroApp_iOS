@@ -179,10 +179,11 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 @implementation NZQuestionFullScreenGiftView
 
-- (instancetype)initWithFrame:(CGRect)frame withReward:(SKReward *)reward {
+- (instancetype)initWithFrame:(CGRect)frame withReward:(SKReward *)reward withCityCode:(NSString *)cityCode {
     self = [super initWithFrame:frame];
     if (self) {
         self.reward = reward;
+        self.cityCode = cityCode;
         
         self.backgroundColor = [UIColor clearColor];
         UIView *alphaView = [[UIView alloc] initWithFrame:frame];
@@ -193,18 +194,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         _dimmingView = [[UIView alloc] initWithFrame:frame];
         _dimmingView.backgroundColor = [UIColor clearColor];
         [self addSubview:_dimmingView];
-        
-        UILabel *bottomTextLabel = [UILabel new];
-        bottomTextLabel.text = @"点击任意区域关闭";
-        bottomTextLabel.textColor = [UIColor whiteColor];
-        bottomTextLabel.font = PINGFANG_FONT_OF_SIZE(12);
-        [bottomTextLabel sizeToFit];
-        [self addSubview:bottomTextLabel];
-        [bottomTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self);
-            make.bottom.equalTo(self).offset(-16);
-        }];
-        
+
         if (reward.gold!=nil || reward.gemstone!=nil) {
             _dimmingView.alpha = 0;
             [UIView animateWithDuration:0.2 animations:^{
@@ -431,7 +421,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     mascotImageView.height = ROUND_WIDTH_FLOAT(252);
     mascotImageView.top = ROUND_HEIGHT_FLOAT(80);
     mascotImageView.centerX = self.centerX;
-    [self addSubview:mascotImageView];
+    [_dimmingView addSubview:mascotImageView];
     [mascotImageView sd_setImageWithURL:[NSURL URLWithString:self.reward.petCoop.crime_pic]];
     
     UIImageView *textImageView;

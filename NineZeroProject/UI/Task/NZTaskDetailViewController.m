@@ -313,8 +313,7 @@
 }
 
 - (void)showRewardViewWithReward:(SKReward *)reward {
-    NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:self.view.bounds withReward:reward];
-    rewardView.cityCode = self.cityCode;
+    NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:self.view.bounds withReward:reward withCityCode:self.cityCode];
     [self.view addSubview:rewardView];
 }
 

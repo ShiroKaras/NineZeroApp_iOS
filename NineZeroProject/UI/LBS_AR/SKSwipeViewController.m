@@ -282,9 +282,6 @@
 						strongSelf.scanningImageView = [[SKScanningImageView alloc] initWithFrame:self.view.frame];
 						strongSelf.scanningImageView.delegate = strongSelf;
 						[strongSelf.view insertSubview:strongSelf.scanningImageView atIndex:1];
-
-                        [_scanningImageView setUpGiftView];
-                        [_scanningImageView pushGift];
                         
 						break;
 					}

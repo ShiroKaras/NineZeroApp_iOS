@@ -652,7 +652,7 @@
 }
 
 - (void)showRewardViewWithReward:(SKReward *)reward {
-    NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withReward:reward];
+    NZQuestionFullScreenGiftView *rewardView = [[NZQuestionFullScreenGiftView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) withReward:reward withCityCode:_selectedCityCode];
     [KEY_WINDOW addSubview:rewardView];
 }
 
